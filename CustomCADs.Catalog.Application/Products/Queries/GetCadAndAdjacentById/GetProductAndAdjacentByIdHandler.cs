@@ -1,0 +1,46 @@
+﻿using CustomCADs.Catalog.Application.Products.Common.Exceptions;
+using CustomCADs.Catalog.Domain.Products;
+using CustomCADs.Catalog.Domain.Products.Enums;
+using CustomCADs.Catalog.Domain.Products.Reads;
+using MediatR;
+
+namespace CustomCADs.Catalog.Application.Products.Queries.GetProductAndAdjacentById;
+
+public class GetProductAndAdjacentByIdHandler(IProductReads reads) : IRequestHandler<GetProductAndAdjacentByIdQuery, GetProductAndAdjacentByIdDto>
+{
+    public async Task<GetProductAndAdjacentByIdDto> Handle(GetProductAndAdjacentByIdQuery req, CancellationToken ct)
+    {
+        ProductQuery query = new(
+            Status: nameof(ProductStatus.Unchecked),
+            Sorting: nameof(ProductSorting.Oldest)
+        );
+        ProductResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
+
+        List<Product> products = [.. result.Products];
+        Product product = products.FirstOrDefault(c => c.Id == req.Id)
+            ?? throw new ProductNotFoundException(req.Id);
+
+        int cadIndex = products.IndexOf(product);
+        Product? first = products.FirstOrDefault(), last = products.LastOrDefault();
+
+        Guid? prevId = null;
+        if (product.Id != (first?.Id ?? null))
+        {
+            Product prev = products[cadIndex - 1];
+            prevId = prev.Id;
+        }
+
+        Guid? nextId = null;
+        if (product.Id != (last?.Id ?? null))
+        {
+            Product next = products[cadIndex + 1];
+            nextId = next.Id;
+        }
+
+        GetProductAndAdjacentByIdDto response = new(
+            prevId,
+            new() { Id = product.Id, Cad = product.Cad, },
+            nextId);
+        return response;
+    }
+}
