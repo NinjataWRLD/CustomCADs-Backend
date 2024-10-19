@@ -11,7 +11,7 @@ public class Product
     public required string Description { get; set; }
     public string ImagePath { get; set; } = string.Empty;
     public decimal Cost { get; set; }
-    public CadStatus Status { get; set; }
+    public ProductStatus Status { get; set; }
     public DateTime UploadDate { get; set; }
     public required Cad Cad { get; set; }
     public Guid CreatorId { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Catalog.Domain.Products.Enums;
 
-public enum CadStatus
+public enum ProductStatus
 {
     Unchecked,
     Validated,
