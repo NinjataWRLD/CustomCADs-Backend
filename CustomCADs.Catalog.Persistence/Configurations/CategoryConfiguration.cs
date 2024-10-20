@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Categories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using static CustomCADs.Catalog.Domain.Categories.CategoryConstants;
 
 namespace CustomCADs.Catalog.Persistence.Configurations;
 
@@ -35,7 +36,8 @@ static class CategoryConfigUtils
     public static EntityTypeBuilder<Category> SetValidations(this EntityTypeBuilder<Category> builder)
     {
         builder.Property(x => x.Name)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(NameMaxLength);
 
         return builder;
     }
@@ -58,9 +60,7 @@ static class CategoryConfigUtils
         ];
 
         int index = 0;
-        builder.HasData(categoriesNames
-            .Select(cn => new Category() { Id = ++index, Name = cn })
-        );
+        builder.HasData(categoriesNames.Select(cn => new Category() { Id = ++index, Name = cn }));
 
         return builder;
     }

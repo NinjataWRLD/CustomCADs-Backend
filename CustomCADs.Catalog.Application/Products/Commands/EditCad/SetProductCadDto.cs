@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Catalog.Application.Products.Commands.EditCad;
 
-public class EditProductCadDto
+public class SetProductCadDto
 {
     public required string Path { get; set; }
     public required Coordinates CamCoordinates { get; set; }

@@ -29,7 +29,7 @@ public class CreateProductHandler(
             CreatorId = req.Dto.CreatorId,
             Status = req.Dto.Status,
             UploadDate = DateTime.UtcNow,
-            Cad = new(string.Empty, new(0, 0, 0), new(0, 0, 0)),
+            Cad = new(),
         };
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);
 
