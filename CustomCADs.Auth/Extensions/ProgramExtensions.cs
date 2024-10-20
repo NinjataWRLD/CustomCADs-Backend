@@ -1,38 +1,58 @@
-﻿using CustomCADs.Catalog.Presentation.Extensions;
+﻿#pragma warning disable IDE0130
+using CustomCADs.Auth.Business.Contracts;
+using CustomCADs.Auth.Business.Managers;
+using CustomCADs.Auth.Data;
+using CustomCADs.Auth.Data.Entities;
+using CustomCADs.Auth.Extensions;
 using FastEndpoints;
-using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-#pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ProgramExtensions
 {
-    public static void AddPersistence(this IServiceCollection services, IConfiguration config)
+    private static void AddIdentityContext(this IServiceCollection services, IConfiguration config)
     {
-        services.AddCatalogContext(config);
-        services.AddCatalogReads();
-        services.AddCatalogWrites();
-        services.AddCatalogUOW();
+        string connectionString = config.GetConnectionString("IdentityConnection")
+                ?? throw new KeyNotFoundException("Could not find connection string 'IdentityConnection'.");
+        services.AddDbContext<AuthContext>(options => options.UseSqlServer(connectionString));
     }
 
-#pragma warning disable IDE0060
-    public static void AddMappings(this IServiceCollection services)
+    private static void AddIdentityAppManagers(this IServiceCollection services)
     {
-        TypeAdapterConfig.GlobalSettings.Scan(CatalogPresentationAssemblyReference.Assembly);
+        services.AddScoped<IUserManager, AppUserManager>();
+        services.AddScoped<IRoleManager, AppRoleManager>();
+    }
+
+    public static void AddIdentityAuth(this IServiceCollection services, IConfiguration config)
+    {
+        services.AddIdentityContext(config);
+        services.AddIdentityAppManagers();
+
+        services.AddIdentity<AppUser, AppRole>(options =>
+        {
+            options.SignIn.RequireConfirmedEmail = true;
+            options.SignIn.RequireConfirmedAccount = false;
+            options.Password.RequireDigit = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.User.RequireUniqueEmail = true;
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        })
+        .AddEntityFrameworkStores<AuthContext>()
+        .AddDefaultTokenProviders();
     }
 
     public static void AddEndpoints(this IServiceCollection services)
     {
         services.AddFastEndpoints();
-    }
-
-    public static void AddUploadSizeLimitations(this IWebHostBuilder webhost, int limit = 300_000_000)
-    {
-        webhost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = limit);
     }
 
     public static void AddApiDocumentation(this IServiceCollection services)
@@ -42,26 +62,11 @@ public static class ProgramExtensions
         {
             c.SwaggerDoc("v1", new()
             {
-                Title = "CustomCADs Catalog API",
-                Description = "An API for CRUD operations and more on Products and Categories",
+                Title = "CustomCADs Auth API",
+                Description = "An API for AuthN/AuthZ related operations.",
                 Contact = new() { Name = "Ivan", Email = "ivanangelov414@gmail.com" },
                 License = new() { Name = "Apache License 2.0", Url = new("https://www.apache.org/licenses/LICENSE-2.0") },
                 Version = "v1"
-            });
-        });
-    }
-
-    public static void AddCorsForReact(this IServiceCollection services, IConfiguration config)
-    {
-        string clientUrl = config["URLs:Client"] ?? "customcads.onrender.com";// throw new ArgumentNullException("No Client URL provided.");
-        services.AddCors(opt =>
-        {
-            opt.AddDefaultPolicy(builder =>
-            {
-                builder.WithOrigins(clientUrl)
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
             });
         });
     }

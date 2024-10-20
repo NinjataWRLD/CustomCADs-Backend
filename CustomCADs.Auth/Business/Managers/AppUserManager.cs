@@ -1,13 +1,13 @@
-﻿using CustomCADs.Auth.Contracts;
-using CustomCADs.Auth.Entities;
+﻿using CustomCADs.Auth.Business.Contracts;
+using CustomCADs.Auth.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CustomCADs.Auth.Managers;
+namespace CustomCADs.Auth.Business.Managers;
 
-public class AppUserManager(UserManager<AppUser> manager) : IAppUserManager
+public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 {
-    public async Task<AppUser?> FindByIdAsync(string id)
-        => await manager.FindByIdAsync(id).ConfigureAwait(false);
+    public async Task<AppUser?> FindByIdAsync(Guid id)
+        => await manager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
 
     public async Task<AppUser?> FindByNameAsync(string username)
         => await manager.FindByNameAsync(username).ConfigureAwait(false);
@@ -23,6 +23,9 @@ public class AppUserManager(UserManager<AppUser> manager) : IAppUserManager
 
     public async Task UpdateAsync(AppUser user)
         => await manager.UpdateAsync(user).ConfigureAwait(false);
+
+    public async Task<string> GetRoleAsync(AppUser user)
+        => (await manager.GetRolesAsync(user).ConfigureAwait(false)).Single();
 
     public async Task AddToRoleAsync(AppUser user, string role)
         => await manager.AddToRoleAsync(user, role).ConfigureAwait(false);

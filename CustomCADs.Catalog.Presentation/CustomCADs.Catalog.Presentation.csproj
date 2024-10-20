@@ -21,7 +21,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CustomCADs.Auth\CustomCADs.Auth.csproj" />
 		<ProjectReference Include="..\CustomCADs.Catalog.Application\CustomCADs.Catalog.Application.csproj" />
 		<ProjectReference Include="..\CustomCADs.Catalog.Persistence\CustomCADs.Catalog.Persistence.csproj" />
 	</ItemGroup>
