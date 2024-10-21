@@ -3,13 +3,13 @@ using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Catalog.Presentation.Extensions;
 using FastEndpoints;
-using MediatR;
+using Wolverine;
 
 namespace CustomCADs.Catalog.Presentation.Products.Endpoints.DeleteProduct;
 
 using static Helpers.ApiMessages;
 
-public class DeleteProductEndpoint(IMediator mediator) : Endpoint<DeleteProductRequest>
+public class DeleteProductEndpoint(IMessageBus bus) : Endpoint<DeleteProductRequest>
 {
     public override void Configure()
     {
@@ -20,7 +20,7 @@ public class DeleteProductEndpoint(IMediator mediator) : Endpoint<DeleteProductR
     public override async Task HandleAsync(DeleteProductRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetId());
-        bool userIsCreator = await mediator.Send(isCreatorQuery, ct).ConfigureAwait(false);
+        var userIsCreator = await bus.InvokeAsync<bool>(isCreatorQuery, ct).ConfigureAwait(false);
 
         if (!userIsCreator)
         {
@@ -33,13 +33,13 @@ public class DeleteProductEndpoint(IMediator mediator) : Endpoint<DeleteProductR
         }
 
         GetProductByIdQuery getProductQuery = new(req.Id);
-        GetProductByIdDto model = await mediator.Send(getProductQuery, ct).ConfigureAwait(false);
+        var model = await bus.InvokeAsync<GetProductByIdDto>(getProductQuery, ct).ConfigureAwait(false);
 
         // Delete image
         // Delete cad
 
         DeleteProductCommand command = new(req.Id);
-        await mediator.Send(command, ct).ConfigureAwait(false);
+        await bus.InvokeAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

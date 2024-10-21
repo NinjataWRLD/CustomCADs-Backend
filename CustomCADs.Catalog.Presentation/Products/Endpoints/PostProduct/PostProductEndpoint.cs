@@ -5,11 +5,11 @@ using CustomCADs.Catalog.Presentation.Extensions;
 using CustomCADs.Catalog.Presentation.Products.Endpoints.GetProduct;
 using FastEndpoints;
 using Mapster;
-using MediatR;
+using Wolverine;
 
 namespace CustomCADs.Catalog.Presentation.Products.Endpoints.PostProduct;
 
-public class PostProductEndpoint(IMediator mediator) : Endpoint<PostProductRequest, PostProductResponse>
+public class PostProductEndpoint(IMessageBus bus) : Endpoint<PostProductRequest, PostProductResponse>
 {
     public override void Configure()
     {
@@ -30,14 +30,14 @@ public class PostProductEndpoint(IMediator mediator) : Endpoint<PostProductReque
             Status = User.IsInRole("Designer") ? ProductStatus.Validated : ProductStatus.Unchecked, // Role Constants
         };
         CreateProductCommand command = new(dto);
-        Guid id = await mediator.Send(command, ct).ConfigureAwait(false);
+        var id = await bus.InvokeAsync<Guid>(command, ct).ConfigureAwait(false);
 
         // Upload image
         // Upload file
         // Save Paths
 
         GetProductByIdQuery query = new(id);
-        GetProductByIdDto product = await mediator.Send(query, ct).ConfigureAwait(false);
+        var product = await bus.InvokeAsync<GetProductByIdDto>(query, ct).ConfigureAwait(false);
 
         var response = product.Adapt<PostProductResponse>();
         await SendCreatedAtAsync<GetProductEndpoint>(new { id }, response).ConfigureAwait(false);

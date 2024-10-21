@@ -3,14 +3,13 @@ using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Catalog.Domain.Shared;
 using CustomCADs.Shared.Persistence;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Delete;
 
 public class DeleteProductHandler(
     IProductReads productReads,
     IWrites<Product> productWrites,
-    IUnitOfWork uow) : IRequestHandler<DeleteProductCommand>
+    IUnitOfWork uow)
 {
     public async Task Handle(DeleteProductCommand req, CancellationToken ct)
     {

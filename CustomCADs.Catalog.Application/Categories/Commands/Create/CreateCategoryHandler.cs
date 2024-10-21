@@ -2,11 +2,10 @@
 using CustomCADs.Catalog.Domain.Shared;
 using CustomCADs.Shared.Persistence;
 using Mapster;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Create;
 
-public class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow) : IRequestHandler<CreateCategoryCommand, int>
+public class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow)
 {
     public async Task<int> Handle(CreateCategoryCommand req, CancellationToken ct)
     {

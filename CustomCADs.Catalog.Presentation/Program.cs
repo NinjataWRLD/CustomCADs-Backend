@@ -2,7 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistence(builder.Configuration);
 
-builder.Services.AddMediator();
+builder.Services.AddUseCases();
 builder.Services.AddMappings();
 
 builder.Services.AddAuthAndJwt(builder.Configuration);

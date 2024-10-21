@@ -1,5 +1,3 @@
-﻿using MediatR;
+﻿namespace CustomCADs.Catalog.Application.Categories.Commands.Create;
 
-namespace CustomCADs.Catalog.Application.Categories.Commands.Create;
-
-public record CreateCategoryCommand(CategoryWriteDto Dto) : IRequest<int>;
+public record CreateCategoryCommand(CategoryWriteDto Dto);

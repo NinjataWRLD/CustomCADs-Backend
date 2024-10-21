@@ -19,6 +19,11 @@ public static class ProgramExtensions
         services.AddCatalogUOW();
     }
 
+    public static void AddUseCases(this IServiceCollection services)
+    {
+        services.AddMediator();
+    }
+
 #pragma warning disable IDE0060
     public static void AddMappings(this IServiceCollection services)
     {

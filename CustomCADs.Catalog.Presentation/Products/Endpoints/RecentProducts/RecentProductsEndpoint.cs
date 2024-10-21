@@ -3,11 +3,11 @@ using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Presentation.Extensions;
 using FastEndpoints;
 using Mapster;
-using MediatR;
+using Wolverine;
 
 namespace CustomCADs.Catalog.Presentation.Products.Endpoints.RecentProducts;
 
-public class RecentProductsEndpoint(IMediator mediator) : Endpoint<RecentProductsRequest, IEnumerable<RecentProductsResponse>>
+public class RecentProductsEndpoint(IMessageBus bus) : Endpoint<RecentProductsRequest, IEnumerable<RecentProductsResponse>>
 {
     public override void Configure()
     {
@@ -22,7 +22,7 @@ public class RecentProductsEndpoint(IMediator mediator) : Endpoint<RecentProduct
             Sorting: nameof(ProductSorting.Newest),
             Limit: req.Limit
         );
-        GetAllProductsDto dto = await mediator.Send(query, ct).ConfigureAwait(false);
+        var dto = await bus.InvokeAsync<GetAllProductsDto>(query, ct).ConfigureAwait(false);
 
         var response = dto.Products.Adapt<RecentProductsResponse[]>();
         await SendOkAsync(response).ConfigureAwait(false);

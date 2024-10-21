@@ -3,11 +3,10 @@ using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Persistence;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetStatus;
 
-public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow) : IRequestHandler<SetProductStatusCommand>
+public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
 {
     public async Task Handle(SetProductStatusCommand req, CancellationToken ct)
     {

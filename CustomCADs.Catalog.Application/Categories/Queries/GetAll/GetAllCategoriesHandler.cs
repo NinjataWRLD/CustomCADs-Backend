@@ -1,11 +1,10 @@
 ﻿using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Categories.Reads;
 using Mapster;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Categories.Queries.GetAll;
 
-public class GetAllCategoriesHandler(ICategoryReads reads) : IRequestHandler<GetAllCategoriesQuery, IEnumerable<CategoryReadDto>>
+public class GetAllCategoriesHandler(ICategoryReads reads)
 {
     public async Task<IEnumerable<CategoryReadDto>> Handle(GetAllCategoriesQuery req, CancellationToken ct)
     {

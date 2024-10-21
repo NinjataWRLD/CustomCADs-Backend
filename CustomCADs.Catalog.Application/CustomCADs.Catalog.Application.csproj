@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Mapster" Version="7.4.0" />
-    <PackageReference Include="MediatR" Version="12.4.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Mapster" Version="7.4.0" />
+		<PackageReference Include="WolverineFx" Version="3.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CustomCADs.Catalog.Domain\CustomCADs.Catalog.Domain.csproj" />
-    <ProjectReference Include="..\CustomCADs.Shared\CustomCADs.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CustomCADs.Catalog.Domain\CustomCADs.Catalog.Domain.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared\CustomCADs.Shared.csproj" />
+	</ItemGroup>
 
 </Project>

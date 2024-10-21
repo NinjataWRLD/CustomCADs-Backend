@@ -2,11 +2,10 @@
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetProductAndAdjacentById;
 
-public class GetProductAndAdjacentByIdHandler(IProductReads reads) : IRequestHandler<GetProductAndAdjacentByIdQuery, GetProductAndAdjacentByIdDto>
+public class GetProductAndAdjacentByIdHandler(IProductReads reads)
 {
     public async Task<GetProductAndAdjacentByIdDto> Handle(GetProductAndAdjacentByIdQuery req, CancellationToken ct)
     {

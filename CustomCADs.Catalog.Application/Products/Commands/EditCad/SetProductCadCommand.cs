@@ -1,5 +1,3 @@
-﻿using MediatR;
+﻿namespace CustomCADs.Catalog.Application.Products.Commands.EditCad;
 
-namespace CustomCADs.Catalog.Application.Products.Commands.EditCad;
-
-public record SetProductCadCommand(Guid Id, SetProductCadDto Dto) : IRequest;
+public record SetProductCadCommand(Guid Id, SetProductCadDto Dto);

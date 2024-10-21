@@ -1,5 +1,3 @@
-﻿using MediatR;
+﻿namespace CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 
-namespace CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-
-public record IsProductCreatorQuery(Guid Id, Guid CreatorId) : IRequest<bool>;
+public record IsProductCreatorQuery(Guid Id, Guid CreatorId);

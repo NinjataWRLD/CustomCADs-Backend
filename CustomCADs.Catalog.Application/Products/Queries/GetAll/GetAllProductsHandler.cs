@@ -1,10 +1,9 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Reads;
 using Mapster;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
-public class GetAllProductsHandler(IProductReads reads) : IRequestHandler<GetAllProductsQuery, GetAllProductsDto>
+public class GetAllProductsHandler(IProductReads reads)
 {
     public async Task<GetAllProductsDto> Handle(GetAllProductsQuery req, CancellationToken ct)
     {

@@ -3,13 +3,13 @@ using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Catalog.Presentation.Extensions;
 using FastEndpoints;
-using MediatR;
+using Wolverine;
 
 namespace CustomCADs.Catalog.Presentation.Products.Endpoints.PutProduct;
 
 using static Helpers.ApiMessages;
 
-public class PutProductEndpoint(IMediator mediator) : Endpoint<PutProductRequest>
+public class PutProductEndpoint(IMessageBus bus) : Endpoint<PutProductRequest>
 {
     public override void Configure()
     {
@@ -21,7 +21,7 @@ public class PutProductEndpoint(IMediator mediator) : Endpoint<PutProductRequest
     public override async Task HandleAsync(PutProductRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetId());
-        bool userIsCreator = await mediator.Send(isCreatorQuery).ConfigureAwait(false);
+        var userIsCreator = await bus.InvokeAsync<bool>(isCreatorQuery).ConfigureAwait(false);
 
         if (!userIsCreator)
         {
@@ -34,7 +34,7 @@ public class PutProductEndpoint(IMediator mediator) : Endpoint<PutProductRequest
         }
 
         GetProductByIdQuery query = new(req.Id);
-        GetProductByIdDto product = await mediator.Send(query, ct).ConfigureAwait(false);
+        var product = await bus.InvokeAsync<GetProductByIdDto>(query, ct).ConfigureAwait(false);
 
         if (req.Image != null)
         {
@@ -50,7 +50,7 @@ public class PutProductEndpoint(IMediator mediator) : Endpoint<PutProductRequest
             Cost = req.Cost,
         };
         EditProductCommand editCommand = new(req.Id, dto);
-        await mediator.Send(editCommand, ct).ConfigureAwait(false);
+        await bus.InvokeAsync(editCommand, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

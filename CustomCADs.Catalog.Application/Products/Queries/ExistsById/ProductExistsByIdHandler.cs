@@ -1,9 +1,8 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Reads;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.ExistsById;
 
-public class ProductExistsByIdHandler(IProductReads reads) : IRequestHandler<ProductExistsByIdQuery, bool>
+public class ProductExistsByIdHandler(IProductReads reads)
 {
     public async Task<bool> Handle(ProductExistsByIdQuery req, CancellationToken ct)
     {

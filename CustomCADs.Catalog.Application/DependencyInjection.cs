@@ -1,6 +1,7 @@
 ﻿#pragma warning disable IDE0130
 using CustomCADs.Catalog.Application;
 using Mapster;
+using Wolverine;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -8,7 +9,7 @@ public static class DependencyInjection
 {
     public static void AddMediator(this IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CatalogApplicationAssemblyReference>());
+        services.AddWolverine(cfg => cfg.ApplicationAssembly = CatalogApplicationAssemblyReference.Assembly);
     }
 
 #pragma warning disable IDE0060

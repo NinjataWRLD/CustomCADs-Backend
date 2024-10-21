@@ -2,11 +2,10 @@
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using Mapster;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 
-public class GetProductByIdHandler(IProductReads reads) : IRequestHandler<GetProductByIdQuery, GetProductByIdDto>
+public class GetProductByIdHandler(IProductReads reads)
 {
     public async Task<GetProductByIdDto> Handle(GetProductByIdQuery req, CancellationToken ct)
     {

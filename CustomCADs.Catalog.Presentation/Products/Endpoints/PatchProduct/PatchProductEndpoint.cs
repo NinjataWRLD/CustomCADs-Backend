@@ -5,13 +5,13 @@ using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Catalog.Presentation.Extensions;
 using FastEndpoints;
 using Mapster;
-using MediatR;
+using Wolverine;
 
 namespace CustomCADs.Catalog.Presentation.Products.Endpoints.PatchProduct;
 
 using static Helpers.ApiMessages;
 
-public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest>
+public class PatchProductEndpoint(IMessageBus bus) : Endpoint<PatchCadRequest>
 {
     public override void Configure()
     {
@@ -23,7 +23,7 @@ public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest
     public override async Task HandleAsync(PatchCadRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetId());
-        bool userIsCreator = await mediator.Send(isCreatorQuery, ct).ConfigureAwait(false);
+        var userIsCreator = await bus.InvokeAsync<bool>(isCreatorQuery, ct).ConfigureAwait(false);
 
         if (userIsCreator)
         {
@@ -36,7 +36,7 @@ public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest
         }
 
         GetProductByIdQuery getCadQuery = new(req.Id);
-        GetProductByIdDto product = await mediator.Send(getCadQuery, ct).ConfigureAwait(false);
+        var product = await bus.InvokeAsync<GetProductByIdDto>(getCadQuery, ct).ConfigureAwait(false);
 
         var coords = req.Coordinates.Adapt<Coordinates>();
         switch (req.Type.ToLower())
@@ -68,7 +68,7 @@ public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest
             CategoryId = product.Category.Id,
         };
         EditProductCommand command = new(req.Id, dto);
-        await mediator.Send(command, ct).ConfigureAwait(false);
+        await bus.InvokeAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

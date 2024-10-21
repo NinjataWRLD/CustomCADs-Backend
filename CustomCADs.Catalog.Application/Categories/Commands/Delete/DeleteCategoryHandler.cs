@@ -3,14 +3,12 @@ using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Catalog.Domain.Shared;
 using CustomCADs.Shared.Persistence;
-using MediatR;
-
 namespace CustomCADs.Catalog.Application.Categories.Commands.Delete;
 
 public class DeleteCategoryHandler(
     ICategoryReads reads,
     IWrites<Category> writes,
-    IUnitOfWork uow) : IRequestHandler<DeleteCategoryCommand>
+    IUnitOfWork uow)
 {
     public async Task Handle(DeleteCategoryCommand req, CancellationToken ct)
     {

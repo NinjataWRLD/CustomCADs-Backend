@@ -2,11 +2,10 @@
 using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Shared.Persistence;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Edit;
 
-public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow) : IRequestHandler<EditCategoryCommand>
+public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow)
 {
     public async Task Handle(EditCategoryCommand req, CancellationToken ct)
     {

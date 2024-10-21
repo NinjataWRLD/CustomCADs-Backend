@@ -2,10 +2,10 @@
 using CustomCADs.Catalog.Presentation.Extensions;
 using FastEndpoints;
 using Mapster;
-using MediatR;
+using Wolverine;
 
 namespace CustomCADs.Catalog.Presentation.Products.Endpoints.GetProducts;
-public class GetProductsEndpoint(IMediator mediator) : Endpoint<GetProductsRequest, GetProductsResponse>
+public class GetProductsEndpoint(IMessageBus bus) : Endpoint<GetProductsRequest, GetProductsResponse>
 {
     public override void Configure()
     {
@@ -23,7 +23,7 @@ public class GetProductsEndpoint(IMediator mediator) : Endpoint<GetProductsReque
             Page: req.Page,
             Limit: req.Limit
         );
-        GetAllProductsDto result = await mediator.Send(query, ct).ConfigureAwait(false);
+        var result = await bus.InvokeAsync<GetAllProductsDto>(query, ct).ConfigureAwait(false);
 
         GetProductsResponse response = new(result.Count, result.Products.Adapt<GetProductsDto[]>());
         await SendOkAsync(response).ConfigureAwait(false);

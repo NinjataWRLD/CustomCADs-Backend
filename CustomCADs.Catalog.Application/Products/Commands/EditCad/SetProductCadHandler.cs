@@ -2,11 +2,10 @@
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Persistence;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.EditCad;
 
-public class SetProductCadHandler(IProductReads reads, IUnitOfWork uow) : IRequestHandler<SetProductCadCommand>
+public class SetProductCadHandler(IProductReads reads, IUnitOfWork uow)
 {
     public async Task Handle(SetProductCadCommand req, CancellationToken ct)
     {

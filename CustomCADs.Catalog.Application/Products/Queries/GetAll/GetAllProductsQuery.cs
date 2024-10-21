@@ -1,5 +1,3 @@
-using MediatR;
-
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
 public record GetAllProductsQuery(
@@ -9,4 +7,4 @@ public record GetAllProductsQuery(
     string? Name = null,
     string Sorting = "",
     int Page = 1,
-    int Limit = 20) : IRequest<GetAllProductsDto>;
+    int Limit = 20);

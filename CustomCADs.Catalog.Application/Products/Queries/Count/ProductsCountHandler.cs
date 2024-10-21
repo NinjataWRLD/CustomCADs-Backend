@@ -1,9 +1,8 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Reads;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Count;
 
-public class ProductsCountHandler(IProductReads reads) : IRequestHandler<ProductsCountQuery, int>
+public class ProductsCountHandler(IProductReads reads)
 {
     public async Task<int> Handle(ProductsCountQuery req, CancellationToken ct)
     {

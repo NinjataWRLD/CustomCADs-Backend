@@ -3,14 +3,13 @@ using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Shared;
 using CustomCADs.Shared.Persistence;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 
 public class CreateProductHandler(
     ICategoryReads categoryReads,
     IWrites<Product> productWrites,
-    IUnitOfWork uow) : IRequestHandler<CreateProductCommand, Guid>
+    IUnitOfWork uow)
 {
     public async Task<Guid> Handle(CreateProductCommand req, CancellationToken ct)
     {
