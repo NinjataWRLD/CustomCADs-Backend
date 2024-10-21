@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Edit;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Catalog.Presentation.Extensions;
+using CustomCADs.Shared.Presentation;
 using FastEndpoints;
 using Wolverine;
 

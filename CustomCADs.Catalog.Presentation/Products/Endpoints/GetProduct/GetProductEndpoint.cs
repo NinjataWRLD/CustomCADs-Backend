@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Catalog.Presentation.Extensions;
+using CustomCADs.Shared.Presentation;
 using FastEndpoints;
 using Mapster;
 using Wolverine;

@@ -2,7 +2,7 @@
 using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Shared;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 

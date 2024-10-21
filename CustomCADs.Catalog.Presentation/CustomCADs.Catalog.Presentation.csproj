@@ -23,6 +23,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Catalog.Application\CustomCADs.Catalog.Application.csproj" />
 		<ProjectReference Include="..\CustomCADs.Catalog.Persistence\CustomCADs.Catalog.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Presentation\CustomCADs.Shared.Presentation.csproj" />
 	</ItemGroup>
 
 </Project>

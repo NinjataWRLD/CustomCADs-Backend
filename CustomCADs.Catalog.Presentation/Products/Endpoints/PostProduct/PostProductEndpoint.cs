@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Presentation.Extensions;
 using CustomCADs.Catalog.Presentation.Products.Endpoints.GetProduct;
+using CustomCADs.Shared.Presentation;
 using FastEndpoints;
 using Mapster;
 using Wolverine;

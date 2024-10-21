@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetAll;
-using CustomCADs.Catalog.Presentation.Extensions;
+using CustomCADs.Shared.Presentation;
 using FastEndpoints;
 using Mapster;
 using Wolverine;

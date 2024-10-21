@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Shared;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain;
 using Mapster;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Create;

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Persistence;
+﻿namespace CustomCADs.Shared.Domain;
 
 public interface IUnitOfWork
 {

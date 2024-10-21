@@ -2,7 +2,7 @@
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetStatus;
 
