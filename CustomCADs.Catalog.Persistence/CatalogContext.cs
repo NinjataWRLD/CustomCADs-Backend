@@ -11,6 +11,6 @@ public class CatalogContext(DbContextOptions opts) : DbContext(opts)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(CatalogPersistenceAssemblyReference.Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(CatalogPersistenceReference.Assembly);
     }
 }

@@ -27,21 +27,12 @@ public static class ProgramExtensions
 #pragma warning disable IDE0060
     public static void AddMappings(this IServiceCollection services)
     {
-        TypeAdapterConfig.GlobalSettings.Scan(CatalogPresentationAssemblyReference.Assembly);
+        TypeAdapterConfig.GlobalSettings.Scan(CatalogPresentationReference.Assembly);
     }
 
     public static void AddEndpoints(this IServiceCollection services)
     {
         services.AddFastEndpoints();
-    }
-
-    public static void AddUploadSizeLimitations(this IWebHostBuilder webhost, int limit = 300_000_000)
-    {
-        webhost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = limit);
-    }
-
-    public static void AddApiDocumentation(this IServiceCollection services)
-    {
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
         {
@@ -56,9 +47,14 @@ public static class ProgramExtensions
         });
     }
 
+    public static void AddUploadSizeLimitations(this IWebHostBuilder webhost, int limit = 300_000_000)
+    {
+        webhost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = limit);
+    }
+
     public static void AddCorsForReact(this IServiceCollection services, IConfiguration config)
     {
-        string clientUrl = config["URLs:Client"] ?? "customcads.onrender.com";// throw new ArgumentNullException("No Client URL provided.");
+        string clientUrl = config["URLs:Client"] ?? throw new ArgumentNullException("No Client URL provided.");
         services.AddCors(opt =>
         {
             opt.AddDefaultPolicy(builder =>
@@ -145,6 +141,16 @@ public static class ProgramExtensions
             cfg.Endpoints.RoutePrefix = "API";
             cfg.Versioning.DefaultVersion = 1;
             cfg.Versioning.PrependToRoute = true;
+        });
+    }
+
+    public static void UseSwagger(this IApplicationBuilder app, string name)
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", name);
+            c.RoutePrefix = string.Empty;
         });
     }
 }

@@ -5,6 +5,7 @@ using Mapster;
 using Wolverine;
 
 namespace CustomCADs.Catalog.Presentation.Products.Endpoints.GetProducts;
+
 public class GetProductsEndpoint(IMessageBus bus) : Endpoint<GetProductsRequest, GetProductsResponse>
 {
     public override void Configure()
