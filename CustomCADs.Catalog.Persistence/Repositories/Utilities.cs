@@ -1,18 +1,10 @@
 ﻿using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Catalog.Persistence.Repositories;
 
 public static class Utilities
 {
-    public static IQueryable<TEntity> WithTracking<TEntity>(
-        this DbSet<TEntity> entities,
-        bool track) where TEntity : class
-        => track
-            ? entities
-            : entities.AsNoTracking();
-
     public static IQueryable<Product> WithFilter(this IQueryable<Product> query, Guid? creatorId = null, string? status = null)
     {
         if (creatorId != null)
