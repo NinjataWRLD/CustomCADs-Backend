@@ -1,5 +1,6 @@
 ﻿#pragma warning disable IDE0130
 using CustomCADs.Auth.Business.Contracts;
+using CustomCADs.Auth.Business.Dtos;
 using CustomCADs.Auth.Business.Managers;
 using CustomCADs.Auth.Data;
 using CustomCADs.Auth.Data.Entities;
@@ -23,16 +24,23 @@ public static class ProgramExtensions
         services.AddDbContext<AuthContext>(options => options.UseSqlServer(connectionString));
     }
 
-    private static void AddIdentityAppManagers(this IServiceCollection services)
+    private static void AddIdentityManagers(this IServiceCollection services)
     {
         services.AddScoped<IUserManager, AppUserManager>();
         services.AddScoped<IRoleManager, AppRoleManager>();
     }
 
+    private static void AddTokenManager(this IServiceCollection services, IConfiguration config)
+    {
+        services.AddScoped<ITokenManager, TokenManager>();
+        services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
+    }
+
     public static void AddIdentityAuth(this IServiceCollection services, IConfiguration config)
     {
         services.AddIdentityContext(config);
-        services.AddIdentityAppManagers();
+        services.AddIdentityManagers();
+        services.AddTokenManager(config);
 
         services.AddIdentity<AppUser, AppRole>(options =>
         {
@@ -81,7 +89,8 @@ public static class ProgramExtensions
             opt.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
             opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(opt =>
+        })
+        .AddJwtBearer(opt =>
         {
             string? secretKey = config["JwtSettings:SecretKey"];
             ArgumentNullException.ThrowIfNull(secretKey, nameof(secretKey));
