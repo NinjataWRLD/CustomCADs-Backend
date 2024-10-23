@@ -12,7 +12,7 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow)
         User user = req.Dto.Adapt<User>();
 
         await writes.AddAsync(user, ct).ConfigureAwait(false);
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return user.Id;
     }

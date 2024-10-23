@@ -19,6 +19,6 @@ public class SetProductCadHandler(IProductReads reads, IUnitOfWork uow)
             PanCoordinates = req.Dto.PanCoordinates,
         };
 
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

@@ -14,6 +14,6 @@ public class RenewRefreshTokenHandler(IUserReads reads, IUnitOfWork uow)
 
         user.RefreshToken = new(req.RefreshToken, req.RefreshTokenEndDate);
 
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

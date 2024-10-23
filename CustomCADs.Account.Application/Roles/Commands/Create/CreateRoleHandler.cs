@@ -13,7 +13,7 @@ public class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow)
         Role role = req.Dto.Adapt<Role>();
 
         await writes.AddAsync(role, ct).ConfigureAwait(false);
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return role.Id;
     }

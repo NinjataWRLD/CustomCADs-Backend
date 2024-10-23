@@ -32,7 +32,7 @@ public class CreateProductHandler(
         };
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);
 
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
         return product.Id;
     }
 }

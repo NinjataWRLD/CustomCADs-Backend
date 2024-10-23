@@ -17,6 +17,6 @@ public class DeleteRoleByIdHandler(
             ?? throw new RoleNotFoundException($"The Role with id: {req.Id} does not exist.");
 
         writes.Remove(role);
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

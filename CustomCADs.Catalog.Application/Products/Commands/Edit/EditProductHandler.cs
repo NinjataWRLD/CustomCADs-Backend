@@ -17,6 +17,6 @@ public class EditProductHandler(IProductReads reads, IUnitOfWork uow)
         product.Cost = req.Dto.Cost;
         product.CategoryId = req.Dto.CategoryId;
 
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

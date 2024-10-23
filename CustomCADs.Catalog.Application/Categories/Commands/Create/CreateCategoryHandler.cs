@@ -11,7 +11,7 @@ public class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow)
     {
         Category category = req.Dto.Adapt<Category>();
         await writes.AddAsync(category, ct).ConfigureAwait(false);
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         var response = category.Id;
         return response;

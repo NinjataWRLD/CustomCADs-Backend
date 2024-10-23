@@ -14,6 +14,6 @@ public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow)
 
         category.Name = req.Dto.Name;
 
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

@@ -14,6 +14,6 @@ public class RevokeUserRefreshTokenHandler(IUserReads reads, IUnitOfWork uow)
 
         user.RefreshToken = null;
 
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

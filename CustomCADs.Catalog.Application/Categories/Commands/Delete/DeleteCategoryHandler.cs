@@ -16,6 +16,6 @@ public class DeleteCategoryHandler(
             ?? throw new CategoryNotFoundException(req.Id);
 
         writes.Remove(category);
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

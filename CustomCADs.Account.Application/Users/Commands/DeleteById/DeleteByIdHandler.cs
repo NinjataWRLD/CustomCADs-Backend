@@ -17,6 +17,6 @@ public class DeleteUserByIdHandler(
             ?? throw new UserNotFoundException($"The User with id: {req.Id} does not exist.");
 
         writes.Remove(user);
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

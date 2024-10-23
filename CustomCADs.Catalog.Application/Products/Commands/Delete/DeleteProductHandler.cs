@@ -20,6 +20,6 @@ public class DeleteProductHandler(
 
         productWrites.Remove(product);
 
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

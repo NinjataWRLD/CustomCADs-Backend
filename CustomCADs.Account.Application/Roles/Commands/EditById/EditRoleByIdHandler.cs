@@ -15,6 +15,6 @@ public class EditRoleByIdHandler(IRoleReads reads, IUnitOfWork uow)
         role.Name = req.Dto.Name;
         role.Description = req.Dto.Description;
 
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

@@ -21,7 +21,7 @@ public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
             default: throw new ProductStatusException(req.Id, req.Action);
         }
 
-        await uow.SaveChangesAsync().ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 
     private static void ValidateCad(Product cad)
