@@ -7,14 +7,21 @@ namespace CustomCADs.Account.Persistence.Repositories.Reads;
 
 public class UserReads(AccountContext context) : IUserReads
 {
-    public async Task<IEnumerable<User>> AllAsync(bool track = true, CancellationToken ct = default)
-        => await context.Users
+    public async Task<UserResult> AllAsync(UsersQuery query, bool track = true, CancellationToken ct = default)
+    {
+        IQueryable<User> queryable = context.Users
             .WithTracking(track)
-            // .WithFilter()
-            // .WithSearch()
-            // .WithSorting()
+            .WithFilter(query.HasRT)
+            .WithSearch(query.Username, query.Email, query.FirstName, query.LastName, query.RtEndDateBefore, query.RtEndDateAfter)
+            .WithSorting(query.Sorting);
+
+        User[] users = await queryable
+            .WithPagination(query.Page, query.Limit)
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
+
+        return new(queryable.Count(), users);
+    }
 
     public async Task<User?> SingleByIdAsync(Guid id, bool track = true, CancellationToken ct = default)
         => await context.Users
@@ -26,6 +33,13 @@ public class UserReads(AccountContext context) : IUserReads
         => await context.Users
             .WithTracking(track)
             .FirstOrDefaultAsync(u => u.Username == username, ct)
+            .ConfigureAwait(false);
+
+    public async Task<User?> SingleByRefreshTokenAsync(string refreshToken, bool track = true, CancellationToken ct = default)
+        => await context.Users
+            .WithTracking(track)
+            .Where(u => u.RefreshToken != null)
+            .FirstOrDefaultAsync(u => u.RefreshToken!.Value == refreshToken, ct)
             .ConfigureAwait(false);
 
     public async Task<bool> ExistsByIdAsync(Guid id, CancellationToken ct = default)

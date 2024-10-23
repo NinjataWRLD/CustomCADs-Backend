@@ -9,7 +9,7 @@ public class User
     public required string Username { get; set; }
     public required string Email { get; set; }
     public NameInfo NameInfo { get; set; } = new();
-    public RefreshToken RefreshToken { get; set; } = new();
+    public RefreshToken? RefreshToken { get; set; }
     public required string RoleName { get; set; }
     public required Role Role { get; set; }
 }
