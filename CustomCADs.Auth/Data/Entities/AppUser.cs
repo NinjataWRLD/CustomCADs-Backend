@@ -4,6 +4,8 @@ namespace CustomCADs.Auth.Data.Entities;
 
 public class AppUser : IdentityUser<Guid>
 {
+    public AppUser() : base() { }
+
     public AppUser(string username, string email)
         : base(username)
     {

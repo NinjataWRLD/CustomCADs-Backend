@@ -10,7 +10,6 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder
-            .SetTable()
             .SetPrimaryKey()
             .SetValidations()
             .SetSeedData();
@@ -19,13 +18,6 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 
 static class CategoryConfigUtils
 {
-    public static EntityTypeBuilder<Category> SetTable(this EntityTypeBuilder<Category> builder)
-    {
-        builder.ToTable("Categories", schema: "Catalog");
-
-        return builder;
-    }
-
     public static EntityTypeBuilder<Category> SetPrimaryKey(this EntityTypeBuilder<Category> builder)
     {
         builder.HasKey(x => x.Id);

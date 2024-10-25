@@ -149,7 +149,7 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.OwnsOne("CustomCADs.Catalog.Domain.Products.ValueObjects.Cad", "Cad", b1 =>
+                    b.OwnsOne("CustomCADs.Catalog.Domain.Products.Product.Cad#CustomCADs.Catalog.Domain.Products.ValueObjects.Cad", "Cad", b1 =>
                         {
                             b1.Property<Guid>("ProductId")
                                 .HasColumnType("uniqueidentifier");
@@ -166,7 +166,7 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");
 
-                            b1.OwnsOne("CustomCADs.Catalog.Domain.Products.ValueObjects.Coordinates", "CamCoordinates", b2 =>
+                            b1.OwnsOne("CustomCADs.Catalog.Domain.Products.Product.Cad#CustomCADs.Catalog.Domain.Products.ValueObjects.Cad.CamCoordinates#CustomCADs.Catalog.Domain.Products.ValueObjects.Coordinates", "CamCoordinates", b2 =>
                                 {
                                     b2.Property<Guid>("CadProductId")
                                         .HasColumnType("uniqueidentifier");
@@ -191,7 +191,7 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                                         .HasForeignKey("CadProductId");
                                 });
 
-                            b1.OwnsOne("CustomCADs.Catalog.Domain.Products.ValueObjects.Coordinates", "PanCoordinates", b2 =>
+                            b1.OwnsOne("CustomCADs.Catalog.Domain.Products.Product.Cad#CustomCADs.Catalog.Domain.Products.ValueObjects.Cad.PanCoordinates#CustomCADs.Catalog.Domain.Products.ValueObjects.Coordinates", "PanCoordinates", b2 =>
                                 {
                                     b2.Property<Guid>("CadProductId")
                                         .HasColumnType("uniqueidentifier");

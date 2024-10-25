@@ -19,8 +19,8 @@ public static class ProgramExtensions
 {
     private static void AddIdentityContext(this IServiceCollection services, IConfiguration config)
     {
-        string connectionString = config.GetConnectionString("IdentityConnection")
-                ?? throw new KeyNotFoundException("Could not find connection string 'IdentityConnection'.");
+        string connectionString = config.GetConnectionString("AuthConnection")
+                ?? throw new KeyNotFoundException("Could not find connection string 'AuthConnection'.");
         services.AddDbContext<AuthContext>(options => options.UseSqlServer(connectionString));
     }
 

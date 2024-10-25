@@ -9,8 +9,9 @@ public class CatalogContext(DbContextOptions opts) : DbContext(opts)
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(CatalogPersistenceReference.Assembly);
+        builder.HasDefaultSchema("Catalog");
+        builder.ApplyConfigurationsFromAssembly(CatalogPersistenceReference.Assembly);
     }
 }

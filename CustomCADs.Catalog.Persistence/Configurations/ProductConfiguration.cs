@@ -11,7 +11,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder
-            .SetTable()
             .SetPrimaryKey()
             .SetForeignKeys()
             .SetValueObjects()
@@ -21,13 +20,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
 static class CadConfigUtils
 {
-    public static EntityTypeBuilder<Product> SetTable(this EntityTypeBuilder<Product> builder)
-    {
-        builder.ToTable("Products", schema: "Catalog");
-
-        return builder;
-    }
-
     public static EntityTypeBuilder<Product> SetPrimaryKey(this EntityTypeBuilder<Product> builder)
     {
         builder.HasKey(x => x.Id);
