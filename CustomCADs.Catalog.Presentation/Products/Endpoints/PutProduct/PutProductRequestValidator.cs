@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using FluentValidation;
 using static CustomCADs.Catalog.Domain.Products.ProductConstants;
-using static CustomCADs.Catalog.Domain.Shared.SharedConstants;
+using static CustomCADs.Shared.Domain.Constants;
 
 namespace CustomCADs.Catalog.Presentation.Products.Endpoints.PutProduct;
 

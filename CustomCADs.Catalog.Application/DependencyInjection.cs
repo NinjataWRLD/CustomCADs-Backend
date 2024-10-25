@@ -1,6 +1,5 @@
 ﻿#pragma warning disable IDE0130
 using CustomCADs.Catalog.Application;
-using Mapster;
 using Wolverine;
 
 namespace Microsoft.Extensions.DependencyInjection;

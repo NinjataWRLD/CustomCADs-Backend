@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 using FluentValidation;
-using static CustomCADs.Catalog.Domain.Shared.SharedConstants;
+using static CustomCADs.Shared.Domain.Constants;
 
 namespace CustomCADs.Catalog.Presentation.Categories.Endpoints.PutCategory;
 
