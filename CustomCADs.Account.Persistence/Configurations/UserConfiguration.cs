@@ -46,12 +46,6 @@ static class UserConfigUtils
             cb.Property(u => u.LastName).HasMaxLength(NameMaxLength).HasColumnName("LastName");
         });
 
-        builder.OwnsOne(u => u.RefreshToken, cb =>
-        {
-            cb.Property(u => u.Value).HasColumnName("RefreshToken");
-            cb.Property(u => u.EndDate).HasColumnName("RefreshTokenEndDate");
-        });
-
         return builder;
     }
 

@@ -11,8 +11,8 @@ public class UserReads(AccountContext context) : IUserReads
     {
         IQueryable<User> queryable = context.Users
             .WithTracking(track)
-            .WithFilter(query.HasRT)
-            .WithSearch(query.Username, query.Email, query.FirstName, query.LastName, query.RtEndDateBefore, query.RtEndDateAfter)
+            .WithFilter(query.Role)
+            .WithSearch(query.Username, query.Email, query.FirstName, query.LastName)
             .WithSorting(query.Sorting);
 
         User[] users = await queryable
@@ -33,13 +33,6 @@ public class UserReads(AccountContext context) : IUserReads
         => await context.Users
             .WithTracking(track)
             .FirstOrDefaultAsync(u => u.Username == username, ct)
-            .ConfigureAwait(false);
-
-    public async Task<User?> SingleByRefreshTokenAsync(string refreshToken, bool track = true, CancellationToken ct = default)
-        => await context.Users
-            .WithTracking(track)
-            .Where(u => u.RefreshToken != null)
-            .FirstOrDefaultAsync(u => u.RefreshToken!.Value == refreshToken, ct)
             .ConfigureAwait(false);
 
     public async Task<bool> ExistsByIdAsync(Guid id, CancellationToken ct = default)

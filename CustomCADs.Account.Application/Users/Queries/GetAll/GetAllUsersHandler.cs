@@ -8,13 +8,11 @@ public class GetAllUsersHandler(IUserReads reads)
     public async Task<GetAllUsersDto> Handle(GetAllUsersQuery req, CancellationToken ct)
     {
         UsersQuery query = new(
-            HasRT: req.HasRT,
+            Role: req.Role,
             Username: req.Username,
             Email: req.Email,
             FirstName: req.FirstName,
             LastName: req.LastName,
-            RtEndDateBefore: req.RtEndDateBefore,
-            RtEndDateAfter: req.RtEndDateAfter,
             Sorting: req.Sorting,
             Page: req.Page,
             Limit: req.Limit

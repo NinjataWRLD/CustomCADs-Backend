@@ -7,4 +7,7 @@ public static class AuthConstants
 
     public const int PasswordMinLength = 6;
     public const int PasswordMaxLength = 20;
+
+    public const int JwtDurationInMinutes = 15;
+    public const int RtDurationInDays = 7;
 }

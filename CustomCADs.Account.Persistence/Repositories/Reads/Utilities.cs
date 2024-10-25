@@ -5,11 +5,12 @@ namespace CustomCADs.Account.Persistence.Repositories.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<User> WithFilter(this IQueryable<User> query, bool? hasRt = null)
-        => (hasRt ?? false)
-            ? query.Where(u => u.RefreshToken != null)
-    : query;
-    public static IQueryable<User> WithSearch(this IQueryable<User> query, string? username = null, string? email = null, string? firstName = null, string? lastName = null, DateTime? rtEndDateBefore = null, DateTime? rtEndDateAfter = null)
+    public static IQueryable<User> WithFilter(this IQueryable<User> query, string? role = null)
+        => !string.IsNullOrEmpty(role)
+            ? query.Where(u => u.RoleName == role)
+            : query;
+
+    public static IQueryable<User> WithSearch(this IQueryable<User> query, string? username = null, string? email = null, string? firstName = null, string? lastName = null)
     {
         if (!string.IsNullOrWhiteSpace(username))
         {
@@ -26,14 +27,6 @@ public static class Utilities
         if (!string.IsNullOrWhiteSpace(lastName))
         {
             query = query.Where(u => u.NameInfo.LastName != null && u.NameInfo.LastName.Contains(lastName));
-        }
-        if (rtEndDateBefore.HasValue)
-        {
-            query = query.Where(u => u.RefreshToken != null && u.RefreshToken.EndDate < rtEndDateBefore);
-        }
-        if (rtEndDateAfter.HasValue)
-        {
-            query = query.Where(u => u.RefreshToken != null && u.RefreshToken.EndDate > rtEndDateAfter);
         }
 
         return query;

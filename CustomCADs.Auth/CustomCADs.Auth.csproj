@@ -29,7 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CustomCADs.Account.Application\CustomCADs.Account.Application.csproj" />
+	  <ProjectReference Include="..\CustomCADs.Shared.Domain\CustomCADs.Shared.Domain.csproj" />
 	  <ProjectReference Include="..\CustomCADs.Shared.Presentation\CustomCADs.Shared.Presentation.csproj" />
 	</ItemGroup>
 
