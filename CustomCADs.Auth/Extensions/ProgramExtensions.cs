@@ -1,10 +1,12 @@
 ﻿#pragma warning disable IDE0130
+using CustomCADs.Auth;
 using CustomCADs.Auth.Business.Contracts;
 using CustomCADs.Auth.Business.Dtos;
 using CustomCADs.Auth.Business.Managers;
 using CustomCADs.Auth.Data;
 using CustomCADs.Auth.Data.Entities;
 using CustomCADs.Auth.Extensions;
+using CustomCADs.Shared.Infrastructure.Email;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Wolverine;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -28,6 +31,13 @@ public static class ProgramExtensions
     {
         services.AddScoped<IUserManager, AppUserManager>();
         services.AddScoped<IRoleManager, AppRoleManager>();
+        services.AddScoped<ISignInManager, AppSignInManager>();
+    }
+
+    public static void AddMessageBus(this IServiceCollection services)
+    {
+        services.AddWolverine(cfg => cfg.Discovery
+            .IncludeAssembly(AuthReference.Assembly));
     }
 
     private static void AddTokenManager(this IServiceCollection services, IConfiguration config)
@@ -58,14 +68,20 @@ public static class ProgramExtensions
         .AddDefaultTokenProviders();
     }
 
+    public static void AddEmail(this IServiceCollection services, IConfiguration config)
+    {
+        services.Configure<EmailOptions>(config.GetSection("Email"));
+        services.AddEmailServices();
+    }
+
     public static void AddEndpoints(this IServiceCollection services)
     {
         services.AddFastEndpoints();
+        services.AddEndpointsApiExplorer();
     }
 
     public static void AddApiDocumentation(this IServiceCollection services)
     {
-        services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new()

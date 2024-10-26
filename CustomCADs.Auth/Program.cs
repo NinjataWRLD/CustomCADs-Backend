@@ -1,9 +1,19 @@
+using static CustomCADs.Shared.Domain.Constants;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddMessageBus();
+builder.Services.AddIdentityAuth(builder.Configuration);
+
+builder.Services.AddEmail(builder.Configuration);
+builder.Services.AddEndpoints();
+
+builder.Services.AddApiDocumentation();
+builder.Services.AddRoles([Client, Contributor, Designer, Admin]);
 
 var app = builder.Build();
+
+app.UseGlobalExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {
@@ -12,5 +22,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseEndpoints();
 
 app.Run();
