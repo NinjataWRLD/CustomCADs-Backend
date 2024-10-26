@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Auth.Business.Contracts;
-using CustomCADs.Auth.Data.Entities;
 using CustomCADs.Auth.Endpoints.Helpers;
+using CustomCADs.Auth.Infrastructure.Entities;
 using FastEndpoints;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
-using static CustomCADs.Auth.Data.AuthConstants;
+using static CustomCADs.Auth.Infrastructure.AuthConstants;
 
 namespace CustomCADs.Auth.Endpoints.Auth.Login;
 

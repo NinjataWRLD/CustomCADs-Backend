@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using static CustomCADs.Auth.Data.AuthConstants;
+using static CustomCADs.Auth.Infrastructure.AuthConstants;
 
 namespace CustomCADs.Auth.Business.Managers;
 

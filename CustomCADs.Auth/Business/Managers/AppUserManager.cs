@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Auth.Business.Contracts;
 using CustomCADs.Auth.Common.Exceptions;
-using CustomCADs.Auth.Data.Entities;
+using CustomCADs.Auth.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Business.Managers;

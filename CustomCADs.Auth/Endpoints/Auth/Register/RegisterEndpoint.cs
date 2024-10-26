@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Auth.Business.Contracts;
-using CustomCADs.Auth.Data.Entities;
+using CustomCADs.Auth.Infrastructure.Entities;
 using CustomCADs.Shared.Application.Email;
 using CustomCADs.Shared.Events.Events;
 using FastEndpoints;

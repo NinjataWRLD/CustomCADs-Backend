@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 using FluentValidation;
-using static CustomCADs.Auth.Data.AuthConstants;
+using static CustomCADs.Auth.Infrastructure.AuthConstants;
 using static CustomCADs.Shared.Domain.Constants;
 
 namespace CustomCADs.Auth.Endpoints.Auth.Register;

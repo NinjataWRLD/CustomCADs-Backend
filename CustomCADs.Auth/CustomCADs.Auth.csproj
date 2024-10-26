@@ -29,6 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\CustomCADs.Auth.Infrastructure\CustomCADs.Auth.Infrastructure.csproj" />
 	  <ProjectReference Include="..\CustomCADs.Shared.Domain\CustomCADs.Shared.Domain.csproj" />
 	  <ProjectReference Include="..\CustomCADs.Shared.Events\CustomCADs.Shared.Events.csproj" />
 	  <ProjectReference Include="..\CustomCADs.Shared.Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
