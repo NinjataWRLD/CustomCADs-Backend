@@ -1,24 +1,25 @@
 ﻿#pragma warning disable IDE0130
-using CustomCADs.Auth;
 using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Application.Dtos;
 using CustomCADs.Auth.Application.Services;
-using CustomCADs.Auth.Extensions;
+using CustomCADs.Auth.Endpoints.Helpers;
 using CustomCADs.Auth.Infrastructure;
 using CustomCADs.Auth.Infrastructure.Entities;
 using CustomCADs.Shared.Infrastructure.Email;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Wolverine;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class ProgramExtensions
+public static class DependencyInjection
 {
     private static void AddIdentityContext(this IServiceCollection services, IConfiguration config)
     {
@@ -35,8 +36,7 @@ public static class ProgramExtensions
 
     public static void AddMessageBus(this IServiceCollection services)
     {
-        services.AddWolverine(cfg => cfg.Discovery
-            .IncludeAssembly(AuthReference.Assembly));
+        services.AddWolverine(cfg => { });
     }
 
     private static void AddTokenService(this IServiceCollection services, IConfiguration config)

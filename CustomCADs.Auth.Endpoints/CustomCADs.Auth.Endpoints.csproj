@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FastEndpoints" Version="5.30.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+		<PackageReference Include="WolverineFx" Version="3.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CustomCADs.Auth.Application\CustomCADs.Auth.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Events\CustomCADs.Shared.Events.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Presentation\CustomCADs.Shared.Presentation.csproj" />
+	</ItemGroup>
+
+</Project>

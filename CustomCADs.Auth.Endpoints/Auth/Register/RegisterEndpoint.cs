@@ -5,6 +5,7 @@ using CustomCADs.Shared.Events.Events;
 using FastEndpoints;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Wolverine;
 
 namespace CustomCADs.Auth.Endpoints.Auth.Register;

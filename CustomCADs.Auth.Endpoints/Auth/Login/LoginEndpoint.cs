@@ -2,6 +2,7 @@
 using CustomCADs.Auth.Endpoints.Helpers;
 using CustomCADs.Auth.Infrastructure.Entities;
 using FastEndpoints;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using static CustomCADs.Auth.Infrastructure.AuthConstants;

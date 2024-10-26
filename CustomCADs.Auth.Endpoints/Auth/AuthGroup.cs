@@ -1,8 +1,7 @@
 ﻿using FastEndpoints;
+using Microsoft.AspNetCore.Http;
 
 namespace CustomCADs.Auth.Endpoints.Auth;
-
-using static StatusCodes;
 
 public class AuthGroup : Group
 {
