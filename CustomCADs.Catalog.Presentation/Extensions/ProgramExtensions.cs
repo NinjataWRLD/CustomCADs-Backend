@@ -11,25 +11,6 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ProgramExtensions
 {
-    public static void AddPersistence(this IServiceCollection services, IConfiguration config)
-    {
-        services.AddCatalogContext(config);
-        services.AddCatalogReads();
-        services.AddCatalogWrites();
-        services.AddCatalogUOW();
-    }
-
-    public static void AddUseCases(this IServiceCollection services)
-    {
-        services.AddMediator();
-    }
-
-#pragma warning disable IDE0060
-    public static void AddMappings(this IServiceCollection services)
-    {
-        TypeAdapterConfig.GlobalSettings.Scan(CatalogPresentationReference.Assembly);
-    }
-
     public static void AddEndpoints(this IServiceCollection services)
     {
         services.AddFastEndpoints();

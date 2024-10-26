@@ -1,7 +1,4 @@
 ﻿#pragma warning disable IDE0130
-using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Application.Dtos;
-using CustomCADs.Auth.Application.Services;
 using CustomCADs.Auth.Endpoints.Helpers;
 using CustomCADs.Auth.Infrastructure;
 using CustomCADs.Auth.Infrastructure.Entities;
@@ -11,46 +8,40 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Wolverine;
+using static CustomCADs.Shared.Domain.Constants;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    private static void AddIdentityContext(this IServiceCollection services, IConfiguration config)
-    {
-        string connectionString = config.GetConnectionString("AuthConnection")
-                ?? throw new KeyNotFoundException("Could not find connection string 'AuthConnection'.");
-        services.AddDbContext<AuthContext>(options => options.UseSqlServer(connectionString));
-    }
+    public static IServiceCollection AddAuthEndpoints(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddIdentityAuth()
+            .AddMessageBus()
+            .AddEmail(config)
+            .AddEndpoints()
+            .AddApiDocumentation()
+            .AddAuthAndJwt(config)
+            .AddRoles([Client, Contributor, Designer, Admin]);
+    
+    public static IApplicationBuilder UseAuthEndpoints(this IApplicationBuilder app)
+        => app
+            .UseGlobalExceptionHandler()
+            .UseEndpoints();
 
-    private static void AddIdentityServices(this IServiceCollection services)
-    {
-        services.AddScoped<IUserService, AppUserService>();
-        services.AddScoped<IRoleService, AppRoleService>();
-    }
-
-    public static void AddMessageBus(this IServiceCollection services)
+    private static IServiceCollection AddMessageBus(this IServiceCollection services)
     {
         services.AddWolverine(cfg => { });
+        
+        return services;
     }
 
-    private static void AddTokenService(this IServiceCollection services, IConfiguration config)
+    private static IServiceCollection AddIdentityAuth(this IServiceCollection services)
     {
-        services.AddScoped<ITokenService, AppTokenService>();
-        services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
-    }
-
-    public static void AddIdentityAuth(this IServiceCollection services, IConfiguration config)
-    {
-        services.AddIdentityContext(config);
-        services.AddIdentityServices();
-        services.AddTokenService(config);
-
         services.AddIdentity<AppUser, AppRole>(options =>
         {
             options.SignIn.RequireConfirmedEmail = true;
@@ -65,21 +56,27 @@ public static class DependencyInjection
         })
         .AddEntityFrameworkStores<AuthContext>()
         .AddDefaultTokenProviders();
+
+        return services;
     }
 
-    public static void AddEmail(this IServiceCollection services, IConfiguration config)
+    private static IServiceCollection AddEmail(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<EmailOptions>(config.GetSection("Email"));
         services.AddEmailServices();
+
+        return services;
     }
 
-    public static void AddEndpoints(this IServiceCollection services)
+    private static IServiceCollection AddEndpoints(this IServiceCollection services)
     {
         services.AddFastEndpoints();
         services.AddEndpointsApiExplorer();
+
+        return services;
     }
 
-    public static void AddApiDocumentation(this IServiceCollection services)
+    private static IServiceCollection AddApiDocumentation(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
         {
@@ -92,9 +89,11 @@ public static class DependencyInjection
                 Version = "v1"
             });
         });
+
+        return services;
     }
 
-    public static void AddAuthAndJwt(this IServiceCollection services, IConfiguration config)
+    private static IServiceCollection AddAuthAndJwt(this IServiceCollection services, IConfiguration config)
     {
         services.AddAuthentication(opt =>
         {
@@ -130,9 +129,11 @@ public static class DependencyInjection
                 },
             };
         });
+
+        return services;
     }
 
-    public static void AddRoles(this IServiceCollection services, IEnumerable<string> roles)
+    private static IServiceCollection AddRoles(this IServiceCollection services, IEnumerable<string> roles)
     {
         services.AddAuthorization(options =>
         {
@@ -141,9 +142,11 @@ public static class DependencyInjection
                 options.AddPolicy(role, policy => policy.RequireRole(role));
             }
         });
+
+        return services;
     }
 
-    public static void UseGlobalExceptionHandler(this IApplicationBuilder app)
+    private static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
     {
         app.UseExceptionHandler(errorApp =>
         {
@@ -160,9 +163,11 @@ public static class DependencyInjection
                 }
             });
         });
+
+        return app;
     }
 
-    public static void UseEndpoints(this IApplicationBuilder app)
+    private static IApplicationBuilder UseEndpoints(this IApplicationBuilder app)
     {
         app.UseFastEndpoints(cfg =>
         {
@@ -170,5 +175,7 @@ public static class DependencyInjection
             cfg.Versioning.DefaultVersion = 1;
             cfg.Versioning.PrependToRoute = true;
         });
+
+        return app;
     }
 }

@@ -13,26 +13,41 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static void AddCatalogContext(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddCatalogPersistence(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddCatalogContext(config)
+            .AddCatalogReads()
+            .AddCatalogWrites()
+            .AddCatalogUOW();
+
+    private static IServiceCollection AddCatalogContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("CatalogConnection")
                 ?? throw new KeyNotFoundException("Could not find connection string 'CatalogConnection'.");
         services.AddDbContext<CatalogContext>(options => options.UseSqlServer(connectionString));
+
+        return services;
     }
 
-    public static void AddCatalogReads(this IServiceCollection services)
+    private static IServiceCollection AddCatalogReads(this IServiceCollection services)
     {
         services.AddScoped<ICategoryReads, CategoryReads>();
         services.AddScoped<IProductReads, ProductReads>();
+
+        return services;
     }
 
-    public static void AddCatalogWrites(this IServiceCollection services)
+    private static IServiceCollection AddCatalogWrites(this IServiceCollection services)
     {
         services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
+
+        return services;
     }
 
-    public static void AddCatalogUOW(this IServiceCollection services)
+    private static IServiceCollection AddCatalogUOW(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        return services;
     }
 }

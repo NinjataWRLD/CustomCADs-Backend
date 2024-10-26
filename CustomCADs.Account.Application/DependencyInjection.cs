@@ -6,8 +6,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static void AddUseCases(this IServiceCollection services)
+    public static IServiceCollection AddAccountApplication(this IServiceCollection services)
+        => services
+            .AddUseCases();
+
+    private static IServiceCollection AddUseCases(this IServiceCollection services)
     {
         services.AddWolverine(cfg => cfg.ApplicationAssembly = AccountApplicationReference.Assembly);
+        
+        return services;
     }
 }

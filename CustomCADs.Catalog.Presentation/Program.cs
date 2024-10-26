@@ -1,9 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddPersistence(builder.Configuration);
-
-builder.Services.AddUseCases();
-builder.Services.AddMappings();
+builder.Services
+    .AddCatalogPersistence(builder.Configuration)
+    .AddCatalogApplication();
 
 builder.Services.AddAuthAndJwt(builder.Configuration);
 

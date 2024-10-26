@@ -13,26 +13,41 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static void AddCatalogContext(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddAccountPersistence(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddAccountContext(config)
+            .AddAccountReads()
+            .AddAccountWrites()
+            .AddAccountUOW();
+
+    private static IServiceCollection AddAccountContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("AccountConnection")
                 ?? throw new KeyNotFoundException("Could not find connection string 'AccountConnection'.");
         services.AddDbContext<AccountContext>(options => options.UseSqlServer(connectionString));
+
+        return services;
     }
 
-    public static void AddCatalogReads(this IServiceCollection services)
+    private static IServiceCollection AddAccountReads(this IServiceCollection services)
     {
         services.AddScoped<IRoleReads, RoleReads>();
         services.AddScoped<IUserReads, UserReads>();
+
+        return services;
     }
 
-    public static void AddCatalogWrites(this IServiceCollection services)
+    private static IServiceCollection AddAccountWrites(this IServiceCollection services)
     {
         services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
+
+        return services;
     }
 
-    public static void AddCatalogUOW(this IServiceCollection services)
+    private static IServiceCollection AddAccountUOW(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
+        return services;
     }
 }

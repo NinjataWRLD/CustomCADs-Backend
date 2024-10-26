@@ -16,9 +16,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CustomCADs.Account.Domain\CustomCADs.Account.Domain.csproj" />
-	  <ProjectReference Include="..\CustomCADs.Shared.Domain\CustomCADs.Shared.Domain.csproj" />
-	  <ProjectReference Include="..\CustomCADs.Shared.Persistence\CustomCADs.Shared.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Account.Domain\CustomCADs.Account.Domain.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Domain\CustomCADs.Shared.Domain.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Persistence\CustomCADs.Shared.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>
