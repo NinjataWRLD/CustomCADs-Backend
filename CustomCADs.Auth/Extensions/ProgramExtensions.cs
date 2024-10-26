@@ -31,7 +31,6 @@ public static class ProgramExtensions
     {
         services.AddScoped<IUserService, AppUserService>();
         services.AddScoped<IRoleService, AppRoleService>();
-        services.AddScoped<ISignInService, AppSignInService>();
     }
 
     public static void AddMessageBus(this IServiceCollection services)
