@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Auth.Common.Exceptions;
+﻿namespace CustomCADs.Auth.Application.Exceptions;
 
 public class RoleNotFoundException : Exception
 {

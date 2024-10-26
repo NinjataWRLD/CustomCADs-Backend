@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Auth.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CustomCADs.Auth.Business.Contracts;
+namespace CustomCADs.Auth.Application.Contracts;
 
-public interface IUserManager
+public interface IUserService
 {
     Task<AppUser?> FindByIdAsync(Guid id);
     Task<AppUser?> FindByNameAsync(string username);

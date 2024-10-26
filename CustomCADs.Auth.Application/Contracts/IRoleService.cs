@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Auth.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CustomCADs.Auth.Business.Contracts;
+namespace CustomCADs.Auth.Application.Contracts;
 
-public interface IRoleManager
+public interface IRoleService
 {
     Task<IEnumerable<AppRole>> GetRoles();
     Task<IEnumerable<string>> GetRolesNames();

@@ -1,11 +1,11 @@
-﻿using CustomCADs.Auth.Business.Contracts;
-using CustomCADs.Auth.Common.Exceptions;
+﻿using CustomCADs.Auth.Application.Contracts;
+using CustomCADs.Auth.Application.Exceptions;
 using CustomCADs.Auth.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CustomCADs.Auth.Business.Managers;
+namespace CustomCADs.Auth.Application.Services;
 
-public class AppUserManager(UserManager<AppUser> manager) : IUserManager
+public class AppUserService(UserManager<AppUser> manager) : IUserService
 {
     public async Task<AppUser?> FindByIdAsync(Guid id)
         => await manager.FindByIdAsync(id.ToString()).ConfigureAwait(false);

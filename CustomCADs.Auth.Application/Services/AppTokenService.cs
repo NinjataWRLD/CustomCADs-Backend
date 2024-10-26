@@ -1,5 +1,5 @@
-﻿using CustomCADs.Auth.Business.Contracts;
-using CustomCADs.Auth.Business.Dtos;
+﻿using CustomCADs.Auth.Application.Contracts;
+using CustomCADs.Auth.Application.Dtos;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,9 +8,9 @@ using System.Security.Cryptography;
 using System.Text;
 using static CustomCADs.Auth.Infrastructure.AuthConstants;
 
-namespace CustomCADs.Auth.Business.Managers;
+namespace CustomCADs.Auth.Application.Services;
 
-public class TokenManager(IOptions<JwtSettings> jwtOptions) : ITokenManager
+public class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
 {
     private const string Algorithm = SecurityAlgorithms.HmacSha256;
     private readonly JwtSettings jwtSettings = jwtOptions.Value;

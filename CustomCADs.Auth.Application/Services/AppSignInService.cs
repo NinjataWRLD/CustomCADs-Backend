@@ -1,10 +1,10 @@
-﻿using CustomCADs.Auth.Business.Contracts;
+﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CustomCADs.Auth.Business.Managers;
+namespace CustomCADs.Auth.Application.Services;
 
-public class AppSignInManager(SignInManager<AppUser> manager) : ISignInManager
+public class AppSignInService(SignInManager<AppUser> manager) : ISignInService
 {
     public async Task<SignInResult> PasswordSignInAsync(AppUser user, string password, bool isPersistent, bool lockoutOnFailure)
         => await manager.PasswordSignInAsync(user, password, isPersistent, lockoutOnFailure).ConfigureAwait(false);

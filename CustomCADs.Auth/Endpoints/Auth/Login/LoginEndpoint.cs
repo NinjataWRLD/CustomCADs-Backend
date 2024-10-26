@@ -1,4 +1,4 @@
-﻿using CustomCADs.Auth.Business.Contracts;
+﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Endpoints.Helpers;
 using CustomCADs.Auth.Infrastructure.Entities;
 using FastEndpoints;
@@ -12,9 +12,9 @@ using static ApiMessages;
 using static StatusCodes;
 
 public class LoginEndpoint(
-    IUserManager userManager,
-    ITokenManager tokenManager,
-    ISignInManager signInManager) : Endpoint<LoginRequest>
+    IUserService userService,
+    ITokenService tokenService,
+    ISignInService signInService) : Endpoint<LoginRequest>
 {
     public override void Configure()
     {
@@ -24,7 +24,7 @@ public class LoginEndpoint(
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
     {
-        AppUser? user = await userManager.FindByNameAsync(req.Username).ConfigureAwait(false);
+        AppUser? user = await userService.FindByNameAsync(req.Username).ConfigureAwait(false);
         if (user == null || !user.EmailConfirmed)
         {
             ValidationFailures.Add(new(nameof(InvalidAccountOrEmail), InvalidAccountOrEmail));
@@ -33,7 +33,7 @@ public class LoginEndpoint(
             return;
         }
 
-        bool isLockedOut = await userManager.IsLockedOutAsync(user).ConfigureAwait(false);
+        bool isLockedOut = await userService.IsLockedOutAsync(user).ConfigureAwait(false);
         if (isLockedOut && user.LockoutEnd.HasValue)
         {
             TimeSpan timeLeft = user.LockoutEnd.Value.Subtract(DateTimeOffset.UtcNow);
@@ -41,7 +41,7 @@ public class LoginEndpoint(
             return;
         }
 
-        SignInResult result = await signInManager
+        SignInResult result = await signInService
             .PasswordSignInAsync(user, req.Password, req.RememberMe ?? false, lockoutOnFailure: true)
             .ConfigureAwait(false);
 
@@ -62,16 +62,16 @@ public class LoginEndpoint(
             return;
         }
 
-        string role = await userManager.GetRoleAsync(user).ConfigureAwait(false);
-        JwtSecurityToken jwt = tokenManager.GenerateAccessToken(user.Id, req.Username, role);
+        string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
+        JwtSecurityToken jwt = tokenService.GenerateAccessToken(user.Id, req.Username, role);
 
         string signedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
         SaveJwt(signedJwt, jwt.ValidTo);
 
-        string rt = tokenManager.GenerateRefreshToken();
+        string rt = tokenService.GenerateRefreshToken();
         DateTime rtEndDate = DateTime.UtcNow.AddDays(RtDurationInDays);
 
-        await userManager.UpdateRefreshTokenAsync(user.Id, rt, rtEndDate).ConfigureAwait(false);
+        await userService.UpdateRefreshTokenAsync(user.Id, rt, rtEndDate).ConfigureAwait(false);
         SaveRt(rt, rtEndDate);
 
         SaveRole(req.Username, rtEndDate);

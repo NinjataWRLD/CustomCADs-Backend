@@ -1,4 +1,4 @@
-﻿using CustomCADs.Auth.Business.Contracts;
+﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Infrastructure.Entities;
 using CustomCADs.Shared.Application.Email;
 using CustomCADs.Shared.Events.Events;
@@ -11,7 +11,7 @@ namespace CustomCADs.Auth.Endpoints.Auth.Register;
 
 public class RegisterEndpoint(
     IMessageBus bus,
-    IUserManager manager,
+    IUserService service,
     IEmailService emailService,
     IConfiguration config) : Endpoint<RegisterRequest>
 {
@@ -24,7 +24,7 @@ public class RegisterEndpoint(
     public override async Task HandleAsync(RegisterRequest req, CancellationToken ct)
     {
         AppUser user = new(req.Username, req.Email);
-        IdentityResult result = await manager.CreateAsync(user, req.Password).ConfigureAwait(false);
+        IdentityResult result = await service.CreateAsync(user, req.Password).ConfigureAwait(false);
 
         if (!result.Succeeded)
         {
@@ -34,7 +34,7 @@ public class RegisterEndpoint(
             await SendErrorsAsync().ConfigureAwait(false);
             return;
         }
-        await manager.AddToRoleAsync(user, req.Role);
+        await service.AddToRoleAsync(user, req.Role);
 
         UserRegisteredEvent @event = new()
         {
@@ -46,7 +46,7 @@ public class RegisterEndpoint(
         };
         await bus.PublishAsync(@event).ConfigureAwait(false);
 
-        string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+        string token = await service.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
         string serverUrl = config["URLs:Server"] ?? throw new ArgumentNullException();
 
         string endpoint = Path.Combine(serverUrl, $"API/v1/Auth/VerifyEmail/{req.Username}?token={token}");

@@ -1,8 +1,8 @@
 ﻿#pragma warning disable IDE0130
 using CustomCADs.Auth;
-using CustomCADs.Auth.Business.Contracts;
-using CustomCADs.Auth.Business.Dtos;
-using CustomCADs.Auth.Business.Managers;
+using CustomCADs.Auth.Application.Contracts;
+using CustomCADs.Auth.Application.Dtos;
+using CustomCADs.Auth.Application.Services;
 using CustomCADs.Auth.Extensions;
 using CustomCADs.Auth.Infrastructure;
 using CustomCADs.Auth.Infrastructure.Entities;
@@ -27,11 +27,11 @@ public static class ProgramExtensions
         services.AddDbContext<AuthContext>(options => options.UseSqlServer(connectionString));
     }
 
-    private static void AddIdentityManagers(this IServiceCollection services)
+    private static void AddIdentityServices(this IServiceCollection services)
     {
-        services.AddScoped<IUserManager, AppUserManager>();
-        services.AddScoped<IRoleManager, AppRoleManager>();
-        services.AddScoped<ISignInManager, AppSignInManager>();
+        services.AddScoped<IUserService, AppUserService>();
+        services.AddScoped<IRoleService, AppRoleService>();
+        services.AddScoped<ISignInService, AppSignInService>();
     }
 
     public static void AddMessageBus(this IServiceCollection services)
@@ -40,17 +40,17 @@ public static class ProgramExtensions
             .IncludeAssembly(AuthReference.Assembly));
     }
 
-    private static void AddTokenManager(this IServiceCollection services, IConfiguration config)
+    private static void AddTokenService(this IServiceCollection services, IConfiguration config)
     {
-        services.AddScoped<ITokenManager, TokenManager>();
+        services.AddScoped<ITokenService, AppTokenService>();
         services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
     }
 
     public static void AddIdentityAuth(this IServiceCollection services, IConfiguration config)
     {
         services.AddIdentityContext(config);
-        services.AddIdentityManagers();
-        services.AddTokenManager(config);
+        services.AddIdentityServices();
+        services.AddTokenService(config);
 
         services.AddIdentity<AppUser, AppRole>(options =>
         {

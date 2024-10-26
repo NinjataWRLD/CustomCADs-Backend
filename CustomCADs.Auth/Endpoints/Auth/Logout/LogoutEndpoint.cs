@@ -1,10 +1,10 @@
-﻿using CustomCADs.Auth.Business.Contracts;
+﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Shared.Presentation;
 using FastEndpoints;
 
 namespace CustomCADs.Auth.Endpoints.Auth.Logout;
 
-public class LogoutEndpoint(IUserManager manager) : EndpointWithoutRequest<string>
+public class LogoutEndpoint(IUserService service) : EndpointWithoutRequest<string>
 {
     public override void Configure()
     {
@@ -14,7 +14,7 @@ public class LogoutEndpoint(IUserManager manager) : EndpointWithoutRequest<strin
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await manager.RevokeRefreshTokenAsync(User.GetId()).ConfigureAwait(false);
+        await service.RevokeRefreshTokenAsync(User.GetId()).ConfigureAwait(false);
         DeleteCookies(["jwt", "rt", "username", "rt"]);
     }
 

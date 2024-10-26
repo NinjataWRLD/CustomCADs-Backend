@@ -1,11 +1,11 @@
-﻿using CustomCADs.Auth.Business.Contracts;
+﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Auth.Business.Managers;
+namespace CustomCADs.Auth.Application.Services;
 
-public class AppRoleManager(RoleManager<AppRole> manager) : IRoleManager
+public class AppRoleService(RoleManager<AppRole> manager) : IRoleService
 {
     public async Task<IEnumerable<AppRole>> GetRoles()
         => await manager.Roles.ToArrayAsync().ConfigureAwait(false);

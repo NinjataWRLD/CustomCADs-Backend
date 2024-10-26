@@ -1,4 +1,4 @@
-﻿using CustomCADs.Auth.Common.Exceptions;
+﻿using CustomCADs.Auth.Application.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Auth.Extensions;
