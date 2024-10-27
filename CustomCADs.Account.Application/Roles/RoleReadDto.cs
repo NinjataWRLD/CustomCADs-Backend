@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Account.Application.Roles;
 
-public record RoleReadDto(int Id, string Name);
+public record RoleReadDto(int Id, string Name, string Description);

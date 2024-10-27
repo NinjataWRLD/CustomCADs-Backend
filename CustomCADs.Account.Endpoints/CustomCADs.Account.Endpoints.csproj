@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<NoWarn>CA2016</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FastEndpoints" Version="5.30.0" />
+		<PackageReference Include="WolverineFx" Version="3.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CustomCADs.Account.Application\CustomCADs.Account.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Account.Persistence\CustomCADs.Account.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Events\CustomCADs.Shared.Events.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Presentation\CustomCADs.Shared.Presentation.csproj" />
+	</ItemGroup>
+
+</Project>
