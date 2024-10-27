@@ -2,13 +2,10 @@
 using CustomCADs.Auth.Endpoints.Helpers;
 using CustomCADs.Auth.Infrastructure;
 using CustomCADs.Auth.Infrastructure.Entities;
-using CustomCADs.Shared.Infrastructure.Email;
-using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using Wolverine;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -18,13 +15,10 @@ public static class DependencyInjection
         => services
             .AddAuthInfrastructure(config)
             .AddAuthApplication(config)
-            .AddAppIdentity()
-            .AddEndpoints();
+            .AddAppIdentity();
 
     public static IApplicationBuilder UseAuth(this IApplicationBuilder app)
-        => app
-            .UseGlobalExceptionHandler()
-            .UseEndpoints();
+        => app.UseGlobalExceptionHandler();
 
     private static IServiceCollection AddAppIdentity(this IServiceCollection services)
     {
@@ -46,14 +40,6 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddEndpoints(this IServiceCollection services)
-    {
-        services.AddFastEndpoints();
-        services.AddEndpointsApiExplorer();
-
-        return services;
-    }
-
     private static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
     {
         app.UseExceptionHandler(errorApp =>
@@ -70,18 +56,6 @@ public static class DependencyInjection
                         .ConfigureAwait(false);
                 }
             });
-        });
-
-        return app;
-    }
-
-    private static IApplicationBuilder UseEndpoints(this IApplicationBuilder app)
-    {
-        app.UseFastEndpoints(cfg =>
-        {
-            cfg.Endpoints.RoutePrefix = "API";
-            cfg.Versioning.DefaultVersion = 1;
-            cfg.Versioning.PrependToRoute = true;
         });
 
         return app;

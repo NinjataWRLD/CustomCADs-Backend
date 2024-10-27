@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static void AddStripeServices(this IServiceCollection services)
+    public static void AddPaymentServices(this IServiceCollection services)
     {
         services.AddScoped<PaymentIntentService>();
         services.AddScoped<IPaymentService, StripeService>();

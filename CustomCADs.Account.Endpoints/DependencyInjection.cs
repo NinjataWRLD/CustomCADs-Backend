@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Account.Endpoints.Helpers;
-using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -10,22 +9,10 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyInjection
 {
     public static IServiceCollection AddAccount(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddAccountPersistence(config)
-            .AddAccountApplication()
-            .AddEndpoints();
-
-    private static IServiceCollection AddEndpoints(this IServiceCollection services)
-    {
-        services.AddFastEndpoints();
-
-        return services;
-    }
+        => services.AddAccountPersistence(config);
 
     public static IApplicationBuilder UseAccount(this IApplicationBuilder app)
-        => app
-            .UseGlobalExceptionHandler()
-            .UseEndpoints();
+        => app.UseGlobalExceptionHandler();
 
     private static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
     {
@@ -43,18 +30,6 @@ public static class DependencyInjection
                         .ConfigureAwait(false);
                 }
             });
-        });
-
-        return app;
-    }
-
-    private static IApplicationBuilder UseEndpoints(this IApplicationBuilder app)
-    {
-        app.UseFastEndpoints(cfg =>
-        {
-            cfg.Endpoints.RoutePrefix = "API";
-            cfg.Versioning.DefaultVersion = 1;
-            cfg.Versioning.PrependToRoute = true;
         });
 
         return app;

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Catalog.Persistence;
 
-public class CatalogContext(DbContextOptions opts) : DbContext(opts)
+public class CatalogContext(DbContextOptions<CatalogContext> opts) : DbContext(opts)
 {
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
