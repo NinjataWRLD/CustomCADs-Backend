@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Catalog.Persiste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Catalog.Application", "CustomCADs.Catalog.Application\CustomCADs.Catalog.Application.csproj", "{FCEC7D85-58E3-4C51-857A-9546EF682796}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Catalog.Presentation", "CustomCADs.Catalog.Presentation\CustomCADs.Catalog.Presentation.csproj", "{F0EBE4C9-86E6-4354-B394-3B23EE2859EB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Domain", "CustomCADs.Shared.Domain\CustomCADs.Shared.Domain.csproj", "{658DB37D-B368-496D-A117-DF028F966C60}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Presentation", "CustomCADs.Shared.Presentation\CustomCADs.Shared.Presentation.csproj", "{F4CE1A9B-7B90-4A22-A14E-450903DA4616}"
@@ -39,11 +37,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Account.Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Events", "CustomCADs.Shared.Events\CustomCADs.Shared.Events.csproj", "{E949F721-1006-4898-BAED-F6DDCF32C84D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Auth.Infrastructure", "CustomCADs.Auth.Infrastructure\CustomCADs.Auth.Infrastructure.csproj", "{0E6D82CF-0F69-4BC3-AF93-423065C1C9AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Auth.Infrastructure", "CustomCADs.Auth.Infrastructure\CustomCADs.Auth.Infrastructure.csproj", "{0E6D82CF-0F69-4BC3-AF93-423065C1C9AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Auth.Application", "CustomCADs.Auth.Application\CustomCADs.Auth.Application.csproj", "{78D545E4-9892-40BA-A0EA-9E678C8D5C9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Auth.Application", "CustomCADs.Auth.Application\CustomCADs.Auth.Application.csproj", "{78D545E4-9892-40BA-A0EA-9E678C8D5C9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Auth.Endpoints", "CustomCADs.Auth.Endpoints\CustomCADs.Auth.Endpoints.csproj", "{D608E347-B70C-472F-9A09-674707ADC67B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Auth.Endpoints", "CustomCADs.Auth.Endpoints\CustomCADs.Auth.Endpoints.csproj", "{D608E347-B70C-472F-9A09-674707ADC67B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Account.Endpoints", "CustomCADs.Account.Endpoints\CustomCADs.Account.Endpoints.csproj", "{582F4AC9-0500-494F-8AB1-18984E8EB7AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Catalog.Endpoints", "CustomCADs.Catalog.Endpoints\CustomCADs.Catalog.Endpoints.csproj", "{BE01D11A-2AA3-4F5F-B0D5-C0DE795666A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +65,6 @@ Global
 		{FCEC7D85-58E3-4C51-857A-9546EF682796}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCEC7D85-58E3-4C51-857A-9546EF682796}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCEC7D85-58E3-4C51-857A-9546EF682796}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F0EBE4C9-86E6-4354-B394-3B23EE2859EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0EBE4C9-86E6-4354-B394-3B23EE2859EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0EBE4C9-86E6-4354-B394-3B23EE2859EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0EBE4C9-86E6-4354-B394-3B23EE2859EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{658DB37D-B368-496D-A117-DF028F966C60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{658DB37D-B368-496D-A117-DF028F966C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{658DB37D-B368-496D-A117-DF028F966C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -115,6 +113,14 @@ Global
 		{D608E347-B70C-472F-9A09-674707ADC67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D608E347-B70C-472F-9A09-674707ADC67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D608E347-B70C-472F-9A09-674707ADC67B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{582F4AC9-0500-494F-8AB1-18984E8EB7AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{582F4AC9-0500-494F-8AB1-18984E8EB7AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{582F4AC9-0500-494F-8AB1-18984E8EB7AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{582F4AC9-0500-494F-8AB1-18984E8EB7AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE01D11A-2AA3-4F5F-B0D5-C0DE795666A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE01D11A-2AA3-4F5F-B0D5-C0DE795666A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE01D11A-2AA3-4F5F-B0D5-C0DE795666A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE01D11A-2AA3-4F5F-B0D5-C0DE795666A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,7 +131,6 @@ Global
 		{166847F3-2165-4F35-9DB3-322B7E00D4E6} = {C2FF7D6A-0BEE-4940-B894-3437A44B2473}
 		{0DE363D7-D77B-4510-B9A0-68141563E561} = {C2FF7D6A-0BEE-4940-B894-3437A44B2473}
 		{FCEC7D85-58E3-4C51-857A-9546EF682796} = {C2FF7D6A-0BEE-4940-B894-3437A44B2473}
-		{F0EBE4C9-86E6-4354-B394-3B23EE2859EB} = {C2FF7D6A-0BEE-4940-B894-3437A44B2473}
 		{658DB37D-B368-496D-A117-DF028F966C60} = {AACD7530-149A-43EE-A093-2D27DD5B00D3}
 		{F4CE1A9B-7B90-4A22-A14E-450903DA4616} = {AACD7530-149A-43EE-A093-2D27DD5B00D3}
 		{35D9A7B8-8224-4E44-BF93-4C213DE81CA7} = {AACD7530-149A-43EE-A093-2D27DD5B00D3}
@@ -139,6 +144,8 @@ Global
 		{0E6D82CF-0F69-4BC3-AF93-423065C1C9AE} = {7A768DDB-B4B0-4625-A12E-F0E2F60DDBA3}
 		{78D545E4-9892-40BA-A0EA-9E678C8D5C9A} = {7A768DDB-B4B0-4625-A12E-F0E2F60DDBA3}
 		{D608E347-B70C-472F-9A09-674707ADC67B} = {7A768DDB-B4B0-4625-A12E-F0E2F60DDBA3}
+		{582F4AC9-0500-494F-8AB1-18984E8EB7AC} = {29357C6D-C64F-43A4-AC6F-6613E41C9AE9}
+		{BE01D11A-2AA3-4F5F-B0D5-C0DE795666A6} = {C2FF7D6A-0BEE-4940-B894-3437A44B2473}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C24A0A28-5B9B-4659-B244-171070EE9DCF}

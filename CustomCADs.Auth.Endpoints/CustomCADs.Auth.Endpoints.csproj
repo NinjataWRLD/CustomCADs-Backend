@@ -8,8 +8,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="FastEndpoints" Version="5.30.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 		<PackageReference Include="WolverineFx" Version="3.0.1" />
 	</ItemGroup>
 

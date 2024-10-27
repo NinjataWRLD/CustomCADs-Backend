@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints" Version="5.30.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CustomCADs.Catalog.Application\CustomCADs.Catalog.Application.csproj" />
+    <ProjectReference Include="..\CustomCADs.Catalog.Persistence\CustomCADs.Catalog.Persistence.csproj" />
+    <ProjectReference Include="..\CustomCADs.Shared.Presentation\CustomCADs.Shared.Presentation.csproj" />
+  </ItemGroup>
+
+</Project>
