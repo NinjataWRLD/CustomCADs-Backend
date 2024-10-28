@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Account.Application.Roles;
 using CustomCADs.Account.Application.Roles.Queries.GetAll;
 using FastEndpoints;
-using Mapster;
 using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Roles.GetRoles;
@@ -19,7 +18,11 @@ public class GetRolesEndpoint(IMessageBus bus) : EndpointWithoutRequest<RoleResp
         GetAllRolesQuery query = new();
         var roles = await bus.InvokeAsync<IEnumerable<RoleReadDto>>(query, ct).ConfigureAwait(false);
 
-        var response = roles.Adapt<RoleResponseDto[]>();
+        RoleResponseDto[] response = roles.Select(r => new RoleResponseDto() 
+        {
+            Name = r.Name,
+            Description = r.Description,
+        }).ToArray();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

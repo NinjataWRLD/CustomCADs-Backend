@@ -2,8 +2,8 @@
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Shared.Presentation;
 using FastEndpoints;
-using Mapster;
 using Wolverine;
+using static CustomCADs.Shared.Domain.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.GetProduct;
 
@@ -35,7 +35,18 @@ public class GetProductEndpoint(IMessageBus bus) : Endpoint<GetProductRequest, G
         GetProductByIdQuery getProductQuery = new(req.Id);
         var product = await bus.InvokeAsync<GetProductByIdDto>(getProductQuery, ct).ConfigureAwait(false);
 
-        var response = product.Adapt<GetProductResponse>();
+        GetProductResponse response = new() 
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Cost = product.Cost,
+            Description = product.Description,
+            UploadDate = product.UploadDate.ToString(DateFormatString),
+            CamCoordinates = new(product.Cad.CamCoordinates.X, product.Cad.CamCoordinates.Y, product.Cad.CamCoordinates.Z),
+            PanCoordinates = new(product.Cad.PanCoordinates.X, product.Cad.PanCoordinates.Y, product.Cad.PanCoordinates.Z),
+            CadPath = product.Cad.Path,
+            Category = new() { Id = product.Category.Id, Name = product.Category.Name },
+        };
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

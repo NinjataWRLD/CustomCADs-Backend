@@ -1,5 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Products.Reads;
-using Mapster;
+﻿using CustomCADs.Catalog.Application.Categories.Queries;
+using CustomCADs.Catalog.Domain.Products.Reads;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
@@ -18,7 +18,20 @@ public class GetAllProductsHandler(IProductReads reads)
         );
         ProductResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        var response = result.Adapt<GetAllProductsDto>();
+        GetAllProductsDto response = new(result.Count, result.Products.Select(p => 
+            new GetAllProductsItemDto()
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Status = p.Status.ToString(),
+                UploadDate = p.UploadDate,
+                ImagePath = p.ImagePath,
+                Category = new()
+                {
+                    Id = p.Category.Id,
+                    Name = p.Category.Name,
+                },
+            }).ToArray());
         return response;
     }
 }

@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Categories.Reads;
-using Mapster;
 
 namespace CustomCADs.Catalog.Application.Categories.Queries.GetAll;
 
@@ -10,7 +9,11 @@ public class GetAllCategoriesHandler(ICategoryReads reads)
     {
         IEnumerable<Category> categories = await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
 
-        var response = categories.Adapt<IEnumerable<CategoryReadDto>>();
+        var response = categories.Select(c => new CategoryReadDto() 
+        { 
+            Id = c.Id,
+            Name = c.Name, 
+        });
         return response;
     }
 }

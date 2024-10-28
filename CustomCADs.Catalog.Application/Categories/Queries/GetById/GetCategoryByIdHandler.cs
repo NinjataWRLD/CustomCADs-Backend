@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Common;
 using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Categories.Reads;
-using Mapster;
 
 namespace CustomCADs.Catalog.Application.Categories.Queries.GetById;
 
@@ -12,7 +11,11 @@ public class GetCategoryByIdHandler(ICategoryReads reads)
         Category? category = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw new CategoryNotFoundException(req.Id);
 
-        var response = category.Adapt<CategoryReadDto>();
+        CategoryReadDto response = new()
+        {
+            Id = category.Id,
+            Name = category.Name,
+        };
         return response;
     }
 }

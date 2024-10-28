@@ -10,5 +10,5 @@ public class User
     public required string Email { get; set; }
     public NameInfo NameInfo { get; set; } = new();
     public required string RoleName { get; set; }
-    public required Role Role { get; set; }
+    public Role Role { get; set; } = new();
 }

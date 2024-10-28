@@ -11,6 +11,6 @@ public class GetProductResponse
     public required string CadPath { get; set; }
     public CoordinatesDto CamCoordinates { get; set; } = new();
     public CoordinatesDto PanCoordinates { get; set; } = new();
-    public required string CreationDate { get; set; }
+    public required string UploadDate { get; set; }
     public CategoryResponseDto Category { get; set; } = new();
 }

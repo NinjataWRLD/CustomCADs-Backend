@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetByUsername;
 using FastEndpoints;
-using Mapster;
 using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Users.GetUser;
@@ -18,7 +17,14 @@ public class GetUserEndpoint(IMessageBus bus) : Endpoint<GetUserRequest, UserRes
         GetUserByUsernameQuery query = new(req.Username);
         var dto = await bus.InvokeAsync<GetUserByUsernameDto>(query, ct);
 
-        UserResponseDto response = dto.Adapt<UserResponseDto>();
+        UserResponseDto response = new()
+        {
+            Email = dto.Email,
+            Role = dto.Role,
+            Username = dto.Username,
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+        };
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Account.Domain.Users.Reads;
-using Mapster;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
@@ -19,8 +18,13 @@ public class GetAllUsersHandler(IUserReads reads)
         );
         UserResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        var users = result.Users.Adapt<ICollection<GetAllUsersItemDto>>();
-        GetAllUsersDto response = new(result.Count, users);
+        GetAllUsersDto response = new(result.Count, result.Users.Select(u => 
+            new GetAllUsersItemDto()
+            {
+                Id = u.Id,
+                Username = u.Username,
+                Email = u.Email,
+            }).ToArray());
         return response;
     }
 }

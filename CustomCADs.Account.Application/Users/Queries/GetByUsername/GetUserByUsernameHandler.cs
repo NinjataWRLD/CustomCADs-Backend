@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Account.Application.Users.Common.Exceptions;
 using CustomCADs.Account.Domain.Users;
 using CustomCADs.Account.Domain.Users.Reads;
-using Mapster;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetByUsername;
 
@@ -12,7 +11,13 @@ public class GetUserByUsernameHandler(IUserReads reads)
         User user = await reads.SingleByUsernameAsync(req.Username, track: false, ct: ct).ConfigureAwait(false)
             ?? throw new UserNotFoundException($"The User with username: {req.Username} doesn't exist.");
 
-        var response = user.Adapt<GetUserByUsernameDto>();
+        GetUserByUsernameDto response = new()
+        {
+            Id = user.Id,
+            Role = user.RoleName,
+            Username = user.Username,
+            Email = user.Email,
+        };
         return response;
     }
 }

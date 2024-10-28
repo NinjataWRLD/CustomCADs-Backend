@@ -4,9 +4,9 @@ using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.Endpoints.GetProduct;
 using CustomCADs.Shared.Presentation;
 using FastEndpoints;
-using Mapster;
 using Microsoft.AspNetCore.Http;
 using Wolverine;
+using static CustomCADs.Shared.Domain.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.PostProduct;
 
@@ -40,7 +40,21 @@ public class PostProductEndpoint(IMessageBus bus) : Endpoint<PostProductRequest,
         GetProductByIdQuery query = new(id);
         var product = await bus.InvokeAsync<GetProductByIdDto>(query, ct).ConfigureAwait(false);
 
-        var response = product.Adapt<PostProductResponse>();
+        PostProductResponse response = new()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Cost = product.Cost,
+            Status = product.Status,
+            UploadDate = product.UploadDate.ToString(DateFormatString),
+            ImagePath = product.ImagePath,
+            CadPath = product.Cad.Path,
+            CamCoordinates = new() { X = product.Cad.CamCoordinates.X, Y = product.Cad.CamCoordinates.Y, Z = product.Cad.CamCoordinates.Z },
+            PanCoordinates = new() { X = product.Cad.PanCoordinates.X, Y = product.Cad.PanCoordinates.Y, Z = product.Cad.PanCoordinates.Z },
+            CreatorName = string.Empty, // Call Account module
+            Category = new() { Id = product.Category.Id, Name = product.Category.Name },
+        };
         await SendCreatedAtAsync<GetProductEndpoint>(new { id }, response).ConfigureAwait(false);
     }
 }

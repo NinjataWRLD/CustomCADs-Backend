@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetAll;
 using CustomCADs.Account.Domain.Users.Reads;
 using FastEndpoints;
-using Mapster;
 using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Users.GetUsers;
@@ -23,11 +22,18 @@ public class GetUsersEndpoint(IMessageBus bus) : Endpoint<GetUsersRequest, GetUs
             Limit: req.Limit
         );
         var result = await bus.InvokeAsync<UserResult>(query, ct).ConfigureAwait(false);
-        
+
         GetUsersResponse response = new()
         {
             Count = result.Count,
-            Users = result.Users.Adapt<UserResponseDto[]>(),
+            Users = result.Users.Select(u => new UserResponseDto()
+            {
+                Role = u.RoleName,
+                Username = u.Username,
+                Email = u.Email,
+                FirstName = u.NameInfo.FirstName,
+                LastName = u.NameInfo.LastName,
+            }).ToArray(),
         };
         await SendOkAsync(response).ConfigureAwait(false);
     }

@@ -4,7 +4,6 @@ using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Presentation;
 using FastEndpoints;
-using Mapster;
 using Microsoft.AspNetCore.Http;
 using Wolverine;
 
@@ -39,7 +38,7 @@ public class PatchProductEndpoint(IMessageBus bus) : Endpoint<PatchCadRequest>
         GetProductByIdQuery getCadQuery = new(req.Id);
         var product = await bus.InvokeAsync<GetProductByIdDto>(getCadQuery, ct).ConfigureAwait(false);
 
-        var coords = req.Coordinates.Adapt<Coordinates>();
+        Coordinates coords = new(req.Coordinates.X, req.Coordinates.Y, req.Coordinates.Z);
         switch (req.Type.ToLower())
         {
             case "camera":

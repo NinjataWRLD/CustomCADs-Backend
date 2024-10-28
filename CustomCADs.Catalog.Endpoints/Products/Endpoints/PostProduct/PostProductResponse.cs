@@ -4,11 +4,11 @@ namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.PostProduct;
 
 public class PostProductResponse
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public required string Name { get; set; }
     public required string Description { get; set; }
     public required string CreatorName { get; set; }
-    public required string CreationDate { get; set; }
+    public required string UploadDate { get; set; }
     public decimal Cost { get; set; }
     public required string CadPath { get; set; }
     public required string ImagePath { get; set; }

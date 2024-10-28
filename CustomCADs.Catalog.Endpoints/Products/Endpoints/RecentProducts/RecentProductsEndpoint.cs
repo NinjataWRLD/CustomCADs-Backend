@@ -2,8 +2,8 @@
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Presentation;
 using FastEndpoints;
-using Mapster;
 using Wolverine;
+using static CustomCADs.Shared.Domain.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.RecentProducts;
 
@@ -24,7 +24,13 @@ public class RecentProductsEndpoint(IMessageBus bus) : Endpoint<RecentProductsRe
         );
         var dto = await bus.InvokeAsync<GetAllProductsDto>(query, ct).ConfigureAwait(false);
 
-        var response = dto.Products.Adapt<RecentProductsResponse[]>();
+        RecentProductsResponse[] response = dto.Products.Select(p => new RecentProductsResponse()
+        {
+            Id = p.Id,
+            Name = p.Name,
+            Status = p.Status,
+            UploadDate = p.UploadDate.ToString(DateFormatString),
+        }).ToArray();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }
