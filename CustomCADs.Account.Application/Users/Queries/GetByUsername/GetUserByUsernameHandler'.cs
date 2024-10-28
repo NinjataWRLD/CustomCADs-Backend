@@ -9,7 +9,7 @@ public class GetUserByUsernameHandler(IUserReads reads)
 {
     public async Task<GetUserByUsernameDto> Handle(GetUserByUsernameQuery req, CancellationToken ct)
     {
-        User user = await reads.SingleByUsernameAsync(req.Username, ct: ct).ConfigureAwait(false)
+        User user = await reads.SingleByUsernameAsync(req.Username, track: false, ct: ct).ConfigureAwait(false)
             ?? throw new UserNotFoundException($"The User with username: {req.Username} doesn't exist.");
 
         var response = user.Adapt<GetUserByUsernameDto>();

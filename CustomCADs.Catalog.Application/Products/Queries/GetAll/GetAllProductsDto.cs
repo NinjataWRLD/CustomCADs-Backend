@@ -6,7 +6,7 @@ public record GetAllProductsDto(int Count, ICollection<GetAllProductsItemDto> Pr
 
 public class GetAllProductsItemDto
 {
-    public required int Id { get; set; }
+    public required Guid Id { get; set; }
     public required string Name { get; set; }
     public required string UploadDate { get; set; }
     public required string ImagePath { get; set; }

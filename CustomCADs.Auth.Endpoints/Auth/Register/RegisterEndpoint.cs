@@ -20,6 +20,7 @@ public class RegisterEndpoint(
     {
         Post("Register/{role}");
         Group<AuthGroup>();
+        AllowAnonymous();
     }
 
     public override async Task HandleAsync(RegisterRequest req, CancellationToken ct)

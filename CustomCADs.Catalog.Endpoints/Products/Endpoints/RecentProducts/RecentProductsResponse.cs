@@ -4,7 +4,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.RecentProducts;
 
 public class RecentProductsResponse
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public required string Name { get; set; }
     public required string Status { get; set; }
     public required string CreationDate { get; set; }

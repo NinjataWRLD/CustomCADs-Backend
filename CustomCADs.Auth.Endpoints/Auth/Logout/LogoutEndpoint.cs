@@ -16,6 +16,7 @@ public class LogoutEndpoint(IUserService service) : EndpointWithoutRequest<strin
     {
         await service.RevokeRefreshTokenAsync(User.GetId()).ConfigureAwait(false);
         DeleteCookies(["jwt", "rt", "username", "rt"]);
+        DeleteCookies(["jwt", "rt", "username", "role"]);
     }
 
     private void DeleteCookies(params string[] cookies)

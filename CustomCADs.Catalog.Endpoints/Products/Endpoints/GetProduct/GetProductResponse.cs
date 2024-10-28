@@ -4,10 +4,10 @@ namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.GetProduct;
 
 public class GetProductResponse
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public required string Name { get; set; }
     public required string Description { get; set; }
-    public decimal Price { get; set; }
+    public decimal Cost { get; set; }
     public required string CadPath { get; set; }
     public CoordinatesDto CamCoordinates { get; set; } = new();
     public CoordinatesDto PanCoordinates { get; set; } = new();

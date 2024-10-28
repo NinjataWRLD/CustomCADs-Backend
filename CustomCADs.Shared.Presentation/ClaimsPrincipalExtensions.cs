@@ -5,7 +5,16 @@ namespace CustomCADs.Shared.Presentation;
 public static class ClaimsPrincipalExtensions
 {
     public static Guid GetId(this ClaimsPrincipal user)
-        => Guid.Parse(user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty);
+    {
+        string id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        bool validId = Guid.TryParse(id, out Guid guid);
+        if (!validId) 
+        {
+            throw new Exception("Cannot find User ID.");
+        }
+
+        return guid;
+    }
 
     public static string GetName(this ClaimsPrincipal user)
         => user.Identity?.Name ?? string.Empty;

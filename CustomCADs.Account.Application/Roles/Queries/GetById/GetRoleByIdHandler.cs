@@ -9,7 +9,7 @@ public class GetRoleByIdHandler(IRoleReads reads)
 {
     public async Task<RoleReadDto> Handle(GetRoleByIdQuery req, CancellationToken ct)
     {
-        Role role = await reads.SingleByIdAsync(req.Id, track: true, ct: ct).ConfigureAwait(false)
+        Role role = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw new RoleNotFoundException($"The Role with id: {req.Id} does not exist.");
 
         var response = role.Adapt<RoleReadDto>();

@@ -21,6 +21,7 @@ public class LoginEndpoint(
     {
         Post("Login");
         Group<AuthGroup>();
+        AllowAnonymous();
     }
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
@@ -75,8 +76,8 @@ public class LoginEndpoint(
         await userService.UpdateRefreshTokenAsync(user.Id, rt, rtEndDate).ConfigureAwait(false);
         SaveRt(rt, rtEndDate);
 
-        SaveRole(req.Username, rtEndDate);
-        SaveUsername(role, rtEndDate);
+        SaveRole(role, rtEndDate);
+        SaveUsername(req.Username, rtEndDate);
 
         await SendOkAsync("Welcome back!").ConfigureAwait(false);
     }

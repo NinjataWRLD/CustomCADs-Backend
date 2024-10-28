@@ -54,7 +54,7 @@ public static class Utilities
 
     public static IQueryable<Product> WithPagination(this IQueryable<Product> query, int page = 1, int limit = 20)
     {
-        return query.Skip((page + 1) * limit).Take(limit);
+        return query.Skip((page - 1) * limit).Take(limit);
     }
 
     public static string Capitalize(this string original)
