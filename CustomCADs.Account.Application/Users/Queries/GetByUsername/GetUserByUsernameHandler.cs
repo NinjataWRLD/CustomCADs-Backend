@@ -15,7 +15,6 @@ public class GetUserByUsernameHandler(IUserReads reads)
         {
             Id = user.Id,
             Role = user.RoleName,
-            Username = user.Username,
             Email = user.Email,
         };
         return response;

@@ -11,7 +11,7 @@ public class UserReads(AccountContext context) : IUserReads
     {
         IQueryable<User> queryable = context.Users
             .WithTracking(track)
-            .WithFilter(query.Role)
+            .WithFilter(query.Ids, query.Role)
             .WithSearch(query.Username, query.Email, query.FirstName, query.LastName)
             .WithSorting(query.Sorting);
 

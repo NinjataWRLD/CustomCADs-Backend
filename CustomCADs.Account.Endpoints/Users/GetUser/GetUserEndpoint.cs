@@ -19,9 +19,9 @@ public class GetUserEndpoint(IMessageBus bus) : Endpoint<GetUserRequest, UserRes
 
         UserResponseDto response = new()
         {
-            Email = dto.Email,
             Role = dto.Role,
-            Username = dto.Username,
+            Username = req.Username,
+            Email = dto.Email,
             FirstName = dto.FirstName,
             LastName = dto.LastName,
         };
