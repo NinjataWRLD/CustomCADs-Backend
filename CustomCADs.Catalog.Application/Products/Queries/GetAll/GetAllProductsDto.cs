@@ -11,5 +11,6 @@ public class GetAllProductsItemDto
     public required string Status { get; set; }
     public required DateTime UploadDate { get; set; }
     public required string ImagePath { get; set; }
+    public required string CreatorName { get; set; }
     public CategoryReadDto Category { get; set; } = new() { Name = string.Empty };
 }

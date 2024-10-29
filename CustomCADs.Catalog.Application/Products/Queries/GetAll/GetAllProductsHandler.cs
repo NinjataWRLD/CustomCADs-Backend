@@ -1,9 +1,10 @@
-﻿using CustomCADs.Catalog.Application.Categories.Queries;
+﻿using CustomCADs.Account.Application.Users.Queries.GetUsersWithIds;
 using CustomCADs.Catalog.Domain.Products.Reads;
+using Wolverine;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
-public class GetAllProductsHandler(IProductReads reads)
+public class GetAllProductsHandler(IProductReads reads, IMessageBus bus)
 {
     public async Task<GetAllProductsDto> Handle(GetAllProductsQuery req, CancellationToken ct)
     {
@@ -18,6 +19,10 @@ public class GetAllProductsHandler(IProductReads reads)
         );
         ProductResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
+        Guid[] ids = result.Products.Select(p => p.CreatorId).Distinct().ToArray();
+        GetUsersWithIdsQuery usersQuery = new(ids);
+        var users = await bus.InvokeAsync<Dictionary<Guid, GetUsersWithIdsDto>>(usersQuery).ConfigureAwait(false);
+
         GetAllProductsDto response = new(result.Count, result.Products.Select(p => 
             new GetAllProductsItemDto()
             {
@@ -26,6 +31,7 @@ public class GetAllProductsHandler(IProductReads reads)
                 Status = p.Status.ToString(),
                 UploadDate = p.UploadDate,
                 ImagePath = p.ImagePath,
+                CreatorName = users[p.CreatorId].Username,
                 Category = new()
                 {
                     Id = p.Category.Id,

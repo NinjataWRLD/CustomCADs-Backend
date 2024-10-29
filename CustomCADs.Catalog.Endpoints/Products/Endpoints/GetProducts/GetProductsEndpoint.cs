@@ -33,7 +33,7 @@ public class GetProductsEndpoint(IMessageBus bus) : Endpoint<GetProductsRequest,
                 Name = p.Name,
                 UploadDate = p.UploadDate.ToString(DateFormatString),
                 ImagePath = p.ImagePath,
-                CreatorName = string.Empty, // Call Account module
+                CreatorName = p.CreatorName,
                 Category = new()
                 {
                     Id = p.Category.Id,
