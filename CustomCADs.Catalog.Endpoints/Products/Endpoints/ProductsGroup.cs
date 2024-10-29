@@ -1,5 +1,6 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Http;
+using static CustomCADs.Shared.Domain.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints;
 
@@ -11,7 +12,7 @@ public class ProductsGroup : Group
     {
         Configure("Products", ep =>
         {
-            ep.Roles("Contributor", "Designer"); // Role Constants
+            ep.Roles(Contributor, Designer);
             ep.Description(d => d
                 .WithTags("Products")
                 .ProducesProblem(Status401Unauthorized)

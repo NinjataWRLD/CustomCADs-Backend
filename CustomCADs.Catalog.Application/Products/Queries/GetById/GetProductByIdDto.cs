@@ -10,6 +10,7 @@ public record GetProductByIdDto(
     decimal Cost,
     string Status,
     string ImagePath,
+    string CreatorName,
     Cad Cad,
     DateTime UploadDate,
     CategoryReadDto Category

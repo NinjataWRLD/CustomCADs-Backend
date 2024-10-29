@@ -28,8 +28,8 @@ public class PostProductEndpoint(IMessageBus bus) : Endpoint<PostProductRequest,
             CategoryId: req.CategoryId,
             Cost: req.Cost,
             CreatorId: User.GetId(),
-            Status: User.IsInRole(Designer) 
-                ? ProductStatus.Validated 
+            Status: User.IsInRole(Designer)
+                ? ProductStatus.Validated
                 : ProductStatus.Unchecked
         );
         CreateProductCommand command = new(dto);
@@ -54,7 +54,7 @@ public class PostProductEndpoint(IMessageBus bus) : Endpoint<PostProductRequest,
             CadPath = product.Cad.Path,
             CamCoordinates = new() { X = product.Cad.CamCoordinates.X, Y = product.Cad.CamCoordinates.Y, Z = product.Cad.CamCoordinates.Z },
             PanCoordinates = new() { X = product.Cad.PanCoordinates.X, Y = product.Cad.PanCoordinates.Y, Z = product.Cad.PanCoordinates.Z },
-            CreatorName = string.Empty, // Call Account module
+            CreatorName = product.CreatorName,
             Category = new() { Id = product.Category.Id, Name = product.Category.Name },
         };
         await SendCreatedAtAsync<GetProductEndpoint>(new { id }, response).ConfigureAwait(false);
