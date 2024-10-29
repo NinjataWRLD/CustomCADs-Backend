@@ -43,13 +43,12 @@ public class PutProductEndpoint(IMessageBus bus) : Endpoint<PutProductRequest>
             // Save its path
         }
 
-        EditProductDto dto = new()
-        {
-            Name = req.Name,
-            Description = req.Description,
-            CategoryId = req.CategoryId,
-            Cost = req.Cost,
-        };
+        EditProductDto dto = new(
+            Name: req.Name,
+            Description: req.Description,
+            CategoryId: req.CategoryId,
+            Cost: req.Cost
+        );
         EditProductCommand editCommand = new(req.Id, dto);
         await bus.InvokeAsync(editCommand, ct).ConfigureAwait(false);
 

@@ -11,11 +11,7 @@ public class GetCategoryByIdHandler(ICategoryReads reads)
         Category? category = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw new CategoryNotFoundException(req.Id);
 
-        CategoryReadDto response = new()
-        {
-            Id = category.Id,
-            Name = category.Name,
-        };
+        CategoryReadDto response = new(category.Id, category.Name);
         return response;
     }
 }

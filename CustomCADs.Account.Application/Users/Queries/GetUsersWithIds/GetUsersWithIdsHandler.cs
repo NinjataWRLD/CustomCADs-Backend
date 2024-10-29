@@ -12,11 +12,9 @@ public class GetUsersWithIdsHandler(IUserReads reads)
         };
         UserResult result = await reads.AllAsync(query, track: false, ct).ConfigureAwait(false);
 
-        var response = result.Users.Select(u => new GetUsersWithIdsDto() 
-        {
-            Id = u.Id,
-            Username = u.Username,
-        }).ToDictionary(ks => ks.Id);
+        var response = result.Users
+            .Select(u => new GetUsersWithIdsDto(u.Id, u.Username))
+            .ToDictionary(ks => ks.Id);
         return response;
     }
 }

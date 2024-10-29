@@ -26,14 +26,13 @@ public class GetUsersEndpoint(IMessageBus bus) : Endpoint<GetUsersRequest, GetUs
         GetUsersResponse response = new()
         {
             Count = result.Count,
-            Users = result.Users.Select(u => new UserResponseDto()
-            {
-                Role = u.RoleName,
-                Username = u.Username,
-                Email = u.Email,
-                FirstName = u.NameInfo.FirstName,
-                LastName = u.NameInfo.LastName,
-            }).ToArray(),
+            Users = result.Users.Select(u => new UserResponseDto(
+                Role: u.RoleName,
+                Username: u.Username,
+                Email: u.Email,
+                FirstName: u.NameInfo.FirstName,
+                LastName: u.NameInfo.LastName
+            )).ToArray(),
         };
         await SendOkAsync(response).ConfigureAwait(false);
     }

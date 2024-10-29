@@ -18,13 +18,10 @@ public class GetAllUsersHandler(IUserReads reads)
         );
         UserResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        GetAllUsersDto response = new(result.Count, result.Users.Select(u => 
-            new GetAllUsersItemDto()
-            {
-                Id = u.Id,
-                Username = u.Username,
-                Email = u.Email,
-            }).ToArray());
+        var users = result.Users
+            .Select(u => new GetAllUsersItemDto(u.Id, u.Username, u.Email))
+            .ToArray();
+        GetAllUsersDto response = new(result.Count, users);
         return response;
     }
 }

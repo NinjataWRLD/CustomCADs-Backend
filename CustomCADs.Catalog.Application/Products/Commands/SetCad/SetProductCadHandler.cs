@@ -3,7 +3,7 @@ using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Domain;
 
-namespace CustomCADs.Catalog.Application.Products.Commands.EditCad;
+namespace CustomCADs.Catalog.Application.Products.Commands.SetCad;
 
 public class SetProductCadHandler(IProductReads reads, IUnitOfWork uow)
 {

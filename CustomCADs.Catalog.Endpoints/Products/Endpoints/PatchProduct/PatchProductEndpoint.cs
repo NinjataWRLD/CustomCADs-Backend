@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Commands.Edit;
+﻿using CustomCADs.Catalog.Application.Products.Commands.SetCad;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
@@ -39,14 +39,15 @@ public class PatchProductEndpoint(IMessageBus bus) : Endpoint<PatchCadRequest>
         var product = await bus.InvokeAsync<GetProductByIdDto>(getCadQuery, ct).ConfigureAwait(false);
 
         Coordinates coords = new(req.Coordinates.X, req.Coordinates.Y, req.Coordinates.Z);
+        Cad newCad;
         switch (req.Type.ToLower())
         {
             case "camera":
-                product.Cad = product.Cad with { CamCoordinates = coords };
+                newCad = product.Cad with { CamCoordinates = coords };
                 break;
 
             case "pan":
-                product.Cad = product.Cad with { PanCoordinates = coords };
+                newCad = product.Cad with { PanCoordinates = coords };
                 break;
 
             default:
@@ -60,14 +61,8 @@ public class PatchProductEndpoint(IMessageBus bus) : Endpoint<PatchCadRequest>
                 return;
         }
 
-        EditProductDto dto = new()
-        {
-            Name = product.Name,
-            Description = product.Description,
-            Cost = product.Cost,
-            CategoryId = product.Category.Id,
-        };
-        EditProductCommand command = new(req.Id, dto);
+        SetProductCadDto dto = new(product.Cad.Path, product.Cad.CamCoordinates, product.Cad.PanCoordinates);
+        SetProductCadCommand command = new(req.Id, dto);
         await bus.InvokeAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

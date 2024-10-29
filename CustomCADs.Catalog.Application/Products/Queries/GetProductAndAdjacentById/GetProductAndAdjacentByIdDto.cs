@@ -4,8 +4,4 @@ namespace CustomCADs.Catalog.Application.Products.Queries.GetProductAndAdjacentB
 
 public record GetProductAndAdjacentByIdDto(Guid? PrevId, GetProductAndAdjacentByIdItemDto Current, Guid? NextId);
 
-public class GetProductAndAdjacentByIdItemDto
-{
-    public Guid Id { get; set; }
-    public required Cad Cad { get; set; }
-}
+public record GetProductAndAdjacentByIdItemDto(Guid Id, Cad Cad);

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
+﻿using CustomCADs.Account.Application.Users.Queries.GetById;
+using CustomCADs.Catalog.Application.Products.Commands.Create;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.Endpoints.GetProduct;
@@ -21,15 +22,16 @@ public class PostProductEndpoint(IMessageBus bus) : Endpoint<PostProductRequest,
 
     public override async Task HandleAsync(PostProductRequest req, CancellationToken ct)
     {
-        CreateProductDto dto = new()
-        {
-            Name = req.Name,
-            Description = req.Description,
-            CategoryId = req.CategoryId,
-            Cost = req.Cost,
-            CreatorId = User.GetId(),
-            Status = User.IsInRole("Designer") ? ProductStatus.Validated : ProductStatus.Unchecked, // Role Constants
-        };
+        CreateProductDto dto = new(
+            Name: req.Name,
+            Description: req.Description,
+            CategoryId: req.CategoryId,
+            Cost: req.Cost,
+            CreatorId: User.GetId(),
+            Status: User.IsInRole(Designer) 
+                ? ProductStatus.Validated 
+                : ProductStatus.Unchecked
+        );
         CreateProductCommand command = new(dto);
         var id = await bus.InvokeAsync<Guid>(command, ct).ConfigureAwait(false);
 

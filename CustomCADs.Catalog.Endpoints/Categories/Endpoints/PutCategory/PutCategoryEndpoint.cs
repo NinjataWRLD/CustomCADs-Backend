@@ -15,7 +15,7 @@ public class PutCategoryEndpoint(IMessageBus bus) : Endpoint<PutCategoryRequest>
 
     public override async Task HandleAsync(PutCategoryRequest req, CancellationToken ct)
     {
-        CategoryWriteDto category = new() { Name = req.Name };
+        CategoryWriteDto category = new(req.Name);
         EditCategoryCommand command = new(req.Id, category);
         await bus.InvokeAsync(command, ct).ConfigureAwait(false);
 

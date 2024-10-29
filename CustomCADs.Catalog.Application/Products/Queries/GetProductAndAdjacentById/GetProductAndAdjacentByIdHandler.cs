@@ -38,7 +38,7 @@ public class GetProductAndAdjacentByIdHandler(IProductReads reads)
 
         GetProductAndAdjacentByIdDto response = new(
             prevId,
-            new() { Id = product.Id, Cad = product.Cad, },
+            new(product.Id, product.Cad),
             nextId);
         return response;
     }

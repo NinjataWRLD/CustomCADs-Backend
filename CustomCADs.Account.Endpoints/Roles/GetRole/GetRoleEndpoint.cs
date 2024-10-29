@@ -17,11 +17,7 @@ public class GetRoleEndpoint(IMessageBus bus) : Endpoint<GetRoleRequest, RoleRes
         GetRoleByNameQuery query = new(req.Name);
         var role = await bus.InvokeAsync<RoleReadDto>(query, ct).ConfigureAwait(false);
 
-        RoleResponseDto response = new()
-        {
-            Name = role.Name,
-            Description = role.Description,
-        };
+        RoleResponseDto response = new(role.Name, role.Description);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

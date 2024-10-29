@@ -13,7 +13,11 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow)
             RoleName = req.Dto.RoleName,
             Username = req.Dto.Username,
             Email = req.Dto.Email,
-            NameInfo = req.Dto.NameInfo,
+            NameInfo = new() 
+            {
+                FirstName = req.Dto.FirstName, 
+                LastName = req.Dto.LastName,
+            },
         };
         await writes.AddAsync(user, ct).ConfigureAwait(false);
 

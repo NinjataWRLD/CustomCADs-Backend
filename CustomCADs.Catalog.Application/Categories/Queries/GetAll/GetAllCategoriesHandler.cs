@@ -9,11 +9,7 @@ public class GetAllCategoriesHandler(ICategoryReads reads)
     {
         IEnumerable<Category> categories = await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
 
-        var response = categories.Select(c => new CategoryReadDto() 
-        { 
-            Id = c.Id,
-            Name = c.Name, 
-        });
+        var response = categories.Select(c => new CategoryReadDto(c.Id, c.Name));
         return response;
     }
 }

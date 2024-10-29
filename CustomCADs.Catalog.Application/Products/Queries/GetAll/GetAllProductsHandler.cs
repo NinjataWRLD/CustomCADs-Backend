@@ -23,21 +23,18 @@ public class GetAllProductsHandler(IProductReads reads, IMessageBus bus)
         GetUsersWithIdsQuery usersQuery = new(ids);
         var users = await bus.InvokeAsync<Dictionary<Guid, GetUsersWithIdsDto>>(usersQuery).ConfigureAwait(false);
 
-        GetAllProductsDto response = new(result.Count, result.Products.Select(p => 
-            new GetAllProductsItemDto()
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Status = p.Status.ToString(),
-                UploadDate = p.UploadDate,
-                ImagePath = p.ImagePath,
-                CreatorName = users[p.CreatorId].Username,
-                Category = new()
-                {
-                    Id = p.Category.Id,
-                    Name = p.Category.Name,
-                },
-            }).ToArray());
+        var products = result.Products
+            .Select(p => new GetAllProductsItemDto(
+                Id: p.Id,
+                Name: p.Name,
+                Status: p.Status.ToString(),
+                UploadDate: p.UploadDate,
+                ImagePath: p.ImagePath,
+                CreatorName: users[p.CreatorId].Username,
+                Category: new(p.CategoryId, p.Category.Name)
+            )).ToArray();
+
+        GetAllProductsDto response = new(result.Count, products);
         return response;
     }
 }

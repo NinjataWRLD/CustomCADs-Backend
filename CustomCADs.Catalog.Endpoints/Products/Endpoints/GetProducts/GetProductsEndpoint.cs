@@ -26,20 +26,19 @@ public class GetProductsEndpoint(IMessageBus bus) : Endpoint<GetProductsRequest,
         );
         var result = await bus.InvokeAsync<GetAllProductsDto>(query, ct).ConfigureAwait(false);
 
-        GetProductsResponse response = new(result.Count, result.Products.Select(p =>
-            new GetProductsDto()
+        var products = result.Products.Select(p => new GetProductsDto(
+            Id: p.Id,
+            Name: p.Name,
+            UploadDate: p.UploadDate.ToString(DateFormatString),
+            ImagePath: p.ImagePath,
+            CreatorName: p.CreatorName,
+            Category: new()
             {
-                Id = p.Id,
-                Name = p.Name,
-                UploadDate = p.UploadDate.ToString(DateFormatString),
-                ImagePath = p.ImagePath,
-                CreatorName = p.CreatorName,
-                Category = new()
-                {
-                    Id = p.Category.Id,
-                    Name = p.Category.Name,
-                },
-            }).ToArray());
+                Id = p.Category.Id,
+                Name = p.Category.Name,
+            }
+        )).ToArray();
+        GetProductsResponse response = new(result.Count, products);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

@@ -23,11 +23,7 @@ public class PostRoleEndpoint(IMessageBus bus) : Endpoint<PostRoleRequest, RoleR
         RoleCreatedEvent @event = new() { Name = req.Name, Description = req.Description };
         await bus.PublishAsync(@event).ConfigureAwait(false);
 
-        RoleResponseDto response = new()
-        {
-            Name = dto.Name,
-            Description = dto.Description,
-        };
+        RoleResponseDto response = new(dto.Name, dto.Description);
         await SendCreatedAtAsync<GetRoleEndpoint>(new { dto.Name }, response).ConfigureAwait(false);
     }
 }

@@ -11,12 +11,7 @@ public class GetUserByUsernameHandler(IUserReads reads)
         User user = await reads.SingleByUsernameAsync(req.Username, track: false, ct: ct).ConfigureAwait(false)
             ?? throw new UserNotFoundException($"The User with username: {req.Username} doesn't exist.");
 
-        GetUserByUsernameDto response = new()
-        {
-            Id = user.Id,
-            Role = user.RoleName,
-            Email = user.Email,
-        };
+        GetUserByUsernameDto response = new(user.Id, user.RoleName, user.Email);
         return response;
     }
 }

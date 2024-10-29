@@ -3,15 +3,14 @@ using CustomCADs.Catalog.Domain.Products.ValueObjects;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 
-public class GetProductByIdDto()
-{
-    public Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required string Description { get; set; }
-    public decimal Cost { get; set; }
-    public required string Status { get; set; }
-    public required string ImagePath { get; set; }
-    public required Cad Cad { get; set; }
-    public required DateTime UploadDate { get; set; }
-    public CategoryReadDto Category { get; set; } = new() { Name = string.Empty };
-}
+public record GetProductByIdDto(
+    Guid Id,
+    string Name,
+    string Description,
+    decimal Cost,
+    string Status,
+    string ImagePath,
+    Cad Cad,
+    DateTime UploadDate,
+    CategoryReadDto Category
+);
