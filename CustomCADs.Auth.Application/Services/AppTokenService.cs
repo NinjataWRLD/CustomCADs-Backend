@@ -15,7 +15,7 @@ public class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
     private const string Algorithm = SecurityAlgorithms.HmacSha256;
     private readonly JwtSettings jwtSettings = jwtOptions.Value;
 
-    public JwtSecurityToken GenerateAccessToken(Guid id, string username, string role)
+    public AccessTokenDto GenerateAccessToken(Guid id, string username, string role)
     {
         List<Claim> claims =
         [
@@ -35,7 +35,8 @@ public class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
             signingCredentials: new(security, Algorithm)
         );
 
-        return token;
+        string jwt = new JwtSecurityTokenHandler().WriteToken(token);
+        return new(jwt, token.ValidTo);
     }
 
     public string GenerateRefreshToken()

@@ -1,9 +1,9 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using CustomCADs.Auth.Application.Dtos;
 
 namespace CustomCADs.Auth.Application.Contracts;
 
 public interface ITokenService
 {
-    public string GenerateRefreshToken();
-    JwtSecurityToken GenerateAccessToken(Guid id, string username, string role);
+    string GenerateRefreshToken();
+    AccessTokenDto GenerateAccessToken(Guid id, string username, string role);
 }

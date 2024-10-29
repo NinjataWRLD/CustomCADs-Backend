@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Auth.Application.Contracts;
+using CustomCADs.Auth.Application.Dtos;
 using CustomCADs.Auth.Endpoints.Helpers;
 using CustomCADs.Auth.Infrastructure.Entities;
 using FastEndpoints;
@@ -65,10 +66,8 @@ public class LoginEndpoint(
         }
 
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
-        JwtSecurityToken jwt = tokenService.GenerateAccessToken(user.Id, req.Username, role);
-
-        string signedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-        SaveJwt(signedJwt, jwt.ValidTo);
+        AccessTokenDto jwt = tokenService.GenerateAccessToken(user.Id, req.Username, role);
+        SaveJwt(jwt.Value, jwt.EndDate);
 
         string rt = tokenService.GenerateRefreshToken();
         DateTime rtEndDate = DateTime.UtcNow.AddDays(RtDurationInDays);

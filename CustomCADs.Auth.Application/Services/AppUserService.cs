@@ -2,6 +2,7 @@
 using CustomCADs.Auth.Application.Exceptions;
 using CustomCADs.Auth.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Auth.Application.Services;
 
@@ -15,7 +16,10 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
 
     public async Task<AppUser?> FindByEmailAsync(string email)
         => await manager.FindByEmailAsync(email).ConfigureAwait(false);
-
+    
+    public async Task<AppUser?> FindByRefreshTokenAsync(string rt)
+        => await manager.Users.Where(u => u.RefreshToken == rt).SingleOrDefaultAsync().ConfigureAwait(false);
+    
     public async Task<string> GetRoleAsync(AppUser user)
         => (await manager.GetRolesAsync(user).ConfigureAwait(false)).Single();
 

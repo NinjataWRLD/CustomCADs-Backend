@@ -8,6 +8,7 @@ public interface IUserService
     Task<AppUser?> FindByIdAsync(Guid id);
     Task<AppUser?> FindByNameAsync(string username);
     Task<AppUser?> FindByEmailAsync(string email);
+    Task<AppUser?> FindByRefreshTokenAsync(string rt);
     Task<string> GetRoleAsync(AppUser user);
     Task<bool> IsLockedOutAsync(AppUser user);
     Task<string> GenerateEmailConfirmationTokenAsync(AppUser user);
