@@ -24,10 +24,7 @@ public class ForgotPasswordEndpoint(IUserService service, IMessageBus bus, IConf
         AppUser? user = await service.FindByEmailAsync(req.Email).ConfigureAwait(false);
         if (user == null)
         {
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = string.Format(NotFound, "User"),
-            });
+            ValidationFailures.Add(new("Email", UserNotFound, req.Email));
             await SendErrorsAsync(Status404NotFound).ConfigureAwait(false);
             return;
         }

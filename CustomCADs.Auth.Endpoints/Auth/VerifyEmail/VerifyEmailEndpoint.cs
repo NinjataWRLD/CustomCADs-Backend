@@ -24,9 +24,9 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
     {
         if (string.IsNullOrEmpty(req.Token))
         {
-            ValidationFailures.Add(new()
+            ValidationFailures.Add(new("EmailToken", IsRequired, req.Token)
             {
-                ErrorMessage = string.Format(IsRequired, "Email Token"),
+                FormattedMessagePlaceholderValues = new() { ["0"] = "Email Token" },
             });
             await SendErrorsAsync().ConfigureAwait(false);
             return;
@@ -35,20 +35,14 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
         AppUser? user = await userService.FindByNameAsync(req.Username).ConfigureAwait(false);
         if (user == null)
         {
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = string.Format(NotFound, "Account"),
-            });
+            ValidationFailures.Add(new("Username", UserNotFound, req.Username));
             await SendErrorsAsync(Status404NotFound).ConfigureAwait(false);
             return;
         }
 
         if (user.EmailConfirmed)
         {
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = EmailAlreadyVerified,
-            });
+            ValidationFailures.Add(new("Email", EmailAlreadyVerified));
             await SendErrorsAsync().ConfigureAwait(false);
             return;
         }
@@ -57,10 +51,7 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
         IdentityResult result = await userService.ConfirmEmailAsync(user, decodedEct).ConfigureAwait(false);
         if (!result.Succeeded)
         {
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = InvalidEmailToken,
-            });
+            ValidationFailures.Add(new("EmailToken", InvalidEmailToken, decodedEct));
             await SendErrorsAsync().ConfigureAwait(false);
             return;
         }

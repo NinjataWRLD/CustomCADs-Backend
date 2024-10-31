@@ -3,7 +3,7 @@
 public static class ApiMessages
 {
     public const string IsRequired = "{0} is required.";
-    public const string NotFound = "{0} not found.";
+    public const string UserNotFound = "{0} not found.";
     public const string EmailAlreadyVerified = "Email Already Verified.";
     public const string NoRefreshToken = "No Refresh Token provided.";
     public const string NewRefreshTokenNotNeeded = "A new Refresh Token is not needed.";

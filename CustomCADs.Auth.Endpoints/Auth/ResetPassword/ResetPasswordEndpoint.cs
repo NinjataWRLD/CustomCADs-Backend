@@ -23,10 +23,7 @@ public class ResetPasswordEndpoint(IUserService service) : Endpoint<ResetPasswor
         AppUser? user = await service.FindByEmailAsync(req.Email).ConfigureAwait(false);
         if (user == null)
         {
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = string.Format(NotFound, "User"),
-            });
+            ValidationFailures.Add(new("Email", UserNotFound, req.Email));
             await SendErrorsAsync(Status404NotFound);
             return;
         }
@@ -35,11 +32,8 @@ public class ResetPasswordEndpoint(IUserService service) : Endpoint<ResetPasswor
         IdentityResult result = await service.ResetPasswordAsync(user, encodedToken, req.NewPassword).ConfigureAwait(false);
         if (!result.Succeeded)
         {
-            var failures = result.Errors.Select(e => new ValidationFailure()
-            {
-                ErrorMessage = e.Description
-            });
-            ValidationFailures.AddRange(failures);
+            ValidationFailures.AddRange(result.Errors
+                .Select(e => new ValidationFailure(e.Code, e.Description)));
 
             await SendErrorsAsync().ConfigureAwait(false);
             return;

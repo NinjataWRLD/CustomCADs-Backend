@@ -23,10 +23,7 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
         string? rt = GetRefreshTokenFromCookies();
         if (string.IsNullOrEmpty(rt))
         {
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = NoRefreshToken,
-            });
+            ValidationFailures.Add(new("RefreshToken", NoRefreshToken));
             await SendErrorsAsync(Status401Unauthorized).ConfigureAwait(false);
             return;
         }
@@ -34,11 +31,7 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
         AppUser? user = await userService.FindByRefreshTokenAsync(rt).ConfigureAwait(false);
         if (user == null)
         {
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = NotFound,
-                FormattedMessagePlaceholderValues = new() { ["0"] = "User" }
-            });
+            ValidationFailures.Add(new("RefreshToken", UserNotFound, rt));
             await SendErrorsAsync().ConfigureAwait(false);
             return;
         }
@@ -47,10 +40,7 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
         {
             DeleteCookies("jwt", "rt", "username", "role");
 
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = RefreshTokenExpired,
-            });
+            ValidationFailures.Add(new("RefreshToken", RefreshTokenExpired, rt));
             await SendErrorsAsync(Status401Unauthorized).ConfigureAwait(false);
             return;
         }

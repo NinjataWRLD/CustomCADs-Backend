@@ -57,10 +57,7 @@ public class LoginEndpoint(
                 return;
             }
 
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = InvalidLogin,
-            });
+            ValidationFailures.Add(new("Password", InvalidLogin, req.Password));
             await SendErrorsAsync(Status401Unauthorized).ConfigureAwait(false);
             return;
         }
@@ -84,13 +81,9 @@ public class LoginEndpoint(
     private async Task SendLockedOutAsync(TimeSpan timeLeft)
     {
         int seconds = Convert.ToInt32(timeLeft.TotalSeconds);
-        ValidationFailures.Add(new()
+        ValidationFailures.Add(new("Password", LockedOutUser)
         {
-            ErrorMessage = LockedOutUser,
-            FormattedMessagePlaceholderValues = new()
-            {
-                ["seconds"] = seconds
-            },
+            FormattedMessagePlaceholderValues = new() { ["seconds"] = seconds },
             CustomState = seconds,
         });
 

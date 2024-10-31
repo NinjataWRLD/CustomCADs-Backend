@@ -24,20 +24,14 @@ public class RetryVerifyEmailEndpoint(IUserService service, IMessageBus bus, ICo
         AppUser? user = await service.FindByNameAsync(req.Username).ConfigureAwait(false);
         if (user == null)
         {
-            ValidationFailures.Add(new()
-            {
-                ErrorMessage = string.Format(NotFound, "Account"), 
-            });
+            ValidationFailures.Add(new("Name", UserNotFound, req.Username));
             await SendErrorsAsync(Status404NotFound).ConfigureAwait(false);
             return;
         }
 
         if (user.EmailConfirmed)
         {
-            ValidationFailures.Add(new() 
-            {
-                ErrorMessage  = EmailAlreadyVerified,
-            });
+            ValidationFailures.Add(new("Email", EmailAlreadyVerified));
             await SendErrorsAsync().ConfigureAwait(false);
             return;
         }

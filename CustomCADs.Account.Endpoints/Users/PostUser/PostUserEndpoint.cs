@@ -29,9 +29,8 @@ public class PostUserEndpoint(IMessageBus bus) : Endpoint<PostUserRequest, UserR
             GetAllRoleNamesQuery getRoleNamesQuery = new();
             var roleNames = await bus.InvokeAsync<IEnumerable<string>>(getRoleNamesQuery, ct).ConfigureAwait(false);
 
-            ValidationFailures.Add(new()
+            ValidationFailures.Add(new("Role", InvalidRole, req.Role)
             {
-                ErrorMessage = InvalidRole,
                 FormattedMessagePlaceholderValues = new() { ["roles"] = string.Join(", ", roleNames) },
             });
             await SendErrorsAsync().ConfigureAwait(false);
