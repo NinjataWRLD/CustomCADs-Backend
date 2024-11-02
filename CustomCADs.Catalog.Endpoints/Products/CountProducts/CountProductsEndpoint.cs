@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Count;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Shared.Presentation;
+using CustomCADs.Shared.Core;
 using FastEndpoints;
 using Wolverine;
 

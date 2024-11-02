@@ -10,5 +10,4 @@ public static class Utilities
         => track
             ? entities
             : entities.AsNoTracking();
-
 }

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Application.Email;
+﻿namespace CustomCADs.Shared.Core.Email;
 
 public interface IEmailService
 {

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Presentation;
+﻿using CustomCADs.Shared.Core;
 using FastEndpoints;
 
 namespace CustomCADs.Auth.Endpoints.Auth.Authentication;

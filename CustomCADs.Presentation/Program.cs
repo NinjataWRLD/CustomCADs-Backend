@@ -1,4 +1,4 @@
-using static CustomCADs.Shared.Domain.Constants;
+using static CustomCADs.Shared.Core.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 

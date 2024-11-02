@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using FluentValidation;
 using static CustomCADs.Account.Domain.Users.UserConstants;
-using static CustomCADs.Shared.Domain.Constants;
+using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Account.Endpoints.Users.PostUser;
 

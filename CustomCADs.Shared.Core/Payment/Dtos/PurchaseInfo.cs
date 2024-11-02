@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Application.Payment.Dtos;
+﻿namespace CustomCADs.Shared.Core.Payment.Dtos;
 
 public class PurchaseInfo
 {

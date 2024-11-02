@@ -3,7 +3,7 @@ using CustomCADs.Account.Application.Roles.Commands;
 using CustomCADs.Account.Application.Roles.Commands.Create;
 using CustomCADs.Account.Application.Roles.Queries.GetByName;
 using CustomCADs.Account.Endpoints.Roles.GetRole;
-using CustomCADs.Shared.Events.Events;
+using CustomCADs.Shared.Core.Events;
 using FastEndpoints;
 using Wolverine;
 

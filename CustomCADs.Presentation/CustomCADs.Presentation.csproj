@@ -23,7 +23,6 @@
 	  <ProjectReference Include="..\CustomCADs.Account.Endpoints\CustomCADs.Account.Endpoints.csproj" />
 	  <ProjectReference Include="..\CustomCADs.Auth.Endpoints\CustomCADs.Auth.Endpoints.csproj" />
 	  <ProjectReference Include="..\CustomCADs.Catalog.Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
-	  <ProjectReference Include="..\CustomCADs.Shared.Domain\CustomCADs.Shared.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

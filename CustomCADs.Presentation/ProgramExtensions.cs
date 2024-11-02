@@ -43,7 +43,7 @@ public static class ProgramExtensions
 
     public static IServiceCollection AddEmail(this IServiceCollection services, IConfiguration config)
     {
-        services.Configure<EmailOptions>(config.GetSection("Email"));
+        services.Configure<EmailSettings>(config.GetSection("Email"));
         services.AddEmailServices();
 
         return services;
@@ -51,7 +51,7 @@ public static class ProgramExtensions
 
     public static IServiceCollection AddPayment(this IServiceCollection services, IConfiguration config)
     {
-        services.Configure<StripeKeys>(config.GetSection("Stripe"));
+        services.Configure<PaymentSettings>(config.GetSection("Payment"));
         services.AddPaymentServices();
 
         return services;

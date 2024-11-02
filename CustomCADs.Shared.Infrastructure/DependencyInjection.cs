@@ -1,10 +1,10 @@
-﻿#pragma warning disable IDE0130
-using CustomCADs.Shared.Application.Email;
-using CustomCADs.Shared.Application.Payment;
+﻿using CustomCADs.Shared.Core.Email;
+using CustomCADs.Shared.Core.Payment;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
 using Stripe;
 
+#pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection

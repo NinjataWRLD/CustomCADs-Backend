@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Http;
-using static CustomCADs.Shared.Domain.Constants;
+using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Account.Endpoints.Users;
 

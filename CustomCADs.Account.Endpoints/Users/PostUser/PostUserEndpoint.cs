@@ -3,7 +3,7 @@ using CustomCADs.Account.Application.Roles.Queries.GetAllNames;
 using CustomCADs.Account.Application.Users.Commands.Create;
 using CustomCADs.Account.Application.Users.Queries.GetById;
 using CustomCADs.Account.Endpoints.Users.GetUser;
-using CustomCADs.Shared.Events.Events;
+using CustomCADs.Shared.Core.Events;
 using FastEndpoints;
 using Wolverine;
 

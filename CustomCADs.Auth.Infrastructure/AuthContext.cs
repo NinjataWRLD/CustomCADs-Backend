@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Auth.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using static CustomCADs.Shared.Domain.Constants;
+using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Auth.Infrastructure;
 

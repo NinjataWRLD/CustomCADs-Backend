@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Email;
+﻿using CustomCADs.Shared.Core.Email;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
@@ -6,13 +6,13 @@ using MimeKit;
 
 namespace CustomCADs.Shared.Infrastructure.Email;
 
-public class MailKitService(IOptions<EmailOptions> options) : IEmailService
+public class MailKitService(IOptions<EmailSettings> settings) : IEmailService
 {
     private const string Server = "smtp.gmail.com";
     private const string From = "customcads414@gmail.com";
     private const SecureSocketOptions Options = SecureSocketOptions.StartTls;
-    private readonly int port = options.Value.Port;
-    private readonly string password = options.Value.Password;
+    private readonly int port = settings.Value.Port;
+    private readonly string password = settings.Value.Password;
 
     public async Task SendEmailAsync(string to, string subject, string body)
     {

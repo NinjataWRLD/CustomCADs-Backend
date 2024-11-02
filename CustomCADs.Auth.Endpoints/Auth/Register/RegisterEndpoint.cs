@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Infrastructure.Entities;
-using CustomCADs.Shared.Application.Email;
-using CustomCADs.Shared.Events.Events;
+using CustomCADs.Shared.Core.Email;
+using CustomCADs.Shared.Core.Events;
 using FastEndpoints;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;

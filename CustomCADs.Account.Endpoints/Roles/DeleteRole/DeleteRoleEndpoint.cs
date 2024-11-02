@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Account.Application.Roles.Commands.DeleteByName;
-using CustomCADs.Shared.Events.Events;
+using CustomCADs.Shared.Core.Events;
 using FastEndpoints;
 using Wolverine;
 

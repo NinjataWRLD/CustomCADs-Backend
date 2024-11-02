@@ -1,15 +1,13 @@
-﻿using CustomCADs.Shared.Application.Payment;
-using CustomCADs.Shared.Application.Payment.Dtos;
+﻿using CustomCADs.Shared.Core.Payment;
+using CustomCADs.Shared.Core.Payment.Dtos;
 using Microsoft.Extensions.Options;
 using Stripe;
 
 namespace CustomCADs.Shared.Infrastructure.Payment;
 
-public class StripeService(IOptions<StripeKeys> options, PaymentIntentService paymentIntentService) : IPaymentService
+public class StripeService(IOptions<PaymentSettings> settings, PaymentIntentService paymentIntentService) : IPaymentService
 {
-    public readonly StripeKeys keys = options.Value;
-
-    public string GetPublicKey() => keys.TestPublishableKey;
+    public string GetPublicKey() => settings.Value.TestPublishableKey;
 
     public async Task<PaymentResult> CapturePaymentAsync(string paymentIntentId)
     {
@@ -24,7 +22,7 @@ public class StripeService(IOptions<StripeKeys> options, PaymentIntentService pa
 
     public async Task<PaymentResult> InitializePayment(string paymentMethodId, PurchaseInfo purchase)
     {
-        StripeConfiguration.ApiKey = keys.TestSecretKey;
+        StripeConfiguration.ApiKey = settings.Value.TestSecretKey;
 
         PaymentIntent paymentIntent = await paymentIntentService.CreateAsync(new()
         {

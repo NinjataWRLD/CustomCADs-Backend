@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace CustomCADs.Catalog.Endpoints.Categories;
 
-using static Shared.Domain.Constants;
+using static Shared.Core.Constants;
+
 using static StatusCodes;
 
 public class CategoriesGroup : Group

@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Infrastructure.Entities;
-using CustomCADs.Shared.Presentation;
+using CustomCADs.Shared.Core;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 

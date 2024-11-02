@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace CustomCADs.Shared.Presentation;
+namespace CustomCADs.Shared.Core;
 
 public static class ClaimsPrincipalExtensions
 {

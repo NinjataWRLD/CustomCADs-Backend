@@ -3,11 +3,12 @@ using CustomCADs.Catalog.Application.Products.Commands.Create;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.GetProduct;
-using CustomCADs.Shared.Presentation;
+using CustomCADs.Shared.Core;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 using Wolverine;
-using static CustomCADs.Shared.Domain.Constants;
+
+using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 

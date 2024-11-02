@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Domain;
+﻿namespace CustomCADs.Shared.Core;
 
 public static class Constants
 {

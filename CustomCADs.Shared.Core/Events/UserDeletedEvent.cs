@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Events.Events;
+﻿namespace CustomCADs.Shared.Core.Events;
 
 public class UserDeletedEvent
 {
