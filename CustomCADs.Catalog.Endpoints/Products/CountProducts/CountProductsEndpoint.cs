@@ -10,7 +10,7 @@ public class CountProductsEndpoint(IMessageBus bus) : EndpointWithoutRequest<Cou
 {
     public override void Configure()
     {
-        Get("Count");
+        Get("count");
         Group<ProductsGroup>();
     }
 

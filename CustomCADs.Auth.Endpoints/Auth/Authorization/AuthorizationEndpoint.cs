@@ -13,7 +13,7 @@ public class AuthorizationEndpoint(IUserService serivce) : EndpointWithoutReques
 {
     public override void Configure()
     {
-        Get("Authorization");
+        Get("authorization");
         Group<AuthGroup>();
     }
 

@@ -11,7 +11,7 @@ public class RecentProductsEndpoint(IMessageBus bus) : Endpoint<RecentProductsRe
 {
     public override void Configure()
     {
-        Get("Recent");
+        Get("recent");
         Group<ProductsGroup>();
     }
 

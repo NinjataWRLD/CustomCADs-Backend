@@ -7,7 +7,7 @@ public class AuthGroup : Group
 {
     public AuthGroup()
     {
-        Configure("Auth", ep =>
+        Configure("auth", ep =>
         {
             ep.AllowAnonymous();
             ep.Description(opt =>

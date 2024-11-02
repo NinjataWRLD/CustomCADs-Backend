@@ -14,7 +14,7 @@ public class ResetPasswordEndpoint(IUserService service) : Endpoint<ResetPasswor
 {
     public override void Configure()
     {
-        Post("ResetPassword");
+        Post("resetPassword");
         Group<AuthGroup>();
     }
 

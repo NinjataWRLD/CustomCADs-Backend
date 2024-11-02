@@ -15,7 +15,7 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
 {
     public override void Configure()
     {
-        Get("VerifyEmail/{username}");
+        Get("verifyEmail/{username}");
         Group<AuthGroup>();
     }
 

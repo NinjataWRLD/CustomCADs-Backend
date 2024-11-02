@@ -6,7 +6,7 @@ public class AuthenticationEndpoint : EndpointWithoutRequest
 {
     public override void Configure()
     {
-        Get("Authentication");
+        Get("authentication");
         Group<AuthGroup>();
     }
 

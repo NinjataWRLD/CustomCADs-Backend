@@ -7,7 +7,7 @@ public class EmailConfirmedEndpoint(IUserService service) : Endpoint<EmailConfir
 {
     public override void Configure()
     {
-        Get("IsEmailConfirmed/{username}");
+        Get("emailConfirmed/{username}");
         Group<AuthGroup>();
     }
 

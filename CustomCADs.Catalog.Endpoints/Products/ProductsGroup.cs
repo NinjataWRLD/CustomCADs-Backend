@@ -10,7 +10,7 @@ public class ProductsGroup : Group
 {
     public ProductsGroup()
     {
-        Configure("Products", ep =>
+        Configure("products", ep =>
         {
             ep.Roles(Contributor, Designer);
             ep.Description(d => d

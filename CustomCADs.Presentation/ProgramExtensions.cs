@@ -158,7 +158,7 @@ public static class ProgramExtensions
         app.UseFastEndpoints(cfg =>
         {
             cfg.Endpoints.Configurator = ep => ep.AuthSchemes(AuthScheme);
-            cfg.Endpoints.RoutePrefix = "API";
+            cfg.Endpoints.RoutePrefix = "api";
             cfg.Versioning.DefaultVersion = 1;
             cfg.Versioning.PrependToRoute = true;
         });

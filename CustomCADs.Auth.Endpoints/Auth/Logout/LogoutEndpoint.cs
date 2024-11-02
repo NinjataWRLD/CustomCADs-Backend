@@ -13,7 +13,7 @@ public class LogoutEndpoint(IUserService service) : EndpointWithoutRequest<strin
 
     public override void Configure()
     {
-        Post("Logout");
+        Post("logout");
         Group<AuthGroup>();
     }
 

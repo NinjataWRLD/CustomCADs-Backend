@@ -18,7 +18,7 @@ public class RegisterEndpoint(
 {
     public override void Configure()
     {
-        Post("Register");
+        Post("register");
         Group<AuthGroup>();
         AllowAnonymous();
     }

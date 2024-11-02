@@ -15,7 +15,7 @@ public class RetryVerifyEmailEndpoint(IUserService service, IMessageBus bus, ICo
 {
     public override void Configure()
     {
-        Get("RetryVerifyEmail/{username}");
+        Get("retryVerifyEmail/{username}");
         Group<AuthGroup>();
     }
 

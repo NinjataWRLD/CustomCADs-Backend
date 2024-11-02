@@ -10,7 +10,7 @@ public class CategoriesGroup : Group
 {
     public CategoriesGroup()
     {
-        Configure("Categories", ep =>
+        Configure("categories", ep =>
         {
             ep.Roles(Admin);
             ep.Description(opt =>

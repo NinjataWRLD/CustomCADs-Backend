@@ -20,7 +20,7 @@ public class LoginEndpoint(
 {
     public override void Configure()
     {
-        Post("Login");
+        Post("login");
         Group<AuthGroup>();
         AllowAnonymous();
     }

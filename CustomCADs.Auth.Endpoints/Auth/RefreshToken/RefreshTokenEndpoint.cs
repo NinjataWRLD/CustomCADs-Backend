@@ -14,7 +14,7 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
 {
     public override void Configure()
     {
-        Post("RefreshToken");
+        Post("refreshToken");
         Group<AuthGroup>();
     }
 

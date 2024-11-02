@@ -15,7 +15,7 @@ public class ForgotPasswordEndpoint(IUserService service, IMessageBus bus, IConf
 {
     public override void Configure()
     {
-        Get("ForgotPassword");
+        Get("forgotPassword");
         Group<AuthGroup>();
     }
 
