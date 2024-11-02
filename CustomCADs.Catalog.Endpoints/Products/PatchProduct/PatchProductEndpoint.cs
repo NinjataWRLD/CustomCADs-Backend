@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Products.Commands.SetCad;
+﻿using CustomCADs.Catalog.Application.Products.Commands.SetPaths;
+using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
@@ -53,8 +54,7 @@ public class PatchProductEndpoint(IMessageBus bus) : Endpoint<PatchCadRequest>
                 return;
         }
 
-        SetProductCadDto dto = new(product.Cad.Path, product.Cad.CamCoordinates, product.Cad.PanCoordinates);
-        SetProductCadCommand command = new(req.Id, dto);
+        SetProductCoordsCommand command = new(req.Id, product.Cad.CamCoordinates, product.Cad.PanCoordinates);
         await bus.InvokeAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
