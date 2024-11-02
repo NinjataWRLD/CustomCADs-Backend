@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Shared;
-using CustomCADs.Shared.Domain;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Create;
 

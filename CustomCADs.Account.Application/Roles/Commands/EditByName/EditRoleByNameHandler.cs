@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Account.Application.Roles.Common.Exceptions;
 using CustomCADs.Account.Domain.Roles;
 using CustomCADs.Account.Domain.Roles.Reads;
-using CustomCADs.Shared.Domain;
+using CustomCADs.Account.Domain.Shared;
 
 namespace CustomCADs.Account.Application.Roles.Commands.EditByName;
 

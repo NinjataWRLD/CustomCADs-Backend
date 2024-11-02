@@ -4,7 +4,6 @@ using CustomCADs.Catalog.Domain.Shared;
 using CustomCADs.Catalog.Persistence;
 using CustomCADs.Catalog.Persistence.Repositories;
 using CustomCADs.Catalog.Persistence.Repositories.Reads;
-using CustomCADs.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

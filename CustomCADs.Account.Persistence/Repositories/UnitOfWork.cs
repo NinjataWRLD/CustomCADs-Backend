@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Domain;
+﻿using CustomCADs.Account.Domain.Shared;
 
 namespace CustomCADs.Account.Persistence.Repositories;
 

@@ -2,7 +2,6 @@
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Catalog.Domain.Shared;
-using CustomCADs.Shared.Domain;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Delete;
 

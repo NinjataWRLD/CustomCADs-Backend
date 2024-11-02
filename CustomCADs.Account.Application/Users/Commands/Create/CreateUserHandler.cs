@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Account.Domain.Users;
-using CustomCADs.Shared.Domain;
 
 namespace CustomCADs.Account.Application.Users.Commands.Create;
 

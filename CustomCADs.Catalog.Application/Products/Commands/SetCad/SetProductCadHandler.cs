@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Domain;
+using CustomCADs.Catalog.Domain.Shared;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetCad;
 

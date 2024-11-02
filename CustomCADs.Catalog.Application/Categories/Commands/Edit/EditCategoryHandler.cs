@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Common;
 using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Categories.Reads;
-using CustomCADs.Shared.Domain;
+using CustomCADs.Catalog.Domain.Shared;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Edit;
 

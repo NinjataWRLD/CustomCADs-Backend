@@ -2,7 +2,7 @@
 using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Catalog.Domain.Shared;
-using CustomCADs.Shared.Domain;
+
 namespace CustomCADs.Catalog.Application.Categories.Commands.Delete;
 
 public class DeleteCategoryHandler(
