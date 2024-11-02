@@ -22,7 +22,7 @@ public class RetryVerifyEmailEndpoint(IUserService service, IMessageBus bus, ICo
     public override async Task HandleAsync(RetryVerifyEmailRequest req, CancellationToken ct)
     {
         AppUser? user = await service.FindByNameAsync(req.Username).ConfigureAwait(false);
-        if (user == null)
+        if (user is null)
         {
             ValidationFailures.Add(new("Name", UserNotFound, req.Username));
             await SendErrorsAsync(Status404NotFound).ConfigureAwait(false);

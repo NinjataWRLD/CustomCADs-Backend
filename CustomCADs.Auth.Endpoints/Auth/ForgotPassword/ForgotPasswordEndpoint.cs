@@ -22,7 +22,7 @@ public class ForgotPasswordEndpoint(IUserService service, IMessageBus bus, IConf
     public override async Task HandleAsync(ForgotPasswordRequest req, CancellationToken ct)
     {
         AppUser? user = await service.FindByEmailAsync(req.Email).ConfigureAwait(false);
-        if (user == null)
+        if (user is null)
         {
             ValidationFailures.Add(new("Email", UserNotFound, req.Email));
             await SendErrorsAsync(Status404NotFound).ConfigureAwait(false);

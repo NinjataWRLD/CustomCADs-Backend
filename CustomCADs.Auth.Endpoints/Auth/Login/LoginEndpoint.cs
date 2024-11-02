@@ -28,7 +28,7 @@ public class LoginEndpoint(
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
     {
         AppUser? user = await userService.FindByNameAsync(req.Username).ConfigureAwait(false);
-        if (user == null || !user.EmailConfirmed)
+        if (user is null || !user.EmailConfirmed)
         {
             ValidationFailures.Add(new(nameof(InvalidAccountOrEmail), InvalidAccountOrEmail));
 

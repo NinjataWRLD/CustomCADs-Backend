@@ -34,7 +34,7 @@ public class PutProductEndpoint(IMessageBus bus) : Endpoint<PutProductRequest>
         GetProductByIdQuery query = new(req.Id);
         var product = await bus.InvokeAsync<GetProductByIdDto>(query, ct).ConfigureAwait(false);
 
-        if (req.Image != null)
+        if (req.Image is not null)
         {
             // Upload new image
             // Save its path

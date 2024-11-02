@@ -23,7 +23,7 @@ public static class DependencyInjection
                 var ehf = context.Features.Get<IExceptionHandlerFeature>();
                 var ex = ehf?.Error;
 
-                if (ex != null)
+                if (ex is not null)
                 {
                     await GlobalExceptionHandler
                         .TryHandleAsync(context, ex, context.RequestAborted)

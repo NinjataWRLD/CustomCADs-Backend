@@ -32,7 +32,7 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
         }
 
         AppUser? user = await userService.FindByNameAsync(req.Username).ConfigureAwait(false);
-        if (user == null)
+        if (user is null)
         {
             ValidationFailures.Add(new("Username", UserNotFound, req.Username));
             await SendErrorsAsync(Status404NotFound).ConfigureAwait(false);

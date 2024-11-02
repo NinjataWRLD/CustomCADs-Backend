@@ -29,7 +29,7 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
         }
 
         AppUser? user = await userService.FindByRefreshTokenAsync(rt).ConfigureAwait(false);
-        if (user == null)
+        if (user is null)
         {
             ValidationFailures.Add(new("RefreshToken", UserNotFound, rt));
             await SendErrorsAsync().ConfigureAwait(false);

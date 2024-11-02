@@ -5,16 +5,16 @@ namespace CustomCADs.Account.Persistence.Repositories.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<User> WithFilter(this IQueryable<User> query, Guid[]? Ids, string? role = null)
+    public static IQueryable<User> WithFilter(this IQueryable<User> query, Guid[]? ids, string? role = null)
     {
         if (!string.IsNullOrEmpty(role))
         {
             query = query.Where(u => u.RoleName == role);
         }
         
-        if (Ids != null && Ids.Length > 0)
+        if (ids is not null && ids.Length > 0)
         {
-            query = query.Where(u => Ids.Contains(u.Id));
+            query = query.Where(u => ids.Contains(u.Id));
         }
 
         return query;

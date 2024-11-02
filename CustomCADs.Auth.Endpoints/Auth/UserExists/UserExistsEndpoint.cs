@@ -14,7 +14,7 @@ public class UserExistsEndpoint(IUserService service) : Endpoint<UserExistsReque
     public override async Task HandleAsync(UserExistsRequest req, CancellationToken ct)
     {
         AppUser? user = await service.FindByNameAsync(req.Username).ConfigureAwait(false);
-        bool response = user != null;
+        bool response = user is not null;
 
         await SendOkAsync(response).ConfigureAwait(false);
     }

@@ -21,7 +21,7 @@ public class AuthorizationEndpoint(IUserService serivce) : EndpointWithoutReques
     {
         Guid userId = User.GetId();
         AppUser? user = await serivce.FindByIdAsync(userId).ConfigureAwait(false);
-        if (user == null)
+        if (user is null)
         {
             ValidationFailures.Add(new("Id", UserNotFound, userId));
             await SendErrorsAsync(Status401Unauthorized);

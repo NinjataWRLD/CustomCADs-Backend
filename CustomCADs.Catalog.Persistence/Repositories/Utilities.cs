@@ -7,11 +7,11 @@ public static class Utilities
 {
     public static IQueryable<Product> WithFilter(this IQueryable<Product> query, Guid? creatorId = null, string? status = null)
     {
-        if (creatorId != null)
+        if (creatorId is not null)
         {
             query = query.Where(c => c.CreatorId == creatorId);
         }
-        if (status != null && Enum.TryParse(status, ignoreCase: true, out ProductStatus cadStatus))
+        if (status is not null && Enum.TryParse(status, ignoreCase: true, out ProductStatus cadStatus))
         {
             query = query.Where(c => c.Status == cadStatus);
         }
