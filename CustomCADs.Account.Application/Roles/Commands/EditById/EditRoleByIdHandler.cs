@@ -10,7 +10,7 @@ public class EditRoleByIdHandler(IRoleReads reads, IUnitOfWork uow)
     public async Task Handle(EditRoleByIdCommand req, CancellationToken ct)
     {
         Role role = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw new RoleNotFoundException($"The Role with id: {req.Id} does not exist.");
+            ?? throw new RoleNotFoundException(req.Id);
 
         role.Name = req.Dto.Name;
         role.Description = req.Dto.Description;

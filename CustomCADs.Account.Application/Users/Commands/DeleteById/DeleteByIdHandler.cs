@@ -14,7 +14,7 @@ public class DeleteUserByIdHandler(
     public async Task Handle(DeleteUserByIdCommand req, CancellationToken ct)
     {
         User user = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw new UserNotFoundException($"The User with id: {req.Id} does not exist.");
+            ?? throw new UserNotFoundException(req.Id);
 
         writes.Remove(user);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

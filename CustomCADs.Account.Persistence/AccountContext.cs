@@ -9,8 +9,9 @@ public class AccountContext(DbContextOptions<AccountContext> opt) : DbContext(op
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(AccountPersistenceReference.Assembly);
+        builder.HasDefaultSchema("Account");
+        builder.ApplyConfigurationsFromAssembly(AccountPersistenceReference.Assembly);
     }
 }

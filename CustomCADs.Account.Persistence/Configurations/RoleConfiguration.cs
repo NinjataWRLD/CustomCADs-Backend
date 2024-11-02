@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using static CustomCADs.Account.Domain.Roles.RoleConstants;
+using static CustomCADs.Shared.Domain.Constants;
 
 namespace CustomCADs.Account.Persistence.Configurations;
 
@@ -12,7 +13,8 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder
             .SetPrimaryKey()
             .SetForeignKeys()
-            .SetValidations();
+            .SetValidations()
+            .SetSeeding();
     }
 }
 
@@ -47,6 +49,20 @@ static class RoleConfigUtils
         builder.Property(c => c.Description)
             .IsRequired()
             .HasMaxLength(DescriptionMaxLength);
+
+        return builder;
+    }
+
+    public static EntityTypeBuilder<Role> SetSeeding(this EntityTypeBuilder<Role> builder)
+    {
+        Role[] roles =
+        [
+            new() { Id = 1, Name = Client, Description = ClientDescription, },
+            new() { Id = 2, Name = Contributor, Description = ContributorDescription, },
+            new() { Id = 3, Name = Designer, Description = DesignerDescription, },
+            new() { Id = 4, Name = Admin, Description = AdminDescription, },
+        ];
+        builder.HasData(roles);
 
         return builder;
     }

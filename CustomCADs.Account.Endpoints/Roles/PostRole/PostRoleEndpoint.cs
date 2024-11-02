@@ -1,5 +1,7 @@
-﻿using CustomCADs.Account.Application.Roles.Commands;
+﻿using CustomCADs.Account.Application.Roles;
+using CustomCADs.Account.Application.Roles.Commands;
 using CustomCADs.Account.Application.Roles.Commands.Create;
+using CustomCADs.Account.Application.Roles.Queries.GetByName;
 using CustomCADs.Account.Endpoints.Roles.GetRole;
 using CustomCADs.Shared.Events.Events;
 using FastEndpoints;
@@ -17,13 +19,16 @@ public class PostRoleEndpoint(IMessageBus bus) : Endpoint<PostRoleRequest, RoleR
 
     public override async Task HandleAsync(PostRoleRequest req, CancellationToken ct)
     {
-        RoleWriteDto dto = new(req.Name, req.Description);
-        await bus.InvokeAsync(new CreateRoleCommand(dto), ct).ConfigureAwait(false);
+        RoleWriteDto writeDto = new(req.Name, req.Description);
+        await bus.InvokeAsync(new CreateRoleCommand(writeDto), ct).ConfigureAwait(false);
 
         RoleCreatedEvent @event = new() { Name = req.Name, Description = req.Description };
         await bus.PublishAsync(@event).ConfigureAwait(false);
 
-        RoleResponseDto response = new(dto.Name, dto.Description);
-        await SendCreatedAtAsync<GetRoleEndpoint>(new { dto.Name }, response).ConfigureAwait(false);
+        GetRoleByNameQuery query = new(req.Name);
+        var readDto = await bus.InvokeAsync<RoleReadDto>(query).ConfigureAwait(false);
+
+        RoleResponseDto response = new(readDto.Name, readDto.Description);
+        await SendCreatedAtAsync<GetRoleEndpoint>(new { readDto.Name }, response).ConfigureAwait(false);
     }
 }

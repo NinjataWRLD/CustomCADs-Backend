@@ -14,7 +14,7 @@ public class DeleteRoleByIdHandler(
     public async Task Handle(DeleteRoleByIdCommand req, CancellationToken ct)
     {
         Role role = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw new RoleNotFoundException($"The Role with id: {req.Id} does not exist.");
+            ?? throw new RoleNotFoundException(req.Id);
 
         writes.Remove(role);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
