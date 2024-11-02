@@ -4,7 +4,6 @@ using CustomCADs.Auth.Infrastructure.Entities;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using System.IdentityModel.Tokens.Jwt;
 using static CustomCADs.Auth.Infrastructure.AuthConstants;
 
 namespace CustomCADs.Auth.Endpoints.Auth.VerifyEmail;
@@ -59,11 +58,11 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.Id, req.Username, role);
         SaveAccessToken(jwt.Value, jwt.EndDate);
-        
+
         string rt = tokenService.GenerateRefreshToken();
         DateTime end = DateTime.UtcNow.AddDays(RtDurationInDays);
         SaveRefreshToken(rt, end);
-        
+
         SaveRole(role, end);
         SaveUsername(req.Username, end);
 
@@ -74,12 +73,12 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
     {
         HttpContext.Response.Cookies.Append("jwt", jwt, new() { HttpOnly = true, Secure = true, Expires = end });
     }
-    
+
     private void SaveRefreshToken(string rt, DateTime end)
     {
         HttpContext.Response.Cookies.Append("rt", rt, new() { HttpOnly = true, Secure = true, Expires = end });
     }
-    
+
     private void SaveRole(string role, DateTime end)
     {
         HttpContext.Response.Cookies.Append("role", role, new() { Expires = end });

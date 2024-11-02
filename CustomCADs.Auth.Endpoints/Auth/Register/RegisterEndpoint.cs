@@ -18,7 +18,7 @@ public class RegisterEndpoint(
 {
     public override void Configure()
     {
-        Post("Register/{role}");
+        Post("Register");
         Group<AuthGroup>();
         AllowAnonymous();
     }
@@ -51,7 +51,7 @@ public class RegisterEndpoint(
         string token = await service.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
         string serverUrl = config["URLs:Server"] ?? throw new ArgumentNullException();
 
-        string endpoint = Path.Combine(serverUrl, $"API/v1/Auth/VerifyEmail/{req.Username}?token={token}");
+        string endpoint = $"{serverUrl}/API/v1/Auth/VerifyEmail/{req.Username}?token={token}";
         await emailService.SendVerificationEmailAsync(req.Email, endpoint);
 
         await SendOkAsync().ConfigureAwait(false);

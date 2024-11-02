@@ -19,7 +19,8 @@ public class RegisterRequestValidator : Validator<RegisterRequest>
                 bool isValidRole = roles.Contains(role);
                 if (!isValidRole)
                 {
-                    string error = string.Format(ForbiddenRoleRegister, roles);
+                    string error = string.Format(ForbiddenRoleRegister, 
+                        string.Join(", ", [Client, Contributor]));
                     ctx.AddFailure(error);
                 }
             });

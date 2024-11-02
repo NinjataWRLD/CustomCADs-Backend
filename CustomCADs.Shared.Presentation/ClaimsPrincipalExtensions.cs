@@ -10,7 +10,7 @@ public static class ClaimsPrincipalExtensions
         bool validId = Guid.TryParse(id, out Guid guid);
         if (!validId) 
         {
-            throw new KeyNotFoundException("Cannot find User ID.");
+            guid = Guid.Empty;
         }
 
         return guid;

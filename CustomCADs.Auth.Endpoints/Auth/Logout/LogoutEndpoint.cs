@@ -1,11 +1,16 @@
 ﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Shared.Presentation;
 using FastEndpoints;
+using Microsoft.AspNetCore.Http;
 
 namespace CustomCADs.Auth.Endpoints.Auth.Logout;
 
+using static StatusCodes;
+
 public class LogoutEndpoint(IUserService service) : EndpointWithoutRequest<string>
 {
+    private const string NoLoginMessage = "In order to log out, you must be logged in";
+
     public override void Configure()
     {
         Post("Logout");
@@ -14,7 +19,15 @@ public class LogoutEndpoint(IUserService service) : EndpointWithoutRequest<strin
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await service.RevokeRefreshTokenAsync(User.GetId()).ConfigureAwait(false);
+        Guid id = User.GetId();
+        if (id != Guid.Empty)
+        {
+            ValidationFailures.Add(new("Id", NoLoginMessage));
+            await SendErrorsAsync(Status401Unauthorized);
+            return;
+        }
+
+        await service.RevokeRefreshTokenAsync(id).ConfigureAwait(false);
         DeleteCookies(["jwt", "rt", "username", "rt"]);
         DeleteCookies(["jwt", "rt", "username", "role"]);
     }

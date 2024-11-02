@@ -2,8 +2,8 @@
 
 namespace CustomCADs.Catalog.Persistence.Repositories;
 
-public class UnitOfWork(CatalogContext cadContext) : IUnitOfWork
+public class UnitOfWork(CatalogContext context) : IUnitOfWork
 {
     public async Task SaveChangesAsync(CancellationToken ct = default)
-        => await cadContext.SaveChangesAsync(ct).ConfigureAwait(false);
+        => await context.SaveChangesAsync(ct).ConfigureAwait(false);
 }

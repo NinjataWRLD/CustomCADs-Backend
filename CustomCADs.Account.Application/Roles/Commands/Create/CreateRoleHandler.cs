@@ -16,7 +16,7 @@ public class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow)
 
         await writes.AddAsync(role, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-
+        
         return role.Id;
     }
 }

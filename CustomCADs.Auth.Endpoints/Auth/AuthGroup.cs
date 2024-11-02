@@ -9,6 +9,7 @@ public class AuthGroup : Group
     {
         Configure("Auth", ep =>
         {
+            ep.AllowAnonymous();
             ep.Description(opt =>
             {
                 opt.WithTags("Auth");

@@ -19,6 +19,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ProgramExtensions
 {
+    private const string AuthScheme = JwtBearerDefaults.AuthenticationScheme;
+
     public static IServiceCollection AddSignInManager(this IServiceCollection services)
     {
         services.AddScoped<ISignInService, AppSignInService>();
@@ -59,12 +61,12 @@ public static class ProgramExtensions
     {
         services.AddAuthentication(opt =>
         {
-            opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            opt.DefaultForbidScheme = JwtBearerDefaults.AuthenticationScheme;
-            opt.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
-            opt.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
-            opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            opt.DefaultAuthenticateScheme = AuthScheme;
+            opt.DefaultForbidScheme = AuthScheme;
+            opt.DefaultSignInScheme = AuthScheme;
+            opt.DefaultSignOutScheme = AuthScheme;
+            opt.DefaultChallengeScheme = AuthScheme;
+            opt.DefaultScheme = AuthScheme;
         }).AddJwtBearer(opt =>
         {
             string? secretKey = config["JwtSettings:SecretKey"];
@@ -155,6 +157,7 @@ public static class ProgramExtensions
     {
         app.UseFastEndpoints(cfg =>
         {
+            cfg.Endpoints.Configurator = ep => ep.AuthSchemes(AuthScheme);
             cfg.Endpoints.RoutePrefix = "API";
             cfg.Versioning.DefaultVersion = 1;
             cfg.Versioning.PrependToRoute = true;

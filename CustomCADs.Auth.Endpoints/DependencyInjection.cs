@@ -1,5 +1,4 @@
-﻿#pragma warning disable IDE0130
-using CustomCADs.Auth.Endpoints.Helpers;
+﻿using CustomCADs.Auth.Endpoints.Helpers;
 using CustomCADs.Auth.Infrastructure;
 using CustomCADs.Auth.Infrastructure.Entities;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
+#pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
