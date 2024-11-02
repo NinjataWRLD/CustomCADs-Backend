@@ -2,12 +2,4 @@
 
 namespace CustomCADs.Catalog.Endpoints.Products.PutProduct;
 
-public class PutProductRequest
-{
-    public Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required string Description { get; set; }
-    public required int CategoryId { get; set; }
-    public required decimal Cost { get; set; }
-    public IFormFile? Image { get; set; }
-}
+public record PutProductRequest(Guid Id, string Name, string Description, int CategoryId, decimal Cost, IFormFile? Image = default);

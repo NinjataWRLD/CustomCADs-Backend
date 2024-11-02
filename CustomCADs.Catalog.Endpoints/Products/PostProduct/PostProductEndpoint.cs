@@ -42,21 +42,20 @@ public class PostProductEndpoint(IMessageBus bus) : Endpoint<PostProductRequest,
         GetProductByIdQuery query = new(id);
         var product = await bus.InvokeAsync<GetProductByIdDto>(query, ct).ConfigureAwait(false);
 
-        PostProductResponse response = new()
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Description = product.Description,
-            Cost = product.Cost,
-            Status = product.Status,
-            UploadDate = product.UploadDate.ToString(DateFormatString),
-            ImagePath = product.ImagePath,
-            CadPath = product.Cad.Path,
-            CamCoordinates = new() { X = product.Cad.CamCoordinates.X, Y = product.Cad.CamCoordinates.Y, Z = product.Cad.CamCoordinates.Z },
-            PanCoordinates = new() { X = product.Cad.PanCoordinates.X, Y = product.Cad.PanCoordinates.Y, Z = product.Cad.PanCoordinates.Z },
-            CreatorName = product.CreatorName,
-            Category = new() { Id = product.Category.Id, Name = product.Category.Name },
-        };
+        PostProductResponse response = new(
+            Id: product.Id,
+            Name: product.Name,
+            Description: product.Description,
+            Cost: product.Cost,
+            Status: product.Status,
+            UploadDate: product.UploadDate.ToString(DateFormatString),
+            ImagePath: product.ImagePath,
+            CadPath: product.Cad.Path,
+            CamCoordinates: new() { X = product.Cad.CamCoordinates.X, Y = product.Cad.CamCoordinates.Y, Z = product.Cad.CamCoordinates.Z },
+            PanCoordinates: new() { X = product.Cad.PanCoordinates.X, Y = product.Cad.PanCoordinates.Y, Z = product.Cad.PanCoordinates.Z },
+            CreatorName: product.CreatorName,
+            Category: new() { Id = product.Category.Id, Name = product.Category.Name }
+        );
         await SendCreatedAtAsync<GetProductEndpoint>(new { id }, response).ConfigureAwait(false);
     }
 }

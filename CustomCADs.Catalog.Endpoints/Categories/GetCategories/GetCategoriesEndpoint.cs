@@ -4,7 +4,7 @@ using FastEndpoints;
 using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.GetCategories;
-public class GetCategoriesEndpoint(IMessageBus bus) : EndpointWithoutRequest<IEnumerable<CategoryResponseDto>>
+public class GetCategoriesEndpoint(IMessageBus bus) : EndpointWithoutRequest<IEnumerable<CategoryResponse>>
 {
     public override void Configure()
     {
@@ -18,7 +18,7 @@ public class GetCategoriesEndpoint(IMessageBus bus) : EndpointWithoutRequest<IEn
         GetAllCategoriesQuery query = new();
         var categories = await bus.InvokeAsync<IEnumerable<CategoryReadDto>>(query, ct).ConfigureAwait(false);
 
-        var response = categories.Select(c => new CategoryResponseDto(c.Id, c.Name));
+        var response = categories.Select(c => new CategoryResponse(c.Id, c.Name));
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

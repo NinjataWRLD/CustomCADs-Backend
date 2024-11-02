@@ -32,18 +32,17 @@ public class GetProductEndpoint(IMessageBus bus) : Endpoint<GetProductRequest, G
         GetProductByIdQuery getProductQuery = new(req.Id);
         var product = await bus.InvokeAsync<GetProductByIdDto>(getProductQuery, ct).ConfigureAwait(false);
 
-        GetProductResponse response = new()
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Cost = product.Cost,
-            Description = product.Description,
-            UploadDate = product.UploadDate.ToString(DateFormatString),
-            CamCoordinates = new(product.Cad.CamCoordinates.X, product.Cad.CamCoordinates.Y, product.Cad.CamCoordinates.Z),
-            PanCoordinates = new(product.Cad.PanCoordinates.X, product.Cad.PanCoordinates.Y, product.Cad.PanCoordinates.Z),
-            CadPath = product.Cad.Path,
-            Category = new() { Id = product.Category.Id, Name = product.Category.Name },
-        };
+        GetProductResponse response = new(
+            Id: product.Id,
+            Name: product.Name,
+            Cost: product.Cost,
+            Description: product.Description,
+            UploadDate: product.UploadDate.ToString(DateFormatString),
+            CamCoordinates: new(product.Cad.CamCoordinates.X, product.Cad.CamCoordinates.Y, product.Cad.CamCoordinates.Z),
+            PanCoordinates: new(product.Cad.PanCoordinates.X, product.Cad.PanCoordinates.Y, product.Cad.PanCoordinates.Z),
+            CadPath: product.Cad.Path,
+            Category: new() { Id = product.Category.Id, Name = product.Category.Name }
+        );
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

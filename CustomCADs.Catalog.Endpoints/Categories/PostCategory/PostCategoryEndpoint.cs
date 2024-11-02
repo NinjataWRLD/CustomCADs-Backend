@@ -6,7 +6,7 @@ using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PostCategory;
 
-public class PostCategoryEndpoint(IMessageBus bus) : Endpoint<PostCategoryRequest, CategoryResponseDto>
+public class PostCategoryEndpoint(IMessageBus bus) : Endpoint<PostCategoryRequest, CategoryResponse>
 {
     public override void Configure()
     {
@@ -20,7 +20,7 @@ public class PostCategoryEndpoint(IMessageBus bus) : Endpoint<PostCategoryReques
         CreateCategoryCommand command = new(category);
         var id = await bus.InvokeAsync<int>(command, ct).ConfigureAwait(false);
 
-        CategoryResponseDto response = new(id, req.Name);
+        CategoryResponse response = new(id, req.Name);
         await SendCreatedAtAsync<GetCategoryEndpoint>(new { id }, response).ConfigureAwait(false);
     }
 }

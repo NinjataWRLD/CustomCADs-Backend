@@ -2,11 +2,10 @@
 
 namespace CustomCADs.Catalog.Endpoints.Products.RecentProducts;
 
-public class RecentProductsResponse
-{
-    public Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required string Status { get; set; }
-    public required string UploadDate { get; set; }
-    public CategoryResponseDto Category { get; set; } = new();
-}
+public record RecentProductsResponse(
+    Guid Id, 
+    string Name, 
+    string Status, 
+    string UploadDate, 
+    CategoryResponse Category
+);

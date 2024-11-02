@@ -24,13 +24,13 @@ public class RecentProductsEndpoint(IMessageBus bus) : Endpoint<RecentProductsRe
         );
         var dto = await bus.InvokeAsync<GetAllProductsDto>(query, ct).ConfigureAwait(false);
 
-        RecentProductsResponse[] response = dto.Products.Select(p => new RecentProductsResponse()
-        {
-            Id = p.Id,
-            Name = p.Name,
-            Status = p.Status,
-            UploadDate = p.UploadDate.ToString(DateFormatString),
-        }).ToArray();
+        RecentProductsResponse[] response = dto.Products.Select(p => new RecentProductsResponse(
+            Id: p.Id,
+            Name: p.Name,
+            Status: p.Status,
+            UploadDate: p.UploadDate.ToString(DateFormatString),
+            Category: new(p.Category.Id, p.Category.Name)
+        )).ToArray();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

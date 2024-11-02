@@ -5,7 +5,7 @@ using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.GetCategory;
 
-public class GetCategoryEndpoint(IMessageBus bus) : Endpoint<GetCategoryRequest, CategoryResponseDto>
+public class GetCategoryEndpoint(IMessageBus bus) : Endpoint<GetCategoryRequest, CategoryResponse>
 {
     public override void Configure()
     {
@@ -19,7 +19,7 @@ public class GetCategoryEndpoint(IMessageBus bus) : Endpoint<GetCategoryRequest,
         GetCategoryByIdQuery query = new(req.Id);
         var model = await bus.InvokeAsync<CategoryReadDto>(query, ct).ConfigureAwait(false);
 
-        CategoryResponseDto response = new(model.Id, model.Name);
+        CategoryResponse response = new(model.Id, model.Name);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

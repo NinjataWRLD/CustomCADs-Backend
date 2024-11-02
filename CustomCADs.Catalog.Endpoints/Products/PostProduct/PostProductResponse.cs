@@ -2,18 +2,17 @@
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 
-public class PostProductResponse
-{
-    public Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required string Description { get; set; }
-    public required string CreatorName { get; set; }
-    public required string UploadDate { get; set; }
-    public decimal Cost { get; set; }
-    public required string CadPath { get; set; }
-    public required string ImagePath { get; set; }
-    public CoordinatesDto CamCoordinates { get; set; } = new();
-    public CoordinatesDto PanCoordinates { get; set; } = new();
-    public required string Status { get; set; }
-    public CategoryResponseDto Category { get; set; } = new();
-}
+public record PostProductResponse(
+    Guid Id, 
+    string Name, 
+    string Description, 
+    string CreatorName, 
+    string UploadDate, 
+    decimal Cost, 
+    string CadPath, 
+    string ImagePath, 
+    string Status, 
+    CoordinatesDto CamCoordinates, 
+    CoordinatesDto PanCoordinates, 
+    CategoryResponse Category
+);

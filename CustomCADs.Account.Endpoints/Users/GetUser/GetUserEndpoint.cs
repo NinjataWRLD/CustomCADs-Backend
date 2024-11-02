@@ -4,7 +4,7 @@ using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Users.GetUser;
 
-public class GetUserEndpoint(IMessageBus bus) : Endpoint<GetUserRequest, UserResponseDto>
+public class GetUserEndpoint(IMessageBus bus) : Endpoint<GetUserRequest, UserResponse>
 {
     public override void Configure()
     {
@@ -17,7 +17,7 @@ public class GetUserEndpoint(IMessageBus bus) : Endpoint<GetUserRequest, UserRes
         GetUserByUsernameQuery query = new(req.Username);
         var dto = await bus.InvokeAsync<GetUserByUsernameDto>(query, ct);
 
-        UserResponseDto response = new(
+        UserResponse response = new(
             Role: dto.Role,
             Username: req.Username,
             Email: dto.Email,

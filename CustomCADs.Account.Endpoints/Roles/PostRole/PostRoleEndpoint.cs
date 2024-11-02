@@ -9,7 +9,7 @@ using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Roles.PostRole;
 
-public class PostRoleEndpoint(IMessageBus bus) : Endpoint<PostRoleRequest, RoleResponseDto>
+public class PostRoleEndpoint(IMessageBus bus) : Endpoint<PostRoleRequest, RoleResponse>
 {
     public override void Configure()
     {
@@ -28,7 +28,7 @@ public class PostRoleEndpoint(IMessageBus bus) : Endpoint<PostRoleRequest, RoleR
         GetRoleByNameQuery query = new(req.Name);
         var readDto = await bus.InvokeAsync<RoleReadDto>(query).ConfigureAwait(false);
 
-        RoleResponseDto response = new(readDto.Name, readDto.Description);
+        RoleResponse response = new(readDto.Name, readDto.Description);
         await SendCreatedAtAsync<GetRoleEndpoint>(new { readDto.Name }, response).ConfigureAwait(false);
     }
 }

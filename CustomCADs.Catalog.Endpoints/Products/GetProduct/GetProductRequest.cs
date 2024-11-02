@@ -1,6 +1,3 @@
 ﻿namespace CustomCADs.Catalog.Endpoints.Products.GetProduct;
 
-public class GetProductRequest
-{
-    public Guid Id { get; set; }
-}
+public record GetProductRequest(Guid Id);

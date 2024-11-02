@@ -1,9 +1,3 @@
-﻿using FastEndpoints;
+﻿namespace CustomCADs.Account.Endpoints.Roles.GetRole;
 
-namespace CustomCADs.Account.Endpoints.Roles.GetRole;
-
-public class GetRoleRequest
-{
-    [BindFrom("name")]
-    public required string Name { get; set; }
-}
+public record GetRoleRequest(string Name);

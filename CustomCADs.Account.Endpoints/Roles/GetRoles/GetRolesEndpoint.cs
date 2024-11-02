@@ -5,7 +5,7 @@ using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Roles.GetRoles;
 
-public class GetRolesEndpoint(IMessageBus bus) : EndpointWithoutRequest<RoleResponseDto[]>
+public class GetRolesEndpoint(IMessageBus bus) : EndpointWithoutRequest<RoleResponse[]>
 {
     public override void Configure()
     {
@@ -18,7 +18,7 @@ public class GetRolesEndpoint(IMessageBus bus) : EndpointWithoutRequest<RoleResp
         GetAllRolesQuery query = new();
         var roles = await bus.InvokeAsync<IEnumerable<RoleReadDto>>(query, ct).ConfigureAwait(false);
 
-        var response = roles.Select(r => new RoleResponseDto(r.Name, r.Description)).ToArray();
+        var response = roles.Select(r => new RoleResponse(r.Name, r.Description)).ToArray();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

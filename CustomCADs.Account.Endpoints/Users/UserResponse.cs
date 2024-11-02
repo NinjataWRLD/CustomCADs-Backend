@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Account.Endpoints.Users;
 
-public record UserResponseDto(
+public record UserResponse(
     string Username,
     string Email,
     string Role,

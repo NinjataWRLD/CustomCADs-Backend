@@ -11,7 +11,7 @@ namespace CustomCADs.Account.Endpoints.Users.PostUser;
 
 using static Helpers.ApiMessages;
 
-public class PostUserEndpoint(IMessageBus bus) : Endpoint<PostUserRequest, UserResponseDto>
+public class PostUserEndpoint(IMessageBus bus) : Endpoint<PostUserRequest, UserResponse>
 {
     public override void Configure()
     {
@@ -52,7 +52,7 @@ public class PostUserEndpoint(IMessageBus bus) : Endpoint<PostUserRequest, UserR
         GetUserByIdQuery query = new(id);
         var addedUser = await bus.InvokeAsync<GetUserByIdDto>(query, ct).ConfigureAwait(false);
 
-        UserResponseDto response = new(
+        UserResponse response = new(
             Email: addedUser.Email,
             Username: addedUser.Username,
             Role: addedUser.Role,

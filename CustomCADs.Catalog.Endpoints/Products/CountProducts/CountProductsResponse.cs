@@ -5,4 +5,4 @@ public record CountProductsResponse(
         int Validated,
         int Reported,
         int Banned
-    );
+);

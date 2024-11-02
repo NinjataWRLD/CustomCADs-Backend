@@ -1,9 +1,3 @@
-﻿using FastEndpoints;
+﻿namespace CustomCADs.Account.Endpoints.Users.DeleteUser;
 
-namespace CustomCADs.Account.Endpoints.Users.DeleteUser;
-
-public class DeleteUserRequest
-{
-    [BindFrom("username")]
-    public required string Username { get; set; }
-}
+public record DeleteUserRequest(string Username);

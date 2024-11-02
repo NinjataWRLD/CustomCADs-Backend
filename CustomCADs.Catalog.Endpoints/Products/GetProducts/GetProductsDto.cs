@@ -8,5 +8,5 @@ public record GetProductsDto(
     string CreatorName,
     string UploadDate,
     string ImagePath,
-    CategoryResponseDto Category
+    CategoryResponse Category
 );

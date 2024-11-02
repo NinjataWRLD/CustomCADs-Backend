@@ -4,7 +4,7 @@ using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Users.GetUsers;
 
-public class GetUsersEndpoint(IMessageBus bus) : Endpoint<GetUsersRequest, GetUsersResponse>
+public class GetUsersEndpoint(IMessageBus bus) : Endpoint<GetUsersRequest, (int Count, UserResponse[] Users)>
 {
     public override void Configure()
     {
@@ -22,17 +22,17 @@ public class GetUsersEndpoint(IMessageBus bus) : Endpoint<GetUsersRequest, GetUs
         );
         var result = await bus.InvokeAsync<GetAllUsersDto>(query, ct).ConfigureAwait(false);
 
-        GetUsersResponse response = new()
-        {
-            Count = result.Count,
-            Users = result.Users.Select(u => new UserResponseDto(
+        (int Count, UserResponse[] Users) response = 
+        (
+            result.Count, 
+            result.Users.Select(u => new UserResponse(
                 Role: u.Role,
                 Username: u.Username,
                 Email: u.Email,
                 FirstName: u.FirstName,
                 LastName: u.LastName
-            )).ToArray(),
-        };
+            )).ToArray()
+        );
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }
