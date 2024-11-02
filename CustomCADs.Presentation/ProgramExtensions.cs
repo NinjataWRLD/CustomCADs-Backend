@@ -8,6 +8,7 @@ using CustomCADs.Catalog.Endpoints;
 using CustomCADs.Presentation;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
+using CustomCADs.Shared.Infrastructure.Storage;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -44,7 +45,7 @@ public static class ProgramExtensions
     public static IServiceCollection AddEmail(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<EmailSettings>(config.GetSection("Email"));
-        services.AddEmailServices();
+        services.AddEmailService();
 
         return services;
     }
@@ -52,7 +53,15 @@ public static class ProgramExtensions
     public static IServiceCollection AddPayment(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<PaymentSettings>(config.GetSection("Payment"));
-        services.AddPaymentServices();
+        services.AddPaymentService();
+
+        return services;
+    }
+    
+    public static IServiceCollection AddStorage(this IServiceCollection services, IConfiguration config)
+    {
+        services.Configure<StorageSettings>(config.GetSection("Storage"));
+        services.AddStorageService();
 
         return services;
     }
