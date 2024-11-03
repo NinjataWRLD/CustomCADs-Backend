@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Account.Application.Users.Common.Exceptions;
+﻿namespace CustomCADs.Account.Application.Common.Exceptions;
 
 public class UserNotFoundException : Exception
 {

@@ -1,10 +1,11 @@
 ﻿using CustomCADs.Account.Application.Roles.Commands.DeleteByName;
 using CustomCADs.Shared.Core.Events;
 using FastEndpoints;
+using MediatR;
 using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Roles.DeleteRole;
-public class DeleteRoleEndpoint(IMessageBus bus) : Endpoint<DeleteRoleRequest>
+public class DeleteRoleEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<DeleteRoleRequest>
 {
     public override void Configure()
     {
@@ -14,12 +15,12 @@ public class DeleteRoleEndpoint(IMessageBus bus) : Endpoint<DeleteRoleRequest>
 
     public override async Task HandleAsync(DeleteRoleRequest req, CancellationToken ct)
     {
+        DeleteRoleByNameCommand command = new(req.Name);
+        await mediator.Send(command, ct).ConfigureAwait(false);
+        
         RoleDeletedEvent @event = new() { Name = req.Name };
         await bus.PublishAsync(@event).ConfigureAwait(false);
 
-        DeleteRoleByNameCommand command = new(req.Name);
-        await bus.InvokeAsync(command, ct).ConfigureAwait(false);
-        
         await SendNoContentAsync().ConfigureAwait(false);
     }
 }

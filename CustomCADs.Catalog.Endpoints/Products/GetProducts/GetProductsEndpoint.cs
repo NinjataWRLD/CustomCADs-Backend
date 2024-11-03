@@ -1,12 +1,12 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetAll;
 using CustomCADs.Shared.Core;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.GetProducts;
 
-public class GetProductsEndpoint(IMessageBus bus) : Endpoint<GetProductsRequest, GetProductsResponse>
+public class GetProductsEndpoint(IMediator mediator) : Endpoint<GetProductsRequest, GetProductsResponse>
 {
     public override void Configure()
     {
@@ -24,7 +24,7 @@ public class GetProductsEndpoint(IMessageBus bus) : Endpoint<GetProductsRequest,
             Page: req.Page,
             Limit: req.Limit
         );
-        var result = await bus.InvokeAsync<GetAllProductsDto>(query, ct).ConfigureAwait(false);
+        GetAllProductsDto result = await mediator.Send(query, ct).ConfigureAwait(false);
 
         var products = result.Products.Select(p => new GetProductsDto(
             Id: p.Id,

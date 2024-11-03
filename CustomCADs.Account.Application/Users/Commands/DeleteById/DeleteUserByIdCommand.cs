@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Users.Commands.DeleteById;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record DeleteUserByIdCommand(Guid Id);
+namespace CustomCADs.Account.Application.Users.Commands.DeleteById;
+
+public record DeleteUserByIdCommand(Guid Id) : ICommand;

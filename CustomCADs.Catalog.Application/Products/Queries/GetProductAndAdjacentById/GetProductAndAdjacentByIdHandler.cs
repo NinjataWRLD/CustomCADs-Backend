@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Products.Common.Exceptions;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
+using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
@@ -6,6 +7,7 @@ using CustomCADs.Catalog.Domain.Products.Reads;
 namespace CustomCADs.Catalog.Application.Products.Queries.GetProductAndAdjacentById;
 
 public class GetProductAndAdjacentByIdHandler(IProductReads reads)
+    : IQueryHandler<GetProductAndAdjacentByIdQuery, GetProductAndAdjacentByIdDto>
 {
     public async Task<GetProductAndAdjacentByIdDto> Handle(GetProductAndAdjacentByIdQuery req, CancellationToken ct)
     {
@@ -39,7 +41,8 @@ public class GetProductAndAdjacentByIdHandler(IProductReads reads)
         GetProductAndAdjacentByIdDto response = new(
             prevId,
             new(product.Id, product.Cad),
-            nextId);
+            nextId
+        );
         return response;
     }
 }

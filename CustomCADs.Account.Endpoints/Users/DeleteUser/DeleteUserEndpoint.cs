@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Account.Application.Users.Commands.DeleteByName;
 using CustomCADs.Shared.Core.Events;
 using FastEndpoints;
+using MediatR;
 using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Users.DeleteUser;
 
-public class DeleteUserEndpoint(IMessageBus bus) : Endpoint<DeleteUserRequest>
+public class DeleteUserEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<DeleteUserRequest>
 {
     public override void Configure()
     {
@@ -16,7 +17,7 @@ public class DeleteUserEndpoint(IMessageBus bus) : Endpoint<DeleteUserRequest>
     public override async Task HandleAsync(DeleteUserRequest req, CancellationToken ct)
     {
         DeleteUserByNameCommand command = new(req.Username);
-        await bus.InvokeAsync(command, ct).ConfigureAwait(false);
+        await mediator.Send(command, ct).ConfigureAwait(false);
 
         UserDeletedEvent @event = new() { Username = req.Username };
         await bus.PublishAsync(@event).ConfigureAwait(false);

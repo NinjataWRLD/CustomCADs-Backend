@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Application.Products.Commands.SetStatus;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
 
-public record SetProductStatusCommand(Guid Id, string Action);
+namespace CustomCADs.Catalog.Application.Products.Commands.SetStatus;
+
+public record SetProductStatusCommand(Guid Id, string Action) : ICommand;

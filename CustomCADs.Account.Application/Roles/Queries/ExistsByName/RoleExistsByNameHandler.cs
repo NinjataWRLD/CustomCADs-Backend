@@ -1,8 +1,10 @@
-﻿using CustomCADs.Account.Domain.Roles.Reads;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+using CustomCADs.Account.Domain.Roles.Reads;
 
 namespace CustomCADs.Account.Application.Roles.Queries.ExistsByName;
 
 public class RoleExistsByNameHandler(IRoleReads reads)
+    : IQueryHandler<RoleExistsByNameQuery, bool>
 {
     public async Task<bool> Handle(RoleExistsByNameQuery req, CancellationToken ct)
     {

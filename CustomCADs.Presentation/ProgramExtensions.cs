@@ -29,6 +29,17 @@ public static class ProgramExtensions
         return services;
     }
 
+    public static IServiceCollection AddUseCases(this IServiceCollection services)
+    {
+        
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
+            CatalogApplicationReference.Assembly,
+            AccountApplicationReference.Assembly
+        ));
+
+        return services;
+    }
+    
     public static IServiceCollection AddBus(this IServiceCollection services)
     {
         services.AddWolverine(cfg =>

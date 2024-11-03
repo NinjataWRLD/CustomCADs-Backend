@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Queries;
 using CustomCADs.Catalog.Application.Categories.Queries.GetAll;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.GetCategories;
-public class GetCategoriesEndpoint(IMessageBus bus) : EndpointWithoutRequest<IEnumerable<CategoryResponse>>
+public class GetCategoriesEndpoint(IMediator mediator) : EndpointWithoutRequest<IEnumerable<CategoryResponse>>
 {
     public override void Configure()
     {
@@ -16,7 +16,7 @@ public class GetCategoriesEndpoint(IMessageBus bus) : EndpointWithoutRequest<IEn
     public override async Task HandleAsync(CancellationToken ct)
     {
         GetAllCategoriesQuery query = new();
-        var categories = await bus.InvokeAsync<IEnumerable<CategoryReadDto>>(query, ct).ConfigureAwait(false);
+        IEnumerable<CategoryReadDto> categories = await mediator.Send(query, ct).ConfigureAwait(false);
 
         var response = categories.Select(c => new CategoryResponse(c.Id, c.Name));
         await SendOkAsync(response).ConfigureAwait(false);

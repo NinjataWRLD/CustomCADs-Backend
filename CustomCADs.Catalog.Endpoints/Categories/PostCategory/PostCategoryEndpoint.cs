@@ -2,11 +2,11 @@
 using CustomCADs.Catalog.Application.Categories.Commands.Create;
 using CustomCADs.Catalog.Endpoints.Categories.GetCategory;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PostCategory;
 
-public class PostCategoryEndpoint(IMessageBus bus) : Endpoint<PostCategoryRequest, CategoryResponse>
+public class PostCategoryEndpoint(IMediator mediator) : Endpoint<PostCategoryRequest, CategoryResponse>
 {
     public override void Configure()
     {
@@ -18,7 +18,7 @@ public class PostCategoryEndpoint(IMessageBus bus) : Endpoint<PostCategoryReques
     {
         CategoryWriteDto category = new(req.Name);
         CreateCategoryCommand command = new(category);
-        var id = await bus.InvokeAsync<int>(command, ct).ConfigureAwait(false);
+        int id = await mediator.Send(command, ct).ConfigureAwait(false);
 
         CategoryResponse response = new(id, req.Name);
         await SendCreatedAtAsync<GetCategoryEndpoint>(new { id }, response).ConfigureAwait(false);

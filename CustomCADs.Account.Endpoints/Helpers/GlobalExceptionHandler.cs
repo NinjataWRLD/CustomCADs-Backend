@@ -1,5 +1,4 @@
-﻿using CustomCADs.Account.Application.Roles.Common.Exceptions;
-using CustomCADs.Account.Application.Users.Common.Exceptions;
+﻿using CustomCADs.Account.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 

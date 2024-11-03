@@ -1,14 +1,13 @@
-﻿using CustomCADs.Account.Application.Users.Common.Exceptions;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+using CustomCADs.Account.Application.Common.Exceptions;
 using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Account.Domain.Users;
 using CustomCADs.Account.Domain.Users.Reads;
 
 namespace CustomCADs.Account.Application.Users.Commands.DeleteByName;
 
-public class DeleteUserByNameHandler(
-    IUserReads reads,
-    IWrites<User> writes,
-    IUnitOfWork uow)
+public class DeleteUserByNameHandler(IUserReads reads, IWrites<User> writes, IUnitOfWork uow)
+    : ICommandHandler<DeleteUserByNameCommand>
 {
     public async Task Handle(DeleteUserByNameCommand req, CancellationToken ct)
     {

@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Roles.Queries.ExistsByName;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record RoleExistsByNameQuery(string Name);
+namespace CustomCADs.Account.Application.Roles.Queries.ExistsByName;
+
+public record RoleExistsByNameQuery(string Name) : IQuery<bool>;

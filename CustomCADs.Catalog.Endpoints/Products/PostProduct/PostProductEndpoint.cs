@@ -1,18 +1,19 @@
-﻿using CustomCADs.Account.Application.Users.Queries.GetById;
-using CustomCADs.Catalog.Application.Products.Commands.Create;
+﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
+using CustomCADs.Catalog.Application.Products.Commands.SetPaths;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.GetProduct;
 using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Storage;
 using FastEndpoints;
+using MediatR;
 using Microsoft.AspNetCore.Http;
-using Wolverine;
 
 using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 
-public class PostProductEndpoint(IMessageBus bus) : Endpoint<PostProductRequest, PostProductResponse>
+public class PostProductEndpoint(IMediator mediator, IStorageService storageService) : Endpoint<PostProductRequest, PostProductResponse>
 {
     public override void Configure()
     {
@@ -33,15 +34,32 @@ public class PostProductEndpoint(IMessageBus bus) : Endpoint<PostProductRequest,
                 ? ProductStatus.Validated
                 : ProductStatus.Unchecked
         );
-        CreateProductCommand command = new(dto);
-        var id = await bus.InvokeAsync<Guid>(command, ct).ConfigureAwait(false);
+        CreateProductCommand createCommand = new(dto);
+        Guid id = await mediator.Send(createCommand, ct).ConfigureAwait(false);
 
-        // Upload image
-        // Upload file
-        // Save Paths
+        using Stream imageStream = req.File.OpenReadStream();
+        string imagePath = await storageService.UploadFileAsync(
+            "images",
+            imageStream,
+            req.Image.ContentType,
+            req.Image.FileName,
+            ct
+        ).ConfigureAwait(false);
+        
+        using Stream fileStream = req.File.OpenReadStream();
+        string cadPath = await storageService.UploadFileAsync(
+            "cads",
+            fileStream,
+            req.File.ContentType,
+            req.File.FileName,
+            ct
+        ).ConfigureAwait(false);
+
+        SetProductPathsCommand setPathsCommand = new(id, CadPath: cadPath, ImagePath: imagePath);
+        await mediator.Send(setPathsCommand, ct).ConfigureAwait(false);
 
         GetProductByIdQuery query = new(id);
-        var product = await bus.InvokeAsync<GetProductByIdDto>(query, ct).ConfigureAwait(false);
+        GetProductByIdDto product = await mediator.Send(query, ct).ConfigureAwait(false);
 
         PostProductResponse response = new(
             Id: product.Id,

@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetByUsername;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Account.Endpoints.Users.GetUser;
 
-public class GetUserEndpoint(IMessageBus bus) : Endpoint<GetUserRequest, UserResponse>
+public class GetUserEndpoint(IMediator mediator) : Endpoint<GetUserRequest, UserResponse>
 {
     public override void Configure()
     {
@@ -15,7 +15,7 @@ public class GetUserEndpoint(IMessageBus bus) : Endpoint<GetUserRequest, UserRes
     public override async Task HandleAsync(GetUserRequest req, CancellationToken ct)
     {
         GetUserByUsernameQuery query = new(req.Username);
-        var dto = await bus.InvokeAsync<GetUserByUsernameDto>(query, ct);
+        GetUserByUsernameDto dto = await mediator.Send(query, ct);
 
         UserResponse response = new(
             Role: dto.Role,

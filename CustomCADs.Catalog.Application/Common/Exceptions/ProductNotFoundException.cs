@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Catalog.Application.Products.Common.Exceptions;
+﻿namespace CustomCADs.Catalog.Application.Common.Exceptions;
 
 public class ProductNotFoundException : Exception
 {

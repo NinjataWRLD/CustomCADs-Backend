@@ -1,9 +1,11 @@
-﻿using CustomCADs.Account.Domain.Roles;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+using CustomCADs.Account.Domain.Roles;
 using CustomCADs.Account.Domain.Roles.Reads;
 
 namespace CustomCADs.Account.Application.Roles.Queries.GetAllNames;
 
 public class GetAllNamesHandler(IRoleReads reads)
+    : IQueryHandler<GetAllRoleNamesQuery, IEnumerable<string>>
 {
     public async Task<IEnumerable<string>> Handle(GetAllRoleNamesQuery req, CancellationToken ct)
     {

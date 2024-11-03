@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Categories.Common;
-using CustomCADs.Catalog.Application.Products.Common.Exceptions;
+﻿using CustomCADs.Catalog.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 

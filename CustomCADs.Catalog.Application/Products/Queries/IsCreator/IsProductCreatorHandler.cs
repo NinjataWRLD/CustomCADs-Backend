@@ -1,10 +1,12 @@
-﻿using CustomCADs.Catalog.Application.Products.Common.Exceptions;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
+using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 
 public class IsProductCreatorHandler(IProductReads reads)
+    : IQueryHandler<IsProductCreatorQuery, bool>
 {
     public async Task<bool> Handle(IsProductCreatorQuery req, CancellationToken ct)
     {

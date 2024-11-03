@@ -1,14 +1,13 @@
-﻿using CustomCADs.Catalog.Application.Categories.Common;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
+using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Shared;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 
-public class CreateProductHandler(
-    ICategoryReads categoryReads,
-    IWrites<Product> productWrites,
-    IUnitOfWork uow)
+public class CreateProductHandler(ICategoryReads categoryReads, IWrites<Product> productWrites, IUnitOfWork uow)
+    : ICommandHandler<CreateProductCommand, Guid>
 {
     public async Task<Guid> Handle(CreateProductCommand req, CancellationToken ct)
     {

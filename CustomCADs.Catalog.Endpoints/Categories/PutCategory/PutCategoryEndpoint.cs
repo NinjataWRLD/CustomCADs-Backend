@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Commands;
 using CustomCADs.Catalog.Application.Categories.Commands.Edit;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PutCategory;
 
-public class PutCategoryEndpoint(IMessageBus bus) : Endpoint<PutCategoryRequest>
+public class PutCategoryEndpoint(IMediator mediator) : Endpoint<PutCategoryRequest>
 {
     public override void Configure()
     {
@@ -17,7 +17,7 @@ public class PutCategoryEndpoint(IMessageBus bus) : Endpoint<PutCategoryRequest>
     {
         CategoryWriteDto category = new(req.Name);
         EditCategoryCommand command = new(req.Id, category);
-        await bus.InvokeAsync(command, ct).ConfigureAwait(false);
+        await mediator.Send(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

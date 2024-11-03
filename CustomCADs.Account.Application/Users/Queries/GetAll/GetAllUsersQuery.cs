@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Account.Application.Users.Queries.GetAll;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+
+namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
 public record GetAllUsersQuery(
     string? Role = null,
@@ -8,4 +10,5 @@ public record GetAllUsersQuery(
     string? LastName = null,
     string Sorting = "",
     int Page = 1,
-    int Limit = 20);
+    int Limit = 20
+) : IQuery<GetAllUsersDto>;

@@ -1,3 +1,9 @@
-﻿namespace CustomCADs.Catalog.Application.Products.Commands.SetPaths;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
 
-public record SetProductPathsCommand(Guid Id, string? CadPath = default, string? ImagePath = default);
+namespace CustomCADs.Catalog.Application.Products.Commands.SetPaths;
+
+public record SetProductPathsCommand(
+    Guid Id, 
+    string? CadPath = default, 
+    string? ImagePath = default
+) : ICommand;

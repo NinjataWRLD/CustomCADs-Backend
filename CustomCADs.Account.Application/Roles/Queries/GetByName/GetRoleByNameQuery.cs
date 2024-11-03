@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Roles.Queries.GetByName;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record GetRoleByNameQuery(string Name);
+namespace CustomCADs.Account.Application.Roles.Queries.GetByName;
+
+public record GetRoleByNameQuery(string Name) : IQuery<RoleReadDto>;

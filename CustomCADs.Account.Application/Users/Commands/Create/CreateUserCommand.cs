@@ -1,3 +1,11 @@
-﻿namespace CustomCADs.Account.Application.Users.Commands.Create;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record CreateUserCommand(CreateUserDto Dto);
+namespace CustomCADs.Account.Application.Users.Commands.Create;
+
+public record CreateUserCommand(
+    string Role,
+    string Username,
+    string Email,
+    string? FirstName,
+    string? LastName
+) : ICommand<Guid>;

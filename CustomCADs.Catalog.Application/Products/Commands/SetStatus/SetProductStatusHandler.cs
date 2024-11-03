@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Products.Common.Exceptions;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
+using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
@@ -7,6 +8,7 @@ using CustomCADs.Catalog.Domain.Shared;
 namespace CustomCADs.Catalog.Application.Products.Commands.SetStatus;
 
 public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
+    : ICommandHandler<SetProductStatusCommand>
 {
     public async Task Handle(SetProductStatusCommand req, CancellationToken ct)
     {

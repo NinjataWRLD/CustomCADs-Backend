@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Products.Common.Exceptions;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
+using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
@@ -7,6 +8,7 @@ using CustomCADs.Catalog.Domain.Shared;
 namespace CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 
 public class SetProductCoordsHandler(IProductReads reads, IUnitOfWork uow)
+    : ICommandHandler<SetProductCoordsCommand>
 {
     public async Task Handle(SetProductCoordsCommand req, CancellationToken ct = default)
     {

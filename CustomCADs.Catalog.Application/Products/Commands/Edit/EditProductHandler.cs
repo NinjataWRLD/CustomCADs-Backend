@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Products.Common.Exceptions;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
+using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Catalog.Domain.Shared;
@@ -6,6 +7,7 @@ using CustomCADs.Catalog.Domain.Shared;
 namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
 
 public class EditProductHandler(IProductReads reads, IUnitOfWork uow)
+    : ICommandHandler<EditProductCommand>
 {
     public async Task Handle(EditProductCommand req, CancellationToken ct)
     {

@@ -1,10 +1,12 @@
-﻿using CustomCADs.Account.Domain.Users.Reads;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+using CustomCADs.Account.Domain.Users.Reads;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetUsersWithIds;
 
 public class GetUsersWithIdsHandler(IUserReads reads)
+    : IQueryHandler<GetUsersWithIdsQuery, IEnumerable<GetUsersWithIdsDto>>
 {
-    public async Task<Dictionary<Guid, GetUsersWithIdsDto>> Handle(GetUsersWithIdsQuery req, CancellationToken ct = default)
+    public async Task<IEnumerable<GetUsersWithIdsDto>> Handle(GetUsersWithIdsQuery req, CancellationToken ct = default)
     {
         UsersQuery query = new()
         {
@@ -13,8 +15,8 @@ public class GetUsersWithIdsHandler(IUserReads reads)
         UserResult result = await reads.AllAsync(query, track: false, ct).ConfigureAwait(false);
 
         var response = result.Users
-            .Select(u => new GetUsersWithIdsDto(u.Id, u.Username))
-            .ToDictionary(ks => ks.Id);
+            .Select(u => new GetUsersWithIdsDto(u.Id, u.Username));
+
         return response;
     }
 }

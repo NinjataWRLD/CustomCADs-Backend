@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Application.Categories.Commands.Delete;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
 
-public record DeleteCategoryCommand(int Id);
+namespace CustomCADs.Catalog.Application.Categories.Commands.Delete;
+
+public record DeleteCategoryCommand(int Id) : ICommand;

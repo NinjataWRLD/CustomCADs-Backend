@@ -1,10 +1,12 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetUsersWithIds;
+using CustomCADs.Catalog.Application.Common.Contracts;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
-public class GetAllProductsHandler(IProductReads reads, IMessageBus bus)
+public class GetAllProductsHandler(IProductReads reads, IMediator mediator)
+    : IQueryHandler<GetAllProductsQuery, GetAllProductsDto>
 {
     public async Task<GetAllProductsDto> Handle(GetAllProductsQuery req, CancellationToken ct)
     {
@@ -17,20 +19,22 @@ public class GetAllProductsHandler(IProductReads reads, IMessageBus bus)
             Page: req.Page,
             Limit: req.Limit
         );
+
         ProductResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
-
         Guid[] ids = result.Products.Select(p => p.CreatorId).Distinct().ToArray();
+        
         GetUsersWithIdsQuery usersQuery = new(ids);
-        var users = await bus.InvokeAsync<Dictionary<Guid, GetUsersWithIdsDto>>(usersQuery).ConfigureAwait(false);
+        IEnumerable<GetUsersWithIdsDto> users = await mediator.Send(usersQuery, ct).ConfigureAwait(false);
 
+        var dict = users.ToDictionary(u => u.Id);
         var products = result.Products
-            .Select(p => new GetAllProductsItemDto(
+            .Select(p => new GetAllProductsItem(
                 Id: p.Id,
                 Name: p.Name,
                 Status: p.Status.ToString(),
                 UploadDate: p.UploadDate,
                 ImagePath: p.ImagePath,
-                CreatorName: users[p.CreatorId].Username,
+                CreatorName: dict[p.CreatorId].Username,
                 Category: new(p.CategoryId, p.Category.Name)
             )).ToArray();
 

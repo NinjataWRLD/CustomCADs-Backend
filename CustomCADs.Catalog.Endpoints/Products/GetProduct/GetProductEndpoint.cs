@@ -2,14 +2,14 @@
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Shared.Core;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.GetProduct;
 
 using static Helpers.ApiMessages;
 
-public class GetProductEndpoint(IMessageBus bus) : Endpoint<GetProductRequest, GetProductResponse>
+public class GetProductEndpoint(IMediator mediator) : Endpoint<GetProductRequest, GetProductResponse>
 {
     public override void Configure()
     {
@@ -20,7 +20,7 @@ public class GetProductEndpoint(IMessageBus bus) : Endpoint<GetProductRequest, G
     public override async Task HandleAsync(GetProductRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetId());
-        var userIsCreator = await bus.InvokeAsync<bool>(isCreatorQuery).ConfigureAwait(false);
+        bool userIsCreator = await mediator.Send(isCreatorQuery).ConfigureAwait(false);
 
         if (!userIsCreator)
         {
@@ -30,7 +30,7 @@ public class GetProductEndpoint(IMessageBus bus) : Endpoint<GetProductRequest, G
         }
 
         GetProductByIdQuery getProductQuery = new(req.Id);
-        var product = await bus.InvokeAsync<GetProductByIdDto>(getProductQuery, ct).ConfigureAwait(false);
+        GetProductByIdDto product = await mediator.Send(getProductQuery, ct).ConfigureAwait(false);
 
         GetProductResponse response = new(
             Id: product.Id,

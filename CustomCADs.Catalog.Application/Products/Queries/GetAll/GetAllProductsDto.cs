@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
-public record GetAllProductsDto(int Count, ICollection<GetAllProductsItemDto> Products);
+public record GetAllProductsDto(int Count, ICollection<GetAllProductsItem> Products);
 
-public record GetAllProductsItemDto(
+public record GetAllProductsItem(
     Guid Id,
     string Name,
     string Status,

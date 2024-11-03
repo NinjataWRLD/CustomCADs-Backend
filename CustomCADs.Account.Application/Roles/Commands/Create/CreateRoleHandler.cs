@@ -1,9 +1,11 @@
-﻿using CustomCADs.Account.Domain.Roles;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+using CustomCADs.Account.Domain.Roles;
 using CustomCADs.Account.Domain.Shared;
 
 namespace CustomCADs.Account.Application.Roles.Commands.Create;
 
 public class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow)
+    : ICommandHandler<CreateRoleCommand, int>
 {
     public async Task<int> Handle(CreateRoleCommand req, CancellationToken ct)
     {

@@ -2,11 +2,11 @@
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Products.CountProducts;
 
-public class CountProductsEndpoint(IMessageBus bus) : EndpointWithoutRequest<CountProductsResponse>
+public class CountProductsEndpoint(IMediator mediator) : EndpointWithoutRequest<CountProductsResponse>
 {
     public override void Configure()
     {
@@ -17,16 +17,16 @@ public class CountProductsEndpoint(IMessageBus bus) : EndpointWithoutRequest<Cou
     public override async Task HandleAsync(CancellationToken ct)
     {
         ProductsCountQuery query = new(User.GetId(), ProductStatus.Unchecked);
-        var uncheckedProductsCounts = await bus.InvokeAsync<int>(query, ct).ConfigureAwait(false);
+        var uncheckedProductsCounts = await mediator.Send(query, ct).ConfigureAwait(false);
 
         query = query with { Status = ProductStatus.Validated };
-        var validatedProductsCounts = await bus.InvokeAsync<int>(query, ct).ConfigureAwait(false);
+        var validatedProductsCounts = await mediator.Send(query, ct).ConfigureAwait(false);
 
         query = query with { Status = ProductStatus.Reported };
-        var reportedProductsCounts = await bus.InvokeAsync<int>(query, ct).ConfigureAwait(false);
+        var reportedProductsCounts = await mediator.Send(query, ct).ConfigureAwait(false);
 
         query = query with { Status = ProductStatus.Removed };
-        var bannedProductsCounts = await bus.InvokeAsync<int>(query, ct).ConfigureAwait(false);
+        var bannedProductsCounts = await mediator.Send(query, ct).ConfigureAwait(false);
 
         CountProductsResponse response = new(uncheckedProductsCounts, validatedProductsCounts, reportedProductsCounts, bannedProductsCounts);
         await SendOkAsync(response).ConfigureAwait(false);

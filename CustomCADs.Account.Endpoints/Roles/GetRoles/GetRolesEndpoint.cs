@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Account.Application.Roles;
 using CustomCADs.Account.Application.Roles.Queries.GetAll;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Account.Endpoints.Roles.GetRoles;
 
-public class GetRolesEndpoint(IMessageBus bus) : EndpointWithoutRequest<RoleResponse[]>
+public class GetRolesEndpoint(IMediator mediator) : EndpointWithoutRequest<RoleResponse[]>
 {
     public override void Configure()
     {
@@ -16,7 +16,7 @@ public class GetRolesEndpoint(IMessageBus bus) : EndpointWithoutRequest<RoleResp
     public override async Task HandleAsync(CancellationToken ct)
     {
         GetAllRolesQuery query = new();
-        var roles = await bus.InvokeAsync<IEnumerable<RoleReadDto>>(query, ct).ConfigureAwait(false);
+        IEnumerable<RoleReadDto> roles = await mediator.Send(query, ct).ConfigureAwait(false);
 
         var response = roles.Select(r => new RoleResponse(r.Name, r.Description)).ToArray();
         await SendOkAsync(response).ConfigureAwait(false);

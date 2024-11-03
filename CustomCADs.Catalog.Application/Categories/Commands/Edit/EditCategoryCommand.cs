@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Application.Categories.Commands.Edit;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
 
-public record EditCategoryCommand(int Id, CategoryWriteDto Dto);
+namespace CustomCADs.Catalog.Application.Categories.Commands.Edit;
+
+public record EditCategoryCommand(int Id, CategoryWriteDto Dto) : ICommand;

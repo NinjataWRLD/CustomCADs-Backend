@@ -1,18 +1,17 @@
-﻿using CustomCADs.Catalog.Application.Products.Commands.SetPaths;
-using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
+﻿using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core;
 using FastEndpoints;
+using MediatR;
 using Microsoft.AspNetCore.Http;
-using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PatchProduct;
 
 using static Helpers.ApiMessages;
 
-public class PatchProductEndpoint(IMessageBus bus) : Endpoint<PatchCadRequest>
+public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest>
 {
     public override void Configure()
     {
@@ -24,7 +23,7 @@ public class PatchProductEndpoint(IMessageBus bus) : Endpoint<PatchCadRequest>
     public override async Task HandleAsync(PatchCadRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetId());
-        var userIsCreator = await bus.InvokeAsync<bool>(isCreatorQuery, ct).ConfigureAwait(false);
+        bool userIsCreator = await mediator.Send(isCreatorQuery, ct).ConfigureAwait(false);
 
         if (userIsCreator)
         {
@@ -34,7 +33,7 @@ public class PatchProductEndpoint(IMessageBus bus) : Endpoint<PatchCadRequest>
         }
 
         GetProductByIdQuery getCadQuery = new(req.Id);
-        var product = await bus.InvokeAsync<GetProductByIdDto>(getCadQuery, ct).ConfigureAwait(false);
+        GetProductByIdDto product = await mediator.Send(getCadQuery, ct).ConfigureAwait(false);
 
         Coordinates coords = new(req.Coordinates.X, req.Coordinates.Y, req.Coordinates.Z);
         Cad newCad;
@@ -55,7 +54,7 @@ public class PatchProductEndpoint(IMessageBus bus) : Endpoint<PatchCadRequest>
         }
 
         SetProductCoordsCommand command = new(req.Id, product.Cad.CamCoordinates, product.Cad.PanCoordinates);
-        await bus.InvokeAsync(command, ct).ConfigureAwait(false);
+        await mediator.Send(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Users.Queries.GetByUsername;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record GetUserByUsernameQuery(string Username);
+namespace CustomCADs.Account.Application.Users.Queries.GetByUsername;
+
+public record GetUserByUsernameQuery(string Username) : IQuery<GetUserByUsernameDto>;

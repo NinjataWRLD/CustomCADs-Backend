@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Users.Queries.GetUsersWithIds;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record GetUsersWithIdsQuery(params Guid[] Ids);
+namespace CustomCADs.Account.Application.Users.Queries.GetUsersWithIds;
+
+public record GetUsersWithIdsQuery(params Guid[] Ids) : IQuery<IEnumerable<GetUsersWithIdsDto>>;

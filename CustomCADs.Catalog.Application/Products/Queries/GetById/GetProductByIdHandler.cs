@@ -1,12 +1,14 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetById;
-using CustomCADs.Catalog.Application.Products.Common.Exceptions;
+using CustomCADs.Catalog.Application.Common.Contracts;
+using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 
-public class GetProductByIdHandler(IProductReads reads, IMessageBus bus)
+public class GetProductByIdHandler(IProductReads reads, IMediator mediator)
+    : IQueryHandler<GetProductByIdQuery, GetProductByIdDto>
 {
     public async Task<GetProductByIdDto> Handle(GetProductByIdQuery req, CancellationToken ct)
     {
@@ -14,7 +16,7 @@ public class GetProductByIdHandler(IProductReads reads, IMessageBus bus)
             ?? throw new ProductNotFoundException(req.Id);
 
         GetUserByIdQuery query = new(product.CreatorId);
-        var user = await bus.InvokeAsync<GetUserByIdDto>(query, ct).ConfigureAwait(false);
+        GetUserByIdDto user = await mediator.Send(query, ct).ConfigureAwait(false);
 
         GetProductByIdDto response = new(
             Id: product.Id,

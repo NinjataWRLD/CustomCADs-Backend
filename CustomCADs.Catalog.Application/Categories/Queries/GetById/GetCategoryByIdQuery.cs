@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Application.Categories.Queries.GetById;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
 
-public record GetCategoryByIdQuery(int Id);
+namespace CustomCADs.Catalog.Application.Categories.Queries.GetById;
+
+public record GetCategoryByIdQuery(int Id) : IQuery<CategoryReadDto>;

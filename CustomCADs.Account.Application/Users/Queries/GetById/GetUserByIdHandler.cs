@@ -1,10 +1,12 @@
-﻿using CustomCADs.Account.Application.Users.Common.Exceptions;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+using CustomCADs.Account.Application.Common.Exceptions;
 using CustomCADs.Account.Domain.Users;
 using CustomCADs.Account.Domain.Users.Reads;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetById;
 
 public class GetUserByIdHandler(IUserReads reads)
+    : IQueryHandler<GetUserByIdQuery, GetUserByIdDto>
 {
     public async Task<GetUserByIdDto> Handle(GetUserByIdQuery req, CancellationToken ct)
     {

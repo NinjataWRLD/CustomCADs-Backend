@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetAll;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Account.Endpoints.Users.GetUsers;
 
-public class GetUsersEndpoint(IMessageBus bus) : Endpoint<GetUsersRequest, (int Count, UserResponse[] Users)>
+public class GetUsersEndpoint(IMediator mediator) : Endpoint<GetUsersRequest, (int Count, UserResponse[] Users)>
 {
     public override void Configure()
     {
@@ -20,7 +20,7 @@ public class GetUsersEndpoint(IMessageBus bus) : Endpoint<GetUsersRequest, (int 
             Page: req.Page,
             Limit: req.Limit
         );
-        var result = await bus.InvokeAsync<GetAllUsersDto>(query, ct).ConfigureAwait(false);
+        GetAllUsersDto result = await mediator.Send(query, ct).ConfigureAwait(false);
 
         (int Count, UserResponse[] Users) response = 
         (

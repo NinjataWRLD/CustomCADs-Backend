@@ -1,8 +1,10 @@
-﻿using CustomCADs.Account.Domain.Users.Reads;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+using CustomCADs.Account.Domain.Users.Reads;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
 public class GetAllUsersHandler(IUserReads reads)
+    : IQueryHandler<GetAllUsersQuery, GetAllUsersDto>
 {
     public async Task<GetAllUsersDto> Handle(GetAllUsersQuery req, CancellationToken ct)
     {
@@ -20,11 +22,11 @@ public class GetAllUsersHandler(IUserReads reads)
 
         var users = result.Users
             .Select(u => new GetAllUsersItemDto(
-                u.Id, 
-                u.Username, 
-                u.Email, 
-                u.RoleName, 
-                u.NameInfo.FirstName, 
+                u.Id,
+                u.Username,
+                u.Email,
+                u.RoleName,
+                u.NameInfo.FirstName,
                 u.NameInfo.LastName
             )).ToArray();
         GetAllUsersDto response = new(result.Count, users);

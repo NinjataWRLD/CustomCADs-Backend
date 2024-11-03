@@ -1,13 +1,13 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Commands.Delete;
 using CustomCADs.Catalog.Application.Categories.Queries.ExistsById;
 using FastEndpoints;
-using Wolverine;
+using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.DeleteCategory;
 
 using static Helpers.ApiMessages;
 
-public class DeleteCategoryEndpoint(IMessageBus bus) : Endpoint<DeleteCategoryRequest>
+public class DeleteCategoryEndpoint(IMediator mediator) : Endpoint<DeleteCategoryRequest>
 {
     public override void Configure()
     {
@@ -18,7 +18,7 @@ public class DeleteCategoryEndpoint(IMessageBus bus) : Endpoint<DeleteCategoryRe
     public override async Task HandleAsync(DeleteCategoryRequest req, CancellationToken ct)
     {
         CategoryExistsByIdQuery query = new(req.Id);
-        var exists = await bus.InvokeAsync<bool>(query, ct).ConfigureAwait(false);
+        bool exists = await mediator.Send(query, ct).ConfigureAwait(false);
 
         if (!exists)
         {
@@ -28,7 +28,7 @@ public class DeleteCategoryEndpoint(IMessageBus bus) : Endpoint<DeleteCategoryRe
         }
 
         DeleteCategoryCommand command = new(req.Id);
-        await bus.InvokeAsync(command, ct).ConfigureAwait(false);
+        await mediator.Send(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

@@ -1,10 +1,12 @@
-﻿using CustomCADs.Account.Application.Roles.Common.Exceptions;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+using CustomCADs.Account.Application.Common.Exceptions;
 using CustomCADs.Account.Domain.Roles;
 using CustomCADs.Account.Domain.Roles.Reads;
 
 namespace CustomCADs.Account.Application.Roles.Queries.GetById;
 
 public class GetRoleByIdHandler(IRoleReads reads)
+    : IQueryHandler<GetRoleByIdQuery, RoleReadDto>
 {
     public async Task<RoleReadDto> Handle(GetRoleByIdQuery req, CancellationToken ct)
     {

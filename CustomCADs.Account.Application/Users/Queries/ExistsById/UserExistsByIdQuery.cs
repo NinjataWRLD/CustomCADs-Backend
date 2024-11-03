@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Users.Queries.ExistsById;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record UserExistsByIdQuery(Guid Id);
+namespace CustomCADs.Account.Application.Users.Queries.ExistsById;
+
+public record UserExistsByIdQuery(Guid Id) : IQuery<bool>;

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Account.Application.Roles.Common.Exceptions;
+﻿using CustomCADs.Account.Application.Common.Contracts;
+using CustomCADs.Account.Application.Common.Exceptions;
 using CustomCADs.Account.Domain.Roles;
 using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Account.Domain.Shared;
@@ -6,6 +7,7 @@ using CustomCADs.Account.Domain.Shared;
 namespace CustomCADs.Account.Application.Roles.Commands.EditById;
 
 public class EditRoleByIdHandler(IRoleReads reads, IUnitOfWork uow)
+    : ICommandHandler<EditRoleByIdCommand>
 {
     public async Task Handle(EditRoleByIdCommand req, CancellationToken ct)
     {

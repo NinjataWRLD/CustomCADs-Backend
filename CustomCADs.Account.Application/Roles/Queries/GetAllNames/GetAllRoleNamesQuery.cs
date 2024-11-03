@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Roles.Queries.GetAllNames;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record GetAllRoleNamesQuery;
+namespace CustomCADs.Account.Application.Roles.Queries.GetAllNames;
+
+public record GetAllRoleNamesQuery : IQuery<IEnumerable<string>>;

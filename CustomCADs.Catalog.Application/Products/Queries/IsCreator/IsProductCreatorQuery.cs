@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Application.Products.Queries.IsCreator;
+﻿using CustomCADs.Catalog.Application.Common.Contracts;
 
-public record IsProductCreatorQuery(Guid Id, Guid CreatorId);
+namespace CustomCADs.Catalog.Application.Products.Queries.IsCreator;
+
+public record IsProductCreatorQuery(Guid Id, Guid CreatorId) : IQuery<bool>;

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Catalog.Application.Categories.Common;
+﻿namespace CustomCADs.Catalog.Application.Common.Exceptions;
 
 public class CategoryNotFoundException : Exception
 {

@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Users.Queries.GetById;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record GetUserByIdQuery(Guid Id);
+namespace CustomCADs.Account.Application.Users.Queries.GetById;
+
+public record GetUserByIdQuery(Guid Id) : IQuery<GetUserByIdDto>;

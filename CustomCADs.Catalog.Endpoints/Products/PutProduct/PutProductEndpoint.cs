@@ -3,14 +3,14 @@ using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Shared.Core;
 using FastEndpoints;
+using MediatR;
 using Microsoft.AspNetCore.Http;
-using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PutProduct;
 
 using static Helpers.ApiMessages;
 
-public class PutProductEndpoint(IMessageBus bus) : Endpoint<PutProductRequest>
+public class PutProductEndpoint(IMediator mediator) : Endpoint<PutProductRequest>
 {
     public override void Configure()
     {
@@ -22,7 +22,7 @@ public class PutProductEndpoint(IMessageBus bus) : Endpoint<PutProductRequest>
     public override async Task HandleAsync(PutProductRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetId());
-        var userIsCreator = await bus.InvokeAsync<bool>(isCreatorQuery).ConfigureAwait(false);
+        bool userIsCreator = await mediator.Send(isCreatorQuery).ConfigureAwait(false);
 
         if (!userIsCreator)
         {
@@ -32,7 +32,7 @@ public class PutProductEndpoint(IMessageBus bus) : Endpoint<PutProductRequest>
         }
 
         GetProductByIdQuery query = new(req.Id);
-        var product = await bus.InvokeAsync<GetProductByIdDto>(query, ct).ConfigureAwait(false);
+        GetProductByIdDto product = await mediator.Send(query, ct).ConfigureAwait(false);
 
         if (req.Image is not null)
         {
@@ -47,7 +47,7 @@ public class PutProductEndpoint(IMessageBus bus) : Endpoint<PutProductRequest>
             Cost: req.Cost
         );
         EditProductCommand editCommand = new(req.Id, dto);
-        await bus.InvokeAsync(editCommand, ct).ConfigureAwait(false);
+        await mediator.Send(editCommand, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

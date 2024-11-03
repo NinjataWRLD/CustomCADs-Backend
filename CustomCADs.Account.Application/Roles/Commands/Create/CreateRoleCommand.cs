@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Roles.Commands.Create;
+﻿using CustomCADs.Account.Application.Common.Contracts;
 
-public record CreateRoleCommand(RoleWriteDto Dto);
+namespace CustomCADs.Account.Application.Roles.Commands.Create;
+
+public record CreateRoleCommand(RoleWriteDto Dto) : ICommand<int>;
