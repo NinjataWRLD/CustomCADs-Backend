@@ -1,7 +1,3 @@
 ﻿namespace CustomCADs.Shared.Core.Events;
 
-public class RoleCreatedEvent
-{
-    public required string Name { get; set; }
-    public required string Description { get; set; }
-}
+public record RoleCreatedEvent(string Name, string Description);

@@ -22,7 +22,7 @@ public static class ProgramExtensions
 {
     private const string AuthScheme = JwtBearerDefaults.AuthenticationScheme;
 
-    public static IServiceCollection AddSignInManager(this IServiceCollection services)
+    public static IServiceCollection AddSignInService(this IServiceCollection services)
     {
         services.AddScoped<ISignInService, AppSignInService>();
 
@@ -31,7 +31,6 @@ public static class ProgramExtensions
 
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
-        
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
             CatalogApplicationReference.Assembly,
             AccountApplicationReference.Assembly

@@ -1,6 +1,3 @@
 ﻿namespace CustomCADs.Shared.Core.Events;
 
-public class RoleDeletedEvent
-{
-    public required string Name { get; set; }
-}
+public record RoleDeletedEvent(string Name);

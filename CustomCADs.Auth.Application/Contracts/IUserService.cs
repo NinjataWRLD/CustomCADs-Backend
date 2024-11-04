@@ -15,12 +15,12 @@ public interface IUserService
     Task<string> GeneratePasswordResetTokenAsync(AppUser user);
     Task<IdentityResult> CreateAsync(AppUser user);
     Task<IdentityResult> CreateAsync(AppUser user, string password);
-    Task UpdateAsync(AppUser user);
-    Task RevokeRefreshTokenAsync(Guid id);
-    Task UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate);
-    Task AddToRoleAsync(AppUser user, string role);
-    Task RemoveFromRoleAsync(AppUser user, string oldRole);
+    Task<IdentityResult> UpdateAsync(AppUser user);
+    Task<IdentityResult> RevokeRefreshTokenAsync(Guid id);
+    Task<IdentityResult> UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate);
+    Task<IdentityResult> AddToRoleAsync(AppUser user, string role);
+    Task<IdentityResult> RemoveFromRoleAsync(AppUser user, string oldRole);
     Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token);
     Task<IdentityResult> ResetPasswordAsync(AppUser user, string token, string newPassword);
-    Task DeleteAsync(AppUser user);
+    Task<IdentityResult> DeleteAsync(AppUser user);
 }

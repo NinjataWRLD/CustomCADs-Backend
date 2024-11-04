@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CustomCADs.Account.Endpoints.Users.GetUsers;
 
-public class GetUsersEndpoint(IMediator mediator) : Endpoint<GetUsersRequest, (int Count, UserResponse[] Users)>
+public class GetUsersEndpoint(IMediator mediator) : Endpoint<GetUsersRequest, GetUsersResponse>
 {
     public override void Configure()
     {
@@ -22,8 +22,7 @@ public class GetUsersEndpoint(IMediator mediator) : Endpoint<GetUsersRequest, (i
         );
         GetAllUsersDto result = await mediator.Send(query, ct).ConfigureAwait(false);
 
-        (int Count, UserResponse[] Users) response = 
-        (
+        GetUsersResponse response = new(
             result.Count, 
             result.Users.Select(u => new UserResponse(
                 Role: u.Role,

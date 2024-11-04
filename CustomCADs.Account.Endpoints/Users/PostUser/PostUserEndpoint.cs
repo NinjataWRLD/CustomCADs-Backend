@@ -3,16 +3,14 @@ using CustomCADs.Account.Application.Roles.Queries.GetAllNames;
 using CustomCADs.Account.Application.Users.Commands.Create;
 using CustomCADs.Account.Application.Users.Queries.GetById;
 using CustomCADs.Account.Endpoints.Users.GetUser;
-using CustomCADs.Shared.Core.Events;
 using FastEndpoints;
 using MediatR;
-using Wolverine;
 
 namespace CustomCADs.Account.Endpoints.Users.PostUser;
 
 using static Helpers.ApiMessages;
 
-public class PostUserEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<PostUserRequest, UserResponse>
+public class PostUserEndpoint(IMediator mediator) : Endpoint<PostUserRequest, UserResponse>
 {
     public override void Configure()
     {
@@ -38,17 +36,15 @@ public class PostUserEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<Po
             return;
         }
 
-        CreateUserCommand command = new(req.Role, req.Username, req.Email, req.FirstName, req.LastName);
+        CreateUserCommand command = new(
+            Role: req.Role,
+            Username: req.Username,
+            Email: req.Email,
+            Password: req.Password,
+            FirstName: req.FirstName,
+            LastName: req.LastName
+        );
         Guid id = await mediator.Send(command, ct).ConfigureAwait(false);
-
-        UserCreatedEvent @event = new()
-        {
-            Role = req.Role,
-            Username = req.Username,
-            Email = req.Email,
-            Password = req.Password,
-        };
-        await bus.PublishAsync(@event).ConfigureAwait(false);
 
         GetUserByIdQuery getByIdQuery = new(id);
         GetUserByIdDto addedUser = await mediator.Send(getByIdQuery, ct).ConfigureAwait(false);

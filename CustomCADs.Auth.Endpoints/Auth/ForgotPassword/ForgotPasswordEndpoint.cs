@@ -34,8 +34,8 @@ public class ForgotPasswordEndpoint(IUserService service, IMessageBus bus, IConf
 
         string endpoint = Path.Combine(clientUrl + "/login/reset-password") + $"?email={req.Email}&token={token}";
 
-        EmailVerificationRequestedEvent @event = new(req.Email, endpoint);
-        await bus.PublishAsync(@event).ConfigureAwait(false);
+        PasswordResetRequestedEvent prrEvent = new(req.Email, endpoint);
+        await bus.PublishAsync(prrEvent).ConfigureAwait(false);
 
         await SendOkAsync("Check your email!").ConfigureAwait(false);
     }

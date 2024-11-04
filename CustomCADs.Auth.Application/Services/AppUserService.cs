@@ -38,10 +38,10 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
     public async Task<IdentityResult> CreateAsync(AppUser user, string password)
         => await manager.CreateAsync(user, password).ConfigureAwait(false);
 
-    public async Task UpdateAsync(AppUser user)
+    public async Task<IdentityResult> UpdateAsync(AppUser user)
         => await manager.UpdateAsync(user).ConfigureAwait(false);
 
-    public async Task RevokeRefreshTokenAsync(Guid id)
+    public async Task<IdentityResult> RevokeRefreshTokenAsync(Guid id)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
             ?? throw new UserNotFoundException(id);
@@ -49,10 +49,11 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
         user.RefreshToken = null;
         user.RefreshTokenEndDate = null;
 
-        await manager.UpdateAsync(user).ConfigureAwait(false);
+        var result = await manager.UpdateAsync(user).ConfigureAwait(false);
+        return result;
     }
 
-    public async Task UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate)
+    public async Task<IdentityResult> UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
             ?? throw new UserNotFoundException(id);
@@ -60,13 +61,14 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
         user.RefreshToken = rt;
         user.RefreshTokenEndDate = endDate;
 
-        await manager.UpdateAsync(user).ConfigureAwait(false);
+        var result = await manager.UpdateAsync(user).ConfigureAwait(false);
+        return result;
     }
 
-    public async Task AddToRoleAsync(AppUser user, string role)
+    public async Task<IdentityResult> AddToRoleAsync(AppUser user, string role)
         => await manager.AddToRoleAsync(user, role).ConfigureAwait(false);
 
-    public async Task RemoveFromRoleAsync(AppUser user, string oldRole)
+    public async Task<IdentityResult> RemoveFromRoleAsync(AppUser user, string oldRole)
         => await manager.RemoveFromRoleAsync(user, oldRole).ConfigureAwait(false);
 
     public async Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token)
@@ -75,6 +77,6 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
     public async Task<IdentityResult> ResetPasswordAsync(AppUser user, string token, string newPassword)
         => await manager.ResetPasswordAsync(user, token, newPassword).ConfigureAwait(false);
 
-    public async Task DeleteAsync(AppUser user)
+    public async Task<IdentityResult> DeleteAsync(AppUser user)
         => await manager.DeleteAsync(user).ConfigureAwait(false);
 }

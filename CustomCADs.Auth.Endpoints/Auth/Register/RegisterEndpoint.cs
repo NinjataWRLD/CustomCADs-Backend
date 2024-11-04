@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Infrastructure.Entities;
-using CustomCADs.Shared.Core.Email;
 using CustomCADs.Shared.Core.Events;
 using FastEndpoints;
 using FluentValidation.Results;
@@ -13,7 +12,6 @@ namespace CustomCADs.Auth.Endpoints.Auth.Register;
 public class RegisterEndpoint(
     IMessageBus bus,
     IUserService service,
-    IEmailService emailService,
     IConfiguration config) : Endpoint<RegisterRequest>
 {
     public override void Configure()
@@ -38,21 +36,16 @@ public class RegisterEndpoint(
         }
         await service.AddToRoleAsync(user, req.Role);
 
-        UserRegisteredEvent @event = new()
-        {
-            Role = req.Role,
-            Username = req.Username,
-            Email = req.Email,
-            FirstName = req.FirstName,
-            LastName = req.LastName,
-        };
-        await bus.PublishAsync(@event).ConfigureAwait(false);
+        UserRegisteredEvent urEvent = new(req.Role, req.Username, req.Email, req.FirstName, req.LastName);
+        await bus.PublishAsync(urEvent).ConfigureAwait(false);
 
         string token = await service.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
         string serverUrl = config["URLs:Server"] ?? throw new ArgumentNullException();
 
         string endpoint = $"{serverUrl}/API/v1/Auth/VerifyEmail/{req.Username}?token={token}";
-        await emailService.SendVerificationEmailAsync(req.Email, endpoint);
+
+        EmailVerificationRequestedEvent evrEvent = new(user.Email ?? string.Empty, endpoint);
+        await bus.PublishAsync(evrEvent).ConfigureAwait(false);
 
         await SendOkAsync().ConfigureAwait(false);
     }

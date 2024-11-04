@@ -41,8 +41,8 @@ public class RetryVerifyEmailEndpoint(IUserService service, IMessageBus bus, ICo
 
         string endpoint = Path.Combine(serverUrl, $"API/Identity/VerifyEmail/{req.Username}?token={token}");
 
-        EmailVerificationRequestedEvent @event = new(user.Email ?? string.Empty, endpoint);
-        await bus.PublishAsync(@event).ConfigureAwait(false);
+        EmailVerificationRequestedEvent evrEvent = new(user.Email ?? string.Empty, endpoint);
+        await bus.PublishAsync(evrEvent).ConfigureAwait(false);
 
         await SendOkAsync("Check your email.").ConfigureAwait(false);
     }
