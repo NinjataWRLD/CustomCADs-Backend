@@ -9,7 +9,7 @@ public class ProductCreatedEventHandler(IStorageService service, IMessageBus bus
     public async Task Handle(ProductCreatedEvent pcEvent)
     {
         using MemoryStream imageStream = new(pcEvent.Image.Bytes);
-        using MemoryStream cadStream = new(pcEvent.Cad.Bytes);        
+        using MemoryStream cadStream = new(pcEvent.Cad.Bytes);
 
         string imagePath = await service.UploadFileAsync(
             "images",
@@ -19,7 +19,7 @@ public class ProductCreatedEventHandler(IStorageService service, IMessageBus bus
             pcEvent.Image.ContentType,
             pcEvent.Image.FileName
         ).ConfigureAwait(false);
-        
+
         string cadPath = await service.UploadFileAsync(
             "cads",
             cadStream,

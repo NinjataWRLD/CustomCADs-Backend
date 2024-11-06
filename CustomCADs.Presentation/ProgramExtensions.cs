@@ -38,7 +38,7 @@ public static class ProgramExtensions
 
         return services;
     }
-    
+
     public static IServiceCollection AddBus(this IServiceCollection services)
     {
         services.AddWolverine(cfg =>
@@ -67,7 +67,7 @@ public static class ProgramExtensions
 
         return services;
     }
-    
+
     public static IServiceCollection AddStorage(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<StorageSettings>(config.GetSection("Storage"));

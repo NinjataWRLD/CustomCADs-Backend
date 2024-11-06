@@ -12,7 +12,7 @@ public class ProductDeletedEventHandler(IMediator mediator, IStorageService serv
         GetProductByIdQuery query = new(pdEvent.Id);
         GetProductByIdDto dto = await mediator.Send(query).ConfigureAwait(false);
 
-        Task imageTask = service.DeleteFileAsync(dto.ImagePath), 
+        Task imageTask = service.DeleteFileAsync(dto.ImagePath),
             cadTask = service.DeleteFileAsync(dto.Cad.Path);
 
         await Task.WhenAll(imageTask, cadTask).ConfigureAwait(false);

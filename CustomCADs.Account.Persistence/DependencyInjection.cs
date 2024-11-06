@@ -46,7 +46,7 @@ public static class DependencyInjection
     private static IServiceCollection AddAccountUOW(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
+
         return services;
     }
 }

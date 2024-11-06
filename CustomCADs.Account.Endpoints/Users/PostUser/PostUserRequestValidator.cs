@@ -12,13 +12,13 @@ public class PostUserRequestValidator : Validator<PostUserRequest>
         RuleFor(r => r.Username)
             .NotEmpty().WithMessage(RequiredErrorMessage)
             .Length(NameMinLength, NameMaxLength).WithMessage(LengthErrorMessage);
-        
+
         RuleFor(r => r.Email)
             .NotEmpty().WithMessage(RequiredErrorMessage);
-        
+
         RuleFor(r => r.Role)
             .NotEmpty().WithMessage(RequiredErrorMessage);
-        
+
         RuleFor(r => r.FirstName)
             .Length(NameMinLength, NameMaxLength).WithMessage(LengthErrorMessage);
 

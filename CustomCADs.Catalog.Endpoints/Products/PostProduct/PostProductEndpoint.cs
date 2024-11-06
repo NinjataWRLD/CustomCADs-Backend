@@ -42,7 +42,7 @@ public class PostProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint
         using MemoryStream cadStream = new();
         Task cadTask = req.File.CopyToAsync(cadStream);
 
-        await Task.WhenAll(imageTask, cadTask).ConfigureAwait(false);        
+        await Task.WhenAll(imageTask, cadTask).ConfigureAwait(false);
         byte[] imageBytes = imageStream.ToArray();
         byte[] cadBytes = cadStream.ToArray();
 

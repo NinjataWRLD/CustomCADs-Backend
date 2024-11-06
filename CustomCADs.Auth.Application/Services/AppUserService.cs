@@ -16,10 +16,10 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
 
     public async Task<AppUser?> FindByEmailAsync(string email)
         => await manager.FindByEmailAsync(email).ConfigureAwait(false);
-    
+
     public async Task<AppUser?> FindByRefreshTokenAsync(string rt)
         => await manager.Users.Where(u => u.RefreshToken == rt).SingleOrDefaultAsync().ConfigureAwait(false);
-    
+
     public async Task<string> GetRoleAsync(AppUser user)
         => (await manager.GetRolesAsync(user).ConfigureAwait(false)).Single();
 
@@ -51,7 +51,7 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
         var result = await manager.UpdateAsync(user).ConfigureAwait(false);
         return result;
     }
-    
+
     public async Task<IdentityResult> UpdateAccountIdAsync(string username, Guid accountId)
     {
         AppUser user = await FindByNameAsync(username).ConfigureAwait(false)
@@ -62,7 +62,7 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
         var result = await manager.UpdateAsync(user).ConfigureAwait(false);
         return result;
     }
-    
+
     public async Task<IdentityResult> UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)

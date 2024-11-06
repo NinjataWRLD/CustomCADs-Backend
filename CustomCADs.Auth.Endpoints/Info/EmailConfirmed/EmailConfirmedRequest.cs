@@ -1,5 +1,3 @@
-﻿using FastEndpoints;
-
-namespace CustomCADs.Auth.Endpoints.Info.EmailConfirmed;
+﻿namespace CustomCADs.Auth.Endpoints.Info.EmailConfirmed;
 
 public record EmailConfirmedRequest(string Username);

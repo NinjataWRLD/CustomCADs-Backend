@@ -4,7 +4,7 @@ using CustomCADs.Catalog.Domain.Shared;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Create;
 
-public class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow) 
+public class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow)
     : ICommandHandler<CreateCategoryCommand, int>
 {
     public async Task<int> Handle(CreateCategoryCommand req, CancellationToken ct)

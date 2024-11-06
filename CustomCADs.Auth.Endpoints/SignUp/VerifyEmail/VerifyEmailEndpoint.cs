@@ -2,7 +2,6 @@
 using CustomCADs.Auth.Application.Dtos;
 using CustomCADs.Auth.Application.Exceptions;
 using CustomCADs.Auth.Infrastructure.Entities;
-using CustomCADs.Shared.Core;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -59,7 +58,7 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
 
         Guid accountId = user.AccountId ?? throw new UserAccountNotCreatedYetException(user.UserName ?? string.Empty);
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
-        
+
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.Id, accountId, req.Username, role);
         SaveAccessToken(jwt.Value, jwt.EndDate);
 

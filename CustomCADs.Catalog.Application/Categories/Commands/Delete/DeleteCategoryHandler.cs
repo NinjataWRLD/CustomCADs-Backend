@@ -6,7 +6,7 @@ using CustomCADs.Catalog.Domain.Shared;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Delete;
 
-public class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category> writes, IUnitOfWork uow) 
+public class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category> writes, IUnitOfWork uow)
     : ICommandHandler<DeleteCategoryCommand>
 {
     public async Task Handle(DeleteCategoryCommand req, CancellationToken ct)

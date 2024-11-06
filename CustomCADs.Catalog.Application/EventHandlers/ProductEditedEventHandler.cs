@@ -15,7 +15,7 @@ public class ProductEditedEventHandler(IStorageService service, IMediator mediat
         }
 
         using MemoryStream stream = new(peEvent.Image.Bytes);
-        string path = await service.UploadFileAsync(        
+        string path = await service.UploadFileAsync(
             "images",
             stream,
             peEvent.Id,

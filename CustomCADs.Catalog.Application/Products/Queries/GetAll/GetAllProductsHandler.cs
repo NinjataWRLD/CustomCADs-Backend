@@ -22,7 +22,7 @@ public class GetAllProductsHandler(IProductReads reads, IMediator mediator)
 
         ProductResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
         Guid[] ids = result.Products.Select(p => p.CreatorId).Distinct().ToArray();
-        
+
         GetUsersWithIdsQuery usersQuery = new(ids);
         IEnumerable<GetUsersWithIdsDto> users = await mediator.Send(usersQuery, ct).ConfigureAwait(false);
 

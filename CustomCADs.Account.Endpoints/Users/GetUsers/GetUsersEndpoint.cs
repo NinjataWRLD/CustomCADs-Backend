@@ -23,7 +23,7 @@ public class GetUsersEndpoint(IMediator mediator) : Endpoint<GetUsersRequest, Ge
         GetAllUsersDto result = await mediator.Send(query, ct).ConfigureAwait(false);
 
         GetUsersResponse response = new(
-            result.Count, 
+            result.Count,
             result.Users.Select(u => new UserResponse(
                 Role: u.Role,
                 Username: u.Username,

@@ -2,7 +2,6 @@
 using CustomCADs.Auth.Application.Dtos;
 using CustomCADs.Auth.Application.Exceptions;
 using CustomCADs.Auth.Infrastructure.Entities;
-using CustomCADs.Shared.Core;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 using static CustomCADs.Auth.Infrastructure.AuthConstants;

@@ -44,7 +44,7 @@ static class CadConfigUtils
             c.ComplexProperty(c => c.CamCoordinates);
             c.ComplexProperty(c => c.PanCoordinates);
         });
-        
+
         return builder;
     }
 

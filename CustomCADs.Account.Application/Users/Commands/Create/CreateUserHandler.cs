@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Account.Application.Common.Contracts;
 using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Account.Domain.Users;
-using CustomCADs.Shared.Core.Events;
+using CustomCADs.Shared.Core.Events.Users;
 using Wolverine;
 
 namespace CustomCADs.Account.Application.Users.Commands.Create;
@@ -16,9 +16,9 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow, IMessageBu
             RoleName = req.Role,
             Username = req.Username,
             Email = req.Email,
-            NameInfo = new() 
+            NameInfo = new()
             {
-                FirstName = req.FirstName, 
+                FirstName = req.FirstName,
                 LastName = req.LastName,
             },
             Role = null!,

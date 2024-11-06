@@ -15,7 +15,7 @@ public class DeleteRoleEndpoint(IMediator mediator) : Endpoint<DeleteRoleRequest
     {
         DeleteRoleByNameCommand command = new(req.Name);
         await mediator.Send(command, ct).ConfigureAwait(false);
-        
+
         await SendNoContentAsync().ConfigureAwait(false);
     }
 }

@@ -13,7 +13,7 @@ public static class DependencyInjection
 
     public static IApplicationBuilder UseCatalog(this IApplicationBuilder app)
         => app.UseGlobalExceptionHandler();
-    
+
     private static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
     {
         app.UseExceptionHandler(errorApp =>

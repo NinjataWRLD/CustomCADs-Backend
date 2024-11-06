@@ -6,7 +6,7 @@ public static class ClaimsPrincipalExtensions
 {
     public static Guid GetId(this ClaimsPrincipal user)
         => (user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty).ToGuid();
-    
+
     public static Guid GetAccountId(this ClaimsPrincipal user)
         => (user.FindFirst("http://schemas.customcads.com/account/id")?.Value ?? string.Empty).ToGuid();
 

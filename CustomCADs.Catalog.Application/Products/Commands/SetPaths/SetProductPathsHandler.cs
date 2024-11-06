@@ -16,7 +16,7 @@ public class SetProductPathsHandler(IProductReads reads, IUnitOfWork uow)
 
         if (!string.IsNullOrEmpty(req.CadPath))
         {
-            product.Cad = product.Cad with { Path = req.CadPath }; 
+            product.Cad = product.Cad with { Path = req.CadPath };
         }
 
         if (!string.IsNullOrEmpty(req.ImagePath))

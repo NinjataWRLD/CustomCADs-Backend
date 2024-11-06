@@ -10,7 +10,7 @@ public class UsersGroup : Group
 {
     public UsersGroup()
     {
-        Configure("users", ep => 
+        Configure("users", ep =>
         {
             ep.Roles(Admin);
             ep.Description(opt =>

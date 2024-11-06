@@ -41,7 +41,7 @@ public class PutProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<
         );
         EditProductCommand command = new(req.Id, dto);
         await mediator.Send(command, ct).ConfigureAwait(false);
-        
+
         GetProductByIdQuery getProductQuery = new(req.Id);
         GetProductByIdDto product = await mediator.Send(getProductQuery, ct).ConfigureAwait(false);
 

@@ -3,7 +3,7 @@ using CustomCADs.Account.Application.Common.Exceptions;
 using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Account.Domain.Users;
 using CustomCADs.Account.Domain.Users.Reads;
-using CustomCADs.Shared.Core.Events;
+using CustomCADs.Shared.Core.Events.Users;
 using Wolverine;
 
 namespace CustomCADs.Account.Application.Users.Commands.DeleteByName;
