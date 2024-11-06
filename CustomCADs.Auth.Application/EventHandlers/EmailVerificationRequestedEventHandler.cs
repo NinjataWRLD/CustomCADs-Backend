@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Shared.Core.Email;
-using CustomCADs.Shared.Core.Events;
+using CustomCADs.Shared.Core.Events.Email;
 
 namespace CustomCADs.Auth.Application.EventHandlers;
 

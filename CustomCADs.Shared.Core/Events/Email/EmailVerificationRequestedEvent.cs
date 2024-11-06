@@ -1,3 +1,3 @@
-﻿namespace CustomCADs.Shared.Core.Events;
+﻿namespace CustomCADs.Shared.Core.Events.Email;
 
 public record EmailVerificationRequestedEvent(string Email, string Endpoint);
