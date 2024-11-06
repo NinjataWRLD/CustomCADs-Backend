@@ -27,6 +27,7 @@ public class CreateProductHandler(ICategoryReads categoryReads, IWrites<Product>
             Status = req.Dto.Status,
             UploadDate = DateTime.UtcNow,
             Cad = new(),
+            Category = null!, // so a new category doesn't get created
         };
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);
 

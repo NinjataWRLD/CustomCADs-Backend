@@ -16,5 +16,5 @@ public class Product
     public required Cad Cad { get; set; }
     public Guid CreatorId { get; set; }
     public int CategoryId { get; set; }
-    public Category Category { get; set; } = new();
+    public required Category Category { get; set; }
 }

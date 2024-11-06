@@ -85,7 +85,7 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
     public async Task<string> UploadFileAsync(string folderPath, Stream stream, Guid id, string name, string contentType, string fileName, CancellationToken ct = default)
     {
         string extension = fileName.Remove(0, fileName.LastIndexOf('.'));
-        string path = $"{folderPath}/{name}{id}.{extension}";
+        string path = $"{folderPath}/{name}{id}{extension}";
 
         try
         {

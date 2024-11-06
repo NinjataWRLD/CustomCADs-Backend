@@ -39,25 +39,12 @@ static class CadConfigUtils
 
     public static EntityTypeBuilder<Product> SetValueObjects(this EntityTypeBuilder<Product> builder)
     {
-        builder.OwnsOne(p => p.Cad, pb =>
+        builder.ComplexProperty(p => p.Cad, c =>
         {
-            pb.Property(c => c.Path).IsRequired().HasColumnName("CadPath");
-
-            pb.OwnsOne(c => c.CamCoordinates, cb =>
-            {
-                cb.Property(c => c.X).IsRequired().HasColumnName("CamCoordX");
-                cb.Property(c => c.Y).IsRequired().HasColumnName("CamCoordY");
-                cb.Property(c => c.Z).IsRequired().HasColumnName("CamCoordZ");
-            });
-
-            pb.OwnsOne(c => c.PanCoordinates, cb =>
-            {
-                cb.Property(c => c.X).IsRequired().HasColumnName("PanCoordX");
-                cb.Property(c => c.Y).IsRequired().HasColumnName("PanCoordY");
-                cb.Property(c => c.Z).IsRequired().HasColumnName("PanCoordZ");
-            });
+            c.ComplexProperty(c => c.CamCoordinates);
+            c.ComplexProperty(c => c.PanCoordinates);
         });
-
+        
         return builder;
     }
 
