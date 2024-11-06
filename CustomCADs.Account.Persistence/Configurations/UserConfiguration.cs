@@ -1,9 +1,8 @@
-﻿using CustomCADs.Account.Domain.Users;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using static CustomCADs.Account.Domain.Users.UserConstants;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Account.Persistence.Configurations;
+
+using static UserConstants;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {

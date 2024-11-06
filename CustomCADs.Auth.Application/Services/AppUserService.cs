@@ -1,8 +1,4 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Application.Exceptions;
-using CustomCADs.Auth.Infrastructure.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Auth.Application.Services;
 

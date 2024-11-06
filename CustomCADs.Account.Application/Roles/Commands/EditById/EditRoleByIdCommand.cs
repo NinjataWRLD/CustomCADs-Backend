@@ -1,5 +1,3 @@
-﻿using CustomCADs.Account.Application.Common.Contracts;
-
-namespace CustomCADs.Account.Application.Roles.Commands.EditById;
+﻿namespace CustomCADs.Account.Application.Roles.Commands.EditById;
 
 public record EditRoleByIdCommand(int Id, RoleWriteDto Dto) : ICommand;

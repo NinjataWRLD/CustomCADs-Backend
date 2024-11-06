@@ -1,6 +1,4 @@
-﻿using CustomCADs.Auth.Application.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Auth.Endpoints.Helpers;
 

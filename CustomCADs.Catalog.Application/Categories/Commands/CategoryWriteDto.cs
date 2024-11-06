@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static CustomCADs.Catalog.Domain.Categories.CategoryConstants;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands;
+
+using static CategoryConstants;
 
 public record CategoryWriteDto
     ([StringLength(NameMaxLength, MinimumLength = NameMinLength)] string Name

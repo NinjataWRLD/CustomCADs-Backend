@@ -2,13 +2,12 @@
 using CustomCADs.Account.Application.Roles.Queries.GetAllNames;
 using CustomCADs.Account.Application.Users.Commands.Create;
 using CustomCADs.Account.Application.Users.Queries.GetById;
+using CustomCADs.Account.Endpoints.Helpers;
 using CustomCADs.Account.Endpoints.Users.GetUser;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Account.Endpoints.Users.PostUser;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
 
 public class PostUserEndpoint(IMediator mediator) : Endpoint<PostUserRequest, UserResponse>
 {

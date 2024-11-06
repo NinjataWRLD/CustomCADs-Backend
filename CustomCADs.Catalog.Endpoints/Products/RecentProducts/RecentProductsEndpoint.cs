@@ -1,12 +1,9 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetAll;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Shared.Core;
-using FastEndpoints;
-using MediatR;
-
-using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.RecentProducts;
+
+using static Constants;
 
 public class RecentProductsEndpoint(IMediator mediator) : Endpoint<RecentProductsRequest, IEnumerable<RecentProductsResponse>>
 {

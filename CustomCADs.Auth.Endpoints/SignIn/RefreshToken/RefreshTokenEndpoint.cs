@@ -1,14 +1,9 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Application.Dtos;
-using CustomCADs.Auth.Application.Exceptions;
-using CustomCADs.Auth.Infrastructure.Entities;
-using FastEndpoints;
-using Microsoft.AspNetCore.Http;
-using static CustomCADs.Auth.Infrastructure.AuthConstants;
+﻿using CustomCADs.Auth.Application.Dtos;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.RefreshToken;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
+using static AuthConstants;
 using static StatusCodes;
 
 public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenService) : EndpointWithoutRequest

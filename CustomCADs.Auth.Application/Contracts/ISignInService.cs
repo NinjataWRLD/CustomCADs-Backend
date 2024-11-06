@@ -1,7 +1,4 @@
-﻿using CustomCADs.Auth.Infrastructure.Entities;
-using Microsoft.AspNetCore.Identity;
-
-namespace CustomCADs.Auth.Application.Contracts;
+﻿namespace CustomCADs.Auth.Application.Contracts;
 
 public interface ISignInService
 {

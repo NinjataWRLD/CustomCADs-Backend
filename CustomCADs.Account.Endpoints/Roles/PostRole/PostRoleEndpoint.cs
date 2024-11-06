@@ -1,10 +1,8 @@
-﻿using CustomCADs.Account.Application.Roles;
-using CustomCADs.Account.Application.Roles.Commands;
+﻿using CustomCADs.Account.Application.Roles.Commands;
 using CustomCADs.Account.Application.Roles.Commands.Create;
+using CustomCADs.Account.Application.Roles.Queries;
 using CustomCADs.Account.Application.Roles.Queries.GetByName;
 using CustomCADs.Account.Endpoints.Roles.GetRole;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Account.Endpoints.Roles.PostRole;
 

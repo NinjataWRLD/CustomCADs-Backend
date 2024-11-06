@@ -1,7 +1,4 @@
-﻿using CustomCADs.Account.Application.Common.Contracts;
-using CustomCADs.Account.Application.Common.Exceptions;
-using CustomCADs.Account.Domain.Roles;
-using CustomCADs.Account.Domain.Roles.Reads;
+﻿using CustomCADs.Account.Domain.Roles.Reads;
 
 namespace CustomCADs.Account.Application.Roles.Queries.GetByName;
 

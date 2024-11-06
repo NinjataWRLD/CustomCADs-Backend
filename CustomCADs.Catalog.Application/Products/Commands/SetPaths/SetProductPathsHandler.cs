@@ -1,7 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Contracts;
-using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Products;
-using CustomCADs.Catalog.Domain.Products.Reads;
+﻿using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Catalog.Domain.Shared;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetPaths;

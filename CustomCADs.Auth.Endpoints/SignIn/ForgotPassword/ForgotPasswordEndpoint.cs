@@ -1,14 +1,10 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Infrastructure.Entities;
-using CustomCADs.Shared.Core.Events.Email;
-using FastEndpoints;
-using Microsoft.AspNetCore.Http;
+﻿using CustomCADs.Shared.Core.Events.Email;
 using Microsoft.Extensions.Configuration;
 using Wolverine;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.ForgotPassword;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
 using static StatusCodes;
 
 public class ForgotPasswordEndpoint(IUserService service, IMessageBus bus, IConfiguration config) : Endpoint<ForgotPasswordRequest>

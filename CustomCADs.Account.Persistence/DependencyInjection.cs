@@ -4,7 +4,6 @@ using CustomCADs.Account.Domain.Users.Reads;
 using CustomCADs.Account.Persistence;
 using CustomCADs.Account.Persistence.Repositories;
 using CustomCADs.Account.Persistence.Repositories.Reads;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130

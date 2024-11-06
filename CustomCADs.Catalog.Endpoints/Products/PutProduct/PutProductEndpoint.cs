@@ -3,14 +3,11 @@ using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Events.Products;
-using FastEndpoints;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PutProduct;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
 
 public class PutProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<PutProductRequest>
 {

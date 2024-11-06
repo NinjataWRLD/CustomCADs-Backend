@@ -1,7 +1,4 @@
-﻿using CustomCADs.Account.Application.Common.Contracts;
-using CustomCADs.Account.Application.Common.Exceptions;
-using CustomCADs.Account.Domain.Users;
-using CustomCADs.Account.Domain.Users.Reads;
+﻿using CustomCADs.Account.Domain.Users.Reads;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetByUsername;
 

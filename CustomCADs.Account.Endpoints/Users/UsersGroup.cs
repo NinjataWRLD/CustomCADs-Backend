@@ -1,9 +1,6 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Http;
-using static CustomCADs.Shared.Core.Constants;
+﻿namespace CustomCADs.Account.Endpoints.Users;
 
-namespace CustomCADs.Account.Endpoints.Users;
-
+using static Constants;
 using static StatusCodes;
 
 public class UsersGroup : Group

@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Queries;
 using CustomCADs.Catalog.Application.Categories.Queries.GetById;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.GetCategory;
 

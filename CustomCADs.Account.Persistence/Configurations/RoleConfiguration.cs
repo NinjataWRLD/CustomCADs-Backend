@@ -1,10 +1,10 @@
-﻿using CustomCADs.Account.Domain.Roles;
-using Microsoft.EntityFrameworkCore;
+﻿using CustomCADs.Shared.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using static CustomCADs.Account.Domain.Roles.RoleConstants;
-using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Account.Persistence.Configurations;
+
+using static Constants;
+using static RoleConstants;
 
 public class RoleConfiguration : IEntityTypeConfiguration<Role>
 {

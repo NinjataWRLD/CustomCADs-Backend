@@ -1,6 +1,4 @@
-﻿using CustomCADs.Account.Application.Common.Contracts;
-using CustomCADs.Account.Domain.Roles;
-using CustomCADs.Account.Domain.Shared;
+﻿using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Shared.Core.Events.Roles;
 using Wolverine;
 

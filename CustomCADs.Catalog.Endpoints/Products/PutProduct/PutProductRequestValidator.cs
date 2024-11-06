@@ -1,9 +1,10 @@
-﻿using FastEndpoints;
+﻿using CustomCADs.Catalog.Domain.Products;
 using FluentValidation;
-using static CustomCADs.Catalog.Domain.Products.ProductConstants;
-using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PutProduct;
+
+using static Constants;
+using static ProductConstants;
 
 public class PostProductRequestValidator : Validator<PutProductRequest>
 {

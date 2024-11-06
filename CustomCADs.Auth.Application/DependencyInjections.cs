@@ -1,5 +1,4 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Application.Dtos;
+﻿using CustomCADs.Auth.Application.Dtos;
 using CustomCADs.Auth.Application.Services;
 using Microsoft.Extensions.Configuration;
 

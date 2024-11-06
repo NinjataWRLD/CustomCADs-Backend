@@ -1,11 +1,11 @@
-﻿using FastEndpoints;
+﻿using CustomCADs.Shared.Core;
 using FluentValidation;
-using static CustomCADs.Auth.Infrastructure.AuthConstants;
-using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.Register;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
+using static AuthConstants;
+using static Constants;
 
 public class RegisterRequestValidator : Validator<RegisterRequest>
 {

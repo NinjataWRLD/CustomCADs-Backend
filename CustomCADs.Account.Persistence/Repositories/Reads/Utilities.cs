@@ -1,5 +1,4 @@
-﻿using CustomCADs.Account.Domain.Users;
-using CustomCADs.Account.Domain.Users.Enums;
+﻿using CustomCADs.Account.Domain.Users.Enums;
 
 namespace CustomCADs.Account.Persistence.Repositories.Reads;
 

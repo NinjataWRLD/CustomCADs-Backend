@@ -1,11 +1,9 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Commands.Delete;
 using CustomCADs.Catalog.Application.Categories.Queries.ExistsById;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.DeleteCategory;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
 
 public class DeleteCategoryEndpoint(IMediator mediator) : Endpoint<DeleteCategoryRequest>
 {

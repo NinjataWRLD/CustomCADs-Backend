@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Account.Domain.Shared;
-using CustomCADs.Account.Domain.Users;
 using CustomCADs.Shared.Core.Events.Users;
 using Wolverine;
 

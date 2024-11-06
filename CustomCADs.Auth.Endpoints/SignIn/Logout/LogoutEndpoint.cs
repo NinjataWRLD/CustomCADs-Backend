@@ -1,7 +1,4 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Shared.Core;
-using FastEndpoints;
-using Microsoft.AspNetCore.Http;
+﻿using CustomCADs.Shared.Core;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.Logout;
 

@@ -1,9 +1,10 @@
-﻿using FastEndpoints;
+﻿using CustomCADs.Account.Domain.Roles;
 using FluentValidation;
-using static CustomCADs.Account.Domain.Roles.RoleConstants;
-using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Account.Endpoints.Roles.PostRole;
+
+using static Constants;
+using static RoleConstants;
 
 public class PostRoleRequestValidator : Validator<PostRoleRequest>
 {

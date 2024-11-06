@@ -1,7 +1,5 @@
-﻿using CustomCADs.Account.Application.Roles;
+﻿using CustomCADs.Account.Application.Roles.Queries;
 using CustomCADs.Account.Application.Roles.Queries.GetByName;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Account.Endpoints.Roles.GetRole;
 public class GetRoleEndpoint(IMediator mediator) : Endpoint<GetRoleRequest, RoleResponse>

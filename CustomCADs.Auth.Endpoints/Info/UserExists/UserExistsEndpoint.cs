@@ -1,8 +1,4 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Infrastructure.Entities;
-using FastEndpoints;
-
-namespace CustomCADs.Auth.Endpoints.Info.UserExists;
+﻿namespace CustomCADs.Auth.Endpoints.Info.UserExists;
 public class UserExistsEndpoint(IUserService service) : Endpoint<UserExistsRequest>
 {
     public override void Configure()

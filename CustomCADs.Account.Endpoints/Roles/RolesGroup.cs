@@ -1,9 +1,6 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Http;
-using static CustomCADs.Shared.Core.Constants;
+﻿namespace CustomCADs.Account.Endpoints.Roles;
 
-namespace CustomCADs.Account.Endpoints.Roles;
-
+using static Constants;
 using static StatusCodes;
 
 public class RolesGroup : Group

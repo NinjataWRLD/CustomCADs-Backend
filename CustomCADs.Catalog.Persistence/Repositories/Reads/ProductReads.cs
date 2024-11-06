@@ -1,8 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Products;
-using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Domain.Products.Reads;
+﻿using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Persistence;
-using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Catalog.Persistence.Repositories.Reads;
 

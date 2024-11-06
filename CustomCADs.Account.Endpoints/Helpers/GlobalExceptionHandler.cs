@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Account.Application.Common.Exceptions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Account.Endpoints.Helpers;

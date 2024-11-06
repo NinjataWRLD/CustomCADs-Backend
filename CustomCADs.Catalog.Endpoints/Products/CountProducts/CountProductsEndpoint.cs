@@ -1,8 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Count;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Products.CountProducts;
 

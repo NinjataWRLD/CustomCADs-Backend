@@ -3,13 +3,10 @@ using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core;
-using FastEndpoints;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PatchProduct;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
 
 public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest>
 {

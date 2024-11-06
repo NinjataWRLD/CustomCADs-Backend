@@ -1,7 +1,4 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetById;
-using CustomCADs.Catalog.Application.Common.Contracts;
-using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using MediatR;
 

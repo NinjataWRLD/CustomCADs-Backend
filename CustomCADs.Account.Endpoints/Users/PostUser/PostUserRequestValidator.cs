@@ -1,9 +1,10 @@
-﻿using FastEndpoints;
+﻿using CustomCADs.Account.Domain.Users;
 using FluentValidation;
-using static CustomCADs.Account.Domain.Users.UserConstants;
-using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Account.Endpoints.Users.PostUser;
+
+using static Constants;
+using static UserConstants;
 
 public class PostUserRequestValidator : Validator<PostUserRequest>
 {

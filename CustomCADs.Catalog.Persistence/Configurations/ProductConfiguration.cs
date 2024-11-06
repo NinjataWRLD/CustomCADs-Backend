@@ -1,10 +1,8 @@
-﻿using CustomCADs.Catalog.Domain.Products;
-using CustomCADs.Catalog.Domain.Products.Enums;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using static CustomCADs.Catalog.Domain.Products.ProductConstants;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Catalog.Persistence.Configurations;
+
+using static ProductConstants;
 
 public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {

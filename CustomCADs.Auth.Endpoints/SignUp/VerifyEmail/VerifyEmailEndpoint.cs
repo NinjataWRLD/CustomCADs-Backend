@@ -1,15 +1,10 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Application.Dtos;
-using CustomCADs.Auth.Application.Exceptions;
-using CustomCADs.Auth.Infrastructure.Entities;
-using FastEndpoints;
-using Microsoft.AspNetCore.Http;
+﻿using CustomCADs.Auth.Application.Dtos;
 using Microsoft.AspNetCore.Identity;
-using static CustomCADs.Auth.Infrastructure.AuthConstants;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.VerifyEmail;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
+using static AuthConstants;
 using static StatusCodes;
 
 public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenService) : Endpoint<VerifyEmailRequest>

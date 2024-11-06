@@ -1,8 +1,4 @@
-﻿using CustomCADs.Account.Domain.Roles;
-using CustomCADs.Account.Domain.Users;
-using Microsoft.EntityFrameworkCore;
-
-namespace CustomCADs.Account.Persistence;
+﻿namespace CustomCADs.Account.Persistence;
 
 public class AccountContext(DbContextOptions<AccountContext> opt) : DbContext(opt)
 {

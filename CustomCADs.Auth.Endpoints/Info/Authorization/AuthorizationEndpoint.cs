@@ -1,12 +1,8 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Infrastructure.Entities;
-using CustomCADs.Shared.Core;
-using FastEndpoints;
-using Microsoft.AspNetCore.Http;
+﻿using CustomCADs.Shared.Core;
 
 namespace CustomCADs.Auth.Endpoints.Info.Authorization;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
 using static StatusCodes;
 
 public class AuthorizationEndpoint(IUserService serivce) : EndpointWithoutRequest

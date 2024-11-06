@@ -1,8 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Commands;
 using CustomCADs.Catalog.Application.Categories.Commands.Create;
 using CustomCADs.Catalog.Endpoints.Categories.GetCategory;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PostCategory;
 

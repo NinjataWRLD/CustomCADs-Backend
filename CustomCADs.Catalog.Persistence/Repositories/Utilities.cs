@@ -1,7 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products;
-using CustomCADs.Catalog.Domain.Products.Enums;
-
-namespace CustomCADs.Catalog.Persistence.Repositories;
+﻿namespace CustomCADs.Catalog.Persistence.Repositories;
 
 public static class Utilities
 {

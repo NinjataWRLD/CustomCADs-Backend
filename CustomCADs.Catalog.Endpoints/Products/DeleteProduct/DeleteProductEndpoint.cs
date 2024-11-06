@@ -2,13 +2,11 @@
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Events.Products;
-using FastEndpoints;
-using MediatR;
 using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Products.DeleteProduct;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
 
 public class DeleteProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<DeleteProductRequest>
 {

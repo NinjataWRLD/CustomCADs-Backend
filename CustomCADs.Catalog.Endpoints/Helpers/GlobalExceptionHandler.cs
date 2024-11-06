@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Catalog.Endpoints.Helpers;

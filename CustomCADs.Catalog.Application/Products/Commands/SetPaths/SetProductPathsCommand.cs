@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Contracts;
-
-namespace CustomCADs.Catalog.Application.Products.Commands.SetPaths;
+﻿namespace CustomCADs.Catalog.Application.Products.Commands.SetPaths;
 
 public record SetProductPathsCommand(
     Guid Id,

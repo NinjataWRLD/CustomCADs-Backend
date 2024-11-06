@@ -1,9 +1,6 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Http;
-using static CustomCADs.Shared.Core.Constants;
+﻿namespace CustomCADs.Catalog.Endpoints.Products;
 
-namespace CustomCADs.Catalog.Endpoints.Products;
-
+using static Constants;
 using static StatusCodes;
 
 public class ProductsGroup : Group

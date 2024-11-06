@@ -1,8 +1,8 @@
-﻿using FastEndpoints;
-using FluentValidation;
-using static CustomCADs.Shared.Core.Constants;
+﻿using FluentValidation;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PutCategory;
+
+using static Constants;
 
 public class PutCategoryRequestValidator : Validator<PutCategoryRequest>
 {

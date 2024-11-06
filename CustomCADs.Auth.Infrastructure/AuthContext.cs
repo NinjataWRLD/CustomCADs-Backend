@@ -1,9 +1,11 @@
 ﻿using CustomCADs.Auth.Infrastructure.Entities;
+using CustomCADs.Shared.Core;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Auth.Infrastructure;
+
+using static Constants;
 
 public class AuthContext(DbContextOptions<AuthContext> opt) : IdentityDbContext<AppUser, AppRole, Guid>(opt)
 {

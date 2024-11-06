@@ -1,13 +1,9 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Infrastructure.Entities;
-using FastEndpoints;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
+﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.ResetPassword;
 
-using static Helpers.ApiMessages;
+using static ApiMessages;
 using static StatusCodes;
 
 public class ResetPasswordEndpoint(IUserService service) : Endpoint<ResetPasswordRequest>

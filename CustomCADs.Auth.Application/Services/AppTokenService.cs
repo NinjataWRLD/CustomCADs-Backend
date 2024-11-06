@@ -1,14 +1,15 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Application.Dtos;
+﻿using CustomCADs.Auth.Application.Dtos;
+using CustomCADs.Auth.Infrastructure;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using static CustomCADs.Auth.Infrastructure.AuthConstants;
 
 namespace CustomCADs.Auth.Application.Services;
+
+using static AuthConstants;
 
 public class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
 {

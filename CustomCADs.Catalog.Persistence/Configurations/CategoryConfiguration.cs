@@ -1,9 +1,8 @@
-﻿using CustomCADs.Catalog.Domain.Categories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using static CustomCADs.Catalog.Domain.Categories.CategoryConstants;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Catalog.Persistence.Configurations;
+
+using static CategoryConstants;
 
 public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {

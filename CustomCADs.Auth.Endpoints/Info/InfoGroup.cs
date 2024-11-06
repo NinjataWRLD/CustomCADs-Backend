@@ -1,7 +1,4 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Http;
-
-namespace CustomCADs.Auth.Endpoints.Info;
+﻿namespace CustomCADs.Auth.Endpoints.Info;
 
 public class InfoGroup : Group
 {

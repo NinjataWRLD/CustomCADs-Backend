@@ -1,6 +1,4 @@
 ﻿using CustomCADs.Account.Application.Users.Commands.DeleteByName;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Account.Endpoints.Users.DeleteUser;
 

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Account.Application.Common.Contracts;
-
-namespace CustomCADs.Account.Application.Users.Queries.GetAll;
+﻿namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
 public record GetAllUsersQuery(
     string? Role = null,

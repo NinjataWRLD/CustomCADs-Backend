@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetUsersWithIds;
-using CustomCADs.Catalog.Application.Common.Contracts;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using MediatR;
 

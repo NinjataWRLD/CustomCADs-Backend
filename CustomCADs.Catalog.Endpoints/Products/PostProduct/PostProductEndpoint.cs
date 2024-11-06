@@ -2,15 +2,12 @@
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.GetProduct;
-using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Events.Products;
-using FastEndpoints;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 using Wolverine;
-using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
+
+using static Constants;
 
 public class PostProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<PostProductRequest, PostProductResponse>
 {

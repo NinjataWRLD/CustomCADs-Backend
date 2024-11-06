@@ -1,6 +1,4 @@
-﻿using CustomCADs.Account.Application.Common.Contracts;
-
-namespace CustomCADs.Account.Application.Users.Commands.Create;
+﻿namespace CustomCADs.Account.Application.Users.Commands.Create;
 
 public record CreateUserCommand(
     string Role,

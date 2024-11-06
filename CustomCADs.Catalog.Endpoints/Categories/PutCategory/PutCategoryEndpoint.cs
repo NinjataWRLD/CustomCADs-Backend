@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Commands;
 using CustomCADs.Catalog.Application.Categories.Commands.Edit;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PutCategory;
 

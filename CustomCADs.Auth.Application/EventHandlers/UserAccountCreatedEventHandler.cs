@@ -1,5 +1,4 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Shared.Core.Events.Users;
+﻿using CustomCADs.Shared.Core.Events.Users;
 
 namespace CustomCADs.Auth.Application.EventHandlers;
 

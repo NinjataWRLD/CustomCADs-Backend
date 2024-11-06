@@ -1,10 +1,8 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetAll;
-using CustomCADs.Shared.Core;
-using FastEndpoints;
-using MediatR;
-using static CustomCADs.Shared.Core.Constants;
 
 namespace CustomCADs.Catalog.Endpoints.Products.GetProducts;
+
+using static Constants;
 
 public class GetProductsEndpoint(IMediator mediator) : Endpoint<GetProductsRequest, GetProductsResponse>
 {

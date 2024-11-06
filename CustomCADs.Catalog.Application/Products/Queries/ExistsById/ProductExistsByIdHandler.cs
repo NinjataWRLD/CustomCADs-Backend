@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Contracts;
-using CustomCADs.Catalog.Domain.Products.Reads;
+﻿using CustomCADs.Catalog.Domain.Products.Reads;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.ExistsById;
 

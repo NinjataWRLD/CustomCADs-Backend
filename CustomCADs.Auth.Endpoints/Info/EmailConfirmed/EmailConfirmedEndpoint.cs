@@ -1,8 +1,4 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Infrastructure.Entities;
-using FastEndpoints;
-
-namespace CustomCADs.Auth.Endpoints.Info.EmailConfirmed;
+﻿namespace CustomCADs.Auth.Endpoints.Info.EmailConfirmed;
 public class EmailConfirmedEndpoint(IUserService service) : Endpoint<EmailConfirmedRequest>
 {
     public override void Configure()

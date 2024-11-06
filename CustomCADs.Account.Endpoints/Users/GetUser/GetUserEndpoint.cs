@@ -1,6 +1,4 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetByUsername;
-using FastEndpoints;
-using MediatR;
 
 namespace CustomCADs.Account.Endpoints.Users.GetUser;
 

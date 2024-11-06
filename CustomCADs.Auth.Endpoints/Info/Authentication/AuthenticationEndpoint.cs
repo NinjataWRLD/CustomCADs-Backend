@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Core;
-using FastEndpoints;
 
 namespace CustomCADs.Auth.Endpoints.Info.Authentication;
 public class AuthenticationEndpoint : EndpointWithoutRequest

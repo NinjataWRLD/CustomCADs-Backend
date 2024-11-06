@@ -1,7 +1,4 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Http;
-
-namespace CustomCADs.Auth.Endpoints.SignIn;
+﻿namespace CustomCADs.Auth.Endpoints.SignIn;
 
 public class SignInGroup : Group
 {
