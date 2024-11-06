@@ -82,22 +82,22 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
         }
     }
 
-    public async Task<Guid> UploadFileAsync(string path, Stream stream, string contentType, string fileName, CancellationToken ct = default)
+    public async Task<string> UploadFileAsync(string folderPath, Stream stream, string contentType, string fileName, CancellationToken ct = default)
     {
+        string path = $"{folderPath}/{Guid.NewGuid()}";
         try
         {
-            Guid key = Guid.NewGuid();
             PutObjectRequest req = new()
             {
                 BucketName = settings.Value.BucketName,
-                Key = $"{path}/{key}",
+                Key = path,
                 InputStream = stream,
                 ContentType = contentType,
                 Metadata = { ["file-name"] = fileName },
             };
             await s3Client.PutObjectAsync(req, ct).ConfigureAwait(false);
 
-            return key;
+            return path;
         }
         catch (AmazonS3Exception ex)
         {
