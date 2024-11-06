@@ -2,15 +2,17 @@
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Events.Products;
 using FastEndpoints;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PutProduct;
 
 using static Helpers.ApiMessages;
 
-public class PutProductEndpoint(IMediator mediator) : Endpoint<PutProductRequest>
+public class PutProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<PutProductRequest>
 {
     public override void Configure()
     {
@@ -31,23 +33,43 @@ public class PutProductEndpoint(IMediator mediator) : Endpoint<PutProductRequest
             return;
         }
 
-        GetProductByIdQuery query = new(req.Id);
-        GetProductByIdDto product = await mediator.Send(query, ct).ConfigureAwait(false);
-
-        if (req.Image is not null)
-        {
-            // Upload new image
-            // Save its path
-        }
-
         EditProductDto dto = new(
             Name: req.Name,
             Description: req.Description,
             CategoryId: req.CategoryId,
             Cost: req.Cost
         );
-        EditProductCommand editCommand = new(req.Id, dto);
-        await mediator.Send(editCommand, ct).ConfigureAwait(false);
+        EditProductCommand command = new(req.Id, dto);
+        await mediator.Send(command, ct).ConfigureAwait(false);
+        
+        GetProductByIdQuery getProductQuery = new(req.Id);
+        GetProductByIdDto product = await mediator.Send(getProductQuery, ct).ConfigureAwait(false);
+
+        ProductEditedEvent peEvent = new(
+            Id: product.Id,
+            OldName: product.Name,
+            Name: dto.Name,
+            OldDescription: product.Description,
+            Description: dto.Description,
+            OldCategoryId: product.Category.Id,
+            CategoryId: dto.CategoryId,
+            OldCost: dto.Cost,
+            Cost: dto.Cost,
+            OldImagePath: product.ImagePath
+        );
+
+        if (req.Image is not null)
+        {
+            using MemoryStream imageStream = new();
+            await req.Image.CopyToAsync(imageStream).ConfigureAwait(false);
+
+            byte[] imageBytes = imageStream.ToArray();
+            peEvent = peEvent with
+            {
+                Image = new(imageBytes, req.Image.FileName, req.Image.ContentType)
+            };
+        }
+        await bus.PublishAsync(peEvent).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

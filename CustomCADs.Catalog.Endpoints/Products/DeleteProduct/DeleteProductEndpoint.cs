@@ -1,15 +1,16 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Delete;
-using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Events.Products;
 using FastEndpoints;
 using MediatR;
+using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Products.DeleteProduct;
 
 using static Helpers.ApiMessages;
 
-public class DeleteProductEndpoint(IMediator mediator) : Endpoint<DeleteProductRequest>
+public class DeleteProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<DeleteProductRequest>
 {
     public override void Configure()
     {
@@ -29,14 +30,11 @@ public class DeleteProductEndpoint(IMediator mediator) : Endpoint<DeleteProductR
             return;
         }
 
-        GetProductByIdQuery getProductQuery = new(req.Id);
-        GetProductByIdDto model = await mediator.Send(getProductQuery, ct).ConfigureAwait(false);
-
-        // Delete image
-        // Delete cad
-
         DeleteProductCommand command = new(req.Id);
         await mediator.Send(command, ct).ConfigureAwait(false);
+
+        ProductDeletedEvent pdEvent = new(req.Id);
+        await bus.PublishAsync(pdEvent).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

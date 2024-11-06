@@ -14,11 +14,15 @@ public class SetProductPathsHandler(IProductReads reads, IUnitOfWork uow)
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw new ProductNotFoundException(req.Id);
 
-        string cadPath = req.CadPath ?? product.Cad.Path;
-        string imagePath = req.ImagePath ?? product.ImagePath;
-
-        product.Cad = product.Cad with { Path = cadPath };
-        product.ImagePath = imagePath;
+        if (!string.IsNullOrEmpty(req.CadPath)) 
+        {
+            product.Cad = product.Cad with { Path = req.CadPath };
+        }
+        
+        if (!string.IsNullOrEmpty(req.ImagePath)) 
+        {
+            product.ImagePath = req.ImagePath;
+        }
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
