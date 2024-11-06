@@ -14,6 +14,8 @@ public class ProductCreatedEventHandler(IStorageService service, IMessageBus bus
         string imagePath = await service.UploadFileAsync(
             "images",
             imageStream,
+            pcEvent.Id,
+            pcEvent.Name,
             pcEvent.Image.ContentType,
             pcEvent.Image.FileName
         ).ConfigureAwait(false);
@@ -21,6 +23,8 @@ public class ProductCreatedEventHandler(IStorageService service, IMessageBus bus
         string cadPath = await service.UploadFileAsync(
             "cads",
             cadStream,
+            pcEvent.Id,
+            pcEvent.Name,
             pcEvent.Cad.ContentType,
             pcEvent.Cad.FileName
         ).ConfigureAwait(false);

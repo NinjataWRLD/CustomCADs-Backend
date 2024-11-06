@@ -13,15 +13,18 @@ public class ProductEditedEventHandler(IStorageService service, IMediator mediat
         {
             return;
         }
-        await service.DeleteFileAsync(peEvent.OldImagePath).ConfigureAwait(false);
 
         using MemoryStream stream = new(peEvent.Image.Bytes);
         string path = await service.UploadFileAsync(        
             "images",
             stream,
+            peEvent.Id,
+            peEvent.Name,
             peEvent.Image.ContentType,
             peEvent.Image.FileName
         ).ConfigureAwait(false);
+
+        await service.DeleteFileAsync(peEvent.OldImagePath).ConfigureAwait(false);
 
         SetProductPathsCommand command = new(peEvent.Id, ImagePath: path);
         await mediator.Send(command).ConfigureAwait(false);

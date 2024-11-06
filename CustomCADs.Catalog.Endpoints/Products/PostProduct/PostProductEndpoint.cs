@@ -55,8 +55,8 @@ public class PostProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint
             Cost: dto.Cost,
             CreatorId: dto.CreatorId,
             Status: dto.Status.ToString(),
-            Image: new(imageBytes, req.Image.ContentType, req.Image.FileName),
-            Cad: new(cadBytes, req.File.ContentType, req.File.FileName)
+            Image: new(imageBytes, req.Image.FileName, req.Image.ContentType),
+            Cad: new(cadBytes, req.File.FileName, req.File.ContentType)
         );
         await bus.PublishAsync(pcEvent).ConfigureAwait(false);
 
