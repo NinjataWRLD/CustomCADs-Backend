@@ -10,7 +10,7 @@ public class UserCreatedEventHandler(IUserService service)
 {
     public async Task Handle(UserCreatedEvent ucEvent)
     {
-        AppUser user = new(ucEvent.Username, ucEvent.Email);
+        AppUser user = new(ucEvent.Username, ucEvent.Email) { AccountId = ucEvent.Id };
         IdentityResult result = await service.CreateAsync(user, ucEvent.Password).ConfigureAwait(false);
 
         if (!result.Succeeded)

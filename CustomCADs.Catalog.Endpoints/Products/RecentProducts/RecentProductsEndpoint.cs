@@ -19,7 +19,7 @@ public class RecentProductsEndpoint(IMediator mediator) : Endpoint<RecentProduct
     public override async Task HandleAsync(RecentProductsRequest req, CancellationToken ct)
     {
         GetAllProductsQuery query = new(
-            CreatorId: User.GetId(),
+            CreatorId: User.GetAccountId(),
             Sorting: nameof(ProductSorting.Newest),
             Limit: req.Limit
         );

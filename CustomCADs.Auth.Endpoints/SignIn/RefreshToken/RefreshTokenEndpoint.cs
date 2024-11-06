@@ -1,6 +1,8 @@
 ﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Application.Dtos;
+using CustomCADs.Auth.Application.Exceptions;
 using CustomCADs.Auth.Infrastructure.Entities;
+using CustomCADs.Shared.Core;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 using static CustomCADs.Auth.Infrastructure.AuthConstants;
@@ -46,7 +48,9 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
         }
 
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
-        AccessTokenDto newJwt = tokenService.GenerateAccessToken(user.Id, user.UserName ?? string.Empty, role);
+        Guid accountId = user.AccountId ?? throw new UserAccountNotCreatedYetException(user.UserName ?? string.Empty);
+
+        AccessTokenDto newJwt = tokenService.GenerateAccessToken(user.Id, accountId, user.UserName ?? string.Empty, role);
         SaveAccessToken(newJwt.Value, newJwt.EndDate);
 
         if (user.RefreshTokenEndDate >= DateTime.UtcNow.AddMinutes(1))

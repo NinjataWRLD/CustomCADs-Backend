@@ -15,13 +15,14 @@ public class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
     private const string Algorithm = SecurityAlgorithms.HmacSha256;
     private readonly JwtSettings jwtSettings = jwtOptions.Value;
 
-    public AccessTokenDto GenerateAccessToken(Guid id, string username, string role)
+    public AccessTokenDto GenerateAccessToken(Guid id, Guid accountId, string username, string role)
     {
         List<Claim> claims =
         [
             new(ClaimTypes.NameIdentifier, id.ToString()),
             new(ClaimTypes.Name, username),
             new(ClaimTypes.Role, role),
+            new("http://schemas.customcads.com/account/id", accountId.ToString()),
         ];
 
         byte[] key = Encoding.UTF8.GetBytes(jwtSettings.SecretKey);

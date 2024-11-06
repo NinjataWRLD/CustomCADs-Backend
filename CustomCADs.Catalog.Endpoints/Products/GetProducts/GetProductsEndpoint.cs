@@ -17,7 +17,7 @@ public class GetProductsEndpoint(IMediator mediator) : Endpoint<GetProductsReque
     public override async Task HandleAsync(GetProductsRequest req, CancellationToken ct)
     {
         GetAllProductsQuery query = new(
-            CreatorId: User.GetId(),
+            CreatorId: User.GetAccountId(),
             Category: req.Category,
             Name: req.Name,
             Sorting: req.Sorting ?? string.Empty,

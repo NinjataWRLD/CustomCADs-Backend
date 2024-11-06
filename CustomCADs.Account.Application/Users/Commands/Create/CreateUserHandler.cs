@@ -26,7 +26,7 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow, IMessageBu
         await writes.AddAsync(user, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        UserCreatedEvent ucEvent = new(req.Role, req.Username, req.Email, req.Password);
+        UserCreatedEvent ucEvent = new(user.Id, user.RoleName, user.Username, user.Email, req.Password);
         await bus.PublishAsync(ucEvent).ConfigureAwait(false);
 
         return user.Id;

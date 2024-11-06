@@ -16,7 +16,7 @@ public class CountProductsEndpoint(IMediator mediator) : EndpointWithoutRequest<
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        ProductsCountQuery query = new(User.GetId(), ProductStatus.Unchecked);
+        ProductsCountQuery query = new(User.GetAccountId(), ProductStatus.Unchecked);
         var uncheckedProductsCounts = await mediator.Send(query, ct).ConfigureAwait(false);
 
         query = query with { Status = ProductStatus.Validated };

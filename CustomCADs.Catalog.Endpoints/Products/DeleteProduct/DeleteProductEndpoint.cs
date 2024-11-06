@@ -20,7 +20,7 @@ public class DeleteProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoi
 
     public override async Task HandleAsync(DeleteProductRequest req, CancellationToken ct)
     {
-        IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetId());
+        IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetAccountId());
         bool userIsCreator = await mediator.Send(isCreatorQuery, ct).ConfigureAwait(false);
 
         if (!userIsCreator)

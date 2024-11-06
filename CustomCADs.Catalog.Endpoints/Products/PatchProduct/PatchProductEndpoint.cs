@@ -22,7 +22,7 @@ public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest
 
     public override async Task HandleAsync(PatchCadRequest req, CancellationToken ct)
     {
-        IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetId());
+        IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetAccountId());
         bool userIsCreator = await mediator.Send(isCreatorQuery, ct).ConfigureAwait(false);
 
         if (userIsCreator)

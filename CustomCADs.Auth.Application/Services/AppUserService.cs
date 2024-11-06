@@ -41,18 +41,28 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
     public async Task<IdentityResult> UpdateAsync(AppUser user)
         => await manager.UpdateAsync(user).ConfigureAwait(false);
 
-    public async Task<IdentityResult> RevokeRefreshTokenAsync(Guid id)
+    public async Task<IdentityResult> UpdateAccountIdAsync(Guid id, Guid accountId)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
             ?? throw new UserNotFoundException(id);
 
-        user.RefreshToken = null;
-        user.RefreshTokenEndDate = null;
+        user.AccountId = accountId;
 
         var result = await manager.UpdateAsync(user).ConfigureAwait(false);
         return result;
     }
+    
+    public async Task<IdentityResult> UpdateAccountIdAsync(string username, Guid accountId)
+    {
+        AppUser user = await FindByNameAsync(username).ConfigureAwait(false)
+            ?? throw new UserNotFoundException(username);
 
+        user.AccountId = accountId;
+
+        var result = await manager.UpdateAsync(user).ConfigureAwait(false);
+        return result;
+    }
+    
     public async Task<IdentityResult> UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
@@ -60,6 +70,18 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
 
         user.RefreshToken = rt;
         user.RefreshTokenEndDate = endDate;
+
+        var result = await manager.UpdateAsync(user).ConfigureAwait(false);
+        return result;
+    }
+
+    public async Task<IdentityResult> RevokeRefreshTokenAsync(Guid id)
+    {
+        AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
+            ?? throw new UserNotFoundException(id);
+
+        user.RefreshToken = null;
+        user.RefreshTokenEndDate = null;
 
         var result = await manager.UpdateAsync(user).ConfigureAwait(false);
         return result;

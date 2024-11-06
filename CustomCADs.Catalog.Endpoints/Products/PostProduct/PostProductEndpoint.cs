@@ -28,7 +28,7 @@ public class PostProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint
             Description: req.Description,
             CategoryId: req.CategoryId,
             Cost: req.Cost,
-            CreatorId: User.GetId(),
+            CreatorId: User.GetAccountId(),
             Status: User.IsInRole(Designer)
                 ? ProductStatus.Validated
                 : ProductStatus.Unchecked

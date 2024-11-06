@@ -5,16 +5,10 @@ namespace CustomCADs.Shared.Core;
 public static class ClaimsPrincipalExtensions
 {
     public static Guid GetId(this ClaimsPrincipal user)
-    {
-        string id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
-        bool validId = Guid.TryParse(id, out Guid guid);
-        if (!validId) 
-        {
-            guid = Guid.Empty;
-        }
-
-        return guid;
-    }
+        => (user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty).ToGuid();
+    
+    public static Guid GetAccountId(this ClaimsPrincipal user)
+        => (user.FindFirst("http://schemas.customcads.com/account/id")?.Value ?? string.Empty).ToGuid();
 
     public static string GetName(this ClaimsPrincipal user)
         => user.Identity?.Name ?? string.Empty;
@@ -24,4 +18,6 @@ public static class ClaimsPrincipalExtensions
 
     public static string GetAuthorization(this ClaimsPrincipal user)
         => user.FindFirst(ClaimTypes.Role)?.Value ?? string.Empty;
+    private static Guid ToGuid(this string str)
+        => Guid.TryParse(str, out Guid guid) ? guid : Guid.Empty;
 }

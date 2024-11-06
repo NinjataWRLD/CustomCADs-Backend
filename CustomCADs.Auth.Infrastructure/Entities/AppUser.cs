@@ -12,6 +12,7 @@ public class AppUser : IdentityUser<Guid>
         Email = email;
     }
 
+    public Guid? AccountId { get; set; }
     public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenEndDate { get; set; }
 }

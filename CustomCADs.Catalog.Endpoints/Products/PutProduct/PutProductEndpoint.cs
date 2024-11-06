@@ -23,7 +23,7 @@ public class PutProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<
 
     public override async Task HandleAsync(PutProductRequest req, CancellationToken ct)
     {
-        IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetId());
+        IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetAccountId());
         bool userIsCreator = await mediator.Send(isCreatorQuery).ConfigureAwait(false);
 
         if (!userIsCreator)

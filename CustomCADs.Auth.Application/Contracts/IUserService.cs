@@ -16,8 +16,10 @@ public interface IUserService
     Task<IdentityResult> CreateAsync(AppUser user);
     Task<IdentityResult> CreateAsync(AppUser user, string password);
     Task<IdentityResult> UpdateAsync(AppUser user);
-    Task<IdentityResult> RevokeRefreshTokenAsync(Guid id);
+    Task<IdentityResult> UpdateAccountIdAsync(Guid id, Guid accountId);
+    Task<IdentityResult> UpdateAccountIdAsync(string username, Guid accountId);
     Task<IdentityResult> UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate);
+    Task<IdentityResult> RevokeRefreshTokenAsync(Guid id);
     Task<IdentityResult> AddToRoleAsync(AppUser user, string role);
     Task<IdentityResult> RemoveFromRoleAsync(AppUser user, string oldRole);
     Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token);
