@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Shared.Core.Events.Email;
 
-public record PasswordResetRequestedEvent(string Email, string Endpoint);
+public record PasswordResetRequestedEvent(string Email, string Endpoint) : IEvent;

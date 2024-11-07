@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Account.Domain.Users.Reads;
+using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Core.Events.Users;
-using Wolverine;
 
 namespace CustomCADs.Account.Application.Users.Commands.DeleteByName;
 
-public class DeleteUserByNameHandler(IUserReads reads, IWrites<User> writes, IUnitOfWork uow, IMessageBus bus)
+public class DeleteUserByNameHandler(IUserReads reads, IWrites<User> writes, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<DeleteUserByNameCommand>
 {
     public async Task Handle(DeleteUserByNameCommand req, CancellationToken ct)
@@ -17,6 +17,6 @@ public class DeleteUserByNameHandler(IUserReads reads, IWrites<User> writes, IUn
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         UserDeletedEvent udEvent = new(req.Username);
-        await bus.PublishAsync(udEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(udEvent).ConfigureAwait(false);
     }
 }

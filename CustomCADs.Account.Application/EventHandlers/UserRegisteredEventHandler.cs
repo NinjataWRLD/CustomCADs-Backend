@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Account.Domain.Shared;
+using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Core.Events.Users;
-using Wolverine;
 
 namespace CustomCADs.Account.Application.EventHandlers;
 
-public class UserRegisteredEventHandler(IWrites<User> writes, IUnitOfWork uow, IMessageBus bus)
+public class UserRegisteredEventHandler(IWrites<User> writes, IUnitOfWork uow, IEventRaiser raiser)
 {
     public async Task Handle(UserRegisteredEvent urEvent)
     {
@@ -24,6 +24,6 @@ public class UserRegisteredEventHandler(IWrites<User> writes, IUnitOfWork uow, I
         await uow.SaveChangesAsync().ConfigureAwait(false);
 
         UserAccountCreatedEvent uacEvent = new(user.Id, user.RoleName, user.Username, user.Email);
-        await bus.PublishAsync(uacEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(uacEvent).ConfigureAwait(false);
     }
 }

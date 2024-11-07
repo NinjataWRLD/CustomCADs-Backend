@@ -1,13 +1,13 @@
-﻿using CustomCADs.Shared.Core.Events.Email;
+﻿using CustomCADs.Shared.Core.Events;
+using CustomCADs.Shared.Core.Events.Email;
 using Microsoft.Extensions.Configuration;
-using Wolverine;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.ForgotPassword;
 
 using static ApiMessages;
 using static StatusCodes;
 
-public class ForgotPasswordEndpoint(IUserService service, IMessageBus bus, IConfiguration config) : Endpoint<ForgotPasswordRequest>
+public class ForgotPasswordEndpoint(IUserService service, IEventRaiser raiser, IConfiguration config) : Endpoint<ForgotPasswordRequest>
 {
     public override void Configure()
     {
@@ -31,7 +31,7 @@ public class ForgotPasswordEndpoint(IUserService service, IMessageBus bus, IConf
         string endpoint = Path.Combine(clientUrl + "/login/reset-password") + $"?email={req.Email}&token={token}";
 
         PasswordResetRequestedEvent prrEvent = new(req.Email, endpoint);
-        await bus.PublishAsync(prrEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(prrEvent).ConfigureAwait(false);
 
         await SendOkAsync("Check your email!").ConfigureAwait(false);
     }

@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Account.Domain.Shared;
+using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Core.Events.Roles;
-using Wolverine;
 
 namespace CustomCADs.Account.Application.Roles.Commands.DeleteByName;
 
-public class DeleteRoleByNameHandler(IRoleReads reads, IWrites<Role> writes, IUnitOfWork uow, IMessageBus bus)
+public class DeleteRoleByNameHandler(IRoleReads reads, IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<DeleteRoleByNameCommand>
 {
     public async Task Handle(DeleteRoleByNameCommand req, CancellationToken ct)
@@ -17,6 +17,6 @@ public class DeleteRoleByNameHandler(IRoleReads reads, IWrites<Role> writes, IUn
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         RoleDeletedEvent rdEvent = new(req.Name);
-        await bus.PublishAsync(rdEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(rdEvent).ConfigureAwait(false);
     }
 }

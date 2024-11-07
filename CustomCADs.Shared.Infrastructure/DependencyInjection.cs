@@ -2,9 +2,11 @@
 using Amazon.Runtime;
 using Amazon.S3;
 using CustomCADs.Shared.Core.Email;
+using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Core.Payment;
 using CustomCADs.Shared.Core.Storage;
 using CustomCADs.Shared.Infrastructure.Email;
+using CustomCADs.Shared.Infrastructure.Events;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
 using Microsoft.Extensions.Options;
@@ -41,5 +43,10 @@ public static class DependencyInjection
             return new AmazonS3Client(credentials, config);
         });
         services.AddScoped<IStorageService, AmazonS3Service>();
+    }
+
+    public static void AddEventRaiserService(this IServiceCollection services)
+    {
+        services.AddScoped<IEventRaiser, WolverineEventRaiser>();
     }
 }

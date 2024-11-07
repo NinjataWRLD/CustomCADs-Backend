@@ -6,4 +6,4 @@ public record UserRegisteredEvent(
     string Email,
     string? FirstName = default,
     string? LastName = default
-);
+) : IEvent;

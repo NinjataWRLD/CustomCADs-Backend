@@ -1,13 +1,13 @@
-﻿using CustomCADs.Shared.Core.Events.Email;
+﻿using CustomCADs.Shared.Core.Events;
+using CustomCADs.Shared.Core.Events.Email;
 using Microsoft.Extensions.Configuration;
-using Wolverine;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.RetryVerifyEmail;
 
 using static ApiMessages;
 using static StatusCodes;
 
-public class RetryVerifyEmailEndpoint(IUserService service, IMessageBus bus, IConfiguration config) : Endpoint<RetryVerifyEmailRequest>
+public class RetryVerifyEmailEndpoint(IUserService service, IEventRaiser raiser, IConfiguration config) : Endpoint<RetryVerifyEmailRequest>
 {
     public override void Configure()
     {
@@ -38,7 +38,7 @@ public class RetryVerifyEmailEndpoint(IUserService service, IMessageBus bus, ICo
         string endpoint = Path.Combine(serverUrl, $"API/Identity/VerifyEmail/{req.Username}?token={token}");
 
         EmailVerificationRequestedEvent evrEvent = new(user.Email ?? string.Empty, endpoint);
-        await bus.PublishAsync(evrEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(evrEvent).ConfigureAwait(false);
 
         await SendOkAsync("Check your email.").ConfigureAwait(false);
     }

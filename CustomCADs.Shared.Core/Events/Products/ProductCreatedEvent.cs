@@ -12,4 +12,4 @@ public record ProductCreatedEvent(
     string Status,
     FileDto Image,
     FileDto Cad
-);
+) : IEvent;

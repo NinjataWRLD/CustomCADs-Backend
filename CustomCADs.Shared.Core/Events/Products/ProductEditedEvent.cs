@@ -14,4 +14,4 @@ public record ProductEditedEvent(
     decimal Cost,
     string OldImagePath,
     FileDto? Image = default
-);
+) : IEvent;

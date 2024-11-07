@@ -5,4 +5,4 @@ public record UserAccountCreatedEvent(
     string Role,
     string Username,
     string Email
-);
+) : IEvent;

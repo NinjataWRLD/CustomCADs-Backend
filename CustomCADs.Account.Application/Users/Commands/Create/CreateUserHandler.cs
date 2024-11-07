@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Account.Domain.Shared;
+using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Core.Events.Users;
-using Wolverine;
 
 namespace CustomCADs.Account.Application.Users.Commands.Create;
 
-public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow, IMessageBus bus)
+public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<CreateUserCommand, Guid>
 {
     public async Task<Guid> Handle(CreateUserCommand req, CancellationToken ct)
@@ -25,7 +25,7 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow, IMessageBu
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         UserCreatedEvent ucEvent = new(user.Id, user.RoleName, user.Username, user.Email, req.Password);
-        await bus.PublishAsync(ucEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(ucEvent).ConfigureAwait(false);
 
         return user.Id;
     }

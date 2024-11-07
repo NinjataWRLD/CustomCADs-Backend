@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Shared.Core.Events.Products;
 
-public record ProductDeletedEvent(Guid Id);
+public record ProductDeletedEvent(Guid Id) : IEvent;

@@ -1,10 +1,10 @@
-﻿using CustomCADs.Shared.Core.Events.Products;
+﻿using CustomCADs.Shared.Core.Events;
+using CustomCADs.Shared.Core.Events.Products;
 using CustomCADs.Shared.Core.Storage;
-using Wolverine;
 
 namespace CustomCADs.Catalog.Application.EventHandlers;
 
-public class ProductCreatedEventHandler(IStorageService service, IMessageBus bus)
+public class ProductCreatedEventHandler(IStorageService service, IEventRaiser raiser)
 {
     public async Task Handle(ProductCreatedEvent pcEvent)
     {
@@ -30,6 +30,6 @@ public class ProductCreatedEventHandler(IStorageService service, IMessageBus bus
         ).ConfigureAwait(false);
 
         ProductFilesUploadedEvent pfuEvent = new(pcEvent.Id, imagePath, cadPath);
-        await bus.PublishAsync(pfuEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(pfuEvent).ConfigureAwait(false);
     }
 }

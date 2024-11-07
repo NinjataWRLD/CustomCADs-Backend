@@ -1,14 +1,13 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Delete;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Core.Events.Products;
-using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Products.DeleteProduct;
 
 using static ApiMessages;
 
-public class DeleteProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<DeleteProductRequest>
+public class DeleteProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpoint<DeleteProductRequest>
 {
     public override void Configure()
     {
@@ -32,7 +31,7 @@ public class DeleteProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoi
         await mediator.Send(command, ct).ConfigureAwait(false);
 
         ProductDeletedEvent pdEvent = new(req.Id);
-        await bus.PublishAsync(pdEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(pdEvent).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

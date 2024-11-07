@@ -48,6 +48,7 @@ public static class ProgramExtensions
                 .IncludeAssembly(AuthApplicationReference.Assembly)
                 .IncludeAssembly(CatalogApplicationReference.Assembly);
         });
+        services.AddEventRaiserService();
 
         return services;
     }

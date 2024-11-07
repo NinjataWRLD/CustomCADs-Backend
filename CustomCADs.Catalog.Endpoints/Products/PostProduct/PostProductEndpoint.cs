@@ -2,14 +2,14 @@
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.GetProduct;
+using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Core.Events.Products;
-using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 
 using static Constants;
 
-public class PostProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<PostProductRequest, PostProductResponse>
+public class PostProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpoint<PostProductRequest, PostProductResponse>
 {
     public override void Configure()
     {
@@ -55,7 +55,7 @@ public class PostProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint
             Image: new(imageBytes, req.Image.FileName, req.Image.ContentType),
             Cad: new(cadBytes, req.File.FileName, req.File.ContentType)
         );
-        await bus.PublishAsync(pcEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(pcEvent).ConfigureAwait(false);
 
         GetProductByIdQuery query = new(id);
         GetProductByIdDto product = await mediator.Send(query, ct).ConfigureAwait(false);

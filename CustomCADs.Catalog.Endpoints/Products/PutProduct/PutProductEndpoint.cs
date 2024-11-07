@@ -1,15 +1,14 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Edit;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Core.Events.Products;
-using Wolverine;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PutProduct;
 
 using static ApiMessages;
 
-public class PutProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<PutProductRequest>
+public class PutProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpoint<PutProductRequest>
 {
     public override void Configure()
     {
@@ -66,7 +65,7 @@ public class PutProductEndpoint(IMediator mediator, IMessageBus bus) : Endpoint<
                 Image = new(imageBytes, req.Image.FileName, req.Image.ContentType)
             };
         }
-        await bus.PublishAsync(peEvent).ConfigureAwait(false);
+        await raiser.PublishAsync(peEvent).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }
