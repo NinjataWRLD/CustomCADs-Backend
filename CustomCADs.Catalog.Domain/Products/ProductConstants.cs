@@ -10,10 +10,13 @@ public static class ProductConstants
 
     public const decimal CostMin = 0.01m;
     public const decimal CostMax = 1000m;
+    
+    public const string CostMinString = "0.01";
+    public const string CostMaxString = "1000";
 
     public static class CadConstatns
     {
-        public const decimal CoordMin = -1000m;
-        public const decimal CoordMax = 1000m;
+        public const int CoordMin = -1000;
+        public const int CoordMax = 1000;
     }
 }

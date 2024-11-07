@@ -1,3 +1,15 @@
-﻿namespace CustomCADs.Account.Application.Roles.Commands;
+﻿using CustomCADs.Shared.Core;
+using System.ComponentModel.DataAnnotations;
 
-public record RoleWriteDto(string Name, string Description);
+namespace CustomCADs.Account.Application.Roles.Commands;
+
+using static Constants;
+using static RoleConstants;
+
+public record RoleWriteDto(
+    [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = LengthErrorMessage)] 
+    string Name,
+
+    [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = LengthErrorMessage)] 
+    string Description
+);
