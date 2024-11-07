@@ -2,7 +2,6 @@
 
 namespace CustomCADs.Catalog.Endpoints.Products.GetProducts;
 
-using static Constants;
 
 public class GetProductsEndpoint(IMediator mediator) : Endpoint<GetProductsRequest, GetProductsResponse>
 {
@@ -24,19 +23,10 @@ public class GetProductsEndpoint(IMediator mediator) : Endpoint<GetProductsReque
         );
         GetAllProductsDto result = await mediator.Send(query, ct).ConfigureAwait(false);
 
-        var products = result.Products.Select(p => new GetProductsDto(
-            Id: p.Id,
-            Name: p.Name,
-            UploadDate: p.UploadDate.ToString(DateFormatString),
-            ImagePath: p.ImagePath,
-            CreatorName: p.CreatorName,
-            Category: new()
-            {
-                Id = p.Category.Id,
-                Name = p.Category.Name,
-            }
-        )).ToArray();
-        GetProductsResponse response = new(result.Count, products);
+        GetProductsResponse response = new(
+            result.Count,
+            result.Products.Select(p => new GetProductsDto(p)).ToArray()
+        );
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

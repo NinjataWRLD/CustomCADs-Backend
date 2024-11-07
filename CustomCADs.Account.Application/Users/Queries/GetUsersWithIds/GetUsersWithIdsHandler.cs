@@ -13,9 +13,7 @@ public class GetUsersWithIdsHandler(IUserReads reads)
         };
         UserResult result = await reads.AllAsync(query, track: false, ct).ConfigureAwait(false);
 
-        var response = result.Users
-            .Select(u => new GetUsersWithIdsDto(u.Id, u.Username));
-
+        var response = result.Users.Select(u => new GetUsersWithIdsDto(u.Id, u.Username));
         return response;
     }
 }

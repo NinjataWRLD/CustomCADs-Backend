@@ -10,13 +10,7 @@ public class GetUserByIdHandler(IUserReads reads)
         User user = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw new UserNotFoundException(req.Id);
 
-        GetUserByIdDto response = new(
-            Role: user.RoleName,
-            Username: user.Username,
-            Email: user.Email,
-            FirstName: user.NameInfo.FirstName,
-            LastName: user.NameInfo.LastName
-        );
+        GetUserByIdDto response = new(user);
         return response;
     }
 }

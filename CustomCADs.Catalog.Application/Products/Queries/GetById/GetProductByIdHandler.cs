@@ -15,18 +15,7 @@ public class GetProductByIdHandler(IProductReads reads, IMediator mediator)
         GetUserByIdQuery query = new(product.CreatorId);
         GetUserByIdDto user = await mediator.Send(query, ct).ConfigureAwait(false);
 
-        GetProductByIdDto response = new(
-            Id: product.Id,
-            Name: product.Name,
-            Description: product.Description,
-            Cost: product.Cost,
-            UploadDate: product.UploadDate,
-            Status: product.Status.ToString(),
-            ImagePath: product.ImagePath,
-            CreatorName: user.Username,
-            Cad: product.Cad,
-            Category: new(product.Category.Id, product.Category.Name)
-        );
+        GetProductByIdDto response = new(product, user.Username);
         return response;
     }
 }

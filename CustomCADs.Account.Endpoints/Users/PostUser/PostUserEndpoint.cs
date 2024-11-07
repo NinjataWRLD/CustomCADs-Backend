@@ -48,13 +48,7 @@ public class PostUserEndpoint(IMediator mediator) : Endpoint<PostUserRequest, Us
         GetUserByIdQuery getByIdQuery = new(id);
         GetUserByIdDto addedUser = await mediator.Send(getByIdQuery, ct).ConfigureAwait(false);
 
-        UserResponse response = new(
-            Email: addedUser.Email,
-            Username: addedUser.Username,
-            Role: addedUser.Role,
-            FirstName: addedUser.FirstName,
-            LastName: addedUser.LastName
-        );
+        UserResponse response = new(addedUser);
         await SendCreatedAtAsync<GetUserEndpoint>(new { req.Username }, response).ConfigureAwait(false);
     }
 }

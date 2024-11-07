@@ -25,19 +25,12 @@ public class GetAllProductsHandler(IProductReads reads, IMediator mediator)
         GetUsersWithIdsQuery usersQuery = new(ids);
         IEnumerable<GetUsersWithIdsDto> users = await mediator.Send(usersQuery, ct).ConfigureAwait(false);
 
-        var dict = users.ToDictionary(u => u.Id);
-        var products = result.Products
-            .Select(p => new GetAllProductsItem(
-                Id: p.Id,
-                Name: p.Name,
-                Status: p.Status.ToString(),
-                UploadDate: p.UploadDate,
-                ImagePath: p.ImagePath,
-                CreatorName: dict[p.CreatorId].Username,
-                Category: new(p.CategoryId, p.Category.Name)
-            )).ToArray();
-
-        GetAllProductsDto response = new(result.Count, products);
+        GetAllProductsDto response = new(
+            result.Count,
+            result.Products.Select(p => 
+                new GetAllProductsItem(p, users.Single(u => u.Id == p.CreatorId).Username)
+            ).ToArray()
+        );
         return response;
     }
 }

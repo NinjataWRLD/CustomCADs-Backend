@@ -15,13 +15,7 @@ public class GetUserEndpoint(IMediator mediator) : Endpoint<GetUserRequest, User
         GetUserByUsernameQuery query = new(req.Username);
         GetUserByUsernameDto dto = await mediator.Send(query, ct);
 
-        UserResponse response = new(
-            Role: dto.Role,
-            Username: req.Username,
-            Email: dto.Email,
-            FirstName: dto.FirstName,
-            LastName: dto.LastName
-        );
+        UserResponse response = new(dto, req.Username);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

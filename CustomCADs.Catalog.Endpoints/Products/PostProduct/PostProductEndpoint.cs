@@ -60,20 +60,7 @@ public class PostProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endp
         GetProductByIdQuery query = new(id);
         GetProductByIdDto product = await mediator.Send(query, ct).ConfigureAwait(false);
 
-        PostProductResponse response = new(
-            Id: product.Id,
-            Name: product.Name,
-            Description: product.Description,
-            Cost: product.Cost,
-            Status: product.Status,
-            UploadDate: product.UploadDate.ToString(DateFormatString),
-            ImagePath: product.ImagePath,
-            CadPath: product.Cad.Path,
-            CamCoordinates: new(product.Cad.CamCoordinates.X, product.Cad.CamCoordinates.Y, product.Cad.CamCoordinates.Z),
-            PanCoordinates: new(product.Cad.PanCoordinates.X, product.Cad.PanCoordinates.Y, product.Cad.PanCoordinates.Z),
-            CreatorName: product.CreatorName,
-            Category: new() { Id = product.Category.Id, Name = product.Category.Name }
-        );
+        PostProductResponse response = new(product);
         await SendCreatedAtAsync<GetProductEndpoint>(new { id }, response).ConfigureAwait(false);
     }
 }

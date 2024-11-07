@@ -14,4 +14,20 @@ public record GetProductByIdDto(
     Cad Cad,
     DateTime UploadDate,
     CategoryReadDto Category
-);
+)
+{
+    public GetProductByIdDto(Product product, string username) : this(
+        Id: product.Id,
+        Name: product.Name,
+        Description: product.Description,
+        Cost: product.Cost,
+        UploadDate: product.UploadDate,
+        Status: product.Status.ToString(),
+        ImagePath: product.ImagePath,
+        Cad: product.Cad,
+        Category: new(product.Category.Id, product.Category.Name),
+        CreatorName: username
+    )
+    { }
+}
+

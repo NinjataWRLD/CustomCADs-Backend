@@ -6,9 +6,9 @@ namespace CustomCADs.Account.Domain.Users;
 public class User
 {
     public Guid Id { get; set; }
-    public required string Username { get; set; }
-    public required string Email { get; set; }
+    public string Username { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
     public NameInfo NameInfo { get; set; } = new();
-    public required string RoleName { get; set; }
+    public string RoleName { get; set; } = string.Empty;
     public Role Role { get; set; } = new();
 }

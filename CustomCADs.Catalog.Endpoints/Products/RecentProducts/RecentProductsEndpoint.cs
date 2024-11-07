@@ -3,8 +3,6 @@ using CustomCADs.Catalog.Domain.Products.Enums;
 
 namespace CustomCADs.Catalog.Endpoints.Products.RecentProducts;
 
-using static Constants;
-
 public class RecentProductsEndpoint(IMediator mediator) : Endpoint<RecentProductsRequest, IEnumerable<RecentProductsResponse>>
 {
     public override void Configure()
@@ -22,13 +20,7 @@ public class RecentProductsEndpoint(IMediator mediator) : Endpoint<RecentProduct
         );
         GetAllProductsDto dto = await mediator.Send(query, ct).ConfigureAwait(false);
 
-        RecentProductsResponse[] response = dto.Products.Select(p => new RecentProductsResponse(
-            Id: p.Id,
-            Name: p.Name,
-            Status: p.Status,
-            UploadDate: p.UploadDate.ToString(DateFormatString),
-            Category: new(p.Category.Id, p.Category.Name)
-        )).ToArray();
+        var response = dto.Products.Select(p => new RecentProductsResponse(p));
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

@@ -22,13 +22,7 @@ public class GetUsersEndpoint(IMediator mediator) : Endpoint<GetUsersRequest, Ge
 
         GetUsersResponse response = new(
             result.Count,
-            result.Users.Select(u => new UserResponse(
-                Role: u.Role,
-                Username: u.Username,
-                Email: u.Email,
-                FirstName: u.FirstName,
-                LastName: u.LastName
-            )).ToArray()
+            result.Users.Select(u => new UserResponse(u)).ToArray()
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }
