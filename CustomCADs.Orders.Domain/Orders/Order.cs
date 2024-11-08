@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Orders.Domain.Orders.Enum;
+using CustomCADs.Shared.Core.Entities;
 
 namespace CustomCADs.Orders.Domain.Orders;
 
-public class Order
+public class Order : IEntity
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;

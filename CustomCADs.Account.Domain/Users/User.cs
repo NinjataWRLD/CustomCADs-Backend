@@ -1,9 +1,11 @@
 ﻿using CustomCADs.Account.Domain.Roles;
 using CustomCADs.Account.Domain.Users.ValueObjects;
+using CustomCADs.Shared.Core.Entities;
 
 namespace CustomCADs.Account.Domain.Users;
 
-public class User
+
+public class User : IEntity
 {
     public Guid Id { get; set; }
     public string Username { get; set; } = string.Empty;

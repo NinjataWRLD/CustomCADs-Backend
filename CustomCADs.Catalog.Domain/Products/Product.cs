@@ -1,10 +1,11 @@
 ﻿using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
+using CustomCADs.Shared.Core.Entities;
 
 namespace CustomCADs.Catalog.Domain.Products;
 
-public class Product
+public class Product : IEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;

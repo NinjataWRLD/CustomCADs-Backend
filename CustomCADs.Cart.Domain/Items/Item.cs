@@ -1,6 +1,8 @@
-﻿namespace CustomCADs.Cart.Domain.Items;
+﻿using CustomCADs.Shared.Core.Entities;
 
-public class Item
+namespace CustomCADs.Cart.Domain.Items;
+
+public class Item : IEntity
 {
     public Guid Id { get; set; }
     public decimal Price { get; set; }

@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Account.Domain.Users;
+using CustomCADs.Shared.Core.Entities;
 
 namespace CustomCADs.Account.Domain.Roles;
 
-public class Role
+public class Role : IEntity
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;

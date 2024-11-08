@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CustomCADs.Shared.Core.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Infrastructure.Entities;
 
-public class AppUser : IdentityUser<Guid>
+public class AppUser : IdentityUser<Guid>, IEntity
 {
     public AppUser() : base() { }
 

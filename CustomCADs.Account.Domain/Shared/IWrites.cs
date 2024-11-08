@@ -1,6 +1,8 @@
-﻿namespace CustomCADs.Account.Domain.Shared;
+﻿using CustomCADs.Shared.Core.Entities;
 
-public interface IWrites<TEntity> where TEntity : class
+namespace CustomCADs.Account.Domain.Shared;
+
+public interface IWrites<TEntity> where TEntity : class, IEntity
 {
     Task<TEntity> AddAsync(TEntity entity, CancellationToken ct = default);
     void Remove(TEntity entity);
