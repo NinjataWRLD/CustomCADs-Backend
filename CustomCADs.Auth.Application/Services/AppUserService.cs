@@ -1,6 +1,6 @@
-﻿using CustomCADs.Auth.Application.Dtos;
+﻿using CustomCADs.Auth.Application.DomainEvents.Email;
+using CustomCADs.Auth.Application.Dtos;
 using CustomCADs.Shared.Core.Events;
-using CustomCADs.Shared.Core.Events.Email;
 using CustomCADs.Shared.Core.Events.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
