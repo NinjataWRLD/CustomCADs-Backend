@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Shared.Core.Dtos;
+using CustomCADs.Shared.Core.Events;
 
-namespace CustomCADs.Shared.Core.Events.Products;
+namespace CustomCADs.Catalog.Domain.DomainEvents.Products;
 
 public record ProductCreatedEvent(
     Guid Id,

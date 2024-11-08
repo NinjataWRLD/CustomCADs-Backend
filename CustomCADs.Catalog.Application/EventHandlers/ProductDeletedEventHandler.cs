@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetById;
+using CustomCADs.Catalog.Domain.DomainEvents.Products;
 using CustomCADs.Shared.Application.Storage;
-using CustomCADs.Shared.Core.Events.Products;
 using MediatR;
 
 namespace CustomCADs.Catalog.Application.EventHandlers;

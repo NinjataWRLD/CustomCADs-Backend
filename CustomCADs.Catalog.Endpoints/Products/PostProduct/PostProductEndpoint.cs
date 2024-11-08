@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
+using CustomCADs.Catalog.Domain.DomainEvents.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.GetProduct;
 using CustomCADs.Shared.Core.Events;
-using CustomCADs.Shared.Core.Events.Products;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 

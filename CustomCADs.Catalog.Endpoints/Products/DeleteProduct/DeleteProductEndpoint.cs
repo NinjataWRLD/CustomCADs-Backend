@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Delete;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
+using CustomCADs.Catalog.Domain.DomainEvents.Products;
 using CustomCADs.Shared.Core.Events;
-using CustomCADs.Shared.Core.Events.Products;
 
 namespace CustomCADs.Catalog.Endpoints.Products.DeleteProduct;
 
