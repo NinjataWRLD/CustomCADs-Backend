@@ -17,7 +17,7 @@ public record CreateProductDto(
 
     int CategoryId,
     
-    [Range(typeof(decimal), CostMaxString, CostMinString, ErrorMessage = LengthErrorMessage)]
+    [Range(typeof(decimal), CostMinString, CostMaxString, ErrorMessage = LengthErrorMessage)]
     decimal Cost,
     
     ProductStatus Status,

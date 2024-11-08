@@ -40,7 +40,7 @@ public class ProductReads(CatalogContext context) : IProductReads
             .AnyAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<int> CountAsync(Guid creatorId, ProductStatus status, CancellationToken ct = default)
+    public async Task<int> CountByStatusAsync(Guid creatorId, ProductStatus status, CancellationToken ct = default)
         => await context.Products
             .WithTracking(false)
             .Where(p => p.CreatorId == creatorId)
