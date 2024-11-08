@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MediatR" Version="12.4.1" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Account.Domain\CustomCADs.Account.Domain.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.IntegrationEvents\CustomCADs.Shared.IntegrationEvents.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />

@@ -6,6 +6,7 @@ using CustomCADs.Auth.Endpoints;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Catalog.Endpoints;
 using CustomCADs.Presentation;
+using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
@@ -31,10 +32,12 @@ public static class ProgramExtensions
 
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
+        services.AddScoped<IRequestSender, RequestSender>();
+
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies([
             CatalogApplicationReference.Assembly,
-            AccountApplicationReference.Assembly
-        ));
+            AccountApplicationReference.Assembly,
+        ]));
 
         return services;
     }
