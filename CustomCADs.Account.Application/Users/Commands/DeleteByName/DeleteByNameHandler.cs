@@ -17,6 +17,6 @@ public class DeleteUserByNameHandler(IUserReads reads, IWrites<User> writes, IUn
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         UserDeletedEvent udEvent = new(req.Username);
-        await raiser.PublishAsync(udEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(udEvent).ConfigureAwait(false);
     }
 }

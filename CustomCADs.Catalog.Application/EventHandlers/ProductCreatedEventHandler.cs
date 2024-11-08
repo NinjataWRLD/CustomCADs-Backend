@@ -30,6 +30,6 @@ public class ProductCreatedEventHandler(IStorageService service, IEventRaiser ra
         ).ConfigureAwait(false);
 
         ProductFilesUploadedEvent pfuEvent = new(pcEvent.Id, imagePath, cadPath);
-        await raiser.PublishAsync(pfuEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(pfuEvent).ConfigureAwait(false);
     }
 }

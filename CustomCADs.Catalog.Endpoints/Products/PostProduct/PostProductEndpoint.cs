@@ -55,7 +55,7 @@ public class PostProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endp
             Image: new(imageBytes, req.Image.FileName, req.Image.ContentType),
             Cad: new(cadBytes, req.File.FileName, req.File.ContentType)
         );
-        await raiser.PublishAsync(pcEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(pcEvent).ConfigureAwait(false);
 
         GetProductByIdQuery query = new(id);
         GetProductByIdDto product = await mediator.Send(query, ct).ConfigureAwait(false);

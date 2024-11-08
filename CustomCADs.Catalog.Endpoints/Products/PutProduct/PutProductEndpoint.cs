@@ -65,7 +65,7 @@ public class PutProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpo
                 Image = new(imageBytes, req.Image.FileName, req.Image.ContentType)
             };
         }
-        await raiser.PublishAsync(peEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(peEvent).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

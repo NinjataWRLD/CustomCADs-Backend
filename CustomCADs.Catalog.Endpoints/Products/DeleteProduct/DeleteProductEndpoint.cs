@@ -31,7 +31,7 @@ public class DeleteProductEndpoint(IMediator mediator, IEventRaiser raiser) : En
         await mediator.Send(command, ct).ConfigureAwait(false);
 
         ProductDeletedEvent pdEvent = new(req.Id);
-        await raiser.PublishAsync(pdEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(pdEvent).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

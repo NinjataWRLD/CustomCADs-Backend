@@ -17,6 +17,6 @@ public class DeleteRoleByNameHandler(IRoleReads reads, IWrites<Role> writes, IUn
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         RoleDeletedEvent rdEvent = new(req.Name);
-        await raiser.PublishAsync(rdEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(rdEvent).ConfigureAwait(false);
     }
 }

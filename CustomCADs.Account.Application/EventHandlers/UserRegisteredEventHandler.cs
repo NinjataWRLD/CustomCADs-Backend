@@ -25,6 +25,6 @@ public class UserRegisteredEventHandler(IWrites<User> writes, IUnitOfWork uow, I
         await uow.SaveChangesAsync().ConfigureAwait(false);
 
         UserAccountCreatedEvent uacEvent = new(user.Id, user.RoleName, user.Username, user.Email);
-        await raiser.PublishAsync(uacEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(uacEvent).ConfigureAwait(false);
     }
 }

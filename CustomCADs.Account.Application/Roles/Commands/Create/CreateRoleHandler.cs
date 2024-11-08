@@ -19,7 +19,7 @@ public class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow, IEventRais
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         RoleCreatedEvent rcEvent = new(req.Dto.Name, req.Dto.Description);
-        await raiser.PublishAsync(rcEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(rcEvent).ConfigureAwait(false);
 
         return role.Id;
     }
