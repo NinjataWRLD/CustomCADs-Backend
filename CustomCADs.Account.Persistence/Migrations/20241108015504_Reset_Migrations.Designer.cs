@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomCADs.Account.Persistence.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    [Migration("20241102110754_Forgot_Schema")]
-    partial class Forgot_Schema
+    [Migration("20241108015504_Reset_Migrations")]
+    partial class Reset_Migrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

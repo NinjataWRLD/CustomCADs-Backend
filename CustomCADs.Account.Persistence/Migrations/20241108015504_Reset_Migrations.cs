@@ -1,17 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace CustomCADs.Account.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial_Migration : Migration
+    public partial class Reset_Migrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "Account");
+
             migrationBuilder.CreateTable(
                 name: "Roles",
+                schema: "Account",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -27,6 +34,7 @@ namespace CustomCADs.Account.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
+                schema: "Account",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -42,13 +50,27 @@ namespace CustomCADs.Account.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_Users_Roles_RoleName",
                         column: x => x.RoleName,
+                        principalSchema: "Account",
                         principalTable: "Roles",
                         principalColumn: "Name",
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                schema: "Account",
+                table: "Roles",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Has access to Orders endpoints - can buy 3D Models from the Gallery and make and track Orders.", "Client" },
+                    { 2, "Has access to Cads endpoints - can apply to upload his 3D Models to the Gallery, set their prices and track their status", "Contributor" },
+                    { 3, "Has access to Cads and Designer endpoints - can upload his 3D Models straight to the Gallery, validate contributors' cads and finish clients' orders.", "Designer" },
+                    { 4, "Has full access to Users, Roles, Orders, Cads, Categories and all other endpoints - can do anyhting.", "Administrator" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleName",
+                schema: "Account",
                 table: "Users",
                 column: "RoleName");
         }
@@ -57,10 +79,12 @@ namespace CustomCADs.Account.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Users",
+                schema: "Account");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Roles",
+                schema: "Account");
         }
     }
 }
