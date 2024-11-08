@@ -2,9 +2,9 @@
 using Amazon.Runtime;
 using Amazon.S3;
 using CustomCADs.Shared.Application.Email;
+using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Storage;
-using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Events;
 using CustomCADs.Shared.Infrastructure.Payment;

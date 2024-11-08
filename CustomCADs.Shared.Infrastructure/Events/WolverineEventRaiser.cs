@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Events;
+﻿using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Core.Events;
 
 namespace CustomCADs.Shared.Infrastructure.Events;
 
