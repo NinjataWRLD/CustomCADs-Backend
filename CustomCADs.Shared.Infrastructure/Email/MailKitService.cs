@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Email;
+﻿using CustomCADs.Shared.Application.Email;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;

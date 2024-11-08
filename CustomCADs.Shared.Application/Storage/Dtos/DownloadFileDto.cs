@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Core.Storage.Dtos;
+﻿namespace CustomCADs.Shared.Application.Storage.Dtos;
 
 public record DownloadFileDto(
     Stream ResponseStream,

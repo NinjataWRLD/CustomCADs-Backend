@@ -47,21 +47,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cart", "Cart", "{2AEF111C-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders", "Orders", "{37368CF6-943A-4143-8837-1E0FA2FBC8D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Cart.Domain", "CustomCADs.Cart.Domain\CustomCADs.Cart.Domain.csproj", "{8CCC2C57-67C4-4AA4-914E-305D1AC4A8EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Cart.Domain", "CustomCADs.Cart.Domain\CustomCADs.Cart.Domain.csproj", "{8CCC2C57-67C4-4AA4-914E-305D1AC4A8EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Cart.Application", "CustomCADs.Cart.Application\CustomCADs.Cart.Application.csproj", "{4DA5BAF5-F4A5-4313-9071-938D9F2447AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Cart.Application", "CustomCADs.Cart.Application\CustomCADs.Cart.Application.csproj", "{4DA5BAF5-F4A5-4313-9071-938D9F2447AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Cart.Endpoints", "CustomCADs.Cart.Endpoints\CustomCADs.Cart.Endpoints.csproj", "{FB9A9A88-05A3-4D5D-8BC2-3D00E8781383}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Cart.Endpoints", "CustomCADs.Cart.Endpoints\CustomCADs.Cart.Endpoints.csproj", "{FB9A9A88-05A3-4D5D-8BC2-3D00E8781383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Cart.Persistence", "CustomCADs.Cart.Persistence\CustomCADs.Cart.Persistence.csproj", "{6A4451FC-21AC-4B95-87E3-67345C34C9E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Cart.Persistence", "CustomCADs.Cart.Persistence\CustomCADs.Cart.Persistence.csproj", "{6A4451FC-21AC-4B95-87E3-67345C34C9E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Orders.Domain", "CustomCADs.Orders.Domain\CustomCADs.Orders.Domain.csproj", "{8C6B7422-400B-49CA-8971-29D73ED00B57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Orders.Domain", "CustomCADs.Orders.Domain\CustomCADs.Orders.Domain.csproj", "{8C6B7422-400B-49CA-8971-29D73ED00B57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Orders.Application", "CustomCADs.Orders.Application\CustomCADs.Orders.Application.csproj", "{8CBCB3E0-7312-42BC-9167-95331CE369F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Orders.Application", "CustomCADs.Orders.Application\CustomCADs.Orders.Application.csproj", "{8CBCB3E0-7312-42BC-9167-95331CE369F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Orders.Endpoints", "CustomCADs.Orders.Endpoints\CustomCADs.Orders.Endpoints.csproj", "{F57D2D47-4640-4DA4-9B5F-15DCC01586CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Orders.Endpoints", "CustomCADs.Orders.Endpoints\CustomCADs.Orders.Endpoints.csproj", "{F57D2D47-4640-4DA4-9B5F-15DCC01586CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Orders.Persistence", "CustomCADs.Orders.Persistence\CustomCADs.Orders.Persistence.csproj", "{BCBAB136-92AE-47AB-9929-3144769FBF2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Orders.Persistence", "CustomCADs.Orders.Persistence\CustomCADs.Orders.Persistence.csproj", "{BCBAB136-92AE-47AB-9929-3144769FBF2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.Application", "CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj", "{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -161,6 +163,10 @@ Global
 		{BCBAB136-92AE-47AB-9929-3144769FBF2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCBAB136-92AE-47AB-9929-3144769FBF2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCBAB136-92AE-47AB-9929-3144769FBF2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -193,6 +199,7 @@ Global
 		{8CBCB3E0-7312-42BC-9167-95331CE369F2} = {37368CF6-943A-4143-8837-1E0FA2FBC8D0}
 		{F57D2D47-4640-4DA4-9B5F-15DCC01586CF} = {37368CF6-943A-4143-8837-1E0FA2FBC8D0}
 		{BCBAB136-92AE-47AB-9929-3144769FBF2B} = {37368CF6-943A-4143-8837-1E0FA2FBC8D0}
+		{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6} = {AACD7530-149A-43EE-A093-2D27DD5B00D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C24A0A28-5B9B-4659-B244-171070EE9DCF}

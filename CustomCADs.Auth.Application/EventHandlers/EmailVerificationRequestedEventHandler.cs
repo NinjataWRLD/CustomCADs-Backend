@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Email;
+﻿using CustomCADs.Shared.Application.Email;
 using CustomCADs.Shared.Core.Events.Email;
 
 namespace CustomCADs.Auth.Application.EventHandlers;

@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Payment;
-using CustomCADs.Shared.Core.Payment.Dtos;
+﻿using CustomCADs.Shared.Application.Payment;
+using CustomCADs.Shared.Application.Payment.Dtos;
 using Microsoft.Extensions.Options;
 using Stripe;
 
@@ -12,12 +12,11 @@ public class StripeService(IOptions<PaymentSettings> settings, PaymentIntentServ
     public async Task<PaymentResult> CapturePaymentAsync(string paymentIntentId)
     {
         PaymentIntent paymentIntent = await paymentIntentService.CaptureAsync(paymentIntentId).ConfigureAwait(false);
-        return new()
-        {
-            Id = paymentIntent.Id,
-            ClientSecret = paymentIntent.ClientSecret,
-            Status = paymentIntent.Status,
-        };
+        return new(
+            paymentIntent.Id,
+            paymentIntent.ClientSecret,
+            paymentIntent.Status
+        );
     }
 
     public async Task<PaymentResult> InitializePayment(string paymentMethodId, PurchaseInfo purchase)
@@ -38,11 +37,10 @@ public class StripeService(IOptions<PaymentSettings> settings, PaymentIntentServ
             }
         }).ConfigureAwait(false);
 
-        return new()
-        {
-            Id = paymentIntent.Id,
-            ClientSecret = paymentIntent.ClientSecret,
-            Status = paymentIntent.Status,
-        };
+        return new(
+            paymentIntent.Id,
+            paymentIntent.ClientSecret,
+            paymentIntent.Status
+        );
     }
 }

@@ -1,6 +1,6 @@
-﻿using CustomCADs.Shared.Core.Payment.Dtos;
+﻿using CustomCADs.Shared.Application.Payment.Dtos;
 
-namespace CustomCADs.Shared.Core.Payment;
+namespace CustomCADs.Shared.Application.Payment;
 
 public interface IPaymentService
 {

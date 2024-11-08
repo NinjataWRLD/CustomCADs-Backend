@@ -14,7 +14,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Account.Application\CustomCADs.Account.Application.csproj" />
 		<ProjectReference Include="..\CustomCADs.Catalog.Domain\CustomCADs.Catalog.Domain.csproj" />
-		<ProjectReference Include="..\CustomCADs.Shared.Core\CustomCADs.Shared.Core.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
 	</ItemGroup>
 
 </Project>

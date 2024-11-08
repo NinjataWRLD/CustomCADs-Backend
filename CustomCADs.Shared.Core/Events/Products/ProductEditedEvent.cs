@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Storage.Dtos;
+﻿using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Shared.Core.Events.Products;
 

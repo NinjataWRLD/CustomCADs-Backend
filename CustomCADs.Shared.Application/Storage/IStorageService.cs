@@ -1,6 +1,6 @@
-﻿using CustomCADs.Shared.Core.Storage.Dtos;
+﻿using CustomCADs.Shared.Application.Storage.Dtos;
 
-namespace CustomCADs.Shared.Core.Storage;
+namespace CustomCADs.Shared.Application.Storage;
 
 public interface IStorageService
 {

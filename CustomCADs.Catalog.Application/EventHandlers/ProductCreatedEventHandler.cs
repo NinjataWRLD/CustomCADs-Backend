@@ -1,6 +1,6 @@
-﻿using CustomCADs.Shared.Core.Events;
+﻿using CustomCADs.Shared.Application.Storage;
+using CustomCADs.Shared.Core.Events;
 using CustomCADs.Shared.Core.Events.Products;
-using CustomCADs.Shared.Core.Storage;
 
 namespace CustomCADs.Catalog.Application.EventHandlers;
 

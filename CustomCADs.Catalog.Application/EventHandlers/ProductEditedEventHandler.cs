@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetPaths;
+using CustomCADs.Shared.Application.Storage;
 using CustomCADs.Shared.Core.Events.Products;
-using CustomCADs.Shared.Core.Storage;
 using MediatR;
 
 namespace CustomCADs.Catalog.Application.EventHandlers;
