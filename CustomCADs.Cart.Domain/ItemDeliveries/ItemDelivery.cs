@@ -1,6 +1,6 @@
-﻿using CustomCADs.Cart.Domain.ItemDeliveries.Enums;
-using CustomCADs.Cart.Domain.ItemDeliveries.ValueObjects;
-using CustomCADs.Shared.Core.Entities;
+﻿using CustomCADs.Shared.Core.Entities;
+using CustomCADs.Shared.Core.Enums;
+using CustomCADs.Shared.Core.ValueObjects;
 
 namespace CustomCADs.Cart.Domain.ItemDeliveries;
 

@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PostCategory;
 
-using static Constants;
+using static Constants.Errors;
 
 public class PostCategoryRequestValidator : Validator<PostCategoryRequest>
 {

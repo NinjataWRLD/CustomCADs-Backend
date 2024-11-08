@@ -1,6 +1,6 @@
-﻿using CustomCADs.Orders.Domain.OrderDeliveries.Enums;
-using CustomCADs.Orders.Domain.OrderDeliveries.ValueObjects;
-using CustomCADs.Shared.Core.Entities;
+﻿using CustomCADs.Shared.Core.Entities;
+using CustomCADs.Shared.Core.Enums;
+using CustomCADs.Shared.Core.ValueObjects;
 
 namespace CustomCADs.Orders.Domain.OrderDeliveries;
 

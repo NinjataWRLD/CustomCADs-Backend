@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Catalog.Endpoints.Products;
 
-using static Constants;
+using static Constants.Roles;
 using static StatusCodes;
 
 public class ProductsGroup : Group

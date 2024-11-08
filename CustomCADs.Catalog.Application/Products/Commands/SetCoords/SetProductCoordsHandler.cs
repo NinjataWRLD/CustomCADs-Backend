@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Catalog.Domain.Shared;
+using CustomCADs.Shared.Core.ValueObjects;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 

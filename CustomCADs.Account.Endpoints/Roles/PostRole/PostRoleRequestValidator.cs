@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CustomCADs.Account.Endpoints.Roles.PostRole;
 
-using static Constants;
+using static Constants.Errors;
 using static RoleConstants;
 
 public class PostRoleRequestValidator : Validator<PostRoleRequest>

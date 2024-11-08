@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CustomCADs.Account.Endpoints.Users.PostUser;
 
-using static Constants;
+using static Constants.Errors;
 using static UserConstants;
 
 public class PostUserRequestValidator : Validator<PostUserRequest>

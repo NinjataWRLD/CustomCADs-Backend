@@ -1,8 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Catalog.Domain.Products.ValueObjects;
-using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.ValueObjects;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PatchProduct;
 

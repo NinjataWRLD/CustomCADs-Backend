@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Account.Application.Users.Commands.Create;
 
-using static Constants;
+using static Constants.Errors;
 using static UserConstants;
 
 public record CreateUserCommand(  

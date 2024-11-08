@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products.ValueObjects;
+﻿using CustomCADs.Shared.Core.ValueObjects;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetProductAndAdjacentById;
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Account.Persistence.Configurations;
 
-using static Constants;
+using static Constants.Roles;
 using static RoleConstants;
 
 public class RoleConfiguration : IEntityTypeConfiguration<Role>

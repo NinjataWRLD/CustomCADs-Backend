@@ -13,7 +13,4 @@ public static class ProductConstants
 
     public const string CostMinString = "0.01";
     public const string CostMaxString = "1000";
-
-    public const int CoordMin = -1000;
-    public const int CoordMax = 1000;
 }

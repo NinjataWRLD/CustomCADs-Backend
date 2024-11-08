@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Cart.Domain.ItemDeliveries.Enums;
+﻿namespace CustomCADs.Shared.Core.Enums;
 
 public enum DeliveryStatus
 {

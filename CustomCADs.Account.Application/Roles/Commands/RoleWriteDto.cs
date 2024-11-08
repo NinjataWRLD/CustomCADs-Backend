@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Account.Application.Roles.Commands;
 
-using static Constants;
+using static Constants.Errors;
 using static RoleConstants;
 
 public record RoleWriteDto(

@@ -5,7 +5,8 @@ namespace CustomCADs.Auth.Endpoints.SignUp.Register;
 
 using static ApiMessages;
 using static AuthConstants;
-using static Constants;
+using static Constants.Errors;
+using static Constants.Roles;
 
 public class RegisterRequestValidator : Validator<RegisterRequest>
 {

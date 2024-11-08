@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 
-using static Constants;
+using static Constants.Errors;
 using static ProductConstants;
 
 public class PostProductRequestValidator : Validator<PostProductRequest>

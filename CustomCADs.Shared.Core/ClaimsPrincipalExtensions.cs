@@ -18,6 +18,7 @@ public static class ClaimsPrincipalExtensions
 
     public static string GetAuthorization(this ClaimsPrincipal user)
         => user.FindFirst(ClaimTypes.Role)?.Value ?? string.Empty;
+
     private static Guid ToGuid(this string str)
         => Guid.TryParse(str, out Guid guid) ? guid : Guid.Empty;
 }

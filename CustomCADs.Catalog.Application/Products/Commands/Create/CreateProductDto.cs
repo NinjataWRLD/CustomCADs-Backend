@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 
-using static Constants;
+using static Constants.Errors;
 using static ProductConstants;
 
 public record CreateProductDto(

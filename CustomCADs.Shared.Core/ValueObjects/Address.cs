@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Orders.Domain.OrderDeliveries.ValueObjects;
+﻿namespace CustomCADs.Shared.Core.ValueObjects;
 
 public record Address(string Country, string City, string Street)
 {

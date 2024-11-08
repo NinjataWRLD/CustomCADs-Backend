@@ -1,5 +1,5 @@
-﻿using CustomCADs.Orders.Domain.OrderCads.ValueObjects;
-using CustomCADs.Shared.Core.Entities;
+﻿using CustomCADs.Shared.Core.Entities;
+using CustomCADs.Shared.Core.ValueObjects;
 
 namespace CustomCADs.Orders.Domain.OrderCads;
 

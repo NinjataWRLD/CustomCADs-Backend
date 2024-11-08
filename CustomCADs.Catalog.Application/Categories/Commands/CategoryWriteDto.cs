@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CustomCADs.Catalog.Application.Categories.Commands;
 
 using static CategoryConstants;
-using static Constants;
+using static Constants.Errors;
 
 public record CategoryWriteDto
     ([StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = LengthErrorMessage)] 

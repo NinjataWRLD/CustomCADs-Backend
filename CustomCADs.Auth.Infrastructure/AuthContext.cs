@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Auth.Infrastructure;
 
-using static Constants;
+using static Constants.Roles;
 
 public class AuthContext(DbContextOptions<AuthContext> opt) : IdentityDbContext<AppUser, AppRole, Guid>(opt)
 {

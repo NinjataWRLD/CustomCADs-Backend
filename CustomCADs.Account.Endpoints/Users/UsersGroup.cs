@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Account.Endpoints.Users;
 
-using static Constants;
+using static Constants.Roles;
 using static StatusCodes;
 
 public class UsersGroup : Group

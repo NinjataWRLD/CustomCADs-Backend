@@ -1,9 +1,10 @@
-﻿using CustomCADs.Catalog.Domain.Products.ValueObjects;
+﻿using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 
-using static ProductConstants;
+using static Constants.Cads;
 
 public record SetProductCoordsCommand(
 

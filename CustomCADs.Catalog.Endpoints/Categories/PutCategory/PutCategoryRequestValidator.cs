@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PutCategory;
 
-using static Constants;
+using static Constants.Errors;
 
 public class PutCategoryRequestValidator : Validator<PutCategoryRequest>
 {

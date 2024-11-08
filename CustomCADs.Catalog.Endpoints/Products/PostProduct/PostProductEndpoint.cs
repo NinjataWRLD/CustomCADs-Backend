@@ -7,7 +7,7 @@ using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 
-using static Constants;
+using static Constants.Roles;
 
 public class PostProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpoint<PostProductRequest, PostProductResponse>
 {

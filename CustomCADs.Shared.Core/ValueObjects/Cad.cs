@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Cart.Domain.ItemCads.ValueObjects;
+﻿namespace CustomCADs.Shared.Core.ValueObjects;
 
 public record Cad(
     string Path,

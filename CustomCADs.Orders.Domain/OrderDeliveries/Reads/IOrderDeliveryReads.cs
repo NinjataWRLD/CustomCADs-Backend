@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.OrderDeliveries.Enums;
+﻿using CustomCADs.Shared.Core.Enums;
 
 namespace CustomCADs.Orders.Domain.OrderDeliveries.Reads;
 

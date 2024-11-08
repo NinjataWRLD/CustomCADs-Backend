@@ -1,5 +1,5 @@
-﻿using CustomCADs.Cart.Domain.ItemCads.ValueObjects;
-using CustomCADs.Shared.Core.Entities;
+﻿using CustomCADs.Shared.Core.Entities;
+using CustomCADs.Shared.Core.ValueObjects;
 
 namespace CustomCADs.Cart.Domain.ItemCads;
 
