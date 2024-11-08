@@ -9,7 +9,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="FastEndpoints" Version="5.30.0" />
-		<PackageReference Include="WolverineFx" Version="3.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
