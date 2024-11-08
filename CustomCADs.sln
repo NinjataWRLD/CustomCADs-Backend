@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Orders.Persisten
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.Application", "CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj", "{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.IntegrationEvents", "CustomCADs.Shared.IntegrationEvents\CustomCADs.Shared.IntegrationEvents.csproj", "{F1547934-1F9A-47D3-A4F6-1ED1166FE510}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,10 @@ Global
 		{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1547934-1F9A-47D3-A4F6-1ED1166FE510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1547934-1F9A-47D3-A4F6-1ED1166FE510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1547934-1F9A-47D3-A4F6-1ED1166FE510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1547934-1F9A-47D3-A4F6-1ED1166FE510}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -200,6 +206,7 @@ Global
 		{F57D2D47-4640-4DA4-9B5F-15DCC01586CF} = {37368CF6-943A-4143-8837-1E0FA2FBC8D0}
 		{BCBAB136-92AE-47AB-9929-3144769FBF2B} = {37368CF6-943A-4143-8837-1E0FA2FBC8D0}
 		{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6} = {AACD7530-149A-43EE-A093-2D27DD5B00D3}
+		{F1547934-1F9A-47D3-A4F6-1ED1166FE510} = {AACD7530-149A-43EE-A093-2D27DD5B00D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C24A0A28-5B9B-4659-B244-171070EE9DCF}

@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Shared.Core.Events.Users;
+﻿using CustomCADs.Shared.Core.Events;
+
+namespace CustomCADs.Shared.IntegrationEvents.Account;
 
 public record UserAccountCreatedEvent(
     Guid Id,

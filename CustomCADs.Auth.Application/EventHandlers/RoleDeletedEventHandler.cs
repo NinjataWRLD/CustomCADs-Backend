@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Events.Roles;
+﻿using CustomCADs.Shared.IntegrationEvents.Account;
 
 namespace CustomCADs.Auth.Application.EventHandlers;
 

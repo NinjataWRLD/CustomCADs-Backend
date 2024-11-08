@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Shared.Core.Events;
-using CustomCADs.Shared.Core.Events.Roles;
+using CustomCADs.Shared.IntegrationEvents.Account;
 
 namespace CustomCADs.Account.Application.Roles.Commands.DeleteByName;
 
