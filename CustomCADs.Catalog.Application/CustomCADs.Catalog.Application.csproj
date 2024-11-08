@@ -8,7 +8,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="12.4.1" />
-		<PackageReference Include="WolverineFx" Version="3.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
