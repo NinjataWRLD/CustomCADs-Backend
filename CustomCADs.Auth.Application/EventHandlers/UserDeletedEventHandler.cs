@@ -7,7 +7,7 @@ public class UserDeletedEventHandler(IUserService service)
     public async Task Handle(UserDeletedEvent udEvent)
     {
         AppUser user = await service.FindByNameAsync(udEvent.Username).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(udEvent.Username, new { });
+            ?? throw new UserNotFoundException(username: udEvent.Username);
 
         await service.DeleteAsync(user).ConfigureAwait(false);
     }

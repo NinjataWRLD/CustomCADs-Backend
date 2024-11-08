@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Core.Events;
-using CustomCADs.Shared.Core.Events.Email;
 using Microsoft.Extensions.Configuration;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.RetryVerifyEmail;
@@ -7,7 +6,7 @@ namespace CustomCADs.Auth.Endpoints.SignUp.RetryVerifyEmail;
 using static ApiMessages;
 using static StatusCodes;
 
-public class RetryVerifyEmailEndpoint(IUserService service, IEventRaiser raiser, IConfiguration config) : Endpoint<RetryVerifyEmailRequest>
+public class RetryVerifyEmailEndpoint(IUserService service) : Endpoint<RetryVerifyEmailRequest>
 {
     public override void Configure()
     {
@@ -31,14 +30,7 @@ public class RetryVerifyEmailEndpoint(IUserService service, IEventRaiser raiser,
             await SendErrorsAsync().ConfigureAwait(false);
             return;
         }
-
-        string serverUrl = config["URLs:Server"] ?? throw new ArgumentNullException("No Server Url");
-        string token = await service.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-
-        string endpoint = Path.Combine(serverUrl, $"API/Identity/VerifyEmail/{req.Username}?token={token}");
-
-        EmailVerificationRequestedEvent evrEvent = new(user.Email ?? string.Empty, endpoint);
-        await raiser.PublishAsync(evrEvent).ConfigureAwait(false);
+        await service.SendVerificationEmailAsync(user).ConfigureAwait(false);
 
         await SendOkAsync("Check your email.").ConfigureAwait(false);
     }

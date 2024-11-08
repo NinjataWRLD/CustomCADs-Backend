@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Auth.Application.Contracts;
+﻿using CustomCADs.Auth.Application.Dtos;
+
+namespace CustomCADs.Auth.Application.Contracts;
 
 public interface IUserService
 {
@@ -8,8 +10,7 @@ public interface IUserService
     Task<AppUser?> FindByRefreshTokenAsync(string rt);
     Task<string> GetRoleAsync(AppUser user);
     Task<bool> IsLockedOutAsync(AppUser user);
-    Task<string> GenerateEmailConfirmationTokenAsync(AppUser user);
-    Task<string> GeneratePasswordResetTokenAsync(AppUser user);
+    Task<IdentityResult> CreateUserAsync(CreateUserDto dto);
     Task<IdentityResult> CreateAsync(AppUser user);
     Task<IdentityResult> CreateAsync(AppUser user, string password);
     Task<IdentityResult> UpdateAsync(AppUser user);
@@ -22,4 +23,8 @@ public interface IUserService
     Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token);
     Task<IdentityResult> ResetPasswordAsync(AppUser user, string token, string newPassword);
     Task<IdentityResult> DeleteAsync(AppUser user);
+    Task SendVerificationEmailAsync(string username);
+    Task SendVerificationEmailAsync(AppUser user);
+    Task SendResetPasswordEmailAsync(AppUser user);
+    Task SendResetPasswordEmailAsync(string email);
 }

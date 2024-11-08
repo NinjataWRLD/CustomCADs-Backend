@@ -1,8 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CustomCADs.Auth.Application.Dtos;
+using CustomCADs.Shared.Core.Events;
+using CustomCADs.Shared.Core.Events.Email;
+using CustomCADs.Shared.Core.Events.Users;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace CustomCADs.Auth.Application.Services;
 
-public class AppUserService(UserManager<AppUser> manager) : IUserService
+public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, IConfiguration config) : IUserService
 {
     public async Task<AppUser?> FindByIdAsync(Guid id)
         => await manager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
@@ -22,17 +27,28 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
     public async Task<bool> IsLockedOutAsync(AppUser user)
         => await manager.IsLockedOutAsync(user).ConfigureAwait(false);
 
-    public async Task<string> GenerateEmailConfirmationTokenAsync(AppUser user)
-        => await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-
-    public async Task<string> GeneratePasswordResetTokenAsync(AppUser user)
-        => await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
-
     public async Task<IdentityResult> CreateAsync(AppUser user)
         => await manager.CreateAsync(user).ConfigureAwait(false);
 
     public async Task<IdentityResult> CreateAsync(AppUser user, string password)
         => await manager.CreateAsync(user, password).ConfigureAwait(false);
+
+    public async Task<IdentityResult> CreateUserAsync(CreateUserDto dto)
+    {
+        AppUser user = new(dto.Username, dto.Email);
+        IdentityResult createResult = await manager.CreateAsync(user, dto.Password).ConfigureAwait(false);
+        if (!createResult.Succeeded)
+            return createResult;
+
+        IdentityResult roleResult = await manager.AddToRoleAsync(user, dto.Role);
+        if (!roleResult.Succeeded)
+            return roleResult;
+
+        UserRegisteredEvent urEvent = new(dto.Role, dto.Username, dto.Email, dto.FirstName, dto.LastName);
+        await raiser.PublishAsync(urEvent).ConfigureAwait(false);
+
+        return roleResult; // doesn't matter which result
+    }
 
     public async Task<IdentityResult> UpdateAsync(AppUser user)
         => await manager.UpdateAsync(user).ConfigureAwait(false);
@@ -51,7 +67,7 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
     public async Task<IdentityResult> UpdateAccountIdAsync(string username, Guid accountId)
     {
         AppUser user = await FindByNameAsync(username).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(username);
+            ?? throw new UserNotFoundException(username: username);
 
         user.AccountId = accountId;
 
@@ -97,4 +113,54 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
 
     public async Task<IdentityResult> DeleteAsync(AppUser user)
         => await manager.DeleteAsync(user).ConfigureAwait(false);
+
+    public async Task SendVerificationEmailAsync(AppUser user)
+    {
+        string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+
+        string serverUrl = config["URLs:Server"] ?? throw new ArgumentNullException();
+        string endpoint = Path.Combine(serverUrl, $"API/Identity/VerifyEmail/{user.UserName}?token={token}");
+
+        EmailVerificationRequestedEvent evrEvent = new(user.Email ?? string.Empty, endpoint);
+        await raiser.PublishAsync(evrEvent).ConfigureAwait(false);
+    }
+    
+    public async Task SendVerificationEmailAsync(string username)
+    {
+        AppUser user = await manager.FindByNameAsync(username).ConfigureAwait(false)
+            ?? throw new UserNotFoundException(username: username);
+
+        string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+
+        string serverUrl = config["URLs:Server"] ?? throw new ArgumentNullException();
+        string endpoint = Path.Combine(serverUrl, $"API/Identity/VerifyEmail/{user.UserName}?token={token}");
+
+        EmailVerificationRequestedEvent evrEvent = new(user.Email ?? string.Empty, endpoint);
+        await raiser.PublishAsync(evrEvent).ConfigureAwait(false);
+    }
+    
+    public async Task SendResetPasswordEmailAsync(AppUser user)
+    {
+        string token = await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
+        string clientUrl = config["URLs:Client"] ?? "https://customcads.onrender.com";
+
+        string endpoint = Path.Combine(clientUrl + "/login/reset-password") + $"?email={user.Email}&token={token}";
+
+        PasswordResetRequestedEvent prrEvent = new(user.Email ?? string.Empty, endpoint);
+        await raiser.PublishAsync(prrEvent).ConfigureAwait(false);
+    }
+
+    public async Task SendResetPasswordEmailAsync(string email)
+    {
+        AppUser user = await manager.FindByEmailAsync(email).ConfigureAwait(false)
+            ?? throw new UserNotFoundException(email: email);
+
+        string token = await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
+        string clientUrl = config["URLs:Client"] ?? "https://customcads.onrender.com";
+
+        string endpoint = Path.Combine(clientUrl + "/login/reset-password") + $"?email={email}&token={token}";
+
+        PasswordResetRequestedEvent prrEvent = new(email, endpoint);
+        await raiser.PublishAsync(prrEvent).ConfigureAwait(false);
+    }
 }
