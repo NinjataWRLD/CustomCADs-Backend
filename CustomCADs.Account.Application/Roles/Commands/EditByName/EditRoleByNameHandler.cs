@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Domain.DomainEvents.Roles;
+﻿using CustomCADs.Account.Domain.Roles.DomainEvents;
 using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Shared.Application.Events;
@@ -19,7 +19,7 @@ public class EditRoleByNameHandler(IRoleReads reads, IUnitOfWork uow, IEventRais
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         await raiser.RaiseAsync(new RoleEditedDomainEvent(
-            Id: role.Id, 
+            Id: role.Id,
             Role: role
         )).ConfigureAwait(false);
     }

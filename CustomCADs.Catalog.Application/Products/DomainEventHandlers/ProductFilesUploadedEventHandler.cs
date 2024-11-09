@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetPaths;
-using CustomCADs.Catalog.Domain.DomainEvents.Products;
+using CustomCADs.Catalog.Domain.Products.DomainEvents;
 using CustomCADs.Shared.Application.Requests.Sender;
 
 namespace CustomCADs.Catalog.Application.Products.DomainEventHandlers;

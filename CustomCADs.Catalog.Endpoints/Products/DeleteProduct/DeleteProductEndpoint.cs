@@ -1,13 +1,13 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Delete;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Catalog.Domain.DomainEvents.Products;
+using CustomCADs.Catalog.Domain.Products.DomainEvents;
 using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Endpoints.Products.DeleteProduct;
 
 using static ApiMessages;
 
-public class DeleteProductEndpoint(IRequestSender sender, IEventRaiser raiser) 
+public class DeleteProductEndpoint(IRequestSender sender, IEventRaiser raiser)
     : Endpoint<DeleteProductRequest>
 {
     public override void Configure()

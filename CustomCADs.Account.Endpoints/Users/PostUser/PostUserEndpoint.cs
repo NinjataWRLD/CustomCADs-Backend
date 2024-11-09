@@ -9,7 +9,7 @@ namespace CustomCADs.Account.Endpoints.Users.PostUser;
 
 using static ApiMessages;
 
-public class PostUserEndpoint(IRequestSender sender) 
+public class PostUserEndpoint(IRequestSender sender)
     : Endpoint<PostUserRequest, UserResponse>
 {
     public override void Configure()

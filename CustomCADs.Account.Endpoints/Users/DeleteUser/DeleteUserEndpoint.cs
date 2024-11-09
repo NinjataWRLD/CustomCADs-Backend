@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Account.Endpoints.Users.DeleteUser;
 
-public class DeleteUserEndpoint(IRequestSender sender) 
+public class DeleteUserEndpoint(IRequestSender sender)
     : Endpoint<DeleteUserRequest>
 {
     public override void Configure()

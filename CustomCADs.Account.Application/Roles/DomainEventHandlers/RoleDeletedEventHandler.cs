@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Domain.DomainEvents.Roles;
+﻿using CustomCADs.Account.Domain.Roles.DomainEvents;
 using CustomCADs.Shared.Application.Cache;
 
 namespace CustomCADs.Account.Application.Roles.DomainEventHandlers;

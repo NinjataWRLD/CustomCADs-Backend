@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Dtos;
 
-namespace CustomCADs.Catalog.Domain.DomainEvents.Products;
+namespace CustomCADs.Catalog.Domain.Products.DomainEvents;
 
 public record ProductCreatedDomainEvent(
     Guid Id,

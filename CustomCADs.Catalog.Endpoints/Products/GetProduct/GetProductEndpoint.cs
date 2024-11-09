@@ -5,7 +5,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.GetProduct;
 
 using static ApiMessages;
 
-public class GetProductEndpoint(IRequestSender sender) 
+public class GetProductEndpoint(IRequestSender sender)
     : Endpoint<GetProductRequest, GetProductResponse>
 {
     public override void Configure()

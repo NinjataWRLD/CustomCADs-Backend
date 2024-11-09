@@ -3,7 +3,7 @@
 using static ApiMessages;
 using static StatusCodes;
 
-public class RetryVerifyEmailEndpoint(IUserService service) 
+public class RetryVerifyEmailEndpoint(IUserService service)
     : Endpoint<RetryVerifyEmailRequest>
 {
     public override void Configure()

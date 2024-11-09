@@ -3,7 +3,7 @@
 namespace CustomCADs.Catalog.Endpoints.Products.GetProducts;
 
 
-public class GetProductsEndpoint(IRequestSender sender) 
+public class GetProductsEndpoint(IRequestSender sender)
     : Endpoint<GetProductsRequest, GetProductsResponse>
 {
     public override void Configure()

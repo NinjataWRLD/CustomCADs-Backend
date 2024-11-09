@@ -1,5 +1,4 @@
-﻿using CustomCADs.Account.Domain.DomainEvents.Roles;
-using CustomCADs.Account.Domain.Roles;
+﻿using CustomCADs.Account.Domain.Roles.DomainEvents;
 using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Shared.Application.Events;

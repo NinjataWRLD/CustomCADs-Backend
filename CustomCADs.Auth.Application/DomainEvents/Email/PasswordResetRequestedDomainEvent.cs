@@ -3,6 +3,6 @@
 namespace CustomCADs.Auth.Application.DomainEvents.Email;
 
 public record PasswordResetRequestedDomainEvent(
-    string Email, 
+    string Email,
     string Endpoint
 ) : DomainEvent;

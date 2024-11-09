@@ -7,7 +7,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.PatchProduct;
 
 using static ApiMessages;
 
-public class PatchProductEndpoint(IRequestSender sender) 
+public class PatchProductEndpoint(IRequestSender sender)
     : Endpoint<PatchCadRequest>
 {
     public override void Configure()

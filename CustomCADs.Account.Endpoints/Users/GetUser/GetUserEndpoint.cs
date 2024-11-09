@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Account.Endpoints.Users.GetUser;
 
-public class GetUserEndpoint(IRequestSender sender) 
+public class GetUserEndpoint(IRequestSender sender)
     : Endpoint<GetUserRequest, UserResponse>
 {
     public override void Configure()

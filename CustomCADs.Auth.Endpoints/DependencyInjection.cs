@@ -57,7 +57,7 @@ public static class DependencyInjection
 
         return builder;
     }
-    
+
     public static AuthenticationBuilder AddJwt(this AuthenticationBuilder builder, IConfiguration config)
     {
         builder.AddJwtBearer(opt =>

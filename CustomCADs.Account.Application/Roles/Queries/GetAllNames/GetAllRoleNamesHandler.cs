@@ -11,7 +11,7 @@ public class GetAllRoleNamesHandler(IRoleReads reads, ICacheService cache)
         IEnumerable<Role> roles =
             await cache.GetAsync<IEnumerable<Role>>("roleNames").ConfigureAwait(false)
             ?? await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
-        
+
         var response = roles.Select(r => r.Name);
         return response;
     }

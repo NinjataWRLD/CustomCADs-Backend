@@ -27,7 +27,7 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
 
         GetAllProductsDto response = new(
             result.Count,
-            result.Products.Select(p => 
+            result.Products.Select(p =>
                 new GetAllProductsItem(p, users.Single(u => u.Id == p.CreatorId).Username)
             ).ToArray()
         );

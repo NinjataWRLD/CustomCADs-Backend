@@ -27,7 +27,7 @@ public static class DependencyInjection
         services.AddScoped(typeof(ICacheService<>), typeof(MemoryCacheService<>));
         services.AddScoped<ICacheService, MemoryCacheService>();
     }
-    
+
     public static void AddEmailService(this IServiceCollection services)
     {
         services.AddScoped<IEmailService, MailKitService>();

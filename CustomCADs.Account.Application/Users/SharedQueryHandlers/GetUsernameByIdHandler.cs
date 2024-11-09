@@ -3,7 +3,7 @@ using CustomCADs.Shared.Queries.Users.GetUsernameById;
 
 namespace CustomCADs.Account.Application.Users.SharedQueryHandlers;
 
-public class GetUsernameByIdHandler(IUserReads reads) 
+public class GetUsernameByIdHandler(IUserReads reads)
     : IQueryHandler<GetUsernameByIdQuery, string>
 {
     public async Task<string> Handle(GetUsernameByIdQuery req, CancellationToken ct)

@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Auth.Endpoints.Info.EmailConfirmed;
-public class EmailConfirmedEndpoint(IUserService service) 
+public class EmailConfirmedEndpoint(IUserService service)
     : Endpoint<EmailConfirmedRequest>
 {
     public override void Configure()

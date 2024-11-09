@@ -9,10 +9,10 @@ using static Constants.Cads;
 public record SetProductCoordsCommand(
 
     Guid Id,
-    
+
     [Range(CoordMin, CoordMax)]
     Coordinates? CamCoordinates = default,
-    
+
     [Range(CoordMin, CoordMax)]
     Coordinates? PanCoordinates = default
 

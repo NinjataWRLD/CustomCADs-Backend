@@ -5,7 +5,7 @@ namespace CustomCADs.Catalog.Endpoints.Categories.DeleteCategory;
 
 using static ApiMessages;
 
-public class DeleteCategoryEndpoint(IRequestSender sender) 
+public class DeleteCategoryEndpoint(IRequestSender sender)
     : Endpoint<DeleteCategoryRequest>
 {
     public override void Configure()

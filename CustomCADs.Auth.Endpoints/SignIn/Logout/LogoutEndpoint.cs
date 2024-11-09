@@ -4,7 +4,7 @@ namespace CustomCADs.Auth.Endpoints.SignIn.Logout;
 
 using static StatusCodes;
 
-public class LogoutEndpoint(IUserService service) 
+public class LogoutEndpoint(IUserService service)
     : EndpointWithoutRequest<string>
 {
     private const string NoLoginMessage = "In order to log out, you must be logged in";

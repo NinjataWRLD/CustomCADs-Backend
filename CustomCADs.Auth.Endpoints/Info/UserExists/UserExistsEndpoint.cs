@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Auth.Endpoints.Info.UserExists;
-public class UserExistsEndpoint(IUserService service) 
+public class UserExistsEndpoint(IUserService service)
     : Endpoint<UserExistsRequest>
 {
     public override void Configure()

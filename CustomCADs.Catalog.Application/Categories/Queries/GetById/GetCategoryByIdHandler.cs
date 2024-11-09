@@ -8,7 +8,7 @@ public class GetCategoryByIdHandler(ICategoryReads reads, ICacheService cache)
 {
     public async Task<CategoryReadDto> Handle(GetCategoryByIdQuery req, CancellationToken ct)
     {
-        Category category = 
+        Category category =
             await cache.GetAsync<Category>($"categories/{req.Id}").ConfigureAwait(false)
             ?? await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw new CategoryNotFoundException(req.Id);

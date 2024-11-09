@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetById;
-using CustomCADs.Catalog.Domain.DomainEvents.Products;
+using CustomCADs.Catalog.Domain.Products.DomainEvents;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Application.Storage;
 

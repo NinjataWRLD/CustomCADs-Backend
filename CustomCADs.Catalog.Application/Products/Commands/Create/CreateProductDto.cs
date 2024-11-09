@@ -8,18 +8,18 @@ using static Constants.Errors;
 using static ProductConstants;
 
 public record CreateProductDto(
-    
+
     [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = LengthErrorMessage)]
     string Name,
-    
+
     [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = LengthErrorMessage)]
     string Description,
 
     int CategoryId,
-    
+
     [Range(typeof(decimal), CostMinString, CostMaxString, ErrorMessage = LengthErrorMessage)]
     decimal Cost,
-    
+
     ProductStatus Status,
 
     Guid CreatorId

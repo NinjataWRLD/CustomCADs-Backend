@@ -172,7 +172,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
         string endpoint = Path.Combine(clientUrl + "/login/reset-password") + $"?email={email}&token={token}";
 
         await raiser.RaiseAsync(new PasswordResetRequestedDomainEvent(
-            Email: email, 
+            Email: email,
             Endpoint: endpoint
         )).ConfigureAwait(false);
     }

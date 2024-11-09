@@ -38,7 +38,7 @@ public static class ProgramExtensions
 
         return services;
     }
-    
+
     public static IServiceCollection AddCache(this IServiceCollection services)
     {
         services.AddCacheService();

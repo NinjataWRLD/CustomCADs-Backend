@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
-using CustomCADs.Catalog.Domain.DomainEvents.Products;
+using CustomCADs.Catalog.Domain.Products.DomainEvents;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.GetProduct;
 using CustomCADs.Shared.Application.Events;
@@ -9,7 +9,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 
 using static Constants.Roles;
 
-public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser) 
+public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
     : Endpoint<PostProductRequest, PostProductResponse>
 {
     public override void Configure()

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Domain.DomainEvents.Roles;
+﻿using CustomCADs.Account.Domain.Roles.DomainEvents;
 using CustomCADs.Shared.Application.Cache;
 
 namespace CustomCADs.Account.Application.Roles.DomainEventHandlers;
@@ -9,7 +9,7 @@ public class RoleCreatedEventHandler(ICacheService cache)
     {
         await cache.RemoveAsync<IEnumerable<Role>>($"roles").ConfigureAwait(false);
         await cache.SetRangeAsync(
-            ($"roles/{de.Role.Id}", de.Role), 
+            ($"roles/{de.Role.Id}", de.Role),
             ($"roles/{de.Role.Name}", de.Role)
         ).ConfigureAwait(false);
     }

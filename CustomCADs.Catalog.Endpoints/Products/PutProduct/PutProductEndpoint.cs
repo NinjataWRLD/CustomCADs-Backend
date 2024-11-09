@@ -1,14 +1,14 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Edit;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Catalog.Domain.DomainEvents.Products;
+using CustomCADs.Catalog.Domain.Products.DomainEvents;
 using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PutProduct;
 
 using static ApiMessages;
 
-public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser) 
+public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
     : Endpoint<PutProductRequest>
 {
     public override void Configure()

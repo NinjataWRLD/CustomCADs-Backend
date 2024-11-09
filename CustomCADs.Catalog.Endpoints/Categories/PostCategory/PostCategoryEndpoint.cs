@@ -4,7 +4,7 @@ using CustomCADs.Catalog.Endpoints.Categories.GetCategory;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PostCategory;
 
-public class PostCategoryEndpoint(IRequestSender sender) 
+public class PostCategoryEndpoint(IRequestSender sender)
     : Endpoint<PostCategoryRequest, CategoryResponse>
 {
     public override void Configure()

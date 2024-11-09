@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Domain;
 
-namespace CustomCADs.Account.Domain.DomainEvents.Roles;
+namespace CustomCADs.Account.Domain.Roles.DomainEvents;
 
 public record RoleDeletedDomainEvent(
     int Id,

@@ -7,6 +7,6 @@ using static CategoryConstants;
 using static Constants.Errors;
 
 public record CategoryWriteDto
-    ([StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = LengthErrorMessage)] 
+    ([StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = LengthErrorMessage)]
     string Name
 );

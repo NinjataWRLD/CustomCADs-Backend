@@ -3,7 +3,7 @@ using CustomCADs.Catalog.Domain.Products.Enums;
 
 namespace CustomCADs.Catalog.Endpoints.Products.RecentProducts;
 
-public class RecentProductsEndpoint(IRequestSender sender) 
+public class RecentProductsEndpoint(IRequestSender sender)
     : Endpoint<RecentProductsRequest, IEnumerable<RecentProductsResponse>>
 {
     public override void Configure()

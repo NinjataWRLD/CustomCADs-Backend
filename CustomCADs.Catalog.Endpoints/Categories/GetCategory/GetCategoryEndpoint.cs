@@ -3,7 +3,7 @@ using CustomCADs.Catalog.Application.Categories.Queries.GetById;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.GetCategory;
 
-public class GetCategoryEndpoint(IRequestSender sender) 
+public class GetCategoryEndpoint(IRequestSender sender)
     : Endpoint<GetCategoryRequest, CategoryResponse>
 {
     public override void Configure()

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.Register;
 
-public class RegisterEndpoint(IUserService service) 
+public class RegisterEndpoint(IUserService service)
     : Endpoint<RegisterRequest>
 {
     public override void Configure()
@@ -25,7 +25,7 @@ public class RegisterEndpoint(IUserService service)
             LastName: req.LastName
         );
         IdentityResult result = await service.CreateUserAsync(dto).ConfigureAwait(false);
-        
+
         if (!result.Succeeded)
         {
             ValidationFailures.AddRange(result.Errors
@@ -35,7 +35,7 @@ public class RegisterEndpoint(IUserService service)
             return;
         }
         await service.SendVerificationEmailAsync(req.Username).ConfigureAwait(false);
-        
+
         await SendOkAsync().ConfigureAwait(false);
     }
 }

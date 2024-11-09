@@ -3,7 +3,7 @@ using CustomCADs.Account.Application.Roles.Queries.GetAll;
 
 namespace CustomCADs.Account.Endpoints.Roles.GetRoles;
 
-public class GetRolesEndpoint(IRequestSender sender) 
+public class GetRolesEndpoint(IRequestSender sender)
     : EndpointWithoutRequest<RoleResponse[]>
 {
     public override void Configure()
