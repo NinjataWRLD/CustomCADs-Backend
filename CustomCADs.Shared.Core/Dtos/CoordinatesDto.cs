@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.ValueObjects;
 
-namespace CustomCADs.Catalog.Endpoints.Products;
+namespace CustomCADs.Shared.Core.Dtos;
 
 public record CoordinatesDto(int X = 0, int Y = 0, int Z = 0)
 {
