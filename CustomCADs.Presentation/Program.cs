@@ -7,7 +7,7 @@ builder.Services.AddSignInService();
 builder.Services.AddUseCases();
 
 // Add AuthN & AuthZ
-builder.Services.AddAuthNAndJwt(builder.Configuration);
+builder.Services.AddAuthN().AddJwt(builder.Configuration);
 builder.Services.AddAuthZ([Client, Contributor, Designer, Admin]);
 
 // Add External services

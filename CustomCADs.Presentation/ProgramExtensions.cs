@@ -11,9 +11,8 @@ using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
 using FastEndpoints;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Wolverine;
 
 #pragma warning disable IDE0130
@@ -78,43 +77,6 @@ public static class ProgramExtensions
         services.AddStorageService();
 
         return services;
-    }
-
-    public static void AddAuthNAndJwt(this IServiceCollection services, IConfiguration config)
-    {
-        services.AddAuthentication(opt =>
-        {
-            opt.DefaultAuthenticateScheme = AuthScheme;
-            opt.DefaultForbidScheme = AuthScheme;
-            opt.DefaultSignInScheme = AuthScheme;
-            opt.DefaultSignOutScheme = AuthScheme;
-            opt.DefaultChallengeScheme = AuthScheme;
-            opt.DefaultScheme = AuthScheme;
-        }).AddJwtBearer(opt =>
-        {
-            string? secretKey = config["JwtSettings:SecretKey"];
-            ArgumentNullException.ThrowIfNull(secretKey, nameof(secretKey));
-
-            opt.TokenValidationParameters = new()
-            {
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = config["JwtSettings:Issuer"],
-                ValidAudience = config["JwtSettings:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
-            };
-
-            opt.Events = new()
-            {
-                OnMessageReceived = context =>
-                {
-                    context.Token = context.Request.Cookies["jwt"];
-                    return Task.CompletedTask;
-                },
-            };
-        });
     }
 
     public static void AddAuthZ(this IServiceCollection services, IEnumerable<string> roles)

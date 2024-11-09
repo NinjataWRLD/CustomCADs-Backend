@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CustomCADs.Shared.Core\CustomCADs.Shared.Core.csproj" />
+  </ItemGroup>
+
 </Project>

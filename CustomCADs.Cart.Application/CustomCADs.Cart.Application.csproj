@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Cart.Domain\CustomCADs.Cart.Domain.csproj" />
-		<ProjectReference Include="..\CustomCADs.Shared.Core\CustomCADs.Shared.Core.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
 	</ItemGroup>
 
 </Project>
