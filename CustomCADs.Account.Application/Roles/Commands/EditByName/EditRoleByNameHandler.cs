@@ -1,9 +1,11 @@
-﻿using CustomCADs.Account.Domain.Roles.Reads;
+﻿using CustomCADs.Account.Domain.DomainEvents.Roles;
+using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Account.Domain.Shared;
+using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Account.Application.Roles.Commands.EditByName;
 
-public class EditRoleByNameHandler(IRoleReads reads, IUnitOfWork uow)
+public class EditRoleByNameHandler(IRoleReads reads, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<EditRoleByNameCommand>
 {
     public async Task Handle(EditRoleByNameCommand req, CancellationToken ct)
@@ -15,5 +17,8 @@ public class EditRoleByNameHandler(IRoleReads reads, IUnitOfWork uow)
         role.Description = req.Dto.Description;
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+        RoleEditedEvent reDomainEvent = new(role.Id, role);
+        await raiser.RaiseAsync(reDomainEvent).ConfigureAwait(false);
     }
 }

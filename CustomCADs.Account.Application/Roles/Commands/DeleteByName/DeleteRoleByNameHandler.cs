@@ -1,7 +1,10 @@
 ﻿using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Shared.Application.Events;
-using CustomCADs.Shared.IntegrationEvents.Account;
+
+// will fix, pls just give me a sec
+using RoleDeletedDomainEvent = CustomCADs.Account.Domain.DomainEvents.Roles.RoleDeletedEvent;
+using RoleDeletedIntegrationEvent = CustomCADs.Shared.IntegrationEvents.Account.RoleDeletedEvent;
 
 namespace CustomCADs.Account.Application.Roles.Commands.DeleteByName;
 
@@ -16,7 +19,10 @@ public class DeleteRoleByNameHandler(IRoleReads reads, IWrites<Role> writes, IUn
         writes.Remove(role);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        RoleDeletedEvent rdEvent = new(req.Name);
-        await raiser.RaiseAsync(rdEvent).ConfigureAwait(false);
+        RoleDeletedDomainEvent rdDomainEvent = new(role.Id, role.Name);
+        await raiser.RaiseAsync(rdDomainEvent).ConfigureAwait(false);
+
+        RoleDeletedIntegrationEvent rdIntegrationEvent = new(role.Name);
+        await raiser.RaiseAsync(rdIntegrationEvent).ConfigureAwait(false);
     }
 }

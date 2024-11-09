@@ -1,9 +1,11 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.Reads;
+using CustomCADs.Catalog.Domain.DomainEvents.Categories;
 using CustomCADs.Catalog.Domain.Shared;
+using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Edit;
 
-public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow)
+public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<EditCategoryCommand>
 {
     public async Task Handle(EditCategoryCommand req, CancellationToken ct)
@@ -12,7 +14,8 @@ public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow)
             ?? throw new CategoryNotFoundException(req.Id);
 
         category.Name = req.Dto.Name;
-
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+        await raiser.RaiseAsync(new CategoryEditedEvent(req.Id, category)).ConfigureAwait(false);
     }
 }

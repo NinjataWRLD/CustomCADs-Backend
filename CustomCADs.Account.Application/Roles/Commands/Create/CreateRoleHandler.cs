@@ -1,6 +1,9 @@
 ﻿using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Shared.Application.Events;
-using CustomCADs.Shared.IntegrationEvents.Account;
+
+// will fix, just give me a sec
+using RoleCreatedDomainEvent = CustomCADs.Account.Domain.DomainEvents.Roles.RoleCreatedEvent;
+using RoleCreatedIntegrationEvent = CustomCADs.Shared.IntegrationEvents.Account.RoleCreatedEvent;
 
 namespace CustomCADs.Account.Application.Roles.Commands.Create;
 
@@ -18,9 +21,12 @@ public class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow, IEventRais
         await writes.AddAsync(role, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        RoleCreatedEvent rcEvent = new(req.Dto.Name, req.Dto.Description);
-        await raiser.RaiseAsync(rcEvent).ConfigureAwait(false);
+        RoleCreatedDomainEvent rcDomainEvent = new(role);
+        await raiser.RaiseAsync(rcDomainEvent).ConfigureAwait(false);
 
+        RoleCreatedIntegrationEvent rcIntegrationEvent = new(req.Dto.Name, req.Dto.Description);
+        await raiser.RaiseAsync(rcIntegrationEvent).ConfigureAwait(false);
+        
         return role.Id;
     }
 }
