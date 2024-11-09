@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.ValueObjects;
 
 namespace CustomCADs.Catalog.Domain.Products;
 
-public class Product : IEntity
+public class Product : IAggregateRoot
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;

@@ -7,7 +7,7 @@ public static class Utilities
 {
     public static IQueryable<TEntity> WithTracking<TEntity>(
         this DbSet<TEntity> entities,
-        bool track) where TEntity : class, IEntity
+        bool track) where TEntity : class, IAggregateRoot
         => track
             ? entities
             : entities.AsNoTracking();

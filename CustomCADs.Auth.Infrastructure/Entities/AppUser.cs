@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Infrastructure.Entities;
 
-public class AppUser : IdentityUser<Guid>, IEntity
+public class AppUser : IdentityUser<Guid>, IAggregateRoot
 {
     public AppUser() : base() { }
 

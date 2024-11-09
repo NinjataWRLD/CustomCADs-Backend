@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Domain;
 
 namespace CustomCADs.Cart.Domain.Cart;
 
-public class Cart : IEntity
+public class Cart : IAggregateRoot
 {
     public Guid Id { get; set; }
     public Guid BuyerId { get; set; }
