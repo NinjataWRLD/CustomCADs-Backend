@@ -1,15 +1,15 @@
-﻿using CustomCADs.Account.Application.Users.Queries.GetUsersWithIds;
-using CustomCADs.Catalog.Domain.Products.Reads;
-using MediatR;
+﻿using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Queries.Users.GetUsernamesByIds;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
-public class GetAllProductsHandler(IProductReads reads, IMediator mediator)
+public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
     : IQueryHandler<GetAllProductsQuery, GetAllProductsDto>
 {
     public async Task<GetAllProductsDto> Handle(GetAllProductsQuery req, CancellationToken ct)
     {
-        ProductQuery query = new(
+        ProductQuery productQuery = new(
             CreatorId: req.CreatorId,
             Status: req.Status,
             Category: req.Category,
@@ -18,12 +18,12 @@ public class GetAllProductsHandler(IProductReads reads, IMediator mediator)
             Page: req.Page,
             Limit: req.Limit
         );
+        ProductResult result = await reads.AllAsync(productQuery, track: false, ct: ct).ConfigureAwait(false);
 
-        ProductResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
         Guid[] ids = result.Products.Select(p => p.CreatorId).Distinct().ToArray();
-
-        GetUsersWithIdsQuery usersQuery = new(ids);
-        IEnumerable<GetUsersWithIdsDto> users = await mediator.Send(usersQuery, ct).ConfigureAwait(false);
+        IEnumerable<(Guid Id, string Username)> users = await sender
+            .SendQueryAsync(new GetUsernamesByIdsQuery(ids), ct)
+            .ConfigureAwait(false);
 
         GetAllProductsDto response = new(
             result.Count,

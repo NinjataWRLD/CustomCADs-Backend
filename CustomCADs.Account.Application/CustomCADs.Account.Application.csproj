@@ -10,6 +10,7 @@
 		<ProjectReference Include="..\CustomCADs.Account.Domain\CustomCADs.Account.Domain.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.IntegrationEvents\CustomCADs.Shared.IntegrationEvents.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Queries\CustomCADs.Shared.Queries.csproj" />
 	</ItemGroup>
 
 </Project>
