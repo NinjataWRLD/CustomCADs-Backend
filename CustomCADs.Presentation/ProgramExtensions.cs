@@ -11,9 +11,7 @@ using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
 using FastEndpoints;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Wolverine;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
@@ -40,17 +38,21 @@ public static class ProgramExtensions
 
         return services;
     }
-
-    public static IServiceCollection AddBus(this IServiceCollection services)
+    
+    public static IServiceCollection AddCache(this IServiceCollection services)
     {
-        services.AddWolverine(cfg =>
-        {
-            cfg.Discovery
-                .IncludeAssembly(AccountApplicationReference.Assembly)
-                .IncludeAssembly(AuthApplicationReference.Assembly)
-                .IncludeAssembly(CatalogApplicationReference.Assembly);
-        });
-        services.AddEventRaiserService();
+        services.AddCacheService();
+
+        return services;
+    }
+
+    public static IServiceCollection AddRaiser(this IServiceCollection services)
+    {
+        services.AddEventRaiser(
+            AccountApplicationReference.Assembly,
+            AuthApplicationReference.Assembly,
+            CatalogApplicationReference.Assembly
+        );
 
         return services;
     }

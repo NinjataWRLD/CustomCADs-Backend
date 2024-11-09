@@ -2,19 +2,20 @@ using static CustomCADs.Shared.Core.Constants.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add Services and Use Cases
-builder.Services.AddSignInService();
-builder.Services.AddUseCases();
-
 // Add AuthN & AuthZ
 builder.Services.AddAuthN().AddJwt(builder.Configuration);
 builder.Services.AddAuthZ([Client, Contributor, Designer, Admin]);
 
 // Add External services
-builder.Services.AddBus();
+builder.Services.AddCache();
+builder.Services.AddRaiser();
 builder.Services.AddEmail(builder.Configuration);
 builder.Services.AddPayment(builder.Configuration);
 builder.Services.AddStorage(builder.Configuration);
+
+// Add Services and Use Cases
+builder.Services.AddSignInService();
+builder.Services.AddUseCases();
 
 // Add Modules
 builder.Services.AddAccount(builder.Configuration);
