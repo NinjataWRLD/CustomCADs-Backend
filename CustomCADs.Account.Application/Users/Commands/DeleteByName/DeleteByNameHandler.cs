@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Account.Domain.Users.Reads;
 using CustomCADs.Shared.Application.Events;
-using CustomCADs.Shared.IntegrationEvents.Account;
+using CustomCADs.Shared.IntegrationEvents.Account.Users;
 
 namespace CustomCADs.Account.Application.Users.Commands.DeleteByName;
 
@@ -16,7 +16,8 @@ public class DeleteUserByNameHandler(IUserReads reads, IWrites<User> writes, IUn
         writes.Remove(user);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        UserDeletedEvent udEvent = new(req.Username);
-        await raiser.RaiseAsync(udEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(new UserDeletedIntegrationEvent(
+            req.Username
+        )).ConfigureAwait(false);
     }
 }

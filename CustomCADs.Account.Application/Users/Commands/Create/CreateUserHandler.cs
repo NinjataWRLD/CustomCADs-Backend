@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Shared.Application.Events;
-using CustomCADs.Shared.IntegrationEvents.Account;
+using CustomCADs.Shared.IntegrationEvents.Account.Users;
 
 namespace CustomCADs.Account.Application.Users.Commands.Create;
 
@@ -24,8 +24,13 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow, IEventRais
         await writes.AddAsync(user, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        UserCreatedEvent ucEvent = new(user.Id, user.RoleName, user.Username, user.Email, req.Password);
-        await raiser.RaiseAsync(ucEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(new UserCreatedIntegrationEvent(
+            Id: user.Id,
+            Role: user.RoleName,
+            Username: user.Username,
+            Email: user.Email,
+            Password: req.Password
+        )).ConfigureAwait(false);
 
         return user.Id;
     }

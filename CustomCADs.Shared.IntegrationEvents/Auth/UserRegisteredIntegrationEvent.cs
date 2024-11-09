@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Shared.IntegrationEvents.Auth;
 
-public record UserRegisteredEvent(
+public record UserRegisteredIntegrationEvent(
     string Role,
     string Username,
     string Email,

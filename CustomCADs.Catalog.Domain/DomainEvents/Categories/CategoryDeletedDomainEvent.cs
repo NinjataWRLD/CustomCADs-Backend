@@ -2,4 +2,4 @@
 
 namespace CustomCADs.Catalog.Domain.DomainEvents.Categories;
 
-public record CategoryDeletedEvent(int Id) : DomainEvent;
+public record CategoryDeletedDomainEvent(int Id) : DomainEvent;

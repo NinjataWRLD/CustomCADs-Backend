@@ -42,7 +42,7 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         GetProductByIdQuery getProductQuery = new(req.Id);
         GetProductByIdDto product = await sender.SendQueryAsync(getProductQuery, ct).ConfigureAwait(false);
 
-        ProductEditedEvent peEvent = new(
+        ProductEditedDomainEvent productEditedDomainEvent = new(
             Id: product.Id,
             OldName: product.Name,
             Name: dto.Name,
@@ -61,12 +61,12 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
             await req.Image.CopyToAsync(imageStream).ConfigureAwait(false);
 
             byte[] imageBytes = imageStream.ToArray();
-            peEvent = peEvent with
+            productEditedDomainEvent = productEditedDomainEvent with
             {
                 Image = new(imageBytes, req.Image.FileName, req.Image.ContentType)
             };
         }
-        await raiser.RaiseAsync(peEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(productEditedDomainEvent).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

@@ -7,26 +7,26 @@ namespace CustomCADs.Catalog.Application.Products.DomainEventHandlers;
 
 public class ProductEditedEventHandler(IStorageService service, IRequestSender sender)
 {
-    public async Task Handle(ProductEditedEvent peEvent)
+    public async Task Handle(ProductEditedDomainEvent de)
     {
-        if (peEvent.Image == null)
+        if (de.Image == null)
         {
             return;
         }
 
-        using MemoryStream stream = new(peEvent.Image.Bytes);
+        using MemoryStream stream = new(de.Image.Bytes);
         string path = await service.UploadFileAsync(
             "images",
             stream,
-            peEvent.Id,
-            peEvent.Name,
-            peEvent.Image.ContentType,
-            peEvent.Image.FileName
+            de.Id,
+            de.Name,
+            de.Image.ContentType,
+            de.Image.FileName
         ).ConfigureAwait(false);
 
-        await service.DeleteFileAsync(peEvent.OldImagePath).ConfigureAwait(false);
+        await service.DeleteFileAsync(de.OldImagePath).ConfigureAwait(false);
 
-        SetProductPathsCommand command = new(peEvent.Id, ImagePath: path);
+        SetProductPathsCommand command = new(de.Id, ImagePath: path);
         await sender.SendCommandAsync(command).ConfigureAwait(false);
     }
 }

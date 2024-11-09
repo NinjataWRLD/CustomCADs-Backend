@@ -6,30 +6,30 @@ namespace CustomCADs.Catalog.Application.Products.DomainEventHandlers;
 
 public class ProductCreatedEventHandler(IStorageService service, IEventRaiser raiser)
 {
-    public async Task Handle(ProductCreatedEvent pcEvent)
+    public async Task Handle(ProductCreatedDomainEvent de)
     {
-        using MemoryStream imageStream = new(pcEvent.Image.Bytes);
-        using MemoryStream cadStream = new(pcEvent.Cad.Bytes);
+        using MemoryStream imageStream = new(de.Image.Bytes);
+        using MemoryStream cadStream = new(de.Cad.Bytes);
 
         string imagePath = await service.UploadFileAsync(
             "images",
             imageStream,
-            pcEvent.Id,
-            pcEvent.Name,
-            pcEvent.Image.ContentType,
-            pcEvent.Image.FileName
+            de.Id,
+            de.Name,
+            de.Image.ContentType,
+            de.Image.FileName
         ).ConfigureAwait(false);
 
         string cadPath = await service.UploadFileAsync(
             "cads",
             cadStream,
-            pcEvent.Id,
-            pcEvent.Name,
-            pcEvent.Cad.ContentType,
-            pcEvent.Cad.FileName
+            de.Id,
+            de.Name,
+            de.Cad.ContentType,
+            de.Cad.FileName
         ).ConfigureAwait(false);
 
-        ProductFilesUploadedEvent pfuEvent = new(pcEvent.Id, imagePath, cadPath);
+        ProductFilesUploadedEvent pfuEvent = new(de.Id, imagePath, cadPath);
         await raiser.RaiseAsync(pfuEvent).ConfigureAwait(false);
     }
 }

@@ -45,7 +45,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         byte[] cadBytes = cadStream.ToArray();
 
         Guid id = await createTask.ConfigureAwait(false);
-        ProductCreatedEvent pcEvent = new(
+        await raiser.RaiseAsync(new ProductCreatedDomainEvent(
             Id: id,
             Name: dto.Name,
             Description: dto.Description,
@@ -55,8 +55,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
             Status: dto.Status.ToString(),
             Image: new(imageBytes, req.Image.FileName, req.Image.ContentType),
             Cad: new(cadBytes, req.File.FileName, req.File.ContentType)
-        );
-        await raiser.RaiseAsync(pcEvent).ConfigureAwait(false);
+        )).ConfigureAwait(false);
 
         GetProductByIdQuery query = new(id);
         GetProductByIdDto product = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

@@ -1,11 +1,11 @@
-﻿using CustomCADs.Shared.IntegrationEvents.Account;
+﻿using CustomCADs.Shared.IntegrationEvents.Account.Users;
 
 namespace CustomCADs.Auth.Application.EventHandlers;
 
 public class UserAccountCreatedEventHandler(IUserService service)
 {
-    public async Task Handle(UserAccountCreatedEvent uacEvent)
+    public async Task Handle(UserAccountCreatedIntegrationEvent ie)
     {
-        await service.UpdateAccountIdAsync(uacEvent.Username, uacEvent.Id);
+        await service.UpdateAccountIdAsync(ie.Username, ie.Id);
     }
 }

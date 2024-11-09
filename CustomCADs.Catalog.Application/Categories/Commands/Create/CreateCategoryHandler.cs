@@ -16,8 +16,9 @@ public class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow, IE
         await writes.AddAsync(category, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        CategoryCreatedEvent ccEvent = new(category);
-        await raiser.RaiseAsync(ccEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(new CategoryCreatedDomainEvent(
+            Category: category
+        )).ConfigureAwait(false);
 
         return category.Id;
     }

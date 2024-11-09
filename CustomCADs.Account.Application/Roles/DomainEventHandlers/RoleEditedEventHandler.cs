@@ -5,12 +5,12 @@ namespace CustomCADs.Account.Application.Roles.DomainEventHandlers;
 
 public class RoleEditedEventHandler(ICacheService cache)
 {
-    public async Task Handle(RoleEditedEvent reEvent)
+    public async Task Handle(RoleEditedDomainEvent de)
     {
         await cache.RemoveAsync<IEnumerable<Role>>($"roles").ConfigureAwait(false);
         await cache.SetRangeAsync(
-            ($"roles/{reEvent.Id}", reEvent.Role), 
-            ($"roles/{reEvent.Role.Name}", reEvent.Role)
+            ($"roles/{de.Id}", de.Role), 
+            ($"roles/{de.Role.Name}", de.Role)
         ).ConfigureAwait(false);
     }
 }

@@ -2,4 +2,7 @@
 
 namespace CustomCADs.Account.Domain.DomainEvents.Roles;
 
-public record RoleDeletedEvent(int Id, string Name) : DomainEvent;
+public record RoleDeletedDomainEvent(
+    int Id,
+    string Name
+) : DomainEvent;

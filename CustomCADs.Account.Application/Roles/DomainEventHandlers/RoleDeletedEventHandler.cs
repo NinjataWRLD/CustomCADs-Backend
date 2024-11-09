@@ -5,12 +5,12 @@ namespace CustomCADs.Account.Application.Roles.DomainEventHandlers;
 
 public class RoleDeletedEventHandler(ICacheService cache)
 {
-    public async Task Handle(RoleDeletedEvent rdEvent)
+    public async Task Handle(RoleDeletedDomainEvent de)
     {
         await cache.RemoveAsync<IEnumerable<Role>>($"roles").ConfigureAwait(false);
         await cache.RemoveRangeAsync<Role>(
-            $"roles/{rdEvent.Id}", 
-            $"roles/{rdEvent.Name}"
+            $"roles/{de.Id}",
+            $"roles/{de.Name}"
         ).ConfigureAwait(false);
     }
 }

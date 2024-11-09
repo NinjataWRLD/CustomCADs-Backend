@@ -7,9 +7,9 @@ namespace CustomCADs.Catalog.Application.Products.DomainEventHandlers;
 
 public class ProductDeletedEventHandler(IRequestSender sender, IStorageService service)
 {
-    public async Task Handle(ProductDeletedEvent pdEvent)
+    public async Task Handle(ProductDeletedDomainEvent de)
     {
-        GetProductByIdQuery query = new(pdEvent.Id);
+        GetProductByIdQuery query = new(de.Id);
         GetProductByIdDto dto = await sender.SendQueryAsync(query).ConfigureAwait(false);
 
         Task imageTask = service.DeleteFileAsync(dto.ImagePath),

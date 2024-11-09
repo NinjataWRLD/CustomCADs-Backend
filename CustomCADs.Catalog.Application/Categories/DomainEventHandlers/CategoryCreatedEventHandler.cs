@@ -5,11 +5,11 @@ namespace CustomCADs.Catalog.Application.Categories.DomainEventHandlers;
 
 public class CategoryCreatedEventHandler(ICacheService cache)
 {
-    public async Task Handle(CategoryCreatedEvent ccEvent)
+    public async Task Handle(CategoryCreatedDomainEvent de)
     {
         await cache.RemoveAsync<IEnumerable<Category>>("categories").ConfigureAwait(false);
         await cache.SetAsync(
-            ($"categories/{ccEvent.Category.Id}", ccEvent.Category)
+            ($"categories/{de.Category.Id}", de.Category)
         ).ConfigureAwait(false);
     }
 }

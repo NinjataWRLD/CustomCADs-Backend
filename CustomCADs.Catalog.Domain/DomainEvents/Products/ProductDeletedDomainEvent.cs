@@ -2,4 +2,4 @@
 
 namespace CustomCADs.Catalog.Domain.DomainEvents.Products;
 
-public record ProductDeletedEvent(Guid Id) : DomainEvent;
+public record ProductDeletedDomainEvent(Guid Id) : DomainEvent;

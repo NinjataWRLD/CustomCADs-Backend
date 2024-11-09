@@ -1,12 +1,12 @@
-﻿using CustomCADs.Shared.IntegrationEvents.Account;
+﻿using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
 namespace CustomCADs.Auth.Application.EventHandlers;
 
 public class RoleCreatedEventHandler(IRoleService service)
 {
-    public async Task Handle(RoleCreatedEvent rcEvent)
+    public async Task Handle(RoleCreatedIntegrationEvent ie)
     {
-        AppRole role = new() { Name = rcEvent.Name };
+        AppRole role = new() { Name = ie.Name };
         await service.CreateAsync(role).ConfigureAwait(false);
     }
 }

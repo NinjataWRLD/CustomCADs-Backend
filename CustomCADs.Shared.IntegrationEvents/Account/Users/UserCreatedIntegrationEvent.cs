@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Events;
 
-namespace CustomCADs.Shared.IntegrationEvents.Account;
+namespace CustomCADs.Shared.IntegrationEvents.Account.Users;
 
-public record UserCreatedEvent(
+public record UserCreatedIntegrationEvent(
     Guid Id,
     string Role,
     string Username,

@@ -3,4 +3,7 @@ using CustomCADs.Shared.Core.Domain;
 
 namespace CustomCADs.Account.Domain.DomainEvents.Roles;
 
-public record RoleEditedEvent(int Id, Role Role) : DomainEvent;
+public record RoleEditedDomainEvent(
+    int Id,
+    Role Role
+) : DomainEvent;

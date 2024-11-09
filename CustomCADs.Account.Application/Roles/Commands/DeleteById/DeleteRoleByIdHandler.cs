@@ -1,10 +1,8 @@
-﻿using CustomCADs.Account.Domain.Roles.Reads;
+﻿using CustomCADs.Account.Domain.DomainEvents.Roles;
+using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Shared.Application.Events;
-
-// will fix, pls just give me a sec
-using RoleDeletedDomainEvent = CustomCADs.Account.Domain.DomainEvents.Roles.RoleDeletedEvent;
-using RoleDeletedIntegrationEvent = CustomCADs.Shared.IntegrationEvents.Account.RoleDeletedEvent;
+using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
 namespace CustomCADs.Account.Application.Roles.Commands.DeleteById;
 
@@ -19,10 +17,13 @@ public class DeleteRoleByIdHandler(IRoleReads reads, IWrites<Role> writes, IUnit
         writes.Remove(role);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        RoleDeletedDomainEvent rdDomainEvent = new(role.Id, role.Name);
-        await raiser.RaiseAsync(rdDomainEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(new RoleDeletedDomainEvent(
+            Id: role.Id,
+            Name: role.Name
+        )).ConfigureAwait(false);
 
-        RoleDeletedIntegrationEvent rdIntegrationEvent = new(role.Name);
-        await raiser.RaiseAsync(rdIntegrationEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(new RoleDeletedIntegrationEvent(
+            Name: role.Name
+        )).ConfigureAwait(false);
     }
 }

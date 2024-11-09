@@ -3,16 +3,14 @@ using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Domain.DomainEvents.Products;
 
-public record ProductEditedEvent(
+public record ProductCreatedDomainEvent(
     Guid Id,
-    string OldName,
     string Name,
-    string OldDescription,
     string Description,
-    int OldCategoryId,
     int CategoryId,
-    decimal OldCost,
     decimal Cost,
-    string OldImagePath,
-    FileDto? Image = default
+    Guid CreatorId,
+    string Status,
+    FileDto Image,
+    FileDto Cad
 ) : DomainEvent;

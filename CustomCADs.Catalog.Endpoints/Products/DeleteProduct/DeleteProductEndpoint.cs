@@ -31,8 +31,9 @@ public class DeleteProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         DeleteProductCommand command = new(req.Id);
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        ProductDeletedEvent pdEvent = new(req.Id);
-        await raiser.RaiseAsync(pdEvent).ConfigureAwait(false);
+        await raiser.RaiseAsync(new ProductDeletedDomainEvent(
+            Id: req.Id
+        )).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }
