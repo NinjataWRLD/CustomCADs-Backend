@@ -8,4 +8,4 @@ public record UserCreatedEvent(
     string Username,
     string Email,
     string Password
-) : IEvent;
+) : IntegrationEvent;

@@ -2,4 +2,4 @@
 
 namespace CustomCADs.Shared.IntegrationEvents.Account;
 
-public record RoleCreatedEvent(string Name, string Description) : IEvent;
+public record RoleCreatedEvent(string Name, string Description) : IntegrationEvent;

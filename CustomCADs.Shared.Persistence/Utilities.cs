@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Entities;
+﻿using CustomCADs.Shared.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Shared.Persistence;

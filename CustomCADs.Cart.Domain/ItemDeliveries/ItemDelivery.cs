@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Entities;
+﻿using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Enums;
 using CustomCADs.Shared.Core.ValueObjects;
 

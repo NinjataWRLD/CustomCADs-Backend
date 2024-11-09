@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Shared;
-using CustomCADs.Shared.Core.Entities;
+using CustomCADs.Shared.Core.Domain;
 
 namespace CustomCADs.Catalog.Persistence.Repositories;
 

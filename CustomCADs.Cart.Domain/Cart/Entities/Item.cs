@@ -1,6 +1,6 @@
-﻿using CustomCADs.Shared.Core.Entities;
+﻿using CustomCADs.Shared.Core.Domain;
 
-namespace CustomCADs.Cart.Domain.Items;
+namespace CustomCADs.Cart.Domain.Cart.Entities;
 
 public class Item : IEntity
 {

@@ -2,4 +2,4 @@
 
 namespace CustomCADs.Shared.IntegrationEvents.Account;
 
-public record RoleDeletedEvent(string Name) : IEvent;
+public record RoleDeletedEvent(string Name) : IntegrationEvent;

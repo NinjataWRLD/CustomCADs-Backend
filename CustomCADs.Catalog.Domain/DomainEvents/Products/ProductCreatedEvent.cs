@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Dtos;
-using CustomCADs.Shared.Core.Events;
+﻿using CustomCADs.Shared.Core.Domain;
+using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Domain.DomainEvents.Products;
 
@@ -13,4 +13,4 @@ public record ProductCreatedEvent(
     string Status,
     FileDto Image,
     FileDto Cad
-) : IEvent;
+) : DomainEvent;

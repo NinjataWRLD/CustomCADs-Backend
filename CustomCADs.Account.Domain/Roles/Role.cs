@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Account.Domain.Users;
-using CustomCADs.Shared.Core.Entities;
+using CustomCADs.Shared.Core.Domain;
 
 namespace CustomCADs.Account.Domain.Roles;
 

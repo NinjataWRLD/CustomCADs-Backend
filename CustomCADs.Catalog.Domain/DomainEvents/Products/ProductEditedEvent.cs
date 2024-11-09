@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Dtos;
-using CustomCADs.Shared.Core.Events;
+﻿using CustomCADs.Shared.Core.Domain;
+using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Domain.DomainEvents.Products;
 
@@ -15,4 +15,4 @@ public record ProductEditedEvent(
     decimal Cost,
     string OldImagePath,
     FileDto? Image = default
-) : IEvent;
+) : DomainEvent;

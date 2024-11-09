@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.Orders.Enum;
-using CustomCADs.Shared.Core.Entities;
+using CustomCADs.Shared.Core.Domain;
 
 namespace CustomCADs.Orders.Domain.Orders;
 
