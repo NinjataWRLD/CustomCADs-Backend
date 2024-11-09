@@ -2,7 +2,7 @@
 using CustomCADs.Catalog.Domain.DomainEvents.Products;
 using CustomCADs.Shared.Application.Requests.Sender;
 
-namespace CustomCADs.Catalog.Application.EventHandlers;
+namespace CustomCADs.Catalog.Application.Products.DomainEventHandlers;
 
 public class ProductFilesUploadedEventHandler(IRequestSender sender)
 {

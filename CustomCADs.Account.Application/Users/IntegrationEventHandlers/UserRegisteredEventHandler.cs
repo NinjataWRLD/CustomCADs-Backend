@@ -3,7 +3,7 @@ using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Account;
 using CustomCADs.Shared.IntegrationEvents.Auth;
 
-namespace CustomCADs.Account.Application.EventHandlers;
+namespace CustomCADs.Account.Application.Users.IntegrationEventHandlers;
 
 public class UserRegisteredEventHandler(IWrites<User> writes, IUnitOfWork uow, IEventRaiser raiser)
 {

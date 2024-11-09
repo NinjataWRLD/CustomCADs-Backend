@@ -3,7 +3,7 @@ using CustomCADs.Catalog.Domain.DomainEvents.Products;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Application.Storage;
 
-namespace CustomCADs.Catalog.Application.EventHandlers;
+namespace CustomCADs.Catalog.Application.Products.DomainEventHandlers;
 
 public class ProductEditedEventHandler(IStorageService service, IRequestSender sender)
 {

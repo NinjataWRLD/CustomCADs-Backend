@@ -2,7 +2,7 @@
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Storage;
 
-namespace CustomCADs.Catalog.Application.EventHandlers;
+namespace CustomCADs.Catalog.Application.Products.DomainEventHandlers;
 
 public class ProductCreatedEventHandler(IStorageService service, IEventRaiser raiser)
 {
