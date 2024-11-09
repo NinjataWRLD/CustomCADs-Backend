@@ -6,7 +6,8 @@ namespace CustomCADs.Auth.Endpoints.SignIn.ResetPassword;
 using static ApiMessages;
 using static StatusCodes;
 
-public class ResetPasswordEndpoint(IUserService service) : Endpoint<ResetPasswordRequest>
+public class ResetPasswordEndpoint(IUserService service) 
+    : Endpoint<ResetPasswordRequest>
 {
     public override void Configure()
     {

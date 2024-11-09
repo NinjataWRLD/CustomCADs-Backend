@@ -4,7 +4,8 @@ using CustomCADs.Catalog.Endpoints.Categories.GetCategory;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PostCategory;
 
-public class PostCategoryEndpoint(IMediator mediator) : Endpoint<PostCategoryRequest, CategoryResponse>
+public class PostCategoryEndpoint(IRequestSender sender) 
+    : Endpoint<PostCategoryRequest, CategoryResponse>
 {
     public override void Configure()
     {
@@ -16,7 +17,7 @@ public class PostCategoryEndpoint(IMediator mediator) : Endpoint<PostCategoryReq
     {
         CategoryWriteDto category = new(req.Name);
         CreateCategoryCommand command = new(category);
-        int id = await mediator.Send(command, ct).ConfigureAwait(false);
+        int id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         CategoryResponse response = new(id, req.Name);
         await SendCreatedAtAsync<GetCategoryEndpoint>(new { id }, response).ConfigureAwait(false);

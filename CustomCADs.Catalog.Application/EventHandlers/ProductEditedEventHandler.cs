@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetPaths;
 using CustomCADs.Catalog.Domain.DomainEvents.Products;
+using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Application.Storage;
-using MediatR;
 
 namespace CustomCADs.Catalog.Application.EventHandlers;
 
-public class ProductEditedEventHandler(IStorageService service, IMediator mediator)
+public class ProductEditedEventHandler(IStorageService service, IRequestSender sender)
 {
     public async Task Handle(ProductEditedEvent peEvent)
     {
@@ -27,6 +27,6 @@ public class ProductEditedEventHandler(IStorageService service, IMediator mediat
         await service.DeleteFileAsync(peEvent.OldImagePath).ConfigureAwait(false);
 
         SetProductPathsCommand command = new(peEvent.Id, ImagePath: path);
-        await mediator.Send(command).ConfigureAwait(false);
+        await sender.SendCommandAsync(command).ConfigureAwait(false);
     }
 }

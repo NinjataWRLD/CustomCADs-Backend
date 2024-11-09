@@ -1,12 +1,10 @@
-﻿using CustomCADs.Shared.Core.Events;
-using Microsoft.Extensions.Configuration;
-
-namespace CustomCADs.Auth.Endpoints.SignUp.RetryVerifyEmail;
+﻿namespace CustomCADs.Auth.Endpoints.SignUp.RetryVerifyEmail;
 
 using static ApiMessages;
 using static StatusCodes;
 
-public class RetryVerifyEmailEndpoint(IUserService service) : Endpoint<RetryVerifyEmailRequest>
+public class RetryVerifyEmailEndpoint(IUserService service) 
+    : Endpoint<RetryVerifyEmailRequest>
 {
     public override void Configure()
     {

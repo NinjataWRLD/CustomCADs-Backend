@@ -6,15 +6,15 @@ namespace CustomCADs.Shared.Application.Requests.Sender;
 
 public class RequestSender(IMediator mediator) : IRequestSender
 {
-    public async Task Send(ICommand command, CancellationToken ct = default)
+    public async Task SendCommandAsync(ICommand command, CancellationToken ct = default)
         => await mediator.Send(command, ct).ConfigureAwait(false);
 
-    public async Task<TResponse> Send<TResponse>(ICommand<TResponse> command, CancellationToken ct = default)
+    public async Task<TResponse> SendCommandAsync<TResponse>(ICommand<TResponse> command, CancellationToken ct = default)
         => await mediator.Send(command, ct).ConfigureAwait(false);
 
-    public async Task Send(IQuery query, CancellationToken ct = default)
+    public async Task SendQueryAsync(IQuery query, CancellationToken ct = default)
         => await mediator.Send(query, ct).ConfigureAwait(false);
 
-    public async Task<TResponse> Send<TResponse>(IQuery<TResponse> query, CancellationToken ct = default)
+    public async Task<TResponse> SendQueryAsync<TResponse>(IQuery<TResponse> query, CancellationToken ct = default)
         => await mediator.Send(query, ct).ConfigureAwait(false);
 }

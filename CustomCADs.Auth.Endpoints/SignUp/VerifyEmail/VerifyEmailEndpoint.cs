@@ -7,7 +7,8 @@ using static ApiMessages;
 using static AuthConstants;
 using static StatusCodes;
 
-public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenService) : Endpoint<VerifyEmailRequest>
+public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenService)
+    : Endpoint<VerifyEmailRequest>
 {
     public override void Configure()
     {

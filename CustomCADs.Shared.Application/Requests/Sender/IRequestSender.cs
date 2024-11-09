@@ -5,9 +5,9 @@ namespace CustomCADs.Shared.Application.Requests.Sender;
 
 public interface IRequestSender
 {
-    Task Send(ICommand command, CancellationToken ct = default);
-    Task<TResponse> Send<TResponse>(ICommand<TResponse> command, CancellationToken ct = default);
+    Task SendCommandAsync(ICommand command, CancellationToken ct = default);
+    Task<TResponse> SendCommandAsync<TResponse>(ICommand<TResponse> command, CancellationToken ct = default);
 
-    Task Send(IQuery query, CancellationToken ct = default);
-    Task<TResponse> Send<TResponse>(IQuery<TResponse> query, CancellationToken ct = default);
+    Task SendQueryAsync(IQuery query, CancellationToken ct = default);
+    Task<TResponse> SendQueryAsync<TResponse>(IQuery<TResponse> query, CancellationToken ct = default);
 }

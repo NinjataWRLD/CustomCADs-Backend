@@ -3,7 +3,8 @@
 namespace CustomCADs.Catalog.Endpoints.Products.GetProducts;
 
 
-public class GetProductsEndpoint(IMediator mediator) : Endpoint<GetProductsRequest, GetProductsResponse>
+public class GetProductsEndpoint(IRequestSender sender) 
+    : Endpoint<GetProductsRequest, GetProductsResponse>
 {
     public override void Configure()
     {
@@ -21,7 +22,7 @@ public class GetProductsEndpoint(IMediator mediator) : Endpoint<GetProductsReque
             Page: req.Page,
             Limit: req.Limit
         );
-        GetAllProductsDto result = await mediator.Send(query, ct).ConfigureAwait(false);
+        GetAllProductsDto result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         GetProductsResponse response = new(
             result.Count,

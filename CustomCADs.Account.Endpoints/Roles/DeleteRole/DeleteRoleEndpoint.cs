@@ -1,7 +1,9 @@
 ﻿using CustomCADs.Account.Application.Roles.Commands.DeleteByName;
 
 namespace CustomCADs.Account.Endpoints.Roles.DeleteRole;
-public class DeleteRoleEndpoint(IMediator mediator) : Endpoint<DeleteRoleRequest>
+
+public class DeleteRoleEndpoint(IRequestSender sender) 
+    : Endpoint<DeleteRoleRequest>
 {
     public override void Configure()
     {
@@ -12,7 +14,7 @@ public class DeleteRoleEndpoint(IMediator mediator) : Endpoint<DeleteRoleRequest
     public override async Task HandleAsync(DeleteRoleRequest req, CancellationToken ct)
     {
         DeleteRoleByNameCommand command = new(req.Name);
-        await mediator.Send(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

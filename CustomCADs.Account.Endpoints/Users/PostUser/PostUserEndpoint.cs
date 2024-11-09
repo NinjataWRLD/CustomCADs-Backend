@@ -9,7 +9,8 @@ namespace CustomCADs.Account.Endpoints.Users.PostUser;
 
 using static ApiMessages;
 
-public class PostUserEndpoint(IMediator mediator) : Endpoint<PostUserRequest, UserResponse>
+public class PostUserEndpoint(IRequestSender sender) 
+    : Endpoint<PostUserRequest, UserResponse>
 {
     public override void Configure()
     {
@@ -20,12 +21,12 @@ public class PostUserEndpoint(IMediator mediator) : Endpoint<PostUserRequest, Us
     public override async Task HandleAsync(PostUserRequest req, CancellationToken ct)
     {
         RoleExistsByNameQuery existsByNameQuery = new(req.Role);
-        bool roleExists = await mediator.Send(existsByNameQuery, ct).ConfigureAwait(false);
+        bool roleExists = await sender.SendQueryAsync(existsByNameQuery, ct).ConfigureAwait(false);
 
         if (!roleExists)
         {
             GetAllRoleNamesQuery getRoleNamesQuery = new();
-            IEnumerable<string> roleNames = await mediator.Send(getRoleNamesQuery, ct).ConfigureAwait(false);
+            IEnumerable<string> roleNames = await sender.SendQueryAsync(getRoleNamesQuery, ct).ConfigureAwait(false);
 
             ValidationFailures.Add(new("Role", InvalidRole, req.Role)
             {
@@ -43,10 +44,10 @@ public class PostUserEndpoint(IMediator mediator) : Endpoint<PostUserRequest, Us
             FirstName: req.FirstName,
             LastName: req.LastName
         );
-        Guid id = await mediator.Send(command, ct).ConfigureAwait(false);
+        Guid id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         GetUserByIdQuery getByIdQuery = new(id);
-        GetUserByIdDto addedUser = await mediator.Send(getByIdQuery, ct).ConfigureAwait(false);
+        GetUserByIdDto addedUser = await sender.SendQueryAsync(getByIdQuery, ct).ConfigureAwait(false);
 
         UserResponse response = new(addedUser);
         await SendCreatedAtAsync<GetUserEndpoint>(new { req.Username }, response).ConfigureAwait(false);

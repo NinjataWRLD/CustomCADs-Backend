@@ -7,7 +7,8 @@ namespace CustomCADs.Catalog.Endpoints.Products.PatchProduct;
 
 using static ApiMessages;
 
-public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest>
+public class PatchProductEndpoint(IRequestSender sender) 
+    : Endpoint<PatchCadRequest>
 {
     public override void Configure()
     {
@@ -19,7 +20,7 @@ public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest
     public override async Task HandleAsync(PatchCadRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetAccountId());
-        bool userIsCreator = await mediator.Send(isCreatorQuery, ct).ConfigureAwait(false);
+        bool userIsCreator = await sender.SendQueryAsync(isCreatorQuery, ct).ConfigureAwait(false);
 
         if (userIsCreator)
         {
@@ -29,7 +30,7 @@ public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest
         }
 
         GetProductByIdQuery getCadQuery = new(req.Id);
-        GetProductByIdDto product = await mediator.Send(getCadQuery, ct).ConfigureAwait(false);
+        GetProductByIdDto product = await sender.SendQueryAsync(getCadQuery, ct).ConfigureAwait(false);
 
         Coordinates coords = new(req.Coordinates.X, req.Coordinates.Y, req.Coordinates.Z);
         Cad newCad;
@@ -50,7 +51,7 @@ public class PatchProductEndpoint(IMediator mediator) : Endpoint<PatchCadRequest
         }
 
         SetProductCoordsCommand command = new(req.Id, product.Cad.CamCoordinates, product.Cad.PanCoordinates);
-        await mediator.Send(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

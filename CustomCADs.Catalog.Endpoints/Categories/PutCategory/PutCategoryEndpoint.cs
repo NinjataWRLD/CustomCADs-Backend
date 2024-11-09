@@ -3,7 +3,8 @@ using CustomCADs.Catalog.Application.Categories.Commands.Edit;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PutCategory;
 
-public class PutCategoryEndpoint(IMediator mediator) : Endpoint<PutCategoryRequest>
+public class PutCategoryEndpoint(IRequestSender sender)
+    : Endpoint<PutCategoryRequest>
 {
     public override void Configure()
     {
@@ -15,7 +16,7 @@ public class PutCategoryEndpoint(IMediator mediator) : Endpoint<PutCategoryReque
     {
         CategoryWriteDto category = new(req.Name);
         EditCategoryCommand command = new(req.Id, category);
-        await mediator.Send(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

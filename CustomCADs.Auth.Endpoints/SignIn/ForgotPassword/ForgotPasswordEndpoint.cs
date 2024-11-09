@@ -1,9 +1,7 @@
 ﻿namespace CustomCADs.Auth.Endpoints.SignIn.ForgotPassword;
 
-using static ApiMessages;
-using static StatusCodes;
-
-public class ForgotPasswordEndpoint(IUserService service) : Endpoint<ForgotPasswordRequest>
+public class ForgotPasswordEndpoint(IUserService service) 
+    : Endpoint<ForgotPasswordRequest>
 {
     public override void Configure()
     {

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Auth.Application.Exceptions;
+﻿namespace CustomCADs.Auth.Application.Common.Exceptions;
 
 public class UserAccountNotCreatedYetException : Exception
 {

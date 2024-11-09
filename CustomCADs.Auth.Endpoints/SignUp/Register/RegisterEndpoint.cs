@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.Register;
 
-public class RegisterEndpoint(IUserService service) : Endpoint<RegisterRequest>
+public class RegisterEndpoint(IUserService service) 
+    : Endpoint<RegisterRequest>
 {
     public override void Configure()
     {

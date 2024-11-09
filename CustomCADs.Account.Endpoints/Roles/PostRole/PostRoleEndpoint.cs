@@ -6,7 +6,8 @@ using CustomCADs.Account.Endpoints.Roles.GetRole;
 
 namespace CustomCADs.Account.Endpoints.Roles.PostRole;
 
-public class PostRoleEndpoint(IMediator mediator) : Endpoint<PostRoleRequest, RoleResponse>
+public class PostRoleEndpoint(IRequestSender sender) 
+    : Endpoint<PostRoleRequest, RoleResponse>
 {
     public override void Configure()
     {
@@ -17,10 +18,10 @@ public class PostRoleEndpoint(IMediator mediator) : Endpoint<PostRoleRequest, Ro
     public override async Task HandleAsync(PostRoleRequest req, CancellationToken ct)
     {
         RoleWriteDto writeDto = new(req.Name, req.Description);
-        await mediator.Send(new CreateRoleCommand(writeDto), ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(new CreateRoleCommand(writeDto), ct).ConfigureAwait(false);
 
         GetRoleByNameQuery query = new(req.Name);
-        RoleReadDto readDto = await mediator.Send(query).ConfigureAwait(false);
+        RoleReadDto readDto = await sender.SendQueryAsync(query).ConfigureAwait(false);
 
         RoleResponse response = new(readDto.Name, readDto.Description);
         await SendCreatedAtAsync<GetRoleEndpoint>(new { readDto.Name }, response).ConfigureAwait(false);

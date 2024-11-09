@@ -2,7 +2,8 @@
 
 namespace CustomCADs.Account.Endpoints.Users.GetUser;
 
-public class GetUserEndpoint(IMediator mediator) : Endpoint<GetUserRequest, UserResponse>
+public class GetUserEndpoint(IRequestSender sender) 
+    : Endpoint<GetUserRequest, UserResponse>
 {
     public override void Configure()
     {
@@ -13,7 +14,7 @@ public class GetUserEndpoint(IMediator mediator) : Endpoint<GetUserRequest, User
     public override async Task HandleAsync(GetUserRequest req, CancellationToken ct)
     {
         GetUserByUsernameQuery query = new(req.Username);
-        GetUserByUsernameDto dto = await mediator.Send(query, ct);
+        GetUserByUsernameDto dto = await sender.SendQueryAsync(query, ct);
 
         UserResponse response = new(dto, req.Username);
         await SendOkAsync(response).ConfigureAwait(false);

@@ -8,7 +8,8 @@ namespace CustomCADs.Catalog.Endpoints.Products.PutProduct;
 
 using static ApiMessages;
 
-public class PutProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpoint<PutProductRequest>
+public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser) 
+    : Endpoint<PutProductRequest>
 {
     public override void Configure()
     {
@@ -20,7 +21,7 @@ public class PutProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpo
     public override async Task HandleAsync(PutProductRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetAccountId());
-        bool userIsCreator = await mediator.Send(isCreatorQuery).ConfigureAwait(false);
+        bool userIsCreator = await sender.SendQueryAsync(isCreatorQuery).ConfigureAwait(false);
 
         if (!userIsCreator)
         {
@@ -36,10 +37,10 @@ public class PutProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpo
             Cost: req.Cost
         );
         EditProductCommand command = new(req.Id, dto);
-        await mediator.Send(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         GetProductByIdQuery getProductQuery = new(req.Id);
-        GetProductByIdDto product = await mediator.Send(getProductQuery, ct).ConfigureAwait(false);
+        GetProductByIdDto product = await sender.SendQueryAsync(getProductQuery, ct).ConfigureAwait(false);
 
         ProductEditedEvent peEvent = new(
             Id: product.Id,

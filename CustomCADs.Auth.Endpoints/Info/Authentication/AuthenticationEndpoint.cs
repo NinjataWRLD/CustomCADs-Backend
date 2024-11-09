@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core;
 
 namespace CustomCADs.Auth.Endpoints.Info.Authentication;
-public class AuthenticationEndpoint : EndpointWithoutRequest
+public class AuthenticationEndpoint 
+    : EndpointWithoutRequest
 {
     public override void Configure()
     {

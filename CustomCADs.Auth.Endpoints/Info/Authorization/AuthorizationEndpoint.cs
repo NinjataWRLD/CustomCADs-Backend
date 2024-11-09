@@ -5,7 +5,8 @@ namespace CustomCADs.Auth.Endpoints.Info.Authorization;
 using static ApiMessages;
 using static StatusCodes;
 
-public class AuthorizationEndpoint(IUserService serivce) : EndpointWithoutRequest
+public class AuthorizationEndpoint(IUserService serivce) 
+    : EndpointWithoutRequest
 {
     public override void Configure()
     {

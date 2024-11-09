@@ -2,7 +2,8 @@
 
 namespace CustomCADs.Account.Endpoints.Users.GetUsers;
 
-public class GetUsersEndpoint(IMediator mediator) : Endpoint<GetUsersRequest, GetUsersResponse>
+public class GetUsersEndpoint(IRequestSender sender) 
+    : Endpoint<GetUsersRequest, GetUsersResponse>
 {
     public override void Configure()
     {
@@ -18,7 +19,7 @@ public class GetUsersEndpoint(IMediator mediator) : Endpoint<GetUsersRequest, Ge
             Page: req.Page,
             Limit: req.Limit
         );
-        GetAllUsersDto result = await mediator.Send(query, ct).ConfigureAwait(false);
+        GetAllUsersDto result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         GetUsersResponse response = new(
             result.Count,

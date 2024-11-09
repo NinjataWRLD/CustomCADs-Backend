@@ -5,7 +5,8 @@ namespace CustomCADs.Catalog.Endpoints.Products.GetProduct;
 
 using static ApiMessages;
 
-public class GetProductEndpoint(IMediator mediator) : Endpoint<GetProductRequest, GetProductResponse>
+public class GetProductEndpoint(IRequestSender sender) 
+    : Endpoint<GetProductRequest, GetProductResponse>
 {
     public override void Configure()
     {
@@ -16,7 +17,7 @@ public class GetProductEndpoint(IMediator mediator) : Endpoint<GetProductRequest
     public override async Task HandleAsync(GetProductRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetAccountId());
-        bool userIsCreator = await mediator.Send(isCreatorQuery).ConfigureAwait(false);
+        bool userIsCreator = await sender.SendQueryAsync(isCreatorQuery).ConfigureAwait(false);
 
         if (!userIsCreator)
         {
@@ -26,7 +27,7 @@ public class GetProductEndpoint(IMediator mediator) : Endpoint<GetProductRequest
         }
 
         GetProductByIdQuery getProductQuery = new(req.Id);
-        GetProductByIdDto product = await mediator.Send(getProductQuery, ct).ConfigureAwait(false);
+        GetProductByIdDto product = await sender.SendQueryAsync(getProductQuery, ct).ConfigureAwait(false);
 
         GetProductResponse response = new(product);
         await SendOkAsync(response).ConfigureAwait(false);

@@ -9,7 +9,8 @@ namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 
 using static Constants.Roles;
 
-public class PostProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpoint<PostProductRequest, PostProductResponse>
+public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser) 
+    : Endpoint<PostProductRequest, PostProductResponse>
 {
     public override void Configure()
     {
@@ -31,7 +32,7 @@ public class PostProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endp
                 : ProductStatus.Unchecked
         );
         CreateProductCommand createCommand = new(dto);
-        Task<Guid> createTask = mediator.Send(createCommand, ct);
+        Task<Guid> createTask = sender.SendCommandAsync(createCommand, ct);
 
         using MemoryStream imageStream = new();
         Task imageTask = req.Image.CopyToAsync(imageStream);
@@ -58,7 +59,7 @@ public class PostProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endp
         await raiser.RaiseAsync(pcEvent).ConfigureAwait(false);
 
         GetProductByIdQuery query = new(id);
-        GetProductByIdDto product = await mediator.Send(query, ct).ConfigureAwait(false);
+        GetProductByIdDto product = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         PostProductResponse response = new(product);
         await SendCreatedAtAsync<GetProductEndpoint>(new { id }, response).ConfigureAwait(false);

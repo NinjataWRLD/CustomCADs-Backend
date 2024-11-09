@@ -7,7 +7,8 @@ namespace CustomCADs.Catalog.Endpoints.Products.DeleteProduct;
 
 using static ApiMessages;
 
-public class DeleteProductEndpoint(IMediator mediator, IEventRaiser raiser) : Endpoint<DeleteProductRequest>
+public class DeleteProductEndpoint(IRequestSender sender, IEventRaiser raiser) 
+    : Endpoint<DeleteProductRequest>
 {
     public override void Configure()
     {
@@ -18,7 +19,7 @@ public class DeleteProductEndpoint(IMediator mediator, IEventRaiser raiser) : En
     public override async Task HandleAsync(DeleteProductRequest req, CancellationToken ct)
     {
         IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetAccountId());
-        bool userIsCreator = await mediator.Send(isCreatorQuery, ct).ConfigureAwait(false);
+        bool userIsCreator = await sender.SendQueryAsync(isCreatorQuery, ct).ConfigureAwait(false);
 
         if (!userIsCreator)
         {
@@ -28,7 +29,7 @@ public class DeleteProductEndpoint(IMediator mediator, IEventRaiser raiser) : En
         }
 
         DeleteProductCommand command = new(req.Id);
-        await mediator.Send(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         ProductDeletedEvent pdEvent = new(req.Id);
         await raiser.RaiseAsync(pdEvent).ConfigureAwait(false);
