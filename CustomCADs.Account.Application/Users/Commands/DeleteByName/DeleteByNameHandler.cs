@@ -11,7 +11,7 @@ public class DeleteUserByNameHandler(IUserReads reads, IWrites<User> writes, IUn
     public async Task Handle(DeleteUserByNameCommand req, CancellationToken ct)
     {
         User user = await reads.SingleByUsernameAsync(req.Username, ct: ct).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(req.Username, new { });
+            ?? throw UserNotFoundException.ByUsername(req.Username);
 
         writes.Remove(user);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

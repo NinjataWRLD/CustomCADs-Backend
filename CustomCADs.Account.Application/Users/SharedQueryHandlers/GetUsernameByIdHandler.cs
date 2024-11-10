@@ -9,7 +9,7 @@ public class GetUsernameByIdHandler(IUserReads reads)
     public async Task<string> Handle(GetUsernameByIdQuery req, CancellationToken ct)
     {
         User user = await reads.SingleByIdAsync(req.Id, track: false, ct).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(req.Id);
+            ?? throw UserNotFoundException.ById(req.Id);
 
         return user.Username;
     }

@@ -43,7 +43,7 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
         }
 
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
-        Guid accountId = user.AccountId ?? throw new UserAccountNotCreatedYetException(user.UserName ?? string.Empty);
+        Guid accountId = user.AccountId ?? throw UserAccountNotCreatedYetException.ByUsername(user.UserName ?? string.Empty);
 
         AccessTokenDto newJwt = tokenService.GenerateAccessToken(user.Id, accountId, user.UserName ?? string.Empty, role);
         SaveAccessToken(newJwt.Value, newJwt.EndDate);

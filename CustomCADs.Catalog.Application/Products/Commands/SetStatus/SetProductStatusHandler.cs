@@ -10,14 +10,14 @@ public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
     public async Task Handle(SetProductStatusCommand req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct)
-            ?? throw new ProductNotFoundException(req.Id);
+            ?? throw ProductNotFoundException.ById(req.Id);
 
         switch (req.Action)
         {
             case "validate": ValidateCad(product); break;
             case "report": ReportCad(product); break;
 
-            default: throw new ProductStatusException(req.Id, req.Action);
+            default: throw ProductStatusException.ById(req.Id, req.Action);
         }
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
@@ -27,7 +27,7 @@ public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
     {
         if (cad.Status != ProductStatus.Unchecked)
         {
-            throw new ProductStatusException();
+            throw ProductStatusException.ById(cad.Id, "validate");
         }
         cad.Status = ProductStatus.Validated;
     }
@@ -36,7 +36,7 @@ public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
     {
         if (cad.Status != ProductStatus.Unchecked)
         {
-            throw new ProductStatusException();
+            throw ProductStatusException.ById(cad.Id, "report");
         }
         cad.Status = ProductStatus.Reported;
     }

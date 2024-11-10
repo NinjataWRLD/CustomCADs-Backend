@@ -11,7 +11,7 @@ public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow, IEventRa
     public async Task Handle(EditCategoryCommand req, CancellationToken ct)
     {
         Category category = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw new CategoryNotFoundException(req.Id);
+            ?? throw CategoryNotFoundException.ById(req.Id);
 
         category.Name = req.Dto.Name;
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

@@ -16,7 +16,7 @@ public class GetProductAndAdjacentByIdHandler(IProductReads reads)
 
         List<Product> products = [.. result.Products];
         Product product = products.FirstOrDefault(c => c.Id == req.Id)
-            ?? throw new ProductNotFoundException(req.Id);
+            ?? throw ProductNotFoundException.ById(req.Id);
 
         int cadIndex = products.IndexOf(product);
         Product? first = products.FirstOrDefault(), last = products.LastOrDefault();

@@ -9,7 +9,7 @@ public class EditProductHandler(IProductReads reads, IUnitOfWork uow)
     public async Task Handle(EditProductCommand req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw new ProductNotFoundException(req.Id);
+            ?? throw ProductNotFoundException.ById(req.Id);
 
         product.Name = req.Dto.Name;
         product.Description = req.Dto.Description;

@@ -11,7 +11,7 @@ public class CreateProductHandler(ICategoryReads categoryReads, IWrites<Product>
         bool categoryExists = await categoryReads.ExistsByIdAsync(req.Dto.CategoryId, ct: ct).ConfigureAwait(false);
         if (!categoryExists)
         {
-            throw new CategoryNotFoundException(req.Dto.CategoryId);
+            throw CategoryNotFoundException.ById(req.Dto.CategoryId);
         }
 
         Product product = Product.Create(

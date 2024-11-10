@@ -2,8 +2,17 @@
 
 public class CategoryNotFoundException : Exception
 {
-    public CategoryNotFoundException() : base("The requested Category does not exist.") { }
-    public CategoryNotFoundException(int id) : base($"The Category with id: {id} does not exist.") { }
-    public CategoryNotFoundException(string message) : base(message) { }
-    public CategoryNotFoundException(string message, Exception inner) : base(message, inner) { }
+    private CategoryNotFoundException(string message, Exception? inner) : base(message, inner) { }
+
+    public static CategoryNotFoundException General(Exception? inner = default)
+        => new("The requested Category does not exist.", inner);
+    
+    public static CategoryNotFoundException ById(int id, Exception? inner = default)
+        => new($"The Category with id: {id} does not exist.", inner);
+    
+    public static CategoryNotFoundException ByName(string name, Exception? inner = default)
+        => new($"The Category with name: {name} does not exist.", inner);
+    
+    public static CategoryNotFoundException Custom(string message, Exception? inner = default)
+        => new(message, inner);
 }

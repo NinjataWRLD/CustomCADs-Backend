@@ -10,7 +10,7 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
     public async Task<GetProductByIdDto> Handle(GetProductByIdQuery req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw new ProductNotFoundException(req.Id);
+            ?? throw ProductNotFoundException.ById(req.Id);
 
         GetUsernameByIdQuery query = new(product.CreatorId);
         string username = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

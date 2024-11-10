@@ -2,8 +2,17 @@
 
 public class UserAccountNotCreatedYetException : Exception
 {
-    public UserAccountNotCreatedYetException() : base("The requested User's account is still being created.") { }
-    public UserAccountNotCreatedYetException(Guid id) : base($"The User with id: {id}'s account is still being created.") { }
-    public UserAccountNotCreatedYetException(string username, object overloadUtility) : base($"The User with username: {username}'s account is still being created.") { }
-    public UserAccountNotCreatedYetException(string message) : base(message) { }
+    private UserAccountNotCreatedYetException(string message, Exception? inner) : base(message, inner) { }
+
+    public static UserAccountNotCreatedYetException General(Exception? inner = default)
+        => new("The requested User's account is still being created.", inner);
+    
+    public static UserAccountNotCreatedYetException ByUsername(string username, Exception? inner = default)
+        => new($"The User with username: {username}'s account is still being created.", inner);
+    
+    public static UserAccountNotCreatedYetException ById(Guid id, Exception? inner = default)
+        => new($"The User with id: {id}'s account is still being created.", inner);
+
+    public static UserAccountNotCreatedYetException Custom(string message, Exception? inner = default)
+        => new(message, inner);
 }

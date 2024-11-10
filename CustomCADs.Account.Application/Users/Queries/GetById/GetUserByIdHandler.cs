@@ -8,7 +8,7 @@ public class GetUserByIdHandler(IUserReads reads)
     public async Task<GetUserByIdDto> Handle(GetUserByIdQuery req, CancellationToken ct)
     {
         User user = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(req.Id);
+            ?? throw UserNotFoundException.ById(req.Id);
 
         GetUserByIdDto response = new(user);
         return response;

@@ -8,7 +8,7 @@ public class IsProductCreatorHandler(IProductReads reads)
     public async Task<bool> Handle(IsProductCreatorQuery req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw new ProductNotFoundException(req.Id);
+            ?? throw ProductNotFoundException.ById(req.Id);
 
         var result = product.CreatorId == req.CreatorId;
         return result;

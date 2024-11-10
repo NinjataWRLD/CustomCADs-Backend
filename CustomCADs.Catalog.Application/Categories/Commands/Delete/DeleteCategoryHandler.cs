@@ -11,7 +11,7 @@ public class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category> write
     public async Task Handle(DeleteCategoryCommand req, CancellationToken ct)
     {
         Category category = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw new CategoryNotFoundException(req.Id);
+            ?? throw CategoryNotFoundException.ById(req.Id);
 
         writes.Remove(category);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

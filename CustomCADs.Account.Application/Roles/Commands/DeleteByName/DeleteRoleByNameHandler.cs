@@ -12,7 +12,7 @@ public class DeleteRoleByNameHandler(IRoleReads reads, IWrites<Role> writes, IUn
     public async Task Handle(DeleteRoleByNameCommand req, CancellationToken ct)
     {
         Role role = await reads.SingleByNameAsync(req.Name, ct: ct).ConfigureAwait(false)
-            ?? throw new RoleNotFoundException(req.Name, new { });
+            ?? throw RoleNotFoundException.ByName(req.Name);
 
         writes.Remove(role);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

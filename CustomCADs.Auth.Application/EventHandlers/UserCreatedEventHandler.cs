@@ -11,7 +11,7 @@ public class UserCreatedEventHandler(IUserService service)
 
         if (!result.Succeeded)
         {
-            throw new UserException($"Couldn't create the user: {ie.Username}.");
+            throw UserException.Custom($"Couldn't create the user: {ie.Username}.");
         }
         await service.AddToRoleAsync(user, ie.Role).ConfigureAwait(false);
     }

@@ -9,7 +9,7 @@ public class SetProductPathsHandler(IProductReads reads, IUnitOfWork uow)
     public async Task Handle(SetProductPathsCommand req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw new ProductNotFoundException(req.Id);
+            ?? throw ProductNotFoundException.ById(req.Id);
 
         if (!string.IsNullOrEmpty(req.CadPath))
         {

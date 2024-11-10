@@ -9,7 +9,7 @@ public class DeleteProductHandler(IProductReads productReads, IWrites<Product> p
     public async Task Handle(DeleteProductCommand req, CancellationToken ct)
     {
         Product product = await productReads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw new ProductNotFoundException(req.Id);
+            ?? throw ProductNotFoundException.ById(req.Id);
 
         // Delete all Orders related to the Product here
 

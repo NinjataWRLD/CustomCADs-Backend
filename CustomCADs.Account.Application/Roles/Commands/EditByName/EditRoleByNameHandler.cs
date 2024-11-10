@@ -11,7 +11,7 @@ public class EditRoleByNameHandler(IRoleReads reads, IUnitOfWork uow, IEventRais
     public async Task Handle(EditRoleByNameCommand req, CancellationToken ct)
     {
         Role role = await reads.SingleByNameAsync(req.Name, ct: ct).ConfigureAwait(false)
-            ?? throw new RoleNotFoundException(req.Name, new { });
+            ?? throw RoleNotFoundException.ByName(req.Name);
 
         role.Name = req.Dto.Name;
         role.Description = req.Dto.Description;

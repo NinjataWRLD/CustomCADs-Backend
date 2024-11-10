@@ -61,7 +61,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task<IdentityResult> UpdateAccountIdAsync(Guid id, Guid accountId)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(id);
+            ?? throw UserNotFoundException.ById(id);
 
         user.AccountId = accountId;
 
@@ -72,7 +72,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task<IdentityResult> UpdateAccountIdAsync(string username, Guid accountId)
     {
         AppUser user = await FindByNameAsync(username).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(username: username);
+            ?? throw UserNotFoundException.ByUsername(username);
 
         user.AccountId = accountId;
 
@@ -83,7 +83,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task<IdentityResult> UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(id);
+            ?? throw UserNotFoundException.ById(id);
 
         user.RefreshToken = rt;
         user.RefreshTokenEndDate = endDate;
@@ -95,7 +95,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task<IdentityResult> RevokeRefreshTokenAsync(Guid id)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(id);
+            ?? throw UserNotFoundException.ById(id);
 
         user.RefreshToken = null;
         user.RefreshTokenEndDate = null;
@@ -135,7 +135,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task SendVerificationEmailAsync(string username)
     {
         AppUser user = await manager.FindByNameAsync(username).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(username: username);
+            ?? throw UserNotFoundException.ByUsername(username);
 
         string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
 
@@ -164,7 +164,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task SendResetPasswordEmailAsync(string email)
     {
         AppUser user = await manager.FindByEmailAsync(email).ConfigureAwait(false)
-            ?? throw new UserNotFoundException(email: email);
+            ?? throw UserNotFoundException.ByEmail(email);
 
         string token = await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
         string clientUrl = config["URLs:Client"] ?? "https://customcads.onrender.com";

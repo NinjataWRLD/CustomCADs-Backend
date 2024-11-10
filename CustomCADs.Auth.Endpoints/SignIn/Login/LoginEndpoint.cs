@@ -54,7 +54,7 @@ public class LoginEndpoint(IUserService userService, ITokenService tokenService,
             return;
         }
 
-        Guid accountId = user.AccountId ?? throw new UserAccountNotCreatedYetException(user.UserName ?? string.Empty);
+        Guid accountId = user.AccountId ?? throw UserAccountNotCreatedYetException.ByUsername(user.UserName ?? string.Empty);
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
 
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.Id, accountId, req.Username, role);
