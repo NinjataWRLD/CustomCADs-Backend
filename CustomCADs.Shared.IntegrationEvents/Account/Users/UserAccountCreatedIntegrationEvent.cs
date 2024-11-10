@@ -7,4 +7,4 @@ public record UserAccountCreatedIntegrationEvent(
     string Role,
     string Username,
     string Email
-) : IntegrationEvent;
+) : BaseIntegrationEvent;

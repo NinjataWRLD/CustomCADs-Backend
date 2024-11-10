@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Cart.Domain.Cart.Reads;
+﻿namespace CustomCADs.Cart.Domain.Carts.Reads;
 
 public interface ICartReads
 {

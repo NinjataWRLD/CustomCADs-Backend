@@ -2,7 +2,7 @@
 using CustomCADs.Shared.Core.Domain.Enums;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 
-namespace CustomCADs.Cart.Domain.Cart.Entities;
+namespace CustomCADs.Cart.Domain.Carts.Entities;
 
 public class Item : BaseEntity
 {

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Cart.Domain.Cart.Entities;
+﻿using CustomCADs.Cart.Domain.Carts.Entities;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 

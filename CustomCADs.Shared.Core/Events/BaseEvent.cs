@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Shared.Core.Events;
 
-public interface IEvent;
+public abstract record BaseEvent;

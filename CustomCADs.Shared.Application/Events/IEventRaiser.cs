@@ -4,5 +4,5 @@ namespace CustomCADs.Shared.Application.Events;
 
 public interface IEventRaiser
 {
-    public Task RaiseAsync<TEvent>(TEvent @event) where TEvent : IEvent;
+    public Task RaiseAsync<TEvent>(TEvent @event) where TEvent : BaseEvent;
 }

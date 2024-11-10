@@ -14,4 +14,4 @@ public record ProductCreatedDomainEvent(
     string Status,
     FileDto Image,
     FileDto Cad
-) : DomainEvent;
+) : BaseDomainEvent;

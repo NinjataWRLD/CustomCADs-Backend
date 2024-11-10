@@ -16,4 +16,4 @@ public record ProductEditedDomainEvent(
     Money Price,
     string OldImagePath,
     FileDto? Image = default
-) : DomainEvent;
+) : BaseDomainEvent;

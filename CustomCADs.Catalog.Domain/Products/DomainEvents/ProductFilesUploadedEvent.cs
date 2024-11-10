@@ -6,4 +6,4 @@ public record ProductFilesUploadedEvent(
     Guid Id,
     string ImagePath,
     string CadPath
-) : DomainEvent;
+) : BaseDomainEvent;

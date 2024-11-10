@@ -1,7 +1,7 @@
-﻿using CustomCADs.Cart.Domain.Cart.Entities;
+﻿using CustomCADs.Cart.Domain.Carts.Entities;
 using CustomCADs.Shared.Core.Domain;
 
-namespace CustomCADs.Cart.Domain.Cart;
+namespace CustomCADs.Cart.Domain.Carts;
 
 public class Cart : BaseAggregateRoot
 {
