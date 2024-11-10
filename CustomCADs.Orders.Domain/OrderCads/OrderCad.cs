@@ -6,8 +6,20 @@ namespace CustomCADs.Orders.Domain.OrderCads;
 
 public class OrderCad : IAggregateRoot
 {
+    private OrderCad() { }
+    private OrderCad(Guid orderId, Cad cad) : this()
+    {
+        OrderId = orderId;
+        Cad = cad;
+    }
+
     public Guid Id { get; set; }
     public Cad Cad { get; set; } = new();
     public Guid OrderId { get; set; }
-    public required Order Order { get; set; }
+    public Order Order { get; set; } = null!;
+
+    public static OrderCad Create(Guid orderId, Cad cad)
+    {
+        return new(orderId, cad);
+    }
 }

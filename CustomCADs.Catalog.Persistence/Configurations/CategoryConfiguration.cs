@@ -35,23 +35,19 @@ static class CategoryConfigUtils
 
     public static EntityTypeBuilder<Category> SetSeedData(this EntityTypeBuilder<Category> builder)
     {
-        string[] categoriesNames =
-        [
-            "Animals",
-            "Characters",
-            "Electronics",
-            "Fashion",
-            "Furniture",
-            "Nature",
-            "Science",
-            "Sports",
-            "Toys",
-            "Vehicles",
-            "Others",
-        ];
-
-        int index = 0;
-        builder.HasData(categoriesNames.Select(cn => new Category() { Id = ++index, Name = cn }));
+        builder.HasData(Category.CreateRange([
+            (1, "Animals"),
+            (2, "Characters"),
+            (3, "Electronics"),
+            (4, "Fashion"),
+            (5, "Furniture"),
+            (6, "Nature"),
+            (7, "Science"),
+            (8, "Sports"),
+            (9, "Toys"),
+            (10, "Vehicles"),
+            (11, "Others"),
+        ]));
 
         return builder;
     }

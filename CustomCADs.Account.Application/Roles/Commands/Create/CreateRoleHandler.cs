@@ -10,11 +10,7 @@ public class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow, IEventRais
 {
     public async Task<int> Handle(CreateRoleCommand req, CancellationToken ct)
     {
-        Role role = new()
-        {
-            Name = req.Dto.Name,
-            Description = req.Dto.Description,
-        };
+        Role role = Role.Create(req.Dto.Name, req.Dto.Description);
 
         await writes.AddAsync(role, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

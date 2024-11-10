@@ -5,6 +5,17 @@ namespace CustomCADs.Cart.Domain.Cart.Entities;
 
 public class Item : IEntity
 {
+    private Item() { }
+    private Item(decimal price, int quantity, Purpose purpose, Guid productId, Guid cartId) : this()
+    {
+        Price = price;
+        Quantity = quantity;
+        PurchaseDate = DateTime.UtcNow;
+        Purpose = purpose;
+        ProductId = productId;
+        CartId = cartId;
+    }
+
     public Guid Id { get; set; }
     public decimal Price { get; set; }
     public int Quantity { get; set; }
@@ -12,7 +23,12 @@ public class Item : IEntity
     public Purpose Purpose { get; set; }
     public Guid ProductId { get; set; }
     public Guid CartId { get; set; }
-    public required Cart Cart { get; set; }
+    public Cart Cart { get; set; } = null!;
 
     public decimal Cost => Price * Quantity;
+
+    public static Item Create(decimal price, int quantity, Purpose purpose, Guid productId, Guid cartId)
+    {
+        return new(price, quantity, purpose, productId, cartId);
+    }
 }

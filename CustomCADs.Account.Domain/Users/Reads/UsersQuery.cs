@@ -9,4 +9,5 @@ public record UsersQuery(
     string? LastName = null,
     string Sorting = "",
     int Page = 1,
-    int Limit = 20);
+    int Limit = 20
+);

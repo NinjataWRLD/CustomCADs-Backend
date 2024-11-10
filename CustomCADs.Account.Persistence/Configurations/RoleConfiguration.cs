@@ -55,13 +55,12 @@ static class RoleConfigUtils
 
     public static EntityTypeBuilder<Role> SetSeeding(this EntityTypeBuilder<Role> builder)
     {
-        Role[] roles =
-        [
-            new() { Id = 1, Name = Client, Description = ClientDescription, },
-            new() { Id = 2, Name = Contributor, Description = ContributorDescription, },
-            new() { Id = 3, Name = Designer, Description = DesignerDescription, },
-            new() { Id = 4, Name = Admin, Description = AdminDescription, },
-        ];
+        IEnumerable<Role> roles = Role.CreateRange(
+            (1, Client, ClientDescription),
+            (2, Contributor, ContributorDescription),
+            (3, Designer, DesignerDescription),
+            (4, Admin, AdminDescription)
+        );
         builder.HasData(roles);
 
         return builder;

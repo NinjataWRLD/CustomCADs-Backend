@@ -14,18 +14,16 @@ public class CreateProductHandler(ICategoryReads categoryReads, IWrites<Product>
             throw new CategoryNotFoundException(req.Dto.CategoryId);
         }
 
-        Product product = new()
-        {
-            Name = req.Dto.Name,
-            Description = req.Dto.Description,
-            CategoryId = req.Dto.CategoryId,
-            Cost = req.Dto.Cost,
-            CreatorId = req.Dto.CreatorId,
-            Status = req.Dto.Status,
-            UploadDate = DateTime.UtcNow,
-            Cad = new(),
-            Category = null!, // so a new category doesn't get created
-        };
+        Product product = Product.Create(
+            name: req.Dto.Name,
+            description: req.Dto.Description,
+            categoryId: req.Dto.CategoryId,
+            cost: req.Dto.Cost,
+            status: req.Dto.Status,
+            uploadDate: DateTime.UtcNow,
+            imagePath: string.Empty,
+            creatorId: req.Dto.CreatorId
+        );
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
