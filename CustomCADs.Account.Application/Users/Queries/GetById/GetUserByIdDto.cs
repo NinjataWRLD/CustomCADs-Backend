@@ -12,8 +12,8 @@ public record GetUserByIdDto(
         Role: user.RoleName,
         Username: user.Username,
         Email: user.Email,
-        FirstName: user.NameInfo.FirstName,
-        LastName: user.NameInfo.LastName
+        FirstName: user.Names.FirstName,
+        LastName: user.Names.LastName
     )
     { }
 }

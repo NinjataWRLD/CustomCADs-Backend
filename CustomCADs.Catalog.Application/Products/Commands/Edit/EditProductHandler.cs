@@ -13,7 +13,7 @@ public class EditProductHandler(IProductReads reads, IUnitOfWork uow)
 
         product.Name = req.Dto.Name;
         product.Description = req.Dto.Description;
-        product.Cost = req.Dto.Cost;
+        product.Price = req.Dto.Price;
         product.CategoryId = req.Dto.CategoryId;
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

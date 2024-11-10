@@ -21,7 +21,10 @@ public class PostProductRequestValidator : Validator<PutProductRequest>
         RuleFor(r => r.CategoryId)
             .NotEmpty().WithMessage(RequiredErrorMessage);
 
-        RuleFor(r => r.Cost)
-            .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeErrorMessage);
+        RuleFor(r => r.Price).ChildRules(v =>
+        {
+            v.RuleFor(c => c.Amount)
+                .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeErrorMessage);
+        });
     }
 }

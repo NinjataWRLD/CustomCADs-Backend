@@ -43,8 +43,10 @@ public static class Utilities
             nameof(ProductSorting.ReverseCategory) => query.OrderByDescending(m => m.Category.Name),
             nameof(ProductSorting.Status) => query.OrderBy(m => (int)m.Status),
             nameof(ProductSorting.ReverseStatus) => query.OrderByDescending(m => (int)m.Status),
-            nameof(ProductSorting.Cost) => query.OrderBy(m => m.Cost),
-            nameof(ProductSorting.ReverseCost) => query.OrderByDescending(m => m.Cost),
+            nameof(ProductSorting.CostAmount) => query.OrderBy(m => m.Price.Amount),
+            nameof(ProductSorting.ReverseCostAmount) => query.OrderByDescending(m => m.Price.Amount),
+            nameof(ProductSorting.CostCurrency) => query.OrderBy(m => m.Price.Currency),
+            nameof(ProductSorting.ReverseCostCurrency) => query.OrderByDescending(m => m.Price.Currency),
             _ => query,
         };
     }

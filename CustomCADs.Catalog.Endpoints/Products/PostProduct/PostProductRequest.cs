@@ -1,3 +1,12 @@
-﻿namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
+﻿using CustomCADs.Shared.Core.Dtos;
 
-public record PostProductRequest(string Name, string Description, int CategoryId, decimal Cost, IFormFile File, IFormFile Image);
+namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
+
+public record PostProductRequest(
+    string Name, 
+    string Description, 
+    int CategoryId, 
+    MoneyDto Price, 
+    IFormFile File, 
+    IFormFile Image
+);

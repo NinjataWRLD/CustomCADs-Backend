@@ -25,7 +25,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
             Name: req.Name,
             Description: req.Description,
             CategoryId: req.CategoryId,
-            Cost: req.Cost,
+            Price: new(req.Price.Amount, req.Price.Currency, req.Price.Precision, req.Price.Symbol),
             CreatorId: User.GetAccountId(),
             Status: User.IsInRole(Designer)
                 ? ProductStatus.Validated
@@ -50,7 +50,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
             Name: dto.Name,
             Description: dto.Description,
             CategoryId: dto.CategoryId,
-            Cost: dto.Cost,
+            Price: dto.Price,
             CreatorId: dto.CreatorId,
             Status: dto.Status.ToString(),
             Image: new(imageBytes, req.Image.FileName, req.Image.ContentType),

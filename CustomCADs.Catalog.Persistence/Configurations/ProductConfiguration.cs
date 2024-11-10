@@ -39,8 +39,30 @@ static class CadConfigUtils
     {
         builder.ComplexProperty(p => p.Cad, c =>
         {
+            c.Property(c => c.Path).IsRequired();
             c.ComplexProperty(c => c.CamCoordinates);
             c.ComplexProperty(c => c.PanCoordinates);
+        });
+        
+        builder.ComplexProperty(p => p.Image, c =>
+        {
+            c.Property(c => c.Path).IsRequired();
+        });
+
+        builder.ComplexProperty(p => p.Price, c =>
+        {
+            c.Property(c => c.Amount)
+                .IsRequired()
+                .HasPrecision(18, 2);
+
+            c.Property(c => c.Precision)
+                .IsRequired();
+            
+            c.Property(c => c.Currency)
+                .IsRequired();
+
+            c.Property(c => c.Symbol)
+                .IsRequired();
         });
 
         return builder;
@@ -62,10 +84,6 @@ static class CadConfigUtils
                 e => e.ToString(),
                 s => Enum.Parse<ProductStatus>(s)
             );
-
-        builder.Property(c => c.Cost)
-            .IsRequired()
-            .HasPrecision(18, 2);
 
         builder.Property(c => c.UploadDate)
             .IsRequired();

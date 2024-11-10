@@ -12,7 +12,7 @@ public class ProductDeletedEventHandler(IRequestSender sender, IStorageService s
         GetProductByIdQuery query = new(de.Id);
         GetProductByIdDto dto = await sender.SendQueryAsync(query).ConfigureAwait(false);
 
-        Task imageTask = service.DeleteFileAsync(dto.ImagePath),
+        Task imageTask = service.DeleteFileAsync(dto.Image.Path),
             cadTask = service.DeleteFileAsync(dto.Cad.Path);
 
         await Task.WhenAll(imageTask, cadTask).ConfigureAwait(false);

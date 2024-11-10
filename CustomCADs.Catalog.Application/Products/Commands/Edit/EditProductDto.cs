@@ -1,8 +1,10 @@
-﻿namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects;
+
+namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
 
 public record EditProductDto(
     string Name,
     string Description,
     int CategoryId,
-    decimal Cost
+    Money Price
 );

@@ -12,13 +12,13 @@ public class User : BaseAggregateRoot
         RoleName = role;
         Username = username;
         Email = email;
-        NameInfo = NameInfo.Create(firstName, lastName);
+        Names = Names.Create(firstName, lastName);
     }
 
     public Guid Id { get; set; }
     public string Username { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public NameInfo NameInfo { get; set; } = NameInfo.Create();
+    public Names Names { get; set; } = Names.Create();
     public string RoleName { get; set; } = string.Empty;
     public Role Role { get; set; } = null!;
 

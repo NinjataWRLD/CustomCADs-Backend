@@ -16,8 +16,8 @@ public record GetAllUsersItem(
         user.Username,
         user.Email,
         user.RoleName,
-        user.NameInfo.FirstName,
-        user.NameInfo.LastName
+        user.Names.FirstName,
+        user.Names.LastName
     )
     { }
 }

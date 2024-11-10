@@ -18,10 +18,9 @@ public class CreateProductHandler(ICategoryReads categoryReads, IWrites<Product>
             name: req.Dto.Name,
             description: req.Dto.Description,
             categoryId: req.Dto.CategoryId,
-            cost: req.Dto.Cost,
+            price: req.Dto.Price,
             status: req.Dto.Status,
-            uploadDate: DateTime.UtcNow,
-            imagePath: string.Empty,
+            image: new(),
             creatorId: req.Dto.CreatorId
         );
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);

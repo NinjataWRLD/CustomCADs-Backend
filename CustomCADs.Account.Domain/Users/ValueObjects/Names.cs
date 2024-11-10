@@ -1,10 +1,10 @@
 ﻿namespace CustomCADs.Account.Domain.Users.ValueObjects;
 
-public class NameInfo
+public class Names
 {
-    private NameInfo() { }
+    private Names() { }
 
-    private NameInfo(string? firstName, string? lastName)
+    private Names(string? firstName, string? lastName)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -14,7 +14,7 @@ public class NameInfo
     public string? LastName { get; set; }
     public string FullName => $"{FirstName} {LastName}";
 
-    public static NameInfo Create(string? firstName = default, string? lastName = default)
+    public static Names Create(string? firstName = default, string? lastName = default)
     {
         return new(firstName, lastName);
     }

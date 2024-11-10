@@ -39,7 +39,7 @@ static class UserConfigUtils
 
     public static EntityTypeBuilder<User> SetValueObjects(this EntityTypeBuilder<User> builder)
     {
-        builder.OwnsOne(u => u.NameInfo, cb =>
+        builder.OwnsOne(u => u.Names, cb =>
         {
             cb.Property(u => u.FirstName).HasMaxLength(NameMaxLength).HasColumnName("FirstName");
             cb.Property(u => u.LastName).HasMaxLength(NameMaxLength).HasColumnName("LastName");

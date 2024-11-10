@@ -34,7 +34,7 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
             Name: req.Name,
             Description: req.Description,
             CategoryId: req.CategoryId,
-            Cost: req.Cost
+            Price: new(req.Price.Amount, req.Price.Currency, req.Price.Precision, req.Price.Symbol)
         );
         EditProductCommand command = new(req.Id, dto);
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
@@ -50,9 +50,9 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
             Description: dto.Description,
             OldCategoryId: product.Category.Id,
             CategoryId: dto.CategoryId,
-            OldCost: dto.Cost,
-            Cost: dto.Cost,
-            OldImagePath: product.ImagePath
+            OldPrice: product.Price,
+            Price: dto.Price,
+            OldImagePath: product.Image.Path
         );
 
         if (req.Image is not null)

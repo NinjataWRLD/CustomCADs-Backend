@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Queries;
+using CustomCADs.Shared.Core.Domain.ValueObjects;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
@@ -9,7 +10,7 @@ public record GetAllProductsItem(
     string Name,
     string Status,
     DateTime UploadDate,
-    string ImagePath,
+    Image Image,
     string CreatorName,
     CategoryReadDto Category
 )
@@ -19,7 +20,7 @@ public record GetAllProductsItem(
         Name: product.Name,
         Status: product.Status.ToString(),
         UploadDate: product.UploadDate,
-        ImagePath: product.ImagePath,
+        Image: product.Image,
         Category: new(product.CategoryId, product.Category.Name),
         CreatorName: username
     )

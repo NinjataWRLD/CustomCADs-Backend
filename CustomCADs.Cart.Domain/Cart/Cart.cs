@@ -10,13 +10,13 @@ public class Cart : BaseAggregateRoot
     {
         BuyerId = buyerId;
         Items = items;
+        Total = Items.Sum(i => i.Price.Amount);
     }
 
     public Guid Id { get; set; }
+    public decimal Total { get; private set; }
     public Guid BuyerId { get; set; }
     public ICollection<Item> Items { get; set; } = [];
-
-    public decimal Total => Items.Sum(i => i.Cost);
 
     public static Cart Create(Guid buyerId, ICollection<Item> items)
     {

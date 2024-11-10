@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
@@ -16,11 +17,7 @@ public record CreateProductDto(
     string Description,
 
     int CategoryId,
-
-    [Range(typeof(decimal), CostMinString, CostMaxString, ErrorMessage = LengthErrorMessage)]
-    decimal Cost,
-
+    Money Price,
     ProductStatus Status,
-
     Guid CreatorId
 );

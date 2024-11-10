@@ -18,7 +18,7 @@ public class SetProductPathsHandler(IProductReads reads, IUnitOfWork uow)
 
         if (!string.IsNullOrEmpty(req.ImagePath))
         {
-            product.ImagePath = req.ImagePath;
+            product.Image = product.Image with { Path = req.ImagePath };
         }
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

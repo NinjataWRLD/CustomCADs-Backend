@@ -10,7 +10,7 @@ public record GetProductResponse(
     Guid Id,
     string Name,
     string Description,
-    decimal Cost,
+    MoneyDto Price,
     string CadPath,
     string UploadDate,
     CoordinatesDto CamCoordinates,
@@ -21,7 +21,7 @@ public record GetProductResponse(
     public GetProductResponse(GetProductByIdDto dto) : this(
         Id: dto.Id,
         Name: dto.Name,
-        Cost: dto.Cost,
+        Price: new(dto.Price),
         Description: dto.Description,
         UploadDate: dto.UploadDate.ToString(DateFormatString),
         CamCoordinates: new(dto.Cad.CamCoordinates),

@@ -10,6 +10,8 @@ public enum ProductSorting
     ReverseCategory,
     Status,
     ReverseStatus,
-    Cost,
-    ReverseCost,
+    CostAmount,
+    ReverseCostAmount,
+    CostCurrency,
+    ReverseCostCurrency,
 }
