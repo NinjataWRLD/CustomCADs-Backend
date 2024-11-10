@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.ValueObjects;
+using CustomCADs.Shared.Core.Domain.ValueObjects;
 
 namespace CustomCADs.Orders.Domain.OrderCads;
 
-public class OrderCad : IAggregateRoot
+public class OrderCad : BaseAggregateRoot
 {
     private OrderCad() { }
     private OrderCad(Guid orderId, Cad cad) : this()

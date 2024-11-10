@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Orders.Domain.Orders.Enum;
 using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.Enums;
+using CustomCADs.Shared.Core.Domain.Enums;
 
 namespace CustomCADs.Orders.Domain.Orders;
 
-public class Order : IAggregateRoot
+public class Order : BaseAggregateRoot
 {
     private Order() { }    
     private Order(string name, string description, Purpose purpose, OrderStatus status, string imagePath, Guid buyerId) : this()

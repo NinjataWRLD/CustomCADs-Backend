@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.ValueObjects;
+using CustomCADs.Shared.Core.Domain.ValueObjects;
 
 namespace CustomCADs.Catalog.Domain.Products;
 
-public class Product : IAggregateRoot
+public class Product : BaseAggregateRoot
 {
     private Product() { }    
     private Product(string name, string description, string imagePath, decimal cost, ProductStatus status, DateTime uploadDate, Guid creatorId, int categoryId) : this()

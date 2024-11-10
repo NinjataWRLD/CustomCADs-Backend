@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.ValueObjects;
+using CustomCADs.Shared.Core.Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetCoords;

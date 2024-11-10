@@ -1,6 +1,5 @@
-﻿using CustomCADs.Shared.Core.Domain;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Infrastructure.Entities;
 
-public class AppRole : IdentityRole<Guid>, IAggregateRoot;
+public class AppRole : IdentityRole<Guid>;

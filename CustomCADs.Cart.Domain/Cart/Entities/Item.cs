@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.Enums;
+using CustomCADs.Shared.Core.Domain.Enums;
 
 namespace CustomCADs.Cart.Domain.Cart.Entities;
 
-public class Item : IEntity
+public class Item : BaseEntity
 {
     private Item() { }
     private Item(decimal price, int quantity, Purpose purpose, Guid productId, Guid cartId) : this()

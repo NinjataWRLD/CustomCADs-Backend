@@ -1,9 +1,8 @@
-﻿using CustomCADs.Shared.Core.Domain;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Infrastructure.Entities;
 
-public class AppUser : IdentityUser<Guid>, IAggregateRoot
+public class AppUser : IdentityUser<Guid>
 {
     public AppUser() : base() { }
 

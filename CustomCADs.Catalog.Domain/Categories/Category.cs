@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Catalog.Domain.Categories;
 
-public class Category : IAggregateRoot
+public class Category : BaseAggregateRoot
 {
     private Category() { }
     private Category(string name) : this()

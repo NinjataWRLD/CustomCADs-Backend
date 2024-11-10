@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.Enums;
-using CustomCADs.Shared.Core.ValueObjects;
+using CustomCADs.Shared.Core.Domain.Enums;
+using CustomCADs.Shared.Core.Domain.ValueObjects;
 
 namespace CustomCADs.Orders.Domain.OrderDeliveries;
 
-public class OrderDelivery : IAggregateRoot
+public class OrderDelivery : BaseAggregateRoot
 {
     private OrderDelivery() { }    
     private OrderDelivery(Guid orderId, DeliveryStatus status) : this()

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Core.Enums;
+﻿namespace CustomCADs.Shared.Core.Domain.Enums;
 
 public enum Purpose
 {

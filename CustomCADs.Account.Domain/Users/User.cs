@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Domain;
 
 namespace CustomCADs.Account.Domain.Users;
 
-public class User : IAggregateRoot
+public class User : BaseAggregateRoot
 {
     private User() { }
     private User(string role, string username, string email, string? firstName, string? lastName) : this()

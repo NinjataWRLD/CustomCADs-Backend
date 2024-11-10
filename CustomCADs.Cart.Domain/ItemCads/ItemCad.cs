@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Cart.Domain.Cart.Entities;
 using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.ValueObjects;
+using CustomCADs.Shared.Core.Domain.ValueObjects;
 
 namespace CustomCADs.Cart.Domain.ItemCads;
 
-public class ItemCad : IAggregateRoot
+public class ItemCad : BaseAggregateRoot
 {
     private ItemCad() { }
     private ItemCad(Cad cad, Guid itemId) : this()

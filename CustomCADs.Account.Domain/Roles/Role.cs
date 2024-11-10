@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Domain;
 
 namespace CustomCADs.Account.Domain.Roles;
 
-public class Role : IAggregateRoot
+public class Role : BaseAggregateRoot
 {
     private Role() { }
     private Role(string name, string description) : this()
