@@ -12,7 +12,7 @@ public class ProductReads(CatalogContext context) : IProductReads
                 .Include(p => p.Category)
                 .WithFilter(query.CreatorId, query.Status)
                 .WithSearch(query.Category, query.Name)
-                .WithSorting(query.Sorting);
+                .WithSorting(query.Sorting ?? new());
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         Product[] products = await queryable

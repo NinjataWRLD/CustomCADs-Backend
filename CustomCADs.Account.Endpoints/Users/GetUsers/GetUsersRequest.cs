@@ -1,3 +1,12 @@
-﻿namespace CustomCADs.Account.Endpoints.Users.GetUsers;
+﻿using CustomCADs.Account.Domain.Users.Enums;
+using CustomCADs.Shared.Core.Domain.Enums;
 
-public record GetUsersRequest(string? Name = default, string? Sorting = default, int Page = 1, int Limit = 50);
+namespace CustomCADs.Account.Endpoints.Users.GetUsers;
+
+public record GetUsersRequest(
+    string? Name = default,
+    UserSortingType SortingType = UserSortingType.UploadDate,
+    SortingDirection SortingDirection = SortingDirection.Descending,
+    int Page = 1,
+    int Limit = 50
+);

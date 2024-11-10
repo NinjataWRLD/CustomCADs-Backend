@@ -1,4 +1,7 @@
-﻿namespace CustomCADs.Catalog.Persistence.Repositories;
+﻿using CustomCADs.Catalog.Domain.Products.ValueObjects;
+using CustomCADs.Shared.Core.Domain.Enums;
+
+namespace CustomCADs.Catalog.Persistence.Repositories;
 
 public static class Utilities
 {
@@ -31,22 +34,22 @@ public static class Utilities
     }
 
 
-    public static IQueryable<Product> WithSorting(this IQueryable<Product> query, string sorting = "")
+    public static IQueryable<Product> WithSorting(this IQueryable<Product> query, ProductSorting? sorting = null)
     {
-        return sorting.Capitalize() switch
+        return sorting switch
         {
-            nameof(ProductSorting.Newest) => query.OrderByDescending(c => c.UploadDate),
-            nameof(ProductSorting.Oldest) => query.OrderBy(c => c.UploadDate),
-            nameof(ProductSorting.Alphabetical) => query.OrderBy(c => c.Name),
-            nameof(ProductSorting.Unalphabetical) => query.OrderByDescending(c => c.Name),
-            nameof(ProductSorting.Category) => query.OrderBy(m => m.Category.Name),
-            nameof(ProductSorting.ReverseCategory) => query.OrderByDescending(m => m.Category.Name),
-            nameof(ProductSorting.Status) => query.OrderBy(m => (int)m.Status),
-            nameof(ProductSorting.ReverseStatus) => query.OrderByDescending(m => (int)m.Status),
-            nameof(ProductSorting.CostAmount) => query.OrderBy(m => m.Price.Amount),
-            nameof(ProductSorting.ReverseCostAmount) => query.OrderByDescending(m => m.Price.Amount),
-            nameof(ProductSorting.CostCurrency) => query.OrderBy(m => m.Price.Currency),
-            nameof(ProductSorting.ReverseCostCurrency) => query.OrderByDescending(m => m.Price.Currency),
+            { Type: ProductSortingType.UploadDate, Direction: SortingDirection.Ascending  } => query.OrderBy(c => c.UploadDate),
+            { Type: ProductSortingType.UploadDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.UploadDate),
+            { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Ascending  } => query.OrderBy(c => c.Name),
+            { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Name),
+            { Type: ProductSortingType.Category, Direction: SortingDirection.Ascending  } => query.OrderBy(m => m.Category.Name),
+            { Type: ProductSortingType.Category, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Category.Name),
+            { Type: ProductSortingType.Status, Direction: SortingDirection.Ascending  } => query.OrderBy(m => (int)m.Status),
+            { Type: ProductSortingType.Status, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.Status),
+            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Ascending  } => query.OrderBy(m => m.Price.Amount),
+            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price.Amount),
+            { Type: ProductSortingType.CostCurrency, Direction: SortingDirection.Ascending  } => query.OrderBy(m => m.Price.Currency),
+            { Type: ProductSortingType.CostCurrency, Direction: SortingDirection.Descending  } => query.OrderByDescending(m => m.Price.Currency),
             _ => query,
         };
     }
@@ -54,20 +57,5 @@ public static class Utilities
     public static IQueryable<Product> WithPagination(this IQueryable<Product> query, int page = 1, int limit = 20)
     {
         return query.Skip((page - 1) * limit).Take(limit);
-    }
-
-    public static string Capitalize(this string original)
-    {
-        if (original.Length > 1)
-        {
-            return char.ToUpper(original[0]) + original[1..];
-        }
-
-        if (original.Length == 1)
-        {
-            return char.ToUpper(original[0]).ToString();
-        }
-
-        return string.Empty;
     }
 }

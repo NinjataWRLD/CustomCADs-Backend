@@ -1,3 +1,5 @@
+using CustomCADs.Catalog.Domain.Products.ValueObjects;
+
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
 public record GetAllProductsQuery(
@@ -5,7 +7,7 @@ public record GetAllProductsQuery(
     string? Status = null,
     string? Category = null,
     string? Name = null,
-    string Sorting = "",
+    ProductSorting? Sorting = null,
     int Page = 1,
     int Limit = 20
 ) : IQuery<GetAllProductsDto>;

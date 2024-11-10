@@ -1,4 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Users.Enums;
+using CustomCADs.Account.Domain.Users.ValueObjects;
+using CustomCADs.Shared.Core.Domain.Enums;
 
 namespace CustomCADs.Account.Persistence.Repositories.Reads;
 
@@ -41,15 +43,15 @@ public static class Utilities
         return query;
     }
 
-    public static IQueryable<User> WithSorting(this IQueryable<User> query, string sorting = "")
+    public static IQueryable<User> WithSorting(this IQueryable<User> query, UserSorting? sorting = null)
         => sorting switch
         {
-            nameof(UserSorting.Username) => query.OrderBy(u => u.Username),
-            nameof(UserSorting.ReverseUsername) => query.OrderByDescending(u => u.Username),
-            nameof(UserSorting.Email) => query.OrderBy(u => u.Email),
-            nameof(UserSorting.ReverseEmail) => query.OrderByDescending(u => u.Email),
-            nameof(UserSorting.Role) => query.OrderBy(u => u.RoleName),
-            nameof(UserSorting.ReverseRole) => query.OrderByDescending(u => u.RoleName),
+            { Type: UserSortingType.Username, Direction: SortingDirection.Ascending } => query.OrderBy(u => u.Username),
+            { Type: UserSortingType.Username, Direction: SortingDirection.Descending } => query.OrderByDescending(u => u.Username),
+            { Type: UserSortingType.Email, Direction: SortingDirection.Ascending } => query.OrderBy(u => u.Email),
+            { Type: UserSortingType.Email, Direction: SortingDirection.Descending } => query.OrderByDescending(u => u.Email),
+            { Type: UserSortingType.Role, Direction: SortingDirection.Ascending } => query.OrderBy(u => u.RoleName),
+            { Type: UserSortingType.Role, Direction: SortingDirection.Descending } => query.OrderByDescending(u => u.RoleName),
             _ => query,
         };
 

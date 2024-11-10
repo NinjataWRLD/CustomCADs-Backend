@@ -12,6 +12,8 @@ using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
@@ -104,6 +106,14 @@ public static class ProgramExtensions
             ];
         });
         services.AddEndpointsApiExplorer();
+    }
+    
+    public static void AddJsonOptions(this IServiceCollection services)
+    {
+        services.Configure<JsonSerializerOptions>(options =>
+        {
+            options.Converters.Add(new JsonStringEnumConverter());
+        });
     }
 
     public static void AddApiDocumentation(this IServiceCollection services)

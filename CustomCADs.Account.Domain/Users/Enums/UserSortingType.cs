@@ -1,11 +1,9 @@
 ﻿namespace CustomCADs.Account.Domain.Users.Enums;
 
-public enum UserSorting
+public enum UserSortingType
 {
+    UploadDate,
     Username,
-    ReverseUsername,
     Email,
-    ReverseEmail,
     Role,
-    ReverseRole,
 }

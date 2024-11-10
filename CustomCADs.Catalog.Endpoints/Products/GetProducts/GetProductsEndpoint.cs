@@ -18,7 +18,7 @@ public class GetProductsEndpoint(IRequestSender sender)
             CreatorId: User.GetAccountId(),
             Category: req.Category,
             Name: req.Name,
-            Sorting: req.Sorting ?? string.Empty,
+            Sorting: new(req.SortingType, req.SortingDirection),
             Page: req.Page,
             Limit: req.Limit
         );

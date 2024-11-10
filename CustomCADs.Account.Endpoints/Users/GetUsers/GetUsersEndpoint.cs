@@ -15,7 +15,7 @@ public class GetUsersEndpoint(IRequestSender sender)
     {
         GetAllUsersQuery query = new(
             Username: req.Name,
-            Sorting: req.Sorting ?? "",
+            Sorting: new(req.SortingType, req.SortingDirection),
             Page: req.Page,
             Limit: req.Limit
         );

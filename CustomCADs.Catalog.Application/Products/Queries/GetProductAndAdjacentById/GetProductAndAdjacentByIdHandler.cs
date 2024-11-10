@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Shared.Core.Domain.Enums;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetProductAndAdjacentById;
 
@@ -10,7 +11,7 @@ public class GetProductAndAdjacentByIdHandler(IProductReads reads)
     {
         ProductQuery query = new(
             Status: nameof(ProductStatus.Unchecked),
-            Sorting: nameof(ProductSorting.Oldest)
+            Sorting: new(ProductSortingType.UploadDate, SortingDirection.Ascending)
         );
         ProductResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 

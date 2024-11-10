@@ -5,7 +5,7 @@ namespace CustomCADs.Account.Persistence.Repositories.Reads;
 
 public class UserReads(AccountContext context) : IUserReads
 {
-    public async Task<UserResult> AllAsync(UsersQuery query, bool track = true, CancellationToken ct = default)
+    public async Task<UserResult> AllAsync(UserQuery query, bool track = true, CancellationToken ct = default)
     {
         IQueryable<User> queryable = context.Users
             .WithTracking(track)

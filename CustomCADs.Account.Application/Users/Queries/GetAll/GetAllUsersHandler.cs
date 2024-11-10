@@ -7,7 +7,7 @@ public class GetAllUsersHandler(IUserReads reads)
 {
     public async Task<GetAllUsersDto> Handle(GetAllUsersQuery req, CancellationToken ct)
     {
-        UsersQuery query = new(
+        UserQuery query = new(
             Role: req.Role,
             Username: req.Username,
             Email: req.Email,

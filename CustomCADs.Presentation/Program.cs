@@ -13,7 +13,7 @@ builder.Services.AddEmail(builder.Configuration);
 builder.Services.AddPayment(builder.Configuration);
 builder.Services.AddStorage(builder.Configuration);
 
-// Add Services and Use Cases
+// Add Core Services and Use Cases
 builder.Services.AddSignInService();
 builder.Services.AddUseCases();
 
@@ -24,6 +24,7 @@ builder.Services.AddCatalog(builder.Configuration);
 
 // Add API
 builder.Services.AddEndpoints();
+builder.Services.AddJsonOptions();
 builder.Services.AddApiDocumentation();
 
 // Add Others

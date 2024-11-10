@@ -2,7 +2,7 @@
 
 public interface IUserReads
 {
-    Task<UserResult> AllAsync(UsersQuery query, bool track = true, CancellationToken ct = default);
+    Task<UserResult> AllAsync(UserQuery query, bool track = true, CancellationToken ct = default);
     Task<User?> SingleByIdAsync(Guid id, bool track = true, CancellationToken ct = default);
     Task<User?> SingleByUsernameAsync(string username, bool track = true, CancellationToken ct = default);
     Task<bool> ExistsByIdAsync(Guid id, CancellationToken ct = default);
