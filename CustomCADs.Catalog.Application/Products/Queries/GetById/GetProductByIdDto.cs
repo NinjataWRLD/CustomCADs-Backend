@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Queries;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 

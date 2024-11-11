@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Queries.Users.GetUsernamesByIds;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;

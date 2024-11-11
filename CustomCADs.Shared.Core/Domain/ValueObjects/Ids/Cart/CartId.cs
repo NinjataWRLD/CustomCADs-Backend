@@ -1,14 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cart;
 
-public readonly struct OrderId(Guid value)
+public readonly struct CartId(Guid value)
 {
-    public OrderId() : this(Guid.Empty) { }
+    public CartId() : this(Guid.Empty) { }
     public Guid Value { get; init; } = value;
 
     public override bool Equals([NotNullWhen(true)] object? obj)
-        => obj is OrderId orderId && this == orderId;
+        => obj is CartId cartId && this == cartId;
 
     public override int GetHashCode()
         => Value.GetHashCode();
@@ -16,9 +16,9 @@ public readonly struct OrderId(Guid value)
     public override string ToString()
         => Value.ToString();
 
-    public static bool operator ==(OrderId left, OrderId right)
+    public static bool operator ==(CartId left, CartId right)
         => left.Value == right.Value;
 
-    public static bool operator !=(OrderId left, OrderId right)
+    public static bool operator !=(CartId left, CartId right)
         => !(left == right);
 }

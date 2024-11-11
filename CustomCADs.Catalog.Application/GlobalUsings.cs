@@ -3,3 +3,4 @@ global using CustomCADs.Catalog.Domain.Common.Exceptions;
 global using CustomCADs.Catalog.Domain.Products;
 global using CustomCADs.Shared.Application.Requests.Commands;
 global using CustomCADs.Shared.Application.Requests.Queries;
+global using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Catalog;

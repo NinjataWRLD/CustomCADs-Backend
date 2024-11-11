@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
-
-namespace CustomCADs.Account.Domain.Roles.Reads;
+﻿namespace CustomCADs.Account.Domain.Roles.Reads;
 
 public interface IRoleReads
 {

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Account.Domain.Users.ValueObjects;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Account.Domain.Users.Reads;
 

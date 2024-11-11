@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;

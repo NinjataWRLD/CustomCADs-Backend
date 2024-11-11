@@ -4,7 +4,6 @@ using CustomCADs.Catalog.Domain.Products.DomainEvents;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.GetProduct;
 using CustomCADs.Shared.Application.Events;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 

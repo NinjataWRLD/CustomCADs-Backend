@@ -1,5 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
-using CustomCADs.Shared.Core.Dtos;
+﻿using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PutProduct;
 

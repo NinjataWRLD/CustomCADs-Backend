@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Catalog;
 
 public readonly struct ProductId(Guid value)
 {

@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Commands;
 using CustomCADs.Catalog.Application.Categories.Commands.Create;
 using CustomCADs.Catalog.Endpoints.Categories.GetCategory;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PostCategory;
 

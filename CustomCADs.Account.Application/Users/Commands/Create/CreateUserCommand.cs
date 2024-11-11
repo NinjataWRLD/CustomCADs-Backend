@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Account.Application.Users.Commands.Create;

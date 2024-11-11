@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Account.Domain.Common.Exceptions;
 

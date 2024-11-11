@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Users.Enums;
 using CustomCADs.Account.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Account.Persistence.Repositories.Reads;
 

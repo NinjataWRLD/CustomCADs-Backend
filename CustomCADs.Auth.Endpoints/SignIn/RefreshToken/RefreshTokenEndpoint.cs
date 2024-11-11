@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Auth.Application.Dtos;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.RefreshToken;
 

@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Endpoints.Categories;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;

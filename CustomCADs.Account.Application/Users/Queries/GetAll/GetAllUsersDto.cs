@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
-
-namespace CustomCADs.Account.Application.Users.Queries.GetAll;
+﻿namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
 public record GetAllUsersDto(int Count, ICollection<GetAllUsersItem> Users);
 

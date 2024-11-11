@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Account.Domain.Users.Reads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 using CustomCADs.Shared.Queries.Users.GetUsernamesByIds;
 
 namespace CustomCADs.Account.Application.Users.SharedQueryHandlers;

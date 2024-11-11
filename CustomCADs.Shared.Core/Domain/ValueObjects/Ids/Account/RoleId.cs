@@ -1,14 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
-public readonly struct CategoryId(int value)
+public readonly struct RoleId(int value)
 {
-    public CategoryId() : this(0) { }
+    public RoleId() : this(0) { }
     public int Value { get; init; } = value;
 
     public override bool Equals([NotNullWhen(true)] object? obj)
-        => obj is CategoryId categoryId && this == categoryId;
+        => obj is RoleId roleId && this == roleId;
 
     public override int GetHashCode()
         => Value.GetHashCode();
@@ -16,9 +16,9 @@ public readonly struct CategoryId(int value)
     public override string ToString()
         => Value.ToString();
 
-    public static bool operator ==(CategoryId left, CategoryId right)
+    public static bool operator ==(RoleId left, RoleId right)
         => left.Value == right.Value;
 
-    public static bool operator !=(CategoryId left, CategoryId right)
+    public static bool operator !=(RoleId left, RoleId right)
         => !(left == right);
 }

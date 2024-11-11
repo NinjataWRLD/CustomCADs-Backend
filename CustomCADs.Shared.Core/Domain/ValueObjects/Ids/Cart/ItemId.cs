@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cart;
 
 public readonly struct ItemId(Guid value)
 {

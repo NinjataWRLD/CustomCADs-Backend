@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
-
-namespace CustomCADs.Account.Domain.Users.Reads;
+﻿namespace CustomCADs.Account.Domain.Users.Reads;
 
 public interface IUserReads
 {

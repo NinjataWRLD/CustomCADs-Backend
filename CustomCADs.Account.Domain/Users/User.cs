@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Roles;
 using CustomCADs.Account.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Account.Domain.Users;
 

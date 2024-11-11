@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Infrastructure.Entities;

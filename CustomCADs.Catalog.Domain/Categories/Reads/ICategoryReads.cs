@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
-
-namespace CustomCADs.Catalog.Domain.Categories.Reads;
+﻿namespace CustomCADs.Catalog.Domain.Categories.Reads;
 
 public interface ICategoryReads
 {

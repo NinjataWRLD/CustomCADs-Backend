@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Catalog.Persistence.Repositories.Reads;
