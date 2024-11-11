@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Persistence.Repositories;
 
 public static class Utilities
 {
-    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, Guid? creatorId = null, string? status = null)
+    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, UserId? creatorId = null, string? status = null)
     {
         if (creatorId is not null)
         {

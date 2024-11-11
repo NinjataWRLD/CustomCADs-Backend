@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Application.Categories.Commands.Edit;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record EditCategoryCommand(int Id, CategoryWriteDto Dto) : ICommand;
+namespace CustomCADs.Catalog.Application.Categories.Commands.Edit;
+
+public record EditCategoryCommand(CategoryId Id, CategoryWriteDto Dto) : ICommand;

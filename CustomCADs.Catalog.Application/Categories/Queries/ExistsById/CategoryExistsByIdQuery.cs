@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Application.Categories.Queries.ExistsById;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record CategoryExistsByIdQuery(int Id) : IQuery<bool>;
+namespace CustomCADs.Catalog.Application.Categories.Queries.ExistsById;
+
+public record CategoryExistsByIdQuery(CategoryId Id) : IQuery<bool>;

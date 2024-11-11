@@ -1,7 +1,9 @@
-﻿namespace CustomCADs.Account.Application.Users.Queries.GetByUsername;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+
+namespace CustomCADs.Account.Application.Users.Queries.GetByUsername;
 
 public record GetUserByUsernameDto(
-    Guid Id,
+    UserId Id,
     string Role,
     string Email,
     string? FirstName = null,

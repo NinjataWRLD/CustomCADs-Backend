@@ -18,7 +18,7 @@ public class ProductEditedEventHandler(IStorageService service, IRequestSender s
         string path = await service.UploadFileAsync(
             "images",
             stream,
-            de.Id,
+            de.Id.Value,
             de.Name,
             de.Image.ContentType,
             de.Image.FileName

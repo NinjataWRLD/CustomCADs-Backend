@@ -17,7 +17,7 @@ public class GetCategoriesEndpoint(IRequestSender sender)
         GetAllCategoriesQuery query = new();
         IEnumerable<CategoryReadDto> categories = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = categories.Select(c => new CategoryResponse(c.Id, c.Name));
+        var response = categories.Select(c => new CategoryResponse(c.Id.Value, c.Name));
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

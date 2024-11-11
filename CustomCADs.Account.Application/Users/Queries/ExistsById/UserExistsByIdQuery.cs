@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Users.Queries.ExistsById;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record UserExistsByIdQuery(Guid Id) : IQuery<bool>;
+namespace CustomCADs.Account.Application.Users.Queries.ExistsById;
+
+public record UserExistsByIdQuery(UserId Id) : IQuery<bool>;

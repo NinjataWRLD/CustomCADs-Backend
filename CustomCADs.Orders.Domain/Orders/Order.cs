@@ -2,6 +2,7 @@
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Orders.Domain.Orders;
 
@@ -19,7 +20,7 @@ public class Order : BaseAggregateRoot
         BuyerId = buyerId;
     }
 
-    public Guid Id { get; set; }
+    public OrderId Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public Image Image { get; set; } = new();

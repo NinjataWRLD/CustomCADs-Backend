@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Commands;
 using CustomCADs.Catalog.Application.Categories.Commands.Create;
 using CustomCADs.Catalog.Endpoints.Categories.GetCategory;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PostCategory;
 
@@ -17,9 +18,9 @@ public class PostCategoryEndpoint(IRequestSender sender)
     {
         CategoryWriteDto category = new(req.Name);
         CreateCategoryCommand command = new(category);
-        int id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        CategoryId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        CategoryResponse response = new(id, req.Name);
+        CategoryResponse response = new(id.Value, req.Name);
         await SendCreatedAtAsync<GetCategoryEndpoint>(new { id }, response).ConfigureAwait(false);
     }
 }

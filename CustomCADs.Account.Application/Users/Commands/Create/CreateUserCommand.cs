@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Account.Application.Users.Commands.Create;
@@ -26,4 +27,4 @@ public record CreateUserCommand(
     [StringLength(NameMaxLength , MinimumLength = NameMinLength, ErrorMessage = LengthErrorMessage)]
     string? LastName
 
-) : ICommand<Guid>;
+) : ICommand<UserId>;

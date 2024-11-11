@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Infrastructure.Entities;
 
@@ -12,7 +13,7 @@ public class AppUser : IdentityUser<Guid>
         Email = email;
     }
 
-    public Guid? AccountId { get; set; }
+    public UserId? AccountId { get; set; }
     public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenEndDate { get; set; }
 }

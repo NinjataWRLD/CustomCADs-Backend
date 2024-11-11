@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Roles.Commands.DeleteById;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record DeleteRoleByIdCommand(int Id) : ICommand;
+namespace CustomCADs.Account.Application.Roles.Commands.DeleteById;
+
+public record DeleteRoleByIdCommand(RoleId Id) : ICommand;

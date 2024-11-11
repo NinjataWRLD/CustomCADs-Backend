@@ -21,6 +21,11 @@ static class CadConfigUtils
     public static EntityTypeBuilder<Product> SetPrimaryKey(this EntityTypeBuilder<Product> builder)
     {
         builder.HasKey(x => x.Id);
+        builder.Property(x => x.Id)
+            .HasConversion(
+                x => x.Value,
+                v => new(v)
+            );
 
         return builder;
     }

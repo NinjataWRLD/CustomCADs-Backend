@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Account.Application.Common.Exceptions;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+
+namespace CustomCADs.Account.Application.Common.Exceptions;
 
 public class UserNotFoundException : Exception
 {
@@ -7,7 +9,7 @@ public class UserNotFoundException : Exception
     public static UserNotFoundException General(Exception? inner = default)
         => new("The requested User does not exist.", inner);
     
-    public static UserNotFoundException ById(Guid id, Exception? inner = default)
+    public static UserNotFoundException ById(UserId id, Exception? inner = default)
         => new($"The User with id: {id} does not exist.", inner);
     
     public static UserNotFoundException ByUsername(string username, Exception? inner = default)

@@ -17,15 +17,14 @@ public class LogoutEndpoint(IUserService service)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        Guid id = User.GetId();
-        if (id != Guid.Empty)
+        if (!User.GetAuthentication())
         {
-            ValidationFailures.Add(new("Id", NoLoginMessage));
+            ValidationFailures.Add(new("Account", NoLoginMessage));
             await SendErrorsAsync(Status401Unauthorized);
             return;
         }
 
-        await service.RevokeRefreshTokenAsync(id).ConfigureAwait(false);
+        await service.RevokeRefreshTokenAsync(User.GetName()).ConfigureAwait(false);
         DeleteCookies(["jwt", "rt", "username", "rt"]);
         DeleteCookies(["jwt", "rt", "username", "role"]);
     }

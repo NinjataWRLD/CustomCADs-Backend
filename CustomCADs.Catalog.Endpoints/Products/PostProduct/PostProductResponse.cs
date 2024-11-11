@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Endpoints.Categories;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
@@ -7,7 +8,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 using static Constants;
 
 public record PostProductResponse(
-    Guid Id,
+    ProductId Id,
     string Name,
     string Description,
     string CreatorName,
@@ -29,7 +30,7 @@ public record PostProductResponse(
         CamCoordinates: new(dto.Cad.CamCoordinates),
         PanCoordinates: new(dto.Cad.PanCoordinates),
         CreatorName: dto.CreatorName,
-        Category: new() { Id = dto.Category.Id, Name = dto.Category.Name }
+        Category: new() { Id = dto.Category.Id.Value, Name = dto.Category.Name }
     )
     { }
 }

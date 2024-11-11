@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Users.Queries.GetById;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record GetUserByIdQuery(Guid Id) : IQuery<GetUserByIdDto>;
+namespace CustomCADs.Account.Application.Users.Queries.GetById;
+
+public record GetUserByIdQuery(UserId Id) : IQuery<GetUserByIdDto>;

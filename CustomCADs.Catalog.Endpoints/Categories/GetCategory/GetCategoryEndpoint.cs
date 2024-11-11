@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Queries;
 using CustomCADs.Catalog.Application.Categories.Queries.GetById;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.GetCategory;
 
@@ -15,10 +16,11 @@ public class GetCategoryEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetCategoryRequest req, CancellationToken ct)
     {
-        GetCategoryByIdQuery query = new(req.Id);
+        CategoryId id = new(req.Id);
+        GetCategoryByIdQuery query = new(id);
         CategoryReadDto model = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        CategoryResponse response = new(model.Id, model.Name);
+        CategoryResponse response = new(model.Id.Value, model.Name);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

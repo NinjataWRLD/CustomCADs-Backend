@@ -6,9 +6,9 @@ namespace CustomCADs.Catalog.Application.Products.DomainEventHandlers;
 
 public class ProductFilesUploadedEventHandler(IRequestSender sender)
 {
-    public async Task Handle(ProductFilesUploadedEvent pfuEvent)
+    public async Task Handle(ProductFilesUploadedDomainEvent de)
     {
-        SetProductPathsCommand command = new(pfuEvent.Id, pfuEvent.CadPath, pfuEvent.ImagePath);
+        SetProductPathsCommand command = new(de.Id, de.CadPath, de.ImagePath);
         await sender.SendCommandAsync(command).ConfigureAwait(false);
     }
 }

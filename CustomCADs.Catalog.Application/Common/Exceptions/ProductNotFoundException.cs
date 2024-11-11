@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Catalog.Application.Common.Exceptions;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+
+namespace CustomCADs.Catalog.Application.Common.Exceptions;
 
 public class ProductNotFoundException : Exception
 {
@@ -7,7 +9,7 @@ public class ProductNotFoundException : Exception
     public static ProductNotFoundException General(Exception? inner = default)
         => new("The requested Product does not exist.", inner);
 
-    public static ProductNotFoundException ById(Guid id, Exception? inner = default)
+    public static ProductNotFoundException ById(ProductId id, Exception? inner = default)
         => new($"The Product with id: {id} does not exist.", inner);
 
     public static ProductNotFoundException Custom(string message, Exception? inner = default)

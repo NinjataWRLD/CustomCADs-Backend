@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Catalog.Persistence.Repositories.Reads;
@@ -27,20 +28,20 @@ public class ProductReads(CatalogContext context) : IProductReads
         };
     }
 
-    public async Task<Product?> SingleByIdAsync(Guid id, bool track = true, CancellationToken ct = default)
+    public async Task<Product?> SingleByIdAsync(ProductId id, bool track = true, CancellationToken ct = default)
         => await context.Products
             .WithTracking(track)
             .Include(p => p.Category)
             .FirstOrDefaultAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<bool> ExistsByIdAsync(Guid id, CancellationToken ct = default)
+    public async Task<bool> ExistsByIdAsync(ProductId id, CancellationToken ct = default)
         => await context.Products
             .WithTracking(false)
             .AnyAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<int> CountByStatusAsync(Guid creatorId, ProductStatus status, CancellationToken ct = default)
+    public async Task<int> CountByStatusAsync(UserId creatorId, ProductStatus status, CancellationToken ct = default)
         => await context.Products
             .WithTracking(false)
             .Where(p => p.CreatorId == creatorId)

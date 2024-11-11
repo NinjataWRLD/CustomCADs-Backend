@@ -1,14 +1,14 @@
-﻿using System.Security.Claims;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+using System.Security.Claims;
 
 namespace CustomCADs.Shared.Core;
 
 public static class ClaimsPrincipalExtensions
 {
-    public static Guid GetId(this ClaimsPrincipal user)
-        => (user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty).ToGuid();
+    public const string UserId = ClaimTypes.NameIdentifier;
 
-    public static Guid GetAccountId(this ClaimsPrincipal user)
-        => (user.FindFirst("http://schemas.customcads.com/account/id")?.Value ?? string.Empty).ToGuid();
+    public static UserId GetAccountId(this ClaimsPrincipal user)
+        => new((user.FindFirst(UserId)?.Value ?? string.Empty).ToGuid());
 
     public static string GetName(this ClaimsPrincipal user)
         => user.Identity?.Name ?? string.Empty;
@@ -22,3 +22,4 @@ public static class ClaimsPrincipalExtensions
     private static Guid ToGuid(this string str)
         => Guid.TryParse(str, out Guid guid) ? guid : Guid.Empty;
 }
+

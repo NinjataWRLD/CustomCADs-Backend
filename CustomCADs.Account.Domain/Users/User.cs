@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Account.Domain.Roles;
 using CustomCADs.Account.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Domain;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Account.Domain.Users;
 
@@ -15,7 +16,7 @@ public class User : BaseAggregateRoot
         Names = Names.Create(firstName, lastName);
     }
 
-    public Guid Id { get; set; }
+    public UserId Id { get; set; }
     public string Username { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public Names Names { get; set; } = Names.Create();

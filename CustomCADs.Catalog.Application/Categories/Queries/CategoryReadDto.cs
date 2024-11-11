@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Application.Categories.Queries;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record CategoryReadDto(int Id, string Name);
+namespace CustomCADs.Catalog.Application.Categories.Queries;
+
+public record CategoryReadDto(CategoryId Id, string Name);

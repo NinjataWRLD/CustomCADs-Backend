@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Endpoints.Products.GetProduct;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record GetProductRequest(Guid Id);
+namespace CustomCADs.Catalog.Endpoints.Products.GetProduct;
+
+public record GetProductRequest(ProductId Id);

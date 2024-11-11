@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Account.Application.Common.Exceptions;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+
+namespace CustomCADs.Account.Application.Common.Exceptions;
 
 public class RoleNotFoundException : Exception
 {
@@ -7,7 +9,7 @@ public class RoleNotFoundException : Exception
     public static RoleNotFoundException General(Exception? inner = default)
         => new("The requested Role does not exist.", inner);
     
-    public static RoleNotFoundException ById(int id, Exception? inner = default)
+    public static RoleNotFoundException ById(RoleId id, Exception? inner = default)
         => new($"The Role with id: {id} does not exist.", inner);
     
     public static RoleNotFoundException ByName(string name, Exception? inner = default)

@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Endpoints.Products.DeleteProduct;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record DeleteProductRequest(Guid Id);
+namespace CustomCADs.Catalog.Endpoints.Products.DeleteProduct;
+
+public record DeleteProductRequest(ProductId Id);

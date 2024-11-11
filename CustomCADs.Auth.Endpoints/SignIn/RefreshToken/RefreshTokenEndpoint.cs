@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Auth.Application.Dtos;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.RefreshToken;
 
@@ -43,9 +44,9 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
         }
 
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
-        Guid accountId = user.AccountId ?? throw UserAccountNotCreatedYetException.ByUsername(user.UserName ?? string.Empty);
+        UserId accountId = user.AccountId ?? throw UserAccountNotCreatedYetException.ByUsername(user.UserName ?? string.Empty);
 
-        AccessTokenDto newJwt = tokenService.GenerateAccessToken(user.Id, accountId, user.UserName ?? string.Empty, role);
+        AccessTokenDto newJwt = tokenService.GenerateAccessToken(accountId, user.UserName ?? string.Empty, role);
         SaveAccessToken(newJwt.Value, newJwt.EndDate);
 
         if (user.RefreshTokenEndDate >= DateTime.UtcNow.AddMinutes(1))

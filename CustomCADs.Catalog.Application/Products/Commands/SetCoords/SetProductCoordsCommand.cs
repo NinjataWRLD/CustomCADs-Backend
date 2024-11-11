@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetCoords;
@@ -7,8 +8,7 @@ namespace CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 using static Constants.Cads;
 
 public record SetProductCoordsCommand(
-
-    Guid Id,
+    ProductId Id,
 
     [Range(CoordMin, CoordMax)]
     Coordinates? CamCoordinates = default,

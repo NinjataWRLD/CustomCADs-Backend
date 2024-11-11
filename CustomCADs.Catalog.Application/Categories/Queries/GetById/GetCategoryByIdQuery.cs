@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Catalog.Application.Categories.Queries.GetById;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record GetCategoryByIdQuery(int Id) : IQuery<CategoryReadDto>;
+namespace CustomCADs.Catalog.Application.Categories.Queries.GetById;
+
+public record GetCategoryByIdQuery(CategoryId Id) : IQuery<CategoryReadDto>;

@@ -33,7 +33,7 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         EditProductDto dto = new(
             Name: req.Name,
             Description: req.Description,
-            CategoryId: req.CategoryId,
+            CategoryId: new(req.CategoryId),
             Price: new(req.Price.Amount, req.Price.Currency, req.Price.Precision, req.Price.Symbol)
         );
         EditProductCommand command = new(req.Id, dto);

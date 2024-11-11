@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetProductAndAdjacentById;
 
-public record GetProductAndAdjacentByIdDto(Guid? PrevId, GetProductAndAdjacentByIdItem Current, Guid? NextId);
+public record GetProductAndAdjacentByIdDto(ProductId? PrevId, GetProductAndAdjacentByIdItem Current, ProductId? NextId);
 
-public record GetProductAndAdjacentByIdItem(Guid Id, Cad Cad);
+public record GetProductAndAdjacentByIdItem(ProductId Id, Cad Cad);

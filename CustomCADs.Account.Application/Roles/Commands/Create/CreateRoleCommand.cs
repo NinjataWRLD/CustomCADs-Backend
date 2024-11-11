@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Roles.Commands.Create;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record CreateRoleCommand(RoleWriteDto Dto) : ICommand<int>;
+namespace CustomCADs.Account.Application.Roles.Commands.Create;
+
+public record CreateRoleCommand(RoleWriteDto Dto) : ICommand<RoleId>;

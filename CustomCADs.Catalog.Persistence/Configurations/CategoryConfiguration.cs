@@ -20,6 +20,11 @@ static class CategoryConfigUtils
     public static EntityTypeBuilder<Category> SetPrimaryKey(this EntityTypeBuilder<Category> builder)
     {
         builder.HasKey(x => x.Id);
+        builder.Property(x => x.Id)
+            .HasConversion(
+                x => x.Value,
+                v => new(v)
+            );
 
         return builder;
     }
@@ -36,17 +41,17 @@ static class CategoryConfigUtils
     public static EntityTypeBuilder<Category> SetSeedData(this EntityTypeBuilder<Category> builder)
     {
         builder.HasData(Category.CreateRange([
-            (1, "Animals"),
-            (2, "Characters"),
-            (3, "Electronics"),
-            (4, "Fashion"),
-            (5, "Furniture"),
-            (6, "Nature"),
-            (7, "Science"),
-            (8, "Sports"),
-            (9, "Toys"),
-            (10, "Vehicles"),
-            (11, "Others"),
+            (new(1), "Animals"),
+            (new(2), "Characters"),
+            (new(3), "Electronics"),
+            (new(4), "Fashion"),
+            (new(5), "Furniture"),
+            (new(6), "Nature"),
+            (new(7), "Science"),
+            (new(8), "Sports"),
+            (new(9), "Toys"),
+            (new(10), "Vehicles"),
+            (new(11), "Others"),
         ]));
 
         return builder;

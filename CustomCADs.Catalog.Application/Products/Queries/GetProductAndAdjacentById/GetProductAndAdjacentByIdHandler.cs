@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Core.Domain.Enums;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetProductAndAdjacentById;
 
@@ -22,14 +23,14 @@ public class GetProductAndAdjacentByIdHandler(IProductReads reads)
         int cadIndex = products.IndexOf(product);
         Product? first = products.FirstOrDefault(), last = products.LastOrDefault();
 
-        Guid? prevId = null;
+        ProductId? prevId = null;
         if (product.Id != (first?.Id ?? null))
         {
             Product prev = products[cadIndex - 1];
             prevId = prev.Id;
         }
 
-        Guid? nextId = null;
+        ProductId? nextId = null;
         if (product.Id != (last?.Id ?? null))
         {
             Product next = products[cadIndex + 1];

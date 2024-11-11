@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Cart.Domain.Carts.Entities;
 using CustomCADs.Shared.Core.Domain;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Cart.Domain.Carts;
 
@@ -14,7 +15,7 @@ public class Cart : BaseAggregateRoot
         Total = Items.Sum(i => i.Price.Amount);
     }
 
-    public Guid Id { get; set; }
+    public CartId Id { get; set; }
     public decimal Total { get; private set; }
     public DateTime PurchaseDate { get; set; }
     public Guid BuyerId { get; set; }

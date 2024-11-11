@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Roles.Commands.EditById;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-public record EditRoleByIdCommand(int Id, RoleWriteDto Dto) : ICommand;
+namespace CustomCADs.Account.Application.Roles.Commands.EditById;
+
+public record EditRoleByIdCommand(RoleId Id, RoleWriteDto Dto) : ICommand;

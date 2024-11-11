@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
@@ -16,8 +17,8 @@ public record CreateProductDto(
     [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = LengthErrorMessage)]
     string Description,
 
-    int CategoryId,
+    CategoryId CategoryId,
     Money Price,
     ProductStatus Status,
-    Guid CreatorId
+    UserId CreatorId
 );

@@ -1,9 +1,10 @@
-﻿using CustomCADs.Shared.Core.Events;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+using CustomCADs.Shared.Core.Events;
 
 namespace CustomCADs.Shared.IntegrationEvents.Account.Users;
 
 public record UserAccountCreatedIntegrationEvent(
-    Guid Id,
+    UserId Id,
     string Role,
     string Username,
     string Email

@@ -1,12 +1,13 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Catalog.Domain.Shared;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 
 public class CreateProductHandler(ICategoryReads categoryReads, IWrites<Product> productWrites, IUnitOfWork uow)
-    : ICommandHandler<CreateProductCommand, Guid>
+    : ICommandHandler<CreateProductCommand, ProductId>
 {
-    public async Task<Guid> Handle(CreateProductCommand req, CancellationToken ct)
+    public async Task<ProductId> Handle(CreateProductCommand req, CancellationToken ct)
     {
         bool categoryExists = await categoryReads.ExistsByIdAsync(req.Dto.CategoryId, ct: ct).ConfigureAwait(false);
         if (!categoryExists)
