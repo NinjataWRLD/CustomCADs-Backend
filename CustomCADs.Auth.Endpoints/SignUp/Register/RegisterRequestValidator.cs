@@ -12,7 +12,7 @@ public class RegisterRequestValidator : Validator<RegisterRequest>
 {
     public RegisterRequestValidator()
     {
-        string[] roles = [Client, Contributor, Designer, Admin];
+        string[] roles = [Client, Contributor];
 
         RuleFor(r => r.Role)
             .Custom((role, ctx) =>
