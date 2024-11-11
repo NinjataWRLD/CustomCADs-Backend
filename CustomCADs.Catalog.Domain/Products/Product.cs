@@ -9,7 +9,7 @@ namespace CustomCADs.Catalog.Domain.Products;
 
 public class Product : BaseAggregateRoot
 {
-    private Product() { }    
+    private Product() { }
     private Product(string name, string description, Image image, Money price, ProductStatus status, UserId creatorId, CategoryId categoryId) : this()
     {
         Name = name;

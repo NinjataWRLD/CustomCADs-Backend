@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace CustomCADs.Shared.Core.Domain.ValueObjects;
+﻿namespace CustomCADs.Shared.Core.Domain.ValueObjects;
 
 public record Money
 {
@@ -29,7 +27,7 @@ public record Money
             "JPY" or "CNY" => "¥",
             _ => currency,
         };
-    
+
     public Money Multiply(int factor)
         => new(Amount * factor, Currency, Precision, Symbol);
 

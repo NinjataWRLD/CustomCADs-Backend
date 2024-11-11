@@ -48,7 +48,7 @@ static class CadConfigUtils
             c.ComplexProperty(c => c.CamCoordinates);
             c.ComplexProperty(c => c.PanCoordinates);
         });
-        
+
         builder.ComplexProperty(p => p.Image, c =>
         {
             c.Property(c => c.Path).IsRequired();
@@ -62,7 +62,7 @@ static class CadConfigUtils
 
             c.Property(c => c.Precision)
                 .IsRequired();
-            
+
             c.Property(c => c.Currency)
                 .IsRequired();
 

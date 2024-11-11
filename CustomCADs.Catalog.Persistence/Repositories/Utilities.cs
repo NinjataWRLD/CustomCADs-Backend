@@ -39,18 +39,18 @@ public static class Utilities
     {
         return sorting switch
         {
-            { Type: ProductSortingType.UploadDate, Direction: SortingDirection.Ascending  } => query.OrderBy(c => c.UploadDate),
+            { Type: ProductSortingType.UploadDate, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.UploadDate),
             { Type: ProductSortingType.UploadDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.UploadDate),
-            { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Ascending  } => query.OrderBy(c => c.Name),
+            { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.Name),
             { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Name),
-            { Type: ProductSortingType.Category, Direction: SortingDirection.Ascending  } => query.OrderBy(m => m.Category.Name),
+            { Type: ProductSortingType.Category, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Category.Name),
             { Type: ProductSortingType.Category, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Category.Name),
-            { Type: ProductSortingType.Status, Direction: SortingDirection.Ascending  } => query.OrderBy(m => (int)m.Status),
+            { Type: ProductSortingType.Status, Direction: SortingDirection.Ascending } => query.OrderBy(m => (int)m.Status),
             { Type: ProductSortingType.Status, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.Status),
-            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Ascending  } => query.OrderBy(m => m.Price.Amount),
+            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Price.Amount),
             { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price.Amount),
-            { Type: ProductSortingType.CostCurrency, Direction: SortingDirection.Ascending  } => query.OrderBy(m => m.Price.Currency),
-            { Type: ProductSortingType.CostCurrency, Direction: SortingDirection.Descending  } => query.OrderByDescending(m => m.Price.Currency),
+            { Type: ProductSortingType.CostCurrency, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Price.Currency),
+            { Type: ProductSortingType.CostCurrency, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price.Currency),
             _ => query,
         };
     }
