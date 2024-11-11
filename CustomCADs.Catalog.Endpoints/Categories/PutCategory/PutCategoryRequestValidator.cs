@@ -2,13 +2,13 @@
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PutCategory;
 
-using static Constants.Errors;
+using static Constants.FluentMessages;
 
 public class PutCategoryRequestValidator : Validator<PutCategoryRequest>
 {
     public PutCategoryRequestValidator()
     {
         RuleFor(r => r.Name)
-            .NotEmpty().WithMessage(RequiredErrorMessage);
+            .NotEmpty().WithMessage(RequiredError);
     }
 }

@@ -4,12 +4,20 @@ public static class Constants
 {
     public const string DateFormatString = "dd.MM.yyyy HH:mm:ss";
 
-    public static class Errors
+    public static class AnnotationMessages 
     {
-        public const string RequiredErrorMessage = "{PropertyName} is required";
-        public const string LengthErrorMessage = "{PropertyName} length must be between {MinLength} and {MaxLength} characters";
-        public const string RangeErrorMessage = "{PropertyName} must be between {From} and {To}";
-        public const string EmailErrorMessage = "Invalid Email";
+        public const string RequiredError = "{0} is required";
+        public const string LengthError = "{0} length must be between {0} and {2} characters";
+        public const string RangeError = "{0} must be between {1} and {2}";        
+        public const string EmailError = "Invalid Email";
+    }
+
+    public static class FluentMessages 
+    {
+        public const string RequiredError = "{PropertyName} is required";
+        public const string LengthError = "{PropertyName} length must be between {MinLength} and {MaxLength} characters";
+        public const string RangeError = "{PropertyName} must be between {From} and {To}";
+        public const string EmailError = "Invalid Email";
     }
 
     public static class Roles

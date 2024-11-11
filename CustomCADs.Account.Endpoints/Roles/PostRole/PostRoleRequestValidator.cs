@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CustomCADs.Account.Endpoints.Roles.PostRole;
 
-using static Constants.Errors;
+using static Constants.FluentMessages;
 using static RoleConstants;
 
 public class PostRoleRequestValidator : Validator<PostRoleRequest>
@@ -11,11 +11,11 @@ public class PostRoleRequestValidator : Validator<PostRoleRequest>
     public PostRoleRequestValidator()
     {
         RuleFor(r => r.Name)
-            .NotEmpty().WithMessage(RequiredErrorMessage)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthErrorMessage);
+            .NotEmpty().WithMessage(RequiredError)
+            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.Description)
-            .NotEmpty().WithMessage(RequiredErrorMessage)
-            .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthErrorMessage);
+            .NotEmpty().WithMessage(RequiredError)
+            .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
     }
 }

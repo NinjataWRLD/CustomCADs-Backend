@@ -5,7 +5,7 @@ namespace CustomCADs.Auth.Endpoints.SignUp.Register;
 
 using static ApiMessages;
 using static AuthConstants;
-using static Constants.Errors;
+using static Constants.FluentMessages;
 using static Constants.Roles;
 
 public class RegisterRequestValidator : Validator<RegisterRequest>
@@ -27,25 +27,25 @@ public class RegisterRequestValidator : Validator<RegisterRequest>
             });
 
         RuleFor(r => r.Username)
-            .NotEmpty().WithMessage(RequiredErrorMessage)
-            .Length(UsernameMinLength, UsernameMaxLength).WithMessage(LengthErrorMessage);
+            .NotEmpty().WithMessage(RequiredError)
+            .Length(UsernameMinLength, UsernameMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.Email)
-            .NotEmpty().WithMessage(RequiredErrorMessage)
+            .NotEmpty().WithMessage(RequiredError)
             .EmailAddress();
 
         RuleFor(r => r.FirstName)
-            .Length(UsernameMinLength, UsernameMaxLength).WithMessage(LengthErrorMessage);
+            .Length(UsernameMinLength, UsernameMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.LastName)
-            .Length(UsernameMinLength, UsernameMaxLength).WithMessage(LengthErrorMessage);
+            .Length(UsernameMinLength, UsernameMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.Password)
-            .NotEmpty().WithMessage(RequiredErrorMessage)
-            .Length(PasswordMinLength, PasswordMaxLength).WithMessage(LengthErrorMessage);
+            .NotEmpty().WithMessage(RequiredError)
+            .Length(PasswordMinLength, PasswordMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.ConfirmPassword)
-            .NotEmpty().WithMessage(RequiredErrorMessage)
+            .NotEmpty().WithMessage(RequiredError)
             .Equal(r => r.Password).WithMessage("Passwords must be equal!");
     }
 }

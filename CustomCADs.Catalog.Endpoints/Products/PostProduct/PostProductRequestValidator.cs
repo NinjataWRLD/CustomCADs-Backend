@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 
-using static Constants.Errors;
+using static Constants.FluentMessages;
 using static ProductConstants;
 
 public class PostProductRequestValidator : Validator<PostProductRequest>
@@ -11,26 +11,26 @@ public class PostProductRequestValidator : Validator<PostProductRequest>
     public PostProductRequestValidator()
     {
         RuleFor(r => r.Name)
-            .NotEmpty().WithMessage(RequiredErrorMessage)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthErrorMessage);
+            .NotEmpty().WithMessage(RequiredError)
+            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.Description)
-            .NotEmpty().WithMessage(RequiredErrorMessage)
-            .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthErrorMessage);
+            .NotEmpty().WithMessage(RequiredError)
+            .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.CategoryId)
-            .NotEmpty().WithMessage(RequiredErrorMessage);
+            .NotEmpty().WithMessage(RequiredError);
 
         RuleFor(r => r.Price).ChildRules(v =>
         {
             v.RuleFor(c => c.Amount)
-                .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeErrorMessage);
+                .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError);
         });
 
         RuleFor(r => r.Image)
-            .NotNull().WithMessage(RequiredErrorMessage);
+            .NotNull().WithMessage(RequiredError);
 
         RuleFor(r => r.File)
-            .NotNull().WithMessage(RequiredErrorMessage);
+            .NotNull().WithMessage(RequiredError);
     }
 }
