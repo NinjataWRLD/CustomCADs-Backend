@@ -1,8 +1,9 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+﻿using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-namespace CustomCADs.Catalog.Application.Common.Exceptions;
+namespace CustomCADs.Catalog.Domain.Common.Exceptions;
 
-public class ProductStatusException : Exception
+public class ProductStatusException : BaseException
 {
     private ProductStatusException(string message, Exception? inner) : base(message, inner) { }
 

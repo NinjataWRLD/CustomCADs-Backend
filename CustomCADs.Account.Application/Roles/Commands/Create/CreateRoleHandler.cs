@@ -1,5 +1,5 @@
-﻿using CustomCADs.Account.Domain.Roles.DomainEvents;
-using CustomCADs.Account.Domain.Shared;
+﻿using CustomCADs.Account.Domain.Common;
+using CustomCADs.Account.Domain.Roles.DomainEvents;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 using CustomCADs.Shared.IntegrationEvents.Account.Roles;

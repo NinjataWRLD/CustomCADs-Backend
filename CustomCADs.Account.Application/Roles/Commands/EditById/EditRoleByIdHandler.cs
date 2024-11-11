@@ -1,6 +1,6 @@
-﻿using CustomCADs.Account.Domain.Roles.DomainEvents;
+﻿using CustomCADs.Account.Domain.Common;
+using CustomCADs.Account.Domain.Roles.DomainEvents;
 using CustomCADs.Account.Domain.Roles.Reads;
-using CustomCADs.Account.Domain.Shared;
 using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Account.Application.Roles.Commands.EditById;

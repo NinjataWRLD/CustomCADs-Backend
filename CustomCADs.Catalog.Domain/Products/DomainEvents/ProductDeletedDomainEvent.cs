@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
-using CustomCADs.Shared.Core.Events;
+﻿using CustomCADs.Shared.Core.Common.Events;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
 namespace CustomCADs.Catalog.Domain.Products.DomainEvents;
 

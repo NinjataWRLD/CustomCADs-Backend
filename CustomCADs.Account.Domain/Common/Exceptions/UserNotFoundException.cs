@@ -1,8 +1,9 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+﻿using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-namespace CustomCADs.Account.Application.Common.Exceptions;
+namespace CustomCADs.Account.Domain.Common.Exceptions;
 
-public class UserNotFoundException : Exception
+public class UserNotFoundException : BaseException
 {
     private UserNotFoundException(string message, Exception? inner) : base(message, inner) { }
 

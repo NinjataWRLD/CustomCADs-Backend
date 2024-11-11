@@ -1,8 +1,9 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
+﻿using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids;
 
-namespace CustomCADs.Account.Application.Common.Exceptions;
+namespace CustomCADs.Account.Domain.Common.Exceptions;
 
-public class RoleNotFoundException : Exception
+public class RoleNotFoundException : BaseException
 {
     private RoleNotFoundException(string message, Exception? inner) : base(message, inner) { }
 

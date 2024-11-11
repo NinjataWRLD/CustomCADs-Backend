@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Orders.Domain.Shared;
+﻿namespace CustomCADs.Account.Domain.Common;
 
 public interface IUnitOfWork
 {

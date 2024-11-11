@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.DomainEvents;
 using CustomCADs.Catalog.Domain.Categories.Reads;
-using CustomCADs.Catalog.Domain.Shared;
+using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Edit;

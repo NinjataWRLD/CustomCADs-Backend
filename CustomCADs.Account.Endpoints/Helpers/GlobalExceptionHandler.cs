@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Application.Common.Exceptions;
+﻿using CustomCADs.Account.Domain.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Account.Endpoints.Helpers;

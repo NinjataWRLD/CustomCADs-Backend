@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Domain.Shared;
+﻿using CustomCADs.Account.Domain.Common;
 using CustomCADs.Account.Domain.Users.Reads;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Users;

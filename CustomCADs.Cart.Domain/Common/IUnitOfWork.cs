@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Account.Domain.Shared;
+﻿namespace CustomCADs.Cart.Domain.Common;
 
 public interface IUnitOfWork
 {
