@@ -2,6 +2,7 @@
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
 
 namespace CustomCADs.Catalog.Domain.Products;
 

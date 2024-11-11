@@ -10,11 +10,13 @@ public class Cart : BaseAggregateRoot
     {
         BuyerId = buyerId;
         Items = items;
+        PurchaseDate = DateTime.UtcNow;
         Total = Items.Sum(i => i.Price.Amount);
     }
 
     public Guid Id { get; set; }
     public decimal Total { get; private set; }
+    public DateTime PurchaseDate { get; set; }
     public Guid BuyerId { get; set; }
     public ICollection<Item> Items { get; set; } = [];
 

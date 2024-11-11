@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Core", "C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cart", "Cart", "{2AEF111C-ABB6-4A6F-AD1A-39969DC78B69}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders", "Orders", "{37368CF6-943A-4143-8837-1E0FA2FBC8D0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{37368CF6-943A-4143-8837-1E0FA2FBC8D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Cart.Domain", "CustomCADs.Cart.Domain\CustomCADs.Cart.Domain.csproj", "{8CCC2C57-67C4-4AA4-914E-305D1AC4A8EF}"
 EndProject
@@ -67,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.IntegrationEvents", "CustomCADs.Shared.IntegrationEvents\CustomCADs.Shared.IntegrationEvents.csproj", "{F1547934-1F9A-47D3-A4F6-1ED1166FE510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.Queries", "CustomCADs.Shared.Queries\CustomCADs.Shared.Queries.csproj", "{9E53E53A-D1C3-45A4-9660-D41BF2286037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Queries", "CustomCADs.Shared.Queries\CustomCADs.Shared.Queries.csproj", "{9E53E53A-D1C3-45A4-9660-D41BF2286037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

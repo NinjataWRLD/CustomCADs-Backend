@@ -1,8 +1,8 @@
 ﻿namespace CustomCADs.Shared.Core.Domain.Enums;
 
-public enum Purpose
+public enum DeliveryType
 {
-    Cad,
-    Delivery,
+    Digital,
+    Physical,
     Both,
 }
