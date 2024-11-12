@@ -1,7 +1,7 @@
-﻿using CustomCADs.Shared.Core.Events;
+﻿using CustomCADs.Shared.Core.Common.Events;
 
 namespace CustomCADs.Catalog.Domain.Products.DomainEvents;
 
 public record ProductDeletedDomainEvent(
-    Guid Id
+    ProductId Id
 ) : BaseDomainEvent;

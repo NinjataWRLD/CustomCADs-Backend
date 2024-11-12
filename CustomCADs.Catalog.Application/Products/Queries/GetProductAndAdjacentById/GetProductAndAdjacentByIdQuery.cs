@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Catalog.Application.Products.Queries.GetProductAndAdjacentById;
 
-public record GetProductAndAdjacentByIdQuery(Guid Id) : IQuery<GetProductAndAdjacentByIdDto>;
+public record GetProductAndAdjacentByIdQuery(ProductId Id) : IQuery<GetProductAndAdjacentByIdDto>;

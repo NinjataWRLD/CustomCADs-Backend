@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Catalog.Application.Categories.Queries;
 
-public record CategoryReadDto(int Id, string Name);
+public record CategoryReadDto(CategoryId Id, string Name);

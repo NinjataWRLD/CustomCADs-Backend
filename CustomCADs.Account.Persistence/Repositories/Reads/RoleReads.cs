@@ -11,7 +11,7 @@ public class RoleReads(AccountContext context) : IRoleReads
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
 
-    public async Task<Role?> SingleByIdAsync(int id, bool track = true, CancellationToken ct = default)
+    public async Task<Role?> SingleByIdAsync(RoleId id, bool track = true, CancellationToken ct = default)
         => await context.Roles
             .WithTracking(track)
             .SingleOrDefaultAsync(r => r.Id == id, ct)
@@ -23,7 +23,7 @@ public class RoleReads(AccountContext context) : IRoleReads
             .SingleOrDefaultAsync(r => r.Name == name, ct)
             .ConfigureAwait(false);
 
-    public async Task<bool> ExistsByIdAsync(int id, CancellationToken ct = default)
+    public async Task<bool> ExistsByIdAsync(RoleId id, CancellationToken ct = default)
         => await context.Roles
             .WithTracking(false)
             .AnyAsync(r => r.Id == id, ct)

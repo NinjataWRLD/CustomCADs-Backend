@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 
 public record GetProductByIdDto(
-    Guid Id,
+    ProductId Id,
     string Name,
     string Description,
     Money Price,

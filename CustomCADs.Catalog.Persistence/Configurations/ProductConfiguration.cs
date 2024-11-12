@@ -21,6 +21,11 @@ static class CadConfigUtils
     public static EntityTypeBuilder<Product> SetPrimaryKey(this EntityTypeBuilder<Product> builder)
     {
         builder.HasKey(x => x.Id);
+        builder.Property(x => x.Id)
+            .HasConversion(
+                x => x.Value,
+                v => new(v)
+            );
 
         return builder;
     }
@@ -43,7 +48,7 @@ static class CadConfigUtils
             c.ComplexProperty(c => c.CamCoordinates);
             c.ComplexProperty(c => c.PanCoordinates);
         });
-        
+
         builder.ComplexProperty(p => p.Image, c =>
         {
             c.Property(c => c.Path).IsRequired();
@@ -57,7 +62,7 @@ static class CadConfigUtils
 
             c.Property(c => c.Precision)
                 .IsRequired();
-            
+
             c.Property(c => c.Currency)
                 .IsRequired();
 

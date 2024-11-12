@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
-using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PatchProduct;
 
@@ -19,8 +17,8 @@ public class PatchProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PatchCadRequest req, CancellationToken ct)
     {
-        IsProductCreatorQuery isCreatorQuery = new(req.Id, User.GetAccountId());
-        bool userIsCreator = await sender.SendQueryAsync(isCreatorQuery, ct).ConfigureAwait(false);
+        IsProductCreatorQuery query = new(req.Id, User.GetAccountId());
+        bool userIsCreator = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         if (userIsCreator)
         {
@@ -29,28 +27,19 @@ public class PatchProductEndpoint(IRequestSender sender)
             return;
         }
 
-        GetProductByIdQuery getCadQuery = new(req.Id);
-        GetProductByIdDto product = await sender.SendQueryAsync(getCadQuery, ct).ConfigureAwait(false);
+        bool IsType(string type) => req.Type.Equals(type, StringComparison.OrdinalIgnoreCase);
+        SetProductCoordsCommand command;
 
-        Coordinates coords = new(req.Coordinates.X, req.Coordinates.Y, req.Coordinates.Z);
-        Cad newCad;
-        switch (req.Type.ToLower())
+        if (IsType("camera"))
+            command = new(req.Id, req.Coordinates.ToValueObject(), null);
+        else if (IsType("pan"))
+            command = new(req.Id, null, req.Coordinates.ToValueObject());
+        else
         {
-            case "camera":
-                newCad = product.Cad with { CamCoordinates = coords };
-                break;
-
-            case "pan":
-                newCad = product.Cad with { PanCoordinates = coords };
-                break;
-
-            default:
-                ValidationFailures.Add(new("Type", InvalidCoordValue, req.Type));
-                await SendErrorsAsync().ConfigureAwait(false);
-                return;
+            ValidationFailures.Add(new("Type", InvalidCoordValue, req.Type));
+            await SendErrorsAsync().ConfigureAwait(false);
+            return;
         }
-
-        SetProductCoordsCommand command = new(req.Id, product.Cad.CamCoordinates, product.Cad.PanCoordinates);
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

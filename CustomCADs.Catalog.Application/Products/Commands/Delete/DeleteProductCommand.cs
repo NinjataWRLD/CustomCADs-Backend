@@ -1,3 +1,3 @@
 namespace CustomCADs.Catalog.Application.Products.Commands.Delete;
 
-public record DeleteProductCommand(Guid Id) : ICommand;
+public record DeleteProductCommand(ProductId Id) : ICommand;

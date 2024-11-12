@@ -7,7 +7,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.GetProduct;
 using static Constants;
 
 public record GetProductResponse(
-    Guid Id,
+    ProductId Id,
     string Name,
     string Description,
     MoneyDto Price,
@@ -27,7 +27,7 @@ public record GetProductResponse(
         CamCoordinates: new(dto.Cad.CamCoordinates),
         PanCoordinates: new(dto.Cad.PanCoordinates),
         CadPath: dto.Cad.Path,
-        Category: new() { Id = dto.Category.Id, Name = dto.Category.Name }
+        Category: new() { Id = dto.Category.Id.Value, Name = dto.Category.Name }
     )
     { }
 }

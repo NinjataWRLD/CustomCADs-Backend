@@ -1,13 +1,13 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.DomainEvents;
-using CustomCADs.Catalog.Domain.Shared;
+using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Create;
 
 public class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow, IEventRaiser raiser)
-    : ICommandHandler<CreateCategoryCommand, int>
+    : ICommandHandler<CreateCategoryCommand, CategoryId>
 {
-    public async Task<int> Handle(CreateCategoryCommand req, CancellationToken ct)
+    public async Task<CategoryId> Handle(CreateCategoryCommand req, CancellationToken ct)
     {
         Category category = Category.Create(req.Dto.Name);
         await writes.AddAsync(category, ct).ConfigureAwait(false);

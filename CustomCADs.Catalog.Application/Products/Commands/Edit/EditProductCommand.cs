@@ -1,3 +1,3 @@
 namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
 
-public record EditProductCommand(Guid Id, EditProductDto Dto) : ICommand;
+public record EditProductCommand(ProductId Id, EditProductDto Dto) : ICommand;

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Auth.Application.Dtos;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.Login;
@@ -54,10 +55,10 @@ public class LoginEndpoint(IUserService userService, ITokenService tokenService,
             return;
         }
 
-        Guid accountId = user.AccountId ?? throw UserAccountNotCreatedYetException.ByUsername(user.UserName ?? string.Empty);
+        UserId accountId = user.AccountId ?? throw UserAccountNotCreatedYetException.ByUsername(user.UserName ?? string.Empty);
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
 
-        AccessTokenDto jwt = tokenService.GenerateAccessToken(user.Id, accountId, req.Username, role);
+        AccessTokenDto jwt = tokenService.GenerateAccessToken(accountId, req.Username, role);
         SaveJwt(jwt.Value, jwt.EndDate);
 
         string rt = tokenService.GenerateRefreshToken();

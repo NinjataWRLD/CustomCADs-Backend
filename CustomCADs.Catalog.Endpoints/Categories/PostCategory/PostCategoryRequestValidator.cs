@@ -2,13 +2,13 @@
 
 namespace CustomCADs.Catalog.Endpoints.Categories.PostCategory;
 
-using static Constants.Errors;
+using static Constants.FluentMessages;
 
 public class PostCategoryRequestValidator : Validator<PostCategoryRequest>
 {
     public PostCategoryRequestValidator()
     {
         RuleFor(r => r.Name)
-            .NotEmpty().WithMessage(RequiredErrorMessage);
+            .NotEmpty().WithMessage(RequiredError);
     }
 }

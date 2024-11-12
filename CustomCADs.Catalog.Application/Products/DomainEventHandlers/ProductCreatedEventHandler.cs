@@ -14,7 +14,7 @@ public class ProductCreatedEventHandler(IStorageService service, IEventRaiser ra
         string imagePath = await service.UploadFileAsync(
             "images",
             imageStream,
-            de.Id,
+            de.Id.Value,
             de.Name,
             de.Image.ContentType,
             de.Image.FileName
@@ -23,13 +23,13 @@ public class ProductCreatedEventHandler(IStorageService service, IEventRaiser ra
         string cadPath = await service.UploadFileAsync(
             "cads",
             cadStream,
-            de.Id,
+            de.Id.Value,
             de.Name,
             de.Cad.ContentType,
             de.Cad.FileName
         ).ConfigureAwait(false);
 
-        ProductFilesUploadedEvent pfuEvent = new(de.Id, imagePath, cadPath);
+        ProductFilesUploadedDomainEvent pfuEvent = new(de.Id, imagePath, cadPath);
         await raiser.RaiseAsync(pfuEvent).ConfigureAwait(false);
     }
 }

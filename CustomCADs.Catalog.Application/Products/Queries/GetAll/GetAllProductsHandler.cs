@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Queries.Users.GetUsernamesByIds;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
@@ -20,8 +21,8 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
         );
         ProductResult result = await reads.AllAsync(productQuery, track: false, ct: ct).ConfigureAwait(false);
 
-        Guid[] ids = result.Products.Select(p => p.CreatorId).Distinct().ToArray();
-        IEnumerable<(Guid Id, string Username)> users = await sender
+        UserId[] ids = result.Products.Select(p => p.CreatorId).Distinct().ToArray();
+        IEnumerable<(UserId Id, string Username)> users = await sender
             .SendQueryAsync(new GetUsernamesByIdsQuery(ids), ct)
             .ConfigureAwait(false);
 

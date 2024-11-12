@@ -1,19 +1,8 @@
-﻿using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
-using System.ComponentModel.DataAnnotations;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetCoords;
-
-using static Constants.Cads;
-
 public record SetProductCoordsCommand(
-
-    Guid Id,
-
-    [Range(CoordMin, CoordMax)]
+    ProductId Id,
     Coordinates? CamCoordinates = default,
-
-    [Range(CoordMin, CoordMax)]
     Coordinates? PanCoordinates = default
-
 ) : ICommand;

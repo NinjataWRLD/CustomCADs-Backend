@@ -7,7 +7,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.GetProducts;
 using static Constants;
 
 public record GetProductsDto(
-    Guid Id,
+    ProductId Id,
     string Name,
     string CreatorName,
     string UploadDate,
@@ -21,7 +21,7 @@ public record GetProductsDto(
         UploadDate: item.UploadDate.ToString(DateFormatString),
         Image: new(item.Image),
         CreatorName: item.CreatorName,
-        Category: new(item.Category.Id, item.Category.Name)
+        Category: new(item.Category.Id.Value, item.Category.Name)
     )
     { }
 }

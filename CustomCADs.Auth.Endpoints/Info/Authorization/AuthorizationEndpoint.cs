@@ -16,11 +16,11 @@ public class AuthorizationEndpoint(IUserService serivce)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        Guid userId = User.GetId();
-        AppUser? user = await serivce.FindByIdAsync(userId).ConfigureAwait(false);
+        string username = User.GetName();
+        AppUser? user = await serivce.FindByNameAsync(username).ConfigureAwait(false);
         if (user is null)
         {
-            ValidationFailures.Add(new("Id", UserNotFound, userId));
+            ValidationFailures.Add(new("Id", UserNotFound, username));
             await SendErrorsAsync(Status401Unauthorized);
             return;
         }

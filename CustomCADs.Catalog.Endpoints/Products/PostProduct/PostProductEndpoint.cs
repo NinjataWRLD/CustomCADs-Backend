@@ -24,7 +24,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         CreateProductDto dto = new(
             Name: req.Name,
             Description: req.Description,
-            CategoryId: req.CategoryId,
+            CategoryId: new(req.CategoryId),
             Price: new(req.Price.Amount, req.Price.Currency, req.Price.Precision, req.Price.Symbol),
             CreatorId: User.GetAccountId(),
             Status: User.IsInRole(Designer)
@@ -32,7 +32,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
                 : ProductStatus.Unchecked
         );
         CreateProductCommand createCommand = new(dto);
-        Task<Guid> createTask = sender.SendCommandAsync(createCommand, ct);
+        Task<ProductId> createTask = sender.SendCommandAsync(createCommand, ct);
 
         using MemoryStream imageStream = new();
         Task imageTask = req.Image.CopyToAsync(imageStream);
@@ -44,7 +44,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         byte[] imageBytes = imageStream.ToArray();
         byte[] cadBytes = cadStream.ToArray();
 
-        Guid id = await createTask.ConfigureAwait(false);
+        ProductId id = await createTask.ConfigureAwait(false);
         await raiser.RaiseAsync(new ProductCreatedDomainEvent(
             Id: id,
             Name: dto.Name,

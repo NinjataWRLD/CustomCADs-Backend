@@ -7,7 +7,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.PostProduct;
 using static Constants;
 
 public record PostProductResponse(
-    Guid Id,
+    ProductId Id,
     string Name,
     string Description,
     string CreatorName,
@@ -29,7 +29,7 @@ public record PostProductResponse(
         CamCoordinates: new(dto.Cad.CamCoordinates),
         PanCoordinates: new(dto.Cad.PanCoordinates),
         CreatorName: dto.CreatorName,
-        Category: new() { Id = dto.Category.Id, Name = dto.Category.Name }
+        Category: new() { Id = dto.Category.Id.Value, Name = dto.Category.Name }
     )
     { }
 }

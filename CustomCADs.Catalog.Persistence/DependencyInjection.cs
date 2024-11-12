@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.Reads;
+using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Catalog.Domain.Shared;
 using CustomCADs.Catalog.Persistence;
 using CustomCADs.Catalog.Persistence.Repositories;
 using CustomCADs.Catalog.Persistence.Repositories.Reads;

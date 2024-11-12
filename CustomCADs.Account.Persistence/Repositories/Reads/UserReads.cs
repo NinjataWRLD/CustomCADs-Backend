@@ -21,7 +21,7 @@ public class UserReads(AccountContext context) : IUserReads
         return new(queryable.Count(), users);
     }
 
-    public async Task<User?> SingleByIdAsync(Guid id, bool track = true, CancellationToken ct = default)
+    public async Task<User?> SingleByIdAsync(UserId id, bool track = true, CancellationToken ct = default)
         => await context.Users
             .WithTracking(track)
             .FirstOrDefaultAsync(u => u.Id == id, ct)
@@ -33,7 +33,7 @@ public class UserReads(AccountContext context) : IUserReads
             .FirstOrDefaultAsync(u => u.Username == username, ct)
             .ConfigureAwait(false);
 
-    public async Task<bool> ExistsByIdAsync(Guid id, CancellationToken ct = default)
+    public async Task<bool> ExistsByIdAsync(UserId id, CancellationToken ct = default)
         => await context.Users
             .WithTracking(false)
             .AnyAsync(u => u.Id == id, ct)

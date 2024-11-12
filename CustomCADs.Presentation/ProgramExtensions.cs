@@ -107,7 +107,7 @@ public static class ProgramExtensions
         });
         services.AddEndpointsApiExplorer();
     }
-    
+
     public static void AddJsonOptions(this IServiceCollection services)
     {
         services.Configure<JsonSerializerOptions>(options =>

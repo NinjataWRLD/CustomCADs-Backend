@@ -1,8 +1,8 @@
-﻿using CustomCADs.Shared.Core.Events;
+﻿using CustomCADs.Shared.Core.Common.Events;
 
 namespace CustomCADs.Account.Domain.Roles.DomainEvents;
 
 public record RoleEditedDomainEvent(
-    int Id,
+    RoleId Id,
     Role Role
 ) : BaseDomainEvent;

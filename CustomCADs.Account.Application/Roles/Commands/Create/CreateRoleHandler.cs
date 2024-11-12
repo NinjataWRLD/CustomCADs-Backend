@@ -1,14 +1,14 @@
-﻿using CustomCADs.Account.Domain.Roles.DomainEvents;
-using CustomCADs.Account.Domain.Shared;
+﻿using CustomCADs.Account.Domain.Common;
+using CustomCADs.Account.Domain.Roles.DomainEvents;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
 namespace CustomCADs.Account.Application.Roles.Commands.Create;
 
 public class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
-    : ICommandHandler<CreateRoleCommand, int>
+    : ICommandHandler<CreateRoleCommand, RoleId>
 {
-    public async Task<int> Handle(CreateRoleCommand req, CancellationToken ct)
+    public async Task<RoleId> Handle(CreateRoleCommand req, CancellationToken ct)
     {
         Role role = Role.Create(req.Dto.Name, req.Dto.Description);
 

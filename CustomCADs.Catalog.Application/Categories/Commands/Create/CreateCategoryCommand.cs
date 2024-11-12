@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Catalog.Application.Categories.Commands.Create;
 
-public record CreateCategoryCommand(CategoryWriteDto Dto) : ICommand<int>;
+public record CreateCategoryCommand(CategoryWriteDto Dto) : ICommand<CategoryId>;

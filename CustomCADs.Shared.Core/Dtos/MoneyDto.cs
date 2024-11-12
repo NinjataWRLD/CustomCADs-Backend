@@ -10,9 +10,9 @@ public record MoneyDto(
 )
 {
     public MoneyDto(Money money) : this(
-        Amount: money.Amount, 
-        Currency: money.Currency, 
-        Precision: money.Precision, 
+        Amount: money.Amount,
+        Currency: money.Currency,
+        Precision: money.Precision,
         Symbol: money.Symbol
     )
     { }

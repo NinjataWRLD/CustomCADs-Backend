@@ -1,3 +1,3 @@
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 
-public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdDto>;
+public record GetProductByIdQuery(ProductId Id) : IQuery<GetProductByIdDto>;

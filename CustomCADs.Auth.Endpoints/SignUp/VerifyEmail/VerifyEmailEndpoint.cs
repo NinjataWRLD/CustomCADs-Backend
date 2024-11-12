@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Auth.Application.Dtos;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.VerifyEmail;
@@ -52,10 +53,10 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
             return;
         }
 
-        Guid accountId = user.AccountId ?? throw UserAccountNotCreatedYetException.ByUsername(user.UserName ?? string.Empty);
+        UserId accountId = user.AccountId ?? throw UserAccountNotCreatedYetException.ByUsername(user.UserName ?? string.Empty);
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
 
-        AccessTokenDto jwt = tokenService.GenerateAccessToken(user.Id, accountId, req.Username, role);
+        AccessTokenDto jwt = tokenService.GenerateAccessToken(accountId, req.Username, role);
         SaveAccessToken(jwt.Value, jwt.EndDate);
 
         string rt = tokenService.GenerateRefreshToken();

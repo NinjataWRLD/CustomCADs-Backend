@@ -17,9 +17,9 @@ public class PostCategoryEndpoint(IRequestSender sender)
     {
         CategoryWriteDto category = new(req.Name);
         CreateCategoryCommand command = new(category);
-        int id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        CategoryId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        CategoryResponse response = new(id, req.Name);
+        CategoryResponse response = new(id.Value, req.Name);
         await SendCreatedAtAsync<GetCategoryEndpoint>(new { id }, response).ConfigureAwait(false);
     }
 }

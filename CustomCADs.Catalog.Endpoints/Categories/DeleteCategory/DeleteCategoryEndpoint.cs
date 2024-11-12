@@ -16,7 +16,8 @@ public class DeleteCategoryEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteCategoryRequest req, CancellationToken ct)
     {
-        CategoryExistsByIdQuery query = new(req.Id);
+        CategoryId id = new(req.Id);
+        CategoryExistsByIdQuery query = new(id);
         bool exists = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         if (!exists)
@@ -26,7 +27,7 @@ public class DeleteCategoryEndpoint(IRequestSender sender)
             return;
         }
 
-        DeleteCategoryCommand command = new(req.Id);
+        DeleteCategoryCommand command = new(id);
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

@@ -4,6 +4,6 @@ using CustomCADs.Shared.Core.Domain.Enums;
 namespace CustomCADs.Catalog.Domain.Products.ValueObjects;
 
 public record ProductSorting(
-    ProductSortingType Type = ProductSortingType.UploadDate, 
+    ProductSortingType Type = ProductSortingType.UploadDate,
     SortingDirection Direction = SortingDirection.Descending
 );

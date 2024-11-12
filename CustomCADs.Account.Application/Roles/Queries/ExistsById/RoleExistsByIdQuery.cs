@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Account.Application.Roles.Queries.ExistsById;
 
-public record RoleExistsByIdQuery(int Id) : IQuery<bool>;
+public record RoleExistsByIdQuery(RoleId Id) : IQuery<bool>;

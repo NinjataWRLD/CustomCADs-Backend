@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Account.Application.Roles.Queries.GetById;
 
-public record GetRoleByIdQuery(int Id) : IQuery<RoleReadDto>;
+public record GetRoleByIdQuery(RoleId Id) : IQuery<RoleReadDto>;

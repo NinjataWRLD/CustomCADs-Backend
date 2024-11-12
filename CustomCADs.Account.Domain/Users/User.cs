@@ -15,7 +15,7 @@ public class User : BaseAggregateRoot
         Names = Names.Create(firstName, lastName);
     }
 
-    public Guid Id { get; set; }
+    public UserId Id { get; set; }
     public string Username { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public Names Names { get; set; } = Names.Create();
@@ -27,8 +27,12 @@ public class User : BaseAggregateRoot
         string username,
         string email,
         string? firstName = default,
-        string? lastName = default)
-    {
-        return new(role, username, email, firstName, lastName);
-    }
+        string? lastName = default
+    )
+        => new User(role, username, email, firstName, lastName)
+            .ValidateRole()
+            .ValidateUsername()
+            .ValidateEmail()
+            .ValidateFirstName()
+            .ValidateLastName();
 }

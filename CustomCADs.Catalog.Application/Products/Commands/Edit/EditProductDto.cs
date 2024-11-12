@@ -5,6 +5,6 @@ namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
 public record EditProductDto(
     string Name,
     string Description,
-    int CategoryId,
+    CategoryId CategoryId,
     Money Price
 );

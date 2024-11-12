@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CustomCADs.Account.Endpoints.Users.PostUser;
 
-using static Constants.Errors;
+using static Constants.FluentMessages;
 using static UserConstants;
 
 public class PostUserRequestValidator : Validator<PostUserRequest>
@@ -11,19 +11,19 @@ public class PostUserRequestValidator : Validator<PostUserRequest>
     public PostUserRequestValidator()
     {
         RuleFor(r => r.Username)
-            .NotEmpty().WithMessage(RequiredErrorMessage)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthErrorMessage);
+            .NotEmpty().WithMessage(RequiredError)
+            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.Email)
-            .NotEmpty().WithMessage(RequiredErrorMessage);
+            .NotEmpty().WithMessage(RequiredError);
 
         RuleFor(r => r.Role)
-            .NotEmpty().WithMessage(RequiredErrorMessage);
+            .NotEmpty().WithMessage(RequiredError);
 
         RuleFor(r => r.FirstName)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthErrorMessage);
+            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.LastName)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthErrorMessage);
+            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
     }
 }

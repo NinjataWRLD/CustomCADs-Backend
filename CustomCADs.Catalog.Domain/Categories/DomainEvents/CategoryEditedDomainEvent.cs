@@ -1,8 +1,8 @@
-﻿using CustomCADs.Shared.Core.Events;
+﻿using CustomCADs.Shared.Core.Common.Events;
 
 namespace CustomCADs.Catalog.Domain.Categories.DomainEvents;
 
 public record CategoryEditedDomainEvent(
-    int Id,
+    CategoryId Id,
     Category Category
 ) : BaseDomainEvent;

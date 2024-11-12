@@ -12,7 +12,7 @@ public class UserNotFoundException : Exception
 
     public static UserNotFoundException ByUsername(string username, Exception? inner = default)
         => new($"The User with username: {username} does not exist.", inner);
-    
+
     public static UserNotFoundException ByEmail(string email, Exception? inner = default)
         => new($"The User with email: {email} does not exist.", inner);
 

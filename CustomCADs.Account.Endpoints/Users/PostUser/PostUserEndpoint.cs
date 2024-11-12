@@ -4,6 +4,7 @@ using CustomCADs.Account.Application.Users.Commands.Create;
 using CustomCADs.Account.Application.Users.Queries.GetById;
 using CustomCADs.Account.Endpoints.Helpers;
 using CustomCADs.Account.Endpoints.Users.GetUser;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
 namespace CustomCADs.Account.Endpoints.Users.PostUser;
 
@@ -44,7 +45,7 @@ public class PostUserEndpoint(IRequestSender sender)
             FirstName: req.FirstName,
             LastName: req.LastName
         );
-        Guid id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        UserId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         GetUserByIdQuery getByIdQuery = new(id);
         GetUserByIdDto addedUser = await sender.SendQueryAsync(getByIdQuery, ct).ConfigureAwait(false);

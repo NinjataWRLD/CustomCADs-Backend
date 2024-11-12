@@ -11,13 +11,13 @@ public class CategoryReads(CatalogContext context) : ICategoryReads
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
 
-    public async Task<Category?> SingleByIdAsync(int id, bool track = true, CancellationToken ct = default)
+    public async Task<Category?> SingleByIdAsync(CategoryId id, bool track = true, CancellationToken ct = default)
         => await context.Categories
             .WithTracking(track)
             .FirstOrDefaultAsync(c => c.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<bool> ExistsByIdAsync(int id, CancellationToken ct = default)
+    public async Task<bool> ExistsByIdAsync(CategoryId id, CancellationToken ct = default)
         => await context.Categories
             .WithTracking(false)
             .AnyAsync(c => c.Id == id, ct)

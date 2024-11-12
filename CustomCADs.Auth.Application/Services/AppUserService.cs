@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Auth.Application.DomainEvents.Email;
 using CustomCADs.Auth.Application.Dtos;
 using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.IntegrationEvents.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,7 +59,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task<IdentityResult> UpdateAsync(AppUser user)
         => await manager.UpdateAsync(user).ConfigureAwait(false);
 
-    public async Task<IdentityResult> UpdateAccountIdAsync(Guid id, Guid accountId)
+    public async Task<IdentityResult> UpdateAccountIdAsync(Guid id, UserId accountId)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
             ?? throw UserNotFoundException.ById(id);
@@ -69,7 +70,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
         return result;
     }
 
-    public async Task<IdentityResult> UpdateAccountIdAsync(string username, Guid accountId)
+    public async Task<IdentityResult> UpdateAccountIdAsync(string username, UserId accountId)
     {
         AppUser user = await FindByNameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
@@ -92,10 +93,10 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
         return result;
     }
 
-    public async Task<IdentityResult> RevokeRefreshTokenAsync(Guid id)
+    public async Task<IdentityResult> RevokeRefreshTokenAsync(string username)
     {
-        AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
-            ?? throw UserNotFoundException.ById(id);
+        AppUser user = await FindByNameAsync(username).ConfigureAwait(false)
+            ?? throw UserNotFoundException.ByUsername(username);
 
         user.RefreshToken = null;
         user.RefreshTokenEndDate = null;

@@ -15,10 +15,11 @@ public class GetCategoryEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetCategoryRequest req, CancellationToken ct)
     {
-        GetCategoryByIdQuery query = new(req.Id);
+        CategoryId id = new(req.Id);
+        GetCategoryByIdQuery query = new(id);
         CategoryReadDto model = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        CategoryResponse response = new(model.Id, model.Name);
+        CategoryResponse response = new(model.Id.Value, model.Name);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

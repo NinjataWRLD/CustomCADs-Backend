@@ -6,7 +6,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.RecentProducts;
 using static Constants;
 
 public record RecentProductsResponse(
-    Guid Id,
+    ProductId Id,
     string Name,
     string Status,
     string UploadDate,
@@ -18,7 +18,7 @@ public record RecentProductsResponse(
         Name: item.Name,
         Status: item.Status,
         UploadDate: item.UploadDate.ToString(DateFormatString),
-        Category: new(item.Category.Id, item.Category.Name)
+        Category: new(item.Category.Id.Value, item.Category.Name)
     )
     { }
 }

@@ -1,3 +1,3 @@
 namespace CustomCADs.Catalog.Application.Products.Queries.ExistsById;
 
-public record ProductExistsByIdQuery(Guid Id) : IQuery<bool>;
+public record ProductExistsByIdQuery(ProductId Id) : IQuery<bool>;
