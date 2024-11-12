@@ -11,10 +11,10 @@ public class ProductValidationException : BaseException
 
     public static ProductValidationException NotNull(string property, Exception? inner = default)
         => new($"A Product's {property} must not be null.", inner);
-    
+
     public static ProductValidationException Length(string property, int max, int min, Exception? inner = default)
         => new($"A Product's {property} must be shorter than {min} and longer than {max} characters.", inner);
-    
+
     public static ProductValidationException Range<TType>(string property, TType max, TType min, Exception? inner = default) where TType : struct
         => new($"A Product's {property} must be less than {min} and more than {max}.", inner);
 

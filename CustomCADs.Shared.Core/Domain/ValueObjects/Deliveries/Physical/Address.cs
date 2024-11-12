@@ -9,7 +9,7 @@ public record Address
         City = city ?? throw new ArgumentNullException(nameof(country));
         Street = street ?? throw new ArgumentNullException(nameof(country));
     }
-    
+
     public string Country { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
     public string Street { get; set; } = string.Empty;

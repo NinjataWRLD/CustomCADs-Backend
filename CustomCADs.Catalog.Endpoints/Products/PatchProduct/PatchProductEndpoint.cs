@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
-using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
 
 namespace CustomCADs.Catalog.Endpoints.Products.PatchProduct;
 
@@ -32,9 +30,9 @@ public class PatchProductEndpoint(IRequestSender sender)
         bool IsType(string type) => req.Type.Equals(type, StringComparison.OrdinalIgnoreCase);
         SetProductCoordsCommand command;
 
-        if (IsType("camera")) 
+        if (IsType("camera"))
             command = new(req.Id, req.Coordinates.ToValueObject(), null);
-        else if (IsType("pan")) 
+        else if (IsType("pan"))
             command = new(req.Id, null, req.Coordinates.ToValueObject());
         else
         {

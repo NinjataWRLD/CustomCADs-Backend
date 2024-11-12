@@ -20,7 +20,7 @@ public record Money
 
     public Money Multiply(int factor)
         => new(Amount * factor, Currency, Precision, Symbol);
-    
+
     private static int ValidatePreision(in int precision)
     {
         if (precision > PrecisionMax || precision < PrecisionMin)
@@ -31,10 +31,10 @@ public record Money
 
         return precision;
     }
-    
+
     private static string ValidateCurrency(in string currency)
         => currency ?? throw new ArgumentNullException(nameof(currency));
-    
+
     private static string GetCurrencySymbol(string currency)
         => currency.ToUpperInvariant() switch
         {

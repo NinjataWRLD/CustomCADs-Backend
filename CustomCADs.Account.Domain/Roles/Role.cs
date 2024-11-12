@@ -24,10 +24,10 @@ public class Role : BaseAggregateRoot
             .ValidateDescription();
 
     public static IEnumerable<Role> CreateRange(params RoleDto[] roles)
-        => roles.Select(dto => 
-            new Role(dto.Name, dto.Description) 
-            { 
-                Id = new(dto.Id) 
+        => roles.Select(dto =>
+            new Role(dto.Name, dto.Description)
+            {
+                Id = new(dto.Id)
             }
             .ValidateName()
             .ValidateDescription()

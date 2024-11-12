@@ -18,10 +18,10 @@ public class Category : BaseAggregateRoot
             .ValidateName();
 
     public static IEnumerable<Category> CreateRange(params (CategoryId Id, string Name)[] categories)
-        => categories.Select(category => 
-            new Category(category.Name) 
-            { 
-                Id = category.Id 
+        => categories.Select(category =>
+            new Category(category.Name)
+            {
+                Id = category.Id
             }
             .ValidateName()
         );

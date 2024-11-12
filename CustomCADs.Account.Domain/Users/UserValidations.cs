@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Account.Domain.Common.Exceptions;
 using CustomCADs.Account.Domain.Roles;
-using CustomCADs.Shared.Core;
 using System.Text.RegularExpressions;
 
 namespace CustomCADs.Account.Domain.Users;
@@ -30,7 +29,7 @@ public static partial class UserValidations
 
     public static User ValidateUsername(this User user)
     {
-        string property = "Username"; 
+        string property = "Username";
         string username = user.Username;
 
         if (string.IsNullOrEmpty(username))
@@ -62,7 +61,7 @@ public static partial class UserValidations
         {
             throw UserValidationException.Length(property, maxLength, minLength);
         }
-        
+
         if (!EmailRegex().IsMatch(email))
         {
             throw UserValidationException.Email();
@@ -89,7 +88,7 @@ public static partial class UserValidations
 
         return user;
     }
-    
+
     public static User ValidateLastName(this User user)
     {
         string property = "Last Name";

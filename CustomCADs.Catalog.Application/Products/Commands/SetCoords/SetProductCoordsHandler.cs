@@ -25,7 +25,7 @@ public class SetProductCoordsHandler(IProductReads reads, IUnitOfWork uow)
         {
             throw ProductValidationException.Range("CamCoordinates", CoordMin, CoordMax);
         }
-        
+
         if (!AreCoordsValid(panCoords.X, panCoords.Y, panCoords.Z))
         {
             throw ProductValidationException.Range("PanCoordinates", CoordMin, CoordMax);
