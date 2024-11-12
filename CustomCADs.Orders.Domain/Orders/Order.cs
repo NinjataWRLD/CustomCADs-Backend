@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Orders.Enum;
+﻿using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries;

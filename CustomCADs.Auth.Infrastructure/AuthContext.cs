@@ -27,7 +27,7 @@ public class AuthContext(DbContextOptions<AuthContext> opt) : IdentityDbContext<
             .Property(u => u.AccountId)
             .HasConversion(
                 x => x == null ? (Guid?)null : x.Value.Value,
-                v => v == Guid.Empty ? null : new()
+                v => v == null ? null : new(v.Value)
             );
     }
 }

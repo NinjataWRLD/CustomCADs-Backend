@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Orders.Domain.Orders.Enum;
+﻿namespace CustomCADs.Orders.Domain.Orders.Enums;
 
 public enum OrderStatus
 {
