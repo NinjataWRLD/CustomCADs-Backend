@@ -11,8 +11,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CustomCADs.Catalog.Application\CustomCADs.Catalog.Application.csproj" />
-		<ProjectReference Include="..\CustomCADs.Catalog.Persistence\CustomCADs.Catalog.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Cart.Application\CustomCADs.Cart.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Cart.Persistence\CustomCADs.Cart.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>
