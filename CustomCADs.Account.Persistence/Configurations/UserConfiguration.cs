@@ -60,7 +60,8 @@ static class UserConfigUtils
             .HasMaxLength(NameMaxLength);
 
         builder.Property(u => u.Email)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(EmailMaxLength);
 
         builder.Property(u => u.RoleName)
             .IsRequired();

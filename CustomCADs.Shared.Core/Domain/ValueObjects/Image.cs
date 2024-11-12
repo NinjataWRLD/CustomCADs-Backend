@@ -2,6 +2,5 @@
 
 public record Image(string Path)
 {
-    public Image() : this(string.Empty)
-    { }
+    public Image() : this(string.Empty) { }
 }

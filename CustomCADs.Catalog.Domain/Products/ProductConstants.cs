@@ -7,6 +7,9 @@ public static class ProductConstants
 
     public const int DescriptionMaxLength = 750;
     public const int DescriptionMinLength = 10;
+    
+    public const decimal PriceMax = 1_000_000m;
+    public const decimal PriceMin = 0.00_000_1m;
 
     public const decimal CostMin = 0.01m;
     public const decimal CostMax = 1000m;

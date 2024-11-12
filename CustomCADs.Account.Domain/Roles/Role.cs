@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Users;
 using CustomCADs.Shared.Core.Domain;
+using RoleDto = (int Id, string Name, string Description);
 
 namespace CustomCADs.Account.Domain.Roles;
 
@@ -18,12 +19,17 @@ public class Role : BaseAggregateRoot
     public ICollection<User> Users { get; set; } = [];
 
     public static Role Create(string name, string description)
-    {
-        return new(name, description);
-    }
+        => new Role(name, description)
+            .ValidateName()
+            .ValidateDescription();
 
-    public static IEnumerable<Role> CreateRange(params (int Id, string Name, string Description)[] roles)
-    {
-        return roles.Select(role => new Role(role.Name, role.Description) { Id = new(role.Id) });
-    }
+    public static IEnumerable<Role> CreateRange(params RoleDto[] roles)
+        => roles.Select(dto => 
+            new Role(dto.Name, dto.Description) 
+            { 
+                Id = new(dto.Id) 
+            }
+            .ValidateName()
+            .ValidateDescription()
+        );
 }

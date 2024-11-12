@@ -1,22 +1,11 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
-using System.ComponentModel.DataAnnotations;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
-
-using static Constants.AnnotationMessages;
-using static ProductConstants;
-
 public record CreateProductDto(
-
-    [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = LengthError)]
     string Name,
-
-    [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = LengthError)]
     string Description,
-
     CategoryId CategoryId,
     Money Price,
     ProductStatus Status,
