@@ -1,5 +1,4 @@
-﻿using CustomCADs.Account.Domain.Users;
-using CustomCADs.Shared.Core.Domain;
+﻿using CustomCADs.Shared.Core.Domain;
 using RoleDto = (int Id, string Name, string Description);
 
 namespace CustomCADs.Account.Domain.Roles;
@@ -13,9 +12,9 @@ public class Role : BaseAggregateRoot
         Description = description;
     }
 
-    public RoleId Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
+    public RoleId Id { get; init; }
+    public string Name { get; private set; } = string.Empty;
+    public string Description { get; private set; } = string.Empty;
 
     public static Role Create(string name, string description)
         => new Role(name, description)
@@ -31,4 +30,18 @@ public class Role : BaseAggregateRoot
             .ValidateName()
             .ValidateDescription()
         );
+
+    public Role SetName(string name)
+    {
+        Name = name;
+        this.ValidateName();
+        return this;
+    }
+
+    public Role SetDescription(string description)
+    {
+        Description = description;
+        this.ValidateDescription();
+        return this;
+    }
 }

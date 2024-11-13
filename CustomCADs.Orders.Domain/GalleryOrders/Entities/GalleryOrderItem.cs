@@ -16,13 +16,13 @@ public class GalleryOrderItem : BaseEntity
         GalleryOrderId = galleryOrderId;
     }
 
-    public GalleryOrderItemId Id { get; set; }
-    public int Quantity { get; set; }
-    public Money Price { get; set; } = new();
-    public DateTime PurchaseDate { get; set; }
-    public ProductId ProductId { get; set; }
-    public GalleryOrderId GalleryOrderId { get; set; }
-    public GalleryOrder GalleryOrder { get; set; } = null!;
+    public GalleryOrderItemId Id { get; init; }
+    public int Quantity { get; private set; }
+    public Money Price { get; private set; } = new();
+    public DateTime PurchaseDate { get; }
+    public ProductId ProductId { get; }
+    public GalleryOrderId GalleryOrderId { get; }
+    public GalleryOrder GalleryOrder { get; } = null!;
 
     public Money Cost => Price.Multiply(Quantity);
 
@@ -30,4 +30,18 @@ public class GalleryOrderItem : BaseEntity
         => new GalleryOrderItem(price, quantity, productId, galleryOrderId)
             .ValidateQuantity()
             .ValidatePriceAmount();
+
+    public GalleryOrderItem SetQuantity(int quantity)
+    {
+        Quantity = quantity;
+        this.ValidateQuantity();
+        return this;
+    }
+
+    public GalleryOrderItem SetPrice(Money price)
+    {
+        Price = price;
+        this.ValidatePriceAmount();
+        return this;
+    }
 }

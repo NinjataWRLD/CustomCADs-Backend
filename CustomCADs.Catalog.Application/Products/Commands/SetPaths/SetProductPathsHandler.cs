@@ -11,16 +11,7 @@ public class SetProductPathsHandler(IProductReads reads, IUnitOfWork uow)
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        if (!string.IsNullOrEmpty(req.CadPath))
-        {
-            product.Cad = product.Cad with { Path = req.CadPath };
-        }
-
-        if (!string.IsNullOrEmpty(req.ImagePath))
-        {
-            product.Image = product.Image with { Path = req.ImagePath };
-        }
-
+        product.SetPaths(imagePath: req.ImagePath, cadPath: req.CadPath);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

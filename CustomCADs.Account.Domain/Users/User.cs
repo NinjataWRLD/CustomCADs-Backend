@@ -1,5 +1,4 @@
-﻿using CustomCADs.Account.Domain.Roles;
-using CustomCADs.Account.Domain.Users.ValueObjects;
+﻿using CustomCADs.Account.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Domain;
 
 namespace CustomCADs.Account.Domain.Users;
@@ -15,11 +14,11 @@ public class User : BaseAggregateRoot
         Names = Names.Create(firstName, lastName);
     }
 
-    public UserId Id { get; set; }
-    public string Username { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public Names Names { get; set; } = Names.Create();
-    public string RoleName { get; set; } = string.Empty;
+    public UserId Id { get; init; }
+    public string Username { get; private set; } = string.Empty;
+    public string Email { get; private set; } = string.Empty;
+    public Names Names { get; private set; } = Names.Create();
+    public string RoleName { get; private set; } = string.Empty;
 
     public static User Create(
         string role,
@@ -34,4 +33,33 @@ public class User : BaseAggregateRoot
             .ValidateEmail()
             .ValidateFirstName()
             .ValidateLastName();
+
+    public User SetUsername(string username)
+    {
+        Username = username;
+        this.ValidateUsername();
+        return this;
+    }
+
+    public User SetEmail(string email)
+    {
+        Email = email;
+        this.ValidateEmail();
+        return this;
+    }
+
+    public User SetNames(string? firstName, string? lastName)
+    {
+        Names = Names.Create(firstName, lastName);
+        this.ValidateFirstName();
+        this.ValidateLastName();
+        return this;
+    }
+
+    public User SetRole(string role)
+    {
+        RoleName = role;
+        this.ValidateRole();
+        return this;
+    }
 }

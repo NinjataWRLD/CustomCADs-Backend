@@ -10,8 +10,8 @@ public class Category : BaseAggregateRoot
         Name = name;
     }
 
-    public CategoryId Id { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public CategoryId Id { get; init; }
+    public string Name { get; private set; } = string.Empty;
 
     public static Category Create(string name)
         => new Category(name)
@@ -25,4 +25,11 @@ public class Category : BaseAggregateRoot
             }
             .ValidateName()
         );
+
+    public Category SetName(string name)
+    {
+        Name = name;
+        this.ValidateName();
+        return this;
+    }
 }

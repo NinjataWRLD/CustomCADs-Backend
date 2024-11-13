@@ -9,8 +9,8 @@ public class ProductStatusException : BaseException
     public static ProductStatusException General(Exception? inner = default)
         => new("The provided Product cannot perform the requested action.", inner);
 
-    public static ProductStatusException ById(ProductId id, string action, Exception? inner = default)
-        => new($"The Product with id: {id} cannot perform the action: {action}.", inner);
+    public static ProductStatusException ById(ProductId id, string status, Exception? inner = default)
+        => new($"The Product with id: {id} cannot have a status: {status}.", inner);
 
     public static ProductStatusException Custom(string message, Exception? inner = default)
         => new(message, inner);

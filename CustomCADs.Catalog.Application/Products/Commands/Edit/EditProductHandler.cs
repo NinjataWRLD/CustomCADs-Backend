@@ -11,10 +11,11 @@ public class EditProductHandler(IProductReads reads, IUnitOfWork uow)
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        product.Name = req.Dto.Name;
-        product.Description = req.Dto.Description;
-        product.Price = req.Dto.Price;
-        product.CategoryId = req.Dto.CategoryId;
+        product
+            .SetName(req.Dto.Name)
+            .SetDescription(req.Dto.Description)
+            .SetPrice(req.Dto.Price)
+            .SetCategoryId(req.Dto.CategoryId);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }

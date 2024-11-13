@@ -6,4 +6,6 @@ public enum CustomOrderStatus
     Accepted,
     Begun,
     Finished,
+    Reported,
+    Removed,
 }

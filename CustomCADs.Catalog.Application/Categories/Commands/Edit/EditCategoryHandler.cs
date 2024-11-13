@@ -13,7 +13,7 @@ public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow, IEventRa
         Category category = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw CategoryNotFoundException.ById(req.Id);
 
-        category.Name = req.Dto.Name;
+        category.SetName(req.Dto.Name);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         await raiser.RaiseAsync(new CategoryEditedDomainEvent(
