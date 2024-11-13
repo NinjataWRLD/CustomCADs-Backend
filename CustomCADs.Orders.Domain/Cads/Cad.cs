@@ -1,0 +1,35 @@
+﻿using CustomCADs.Shared.Core.Domain;
+using CustomCADs.Shared.Core.Domain.ValueObjects;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+
+namespace CustomCADs.Orders.Domain.Cads;
+
+public class Cad : BaseEntity
+{
+    private Cad() { }
+    private Cad(
+        string path,
+        Coordinates camCoordinates,
+        Coordinates panCoordinates,
+        UserId clientId
+    )
+    {
+        Path = path;
+        CamCoordinates = camCoordinates;
+        PanCoordinates = panCoordinates;
+        ClientId = clientId;
+    }
+
+    public CadId Id { get; set; }
+    public string Path { get; } = string.Empty;
+    public Coordinates CamCoordinates { get; } = new();
+    public Coordinates PanCoordinates { get; } = new();
+    public UserId ClientId { get; set; }
+
+    public static Cad Create(
+        string path,
+        Coordinates camCoordinates,
+        Coordinates panCoordinates,
+        UserId clientId
+    ) => new(path, camCoordinates, panCoordinates, clientId);
+}

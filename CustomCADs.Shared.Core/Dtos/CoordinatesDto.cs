@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects;
 
 namespace CustomCADs.Shared.Core.Dtos;
 

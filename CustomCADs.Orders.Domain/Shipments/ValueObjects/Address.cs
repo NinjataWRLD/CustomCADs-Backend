@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Physical;
+﻿namespace CustomCADs.Orders.Domain.Shipments.ValueObjects;
 
 public record Address
 {
