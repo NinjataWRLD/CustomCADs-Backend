@@ -108,7 +108,7 @@ namespace CustomCADs.Account.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.OwnsOne("CustomCADs.Account.Domain.Users.ValueObjects.Names", "Names", b1 =>
+                    b.OwnsOne("CustomCADs.Account.Domain.Users.User.Names#CustomCADs.Account.Domain.Users.ValueObjects.Names", "Names", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");

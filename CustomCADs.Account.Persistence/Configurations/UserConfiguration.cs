@@ -11,6 +11,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder
             .SetPrimaryKey()
             .SetForeignKeys()
+            .SetStronglyTypedIds()
             .SetValueObjects()
             .SetValidations();
     }
@@ -20,14 +21,7 @@ static class UserConfigUtils
 {
     public static EntityTypeBuilder<User> SetPrimaryKey(this EntityTypeBuilder<User> builder)
     {
-        builder.HasKey(u => u.Id);
-
-        builder.Property(r => r.Id)
-            .ValueGeneratedOnAdd()
-            .HasConversion(
-                x => x.Value,
-                v => new(v)
-            );
+        builder.HasKey(x => x.Id);
 
         return builder;
     }
@@ -35,20 +29,37 @@ static class UserConfigUtils
     public static EntityTypeBuilder<User> SetForeignKeys(this EntityTypeBuilder<User> builder)
     {
         builder
-            .HasOne(u => u.Role)
-            .WithMany(r => r.Users)
-            .HasForeignKey(u => u.RoleName)
+            .HasOne(x => x.Role)
+            .WithMany(x => x.Users)
+            .HasForeignKey(x => x.RoleName)
             .OnDelete(DeleteBehavior.Restrict);
 
         return builder;
     }
 
+    public static EntityTypeBuilder<User> SetStronglyTypedIds(this EntityTypeBuilder<User> builder)
+    {
+        builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd()
+            .HasConversion(
+                x => x.Value,
+                v => new(v)
+            );
+        
+        return builder;
+    }
+
     public static EntityTypeBuilder<User> SetValueObjects(this EntityTypeBuilder<User> builder)
     {
-        builder.OwnsOne(u => u.Names, cb =>
+        builder.ComplexProperty(x => x.Names, a =>
         {
-            cb.Property(u => u.FirstName).HasMaxLength(NameMaxLength).HasColumnName("FirstName");
-            cb.Property(u => u.LastName).HasMaxLength(NameMaxLength).HasColumnName("LastName");
+            a.Property(x => x.FirstName)
+                .HasMaxLength(NameMaxLength)
+                .HasColumnName("FirstName");
+
+            a.Property(x => x.LastName)
+                .HasMaxLength(NameMaxLength)
+                .HasColumnName("LastName");
         });
 
         return builder;
@@ -56,16 +67,19 @@ static class UserConfigUtils
 
     public static EntityTypeBuilder<User> SetValidations(this EntityTypeBuilder<User> builder)
     {
-        builder.Property(u => u.Username)
+        builder.Property(x => x.Username)
             .IsRequired()
-            .HasMaxLength(NameMaxLength);
+            .HasMaxLength(NameMaxLength)
+            .HasColumnName("Username");
 
-        builder.Property(u => u.Email)
+        builder.Property(x => x.Email)
             .IsRequired()
-            .HasMaxLength(EmailMaxLength);
+            .HasMaxLength(EmailMaxLength)
+            .HasColumnName("Email");
 
-        builder.Property(u => u.RoleName)
-            .IsRequired();
+        builder.Property(x => x.RoleName)
+            .IsRequired()
+            .HasColumnName("RoleName");
 
         return builder;
     }

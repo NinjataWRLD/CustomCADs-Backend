@@ -10,6 +10,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         builder
             .SetPrimaryKey()
+            .SetStronglyTypedIds()
             .SetValidations()
             .SetSeedData();
     }
@@ -21,13 +22,16 @@ static class CategoryConfigUtils
     {
         builder.HasKey(x => x.Id);
 
-
+        return builder;
+    }
+    
+    public static EntityTypeBuilder<Category> SetStronglyTypedIds(this EntityTypeBuilder<Category> builder)
+    {
         builder.Property(x => x.Id)
             .HasConversion(
                 x => x.Value,
                 v => new(v)
-            )
-            .UseIdentityColumn();
+            ).UseIdentityColumn();
 
         return builder;
     }
@@ -36,7 +40,8 @@ static class CategoryConfigUtils
     {
         builder.Property(x => x.Name)
             .IsRequired()
-            .HasMaxLength(NameMaxLength);
+            .HasMaxLength(NameMaxLength)
+            .HasColumnName("Name");
 
         return builder;
     }

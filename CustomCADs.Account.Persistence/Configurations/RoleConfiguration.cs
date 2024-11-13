@@ -13,6 +13,7 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder
             .SetPrimaryKey()
             .SetForeignKeys()
+            .SetStronglyTypedIds()
             .SetValidations()
             .SetSeeding();
     }
@@ -23,14 +24,7 @@ static class RoleConfigUtils
 {
     public static EntityTypeBuilder<Role> SetPrimaryKey(this EntityTypeBuilder<Role> builder)
     {
-        builder.HasKey(r => r.Id);
-
-        builder.Property(r => r.Id)
-            .HasConversion(
-                i => i.Value,
-                v => new(v)
-            )
-            .UseIdentityColumn();
+        builder.HasKey(x => x.Id);
 
         return builder;
     }
@@ -38,23 +32,36 @@ static class RoleConfigUtils
     public static EntityTypeBuilder<Role> SetForeignKeys(this EntityTypeBuilder<Role> builder)
     {
         builder
-            .HasMany(r => r.Users)
-            .WithOne(u => u.Role)
-            .HasPrincipalKey(u => u.Name)
+            .HasMany(x => x.Users)
+            .WithOne(x => x.Role)
+            .HasPrincipalKey(x => x.Name)
             .OnDelete(DeleteBehavior.NoAction);
+
+        return builder;
+    }
+
+    public static EntityTypeBuilder<Role> SetStronglyTypedIds(this EntityTypeBuilder<Role> builder)
+    {
+        builder.Property(x => x.Id)
+            .HasConversion(
+                x => x.Value,
+                v => new(v)
+            ).UseIdentityColumn();
 
         return builder;
     }
 
     public static EntityTypeBuilder<Role> SetValidations(this EntityTypeBuilder<Role> builder)
     {
-        builder.Property(c => c.Name)
+        builder.Property(x => x.Name)
             .IsRequired()
-            .HasMaxLength(NameMaxLength);
+            .HasMaxLength(NameMaxLength)
+            .HasColumnName("Name");
 
-        builder.Property(c => c.Description)
+        builder.Property(x => x.Description)
             .IsRequired()
-            .HasMaxLength(DescriptionMaxLength);
+            .HasMaxLength(DescriptionMaxLength)
+            .HasColumnName("Description");
 
         return builder;
     }

@@ -11,6 +11,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder
             .SetPrimaryKey()
             .SetForeignKeys()
+            .SetStronglyTypedIds()
             .SetValueObjects()
             .SetValidations();
     }
@@ -22,30 +23,35 @@ static class CadConfigUtils
     {
         builder.HasKey(x => x.Id);
 
-        builder.Property(r => r.Id)
-            .ValueGeneratedOnAdd()
-            .HasConversion(
-                x => x.Value,
-                v => new(v)
-            );
-
         return builder;
     }
 
     public static EntityTypeBuilder<Product> SetForeignKeys(this EntityTypeBuilder<Product> builder)
     {
         builder
-            .HasOne(c => c.Category).WithMany()
-            .HasForeignKey(c => c.CategoryId)
+            .HasOne(x => x.Category).WithMany()
+            .HasForeignKey(x => x.CategoryId)
             .OnDelete(DeleteBehavior.NoAction);
 
-        builder.Property(c => c.CreatorId)
+        return builder;
+    }
+
+    public static EntityTypeBuilder<Product> SetStronglyTypedIds(this EntityTypeBuilder<Product> builder)
+    {
+        builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
                 v => new(v)
             );
 
-        builder.Property(c => c.CategoryId)
+        builder.Property(x => x.CreatorId)
+            .HasConversion(
+                x => x.Value,
+                v => new(v)
+            );
+
+        builder.Property(x => x.CategoryId)
             .HasConversion(
                 x => x.Value,
                 v => new(v)
@@ -56,32 +62,68 @@ static class CadConfigUtils
 
     public static EntityTypeBuilder<Product> SetValueObjects(this EntityTypeBuilder<Product> builder)
     {
-        builder.ComplexProperty(p => p.Cad, c =>
+        builder.ComplexProperty(x => x.Cad, c =>
         {
-            c.Property(c => c.Path).IsRequired();
-            c.ComplexProperty(c => c.CamCoordinates);
-            c.ComplexProperty(c => c.PanCoordinates);
-        });
-
-        builder.ComplexProperty(p => p.Image, c =>
-        {
-            c.Property(c => c.Path).IsRequired();
-        });
-
-        builder.ComplexProperty(p => p.Price, c =>
-        {
-            c.Property(c => c.Amount)
+            c.Property(x => x.Path)
                 .IsRequired()
-                .HasPrecision(18, 2);
+                .HasColumnName("CadPath");
 
-            c.Property(c => c.Precision)
-                .IsRequired();
+            c.ComplexProperty(x => x.CamCoordinates, a =>
+            {
+                a.Property(x => x.X)
+                    .IsRequired()
+                    .HasColumnName("CamX");
 
-            c.Property(c => c.Currency)
-                .IsRequired();
+                a.Property(x => x.Y)
+                    .IsRequired()
+                    .HasColumnName("CamY");
 
-            c.Property(c => c.Symbol)
-                .IsRequired();
+                a.Property(x => x.Z)
+                    .IsRequired()
+                    .HasColumnName("CamZ");
+
+            });
+
+            c.ComplexProperty(x => x.PanCoordinates, a =>
+            {
+                a.Property(x => x.X)
+                    .IsRequired()
+                    .HasColumnName("PanX");
+
+                a.Property(x => x.Y)
+                    .IsRequired()
+                    .HasColumnName("PanY");
+
+                a.Property(x => x.Z)
+                    .IsRequired()
+                    .HasColumnName("PanZ");
+            });
+        });
+
+        builder.ComplexProperty(x => x.Image, c =>
+        {
+            c.Property(x => x.Path)
+                .IsRequired()
+                .HasColumnName("ImagePath");
+        });
+
+        builder.ComplexProperty(x => x.Price, c =>
+        {
+            c.Property(x => x.Amount)
+                .IsRequired()
+                .HasPrecision(18, 2).HasColumnName("PriceAmount");
+
+            c.Property(x => x.Precision)
+                .IsRequired()
+                .HasColumnName("PricePrecision");
+
+            c.Property(x => x.Currency)
+                .IsRequired()
+                .HasColumnName("PriceCurrency");
+
+            c.Property(x => x.Symbol)
+                .IsRequired()
+                .HasColumnName("PriceSymbol");
         });
 
         return builder;
@@ -89,29 +131,34 @@ static class CadConfigUtils
 
     public static EntityTypeBuilder<Product> SetValidations(this EntityTypeBuilder<Product> builder)
     {
-        builder.Property(c => c.Name)
+        builder.Property(x => x.Name)
             .IsRequired()
-            .HasMaxLength(NameMaxLength);
+            .HasMaxLength(NameMaxLength)
+            .HasColumnName("Name");
 
-        builder.Property(c => c.Description)
+        builder.Property(x => x.Description)
             .IsRequired()
-            .HasMaxLength(DescriptionMaxLength);
+            .HasMaxLength(DescriptionMaxLength)
+            .HasColumnName("Description");
 
-        builder.Property(c => c.Status)
+        builder.Property(x => x.Status)
             .IsRequired()
             .HasConversion(
                 e => e.ToString(),
                 s => Enum.Parse<ProductStatus>(s)
-            );
+            ).HasColumnName("Status");
 
-        builder.Property(c => c.UploadDate)
-            .IsRequired();
+        builder.Property(x => x.UploadDate)
+            .IsRequired()
+            .HasColumnName("UploadDate");
 
-        builder.Property(c => c.CategoryId)
-            .IsRequired();
+        builder.Property(x => x.CategoryId)
+            .IsRequired()
+            .HasColumnName("CategoryId");
 
-        builder.Property(c => c.CreatorId)
-            .IsRequired();
+        builder.Property(x => x.CreatorId)
+            .IsRequired()
+            .HasColumnName("CreatorId");
 
         return builder;
     }
