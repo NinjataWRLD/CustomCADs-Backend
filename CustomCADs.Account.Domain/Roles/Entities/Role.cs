@@ -1,7 +1,8 @@
-﻿using CustomCADs.Shared.Core.Domain;
+﻿using CustomCADs.Account.Domain.Roles.Validation;
+using CustomCADs.Shared.Core.Domain;
 using RoleDto = (int Id, string Name, string Description);
 
-namespace CustomCADs.Account.Domain.Roles;
+namespace CustomCADs.Account.Domain.Roles.Entities;
 
 public class Role : BaseAggregateRoot
 {

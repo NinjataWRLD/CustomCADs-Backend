@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Orders.Domain.GalleryOrders;
+﻿namespace CustomCADs.Orders.Domain.GalleryOrders.Validation;
 
 public static class GalleryOrderConstants
 {

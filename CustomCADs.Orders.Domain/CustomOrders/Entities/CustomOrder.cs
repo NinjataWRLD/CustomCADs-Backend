@@ -2,11 +2,12 @@
 using CustomCADs.Orders.Domain.Common.Enums;
 using CustomCADs.Orders.Domain.Common.Exceptions.CustomOrders;
 using CustomCADs.Orders.Domain.CustomOrders.Enums;
+using CustomCADs.Orders.Domain.CustomOrders.Validation;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
-namespace CustomCADs.Orders.Domain.CustomOrders;
+namespace CustomCADs.Orders.Domain.CustomOrders.Entities;
 
 public class CustomOrder : BaseAggregateRoot
 {
@@ -112,7 +113,7 @@ public class CustomOrder : BaseAggregateRoot
             throw CustomOrderStatusException.ById(Id, newStatus.ToString());
         }
 
-        OrderStatus = newStatus; 
+        OrderStatus = newStatus;
         return this;
     }
 

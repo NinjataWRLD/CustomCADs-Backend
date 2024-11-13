@@ -1,4 +1,5 @@
-﻿using CustomCADs.Orders.Domain.CustomOrders.Enums;
+﻿using CustomCADs.Orders.Domain.CustomOrders.Entities;
+using CustomCADs.Orders.Domain.CustomOrders.Enums;
 
 namespace CustomCADs.Orders.Domain.CustomOrders.Reads;
 

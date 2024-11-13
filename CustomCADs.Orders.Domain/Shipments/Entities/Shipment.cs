@@ -3,7 +3,7 @@ using CustomCADs.Orders.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
-namespace CustomCADs.Orders.Domain.Shipments;
+namespace CustomCADs.Orders.Domain.Shipments.Entities;
 
 public class Shipment : BaseEntity
 {

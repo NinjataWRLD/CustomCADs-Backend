@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Products.Enums;
+﻿using CustomCADs.Catalog.Domain.Products.Entities;
+using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Core.Domain.Enums;
 

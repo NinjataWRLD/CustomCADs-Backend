@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Catalog.Domain.Categories;
+﻿namespace CustomCADs.Catalog.Domain.Categories.Validation;
 
 public static class CategoryConstants
 {

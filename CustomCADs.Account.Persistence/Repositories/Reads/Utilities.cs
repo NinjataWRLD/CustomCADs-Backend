@@ -1,4 +1,5 @@
-﻿using CustomCADs.Account.Domain.Users.Enums;
+﻿using CustomCADs.Account.Domain.Users.Entities;
+using CustomCADs.Account.Domain.Users.Enums;
 using CustomCADs.Account.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;
 

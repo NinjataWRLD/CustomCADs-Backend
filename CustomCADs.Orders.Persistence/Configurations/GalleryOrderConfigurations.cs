@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.Common.Enums;
-using CustomCADs.Orders.Domain.GalleryOrders;
+using CustomCADs.Orders.Domain.GalleryOrders.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

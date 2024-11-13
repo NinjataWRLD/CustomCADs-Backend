@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Account.Domain.Common;
+using CustomCADs.Account.Domain.Users.Entities;
 using CustomCADs.Account.Domain.Users.Reads;
 
 namespace CustomCADs.Account.Application.Users.Commands.DeleteById;

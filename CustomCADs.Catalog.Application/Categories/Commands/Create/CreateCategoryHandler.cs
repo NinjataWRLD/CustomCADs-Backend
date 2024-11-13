@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.DomainEvents;
+using CustomCADs.Catalog.Domain.Categories.Entities;
 using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Shared.Application.Events;
 

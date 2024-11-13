@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Shipments;
+﻿using CustomCADs.Orders.Domain.Shipments.Entities;
 using CustomCADs.Orders.Domain.Shipments.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

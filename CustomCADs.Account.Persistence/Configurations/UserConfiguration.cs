@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using CustomCADs.Account.Domain.Users.Entities;
+using CustomCADs.Account.Domain.Users.Validation;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Account.Persistence.Configurations;
 

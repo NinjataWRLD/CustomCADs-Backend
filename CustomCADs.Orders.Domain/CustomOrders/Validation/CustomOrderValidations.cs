@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Orders.Domain.Common.Exceptions.CustomOrders;
+using CustomCADs.Orders.Domain.CustomOrders.Entities;
 
-namespace CustomCADs.Orders.Domain.CustomOrders;
+namespace CustomCADs.Orders.Domain.CustomOrders.Validation;
 
 using static CustomOrderConstants;
 

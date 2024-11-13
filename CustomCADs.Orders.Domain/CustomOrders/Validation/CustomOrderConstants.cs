@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Orders.Domain.CustomOrders;
+﻿namespace CustomCADs.Orders.Domain.CustomOrders.Validation;
 
 public static class CustomOrderConstants
 {

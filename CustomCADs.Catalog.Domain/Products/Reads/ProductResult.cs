@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Catalog.Domain.Products.Reads;
+﻿using CustomCADs.Catalog.Domain.Products.Entities;
+
+namespace CustomCADs.Catalog.Domain.Products.Reads;
 
 public class ProductResult
 {

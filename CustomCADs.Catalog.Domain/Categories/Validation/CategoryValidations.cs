@@ -1,6 +1,7 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions;
+﻿using CustomCADs.Catalog.Domain.Categories.Entities;
+using CustomCADs.Catalog.Domain.Common.Exceptions;
 
-namespace CustomCADs.Catalog.Domain.Categories;
+namespace CustomCADs.Catalog.Domain.Categories.Validation;
 
 using static CategoryConstants;
 

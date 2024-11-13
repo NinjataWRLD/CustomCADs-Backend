@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Domain.Roles;
+﻿using CustomCADs.Account.Domain.Roles.Validation;
 using FluentValidation;
 
 namespace CustomCADs.Account.Endpoints.Roles.PostRole;

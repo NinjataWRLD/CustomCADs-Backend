@@ -1,8 +1,9 @@
-﻿using CustomCADs.Shared.Core.Domain;
+﻿using CustomCADs.Orders.Domain.Cads.Validation;
+using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
-namespace CustomCADs.Orders.Domain.Cads;
+namespace CustomCADs.Orders.Domain.Cads.Entites;
 
 public class Cad : BaseEntity
 {
@@ -31,5 +32,7 @@ public class Cad : BaseEntity
         Coordinates camCoordinates,
         Coordinates panCoordinates,
         UserId clientId
-    ) => new(path, camCoordinates, panCoordinates, clientId);
+    ) => new Cad(path, camCoordinates, panCoordinates, clientId)
+        .ValidatePath()
+        .ValidateCoordinates();
 }

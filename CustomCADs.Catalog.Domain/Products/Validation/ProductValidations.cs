@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions;
+using CustomCADs.Catalog.Domain.Products.Entities;
 
-namespace CustomCADs.Catalog.Domain.Products;
+namespace CustomCADs.Catalog.Domain.Products.Validation;
 
 using static ProductConstants;
 

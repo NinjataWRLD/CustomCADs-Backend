@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Orders.Domain.GalleryOrders.Reads;
+﻿using CustomCADs.Orders.Domain.GalleryOrders.Entities;
+
+namespace CustomCADs.Orders.Domain.GalleryOrders.Reads;
 
 public interface IGalleryOrderReads
 {

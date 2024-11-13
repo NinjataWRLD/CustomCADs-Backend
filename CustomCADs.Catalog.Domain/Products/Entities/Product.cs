@@ -1,12 +1,13 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Products.Enums;
+using CustomCADs.Catalog.Domain.Products.Validation;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
-namespace CustomCADs.Catalog.Domain.Products;
+namespace CustomCADs.Catalog.Domain.Products.Entities;
 
 using static Constants.Cads.Coordinates;
 
@@ -74,7 +75,7 @@ public class Product : BaseAggregateRoot
         this.ValidatePriceAmount();
         return this;
     }
-    
+
     public Product SetCategoryId(CategoryId categoryId)
     {
         CategoryId = categoryId;
@@ -129,7 +130,7 @@ public class Product : BaseAggregateRoot
 
         return this;
     }
-    
+
     public Product SetValidatedStatus()
     {
         var newStatus = ProductStatus.Validated;

@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Orders.Domain.Cads.Reads;
+﻿using CustomCADs.Orders.Domain.Cads.Entites;
+
+namespace CustomCADs.Orders.Domain.Cads.Reads;
 
 public interface ICadReads
 {

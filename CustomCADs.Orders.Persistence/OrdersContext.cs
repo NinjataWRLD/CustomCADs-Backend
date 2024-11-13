@@ -1,8 +1,7 @@
-﻿using CustomCADs.Orders.Domain.Cads;
-using CustomCADs.Orders.Domain.CustomOrders;
-using CustomCADs.Orders.Domain.GalleryOrders;
+﻿using CustomCADs.Orders.Domain.Cads.Entites;
+using CustomCADs.Orders.Domain.CustomOrders.Entities;
 using CustomCADs.Orders.Domain.GalleryOrders.Entities;
-using CustomCADs.Orders.Domain.Shipments;
+using CustomCADs.Orders.Domain.Shipments.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Orders.Persistence;

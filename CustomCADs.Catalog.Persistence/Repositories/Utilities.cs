@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Products.ValueObjects;
+﻿using CustomCADs.Catalog.Domain.Products.Entities;
+using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 

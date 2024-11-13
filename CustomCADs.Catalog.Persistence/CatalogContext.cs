@@ -1,4 +1,7 @@
-﻿namespace CustomCADs.Catalog.Persistence;
+﻿using CustomCADs.Catalog.Domain.Categories.Entities;
+using CustomCADs.Catalog.Domain.Products.Entities;
+
+namespace CustomCADs.Catalog.Persistence;
 
 public class CatalogContext(DbContextOptions<CatalogContext> opts) : DbContext(opts)
 {

@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Products.Entities;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 

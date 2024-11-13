@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using CustomCADs.Catalog.Domain.Categories.Entities;
+using CustomCADs.Catalog.Domain.Categories.Validation;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Catalog.Persistence.Configurations;
 

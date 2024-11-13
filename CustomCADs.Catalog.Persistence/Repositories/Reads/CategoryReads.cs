@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Categories.Reads;
+﻿using CustomCADs.Catalog.Domain.Categories.Entities;
+using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Catalog.Persistence.Repositories.Reads;

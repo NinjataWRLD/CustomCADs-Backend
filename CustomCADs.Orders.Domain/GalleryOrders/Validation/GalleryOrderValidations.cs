@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Orders.Domain.Common.Exceptions.GalleryOrders;
 using CustomCADs.Orders.Domain.GalleryOrders.Entities;
 
-namespace CustomCADs.Orders.Domain.GalleryOrders;
+namespace CustomCADs.Orders.Domain.GalleryOrders.Validation;
 
 using static GalleryOrderConstants;
 

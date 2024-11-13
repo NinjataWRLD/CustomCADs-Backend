@@ -1,12 +1,12 @@
 ﻿using CustomCADs.Orders.Domain.Common.Enums;
 using CustomCADs.Orders.Domain.Common.Exceptions.GalleryOrders.Items;
-using CustomCADs.Orders.Domain.GalleryOrders.Entities;
+using CustomCADs.Orders.Domain.GalleryOrders.Validation;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Catalog;
 
-namespace CustomCADs.Orders.Domain.GalleryOrders;
+namespace CustomCADs.Orders.Domain.GalleryOrders.Entities;
 
 public class GalleryOrder : BaseAggregateRoot
 {

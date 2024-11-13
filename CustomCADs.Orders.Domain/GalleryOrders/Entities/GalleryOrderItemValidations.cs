@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.Common.Exceptions.GalleryOrders.Items;
+using CustomCADs.Orders.Domain.GalleryOrders.Validation;
 
 namespace CustomCADs.Orders.Domain.GalleryOrders.Entities;
 

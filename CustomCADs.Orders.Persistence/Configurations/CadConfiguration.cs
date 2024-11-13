@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Cads;
+﻿using CustomCADs.Orders.Domain.Cads.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

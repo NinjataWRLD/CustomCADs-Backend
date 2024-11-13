@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Orders.Domain.Common.Enums;
-using CustomCADs.Orders.Domain.CustomOrders;
+using CustomCADs.Orders.Domain.CustomOrders.Entities;
 using CustomCADs.Orders.Domain.CustomOrders.Enums;
+using CustomCADs.Orders.Domain.CustomOrders.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

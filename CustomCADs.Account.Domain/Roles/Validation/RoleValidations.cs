@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Account.Domain.Common.Exceptions;
+using CustomCADs.Account.Domain.Roles.Entities;
 
-namespace CustomCADs.Account.Domain.Roles;
+namespace CustomCADs.Account.Domain.Roles.Validation;
 
 using static RoleConstants;
 
