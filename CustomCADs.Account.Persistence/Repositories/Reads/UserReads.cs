@@ -14,12 +14,13 @@ public class UserReads(AccountContext context) : IUserReads
             .WithSearch(query.Username, query.Email, query.FirstName, query.LastName)
             .WithSorting(query.Sorting);
 
+        int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         User[] users = await queryable
             .WithPagination(query.Page, query.Limit)
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
 
-        return new(queryable.Count(), users);
+        return new(count, users);
     }
 
     public async Task<User?> SingleByIdAsync(UserId id, bool track = true, CancellationToken ct = default)

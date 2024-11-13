@@ -2,7 +2,7 @@
 
 public enum UserSortingType
 {
-    UploadDate,
+    CreationDate = 1,
     Username,
     Email,
     Role,

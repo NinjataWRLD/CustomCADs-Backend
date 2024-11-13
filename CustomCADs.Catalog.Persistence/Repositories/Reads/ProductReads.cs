@@ -21,11 +21,7 @@ public class ProductReads(CatalogContext context) : IProductReads
                 .ToArrayAsync(ct)
                 .ConfigureAwait(false);
 
-        return new()
-        {
-            Count = count,
-            Products = products,
-        };
+        return new(count, products);
     }
 
     public async Task<Product?> SingleByIdAsync(ProductId id, bool track = true, CancellationToken ct = default)

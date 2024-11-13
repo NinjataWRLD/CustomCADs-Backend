@@ -5,7 +5,7 @@ namespace CustomCADs.Account.Endpoints.Users.GetUsers;
 
 public record GetUsersRequest(
     string? Name = default,
-    UserSortingType SortingType = UserSortingType.UploadDate,
+    UserSortingType SortingType = UserSortingType.CreationDate,
     SortingDirection SortingDirection = SortingDirection.Descending,
     int Page = 1,
     int Limit = 50
