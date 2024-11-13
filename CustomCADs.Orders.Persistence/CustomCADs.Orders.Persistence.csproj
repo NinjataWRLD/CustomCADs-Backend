@@ -15,7 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CustomCADs.Cart.Domain\CustomCADs.Cart.Domain.csproj" />
+		<ProjectReference Include="..\CustomCADs.Orders.Domain\CustomCADs.Orders.Domain.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.Persistence\CustomCADs.Shared.Persistence.csproj" />
 	</ItemGroup>
 

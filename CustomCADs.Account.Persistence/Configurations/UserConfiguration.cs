@@ -21,12 +21,13 @@ static class UserConfigUtils
     public static EntityTypeBuilder<User> SetPrimaryKey(this EntityTypeBuilder<User> builder)
     {
         builder.HasKey(u => u.Id);
+
         builder.Property(r => r.Id)
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
                 v => new(v)
-            ); ;
+            );
 
         return builder;
     }
