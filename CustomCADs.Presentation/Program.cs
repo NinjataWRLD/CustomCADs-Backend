@@ -21,6 +21,7 @@ builder.Services.AddUseCases();
 builder.Services.AddAccount(builder.Configuration);
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddCatalog(builder.Configuration);
+builder.Services.AddOrdersPersistence(builder.Configuration);
 
 // Add API
 builder.Services.AddEndpoints();

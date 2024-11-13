@@ -29,7 +29,8 @@ static class CadConfigUtils
     public static EntityTypeBuilder<Product> SetForeignKeys(this EntityTypeBuilder<Product> builder)
     {
         builder
-            .HasOne(x => x.Category).WithMany()
+            .HasOne<Category>()
+            .WithMany()
             .HasForeignKey(x => x.CategoryId)
             .OnDelete(DeleteBehavior.NoAction);
 

@@ -10,7 +10,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder
             .SetPrimaryKey()
-            .SetForeignKeys()
             .SetStronglyTypedIds()
             .SetValueObjects()
             .SetValidations();
@@ -22,17 +21,6 @@ static class UserConfigUtils
     public static EntityTypeBuilder<User> SetPrimaryKey(this EntityTypeBuilder<User> builder)
     {
         builder.HasKey(x => x.Id);
-
-        return builder;
-    }
-
-    public static EntityTypeBuilder<User> SetForeignKeys(this EntityTypeBuilder<User> builder)
-    {
-        builder
-            .HasOne(x => x.Role)
-            .WithMany(x => x.Users)
-            .HasForeignKey(x => x.RoleName)
-            .OnDelete(DeleteBehavior.Restrict);
 
         return builder;
     }

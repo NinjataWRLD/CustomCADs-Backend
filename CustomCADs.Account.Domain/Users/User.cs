@@ -20,7 +20,6 @@ public class User : BaseAggregateRoot
     public string Email { get; set; } = string.Empty;
     public Names Names { get; set; } = Names.Create();
     public string RoleName { get; set; } = string.Empty;
-    public Role Role { get; set; } = null!;
 
     public static User Create(
         string role,

@@ -4,7 +4,6 @@ public enum ProductSortingType
 {
     UploadDate = 1,
     Alphabetical,
-    Category,
     Status,
     CostAmount,
     CostCurrency,

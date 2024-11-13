@@ -20,12 +20,8 @@ public static class Utilities
         return query;
     }
 
-    public static IQueryable<Product> WithSearch(this IQueryable<Product> query, string? category = null, string? name = null)
+    public static IQueryable<Product> WithSearch(this IQueryable<Product> query, string? name = null)
     {
-        if (!string.IsNullOrWhiteSpace(category))
-        {
-            query = query.Where(c => c.Category.Name == category);
-        }
         if (!string.IsNullOrWhiteSpace(name))
         {
             query = query.Where(c => c.Name.Contains(name));
@@ -43,8 +39,6 @@ public static class Utilities
             { Type: ProductSortingType.UploadDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.UploadDate),
             { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.Name),
             { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Name),
-            { Type: ProductSortingType.Category, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Category.Name),
-            { Type: ProductSortingType.Category, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Category.Name),
             { Type: ProductSortingType.Status, Direction: SortingDirection.Ascending } => query.OrderBy(m => (int)m.Status),
             { Type: ProductSortingType.Status, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.Status),
             { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Price.Amount),

@@ -16,7 +16,6 @@ public class Role : BaseAggregateRoot
     public RoleId Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public ICollection<User> Users { get; set; } = [];
 
     public static Role Create(string name, string description)
         => new Role(name, description)

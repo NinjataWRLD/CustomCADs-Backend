@@ -38,7 +38,6 @@ public class Product : BaseAggregateRoot
     public Cad Cad { get; set; } = new();
     public UserId CreatorId { get; set; }
     public CategoryId CategoryId { get; set; }
-    public Category Category { get; set; } = null!;
 
     public static Product Create(
         string name,

@@ -32,10 +32,11 @@ static class RoleConfigUtils
     public static EntityTypeBuilder<Role> SetForeignKeys(this EntityTypeBuilder<Role> builder)
     {
         builder
-            .HasMany(x => x.Users)
-            .WithOne(x => x.Role)
+            .HasMany<User>()
+            .WithOne()
             .HasPrincipalKey(x => x.Name)
-            .OnDelete(DeleteBehavior.NoAction);
+            .HasForeignKey(x => x.RoleName)
+            .OnDelete(DeleteBehavior.Restrict);
 
         return builder;
     }

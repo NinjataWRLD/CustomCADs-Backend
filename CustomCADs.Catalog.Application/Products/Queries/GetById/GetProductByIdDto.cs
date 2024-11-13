@@ -17,7 +17,7 @@ public record GetProductByIdDto(
     CategoryReadDto Category
 )
 {
-    public GetProductByIdDto(Product product, string username) : this(
+    public GetProductByIdDto(Product product, string username, string categoryName) : this(
         Id: product.Id,
         Name: product.Name,
         Description: product.Description,
@@ -26,7 +26,7 @@ public record GetProductByIdDto(
         Status: product.Status.ToString(),
         Image: product.Image,
         Cad: product.Cad,
-        Category: new(product.Category.Id, product.Category.Name),
+        Category: new(product.CategoryId, categoryName),
         CreatorName: username
     )
     { }

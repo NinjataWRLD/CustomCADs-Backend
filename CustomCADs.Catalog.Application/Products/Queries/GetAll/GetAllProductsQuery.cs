@@ -6,7 +6,6 @@ namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 public record GetAllProductsQuery(
     UserId? CreatorId = null,
     string? Status = null,
-    string? Category = null,
     string? Name = null,
     ProductSorting? Sorting = null,
     int Page = 1,

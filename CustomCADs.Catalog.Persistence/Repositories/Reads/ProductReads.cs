@@ -10,9 +10,8 @@ public class ProductReads(CatalogContext context) : IProductReads
     {
         IQueryable<Product> queryable = context.Products
                 .WithTracking(track)
-                .Include(p => p.Category)
                 .WithFilter(query.CreatorId, query.Status)
-                .WithSearch(query.Category, query.Name)
+                .WithSearch(query.Name)
                 .WithSorting(query.Sorting ?? new());
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
@@ -31,7 +30,6 @@ public class ProductReads(CatalogContext context) : IProductReads
     public async Task<Product?> SingleByIdAsync(ProductId id, bool track = true, CancellationToken ct = default)
         => await context.Products
             .WithTracking(track)
-            .Include(p => p.Category)
             .FirstOrDefaultAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
