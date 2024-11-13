@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
 namespace CustomCADs.Orders.Domain.Cads.Entites;
 
-public class Cad : BaseEntity
+public class Cad : BaseAggregateRoot
 {
     private Cad() { }
     private Cad(

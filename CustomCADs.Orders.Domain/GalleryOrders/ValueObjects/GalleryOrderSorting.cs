@@ -4,6 +4,6 @@ using CustomCADs.Shared.Core.Domain.Enums;
 namespace CustomCADs.Orders.Domain.GalleryOrders.ValueObjects;
 
 public record GalleryOrderSorting(
-    GalleryOrderSortingType Type = GalleryOrderSortingType.OrderDate,
+    GalleryOrderSortingType Type = GalleryOrderSortingType.PurchaseDate,
     SortingDirection Direction = SortingDirection.Descending
 );

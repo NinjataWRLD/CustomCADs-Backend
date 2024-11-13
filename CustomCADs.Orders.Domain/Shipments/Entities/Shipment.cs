@@ -5,18 +5,18 @@ using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
 namespace CustomCADs.Orders.Domain.Shipments.Entities;
 
-public class Shipment : BaseEntity
+public class Shipment : BaseAggregateRoot
 {
     private Shipment() { }
     private Shipment(Address address, UserId clientId)
     {
-        Status = ShipmentStatus.Pending;
+        ShipmentStatus = ShipmentStatus.Pending;
         Address = address;
         ClientId = clientId;
     }
 
     public ShipmentId Id { get; set; }
-    public ShipmentStatus Status { get; set; }
+    public ShipmentStatus ShipmentStatus { get; set; }
     public Address Address { get; set; } = new();
     public UserId ClientId { get; set; }
 
