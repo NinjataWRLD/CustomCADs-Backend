@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy;
+﻿namespace CustomCADs.Shared.Speedy.ShipmentService.Dtos;
 
 public record Error(
     string Message,

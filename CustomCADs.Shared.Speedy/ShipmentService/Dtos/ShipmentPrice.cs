@@ -1,16 +1,16 @@
-﻿namespace CustomCADs.Shared.Speedy.ShipmentService.CreateShipment.Response.ShipmentPrice;
+﻿namespace CustomCADs.Shared.Speedy.ShipmentService.Dtos;
 
-public record Price(
+public record ShipmentPrice(
     double Amount,
     double Vat,
     double Total,
     string Currency,
-    Dictionary<string, PriceAmount> Details,
+    Dictionary<string, ShipmentPriceAmount> Details,
     double AmountLocal,
     double VatLocal,
     double TotalLocal,
     string CurrencyLocal,
-    Dictionary<string, PriceAmount> DetailsLocal,
+    Dictionary<string, ShipmentPriceAmount> DetailsLocal,
     int CurrencyExchangeRateUnit,
     double CurrencyExchangeRate,
     ReturnAmounts ReturnAmounts

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.ShipmentService.CreateShipment.Response.CreatedShipmentParcel;
+﻿namespace CustomCADs.Shared.Speedy.ShipmentService.Dtos;
 
 public record CreatedParcel(
     int SeqNo,

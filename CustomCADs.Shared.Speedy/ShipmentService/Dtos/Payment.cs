@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.ShipmentService.CreateShipment.Request.ShipmentPayment;
+﻿namespace CustomCADs.Shared.Speedy.ShipmentService.Dtos;
 
 public record Payment(
     Payer CourierServicePayer,

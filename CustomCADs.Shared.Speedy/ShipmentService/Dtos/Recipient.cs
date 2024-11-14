@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.ShipmentService.CreateShipment.Request.ShipmentRecipient;
+﻿namespace CustomCADs.Shared.Speedy.ShipmentService.Dtos;
 
 public record Recipient(
     PhoneNumber Phone1,
