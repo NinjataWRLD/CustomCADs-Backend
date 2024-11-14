@@ -1,8 +1,10 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Queries;
 using CustomCADs.Catalog.Application.Categories.Queries.GetById;
+using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products.Entities;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Queries.Cads;
 using CustomCADs.Shared.Queries.Users.GetUsernameById;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
@@ -21,7 +23,20 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
         GetCategoryByIdQuery categoryQuery = new(product.CategoryId);
         CategoryReadDto category = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
 
-        GetProductByIdDto response = new(product, username, category.Name);
+        if (product.CadId is null)
+        {
+            throw ProductCadException.Null(product.Id);
+        }
+        GetCadByIdQuery cadQuery = new(product.CadId.Value);
+
+        var cadDto = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
+        CadDto cad = new(
+            cadDto.Path, 
+            cadDto.CamCoordinates.ToValueObject(), 
+            cadDto.PanCoordinates.ToValueObject()
+        );
+
+        GetProductByIdDto response = new(product, cad, username, category.Name);
         return response;
     }
 }

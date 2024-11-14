@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions;
+﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products.Entities;
 
 namespace CustomCADs.Catalog.Domain.Products.Validation;

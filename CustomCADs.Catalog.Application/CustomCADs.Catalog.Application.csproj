@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Catalog.Domain\CustomCADs.Catalog.Domain.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.IntegrationEvents\CustomCADs.Shared.IntegrationEvents.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.Queries\CustomCADs.Shared.Queries.csproj" />
 	</ItemGroup>
 

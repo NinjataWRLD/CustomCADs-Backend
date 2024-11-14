@@ -6,6 +6,7 @@ using CustomCADs.Orders.Domain.CustomOrders.Validation;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 
 namespace CustomCADs.Orders.Domain.CustomOrders.Entities;
 
@@ -31,6 +32,8 @@ public class CustomOrder : BaseAggregateRoot
     public Image Image { get; private set; } = new();
     public UserId BuyerId { get; private set; }
     public UserId? DesignerId { get; private set; }
+    public CadId? CadId { get; private set; }
+    public ShipmentId? ShipmentId { get; private set; }
 
     public static CustomOrder CreateDigital(string name, string description, UserId buyerId)
         => new CustomOrder(name, description, DeliveryType.Digital, buyerId)
@@ -75,6 +78,28 @@ public class CustomOrder : BaseAggregateRoot
     public CustomOrder SetDesignerId(UserId designerId)
     {
         DesignerId = designerId;
+        return this;
+    }
+    
+    public CustomOrder SetCadId(CadId cadId)
+    {
+        if (DeliveryType is DeliveryType.Digital or DeliveryType.Both)
+        {
+            CadId = cadId;
+        }
+        else throw CustomOrderValidationException.CadIdOnNonDigitalDeliveryType();
+
+        return this;
+    }
+    
+    public CustomOrder SetShipmentId(ShipmentId shipmentId)
+    {
+        if (DeliveryType is DeliveryType.Physical or DeliveryType.Both)
+        {
+            ShipmentId = shipmentId;
+        }
+        else throw CustomOrderValidationException.ShipmentIdOnNonPhysicalDeliveryType();
+
         return this;
     }
 

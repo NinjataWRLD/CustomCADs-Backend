@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.Entities;
-using CustomCADs.Catalog.Domain.Common.Exceptions;
+using CustomCADs.Catalog.Domain.Common.Exceptions.Categories;
 
 namespace CustomCADs.Catalog.Domain.Categories.Validation;
 

@@ -28,12 +28,12 @@ public class PatchProductEndpoint(IRequestSender sender)
         }
 
         bool IsType(string type) => req.Type.Equals(type, StringComparison.OrdinalIgnoreCase);
-        SetProductCoordsCommand command;
+        SetProductCoordsCommand command = new(req.Id, User.GetAccountId());
 
         if (IsType("camera"))
-            command = new(req.Id, req.Coordinates.ToValueObject(), null);
+            command = command with { CamCoordinates = req.Coordinates.ToValueObject() };
         else if (IsType("pan"))
-            command = new(req.Id, null, req.Coordinates.ToValueObject());
+            command = command with { PanCoordinates = req.Coordinates.ToValueObject() };
         else
         {
             ValidationFailures.Add(new("Type", InvalidCoordValue, req.Type));

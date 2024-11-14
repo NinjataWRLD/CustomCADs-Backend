@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions;
 
-namespace CustomCADs.Catalog.Domain.Common.Exceptions;
+namespace CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 
 public class ProductStatusException : BaseException
 {

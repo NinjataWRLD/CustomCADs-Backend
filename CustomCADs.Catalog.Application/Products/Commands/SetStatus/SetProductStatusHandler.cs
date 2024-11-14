@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products.Entities;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;

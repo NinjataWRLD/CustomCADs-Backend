@@ -4,5 +4,4 @@ public enum GalleryOrderSortingType
 {
     PurchaseDate = 1,
     Total,
-    DeliveryType,
 }

@@ -13,9 +13,8 @@ public class GalleryOrder : BaseAggregateRoot
     private readonly List<GalleryOrderItem> items = [];
 
     private GalleryOrder() { }
-    private GalleryOrder(DeliveryType deliveryType, UserId buyerId) : this()
+    private GalleryOrder(UserId buyerId) : this()
     {
-        DeliveryType = deliveryType;
         BuyerId = buyerId;
         PurchaseDate = DateTime.UtcNow;
         Total = Items.Sum(i => i.Price.Amount);
@@ -29,20 +28,20 @@ public class GalleryOrder : BaseAggregateRoot
     public IReadOnlyCollection<GalleryOrderItem> Items => items.AsReadOnly();
 
     public static GalleryOrder CreateDigital(UserId buyerId)
-        => new GalleryOrder(DeliveryType.Digital, buyerId)
+        => new GalleryOrder(buyerId)
             .ValidateItems();
 
     public static GalleryOrder CreatePhysical(UserId buyerId)
-        => new GalleryOrder(DeliveryType.Physical, buyerId)
+        => new GalleryOrder(buyerId)
             .ValidateItems();
 
     public static GalleryOrder CreateDigitalAndPhysical(UserId buyerId)
-        => new GalleryOrder(DeliveryType.Both, buyerId)
+        => new GalleryOrder(buyerId)
             .ValidateItems();
 
-    public GalleryOrder AddItem(Money price, int quantity, ProductId productId)
+    public GalleryOrder AddItem(DeliveryType type, Money price, int quantity, ProductId productId)
     {
-        items.Add(GalleryOrderItem.Create(price, quantity, productId, Id));
+        items.Add(GalleryOrderItem.Create(type, price, quantity, productId, Id));
         return this;
     }
 

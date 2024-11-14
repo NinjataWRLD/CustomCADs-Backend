@@ -9,12 +9,8 @@ namespace CustomCADs.Orders.Persistence.GalleryOrders.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<GalleryOrder> WithFilter(this IQueryable<GalleryOrder> query, string? type = null, UserId? buyerId = null)
+    public static IQueryable<GalleryOrder> WithFilter(this IQueryable<GalleryOrder> query, UserId? buyerId = null)
     {
-        if (type is not null && Enum.TryParse(type, ignoreCase: true, out DeliveryType deliveryType))
-        {
-            query = query.Where(c => c.DeliveryType == deliveryType);
-        }
         if (buyerId is not null)
         {
             query = query.Where(c => c.BuyerId == buyerId);
@@ -31,8 +27,6 @@ public static class Utilities
             { Type: GalleryOrderSortingType.PurchaseDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.PurchaseDate),
             { Type: GalleryOrderSortingType.Total, Direction: SortingDirection.Ascending } => query.OrderByDescending(c => c.Total),
             { Type: GalleryOrderSortingType.Total, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Total),
-            { Type: GalleryOrderSortingType.DeliveryType, Direction: SortingDirection.Ascending } => query.OrderBy(m => (int)m.DeliveryType),
-            { Type: GalleryOrderSortingType.DeliveryType, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.DeliveryType),
             _ => query,
         };
     }

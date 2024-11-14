@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions;
+﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Categories;
+using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Catalog.Endpoints.Helpers;

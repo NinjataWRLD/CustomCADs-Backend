@@ -1,11 +1,11 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions;
+﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Validation;
-using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 
 namespace CustomCADs.Catalog.Domain.Products.Entities;
 
@@ -39,9 +39,9 @@ public class Product : BaseAggregateRoot
     public DateTime UploadDate { get; }
     public Money Price { get; private set; } = new();
     public Image Image { get; private set; } = new();
-    public Cad Cad { get; private set; } = new();
     public UserId CreatorId { get; private set; }
     public CategoryId CategoryId { get; private set; }
+    public CadId? CadId { get; private set; }
 
     public static Product Create(
         string name,
@@ -82,38 +82,12 @@ public class Product : BaseAggregateRoot
         return this;
     }
 
-    public Product SetPaths(string? imagePath, string? cadPath)
+    public Product SetImagePath(string? imagePath)
     {
-        if (!string.IsNullOrEmpty(cadPath))
-        {
-            Cad = Cad with { Path = cadPath };
-        }
-
         if (!string.IsNullOrEmpty(imagePath))
         {
             Image = Image with { Path = imagePath };
         }
-
-        return this;
-    }
-
-    public Product SetCoords(Coordinates camCoords, Coordinates panCoords)
-    {
-        if (!AreCoordsValid(camCoords.X, camCoords.X, camCoords.Z))
-        {
-            throw ProductValidationException.Range("CamCoordinates", CoordMin, CoordMax);
-        }
-
-        if (!AreCoordsValid(panCoords.X, panCoords.Y, panCoords.Z))
-        {
-            throw ProductValidationException.Range("PanCoordinates", CoordMin, CoordMax);
-        }
-
-        Cad = Cad with
-        {
-            CamCoordinates = camCoords,
-            PanCoordinates = panCoords,
-        };
 
         return this;
     }

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions;
+﻿using CustomCADs.Orders.Domain.Common.Exceptions.GalleryOrders.Items;
+using CustomCADs.Shared.Core.Common.Exceptions;
 
 namespace CustomCADs.Orders.Domain.Common.Exceptions.CustomOrders;
 
@@ -14,6 +15,12 @@ public class CustomOrderValidationException : BaseException
 
     public static CustomOrderValidationException Length(string property, int max, int min, Exception? inner = default)
         => new($"An Order's {property} must be shorter than {min} and longer than {max} characters.", inner);
+
+    public static CustomOrderValidationException CadIdOnNonDigitalDeliveryType(Exception? inner = default)
+        => new("Cannot set a CadId for a Custom Order with a DeliveryType that doesn't include a Digital Delivery.", inner);
+
+    public static CustomOrderValidationException ShipmentIdOnNonPhysicalDeliveryType(Exception? inner = default)
+        => new("Cannot set a ShipmentId for a Custom Order with a DeliveryType that doesn't include a Physical Delivery.", inner);
 
     public static CustomOrderValidationException Custom(string message, Exception? inner = default)
         => new(message, inner);

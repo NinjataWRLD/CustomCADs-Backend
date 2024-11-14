@@ -15,7 +15,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .SetPrimaryKey()
             .SetForeignKeys()
             .SetStronglyTypedIds()
-            .SetValueObjects()
             .SetValidations();
     }
 }
@@ -60,75 +59,6 @@ static class CadConfigUtils
                 x => x.Value,
                 v => new(v)
             );
-
-        return builder;
-    }
-
-    public static EntityTypeBuilder<Product> SetValueObjects(this EntityTypeBuilder<Product> builder)
-    {
-        builder.ComplexProperty(x => x.Cad, c =>
-        {
-            c.Property(x => x.Path)
-                .IsRequired()
-                .HasColumnName("CadPath");
-
-            c.ComplexProperty(x => x.CamCoordinates, a =>
-            {
-                a.Property(x => x.X)
-                    .IsRequired()
-                    .HasColumnName("CamX");
-
-                a.Property(x => x.Y)
-                    .IsRequired()
-                    .HasColumnName("CamY");
-
-                a.Property(x => x.Z)
-                    .IsRequired()
-                    .HasColumnName("CamZ");
-
-            });
-
-            c.ComplexProperty(x => x.PanCoordinates, a =>
-            {
-                a.Property(x => x.X)
-                    .IsRequired()
-                    .HasColumnName("PanX");
-
-                a.Property(x => x.Y)
-                    .IsRequired()
-                    .HasColumnName("PanY");
-
-                a.Property(x => x.Z)
-                    .IsRequired()
-                    .HasColumnName("PanZ");
-            });
-        });
-
-        builder.ComplexProperty(x => x.Image, c =>
-        {
-            c.Property(x => x.Path)
-                .IsRequired()
-                .HasColumnName("ImagePath");
-        });
-
-        builder.ComplexProperty(x => x.Price, c =>
-        {
-            c.Property(x => x.Amount)
-                .IsRequired()
-                .HasPrecision(18, 2).HasColumnName("PriceAmount");
-
-            c.Property(x => x.Precision)
-                .IsRequired()
-                .HasColumnName("PricePrecision");
-
-            c.Property(x => x.Currency)
-                .IsRequired()
-                .HasColumnName("PriceCurrency");
-
-            c.Property(x => x.Symbol)
-                .IsRequired()
-                .HasColumnName("PriceSymbol");
-        });
 
         return builder;
     }

@@ -12,7 +12,7 @@ public class GalleryOrderReads(OrdersContext context) : IGalleryOrderReads
     {
         IQueryable<GalleryOrder> queryable = context.GalleryOrders
             .WithTracking(track)
-            .WithFilter(query.DeliveryType, query.BuyerId);
+            .WithFilter(query.BuyerId);
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         GalleryOrder[] orders = await queryable
