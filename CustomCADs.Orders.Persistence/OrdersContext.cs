@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Cads.Entites;
-using CustomCADs.Orders.Domain.CustomOrders.Entities;
+﻿using CustomCADs.Orders.Domain.CustomOrders.Entities;
 using CustomCADs.Orders.Domain.GalleryOrders.Entities;
 using CustomCADs.Orders.Domain.Shipments.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +11,6 @@ public class OrdersContext(DbContextOptions<OrdersContext> opts) : DbContext(opt
     public DbSet<GalleryOrder> GalleryOrders { get; set; }
     public DbSet<GalleryOrderItem> GalleryOrderItems { get; set; }
     public DbSet<Shipment> Shipments { get; set; }
-    public DbSet<Cad> Cads { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

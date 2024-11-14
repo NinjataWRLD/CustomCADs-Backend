@@ -1,9 +1,9 @@
-﻿using CustomCADs.Orders.Domain.Cads.Entites;
-using CustomCADs.Orders.Domain.Common.Exceptions.Cads;
+﻿using CustomCADs.Cads.Domain.Cads.Entites;
+using CustomCADs.Cads.Domain.Common.Exceptions.Cads;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 
-namespace CustomCADs.Orders.Domain.Cads.Validation;
+namespace CustomCADs.Cads.Domain.Cads.Validation;
 
 using static Constants.Cads.Coordinates;
 

@@ -1,7 +1,7 @@
-﻿using CustomCADs.Orders.Domain.Cads.ValueObjects;
+﻿using CustomCADs.Cads.Domain.Cads.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
-namespace CustomCADs.Orders.Domain.Cads.Reads;
+namespace CustomCADs.Cads.Domain.Cads.Reads;
 
 public record CadQuery(
     UserId? ClientId = null,

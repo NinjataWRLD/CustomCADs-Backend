@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 
-namespace CustomCADs.Orders.Domain.Common.Exceptions.Cads;
+namespace CustomCADs.Cads.Domain.Common.Exceptions.Cads;
 
 public class CadNotFoundException : BaseException
 {

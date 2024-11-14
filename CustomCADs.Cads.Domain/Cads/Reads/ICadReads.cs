@@ -1,6 +1,7 @@
-﻿using CustomCADs.Orders.Domain.Cads.Entites;
+﻿using CustomCADs.Cads.Domain.Cads.Entites;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 
-namespace CustomCADs.Orders.Domain.Cads.Reads;
+namespace CustomCADs.Cads.Domain.Cads.Reads;
 
 public interface ICadReads
 {

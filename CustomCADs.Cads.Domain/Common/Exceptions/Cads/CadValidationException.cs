@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions;
 
-namespace CustomCADs.Orders.Domain.Common.Exceptions.Cads;
+namespace CustomCADs.Cads.Domain.Common.Exceptions.Cads;
 
 public class CadValidationException : BaseException
 {
@@ -8,10 +8,10 @@ public class CadValidationException : BaseException
 
     public static CadValidationException General(Exception? inner = default)
         => new("There was a validation error while working with a Cad.", inner);
-    
+
     public static CadValidationException NotNull(string property, Exception? inner = default)
         => new($"A Cad's {property} must not be null.", inner);
-    
+
     public static CadValidationException Range(string property, int max, int min, Exception? inner = default)
         => new($"A Cad's {property} must be less than {max} and more than {min}.", inner);
 

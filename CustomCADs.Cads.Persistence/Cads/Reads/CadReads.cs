@@ -1,12 +1,12 @@
-﻿using CustomCADs.Orders.Domain.Cads.Entites;
-using CustomCADs.Orders.Domain.Cads.Reads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
+﻿using CustomCADs.Cads.Domain.Cads.Entites;
+using CustomCADs.Cads.Domain.Cads.Reads;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Orders.Persistence.Cads.Reads;
+namespace CustomCADs.Cads.Persistence.Cads.Reads;
 
-public class CadReads(OrdersContext context) : ICadReads
+public class CadReads(CadsContext context) : ICadReads
 {
     public async Task<CadResult> AllAsync(CadQuery query, bool track = true, CancellationToken ct = default)
     {

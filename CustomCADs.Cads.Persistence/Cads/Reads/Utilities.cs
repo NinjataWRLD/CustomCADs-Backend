@@ -1,10 +1,10 @@
-﻿using CustomCADs.Orders.Domain.Cads.Entites;
-using CustomCADs.Orders.Domain.Cads.Enums;
-using CustomCADs.Orders.Domain.Cads.ValueObjects;
+﻿using CustomCADs.Cads.Domain.Cads.Entites;
+using CustomCADs.Cads.Domain.Cads.Enums;
+using CustomCADs.Cads.Domain.Cads.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
-namespace CustomCADs.Orders.Persistence.Cads.Reads;
+namespace CustomCADs.Cads.Persistence.Cads.Reads;
 
 public static class Utilities
 {

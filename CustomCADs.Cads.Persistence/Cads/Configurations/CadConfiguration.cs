@@ -1,8 +1,8 @@
-﻿using CustomCADs.Orders.Domain.Cads.Entites;
+﻿using CustomCADs.Cads.Domain.Cads.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CustomCADs.Orders.Persistence.Cads.Configurations;
+namespace CustomCADs.Cads.Persistence.Cads.Configurations;
 
 public class CadConfiguration : IEntityTypeConfiguration<Cad>
 {

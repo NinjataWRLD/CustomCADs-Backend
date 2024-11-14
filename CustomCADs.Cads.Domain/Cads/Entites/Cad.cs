@@ -1,9 +1,10 @@
-﻿using CustomCADs.Orders.Domain.Cads.Validation;
+﻿using CustomCADs.Cads.Domain.Cads.Validation;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 
-namespace CustomCADs.Orders.Domain.Cads.Entites;
+namespace CustomCADs.Cads.Domain.Cads.Entites;
 
 public class Cad : BaseAggregateRoot
 {

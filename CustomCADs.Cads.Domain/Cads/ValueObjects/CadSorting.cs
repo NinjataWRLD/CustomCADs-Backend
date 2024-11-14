@@ -1,7 +1,7 @@
-﻿using CustomCADs.Orders.Domain.Cads.Enums;
+﻿using CustomCADs.Cads.Domain.Cads.Enums;
 using CustomCADs.Shared.Core.Domain.Enums;
 
-namespace CustomCADs.Orders.Domain.Cads.ValueObjects;
+namespace CustomCADs.Cads.Domain.Cads.ValueObjects;
 
 public record CadSorting(
     CadSortingType Type = CadSortingType.CreationDate,

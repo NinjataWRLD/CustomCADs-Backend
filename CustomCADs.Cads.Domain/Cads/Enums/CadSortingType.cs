@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Orders.Domain.Cads.Enums;
+﻿namespace CustomCADs.Cads.Domain.Cads.Enums;
 
 public enum CadSortingType
 {

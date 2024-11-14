@@ -1,12 +1,8 @@
-﻿using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Orders.Domain.CustomOrders.Reads;
-using CustomCADs.Orders.Domain.GalleryOrders.Reads;
-using CustomCADs.Orders.Domain.Shipments.Reads;
-using CustomCADs.Orders.Persistence;
-using CustomCADs.Orders.Persistence.Common;
-using CustomCADs.Orders.Persistence.CustomOrders.Reads;
-using CustomCADs.Orders.Persistence.GalleryOrders.Reads;
-using CustomCADs.Orders.Persistence.Shipments.Reads;
+﻿using CustomCADs.Cads.Domain.Cads.Reads;
+using CustomCADs.Cads.Domain.Common;
+using CustomCADs.Cads.Persistence;
+using CustomCADs.Cads.Persistence.Cads.Reads;
+using CustomCADs.Cads.Persistence.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -26,16 +22,14 @@ public static class DependencyInjection
     {
         string connectionString = config.GetConnectionString("OrdersConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'OrdersConnection'.");
-        services.AddDbContext<OrdersContext>(opt => opt.UseSqlServer(connectionString));
+        services.AddDbContext<CadsContext>(opt => opt.UseSqlServer(connectionString));
 
         return services;
     }
 
     public static IServiceCollection AddReads(this IServiceCollection services)
     {
-        services.AddScoped<ICustomOrderReads, CustomOrderReads>();
-        services.AddScoped<IGalleryOrderReads, GalleryOrderReads>();
-        services.AddScoped<IShipmentReads, ShipmentReads>();
+        services.AddScoped<ICadReads, CadReads>();
 
         return services;
     }
