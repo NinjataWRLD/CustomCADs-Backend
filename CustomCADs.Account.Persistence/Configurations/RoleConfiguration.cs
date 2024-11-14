@@ -24,13 +24,12 @@ static class RoleConfigUtils
     public static EntityTypeBuilder<Role> SetPrimaryKey(this EntityTypeBuilder<Role> builder)
     {
         builder.HasKey(r => r.Id);
-
         builder.Property(r => r.Id)
+            .ValueGeneratedOnAdd()
             .HasConversion(
                 i => i.Value,
                 v => new(v)
-            )
-            .UseIdentityColumn();
+            );
 
         return builder;
     }

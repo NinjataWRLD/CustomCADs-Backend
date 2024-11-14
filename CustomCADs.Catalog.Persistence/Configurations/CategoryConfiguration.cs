@@ -20,14 +20,11 @@ static class CategoryConfigUtils
     public static EntityTypeBuilder<Category> SetPrimaryKey(this EntityTypeBuilder<Category> builder)
     {
         builder.HasKey(x => x.Id);
-
-
         builder.Property(x => x.Id)
             .HasConversion(
                 x => x.Value,
                 v => new(v)
-            )
-            .UseIdentityColumn();
+            );
 
         return builder;
     }

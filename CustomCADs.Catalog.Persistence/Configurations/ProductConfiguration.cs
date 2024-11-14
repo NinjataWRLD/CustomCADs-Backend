@@ -21,9 +21,7 @@ static class CadConfigUtils
     public static EntityTypeBuilder<Product> SetPrimaryKey(this EntityTypeBuilder<Product> builder)
     {
         builder.HasKey(x => x.Id);
-
-        builder.Property(r => r.Id)
-            .ValueGeneratedOnAdd()
+        builder.Property(x => x.Id)
             .HasConversion(
                 x => x.Value,
                 v => new(v)
@@ -38,18 +36,6 @@ static class CadConfigUtils
             .HasOne(c => c.Category).WithMany()
             .HasForeignKey(c => c.CategoryId)
             .OnDelete(DeleteBehavior.NoAction);
-
-        builder.Property(c => c.CreatorId)
-            .HasConversion(
-                x => x.Value,
-                v => new(v)
-            );
-
-        builder.Property(c => c.CategoryId)
-            .HasConversion(
-                x => x.Value,
-                v => new(v)
-            );
 
         return builder;
     }

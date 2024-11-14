@@ -22,12 +22,5 @@ public class AuthContext(DbContextOptions<AuthContext> opt) : IdentityDbContext<
             new() { Name = Admin, NormalizedName = Admin.ToUpperInvariant(), Id = new("fad1b19d-5333-4633-bd84-d67c64649f65"), ConcurrencyStamp = "42174679-32f1-48b0-9524-0f00791ec760", },
         ];
         builder.Entity<AppRole>().HasData(roles);
-
-        builder.Entity<AppUser>()
-            .Property(u => u.AccountId)
-            .HasConversion(
-                x => x == null ? (Guid?)null : x.Value.Value,
-                v => v == null ? null : new(v.Value)
-            );
     }
 }

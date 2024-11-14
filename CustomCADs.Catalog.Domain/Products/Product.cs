@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Catalog.Domain.Categories;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Deliveries.Digital;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
 namespace CustomCADs.Catalog.Domain.Products;
@@ -10,14 +10,7 @@ namespace CustomCADs.Catalog.Domain.Products;
 public class Product : BaseAggregateRoot
 {
     private Product() { }
-    private Product(
-        string name,
-        string description,
-        Money price,
-        ProductStatus status,
-        UserId creatorId,
-        CategoryId categoryId
-    ) : this()
+    private Product(string name, string description, Money price, ProductStatus status, UserId creatorId, CategoryId categoryId) : this()
     {
         Name = name;
         Description = description;
@@ -40,14 +33,8 @@ public class Product : BaseAggregateRoot
     public CategoryId CategoryId { get; set; }
     public Category Category { get; set; } = null!;
 
-    public static Product Create(
-        string name,
-        string description,
-        Money price,
-        ProductStatus status,
-        UserId creatorId,
-        CategoryId categoryId
-    ) => new Product(name, description, price, status, creatorId, categoryId)
+    public static Product Create(string name, string description, Money price, ProductStatus status, UserId creatorId, CategoryId categoryId)
+        => new Product(name, description, price, status, creatorId, categoryId)
             .ValidateName()
             .ValidateDescription()
             .ValidatePriceAmount();
