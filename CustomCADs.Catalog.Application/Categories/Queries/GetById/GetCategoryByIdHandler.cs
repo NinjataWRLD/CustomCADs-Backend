@@ -1,4 +1,6 @@
-﻿using CustomCADs.Catalog.Domain.Categories.Reads;
+﻿using CustomCADs.Catalog.Domain.Categories.Entities;
+using CustomCADs.Catalog.Domain.Categories.Reads;
+using CustomCADs.Catalog.Domain.Common.Exceptions.Categories;
 using CustomCADs.Shared.Application.Cache;
 
 namespace CustomCADs.Catalog.Application.Categories.Queries.GetById;

@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Common;
 using CustomCADs.Account.Domain.Roles.DomainEvents;
+using CustomCADs.Account.Domain.Roles.Entities;
 using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Events;
 
@@ -13,8 +14,8 @@ public class EditRoleByIdHandler(IRoleReads reads, IUnitOfWork uow, IEventRaiser
         Role role = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw RoleNotFoundException.ById(req.Id);
 
-        role.Name = req.Dto.Name;
-        role.Description = req.Dto.Description;
+        role.SetName(req.Dto.Name);
+        role.SetDescription(req.Dto.Description);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 

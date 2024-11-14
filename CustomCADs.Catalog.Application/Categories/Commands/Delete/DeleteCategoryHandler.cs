@@ -1,6 +1,8 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.DomainEvents;
+using CustomCADs.Catalog.Domain.Categories.Entities;
 using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Common.Exceptions.Categories;
 using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Application.Categories.Commands.Delete;

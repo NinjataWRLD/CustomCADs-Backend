@@ -1,4 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+using CustomCADs.Catalog.Domain.Products.Entities;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
 
@@ -12,32 +14,13 @@ public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        switch (req.Action)
+        switch (req.Status)
         {
-            case "validate": ValidateCad(product); break;
-            case "report": ReportCad(product); break;
-
-            default: throw ProductStatusException.ById(req.Id, req.Action);
+            case ProductStatus.Validated: product.SetValidatedStatus(); break;
+            case ProductStatus.Reported: product.SetReportedStatus(); break;
+            default: throw ProductStatusException.ById(req.Id, req.Status.ToString());
         }
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-    }
-
-    private static void ValidateCad(Product cad)
-    {
-        if (cad.Status != ProductStatus.Unchecked)
-        {
-            throw ProductStatusException.ById(cad.Id, "validate");
-        }
-        cad.Status = ProductStatus.Validated;
-    }
-
-    private static void ReportCad(Product cad)
-    {
-        if (cad.Status != ProductStatus.Unchecked)
-        {
-            throw ProductStatusException.ById(cad.Id, "report");
-        }
-        cad.Status = ProductStatus.Reported;
     }
 }

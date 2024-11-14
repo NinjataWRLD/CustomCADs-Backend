@@ -16,7 +16,6 @@ public class GetProductsEndpoint(IRequestSender sender)
     {
         GetAllProductsQuery query = new(
             CreatorId: User.GetAccountId(),
-            Category: req.Category,
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
             Page: req.Page,

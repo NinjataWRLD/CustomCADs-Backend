@@ -80,7 +80,8 @@ namespace CustomCADs.Account.Persistence.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(320)
+                        .HasColumnType("nvarchar(320)");
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -107,7 +108,7 @@ namespace CustomCADs.Account.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.OwnsOne("CustomCADs.Account.Domain.Users.User.NameInfo#CustomCADs.Account.Domain.Users.ValueObjects.NameInfo", "NameInfo", b1 =>
+                    b.OwnsOne("CustomCADs.Account.Domain.Users.User.Names#CustomCADs.Account.Domain.Users.ValueObjects.Names", "Names", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");
@@ -130,7 +131,7 @@ namespace CustomCADs.Account.Persistence.Migrations
                                 .HasForeignKey("UserId");
                         });
 
-                    b.Navigation("NameInfo")
+                    b.Navigation("Names")
                         .IsRequired();
 
                     b.Navigation("Role");

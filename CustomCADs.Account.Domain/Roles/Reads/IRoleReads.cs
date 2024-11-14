@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Account.Domain.Roles.Reads;
+﻿using CustomCADs.Account.Domain.Roles.Entities;
+
+namespace CustomCADs.Account.Domain.Roles.Reads;
 
 public interface IRoleReads
 {

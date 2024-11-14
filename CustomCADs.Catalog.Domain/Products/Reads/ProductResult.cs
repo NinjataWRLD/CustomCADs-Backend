@@ -1,7 +1,5 @@
-﻿namespace CustomCADs.Catalog.Domain.Products.Reads;
+﻿using CustomCADs.Catalog.Domain.Products.Entities;
 
-public class ProductResult
-{
-    public int Count { get; set; }
-    public ICollection<Product> Products { get; set; } = [];
-}
+namespace CustomCADs.Catalog.Domain.Products.Reads;
+
+public record ProductResult(int Count, ICollection<Product> Products);

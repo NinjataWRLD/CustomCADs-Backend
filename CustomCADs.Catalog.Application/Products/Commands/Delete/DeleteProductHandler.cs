@@ -1,4 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+using CustomCADs.Catalog.Domain.Products.Entities;
 using CustomCADs.Catalog.Domain.Products.Reads;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Delete;

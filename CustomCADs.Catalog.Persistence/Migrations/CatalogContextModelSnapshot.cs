@@ -35,7 +35,8 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Name");
 
                     b.HasKey("Id");
 
@@ -106,27 +107,33 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CategoryId");
 
                     b.Property<Guid>("CreatorId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(750)
-                        .HasColumnType("nvarchar(750)");
+                        .HasColumnType("nvarchar(750)")
+                        .HasColumnName("Description");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(18)
-                        .HasColumnType("nvarchar(18)");
+                        .HasColumnType("nvarchar(18)")
+                        .HasColumnName("Name");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Status");
 
                     b.Property<DateTime>("UploadDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UploadDate");
 
                     b.ComplexProperty<Dictionary<string, object>>("Cad", "CustomCADs.Catalog.Domain.Products.Product.Cad#Cad", b1 =>
                         {
@@ -134,20 +141,24 @@ namespace CustomCADs.Catalog.Persistence.Migrations
 
                             b1.Property<string>("Path")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("CadPath");
 
                             b1.ComplexProperty<Dictionary<string, object>>("CamCoordinates", "CustomCADs.Catalog.Domain.Products.Product.Cad#Cad.CamCoordinates#Coordinates", b2 =>
                                 {
                                     b2.IsRequired();
 
                                     b2.Property<int>("X")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("CamX");
 
                                     b2.Property<int>("Y")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("CamY");
 
                                     b2.Property<int>("Z")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("CamZ");
                                 });
 
                             b1.ComplexProperty<Dictionary<string, object>>("PanCoordinates", "CustomCADs.Catalog.Domain.Products.Product.Cad#Cad.PanCoordinates#Coordinates", b2 =>
@@ -155,13 +166,16 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                                     b2.IsRequired();
 
                                     b2.Property<int>("X")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("PanX");
 
                                     b2.Property<int>("Y")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("PanY");
 
                                     b2.Property<int>("Z")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("PanZ");
                                 });
                         });
 
@@ -171,7 +185,8 @@ namespace CustomCADs.Catalog.Persistence.Migrations
 
                             b1.Property<string>("Path")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ImagePath");
                         });
 
                     b.ComplexProperty<Dictionary<string, object>>("Price", "CustomCADs.Catalog.Domain.Products.Product.Price#Money", b1 =>
@@ -180,18 +195,22 @@ namespace CustomCADs.Catalog.Persistence.Migrations
 
                             b1.Property<decimal>("Amount")
                                 .HasPrecision(18, 2)
-                                .HasColumnType("decimal(18,2)");
+                                .HasColumnType("decimal(18,2)")
+                                .HasColumnName("PriceAmount");
 
                             b1.Property<string>("Currency")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("PriceCurrency");
 
                             b1.Property<int>("Precision")
-                                .HasColumnType("int");
+                                .HasColumnType("int")
+                                .HasColumnName("PricePrecision");
 
                             b1.Property<string>("Symbol")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("PriceSymbol");
                         });
 
                     b.HasKey("Id");

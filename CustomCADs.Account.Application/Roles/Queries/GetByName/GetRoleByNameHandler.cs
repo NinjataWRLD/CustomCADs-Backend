@@ -1,4 +1,5 @@
-﻿using CustomCADs.Account.Domain.Roles.Reads;
+﻿using CustomCADs.Account.Domain.Roles.Entities;
+using CustomCADs.Account.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Cache;
 
 namespace CustomCADs.Account.Application.Roles.Queries.GetByName;

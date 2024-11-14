@@ -6,7 +6,6 @@ namespace CustomCADs.Catalog.Endpoints.Products.GetProducts;
 public record GetProductsRequest(
     ProductSortingType SortingType = ProductSortingType.UploadDate,
     SortingDirection SortingDirection = SortingDirection.Descending,
-    string? Category = default,
     string? Name = default,
     int Page = 1,
     int Limit = 20

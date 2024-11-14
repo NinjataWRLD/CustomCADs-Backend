@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.Events;
+﻿using CustomCADs.Account.Domain.Roles.Entities;
+using CustomCADs.Shared.Core.Common.Events;
 
 namespace CustomCADs.Account.Domain.Roles.DomainEvents;
 

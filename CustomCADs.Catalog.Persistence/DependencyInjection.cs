@@ -2,8 +2,9 @@
 using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Catalog.Persistence;
-using CustomCADs.Catalog.Persistence.Repositories;
-using CustomCADs.Catalog.Persistence.Repositories.Reads;
+using CustomCADs.Catalog.Persistence.Categories.Reads;
+using CustomCADs.Catalog.Persistence.Common;
+using CustomCADs.Catalog.Persistence.Products.Reads;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130

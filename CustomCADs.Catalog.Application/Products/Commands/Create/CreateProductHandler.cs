@@ -1,5 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.Reads;
 using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Common.Exceptions.Categories;
+using CustomCADs.Catalog.Domain.Products.Entities;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 
@@ -17,10 +19,10 @@ public class CreateProductHandler(ICategoryReads categoryReads, IWrites<Product>
         Product product = Product.Create(
             name: req.Dto.Name,
             description: req.Dto.Description,
-            categoryId: req.Dto.CategoryId,
             price: req.Dto.Price,
             status: req.Dto.Status,
-            creatorId: req.Dto.CreatorId
+            creatorId: req.Dto.CreatorId,
+            categoryId: req.Dto.CategoryId
         );
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);
 
