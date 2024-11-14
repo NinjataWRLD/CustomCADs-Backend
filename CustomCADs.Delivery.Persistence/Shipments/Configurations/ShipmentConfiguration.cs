@@ -1,9 +1,9 @@
-﻿using CustomCADs.Orders.Domain.Shipments.Entities;
-using CustomCADs.Orders.Domain.Shipments.Enums;
+﻿using CustomCADs.Delivery.Domain.Shipments.Entities;
+using CustomCADs.Delivery.Domain.Shipments.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CustomCADs.Orders.Persistence.Shipments.Configurations;
+namespace CustomCADs.Delivery.Persistence.Shipments.Configurations;
 
 public class ShipmentConfiguration : IEntityTypeConfiguration<Shipment>
 {

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Orders.Domain.Shipments.Enums;
+﻿namespace CustomCADs.Delivery.Domain.Shipments.Enums;
 
 public enum ShipmentStatus
 {

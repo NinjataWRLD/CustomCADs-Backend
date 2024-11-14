@@ -1,12 +1,12 @@
-﻿using CustomCADs.Orders.Domain.Shipments.Entities;
-using CustomCADs.Orders.Domain.Shipments.Reads;
+﻿using CustomCADs.Delivery.Domain.Shipments.Entities;
+using CustomCADs.Delivery.Domain.Shipments.Reads;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Orders.Persistence.Shipments.Reads;
+namespace CustomCADs.Delivery.Persistence.Shipments.Reads;
 
-public class ShipmentReads(OrdersContext context) : IShipmentReads
+public class ShipmentReads(DeliveryContext context) : IShipmentReads
 {
     public async Task<ShipmentResult> AllAsync(ShipmentQuery query, bool track = true, CancellationToken ct = default)
     {

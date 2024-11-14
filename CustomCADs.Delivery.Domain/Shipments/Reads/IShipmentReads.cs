@@ -1,6 +1,6 @@
-﻿using CustomCADs.Orders.Domain.Shipments.Entities;
+﻿using CustomCADs.Delivery.Domain.Shipments.Entities;
 
-namespace CustomCADs.Orders.Domain.Shipments.Reads;
+namespace CustomCADs.Delivery.Domain.Shipments.Reads;
 
 public interface IShipmentReads
 {

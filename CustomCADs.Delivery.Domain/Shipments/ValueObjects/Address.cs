@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Orders.Domain.Shipments.ValueObjects;
+﻿namespace CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 
 public record Address
 {

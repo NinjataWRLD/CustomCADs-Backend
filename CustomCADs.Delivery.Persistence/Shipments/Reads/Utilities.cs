@@ -1,10 +1,10 @@
-﻿using CustomCADs.Orders.Domain.Shipments.Entities;
-using CustomCADs.Orders.Domain.Shipments.Enums;
-using CustomCADs.Orders.Domain.Shipments.ValueObjects;
+﻿using CustomCADs.Delivery.Domain.Shipments.Entities;
+using CustomCADs.Delivery.Domain.Shipments.Enums;
+using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
-namespace CustomCADs.Orders.Persistence.Shipments.Reads;
+namespace CustomCADs.Delivery.Persistence.Shipments.Reads;
 
 public static class Utilities
 {
@@ -13,7 +13,7 @@ public static class Utilities
         if (clientId is not null)
         {
             query = query.Where(s => s.ClientId == clientId);
-        }        
+        }
         if (status is not null && Enum.TryParse(status, out ShipmentStatus shipmentStatus))
         {
             query = query.Where(s => s.ShipmentStatus == shipmentStatus);
