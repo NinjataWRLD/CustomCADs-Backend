@@ -55,6 +55,18 @@ public static class GalleryOrderItemConfigUtils
                 v => new(v)
             );
 
+        builder.Property(x => x.CadId)
+            .HasConversion<Guid?>(
+                x => x == null ? null : x.Value.Value,
+                v => v == null ? null : new(v.Value)
+            );
+
+        builder.Property(x => x.ShipmentId)
+            .HasConversion<Guid?>(
+                x => x == null ? null : x.Value.Value,
+                v => v == null ? null : new(v.Value)
+            );
+
         return builder;
     }
 
@@ -99,6 +111,12 @@ public static class GalleryOrderItemConfigUtils
         builder.Property(x => x.GalleryOrderId)
             .IsRequired()
             .HasColumnName("GalleryOrderId");
+
+        builder.Property(x => x.CadId)
+            .HasColumnName("CadId");
+
+        builder.Property(x => x.ShipmentId)
+            .HasColumnName("ShipmentId");
 
         return builder;
     }

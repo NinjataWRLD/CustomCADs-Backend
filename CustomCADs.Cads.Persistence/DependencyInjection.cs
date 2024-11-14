@@ -11,17 +11,17 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddOrdersPersistence(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddCadsPersistence(this IServiceCollection services, IConfiguration config)
         => services
-            .AddOrdersContext(config)
+            .AddCadsContext(config)
             .AddReads()
             .AddWrites()
             .AddUOW();
 
-    public static IServiceCollection AddOrdersContext(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddCadsContext(this IServiceCollection services, IConfiguration config)
     {
-        string connectionString = config.GetConnectionString("OrdersConnection")
-            ?? throw new KeyNotFoundException("Could not find connection string 'OrdersConnection'.");
+        string connectionString = config.GetConnectionString("CadsConnection")
+            ?? throw new KeyNotFoundException("Could not find connection string 'CadsConnection'.");
         services.AddDbContext<CadsContext>(opt => opt.UseSqlServer(connectionString));
 
         return services;

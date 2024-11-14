@@ -20,8 +20,10 @@ builder.Services.AddUseCases();
 // Add Modules
 builder.Services.AddAccount(builder.Configuration);
 builder.Services.AddAuth(builder.Configuration);
+builder.Services.AddCadsPersistence(builder.Configuration);
 builder.Services.AddCatalog(builder.Configuration);
 builder.Services.AddOrdersPersistence(builder.Configuration);
+builder.Services.AddDeliveryPersistence(builder.Configuration);
 
 // Add API
 builder.Services.AddEndpoints();

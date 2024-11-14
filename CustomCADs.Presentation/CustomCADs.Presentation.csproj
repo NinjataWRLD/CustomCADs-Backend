@@ -19,7 +19,9 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\CustomCADs.Account.Endpoints\CustomCADs.Account.Endpoints.csproj" />
 	  <ProjectReference Include="..\CustomCADs.Auth.Endpoints\CustomCADs.Auth.Endpoints.csproj" />
+	  <ProjectReference Include="..\CustomCADs.Cads.Persistence\CustomCADs.Cads.Persistence.csproj" />
 	  <ProjectReference Include="..\CustomCADs.Catalog.Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
+	  <ProjectReference Include="..\CustomCADs.Delivery.Persistence\CustomCADs.Delivery.Persistence.csproj" />
 	  <ProjectReference Include="..\CustomCADs.Orders.Endpoints\CustomCADs.Orders.Endpoints.csproj" />
 	</ItemGroup>
 
