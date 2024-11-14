@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>a3a749a2-9c16-4aa9-b573-677af839f8a8</UserSecretsId>
@@ -9,20 +9,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CustomCADs.Account.Endpoints\CustomCADs.Account.Endpoints.csproj" />
-	  <ProjectReference Include="..\CustomCADs.Auth.Endpoints\CustomCADs.Auth.Endpoints.csproj" />
-	  <ProjectReference Include="..\CustomCADs.Cads.Persistence\CustomCADs.Cads.Persistence.csproj" />
-	  <ProjectReference Include="..\CustomCADs.Catalog.Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
-	  <ProjectReference Include="..\CustomCADs.Delivery.Persistence\CustomCADs.Delivery.Persistence.csproj" />
-	  <ProjectReference Include="..\CustomCADs.Orders.Endpoints\CustomCADs.Orders.Endpoints.csproj" />
+		<ProjectReference Include="..\CustomCADs.Account.Endpoints\CustomCADs.Account.Endpoints.csproj" />
+		<ProjectReference Include="..\CustomCADs.Auth.Endpoints\CustomCADs.Auth.Endpoints.csproj" />
+		<ProjectReference Include="..\CustomCADs.Cads.Persistence\CustomCADs.Cads.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Catalog.Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
+		<ProjectReference Include="..\CustomCADs.Delivery.Persistence\CustomCADs.Delivery.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Orders.Endpoints\CustomCADs.Orders.Endpoints.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>
