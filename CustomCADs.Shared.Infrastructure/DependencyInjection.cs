@@ -69,4 +69,9 @@ public static class DependencyInjection
         });
         services.AddScoped<IStorageService, AmazonS3Service>();
     }
+
+    public static void AddDeliveryService(this IServiceCollection services)
+    {
+        services.AddShipmentService();
+    }
 }

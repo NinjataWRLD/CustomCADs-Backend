@@ -5,7 +5,7 @@ using ShipmentParcelNumber;
 
 public record SecondaryShipmentDto(
     string Id,
-    PrimaryShipmentType Type,
+    ShipmentType Type,
     ShipmentParcelNumberDto[] Parcels,
     string PickupDate,
     int ServiceId,

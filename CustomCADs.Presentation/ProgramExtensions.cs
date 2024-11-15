@@ -199,7 +199,7 @@ public static class ProgramExtensions
                 .WithEndpointPrefix(uiPattern)
                 .WithOperationSorter(OperationSorter.Method)
                 .WithTitle("CustomCADs API")
-                .WithTheme(themes[Random.Shared.Next(0, themes.Length - 1)])
+                .WithTheme(themes[Random.Shared.Next(0, themes.Length)])
                 .WithDarkModeToggle(false);
         });
 
