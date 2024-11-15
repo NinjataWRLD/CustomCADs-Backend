@@ -1,4 +1,7 @@
-﻿using CustomCADs.Shared.Speedy.Services.ShipmentService;
+﻿using CustomCADs.Shared.Speedy.Services.PickupService;
+using CustomCADs.Shared.Speedy.Services.PrintService;
+using CustomCADs.Shared.Speedy.Services.ShipmentService;
+using CustomCADs.Shared.Speedy.Services.TrackService;
 using Refit;
 
 #pragma warning disable IDE0130
@@ -13,6 +16,33 @@ public static class DependencyInjection
         services
             .AddRefitClient<IShipmentService>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/shipment"));
+
+        return services;
+    }
+    
+    public static IServiceCollection AddPrintService(this IServiceCollection services)
+    {
+        services
+            .AddRefitClient<IPrintService>()
+            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/print"));
+
+        return services;
+    }
+
+    public static IServiceCollection AddTrackService(this IServiceCollection services)
+    {
+        services
+            .AddRefitClient<ITrackService>()
+            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/track"));
+
+        return services;
+    }
+
+    public static IServiceCollection AddPickupService(this IServiceCollection services)
+    {
+        services
+            .AddRefitClient<IPickupService>()
+            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/pickup"));
 
         return services;
     }
