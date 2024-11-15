@@ -4,5 +4,5 @@ using Enums;
 
 public record PrimaryShipmentDto(
     string Id,
-    PrimaryShipmentType Type
+    ShipmentType Type
 );

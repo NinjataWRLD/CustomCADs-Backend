@@ -17,6 +17,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Speedy\CustomCADs.Shared.Speedy.csproj" />
 	</ItemGroup>
 
 </Project>

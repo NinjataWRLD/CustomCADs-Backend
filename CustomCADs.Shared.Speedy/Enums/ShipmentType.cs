@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Shared.Speedy.Enums;
 
-public enum PrimaryShipmentType
+public enum ShipmentType
 {
     RETURN_SHIPMENT,
     STORAGE_PAYMENT,

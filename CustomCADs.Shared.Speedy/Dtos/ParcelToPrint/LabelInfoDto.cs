@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Shared.Speedy.Dtos.ParcelToPrint;
 
-public record LabelnfoDto(
+public record LabelInfoDto(
     string ParcelId,
     string FullBarcode,
     int ExportPriority,
