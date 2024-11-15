@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.ShipmentService;
+﻿using CustomCADs.Shared.Speedy.Services.ShipmentService;
 using Refit;
 
 #pragma warning disable IDE0130
