@@ -18,7 +18,7 @@ namespace CustomCADs.Account.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Account")
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -108,7 +108,7 @@ namespace CustomCADs.Account.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.OwnsOne("CustomCADs.Account.Domain.Users.User.Names#CustomCADs.Account.Domain.Users.ValueObjects.Names", "Names", b1 =>
+                    b.OwnsOne("CustomCADs.Account.Domain.Users.ValueObjects.Names", "Names", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");

@@ -15,6 +15,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .SetPrimaryKey()
             .SetForeignKeys()
             .SetStronglyTypedIds()
+            .SetValueObjects()
             .SetValidations();
     }
 }
@@ -59,6 +60,43 @@ static class CadConfigUtils
                 x => x.Value,
                 v => new(v)
             );
+        
+        builder.Property(x => x.CadId)
+            .HasConversion<Guid?>(
+                x => x == null ? null : x.Value.Value,
+                v => v == null ? null : new(v.Value)
+            );
+
+        return builder;
+    }
+
+    public static EntityTypeBuilder<Product> SetValueObjects(this EntityTypeBuilder<Product> builder)
+    {
+        builder.ComplexProperty(x => x.Image, c =>
+        {
+            c.Property(x => x.Path)
+                .IsRequired()
+                .HasColumnName("ImagePath");
+        });
+
+        builder.ComplexProperty(x => x.Price, c =>
+        {
+            c.Property(x => x.Amount)
+                .IsRequired()
+                .HasPrecision(18, 2).HasColumnName("PriceAmount");
+
+            c.Property(x => x.Precision)
+                .IsRequired()
+                .HasColumnName("PricePrecision");
+
+            c.Property(x => x.Currency)
+                .IsRequired()
+                .HasColumnName("PriceCurrency");
+
+            c.Property(x => x.Symbol)
+                .IsRequired()
+                .HasColumnName("PriceSymbol");
+        });
 
         return builder;
     }
