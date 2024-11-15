@@ -73,5 +73,8 @@ public static class DependencyInjection
     public static void AddDeliveryService(this IServiceCollection services)
     {
         services.AddShipmentService();
+        services.AddPrintService();
+        services.AddTrackService();
+        services.AddPickupService();
     }
 }
