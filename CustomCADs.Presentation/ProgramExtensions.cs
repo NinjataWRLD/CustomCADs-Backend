@@ -12,6 +12,8 @@ using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Scalar.AspNetCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -118,14 +120,30 @@ public static class ProgramExtensions
 
     public static void AddApiDocumentation(this IServiceCollection services)
     {
-        services.AddSwaggerGen(c =>
+        services.AddOpenApi(cfg =>
         {
-            c.SwaggerDoc("v1", new()
+            cfg.AddDocumentTransformer((document, context, ct) =>
             {
-                Title = "CustomCADs API",
-                Description = "An API to Order, Purchase, Upload and Validate 3D Models",
-                Contact = new() { Name = "Ivan", Email = "ivanangelov414@gmail.com" },
-                License = new() { Name = "Apache License 2.0", Url = new Uri("https://www.apache.org/licenses/LICENSE-2.0") }
+                string description = """
+**The best API to**: 
+<ul> 
+<li>Order 3D Models and Track Deliveries</li>
+<li>Upload and Sell 3D Models</li>
+<li>Take Orders and Validate 3D Models</li>
+<li>Administer the Whole System.</li>
+</ul>
+""";
+
+                document.Info = new()
+                {
+                    Title = "CustomCADs API",
+                    Description = description,
+                    Contact = new() { Name = "Ivan", Email = "ivanangelov414@gmail.com", },
+                    License = new() { Name = "Apache License 2.0", Url = new("https://www.apache.org/licenses/LICENSE-2.0"), },
+                    Version = "v1"
+                };
+
+                return Task.CompletedTask;
             });
         });
     }
@@ -163,13 +181,28 @@ public static class ProgramExtensions
         return app;
     }
 
-    public static void UseSwagger(this IApplicationBuilder app, string name)
+    public static IEndpointRouteBuilder MapApiDocumentationUi(this IEndpointRouteBuilder app, [StringSyntax("Route")] string apiPattern = "/openai/{documentName}.json", [StringSyntax("Route")] string uiPattern = "/scalar/{documentName}")
     {
-        app.UseSwagger();
-        app.UseSwaggerUI(c =>
+        app.MapOpenApi(apiPattern);
+        app.MapScalarApiReference(options =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", name);
-            c.RoutePrefix = string.Empty;
+            ScalarTheme[] themes =
+            [
+                ScalarTheme.BluePlanet,
+                ScalarTheme.Kepler,
+                ScalarTheme.Mars,
+                ScalarTheme.DeepSpace,
+            ];
+            
+            options
+                .WithOpenApiRoutePattern(apiPattern)
+                .WithEndpointPrefix(uiPattern)
+                .WithOperationSorter(OperationSorter.Method)
+                .WithTitle("CustomCADs API")
+                .WithTheme(themes[Random.Shared.Next(0, themes.Length - 1)])
+                .WithDarkModeToggle(false);
         });
+
+        return app;
     }
 }

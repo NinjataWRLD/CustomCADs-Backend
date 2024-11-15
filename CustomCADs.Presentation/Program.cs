@@ -45,7 +45,13 @@ app.UseCatalog();
 app.UseEndpoints();
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger("CustomCADs API");
+    app.MapApiDocumentationUi(
+        apiPattern: "/openapi/{documentName}.json", 
+        uiPattern: "/scalar/{documentName}"
+    ).MapApiDocumentationUi(
+        apiPattern: "/{documentName}.json", 
+        uiPattern: "/{documentName}"
+    );
 }
 
 await app.RunAsync().ConfigureAwait(false);
