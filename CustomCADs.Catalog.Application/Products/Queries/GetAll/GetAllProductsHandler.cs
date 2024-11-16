@@ -35,11 +35,9 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
 
         GetAllProductsDto response = new(
             result.Count,
-            result.Products.Select(product =>
-                new GetAllProductsItem(
-                    product,
-                    users.Single(u => u.Id == product.CreatorId).Username,
-                    categories.Single(u => u.Id == product.CategoryId).Name
+            result.Products.Select(p => p.ToGetAllProductsItem(
+                users.Single(u => u.Id == p.CreatorId).Username, 
+                categories.Single(u => u.Id == p.CategoryId).Name
             )).ToArray()
         );
         return response;

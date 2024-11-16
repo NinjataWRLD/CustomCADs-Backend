@@ -14,10 +14,10 @@ public class EditProductHandler(IProductReads reads, IUnitOfWork uow)
             ?? throw ProductNotFoundException.ById(req.Id);
 
         product
-            .SetName(req.Dto.Name)
-            .SetDescription(req.Dto.Description)
-            .SetPrice(req.Dto.Price)
-            .SetCategoryId(req.Dto.CategoryId);
+            .SetName(req.Name)
+            .SetDescription(req.Description)
+            .SetPrice(req.Price)
+            .SetCategoryId(req.CategoryId);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }

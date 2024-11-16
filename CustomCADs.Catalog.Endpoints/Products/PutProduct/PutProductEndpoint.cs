@@ -30,13 +30,13 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
             return;
         }
 
-        EditProductDto dto = new(
+        EditProductCommand command = new(
+            Id: req.Id,
             Name: req.Name,
             Description: req.Description,
             CategoryId: new(req.CategoryId),
             Price: new(req.Price.Amount, req.Price.Currency, req.Price.Precision, req.Price.Symbol)
         );
-        EditProductCommand command = new(req.Id, dto);
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         GetProductByIdQuery getProductQuery = new(req.Id);
@@ -45,13 +45,13 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         ProductEditedDomainEvent productEditedDomainEvent = new(
             Id: product.Id,
             OldName: product.Name,
-            Name: dto.Name,
+            Name: command.Name,
             OldDescription: product.Description,
-            Description: dto.Description,
+            Description: command.Description,
             OldCategoryId: product.Category.Id,
-            CategoryId: dto.CategoryId,
+            CategoryId: command.CategoryId,
             OldPrice: product.Price,
-            Price: dto.Price,
+            Price: command.Price,
             OldImagePath: product.Image.Path
         );
 

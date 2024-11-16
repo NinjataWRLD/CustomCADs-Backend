@@ -1,6 +1,4 @@
-﻿using CustomCADs.Account.Domain.Users.Entities;
-
-namespace CustomCADs.Account.Application.Users.Queries.GetAll;
+﻿namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
 public record GetAllUsersDto(int Count, ICollection<GetAllUsersItem> Users);
 
@@ -11,15 +9,4 @@ public record GetAllUsersItem(
     string Role,
     string? FirstName = null,
     string? LastName = null
-)
-{
-    public GetAllUsersItem(User user) : this(
-        user.Id,
-        user.Username,
-        user.Email,
-        user.RoleName,
-        user.Names.FirstName,
-        user.Names.LastName
-    )
-    { }
-}
+);

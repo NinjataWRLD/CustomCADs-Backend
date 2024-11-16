@@ -2,7 +2,6 @@
 
 namespace CustomCADs.Catalog.Endpoints.Products.GetProducts;
 
-
 public class GetProductsEndpoint(IRequestSender sender)
     : Endpoint<GetProductsRequest, GetProductsResponse>
 {
@@ -25,7 +24,7 @@ public class GetProductsEndpoint(IRequestSender sender)
 
         GetProductsResponse response = new(
             result.Count,
-            result.Products.Select(p => new GetProductsDto(p)).ToArray()
+            result.Products.Select(p => p.ToGetProductsDto()).ToArray()
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }
