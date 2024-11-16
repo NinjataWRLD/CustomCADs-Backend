@@ -1,13 +1,13 @@
-﻿using CustomCADs.Shared.Speedy.Services.CalculationService;
-using CustomCADs.Shared.Speedy.Services.ClientService;
-using CustomCADs.Shared.Speedy.Services.LocationService;
-using CustomCADs.Shared.Speedy.Services.PaymentService;
-using CustomCADs.Shared.Speedy.Services.PickupService;
-using CustomCADs.Shared.Speedy.Services.PrintService;
-using CustomCADs.Shared.Speedy.Services.ServicesService;
-using CustomCADs.Shared.Speedy.Services.ShipmentService;
-using CustomCADs.Shared.Speedy.Services.TrackService;
-using CustomCADs.Shared.Speedy.Services.ValidationService;
+﻿using CustomCADs.Shared.Speedy.API.Endpoints.CalculationEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.ClientEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.LocationEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.PaymentEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.PickupEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.ServicesEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.TrackEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.ValidationEndpoints;
 using Refit;
 
 #pragma warning disable IDE0130
@@ -20,7 +20,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryShipmentService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<IShipmentService>()
+            .AddRefitClient<IShipmentEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/shipment"));
 
         return services;
@@ -29,7 +29,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryPrintService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<IPrintService>()
+            .AddRefitClient<IPrintEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/print"));
 
         return services;
@@ -38,7 +38,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryTrackService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<ITrackService>()
+            .AddRefitClient<ITrackEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/track"));
 
         return services;
@@ -47,7 +47,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryPickupService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<IPickupService>()
+            .AddRefitClient<IPickupEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/pickup"));
 
         return services;
@@ -56,7 +56,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryLocationService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<ILocationService>()
+            .AddRefitClient<ILocationEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/location"));
 
         return services;
@@ -65,7 +65,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryCalculationService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<ICalculationService>()
+            .AddRefitClient<ICalculationEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/calculate"));
 
         return services;
@@ -74,7 +74,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryClientService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<IClientService>()
+            .AddRefitClient<IClientEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/client"));
 
         return services;
@@ -83,7 +83,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryValidationService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<IValidationService>()
+            .AddRefitClient<IValidationEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/validation"));
 
         return services;
@@ -92,7 +92,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryServicesService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<IServicesService>()
+            .AddRefitClient<IServicesEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/services"));
 
         return services;
@@ -101,7 +101,7 @@ public static class DependencyInjection
     public static IServiceCollection AddDeliveryPaymentService(this IServiceCollection services)
     {
         services
-            .AddRefitClient<IPaymentService>()
+            .AddRefitClient<IPaymentEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/payments"));
 
         return services;
