@@ -72,12 +72,15 @@ public static class DependencyInjection
 
     public static void AddDeliveryService(this IServiceCollection services)
     {
-        services.AddShipmentService();
-        services.AddPrintService();
-        services.AddTrackService();
-        services.AddPickupService();
-        services.AddLocationService();
-        services.AddCalculationService();
-        services.AddClientService();
+        services.AddDeliveryShipmentService();
+        services.AddDeliveryPrintService();
+        services.AddDeliveryTrackService();
+        services.AddDeliveryPickupService();
+        services.AddDeliveryLocationService();
+        services.AddDeliveryCalculationService();
+        services.AddDeliveryClientService();
+        services.AddDeliveryValidationService();
+        services.AddDeliveryServicesService();
+        services.AddDeliveryPaymentService();
     }
 }

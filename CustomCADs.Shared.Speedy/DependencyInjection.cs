@@ -1,10 +1,13 @@
 ﻿using CustomCADs.Shared.Speedy.Services.CalculationService;
 using CustomCADs.Shared.Speedy.Services.ClientService;
 using CustomCADs.Shared.Speedy.Services.LocationService;
+using CustomCADs.Shared.Speedy.Services.PaymentService;
 using CustomCADs.Shared.Speedy.Services.PickupService;
 using CustomCADs.Shared.Speedy.Services.PrintService;
+using CustomCADs.Shared.Speedy.Services.ServicesService;
 using CustomCADs.Shared.Speedy.Services.ShipmentService;
 using CustomCADs.Shared.Speedy.Services.TrackService;
+using CustomCADs.Shared.Speedy.Services.ValidationService;
 using Refit;
 
 #pragma warning disable IDE0130
@@ -14,7 +17,7 @@ public static class DependencyInjection
 {
     private const string BASE_URL = "https://api.speedy.bg/v1";
 
-    public static IServiceCollection AddShipmentService(this IServiceCollection services)
+    public static IServiceCollection AddDeliveryShipmentService(this IServiceCollection services)
     {
         services
             .AddRefitClient<IShipmentService>()
@@ -23,7 +26,7 @@ public static class DependencyInjection
         return services;
     }
     
-    public static IServiceCollection AddPrintService(this IServiceCollection services)
+    public static IServiceCollection AddDeliveryPrintService(this IServiceCollection services)
     {
         services
             .AddRefitClient<IPrintService>()
@@ -32,7 +35,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddTrackService(this IServiceCollection services)
+    public static IServiceCollection AddDeliveryTrackService(this IServiceCollection services)
     {
         services
             .AddRefitClient<ITrackService>()
@@ -41,7 +44,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddPickupService(this IServiceCollection services)
+    public static IServiceCollection AddDeliveryPickupService(this IServiceCollection services)
     {
         services
             .AddRefitClient<IPickupService>()
@@ -50,7 +53,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddLocationService(this IServiceCollection services)
+    public static IServiceCollection AddDeliveryLocationService(this IServiceCollection services)
     {
         services
             .AddRefitClient<ILocationService>()
@@ -59,7 +62,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddCalculationService(this IServiceCollection services)
+    public static IServiceCollection AddDeliveryCalculationService(this IServiceCollection services)
     {
         services
             .AddRefitClient<ICalculationService>()
@@ -68,11 +71,38 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddClientService(this IServiceCollection services)
+    public static IServiceCollection AddDeliveryClientService(this IServiceCollection services)
     {
         services
             .AddRefitClient<IClientService>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/client"));
+
+        return services;
+    }
+
+    public static IServiceCollection AddDeliveryValidationService(this IServiceCollection services)
+    {
+        services
+            .AddRefitClient<IValidationService>()
+            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/validation"));
+
+        return services;
+    }
+
+    public static IServiceCollection AddDeliveryServicesService(this IServiceCollection services)
+    {
+        services
+            .AddRefitClient<IServicesService>()
+            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/services"));
+
+        return services;
+    }
+
+    public static IServiceCollection AddDeliveryPaymentService(this IServiceCollection services)
+    {
+        services
+            .AddRefitClient<IPaymentService>()
+            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/payments"));
 
         return services;
     }
