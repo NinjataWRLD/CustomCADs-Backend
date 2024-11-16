@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.Shared.Speedy.Services.PrintService.ExtendedPrint;
 
-using Dtos.Errors;
 using Dtos.ParcelToPrint;
 
 public record ExtendedPrintResponse(

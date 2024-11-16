@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Speedy.Dtos.Errors;
-using CustomCADs.Shared.Speedy.Dtos.Site;
+﻿namespace CustomCADs.Shared.Speedy.Services.LocationService.Site.GetSite;
 
-namespace CustomCADs.Shared.Speedy.Services.LocationService.Site.GetSite;
+using Dtos.Site;
 
 public record GetSiteResponse(
     SiteDto? Site,

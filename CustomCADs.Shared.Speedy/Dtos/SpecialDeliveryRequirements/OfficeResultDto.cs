@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.Shared.Speedy.Dtos.SpecialDeliveryRequirements;
 
-using Enums;
 using Office;
 using ShipmentContent.ShipmentParcel;
 using ShipmentSenderAndRecipient.ShipmentAddress;

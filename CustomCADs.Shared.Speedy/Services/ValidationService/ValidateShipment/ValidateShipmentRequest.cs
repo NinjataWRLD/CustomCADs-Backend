@@ -1,10 +1,10 @@
-﻿using CustomCADs.Shared.Speedy.Dtos.ShipmentContent;
-using CustomCADs.Shared.Speedy.Dtos.ShipmentPayment;
-using CustomCADs.Shared.Speedy.Dtos.ShipmentSenderAndRecipient.ShipmentRecipient;
-using CustomCADs.Shared.Speedy.Dtos.ShipmentSenderAndRecipient.ShipmentSender;
-using CustomCADs.Shared.Speedy.Dtos.ShipmentService;
+﻿namespace CustomCADs.Shared.Speedy.Services.ValidationService.ValidateShipment;
 
-namespace CustomCADs.Shared.Speedy.Services.ValidationService.ValidateShipment;
+using Dtos.ShipmentContent;
+using Dtos.ShipmentPayment;
+using Dtos.ShipmentSenderAndRecipient.ShipmentRecipient;
+using Dtos.ShipmentSenderAndRecipient.ShipmentSender;
+using Dtos.ShipmentService;
 
 public record ValidateShipmentRequest(
     // Copied from CreateShipmentRequest

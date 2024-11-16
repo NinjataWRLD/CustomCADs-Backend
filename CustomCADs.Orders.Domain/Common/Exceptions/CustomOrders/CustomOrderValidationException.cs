@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.GalleryOrders.Items;
-using CustomCADs.Shared.Core.Common.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions;
 
 namespace CustomCADs.Orders.Domain.Common.Exceptions.CustomOrders;
 

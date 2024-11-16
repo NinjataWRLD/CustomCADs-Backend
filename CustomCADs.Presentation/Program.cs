@@ -46,10 +46,10 @@ app.UseEndpoints();
 if (app.Environment.IsDevelopment())
 {
     app.MapApiDocumentationUi(
-        apiPattern: "/openapi/{documentName}.json", 
+        apiPattern: "/openapi/{documentName}.json",
         uiPattern: "/scalar/{documentName}"
     ).MapApiDocumentationUi(
-        apiPattern: "/{documentName}.json", 
+        apiPattern: "/{documentName}.json",
         uiPattern: "/{documentName}"
     );
 }

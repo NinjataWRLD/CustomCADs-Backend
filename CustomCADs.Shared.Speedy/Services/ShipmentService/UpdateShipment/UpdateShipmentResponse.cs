@@ -1,8 +1,7 @@
-﻿using CustomCADs.Shared.Speedy.Dtos.Errors;
-using CustomCADs.Shared.Speedy.Dtos.ShipmentParcels;
-using CustomCADs.Shared.Speedy.Dtos.ShipmentPrice;
+﻿namespace CustomCADs.Shared.Speedy.Services.ShipmentService.UpdateShipment;
 
-namespace CustomCADs.Shared.Speedy.Services.ShipmentService.UpdateShipment;
+using Dtos.ShipmentParcels;
+using Dtos.ShipmentPrice;
 
 public record UpdateShipmentResponse(
     // Copied from CreateShipmentResponse

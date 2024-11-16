@@ -80,7 +80,7 @@ public class CustomOrder : BaseAggregateRoot
         DesignerId = designerId;
         return this;
     }
-    
+
     public CustomOrder SetCadId(CadId cadId)
     {
         if (DeliveryType is DeliveryType.Digital or DeliveryType.Both)
@@ -91,7 +91,7 @@ public class CustomOrder : BaseAggregateRoot
 
         return this;
     }
-    
+
     public CustomOrder SetShipmentId(ShipmentId shipmentId)
     {
         if (DeliveryType is DeliveryType.Physical or DeliveryType.Both)

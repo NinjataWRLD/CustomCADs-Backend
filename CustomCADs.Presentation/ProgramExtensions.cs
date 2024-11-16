@@ -193,7 +193,7 @@ public static class ProgramExtensions
                 ScalarTheme.Mars,
                 ScalarTheme.DeepSpace,
             ];
-            
+
             options
                 .WithOpenApiRoutePattern(apiPattern)
                 .WithEndpointPrefix(uiPattern)

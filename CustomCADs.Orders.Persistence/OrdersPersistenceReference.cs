@@ -4,5 +4,5 @@ namespace CustomCADs.Orders.Persistence;
 
 public class OrdersPersistenceReference
 {
-    public static Assembly Assembly => typeof(OrdersPersistenceReference).Assembly; 
+    public static Assembly Assembly => typeof(OrdersPersistenceReference).Assembly;
 }

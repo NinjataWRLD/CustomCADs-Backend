@@ -45,7 +45,7 @@ public class GalleryOrderItem : BaseEntity
             _ => throw GalleryOrderValidationException.General(),
         };
     }
-    
+
     public static GalleryOrderItem CreateDigital(Money price, int quantity, ProductId productId, GalleryOrderId galleryOrderId)
         => new GalleryOrderItem(DeliveryType.Digital, price, quantity, productId, galleryOrderId)
             .ValidateQuantity()

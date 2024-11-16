@@ -2,7 +2,6 @@
 
 using Dtos.ShipmentSenderAndRecipient.ShipmentAddress;
 using Enums;
-using Speedy.Enums;
 
 public record FindNearestOfficesRequest(
     string UserName,
