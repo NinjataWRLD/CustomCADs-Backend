@@ -13,7 +13,6 @@ public class GetAllRoleNamesHandler(IRoleReads reads, ICacheService cache)
             await cache.GetAsync<IEnumerable<Role>>("roleNames").ConfigureAwait(false)
             ?? await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
 
-        var response = roles.Select(r => r.Name);
-        return response;
+        return roles.Select(r => r.Name);
     }
 }

@@ -12,7 +12,6 @@ public class IsProductCreatorHandler(IProductReads reads)
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        var result = product.CreatorId == req.CreatorId;
-        return result;
+        return product.CreatorId == req.CreatorId;
     }
 }

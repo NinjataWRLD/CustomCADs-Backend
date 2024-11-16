@@ -11,7 +11,6 @@ public class GetUserByIdHandler(IUserReads reads)
         User user = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw UserNotFoundException.ById(req.Id);
 
-        GetUserByIdDto response = user.ToGetUserByIdDto();
-        return response;
+        return user.ToGetUserByIdDto();
     }
 }

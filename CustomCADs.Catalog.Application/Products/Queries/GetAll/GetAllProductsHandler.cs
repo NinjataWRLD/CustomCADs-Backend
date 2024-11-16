@@ -32,14 +32,12 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
             .SendQueryAsync(new GetAllCategoriesQuery(), ct)
             .ConfigureAwait(false);
 
-
-        GetAllProductsDto response = new(
+        return new(
             result.Count,
             result.Products.Select(p => p.ToGetAllProductsItem(
-                users.Single(u => u.Id == p.CreatorId).Username, 
+                users.Single(u => u.Id == p.CreatorId).Username,
                 categories.Single(u => u.Id == p.CategoryId).Name
             )).ToArray()
         );
-        return response;
     }
 }

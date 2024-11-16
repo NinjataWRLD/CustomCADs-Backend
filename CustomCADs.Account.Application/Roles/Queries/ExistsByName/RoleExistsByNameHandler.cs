@@ -7,8 +7,6 @@ public class RoleExistsByNameHandler(IRoleReads reads)
 {
     public async Task<bool> Handle(RoleExistsByNameQuery req, CancellationToken ct)
     {
-        bool roleExists = await reads.ExistsByNameAsync(req.Name, ct: ct).ConfigureAwait(false);
-
-        return roleExists;
+        return await reads.ExistsByNameAsync(req.Name, ct: ct).ConfigureAwait(false);
     }
 }

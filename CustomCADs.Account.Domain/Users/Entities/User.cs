@@ -26,8 +26,7 @@ public class User : BaseAggregateRoot
         string email,
         string? firstName = default,
         string? lastName = default
-    )
-        => new User(role, username, email, firstName, lastName)
+    ) => new User(role, username, email, firstName, lastName)
             .ValidateRole()
             .ValidateUsername()
             .ValidateEmail()

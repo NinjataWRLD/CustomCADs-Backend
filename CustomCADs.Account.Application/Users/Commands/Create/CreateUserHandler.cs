@@ -10,7 +10,14 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow, IEventRais
 {
     public async Task<UserId> Handle(CreateUserCommand req, CancellationToken ct)
     {
-        User user = User.Create(req.Role, req.Username, req.Email, req.FirstName, req.LastName);
+        var user = User.Create(
+            req.Role,
+            req.Username,
+            req.Email,
+            req.FirstName,
+            req.LastName
+        );
+
         await writes.AddAsync(user, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
