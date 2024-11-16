@@ -76,5 +76,6 @@ public static class DependencyInjection
         services.AddPrintService();
         services.AddTrackService();
         services.AddPickupService();
+        services.AddLocationService();
     }
 }
