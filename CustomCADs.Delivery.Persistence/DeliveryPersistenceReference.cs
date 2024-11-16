@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace CustomCADs.Orders.Persistence;
+namespace CustomCADs.Delivery.Persistence;
 
 public class DeliveryPersistenceReference
 {

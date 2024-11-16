@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.Entities;
-using CustomCADs.Orders.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Delivery.Persistence;
