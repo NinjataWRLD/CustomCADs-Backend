@@ -1,4 +1,6 @@
-﻿using CustomCADs.Shared.Speedy.Services.LocationService;
+﻿using CustomCADs.Shared.Speedy.Services.CalculationService;
+using CustomCADs.Shared.Speedy.Services.ClientService;
+using CustomCADs.Shared.Speedy.Services.LocationService;
 using CustomCADs.Shared.Speedy.Services.PickupService;
 using CustomCADs.Shared.Speedy.Services.PrintService;
 using CustomCADs.Shared.Speedy.Services.ShipmentService;
@@ -53,6 +55,24 @@ public static class DependencyInjection
         services
             .AddRefitClient<ILocationService>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/location"));
+
+        return services;
+    }
+
+    public static IServiceCollection AddCalculationService(this IServiceCollection services)
+    {
+        services
+            .AddRefitClient<ICalculationService>()
+            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/calculate"));
+
+        return services;
+    }
+
+    public static IServiceCollection AddClientService(this IServiceCollection services)
+    {
+        services
+            .AddRefitClient<IClientService>()
+            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/client"));
 
         return services;
     }
