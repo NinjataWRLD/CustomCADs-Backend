@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.Shared.Speedy.Services.ShipmentService.BarcodeInformation;
 
-using Dtos.Errors;
 using Dtos.ParcelToPrint;
 using Dtos.Shipment.Primary;
 

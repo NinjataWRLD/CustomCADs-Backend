@@ -60,7 +60,7 @@ static class CadConfigUtils
                 x => x.Value,
                 v => new(v)
             );
-        
+
         builder.Property(x => x.CadId)
             .HasConversion<Guid?>(
                 x => x == null ? null : x.Value.Value,

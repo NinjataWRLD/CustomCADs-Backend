@@ -25,7 +25,7 @@ public static class DependencyInjection
 
         return services;
     }
-    
+
     public static IServiceCollection AddDeliveryPrintService(this IServiceCollection services)
     {
         services

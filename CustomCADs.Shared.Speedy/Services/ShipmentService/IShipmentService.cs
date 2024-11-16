@@ -3,9 +3,9 @@
 namespace CustomCADs.Shared.Speedy.Services.ShipmentService;
 
 using AddParcel;
+using BarcodeInformation;
 using CancelShipment;
 using CreateShipment;
-using CustomCADs.Shared.Speedy.Services.ShipmentService.BarcodeInformation;
 using FinalizePendingShipment;
 using FindParcelsByRef;
 using HandoverToCourier;
@@ -22,10 +22,10 @@ public interface IShipmentService
 
     [Delete("")]
     Task<CancelShipmentResponse> CancelShipmentAsync(CancelShipmentRequest request, CancellationToken ct = default);
-    
+
     [Post("add_parcel")]
     Task<AddParcelResponse> AddParcelShipmentAsync(AddParcelRequest request, CancellationToken ct = default);
-    
+
     [Post("finalize")]
     Task<FinalizePendingShipmentRequest> FinalizePendingShipmentAsync(FinalizePendingShipmentResponse request, CancellationToken ct = default);
 

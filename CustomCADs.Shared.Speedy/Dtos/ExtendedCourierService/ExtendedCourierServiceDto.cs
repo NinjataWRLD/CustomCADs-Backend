@@ -1,7 +1,6 @@
 ﻿namespace CustomCADs.Shared.Speedy.Dtos.ExtendedCourierService;
 
 using CourierService;
-using Enums;
 
 public record ExtendedCourierServiceDto(
     string Deadline,

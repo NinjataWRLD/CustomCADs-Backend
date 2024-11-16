@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Speedy.Dtos.Errors;
-using CustomCADs.Shared.Speedy.Dtos.PickupOrder;
+﻿namespace CustomCADs.Shared.Speedy.Services.PickupService.Pickup;
 
-namespace CustomCADs.Shared.Speedy.Services.PickupService.Pickup;
+using Dtos.PickupOrder;
 
 public record PickupResponse(
     PickupOrderDto[] Orders,

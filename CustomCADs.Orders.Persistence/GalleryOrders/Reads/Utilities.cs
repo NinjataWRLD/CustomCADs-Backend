@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Enums;
-using CustomCADs.Orders.Domain.GalleryOrders.Entities;
+﻿using CustomCADs.Orders.Domain.GalleryOrders.Entities;
 using CustomCADs.Orders.Domain.GalleryOrders.Enums;
 using CustomCADs.Orders.Domain.GalleryOrders.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;

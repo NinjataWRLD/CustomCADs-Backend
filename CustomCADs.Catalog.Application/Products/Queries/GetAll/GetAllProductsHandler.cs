@@ -37,8 +37,8 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
             result.Count,
             result.Products.Select(product =>
                 new GetAllProductsItem(
-                    product, 
-                    users.Single(u => u.Id == product.CreatorId).Username, 
+                    product,
+                    users.Single(u => u.Id == product.CreatorId).Username,
                     categories.Single(u => u.Id == product.CategoryId).Name
             )).ToArray()
         );

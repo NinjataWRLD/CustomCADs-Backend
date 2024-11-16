@@ -14,7 +14,7 @@ public class GalleryOrderItemValidationException : BaseException
 
     public static GalleryOrderItemValidationException CadIdOnNonDigitalDeliveryType(Exception? inner = default)
         => new("Cannot set a CadId for a Gallery Order Item with a DeliveryType that doesn't include a Digital Delivery.", inner);
-    
+
     public static GalleryOrderItemValidationException ShipmentIdOnNonPhysicalDeliveryType(Exception? inner = default)
         => new("Cannot set a ShipmentId for a Gallery Order Item with a DeliveryType that doesn't include a Physical Delivery.", inner);
 

@@ -51,7 +51,7 @@ public interface ILocationService
 
     [Post("state/csv/{countryId}")]
     Task<HttpResponseMessage> GetAllStates(int countryId, GetAllStatesRequest request, CancellationToken ct = default);
-    
+
 
     // Site
 
@@ -63,7 +63,7 @@ public interface ILocationService
 
     [Post("site/csv/{countryId}")]
     Task<HttpResponseMessage> GetAllSites(int countryId, GetAllSitesRequest request, CancellationToken ct = default);
-    
+
 
     // Site
 
@@ -75,7 +75,7 @@ public interface ILocationService
 
     [Post("street/csv/{countryId}")]
     Task<HttpResponseMessage> GetAllStreets(int countryId, GetAllComplexRequest request, CancellationToken ct = default);
-    
+
 
     // Complex
 
@@ -87,10 +87,10 @@ public interface ILocationService
 
     [Post("complex/csv/{countryId}")]
     Task<HttpResponseMessage> GetAllComplexes(int countryId, GetAllComplexesRequest request, CancellationToken ct = default);
-    
+
 
     // Block
-     
+
     [Post("block")]
     Task<FindBlockResponse> FindBlock(FindBlockRequest request, CancellationToken ct = default);
 
