@@ -8,14 +8,4 @@ public record GetUserByIdDto(
     string Email,
     string? FirstName,
     string? LastName
-)
-{
-    public GetUserByIdDto(User user) : this(
-        Role: user.RoleName,
-        Username: user.Username,
-        Email: user.Email,
-        FirstName: user.Names.FirstName,
-        LastName: user.Names.LastName
-    )
-    { }
-}
+);

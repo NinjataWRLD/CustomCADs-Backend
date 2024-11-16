@@ -10,19 +10,19 @@ public class CreateProductHandler(ICategoryReads categoryReads, IWrites<Product>
 {
     public async Task<ProductId> Handle(CreateProductCommand req, CancellationToken ct)
     {
-        bool categoryExists = await categoryReads.ExistsByIdAsync(req.Dto.CategoryId, ct: ct).ConfigureAwait(false);
+        bool categoryExists = await categoryReads.ExistsByIdAsync(req.CategoryId, ct: ct).ConfigureAwait(false);
         if (!categoryExists)
         {
-            throw CategoryNotFoundException.ById(req.Dto.CategoryId);
+            throw CategoryNotFoundException.ById(req.CategoryId);
         }
 
         Product product = Product.Create(
-            name: req.Dto.Name,
-            description: req.Dto.Description,
-            price: req.Dto.Price,
-            status: req.Dto.Status,
-            creatorId: req.Dto.CreatorId,
-            categoryId: req.Dto.CategoryId
+            name: req.Name,
+            description: req.Description,
+            price: req.Price,
+            status: req.Status,
+            creatorId: req.CreatorId,
+            categoryId: req.CategoryId
         );
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);
 

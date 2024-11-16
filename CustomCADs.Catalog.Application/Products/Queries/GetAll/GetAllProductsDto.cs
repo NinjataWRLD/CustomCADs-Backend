@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Queries;
-using CustomCADs.Catalog.Domain.Products.Entities;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
@@ -14,16 +13,4 @@ public record GetAllProductsItem(
     Image Image,
     string CreatorName,
     CategoryReadDto Category
-)
-{
-    public GetAllProductsItem(Product product, string username, string categoryName) : this(
-        Id: product.Id,
-        Name: product.Name,
-        Status: product.Status.ToString(),
-        UploadDate: product.UploadDate,
-        Image: product.Image,
-        Category: new(product.CategoryId, categoryName),
-        CreatorName: username
-    )
-    { }
-}
+);

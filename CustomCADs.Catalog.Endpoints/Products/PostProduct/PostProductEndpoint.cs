@@ -21,7 +21,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
 
     public override async Task HandleAsync(PostProductRequest req, CancellationToken ct)
     {
-        CreateProductDto dto = new(
+        CreateProductCommand command = new(
             Name: req.Name,
             Description: req.Description,
             CategoryId: new(req.CategoryId),
@@ -31,8 +31,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
                 ? ProductStatus.Validated
                 : ProductStatus.Unchecked
         );
-        CreateProductCommand createCommand = new(dto);
-        Task<ProductId> createTask = sender.SendCommandAsync(createCommand, ct);
+        Task<ProductId> createTask = sender.SendCommandAsync(command, ct);
 
         using MemoryStream imageStream = new();
         Task imageTask = req.Image.CopyToAsync(imageStream);
@@ -47,12 +46,12 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         ProductId id = await createTask.ConfigureAwait(false);
         await raiser.RaiseAsync(new ProductCreatedDomainEvent(
             Id: id,
-            Name: dto.Name,
-            Description: dto.Description,
-            CategoryId: dto.CategoryId,
-            Price: dto.Price,
-            CreatorId: dto.CreatorId,
-            Status: dto.Status.ToString(),
+            Name: command.Name,
+            Description: command.Description,
+            CategoryId: command.CategoryId,
+            Price: command.Price,
+            CreatorId: command.CreatorId,
+            Status: command.Status.ToString(),
             Image: new(imageBytes, req.Image.FileName, req.Image.ContentType),
             Cad: new(cadBytes, req.File.FileName, req.File.ContentType)
         )).ConfigureAwait(false);
@@ -60,7 +59,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         GetProductByIdQuery query = new(id);
         GetProductByIdDto product = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        PostProductResponse response = new(product);
+        PostProductResponse response = product.ToPostProductResponse();
         await SendCreatedAtAsync<GetProductEndpoint>(new { id }, response).ConfigureAwait(false);
     }
 }

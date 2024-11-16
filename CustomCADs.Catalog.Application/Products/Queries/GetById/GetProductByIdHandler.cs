@@ -36,7 +36,7 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
             cadDto.PanCoordinates.ToValueObject()
         );
 
-        GetProductByIdDto response = new(product, cad, username, category.Name);
+        GetProductByIdDto response = product.ToGetProductByIdDto(cad, username, category.Name);
         return response;
     }
 }

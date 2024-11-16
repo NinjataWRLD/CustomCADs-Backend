@@ -22,7 +22,7 @@ public class RecentProductsEndpoint(IRequestSender sender)
         );
         GetAllProductsDto dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = dto.Products.Select(p => new RecentProductsResponse(p));
+        var response = dto.Products.Select(p => p.ToRecentProductsResponse());
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }
