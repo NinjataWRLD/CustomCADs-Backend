@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions;
-using CustomCADs.Orders.Domain.Common.Enums;
+﻿using CustomCADs.Orders.Domain.Common.Enums;
 using CustomCADs.Orders.Domain.Common.Exceptions.CustomOrders;
 using CustomCADs.Orders.Domain.CustomOrders.Enums;
 using CustomCADs.Orders.Domain.CustomOrders.Validation;

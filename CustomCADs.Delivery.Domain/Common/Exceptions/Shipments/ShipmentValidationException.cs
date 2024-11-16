@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions;
 
-namespace CustomCADs.Orders.Domain.Common.Exceptions.Shipments;
+namespace CustomCADs.Delivery.Domain.Common.Exceptions.Shipments;
 
 public class ShipmentValidationException : BaseException
 {
