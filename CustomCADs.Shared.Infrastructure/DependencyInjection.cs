@@ -77,5 +77,7 @@ public static class DependencyInjection
         services.AddTrackService();
         services.AddPickupService();
         services.AddLocationService();
+        services.AddCalculationService();
+        services.AddClientService();
     }
 }
