@@ -10,7 +10,8 @@ public class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow, IE
 {
     public async Task<CategoryId> Handle(CreateCategoryCommand req, CancellationToken ct)
     {
-        Category category = Category.Create(req.Dto.Name);
+        var category = Category.Create(req.Dto.Name);
+
         await writes.AddAsync(category, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 

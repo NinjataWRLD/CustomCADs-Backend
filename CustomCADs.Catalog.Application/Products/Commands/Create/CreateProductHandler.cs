@@ -16,7 +16,7 @@ public class CreateProductHandler(ICategoryReads categoryReads, IWrites<Product>
             throw CategoryNotFoundException.ById(req.CategoryId);
         }
 
-        Product product = Product.Create(
+        var product = Product.Create(
             name: req.Name,
             description: req.Description,
             price: req.Price,

@@ -7,8 +7,6 @@ public class ProductsCountHandler(IProductReads reads)
 {
     public async Task<int> Handle(ProductsCountQuery req, CancellationToken ct)
     {
-        int count = await reads.CountByStatusAsync(req.CreatorId, req.Status, ct: ct).ConfigureAwait(false);
-
-        return count;
+        return await reads.CountByStatusAsync(req.CreatorId, req.Status, ct: ct).ConfigureAwait(false);
     }
 }

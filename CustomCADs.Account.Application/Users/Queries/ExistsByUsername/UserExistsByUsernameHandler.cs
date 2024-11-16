@@ -7,8 +7,6 @@ public class UserExistsByUsernameHandler(IUserReads reads)
 {
     public async Task<bool> Handle(UserExistsByUsernameQuery req, CancellationToken ct)
     {
-        bool userExists = await reads.ExistsByUsernameAsync(req.Username, ct: ct).ConfigureAwait(false);
-
-        return userExists;
+        return await reads.ExistsByUsernameAsync(req.Username, ct: ct).ConfigureAwait(false);
     }
 }

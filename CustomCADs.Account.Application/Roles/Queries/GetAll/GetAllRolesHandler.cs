@@ -10,7 +10,6 @@ public class GetAllRolesHandler(IRoleReads reads)
     {
         IEnumerable<Role> roles = await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
 
-        var response = roles.Select(r => new RoleReadDto(r.Id, r.Name, r.Description));
-        return response;
+        return roles.Select(r => new RoleReadDto(r.Id, r.Name, r.Description));
     }
 }

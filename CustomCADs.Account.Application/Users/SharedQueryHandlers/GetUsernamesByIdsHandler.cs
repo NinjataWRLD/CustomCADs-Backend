@@ -11,7 +11,6 @@ public class GetUsernamesByIdsHandler(IUserReads reads)
         UserQuery query = new(Ids: req.Ids);
         UserResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        var response = result.Users.Select(u => (u.Id, u.Username));
-        return response;
+        return result.Users.Select(u => (u.Id, u.Username));
     }
 }

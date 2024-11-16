@@ -7,8 +7,6 @@ public class ProductExistsByIdHandler(IProductReads reads)
 {
     public async Task<bool> Handle(ProductExistsByIdQuery req, CancellationToken ct)
     {
-        bool productExists = await reads.ExistsByIdAsync(req.Id, ct: ct).ConfigureAwait(false);
-
-        return productExists;
+        return await reads.ExistsByIdAsync(req.Id, ct: ct).ConfigureAwait(false);
     }
 }

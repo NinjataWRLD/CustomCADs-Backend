@@ -13,7 +13,6 @@ public class GetAllCategoriesHandler(ICategoryReads reads, ICacheService cache)
             await cache.GetAsync<IEnumerable<Category>>("categories")
             ?? await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
 
-        var response = categories.Select(c => new CategoryReadDto(c.Id, c.Name));
-        return response;
+        return categories.Select(c => new CategoryReadDto(c.Id, c.Name));
     }
 }
