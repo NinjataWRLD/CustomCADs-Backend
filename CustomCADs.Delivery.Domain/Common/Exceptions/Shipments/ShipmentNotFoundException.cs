@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
 
 namespace CustomCADs.Delivery.Domain.Common.Exceptions.Shipments;
 

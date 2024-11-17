@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.Entities;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
 
 namespace CustomCADs.Delivery.Domain.Shipments.Reads;
 

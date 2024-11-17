@@ -9,13 +9,13 @@ namespace CustomCADs.Orders.Persistence.CustomOrders.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<CustomOrder> WithFilter(this IQueryable<CustomOrder> query, string? type = null, string? status = null, UserId? buyerId = null, UserId? designerId = null)
+    public static IQueryable<CustomOrder> WithFilter(this IQueryable<CustomOrder> query, DeliveryType? deliveryType = null, CustomOrderStatus? orderStatus = null, UserId? buyerId = null, UserId? designerId = null)
     {
-        if (type is not null && Enum.TryParse(type, ignoreCase: true, out DeliveryType deliveryType))
+        if (deliveryType is not null)
         {
             query = query.Where(c => c.DeliveryType == deliveryType);
         }
-        if (status is not null && Enum.TryParse(status, ignoreCase: true, out CustomOrderStatus orderStatus))
+        if (orderStatus is not null)
         {
             query = query.Where(c => c.OrderStatus == orderStatus);
         }

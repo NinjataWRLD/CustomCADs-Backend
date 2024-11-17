@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Shared.Application.Requests.Queries;
 
-namespace CustomCADs.Shared.Queries.Users.GetUsernameById;
+namespace CustomCADs.Shared.Queries.Users;
 
 public record GetUsernameByIdQuery(UserId Id) : IQuery<string>;

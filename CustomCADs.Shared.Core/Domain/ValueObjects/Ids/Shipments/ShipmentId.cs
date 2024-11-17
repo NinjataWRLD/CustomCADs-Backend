@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
+namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
 
 public readonly struct ShipmentId(Guid value)
 {
