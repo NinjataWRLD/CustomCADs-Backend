@@ -7,6 +7,7 @@ public interface ICartReads
 {
     Task<CartResult> AllAsync(CartQuery query, bool track = true, CancellationToken ct = default);
     Task<Cart?> SingleByIdAsync(CartId id, bool track = true, CancellationToken ct = default);
+    Task<ICollection<GalleryOrder>> OrdersByIdAsync(CartId id, CancellationToken ct = default);
     Task<bool> ExistsByIdAsync(CartId id, CancellationToken ct = default);
     Task<int> CountAsync(UserId buyerId, CancellationToken ct = default);
 }

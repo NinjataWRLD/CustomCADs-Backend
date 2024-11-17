@@ -31,6 +31,14 @@ public class CartReads(OrdersContext context) : ICartReads
             .FirstOrDefaultAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
+    public async Task<ICollection<GalleryOrder>> OrdersByIdAsync(CartId id, CancellationToken ct = default)
+        => await context.Carts
+            .WithTracking(false)
+            .Where(o => o.Id == id)
+            .SelectMany(c => c.Orders)
+            .ToArrayAsync(ct)
+            .ConfigureAwait(false);
+
     public async Task<bool> ExistsByIdAsync(CartId id, CancellationToken ct = default)
         => await context.Carts
             .WithTracking(false)
