@@ -2,16 +2,16 @@
 
 namespace CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 
-public class ProductCadException : BaseException
+public class ProductNotFoundException : BaseException
 {
-    private ProductCadException(string message, Exception? inner) : base(message, inner) { }
+    private ProductNotFoundException(string message, Exception? inner) : base(message, inner) { }
 
-    public static ProductCadException General(Exception? inner = default)
-        => new("There was an error with requested Product's Cad.", inner);
+    public static ProductNotFoundException General(Exception? inner = default)
+        => new("The requested Product does not exist.", inner);
 
-    public static ProductCadException Null(ProductId id, Exception? inner = default)
-        => new($"The Product with id: {id} has a null CadId Foreign Key.", inner);
+    public static ProductNotFoundException ById(ProductId id, Exception? inner = default)
+        => new($"The Product with id: {id} does not exist.", inner);
 
-    public static ProductCadException Custom(string message, Exception? inner = default)
+    public static ProductNotFoundException Custom(string message, Exception? inner = default)
         => new(message, inner);
 }

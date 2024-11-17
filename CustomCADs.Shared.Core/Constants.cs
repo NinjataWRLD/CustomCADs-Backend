@@ -4,12 +4,15 @@ public static class Constants
 {
     public const string DateFormatString = "dd.MM.yyyy HH:mm:ss";
 
-    public static class AnnotationMessages
+    public static class ExceptionMessages
     {
-        public const string RequiredError = "{0} is required";
-        public const string LengthError = "{0} length must be between {0} and {2} characters";
-        public const string RangeError = "{0} must be between {1} and {2}";
-        public const string EmailError = "Invalid Email";
+        public const string NotFound = "The requested {0} does not exist.";
+        public const string NotFoundByProp = "The {0} with {1}: {2} does not exist.";
+
+        public const string Validation = "There was a validation error while working with {0} {1}.";
+        public const string NonNullValidation = "{0} {1} must have a non-null {2}.";
+        public const string LengthValidation = "{0} {1}'s {2} be shorter than {3} and longer than {4} characters.";
+        public const string RangeValidation = "{0} {1}'s {2} must be less than {3} and more than {4}.";
     }
 
     public static class FluentMessages
@@ -37,14 +40,5 @@ public static class Constants
     {
         public const int PrecisionMax = 13;
         public const int PrecisionMin = 1;
-    }
-
-    public static class Cads
-    {
-        public static class Coordinates
-        {
-            public const int CoordMin = -1000;
-            public const int CoordMax = 1000;
-        }
     }
 }

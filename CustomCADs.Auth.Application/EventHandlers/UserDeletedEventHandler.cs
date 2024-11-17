@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.IntegrationEvents.Account.Users;
+﻿using CustomCADs.Auth.Application.Common.Exceptions.Users;
+using CustomCADs.Shared.IntegrationEvents.Account.Users;
 
 namespace CustomCADs.Auth.Application.EventHandlers;
 

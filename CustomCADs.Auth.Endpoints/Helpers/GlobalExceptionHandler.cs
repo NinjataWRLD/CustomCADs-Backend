@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CustomCADs.Auth.Application.Common.Exceptions.Roles;
+using CustomCADs.Auth.Application.Common.Exceptions.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Auth.Endpoints.Helpers;
 
