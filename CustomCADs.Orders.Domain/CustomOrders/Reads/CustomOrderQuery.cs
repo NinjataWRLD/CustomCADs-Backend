@@ -1,11 +1,13 @@
-﻿using CustomCADs.Orders.Domain.CustomOrders.ValueObjects;
+﻿using CustomCADs.Orders.Domain.Common.Enums;
+using CustomCADs.Orders.Domain.CustomOrders.Enums;
+using CustomCADs.Orders.Domain.CustomOrders.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
 namespace CustomCADs.Orders.Domain.CustomOrders.Reads;
 
 public record CustomOrderQuery(
-    string? DeliveryType = null,
-    string? OrderStatus = null,
+    DeliveryType? DeliveryType = null,
+    CustomOrderStatus? OrderStatus = null,
     UserId? BuyerId = null,
     UserId? DesignerId = null,
     string? Name = null,

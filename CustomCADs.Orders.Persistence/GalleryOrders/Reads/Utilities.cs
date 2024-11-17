@@ -1,4 +1,5 @@
-﻿using CustomCADs.Orders.Domain.GalleryOrders.Entities;
+﻿using CustomCADs.Orders.Domain.Common.Enums;
+using CustomCADs.Orders.Domain.GalleryOrders.Entities;
 using CustomCADs.Orders.Domain.GalleryOrders.Enums;
 using CustomCADs.Orders.Domain.GalleryOrders.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;
@@ -8,11 +9,15 @@ namespace CustomCADs.Orders.Persistence.GalleryOrders.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<GalleryOrder> WithFilter(this IQueryable<GalleryOrder> query, UserId? buyerId = null)
+    public static IQueryable<GalleryOrder> WithFilter(this IQueryable<GalleryOrder> query, UserId? buyerId = null, DeliveryType? deliveryType = null)
     {
         if (buyerId is not null)
         {
             query = query.Where(c => c.BuyerId == buyerId);
+        }
+        if (deliveryType is not null)
+        {
+            query = query.Where(c => c.DeliveryType == deliveryType);
         }
 
         return query;

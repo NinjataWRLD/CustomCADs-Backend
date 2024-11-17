@@ -6,6 +6,7 @@ using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
 
 namespace CustomCADs.Orders.Domain.CustomOrders.Entities;
 
@@ -74,6 +75,12 @@ public class CustomOrder : BaseAggregateRoot
         return this;
     }
 
+    public CustomOrder EraseDesignerId()
+    {
+        DesignerId = null;
+        return this;
+    }
+    
     public CustomOrder SetDesignerId(UserId designerId)
     {
         DesignerId = designerId;
@@ -156,7 +163,14 @@ public class CustomOrder : BaseAggregateRoot
 
     public CustomOrder SetReportedStatus()
     {
-        OrderStatus = CustomOrderStatus.Reported;
+        var newStatus = CustomOrderStatus.Reported;
+
+        if (OrderStatus != CustomOrderStatus.Pending)
+        {
+            throw CustomOrderValidationException.InvalidStatus(Id, newStatus.ToString());
+        }
+
+        OrderStatus = newStatus;
         return this;
     }
 

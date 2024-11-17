@@ -5,7 +5,7 @@ using CustomCADs.Catalog.Domain.Products.Entities;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Queries.Cads;
-using CustomCADs.Shared.Queries.Users.GetUsernameById;
+using CustomCADs.Shared.Queries.Users;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 

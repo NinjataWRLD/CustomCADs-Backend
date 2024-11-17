@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Orders.Domain.GalleryOrders.Entities;
 using CustomCADs.Orders.Domain.GalleryOrders.Reads;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ public class GalleryOrderReads(OrdersContext context) : IGalleryOrderReads
     {
         IQueryable<GalleryOrder> queryable = context.GalleryOrders
             .WithTracking(track)
-            .WithFilter(query.BuyerId);
+            .WithFilter(query.BuyerId, query.DeliveryType);
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         GalleryOrder[] orders = await queryable
@@ -36,9 +37,10 @@ public class GalleryOrderReads(OrdersContext context) : IGalleryOrderReads
             .AnyAsync(o => o.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<int> CountAsync(CancellationToken ct = default)
+    public async Task<int> CountAsync(UserId buyerId, CancellationToken ct = default)
         => await context.GalleryOrders
             .WithTracking(false)
+            .Where(o => o.BuyerId == buyerId)
             .CountAsync(ct)
             .ConfigureAwait(false);
 }
