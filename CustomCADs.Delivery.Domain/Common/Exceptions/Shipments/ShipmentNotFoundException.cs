@@ -1,16 +1,19 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions;
+﻿using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Common.Exceptions;
 
 namespace CustomCADs.Delivery.Domain.Common.Exceptions.Shipments;
+
+using static Constants.ExceptionMessages;
 
 public class ShipmentNotFoundException : BaseException
 {
     private ShipmentNotFoundException(string message, Exception? inner) : base(message, inner) { }
 
     public static ShipmentNotFoundException General(Exception? inner = default)
-        => new("The requested Shipment does not exist.", inner);
+        => new(string.Format(NotFound, "Shipment"), inner);
 
     public static ShipmentNotFoundException ById(ShipmentId id, Exception? inner = default)
-        => new($"The Shipment with id: {id} does not exist.", inner);
+        => new(string.Format(NotFoundByProp, "Shipment", nameof(id), id), inner);
 
     public static ShipmentNotFoundException Custom(string message, Exception? inner = default)
         => new(message, inner);

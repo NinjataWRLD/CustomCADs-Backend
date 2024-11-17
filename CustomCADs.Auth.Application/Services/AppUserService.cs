@@ -1,4 +1,5 @@
-﻿using CustomCADs.Auth.Application.DomainEvents.Email;
+﻿using CustomCADs.Auth.Application.Common.Exceptions.Users;
+using CustomCADs.Auth.Application.DomainEvents.Email;
 using CustomCADs.Auth.Application.Dtos;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;

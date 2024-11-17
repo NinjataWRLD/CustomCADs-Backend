@@ -1,16 +1,19 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions;
+﻿using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Common.Exceptions;
 
 namespace CustomCADs.Cads.Domain.Common.Exceptions.Cads;
+
+using static Constants.ExceptionMessages;
 
 public class CadNotFoundException : BaseException
 {
     private CadNotFoundException(string message, Exception? inner) : base(message, inner) { }
 
     public static CadNotFoundException General(Exception? inner = default)
-        => new("The requested Cad does not exist.", inner);
+        => new(string.Format(NotFound, "Cad"), inner);
 
     public static CadNotFoundException ById(CadId id, Exception? inner = default)
-        => new($"The Cad with id: {id} does not exist.", inner);
+        => new(string.Format(NotFoundByProp, "Role", nameof(id), id), inner);
 
     public static CadNotFoundException Custom(string message, Exception? inner = default)
         => new(message, inner);

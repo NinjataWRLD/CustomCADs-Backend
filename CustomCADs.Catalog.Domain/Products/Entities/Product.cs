@@ -1,15 +1,12 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Validation;
-using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 
 namespace CustomCADs.Catalog.Domain.Products.Entities;
-
-using static Constants.Cads.Coordinates;
 
 public class Product : BaseAggregateRoot
 {
@@ -98,7 +95,7 @@ public class Product : BaseAggregateRoot
 
         if (!(Status == ProductStatus.Validated || Status == ProductStatus.Reported))
         {
-            throw ProductStatusException.ById(Id, newStatus.ToString());
+            throw ProductValidationException.InvalidStatus(Id, newStatus.ToString());
         }
         Status = newStatus;
 
@@ -111,7 +108,7 @@ public class Product : BaseAggregateRoot
 
         if (Status != ProductStatus.Unchecked)
         {
-            throw ProductStatusException.ById(Id, newStatus.ToString());
+            throw ProductValidationException.InvalidStatus(Id, newStatus.ToString());
         }
         Status = newStatus;
 
@@ -130,13 +127,10 @@ public class Product : BaseAggregateRoot
 
         if (Status != ProductStatus.Reported)
         {
-            throw ProductStatusException.ById(Id, newStatus.ToString());
+            throw ProductValidationException.InvalidStatus(Id, newStatus.ToString());
         }
         Status = newStatus;
 
         return this;
     }
-
-    private static bool AreCoordsValid(params int[] coords)
-        => coords.All(c => c >= CoordMin && c < CoordMax);
 }

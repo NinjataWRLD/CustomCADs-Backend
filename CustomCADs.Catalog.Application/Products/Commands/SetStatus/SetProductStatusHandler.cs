@@ -18,7 +18,7 @@ public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
         {
             case ProductStatus.Validated: product.SetValidatedStatus(); break;
             case ProductStatus.Reported: product.SetReportedStatus(); break;
-            default: throw ProductStatusException.ById(req.Id, req.Status.ToString());
+            default: throw ProductValidationException.InvalidStatus(req.Id, req.Status.ToString());
         }
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

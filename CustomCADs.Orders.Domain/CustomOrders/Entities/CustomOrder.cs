@@ -108,7 +108,7 @@ public class CustomOrder : BaseAggregateRoot
 
         if (!(OrderStatus == CustomOrderStatus.Accepted || OrderStatus == CustomOrderStatus.Begun))
         {
-            throw CustomOrderStatusException.ById(Id, newStatus.ToString());
+            throw CustomOrderValidationException.InvalidStatus(Id, newStatus.ToString());
         }
 
         OrderStatus = newStatus;
@@ -121,7 +121,7 @@ public class CustomOrder : BaseAggregateRoot
 
         if (OrderStatus != CustomOrderStatus.Pending)
         {
-            throw CustomOrderStatusException.ById(Id, newStatus.ToString());
+            throw CustomOrderValidationException.InvalidStatus(Id, newStatus.ToString());
         }
 
         OrderStatus = newStatus;
@@ -134,7 +134,7 @@ public class CustomOrder : BaseAggregateRoot
 
         if (OrderStatus != CustomOrderStatus.Accepted)
         {
-            throw CustomOrderStatusException.ById(Id, newStatus.ToString());
+            throw CustomOrderValidationException.InvalidStatus(Id, newStatus.ToString());
         }
 
         OrderStatus = newStatus;
@@ -147,7 +147,7 @@ public class CustomOrder : BaseAggregateRoot
 
         if (OrderStatus != CustomOrderStatus.Begun)
         {
-            throw CustomOrderStatusException.ById(Id, newStatus.ToString());
+            throw CustomOrderValidationException.InvalidStatus(Id, newStatus.ToString());
         }
 
         OrderStatus = newStatus;
@@ -166,7 +166,7 @@ public class CustomOrder : BaseAggregateRoot
 
         if (OrderStatus != CustomOrderStatus.Reported)
         {
-            throw CustomOrderStatusException.ById(Id, newStatus.ToString());
+            throw CustomOrderValidationException.InvalidStatus(Id, newStatus.ToString());
         }
 
         OrderStatus = newStatus;

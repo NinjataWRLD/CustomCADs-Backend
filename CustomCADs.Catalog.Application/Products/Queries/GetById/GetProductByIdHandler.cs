@@ -25,7 +25,7 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
 
         if (product.CadId is null)
         {
-            throw ProductCadException.Null(product.Id);
+            throw ProductValidationException.CadNotNull(product.Id);
         }
         GetCadByIdQuery cadQuery = new(product.CadId.Value);
 

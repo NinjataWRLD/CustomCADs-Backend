@@ -18,7 +18,7 @@ public class SetProductCoordsHandler(IProductReads reads, IUnitOfWork uow, IEven
 
         if (product.CadId is null)
         {
-            throw ProductCadException.Null(product.Id);
+            throw ProductValidationException.CadNotNull(product.Id);
         }
 
         CadCoordsUpdateRequestedIntegrationEvent cadCoordsUpdateRequestedie = new(
