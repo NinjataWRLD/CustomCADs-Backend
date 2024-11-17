@@ -5,6 +5,7 @@ using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Endpoints;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Catalog.Endpoints;
+using CustomCADs.Orders.Application;
 using CustomCADs.Presentation;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Email;
@@ -38,6 +39,7 @@ public static class ProgramExtensions
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies([
             CatalogApplicationReference.Assembly,
             AccountApplicationReference.Assembly,
+            OrdersApplicationReference.Assembly,
         ]));
 
         return services;
@@ -52,11 +54,12 @@ public static class ProgramExtensions
 
     public static IServiceCollection AddRaiser(this IServiceCollection services)
     {
-        services.AddEventRaiser(
+        services.AddEventRaiser([
             AccountApplicationReference.Assembly,
             AuthApplicationReference.Assembly,
-            CatalogApplicationReference.Assembly
-        );
+            CatalogApplicationReference.Assembly,
+            OrdersApplicationReference.Assembly,
+        ]);
 
         return services;
     }
