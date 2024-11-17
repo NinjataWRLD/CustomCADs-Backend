@@ -2,13 +2,13 @@
 
 namespace CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
 
-public readonly struct GalleryOrderId(Guid value)
+public readonly struct CartId(Guid value)
 {
-    public GalleryOrderId() : this(Guid.Empty) { }
+    public CartId() : this(Guid.Empty) { }
     public Guid Value { get; init; } = value;
 
     public override bool Equals([NotNullWhen(true)] object? obj)
-        => obj is GalleryOrderId orderId && this == orderId;
+        => obj is CartId cartId && this == cartId;
 
     public override int GetHashCode()
         => Value.GetHashCode();
@@ -16,9 +16,9 @@ public readonly struct GalleryOrderId(Guid value)
     public override string ToString()
         => Value.ToString();
 
-    public static bool operator ==(GalleryOrderId left, GalleryOrderId right)
+    public static bool operator ==(CartId left, CartId right)
         => left.Value == right.Value;
 
-    public static bool operator !=(GalleryOrderId left, GalleryOrderId right)
+    public static bool operator !=(CartId left, CartId right)
         => !(left == right);
 }

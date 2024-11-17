@@ -1,10 +1,10 @@
-﻿using CustomCADs.Orders.Domain.Common;
+﻿using CustomCADs.Orders.Domain.Carts.Reads;
+using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.CustomOrders.Reads;
-using CustomCADs.Orders.Domain.GalleryOrders.Reads;
 using CustomCADs.Orders.Persistence;
+using CustomCADs.Orders.Persistence.Carts.Reads;
 using CustomCADs.Orders.Persistence.Common;
 using CustomCADs.Orders.Persistence.CustomOrders.Reads;
-using CustomCADs.Orders.Persistence.GalleryOrders.Reads;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -32,7 +32,7 @@ public static class DependencyInjection
     public static IServiceCollection AddReads(this IServiceCollection services)
     {
         services.AddScoped<ICustomOrderReads, CustomOrderReads>();
-        services.AddScoped<IGalleryOrderReads, GalleryOrderReads>();
+        services.AddScoped<ICartReads, CartReads>();
 
         return services;
     }
