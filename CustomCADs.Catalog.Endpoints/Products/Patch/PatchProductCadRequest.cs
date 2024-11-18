@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Catalog.Endpoints.Products.Patch;
 
-public record PatchCadRequest(
+public record PatchProductCadRequest(
     Guid Id,
     string Type,
     CoordinatesDto Coordinates

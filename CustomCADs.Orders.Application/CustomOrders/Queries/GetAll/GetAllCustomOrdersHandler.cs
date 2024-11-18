@@ -1,8 +1,11 @@
 ﻿using CustomCADs.Orders.Domain.CustomOrders.Reads;
+using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Queries.Users;
 
 namespace CustomCADs.Orders.Application.CustomOrders.Queries.GetAll;
 
-public class GetAllCustomOrdersHandler(ICustomOrderReads reads) 
+public class GetAllCustomOrdersHandler(ICustomOrderReads reads, IRequestSender sender) 
     : IQueryHandler<GetAllCustomOrdersQuery, GetAllCustomOrdersDto>
 {
     public async Task<GetAllCustomOrdersDto> Handle(GetAllCustomOrdersQuery req, CancellationToken ct)
@@ -18,11 +21,23 @@ public class GetAllCustomOrdersHandler(ICustomOrderReads reads)
             Limit: req.Limit
         );
         CustomOrderResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
+        
+        UserId[] ids = result.Orders
+            .Where(o => o.DesignerId is not null)
+            .Select(o => o.DesignerId!.Value)
+            .ToArray();
+
+        GetUsernamesByIdsQuery usernamesQuery = new(ids);
+        var designersInfo = await sender.SendQueryAsync(usernamesQuery, ct).ConfigureAwait(false);
 
         return new(
             result.Count, 
             result.Orders
-                .Select(o => o.ToGetAllCustomOrdersItem())
+                .Select(o =>
+                {
+                    var (_, Username) = designersInfo.First(d => d.Id == o.DesignerId);
+                    return o.ToGetAllCustomOrdersItem(Username);
+                })
                 .ToArray()
         );
     }

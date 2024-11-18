@@ -9,14 +9,15 @@ namespace CustomCADs.Orders.Application.CustomOrders;
 
 public static class Mapper
 {
-    public static GetAllCustomOrdersItem ToGetAllCustomOrdersItem(this CustomOrder order)
+    public static GetAllCustomOrdersItem ToGetAllCustomOrdersItem(this CustomOrder order, string designerName)
         => new(
             order.Id,
             order.Name,
             order.OrderDate,
             order.DeliveryType,
             order.OrderStatus,
-            order.Image
+            order.Image,
+            designerName
         );
 
     public static GetCustomOrderByIdDto ToGetCustomOrderByIdDto(this CustomOrder order)

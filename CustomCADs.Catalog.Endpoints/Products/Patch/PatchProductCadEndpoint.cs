@@ -5,17 +5,17 @@ namespace CustomCADs.Catalog.Endpoints.Products.Patch;
 
 using static ApiMessages;
 
-public class PatchProductEndpoint(IRequestSender sender)
-    : Endpoint<PatchCadRequest>
+public class PatchProductCadEndpoint(IRequestSender sender)
+    : Endpoint<PatchProductCadRequest>
 {
     public override void Configure()
     {
         Patch("{id}");
         Group<ProductsGroup>();
-        Options(o => o.Accepts<PatchCadRequest>("application/json"));
+        Options(o => o.Accepts<PatchProductCadRequest>("application/json"));
     }
 
-    public override async Task HandleAsync(PatchCadRequest req, CancellationToken ct)
+    public override async Task HandleAsync(PatchProductCadRequest req, CancellationToken ct)
     {
         ProductId id = new(req.Id);
         IsProductCreatorQuery query = new(id, User.GetAccountId());

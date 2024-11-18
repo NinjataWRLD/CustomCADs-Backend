@@ -12,5 +12,6 @@ public record GetAllCustomOrdersItem(
     DateTime OrderDate,
     DeliveryType DeliveryType,
     CustomOrderStatus OrderStatus,
-    Image Image
+    Image Image,
+    string DesignerName
 );
