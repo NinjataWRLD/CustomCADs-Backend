@@ -15,18 +15,18 @@ public class CountProductsEndpoint(IRequestSender sender)
     public override async Task HandleAsync(CancellationToken ct)
     {
         ProductsCountQuery query = new(User.GetAccountId(), ProductStatus.Unchecked);
-        var uncheckedProductsCounts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        int uncheckedProductsCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         query = query with { Status = ProductStatus.Validated };
-        var validatedProductsCounts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        int validatedProductsCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         query = query with { Status = ProductStatus.Reported };
-        var reportedProductsCounts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        int reportedProductsCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         query = query with { Status = ProductStatus.Removed };
-        var bannedProductsCounts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        int bannedProductsCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        CountProductsResponse response = new(uncheckedProductsCounts, validatedProductsCounts, reportedProductsCounts, bannedProductsCounts);
+        CountProductsResponse response = new(uncheckedProductsCount, validatedProductsCount, reportedProductsCount, bannedProductsCount);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }
