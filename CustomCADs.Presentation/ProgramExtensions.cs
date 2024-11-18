@@ -115,9 +115,9 @@ public static class ProgramExtensions
 
     public static void AddJsonOptions(this IServiceCollection services)
     {
-        services.Configure<JsonSerializerOptions>(options =>
+        services.ConfigureHttpJsonOptions(options =>
         {
-            options.Converters.Add(new JsonStringEnumConverter());
+            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
     }
 
@@ -180,7 +180,7 @@ public static class ProgramExtensions
             cfg.Versioning.DefaultVersion = 1;
             cfg.Versioning.PrependToRoute = true;
         });
-
+        
         return app;
     }
 
@@ -196,13 +196,14 @@ public static class ProgramExtensions
                 ScalarTheme.Mars,
                 ScalarTheme.DeepSpace,
             ];
-
+            
             options
                 .WithOpenApiRoutePattern(apiPattern)
                 .WithEndpointPrefix(uiPattern)
                 .WithOperationSorter(OperationSorter.Method)
                 .WithTitle("CustomCADs API")
                 .WithTheme(themes[Random.Shared.Next(0, themes.Length)])
+                .WithFavicon("/favicon.ico")
                 .WithDarkModeToggle(false);
         });
 

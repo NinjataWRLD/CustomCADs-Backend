@@ -9,6 +9,14 @@ public record MoneyDto(
     string? Symbol = default
 )
 {
+    public MoneyDto() : this(
+        Amount: 0,
+        Currency: string.Empty,
+        Precision: 0,
+        Symbol: null
+    )
+    { }
+
     public MoneyDto(Money money) : this(
         Amount: money.Amount,
         Currency: money.Currency,

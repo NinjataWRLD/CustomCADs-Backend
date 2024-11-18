@@ -7,10 +7,7 @@ public class SignInGroup : Group
         Configure("auth/signin", ep =>
         {
             ep.AllowAnonymous();
-            ep.Description(d =>
-            {
-                d.WithTags("Auth_SignIn");
-            });
+            ep.Description(d => d.WithTags("Auth SignIn"));
         });
     }
 }
