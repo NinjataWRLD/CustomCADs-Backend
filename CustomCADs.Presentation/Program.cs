@@ -42,6 +42,7 @@ app.UseAuth();
 app.UseCatalog();
 
 // Use API
+app.UseStaticFiles();
 app.UseEndpoints();
 if (app.Environment.IsDevelopment())
 {

@@ -18,7 +18,7 @@ public static class Mapper
             CreatorName: username
         );
 
-    public static GetProductByIdDto ToGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName) 
+    public static GetProductByIdDto ToGetProductByIdDto(this Product product, CadDto? cad, string username, string categoryName) 
         => new(
             Id: product.Id,
             Name: product.Name,

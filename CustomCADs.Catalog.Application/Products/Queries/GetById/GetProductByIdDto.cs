@@ -11,7 +11,7 @@ public record GetProductByIdDto(
     string Status,
     Image Image,
     string CreatorName,
-    CadDto Cad,
+    CadDto? Cad,
     DateTime UploadDate,
     CategoryReadDto Category
 );
