@@ -13,6 +13,7 @@ public class PostRoleEndpoint(IRequestSender sender)
     {
         Post("");
         Group<RolesGroup>();
+        Description(d => d.WithSummary("2. I want to create a Role"));
     }
 
     public override async Task HandleAsync(PostRoleRequest req, CancellationToken ct)

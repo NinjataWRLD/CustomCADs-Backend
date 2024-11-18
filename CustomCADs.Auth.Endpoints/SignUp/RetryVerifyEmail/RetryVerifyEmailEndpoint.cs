@@ -10,6 +10,7 @@ public class RetryVerifyEmailEndpoint(IUserService service)
     {
         Get("retryVerifyEmail/{username}");
         Group<SignUpGroup>();
+        Description(d => d.WithSummary("3. I want another verification email"));
     }
 
     public override async Task HandleAsync(RetryVerifyEmailRequest req, CancellationToken ct)

@@ -11,7 +11,7 @@ public class RegisterEndpoint(IUserService service)
     {
         Post("register");
         Group<SignUpGroup>();
-        AllowAnonymous();
+        Description(d => d.WithSummary("1. I want to register"));
     }
 
     public override async Task HandleAsync(RegisterRequest req, CancellationToken ct)

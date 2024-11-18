@@ -17,6 +17,7 @@ public class PostUserEndpoint(IRequestSender sender)
     {
         Post("");
         Group<UsersGroup>();
+        Description(d => d.WithSummary("2. I want to create a User"));
     }
 
     public override async Task HandleAsync(PostUserRequest req, CancellationToken ct)

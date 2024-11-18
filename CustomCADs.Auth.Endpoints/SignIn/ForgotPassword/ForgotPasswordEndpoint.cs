@@ -7,6 +7,7 @@ public class ForgotPasswordEndpoint(IUserService service)
     {
         Get("forgotPassword");
         Group<SignInGroup>();
+        Description(d => d.WithSummary("4. I want an email with a link reset my password"));
     }
 
     public override async Task HandleAsync(ForgotPasswordRequest req, CancellationToken ct)

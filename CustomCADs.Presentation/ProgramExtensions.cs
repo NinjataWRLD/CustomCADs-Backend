@@ -145,6 +145,7 @@ public static class ProgramExtensions
                     License = new() { Name = "Apache License 2.0", Url = new("https://www.apache.org/licenses/LICENSE-2.0"), },
                     Version = "v1"
                 };
+                document.Tags = [.. document.Tags.OrderBy(t => t.Name)];
 
                 return Task.CompletedTask;
             });
@@ -191,16 +192,17 @@ public static class ProgramExtensions
         {
             ScalarTheme[] themes =
             [
+                ScalarTheme.Solarized,
                 ScalarTheme.BluePlanet,
                 ScalarTheme.Kepler,
                 ScalarTheme.Mars,
                 ScalarTheme.DeepSpace,
             ];
-            
+
             options
                 .WithOpenApiRoutePattern(apiPattern)
                 .WithEndpointPrefix(uiPattern)
-                .WithOperationSorter(OperationSorter.Method)
+                .WithOperationSorter(OperationSorter.Alpha)
                 .WithTitle("CustomCADs API")
                 .WithTheme(themes[Random.Shared.Next(0, themes.Length)])
                 .WithFavicon("/favicon.ico")

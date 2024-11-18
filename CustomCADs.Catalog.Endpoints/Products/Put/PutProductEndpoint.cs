@@ -16,6 +16,7 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         Put("{id}");
         Group<ProductsGroup>();
         Options(o => o.Accepts<PutProductRequest>("multipart/form-data"));
+        Description(d => d.WithSummary("5. I want to edit my Product"));
     }
 
     public override async Task HandleAsync(PutProductRequest req, CancellationToken ct)

@@ -7,7 +7,7 @@ public class InfoGroup : Group
         Configure("auth/info", ep =>
         {
             ep.AllowAnonymous();
-            ep.Description(opt => opt.WithTags("Auth Info"));
+            ep.Description(opt => opt.WithTags("01. Auth Information"));
         });
     }
 }

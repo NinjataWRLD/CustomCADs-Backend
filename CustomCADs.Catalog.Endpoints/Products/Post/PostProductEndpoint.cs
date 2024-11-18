@@ -17,6 +17,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         Post("");
         Group<ProductsGroup>();
         Options(o => o.Accepts<PostProductRequest>("multipart/form-data"));
+        Description(d => d.WithSummary("1. I want to upload a Product"));
     }
 
     public override async Task HandleAsync(PostProductRequest req, CancellationToken ct)

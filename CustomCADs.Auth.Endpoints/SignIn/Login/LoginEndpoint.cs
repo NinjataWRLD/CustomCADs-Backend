@@ -17,6 +17,7 @@ public class LoginEndpoint(IUserService userService, ITokenService tokenService,
         Post("login");
         Group<SignInGroup>();
         AllowAnonymous();
+        Description(d => d.WithSummary("1. I want to log in"));
     }
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)

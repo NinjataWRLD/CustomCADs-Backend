@@ -11,6 +11,7 @@ public class PostCategoryEndpoint(IRequestSender sender)
     {
         Post("");
         Group<CategoriesGroup>();
+        Description(d => d.WithSummary("3. I want to add a Category"));
     }
 
     public override async Task HandleAsync(PostCategoryRequest req, CancellationToken ct)

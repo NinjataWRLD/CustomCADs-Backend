@@ -16,6 +16,7 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
     {
         Get("verifyEmail/{username}");
         Group<SignUpGroup>();
+        Description(d => d.WithSummary("2. I want to verify my email"));
     }
 
     public override async Task HandleAsync(VerifyEmailRequest req, CancellationToken ct)

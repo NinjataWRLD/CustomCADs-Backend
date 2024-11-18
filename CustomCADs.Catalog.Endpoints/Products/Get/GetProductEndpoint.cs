@@ -12,6 +12,7 @@ public class GetProductEndpoint(IRequestSender sender)
     {
         Get("{id}");
         Group<ProductsGroup>();
+        Description(d => d.WithSummary("6. I want to see my Product in detail"));
     }
 
     public override async Task HandleAsync(GetProductRequest req, CancellationToken ct)

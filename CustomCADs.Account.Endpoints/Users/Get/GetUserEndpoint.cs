@@ -9,6 +9,7 @@ public class GetUserEndpoint(IRequestSender sender)
     {
         Get("{username}");
         Group<UsersGroup>();
+        Description(d => d.WithSummary("3. I want to see a User in detail"));
     }
 
     public override async Task HandleAsync(GetUserRequest req, CancellationToken ct)

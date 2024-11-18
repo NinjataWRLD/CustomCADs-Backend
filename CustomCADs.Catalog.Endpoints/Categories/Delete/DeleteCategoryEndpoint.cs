@@ -12,6 +12,7 @@ public class DeleteCategoryEndpoint(IRequestSender sender)
     {
         Delete("{id}");
         Group<CategoriesGroup>();
+        Description(d => d.WithSummary("5. I want to delete a Category"));
     }
 
     public override async Task HandleAsync(DeleteCategoryRequest req, CancellationToken ct)

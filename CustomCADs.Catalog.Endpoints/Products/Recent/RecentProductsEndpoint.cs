@@ -11,6 +11,7 @@ public class RecentProductsEndpoint(IRequestSender sender)
     {
         Get("recent");
         Group<ProductsGroup>();
+        Description(d => d.WithSummary("2. I want to get my recent Products"));
     }
 
     public override async Task HandleAsync(RecentProductsRequest req, CancellationToken ct)
