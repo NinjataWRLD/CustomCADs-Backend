@@ -32,14 +32,13 @@ builder.Services.AddApiDocumentation();
 
 // Add Others
 builder.Services.AddCorsForClient(builder.Configuration);
+builder.Services.AddProblemDetails();
 builder.WebHost.LimitUploadSize();
 
 var app = builder.Build();
 
-// Use Modules
-app.UseAccount();
-app.UseAuth();
-app.UseCatalog();
+// Global Exception Filters
+app.UseExceptionHandler();
 
 // Use API
 app.UseStaticFiles();

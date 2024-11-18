@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,12 +14,10 @@ public static class DependencyInjection
 
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration config)
         => services
+            .AddExceptionHandler<GlobalExceptionHandler>()
             .AddAuthInfrastructure(config)
             .AddAuthApplication(config)
             .AddAppIdentity();
-
-    public static IApplicationBuilder UseAuth(this IApplicationBuilder app)
-        => app.UseGlobalExceptionHandler();
 
     private static IServiceCollection AddAppIdentity(this IServiceCollection services)
     {
@@ -87,26 +83,5 @@ public static class DependencyInjection
          });
 
         return builder;
-    }
-
-    private static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
-    {
-        app.UseExceptionHandler(errorApp =>
-        {
-            errorApp.Run(async context =>
-            {
-                var ehf = context.Features.Get<IExceptionHandlerFeature>();
-                var ex = ehf?.Error;
-
-                if (ex is not null)
-                {
-                    await GlobalExceptionHandler
-                        .TryHandleAsync(context, ex, context.RequestAborted)
-                        .ConfigureAwait(false);
-                }
-            });
-        });
-
-        return app;
     }
 }

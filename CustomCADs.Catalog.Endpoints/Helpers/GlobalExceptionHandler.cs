@@ -1,14 +1,15 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Categories;
 using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Catalog.Endpoints.Helpers;
 
 using static StatusCodes;
 
-public class GlobalExceptionHandler
+public class GlobalExceptionHandler : IExceptionHandler
 {
-    public static async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken cancellationToken)
+    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken cancellationToken)
     {
         if (ex is ProductNotFoundException or CategoryNotFoundException)
         {

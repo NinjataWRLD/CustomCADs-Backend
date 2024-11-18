@@ -1,14 +1,15 @@
 ﻿using CustomCADs.Auth.Application.Common.Exceptions.Roles;
 using CustomCADs.Auth.Application.Common.Exceptions.Users;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Auth.Endpoints.Helpers;
 
 using static StatusCodes;
 
-public class GlobalExceptionHandler
+public class GlobalExceptionHandler : IExceptionHandler
 {
-    public static async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
+    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
         if (ex is UserNotFoundException or RoleNotFoundException)
         {
