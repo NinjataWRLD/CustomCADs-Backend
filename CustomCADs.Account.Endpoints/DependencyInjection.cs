@@ -1,6 +1,4 @@
 ﻿using CustomCADs.Account.Endpoints.Helpers;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
@@ -9,29 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyInjection
 {
     public static IServiceCollection AddAccount(this IServiceCollection services, IConfiguration config)
-        => services.AddAccountPersistence(config);
-
-    public static IApplicationBuilder UseAccount(this IApplicationBuilder app)
-        => app.UseGlobalExceptionHandler();
-
-    private static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
-    {
-        app.UseExceptionHandler(errorApp =>
-        {
-            errorApp.Run(async context =>
-            {
-                var ehf = context.Features.Get<IExceptionHandlerFeature>();
-                var ex = ehf?.Error;
-
-                if (ex is not null)
-                {
-                    await GlobalExceptionHandler
-                        .TryHandleAsync(context, ex, context.RequestAborted)
-                        .ConfigureAwait(false);
-                }
-            });
-        });
-
-        return app;
-    }
+        => services
+            .AddExceptionHandler<GlobalExceptionHandler>()
+            .AddAccountPersistence(config);
 }
