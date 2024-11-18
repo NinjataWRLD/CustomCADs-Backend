@@ -9,7 +9,7 @@ public class RolesGroup : Group
         Configure("roles", ep =>
         {
             ep.Roles(Admin);
-            ep.Description(opt => opt.WithTags("Roles"));
+            ep.Description(opt => opt.WithTags("09. Roles Dashboard"));
         });
     }
 }

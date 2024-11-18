@@ -1,4 +1,5 @@
 ﻿namespace CustomCADs.Auth.Endpoints.Info.EmailConfirmed;
+
 public class EmailConfirmedEndpoint(IUserService service)
     : Endpoint<EmailConfirmedRequest>
 {
@@ -6,6 +7,7 @@ public class EmailConfirmedEndpoint(IUserService service)
     {
         Get("emailConfirmed/{username}");
         Group<InfoGroup>();
+        Description(d => d.WithSummary("4. Is the User's Email Confirmed?"));
     }
 
     public override async Task HandleAsync(EmailConfirmedRequest req, CancellationToken ct)

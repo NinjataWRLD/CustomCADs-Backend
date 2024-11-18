@@ -44,7 +44,7 @@ app.UseCatalog();
 // Use API
 app.UseStaticFiles();
 app.UseEndpoints();
-if (app.Environment.IsDevelopment())
+if (true) // Maybe I'll return 'app.Environment.IsDevelopment()' one day
 {
     app.MapApiDocumentationUi(
         apiPattern: "/openapi/{documentName}.json",

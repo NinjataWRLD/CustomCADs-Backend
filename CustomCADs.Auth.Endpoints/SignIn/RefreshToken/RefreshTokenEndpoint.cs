@@ -15,6 +15,7 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
     {
         Post("refreshToken");
         Group<SignInGroup>();
+        Description(d => d.WithSummary("2. I want to renew/extend my login"));
     }
 
     public override async Task HandleAsync(CancellationToken ct)
@@ -65,7 +66,7 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
         SaveRole(role, newRtEnd);
         SaveUsername(user.UserName ?? string.Empty, newRtEnd);
 
-        await SendOkAsync(NewRefreshTokenGranted).ConfigureAwait(false);
+        await SendOkAsync($"{NewRefreshTokenNotNeeded} {NewRefreshTokenGranted}").ConfigureAwait(false);
     }
 
     private void SaveAccessToken(string jwt, DateTime end)

@@ -9,6 +9,7 @@ public class DeleteUserEndpoint(IRequestSender sender)
     {
         Delete("{username}");
         Group<UsersGroup>();
+        Description(d => d.WithSummary("4. I want to delete a User"));
     }
 
     public override async Task HandleAsync(DeleteUserRequest req, CancellationToken ct)

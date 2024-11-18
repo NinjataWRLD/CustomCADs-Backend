@@ -11,6 +11,7 @@ public class GetCategoryEndpoint(IRequestSender sender)
         Get("{id}");
         AllowAnonymous();
         Group<CategoriesGroup>();
+        Description(d => d.WithSummary("2. I want to see a Category in detail"));
     }
 
     public override async Task HandleAsync(GetCategoryRequest req, CancellationToken ct)

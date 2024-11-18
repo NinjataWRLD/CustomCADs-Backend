@@ -2,24 +2,24 @@
 
 namespace CustomCADs.Auth.Endpoints.SignIn.Logout;
 
+using static ApiMessages;
 using static StatusCodes;
 
 public class LogoutEndpoint(IUserService service)
     : EndpointWithoutRequest<string>
 {
-    private const string NoLoginMessage = "In order to log out, you must be logged in";
-
     public override void Configure()
     {
         Post("logout");
         Group<SignInGroup>();
+        Description(d => d.WithSummary("3. I want to log out"));
     }
 
     public override async Task HandleAsync(CancellationToken ct)
     {
         if (!User.GetAuthentication())
         {
-            ValidationFailures.Add(new("Account", NoLoginMessage));
+            ValidationFailures.Add(new("Account", LoginBeforeLogout));
             await SendErrorsAsync(Status401Unauthorized);
             return;
         }

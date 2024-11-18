@@ -10,6 +10,7 @@ public class PutCategoryEndpoint(IRequestSender sender)
     {
         Put("{id}");
         Group<CategoriesGroup>();
+        Description(d => d.WithSummary("4. I want to edit a Category"));
     }
 
     public override async Task HandleAsync(PutCategoryRequest req, CancellationToken ct)

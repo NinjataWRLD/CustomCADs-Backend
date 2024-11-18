@@ -12,6 +12,7 @@ public class AuthorizationEndpoint(IUserService serivce)
     {
         Get("authorization");
         Group<InfoGroup>();
+        Description(d => d.WithSummary("2. What Role do I have?"));
     }
 
     public override async Task HandleAsync(CancellationToken ct)

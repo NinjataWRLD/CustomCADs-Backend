@@ -10,6 +10,7 @@ public class GetCategoriesEndpoint(IRequestSender sender)
         Get("");
         AllowAnonymous();
         Group<CategoriesGroup>();
+        Description(d => d.WithSummary("1. I want to see all Categories"));
     }
 
     public override async Task HandleAsync(CancellationToken ct)
