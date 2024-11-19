@@ -22,7 +22,7 @@ builder.Services.AddAccount(builder.Configuration);
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddCadsPersistence(builder.Configuration);
 builder.Services.AddCatalog(builder.Configuration);
-builder.Services.AddOrdersPersistence(builder.Configuration);
+builder.Services.AddOrders(builder.Configuration);
 builder.Services.AddDeliveryPersistence(builder.Configuration);
 
 // Add API
@@ -40,7 +40,7 @@ var app = builder.Build();
 // Global Exception Filters
 app.UseExceptionHandler();
 
-// Use API
+// API
 app.UseStaticFiles();
 app.UseEndpoints();
 if (true) // Maybe I'll return 'app.Environment.IsDevelopment()' one day
