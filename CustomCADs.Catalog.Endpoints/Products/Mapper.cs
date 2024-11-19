@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.GetAll;
+﻿using CustomCADs.Catalog.Application.Products;
+using CustomCADs.Catalog.Application.Products.Queries.GetAll;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Endpoints.Products.Get.All;
 using CustomCADs.Catalog.Endpoints.Products.Get.Recent;
@@ -38,8 +39,8 @@ public static class Mapper
             Description: dto.Description,
             UploadDate: dto.UploadDate.ToString(DateFormatString),
             Category: new() { Id = dto.Category.Id.Value, Name = dto.Category.Name },
-            CamCoordinates: dto.Cad is null ? new() : new(dto.Cad.CamCoordinates),
-            PanCoordinates: dto.Cad is null ? new() : new(dto.Cad.PanCoordinates),
+            CamCoordinates: dto.Cad?.CamCoordinates.ToCoordinatesDto() ?? new(),
+            PanCoordinates: dto.Cad?.PanCoordinates.ToCoordinatesDto() ?? new(),
             CadPath: dto.Cad is null ? string.Empty : dto.Cad.Path
         );
 

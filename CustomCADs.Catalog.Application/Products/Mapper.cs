@@ -2,6 +2,8 @@
 using CustomCADs.Catalog.Application.Products.Queries.GetAll;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.Entities;
+using CustomCADs.Shared.Core.Domain.ValueObjects;
+using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Application.Products;
 
@@ -31,4 +33,10 @@ public static class Mapper
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
+
+    public static Coordinates ToCoordinates(this CoordinatesDto coordinates)
+        => new(coordinates.X, coordinates.Y, coordinates.Z);
+
+    public static CoordinatesDto ToCoordinatesDto(this Coordinates coordinates)
+        => new(coordinates.X, coordinates.Y, coordinates.Z);
 }

@@ -7,7 +7,6 @@ using CustomCADs.Shared.IntegrationEvents.Catalog;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 
-
 public class SetProductCoordsHandler(IProductReads reads, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<SetProductCoordsCommand>
 {
@@ -16,16 +15,11 @@ public class SetProductCoordsHandler(IProductReads reads, IUnitOfWork uow, IEven
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        if (product.CadId is null)
-        {
-            throw ProductValidationException.CadNotNull(product.Id);
-        }
-
         CadCoordsUpdateRequestedIntegrationEvent cadCoordsUpdateRequestedie = new(
-            product.CadId.Value,
-            product.CreatorId,
-            req.CamCoordinates is null ? null : new(req.CamCoordinates),
-            req.PanCoordinates is null ? null : new(req.PanCoordinates)
+            Id: product.CadId ?? throw ProductValidationException.CadNotNull(product.Id),
+            CamCoordinates: req.CamCoordinates?.ToCoordinatesDto(),
+            PanCoordinates: req.PanCoordinates?.ToCoordinatesDto(),            
+            CreatorId: product.CreatorId
         );
         await raiser.RaiseAsync(cadCoordsUpdateRequestedie).ConfigureAwait(false);
 

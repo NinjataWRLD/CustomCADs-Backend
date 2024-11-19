@@ -22,9 +22,9 @@ public class Cad : BaseAggregateRoot
     }
 
     public CadId Id { get; set; }
-    public string Path { get; } = string.Empty;
-    public Coordinates CamCoordinates { get; } = new();
-    public Coordinates PanCoordinates { get; } = new();
+    public string Path { get; private set; } = string.Empty;
+    public Coordinates CamCoordinates { get; private set; } = new();
+    public Coordinates PanCoordinates { get; private set; } = new();
     public UserId ClientId { get; set; }
 
     public static Cad Create(
@@ -35,4 +35,25 @@ public class Cad : BaseAggregateRoot
     ) => new Cad(path, camCoordinates, panCoordinates, clientId)
         .ValidatePath()
         .ValidateCoordinates();
+
+    public Cad SetPath(string path)
+    {
+        Path = path;
+
+        return this;
+    }
+    
+    public Cad SetCamCoordinates(Coordinates coords)
+    {
+        CamCoordinates = coords;
+
+        return this;
+    }
+
+    public Cad SetPanCoordinates(Coordinates coords)
+    {
+        PanCoordinates = coords;
+
+        return this;
+    }
 }
