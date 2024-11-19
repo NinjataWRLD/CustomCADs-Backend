@@ -6,6 +6,9 @@ namespace CustomCADs.Shared.Infrastructure.Events;
 
 public class WolverineEventRaiser(IMessageBus bus) : IEventRaiser
 {
-    public async Task RaiseAsync<TEvent>(TEvent @event) where TEvent : BaseEvent
+    public async Task RaiseDomainEventAsync<TEvent>(TEvent @event) where TEvent : BaseDomainEvent
+        => await bus.PublishAsync(@event);
+
+    public async Task RaiseIntegrationEventAsync<TEvent>(TEvent @event) where TEvent : BaseIntegrationEvent
         => await bus.PublishAsync(@event);
 }

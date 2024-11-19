@@ -17,7 +17,7 @@ public class DeleteUserByNameHandler(IUserReads reads, IWrites<User> writes, IUn
         writes.Remove(user);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseAsync(new UserDeletedIntegrationEvent(
+        await raiser.RaiseIntegrationEventAsync(new UserDeletedIntegrationEvent(
             req.Username
         )).ConfigureAwait(false);
     }

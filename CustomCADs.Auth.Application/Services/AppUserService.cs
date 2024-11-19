@@ -48,7 +48,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
         if (!roleResult.Succeeded)
             return roleResult;
 
-        await raiser.RaiseAsync(new UserRegisteredIntegrationEvent(
+        await raiser.RaiseIntegrationEventAsync(new UserRegisteredIntegrationEvent(
             Role: dto.Role,
             Username: dto.Username,
             Email: dto.Email,
@@ -128,7 +128,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
         string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
         string endpoint = Path.Combine(serverUrl, $"API/Identity/VerifyEmail/{user.UserName}?token={token}");
 
-        await raiser.RaiseAsync(new EmailVerificationRequestedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
             Email: user.Email ?? string.Empty,
             Endpoint: endpoint
         )).ConfigureAwait(false);
@@ -142,7 +142,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
         string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
         string endpoint = Path.Combine(serverUrl, $"API/Identity/VerifyEmail/{user.UserName}?token={token}");
 
-        await raiser.RaiseAsync(new EmailVerificationRequestedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
             Email: user.Email ?? string.Empty,
             Endpoint: endpoint
         )).ConfigureAwait(false);
@@ -155,7 +155,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
 
         string endpoint = Path.Combine(clientUrl + "/login/reset-password") + $"?email={user.Email}&token={token}";
 
-        await raiser.RaiseAsync(new PasswordResetRequestedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new PasswordResetRequestedDomainEvent(
             Email: user.Email ?? string.Empty,
             Endpoint: endpoint
         )).ConfigureAwait(false);
@@ -171,7 +171,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
 
         string endpoint = Path.Combine(clientUrl + "/login/reset-password") + $"?email={email}&token={token}";
 
-        await raiser.RaiseAsync(new PasswordResetRequestedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new PasswordResetRequestedDomainEvent(
             Email: email,
             Endpoint: endpoint
         )).ConfigureAwait(false);

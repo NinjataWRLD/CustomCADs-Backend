@@ -68,7 +68,7 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
                 Image = new(imageBytes, req.Image.FileName, req.Image.ContentType)
             };
         }
-        await raiser.RaiseAsync(productEditedDomainEvent).ConfigureAwait(false);
+        await raiser.RaiseDomainEventAsync(productEditedDomainEvent).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

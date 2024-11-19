@@ -18,7 +18,7 @@ public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow, IEventRa
         category.SetName(req.Dto.Name);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseAsync(new CategoryEditedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new CategoryEditedDomainEvent(
             Id: req.Id,
             Category: category
         )).ConfigureAwait(false);

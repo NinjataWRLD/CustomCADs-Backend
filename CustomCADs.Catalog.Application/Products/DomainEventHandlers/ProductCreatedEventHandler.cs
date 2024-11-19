@@ -29,7 +29,10 @@ public class ProductCreatedEventHandler(IStorageService service, IEventRaiser ra
             de.Cad.FileName
         ).ConfigureAwait(false);
 
-        ProductFilesUploadedDomainEvent pfuEvent = new(de.Id, imagePath, cadPath);
-        await raiser.RaiseAsync(pfuEvent).ConfigureAwait(false);
+        await raiser.RaiseDomainEventAsync(new ProductFilesUploadedDomainEvent(
+            de.Id, 
+            imagePath, 
+            cadPath
+        )).ConfigureAwait(false);
     }
 }

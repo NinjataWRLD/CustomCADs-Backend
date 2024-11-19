@@ -16,11 +16,11 @@ public class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow, IEventRais
         await writes.AddAsync(role, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseAsync(new RoleCreatedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new RoleCreatedDomainEvent(
             Role: role
         )).ConfigureAwait(false);
 
-        await raiser.RaiseAsync(new RoleCreatedIntegrationEvent(
+        await raiser.RaiseIntegrationEventAsync(new RoleCreatedIntegrationEvent(
             Name: req.Dto.Name,
             Description: req.Dto.Description
         )).ConfigureAwait(false);

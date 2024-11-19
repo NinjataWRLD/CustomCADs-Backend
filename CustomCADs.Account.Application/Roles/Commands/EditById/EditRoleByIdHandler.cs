@@ -19,7 +19,7 @@ public class EditRoleByIdHandler(IRoleReads reads, IUnitOfWork uow, IEventRaiser
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseAsync(new RoleEditedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new RoleEditedDomainEvent(
             Id: req.Id,
             Role: role
         )).ConfigureAwait(false);

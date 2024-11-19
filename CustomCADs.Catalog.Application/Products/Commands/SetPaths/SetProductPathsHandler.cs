@@ -20,11 +20,10 @@ public class SetProductPathsHandler(IProductReads reads, IUnitOfWork uow, IEvent
 
         if (req.CadPath is not null && product.CadId is not null)
         {
-            CadPathUpdateRequestedIntegrationEvent cadPathUpdateRequestedie = new(
+            await raiser.RaiseIntegrationEventAsync(new CadPathUpdateRequestedIntegrationEvent(
                 product.CadId.Value,
                 req.CadPath
-            );
-            await raiser.RaiseAsync(cadPathUpdateRequestedie).ConfigureAwait(false);
+            )).ConfigureAwait(false);
         }
     }
 }
