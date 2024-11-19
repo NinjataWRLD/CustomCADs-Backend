@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetAll;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
-using CustomCADs.Catalog.Endpoints.Products.Get;
-using CustomCADs.Catalog.Endpoints.Products.GetAll;
+using CustomCADs.Catalog.Endpoints.Products.Get.All;
+using CustomCADs.Catalog.Endpoints.Products.Get.Recent;
+using CustomCADs.Catalog.Endpoints.Products.Get.Single;
 using CustomCADs.Catalog.Endpoints.Products.Post;
-using CustomCADs.Catalog.Endpoints.Products.Recent;
 
 namespace CustomCADs.Catalog.Endpoints.Products;
 

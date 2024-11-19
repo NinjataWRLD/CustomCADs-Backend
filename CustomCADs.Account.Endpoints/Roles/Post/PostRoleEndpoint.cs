@@ -2,7 +2,7 @@
 using CustomCADs.Account.Application.Roles.Commands.Create;
 using CustomCADs.Account.Application.Roles.Queries;
 using CustomCADs.Account.Application.Roles.Queries.GetByName;
-using CustomCADs.Account.Endpoints.Roles.Get;
+using CustomCADs.Account.Endpoints.Roles.Get.Single;
 
 namespace CustomCADs.Account.Endpoints.Roles.Post;
 

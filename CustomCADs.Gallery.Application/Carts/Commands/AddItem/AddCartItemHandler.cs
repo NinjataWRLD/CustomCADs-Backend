@@ -6,14 +6,21 @@ using CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
 namespace CustomCADs.Gallery.Application.Carts.Commands.AddItem;
 
 public class AddCartItemHandler(ICartReads reads, IUnitOfWork uow)
-    : ICommandHandler<AddCartItemCommand>
+    : ICommandHandler<AddCartItemCommand, CartItemId>
 {
-    public async Task Handle(AddCartItemCommand req, CancellationToken ct)
+    public async Task<CartItemId> Handle(AddCartItemCommand req, CancellationToken ct)
     {
         Cart cart = await reads.SingleByIdAsync(req.Id, ct: ct)
             ?? throw CartNotFoundException.ById(req.Id);
 
-        cart.AddItem(req.DeliveryType, req.Price, req.Quantity, req.ProductId);
+        CartItem item = cart.AddItem(
+            req.DeliveryType, 
+            req.Price, 
+            req.Quantity, 
+            req.ProductId
+        );
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+        return item.Id;
     }
 }

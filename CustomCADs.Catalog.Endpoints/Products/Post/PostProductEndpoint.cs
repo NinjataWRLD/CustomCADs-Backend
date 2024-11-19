@@ -2,7 +2,7 @@
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.DomainEvents;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Endpoints.Products.Get;
+using CustomCADs.Catalog.Endpoints.Products.Get.Single;
 using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Post;
