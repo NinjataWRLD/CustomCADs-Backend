@@ -9,7 +9,7 @@ public static class CartValidations
 {
     public static Cart ValidateOrders(this Cart cart)
     {
-        string property = "Items";
+        string property = "Orders";
         IEnumerable<GalleryOrder> items = cart.Orders;
 
         int max = ItemsCountMax, min = ItemsCountMin;

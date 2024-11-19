@@ -13,11 +13,12 @@ public class CartReads(OrdersContext context) : ICartReads
     {
         IQueryable<Cart> queryable = context.Carts
             .WithTracking(track)
-            .WithFilter(query.BuyerId);
+            .Include(c => c.Orders)
+            .WithFilter(query.BuyerId)
+            .WithSorting(query.Sorting ?? new());
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         Cart[] carts = await queryable
-            .WithSorting(query.Sorting ?? new())
             .WithPagination(query.Page, query.Limit)
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
@@ -28,12 +29,14 @@ public class CartReads(OrdersContext context) : ICartReads
     public async Task<Cart?> SingleByIdAsync(CartId id, bool track = true, CancellationToken ct = default)
         => await context.Carts
             .WithTracking(track)
+            .Include(c => c.Orders)
             .FirstOrDefaultAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
     public async Task<ICollection<GalleryOrder>> OrdersByIdAsync(CartId id, CancellationToken ct = default)
         => await context.Carts
             .WithTracking(false)
+            .Include(c => c.Orders)
             .Where(o => o.Id == id)
             .SelectMany(c => c.Orders)
             .ToArrayAsync(ct)

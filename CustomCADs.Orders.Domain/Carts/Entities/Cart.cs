@@ -26,28 +26,25 @@ public class Cart : BaseAggregateRoot
     public UserId BuyerId { get; private set; }
     public IReadOnlyCollection<GalleryOrder> Orders => orders.AsReadOnly();
 
-    public static Cart CreateDigital(UserId buyerId)
-        => new Cart(buyerId)
-            .ValidateOrders();
-
-    public static Cart CreatePhysical(UserId buyerId)
-        => new Cart(buyerId)
-            .ValidateOrders();
-
-    public static Cart CreateDigitalAndPhysical(UserId buyerId)
+    public static Cart Create(UserId buyerId)
         => new Cart(buyerId)
             .ValidateOrders();
 
     public Cart AddOrder(DeliveryType type, Money price, int quantity, ProductId productId)
     {
-        orders.Add(GalleryOrder.Create(type, price, quantity, productId, Id));
+        var order = GalleryOrder.Create(type, price, quantity, productId, Id);
+        orders.Add(order);
+        
+        Total += order.Cost.Amount;
         return this;
     }
 
     public Cart RemoveOrder(GalleryOrderId id)
     {
-        orders.Remove(orders.FirstOrDefault(i => i.Id == id)
-            ?? throw GalleryOrderNotFoundException.ById(id));
+        var order = orders.FirstOrDefault(i => i.Id == id) ?? throw GalleryOrderNotFoundException.ById(id);
+        orders.Remove(order);
+        
+        Total += order.Cost.Amount;
         return this;
     }
 }
