@@ -18,7 +18,7 @@ public class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category> write
         writes.Remove(category);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseAsync(new CategoryDeletedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new CategoryDeletedDomainEvent(
             Id: req.Id
         )).ConfigureAwait(false);
     }

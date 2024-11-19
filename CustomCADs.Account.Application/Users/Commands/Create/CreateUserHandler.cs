@@ -21,7 +21,7 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow, IEventRais
         await writes.AddAsync(user, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseAsync(new UserCreatedIntegrationEvent(
+        await raiser.RaiseIntegrationEventAsync(new UserCreatedIntegrationEvent(
             Id: user.Id,
             Role: user.RoleName,
             Username: user.Username,

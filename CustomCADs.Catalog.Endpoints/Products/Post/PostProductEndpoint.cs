@@ -45,7 +45,7 @@ public class PostProductEndpoint(IRequestSender sender, IEventRaiser raiser)
         byte[] cadBytes = cadStream.ToArray();
 
         ProductId id = await createTask.ConfigureAwait(false);
-        await raiser.RaiseAsync(new ProductCreatedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new ProductCreatedDomainEvent(
             Id: id,
             Name: command.Name,
             Description: command.Description,

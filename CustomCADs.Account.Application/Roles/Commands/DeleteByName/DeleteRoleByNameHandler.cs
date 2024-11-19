@@ -18,12 +18,12 @@ public class DeleteRoleByNameHandler(IRoleReads reads, IWrites<Role> writes, IUn
         writes.Remove(role);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseAsync(new RoleDeletedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new RoleDeletedDomainEvent(
             Id: role.Id,
             Name: role.Name
         )).ConfigureAwait(false);
 
-        await raiser.RaiseAsync(new RoleDeletedIntegrationEvent(
+        await raiser.RaiseIntegrationEventAsync(new RoleDeletedIntegrationEvent(
             Name: role.Name
         )).ConfigureAwait(false);
     }

@@ -15,13 +15,12 @@ public class SetProductCoordsHandler(IProductReads reads, IUnitOfWork uow, IEven
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        CadCoordsUpdateRequestedIntegrationEvent cadCoordsUpdateRequestedie = new(
+        await raiser.RaiseIntegrationEventAsync(new CadCoordsUpdateRequestedIntegrationEvent(
             Id: product.CadId ?? throw ProductValidationException.CadNotNull(product.Id),
             CamCoordinates: req.CamCoordinates?.ToCoordinatesDto(),
-            PanCoordinates: req.PanCoordinates?.ToCoordinatesDto(),            
+            PanCoordinates: req.PanCoordinates?.ToCoordinatesDto(),
             CreatorId: product.CreatorId
-        );
-        await raiser.RaiseAsync(cadCoordsUpdateRequestedie).ConfigureAwait(false);
+        )).ConfigureAwait(false);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
