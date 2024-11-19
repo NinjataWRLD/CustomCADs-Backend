@@ -5,8 +5,8 @@ namespace CustomCADs.Account.Persistence;
 
 public class AccountContext(DbContextOptions<AccountContext> opt) : DbContext(opt)
 {
-    public DbSet<Role> Roles { get; set; }
-    public DbSet<User> Users { get; set; }
+    public required DbSet<Role> Roles { get; set; }
+    public required DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

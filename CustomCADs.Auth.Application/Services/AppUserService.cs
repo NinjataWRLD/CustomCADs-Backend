@@ -11,6 +11,8 @@ namespace CustomCADs.Auth.Application.Services;
 
 public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, IConfiguration config) : IUserService
 {
+    private readonly string serverUrl = config["URLs:Server"] ?? throw new KeyNotFoundException("Server Url not provided.");
+
     public async Task<AppUser?> FindByIdAsync(Guid id)
         => await manager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
 
@@ -124,8 +126,6 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task SendVerificationEmailAsync(AppUser user)
     {
         string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-
-        string serverUrl = config["URLs:Server"] ?? throw new ArgumentNullException();
         string endpoint = Path.Combine(serverUrl, $"API/Identity/VerifyEmail/{user.UserName}?token={token}");
 
         await raiser.RaiseAsync(new EmailVerificationRequestedDomainEvent(
@@ -140,8 +140,6 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
             ?? throw UserNotFoundException.ByUsername(username);
 
         string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-
-        string serverUrl = config["URLs:Server"] ?? throw new ArgumentNullException();
         string endpoint = Path.Combine(serverUrl, $"API/Identity/VerifyEmail/{user.UserName}?token={token}");
 
         await raiser.RaiseAsync(new EmailVerificationRequestedDomainEvent(

@@ -153,7 +153,7 @@ public static class ProgramExtensions
 
     public static void AddCorsForClient(this IServiceCollection services, IConfiguration config)
     {
-        string clientUrl = config["URLs:Client"] ?? throw new ArgumentNullException("No Client URL provided.");
+        string clientUrl = config["URLs:Client"] ?? throw new KeyNotFoundException("Client Url not provided.");
         services.AddCors(opt =>
         {
             opt.AddDefaultPolicy(builder =>
