@@ -31,21 +31,21 @@ public class Cart : BaseAggregateRoot
         => new Cart(buyerId)
             .ValidateItems();
 
-    public Cart AddItem(DeliveryType type, Money price, int quantity, ProductId productId)
+    public CartItem AddItem(DeliveryType type, Money price, int quantity, ProductId productId)
     {
         var item = CartItem.Create(type, price, quantity, productId, Id);
         items.Add(item);
 
         Total += item.Cost.Amount;
-        return this;
+        return item;
     }
 
-    public Cart RemoveItem(CartItemId id)
+    public CartItem RemoveItem(CartItemId id)
     {
         var item = items.FirstOrDefault(i => i.Id == id) ?? throw CartItemNotFoundException.ById(id);
         items.Remove(item);
 
         Total += item.Cost.Amount;
-        return this;
+        return item;
     }
 }

@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
-using CustomCADs.Orders.Endpoints.Orders.Get;
-using CustomCADs.Orders.Endpoints.Orders.GetAll;
+using CustomCADs.Orders.Endpoints.Orders.Get.All;
+using CustomCADs.Orders.Endpoints.Orders.Get.Recent;
+using CustomCADs.Orders.Endpoints.Orders.Get.Single;
 using CustomCADs.Orders.Endpoints.Orders.Post;
-using CustomCADs.Orders.Endpoints.Orders.Recent;
 
 namespace CustomCADs.Orders.Endpoints.Orders;
 

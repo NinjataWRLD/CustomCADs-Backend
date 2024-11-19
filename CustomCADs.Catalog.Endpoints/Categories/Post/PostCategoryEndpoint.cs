@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Commands;
 using CustomCADs.Catalog.Application.Categories.Commands.Create;
-using CustomCADs.Catalog.Endpoints.Categories.Get;
+using CustomCADs.Catalog.Endpoints.Categories.Get.Single;
 
 namespace CustomCADs.Catalog.Endpoints.Categories.Post;
 

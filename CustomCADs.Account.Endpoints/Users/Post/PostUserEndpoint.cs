@@ -3,7 +3,7 @@ using CustomCADs.Account.Application.Roles.Queries.GetAllNames;
 using CustomCADs.Account.Application.Users.Commands.Create;
 using CustomCADs.Account.Application.Users.Queries.GetById;
 using CustomCADs.Account.Endpoints.Helpers;
-using CustomCADs.Account.Endpoints.Users.Get;
+using CustomCADs.Account.Endpoints.Users.Get.Single;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
 namespace CustomCADs.Account.Endpoints.Users.Post;

@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Queries.GetAll;
 using CustomCADs.Gallery.Application.Carts.Queries.GetById;
 using CustomCADs.Gallery.Domain.Carts.Entities;
-using CustomCADs.Gallery.Endpoints.Carts.Get;
-using CustomCADs.Gallery.Endpoints.Carts.GetAll;
+using CustomCADs.Gallery.Endpoints.Carts.Get.All;
+using CustomCADs.Gallery.Endpoints.Carts.Get.Single;
 using CustomCADs.Gallery.Endpoints.Carts.Recent;
 
 namespace CustomCADs.Gallery.Endpoints.Carts;
