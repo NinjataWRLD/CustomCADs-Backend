@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
+﻿using CustomCADs.Catalog.Application.Products;
+using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Patch;
@@ -32,9 +33,9 @@ public class PatchProductCadEndpoint(IRequestSender sender)
         SetProductCoordsCommand command = new(id, User.GetAccountId());
 
         if (IsType("camera"))
-            command = command with { CamCoordinates = req.Coordinates.ToValueObject() };
+            command = command with { CamCoordinates = req.Coordinates.ToCoordinates() };
         else if (IsType("pan"))
-            command = command with { PanCoordinates = req.Coordinates.ToValueObject() };
+            command = command with { PanCoordinates = req.Coordinates.ToCoordinates() };
         else
         {
             ValidationFailures.Add(new("Type", InvalidCoordValue, req.Type));

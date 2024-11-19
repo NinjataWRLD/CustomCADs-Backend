@@ -31,8 +31,8 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
             var cadDto = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
             cad = new(
                 cadDto.Path,
-                cadDto.CamCoordinates.ToValueObject(),
-                cadDto.PanCoordinates.ToValueObject()
+                cadDto.CamCoordinates.ToCoordinates(),
+                cadDto.PanCoordinates.ToCoordinates()
             );
         }
 
