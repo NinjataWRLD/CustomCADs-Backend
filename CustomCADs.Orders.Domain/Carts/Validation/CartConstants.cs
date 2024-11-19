@@ -3,7 +3,7 @@
 public static class CartConstants
 {
     public const int ItemsCountMax = 10;
-    public const int ItemsCountMin = 1;
+    public const int ItemsCountMin = 0;
 
     public static class GalleryOrders
     {

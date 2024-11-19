@@ -3,7 +3,7 @@ using CustomCADs.Orders.Domain.Carts.Reads;
 using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Common.Exceptions.Carts;
 
-namespace CustomCADs.Orders.Application.Carts.Commands.RemvoeOrder;
+namespace CustomCADs.Orders.Application.Carts.Commands.RemoveOrder;
 
 public class RemoveCartOrderHandler(ICartReads reads, IUnitOfWork uow)
     : ICommandHandler<RemoveCartOrderCommand>

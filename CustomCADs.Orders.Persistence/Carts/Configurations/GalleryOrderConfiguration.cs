@@ -39,6 +39,7 @@ public static class GalleryOrderItemConfigUtils
     public static EntityTypeBuilder<GalleryOrder> SetStronglyTypedIds(this EntityTypeBuilder<GalleryOrder> builder)
     {
         builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
                 v => new(v)
