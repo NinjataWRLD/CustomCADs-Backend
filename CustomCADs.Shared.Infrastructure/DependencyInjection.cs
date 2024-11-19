@@ -14,7 +14,7 @@ using CustomCADs.Shared.Infrastructure.Storage;
 using Microsoft.Extensions.Options;
 using Stripe;
 using System.Reflection;
-//using Wolverine;
+using Wolverine;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
@@ -35,15 +35,13 @@ public static class DependencyInjection
 
     public static void AddEventRaiser(this IServiceCollection services, params Assembly[] assemblies)
     {
-        // Waiting until Wolverine updates to .NET 9
-
-        //services.AddWolverine(cfg =>
-        //{
-        //    foreach (Assembly assembly in assemblies)
-        //    {
-        //        cfg.Discovery.IncludeAssembly(assembly);
-        //    }
-        //});
+        services.AddWolverine(cfg =>
+        {
+            foreach (Assembly assembly in assemblies)
+            {
+                cfg.Discovery.IncludeAssembly(assembly);
+            }
+        });
         services.AddScoped<IEventRaiser, WolverineEventRaiser>();
     }
 
