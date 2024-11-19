@@ -5,7 +5,7 @@ namespace CustomCADs.Cads.Persistence;
 
 public class CadsContext(DbContextOptions<CadsContext> opts) : DbContext(opts)
 {
-    public DbSet<Cad> Cads { get; set; }
+    public required DbSet<Cad> Cads { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

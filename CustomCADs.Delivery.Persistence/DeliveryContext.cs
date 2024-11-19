@@ -5,7 +5,7 @@ namespace CustomCADs.Delivery.Persistence;
 
 public class DeliveryContext(DbContextOptions<DeliveryContext> opts) : DbContext(opts)
 {
-    public DbSet<Shipment> Shipments { get; set; }
+    public required DbSet<Shipment> Shipments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
