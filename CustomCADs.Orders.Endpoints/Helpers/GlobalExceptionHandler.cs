@@ -1,6 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.Carts;
-using CustomCADs.Orders.Domain.Common.Exceptions.Carts.GalleryOrders;
-using CustomCADs.Orders.Domain.Common.Exceptions.CustomOrders;
+﻿using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +10,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is CustomOrderNotFoundException or CartNotFoundException or GalleryOrderNotFoundException)
+        if (ex is OrderNotFoundException)
         {
             context.Response.StatusCode = Status404NotFound;
             await context.Response.WriteAsJsonAsync(new

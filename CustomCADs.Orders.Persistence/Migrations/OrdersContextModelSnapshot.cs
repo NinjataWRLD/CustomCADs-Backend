@@ -24,95 +24,7 @@ namespace CustomCADs.Orders.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CustomCADs.Orders.Domain.Carts.Entities.Cart", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BuyerId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("BuyerId");
-
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("PurchaseDate");
-
-                    b.Property<decimal>("Total")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("Total");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Carts", "Orders");
-                });
-
-            modelBuilder.Entity("CustomCADs.Orders.Domain.Carts.Entities.GalleryOrder", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CadId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CadId");
-
-                    b.Property<Guid>("CartId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CartId");
-
-                    b.Property<string>("DeliveryType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ProductId");
-
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("PurchaseDate");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int")
-                        .HasColumnName("Quantity");
-
-                    b.Property<Guid?>("ShipmentId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ShipmentId");
-
-                    b.ComplexProperty<Dictionary<string, object>>("Price", "CustomCADs.Orders.Domain.Carts.Entities.GalleryOrder.Price#Money", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<decimal>("Amount")
-                                .HasPrecision(18, 2)
-                                .HasColumnType("decimal(18,2)")
-                                .HasColumnName("PriceAmount");
-
-                            b1.Property<string>("Currency")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("PriceCurrency");
-
-                            b1.Property<int>("Precision")
-                                .HasColumnType("int")
-                                .HasColumnName("PricePrecision");
-
-                            b1.Property<string>("Symbol")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("PriceSymbol");
-                        });
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.ToTable("GalleryOrders", "Orders");
-                });
-
-            modelBuilder.Entity("CustomCADs.Orders.Domain.CustomOrders.Entities.CustomOrder", b =>
+            modelBuilder.Entity("CustomCADs.Orders.Domain.Orders.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,7 +72,7 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("ShipmentId");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Image", "CustomCADs.Orders.Domain.CustomOrders.Entities.CustomOrder.Image#Image", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Image", "CustomCADs.Orders.Domain.Orders.Entities.Order.Image#Image", b1 =>
                         {
                             b1.IsRequired();
 
@@ -172,23 +84,7 @@ namespace CustomCADs.Orders.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CustomOrders", "Orders");
-                });
-
-            modelBuilder.Entity("CustomCADs.Orders.Domain.Carts.Entities.GalleryOrder", b =>
-                {
-                    b.HasOne("CustomCADs.Orders.Domain.Carts.Entities.Cart", "Cart")
-                        .WithMany("Orders")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-                });
-
-            modelBuilder.Entity("CustomCADs.Orders.Domain.Carts.Entities.Cart", b =>
-                {
-                    b.Navigation("Orders");
+                    b.ToTable("Orders", "Orders");
                 });
 #pragma warning restore 612, 618
         }
