@@ -6,5 +6,7 @@ public record PostProductRequest(
     int CategoryId,
     decimal Price,
     string ImageKey,
-    string CadKey
+    string ImageContentType,
+    string CadKey,
+    string CadContentType
 );

@@ -15,8 +15,11 @@ public class SetProductKeysHandler(IProductReads reads, IUnitOfWork uow, IEventR
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        product.SetImageKey(req.ImageKey);
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+        if (req.ImageKey is not null)
+        {
+            product.SetImage(req.ImageKey);
+            await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+        }
 
         if (req.CadKey is not null)
         {

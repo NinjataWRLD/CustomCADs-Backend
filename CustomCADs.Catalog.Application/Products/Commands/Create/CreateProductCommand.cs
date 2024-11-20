@@ -9,7 +9,9 @@ public record CreateProductCommand(
     string Description,
     CategoryId CategoryId,
     string ImageKey,
+    string ImageContentType,
     string CadKey,
+    string CadContentType,
     Money Price,
     ProductStatus Status,
     UserId CreatorId

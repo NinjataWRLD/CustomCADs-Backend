@@ -11,14 +11,15 @@ public class CreateProductHandler(IWrites<Product> productWrites, IUnitOfWork uo
 {
     public async Task<ProductId> Handle(CreateProductCommand req, CancellationToken ct)
     {
-        CreateCadCommand cadCommand = new(req.CadKey);
+        CreateCadCommand cadCommand = new(req.CadKey, req.CadContentType);
         CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
-        
+
         var product = Product.Create(
             name: req.Name,
             description: req.Description,
             price: req.Price,
             imageKey: req.ImageKey,
+            imageContentType: req.ImageContentType,
             status: req.Status,
             creatorId: req.CreatorId,
             categoryId: req.CategoryId,

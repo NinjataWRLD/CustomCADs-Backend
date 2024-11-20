@@ -39,22 +39,25 @@ public static class Mapper
         => command.DeliveryType switch
         {
             DeliveryType.Physical => Order.CreatePhysical(
-                command.Name,
-                command.Description,
-                command.ImageKey,
-                command.BuyerId
+                name: command.Name,
+                description: command.Description,
+                imageKey: command.ImageKey,
+                imageContentType: command.ImageContentType,
+                buyerId: command.BuyerId
             ),
             DeliveryType.Digital => Order.CreateDigital(
-                command.Name,
-                command.Description,
-                command.ImageKey,
-                command.BuyerId
+                name: command.Name,
+                description: command.Description,
+                imageKey: command.ImageKey,
+                imageContentType: command.ImageContentType,
+                buyerId: command.BuyerId
             ),
             DeliveryType.Both => Order.CreateDigitalAndPhysical(
-                command.Name,
-                command.Description,
-                command.ImageKey,
-                command.BuyerId
+                name: command.Name,
+                description: command.Description,
+                imageKey: command.ImageKey,
+                imageContentType: command.ImageContentType,
+                buyerId: command.BuyerId
             ),
             _ => throw OrderValidationException.Custom("Invalid Delivery Type.")
         };

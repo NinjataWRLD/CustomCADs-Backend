@@ -24,10 +24,11 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
         CategoryReadDto category = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
 
         GetCadByIdQuery cadQuery = new(product.CadId);
-        var (Key, CamCoordinates, PanCoordinates) = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
+        var (Key, ContentType, CamCoordinates, PanCoordinates) = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
 
         CadDto cad = new(
             Key: Key,
+            ContentType: ContentType,
             CamCoordinates: CamCoordinates.ToCoordinates(),
             PanCoordinates: PanCoordinates.ToCoordinates()
         );

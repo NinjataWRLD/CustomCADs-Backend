@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.GetCadUrl;
+﻿using CustomCADs.Catalog.Application.Products.Queries.GetCadUrlPost;
 using CustomCADs.Catalog.Application.Products.Queries.GetImageUrlPost;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Post.PresignedUrls;
@@ -22,7 +22,7 @@ public class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
         );
         var imageDto = await sender.SendQueryAsync(imageQuery, ct).ConfigureAwait(false);
 
-        GetProductCadPresignedUrlQuery cadQuery = new(
+        GetProductCadPresignedUrlPostQuery cadQuery = new(
             ProductName: req.ProductName,
             ContentType: req.CadContentType,
             FileName: req.CadFileName
