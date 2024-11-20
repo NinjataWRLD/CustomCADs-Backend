@@ -1,12 +1,10 @@
 ﻿using CustomCADs.Account.Application;
 using CustomCADs.Account.Endpoints;
 using CustomCADs.Auth.Application;
-using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Endpoints;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Catalog.Endpoints;
 using CustomCADs.Orders.Application;
-using CustomCADs.Presentation;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
@@ -23,13 +21,6 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class ProgramExtensions
 {
     private const string AuthScheme = JwtBearerDefaults.AuthenticationScheme;
-
-    public static IServiceCollection AddSignInService(this IServiceCollection services)
-    {
-        services.AddScoped<ISignInService, AppSignInService>();
-
-        return services;
-    }
 
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {

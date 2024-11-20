@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 #pragma warning disable IDE0130
@@ -37,6 +40,27 @@ public static class DependencyInjection
         .AddDefaultTokenProviders();
 
         return services;
+    }
+    
+    public static IApplicationBuilder UseJwtPrincipal(this IApplicationBuilder app)
+    {
+        app.Use(async (context, next) =>
+        {
+            string? jwt = context.Request.Cookies["jwt"];
+            if (jwt is not null)
+            {
+                JwtSecurityTokenHandler handler = new();
+                if (handler.ReadToken(jwt) is JwtSecurityToken jwtToken)
+                {
+                    ClaimsIdentity identity = new(jwtToken.Claims, AuthScheme);
+                    context.User = new(identity);
+                }
+            }
+
+            await next();
+        });
+
+        return app;
     }
 
     public static AuthenticationBuilder AddAuthN(this IServiceCollection services, string scheme = AuthScheme)
@@ -77,6 +101,13 @@ public static class DependencyInjection
                  OnMessageReceived = context =>
                  {
                      context.Token = context.Request.Cookies["jwt"];
+                     return Task.CompletedTask;
+                 },
+
+                 OnTokenValidated = context =>
+                 {
+                     ClaimsIdentity claimsIdentity = new(context.Principal?.Claims ?? [], AuthScheme);
+                     context.HttpContext.User = new ClaimsPrincipal(claimsIdentity);
                      return Task.CompletedTask;
                  },
              };

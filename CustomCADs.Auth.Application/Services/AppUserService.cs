@@ -176,4 +176,16 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
             Endpoint: endpoint
         )).ConfigureAwait(false);
     }
+
+    public async Task<bool> CheckPasswordAsync(AppUser user, string password)
+    {
+        bool success = await manager.CheckPasswordAsync(user, password).ConfigureAwait(false);
+
+        if (success)
+            await manager.ResetAccessFailedCountAsync(user).ConfigureAwait(false);
+        else
+            await manager.AccessFailedAsync(user).ConfigureAwait(false);
+
+        return success;
+    }
 }

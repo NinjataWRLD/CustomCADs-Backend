@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Auth.Application.Common.Exceptions.Users;
 using CustomCADs.Auth.Application.Dtos;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
-using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.Login;
 
@@ -9,7 +8,7 @@ using static ApiMessages;
 using static AuthConstants;
 using static StatusCodes;
 
-public class LoginEndpoint(IUserService userService, ITokenService tokenService, ISignInService signInService)
+public class LoginEndpoint(IUserService userService, ITokenService tokenService)
     : Endpoint<LoginRequest>
 {
     public override void Configure()
@@ -39,19 +38,9 @@ public class LoginEndpoint(IUserService userService, ITokenService tokenService,
             return;
         }
 
-        SignInResult result = await signInService
-            .PasswordSignInAsync(user, req.Password, req.RememberMe ?? false, lockoutOnFailure: true)
-            .ConfigureAwait(false);
-
-        if (!result.Succeeded)
+        bool isPasswordValid = await userService.CheckPasswordAsync(user, req.Password).ConfigureAwait(false);
+        if (!isPasswordValid)
         {
-            if (result.IsLockedOut && user.LockoutEnd.HasValue)
-            {
-                TimeSpan timeLeft = user.LockoutEnd.Value.Subtract(DateTimeOffset.UtcNow);
-                await SendLockedOutAsync(timeLeft).ConfigureAwait(false);
-                return;
-            }
-
             ValidationFailures.Add(new("Password", InvalidLogin, req.Password));
             await SendErrorsAsync(Status401Unauthorized).ConfigureAwait(false);
             return;
