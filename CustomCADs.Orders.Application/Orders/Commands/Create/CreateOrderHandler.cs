@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Orders.Domain.Orders.Entities;
+using CustomCADs.Orders.Domain.Orders;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Create;
 

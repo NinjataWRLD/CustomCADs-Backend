@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Categories.Queries;
 using CustomCADs.Catalog.Application.Categories.Queries.GetById;
 using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
-using CustomCADs.Catalog.Domain.Products.Entities;
+using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Queries.Cads;

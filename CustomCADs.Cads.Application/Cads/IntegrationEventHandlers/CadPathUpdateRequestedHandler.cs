@@ -1,4 +1,4 @@
-﻿using CustomCADs.Cads.Domain.Cads.Entites;
+﻿using CustomCADs.Cads.Domain.Cads;
 using CustomCADs.Cads.Domain.Cads.Reads;
 using CustomCADs.Cads.Domain.Common;
 using CustomCADs.Cads.Domain.Common.Exceptions.Cads;

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Categories.Validation;
 using CustomCADs.Shared.Core.Domain;
 
-namespace CustomCADs.Catalog.Domain.Categories.Entities;
+namespace CustomCADs.Catalog.Domain.Categories;
 
 public class Category : BaseAggregateRoot
 {

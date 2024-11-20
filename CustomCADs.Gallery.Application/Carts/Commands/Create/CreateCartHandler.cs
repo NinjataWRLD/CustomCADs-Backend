@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Gallery.Application.Carts;
-using CustomCADs.Gallery.Domain.Carts.Entities;
+using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Common;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Gallery;
 

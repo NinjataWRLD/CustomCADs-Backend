@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Catalog.Domain.Products.Validation;
+﻿namespace CustomCADs.Catalog.Domain.Products;
 
 public static class ProductConstants
 {

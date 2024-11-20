@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Account.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Domain;
 
-namespace CustomCADs.Account.Domain.Users.Entities;
+namespace CustomCADs.Account.Domain.Users;
 
 public class User : BaseAggregateRoot
 {

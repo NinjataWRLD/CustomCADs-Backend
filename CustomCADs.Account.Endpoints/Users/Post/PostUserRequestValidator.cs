@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Domain.Users.Validation;
+﻿using CustomCADs.Account.Domain.Users;
 using FluentValidation;
 
 namespace CustomCADs.Account.Endpoints.Users.Post;

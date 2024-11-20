@@ -2,7 +2,7 @@
 using CustomCADs.Shared.Core.Domain;
 using RoleDto = (int Id, string Name, string Description);
 
-namespace CustomCADs.Account.Domain.Roles.Entities;
+namespace CustomCADs.Account.Domain.Roles;
 
 public class Role : BaseAggregateRoot
 {

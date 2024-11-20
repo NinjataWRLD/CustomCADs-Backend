@@ -1,5 +1,5 @@
-﻿using CustomCADs.Account.Domain.Roles.Entities;
-using CustomCADs.Account.Domain.Users.Entities;
+﻿using CustomCADs.Account.Domain.Roles;
+using CustomCADs.Account.Domain.Users;
 
 namespace CustomCADs.Account.Persistence;
 

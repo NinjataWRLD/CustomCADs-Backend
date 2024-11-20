@@ -1,5 +1,4 @@
-﻿using CustomCADs.Cads.Domain.Cads.Entites;
-using CustomCADs.Cads.Domain.Common.Exceptions.Cads;
+﻿using CustomCADs.Cads.Domain.Common.Exceptions.Cads;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 
 namespace CustomCADs.Cads.Domain.Cads.Validation;

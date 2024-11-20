@@ -2,6 +2,7 @@
 using CustomCADs.Gallery.Application.Carts.Queries.GetAll;
 using CustomCADs.Gallery.Application.Carts.Queries.GetById;
 using CustomCADs.Gallery.Application.Carts.Queries.GetItems;
+using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Entities;
 
 namespace CustomCADs.Gallery.Application.Carts;

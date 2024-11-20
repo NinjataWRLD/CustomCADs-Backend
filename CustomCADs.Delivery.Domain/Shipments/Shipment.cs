@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
 
-namespace CustomCADs.Delivery.Domain.Shipments.Entities;
+namespace CustomCADs.Delivery.Domain.Shipments;
 
 public class Shipment : BaseAggregateRoot
 {

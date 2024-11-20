@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products.Entities;
+﻿using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Persistence;

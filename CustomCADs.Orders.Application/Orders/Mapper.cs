@@ -2,7 +2,7 @@
 using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
-using CustomCADs.Orders.Domain.Orders.Entities;
+using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Enums;
 
 namespace CustomCADs.Orders.Application.Orders;

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Gallery.Domain.Carts.Entities;
+﻿using CustomCADs.Gallery.Domain.Carts;
+using CustomCADs.Gallery.Domain.Carts.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Gallery.Persistence;

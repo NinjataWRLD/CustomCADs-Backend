@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
-namespace CustomCADs.Cads.Domain.Cads.Entites;
+namespace CustomCADs.Cads.Domain.Cads;
 
 public class Cad : BaseAggregateRoot
 {
@@ -42,7 +42,7 @@ public class Cad : BaseAggregateRoot
 
         return this;
     }
-    
+
     public Cad SetCamCoordinates(Coordinates coords)
     {
         CamCoordinates = coords;

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Orders.Entities;
+﻿using CustomCADs.Orders.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Orders.Persistence;

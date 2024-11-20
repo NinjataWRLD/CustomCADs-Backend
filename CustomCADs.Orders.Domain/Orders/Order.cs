@@ -7,7 +7,7 @@ using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
 
-namespace CustomCADs.Orders.Domain.Orders.Entities;
+namespace CustomCADs.Orders.Domain.Orders;
 
 public class Order : BaseAggregateRoot
 {
@@ -46,7 +46,7 @@ public class Order : BaseAggregateRoot
             .ValidateDescription();
 
     public static Order CreateDigitalAndPhysical(string name, string description, string imagePath, UserId buyerId)
-        => new Order(name, description, DeliveryType.Both, new(imagePath),  buyerId)
+        => new Order(name, description, DeliveryType.Both, new(imagePath), buyerId)
             .ValidateName()
             .ValidateDescription();
 
@@ -80,7 +80,7 @@ public class Order : BaseAggregateRoot
         DesignerId = null;
         return this;
     }
-    
+
     public Order SetDesignerId(UserId designerId)
     {
         DesignerId = designerId;

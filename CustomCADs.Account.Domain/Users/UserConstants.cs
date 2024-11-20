@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Account.Domain.Users.Validation;
+﻿namespace CustomCADs.Account.Domain.Users;
 
 public static class UserConstants
 {

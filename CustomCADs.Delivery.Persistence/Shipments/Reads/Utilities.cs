@@ -1,4 +1,4 @@
-﻿using CustomCADs.Delivery.Domain.Shipments.Entities;
+﻿using CustomCADs.Delivery.Domain.Shipments;
 using CustomCADs.Delivery.Domain.Shipments.Enums;
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;

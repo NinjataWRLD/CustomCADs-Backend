@@ -1,6 +1,5 @@
-﻿using CustomCADs.Account.Domain.Roles.Entities;
-using CustomCADs.Account.Domain.Roles.Validation;
-using CustomCADs.Account.Domain.Users.Entities;
+﻿using CustomCADs.Account.Domain.Roles;
+using CustomCADs.Account.Domain.Users;
 using CustomCADs.Shared.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

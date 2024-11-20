@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Account.Domain.Common.Exceptions;
-using CustomCADs.Account.Domain.Roles.Validation;
-using CustomCADs.Account.Domain.Users.Entities;
-using CustomCADs.Account.Domain.Users.Validation;
+using CustomCADs.Account.Domain.Roles;
 using System.Text.RegularExpressions;
 
 namespace CustomCADs.Account.Domain.Users;
