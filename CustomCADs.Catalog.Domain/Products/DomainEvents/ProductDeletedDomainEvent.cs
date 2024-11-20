@@ -3,5 +3,7 @@
 namespace CustomCADs.Catalog.Domain.Products.DomainEvents;
 
 public record ProductDeletedDomainEvent(
-    ProductId Id
+    ProductId Id,
+    string ImageKey,
+    string CadKey
 ) : BaseDomainEvent;
