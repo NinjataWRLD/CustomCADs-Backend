@@ -14,7 +14,6 @@ public class PostProductEndpoint(IRequestSender sender)
     {
         Post("");
         Group<ProductsGroup>();
-        Options(o => o.Accepts<PostProductRequest>("multipart/form-data"));
         Description(d => d.WithSummary("2. I want to create a Product"));
     }
 

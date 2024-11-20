@@ -30,14 +30,14 @@ public static class CadValidations
 
         property = "CamCoordinates";
         coords = cad.CamCoordinates;
-        if (AreCoordsValid(coords.X, coords.Y, coords.Z))
+        if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
         {
             throw CadValidationException.Range(property, CoordMax, CoordMin);
         }
 
         property = "PanCoordinates";
         coords = cad.CamCoordinates;
-        if (AreCoordsValid(coords.X, coords.Y, coords.Z))
+        if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
         {
             throw CadValidationException.Range(property, CoordMax, CoordMin);
         }
