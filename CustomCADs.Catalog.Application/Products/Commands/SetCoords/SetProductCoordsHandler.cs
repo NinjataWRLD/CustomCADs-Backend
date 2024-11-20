@@ -2,12 +2,12 @@
 using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Application.Events;
-using CustomCADs.Shared.IntegrationEvents.Catalog;
+using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Commands.Cads;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetCoords;
 
-public class SetProductCoordsHandler(IProductReads reads, IUnitOfWork uow, IEventRaiser raiser)
+public class SetProductCoordsHandler(IProductReads reads, IRequestSender sender)
     : ICommandHandler<SetProductCoordsCommand>
 {
     public async Task Handle(SetProductCoordsCommand req, CancellationToken ct = default)
@@ -15,13 +15,11 @@ public class SetProductCoordsHandler(IProductReads reads, IUnitOfWork uow, IEven
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        await raiser.RaiseIntegrationEventAsync(new CadCoordsUpdateRequestedIntegrationEvent(
+        SetCadCoordsCommand command = new(
             Id: product.CadId,
             CamCoordinates: req.CamCoordinates?.ToCoordinatesDto(),
-            PanCoordinates: req.PanCoordinates?.ToCoordinatesDto(),
-            CreatorId: product.CreatorId
-        )).ConfigureAwait(false);
-
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+            PanCoordinates: req.PanCoordinates?.ToCoordinatesDto()
+        );
+        await sender.SendCommandAsync(command, ct);
     }
 }
