@@ -8,14 +8,14 @@ namespace CustomCADs.Shared.Infrastructure.Storage;
 
 public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> settings) : IStorageService
 {
-    public async Task<string> GetPresignedGetUrlAsync(string path)
+    public async Task<string> GetPresignedGetUrlAsync(string key)
     {
         try
         {
             GetPreSignedUrlRequest req = new()
             {
                 BucketName = settings.Value.BucketName,
-                Key = path,
+                Key = key,
                 Verb = HttpVerb.GET,
                 Expires = DateTime.UtcNow.AddMinutes(2),
             };
@@ -23,7 +23,7 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
         }
         catch (Exception)
         {
-            throw new($"Retrieving file: {path} went wrong.");
+            throw new($"Retrieving file: {key} went wrong.");
         }
     }
 
@@ -57,13 +57,13 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
         }
     }
 
-    public async Task<DownloadFileDto> DownloadFileAsync(string path, CancellationToken ct = default)
+    public async Task<DownloadFileDto> DownloadFileAsync(string key, CancellationToken ct = default)
     {
         try
         {
             GetObjectRequest req = new()
             {
-                Key = path,
+                Key = key,
                 BucketName = settings.Value.BucketName,
             };
             GetObjectResponse res = await s3Client.GetObjectAsync(req, ct);
@@ -81,28 +81,28 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
         }
         catch (Exception)
         {
-            throw new($"Retrieving file: {path} went wrong.");
+            throw new($"Retrieving file: {key} went wrong.");
         }
     }
 
     public async Task<string> UploadFileAsync(string folderPath, Stream stream, Guid id, string name, string contentType, string fileName, CancellationToken ct = default)
     {
         string extension = fileName.Remove(0, fileName.LastIndexOf('.'));
-        string path = $"{folderPath}/{name}{id}{extension}";
+        string key = $"{folderPath}/{name}{id}{extension}";
 
         try
         {
             PutObjectRequest req = new()
             {
                 BucketName = settings.Value.BucketName,
-                Key = path,
+                Key = key,
                 InputStream = stream,
                 ContentType = contentType,
                 Metadata = { ["file-name"] = fileName },
             };
             await s3Client.PutObjectAsync(req, ct).ConfigureAwait(false);
 
-            return path;
+            return key;
         }
         catch (AmazonS3Exception ex)
         {
@@ -114,14 +114,14 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
         }
     }
 
-    public async Task DeleteFileAsync(string path, CancellationToken ct = default)
+    public async Task DeleteFileAsync(string key, CancellationToken ct = default)
     {
         try
         {
             DeleteObjectRequest req = new()
             {
                 BucketName = settings.Value.BucketName,
-                Key = path,
+                Key = key,
             };
             await s3Client.DeleteObjectAsync(req, ct).ConfigureAwait(false);
         }
@@ -131,7 +131,7 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
         }
         catch (Exception)
         {
-            throw new($"Deleting file: {path} went wrong.");
+            throw new($"Deleting file: {key} went wrong.");
         }
     }
 }

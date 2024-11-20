@@ -5,24 +5,24 @@ using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Catalog;
 
-namespace CustomCADs.Catalog.Application.Products.Commands.SetPaths;
+namespace CustomCADs.Catalog.Application.Products.Commands.SetKeys;
 
-public class SetProductPathsHandler(IProductReads reads, IUnitOfWork uow, IEventRaiser raiser)
-    : ICommandHandler<SetProductPathsCommand>
+public class SetProductKeysHandler(IProductReads reads, IUnitOfWork uow, IEventRaiser raiser)
+    : ICommandHandler<SetProductKeysCommand>
 {
-    public async Task Handle(SetProductPathsCommand req, CancellationToken ct)
+    public async Task Handle(SetProductKeysCommand req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        product.SetImagePath(req.ImagePath);
+        product.SetImageKey(req.ImageKey);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        if (req.CadPath is not null)
+        if (req.CadKey is not null)
         {
-            await raiser.RaiseIntegrationEventAsync(new CadPathUpdateRequestedIntegrationEvent(
+            await raiser.RaiseIntegrationEventAsync(new CadKeyUpdateRequestedIntegrationEvent(
                 product.CadId,
-                req.CadPath
+                req.CadKey
             )).ConfigureAwait(false);
         }
     }

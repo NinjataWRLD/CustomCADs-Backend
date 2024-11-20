@@ -32,12 +32,6 @@ public static class CadConfigUtils
                 v => new(v)
             );
 
-        builder.Property(x => x.ClientId)
-            .HasConversion(
-                x => x.Value,
-                v => new(v)
-            );
-
         return builder;
     }
 
@@ -62,13 +56,9 @@ public static class CadConfigUtils
 
     public static EntityTypeBuilder<Cad> SetValidaitons(this EntityTypeBuilder<Cad> builder)
     {
-        builder.Property(x => x.Path)
+        builder.Property(x => x.Key)
             .IsRequired()
-            .HasColumnName("Path");
-
-        builder.Property(x => x.ClientId)
-            .IsRequired()
-            .HasColumnName("ClientId");
+            .HasColumnName("Key");
 
         return builder;
     }

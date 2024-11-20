@@ -1,21 +1,21 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetCadUrl;
-using CustomCADs.Catalog.Application.Products.Queries.GetImageUrl;
+using CustomCADs.Catalog.Application.Products.Queries.GetImageUrlPost;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Post.PresignedUrls;
 
-public class GetProductPresignedUrlsEndpoint(IRequestSender sender)
-    : Endpoint<GetProductPresignedUrlsRequest, GetProductPresignedUrlsResponse>
+public class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
+    : Endpoint<GetProductPostPresignedUrlsRequest, GetProductPostPresignedUrlsResponse>
 {
     public override void Configure()
     {
-        Post("predesignedUrls");
+        Post("presignedUrls/upload");
         Group<ProductsGroup>();
         Description(d => d.WithSummary("1. I want to upload the Image and Cad for my Product"));
     }
 
-    public override async Task HandleAsync(GetProductPresignedUrlsRequest req, CancellationToken ct)
+    public override async Task HandleAsync(GetProductPostPresignedUrlsRequest req, CancellationToken ct)
     {
-        GetProductImagePresignedUrlQuery imageQuery = new(
+        GetProductImagePresignedUrlPostQuery imageQuery = new(
             ProductName: req.ProductName,
             ContentType: req.ImageContentType,
             FileName: req.ImageFileName
@@ -29,9 +29,9 @@ public class GetProductPresignedUrlsEndpoint(IRequestSender sender)
         );
         var cadDto = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
 
-        GetProductPresignedUrlsResponse response = new(
-            GeneratedImageKey: imageDto.ImageKey,
-            PresignedImageUrl: imageDto.ImageUrl,
+        GetProductPostPresignedUrlsResponse response = new(
+            GeneratedImageKey: imageDto.GeneratedKey,
+            PresignedImageUrl: imageDto.PresignedUrl,
             GeneratedCadKey: cadDto.CadKey,
             PresignedCadUrl: cadDto.CadUrl
         );

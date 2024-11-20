@@ -73,9 +73,9 @@ static class CadConfigUtils
     {
         builder.ComplexProperty(x => x.Image, c =>
         {
-            c.Property(x => x.Path)
+            c.Property(x => x.Key)
                 .IsRequired()
-                .HasColumnName("ImagePath");
+                .HasColumnName("ImageKey");
         });
 
         builder.ComplexProperty(x => x.Price, c =>

@@ -21,7 +21,7 @@ public class PostOrderEndpoint(IRequestSender sender)
             DeliveryType: req.DeliveryType,
             Name: req.Name,
             Description: req.Description,
-            ImagePath: req.ImagePath,
+            ImageKey: req.ImageKey,
             BuyerId: User.GetAccountId()
         );
         OrderId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 
 namespace CustomCADs.Shared.IntegrationEvents.Catalog;
 
-public record CadPathUpdateRequestedIntegrationEvent(
+public record CadKeyUpdateRequestedIntegrationEvent(
     CadId Id,
-    string Path
+    string Key
 ) : BaseIntegrationEvent;

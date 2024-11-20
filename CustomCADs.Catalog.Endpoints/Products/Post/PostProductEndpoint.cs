@@ -24,9 +24,9 @@ public class PostProductEndpoint(IRequestSender sender)
             Description: req.Description,
             CategoryId: new(req.CategoryId),
             Price: new(req.Price, "BGN", 2, "лв"),
-            ImagePath: req.ImagePath,
+            ImageKey: req.ImageKey,
             CreatorId: User.GetAccountId(),
-            CadPath: req.CadPath,
+            CadKey: req.CadKey,
             Status: User.IsInRole(Designer)
                 ? ProductStatus.Validated
                 : ProductStatus.Unchecked

@@ -35,18 +35,18 @@ public class Order : BaseAggregateRoot
     public CadId? CadId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
 
-    public static Order CreateDigital(string name, string description, string imagePath, UserId buyerId)
-        => new Order(name, description, DeliveryType.Digital, new(imagePath), buyerId)
+    public static Order CreateDigital(string name, string description, string imageKey, UserId buyerId)
+        => new Order(name, description, DeliveryType.Digital, new(imageKey), buyerId)
             .ValidateName()
             .ValidateDescription();
 
-    public static Order CreatePhysical(string name, string description, string imagePath, UserId buyerId)
-        => new Order(name, description, DeliveryType.Physical, new(imagePath), buyerId)
+    public static Order CreatePhysical(string name, string description, string imageKey, UserId buyerId)
+        => new Order(name, description, DeliveryType.Physical, new(imageKey), buyerId)
             .ValidateName()
             .ValidateDescription();
 
-    public static Order CreateDigitalAndPhysical(string name, string description, string imagePath, UserId buyerId)
-        => new Order(name, description, DeliveryType.Both, new(imagePath), buyerId)
+    public static Order CreateDigitalAndPhysical(string name, string description, string imageKey, UserId buyerId)
+        => new Order(name, description, DeliveryType.Both, new(imageKey), buyerId)
             .ValidateName()
             .ValidateDescription();
 
@@ -64,13 +64,13 @@ public class Order : BaseAggregateRoot
         return this;
     }
 
-    public Order SetImagePath(string path)
+    public Order SetImageKey(string key)
     {
-        if (string.IsNullOrWhiteSpace(path))
+        if (string.IsNullOrWhiteSpace(key))
         {
-            throw OrderValidationException.NotNull("Path");
+            throw OrderValidationException.NotNull("Key");
         }
-        Image = Image with { Path = path };
+        Image = Image with { Key = key };
 
         return this;
     }
