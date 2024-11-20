@@ -20,7 +20,7 @@ public class RemoveOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSend
 
         GetUserRoleByIdQuery userRoleQuery = new(req.RemoverId);
         string role = await sender.SendQueryAsync(userRoleQuery, ct).ConfigureAwait(false);
-        
+
         if (role != Admin)
         {
             throw OrderValidationException.Custom("A User cannot remove an order if he isn't an Admin.");

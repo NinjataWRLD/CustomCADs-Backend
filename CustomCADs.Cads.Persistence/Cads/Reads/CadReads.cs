@@ -28,7 +28,7 @@ public class CadReads(CadsContext context) : ICadReads
             .WithTracking(track)
             .FirstOrDefaultAsync(c => c.Id == id, ct)
             .ConfigureAwait(false);
-    
+
     public async Task<Cad?> SingleByPathAsync(string path, bool track = true, CancellationToken ct = default)
         => await context.Cads
             .WithTracking(track)

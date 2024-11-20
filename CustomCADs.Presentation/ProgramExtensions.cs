@@ -171,7 +171,7 @@ public static class ProgramExtensions
             cfg.Versioning.DefaultVersion = 1;
             cfg.Versioning.PrependToRoute = true;
         });
-        
+
         return app;
     }
 

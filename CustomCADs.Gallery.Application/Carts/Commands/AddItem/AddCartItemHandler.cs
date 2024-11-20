@@ -15,9 +15,9 @@ public class AddCartItemHandler(ICartReads reads, IUnitOfWork uow)
             ?? throw CartNotFoundException.ById(req.Id);
 
         CartItem item = cart.AddItem(
-            req.DeliveryType, 
-            req.Price, 
-            req.Quantity, 
+            req.DeliveryType,
+            req.Price,
+            req.Quantity,
             req.ProductId
         );
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

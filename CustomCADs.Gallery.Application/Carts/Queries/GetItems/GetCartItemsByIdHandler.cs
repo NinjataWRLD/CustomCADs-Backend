@@ -1,5 +1,4 @@
-﻿using CustomCADs.Gallery.Application.Carts;
-using CustomCADs.Gallery.Domain.Carts.Entities;
+﻿using CustomCADs.Gallery.Domain.Carts.Entities;
 using CustomCADs.Gallery.Domain.Carts.Reads;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetItems;

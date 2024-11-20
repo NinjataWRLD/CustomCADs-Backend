@@ -5,7 +5,7 @@ using CustomCADs.Shared.Queries.Users;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetAll;
 
-public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender) 
+public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
     : IQueryHandler<GetAllOrdersQuery, GetAllOrdersDto>
 {
     public async Task<GetAllOrdersDto> Handle(GetAllOrdersQuery req, CancellationToken ct)
@@ -21,7 +21,7 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
             Limit: req.Limit
         );
         OrderResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
-        
+
         UserId[] ids = result.Orders
             .Where(o => o.DesignerId is not null)
             .Select(o => o.DesignerId!.Value)
@@ -31,7 +31,7 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
         var designersInfo = await sender.SendQueryAsync(usernamesQuery, ct).ConfigureAwait(false);
 
         return new(
-            result.Count, 
+            result.Count,
             result.Orders
                 .Select(o =>
                 {
