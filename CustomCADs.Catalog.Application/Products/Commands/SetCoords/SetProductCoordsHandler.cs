@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
-using CustomCADs.Catalog.Domain.Products.Entities;
+using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Catalog;

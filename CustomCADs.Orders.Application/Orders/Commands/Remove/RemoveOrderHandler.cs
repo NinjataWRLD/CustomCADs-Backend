@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
-using CustomCADs.Orders.Domain.Orders.Entities;
+using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core;

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Categories.Entities;
-
-namespace CustomCADs.Catalog.Domain.Categories.Reads;
+﻿namespace CustomCADs.Catalog.Domain.Categories.Reads;
 
 public interface ICategoryReads
 {

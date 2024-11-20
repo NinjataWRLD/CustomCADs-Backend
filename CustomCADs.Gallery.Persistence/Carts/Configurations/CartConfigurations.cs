@@ -1,4 +1,4 @@
-﻿using CustomCADs.Gallery.Domain.Carts.Entities;
+﻿using CustomCADs.Gallery.Domain.Carts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

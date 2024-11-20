@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Cads.Domain.Cads.Validation;
+﻿namespace CustomCADs.Cads.Domain.Cads;
 
 public static class CadConstants
 {

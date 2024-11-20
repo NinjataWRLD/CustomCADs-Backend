@@ -1,5 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Categories.Entities;
-using CustomCADs.Catalog.Domain.Products.Entities;
+﻿using CustomCADs.Catalog.Domain.Categories;
+using CustomCADs.Catalog.Domain.Products;
 
 namespace CustomCADs.Catalog.Persistence;
 

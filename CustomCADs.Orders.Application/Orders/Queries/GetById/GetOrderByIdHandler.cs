@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
-using CustomCADs.Orders.Domain.Orders.Entities;
+using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetById;

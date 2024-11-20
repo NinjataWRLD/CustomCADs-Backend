@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products.Validation;
+﻿using CustomCADs.Catalog.Domain.Products;
 using FluentValidation;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Post;

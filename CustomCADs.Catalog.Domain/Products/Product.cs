@@ -6,7 +6,7 @@ using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 
-namespace CustomCADs.Catalog.Domain.Products.Entities;
+namespace CustomCADs.Catalog.Domain.Products;
 
 public class Product : BaseAggregateRoot
 {

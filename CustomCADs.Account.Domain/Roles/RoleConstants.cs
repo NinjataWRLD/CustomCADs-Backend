@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Account.Domain.Roles.Validation;
+﻿namespace CustomCADs.Account.Domain.Roles;
 
 public static class RoleConstants
 {

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
-using CustomCADs.Orders.Domain.Orders.Entities;
 
 namespace CustomCADs.Orders.Domain.Orders.Validation;
 

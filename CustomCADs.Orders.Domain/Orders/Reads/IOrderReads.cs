@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Orders.Entities;
-using CustomCADs.Orders.Domain.Orders.Enums;
+﻿using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 
 namespace CustomCADs.Orders.Domain.Orders.Reads;

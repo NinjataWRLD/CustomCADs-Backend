@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Domain.Users.Entities;
+﻿using CustomCADs.Account.Domain.Users;
 using CustomCADs.Account.Domain.Users.Reads;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetByUsername;

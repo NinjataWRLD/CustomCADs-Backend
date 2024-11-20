@@ -1,4 +1,4 @@
-﻿using CustomCADs.Gallery .Domain.Carts.Entities;
+﻿using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Enums;
 using CustomCADs.Gallery.Domain.Carts.ValueObjects;
 using CustomCADs.Shared.Core.Domain.Enums;
