@@ -9,9 +9,18 @@ using static StatusCodes;
 
 public class GlobalExceptionHandler : IExceptionHandler
 {
-    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken cancellationToken)
+    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is ProductNotFoundException or CategoryNotFoundException)
+        if (ex is CategoryValidationException or ProductValidationException)
+        {
+            context.Response.StatusCode = Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                error = "Invalid Request Parameters",
+                message = ex.Message,
+            }, ct).ConfigureAwait(false);
+        }
+        else if (ex is ProductNotFoundException or CategoryNotFoundException)
         {
             context.Response.StatusCode = Status404NotFound;
             await context.Response.WriteAsJsonAsync(new

@@ -10,7 +10,16 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is UserNotFoundException or RoleNotFoundException)
+        if (ex is UserValidationException or RoleValidationException)
+        {
+            context.Response.StatusCode = Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                error = "Invalid Request Parameters",
+                message = ex.Message,
+            }, ct).ConfigureAwait(false);
+        }
+        else if (ex is UserNotFoundException or RoleNotFoundException)
         {
             context.Response.StatusCode = Status404NotFound;
             await context.Response.WriteAsJsonAsync(new
