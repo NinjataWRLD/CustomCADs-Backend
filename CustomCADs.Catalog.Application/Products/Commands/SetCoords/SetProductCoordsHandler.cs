@@ -16,7 +16,7 @@ public class SetProductCoordsHandler(IProductReads reads, IUnitOfWork uow, IEven
             ?? throw ProductNotFoundException.ById(req.Id);
 
         await raiser.RaiseIntegrationEventAsync(new CadCoordsUpdateRequestedIntegrationEvent(
-            Id: product.CadId ?? throw ProductValidationException.CadNotNull(product.Id),
+            Id: product.CadId,
             CamCoordinates: req.CamCoordinates?.ToCoordinatesDto(),
             PanCoordinates: req.PanCoordinates?.ToCoordinatesDto(),
             CreatorId: product.CreatorId

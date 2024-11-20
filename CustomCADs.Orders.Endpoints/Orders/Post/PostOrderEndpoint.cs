@@ -12,7 +12,7 @@ public class PostOrderEndpoint(IRequestSender sender)
     {
         Post("");
         Group<OrdersGroup>();
-        Description(d => d.WithSummary("1. I want to make an Order"));
+        Description(d => d.WithSummary("2. I want to make my Order"));
     }
 
     public override async Task HandleAsync(PostOrderRequest req, CancellationToken ct)
@@ -21,6 +21,7 @@ public class PostOrderEndpoint(IRequestSender sender)
             DeliveryType: req.DeliveryType,
             Name: req.Name,
             Description: req.Description,
+            ImagePath: req.ImagePath,
             BuyerId: User.GetAccountId()
         );
         OrderId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

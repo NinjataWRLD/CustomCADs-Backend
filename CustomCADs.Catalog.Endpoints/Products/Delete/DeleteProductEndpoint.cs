@@ -14,7 +14,7 @@ public class DeleteProductEndpoint(IRequestSender sender, IEventRaiser raiser)
     {
         Delete("{id}");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("7. I want to delete my Product"));
+        Description(d => d.WithSummary("8. I want to delete my Product"));
     }
 
     public override async Task HandleAsync(DeleteProductRequest req, CancellationToken ct)

@@ -14,7 +14,7 @@ public class PutOrderEndpoint(IRequestSender sender)
     {
         Put("{id}");
         Group<OrdersGroup>();
-        Description(d => d.WithSummary("4. I want to edit my Order"));
+        Description(d => d.WithSummary("5. I want to edit my Order"));
     }
 
     public override async Task HandleAsync(PutOrderRequest req, CancellationToken ct)

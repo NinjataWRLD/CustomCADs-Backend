@@ -18,10 +18,10 @@ public class SetProductPathsHandler(IProductReads reads, IUnitOfWork uow, IEvent
         product.SetImagePath(req.ImagePath);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        if (req.CadPath is not null && product.CadId is not null)
+        if (req.CadPath is not null)
         {
             await raiser.RaiseIntegrationEventAsync(new CadPathUpdateRequestedIntegrationEvent(
-                product.CadId.Value,
+                product.CadId,
                 req.CadPath
             )).ConfigureAwait(false);
         }

@@ -11,7 +11,7 @@ public class RecentOrdersEndpoint(IRequestSender sender)
     {
         Get("recent");
         Group<OrdersGroup>();
-        Description(d => d.WithSummary("2. I want to see my recent Orders"));
+        Description(d => d.WithSummary("3. I want to see my recent Orders"));
     }
 
     public override async Task HandleAsync(RecentOrdersRequest req, CancellationToken ct)

@@ -23,11 +23,5 @@ public class PostProductRequestValidator : Validator<PostProductRequest>
 
         RuleFor(r => r.Price)
             .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError);
-
-        RuleFor(r => r.Image)
-            .NotNull().WithMessage(RequiredError);
-
-        RuleFor(r => r.File)
-            .NotNull().WithMessage(RequiredError);
     }
 }

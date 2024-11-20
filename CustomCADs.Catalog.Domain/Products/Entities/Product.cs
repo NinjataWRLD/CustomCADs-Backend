@@ -15,18 +15,22 @@ public class Product : BaseAggregateRoot
         string name,
         string description,
         Money price,
+        Image image,
         ProductStatus status,
         UserId creatorId,
-        CategoryId categoryId
+        CategoryId categoryId,
+        CadId cadId
     ) : this()
     {
         Name = name;
         Description = description;
         Price = price;
+        Image = image;
         Status = status;
         UploadDate = DateTime.UtcNow;
         CreatorId = creatorId;
         CategoryId = categoryId;
+        CadId = cadId;
     }
 
     public ProductId Id { get; init; }
@@ -38,16 +42,18 @@ public class Product : BaseAggregateRoot
     public Image Image { get; private set; } = new();
     public UserId CreatorId { get; private set; }
     public CategoryId CategoryId { get; private set; }
-    public CadId? CadId { get; private set; }
+    public CadId CadId { get; private set; }
 
     public static Product Create(
         string name,
         string description,
         Money price,
+        string imagePath,
         ProductStatus status,
         UserId creatorId,
-        CategoryId categoryId
-    ) => new Product(name, description, price, status, creatorId, categoryId)
+        CategoryId categoryId,
+        CadId cadId
+    ) => new Product(name, description, price, new(imagePath), status, creatorId, categoryId, cadId)
             .ValidateName()
             .ValidateDescription()
             .ValidatePriceAmount();
