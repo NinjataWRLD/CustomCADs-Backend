@@ -1,14 +1,12 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Edit;
-using CustomCADs.Catalog.Application.Products.Queries.GetById;
+using CustomCADs.Catalog.Application.Products.Commands.SetKeys;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Catalog.Domain.Products.DomainEvents;
-using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Put;
 
 using static ApiMessages;
 
-public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
+public class PutProductEndpoint(IRequestSender sender)
     : Endpoint<PutProductRequest>
 {
     public override void Configure()
@@ -32,44 +30,25 @@ public class PutProductEndpoint(IRequestSender sender, IEventRaiser raiser)
             return;
         }
 
-        EditProductCommand command = new(
-            Id: new(req.Id),
+        EditProductCommand editCcommand = new(
+            Id: id,
             Name: req.Name,
             Description: req.Description,
             CategoryId: new(req.CategoryId),
             Price: new(req.Price, "BGN", 2, "лв")
         );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(editCcommand, ct).ConfigureAwait(false);
 
-        GetProductByIdQuery getProductQuery = new(id);
-        GetProductByIdDto product = await sender.SendQueryAsync(getProductQuery, ct).ConfigureAwait(false);
-
-        ProductEditedDomainEvent productEditedDomainEvent = new(
-            Id: product.Id,
-            OldName: product.Name,
-            Name: command.Name,
-            OldDescription: product.Description,
-            Description: command.Description,
-            OldCategoryId: product.Category.Id,
-            CategoryId: command.CategoryId,
-            OldPrice: product.Price,
-            Price: command.Price,
-            OldImagePath: product.Image.Path
-        );
-
-        if (req.Image is not null)
+        if (req.ImageKey is not null)
         {
-            using MemoryStream imageStream = new();
-            await req.Image.CopyToAsync(imageStream).ConfigureAwait(false);
-
-            byte[] imageBytes = imageStream.ToArray();
-            productEditedDomainEvent = productEditedDomainEvent with
-            {
-                Image = new(imageBytes, req.Image.FileName, req.Image.ContentType)
-            };
+            SetProductKeysCommand keysCommand = new(
+                id, 
+                CadKey: null, 
+                ImageKey: req.ImageKey
+            );
+            await sender.SendCommandAsync(keysCommand, ct).ConfigureAwait(false);
         }
-        await raiser.RaiseDomainEventAsync(productEditedDomainEvent).ConfigureAwait(false);
-
+        
         await SendNoContentAsync().ConfigureAwait(false);
     }
 }

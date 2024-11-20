@@ -6,5 +6,5 @@ public record PutProductRequest(
     string Description,
     int CategoryId,
     decimal Price,
-    IFormFile? Image = default
+    string? ImageKey
 );
