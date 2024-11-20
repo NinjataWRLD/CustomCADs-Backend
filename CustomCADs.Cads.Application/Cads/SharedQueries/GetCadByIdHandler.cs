@@ -2,7 +2,6 @@
 using CustomCADs.Cads.Domain.Cads.Reads;
 using CustomCADs.Cads.Domain.Common.Exceptions.Cads;
 using CustomCADs.Shared.Application.Requests.Queries;
-using CustomCADs.Shared.Core.Dtos;
 using CustomCADs.Shared.Queries.Cads;
 using CadDto = (string Path, CustomCADs.Shared.Core.Dtos.CoordinatesDto CamCoordinates, CustomCADs.Shared.Core.Dtos.CoordinatesDto PanCoordinates);
 

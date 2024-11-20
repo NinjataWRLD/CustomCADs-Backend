@@ -14,7 +14,7 @@ public class ProductValidationException : BaseException
 
     public static ProductValidationException NotNull(string property, Exception? inner = default)
         => new(string.Format(NonNullValidation, "a", "Product", property), inner);
-    
+
     public static ProductValidationException Length(string property, int max, int min, Exception? inner = default)
         => new(string.Format(LengthValidation, "a", "Product", property, min, max), inner);
 

@@ -20,7 +20,7 @@ public class GetOrderPresigendUrlEndpoint(IRequestSender sender)
             FileName: req.FileName
         );
         var dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-        
+
         GetOrderPresigendUrlResponse response = new(
             GeneratedImageKey: dto.ImageKey,
             PresignedImageUrl: dto.ImageUrl

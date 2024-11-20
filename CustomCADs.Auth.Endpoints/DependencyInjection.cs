@@ -41,7 +41,7 @@ public static class DependencyInjection
 
         return services;
     }
-    
+
     public static IApplicationBuilder UseJwtPrincipal(this IApplicationBuilder app)
     {
         app.Use(async (context, next) =>

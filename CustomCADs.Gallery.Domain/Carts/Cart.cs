@@ -6,7 +6,6 @@ using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Catalog;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Gallery;
 
 namespace CustomCADs.Gallery.Domain.Carts;
 

@@ -3,6 +3,6 @@
 namespace CustomCADs.Catalog.Application.Products.Commands.SetStatus;
 
 public record SetProductStatusCommand(
-    ProductId Id, 
+    ProductId Id,
     ProductStatus Status
 ) : ICommand;

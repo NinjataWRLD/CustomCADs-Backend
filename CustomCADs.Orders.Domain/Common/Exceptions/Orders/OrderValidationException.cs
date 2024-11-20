@@ -23,7 +23,7 @@ public class OrderValidationException : BaseException
 
     public static OrderValidationException InvalidStatus(OrderId id, string status, Exception? inner = default)
         => new($"The Order with id: {id} cannot have a status: {status}.", inner);
-    
+
     public static OrderValidationException CadIdOnNonDigitalDeliveryType(Exception? inner = default)
         => Custom("Cannot set a CadId for a Order with a DeliveryType that doesn't include a Digital Delivery.", inner);
 
