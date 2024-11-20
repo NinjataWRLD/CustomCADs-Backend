@@ -6,16 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthN().AddJwt(builder.Configuration);
 builder.Services.AddAuthZ([Client, Contributor, Designer, Admin]);
 
-// Add External services
+// Add Use Cases and External services 
+builder.Services.AddUseCases();
 builder.Services.AddCache();
 builder.Services.AddRaiser();
 builder.Services.AddEmail(builder.Configuration);
 builder.Services.AddPayment(builder.Configuration);
 builder.Services.AddStorage(builder.Configuration);
-
-// Add Core Services and Use Cases
-builder.Services.AddSignInService();
-builder.Services.AddUseCases();
 
 // Add Modules
 builder.Services.AddAccount(builder.Configuration);
@@ -31,18 +28,19 @@ builder.Services.AddEndpoints();
 builder.Services.AddJsonOptions();
 builder.Services.AddApiDocumentation();
 
-// Add Others
+// Add Stuff
 builder.Services.AddCorsForClient(builder.Configuration);
 builder.Services.AddProblemDetails();
 builder.WebHost.LimitUploadSize();
 
 var app = builder.Build();
 
-// Global Exception Filters
+// Use Stuff
 app.UseExceptionHandler();
-
-// API
+app.UseJwtPrincipal();
 app.UseStaticFiles();
+
+// Use API & Map Documentation
 app.UseEndpoints();
 if (true) // Maybe I'll return 'app.Environment.IsDevelopment()' one day
 {

@@ -28,4 +28,5 @@ public interface IUserService
     Task SendVerificationEmailAsync(AppUser user);
     Task SendResetPasswordEmailAsync(AppUser user);
     Task SendResetPasswordEmailAsync(string email);
+    Task<bool> CheckPasswordAsync(AppUser user, string password);
 }

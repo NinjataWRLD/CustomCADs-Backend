@@ -25,9 +25,7 @@ public class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
             new(ClaimTypes.Name, username),
             new(ClaimTypes.Role, role),
         ];
-
-        byte[] key = Encoding.UTF8.GetBytes(jwtSettings.SecretKey);
-        SymmetricSecurityKey security = new(key);
+        SymmetricSecurityKey security = new(Encoding.UTF8.GetBytes(jwtSettings.SecretKey));
 
         JwtSecurityToken token = new(
             issuer: jwtSettings.Issuer,
