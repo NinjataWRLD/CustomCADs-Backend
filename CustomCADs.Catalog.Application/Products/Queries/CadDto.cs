@@ -3,7 +3,7 @@
 namespace CustomCADs.Catalog.Application.Products.Queries;
 
 public record CadDto(
-    string Path,
+    string Key,
     Coordinates CamCoordinates,
     Coordinates PanCoordinates
 );

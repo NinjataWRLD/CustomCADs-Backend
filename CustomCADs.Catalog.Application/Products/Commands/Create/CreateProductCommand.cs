@@ -8,8 +8,8 @@ public record CreateProductCommand(
     string Name,
     string Description,
     CategoryId CategoryId,
-    string ImagePath,
-    string CadPath,
+    string ImageKey,
+    string CadKey,
     Money Price,
     ProductStatus Status,
     UserId CreatorId

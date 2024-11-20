@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Catalog.Endpoints.Products.Post.PresignedUrls;
 
-public record GetProductPresignedUrlsRequest(
+public record GetProductPostPresignedUrlsRequest(
     string ProductName,
     string ImageContentType,
     string ImageFileName,

@@ -3,9 +3,9 @@ using CustomCADs.Cads.Domain.Cads.Reads;
 using CustomCADs.Cads.Domain.Common.Exceptions.Cads;
 using CustomCADs.Shared.Application.Requests.Queries;
 using CustomCADs.Shared.Queries.Cads;
-using CadDto = (string Path, CustomCADs.Shared.Core.Dtos.CoordinatesDto CamCoordinates, CustomCADs.Shared.Core.Dtos.CoordinatesDto PanCoordinates);
+using CadDto = (string Key, CustomCADs.Shared.Core.Dtos.CoordinatesDto CamCoordinates, CustomCADs.Shared.Core.Dtos.CoordinatesDto PanCoordinates);
 
-namespace CustomCADs.Cads.Application.Cads.SharedQueries;
+namespace CustomCADs.Cads.Application.Cads.SharedQueriesHandlers;
 
 public class GetCadByIdHandler(ICadReads reads)
     : IQueryHandler<GetCadByIdQuery, CadDto>
@@ -16,7 +16,7 @@ public class GetCadByIdHandler(ICadReads reads)
             ?? throw CadNotFoundException.ById(req.Id);
 
         return (
-            Path: cad.Path,
+            cad.Key,
             CamCoordinates: cad.CamCoordinates.ToCoordinatesDto(),
             PanCoordinates: cad.PanCoordinates.ToCoordinatesDto()
         );

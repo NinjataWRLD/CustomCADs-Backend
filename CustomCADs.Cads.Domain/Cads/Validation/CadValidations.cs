@@ -7,12 +7,12 @@ using static CadConstants.Coordinates;
 
 public static class CadValidations
 {
-    public static Cad ValidatePath(this Cad cad)
+    public static Cad ValidateKey(this Cad cad)
     {
-        string property = "Path";
-        string path = cad.Path;
+        string property = "Key";
+        string key = cad.Key;
 
-        if (string.IsNullOrEmpty(path))
+        if (string.IsNullOrEmpty(key))
         {
             throw CadValidationException.NotNull(property);
         }

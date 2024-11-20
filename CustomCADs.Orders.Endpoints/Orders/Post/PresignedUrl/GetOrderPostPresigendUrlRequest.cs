@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Orders.Post.PresignedUrl;
 
-public record GetOrderPresigendUrlRequest(
+public record GetOrderPostPresigendUrlRequest(
     string OrderName,
     string ContentType,
     string FileName

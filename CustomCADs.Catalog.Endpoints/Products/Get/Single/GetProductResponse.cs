@@ -8,7 +8,7 @@ public record GetProductResponse(
     string Name,
     string Description,
     MoneyDto Price,
-    string CadPath,
+    string CadKey,
     string UploadDate,
     CoordinatesDto CamCoordinates,
     CoordinatesDto PanCoordinates,

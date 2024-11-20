@@ -6,14 +6,14 @@ using CustomCADs.Shared.IntegrationEvents.Catalog;
 
 namespace CustomCADs.Cads.Application.Cads.IntegrationEventHandlers;
 
-public class CadPathUpdateRequestedHandler(ICadReads reads, IUnitOfWork uow)
+public class CadKeyUpdateRequestedHandler(ICadReads reads, IUnitOfWork uow)
 {
-    public async Task HandleAsync(CadPathUpdateRequestedIntegrationEvent ie)
+    public async Task HandleAsync(CadKeyUpdateRequestedIntegrationEvent ie)
     {
         Cad cad = await reads.SingleByIdAsync(ie.Id)
             ?? throw CadNotFoundException.ById(ie.Id);
 
-        cad.SetPath(ie.Path);
+        cad.SetKey(ie.Key);
 
         await uow.SaveChangesAsync().ConfigureAwait(false);
     }

@@ -2,8 +2,10 @@
 using CustomCADs.Account.Endpoints;
 using CustomCADs.Auth.Application;
 using CustomCADs.Auth.Endpoints;
+using CustomCADs.Cads.Application;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Catalog.Endpoints;
+using CustomCADs.Gallery.Application;
 using CustomCADs.Orders.Application;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Email;
@@ -27,8 +29,10 @@ public static class ProgramExtensions
         services.AddScoped<IRequestSender, RequestSender>();
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies([
-            CatalogApplicationReference.Assembly,
             AccountApplicationReference.Assembly,
+            CatalogApplicationReference.Assembly,
+            CadsApplicationReference.Assembly,
+            GalleryApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
         ]));
 
@@ -48,6 +52,8 @@ public static class ProgramExtensions
             AccountApplicationReference.Assembly,
             AuthApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
+            CadsApplicationReference.Assembly,
+            GalleryApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
         ]);
 

@@ -26,7 +26,7 @@ public static class Mapper
             Id: item.Id.Value,
             Name: item.Name,
             UploadDate: item.UploadDate.ToString(DateFormatString),
-            Image: new(item.Image),
+            Image: new(item.Image.Key),
             CreatorName: item.CreatorName,
             Category: new(item.Category.Id.Value, item.Category.Name)
         );
@@ -39,9 +39,9 @@ public static class Mapper
             Description: dto.Description,
             UploadDate: dto.UploadDate.ToString(DateFormatString),
             Category: new() { Id = dto.Category.Id.Value, Name = dto.Category.Name },
-            CamCoordinates: dto.Cad?.CamCoordinates.ToCoordinatesDto() ?? new(),
-            PanCoordinates: dto.Cad?.PanCoordinates.ToCoordinatesDto() ?? new(),
-            CadPath: dto.Cad is null ? string.Empty : dto.Cad.Path
+            CamCoordinates: dto.Cad.CamCoordinates.ToCoordinatesDto(),
+            PanCoordinates: dto.Cad.PanCoordinates.ToCoordinatesDto(),
+            CadKey: dto.Cad.Key
         );
 
     public static PostProductResponse ToPostProductResponse(this GetProductByIdDto dto)

@@ -66,9 +66,9 @@ public static class OrderConfigUtils
     {
         builder.ComplexProperty(x => x.Image, a =>
         {
-            a.Property(x => x.Path)
+            a.Property(x => x.Key)
                 .IsRequired()
-                .HasColumnName("ImagePath");
+                .HasColumnName("ImageKey");
         });
 
         return builder;
