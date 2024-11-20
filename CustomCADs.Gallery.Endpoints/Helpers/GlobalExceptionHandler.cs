@@ -11,7 +11,16 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is CartNotFoundException or CartItemNotFoundException)
+        if (ex is CartValidationException or  CartItemValidationException)
+        {
+            context.Response.StatusCode = Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                error = "Invalid Request Parameters",
+                message = ex.Message,
+            }, ct).ConfigureAwait(false);
+        }
+        else if (ex is CartNotFoundException or CartItemNotFoundException)
         {
             context.Response.StatusCode = Status404NotFound;
             await context.Response.WriteAsJsonAsync(new
