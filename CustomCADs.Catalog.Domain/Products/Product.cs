@@ -49,11 +49,12 @@ public class Product : BaseAggregateRoot
         string description,
         Money price,
         string imageKey,
+        string imageContentType,
         ProductStatus status,
         UserId creatorId,
         CategoryId categoryId,
         CadId cadId
-    ) => new Product(name, description, price, new(imageKey), status, creatorId, categoryId, cadId)
+    ) => new Product(name, description, price, new(imageKey, imageContentType), status, creatorId, categoryId, cadId)
             .ValidateName()
             .ValidateDescription()
             .ValidatePriceAmount();
@@ -85,11 +86,17 @@ public class Product : BaseAggregateRoot
         return this;
     }
 
-    public Product SetImageKey(string? imageKey)
+    public Product SetImage(string key, string? contentType = default)
     {
-        if (!string.IsNullOrEmpty(imageKey))
+        if (string.IsNullOrEmpty(key))
         {
-            Image = Image with { Key = imageKey };
+            throw ProductValidationException.NotNull(nameof(key));
+        }
+        
+        Image = Image with { Key = key };
+        if (!string.IsNullOrEmpty(contentType))
+        {
+            Image = Image with { ContentType = contentType };
         }
 
         return this;

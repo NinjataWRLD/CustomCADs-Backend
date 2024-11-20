@@ -8,5 +8,6 @@ public record CreateOrderCommand(
     string Name,
     string Description,
     string ImageKey,
+    string ImageContentType,
     UserId BuyerId
 ) : ICommand<OrderId>;

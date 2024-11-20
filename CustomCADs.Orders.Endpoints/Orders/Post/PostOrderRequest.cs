@@ -6,5 +6,6 @@ public record PostOrderRequest(
     DeliveryType DeliveryType,
     string Name,
     string Description,
-    string ImageKey
+    string ImageKey,
+    string ImageContentType
 );

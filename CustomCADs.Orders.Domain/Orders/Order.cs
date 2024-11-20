@@ -35,18 +35,33 @@ public class Order : BaseAggregateRoot
     public CadId? CadId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
 
-    public static Order CreateDigital(string name, string description, string imageKey, UserId buyerId)
-        => new Order(name, description, DeliveryType.Digital, new(imageKey), buyerId)
+    public static Order CreateDigital(
+        string name,
+        string description,
+        string imageKey,
+        string imageContentType,
+        UserId buyerId
+    ) => new Order(name, description, DeliveryType.Digital, new(imageKey, imageContentType), buyerId)
             .ValidateName()
             .ValidateDescription();
 
-    public static Order CreatePhysical(string name, string description, string imageKey, UserId buyerId)
-        => new Order(name, description, DeliveryType.Physical, new(imageKey), buyerId)
+    public static Order CreatePhysical(
+        string name,
+        string description,
+        string imageKey,
+        string imageContentType,
+        UserId buyerId
+    ) => new Order(name, description, DeliveryType.Physical, new(imageKey, imageContentType), buyerId)
             .ValidateName()
             .ValidateDescription();
 
-    public static Order CreateDigitalAndPhysical(string name, string description, string imageKey, UserId buyerId)
-        => new Order(name, description, DeliveryType.Both, new(imageKey), buyerId)
+    public static Order CreateDigitalAndPhysical(
+        string name,
+        string description,
+        string imageKey,
+        string imageContentType,
+        UserId buyerId
+    ) => new Order(name, description, DeliveryType.Both, new(imageKey, imageContentType), buyerId)
             .ValidateName()
             .ValidateDescription();
 
@@ -64,13 +79,18 @@ public class Order : BaseAggregateRoot
         return this;
     }
 
-    public Order SetImageKey(string key)
+    public Order SetImageKey(string key, string? contentType)
     {
         if (string.IsNullOrWhiteSpace(key))
         {
-            throw OrderValidationException.NotNull("Key");
+            throw OrderValidationException.NotNull(nameof(key));
         }
         Image = Image with { Key = key };
+
+        if (!string.IsNullOrEmpty(contentType))
+        {
+            Image = Image with { ContentType = contentType };
+        }
 
         return this;
     }

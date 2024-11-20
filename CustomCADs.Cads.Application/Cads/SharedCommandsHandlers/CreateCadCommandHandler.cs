@@ -11,7 +11,7 @@ public class CreateCadCommandHandler(IWrites<Cad> writes, IUnitOfWork uow)
 {
     public async Task<CadId> Handle(CreateCadCommand req, CancellationToken ct)
     {
-        Cad cad = Cad.Create(req.Key, new(), new());
+        Cad cad = Cad.Create(req.Key, req.ContentType, new(), new());
 
         await writes.AddAsync(cad, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

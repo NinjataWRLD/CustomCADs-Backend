@@ -69,6 +69,10 @@ public static class OrderConfigUtils
             a.Property(x => x.Key)
                 .IsRequired()
                 .HasColumnName("ImageKey");
+
+            a.Property(x => x.ContentType)
+                .IsRequired()
+                .HasColumnName("ImageContentType");
         });
 
         return builder;

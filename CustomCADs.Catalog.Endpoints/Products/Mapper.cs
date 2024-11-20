@@ -26,7 +26,7 @@ public static class Mapper
             Id: item.Id.Value,
             Name: item.Name,
             UploadDate: item.UploadDate.ToString(DateFormatString),
-            Image: new(item.Image.Key),
+            Image: new(item.Image.Key, item.Image.ContentType),
             CreatorName: item.CreatorName,
             Category: new(item.Category.Id.Value, item.Category.Name)
         );

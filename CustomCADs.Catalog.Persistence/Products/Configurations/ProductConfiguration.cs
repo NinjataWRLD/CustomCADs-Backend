@@ -76,6 +76,10 @@ static class CadConfigUtils
             c.Property(x => x.Key)
                 .IsRequired()
                 .HasColumnName("ImageKey");
+
+            c.Property(x => x.ContentType)
+                .IsRequired()
+                .HasColumnName("ImageContentType");
         });
 
         builder.ComplexProperty(x => x.Price, c =>
