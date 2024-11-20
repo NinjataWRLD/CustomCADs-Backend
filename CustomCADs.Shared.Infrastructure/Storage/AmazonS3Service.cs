@@ -19,8 +19,7 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
                 Verb = HttpVerb.GET,
                 Expires = DateTime.UtcNow.AddMinutes(2),
             };
-            string url = await s3Client.GetPreSignedURLAsync(req).ConfigureAwait(false);
-            return url;
+            return await s3Client.GetPreSignedURLAsync(req).ConfigureAwait(false);
         }
         catch (Exception)
         {
@@ -28,21 +27,25 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
         }
     }
 
-    public async Task<string> GetPresignedPostUrlAsync(string path, string contentType, string fileName)
+    public async Task<(string Key, string Url)> GetPresignedPostUrlAsync(string folderPath, string name, string contentType, string fileName)
     {
         try
         {
+            string extension = fileName.Remove(0, fileName.LastIndexOf('.'));
+            string key = $"{folderPath}/{name}{Guid.NewGuid()}{extension}";
+
             GetPreSignedUrlRequest req = new()
             {
                 BucketName = settings.Value.BucketName,
-                Key = path,
+                Key = key,
                 Verb = HttpVerb.PUT,
-                Expires = DateTime.UtcNow.AddHours(12),
+                Expires = DateTime.UtcNow.AddMinutes(2),
                 ContentType = contentType,
                 Metadata = { ["file-name"] = fileName }
             };
+
             string url = await s3Client.GetPreSignedURLAsync(req).ConfigureAwait(false);
-            return url;
+            return (Key: key, Url: url);
         }
         catch (AmazonS3Exception ex)
         {
@@ -50,7 +53,7 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
         }
         catch (Exception)
         {
-            throw new($"Retrieving file: {path} went wrong.");
+            throw new($"Retrieving file: {fileName} went wrong.");
         }
     }
 

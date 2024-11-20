@@ -9,7 +9,7 @@ public class GetOrderEndpoint(IRequestSender sender)
     {
         Get("{id}");
         Group<OrdersGroup>();
-        Description(d => d.WithSummary("5. I want to see my Order in detail"));
+        Description(d => d.WithSummary("6. I want to see my Order in detail"));
     }
 
     public override async Task HandleAsync(GetOrderRequest req, CancellationToken ct)

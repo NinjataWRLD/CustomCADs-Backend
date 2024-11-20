@@ -24,9 +24,6 @@ public class ProductValidationException : BaseException
     public static ProductValidationException Custom(string message, Exception? inner = default)
         => new(message, inner);
 
-    public static ProductValidationException CadNotNull(ProductId id, Exception? inner = default)
-        => Custom($"The Product with id: {id} has a null CadId Foreign Key.", inner);
-
     public static ProductValidationException InvalidStatus(ProductId id, string status, Exception? inner = default)
         => Custom($"The Product with id: {id} cannot have a status: {status}.", inner);
 }

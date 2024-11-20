@@ -5,6 +5,6 @@ public record PostProductRequest(
     string Description,
     int CategoryId,
     decimal Price,
-    IFormFile File,
-    IFormFile Image
+    string ImagePath,
+    string CadPath
 );

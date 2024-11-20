@@ -14,6 +14,9 @@ public class CadNotFoundException : BaseException
 
     public static CadNotFoundException ById(CadId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Role", nameof(id), id), inner);
+    
+    public static CadNotFoundException ByPath(string path, Exception? inner = default)
+        => new(string.Format(NotFoundByProp, "Role", nameof(path), path), inner);
 
     public static CadNotFoundException Custom(string message, Exception? inner = default)
         => new(message, inner);

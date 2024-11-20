@@ -12,13 +12,14 @@ namespace CustomCADs.Orders.Domain.Orders.Entities;
 public class Order : BaseAggregateRoot
 {
     private Order() { }
-    private Order(string name, string description, DeliveryType deliveryType, UserId buyerId) : this()
+    private Order(string name, string description, DeliveryType deliveryType, Image image, UserId buyerId) : this()
     {
         Name = name;
         Description = description;
         DeliveryType = deliveryType;
-        OrderStatus = OrderStatus.Pending;
         OrderDate = DateTime.UtcNow;
+        OrderStatus = OrderStatus.Pending;
+        Image = image;
         BuyerId = buyerId;
     }
 
@@ -34,18 +35,18 @@ public class Order : BaseAggregateRoot
     public CadId? CadId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
 
-    public static Order CreateDigital(string name, string description, UserId buyerId)
-        => new Order(name, description, DeliveryType.Digital, buyerId)
+    public static Order CreateDigital(string name, string description, string imagePath, UserId buyerId)
+        => new Order(name, description, DeliveryType.Digital, new(imagePath), buyerId)
             .ValidateName()
             .ValidateDescription();
 
-    public static Order CreatePhysical(string name, string description, UserId buyerId)
-        => new Order(name, description, DeliveryType.Physical, buyerId)
+    public static Order CreatePhysical(string name, string description, string imagePath, UserId buyerId)
+        => new Order(name, description, DeliveryType.Physical, new(imagePath), buyerId)
             .ValidateName()
             .ValidateDescription();
 
-    public static Order CreateDigitalAndPhysical(string name, string description, UserId buyerId)
-        => new Order(name, description, DeliveryType.Both, buyerId)
+    public static Order CreateDigitalAndPhysical(string name, string description, string imagePath, UserId buyerId)
+        => new Order(name, description, DeliveryType.Both, new(imagePath),  buyerId)
             .ValidateName()
             .ValidateDescription();
 

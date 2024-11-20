@@ -41,16 +41,19 @@ public static class Mapper
             DeliveryType.Physical => Order.CreatePhysical(
                 command.Name,
                 command.Description,
+                command.ImagePath,
                 command.BuyerId
             ),
             DeliveryType.Digital => Order.CreateDigital(
                 command.Name,
                 command.Description,
+                command.ImagePath,
                 command.BuyerId
             ),
             DeliveryType.Both => Order.CreateDigitalAndPhysical(
                 command.Name,
                 command.Description,
+                command.ImagePath,
                 command.BuyerId
             ),
             _ => throw OrderValidationException.Custom("Invalid Delivery Type.")

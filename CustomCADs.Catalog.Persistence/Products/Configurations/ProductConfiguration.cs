@@ -62,9 +62,9 @@ static class CadConfigUtils
             );
 
         builder.Property(x => x.CadId)
-            .HasConversion<Guid?>(
-                x => x == null ? null : x.Value.Value,
-                v => v == null ? null : new(v.Value)
+            .HasConversion(
+                x => x.Value,
+                v => new(v)
             );
 
         return builder;
@@ -131,6 +131,10 @@ static class CadConfigUtils
         builder.Property(x => x.CreatorId)
             .IsRequired()
             .HasColumnName("CreatorId");
+        
+        builder.Property(x => x.CadId)
+            .IsRequired()
+            .HasColumnName("CadId");
 
         return builder;
     }

@@ -23,18 +23,14 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
         GetCategoryByIdQuery categoryQuery = new(product.CategoryId);
         CategoryReadDto category = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
 
-        CadDto? cad = null;
-        if (product.CadId is not null)
-        {
-            GetCadByIdQuery cadQuery = new(product.CadId.Value);
+        GetCadByIdQuery cadQuery = new(product.CadId);
+        var cadDto = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
 
-            var cadDto = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
-            cad = new(
-                cadDto.Path,
-                cadDto.CamCoordinates.ToCoordinates(),
-                cadDto.PanCoordinates.ToCoordinates()
-            );
-        }
+        CadDto cad = new(
+            Path: cadDto.Path,
+            CamCoordinates: cadDto.CamCoordinates.ToCoordinates(),
+            PanCoordinates: cadDto.PanCoordinates.ToCoordinates()
+        );
 
         return product.ToGetProductByIdDto(cad, username, category.Name);
     }
