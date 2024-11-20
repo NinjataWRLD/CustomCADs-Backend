@@ -11,4 +11,7 @@ public class Writes<TEntity>(OrdersContext context) : IWrites<TEntity>
 
     public void Remove(TEntity entity)
         => context.Set<TEntity>().Remove(entity);
+
+    public void RemoveRange(params IEnumerable<TEntity> entities)
+        => context.Set<TEntity>().RemoveRange(entities);
 }

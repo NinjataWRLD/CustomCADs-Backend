@@ -1,13 +1,11 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Delete;
 using CustomCADs.Catalog.Application.Products.Queries.IsCreator;
-using CustomCADs.Catalog.Domain.Products.DomainEvents;
-using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Delete;
 
 using static ApiMessages;
 
-public class DeleteProductEndpoint(IRequestSender sender, IEventRaiser raiser)
+public class DeleteProductEndpoint(IRequestSender sender)
     : Endpoint<DeleteProductRequest>
 {
     public override void Configure()
@@ -32,10 +30,6 @@ public class DeleteProductEndpoint(IRequestSender sender, IEventRaiser raiser)
 
         DeleteProductCommand command = new(id);
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
-
-        await raiser.RaiseDomainEventAsync(new ProductDeletedDomainEvent(
-            Id: id
-        )).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

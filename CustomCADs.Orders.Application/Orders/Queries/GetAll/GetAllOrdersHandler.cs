@@ -35,7 +35,7 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
             result.Orders
                 .Select(o =>
                 {
-                    var (_, Username) = designersInfo.First(d => d.Id == o.DesignerId);
+                    var (_, Username) = designersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
                     return o.ToGetAllOrdersItem(Username);
                 })
                 .ToArray()
