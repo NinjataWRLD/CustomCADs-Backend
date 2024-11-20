@@ -3,7 +3,7 @@ using CustomCADs.Cads.Domain.Cads.Reads;
 using CustomCADs.Cads.Domain.Common;
 using CustomCADs.Cads.Domain.Common.Exceptions.Cads;
 using CustomCADs.Shared.Application.Requests.Commands;
-using CustomCADs.Shared.Commands.Cads;
+using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Cads.Application.Cads.SharedCommandsHandlers;
 

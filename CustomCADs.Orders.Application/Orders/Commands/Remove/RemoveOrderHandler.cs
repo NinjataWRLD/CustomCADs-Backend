@@ -4,7 +4,7 @@ using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Queries.Users;
+using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Remove;
 

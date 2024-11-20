@@ -2,7 +2,6 @@
 using CustomCADs.Gallery.Application.Carts.Queries.IsBuyer;
 using CustomCADs.Gallery.Endpoints.Helpers;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Gallery;
-using CustomCADs.Shared.Queries.Products;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Post.Item;
 
@@ -31,13 +30,9 @@ public class PostCartItemEndpoint(IRequestSender sender)
             return;
         }
 
-        GetProductPriceByIdQuery productQuery = new(new(req.ProductId));
-        decimal price = await sender.SendQueryAsync(productQuery, ct).ConfigureAwait(false);
-
         AddCartItemCommand commnad = new(
             Id: id,
             DeliveryType: req.DeliveryType,
-            Price: new(price, "BGN"),
             Quantity: req.Quantity,
             ProductId: new(req.ProductId)
         );

@@ -6,7 +6,7 @@ using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.IntegrationEvents.Catalog;
-using CustomCADs.Shared.Queries.Cads;
+using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Delete;
 
