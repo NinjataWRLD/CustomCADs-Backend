@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Commands.Cads;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
+using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Queries.Products;
+using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.SharedQueries;
 

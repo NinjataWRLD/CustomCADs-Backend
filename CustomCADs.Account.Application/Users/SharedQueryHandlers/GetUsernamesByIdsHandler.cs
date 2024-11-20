@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Account.Domain.Users.Reads;
-using CustomCADs.Shared.Queries.Users;
+using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Account.Application.Users.SharedQueryHandlers;
 

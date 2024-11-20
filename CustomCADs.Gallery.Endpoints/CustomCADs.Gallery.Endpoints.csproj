@@ -14,7 +14,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Gallery.Application\CustomCADs.Gallery.Application.csproj" />
 		<ProjectReference Include="..\CustomCADs.Gallery.Persistence\CustomCADs.Gallery.Persistence.csproj" />
-		<ProjectReference Include="..\CustomCADs.Shared.Queries\CustomCADs.Shared.Queries.csproj" />
 	</ItemGroup>
 
 </Project>

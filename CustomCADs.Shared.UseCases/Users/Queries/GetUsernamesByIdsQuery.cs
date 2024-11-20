@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Queries;
-
-namespace CustomCADs.Shared.Queries.Users;
+﻿namespace CustomCADs.Shared.UseCases.Users.Queries;
 
 public record GetUsernamesByIdsQuery(params UserId[] Ids)
     : IQuery<IEnumerable<(UserId Id, string Username)>>;

@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CustomCADs.Gallery.Domain\CustomCADs.Gallery.Domain.csproj" />
     <ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
+    <ProjectReference Include="..\CustomCADs.Shared.UseCases\CustomCADs.Shared.UseCases.csproj" />
   </ItemGroup>
 
 </Project>

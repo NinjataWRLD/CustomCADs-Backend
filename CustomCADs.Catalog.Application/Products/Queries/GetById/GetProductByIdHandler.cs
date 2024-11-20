@@ -4,8 +4,8 @@ using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Queries.Cads;
-using CustomCADs.Shared.Queries.Users;
+using CustomCADs.Shared.UseCases.Cads.Queries;
+using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 

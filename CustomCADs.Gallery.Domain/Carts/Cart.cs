@@ -31,9 +31,9 @@ public class Cart : BaseAggregateRoot
         => new Cart(buyerId)
             .ValidateItems();
 
-    public CartItem AddItem(DeliveryType type, Money price, int quantity, ProductId productId)
+    public CartItem AddItem(DeliveryType deliverType, Money price, int quantity, ProductId productId)
     {
-        var item = CartItem.Create(type, price, quantity, productId, Id);
+        var item = CartItem.Create(deliverType, price, quantity, productId, Id);
         items.Add(item);
 
         Total += item.Cost.Amount;

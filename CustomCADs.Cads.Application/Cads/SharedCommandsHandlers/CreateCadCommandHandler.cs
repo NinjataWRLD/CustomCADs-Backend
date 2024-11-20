@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Cads.Domain.Cads;
 using CustomCADs.Cads.Domain.Common;
 using CustomCADs.Shared.Application.Requests.Commands;
-using CustomCADs.Shared.Commands.Cads;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
+using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Cads.Application.Cads.SharedCommandsHandlers;
 
