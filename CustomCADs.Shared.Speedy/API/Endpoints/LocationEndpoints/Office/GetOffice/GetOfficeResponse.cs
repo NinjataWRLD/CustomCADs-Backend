@@ -4,5 +4,5 @@ using Dtos.Office;
 
 public record GetOfficeResponse(
     OfficeDto? Office,
-    ErrorDto? Erro
+    ErrorDto? Error
 );
