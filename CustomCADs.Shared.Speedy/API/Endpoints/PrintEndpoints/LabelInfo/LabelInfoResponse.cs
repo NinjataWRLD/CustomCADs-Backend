@@ -4,5 +4,5 @@ using Dtos.ParcelToPrint;
 
 public record LabelInfoResponse(
     LabelInfoDto[] PrintLabelsInfo,
-    ErrorDto? Erorr
+    ErrorDto? Error
 );
