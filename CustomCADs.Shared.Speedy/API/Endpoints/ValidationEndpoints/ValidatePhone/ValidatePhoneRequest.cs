@@ -3,8 +3,8 @@
 public record ValidatePhoneRequest(
     string UserName,
     string Password,
-    int? CountryId,
-    long? SiteId,
+    string Number,
     string? Language,
-    long? ClientSystemId
+    long? ClientSystemId,
+    string? Ext
 );

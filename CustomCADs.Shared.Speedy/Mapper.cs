@@ -2,7 +2,7 @@
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentPhoneNumber;
 using CustomCADs.Shared.Speedy.Models;
 
-namespace CustomCADs.Shared.Speedy.Services;
+namespace CustomCADs.Shared.Speedy;
 
 public static class Mapper
 {
