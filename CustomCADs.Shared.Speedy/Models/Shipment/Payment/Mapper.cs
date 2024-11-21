@@ -26,4 +26,27 @@ public static class Mapper
             Iban: model.Iban,
             AccountHolder: model.AccountHolder
         );
+
+    public static ShipmentPaymentModel ToModel(this ShipmentPaymentDto dto)
+        => new(
+            CourierServicePayer: dto.CourierServicePayer,
+            DeclaredValuePayer: dto.DeclaredValuePayer,
+            PackagePayer: dto.PackagePayer,
+            ThirdPartyClientId: dto.ThirdPartyClientId,
+            DiscountCardId: dto.DiscountCardId?.ToModel(),
+            SenderBankAccount: dto.SenderBankAccount?.ToModel(),
+            AdministrativeFee: dto.AdministrativeFee
+        );
+
+    public static ShipmentDiscountCardIdModel ToModel(this ShipmentDiscountCardIdDto dto)
+        => new(
+            ContractId: dto.ContractId,
+            CardId: dto.CardId
+        );
+
+    public static BankAccountModel ToModel(this BankAccountDto dto)
+        => new(
+            Iban: dto.Iban,
+            AccountHolder: dto.AccountHolder
+        );
 }

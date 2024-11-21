@@ -27,15 +27,13 @@ public interface IShipmentEndpoints
     Task<AddParcelResponse> AddParcelShipmentAsync(AddParcelRequest request, CancellationToken ct = default);
 
     [Post("finalize")]
-    Task<FinalizePendingShipmentRequest> FinalizePendingShipmentAsync(FinalizePendingShipmentResponse request, CancellationToken ct = default);
+    Task<FinalizePendingShipmentResponse> FinalizePendingShipmentAsync(FinalizePendingShipmentRequest request, CancellationToken ct = default);
 
-    [Get("info")]
-    [Headers("Content-Type: application/x-www-form-urlencoded")]
+    [Post("info")]
     Task<ShipmentInfoResponse> ShipmentInfoAsync(ShipmentInfoRequest request, CancellationToken ct = default);
 
-    [Get("{shipmentId}/secondary")]
-    [Headers("Content-Type: application/x-www-form-urlencoded")]
-    Task<SecondaryShipmentResponse> SecondaryShipmentAsync([AliasAs("shipmentId")] string id, SecondaryShipmentRequest request, CancellationToken ct = default);
+    [Post("{shipmentId}/secondary")]
+    Task<SecondaryShipmentResponse> SecondaryShipmentAsync(string shipmentId, SecondaryShipmentRequest request, CancellationToken ct = default);
 
     [Post("update")]
     Task<UpdateShipmentResponse> UpdateShipmentAsync(UpdateShipmentRequest request, CancellationToken ct = default);
@@ -43,8 +41,7 @@ public interface IShipmentEndpoints
     [Post("update/properties")]
     Task<UpdateShipmentPropertiesResponse> UpdateShipmentPropertiesAsync(UpdateShipmentPropertiesRequest request, CancellationToken ct = default);
 
-    [Get("search")]
-    [Headers("Content-Type: application/x-www-form-urlencoded")]
+    [Post("search")]
     Task<FindParcelsByRefResponse> FindParcelsByRefAsync(FindParcelsByRefRequest request, CancellationToken ct = default);
 
     [Post("handover")]
@@ -53,7 +50,6 @@ public interface IShipmentEndpoints
     [Post("handover-to-midway-carrier")]
     Task<HandoverToMidwayCarrierResponse> HandoverToMidwayCarrierAsync(HandoverToMidwayCarrierRequest request, CancellationToken ct = default);
 
-    [Get("barcode-information")]
-    [Headers("Content-Type: application/x-www-form-urlencoded")]
+    [Post("barcode-information")]
     Task<BarcodeInformationResponse> BarcodeInformationAsync(BarcodeInformationRequest request, CancellationToken ct = default);
 }

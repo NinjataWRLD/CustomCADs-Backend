@@ -11,4 +11,12 @@ public static class Mapper
             ReturnToOfficeId: model.ReturnToOfficeId,
             ThirdPartyPayer: model.ThirdPartyPayer
         );
+
+    public static ShipmentReturnReceiptAdditionalServiceModel ToModel(this ShipmentReturnReceiptAdditionalServiceDto dto)
+        => new(
+            Enabled: dto.Enabled,
+            ReturnToClientId: dto.ReturnToClientId,
+            ReturnToOfficeId: dto.ReturnToOfficeId,
+            ThirdPartyPayer: dto.ThirdPartyPayer
+        );
 }

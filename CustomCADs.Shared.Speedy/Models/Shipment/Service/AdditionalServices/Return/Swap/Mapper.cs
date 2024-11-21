@@ -13,4 +13,14 @@ public static class Mapper
             ReturnToOfficeId: model.ReturnToOfficeId,
             ThirdPartyPayer: model.ThirdPartyPayer
         );
+
+    public static ShipmentSwapAdditionalServiceModel ToModel(this ShipmentSwapAdditionalServiceDto dto)
+        => new(
+            ServiceId: dto.ServiceId,
+            ParcelsCount: dto.ParcelsCount,
+            DeclaredValue: dto.DeclaredValue,
+            Fragile: dto.Fragile,
+            ReturnToOfficeId: dto.ReturnToOfficeId,
+            ThirdPartyPayer: dto.ThirdPartyPayer
+        );
 }

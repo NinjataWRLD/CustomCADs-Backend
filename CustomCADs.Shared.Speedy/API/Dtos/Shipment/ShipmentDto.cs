@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Dtos.Shipment;
 
+using Shipment.Delivery;
 using Shipment.Primary;
 using ShipmentContent;
 using ShipmentPayment;

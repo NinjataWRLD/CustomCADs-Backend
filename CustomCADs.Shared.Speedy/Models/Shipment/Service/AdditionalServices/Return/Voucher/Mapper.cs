@@ -10,4 +10,11 @@ public static class Mapper
             Payer: model.Payer,
             ValidityPeriod: model.ValidityPeriod
         );
+
+    public static ShipmentReturnVoucherAdditionalServiceModel ToModel(this ShipmentReturnVoucherAdditionalServiceDto dto)
+        => new(
+            ServiceId: dto.ServiceId,
+            Payer: dto.Payer,
+            ValidityPeriod: dto.ValidityPeriod
+        );
 }

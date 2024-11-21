@@ -9,4 +9,10 @@ public static class Mapper
             Pallets: [.. model.Pallets.Select(p => new ShipmentRopAdditionalServiceLineDto(p.ServiceId, p.ParcelsCount))],
             ThirdPartyPayer: model.ThirdPartyPayer
         );
+
+    public static ShipmentRopAdditionalServiceModel ToModel(this ShipmentRopAdditionalServiceDto dto)
+        => new(
+            Pallets: [.. dto.Pallets.Select(p => (p.ServiceId, p.ParcelsCount))],
+            ThirdPartyPayer: dto.ThirdPartyPayer
+        );
 }

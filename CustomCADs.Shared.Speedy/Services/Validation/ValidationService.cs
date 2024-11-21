@@ -1,12 +1,12 @@
 ﻿using CustomCADs.Shared.Speedy;
 using CustomCADs.Shared.Speedy.API.Endpoints.ValidationEndpoints;
 using CustomCADs.Shared.Speedy.Models;
-using CustomCADs.Shared.Speedy.Models.Shipment;
 using CustomCADs.Shared.Speedy.Models.Shipment.Content;
 using CustomCADs.Shared.Speedy.Models.Shipment.Payment;
 using CustomCADs.Shared.Speedy.Models.Shipment.Recipient;
 using CustomCADs.Shared.Speedy.Models.Shipment.Sender;
 using CustomCADs.Shared.Speedy.Models.Shipment.Service;
+using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Validation;
 
@@ -73,7 +73,7 @@ public class ValidationService(IValidationEndpoints validation)
         return response.Valid ?? false;
     }
 
-    public async Task<bool> ValidateShipment(ShipmentModel shipment, AccountModel account, CancellationToken ct = default)
+    public async Task<bool> ValidateShipment(WriteShipmentModel shipment, AccountModel account, CancellationToken ct = default)
     {
         ValidationResponse response = await validation.ValidateShipment(new(
             UserName: account.Username,

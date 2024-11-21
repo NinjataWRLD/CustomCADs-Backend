@@ -12,4 +12,13 @@ public static class Mapper
             ReturnToOfficeId: model.ReturnToOfficeId,
             ThirdPartyPayer: model.ThirdPartyPayer
         );
+    
+    public static ShipmentRodAdditionalServiceModel ToModel(this ShipmentRodAdditionalServiceDto dto)
+        => new(
+            Enabled: dto.Enabled,
+            Comment: dto.Comment,
+            ReturnToClientId: dto.ReturnToClientId,
+            ReturnToOfficeId: dto.ReturnToOfficeId,
+            ThirdPartyPayer: dto.ThirdPartyPayer
+        );
 }
