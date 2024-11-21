@@ -1,7 +1,5 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Dtos.Payout;
 
-using Enums;
-
 public record PayoutDto(
     string Date,
     long DocId,

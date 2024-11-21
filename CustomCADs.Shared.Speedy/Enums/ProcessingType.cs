@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.API.Enums;
+﻿namespace CustomCADs.Shared.Speedy.Enums;
 
 public enum ProcessingType
 {

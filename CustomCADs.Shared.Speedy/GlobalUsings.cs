@@ -1,2 +1,2 @@
 ﻿global using CustomCADs.Shared.Speedy.API.Dtos.Errors;
-global using CustomCADs.Shared.Speedy.API.Enums;
+global using CustomCADs.Shared.Speedy.Enums;
