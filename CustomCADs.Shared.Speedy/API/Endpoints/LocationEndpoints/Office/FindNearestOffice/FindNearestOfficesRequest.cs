@@ -7,7 +7,7 @@ public record FindNearestOfficesRequest(
     string UserName,
     string Password,
     ShipmentAddressDto Address,
-    string? Location,
+    string? Language,
     long? ClientSystemId,
     int? Distance,
     int? Limit,

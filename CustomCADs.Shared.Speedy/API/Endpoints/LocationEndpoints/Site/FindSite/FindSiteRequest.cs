@@ -4,7 +4,7 @@ public record FindSiteRequest(
     string UserName,
     string Password,
     int CountryId,
-    string? Location,
+    string? Language,
     long? ClientSystemId,
     string? Name,
     string? PostCode,

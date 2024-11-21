@@ -32,98 +32,98 @@ public interface ILocationEndpoints
     // Country
 
     [Post("country/{id}")]
-    Task<GetCountryResponse> GetCountry(int id, GetCountryRequest request, CancellationToken ct = default);
+    Task<GetCountryResponse> GetCountryAsync(int id, GetCountryRequest request, CancellationToken ct = default);
 
     [Post("country")]
-    Task<FindCountryResponse> FindCountry(FindCountryRequest request, CancellationToken ct = default);
+    Task<FindCountryResponse> FindCountryAsync(FindCountryRequest request, CancellationToken ct = default);
 
     [Post("country/csv")]
-    Task<HttpResponseMessage> GetAllCountries(GetAllCountriesRequest request, CancellationToken ct = default);
+    Task<HttpResponseMessage> GetAllCountriesAsync(GetAllCountriesRequest request, CancellationToken ct = default);
 
 
     // State
 
     [Post("state/{id}")]
-    Task<GetStateResponse> GetState(string id, GetStateRequest request, CancellationToken ct = default);
+    Task<GetStateResponse> GetStateAsync(string id, GetStateRequest request, CancellationToken ct = default);
 
     [Post("state")]
-    Task<FindStateResponse> FindState(FindStateRequest request, CancellationToken ct = default);
+    Task<FindStateResponse> FindStateAsync(FindStateRequest request, CancellationToken ct = default);
 
     [Post("state/csv/{countryId}")]
-    Task<HttpResponseMessage> GetAllStates(int countryId, GetAllStatesRequest request, CancellationToken ct = default);
+    Task<HttpResponseMessage> GetAllStatesAsync(int countryId, GetAllStatesRequest request, CancellationToken ct = default);
 
 
     // Site
 
     [Post("site/{id}")]
-    Task<GetSiteResponse> GetSite(long id, GetSiteRequest request, CancellationToken ct = default);
+    Task<GetSiteResponse> GetSiteAsync(long id, GetSiteRequest request, CancellationToken ct = default);
 
     [Post("site")]
-    Task<FindSiteResponse> FindSite(FindSiteRequest request, CancellationToken ct = default);
+    Task<FindSiteResponse> FindSiteAsync(FindSiteRequest request, CancellationToken ct = default);
 
     [Post("site/csv/{countryId}")]
-    Task<HttpResponseMessage> GetAllSites(int countryId, GetAllSitesRequest request, CancellationToken ct = default);
+    Task<HttpResponseMessage> GetAllSitesAsync(int countryId, GetAllSitesRequest request, CancellationToken ct = default);
 
 
     // Site
 
     [Post("street/{id}")]
-    Task<GetStreetResponse> GetStreet(long id, GetStreetRequest request, CancellationToken ct = default);
+    Task<GetStreetResponse> GetStreetAsync(long id, GetStreetRequest request, CancellationToken ct = default);
 
     [Post("street")]
-    Task<FindStreetResponse> FindStreet(FindStreetRequest request, CancellationToken ct = default);
+    Task<FindStreetResponse> FindStreetAsync(FindStreetRequest request, CancellationToken ct = default);
 
     [Post("street/csv/{countryId}")]
-    Task<HttpResponseMessage> GetAllStreets(int countryId, GetAllComplexRequest request, CancellationToken ct = default);
+    Task<HttpResponseMessage> GetAllStreetsAsync(int countryId, GetAllStreetsRequest request, CancellationToken ct = default);
 
 
     // Complex
 
     [Post("complex/{id}")]
-    Task<GetComplexResponse> GetComplex(long id, GetComplexRequest request, CancellationToken ct = default);
+    Task<GetComplexResponse> GetComplexAsync(long id, GetComplexRequest request, CancellationToken ct = default);
 
     [Post("complex")]
-    Task<FindComplexResponse> FindComplex(FindComplexRequest request, CancellationToken ct = default);
+    Task<FindComplexResponse> FindComplexAsync(FindComplexRequest request, CancellationToken ct = default);
 
     [Post("complex/csv/{countryId}")]
-    Task<HttpResponseMessage> GetAllComplexes(int countryId, GetAllComplexesRequest request, CancellationToken ct = default);
+    Task<HttpResponseMessage> GetAllComplexesAsync(int countryId, GetAllComplexesRequest request, CancellationToken ct = default);
 
 
     // Block
 
     [Post("block")]
-    Task<FindBlockResponse> FindBlock(FindBlockRequest request, CancellationToken ct = default);
+    Task<FindBlockResponse> FindBlockAsync(FindBlockRequest request, CancellationToken ct = default);
 
     [Post("block/csv/{countryId}")]
-    Task<HttpResponseMessage> GetAllBlocks(int countryId, GetAllBlocksRequest request, CancellationToken ct = default);
+    Task<HttpResponseMessage> GetAllBlocksAsync(int countryId, GetAllBlocksRequest request, CancellationToken ct = default);
 
 
     // Point of Interest
 
     [Post("poi/{id}")]
-    Task<GetPoiResponse> GetPoi(long id, GetPoiRequest request, CancellationToken ct = default);
+    Task<GetPoiResponse> GetPointOfInterestAsync(long id, GetPoiRequest request, CancellationToken ct = default);
 
     [Post("poi")]
-    Task<FindPoiResponse> FindPoi(FindPoiRequest request, CancellationToken ct = default);
+    Task<FindPoiResponse> FindPointOfInterestAsync(FindPoiRequest request, CancellationToken ct = default);
 
     [Post("poi/csv/{countryId}")]
-    Task<HttpResponseMessage> GetAllPois(int countryId, GetAllPoisRequest request, CancellationToken ct = default);
+    Task<HttpResponseMessage> GetAllPointsOfInterestAsync(int countryId, GetAllPoisRequest request, CancellationToken ct = default);
 
 
     // Post Code
 
     [Post("postcode/csv/{countryId}")]
-    Task<HttpResponseMessage> GetAllPostcodes(int countryId, GetAllPostcodesRequest request, CancellationToken ct = default);
+    Task<HttpResponseMessage> GetAllPostCodesAsync(int countryId, GetAllPostcodesRequest request, CancellationToken ct = default);
 
 
     // Office
 
     [Post("office/{id}")]
-    Task<GetOfficeResponse> GetOffice(int id, GetOfficeRequest request, CancellationToken ct = default);
+    Task<GetOfficeResponse> GetOfficeAsync(int id, GetOfficeRequest request, CancellationToken ct = default);
 
     [Post("office")]
-    Task<FindOfficeResponse> FindOffice(FindOfficeRequest request, CancellationToken ct = default);
+    Task<FindOfficeResponse> FindOfficeAsync(FindOfficeRequest request, CancellationToken ct = default);
 
     [Post("office/nearest-offices")]
-    Task<FindNearestOfficesResponse> FindNearestOffices(FindNearestOfficesRequest request, CancellationToken ct = default);
+    Task<FindNearestOfficesResponse> FindNearestOfficesAsync(FindNearestOfficesRequest request, CancellationToken ct = default);
 }

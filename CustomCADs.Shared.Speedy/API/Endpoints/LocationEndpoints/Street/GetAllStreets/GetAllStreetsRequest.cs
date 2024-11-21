@@ -1,8 +1,8 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Endpoints.LocationEndpoints.Street.GetAllStreets;
 
-public record GetAllComplexRequest(
+public record GetAllStreetsRequest(
     string UserName,
     string Password,
-    string? Location,
+    string? Language,
     long? ClientSystemId
 );

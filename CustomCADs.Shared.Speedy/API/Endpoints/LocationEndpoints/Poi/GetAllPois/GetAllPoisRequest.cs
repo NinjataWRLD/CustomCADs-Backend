@@ -3,6 +3,6 @@
 public record GetAllPoisRequest(
     string UserName,
     string Password,
-    string? Location,
+    string? Language,
     long? ClientSystemId
 );

@@ -4,7 +4,7 @@ public record FindStateRequest(
     string UserName,
     string Password,
     int CountryId,
-    string? Location,
+    string? Language,
     long? ClientSystemId,
     string? Name
 );
