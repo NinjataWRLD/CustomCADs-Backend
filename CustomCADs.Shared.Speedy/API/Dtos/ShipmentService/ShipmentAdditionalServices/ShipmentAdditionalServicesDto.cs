@@ -7,7 +7,7 @@ using ShipmentReturnAdditionalServices;
 
 public record ShipmentAdditionalServicesDto(
     ShipmentCodAdditionalServiceDto? Cod,
-    ShipmentObpdDto Obdp,
+    ShipmentObpdDto? Obdp,
     ShipmentDeclaredValueAdditionalServiceDto? DeclaredValue,
     int? FixedTimeDelivery,
     ShipmentReturnAdditionalServicesDto? Returns,

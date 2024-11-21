@@ -8,5 +8,5 @@ public record ShipmentCodAdditionalServiceDto(
     bool? IncludeShippingPrice,
     bool? CardPaymentForbidden,
     ProcessingType? ProcessingType,
-    ShipmentCODFiscalReceiptItemDto[]? FiscalReceiptItems
+    ShipmentCodFiscalReceiptItemDto[]? FiscalReceiptItems
 );

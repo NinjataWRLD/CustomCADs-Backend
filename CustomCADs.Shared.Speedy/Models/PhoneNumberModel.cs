@@ -2,5 +2,5 @@
 
 public record PhoneNumberModel(
     string Number,
-    string? Extension
+    string? Extension = default
 );

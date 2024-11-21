@@ -11,6 +11,6 @@ public record AddParcelRequest(
     string? Language,
     long? ClientSystemId,
     double? CodAmount,
-    ShipmentCODFiscalReceiptItemDto[] CodFiscalReceiptItems,
+    ShipmentCodFiscalReceiptItemDto[] CodFiscalReceiptItems,
     double DeclaredValueAmount
 );
