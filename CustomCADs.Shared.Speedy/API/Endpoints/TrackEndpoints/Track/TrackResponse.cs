@@ -3,6 +3,6 @@
 using Dtos.TrackedParcel;
 
 public record TrackResponse(
-    TrackedParcelDto[] Parcel,
+    TrackedParcelDto[] Parcels,
     ErrorDto? Error
 );
