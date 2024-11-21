@@ -3,6 +3,6 @@
 public record ContractInfoRequest(
     string UserName,
     string Password,
-    string? Location,
+    string? Language,
     long? ClientSystemId
 );

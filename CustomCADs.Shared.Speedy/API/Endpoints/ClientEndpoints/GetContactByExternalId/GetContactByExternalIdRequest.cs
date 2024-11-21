@@ -3,7 +3,7 @@
 public record GetContactByExternalIdRequest(
     string UserName,
     string Password,
-    string? Location,
+    string? Langauge,
     long? ClientSystemId,
     string? SecretKey
 );
