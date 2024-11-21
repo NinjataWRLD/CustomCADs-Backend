@@ -3,6 +3,6 @@
 public record GetAllBlocksRequest(
     string UserName,
     string Password,
-    string? Location,
+    string? Language,
     long? ClientSystemId
 );

@@ -3,7 +3,7 @@
 public record FindCountryRequest(
     string UserName,
     string Password,
-    string? Location,
+    string? Language,
     long? ClientSystemId,
     string? Name,
     string? IsoAlpha2,

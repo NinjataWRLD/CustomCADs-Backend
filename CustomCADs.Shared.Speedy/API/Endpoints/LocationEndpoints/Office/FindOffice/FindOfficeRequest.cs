@@ -3,7 +3,7 @@
 public record FindOfficeRequest(
     string UserName,
     string Password,
-    string? Location,
+    string? Language,
     long? ClientSystemId,
     int? CountryId,
     long? SiteId,

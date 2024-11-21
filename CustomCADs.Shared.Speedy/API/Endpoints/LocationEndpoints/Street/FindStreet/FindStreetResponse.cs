@@ -3,6 +3,6 @@
 using Dtos.Street;
 
 public record FindStreetResponse(
-    StreetDto? Streets,
+    StreetDto[]? Streets,
     ErrorDto? Error
 );

@@ -4,7 +4,7 @@ public record FindBlockRequest(
     string UserName,
     string Password,
     int SiteId,
-    string? Location,
+    string? Language,
     long? ClientSystemId,
     string? Name,
     string? Type
