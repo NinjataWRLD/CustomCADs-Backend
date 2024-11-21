@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Dtos.Shipment.Payment;
 
-using Enums;
 using ShipmentPayment;
 
 public record PaymentDto(

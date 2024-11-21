@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Dtos.Office;
 
-using Enums;
 using ShipmentContent.ShipmentParcel;
 using ShipmentSenderAndRecipient.ShipmentAddress;
 public record OfficeDto(

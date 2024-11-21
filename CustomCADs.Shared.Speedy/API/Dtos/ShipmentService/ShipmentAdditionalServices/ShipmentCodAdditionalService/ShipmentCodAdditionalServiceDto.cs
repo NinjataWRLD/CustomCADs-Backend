@@ -1,7 +1,5 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Dtos.ShipmentService.ShipmentAdditionalServices.ShipmentCodAdditionalService;
 
-using Enums;
-
 public record ShipmentCodAdditionalServiceDto(
     double Amount,
     string CurrencyCode,

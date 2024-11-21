@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Dtos.Shipment.Secondary;
 
-using Enums;
 using ShipmentParcelNumber;
 
 public record SecondaryShipmentDto(
