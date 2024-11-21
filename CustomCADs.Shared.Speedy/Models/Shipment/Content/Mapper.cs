@@ -47,4 +47,47 @@ public static class Mapper
             ExternalCarrier: model.ExternalCarrier,
             ParcelNumber: model.ParcelNumber
         );
+
+    public static ShipmentContentModel ToModel(this ShipmentContentDto dto)
+        => new(
+            Contents: dto.Contents,
+            Package: dto.Package,
+            ParcelsCount: dto.ParcelsCount,
+            TotalWeight: dto.TotalWeight,
+            Documents: dto.Documents,
+            Palletized: dto.Palletized,
+            Parcels: [.. dto.Parcels?.Select(p => p.ToModel())],
+            PendingParcels: dto.PendingParcels,
+            ExciseGoods: dto.ExciseGoods,
+            Iq: dto.Iq,
+            GoodsValue: dto.GoodsValue,
+            GoodsValueCurrencyCode: dto.GoodsValueCurrencyCode,
+            UitCode: dto.UitCode
+        );
+
+    public static ShipmentParcelModel ToModel(this ShipmentParcelDto dto)
+        => new(
+            Weight: dto.Weight,
+            Id: dto.Id,
+            SeqNo: dto.SeqNo,
+            PackageUniqueNumber: dto.PackageUniqueNumber,
+            Ref1: dto.Ref1,
+            Ref2: dto.Ref2,
+            Size: dto.Size?.ToModel(),
+            PickupExternalCarrierParcelNumber: dto.PickupExternalCarrierParcelNumber?.ToModel(),
+            DeliveryExternalCarrierParcelNumber: dto.DeliveryExternalCarrierParcelNumber?.ToModel()
+        );
+
+    public static ShipmentParcelSizeModel ToModel(this ShipmentParcelSizeDto dto)
+        => new(
+            Width: dto.Width,
+            Depth: dto.Depth,
+            Height: dto.Height
+        );
+
+    public static ExternalCarrierParcelNumberModel ToModel(this ExternalCarrierParcelNumberDto dto)
+        => new(
+            ExternalCarrier: dto.ExternalCarrier,
+            ParcelNumber: dto.ParcelNumber
+        );
 }

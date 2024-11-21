@@ -5,5 +5,5 @@ public record ShipmentInfoRequest(
     string Password,
     string[] ShipmentIds,
     string? Language,
-    string? ClientSystemId
+    long? ClientSystemId
 );

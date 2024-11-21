@@ -13,4 +13,14 @@ public static class Mapper
         ContactName: model.ContactName,
         Email: model.Email
     );
+
+    public static ShipmentRecipientModel ToModel(this ShipmentRecipientDto dto)
+    => new(
+        Phone1: dto.Phone1.ToModel(),
+        ClientName: dto.ClientName,
+        PrivatePerson: dto.PrivatePerson,
+        Address: dto.Address.ToModel(),
+        ContactName: dto.ContactName,
+        Email: dto.Email
+    );
 }

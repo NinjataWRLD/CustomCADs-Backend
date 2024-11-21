@@ -9,4 +9,10 @@ public static class Mapper
             RecipientEmails: model.RecipientEmails,
             ThirdPartyPayer: model.ThirdPartyPayer
         );
+
+    public static ShipmentElectronicReturnReceiptAdditionalServiceModel ToModel(this ShipmentElectronicReturnReceiptAdditionalServiceDto dto)
+        => new(
+            RecipientEmails: dto.RecipientEmails,
+            ThirdPartyPayer: dto.ThirdPartyPayer
+        );
 }

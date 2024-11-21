@@ -7,7 +7,7 @@ using CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices.Return
 
 namespace CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices.Return;
 
-public record ShipmentReturnAdditionalServiceModel(
+public record ShipmentReturnAdditionalServicesModel(
     long? SendBackClientId,
     ShipmentRodAdditionalServiceModel? Rod,
     ShipmentReturnReceiptAdditionalServiceModel? ReturnReceipt,

@@ -9,7 +9,7 @@ public record ShipmentAdditionalServicesModel(
     ShipmentCodAdditionalServiceModel? Cod,
     ShipmentObpdModel? Obdp,
     ShipmentDeclaredValueAdditionalServiceModel? DeclaredValue,
-    ShipmentReturnAdditionalServiceModel? Returns,
+    ShipmentReturnAdditionalServicesModel? Returns,
     int? FixedTimeDelivery,
     int? SpecialDeliveryId,
     int? DeliveryToFloor

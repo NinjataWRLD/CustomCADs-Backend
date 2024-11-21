@@ -7,5 +7,5 @@ public record BarcodeInformationRequest(
     string Password,
     ShipmentParcelRefDto Parcel,
     string? Language,
-    long? ClientSysytemId
+    long? ClientSystemId
 );

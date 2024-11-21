@@ -23,4 +23,24 @@ public static class Mapper
             Amount: model.Amount,
             AmountWithVat: model.AmountWithVat
         );
+
+    public static ShipmentCodAdditionalServiceModel ToModel(this ShipmentCodAdditionalServiceDto dto)
+        => new(
+            Amount: dto.Amount,
+            CurrencyCode: dto.CurrencyCode,
+            PayoutToThirdParty: dto.PayoutToThirdParty,
+            PayoutToLoggedClient: dto.PayoutToLoggedClient,
+            IncludeShippingPrice: dto.IncludeShippingPrice,
+            CardPaymentForbidden: dto.CardPaymentForbidden,
+            ProcessingType: dto.ProcessingType,
+            FiscalReceiptItems: [.. dto.FiscalReceiptItems?.Select(i => i.ToModel())]
+        );
+
+    public static ShipmentCodFiscalReceiptItemModel ToModel(this ShipmentCodFiscalReceiptItemDto dto)
+        => new(
+            Description: dto.Description,
+            VatGroup: dto.VatGroup,
+            Amount: dto.Amount,
+            AmountWithVat: dto.AmountWithVat
+        );
 }

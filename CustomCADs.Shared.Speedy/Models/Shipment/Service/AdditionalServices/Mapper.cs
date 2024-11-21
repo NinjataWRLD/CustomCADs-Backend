@@ -13,9 +13,20 @@ public static class Mapper
             Cod: model.Cod?.ToDto(),
             Obdp: model.Obdp?.ToDto(),
             DeclaredValue: model.DeclaredValue?.ToDto(),
-            FixedTimeDelivery: model.FixedTimeDelivery,
             Returns: model.Returns?.ToDto(),
+            FixedTimeDelivery: model.FixedTimeDelivery,
             SpecialDeliveryId: model.SpecialDeliveryId,
             DeliveryToFloor: model.DeliveryToFloor
+        );
+
+    public static ShipmentAdditionalServicesModel ToModel(this ShipmentAdditionalServicesDto dto)
+        => new(
+            Cod: dto.Cod?.ToModel(),
+            Obdp: dto.Obdp?.ToModel(),
+            DeclaredValue: dto.DeclaredValue?.ToModel(),
+            Returns: dto.Returns?.ToModel(),
+            FixedTimeDelivery: dto.FixedTimeDelivery,
+            SpecialDeliveryId: dto.SpecialDeliveryId,
+            DeliveryToFloor: dto.DeliveryToFloor
         );
 }

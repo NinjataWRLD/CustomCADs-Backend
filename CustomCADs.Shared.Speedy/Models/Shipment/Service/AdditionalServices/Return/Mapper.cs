@@ -10,7 +10,7 @@ namespace CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices.Re
 
 public static class Mapper
 {
-    public static ShipmentReturnAdditionalServicesDto ToDto(this ShipmentReturnAdditionalServiceModel model)
+    public static ShipmentReturnAdditionalServicesDto ToDto(this ShipmentReturnAdditionalServicesModel model)
         => new(
             SendBackClientId: model.SendBackClientId,
             Rod: model.Rod?.ToDto(),
@@ -19,5 +19,16 @@ public static class Mapper
             Swap: model.Swap?.ToDto(),
             Rop: model.Rop?.ToDto(),
             ReturnVoucher: model.ReturnVoucher?.ToDto()
+        );
+
+    public static ShipmentReturnAdditionalServicesModel ToModel(this ShipmentReturnAdditionalServicesDto dto)
+        => new(
+            SendBackClientId: dto.SendBackClientId,
+            Rod: dto.Rod?.ToModel(),
+            ReturnReceipt: dto.ReturnReceipt?.ToModel(),
+            ElectronicReturnReceipt: dto.ElectronicReturnReceipt?.ToModel(),
+            Swap: dto.Swap?.ToModel(),
+            Rop: dto.Rop?.ToModel(),
+            ReturnVoucher: dto.ReturnVoucher?.ToModel()
         );
 }

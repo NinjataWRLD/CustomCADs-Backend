@@ -18,4 +18,19 @@ public static class Mapper
             DropoffOfficeId: model.DropoffOfficeId,
             DropoffGeoPUDOId: model.DropoffGeoPUDOId
         );
+
+    public static ShipmentSenderModel ToModel(this ShipmentSenderDto dto)
+        => new(
+            Phone1: dto.Phone1.ToModel(),
+            Phone2: dto.Phone2?.ToModel(),
+            Phone3: dto.Phone3?.ToModel(),
+            Address: dto.Address?.ToModel(),
+            ContactName: dto.ContactName,
+            Email: dto.Email,
+            ClientId: dto.ClientId,
+            ClientName: dto.ClientName,
+            PrivatePerson: dto.PrivatePerson,
+            DropoffOfficeId: dto.DropoffOfficeId,
+            DropoffGeoPUDOId: dto.DropoffGeoPUDOId
+        );
 }

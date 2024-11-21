@@ -10,4 +10,11 @@ public static class Mapper
             ReturnShipmentServiceId: model.ReturnShipmentServiceId,
             ReturnShipmentPayer: model.ReturnShipmentPayer
         );
+
+    public static ShipmentObpdModel ToModel(this ShipmentObpdDto dto)
+        => new(
+            Option: dto.Option,
+            ReturnShipmentServiceId: dto.ReturnShipmentServiceId,
+            ReturnShipmentPayer: dto.ReturnShipmentPayer
+        );
 }

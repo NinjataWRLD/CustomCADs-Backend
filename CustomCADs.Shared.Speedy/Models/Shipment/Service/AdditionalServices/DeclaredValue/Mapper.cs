@@ -10,4 +10,11 @@ public static class Mapper
             Fragile: model.Fragile,
             IgnoreIfNotApplicable: model.IgnoreIfNotApplicable
         );
+
+    public static ShipmentDeclaredValueAdditionalServiceModel ToModel(this ShipmentDeclaredValueAdditionalServiceDto dto)
+        => new(
+            Amount: dto.Amount,
+            Fragile: dto.Fragile,
+            IgnoreIfNotApplicable: dto.IgnoreIfNotApplicable
+        );
 }
