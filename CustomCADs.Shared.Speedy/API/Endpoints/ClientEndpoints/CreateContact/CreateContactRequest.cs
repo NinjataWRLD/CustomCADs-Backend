@@ -11,7 +11,7 @@ public record CreateContactRequest(
     string ClientName,
     bool PrivatePerson,
     ShipmentAddressDto Address,
-    string? Location,
+    string? Language,
     long? ClientSystemId,
     string? SecretKey,
     ShipmentPhoneNumberDto? Phone2,
