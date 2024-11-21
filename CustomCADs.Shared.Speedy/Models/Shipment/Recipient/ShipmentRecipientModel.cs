@@ -1,10 +1,18 @@
 ﻿namespace CustomCADs.Shared.Speedy.Models.Shipment.Recipient;
 
 public record ShipmentRecipientModel(
-    PhoneNumberModel Phone1,
-    string ClientName,
-    bool PrivatePerson,
-    ShipmentAddressModel Address,
+    bool? PrivatePerson,
     string? ContactName,
-    string? Email
+    string? Email,
+    long? ClientId,
+    string? ClientName,
+    string? ObjectName,
+    int? PickupOfficeId,
+    string? PickupGeoPUDOIf,
+    bool? AutoSelectNearestOffice,
+    AutoSelectNearestOfficePolicyModel? AutoSelectNearestOfficePolicy,
+    ShipmentAddressModel? Address,
+    PhoneNumberModel? Phone1,
+    PhoneNumberModel? Phone2,
+    PhoneNumberModel? Phone3
 );
