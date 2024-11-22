@@ -6,8 +6,8 @@ namespace CustomCADs.Shared.Speedy.Services.Location.Street;
 public class StreetService(ILocationEndpoints endpoints)
 {
     public async Task<StreetModel> GetAsync(
-        AccountModel account, 
-        long id, 
+        AccountModel account,
+        long id,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetStreetAsync(id, new(
@@ -22,10 +22,10 @@ public class StreetService(ILocationEndpoints endpoints)
     }
 
     public async Task<StreetModel[]> FindAsync(
-        AccountModel account, 
-        int siteId, 
-        string? name, 
-        string? type, 
+        AccountModel account,
+        int siteId,
+        string? name,
+        string? type,
         CancellationToken ct = default)
     {
         var response = await endpoints.FindStreetAsync(new(
@@ -43,8 +43,8 @@ public class StreetService(ILocationEndpoints endpoints)
     }
 
     public async Task<byte[]> AllAsync(
-        AccountModel account, 
-        int countryId, 
+        AccountModel account,
+        int countryId,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetAllStreetsAsync(countryId, new(

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Shared.Speedy;
-using CustomCADs.Shared.Speedy.API.Endpoints.ValidationEndpoints;
+﻿using CustomCADs.Shared.Speedy.API.Endpoints.ValidationEndpoints;
 using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Payment;

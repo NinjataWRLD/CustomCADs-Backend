@@ -10,7 +10,6 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Secondary;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Cod;
-using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment;
@@ -212,8 +211,8 @@ public class ShipmentService(IShipmentEndpoints endpoints)
     }
 
     public async Task HandoverToCourierAsync(
-        AccountModel account, 
-        ParcelHandoverRefModel[] parcels, 
+        AccountModel account,
+        ParcelHandoverRefModel[] parcels,
         CancellationToken ct = default)
     {
         var response = await endpoints.HandoverToCourierAsync(new(
@@ -228,8 +227,8 @@ public class ShipmentService(IShipmentEndpoints endpoints)
     }
 
     public async Task HandoverToMidwayCarrierAsync(
-        AccountModel account, 
-        ParcelHandoverRefModel[] parcels, 
+        AccountModel account,
+        ParcelHandoverRefModel[] parcels,
         CancellationToken ct = default)
     {
         var response = await endpoints.HandoverToMidwayCarrierAsync(new(
@@ -244,8 +243,8 @@ public class ShipmentService(IShipmentEndpoints endpoints)
     }
 
     public async Task<BarcodeInformationModel> BarcodeInformationAsync(
-        AccountModel account, 
-        ShipmentParcelRefModel parcel, 
+        AccountModel account,
+        ShipmentParcelRefModel parcel,
         CancellationToken ct = default)
     {
         var response = await endpoints.BarcodeInformationAsync(new(

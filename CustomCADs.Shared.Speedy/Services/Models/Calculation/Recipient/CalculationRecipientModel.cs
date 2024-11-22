@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
-
-namespace CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
 
 public record CalculationRecipientModel(
     CalculationAddressLocationModel? AddressLocation,

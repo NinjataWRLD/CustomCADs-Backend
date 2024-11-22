@@ -6,8 +6,8 @@ namespace CustomCADs.Shared.Speedy.Services.Location.Complex;
 public class ComplexService(ILocationEndpoints endpoints)
 {
     public async Task<ComplexModel> GetAsync(
-        AccountModel account, 
-        long id, 
+        AccountModel account,
+        long id,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetComplexAsync(id, new(
@@ -20,12 +20,12 @@ public class ComplexService(ILocationEndpoints endpoints)
         response.Error.EnsureNull();
         return response.Complex!.ToModel();
     }
-    
+
     public async Task<ComplexModel[]> FindAsync(
-        AccountModel account, 
-        int siteId, 
-        string? name, 
-        string? type, 
+        AccountModel account,
+        int siteId,
+        string? name,
+        string? type,
         CancellationToken ct = default)
     {
         var response = await endpoints.FindComplexAsync(new(
@@ -43,8 +43,8 @@ public class ComplexService(ILocationEndpoints endpoints)
     }
 
     public async Task<byte[]> AllAsync(
-        AccountModel account, 
-        int countryId, 
+        AccountModel account,
+        int countryId,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetAllComplexesAsync(countryId, new(

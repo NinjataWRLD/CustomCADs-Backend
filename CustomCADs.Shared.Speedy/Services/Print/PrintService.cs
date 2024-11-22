@@ -2,7 +2,6 @@
 using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
 using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
-using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 using CustomCADs.Shared.Speedy.Services.Print.Models;
 using CustomCADs.Shared.Speedy.Services.Shipment;
 using CustomCADs.Shared.Speedy.Services.Shipment.Models;
@@ -12,8 +11,8 @@ namespace CustomCADs.Shared.Speedy.Services.Print;
 public class PrintService(IPrintEndpoints endpoints)
 {
     public async Task<byte[]> PrintAsync(
-        AccountModel account, 
-        PrintModel model, 
+        AccountModel account,
+        PrintModel model,
         CancellationToken ct = default)
     {
         var response = await endpoints.PrintAsync(new(
@@ -22,7 +21,7 @@ public class PrintService(IPrintEndpoints endpoints)
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
             PrinterName: model.PrinterName,
-            Format: model.Format, 
+            Format: model.Format,
             PaperSize: model.PaperSize,
             Dpi: model.Dpi,
             AdditionalWaybillSenderCopy: model.AdditionalWaybillSenderCopy,
@@ -34,10 +33,10 @@ public class PrintService(IPrintEndpoints endpoints)
         await response.Content.CopyToAsync(stream, ct).ConfigureAwait(false);
         return stream.ToArray();
     }
-    
+
     public async Task<(byte[] Data, LabelInfoModel[] PrintLabelsInfo)> ExtendedPrintAsync(
-        AccountModel account, 
-        PrintModel model, 
+        AccountModel account,
+        PrintModel model,
         CancellationToken ct = default)
     {
         var response = await endpoints.ExtendedPrintAsync(new(
@@ -46,7 +45,7 @@ public class PrintService(IPrintEndpoints endpoints)
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
             PrinterName: model.PrinterName,
-            Format: model.Format, 
+            Format: model.Format,
             PaperSize: model.PaperSize,
             Dpi: model.Dpi,
             AdditionalWaybillSenderCopy: model.AdditionalWaybillSenderCopy,
@@ -59,10 +58,10 @@ public class PrintService(IPrintEndpoints endpoints)
             [.. response.PrintLabelsInfo.Select(i => i.ToModel())]
         );
     }
-    
+
     public async Task<LabelInfoModel[]> LabelInfoAsync(
-        AccountModel account, 
-        ShipmentParcelRefModel[] parcels, 
+        AccountModel account,
+        ShipmentParcelRefModel[] parcels,
         CancellationToken ct = default)
     {
         var response = await endpoints.LabelInfoAsync(new(
@@ -91,7 +90,7 @@ public class PrintService(IPrintEndpoints endpoints)
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
             PrinterName: printerName,
-            Format: format, 
+            Format: format,
             Dpi: dpi,
             ShipmentIds: shipmentIds
         ), ct).ConfigureAwait(false);

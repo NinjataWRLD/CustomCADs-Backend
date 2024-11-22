@@ -6,10 +6,10 @@ namespace CustomCADs.Shared.Speedy.Services.Location.Block;
 public class BlockService(ILocationEndpoints endpoints)
 {
     public async Task<BlockModel[]> FindAsync(
-        AccountModel account, 
-        int siteId, 
-        string? name, 
-        string? type, 
+        AccountModel account,
+        int siteId,
+        string? name,
+        string? type,
         CancellationToken ct = default)
     {
         var response = await endpoints.FindBlockAsync(new(
@@ -27,8 +27,8 @@ public class BlockService(ILocationEndpoints endpoints)
     }
 
     public async Task<byte[]> AllAsync(
-        AccountModel account, 
-        int countryId, 
+        AccountModel account,
+        int countryId,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetAllBlocksAsync(countryId, new(

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.Services.Models;
-
-namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 
 public record ShipmentContentModel(
     string Contents,

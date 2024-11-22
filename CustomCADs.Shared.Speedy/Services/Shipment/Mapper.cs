@@ -2,7 +2,6 @@
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentParcels;
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentPrice;
 using CustomCADs.Shared.Speedy.Services.Shipment.Models;
-using System.Xml;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment;
 
@@ -17,7 +16,7 @@ public static class Mapper
             FullBarcode: model.Parcel.FullBarcode,
             DateTime: model.DateTime.ToString(DateTimeFormat)
         );
-    
+
     public static CreatedShipmentParcelModel ToModel(this CreatedShipmentParcelDto dto)
         => new(
             SeqNo: dto.SeqNo,

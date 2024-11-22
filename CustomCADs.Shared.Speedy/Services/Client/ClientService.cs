@@ -22,8 +22,8 @@ public class ClientService(IClientEndpoints endpoints)
     }
 
     public async Task<ClientModel> GetClientAsync(
-        AccountModel account, 
-        long clientId, 
+        AccountModel account,
+        long clientId,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetClientAsync(clientId, new(
@@ -51,9 +51,9 @@ public class ClientService(IClientEndpoints endpoints)
     }
 
     public async Task<ClientModel> GetContactByExternalIdAsync(
-        AccountModel account, 
-        long id, 
-        string? key = null, 
+        AccountModel account,
+        long id,
+        string? key = null,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetContactByExternalIdAsync(id, new(
@@ -77,7 +77,7 @@ public class ClientService(IClientEndpoints endpoints)
     }
 
     public async Task<ClientModel[]> GetContractClientsAsync(
-        AccountModel account, 
+        AccountModel account,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetContractClientsAsync(new(
@@ -88,7 +88,7 @@ public class ClientService(IClientEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        
+
         return response.Clients!.Select(c => new ClientModel(
             ClientId: c.ClientId,
             ClientName: c.ClientName,
@@ -101,7 +101,7 @@ public class ClientService(IClientEndpoints endpoints)
     }
 
     public async Task<ContractModel> ContractInfoAsync(
-        AccountModel account, 
+        AccountModel account,
         CancellationToken ct = default)
     {
         var response = await endpoints.ContractInfoAsync(new(

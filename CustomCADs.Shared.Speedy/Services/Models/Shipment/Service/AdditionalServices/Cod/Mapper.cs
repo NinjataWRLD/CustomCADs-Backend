@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentService.ShipmentAdditionalServices.ShipmentCodAdditionalService;
-using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Cod;
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Cod;
 

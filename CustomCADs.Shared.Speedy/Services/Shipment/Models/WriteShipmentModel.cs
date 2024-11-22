@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Payment;
-using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Recipient;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment.Models;
 

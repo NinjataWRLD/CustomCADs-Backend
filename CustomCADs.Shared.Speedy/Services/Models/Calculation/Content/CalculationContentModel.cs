@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.Services.Models;
-
-namespace CustomCADs.Shared.Speedy.Services.Models.Calculation.Content;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Calculation.Content;
 
 public record CalculationContentModel(
     int? ParcelsCount,

@@ -6,7 +6,6 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServic
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.DeclaredValue;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Obpd;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return;
-using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
 

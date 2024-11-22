@@ -101,7 +101,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<ICalculationEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/calculate"));
-        services.AddScoped<CalculationService>(); 
+        services.AddScoped<CalculationService>();
 
         return services;
     }
@@ -111,7 +111,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IClientEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/client"));
-        services.AddScoped<ClientService>(); 
+        services.AddScoped<ClientService>();
 
         return services;
     }
@@ -121,7 +121,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IValidationEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/validation"));
-        services.AddScoped<ValidationService>(); 
+        services.AddScoped<ValidationService>();
 
         return services;
     }
@@ -131,7 +131,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IServicesEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/services"));
-        services.AddScoped<ServicesService>(); 
+        services.AddScoped<ServicesService>();
 
         return services;
     }
@@ -141,7 +141,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IPaymentEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/payments"));
-        services.AddScoped<PaymentService>(); 
+        services.AddScoped<PaymentService>();
 
         return services;
     }
