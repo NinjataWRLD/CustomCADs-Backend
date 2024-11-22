@@ -6,8 +6,8 @@ namespace CustomCADs.Shared.Speedy.Services.Location.PostCode;
 public class PostCodeService(ILocationEndpoints endpoints)
 {
     public async Task<byte[]> AllAsync(
-        AccountModel account, 
-        int countryId, 
+        AccountModel account,
+        int countryId,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetAllPostCodesAsync(countryId, new(

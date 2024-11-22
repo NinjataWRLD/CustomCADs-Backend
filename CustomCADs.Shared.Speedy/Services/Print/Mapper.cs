@@ -11,7 +11,7 @@ public static class Mapper
             Parcel: model.Parcel.ToDto(),
             AdditionalBarcode: model.AdditionalBarcode.ToDto()
         );
-    
+
     public static ParcelToPrintAdditionalBarcodeDto ToDto(this ParcelToPrintAdditionalBarcodeModel model)
         => new(
             Value: model.Value,

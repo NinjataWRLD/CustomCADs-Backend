@@ -6,8 +6,8 @@ namespace CustomCADs.Shared.Speedy.Services.Location.State;
 public class StateService(ILocationEndpoints endpoints)
 {
     public async Task<StateModel> GetAsync(
-        AccountModel account, 
-        string id, 
+        AccountModel account,
+        string id,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetStateAsync(id, new(
@@ -22,9 +22,9 @@ public class StateService(ILocationEndpoints endpoints)
     }
 
     public async Task<StateModel[]> FindAsync(
-        AccountModel account, 
-        int countryId, 
-        string? name, 
+        AccountModel account,
+        int countryId,
+        string? name,
         CancellationToken ct = default)
     {
         var response = await endpoints.FindStateAsync(new(
@@ -41,8 +41,8 @@ public class StateService(ILocationEndpoints endpoints)
     }
 
     public async Task<byte[]> AllAsync(
-        AccountModel account, 
-        int countryId, 
+        AccountModel account,
+        int countryId,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetAllStatesAsync(countryId, new(

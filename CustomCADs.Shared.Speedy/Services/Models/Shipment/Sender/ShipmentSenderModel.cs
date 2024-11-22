@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.Services.Models;
-
-namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
 
 public record ShipmentSenderModel(
     PhoneNumberModel Phone1,

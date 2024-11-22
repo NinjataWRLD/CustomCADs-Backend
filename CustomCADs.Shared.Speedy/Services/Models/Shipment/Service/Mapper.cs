@@ -2,7 +2,6 @@
 using CustomCADs.Shared.Speedy.Services.Models.Shipment;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
-using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 

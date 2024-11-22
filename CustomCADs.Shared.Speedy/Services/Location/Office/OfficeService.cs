@@ -6,8 +6,8 @@ namespace CustomCADs.Shared.Speedy.Services.Location.Office;
 public class OfficeService(ILocationEndpoints endpoints)
 {
     public async Task<OfficeModel> GetAsync(
-        AccountModel account, 
-        int id, 
+        AccountModel account,
+        int id,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetOfficeAsync(id, new(
@@ -22,12 +22,12 @@ public class OfficeService(ILocationEndpoints endpoints)
     }
 
     public async Task<OfficeModel[]> FindAsync(
-        AccountModel account, 
-        int? countryId, 
-        long? siteId, 
-        string? name, 
-        string? siteName, 
-        int? limit, 
+        AccountModel account,
+        int? countryId,
+        long? siteId,
+        string? name,
+        string? siteName,
+        int? limit,
         CancellationToken ct = default)
     {
         var response = await endpoints.FindOfficeAsync(new(
@@ -47,8 +47,8 @@ public class OfficeService(ILocationEndpoints endpoints)
     }
 
     public async Task<(int Distancce, OfficeModel Office)[]> FindNeaerestAsync(
-        AccountModel account, 
-        FindNeaerestOfficeModel model, 
+        AccountModel account,
+        FindNeaerestOfficeModel model,
         CancellationToken ct = default)
     {
         var response = await endpoints.FindNearestOfficesAsync(new(

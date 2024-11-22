@@ -3,6 +3,6 @@
 namespace CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 public record ParcelHandoverRefModel(
-    DateTime DateTime, 
+    DateTime DateTime,
     ShipmentParcelRefModel Parcel
 );

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Cod;
-
-namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Cod;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Cod;
 
 public record ShipmentCodAdditionalServiceModel(
     double Amount,

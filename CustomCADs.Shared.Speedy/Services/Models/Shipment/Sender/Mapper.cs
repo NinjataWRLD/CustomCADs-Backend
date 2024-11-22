@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentSender;
-using CustomCADs.Shared.Speedy.Services;
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
 
