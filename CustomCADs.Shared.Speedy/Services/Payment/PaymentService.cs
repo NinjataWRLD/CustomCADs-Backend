@@ -8,7 +8,7 @@ using static Constants;
 
 public class PaymentService(IPaymentEndpoints endpoints)
 {
-    public async Task<PayoutModel[]> Payout(
+    public async Task<(DateOnly Date, long DocId, ProcessingType DocType, PaymentType PaymentType, string Payee, string Currency, double Amount, PayoutDetailsModel[] Details)[]> Payout(
         AccountModel account,
         DateTime fromDate,
         DateTime toDate,

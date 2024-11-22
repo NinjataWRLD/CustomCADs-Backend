@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.TrackEndpoints;
 using CustomCADs.Shared.Speedy.Services.Models;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 using CustomCADs.Shared.Speedy.Services.Track.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Track;
@@ -8,7 +9,7 @@ public class TrackService(ITrackEndpoints endpoints)
 {
     public async Task<TrackedParcelModel[]> Track(
         AccountModel account,
-        TrackShipmentParcelRefModel[] parcels,
+        (ShipmentParcelRefModel Parcel, string? Ref)[] parcels,
         bool? lastOperationOnly = null,
         CancellationToken ct = default)
     {

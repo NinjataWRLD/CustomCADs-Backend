@@ -28,7 +28,7 @@ public class ServicesService(IServicesEndpoints endpoints)
         return [.. response.Services.Select(s => s.ToModel())];
     }
 
-    public async Task<ExtendedCourierServiceModel[]> DestinationServices(
+    public async Task<(string Deadline, CourierServiceModel CourierService)[]> DestinationServices(
         AccountModel account,
         CalculationRecipientModel recipient,
         DateOnly? date = null,

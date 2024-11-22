@@ -3,7 +3,6 @@ using CustomCADs.Shared.Speedy.API.Endpoints.PickupEndpoints.Enums;
 using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Models.Calculation;
 using CustomCADs.Shared.Speedy.Services.Models.Calculation.Sender;
-using CustomCADs.Shared.Speedy.Services.Pickup.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Pickup;
 
@@ -11,7 +10,7 @@ using static Constants;
 
 public class PickupService(IPickupEndpoints endpoints)
 {
-    public async Task<PickupOrderModel[]> Pickup(
+    public async Task<(long Id, string[] ShipmentIds, DateTime? PickupPeriodFrom, DateTime? PickupPeriodTo)[]> Pickup(
         AccountModel account,
         TimeOnly visitEndTime,
         PickupScope pickupScope = PickupScope.EXPLICIT_SHIPMENT_ID_LIST,

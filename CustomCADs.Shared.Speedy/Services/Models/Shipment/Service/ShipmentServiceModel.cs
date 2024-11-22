@@ -4,7 +4,7 @@ namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 
 public record ShipmentServiceModel(
     int ServiceId,
-    string? PickupDate,
+    DateOnly? PickupDate,
     ShipmentAdditionalServicesModel? AdditionalServices,
     bool? SaturdayDelivery,
     bool AutoAdjustPickupDate = false,
