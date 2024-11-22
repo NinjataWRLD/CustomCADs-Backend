@@ -7,7 +7,7 @@ namespace CustomCADs.Orders.Application.Orders.IntegrationEventHandlers;
 
 public class ProductDeletedIntegrationEventHandler(IOrderReads reads, IWrites<Order> writes, IUnitOfWork uow)
 {
-    public async Task Handle(ProductDeletedIntegrationEvent ie)
+    public async Task Handle(ProductDeletedIntegrationEvent _)
     {
         OrderQuery query = new();
         OrderResult result = await reads.AllAsync(query);

@@ -1,6 +1,6 @@
-﻿namespace CustomCADs.Shared.Speedy.Models;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models;
 
 public record ExternalCarrierParcelNumberModel(
-    Carrier ExternalCarrier, 
+    Carrier ExternalCarrier,
     string ParcelNumber
 );

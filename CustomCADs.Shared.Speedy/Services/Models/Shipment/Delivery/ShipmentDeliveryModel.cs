@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.Models.Shipment.Delivery;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Delivery;
 
 public record ShipmentDeliveryModel(
     string Deadline,

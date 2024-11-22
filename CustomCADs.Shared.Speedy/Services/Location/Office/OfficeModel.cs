@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Speedy.Models;
+﻿using CustomCADs.Shared.Speedy.Services.Models;
+using CustomCADs.Shared.Speedy.Services.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Location.Office;
 

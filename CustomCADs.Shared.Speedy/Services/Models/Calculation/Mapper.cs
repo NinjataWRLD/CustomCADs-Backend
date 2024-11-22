@@ -3,15 +3,16 @@ using CustomCADs.Shared.Speedy.API.Dtos.CalculationContent;
 using CustomCADs.Shared.Speedy.API.Dtos.CalculationRecipient;
 using CustomCADs.Shared.Speedy.API.Dtos.CalculationSender;
 using CustomCADs.Shared.Speedy.API.Dtos.CalculationService;
-using CustomCADs.Shared.Speedy.Models.Calculation.Content;
-using CustomCADs.Shared.Speedy.Models.Calculation.Recipient;
-using CustomCADs.Shared.Speedy.Models.Calculation.Sender;
-using CustomCADs.Shared.Speedy.Models.Calculation.Service;
-using CustomCADs.Shared.Speedy.Models.Shipment.Content;
-using CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices;
 using CustomCADs.Shared.Speedy.Services;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Content;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Sender;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Service;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
 
-namespace CustomCADs.Shared.Speedy.Models.Calculation;
+namespace CustomCADs.Shared.Speedy.Services.Models.Calculation;
 
 using static Constants;
 

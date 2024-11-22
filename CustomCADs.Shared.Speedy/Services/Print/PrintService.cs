@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints;
 using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
-using CustomCADs.Shared.Speedy.Models;
-using CustomCADs.Shared.Speedy.Models.Shipment.Parcel;
+using CustomCADs.Shared.Speedy.Services.Models;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 using CustomCADs.Shared.Speedy.Services.Print.Models;
 using CustomCADs.Shared.Speedy.Services.Shipment;
 using CustomCADs.Shared.Speedy.Services.Shipment.Models;

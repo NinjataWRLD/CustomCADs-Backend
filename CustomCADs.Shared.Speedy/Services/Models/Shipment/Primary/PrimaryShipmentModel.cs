@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.Models.Shipment.Primary;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Primary;
 
 public record PrimaryShipmentModel(
     string Id,

@@ -7,7 +7,7 @@ using CustomCADs.Shared.Speedy.API.Dtos.Site;
 using CustomCADs.Shared.Speedy.API.Dtos.SpecialDeliveryRequirements;
 using CustomCADs.Shared.Speedy.API.Dtos.State;
 using CustomCADs.Shared.Speedy.API.Dtos.Street;
-using CustomCADs.Shared.Speedy.Models.Shipment.Content;
+using CustomCADs.Shared.Speedy.Services;
 using CustomCADs.Shared.Speedy.Services.Location.Block;
 using CustomCADs.Shared.Speedy.Services.Location.Complex;
 using CustomCADs.Shared.Speedy.Services.Location.Country;
@@ -16,8 +16,7 @@ using CustomCADs.Shared.Speedy.Services.Location.Poi;
 using CustomCADs.Shared.Speedy.Services.Location.Site;
 using CustomCADs.Shared.Speedy.Services.Location.State;
 using CustomCADs.Shared.Speedy.Services.Location.Street;
-using System;
-using System.ComponentModel.DataAnnotations;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 
 namespace CustomCADs.Shared.Speedy.Services.Location;
 

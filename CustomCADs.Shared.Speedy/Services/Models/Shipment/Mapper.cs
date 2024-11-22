@@ -1,14 +1,16 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.Shipment;
-using CustomCADs.Shared.Speedy.Models.Shipment.Content;
-using CustomCADs.Shared.Speedy.Models.Shipment.Delivery;
-using CustomCADs.Shared.Speedy.Models.Shipment.Payment;
-using CustomCADs.Shared.Speedy.Models.Shipment.Primary;
-using CustomCADs.Shared.Speedy.Models.Shipment.Recipient;
-using CustomCADs.Shared.Speedy.Models.Shipment.Sender;
-using CustomCADs.Shared.Speedy.Models.Shipment.Service;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Delivery;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Payment;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Primary;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Recipient;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment;
 using CustomCADs.Shared.Speedy.Services.Shipment;
 
-namespace CustomCADs.Shared.Speedy.Models.Shipment;
+namespace CustomCADs.Shared.Speedy.Services.Models.Shipment;
 
 public static class Mapper
 {

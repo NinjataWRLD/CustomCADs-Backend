@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.Models;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models;
 
 public record PhoneNumberModel(
     string Number,

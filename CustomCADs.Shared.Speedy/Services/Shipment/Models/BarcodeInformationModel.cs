@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.Models.Shipment.Primary;
+﻿using CustomCADs.Shared.Speedy.Services.Models.Shipment.Primary;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment.Models;
 

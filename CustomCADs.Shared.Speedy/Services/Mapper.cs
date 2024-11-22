@@ -1,15 +1,15 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentAddress;
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentPhoneNumber;
-using CustomCADs.Shared.Speedy.Models;
+using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Models;
 
-namespace CustomCADs.Shared.Speedy;
+namespace CustomCADs.Shared.Speedy.Services;
 
 public static class Mapper
 {
     public static ShipmentPhoneNumberDto ToDto(this PhoneNumberModel model)
         => new(model.Number, model.Extension);
-    
+
     public static PhoneNumberModel ToModel(this ShipmentPhoneNumberDto dto)
         => new(dto.Number, dto.Extension);
 
@@ -36,7 +36,7 @@ public static class Mapper
             X: model.X,
             Y: model.Y
         );
-    
+
     public static ShipmentAddressModel ToModel(this ShipmentAddressDto dto)
         => new(
             CountryId: dto.CountryId,

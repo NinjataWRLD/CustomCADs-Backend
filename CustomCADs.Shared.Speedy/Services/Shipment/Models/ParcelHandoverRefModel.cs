@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.Models.Shipment.Parcel;
+﻿using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment.Models;
 

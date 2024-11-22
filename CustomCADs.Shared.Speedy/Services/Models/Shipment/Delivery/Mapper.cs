@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.Shipment.Delivery;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Delivery;
 
-namespace CustomCADs.Shared.Speedy.Models.Shipment.Delivery;
+namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Delivery;
 
 public static class Mapper
 {

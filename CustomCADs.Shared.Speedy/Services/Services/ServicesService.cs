@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.ServicesEndpoints;
-using CustomCADs.Shared.Speedy.Models;
-using CustomCADs.Shared.Speedy.Models.Calculation;
-using CustomCADs.Shared.Speedy.Models.Calculation.Recipient;
-using CustomCADs.Shared.Speedy.Models.Calculation.Sender;
+using CustomCADs.Shared.Speedy.Services.Models;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Sender;
 using CustomCADs.Shared.Speedy.Services.Services.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Services;
