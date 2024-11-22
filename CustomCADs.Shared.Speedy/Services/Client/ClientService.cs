@@ -4,11 +4,11 @@ using CustomCADs.Shared.Speedy.Services.Client.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Client;
 
-public class ClientService(IClientEndpoints client)
+public class ClientService(IClientEndpoints endpoints)
 {
     public async Task<long> GetOwnClientIdAsync(AccountModel account, CancellationToken ct = default)
     {
-        var response = await client.GetOwnClientIdAsync(new(
+        var response = await endpoints.GetOwnClientIdAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -21,7 +21,7 @@ public class ClientService(IClientEndpoints client)
 
     public async Task<ClientModel> GetClientAsync(long clientId, AccountModel account, CancellationToken ct = default)
     {
-        var response = await client.GetClientAsync(clientId, new(
+        var response = await endpoints.GetClientAsync(clientId, new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -47,7 +47,7 @@ public class ClientService(IClientEndpoints client)
 
     public async Task<ClientModel> GetContactByExternalIdAsync(long id, string? key, AccountModel account, CancellationToken ct = default)
     {
-        var response = await client.GetContactByExternalIdAsync(id, new(
+        var response = await endpoints.GetContactByExternalIdAsync(id, new(
             UserName: account.Username,
             Password: account.Password,
             Langauge: account.Language,
@@ -74,7 +74,7 @@ public class ClientService(IClientEndpoints client)
 
     public async Task<ClientModel[]> GetContractClientsAsync(AccountModel account, CancellationToken ct = default)
     {
-        var response = await client.GetContractClientsAsync(new(
+        var response = await endpoints.GetContractClientsAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -100,7 +100,7 @@ public class ClientService(IClientEndpoints client)
 
     public async Task<ContractModel> ContractInfoAsync(AccountModel account, CancellationToken ct = default)
     {
-        var response = await client.ContractInfoAsync(new(
+        var response = await endpoints.ContractInfoAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -118,7 +118,7 @@ public class ClientService(IClientEndpoints client)
 
     public async Task<long> CreateContactAsync(ContactModel contact, AccountModel account, CancellationToken ct = default)
     {
-        var response = await client.CreateContactAsync(new(
+        var response = await endpoints.CreateContactAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,

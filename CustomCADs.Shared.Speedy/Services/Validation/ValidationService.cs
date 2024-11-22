@@ -10,11 +10,11 @@ using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Validation;
 
-public class ValidationService(IValidationEndpoints validation)
+public class ValidationService(IValidationEndpoints endpoints)
 {
     public async Task<bool> ValidateAddress(ShipmentAddressModel address, AccountModel account, CancellationToken ct = default)
     {
-        ValidationResponse response = await validation.ValidateAddress(new(
+        ValidationResponse response = await endpoints.ValidateAddress(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -28,7 +28,7 @@ public class ValidationService(IValidationEndpoints validation)
 
     public async Task<bool> ValidatePostCode(string postCode, int countryId, AccountModel account, CancellationToken ct = default)
     {
-        ValidationResponse response = await validation.ValidatePostCode(new(
+        ValidationResponse response = await endpoints.ValidatePostCode(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -44,7 +44,7 @@ public class ValidationService(IValidationEndpoints validation)
     
     public async Task<bool> ValidatePostCode(string postCode, long siteId, AccountModel account, CancellationToken ct = default)
     {
-        ValidationResponse response = await validation.ValidatePostCode(new(
+        ValidationResponse response = await endpoints.ValidatePostCode(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -60,7 +60,7 @@ public class ValidationService(IValidationEndpoints validation)
 
     public async Task<bool> ValidatePhone(PhoneNumberModel phoneNumber, AccountModel account, CancellationToken ct = default)
     {
-        ValidationResponse response = await validation.ValidatePhone(new(
+        ValidationResponse response = await endpoints.ValidatePhone(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -75,7 +75,7 @@ public class ValidationService(IValidationEndpoints validation)
 
     public async Task<bool> ValidateShipment(WriteShipmentModel shipment, AccountModel account, CancellationToken ct = default)
     {
-        ValidationResponse response = await validation.ValidateShipment(new(
+        ValidationResponse response = await endpoints.ValidateShipment(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,

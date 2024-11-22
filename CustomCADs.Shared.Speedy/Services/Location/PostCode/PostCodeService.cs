@@ -3,11 +3,11 @@ using CustomCADs.Shared.Speedy.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Location.PostCode;
 
-public class PostCodeService(ILocationEndpoints location)
+public class PostCodeService(ILocationEndpoints endpoints)
 {
     public async Task<byte[]> AllAsync(int countryId, AccountModel account, CancellationToken ct = default)
     {
-        var response = await location.GetAllPostCodesAsync(countryId, new(
+        var response = await endpoints.GetAllPostCodesAsync(countryId, new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,

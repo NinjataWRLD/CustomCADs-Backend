@@ -9,11 +9,11 @@ namespace CustomCADs.Shared.Speedy.Services.Services;
 
 using static Constants;
 
-public class ServicesService(IServicesEndpoints services)
+public class ServicesService(IServicesEndpoints endpoints)
 {
     public async Task<CourierServiceModel[]> Services(DateOnly date, AccountModel account, CancellationToken ct = default)
     {
-        var response = await services.Services(new(
+        var response = await endpoints.Services(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -27,7 +27,7 @@ public class ServicesService(IServicesEndpoints services)
 
     public async Task<ExtendedCourierServiceModel[]> DestinationServices(DateOnly date, CalculationRecipientModel recipient, CalculationSenderModel? sender, AccountModel account, CancellationToken ct = default)
     {
-        var response = await services.DestinationServices(new(
+        var response = await endpoints.DestinationServices(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,

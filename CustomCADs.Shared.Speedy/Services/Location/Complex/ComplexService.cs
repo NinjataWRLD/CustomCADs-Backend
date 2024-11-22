@@ -3,11 +3,11 @@ using CustomCADs.Shared.Speedy.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Location.Complex;
 
-public class ComplexService(ILocationEndpoints location)
+public class ComplexService(ILocationEndpoints endpoints)
 {
     public async Task<ComplexModel> GetAsync(long id, AccountModel account, CancellationToken ct = default)
     {
-        var response = await location.GetComplexAsync(id, new(
+        var response = await endpoints.GetComplexAsync(id, new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -20,7 +20,7 @@ public class ComplexService(ILocationEndpoints location)
     
     public async Task<ComplexModel[]> FindAsync(int siteId, string? name, string? type, AccountModel account, CancellationToken ct = default)
     {
-        var response = await location.FindComplexAsync(new(
+        var response = await endpoints.FindComplexAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -36,7 +36,7 @@ public class ComplexService(ILocationEndpoints location)
 
     public async Task<byte[]> AllAsync(int countryId, AccountModel account, CancellationToken ct = default)
     {
-        var response = await location.GetAllComplexesAsync(countryId, new(
+        var response = await endpoints.GetAllComplexesAsync(countryId, new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
