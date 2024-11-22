@@ -2,15 +2,18 @@
 using Amazon.Runtime;
 using Amazon.S3;
 using CustomCADs.Shared.Application.Cache;
+using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Email;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Storage;
 using CustomCADs.Shared.Infrastructure.Cache;
+using CustomCADs.Shared.Infrastructure.Delivery;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Events;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Stripe;
 using System.Reflection;
@@ -68,7 +71,7 @@ public static class DependencyInjection
         services.AddScoped<IStorageService, AmazonS3Service>();
     }
 
-    public static void AddDeliveryService(this IServiceCollection services)
+    public static void AddDeliveryService(this IServiceCollection services, IConfiguration config)
     {
         services.AddDeliveryShipmentService();
         services.AddDeliveryPrintService();
@@ -80,5 +83,8 @@ public static class DependencyInjection
         services.AddDeliveryValidationService();
         services.AddDeliveryServicesService();
         services.AddDeliveryPaymentService();
+
+        services.Configure<DeliverySettings>(config.GetSection("Delivery"));
+        services.AddScoped<IDeliveryService, SpeedyService>();
     }
 }

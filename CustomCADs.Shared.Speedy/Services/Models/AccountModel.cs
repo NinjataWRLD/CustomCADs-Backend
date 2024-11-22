@@ -3,6 +3,6 @@
 public record AccountModel(
     string Username,
     string Password,
-    string? Language,
-    long? ClientSystemId
+    string? Language = null,
+    long? ClientSystemId = null
 );
