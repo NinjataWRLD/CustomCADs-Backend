@@ -31,26 +31,6 @@ public class ValidationService(IValidationEndpoints endpoints)
     public async Task<bool> ValidatePostCode(
         AccountModel account,
         string postCode,
-        int? countryId = null,
-        CancellationToken ct = default)
-    {
-        ValidationResponse response = await endpoints.ValidatePostCode(new(
-            UserName: account.Username,
-            Password: account.Password,
-            Language: account.Language,
-            ClientSystemId: account.ClientSystemId,
-            PostCode: postCode,
-            CountryId: countryId,
-            SiteId: null
-        ), ct).ConfigureAwait(false);
-
-        response.Error.EnsureNull();
-        return response.Valid ?? false;
-    }
-
-    public async Task<bool> ValidatePostCode(
-        AccountModel account,
-        string postCode,
         long? siteId = null,
         CancellationToken ct = default)
     {

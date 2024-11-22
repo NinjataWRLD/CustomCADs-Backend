@@ -5,12 +5,14 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServic
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 
+using static Constants;
+
 public static class Mapper
 {
     public static ShipmentServiceDto ToDto(this ShipmentServiceModel model)
         => new(
             ServiceId: model.ServiceId,
-            PickupDate: model.PickupDate,
+            PickupDate: model.PickupDate?.ToString(DateFormat),
             SaturdayDelivery: model.SaturdayDelivery,
             AutoAdjustPickupDate: model.AutoAdjustPickupDate,
             DefferedValue: model.DefferedValue,
@@ -20,7 +22,7 @@ public static class Mapper
     public static ShipmentServiceModel ToModel(this ShipmentServiceDto dto)
         => new(
             ServiceId: dto.ServiceId,
-            PickupDate: dto.PickupDate,
+            PickupDate: dto.PickupDate is not null ? DateOnly.Parse(dto.PickupDate) : null,
             SaturdayDelivery: dto.SaturdayDelivery,
             AutoAdjustPickupDate: dto.AutoAdjustPickupDate,
             DefferedValue: dto.DefferedValue,

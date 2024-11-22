@@ -12,7 +12,12 @@ public class PrintService(IPrintEndpoints endpoints)
 {
     public async Task<byte[]> PrintAsync(
         AccountModel account,
-        PrintModel model,
+        ParcelToPrintModel[] parcels,
+        PaperSize paperSize,
+        PaperFormat format = PaperFormat.pdf,
+        Dpi dpi = Dpi.dpi203,
+        AdditionalWaybillSenderCopy additionalWaybillSenderCopy = AdditionalWaybillSenderCopy.NONE,
+        string? printerName = null,
         CancellationToken ct = default)
     {
         var response = await endpoints.PrintAsync(new(
@@ -20,12 +25,12 @@ public class PrintService(IPrintEndpoints endpoints)
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            PrinterName: model.PrinterName,
-            Format: model.Format,
-            PaperSize: model.PaperSize,
-            Dpi: model.Dpi,
-            AdditionalWaybillSenderCopy: model.AdditionalWaybillSenderCopy,
-            Parcels: [.. model.Parcels.Select(p => p.ToDto())]
+            PrinterName: printerName,
+            Format: format,
+            PaperSize: paperSize,
+            Dpi: dpi,
+            AdditionalWaybillSenderCopy: additionalWaybillSenderCopy,
+            Parcels: [.. parcels.Select(p => p.ToDto())]
         ), ct).ConfigureAwait(false);
 
         response.EnsureSuccessStatusCode();
@@ -36,7 +41,12 @@ public class PrintService(IPrintEndpoints endpoints)
 
     public async Task<(byte[] Data, LabelInfoModel[] PrintLabelsInfo)> ExtendedPrintAsync(
         AccountModel account,
-        PrintModel model,
+        ParcelToPrintModel[] parcels,
+        PaperSize paperSize,
+        PaperFormat format = PaperFormat.pdf,
+        Dpi dpi = Dpi.dpi203,
+        AdditionalWaybillSenderCopy additionalWaybillSenderCopy = AdditionalWaybillSenderCopy.NONE,
+        string? printerName = null,
         CancellationToken ct = default)
     {
         var response = await endpoints.ExtendedPrintAsync(new(
@@ -44,12 +54,12 @@ public class PrintService(IPrintEndpoints endpoints)
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            PrinterName: model.PrinterName,
-            Format: model.Format,
-            PaperSize: model.PaperSize,
-            Dpi: model.Dpi,
-            AdditionalWaybillSenderCopy: model.AdditionalWaybillSenderCopy,
-            Parcels: [.. model.Parcels.Select(p => p.ToDto())]
+            PrinterName: printerName,
+            Format: format,
+            PaperSize: paperSize,
+            Dpi: dpi,
+            AdditionalWaybillSenderCopy: additionalWaybillSenderCopy,
+            Parcels: [.. parcels.Select(p => p.ToDto())]
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();

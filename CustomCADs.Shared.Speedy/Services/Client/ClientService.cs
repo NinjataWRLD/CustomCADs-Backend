@@ -100,7 +100,7 @@ public class ClientService(IClientEndpoints endpoints)
         )).ToArray();
     }
 
-    public async Task<ContractModel> ContractInfoAsync(
+    public async Task<(long Id, bool AdministrativeFeeAllowed, SpecialDeliveryRequirementsModel? SpecialDeliveryRequirements, CodAdditionalServiceContractInfoModel? Cod)> ContractInfoAsync(
         AccountModel account,
         CancellationToken ct = default)
     {
@@ -112,30 +112,41 @@ public class ClientService(IClientEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return new(
-            response.Id,
-            response.AdministrativeFeeAllowed,
-            response.SpecialDeliveryRequirements?.ToModel(),
-            response.Cod?.ToModel()
+        return (
+            Id: response.Id,
+            AdministrativeFeeAllowed: response.AdministrativeFeeAllowed,
+            SpecialDeliveryRequirements: response.SpecialDeliveryRequirements?.ToModel(),
+            Cod: response.Cod?.ToModel()
         );
     }
 
-    public async Task<long> CreateContactAsync(ContactModel contact, AccountModel account, CancellationToken ct = default)
+    public async Task<long> CreateContactAsync(
+        AccountModel account,
+        string externalContactId,
+        PhoneNumberModel phone1,
+        string clientName,
+        bool privatePerson,
+        ShipmentAddressModel address,
+        string? secretKey = null,
+        PhoneNumberModel? phone2 = null,
+        string? objectName = null,
+        string? email = null,
+        CancellationToken ct = default)
     {
         var response = await endpoints.CreateContactAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            ExternalContactId: contact.ExternalContactId,
-            Phone1: contact.Phone1.ToDto(),
-            ClientName: contact.ClientName,
-            PrivatePerson: contact.PrivatePerson,
-            Address: contact.Address.ToDto(),
-            SecretKey: contact.SecretKey,
-            Phone2: contact.Phone2?.ToDto(),
-            ObjectName: contact.ObjectName,
-            Email: contact.Email
+            ExternalContactId: externalContactId,
+            Phone1: phone1.ToDto(),
+            ClientName: clientName,
+            PrivatePerson: privatePerson,
+            Address: address.ToDto(),
+            SecretKey: secretKey,
+            Phone2: phone2?.ToDto(),
+            ObjectName: objectName,
+            Email: email
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();

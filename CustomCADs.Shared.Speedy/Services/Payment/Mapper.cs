@@ -5,8 +5,8 @@ namespace CustomCADs.Shared.Speedy.Services.Payment;
 
 public static class Mapper
 {
-    public static PayoutModel ToModel(this PayoutDto dto)
-        => new(
+    public static (DateOnly Date, long DocId, ProcessingType DocType, PaymentType PaymentType, string Payee, string Currency, double Amount, PayoutDetailsModel[] Details) ToModel(this PayoutDto dto)
+        => (
             Date: DateOnly.Parse(dto.Date),
             DocId: dto.DocId,
             DocType: dto.DocType,

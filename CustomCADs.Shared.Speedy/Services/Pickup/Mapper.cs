@@ -1,12 +1,11 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.PickupOrder;
-using CustomCADs.Shared.Speedy.Services.Pickup.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Pickup;
 
 public static class Mapper
 {
-    public static PickupOrderModel ToModel(this PickupOrderDto dto)
-        => new(
+    public static (long Id, string[] ShipmentIds, DateTime? PickupPeriodFrom, DateTime? PickupPeriodTo) ToModel(this PickupOrderDto dto)
+        => (
             Id: dto.Id,
             ShipmentIds: dto.ShipmentIds,
             PickupPeriodFrom: dto.PickupPeriodFrom is not null ? DateTime.Parse(dto.PickupPeriodFrom) : null,

@@ -1,13 +1,14 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentParcels;
 using CustomCADs.Shared.Speedy.API.Dtos.TrackedParcel;
 using CustomCADs.Shared.Speedy.API.Dtos.TrackedParcel.TrackedParcelOperation;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 using CustomCADs.Shared.Speedy.Services.Track.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Track;
 
 public static class Mapper
 {
-    public static TrackShipmentParcelRefDto ToDto(this TrackShipmentParcelRefModel model)
+    public static TrackShipmentParcelRefDto ToDto(this (ShipmentParcelRefModel Parcel, string? Ref) model)
         => new(
             Ref: model.Ref,
             Id: model.Parcel.Id,

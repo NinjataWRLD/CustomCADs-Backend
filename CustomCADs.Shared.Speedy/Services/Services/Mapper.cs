@@ -7,15 +7,15 @@ namespace CustomCADs.Shared.Speedy.Services.Services;
 public static class Mapper
 {
     public static CourierServiceModel ToModel(this CourierServiceDto model)
-        => new(
-            Id: model.Id,
-            Name: model.Name,
-            NameEn: model.NameEn,
-            CargoType: model.CargoType,
-            RequireParcelSize: model.RequireParcelSize,
-            RequireParcelWeight: model.RequireParcelWeight,
-            AdditionalServices: model.AdditionalServices.ToModel()
-        );
+       => new(
+           Id: model.Id,
+           Name: model.Name,
+           NameEn: model.NameEn,
+           CargoType: model.CargoType,
+           RequireParcelWeight: model.RequireParcelWeight,
+           RequireParcelSize: model.RequireParcelSize,
+           AdditionalServices: model.AdditionalServices.ToModel()
+       );
 
     public static AdditionalCourierServicesModel ToModel(this AdditionalCourierServicesDto model)
         => new(
@@ -32,16 +32,18 @@ public static class Mapper
             ReturnVoucherAllowance: model.ReturnVoucher.Allowance
         );
 
-    public static ExtendedCourierServiceModel ToModel(this ExtendedCourierServiceDto model)
-        => new(
+    public static (string Deadline, CourierServiceModel Courier) ToModel(this ExtendedCourierServiceDto model)
+        => (
             Deadline: model.Deadline,
-            Id: model.Id,
-            Name: model.Name,
-            NameEn: model.NameEn,
-            CargoType: model.CargoType,
-            RequireParcelSize: model.RequireParcelSize,
-            RequireParcelWeight: model.RequireParcelWeight,
-            AdditionalServices: model.AdditionalServices.ToModel()
+            new(
+                Id: model.Id,
+                Name: model.Name,
+                NameEn: model.NameEn,
+                CargoType: model.CargoType,
+                RequireParcelWeight: model.RequireParcelWeight,
+                RequireParcelSize: model.RequireParcelSize,
+                AdditionalServices: model.AdditionalServices.ToModel()
+            )
         );
 
 }

@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.ParcelToPrint;
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentParcels;
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentPrice;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment;
@@ -9,7 +10,7 @@ using static Constants;
 
 public static class Mapper
 {
-    public static ParcelHandoverDto ToDto(this ParcelHandoverRefModel model)
+    public static ParcelHandoverDto ToDto(this (DateTime DateTime, ShipmentParcelRefModel Parcel) model)
         => new(
             Id: model.Parcel.Id,
             ExternalCarrierParcelNumber: model.Parcel.ExternalCarrierParcelNumber,

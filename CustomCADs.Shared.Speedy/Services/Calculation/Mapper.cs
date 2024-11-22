@@ -1,14 +1,14 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.CalculationResult;
-using CustomCADs.Shared.Speedy.Services.Calculation.Models;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
 using CustomCADs.Shared.Speedy.Services.Shipment;
+using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Calculation;
 
 public static class Mapper
 {
-    public static CalculationResultModel ToModel(this CalculationResultDto dto)
-        => new(
+    public static (int ServiceId, ShipmentAdditionalServicesModel AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, string DeliveryDeadline) ToModel(this CalculationResultDto dto)
+        => (
             ServiceId: dto.ServiceId,
             AdditionalServices: dto.AdditionalServices.ToModel(),
             Price: dto.Price.ToModel(),

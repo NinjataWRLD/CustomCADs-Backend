@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.CalculationEndpoints;
-using CustomCADs.Shared.Speedy.Services.Calculation.Models;
 using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Models.Calculation;
 using CustomCADs.Shared.Speedy.Services.Models.Calculation.Content;
@@ -7,12 +6,14 @@ using CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
 using CustomCADs.Shared.Speedy.Services.Models.Calculation.Sender;
 using CustomCADs.Shared.Speedy.Services.Models.Calculation.Service;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Payment;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
+using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Calculation;
 
 public class CalculationService(ICalculationEndpoints endpoints)
 {
-    public async Task<CalculationResultModel[]> Calculate(
+    public async Task<(int ServiceId, ShipmentAdditionalServicesModel AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, string DeliveryDeadline)[]> Calculate(
         AccountModel account,
         CalculationRecipientModel recipient,
         CalculationServiceModel service,
