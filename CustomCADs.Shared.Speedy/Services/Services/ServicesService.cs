@@ -11,29 +11,37 @@ using static Constants;
 
 public class ServicesService(IServicesEndpoints endpoints)
 {
-    public async Task<CourierServiceModel[]> Services(DateOnly date, AccountModel account, CancellationToken ct = default)
+    public async Task<CourierServiceModel[]> Services(
+        AccountModel account,
+        DateOnly? date = null,
+        CancellationToken ct = default)
     {
         var response = await endpoints.Services(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            Date: date.ToString(DateFormat)
+            Date: date?.ToString(DateFormat)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
         return [.. response.Services.Select(s => s.ToModel())];
     }
 
-    public async Task<ExtendedCourierServiceModel[]> DestinationServices(DateOnly date, CalculationRecipientModel recipient, CalculationSenderModel? sender, AccountModel account, CancellationToken ct = default)
+    public async Task<ExtendedCourierServiceModel[]> DestinationServices(
+        AccountModel account,
+        CalculationRecipientModel recipient,
+        DateOnly? date = null,
+        CalculationSenderModel? sender = null,
+        CancellationToken ct = default)
     {
         var response = await endpoints.DestinationServices(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            Date: date.ToString(DateFormat),
             Recipient: recipient.ToDto(),
+            Date: date?.ToString(DateFormat),
             Sender: sender?.ToDto()
         ), ct).ConfigureAwait(false);
 

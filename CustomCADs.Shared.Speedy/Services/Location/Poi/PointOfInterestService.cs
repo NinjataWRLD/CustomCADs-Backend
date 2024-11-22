@@ -5,7 +5,10 @@ namespace CustomCADs.Shared.Speedy.Services.Location.Poi;
 
 public class PointOfInterestService(ILocationEndpoints endpoints)
 {
-    public async Task<PointOfInterestModel> GetAsync(int id, AccountModel account, CancellationToken ct = default)
+    public async Task<PointOfInterestModel> GetAsync(
+        AccountModel account, 
+        int id, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.GetPointOfInterestAsync(id, new(
             UserName: account.Username,
@@ -18,7 +21,11 @@ public class PointOfInterestService(ILocationEndpoints endpoints)
         return response.Poi!.ToModel();
     }
 
-    public async Task<PointOfInterestModel[]> FindAsync(int siteId, string? name, AccountModel account, CancellationToken ct = default)
+    public async Task<PointOfInterestModel[]> FindAsync(
+        AccountModel account, 
+        int siteId, 
+        string? name, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.FindPointOfInterestAsync(new(
             UserName: account.Username,
@@ -33,7 +40,10 @@ public class PointOfInterestService(ILocationEndpoints endpoints)
         return [.. response.Pois?.Select(c => c.ToModel())];
     }
 
-    public async Task<byte[]> AllAsync(int countryId, AccountModel account, CancellationToken ct = default)
+    public async Task<byte[]> AllAsync(
+        AccountModel account, 
+        int countryId, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.GetAllPointsOfInterestAsync(countryId, new(
             UserName: account.Username,

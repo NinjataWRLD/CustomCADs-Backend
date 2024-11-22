@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentParcels;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 
 namespace CustomCADs.Shared.Speedy.Models.Shipment.Parcel;
 
