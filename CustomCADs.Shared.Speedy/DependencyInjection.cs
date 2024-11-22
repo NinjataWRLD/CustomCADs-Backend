@@ -21,6 +21,7 @@ using CustomCADs.Shared.Speedy.Services.Location.Site;
 using CustomCADs.Shared.Speedy.Services.Location.State;
 using CustomCADs.Shared.Speedy.Services.Location.Street;
 using CustomCADs.Shared.Speedy.Services.Payment;
+using CustomCADs.Shared.Speedy.Services.Pickup;
 using CustomCADs.Shared.Speedy.Services.Print;
 using CustomCADs.Shared.Speedy.Services.Services;
 using CustomCADs.Shared.Speedy.Services.Shipment;
@@ -70,6 +71,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IPickupEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/pickup"));
+        services.AddScoped<PickupService>();
 
         return services;
     }
