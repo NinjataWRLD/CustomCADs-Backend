@@ -8,16 +8,21 @@ using static Constants;
 
 public class PaymentService(IPaymentEndpoints endpoints)
 {
-    public async Task<PayoutModel[]> Payout((DateTime From, DateTime To, bool IncludeDetails) model, AccountModel account, CancellationToken ct = default)
+    public async Task<PayoutModel[]> Payout(
+        AccountModel account,
+        DateTime fromDate,
+        DateTime toDate,
+        bool? includeDetails = null,
+        CancellationToken ct = default)
     {
         var response = await endpoints.Payout(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            FromDate: model.From.ToString(DateTimeFormat),
-            ToDate: model.To.ToString(DateTimeFormat),
-            IncludeDetails: model.IncludeDetails
+            FromDate: fromDate.ToString(DateTimeFormat),
+            ToDate: toDate.ToString(DateTimeFormat),
+            IncludeDetails: includeDetails
         ), ct).ConfigureAwait(false);
 
         response.Error?.EnsureNull();

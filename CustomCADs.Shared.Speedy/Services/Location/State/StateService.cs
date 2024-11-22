@@ -5,7 +5,10 @@ namespace CustomCADs.Shared.Speedy.Services.Location.State;
 
 public class StateService(ILocationEndpoints endpoints)
 {
-    public async Task<StateModel> GetAsync(string id, AccountModel account, CancellationToken ct = default)
+    public async Task<StateModel> GetAsync(
+        AccountModel account, 
+        string id, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.GetStateAsync(id, new(
             UserName: account.Username,
@@ -18,7 +21,11 @@ public class StateService(ILocationEndpoints endpoints)
         return response.State!.ToModel();
     }
 
-    public async Task<StateModel[]> FindAsync(int countryId, string? name, AccountModel account, CancellationToken ct = default)
+    public async Task<StateModel[]> FindAsync(
+        AccountModel account, 
+        int countryId, 
+        string? name, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.FindStateAsync(new(
             UserName: account.Username,
@@ -33,7 +40,10 @@ public class StateService(ILocationEndpoints endpoints)
         return [.. response.States?.Select(c => c.ToModel())];
     }
 
-    public async Task<byte[]> AllAsync(int countryId, AccountModel account, CancellationToken ct = default)
+    public async Task<byte[]> AllAsync(
+        AccountModel account, 
+        int countryId, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.GetAllStatesAsync(countryId, new(
             UserName: account.Username,

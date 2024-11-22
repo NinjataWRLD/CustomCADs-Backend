@@ -14,9 +14,14 @@ using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment;
 
+using static Constants;
+
 public class ShipmentService(IShipmentEndpoints endpoints)
 {
-    public async Task<WrittenShipmentModel> CreateShipmentAsync(WriteShipmentModel model, AccountModel account, CancellationToken ct = default)
+    public async Task<WrittenShipmentModel> CreateShipmentAsync(
+        AccountModel account,
+        WriteShipmentModel model,
+        CancellationToken ct = default)
     {
         var response = await endpoints.CreateShipmentAsync(new(
             UserName: account.Username,
@@ -46,7 +51,11 @@ public class ShipmentService(IShipmentEndpoints endpoints)
         );
     }
 
-    public async Task CancelShipmentAsync(string shipmentId, string comment, AccountModel account, CancellationToken ct = default)
+    public async Task CancelShipmentAsync(
+        AccountModel account,
+        string shipmentId,
+        string comment,
+        CancellationToken ct = default)
     {
         var response = await endpoints.CancelShipmentAsync(new(
             UserName: account.Username,
@@ -60,7 +69,11 @@ public class ShipmentService(IShipmentEndpoints endpoints)
         response.Error.EnsureNull();
     }
 
-    public async Task<CreatedShipmentParcelModel> AddParcelAsync(string shipmentId, AddParcelModel model, AccountModel account, CancellationToken ct = default)
+    public async Task<CreatedShipmentParcelModel> AddParcelAsync(
+        AccountModel account,
+        string shipmentId,
+        AddParcelModel model,
+        CancellationToken ct = default)
     {
         var response = await endpoints.AddParcelShipmentAsync(new(
             UserName: account.Username,
@@ -78,7 +91,10 @@ public class ShipmentService(IShipmentEndpoints endpoints)
         return response.Parcel.ToModel();
     }
 
-    public async Task<WrittenShipmentModel> FinalizePendingShipmentAsync(string shipmentId, AccountModel account, CancellationToken ct = default)
+    public async Task<WrittenShipmentModel> FinalizePendingShipmentAsync(
+        AccountModel account,
+        string shipmentId,
+        CancellationToken ct = default)
     {
         var response = await endpoints.FinalizePendingShipmentAsync(new(
             UserName: account.Username,
@@ -98,7 +114,10 @@ public class ShipmentService(IShipmentEndpoints endpoints)
         );
     }
 
-    public async Task<ShipmentModel[]> ShipmentInfoAsync(string[] shipmentIds, AccountModel account, CancellationToken ct = default)
+    public async Task<ShipmentModel[]> ShipmentInfoAsync(
+        AccountModel account,
+        string[] shipmentIds,
+        CancellationToken ct = default)
     {
         var response = await endpoints.ShipmentInfoAsync(new(
             UserName: account.Username,
@@ -112,7 +131,11 @@ public class ShipmentService(IShipmentEndpoints endpoints)
         return [.. response.Shipments.Select(d => d.ToModel())];
     }
 
-    public async Task<SecondaryShipmentModel[]> SecondaryShipmentAsync(string shipmentId, ShipmentType[] types, AccountModel account, CancellationToken ct = default)
+    public async Task<SecondaryShipmentModel[]> SecondaryShipmentAsync(
+        AccountModel account,
+        string shipmentId,
+        ShipmentType[] types,
+        CancellationToken ct = default)
     {
         var response = await endpoints.SecondaryShipmentAsync(shipmentId, new(
             UserName: account.Username,
@@ -126,7 +149,11 @@ public class ShipmentService(IShipmentEndpoints endpoints)
         return [.. response.Shipments.Select(d => d.ToModel())];
     }
 
-    public async Task<WrittenShipmentModel> UpdateShipmentAsync(string shipmentId, WriteShipmentModel model, AccountModel account, CancellationToken ct = default)
+    public async Task<WrittenShipmentModel> UpdateShipmentAsync(
+        AccountModel account,
+        string shipmentId,
+        WriteShipmentModel model,
+        CancellationToken ct = default)
     {
         var response = await endpoints.UpdateShipmentAsync(new(
             UserName: account.Username,
@@ -156,26 +183,37 @@ public class ShipmentService(IShipmentEndpoints endpoints)
         );
     }
 
-    public async Task<string[]> FindParcelsByRefAsync(FindParcelModel model, AccountModel account, CancellationToken ct = default)
+    public async Task<string[]> FindParcelsByRefAsync(
+        AccountModel account,
+        string @ref,
+        int searchInRef,
+        bool? shipmentsOnly = null,
+        bool? includeReturns = null,
+        DateTime? fromDateTime = null,
+        DateTime? toDateTime = null,
+        CancellationToken ct = default)
     {
         var response = await endpoints.FindParcelsByRefAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            Ref: model.Ref,
-            SearchInRef: model.SearchInRef,
-            ShipmentsOnly: model.ShipmentsOnly,
-            IncludeReturns: model.IncludeReturns,
-            FromDateTime: model.FromDateTime,
-            ToDateTime: model.ToDateTime
+            Ref: @ref,
+            SearchInRef: searchInRef,
+            ShipmentsOnly: shipmentsOnly,
+            IncludeReturns: includeReturns,
+            FromDateTime: fromDateTime?.ToString(DateTimeFormat),
+            ToDateTime: toDateTime?.ToString(DateTimeFormat)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
         return response.Barcodes;
     }
 
-    public async Task HandoverToCourierAsync(ParcelHandoverRefModel[] parcels, AccountModel account, CancellationToken ct = default)
+    public async Task HandoverToCourierAsync(
+        AccountModel account, 
+        ParcelHandoverRefModel[] parcels, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.HandoverToCourierAsync(new(
             UserName: account.Username,
@@ -188,7 +226,10 @@ public class ShipmentService(IShipmentEndpoints endpoints)
         response.Error.EnsureNull();
     }
 
-    public async Task HandoverToMidwayCarrierAsync(ParcelHandoverRefModel[] parcels, AccountModel account, CancellationToken ct = default)
+    public async Task HandoverToMidwayCarrierAsync(
+        AccountModel account, 
+        ParcelHandoverRefModel[] parcels, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.HandoverToMidwayCarrierAsync(new(
             UserName: account.Username,
@@ -201,7 +242,10 @@ public class ShipmentService(IShipmentEndpoints endpoints)
         response.Error.EnsureNull();
     }
 
-    public async Task<BarcodeInformationModel> BarcodeInformationAsync(ShipmentParcelRefModel parcel, AccountModel account, CancellationToken ct = default)
+    public async Task<BarcodeInformationModel> BarcodeInformationAsync(
+        AccountModel account, 
+        ShipmentParcelRefModel parcel, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.BarcodeInformationAsync(new(
             UserName: account.Username,

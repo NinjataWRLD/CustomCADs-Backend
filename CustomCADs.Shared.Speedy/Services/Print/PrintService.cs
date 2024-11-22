@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
 using CustomCADs.Shared.Speedy.Models;
 using CustomCADs.Shared.Speedy.Models.Shipment.Parcel;
 using CustomCADs.Shared.Speedy.Services.Print.Models;
@@ -9,7 +10,10 @@ namespace CustomCADs.Shared.Speedy.Services.Print;
 
 public class PrintService(IPrintEndpoints endpoints)
 {
-    public async Task<byte[]> PrintAsync(PrintModel model, AccountModel account, CancellationToken ct = default)
+    public async Task<byte[]> PrintAsync(
+        AccountModel account, 
+        PrintModel model, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.PrintAsync(new(
             UserName: account.Username,
@@ -30,7 +34,10 @@ public class PrintService(IPrintEndpoints endpoints)
         return stream.ToArray();
     }
     
-    public async Task<(byte[] Data, LabelInfoModel[] PrintLabelsInfo)> ExtendedPrintAsync(PrintModel model, AccountModel account, CancellationToken ct = default)
+    public async Task<(byte[] Data, LabelInfoModel[] PrintLabelsInfo)> ExtendedPrintAsync(
+        AccountModel account, 
+        PrintModel model, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.ExtendedPrintAsync(new(
             UserName: account.Username,
@@ -52,7 +59,10 @@ public class PrintService(IPrintEndpoints endpoints)
         );
     }
     
-    public async Task<LabelInfoModel[]> LabelInfoAsync(ShipmentParcelRefModel[] parcels, AccountModel account, CancellationToken ct = default)
+    public async Task<LabelInfoModel[]> LabelInfoAsync(
+        AccountModel account, 
+        ShipmentParcelRefModel[] parcels, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.LabelInfoAsync(new(
             UserName: account.Username,
@@ -66,17 +76,23 @@ public class PrintService(IPrintEndpoints endpoints)
         return [.. response.PrintLabelsInfo.Select(i => i.ToModel())];
     }
 
-    public async Task<byte[]> PrintVoucherAsync(PrintVoucherModel model, AccountModel account, CancellationToken ct = default)
+    public async Task<byte[]> PrintVoucherAsync(
+        AccountModel account,
+        string[] shipmentIds,
+        string? printerName = null,
+        PaperFormat format = PaperFormat.pdf,
+        Dpi dpi = Dpi.dpi203,
+        CancellationToken ct = default)
     {
         var response = await endpoints.PrintVoucherAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            PrinterName: model.PrinterName,
-            Format: model.Format, 
-            Dpi: model.Dpi,
-            ShipmentIds: model.ShipmentIds
+            PrinterName: printerName,
+            Format: format, 
+            Dpi: dpi,
+            ShipmentIds: shipmentIds
         ), ct).ConfigureAwait(false);
 
         using MemoryStream stream = new();

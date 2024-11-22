@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Shared.Speedy.Models.Shipment.Recipient;
+﻿using CustomCADs.Shared.Speedy.Services.Models;
+
+namespace CustomCADs.Shared.Speedy.Models.Shipment.Recipient;
 
 public record ShipmentRecipientModel(
     bool? PrivatePerson,

@@ -5,7 +5,10 @@ namespace CustomCADs.Shared.Speedy.Services.Location.Country;
 
 public class CountryService(ILocationEndpoints endpoints)
 {
-    public async Task<CountryModel> GetAsync(int id, AccountModel account, CancellationToken ct = default)
+    public async Task<CountryModel> GetAsync(
+        AccountModel account, 
+        int id, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.GetCountryAsync(id, new(
             UserName: account.Username,
@@ -18,7 +21,12 @@ public class CountryService(ILocationEndpoints endpoints)
         return response.Country!.ToModel();
     }
 
-    public async Task<CountryModel[]> FindAsync(string? name, string? isoAlpha2, string? isoAlpha3, AccountModel account, CancellationToken ct = default)
+    public async Task<CountryModel[]> FindAsync(
+        AccountModel account, 
+        string? name, 
+        string? isoAlpha2, 
+        string? isoAlpha3, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.FindCountryAsync(new(
             UserName: account.Username,
@@ -34,7 +42,9 @@ public class CountryService(ILocationEndpoints endpoints)
         return [.. response.Countries?.Select(c => c.ToModel())];
     }
 
-    public async Task<byte[]> AllAsync(AccountModel account, CancellationToken ct = default)
+    public async Task<byte[]> AllAsync(
+        AccountModel account, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.GetAllCountriesAsync(new(
             UserName: account.Username,

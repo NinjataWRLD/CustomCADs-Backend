@@ -12,7 +12,10 @@ namespace CustomCADs.Shared.Speedy.Services.Validation;
 
 public class ValidationService(IValidationEndpoints endpoints)
 {
-    public async Task<bool> ValidateAddress(ShipmentAddressModel address, AccountModel account, CancellationToken ct = default)
+    public async Task<bool> ValidateAddress(
+        AccountModel account,
+        ShipmentAddressModel address,
+        CancellationToken ct = default)
     {
         ValidationResponse response = await endpoints.ValidateAddress(new(
             UserName: account.Username,
@@ -26,7 +29,11 @@ public class ValidationService(IValidationEndpoints endpoints)
         return response.Valid ?? false;
     }
 
-    public async Task<bool> ValidatePostCode(string postCode, int countryId, AccountModel account, CancellationToken ct = default)
+    public async Task<bool> ValidatePostCode(
+        AccountModel account,
+        string postCode,
+        int? countryId = null,
+        CancellationToken ct = default)
     {
         ValidationResponse response = await endpoints.ValidatePostCode(new(
             UserName: account.Username,
@@ -41,8 +48,12 @@ public class ValidationService(IValidationEndpoints endpoints)
         response.Error.EnsureNull();
         return response.Valid ?? false;
     }
-    
-    public async Task<bool> ValidatePostCode(string postCode, long siteId, AccountModel account, CancellationToken ct = default)
+
+    public async Task<bool> ValidatePostCode(
+        AccountModel account,
+        string postCode,
+        long? siteId = null,
+        CancellationToken ct = default)
     {
         ValidationResponse response = await endpoints.ValidatePostCode(new(
             UserName: account.Username,
@@ -58,7 +69,10 @@ public class ValidationService(IValidationEndpoints endpoints)
         return response.Valid ?? false;
     }
 
-    public async Task<bool> ValidatePhone(PhoneNumberModel phoneNumber, AccountModel account, CancellationToken ct = default)
+    public async Task<bool> ValidatePhone(
+        AccountModel account,
+        PhoneNumberModel phoneNumber,
+        CancellationToken ct = default)
     {
         ValidationResponse response = await endpoints.ValidatePhone(new(
             UserName: account.Username,
@@ -73,7 +87,10 @@ public class ValidationService(IValidationEndpoints endpoints)
         return response.Valid ?? false;
     }
 
-    public async Task<bool> ValidateShipment(WriteShipmentModel shipment, AccountModel account, CancellationToken ct = default)
+    public async Task<bool> ValidateShipment(
+        AccountModel account,
+        WriteShipmentModel shipment,
+        CancellationToken ct = default)
     {
         ValidationResponse response = await endpoints.ValidateShipment(new(
             UserName: account.Username,

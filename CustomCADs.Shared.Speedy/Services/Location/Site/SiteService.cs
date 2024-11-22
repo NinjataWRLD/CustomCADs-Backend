@@ -5,7 +5,10 @@ namespace CustomCADs.Shared.Speedy.Services.Location.Site;
 
 public class SiteService(ILocationEndpoints endpoints)
 {
-    public async Task<SiteModel> GetAsync(long id, AccountModel account, CancellationToken ct = default)
+    public async Task<SiteModel> GetAsync(
+        AccountModel account, 
+        long id, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.GetSiteAsync(id, new(
             UserName: account.Username,
@@ -18,7 +21,15 @@ public class SiteService(ILocationEndpoints endpoints)
         return response.Site!.ToModel();
     }
 
-    public async Task<SiteModel[]> FindAsync(int countryId, string? name, string? type, string? postCode, string? municipality, string? region, AccountModel account, CancellationToken ct = default)
+    public async Task<SiteModel[]> FindAsync(
+        AccountModel account, 
+        int countryId, 
+        string? name, 
+        string? type, 
+        string? postCode, 
+        string? municipality, 
+        string? region, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.FindSiteAsync(new(
             UserName: account.Username,
@@ -37,7 +48,10 @@ public class SiteService(ILocationEndpoints endpoints)
         return [.. response.Sites?.Select(c => c.ToModel())];
     }
 
-    public async Task<byte[]> AllAsync(int countryId, AccountModel account, CancellationToken ct = default)
+    public async Task<byte[]> AllAsync(
+        AccountModel account, 
+        int countryId, 
+        CancellationToken ct = default)
     {
         var response = await endpoints.GetAllSitesAsync(countryId, new(
             UserName: account.Username,
