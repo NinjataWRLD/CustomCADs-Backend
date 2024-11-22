@@ -1,6 +1,6 @@
-﻿using CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices;
+﻿using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
 
-namespace CustomCADs.Shared.Speedy.Models.Shipment.Service;
+namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 
 public record ShipmentServiceModel(
     int ServiceId,

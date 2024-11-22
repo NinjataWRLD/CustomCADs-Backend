@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentService.ShipmentAdditionalServices.ShipmentDeclaredValueAdditionalService;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.DeclaredValue;
 
-namespace CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices.DeclaredValue;
+namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.DeclaredValue;
 
 public static class Mapper
 {

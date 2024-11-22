@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Shared.Speedy.Models.Shipment.Payment;
+﻿using CustomCADs.Shared.Speedy.Services.Models.Shipment.Payment;
+
+namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Payment;
 
 public record ShipmentPaymentModel(
     Payer CourierServicePayer,

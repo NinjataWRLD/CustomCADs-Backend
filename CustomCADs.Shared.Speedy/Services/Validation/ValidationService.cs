@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Shared.Speedy;
 using CustomCADs.Shared.Speedy.API.Endpoints.ValidationEndpoints;
-using CustomCADs.Shared.Speedy.Models;
-using CustomCADs.Shared.Speedy.Models.Shipment.Content;
-using CustomCADs.Shared.Speedy.Models.Shipment.Payment;
-using CustomCADs.Shared.Speedy.Models.Shipment.Recipient;
-using CustomCADs.Shared.Speedy.Models.Shipment.Sender;
-using CustomCADs.Shared.Speedy.Models.Shipment.Service;
+using CustomCADs.Shared.Speedy.Services.Models;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Payment;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Recipient;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Validation;

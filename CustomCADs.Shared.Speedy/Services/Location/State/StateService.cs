@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.LocationEndpoints;
-using CustomCADs.Shared.Speedy.Models;
+using CustomCADs.Shared.Speedy.Services.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Location.State;
 

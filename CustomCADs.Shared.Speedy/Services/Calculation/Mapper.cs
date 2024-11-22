@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.CalculationResult;
-using CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices;
 using CustomCADs.Shared.Speedy.Services.Calculation.Models;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
 using CustomCADs.Shared.Speedy.Services.Shipment;
 
 namespace CustomCADs.Shared.Speedy.Services.Calculation;

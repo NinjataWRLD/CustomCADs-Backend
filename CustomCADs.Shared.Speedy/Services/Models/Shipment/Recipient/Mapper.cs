@@ -1,7 +1,9 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.AutoSelectNearestOfficePolicy;
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentRecipient;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Recipient;
+using CustomCADs.Shared.Speedy.Services;
 
-namespace CustomCADs.Shared.Speedy.Models.Shipment.Recipient;
+namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Recipient;
 
 public static class Mapper
 {

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.PaymentEndpoints;
-using CustomCADs.Shared.Speedy.Models;
+using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Payment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Payment;

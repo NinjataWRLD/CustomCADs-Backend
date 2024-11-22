@@ -1,13 +1,13 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.ClientEndpoints;
-using CustomCADs.Shared.Speedy.Models;
 using CustomCADs.Shared.Speedy.Services.Client.Models;
+using CustomCADs.Shared.Speedy.Services.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Client;
 
 public class ClientService(IClientEndpoints endpoints)
 {
     public async Task<long> GetOwnClientIdAsync(
-        AccountModel account, 
+        AccountModel account,
         CancellationToken ct = default)
     {
         var response = await endpoints.GetOwnClientIdAsync(new(

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.Models.Shipment.Parcel;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 
 public record ShipmentParcelRefModel(
     string? Id,

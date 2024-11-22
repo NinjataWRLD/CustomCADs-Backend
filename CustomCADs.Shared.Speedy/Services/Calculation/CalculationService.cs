@@ -1,12 +1,12 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.CalculationEndpoints;
-using CustomCADs.Shared.Speedy.Models;
-using CustomCADs.Shared.Speedy.Models.Calculation;
-using CustomCADs.Shared.Speedy.Models.Calculation.Content;
-using CustomCADs.Shared.Speedy.Models.Calculation.Recipient;
-using CustomCADs.Shared.Speedy.Models.Calculation.Sender;
-using CustomCADs.Shared.Speedy.Models.Calculation.Service;
-using CustomCADs.Shared.Speedy.Models.Shipment.Payment;
 using CustomCADs.Shared.Speedy.Services.Calculation.Models;
+using CustomCADs.Shared.Speedy.Services.Models;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Content;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Sender;
+using CustomCADs.Shared.Speedy.Services.Models.Calculation.Service;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Payment;
 
 namespace CustomCADs.Shared.Speedy.Services.Calculation;
 

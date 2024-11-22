@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentService.ShipmentAdditionalServices.ShipmentReturnAdditionalServices;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return.Rod;
 
-namespace CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices.Return.Rod;
+namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return.Rod;
 
 public static class Mapper
 {
@@ -12,7 +13,7 @@ public static class Mapper
             ReturnToOfficeId: model.ReturnToOfficeId,
             ThirdPartyPayer: model.ThirdPartyPayer
         );
-    
+
     public static ShipmentRodAdditionalServiceModel ToModel(this ShipmentRodAdditionalServiceDto dto)
         => new(
             Enabled: dto.Enabled,

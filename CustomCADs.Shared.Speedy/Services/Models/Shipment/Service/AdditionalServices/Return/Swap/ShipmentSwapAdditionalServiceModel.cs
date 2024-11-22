@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices.Return.Swap;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return.Swap;
 
 public record ShipmentSwapAdditionalServiceModel(
     int ServiceId,

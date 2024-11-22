@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.TrackEndpoints;
-using CustomCADs.Shared.Speedy.Models;
+using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Track.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Track;

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.Models;
-using CustomCADs.Shared.Speedy.Services.Location.Block;
+﻿using CustomCADs.Shared.Speedy.Services.Location.Block;
 using CustomCADs.Shared.Speedy.Services.Location.Complex;
 using CustomCADs.Shared.Speedy.Services.Location.Country;
 using CustomCADs.Shared.Speedy.Services.Location.Office;
@@ -8,6 +7,7 @@ using CustomCADs.Shared.Speedy.Services.Location.PostCode;
 using CustomCADs.Shared.Speedy.Services.Location.Site;
 using CustomCADs.Shared.Speedy.Services.Location.State;
 using CustomCADs.Shared.Speedy.Services.Location.Street;
+using CustomCADs.Shared.Speedy.Services.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Location;
 

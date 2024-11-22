@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Speedy.Models.Shipment.Service.AdditionalServices.Return.Rod;
+﻿namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return.Rod;
 
 public record ShipmentRodAdditionalServiceModel(
     bool Enabled,

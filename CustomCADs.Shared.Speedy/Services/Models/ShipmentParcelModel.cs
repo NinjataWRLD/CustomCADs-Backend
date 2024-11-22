@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Shared.Speedy.Models;
+﻿using CustomCADs.Shared.Speedy.Services.Models;
+
+namespace CustomCADs.Shared.Speedy.Services.Models;
 
 public record ShipmentParcelModel(
     double Weight,
