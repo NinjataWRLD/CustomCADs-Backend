@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
 
-namespace CustomCADs.Shared.Speedy.Services.Print;
+namespace CustomCADs.Shared.Speedy.Services.Print.Models;
 
 public record PrintVoucherModel(
     string[] ShipmentIds,

@@ -7,11 +7,11 @@ using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Print;
 
-public class PrintService(IPrintEndpoints print)
+public class PrintService(IPrintEndpoints endpoints)
 {
     public async Task<byte[]> PrintAsync(PrintModel model, AccountModel account, CancellationToken ct = default)
     {
-        var response = await print.PrintAsync(new(
+        var response = await endpoints.PrintAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -32,7 +32,7 @@ public class PrintService(IPrintEndpoints print)
     
     public async Task<(byte[] Data, LabelInfoModel[] PrintLabelsInfo)> ExtendedPrintAsync(PrintModel model, AccountModel account, CancellationToken ct = default)
     {
-        var response = await print.ExtendedPrintAsync(new(
+        var response = await endpoints.ExtendedPrintAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -54,7 +54,7 @@ public class PrintService(IPrintEndpoints print)
     
     public async Task<LabelInfoModel[]> LabelInfoAsync(ShipmentParcelRefModel[] parcels, AccountModel account, CancellationToken ct = default)
     {
-        var response = await print.LabelInfoAsync(new(
+        var response = await endpoints.LabelInfoAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -68,7 +68,7 @@ public class PrintService(IPrintEndpoints print)
 
     public async Task<byte[]> PrintVoucherAsync(PrintVoucherModel model, AccountModel account, CancellationToken ct = default)
     {
-        var response = await print.PrintVoucherAsync(new(
+        var response = await endpoints.PrintVoucherAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,

@@ -6,11 +6,11 @@ using CustomCADs.Shared.Speedy.Services.Calculation.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Calculation;
 
-public class CalculationService(ICalculationEndpoints calculation)
+public class CalculationService(ICalculationEndpoints endpoints)
 {
     public async Task<CalculationResultModel[]> Calculate(CalculationModel model, AccountModel account, CancellationToken ct = default)
     {
-        var response = await calculation.Calculation(new(
+        var response = await endpoints.Calculation(new(
             UserName: account.Username,
             Password: account.Password,
             Location: account.Language,

@@ -3,11 +3,11 @@ using CustomCADs.Shared.Speedy.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Location.Block;
 
-public class BlockService(ILocationEndpoints location)
+public class BlockService(ILocationEndpoints endpoints)
 {
     public async Task<BlockModel[]> FindAsync(int siteId, string? name, string? type, AccountModel account, CancellationToken ct = default)
     {
-        var response = await location.FindBlockAsync(new(
+        var response = await endpoints.FindBlockAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -23,7 +23,7 @@ public class BlockService(ILocationEndpoints location)
 
     public async Task<byte[]> AllAsync(int countryId, AccountModel account, CancellationToken ct = default)
     {
-        var response = await location.GetAllBlocksAsync(countryId, new(
+        var response = await endpoints.GetAllBlocksAsync(countryId, new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,

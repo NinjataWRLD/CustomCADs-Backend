@@ -8,6 +8,24 @@ using CustomCADs.Shared.Speedy.API.Endpoints.ServicesEndpoints;
 using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
 using CustomCADs.Shared.Speedy.API.Endpoints.TrackEndpoints;
 using CustomCADs.Shared.Speedy.API.Endpoints.ValidationEndpoints;
+using CustomCADs.Shared.Speedy.Services.Calculation;
+using CustomCADs.Shared.Speedy.Services.Client;
+using CustomCADs.Shared.Speedy.Services.Location;
+using CustomCADs.Shared.Speedy.Services.Location.Block;
+using CustomCADs.Shared.Speedy.Services.Location.Complex;
+using CustomCADs.Shared.Speedy.Services.Location.Country;
+using CustomCADs.Shared.Speedy.Services.Location.Office;
+using CustomCADs.Shared.Speedy.Services.Location.Poi;
+using CustomCADs.Shared.Speedy.Services.Location.PostCode;
+using CustomCADs.Shared.Speedy.Services.Location.Site;
+using CustomCADs.Shared.Speedy.Services.Location.State;
+using CustomCADs.Shared.Speedy.Services.Location.Street;
+using CustomCADs.Shared.Speedy.Services.Payment;
+using CustomCADs.Shared.Speedy.Services.Print;
+using CustomCADs.Shared.Speedy.Services.Services;
+using CustomCADs.Shared.Speedy.Services.Shipment;
+using CustomCADs.Shared.Speedy.Services.Track;
+using CustomCADs.Shared.Speedy.Services.Validation;
 using Refit;
 
 #pragma warning disable IDE0130
@@ -22,6 +40,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IShipmentEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/shipment"));
+        services.AddScoped<ShipmentService>();
 
         return services;
     }
@@ -31,6 +50,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IPrintEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/print"));
+        services.AddScoped<PrintService>();
 
         return services;
     }
@@ -40,6 +60,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<ITrackEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/track"));
+        services.AddScoped<TrackService>();
 
         return services;
     }
@@ -58,6 +79,17 @@ public static class DependencyInjection
         services
             .AddRefitClient<ILocationEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/location"));
+        services.AddScoped<LocationService>();
+
+        services.AddScoped<BlockService>();
+        services.AddScoped<ComplexService>();
+        services.AddScoped<CountryService>();
+        services.AddScoped<OfficeService>();
+        services.AddScoped<PointOfInterestService>();
+        services.AddScoped<PostCodeService>();
+        services.AddScoped<SiteService>();
+        services.AddScoped<StateService>();
+        services.AddScoped<StreetService>();
 
         return services;
     }
@@ -67,6 +99,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<ICalculationEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/calculate"));
+        services.AddScoped<CalculationService>(); 
 
         return services;
     }
@@ -76,6 +109,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IClientEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/client"));
+        services.AddScoped<ClientService>(); 
 
         return services;
     }
@@ -85,6 +119,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IValidationEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/validation"));
+        services.AddScoped<ValidationService>(); 
 
         return services;
     }
@@ -94,6 +129,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IServicesEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/services"));
+        services.AddScoped<ServicesService>(); 
 
         return services;
     }
@@ -103,6 +139,7 @@ public static class DependencyInjection
         services
             .AddRefitClient<IPaymentEndpoints>()
             .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/payments"));
+        services.AddScoped<PaymentService>(); 
 
         return services;
     }

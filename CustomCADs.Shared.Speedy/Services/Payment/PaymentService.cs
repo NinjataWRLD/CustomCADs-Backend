@@ -6,11 +6,11 @@ namespace CustomCADs.Shared.Speedy.Services.Payment;
 
 using static Constants;
 
-public class PaymentService(IPaymentEndpoints payment)
+public class PaymentService(IPaymentEndpoints endpoints)
 {
     public async Task<PayoutModel[]> Payout((DateTime From, DateTime To, bool IncludeDetails) model, AccountModel account, CancellationToken ct = default)
     {
-        var response = await payment.Payout(new(
+        var response = await endpoints.Payout(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,

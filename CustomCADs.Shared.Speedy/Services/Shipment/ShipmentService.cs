@@ -1,5 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentParcels;
-using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
+﻿using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
 using CustomCADs.Shared.Speedy.Models;
 using CustomCADs.Shared.Speedy.Models.Shipment;
 using CustomCADs.Shared.Speedy.Models.Shipment.Content;
@@ -15,11 +14,11 @@ using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment;
 
-public class ShipmentService(IShipmentEndpoints shipment)
+public class ShipmentService(IShipmentEndpoints endpoints)
 {
     public async Task<WrittenShipmentModel> CreateShipmentAsync(WriteShipmentModel model, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.CreateShipmentAsync(new(
+        var response = await endpoints.CreateShipmentAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -49,7 +48,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task CancelShipmentAsync(string shipmentId, string comment, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.CancelShipmentAsync(new(
+        var response = await endpoints.CancelShipmentAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -63,7 +62,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task<CreatedShipmentParcelModel> AddParcelAsync(string shipmentId, AddParcelModel model, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.AddParcelShipmentAsync(new(
+        var response = await endpoints.AddParcelShipmentAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -81,7 +80,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task<WrittenShipmentModel> FinalizePendingShipmentAsync(string shipmentId, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.FinalizePendingShipmentAsync(new(
+        var response = await endpoints.FinalizePendingShipmentAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -101,7 +100,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task<ShipmentModel[]> ShipmentInfoAsync(string[] shipmentIds, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.ShipmentInfoAsync(new(
+        var response = await endpoints.ShipmentInfoAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -115,7 +114,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task<SecondaryShipmentModel[]> SecondaryShipmentAsync(string shipmentId, ShipmentType[] types, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.SecondaryShipmentAsync(shipmentId, new(
+        var response = await endpoints.SecondaryShipmentAsync(shipmentId, new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -129,7 +128,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task<WrittenShipmentModel> UpdateShipmentAsync(string shipmentId, WriteShipmentModel model, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.UpdateShipmentAsync(new(
+        var response = await endpoints.UpdateShipmentAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -159,7 +158,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task<string[]> FindParcelsByRefAsync(FindParcelModel model, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.FindParcelsByRefAsync(new(
+        var response = await endpoints.FindParcelsByRefAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -178,7 +177,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task HandoverToCourierAsync(ParcelHandoverRefModel[] parcels, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.HandoverToCourierAsync(new(
+        var response = await endpoints.HandoverToCourierAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -191,7 +190,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task HandoverToMidwayCarrierAsync(ParcelHandoverRefModel[] parcels, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.HandoverToMidwayCarrierAsync(new(
+        var response = await endpoints.HandoverToMidwayCarrierAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -204,7 +203,7 @@ public class ShipmentService(IShipmentEndpoints shipment)
 
     public async Task<BarcodeInformationModel> BarcodeInformationAsync(ShipmentParcelRefModel parcel, AccountModel account, CancellationToken ct = default)
     {
-        var response = await shipment.BarcodeInformationAsync(new(
+        var response = await endpoints.BarcodeInformationAsync(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
