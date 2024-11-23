@@ -29,15 +29,6 @@ public class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow)
             order.SetCadId(req.CadId.Value);
         }
 
-        if (order.DeliveryType is DeliveryType.Physical or DeliveryType.Both)
-        {
-            if (req.ShipmentId is null)
-            {
-                throw OrderValidationException.Custom("Cannot finish with a Physical delivery type order without providing a ShipmentId.");
-            }
-            order.SetShipmentId(req.ShipmentId.Value);
-        }
-
         await uow.SaveChangesAsync(ct);
     }
 }

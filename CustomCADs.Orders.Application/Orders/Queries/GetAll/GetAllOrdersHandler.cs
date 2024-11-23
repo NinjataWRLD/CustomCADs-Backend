@@ -22,21 +22,28 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
         );
         OrderResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        UserId[] ids = result.Orders
+        UserId[] buyerIds = [.. result.Orders.Select(o => o.BuyerId)];
+        UserId[] designerIds = [
+            .. result.Orders
             .Where(o => o.DesignerId is not null)
             .Select(o => o.DesignerId!.Value)
-            .ToArray();
+        ];
 
-        GetUsernamesByIdsQuery usernamesQuery = new(ids);
-        var designersInfo = await sender.SendQueryAsync(usernamesQuery, ct).ConfigureAwait(false);
+        GetUsernamesByIdsQuery designerUsernamesQuery = new(designerIds);
+        GetUsernamesByIdsQuery buyerUsernamesQuery = new(buyerIds);
+        
+        var designersInfo = await sender.SendQueryAsync(designerUsernamesQuery, ct).ConfigureAwait(false);
+        var buyersInfo = await sender.SendQueryAsync(buyerUsernamesQuery, ct).ConfigureAwait(false);        
 
         return new(
             result.Count,
             result.Orders
                 .Select(o =>
                 {
-                    var (_, Username) = designersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
-                    return o.ToGetAllOrdersItem(Username);
+                    var (_, buyerUsername) = buyersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
+                    var (_, designerUsername) = designersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
+
+                    return o.ToGetAllOrdersItem(buyerUsername, designerUsername);
                 })
                 .ToArray()
         );
