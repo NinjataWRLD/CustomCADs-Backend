@@ -17,9 +17,12 @@ public class FinishOrderEndpoint(IRequestSender sender)
     public override async Task HandleAsync(FinishOrderRequest req, CancellationToken ct)
     {
         OrderId id = new(req.Id);
-        CadId? cadId = req.CadId is null ? null : new(req.CadId.Value);
 
-        FinishOrderCommand command = new(id, User.GetAccountId(), cadId);
+        (string Key, string ContentType)? cad = null;
+        if (req.CadKey is not null && req.CadContentType is not null)
+            cad = (req.CadKey, req.CadContentType);
+
+        FinishOrderCommand command = new(id, User.GetAccountId(), cad);
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
