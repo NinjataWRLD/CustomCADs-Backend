@@ -10,7 +10,7 @@ public class BeginOrderEndpoint(IRequestSender sender)
     {
         Patch("begin");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to Beign the Order"));
+        Description(d => d.WithSummary("I want to Begin the Order"));
     }
 
     public override async Task HandleAsync(BeginOrderRequest req, CancellationToken ct)

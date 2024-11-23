@@ -30,5 +30,6 @@ public class GetPendingOrdersEndpoint(IRequestSender sender)
             Count: orders.Count,
             Orders: [.. orders.Orders.Select(o => o.ToGetPendingOrdersDto())]
         );
+        await SendOkAsync(response).ConfigureAwait(false);
     }
 }
