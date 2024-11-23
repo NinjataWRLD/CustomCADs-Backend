@@ -2,5 +2,6 @@
 
 public record FinishOrderRequest(
     Guid Id,
-    Guid? CadId
+    string? CadKey,
+    string? CadContentType
 );
