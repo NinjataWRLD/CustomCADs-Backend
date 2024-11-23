@@ -5,6 +5,7 @@ using CustomCADs.Inventory.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,9 +13,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomCADs.Inventory.Persistence.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class CatalogContextModelSnapshot : ModelSnapshot
+    [Migration("20241123014844_Extracted_Categories_And_Rebranded_To_Inventory")]
+    partial class Extracted_Categories_And_Rebranded_To_Inventory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
