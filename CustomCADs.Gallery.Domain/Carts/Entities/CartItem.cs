@@ -5,7 +5,7 @@ using CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Catalog;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
 
 namespace CustomCADs.Gallery.Domain.Carts.Entities;

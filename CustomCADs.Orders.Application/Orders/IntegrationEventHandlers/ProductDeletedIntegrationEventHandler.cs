@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
-using CustomCADs.Shared.IntegrationEvents.Catalog;
+using CustomCADs.Shared.IntegrationEvents.Inventory;
 
 namespace CustomCADs.Orders.Application.Orders.IntegrationEventHandlers;
 
