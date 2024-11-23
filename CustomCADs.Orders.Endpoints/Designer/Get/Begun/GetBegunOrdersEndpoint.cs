@@ -19,6 +19,7 @@ public class GetBegunOrdersEndpoint(IRequestSender sender)
         GetAllOrdersQuery query = new(
             OrderStatus: OrderStatus.Begun,
             DeliveryType: req.DeliveryType,
+            DesignerId: User.GetAccountId(),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
             Page: req.Page,
@@ -30,5 +31,6 @@ public class GetBegunOrdersEndpoint(IRequestSender sender)
             Count: orders.Count,
             Orders: [.. orders.Orders.Select(o => o.ToGetBegunOrdersDto())]
         );
+        await SendOkAsync(response).ConfigureAwait(false);
     }
 }

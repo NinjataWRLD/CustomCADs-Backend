@@ -19,6 +19,7 @@ public class GetAcceptedOrdersEndpoint(IRequestSender sender)
         GetAllOrdersQuery query = new(
             OrderStatus: OrderStatus.Accepted,
             DeliveryType: req.DeliveryType,
+            DesignerId: User.GetAccountId(),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
             Page: req.Page,
@@ -30,5 +31,6 @@ public class GetAcceptedOrdersEndpoint(IRequestSender sender)
             Count: orders.Count,
             Orders: [.. orders.Orders.Select(o => o.ToGetAcceptedOrdersDto())]
         );
+        await SendOkAsync(response).ConfigureAwait(false);
     }
 }

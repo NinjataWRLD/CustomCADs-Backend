@@ -59,14 +59,15 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
 
         AccessTokenDto jwt = tokenService.GenerateAccessToken(accountId, req.Username, role);
-        SaveAccessToken(jwt.Value, jwt.EndDate);
-
         string rt = tokenService.GenerateRefreshToken();
-        DateTime end = DateTime.UtcNow.AddDays(RtDurationInDays);
-        SaveRefreshToken(rt, end);
 
-        SaveRole(role, end);
-        SaveUsername(req.Username, end);
+        DateTime rtEnd = DateTime.UtcNow.AddDays(RtDurationInDays);
+        await userService.UpdateRefreshTokenAsync(user.Id, rt, rtEnd).ConfigureAwait(false);
+
+        SaveAccessToken(jwt.Value, jwt.EndDate);
+        SaveRefreshToken(rt, rtEnd);
+        SaveRole(role, rtEnd);
+        SaveUsername(req.Username, rtEnd);
 
         await SendOkAsync("Welcome!").ConfigureAwait(false);
     }
