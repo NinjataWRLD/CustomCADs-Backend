@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Gallery.Domain.Carts.Enums;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Catalog;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetItems;
