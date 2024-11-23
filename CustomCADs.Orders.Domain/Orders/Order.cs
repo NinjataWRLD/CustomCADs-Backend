@@ -12,7 +12,7 @@ namespace CustomCADs.Orders.Domain.Orders;
 public class Order : BaseAggregateRoot
 {
     private Order() { }
-    private Order(string name, string description, DeliveryType deliveryType, Image image, UserId buyerId) : this()
+    private Order(string name, string description, DeliveryType deliveryType, Image image, UserId buyerId, ShipmentId? shipmentId) : this()
     {
         Name = name;
         Description = description;
@@ -21,6 +21,7 @@ public class Order : BaseAggregateRoot
         OrderStatus = OrderStatus.Pending;
         Image = image;
         BuyerId = buyerId;
+        ShipmentId = shipmentId;
     }
 
     public OrderId Id { get; init; }
@@ -41,7 +42,7 @@ public class Order : BaseAggregateRoot
         string imageKey,
         string imageContentType,
         UserId buyerId
-    ) => new Order(name, description, DeliveryType.Digital, new(imageKey, imageContentType), buyerId)
+    ) => new Order(name, description, DeliveryType.Digital, new(imageKey, imageContentType), buyerId, shipmentId: null)
             .ValidateName()
             .ValidateDescription();
 
@@ -50,8 +51,9 @@ public class Order : BaseAggregateRoot
         string description,
         string imageKey,
         string imageContentType,
-        UserId buyerId
-    ) => new Order(name, description, DeliveryType.Physical, new(imageKey, imageContentType), buyerId)
+        UserId buyerId,
+        ShipmentId? shipmentId
+    ) => new Order(name, description, DeliveryType.Physical, new(imageKey, imageContentType), buyerId, shipmentId)
             .ValidateName()
             .ValidateDescription();
 
@@ -60,8 +62,9 @@ public class Order : BaseAggregateRoot
         string description,
         string imageKey,
         string imageContentType,
-        UserId buyerId
-    ) => new Order(name, description, DeliveryType.Both, new(imageKey, imageContentType), buyerId)
+        UserId buyerId,
+        ShipmentId? shipmentId
+    ) => new Order(name, description, DeliveryType.Both, new(imageKey, imageContentType), buyerId, shipmentId)
             .ValidateName()
             .ValidateDescription();
 

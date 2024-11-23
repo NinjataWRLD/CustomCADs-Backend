@@ -1,14 +1,25 @@
 ﻿using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Orders;
+using CustomCADs.Orders.Domain.Orders.Enums;
+using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
+using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Create;
 
-public class CreateOrderHandler(IWrites<Order> writes, IUnitOfWork uow)
+public class CreateOrderHandler(IWrites<Order> writes, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<CreateOrderCommand, OrderId>
 {
     public async Task<OrderId> Handle(CreateOrderCommand req, CancellationToken ct)
     {
-        Order order = req.ToOrder();
+        ShipmentId? shipmentId = null;
+        if (req.DeliveryType is DeliveryType.Physical or DeliveryType.Both)
+        {
+            CreateShipmentCommand shipmentCommand = new(req.BuyerId);
+            shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
+        }
+
+        Order order = req.ToOrder(shipmentId);
 
         await writes.AddAsync(order, ct);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
