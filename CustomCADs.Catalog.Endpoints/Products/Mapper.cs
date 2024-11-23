@@ -38,7 +38,7 @@ public static class Mapper
             Price: new(dto.Price),
             Description: dto.Description,
             UploadDate: dto.UploadDate.ToString(DateFormatString),
-            Category: new() { Id = dto.Category.Id.Value, Name = dto.Category.Name },
+            Category: new(dto.Category.Id.Value, dto.Category.Name),
             CamCoordinates: dto.Cad.CamCoordinates.ToCoordinatesDto(),
             PanCoordinates: dto.Cad.PanCoordinates.ToCoordinatesDto(),
             CadKey: dto.Cad.Key
@@ -53,6 +53,6 @@ public static class Mapper
             Status: dto.Status,
             UploadDate: dto.UploadDate.ToString(DateFormatString),
             CreatorName: dto.CreatorName,
-            Category: new() { Id = dto.Category.Id.Value, Name = dto.Category.Name }
+            Category: new(dto.Category.Id.Value, dto.Category.Name)
         );
 }

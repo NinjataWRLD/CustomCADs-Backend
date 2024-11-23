@@ -30,7 +30,7 @@ public static class Mapper
             Status: product.Status.ToString(),
             Image: product.Image,
             Cad: cad,
-            Category: new(product.CategoryId, categoryName),
+            Category: (product.CategoryId, categoryName),
             CreatorName: username
         );
 

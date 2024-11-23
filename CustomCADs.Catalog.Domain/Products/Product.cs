@@ -5,6 +5,7 @@ using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
 
 namespace CustomCADs.Catalog.Domain.Products;
 

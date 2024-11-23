@@ -19,6 +19,7 @@ builder.Services.AddAccount(builder.Configuration);
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddCadsPersistence(builder.Configuration);
 builder.Services.AddCatalog(builder.Configuration);
+builder.Services.AddCategories(builder.Configuration);
 builder.Services.AddGallery(builder.Configuration);
 builder.Services.AddOrders(builder.Configuration);
 builder.Services.AddDeliveryPersistence(builder.Configuration);
