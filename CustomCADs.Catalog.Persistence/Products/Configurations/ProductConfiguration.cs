@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Categories;
-using CustomCADs.Catalog.Domain.Products;
+﻿using CustomCADs.Catalog.Domain.Products;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Catalog.Persistence.Products.Configurations;
@@ -12,7 +11,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         builder
             .SetPrimaryKey()
-            .SetForeignKeys()
             .SetStronglyTypedIds()
             .SetValueObjects()
             .SetValidations();
@@ -24,17 +22,6 @@ static class CadConfigUtils
     public static EntityTypeBuilder<Product> SetPrimaryKey(this EntityTypeBuilder<Product> builder)
     {
         builder.HasKey(x => x.Id);
-
-        return builder;
-    }
-
-    public static EntityTypeBuilder<Product> SetForeignKeys(this EntityTypeBuilder<Product> builder)
-    {
-        builder
-            .HasOne<Category>()
-            .WithMany()
-            .HasForeignKey(x => x.CategoryId)
-            .OnDelete(DeleteBehavior.NoAction);
 
         return builder;
     }

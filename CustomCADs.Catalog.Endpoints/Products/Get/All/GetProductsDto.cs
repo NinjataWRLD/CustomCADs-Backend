@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Endpoints.Categories;
-using CustomCADs.Shared.Core.Dtos;
+﻿using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Get.All;
 
@@ -9,5 +8,5 @@ public record GetProductsDto(
     string CreatorName,
     string UploadDate,
     ImageDto Image,
-    CategoryResponse Category
+    CategoryDto Category
 );

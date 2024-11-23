@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Endpoints.Categories;
-using CustomCADs.Shared.Core.Dtos;
+﻿using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Post;
 
@@ -11,5 +10,5 @@ public record PostProductResponse(
     string UploadDate,
     MoneyDto Price,
     string Status,
-    CategoryResponse Category
+    CategoryDto Category
 );

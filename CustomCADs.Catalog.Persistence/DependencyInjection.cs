@@ -1,8 +1,6 @@
-﻿using CustomCADs.Catalog.Domain.Categories.Reads;
-using CustomCADs.Catalog.Domain.Common;
+﻿using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Catalog.Persistence;
-using CustomCADs.Catalog.Persistence.Categories.Reads;
 using CustomCADs.Catalog.Persistence.Common;
 using CustomCADs.Catalog.Persistence.Products.Reads;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +28,6 @@ public static class DependencyInjection
 
     private static IServiceCollection AddCatalogReads(this IServiceCollection services)
     {
-        services.AddScoped<ICategoryReads, CategoryReads>();
         services.AddScoped<IProductReads, ProductReads>();
 
         return services;

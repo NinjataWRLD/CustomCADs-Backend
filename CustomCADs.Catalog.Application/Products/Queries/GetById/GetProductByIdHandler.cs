@@ -1,10 +1,9 @@
-﻿using CustomCADs.Catalog.Application.Categories.Queries;
-using CustomCADs.Catalog.Application.Categories.Queries.GetById;
-using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.UseCases.Cads.Queries;
+using CustomCADs.Shared.UseCases.Categories.Queries;
 using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
@@ -20,8 +19,8 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
         GetUsernameByIdQuery usernameQuery = new(product.CreatorId);
         string username = await sender.SendQueryAsync(usernameQuery, ct).ConfigureAwait(false);
 
-        GetCategoryByIdQuery categoryQuery = new(product.CategoryId);
-        CategoryReadDto category = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
+        GetCategoryNameByIdQuery categoryQuery = new(product.CategoryId);
+        string categoryName = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
 
         GetCadByIdQuery cadQuery = new(product.CadId);
         var (Key, ContentType, CamCoordinates, PanCoordinates) = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
@@ -33,6 +32,6 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
             PanCoordinates: PanCoordinates.ToCoordinates()
         );
 
-        return product.ToGetProductByIdDto(cad, username, category.Name);
+        return product.ToGetProductByIdDto(cad, username, categoryName);
     }
 }

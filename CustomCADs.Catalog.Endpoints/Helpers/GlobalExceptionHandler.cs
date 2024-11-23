@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Categories;
-using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +10,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is CategoryValidationException or ProductValidationException)
+        if (ex is ProductValidationException)
         {
             context.Response.StatusCode = Status400BadRequest;
             await context.Response.WriteAsJsonAsync(new
@@ -20,14 +19,14 @@ public class GlobalExceptionHandler : IExceptionHandler
                 message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
-        else if (ex is ProductNotFoundException or CategoryNotFoundException)
+        else if (ex is ProductNotFoundException)
         {
             context.Response.StatusCode = Status404NotFound;
             await context.Response.WriteAsJsonAsync(new
             {
                 error = "Resource Not Found",
                 message = ex.Message
-            }).ConfigureAwait(false);
+            }, ct).ConfigureAwait(false);
         }
         else if (ex is DbUpdateConcurrencyException)
         {
@@ -36,7 +35,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             {
                 error = "Database Conflict Ocurred",
                 message = ex.Message
-            }).ConfigureAwait(false);
+            }, ct).ConfigureAwait(false);
         }
         else if (ex is DbUpdateException)
         {
@@ -45,7 +44,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             {
                 error = "Database Error",
                 message = ex.Message
-            }).ConfigureAwait(false);
+            }, ct).ConfigureAwait(false);
         }
         else
         {
@@ -54,7 +53,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             {
                 error = "Internal Server Error",
                 message = ex.Message
-            }).ConfigureAwait(false);
+            }, ct).ConfigureAwait(false);
         }
 
         return true;

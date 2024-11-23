@@ -1,5 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Categories.Queries;
-using CustomCADs.Shared.Core.Domain.ValueObjects;
+﻿using CustomCADs.Shared.Core.Domain.ValueObjects;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 
@@ -13,6 +13,6 @@ public record GetProductByIdDto(
     string CreatorName,
     CadDto Cad,
     DateTime UploadDate,
-    CategoryReadDto Category
+    (CategoryId Id, string Name) Category
 );
 

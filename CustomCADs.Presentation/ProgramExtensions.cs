@@ -5,6 +5,7 @@ using CustomCADs.Auth.Endpoints;
 using CustomCADs.Cads.Application;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Catalog.Endpoints;
+using CustomCADs.Categories.Application;
 using CustomCADs.Gallery.Application;
 using CustomCADs.Orders.Application;
 using CustomCADs.Shared.Application.Requests.Sender;
@@ -31,6 +32,7 @@ public static class ProgramExtensions
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies([
             AccountApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
+            CategoriesApplicationReference.Assembly,
             CadsApplicationReference.Assembly,
             GalleryApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
@@ -52,6 +54,7 @@ public static class ProgramExtensions
             AccountApplicationReference.Assembly,
             AuthApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
+            CategoriesApplicationReference.Assembly,
             CadsApplicationReference.Assembly,
             GalleryApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,

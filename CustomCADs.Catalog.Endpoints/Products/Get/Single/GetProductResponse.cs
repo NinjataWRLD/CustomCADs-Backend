@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Endpoints.Categories;
-using CustomCADs.Shared.Core.Dtos;
+﻿using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Get.Single;
 
@@ -12,5 +11,5 @@ public record GetProductResponse(
     string UploadDate,
     CoordinatesDto CamCoordinates,
     CoordinatesDto PanCoordinates,
-    CategoryResponse Category
+    CategoryDto Category
 );

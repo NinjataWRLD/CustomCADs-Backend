@@ -1,8 +1,8 @@
-﻿using CustomCADs.Catalog.Application.Categories.Queries;
-using CustomCADs.Catalog.Application.Categories.Queries.GetAll;
-using CustomCADs.Catalog.Domain.Products.Reads;
+﻿using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
+using CustomCADs.Shared.UseCases.Categories.Queries;
 using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
@@ -28,8 +28,8 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
             .ConfigureAwait(false);
 
         CategoryId[] categoryIds = result.Products.Select(p => p.CategoryId).Distinct().ToArray();
-        IEnumerable<CategoryReadDto> categories = await sender
-            .SendQueryAsync(new GetAllCategoriesQuery(), ct)
+        IEnumerable<(CategoryId Id, string Name)> categories = await sender
+            .SendQueryAsync(new GetCategoriesByIdsQuery(), ct)
             .ConfigureAwait(false);
 
         return new(
