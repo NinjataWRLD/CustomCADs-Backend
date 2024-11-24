@@ -7,7 +7,5 @@ public record CreateOrderCommand(
     DeliveryType DeliveryType,
     string Name,
     string Description,
-    string ImageKey,
-    string ImageContentType,
     UserId BuyerId
 ) : ICommand<OrderId>;

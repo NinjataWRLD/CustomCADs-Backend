@@ -5,7 +5,5 @@ namespace CustomCADs.Orders.Endpoints.Client.Post;
 public record PostOrderRequest(
     DeliveryType DeliveryType,
     string Name,
-    string Description,
-    string ImageKey,
-    string ImageContentType
+    string Description
 );

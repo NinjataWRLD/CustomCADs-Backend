@@ -17,7 +17,6 @@ public static class Mapper
             OrderDate: order.OrderDate,
             DeliveryType: order.DeliveryType,
             OrderStatus: order.OrderStatus,
-            Image: order.Image,
             BuyerName: buyerUsername,
             DesignerName: designerUsername
         );
@@ -30,7 +29,6 @@ public static class Mapper
             OrderDate: order.OrderDate,
             DeliveryType: order.DeliveryType,
             OrderStatus: order.OrderStatus,
-            Image: order.Image,
             BuyerId: order.BuyerId,
             DesignerId: order.DesignerId,
             CadId: order.CadId,
@@ -43,23 +41,17 @@ public static class Mapper
             DeliveryType.Physical => Order.CreatePhysical(
                 name: command.Name,
                 description: command.Description,
-                imageKey: command.ImageKey,
-                imageContentType: command.ImageContentType,
                 buyerId: command.BuyerId,
                 shipmentId: shipmentId
             ),
             DeliveryType.Digital => Order.CreateDigital(
                 name: command.Name,
                 description: command.Description,
-                imageKey: command.ImageKey,
-                imageContentType: command.ImageContentType,
                 buyerId: command.BuyerId
             ),
             DeliveryType.Both => Order.CreateDigitalAndPhysical(
                 name: command.Name,
                 description: command.Description,
-                imageKey: command.ImageKey,
-                imageContentType: command.ImageContentType,
                 buyerId: command.BuyerId,
                 shipmentId: shipmentId
             ),

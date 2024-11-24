@@ -46,7 +46,7 @@ public static class Mapper
 
     public static PostProductResponse ToPostProductResponse(this GetProductByIdDto product)
         => new(
-            Id: product.Id,
+            Id: product.Id.Value,
             Name: product.Name,
             Description: product.Description,
             Price: new(product.Price),
