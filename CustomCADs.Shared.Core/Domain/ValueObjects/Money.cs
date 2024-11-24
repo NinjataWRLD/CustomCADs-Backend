@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Shared.Core.Domain.ValueObjects;
 
-using static Constants.Money;
+using static Constants.MoneyRules;
 
 public record Money
 {

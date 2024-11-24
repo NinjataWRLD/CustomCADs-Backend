@@ -36,7 +36,7 @@ public static class Constants
         public const string ClientDescription = "Has access to Orders endpoints - can buy 3D Models from the Gallery and make and track Orders.";
     }
 
-    public static class Money
+    public static class MoneyRules
     {
         public const int PrecisionMax = 13;
         public const int PrecisionMin = 1;
