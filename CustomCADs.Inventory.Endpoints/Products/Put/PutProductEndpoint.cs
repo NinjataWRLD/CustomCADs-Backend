@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Inventory.Application.Products.Commands.Edit;
 using CustomCADs.Inventory.Application.Products.Commands.SetKeys;
 using CustomCADs.Inventory.Application.Products.Queries.IsCreator;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Put;
 
@@ -43,13 +42,13 @@ public class PutProductEndpoint(IRequestSender sender)
         if (req.ImageKey is not null)
         {
             SetProductKeysCommand keysCommand = new(
-                id, 
-                CadKey: null, 
+                id,
+                CadKey: null,
                 ImageKey: req.ImageKey
             );
             await sender.SendCommandAsync(keysCommand, ct).ConfigureAwait(false);
         }
-        
+
         await SendNoContentAsync().ConfigureAwait(false);
     }
 }

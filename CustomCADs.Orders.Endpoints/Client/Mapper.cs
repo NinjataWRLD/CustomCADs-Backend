@@ -83,7 +83,7 @@ public static class Mapper
             DeliveryType: order.DeliveryType.ToString(),
             BuyerName: order.BuyerName
         );
-    
+
     public static GetAcceptedOrdersDto ToGetAcceptedOrdersDto(this GetAllOrdersItem order)
         => new(
             Id: order.Id.Value,
@@ -92,7 +92,7 @@ public static class Mapper
             DeliveryType: order.DeliveryType.ToString(),
             BuyerName: order.BuyerName
         );
-    
+
     public static GetBegunOrdersDto ToGetBegunOrdersDto(this GetAllOrdersItem order)
         => new(
             Id: order.Id.Value,

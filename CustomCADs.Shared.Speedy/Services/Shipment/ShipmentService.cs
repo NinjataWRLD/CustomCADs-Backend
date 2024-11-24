@@ -279,7 +279,7 @@ public class ShipmentService(
             DeliveryDeadline: DateTime.Parse(response.DeliveryDeadline)
         );
     }
-    
+
     public async Task<WrittenShipmentModel> UpdateShipmentPropertiesAsync(
         AccountModel account,
         string shipmentId,

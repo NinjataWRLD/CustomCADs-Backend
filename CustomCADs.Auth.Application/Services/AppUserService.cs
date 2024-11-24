@@ -127,7 +127,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task SendVerificationEmailAsync(AppUser user)
     {
         string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-        
+
         await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
             Email: user.Email ?? string.Empty,
             Endpoint: GetVerifyEmailEndpoint(user.UserName!, token)
@@ -140,7 +140,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
             ?? throw UserNotFoundException.ByUsername(username);
 
         string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-        
+
         await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
             Email: user.Email ?? string.Empty,
             Endpoint: GetVerifyEmailEndpoint(user.UserName!, token)
@@ -150,7 +150,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task SendResetPasswordEmailAsync(AppUser user)
     {
         string token = await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
-        
+
         await raiser.RaiseDomainEventAsync(new PasswordResetRequestedDomainEvent(
             Email: user.Email ?? string.Empty,
             Endpoint: GetResetPasswordPage(user.Email!, token)
@@ -163,7 +163,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
             ?? throw UserNotFoundException.ByEmail(email);
 
         string token = await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
-        
+
         await raiser.RaiseDomainEventAsync(new PasswordResetRequestedDomainEvent(
             Email: email,
             Endpoint: GetResetPasswordPage(email, token)
@@ -186,5 +186,5 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
         => $"{serverUrl}/api/v1/auth/signup/verifyEmail/{username}?token={token}";
 
     private string GetResetPasswordPage(string email, string token)
-        =>  $"{clientUrl}/login/reset-password?email={email}&token={token}";
+        => $"{clientUrl}/login/reset-password?email={email}&token={token}";
 }

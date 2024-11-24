@@ -3,9 +3,10 @@ using CustomCADs.Account.Endpoints;
 using CustomCADs.Auth.Application;
 using CustomCADs.Auth.Endpoints;
 using CustomCADs.Cads.Application;
-using CustomCADs.Inventory.Endpoints;
 using CustomCADs.Categories.Application;
 using CustomCADs.Gallery.Application;
+using CustomCADs.Inventory.Application;
+using CustomCADs.Inventory.Endpoints;
 using CustomCADs.Orders.Application;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Email;
@@ -16,7 +17,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Scalar.AspNetCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
-using CustomCADs.Inventory.Application;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
