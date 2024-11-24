@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.Exceptions;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
 
 namespace CustomCADs.Inventory.Domain.Common.Exceptions.Products;
 

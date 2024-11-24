@@ -2,7 +2,6 @@
 using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Post;
 

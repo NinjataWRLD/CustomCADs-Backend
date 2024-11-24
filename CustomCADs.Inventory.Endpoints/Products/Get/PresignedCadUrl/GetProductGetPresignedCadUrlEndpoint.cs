@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetCadUrlGet;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.PresignedCadUrl;
 

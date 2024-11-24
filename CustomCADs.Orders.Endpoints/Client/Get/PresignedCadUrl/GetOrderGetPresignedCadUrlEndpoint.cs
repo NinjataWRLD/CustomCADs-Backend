@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Application.Orders.Queries.GetById;
-using CustomCADs.Orders.Application.Orders.Queries.GetCadUrlGet;
+﻿using CustomCADs.Orders.Application.Orders.Queries.GetCadUrlGet;
 using CustomCADs.Orders.Endpoints.Designer;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
 

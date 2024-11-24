@@ -6,7 +6,6 @@ using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
 
 namespace CustomCADs.Inventory.Domain.Products;
 
@@ -94,7 +93,7 @@ public class Product : BaseAggregateRoot
         {
             throw ProductValidationException.NotNull(nameof(key));
         }
-        
+
         Image = Image with { Key = key };
         if (!string.IsNullOrEmpty(contentType))
         {

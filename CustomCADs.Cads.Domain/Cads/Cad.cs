@@ -41,7 +41,7 @@ public class Cad : BaseAggregateRoot
 
         return this;
     }
-    
+
     public Cad SetContentType(string contentType)
     {
         Key = contentType;

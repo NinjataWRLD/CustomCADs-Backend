@@ -5,7 +5,7 @@ namespace CustomCADs.Orders.Application.Orders.DomainEventHandlers;
 
 public class OrderDeletedEventHandler(IStorageService storage)
 {
-    public async Task Handle(OrderDeletedDomainEvent de) 
+    public async Task Handle(OrderDeletedDomainEvent de)
     {
         await storage.DeleteFileAsync(de.ImageKey);
     }

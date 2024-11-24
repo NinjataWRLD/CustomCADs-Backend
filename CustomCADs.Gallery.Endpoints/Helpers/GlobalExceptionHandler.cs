@@ -11,7 +11,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is CartValidationException or  CartItemValidationException)
+        if (ex is CartValidationException or CartItemValidationException)
         {
             context.Response.StatusCode = Status400BadRequest;
             await context.Response.WriteAsJsonAsync(new

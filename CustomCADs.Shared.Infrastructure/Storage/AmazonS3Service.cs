@@ -56,7 +56,7 @@ public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> setti
             throw new($"Retrieving file: {fileName} went wrong.");
         }
     }
-    
+
     public async Task<string> GetPresignedPutUrlAsync(string key, string contentType, string fileName)
     {
         try

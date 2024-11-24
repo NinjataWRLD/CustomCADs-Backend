@@ -31,9 +31,9 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
 
         GetUsernamesByIdsQuery designerUsernamesQuery = new(designerIds);
         GetUsernamesByIdsQuery buyerUsernamesQuery = new(buyerIds);
-        
+
         var designersInfo = await sender.SendQueryAsync(designerUsernamesQuery, ct).ConfigureAwait(false);
-        var buyersInfo = await sender.SendQueryAsync(buyerUsernamesQuery, ct).ConfigureAwait(false);        
+        var buyersInfo = await sender.SendQueryAsync(buyerUsernamesQuery, ct).ConfigureAwait(false);
 
         return new(
             result.Count,
