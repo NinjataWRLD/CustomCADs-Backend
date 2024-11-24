@@ -22,14 +22,14 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
         );
         ProductResult result = await reads.AllAsync(productQuery, track: false, ct: ct).ConfigureAwait(false);
 
-        UserId[] userIds = result.Products.Select(p => p.CreatorId).Distinct().ToArray();
+        UserId[] userIds = [.. result.Products.Select(p => p.CreatorId).Distinct()];
         IEnumerable<(UserId Id, string Username)> users = await sender
             .SendQueryAsync(new GetUsernamesByIdsQuery(userIds), ct)
             .ConfigureAwait(false);
 
-        CategoryId[] categoryIds = result.Products.Select(p => p.CategoryId).Distinct().ToArray();
+        CategoryId[] categoryIds = [.. result.Products.Select(p => p.CategoryId).Distinct()];
         IEnumerable<(CategoryId Id, string Name)> categories = await sender
-            .SendQueryAsync(new GetCategoriesByIdsQuery(), ct)
+            .SendQueryAsync(new GetCategoriesByIdsQuery(categoryIds), ct)
             .ConfigureAwait(false);
 
         return new(

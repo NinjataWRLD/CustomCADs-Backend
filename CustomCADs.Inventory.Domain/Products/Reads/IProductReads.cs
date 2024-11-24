@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
 
 namespace CustomCADs.Inventory.Domain.Products.Reads;
 

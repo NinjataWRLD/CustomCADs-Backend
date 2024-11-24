@@ -1,10 +1,9 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
-using CustomCADs.Shared.Core.Dtos;
+﻿using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Post;
 
 public record PostProductResponse(
-    ProductId Id,
+    Guid Id,
     string Name,
     string Description,
     string CreatorName,

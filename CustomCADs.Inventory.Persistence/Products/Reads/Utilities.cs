@@ -7,15 +7,15 @@ namespace CustomCADs.Inventory.Persistence.Products.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, UserId? creatorId = null, string? status = null)
+    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, UserId? creatorId = null, ProductStatus? productStatus = null)
     {
         if (creatorId is not null)
         {
             query = query.Where(c => c.CreatorId == creatorId);
         }
-        if (status is not null && Enum.TryParse(status, ignoreCase: true, out ProductStatus cadStatus))
+        if (productStatus is not null)
         {
-            query = query.Where(c => c.Status == cadStatus);
+            query = query.Where(c => c.Status == productStatus);
         }
 
         return query;
