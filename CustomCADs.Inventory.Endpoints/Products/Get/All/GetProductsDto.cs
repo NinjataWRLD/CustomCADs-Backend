@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Dtos;
-
-namespace CustomCADs.Inventory.Endpoints.Products.Get.All;
+﻿namespace CustomCADs.Inventory.Endpoints.Products.Get.All;
 
 public record GetProductsDto(
     Guid Id,

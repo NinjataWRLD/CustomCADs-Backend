@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects;
+﻿using CustomCADs.Inventory.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetAll;

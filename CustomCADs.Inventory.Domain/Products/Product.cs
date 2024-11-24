@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Inventory.Domain.Common.Exceptions.Products;
 using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Inventory.Domain.Products.Validation;
+using CustomCADs.Inventory.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Domain;
 using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;

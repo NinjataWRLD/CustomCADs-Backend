@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Core.Domain.ValueObjects;
+﻿namespace CustomCADs.Inventory.Domain.Products.ValueObjects;
 
 public record Image(string Key, string ContentType)
 {

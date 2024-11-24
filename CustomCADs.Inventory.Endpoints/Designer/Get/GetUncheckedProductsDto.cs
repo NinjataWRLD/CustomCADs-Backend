@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Inventory.Endpoints.Products;
-using CustomCADs.Shared.Core.Dtos;
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Get;
 

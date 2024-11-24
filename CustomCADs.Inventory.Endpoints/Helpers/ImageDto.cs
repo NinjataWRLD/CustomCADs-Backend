@@ -1,3 +1,3 @@
-﻿namespace CustomCADs.Shared.Core.Dtos;
+﻿namespace CustomCADs.Inventory.Endpoints.Helpers;
 
 public record ImageDto(string Key, string ContentType);

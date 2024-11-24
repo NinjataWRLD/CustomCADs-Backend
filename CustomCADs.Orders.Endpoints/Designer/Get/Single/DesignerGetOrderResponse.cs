@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Dtos;
-
-namespace CustomCADs.Orders.Endpoints.Designer.Get.Single;
+﻿namespace CustomCADs.Orders.Endpoints.Designer.Get.Single;
 
 public record DesignerGetOrderResponse(
     Guid Id,
