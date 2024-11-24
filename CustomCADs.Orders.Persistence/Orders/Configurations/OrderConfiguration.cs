@@ -13,7 +13,6 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         => builder
             .SetPrimaryKey()
             .SetStronglyTypedIds()
-            .SetValueObjects()
             .SetValidations();
 }
 
@@ -58,22 +57,6 @@ public static class OrderConfigUtils
                 x => x == null ? null : x.Value.Value,
                 v => v == null ? null : new(v.Value)
             );
-
-        return builder;
-    }
-
-    public static EntityTypeBuilder<Order> SetValueObjects(this EntityTypeBuilder<Order> builder)
-    {
-        builder.ComplexProperty(x => x.Image, a =>
-        {
-            a.Property(x => x.Key)
-                .IsRequired()
-                .HasColumnName("ImageKey");
-
-            a.Property(x => x.ContentType)
-                .IsRequired()
-                .HasColumnName("ImageContentType");
-        });
 
         return builder;
     }

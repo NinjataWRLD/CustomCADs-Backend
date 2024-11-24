@@ -9,7 +9,6 @@ public record DesignerGetOrderResponse(
     string OrderDate,
     string DeliveryType,
     string Status,
-    ImageDto Image,
     Guid BuyerId,
     Guid? CadId,
     Guid? ShipmentId

@@ -23,8 +23,7 @@ public static class Mapper
             Name: order.Name,
             OrderDate: order.OrderDate.ToString(DateFormatString),
             DeliveryType: order.DeliveryType.ToString(),
-            OrderStatus: order.OrderStatus.ToString(),
-            Image: new(order.Image.Key, order.Image.ContentType)
+            OrderStatus: order.OrderStatus.ToString()
         );
 
     public static RecentOrdersResponse ToRecentOrdersResponse(this GetAllOrdersItem order)
@@ -54,7 +53,6 @@ public static class Mapper
             OrderDate: order.OrderDate.ToString(DateFormatString),
             DeliveryType: order.DeliveryType.ToString(),
             OrderStatus: order.OrderStatus.ToString(),
-            Image: new(order.Image.Key, order.Image.ContentType),
             BuyerId: order.BuyerId.Value,
             DesignerId: order.DesignerId?.Value,
             CadId: order.DesignerId?.Value,
@@ -69,7 +67,6 @@ public static class Mapper
             OrderDate: order.OrderDate.ToString(DateFormatString),
             DeliveryType: order.DeliveryType.ToString(),
             Status: order.OrderStatus.ToString(),
-            Image: new(order.Image.Key, order.Image.ContentType),
             BuyerId: order.BuyerId.Value,
             CadId: order.DesignerId?.Value,
             ShipmentId: order.DesignerId?.Value

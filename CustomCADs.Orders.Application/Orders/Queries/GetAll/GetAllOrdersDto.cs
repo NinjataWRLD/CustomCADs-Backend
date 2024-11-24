@@ -11,7 +11,6 @@ public record GetAllOrdersItem(
     DateTime OrderDate,
     DeliveryType DeliveryType,
     OrderStatus OrderStatus,
-    Image Image,
     string BuyerName,
     string? DesignerName
 );

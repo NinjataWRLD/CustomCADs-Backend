@@ -2,7 +2,6 @@
 using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Orders.Domain.Orders.Validation;
 using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.Domain.ValueObjects;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
 using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
@@ -12,14 +11,13 @@ namespace CustomCADs.Orders.Domain.Orders;
 public class Order : BaseAggregateRoot
 {
     private Order() { }
-    private Order(string name, string description, DeliveryType deliveryType, Image image, UserId buyerId, ShipmentId? shipmentId) : this()
+    private Order(string name, string description, DeliveryType deliveryType, UserId buyerId, ShipmentId? shipmentId) : this()
     {
         Name = name;
         Description = description;
         DeliveryType = deliveryType;
         OrderDate = DateTime.UtcNow;
         OrderStatus = OrderStatus.Pending;
-        Image = image;
         BuyerId = buyerId;
         ShipmentId = shipmentId;
     }
@@ -30,7 +28,6 @@ public class Order : BaseAggregateRoot
     public DateTime OrderDate { get; }
     public DeliveryType DeliveryType { get; }
     public OrderStatus OrderStatus { get; private set; }
-    public Image Image { get; private set; } = new();
     public UserId BuyerId { get; private set; }
     public UserId? DesignerId { get; private set; }
     public CadId? CadId { get; private set; }
@@ -39,32 +36,26 @@ public class Order : BaseAggregateRoot
     public static Order CreateDigital(
         string name,
         string description,
-        string imageKey,
-        string imageContentType,
         UserId buyerId
-    ) => new Order(name, description, DeliveryType.Digital, new(imageKey, imageContentType), buyerId, shipmentId: null)
+    ) => new Order(name, description, DeliveryType.Digital, buyerId, shipmentId: null)
             .ValidateName()
             .ValidateDescription();
 
     public static Order CreatePhysical(
         string name,
         string description,
-        string imageKey,
-        string imageContentType,
         UserId buyerId,
         ShipmentId? shipmentId
-    ) => new Order(name, description, DeliveryType.Physical, new(imageKey, imageContentType), buyerId, shipmentId)
+    ) => new Order(name, description, DeliveryType.Physical, buyerId, shipmentId)
             .ValidateName()
             .ValidateDescription();
 
     public static Order CreateDigitalAndPhysical(
         string name,
         string description,
-        string imageKey,
-        string imageContentType,
         UserId buyerId,
         ShipmentId? shipmentId
-    ) => new Order(name, description, DeliveryType.Both, new(imageKey, imageContentType), buyerId, shipmentId)
+    ) => new Order(name, description, DeliveryType.Both, buyerId, shipmentId)
             .ValidateName()
             .ValidateDescription();
 
@@ -79,22 +70,6 @@ public class Order : BaseAggregateRoot
     {
         Description = description;
         this.ValidateDescription();
-        return this;
-    }
-
-    public Order SetImageKey(string key, string? contentType)
-    {
-        if (string.IsNullOrWhiteSpace(key))
-        {
-            throw OrderValidationException.NotNull(nameof(key));
-        }
-        Image = Image with { Key = key };
-
-        if (!string.IsNullOrEmpty(contentType))
-        {
-            Image = Image with { ContentType = contentType };
-        }
-
         return this;
     }
 

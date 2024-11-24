@@ -13,7 +13,6 @@ public record GetOrderByIdDto(
     DateTime OrderDate,
     DeliveryType DeliveryType,
     OrderStatus OrderStatus,
-    Image Image,
     UserId BuyerId,
     UserId? DesignerId,
     CadId? CadId,
