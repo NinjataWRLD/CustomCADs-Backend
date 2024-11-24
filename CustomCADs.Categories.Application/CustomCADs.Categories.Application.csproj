@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CustomCADs.Categories.Domain\CustomCADs.Categories.Domain.csproj" />
-    <ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
-    <ProjectReference Include="..\CustomCADs.Shared.UseCases\CustomCADs.Shared.UseCases.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CustomCADs.Categories.Domain\CustomCADs.Categories.Domain.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.UseCases\CustomCADs.Shared.UseCases.csproj" />
+	</ItemGroup>
 
 </Project>

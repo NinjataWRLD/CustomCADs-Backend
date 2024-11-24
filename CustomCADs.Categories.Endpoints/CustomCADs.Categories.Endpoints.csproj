@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<NoWarn>CA2016</NoWarn>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="FastEndpoints" Version="5.31.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-    <ProjectReference Include="..\CustomCADs.Categories.Application\CustomCADs.Categories.Application.csproj" />
-    <ProjectReference Include="..\CustomCADs.Categories.Persistence\CustomCADs.Categories.Persistence.csproj" />
-  </ItemGroup>
+		<ProjectReference Include="..\CustomCADs.Categories.Application\CustomCADs.Categories.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Categories.Persistence\CustomCADs.Categories.Persistence.csproj" />
+	</ItemGroup>
 
 </Project>
