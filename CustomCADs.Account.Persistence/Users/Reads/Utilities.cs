@@ -13,7 +13,6 @@ public static class Utilities
         {
             query = query.Where(u => u.RoleName == role);
         }
-
         if (ids is not null)
         {
             query = query.Where(u => ids.Contains(u.Id));

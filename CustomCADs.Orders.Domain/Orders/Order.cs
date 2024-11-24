@@ -112,11 +112,17 @@ public class Order : BaseAggregateRoot
 
     public Order SetCadId(CadId cadId)
     {
-        if (DeliveryType is DeliveryType.Digital or DeliveryType.Both)
+        if (DeliveryType is not DeliveryType.Digital and not DeliveryType.Both)
         {
-            CadId = cadId;
+            throw OrderValidationException.CadIdOnNonDigitalDeliveryType();
         }
-        else throw OrderValidationException.CadIdOnNonDigitalDeliveryType();
+
+        if (OrderStatus is not OrderStatus.Finished)
+        {
+            throw OrderValidationException.Custom("Cannot set a CadId on an Order that isn't Finished.");
+        }
+
+        CadId = cadId;
 
         return this;
     }

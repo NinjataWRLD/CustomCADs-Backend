@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Inventory.Application.Products.Commands.Delete;
 using CustomCADs.Inventory.Application.Products.Queries.IsCreator;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Delete;
 

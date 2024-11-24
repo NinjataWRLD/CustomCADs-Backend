@@ -12,47 +12,47 @@ using static Constants;
 
 public static class Mapper
 {
-    public static RecentProductsResponse ToRecentProductsResponse(this GetAllProductsItem item)
+    public static RecentProductsResponse ToRecentProductsResponse(this GetAllProductsItem product)
         => new(
-            Id: item.Id.Value,
-            Name: item.Name,
-            Status: item.Status,
-            UploadDate: item.UploadDate.ToString(DateFormatString),
-            Category: new(item.Category.Id.Value, item.Category.Name)
+            Id: product.Id.Value,
+            Name: product.Name,
+            Status: product.Status,
+            UploadDate: product.UploadDate.ToString(DateFormatString),
+            Category: new(product.Category.Id.Value, product.Category.Name)
         );
 
-    public static GetProductsDto ToGetProductsDto(this GetAllProductsItem item)
+    public static GetProductsDto ToGetProductsDto(this GetAllProductsItem product)
         => new(
-            Id: item.Id.Value,
-            Name: item.Name,
-            UploadDate: item.UploadDate.ToString(DateFormatString),
-            Image: new(item.Image.Key, item.Image.ContentType),
-            CreatorName: item.CreatorName,
-            Category: new(item.Category.Id.Value, item.Category.Name)
+            Id: product.Id.Value,
+            Name: product.Name,
+            UploadDate: product.UploadDate.ToString(DateFormatString),
+            Image: new(product.Image.Key, product.Image.ContentType),
+            CreatorName: product.CreatorName,
+            Category: new(product.Category.Id.Value, product.Category.Name)
         );
 
-    public static GetProductResponse ToGetProductResponse(this GetProductByIdDto dto)
+    public static GetProductResponse ToGetProductResponse(this GetProductByIdDto product)
         => new(
-            Id: dto.Id.Value,
-            Name: dto.Name,
-            Price: new(dto.Price),
-            Description: dto.Description,
-            UploadDate: dto.UploadDate.ToString(DateFormatString),
-            Category: new(dto.Category.Id.Value, dto.Category.Name),
-            CamCoordinates: dto.Cad.CamCoordinates.ToCoordinatesDto(),
-            PanCoordinates: dto.Cad.PanCoordinates.ToCoordinatesDto(),
-            CadKey: dto.Cad.Key
+            Id: product.Id.Value,
+            Name: product.Name,
+            Price: new(product.Price),
+            Description: product.Description,
+            UploadDate: product.UploadDate.ToString(DateFormatString),
+            Category: new(product.Category.Id.Value, product.Category.Name),
+            CamCoordinates: product.Cad.CamCoordinates.ToCoordinatesDto(),
+            PanCoordinates: product.Cad.PanCoordinates.ToCoordinatesDto(),
+            CadKey: product.Cad.Key
         );
 
-    public static PostProductResponse ToPostProductResponse(this GetProductByIdDto dto)
+    public static PostProductResponse ToPostProductResponse(this GetProductByIdDto product)
         => new(
-            Id: dto.Id,
-            Name: dto.Name,
-            Description: dto.Description,
-            Price: new(dto.Price),
-            Status: dto.Status,
-            UploadDate: dto.UploadDate.ToString(DateFormatString),
-            CreatorName: dto.CreatorName,
-            Category: new(dto.Category.Id.Value, dto.Category.Name)
+            Id: product.Id,
+            Name: product.Name,
+            Description: product.Description,
+            Price: new(product.Price),
+            Status: product.Status,
+            UploadDate: product.UploadDate.ToString(DateFormatString),
+            CreatorName: product.CreatorName,
+            Category: new(product.Category.Id.Value, product.Category.Name)
         );
 }
