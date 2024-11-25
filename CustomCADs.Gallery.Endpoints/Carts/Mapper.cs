@@ -13,7 +13,7 @@ using static Constants;
 
 public static class Mapper
 {
-    public static GetCartsDto ToGetCartsDto(this GetAllCartsItem cart)
+    public static GetCartsDto ToGetCartsDto(this GetAllCartsDto cart)
         => new(
             Id: cart.Id.Value,
             Total: cart.Total,
@@ -21,7 +21,7 @@ public static class Mapper
             ItemsCount: cart.ItemsCount
         );
 
-    public static RecentCartsResponse ToRecentCartsResponse(this GetAllCartsItem cart)
+    public static RecentCartsResponse ToRecentCartsResponse(this GetAllCartsDto cart)
         => new(
             Id: cart.Id.Value,
             PurchaseDate: cart.PurchaseDate.ToString(DateFormatString)

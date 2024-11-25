@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Queries.GetAll;
+using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Get.All;
 
@@ -20,11 +21,11 @@ public class GetCartsEndpoint(IRequestSender sender)
             Page: req.Page,
             Limit: req.Limit
         );
-        GetAllCartsDto carts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllCartsDto> carts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         GetCartsResponse response = new(
             Count: carts.Count,
-            Carts: [.. carts.Carts.Select(c => c.ToGetCartsDto())]
+            Carts: [.. carts.Items.Select(c => c.ToGetCartsDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

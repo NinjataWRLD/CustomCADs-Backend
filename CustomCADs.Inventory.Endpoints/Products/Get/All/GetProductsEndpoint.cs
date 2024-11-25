@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetAll;
+using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.All;
 
@@ -21,11 +22,11 @@ public class GetProductsEndpoint(IRequestSender sender)
             Page: req.Page,
             Limit: req.Limit
         );
-        GetAllProductsDto result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         GetProductsResponse response = new(
             result.Count,
-            result.Products.Select(p => p.ToGetProductsDto()).ToArray()
+            [.. result.Items.Select(p => p.ToGetProductsDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

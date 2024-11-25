@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Orders.Domain.Orders.Reads;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 using CustomCADs.Shared.Persistence;
@@ -10,7 +11,7 @@ namespace CustomCADs.Orders.Persistence.Orders.Reads;
 
 public class OrderReads(OrdersContext context) : IOrderReads
 {
-    public async Task<OrderResult> AllAsync(OrderQuery query, bool track = true, CancellationToken ct = default)
+    public async Task<Result<Order>> AllAsync(OrderQuery query, bool track = true, CancellationToken ct = default)
     {
         IQueryable<Order> queryable = context.Orders
             .WithTracking(track)

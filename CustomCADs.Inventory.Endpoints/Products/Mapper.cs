@@ -14,7 +14,7 @@ using static Constants;
 
 public static class Mapper
 {
-    public static RecentProductsResponse ToRecentProductsResponse(this GetAllProductsItem product)
+    public static RecentProductsResponse ToRecentProductsResponse(this GetAllProductsDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
@@ -23,7 +23,7 @@ public static class Mapper
             Category: new(product.Category.Id.Value, product.Category.Name)
         );
 
-    public static GetProductsDto ToGetProductsDto(this GetAllProductsItem product)
+    public static GetProductsDto ToGetProductsDto(this GetAllProductsDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,

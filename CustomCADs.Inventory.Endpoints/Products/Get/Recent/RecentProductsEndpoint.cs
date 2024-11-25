@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Domain.Products.Enums;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 
 public class RecentProductsEndpoint(IRequestSender sender)
-    : Endpoint<RecentProductsRequest, IEnumerable<RecentProductsResponse>>
+    : Endpoint<RecentProductsRequest, RecentProductsResponse[]>
 {
     public override void Configure()
     {
@@ -21,9 +22,9 @@ public class RecentProductsEndpoint(IRequestSender sender)
             Sorting: new(ProductSortingType.UploadDate, SortingDirection.Descending),
             Limit: req.Limit
         );
-        GetAllProductsDto dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllProductsDto> dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = dto.Products.Select(p => p.ToRecentProductsResponse());
+        RecentProductsResponse[] response = [.. dto.Items.Select(p => p.ToRecentProductsResponse())];
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

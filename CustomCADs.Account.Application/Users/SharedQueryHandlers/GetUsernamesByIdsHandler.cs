@@ -1,4 +1,6 @@
-﻿using CustomCADs.Account.Domain.Users.Reads;
+﻿using CustomCADs.Account.Domain.Users;
+using CustomCADs.Account.Domain.Users.Reads;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.UseCases.Users.Queries;
 
@@ -10,8 +12,8 @@ public class GetUsernamesByIdsHandler(IUserReads reads)
     public async Task<IEnumerable<(UserId Id, string Username)>> Handle(GetUsernamesByIdsQuery req, CancellationToken ct)
     {
         UserQuery query = new(Ids: req.Ids);
-        UserResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
+        Result<User> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        return result.Users.Select(u => (u.Id, u.Username));
+        return result.Items.Select(u => (u.Id, u.Username));
     }
 }

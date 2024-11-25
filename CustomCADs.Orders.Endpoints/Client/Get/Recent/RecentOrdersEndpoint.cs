@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Domain.Orders.Enums;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Orders.Endpoints.Client.Get.Recent;
 
 public class RecentOrdersEndpoint(IRequestSender sender)
-    : Endpoint<RecentOrdersRequest, ICollection<RecentOrdersResponse>>
+    : Endpoint<RecentOrdersRequest, RecentOrdersResponse[]>
 {
     public override void Configure()
     {
@@ -21,12 +22,9 @@ public class RecentOrdersEndpoint(IRequestSender sender)
             Sorting: new(OrderSortingType.OrderDate, SortingDirection.Descending),
             Limit: req.Limit
         );
-        GetAllOrdersDto orders = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllOrdersDto> orders = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        ICollection<RecentOrdersResponse> response =
-        [
-            .. orders.Orders.Select(o => o.ToRecentOrdersResponse())
-        ];
+        RecentOrdersResponse[] response = [.. orders.Items.Select(o => o.ToRecentOrdersResponse())];
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Account.Domain.Users.ValueObjects;
+using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
@@ -11,4 +12,4 @@ public record GetAllUsersQuery(
     UserSorting? Sorting = null,
     int Page = 1,
     int Limit = 20
-) : IQuery<GetAllUsersDto>;
+) : IQuery<Result<GetAllUsersItem>>;

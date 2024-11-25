@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Entities;
 using CustomCADs.Gallery.Domain.Carts.Reads;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 using CustomCADs.Shared.Persistence;
@@ -10,7 +11,7 @@ namespace CustomCADs.Gallery.Persistence.Carts.Reads;
 
 public class CartReads(GalleryContext context) : ICartReads
 {
-    public async Task<CartResult> AllAsync(CartQuery query, bool track = true, CancellationToken ct = default)
+    public async Task<Result<Cart>> AllAsync(CartQuery query, bool track = true, CancellationToken ct = default)
     {
         IQueryable<Cart> queryable = context.Carts
             .WithTracking(track)

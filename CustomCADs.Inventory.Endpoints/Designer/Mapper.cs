@@ -7,7 +7,7 @@ using static Constants;
 
 public static class Mapper
 {
-    public static GetUncheckedProductsDto ToGetUncheckedProductsDto(this GetAllProductsItem item)
+    public static GetUncheckedProductsDto ToGetUncheckedProductsDto(this GetAllProductsDto item)
         => new(
             Id: item.Id.Value,
             Name: item.Name,

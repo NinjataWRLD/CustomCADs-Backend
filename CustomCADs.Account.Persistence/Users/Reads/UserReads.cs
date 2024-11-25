@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Users;
 using CustomCADs.Account.Domain.Users.Reads;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.Persistence;
 
@@ -7,7 +8,7 @@ namespace CustomCADs.Account.Persistence.Users.Reads;
 
 public class UserReads(AccountContext context) : IUserReads
 {
-    public async Task<UserResult> AllAsync(UserQuery query, bool track = true, CancellationToken ct = default)
+    public async Task<Result<User>> AllAsync(UserQuery query, bool track = true, CancellationToken ct = default)
     {
         IQueryable<User> queryable = context.Users
             .WithTracking(track)
