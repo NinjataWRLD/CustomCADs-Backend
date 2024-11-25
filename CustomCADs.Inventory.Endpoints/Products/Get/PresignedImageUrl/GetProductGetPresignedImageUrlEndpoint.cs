@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetImageUrlGet;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.PresignedImageUrl;
 

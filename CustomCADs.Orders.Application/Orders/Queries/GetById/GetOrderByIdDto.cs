@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Orders.Domain.Orders.Enums;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Orders;
+using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetById;
 

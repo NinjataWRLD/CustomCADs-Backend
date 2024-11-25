@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Account.Domain.Common;
 using CustomCADs.Account.Domain.Users;
 using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.IntegrationEvents.Account.Users;
 
 namespace CustomCADs.Account.Application.Users.Commands.Create;

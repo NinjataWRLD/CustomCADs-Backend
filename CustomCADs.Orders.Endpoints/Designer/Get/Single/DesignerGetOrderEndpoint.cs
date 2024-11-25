@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Endpoints.Client;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
+using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Get.Single;
 

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Inventory.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 using CustomCADs.Shared.UseCases.Users.Queries;
 

@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Inventory.Domain.Common;
 using CustomCADs.Inventory.Domain.Products;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.Create;

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Account.Domain.Users.Enums;
-using CustomCADs.Shared.Core.Domain.Enums;
+using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Account.Endpoints.Users.Get.All;
 

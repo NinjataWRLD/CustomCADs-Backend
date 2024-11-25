@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Delete;
 using CustomCADs.Categories.Application.Categories.Queries.ExistsById;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Categories.Endpoints.Categories.Delete;
 

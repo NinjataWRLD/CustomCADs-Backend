@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Begin;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
+using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Patch.Begin;
 

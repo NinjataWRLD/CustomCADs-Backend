@@ -5,8 +5,8 @@ using CustomCADs.Inventory.Endpoints.Products.Get.All;
 using CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
 using CustomCADs.Inventory.Endpoints.Products.Post;
-using CustomCADs.Shared.Core.Domain.ValueObjects;
-using CustomCADs.Shared.Core.Dtos;
+using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Endpoints.Products;
 

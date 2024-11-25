@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.Events;
+﻿using CustomCADs.Shared.Core.Bases.Events;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Inventory.Domain.Products.DomainEvents;
 

@@ -2,11 +2,12 @@
 using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Inventory.Domain.Products.Validation;
 using CustomCADs.Inventory.Domain.Products.ValueObjects;
-using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.Domain.ValueObjects;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
+using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
+using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Domain.Products;
 

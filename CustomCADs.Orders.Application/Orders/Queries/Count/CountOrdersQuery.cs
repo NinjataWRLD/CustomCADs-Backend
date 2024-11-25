@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.Orders.Enums;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.Count;
 

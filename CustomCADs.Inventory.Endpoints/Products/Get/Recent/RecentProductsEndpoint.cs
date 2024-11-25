@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Domain.Products.Enums;
-using CustomCADs.Shared.Core.Domain.Enums;
+using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 

@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Account.Domain.Users.Reads;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
+
+namespace CustomCADs.Account.Domain.Users.Reads;
 
 public interface IUserReads
 {

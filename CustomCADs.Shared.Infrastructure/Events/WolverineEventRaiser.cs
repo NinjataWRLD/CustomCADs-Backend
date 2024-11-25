@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Shared.Application.Events;
-using CustomCADs.Shared.Core.Common.Events;
+using CustomCADs.Shared.Core.Bases.Events;
 using Wolverine;
 
 namespace CustomCADs.Shared.Infrastructure.Events;

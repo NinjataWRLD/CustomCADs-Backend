@@ -2,7 +2,8 @@
 using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
+using CustomCADs.Shared.Core.Common.TypedIds.Orders;
+using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Create;

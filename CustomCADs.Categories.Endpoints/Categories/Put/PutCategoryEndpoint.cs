@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands;
 using CustomCADs.Categories.Application.Categories.Commands.Edit;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Categories.Endpoints.Categories.Put;
 

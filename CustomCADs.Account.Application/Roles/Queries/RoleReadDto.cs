@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.Account.Application.Roles.Queries;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
+
+namespace CustomCADs.Account.Application.Roles.Queries;
 
 public record RoleReadDto(RoleId Id, string Name, string Description);

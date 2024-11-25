@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Categories.Domain.Categories.Validation;
-using CustomCADs.Shared.Core.Domain;
+using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Categories.Domain.Categories;
 

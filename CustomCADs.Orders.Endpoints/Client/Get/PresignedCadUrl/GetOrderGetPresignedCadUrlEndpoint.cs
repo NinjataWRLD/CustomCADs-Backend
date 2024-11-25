@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.GetCadUrlGet;
 using CustomCADs.Orders.Endpoints.Designer;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
+using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Client.Get.PresignedCadUrl;
 

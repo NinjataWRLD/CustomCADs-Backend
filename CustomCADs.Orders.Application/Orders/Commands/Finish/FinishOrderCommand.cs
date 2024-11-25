@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Finish;
 

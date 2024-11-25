@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPut;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Put.PresignedUrl;
 

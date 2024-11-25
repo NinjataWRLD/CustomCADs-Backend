@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Commands.Delete;
 using CustomCADs.Gallery.Application.Carts.Queries.IsBuyer;
 using CustomCADs.Gallery.Endpoints.Helpers;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Gallery;
+using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Delete;
 

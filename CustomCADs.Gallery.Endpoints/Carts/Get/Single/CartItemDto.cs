@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Dtos;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Get.Single;
 

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Inventory.Application.Products.Commands.SetStatus;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Patch;
 

@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Shared.UseCases.Cads.Commands;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+
+namespace CustomCADs.Shared.UseCases.Cads.Commands;
 
 public record SetCadKeyCommand(
     CadId Id,

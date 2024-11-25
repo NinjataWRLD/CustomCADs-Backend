@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using System.Security.Claims;
 
 namespace CustomCADs.Shared.Core;

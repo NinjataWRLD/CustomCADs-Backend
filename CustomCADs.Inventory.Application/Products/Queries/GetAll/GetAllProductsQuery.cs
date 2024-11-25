@@ -1,6 +1,6 @@
 using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Inventory.Domain.Products.ValueObjects;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetAll;
 

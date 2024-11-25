@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.Events;
+﻿using CustomCADs.Shared.Core.Bases.Events;
 
 namespace CustomCADs.Shared.Application.Events;
 

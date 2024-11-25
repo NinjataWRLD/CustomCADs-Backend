@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Roles.Validation;
-using CustomCADs.Shared.Core.Domain;
+using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using RoleDto = (int Id, string Name, string Description);
 
 namespace CustomCADs.Account.Domain.Roles;

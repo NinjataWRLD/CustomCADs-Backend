@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Enums;
 using CustomCADs.Gallery.Domain.Carts.ValueObjects;
-using CustomCADs.Shared.Core.Domain.Enums;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
 namespace CustomCADs.Gallery.Persistence.Carts.Reads;
 

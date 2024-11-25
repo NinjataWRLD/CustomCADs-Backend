@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Create;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Endpoints.Client.Get.Single;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
+using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Client.Post;
 

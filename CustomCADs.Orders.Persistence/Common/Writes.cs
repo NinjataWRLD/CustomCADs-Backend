@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Shared.Core.Domain;
+using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Orders.Persistence.Common;
 

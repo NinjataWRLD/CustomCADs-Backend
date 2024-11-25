@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Cads.Domain.Cads.Reads;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+
+namespace CustomCADs.Cads.Domain.Cads.Reads;
 
 public interface ICadReads
 {

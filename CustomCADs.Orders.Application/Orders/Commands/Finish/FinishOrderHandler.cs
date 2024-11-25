@@ -4,7 +4,7 @@ using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Finish;

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Gallery.Domain.Common;
-using CustomCADs.Shared.Core.Domain;
+using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Gallery.Persistence.Common;
 

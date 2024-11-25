@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Bases.Exceptions;
 
 namespace CustomCADs.Auth.Application.Common.Exceptions.Roles;
 

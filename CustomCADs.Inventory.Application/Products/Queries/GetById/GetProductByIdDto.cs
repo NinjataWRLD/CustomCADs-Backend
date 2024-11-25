@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Inventory.Domain.Products.ValueObjects;
-using CustomCADs.Shared.Core.Domain.ValueObjects;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
+using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetById;
 
