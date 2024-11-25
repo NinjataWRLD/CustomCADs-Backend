@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.IntegrationEvents.Inventory;
 
 namespace CustomCADs.Orders.Application.Orders.IntegrationEventHandlers;
@@ -10,9 +11,9 @@ public class ProductDeletedIntegrationEventHandler(IOrderReads reads, IWrites<Or
     public async Task Handle(ProductDeletedIntegrationEvent _)
     {
         OrderQuery query = new();
-        OrderResult result = await reads.AllAsync(query);
+        Result<Order> result = await reads.AllAsync(query);
 
-        writes.RemoveRange(result.Orders);
+        writes.RemoveRange(result.Items);
         await uow.SaveChangesAsync();
     }
 }

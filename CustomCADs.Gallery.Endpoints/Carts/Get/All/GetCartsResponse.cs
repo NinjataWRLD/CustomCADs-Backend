@@ -2,5 +2,5 @@
 
 public record GetCartsResponse(
     int Count,
-    ICollection<GetCartsDto> Carts
+    GetCartsDto[] Carts
 );

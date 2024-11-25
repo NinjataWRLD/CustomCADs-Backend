@@ -1,11 +1,13 @@
-﻿using CustomCADs.Account.Domain.Users.Reads;
+﻿using CustomCADs.Account.Domain.Users;
+using CustomCADs.Account.Domain.Users.Reads;
+using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
 public class GetAllUsersHandler(IUserReads reads)
-    : IQueryHandler<GetAllUsersQuery, GetAllUsersDto>
+    : IQueryHandler<GetAllUsersQuery, Result<GetAllUsersItem>>
 {
-    public async Task<GetAllUsersDto> Handle(GetAllUsersQuery req, CancellationToken ct)
+    public async Task<Result<GetAllUsersItem>> Handle(GetAllUsersQuery req, CancellationToken ct)
     {
         UserQuery query = new(
             Role: req.Role,
@@ -17,11 +19,11 @@ public class GetAllUsersHandler(IUserReads reads)
             Page: req.Page,
             Limit: req.Limit
         );
-        UserResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
+        Result<User> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
         return new(
             result.Count,
-            result.Users.Select(u => u.ToGetAllUsersItem()).ToArray()
+            [.. result.Items.Select(u => u.ToGetAllUsersItem())]
         );
     }
 }

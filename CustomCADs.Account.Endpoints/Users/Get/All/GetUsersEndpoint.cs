@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Account.Application.Users.Queries.GetAll;
+using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Account.Endpoints.Users.Get.All;
 
@@ -20,11 +21,11 @@ public class GetUsersEndpoint(IRequestSender sender)
             Page: req.Page,
             Limit: req.Limit
         );
-        GetAllUsersDto result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllUsersItem> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         GetUsersResponse response = new(
             result.Count,
-            result.Users.Select(u => u.ToUserResponse()).ToArray()
+            [.. result.Items.Select(u => u.ToUserResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

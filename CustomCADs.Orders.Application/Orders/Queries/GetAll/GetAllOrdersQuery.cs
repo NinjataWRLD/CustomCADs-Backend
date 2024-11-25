@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Orders.Domain.Orders.ValueObjects;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetAll;
@@ -13,4 +14,4 @@ public record GetAllOrdersQuery(
     OrderSorting? Sorting = null,
     int Page = 1,
     int Limit = 20
-) : IQuery<GetAllOrdersDto>;
+) : IQuery<Result<GetAllOrdersDto>>;

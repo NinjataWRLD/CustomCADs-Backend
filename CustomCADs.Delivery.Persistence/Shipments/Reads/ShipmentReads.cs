@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments;
 using CustomCADs.Delivery.Domain.Shipments.Reads;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace CustomCADs.Delivery.Persistence.Shipments.Reads;
 
 public class ShipmentReads(DeliveryContext context) : IShipmentReads
 {
-    public async Task<ShipmentResult> AllAsync(ShipmentQuery query, bool track = true, CancellationToken ct = default)
+    public async Task<Result<Shipment>> AllAsync(ShipmentQuery query, bool track = true, CancellationToken ct = default)
     {
         IQueryable<Shipment> queryable = context.Shipments
             .WithFilter(query.ClientId, query.ShipmentStatus)

@@ -17,7 +17,7 @@ using static Constants;
 
 public static class Mapper
 {
-    public static GetOrdersDto ToGetOrdersDto(this GetAllOrdersItem order)
+    public static GetOrdersDto ToGetOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -26,7 +26,7 @@ public static class Mapper
             OrderStatus: order.OrderStatus.ToString()
         );
 
-    public static RecentOrdersResponse ToRecentOrdersResponse(this GetAllOrdersItem order)
+    public static RecentOrdersResponse ToRecentOrdersResponse(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -72,7 +72,7 @@ public static class Mapper
             ShipmentId: order.DesignerId?.Value
         );
 
-    public static GetPendingOrdersDto ToGetPendingOrdersDto(this GetAllOrdersItem order)
+    public static GetPendingOrdersDto ToGetPendingOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -81,7 +81,7 @@ public static class Mapper
             BuyerName: order.BuyerName
         );
 
-    public static GetAcceptedOrdersDto ToGetAcceptedOrdersDto(this GetAllOrdersItem order)
+    public static GetAcceptedOrdersDto ToGetAcceptedOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -90,7 +90,7 @@ public static class Mapper
             BuyerName: order.BuyerName
         );
 
-    public static GetBegunOrdersDto ToGetBegunOrdersDto(this GetAllOrdersItem order)
+    public static GetBegunOrdersDto ToGetBegunOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -99,7 +99,7 @@ public static class Mapper
             BuyerName: order.BuyerName
         );
 
-    public static GetFinishedOrdersDto ToGetFinishedOrdersDto(this GetAllOrdersItem order)
+    public static GetFinishedOrdersDto ToGetFinishedOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -108,7 +108,7 @@ public static class Mapper
             BuyerName: order.BuyerName
         );
 
-    public static GetReportedOrdersDto ToGetReportedOrdersDto(this GetAllOrdersItem order)
+    public static GetReportedOrdersDto ToGetReportedOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,

@@ -9,7 +9,7 @@ namespace CustomCADs.Inventory.Application.Products;
 
 public static class Mapper
 {
-    public static GetAllProductsItem ToGetAllProductsItem(this Product product, string username, string categoryName)
+    public static GetAllProductsDto ToGetAllProductsItem(this Product product, string username, string categoryName)
         => new(
             Id: product.Id,
             Name: product.Name,

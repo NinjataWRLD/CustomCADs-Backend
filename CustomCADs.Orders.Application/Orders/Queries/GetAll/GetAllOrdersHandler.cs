@@ -1,14 +1,16 @@
-﻿using CustomCADs.Orders.Domain.Orders.Reads;
+﻿using CustomCADs.Orders.Domain.Orders;
+using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetAll;
 
 public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
-    : IQueryHandler<GetAllOrdersQuery, GetAllOrdersDto>
+    : IQueryHandler<GetAllOrdersQuery, Result<GetAllOrdersDto>>
 {
-    public async Task<GetAllOrdersDto> Handle(GetAllOrdersQuery req, CancellationToken ct)
+    public async Task<Result<GetAllOrdersDto>> Handle(GetAllOrdersQuery req, CancellationToken ct)
     {
         OrderQuery query = new(
             DeliveryType: req.DeliveryType,
@@ -20,11 +22,11 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
             Page: req.Page,
             Limit: req.Limit
         );
-        OrderResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
+        Result<Order> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        UserId[] buyerIds = [.. result.Orders.Select(o => o.BuyerId)];
+        UserId[] buyerIds = [.. result.Items.Select(o => o.BuyerId)];
         UserId[] designerIds = [
-            .. result.Orders
+            .. result.Items
             .Where(o => o.DesignerId is not null)
             .Select(o => o.DesignerId!.Value)
         ];
@@ -37,13 +39,13 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
 
         return new(
             result.Count,
-            result.Orders
+            result.Items
                 .Select(o =>
                 {
-                    var (_, buyerUsername) = buyersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
-                    var (_, designerUsername) = designersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
+                    var (_, BuyerUsername) = buyersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
+                    var (_, DesignerUsername) = designersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
 
-                    return o.ToGetAllOrdersItem(buyerUsername, designerUsername);
+                    return o.ToGetAllOrdersItem(BuyerUsername, DesignerUsername);
                 })
                 .ToArray()
         );

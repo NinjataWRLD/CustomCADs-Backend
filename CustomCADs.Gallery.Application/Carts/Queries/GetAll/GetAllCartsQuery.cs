@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Gallery.Domain.Carts.ValueObjects;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetAll;
@@ -8,4 +9,4 @@ public record GetAllCartsQuery(
     CartSorting? Sorting = null,
     int Page = 1,
     int Limit = 20
-) : IQuery<GetAllCartsDto>;
+) : IQuery<Result<GetAllCartsDto>>;

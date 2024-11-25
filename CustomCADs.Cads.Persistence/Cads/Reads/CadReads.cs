@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Cads.Domain.Cads;
 using CustomCADs.Cads.Domain.Cads.Reads;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace CustomCADs.Cads.Persistence.Cads.Reads;
 
 public class CadReads(CadsContext context) : ICadReads
 {
-    public async Task<CadResult> AllAsync(CadQuery query, bool track = true, CancellationToken ct = default)
+    public async Task<Result<Cad>> AllAsync(CadQuery query, bool track = true, CancellationToken ct = default)
     {
         IQueryable<Cad> queryable = context.Cads
             .WithSorting(query.Sorting);

@@ -9,7 +9,7 @@ namespace CustomCADs.Gallery.Application.Carts;
 
 public static class Mapper
 {
-    public static GetAllCartsItem ToGetAllCartsItem(this Cart cart)
+    public static GetAllCartsDto ToGetAllCartsItem(this Cart cart)
         => new(
             Id: cart.Id,
             Total: cart.Total,

@@ -1,11 +1,13 @@
-﻿using CustomCADs.Gallery.Domain.Carts.Reads;
+﻿using CustomCADs.Gallery.Domain.Carts;
+using CustomCADs.Gallery.Domain.Carts.Reads;
+using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetAll;
 
 public class GetAllCartsHandler(ICartReads reads)
-    : IQueryHandler<GetAllCartsQuery, GetAllCartsDto>
+    : IQueryHandler<GetAllCartsQuery, Result<GetAllCartsDto>>
 {
-    public async Task<GetAllCartsDto> Handle(GetAllCartsQuery req, CancellationToken ct)
+    public async Task<Result<GetAllCartsDto>> Handle(GetAllCartsQuery req, CancellationToken ct)
     {
         CartQuery query = new(
             BuyerId: req.BuyerId,
@@ -13,13 +15,11 @@ public class GetAllCartsHandler(ICartReads reads)
             Page: req.Page,
             Limit: req.Limit
         );
-        CartResult result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
+        Result<Cart> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
         return new(
             result.Count,
-            result.Carts
-                .Select(c => c.ToGetAllCartsItem())
-                .ToArray()
+            [.. result.Items.Select(c => c.ToGetAllCartsItem())]
         );
     }
 }

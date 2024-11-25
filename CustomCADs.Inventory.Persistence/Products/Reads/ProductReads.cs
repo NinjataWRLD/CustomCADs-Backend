@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Inventory.Domain.Products;
 using CustomCADs.Inventory.Domain.Products.Reads;
+using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 using CustomCADs.Shared.Persistence;
@@ -8,7 +9,7 @@ namespace CustomCADs.Inventory.Persistence.Products.Reads;
 
 public class ProductReads(InventoryContext context) : IProductReads
 {
-    public async Task<ProductResult> AllAsync(ProductQuery query, bool track = true, CancellationToken ct = default)
+    public async Task<Result<Product>> AllAsync(ProductQuery query, bool track = true, CancellationToken ct = default)
     {
         IQueryable<Product> queryable = context.Products
                 .WithTracking(track)

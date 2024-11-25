@@ -2,9 +2,7 @@
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetAll;
 
-public record GetAllCartsDto(int Count, ICollection<GetAllCartsItem> Carts);
-
-public record GetAllCartsItem(
+public record GetAllCartsDto(
     CartId Id,
     decimal Total,
     DateTime PurchaseDate,

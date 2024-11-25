@@ -4,9 +4,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetAll;
 
-public record GetAllProductsDto(int Count, ICollection<GetAllProductsItem> Products);
-
-public record GetAllProductsItem(
+public record GetAllProductsDto(
     ProductId Id,
     string Name,
     string Status,
