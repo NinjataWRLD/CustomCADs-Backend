@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Bases.Exceptions;
+using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
 

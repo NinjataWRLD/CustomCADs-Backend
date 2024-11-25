@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Cads.Domain.Cads.Validation;
-using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.Domain.ValueObjects;
+using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Cads.Domain.Cads;
 

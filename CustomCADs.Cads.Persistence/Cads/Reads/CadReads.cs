@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Cads.Domain.Cads;
 using CustomCADs.Cads.Domain.Cads.Reads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
 

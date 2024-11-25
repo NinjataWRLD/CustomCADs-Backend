@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Common;
+using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.Create;
 

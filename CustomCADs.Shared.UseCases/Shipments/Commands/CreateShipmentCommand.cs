@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
 
 namespace CustomCADs.Shared.UseCases.Shipments.Commands;
 

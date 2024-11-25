@@ -1,8 +1,9 @@
-﻿using CadDto = (
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+using CadDto = (
     string Key,
     string ContentType,
-    CustomCADs.Shared.Core.Dtos.CoordinatesDto CamCoordinates,
-    CustomCADs.Shared.Core.Dtos.CoordinatesDto PanCoordinates
+    CustomCADs.Shared.Core.Common.Dtos.CoordinatesDto CamCoordinates,
+    CustomCADs.Shared.Core.Common.Dtos.CoordinatesDto PanCoordinates
 );
 
 namespace CustomCADs.Shared.UseCases.Cads.Queries;

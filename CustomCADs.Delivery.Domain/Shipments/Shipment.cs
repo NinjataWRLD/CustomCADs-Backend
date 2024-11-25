@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.Enums;
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
-using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
+using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
 
 namespace CustomCADs.Delivery.Domain.Shipments;
 

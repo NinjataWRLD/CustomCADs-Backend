@@ -2,6 +2,7 @@
 using CustomCADs.Categories.Domain.Categories.DomainEvents;
 using CustomCADs.Categories.Domain.Common;
 using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Create;
 

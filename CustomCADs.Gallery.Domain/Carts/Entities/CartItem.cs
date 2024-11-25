@@ -2,11 +2,12 @@
 using CustomCADs.Gallery.Domain.Carts.Validation;
 using CustomCADs.Gallery.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
-using CustomCADs.Shared.Core.Domain;
-using CustomCADs.Shared.Core.Domain.ValueObjects;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Cads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Inventory;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
+using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
+using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
+using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Gallery.Domain.Carts.Entities;
 

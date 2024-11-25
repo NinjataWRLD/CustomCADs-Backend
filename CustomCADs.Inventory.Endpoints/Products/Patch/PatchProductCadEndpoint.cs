@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Inventory.Application.Products;
 using CustomCADs.Inventory.Application.Products.Commands.SetCoords;
 using CustomCADs.Inventory.Application.Products.Queries.IsCreator;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Patch;
 

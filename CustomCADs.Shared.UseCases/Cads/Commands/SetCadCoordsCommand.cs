@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Dtos;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 
 namespace CustomCADs.Shared.UseCases.Cads.Commands;
 

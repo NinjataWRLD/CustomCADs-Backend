@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Orders.Domain.Orders.ValueObjects;
-using CustomCADs.Shared.Core.Domain.Enums;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
 namespace CustomCADs.Orders.Persistence.Orders.Reads;
 

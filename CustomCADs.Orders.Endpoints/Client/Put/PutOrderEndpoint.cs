@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Edit;
 using CustomCADs.Orders.Application.Orders.Queries.IsBuyer;
 using CustomCADs.Orders.Endpoints.Helpers;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Orders;
+using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Client.Put;
 

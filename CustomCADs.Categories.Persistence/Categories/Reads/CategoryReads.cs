@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Categories.Domain.Categories;
 using CustomCADs.Categories.Domain.Categories.Reads;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Categories.Persistence.Categories.Reads;

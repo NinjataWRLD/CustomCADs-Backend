@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Shared.UseCases.Categories.Queries;
 

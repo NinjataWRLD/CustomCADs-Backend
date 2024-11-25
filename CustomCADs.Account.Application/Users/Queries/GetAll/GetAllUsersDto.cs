@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Account.Application.Users.Queries.GetAll;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
+
+namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
 public record GetAllUsersDto(int Count, ICollection<GetAllUsersItem> Users);
 

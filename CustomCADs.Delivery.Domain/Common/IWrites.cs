@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Delivery.Domain.Common;
 

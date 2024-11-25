@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Shipments;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
 
 namespace CustomCADs.Delivery.Domain.Shipments.Reads;
 

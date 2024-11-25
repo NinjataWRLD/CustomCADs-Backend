@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Auth.Application.Common.Exceptions.Users;
 using CustomCADs.Auth.Application.Dtos;
-using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.VerifyEmail;

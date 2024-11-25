@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Cads.Domain.Cads;
 using CustomCADs.Cads.Domain.Cads.Enums;
 using CustomCADs.Cads.Domain.Cads.ValueObjects;
-using CustomCADs.Shared.Core.Domain.Enums;
+using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Cads.Persistence.Cads.Reads;
 

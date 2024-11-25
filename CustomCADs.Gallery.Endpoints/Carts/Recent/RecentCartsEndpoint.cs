@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Queries.GetAll;
 using CustomCADs.Gallery.Domain.Carts.Enums;
-using CustomCADs.Shared.Core.Domain.Enums;
+using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Recent;
 

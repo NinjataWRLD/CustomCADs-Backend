@@ -2,8 +2,8 @@
 using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products;
-using CustomCADs.Shared.Core.Domain.ValueObjects;
-using CustomCADs.Shared.Core.Dtos;
+using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Application.Products;
 
