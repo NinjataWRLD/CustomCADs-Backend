@@ -2,7 +2,7 @@
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
-using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.Delivery.Domain.Shipments;
 

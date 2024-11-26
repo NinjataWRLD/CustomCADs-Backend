@@ -1,1 +1,1 @@
-﻿global using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Gallery;
+﻿global using CustomCADs.Shared.Core.Common.TypedIds.Gallery;

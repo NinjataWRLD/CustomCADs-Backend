@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Users;
 using CustomCADs.Account.Domain.Users.Reads;
 using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Account.Persistence.Users.Reads;

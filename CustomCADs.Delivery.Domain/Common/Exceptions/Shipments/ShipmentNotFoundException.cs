@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Bases.Exceptions;
-using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.Delivery.Domain.Common.Exceptions.Shipments;
 

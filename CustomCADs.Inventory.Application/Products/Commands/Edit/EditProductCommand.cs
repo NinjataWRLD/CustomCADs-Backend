@@ -1,5 +1,4 @@
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.Edit;

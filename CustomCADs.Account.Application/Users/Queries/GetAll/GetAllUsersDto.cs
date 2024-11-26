@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
-
-namespace CustomCADs.Account.Application.Users.Queries.GetAll;
+﻿namespace CustomCADs.Account.Application.Users.Queries.GetAll;
 
 public record GetAllUsersItem(
     UserId Id,

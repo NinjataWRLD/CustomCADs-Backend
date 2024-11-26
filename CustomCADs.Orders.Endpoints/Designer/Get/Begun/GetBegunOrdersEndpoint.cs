@@ -29,7 +29,7 @@ public class GetBegunOrdersEndpoint(IRequestSender sender)
 
         GetBegunOrdersResponse response = new(
             Count: orders.Count,
-            Orders: [.. orders.Orders.Select(o => o.ToGetBegunOrdersDto())]
+            Orders: [.. orders.Items.Select(o => o.ToGetBegunOrdersDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }
