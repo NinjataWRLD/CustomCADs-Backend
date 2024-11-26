@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Application.Products.Queries.IsCreator;
-using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.Single;
 

@@ -1,3 +1,3 @@
 ﻿global using CustomCADs.Shared.Application.Requests.Commands;
 global using CustomCADs.Shared.Application.Requests.Queries;
-global using CustomCADs.Shared.Core.Domain.ValueObjects.Ids.Categories;
+global using CustomCADs.Shared.Core.Common.TypedIds.Categories;

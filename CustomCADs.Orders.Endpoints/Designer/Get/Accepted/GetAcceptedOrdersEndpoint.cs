@@ -29,7 +29,7 @@ public class GetAcceptedOrdersEndpoint(IRequestSender sender)
 
         GetAcceptedOrdersResponse response = new(
             Count: orders.Count,
-            Orders: [.. orders.Orders.Select(o => o.ToGetAcceptedOrdersDto())]
+            Orders: [.. orders.Items.Select(o => o.ToGetAcceptedOrdersDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

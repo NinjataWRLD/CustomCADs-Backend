@@ -29,7 +29,7 @@ public class GetFinishedOrdersEndpoint(IRequestSender sender)
 
         GetFinishedOrdersResponse response = new(
             Count: orders.Count,
-            Orders: [.. orders.Orders.Select(o => o.ToGetFinishedOrdersDto())]
+            Orders: [.. orders.Items.Select(o => o.ToGetFinishedOrdersDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

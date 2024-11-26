@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
-using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Domain.Orders.Reads;
 

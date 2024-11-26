@@ -4,7 +4,6 @@ using CustomCADs.Gallery.Domain.Carts.Reads;
 using CustomCADs.Gallery.Domain.Common;
 using CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.AddItem;

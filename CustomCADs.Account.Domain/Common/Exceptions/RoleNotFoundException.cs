@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Bases.Exceptions;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
 namespace CustomCADs.Account.Domain.Common.Exceptions;
 

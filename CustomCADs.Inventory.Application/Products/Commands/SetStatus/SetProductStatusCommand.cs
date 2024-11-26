@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Inventory.Domain.Products.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.SetStatus;
 

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.Delivery.Domain.Shipments.Reads;
 

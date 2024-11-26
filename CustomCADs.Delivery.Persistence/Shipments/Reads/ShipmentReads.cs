@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments;
 using CustomCADs.Delivery.Domain.Shipments.Reads;
 using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Shipments;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
 

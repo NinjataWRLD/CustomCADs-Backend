@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Domain.Orders.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetAll;
 

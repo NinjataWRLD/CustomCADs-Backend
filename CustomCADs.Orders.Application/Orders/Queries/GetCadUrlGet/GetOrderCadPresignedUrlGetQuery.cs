@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Orders;
-
-namespace CustomCADs.Orders.Application.Orders.Queries.GetCadUrlGet;
+﻿namespace CustomCADs.Orders.Application.Orders.Queries.GetCadUrlGet;
 
 public record GetOrderCadPresignedUrlGetQuery(OrderId Id)
     : IQuery<GetOrderCadPresignedUrlGetDto>;

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
-
-namespace CustomCADs.Gallery.Application.Carts.Queries.GetAll;
+﻿namespace CustomCADs.Gallery.Application.Carts.Queries.GetAll;
 
 public record GetAllCartsDto(
     CartId Id,

@@ -29,7 +29,7 @@ public class GetReportedOrdersEndpoint(IRequestSender sender)
 
         GetReportedOrdersResponse response = new(
             Count: orders.Count,
-            Orders: [.. orders.Orders.Select(o => o.ToGetReportedOrdersDto())]
+            Orders: [.. orders.Items.Select(o => o.ToGetReportedOrdersDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }
