@@ -1,3 +1,4 @@
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.ValueObjects;
 
@@ -7,6 +8,7 @@ public record EditProductCommand(
     ProductId Id,
     string Name,
     string Description,
+    Money Price,
     CategoryId CategoryId,
-    Money Price
+    UserId CreatorId
 ) : ICommand;

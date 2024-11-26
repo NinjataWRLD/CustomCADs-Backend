@@ -13,6 +13,11 @@ public class EditProductHandler(IProductReads reads, IUnitOfWork uow)
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
+        if (product.CreatorId != req.CreatorId)
+        {
+            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+        }
+
         product
             .SetName(req.Name)
             .SetDescription(req.Description)

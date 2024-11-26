@@ -5,7 +5,7 @@ using CustomCADs.Cads.Domain.Common.Exceptions.Cads;
 using CustomCADs.Shared.Application.Requests.Commands;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
-namespace CustomCADs.Cads.Application.Cads.SharedCommandsHandlers;
+namespace CustomCADs.Cads.Application.Cads.SharedCommandHandlers;
 
 public class CadKeyUpdateRequestedHandler(ICadReads reads, IUnitOfWork uow)
     : ICommandHandler<SetCadKeyCommand>

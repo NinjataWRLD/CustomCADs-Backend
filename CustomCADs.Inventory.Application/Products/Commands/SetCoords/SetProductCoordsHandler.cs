@@ -14,6 +14,11 @@ public class SetProductCoordsHandler(IProductReads reads, IRequestSender sender)
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
+        if (product.CreatorId != req.CreatorId)
+        {
+            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+        }
+
         SetCadCoordsCommand command = new(
             Id: product.CadId,
             CamCoordinates: req.CamCoordinates?.ToCoordinatesDto(),

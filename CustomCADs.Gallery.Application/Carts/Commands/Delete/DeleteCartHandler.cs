@@ -13,6 +13,11 @@ public class DeleteCartHandler(ICartReads reads, IWrites<Cart> writes, IUnitOfWo
         Cart cart = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw CartNotFoundException.ById(req.Id);
 
+        if (cart.BuyerId == req.BuyerId)
+        {
+            throw CartValidationException.Custom("Cannot modify another Buyer's Carts.");
+        }
+
         writes.Remove(cart);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }

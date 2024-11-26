@@ -1,12 +1,6 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Commands.Delete;
-using CustomCADs.Gallery.Application.Carts.Queries.IsBuyer;
-using CustomCADs.Gallery.Endpoints.Helpers;
-using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Delete;
-
-using static ApiMessages;
-
 public class DeleteCartEndpoint(IRequestSender sender)
     : Endpoint<DeleteCartRequest>
 {
@@ -19,19 +13,11 @@ public class DeleteCartEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteCartRequest req, CancellationToken ct)
     {
-        CartId id = new(req.Id);
-        IsCartBuyerQuery query = new(id, User.GetAccountId());
-
-        bool userIsBuyer = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-        if (!userIsBuyer)
-        {
-            ValidationFailures.Add(new("Id", ForbiddenAccess, id));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-
-        DeleteCartCommand commnad = new(id);
-        await sender.SendCommandAsync(commnad, ct).ConfigureAwait(false);
+        DeleteCartCommand command = new(
+            Id: new(req.Id),
+            BuyerId: User.GetAccountId()
+        );
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

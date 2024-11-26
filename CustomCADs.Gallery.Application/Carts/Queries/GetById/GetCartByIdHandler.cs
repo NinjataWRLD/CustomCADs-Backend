@@ -12,6 +12,11 @@ public class GetCartByIdHandler(ICartReads reads)
         Cart cart = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CartNotFoundException.ById(req.Id);
 
+        if (cart.BuyerId == req.BuyerId)
+        {
+            throw CartValidationException.Custom("Cannot modify another Buyer's Carts.");
+        }
+
         return cart.ToGetCartByIdDto();
     }
 }

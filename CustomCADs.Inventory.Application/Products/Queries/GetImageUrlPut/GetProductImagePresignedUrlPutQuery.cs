@@ -1,7 +1,10 @@
-﻿namespace CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPut;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
+
+namespace CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPut;
 
 public record GetProductImagePresignedUrlPutQuery(
-    string ImageKey,
+    ProductId Id,
     string ContentType,
-    string FileName
+    string FileName,
+    UserId CreatorId
 ) : IQuery<GetProductImagePresignedUrlPutDto>;

@@ -1,3 +1,8 @@
-﻿namespace CustomCADs.Gallery.Application.Carts.Queries.GetById;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
-public record GetCartByIdQuery(CartId Id) : IQuery<GetCartByIdDto>;
+namespace CustomCADs.Gallery.Application.Carts.Queries.GetById;
+
+public record GetCartByIdQuery(
+    CartId Id,
+    UserId BuyerId
+) : IQuery<GetCartByIdDto>;

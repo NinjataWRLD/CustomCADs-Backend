@@ -3,12 +3,12 @@ using CustomCADs.Inventory.Domain.Products;
 using CustomCADs.Inventory.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Storage;
 
-namespace CustomCADs.Inventory.Application.Products.Queries.GetImageUrlGet;
+namespace CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPut;
 
-public class GetProductImagePresignedUrlGetHandler(IProductReads reads, IStorageService storage)
-    : IQueryHandler<GetProductImagePresignedUrlGetQuery, GetProductImagePresignedUrlGetDto>
+public class GetProductImagePresignedUrlPutHandler(IProductReads reads, IStorageService storage)
+    : IQueryHandler<GetProductImagePresignedUrlPutQuery, GetProductImagePresignedUrlPutDto>
 {
-    public async Task<GetProductImagePresignedUrlGetDto> Handle(GetProductImagePresignedUrlGetQuery req, CancellationToken ct)
+    public async Task<GetProductImagePresignedUrlPutDto> Handle(GetProductImagePresignedUrlPutQuery req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
@@ -18,12 +18,13 @@ public class GetProductImagePresignedUrlGetHandler(IProductReads reads, IStorage
             throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
         }
 
-        string imageUrl = await storage.GetPresignedGetUrlAsync(
+        string url = await storage.GetPresignedPutUrlAsync(
             key: product.Image.Key,
-            contentType: product.Image.ContentType
+            contentType: req.ContentType,
+            fileName: req.FileName
         ).ConfigureAwait(false);
 
-        GetProductImagePresignedUrlGetDto response = new(imageUrl);
+        GetProductImagePresignedUrlPutDto response = new(PresignedUrl: url);
         return response;
     }
 }

@@ -13,6 +13,11 @@ public class EditOrderHandler(IOrderReads reads, IUnitOfWork uow)
         Order order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
+        if (order.BuyerId != req.BuyerId)
+        {
+            throw OrderValidationException.Custom("Cannot modify another Buyer's Orders.");
+        }
+
         order.SetName(req.Name ?? order.Name);
         order.SetDescription(req.Description ?? order.Description);
 

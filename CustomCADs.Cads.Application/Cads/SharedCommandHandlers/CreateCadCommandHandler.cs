@@ -4,7 +4,7 @@ using CustomCADs.Shared.Application.Requests.Commands;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
-namespace CustomCADs.Cads.Application.Cads.SharedCommandsHandlers;
+namespace CustomCADs.Cads.Application.Cads.SharedCommandHandlers;
 
 public class CreateCadCommandHandler(IWrites<Cad> writes, IUnitOfWork uow)
     : ICommandHandler<CreateCadCommand, CadId>

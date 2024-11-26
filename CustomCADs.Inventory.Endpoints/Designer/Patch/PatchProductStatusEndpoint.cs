@@ -14,8 +14,11 @@ public class PatchProductStatusEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PatchProductStatusRequest req, CancellationToken ct)
     {
-        ProductId id = new(req.Id);
-        SetProductStatusCommand command = new(id, req.Status);
+        SetProductStatusCommand command = new(
+            Id: new(req.Id),
+            Status: req.Status,
+            CreatorId: User.GetAccountId()
+        );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

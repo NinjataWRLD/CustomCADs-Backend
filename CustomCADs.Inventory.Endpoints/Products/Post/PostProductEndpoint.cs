@@ -35,7 +35,10 @@ public class PostProductEndpoint(IRequestSender sender)
         );
         ProductId id = await sender.SendCommandAsync(command, ct);
 
-        GetProductByIdQuery query = new(id);
+        GetProductByIdQuery query = new(
+            Id: id,
+            CreatorId: User.GetAccountId()
+        );
         var dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         PostProductResponse response = dto.ToPostProductResponse();

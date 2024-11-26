@@ -1,4 +1,5 @@
-﻿using CustomCADs.Orders.Application.Orders.Queries.GetAll;
+﻿using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
+using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Endpoints.Client.Get.All;
 using CustomCADs.Orders.Endpoints.Client.Get.Recent;
@@ -41,8 +42,7 @@ public static class Mapper
             Description: order.Description,
             OrderDate: order.OrderDate.ToString(DateFormatString),
             DeliveryType: order.DeliveryType.ToString(),
-            OrderStatus: order.OrderStatus.ToString(),
-            BuyerId: order.BuyerId.Value
+            OrderStatus: order.OrderStatus.ToString()
         );
 
     public static GetOrderResponse ToGetOrderResponse(this GetOrderByIdDto order)
@@ -53,13 +53,12 @@ public static class Mapper
             OrderDate: order.OrderDate.ToString(DateFormatString),
             DeliveryType: order.DeliveryType.ToString(),
             OrderStatus: order.OrderStatus.ToString(),
-            BuyerId: order.BuyerId.Value,
             DesignerId: order.DesignerId?.Value,
             CadId: order.DesignerId?.Value,
             ShipmentId: order.DesignerId?.Value
         );
 
-    public static DesignerGetOrderResponse ToDesignerGetOrderResponse(this GetOrderByIdDto order)
+    public static DesignerGetOrderResponse ToDesignerGetOrderResponse(this DesignerGetOrderByIdDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -68,8 +67,8 @@ public static class Mapper
             DeliveryType: order.DeliveryType.ToString(),
             Status: order.OrderStatus.ToString(),
             BuyerId: order.BuyerId.Value,
-            CadId: order.DesignerId?.Value,
-            ShipmentId: order.DesignerId?.Value
+            CadId: order.CadId?.Value,
+            ShipmentId: order.ShipmentId?.Value
         );
 
     public static GetPendingOrdersDto ToGetPendingOrdersDto(this GetAllOrdersDto order)

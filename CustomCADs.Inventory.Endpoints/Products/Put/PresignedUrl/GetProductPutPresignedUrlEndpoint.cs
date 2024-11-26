@@ -1,5 +1,4 @@
-﻿using CustomCADs.Inventory.Application.Products.Queries.GetById;
-using CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPut;
+﻿using CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPut;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Put.PresignedUrl;
 
@@ -15,14 +14,11 @@ public class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductPutPresignedUrlRequest req, CancellationToken ct)
     {
-        ProductId id = new(req.Id);
-        GetProductByIdQuery productQuery = new(id);
-        GetProductByIdDto product = await sender.SendQueryAsync(productQuery, ct).ConfigureAwait(false);
-
         GetProductImagePresignedUrlPutQuery presignedUrlQuery = new(
-            ImageKey: product.Image.Key,
+            Id: new(req.Id),
             ContentType: req.ContentType,
-            FileName: req.FileName
+            FileName: req.FileName,
+            CreatorId: User.GetAccountId()
         );
         var imageDto = await sender.SendQueryAsync(presignedUrlQuery, ct).ConfigureAwait(false);
 
