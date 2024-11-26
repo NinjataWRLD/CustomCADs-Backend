@@ -16,13 +16,18 @@ public static class DependencyInjection
             .AddDeliveryContext(config)
             .AddReads()
             .AddWrites()
-            .AddUOW();
+            .AddUnitOfWork();
 
     public static IServiceCollection AddDeliveryContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("DeliveryConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'DeliveryConnection'.");
-        services.AddDbContext<DeliveryContext>(opt => opt.UseSqlServer(connectionString));
+        
+        services.AddDbContext<DeliveryContext>(options => 
+            options.UseSqlServer(connectionString, opt =>
+                opt.MigrationsHistoryTable("__EFMigrationsHistory", "Delivery")
+            )
+        );
 
         return services;
     }
@@ -41,7 +46,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddUOW(this IServiceCollection services)
+    public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

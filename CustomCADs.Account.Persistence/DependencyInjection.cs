@@ -17,13 +17,18 @@ public static class DependencyInjection
             .AddAccountContext(config)
             .AddAccountReads()
             .AddAccountWrites()
-            .AddAccountUOW();
+            .AddAccountUnitOfWork();
 
     private static IServiceCollection AddAccountContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("AccountConnection")
                 ?? throw new KeyNotFoundException("Could not find connection string 'AccountConnection'.");
-        services.AddDbContext<AccountContext>(options => options.UseSqlServer(connectionString));
+
+        services.AddDbContext<AccountContext>(options =>
+            options.UseSqlServer(connectionString, opt =>
+                opt.MigrationsHistoryTable("__EFMigrationsHistory", "Account")
+            )
+        );
 
         return services;
     }
@@ -43,7 +48,7 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddAccountUOW(this IServiceCollection services)
+    private static IServiceCollection AddAccountUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

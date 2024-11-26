@@ -16,13 +16,18 @@ public static class DependencyInjection
             .AddGalleryContext(config)
             .AddReads()
             .AddWrites()
-            .AddUOW();
+            .AddUnitOfWork();
 
     private static IServiceCollection AddGalleryContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("GalleryConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'GalleryConnection'.");
-        services.AddDbContext<GalleryContext>(opt => opt.UseSqlServer(connectionString));
+        
+        services.AddDbContext<GalleryContext>(options => 
+            options.UseSqlServer(connectionString, opt
+                => opt.MigrationsHistoryTable("__EFMigrationsHistory", "Gallery")
+            )
+        );
 
         return services;
     }
@@ -41,7 +46,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddUOW(this IServiceCollection services)
+    public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
