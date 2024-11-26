@@ -15,6 +15,11 @@ public class SetProductKeysHandler(IProductReads reads, IUnitOfWork uow, IReques
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
+        if (product.CreatorId != req.CreatorId)
+        {
+            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+        }
+
         if (req.ImageKey is not null)
         {
             product.SetImage(req.ImageKey);

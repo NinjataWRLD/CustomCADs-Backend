@@ -14,6 +14,11 @@ public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct)
             ?? throw ProductNotFoundException.ById(req.Id);
 
+        if (product.CreatorId != req.CreatorId)
+        {
+            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+        }
+
         switch (req.Status)
         {
             case ProductStatus.Validated: product.SetValidatedStatus(); break;

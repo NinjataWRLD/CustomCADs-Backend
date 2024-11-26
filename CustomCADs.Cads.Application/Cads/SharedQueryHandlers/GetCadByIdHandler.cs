@@ -10,7 +10,7 @@ using CadDto = (
     CustomCADs.Shared.Core.Common.Dtos.CoordinatesDto PanCoordinates
 );
 
-namespace CustomCADs.Cads.Application.Cads.SharedQueriesHandlers;
+namespace CustomCADs.Cads.Application.Cads.SharedQueryHandlers;
 
 public class GetCadByIdHandler(ICadReads reads)
     : IQueryHandler<GetCadByIdQuery, CadDto>
@@ -21,8 +21,8 @@ public class GetCadByIdHandler(ICadReads reads)
             ?? throw CadNotFoundException.ById(req.Id);
 
         return (
-            Key: cad.Key,
-            ContentType: cad.ContentType,
+            cad.Key,
+            cad.ContentType,
             CamCoordinates: cad.CamCoordinates.ToCoordinatesDto(),
             PanCoordinates: cad.PanCoordinates.ToCoordinatesDto()
         );

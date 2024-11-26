@@ -1,3 +1,8 @@
-﻿namespace CustomCADs.Orders.Application.Orders.Commands.Delete;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
-public record DeleteOrderCommand(OrderId Id) : ICommand;
+namespace CustomCADs.Orders.Application.Orders.Commands.Delete;
+
+public record DeleteOrderCommand(
+    OrderId Id,
+    UserId BuyerId
+) : ICommand;

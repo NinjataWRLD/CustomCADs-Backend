@@ -1,11 +1,7 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Commands.AddItem;
-using CustomCADs.Gallery.Application.Carts.Queries.IsBuyer;
-using CustomCADs.Gallery.Endpoints.Helpers;
 using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Post.Item;
-
-using static ApiMessages;
 
 public class PostCartItemEndpoint(IRequestSender sender)
     : Endpoint<PostCartItemRequest, Guid>
@@ -19,22 +15,12 @@ public class PostCartItemEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PostCartItemRequest req, CancellationToken ct)
     {
-        CartId id = new(req.CartId);
-        IsCartBuyerQuery query = new(id, User.GetAccountId());
-
-        bool userIsBuyer = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-        if (!userIsBuyer)
-        {
-            ValidationFailures.Add(new("Id", ForbiddenAccess, id));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-
         AddCartItemCommand commnad = new(
-            Id: id,
+            Id: new(req.CartId),
             DeliveryType: req.DeliveryType,
             Quantity: req.Quantity,
-            ProductId: new(req.ProductId)
+            ProductId: new(req.ProductId),
+            BuyerId: User.GetAccountId()
         );
         CartItemId itemId = await sender.SendCommandAsync(commnad, ct).ConfigureAwait(false);
 

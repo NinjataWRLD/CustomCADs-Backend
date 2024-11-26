@@ -25,7 +25,10 @@ public class PostOrderEndpoint(IRequestSender sender)
         );
         OrderId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        GetOrderByIdQuery query = new(id);
+        GetOrderByIdQuery query = new(
+            Id: id,
+            BuyerId: User.GetAccountId()
+        );
         GetOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         PostOrderResponse response = order.ToPostOrderResponse();

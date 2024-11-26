@@ -1,9 +1,6 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetById;
-using CustomCADs.Inventory.Application.Products.Queries.IsCreator;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.Single;
-
-using static ApiMessages;
 
 public class GetProductEndpoint(IRequestSender sender)
     : Endpoint<GetProductRequest, GetProductResponse>
@@ -17,18 +14,10 @@ public class GetProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductRequest req, CancellationToken ct)
     {
-        ProductId id = new(req.Id);
-        IsProductCreatorQuery isCreatorQuery = new(id, User.GetAccountId());
-        bool userIsCreator = await sender.SendQueryAsync(isCreatorQuery).ConfigureAwait(false);
-
-        if (!userIsCreator)
-        {
-            ValidationFailures.Add(new("Id", ForbiddenAccess, id));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-
-        GetProductByIdQuery getProductQuery = new(id);
+        GetProductByIdQuery getProductQuery = new(
+            Id: new(req.Id),
+            CreatorId: User.GetAccountId()
+        );
         GetProductByIdDto product = await sender.SendQueryAsync(getProductQuery, ct).ConfigureAwait(false);
 
         GetProductResponse response = product.ToGetProductResponse();

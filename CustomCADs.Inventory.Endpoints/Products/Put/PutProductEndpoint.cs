@@ -1,10 +1,7 @@
 ﻿using CustomCADs.Inventory.Application.Products.Commands.Edit;
 using CustomCADs.Inventory.Application.Products.Commands.SetKeys;
-using CustomCADs.Inventory.Application.Products.Queries.IsCreator;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Put;
-
-using static ApiMessages;
 
 public class PutProductEndpoint(IRequestSender sender)
     : Endpoint<PutProductRequest>
@@ -19,32 +16,23 @@ public class PutProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PutProductRequest req, CancellationToken ct)
     {
-        ProductId id = new(req.Id);
-        IsProductCreatorQuery isCreatorQuery = new(id, User.GetAccountId());
-        bool userIsCreator = await sender.SendQueryAsync(isCreatorQuery).ConfigureAwait(false);
-
-        if (!userIsCreator)
-        {
-            ValidationFailures.Add(new("Id", ForbiddenAccess, id));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-
         EditProductCommand editCcommand = new(
-            Id: id,
+            Id: new(req.Id),
             Name: req.Name,
             Description: req.Description,
             CategoryId: new(req.CategoryId),
-            Price: new(req.Price, "BGN", 2, "лв")
+            Price: new(req.Price, "BGN", 2, "лв"),
+            CreatorId: User.GetAccountId()
         );
         await sender.SendCommandAsync(editCcommand, ct).ConfigureAwait(false);
 
         if (req.ImageKey is not null)
         {
             SetProductKeysCommand keysCommand = new(
-                id,
+                Id: new(req.Id),
                 CadKey: null,
-                ImageKey: req.ImageKey
+                ImageKey: req.ImageKey,
+                CreatorId: User.GetAccountId()
             );
             await sender.SendCommandAsync(keysCommand, ct).ConfigureAwait(false);
         }

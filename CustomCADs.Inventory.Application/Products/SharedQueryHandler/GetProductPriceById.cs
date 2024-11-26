@@ -3,7 +3,7 @@ using CustomCADs.Inventory.Domain.Products;
 using CustomCADs.Inventory.Domain.Products.Reads;
 using CustomCADs.Shared.UseCases.Products.Queries;
 
-namespace CustomCADs.Inventory.Application.Products.SharedQueries;
+namespace CustomCADs.Inventory.Application.Products.SharedQueryHandler;
 
 public class GetProductPriceByIdHandler(IProductReads reads)
     : IQueryHandler<GetProductPriceByIdQuery, decimal>

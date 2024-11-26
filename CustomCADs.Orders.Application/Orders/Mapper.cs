@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Create;
+using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
@@ -29,8 +30,20 @@ public static class Mapper
             OrderDate: order.OrderDate,
             DeliveryType: order.DeliveryType,
             OrderStatus: order.OrderStatus,
-            BuyerId: order.BuyerId,
             DesignerId: order.DesignerId,
+            CadId: order.CadId,
+            ShipmentId: order.ShipmentId
+        );
+
+    public static DesignerGetOrderByIdDto ToDesignerGetOrderByIdDto(this Order order)
+        => new(
+            Id: order.Id,
+            Name: order.Name,
+            Description: order.Description,
+            OrderDate: order.OrderDate,
+            DeliveryType: order.DeliveryType,
+            OrderStatus: order.OrderStatus,
+            BuyerId: order.BuyerId,
             CadId: order.CadId,
             ShipmentId: order.ShipmentId
         );

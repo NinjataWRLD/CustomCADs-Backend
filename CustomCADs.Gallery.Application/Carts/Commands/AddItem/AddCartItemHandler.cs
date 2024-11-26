@@ -16,6 +16,11 @@ public class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IRequestSende
         Cart cart = await reads.SingleByIdAsync(req.Id, ct: ct)
             ?? throw CartNotFoundException.ById(req.Id);
 
+        if (cart.BuyerId == req.BuyerId)
+        {
+            throw CartValidationException.Custom("Cannot modify another Buyer's Carts.");
+        }
+
         GetProductPriceByIdQuery productQuery = new(req.ProductId);
         decimal price = await sender.SendQueryAsync(productQuery, ct).ConfigureAwait(false);
 

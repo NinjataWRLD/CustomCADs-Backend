@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Inventory.Application.Products;
 using CustomCADs.Inventory.Application.Products.Commands.SetCoords;
-using CustomCADs.Inventory.Application.Products.Queries.IsCreator;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Patch;
 
@@ -18,21 +17,13 @@ public class PatchProductCadEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PatchProductCadRequest req, CancellationToken ct)
     {
-        ProductId id = new(req.Id);
-        IsProductCreatorQuery query = new(id, User.GetAccountId());
-        bool userIsCreator = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        if (userIsCreator)
-        {
-            ValidationFailures.Add(new("Id", ForbiddenAccess, id));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-
+        SetProductCoordsCommand command = new(
+            Id: new(req.Id),
+            CreatorId: User.GetAccountId()
+        );
         bool IsType(string type) => req.Type.Equals(type, StringComparison.OrdinalIgnoreCase);
-        SetProductCoordsCommand command = new(id, User.GetAccountId());
 
-        if (IsType("camera"))
+        if (IsType("camera") || IsType("cam"))
             command = command with { CamCoordinates = req.Coordinates.ToCoordinates() };
         else if (IsType("pan"))
             command = command with { PanCoordinates = req.Coordinates.ToCoordinates() };

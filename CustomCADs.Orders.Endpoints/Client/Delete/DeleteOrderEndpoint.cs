@@ -1,12 +1,6 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Delete;
-using CustomCADs.Orders.Application.Orders.Queries.IsBuyer;
-using CustomCADs.Orders.Endpoints.Helpers;
-using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Client.Delete;
-
-using static ApiMessages;
-
 public class DeleteOrderEndpoint(IRequestSender sender)
     : Endpoint<DeleteOrderRequest>
 {
@@ -19,18 +13,10 @@ public class DeleteOrderEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteOrderRequest req, CancellationToken ct)
     {
-        OrderId id = new(req.Id);
-        IsOrderBuyerQuery isBuyerQuery = new(id, User.GetAccountId());
-
-        bool isUserBuyer = await sender.SendQueryAsync(isBuyerQuery, ct).ConfigureAwait(false);
-        if (!isUserBuyer)
-        {
-            ValidationFailures.Add(new("Id", ForbiddenAccess, id));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-
-        DeleteOrderCommand command = new(id);
+        DeleteOrderCommand command = new(
+            Id: new(req.Id),
+            BuyerId: User.GetAccountId()
+        );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

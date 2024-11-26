@@ -1,6 +1,5 @@
-﻿using CustomCADs.Orders.Application.Orders.Queries.GetById;
+﻿using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 using CustomCADs.Orders.Endpoints.Client;
-using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Get.Single;
 
@@ -16,9 +15,11 @@ public class DesignerGetOrderEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DesignerGetOrderRequest req, CancellationToken ct)
     {
-        OrderId id = new(req.Id);
-        GetOrderByIdQuery query = new(id);
-        GetOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        DesignerGetOrderByIdQuery query = new(
+            Id: new(req.Id),
+            DesignerId: User.GetAccountId()
+        );
+        DesignerGetOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         var response = order.ToDesignerGetOrderResponse();
         await SendOkAsync(response).ConfigureAwait(false);

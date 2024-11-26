@@ -18,6 +18,11 @@ public class DeleteProductHandler(IProductReads productReads, IWrites<Product> p
         Product product = await productReads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
+        if (product.CreatorId != req.CreatorId)
+        {
+            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+        }
+
         productWrites.Remove(product);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 

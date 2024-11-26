@@ -16,6 +16,11 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
+        if (product.CreatorId != req.CreatorId)
+        {
+            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+        }
+
         GetUsernameByIdQuery usernameQuery = new(product.CreatorId);
         string username = await sender.SendQueryAsync(usernameQuery, ct).ConfigureAwait(false);
 

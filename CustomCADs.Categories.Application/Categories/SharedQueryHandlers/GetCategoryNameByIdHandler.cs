@@ -3,7 +3,7 @@ using CustomCADs.Categories.Domain.Categories.Reads;
 using CustomCADs.Categories.Domain.Common.Exceptions.Categories;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
-namespace CustomCADs.Categories.Application.Categories.SharedQueries;
+namespace CustomCADs.Categories.Application.Categories.SharedQueryHandlers;
 
 public class GetCategoryNameByIdHandler(ICategoryReads reads)
     : IQueryHandler<GetCategoryNameByIdQuery, string>

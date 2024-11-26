@@ -12,6 +12,11 @@ public class GetOrderByIdHandler(IOrderReads reads)
         Order order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
+        if (order.BuyerId == req.BuyerId)
+        {
+            throw OrderValidationException.Custom("Cannot modify another Buyer's Orders.");
+        }
+
         return order.ToGetOrderByIdDto();
     }
 }

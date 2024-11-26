@@ -1,3 +1,8 @@
-﻿namespace CustomCADs.Gallery.Application.Carts.Commands.Delete;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
-public record DeleteCartCommand(CartId Id) : ICommand;
+namespace CustomCADs.Gallery.Application.Carts.Commands.Delete;
+
+public record DeleteCartCommand(
+    CartId Id,
+    UserId BuyerId
+) : ICommand;

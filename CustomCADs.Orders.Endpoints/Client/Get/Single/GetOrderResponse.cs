@@ -7,7 +7,6 @@ public record GetOrderResponse(
     string OrderDate,
     string DeliveryType,
     string OrderStatus,
-    Guid BuyerId,
     Guid? DesignerId,
     Guid? CadId,
     Guid? ShipmentId

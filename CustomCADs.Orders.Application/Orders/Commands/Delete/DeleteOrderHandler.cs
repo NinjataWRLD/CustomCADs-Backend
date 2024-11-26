@@ -13,6 +13,11 @@ public class DeleteOrderHandler(IOrderReads reads, IWrites<Order> writes, IUnitO
         Order order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
+        if (order.BuyerId == req.BuyerId)
+        {
+            throw OrderValidationException.Custom("Cannot modify another Buyer's Orders.");
+        }
+
         writes.Remove(order);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }

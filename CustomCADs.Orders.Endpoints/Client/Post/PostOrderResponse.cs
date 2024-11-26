@@ -6,6 +6,5 @@ public record PostOrderResponse(
     string Description,
     string OrderDate,
     string DeliveryType,
-    string OrderStatus,
-    Guid BuyerId
+    string OrderStatus
 );
