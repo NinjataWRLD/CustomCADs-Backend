@@ -21,7 +21,12 @@ public static class DependencyInjection
     {
         string connectionString = config.GetConnectionString("InventoryConnection")
                 ?? throw new KeyNotFoundException("Could not find connection string 'InventoryConnection'.");
-        services.AddDbContext<InventoryContext>(options => options.UseSqlServer(connectionString));
+        
+        services.AddDbContext<InventoryContext>(options => 
+            options.UseSqlServer(connectionString, opt =>
+                opt.MigrationsHistoryTable("__EFMigrationsHistory", "Inventory")
+            )
+        );
 
         return services;
     }

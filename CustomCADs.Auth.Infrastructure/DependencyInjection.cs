@@ -16,7 +16,12 @@ public static class DependencyInjection
     {
         string connectionString = config.GetConnectionString("AuthConnection")
                 ?? throw new KeyNotFoundException("Could not find connection string 'AuthConnection'.");
-        services.AddDbContext<AuthContext>(options => options.UseSqlServer(connectionString));
+
+        services.AddDbContext<AuthContext>(options =>
+            options.UseSqlServer(connectionString, opt =>
+                opt.MigrationsHistoryTable("__EFMigrationsHistory", "Auth")
+            )
+        );
 
         return services;
     }

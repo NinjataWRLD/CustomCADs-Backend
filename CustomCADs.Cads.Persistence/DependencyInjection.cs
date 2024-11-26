@@ -16,13 +16,18 @@ public static class DependencyInjection
             .AddCadsContext(config)
             .AddReads()
             .AddWrites()
-            .AddUOW();
+            .AddUnitOfWork();
 
     public static IServiceCollection AddCadsContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("CadsConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'CadsConnection'.");
-        services.AddDbContext<CadsContext>(opt => opt.UseSqlServer(connectionString));
+
+        services.AddDbContext<CadsContext>(options => 
+            options.UseSqlServer(connectionString, opt => 
+                opt.MigrationsHistoryTable("__EFMigrationsHistory", "Cads")
+            )
+        );
 
         return services;
     }
@@ -41,7 +46,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddUOW(this IServiceCollection services)
+    public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -21,7 +21,12 @@ public static class DependencyInjection
     {
         string connectionString = config.GetConnectionString("CategoriesConnection")
                 ?? throw new KeyNotFoundException("Could not find connection string 'CategoriesConnection'.");
-        services.AddDbContext<CategoriesContext>(options => options.UseSqlServer(connectionString));
+        
+        services.AddDbContext<CategoriesContext>(options => 
+            options.UseSqlServer(connectionString, opt =>
+                opt.MigrationsHistoryTable("__EFMigrationsHistory", "Categories")
+            )
+        );
 
         return services;
     }

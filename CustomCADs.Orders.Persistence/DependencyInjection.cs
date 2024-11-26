@@ -16,13 +16,18 @@ public static class DependencyInjection
             .AddOrdersContext(config)
             .AddReads()
             .AddWrites()
-            .AddUOW();
+            .AddUnitOfWork();
 
     private static IServiceCollection AddOrdersContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("OrdersConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'OrdersConnection'.");
-        services.AddDbContext<OrdersContext>(opt => opt.UseSqlServer(connectionString));
+
+        services.AddDbContext<OrdersContext>(opt =>
+            opt.UseSqlServer(connectionString, opt =>
+                opt.MigrationsHistoryTable("__EFMigrationsHistory", "Orders")
+            )
+        );
 
         return services;
     }
@@ -41,7 +46,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddUOW(this IServiceCollection services)
+    public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
