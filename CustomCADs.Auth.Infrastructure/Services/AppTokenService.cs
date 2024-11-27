@@ -1,5 +1,7 @@
-﻿using CustomCADs.Auth.Application.Dtos;
-using CustomCADs.Auth.Infrastructure;
+﻿using CustomCADs.Auth.Application.Contracts;
+using CustomCADs.Auth.Application.Dtos;
+using CustomCADs.Auth.Domain;
+using CustomCADs.Auth.Infrastructure.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +10,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CustomCADs.Auth.Application.Services;
+namespace CustomCADs.Auth.Infrastructure.Services;
 
 using static AuthConstants;
 

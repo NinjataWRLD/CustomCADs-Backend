@@ -1,7 +1,7 @@
-﻿using CustomCADs.Auth.Application.DomainEvents.Email;
+﻿using CustomCADs.Auth.Domain.DomainEvents.Email;
 using CustomCADs.Shared.Application.Email;
 
-namespace CustomCADs.Auth.Application.EventHandlers;
+namespace CustomCADs.Auth.Application.DomainEventHandlers;
 
 public class PasswordResetRequestedEventHandler(IEmailService service)
 {

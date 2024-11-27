@@ -1,7 +1,9 @@
 ﻿using CustomCADs.Account.Application;
 using CustomCADs.Account.Endpoints;
 using CustomCADs.Auth.Application;
+using CustomCADs.Auth.Domain.Entities;
 using CustomCADs.Auth.Endpoints;
+using CustomCADs.Auth.Infrastructure;
 using CustomCADs.Cads.Application;
 using CustomCADs.Categories.Application;
 using CustomCADs.Gallery.Application;
@@ -14,6 +16,7 @@ using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
@@ -97,7 +100,7 @@ public static class ProgramExtensions
             }
         });
     }
-    
+
     public static IServiceCollection AddAccount(this IServiceCollection services, IConfiguration config)
         => services
             .AddAccountExceptionHandler()
@@ -107,7 +110,6 @@ public static class ProgramExtensions
         => services
             .AddAuthExceptionHandler()
             .AddAuthInfrastructure(config)
-            .AddAuthApplication(config)
             .AddAppIdentity();
 
     public static IServiceCollection AddCads(this IServiceCollection services, IConfiguration config)
@@ -249,5 +251,25 @@ public static class ProgramExtensions
         });
 
         return app;
+    }
+
+    private static IServiceCollection AddAppIdentity(this IServiceCollection services)
+    {
+        services.AddIdentity<AppUser, AppRole>(options =>
+        {
+            options.SignIn.RequireConfirmedEmail = true;
+            options.SignIn.RequireConfirmedAccount = false;
+            options.Password.RequireDigit = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.User.RequireUniqueEmail = true;
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        })
+        .AddEntityFrameworkStores<AuthContext>()
+        .AddDefaultTokenProviders();
+
+        return services;
     }
 }

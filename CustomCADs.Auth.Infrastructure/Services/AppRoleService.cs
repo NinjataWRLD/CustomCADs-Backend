@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CustomCADs.Auth.Application.Contracts;
+using CustomCADs.Auth.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Auth.Application.Services;
+namespace CustomCADs.Auth.Infrastructure.Services;
 
 public class AppRoleService(RoleManager<AppRole> manager) : IRoleService
 {

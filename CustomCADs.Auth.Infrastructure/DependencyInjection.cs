@@ -1,4 +1,7 @@
-﻿using CustomCADs.Auth.Infrastructure;
+﻿using CustomCADs.Auth.Application.Contracts;
+using CustomCADs.Auth.Infrastructure;
+using CustomCADs.Auth.Infrastructure.Dtos;
+using CustomCADs.Auth.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -9,7 +12,9 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddAuthInfrastructure(this IServiceCollection services, IConfiguration config)
         => services
-            .AddAuthContext(config);
+            .AddAuthContext(config)
+            .AddIdentityServices()
+            .AddTokenService(config);
 
 
     private static IServiceCollection AddAuthContext(this IServiceCollection services, IConfiguration config)
@@ -22,6 +27,23 @@ public static class DependencyInjection
                 opt.MigrationsHistoryTable("__EFMigrationsHistory", "Auth")
             )
         );
+
+        return services;
+    }
+
+
+    private static IServiceCollection AddIdentityServices(this IServiceCollection services)
+    {
+        services.AddScoped<IUserService, AppUserService>();
+        services.AddScoped<IRoleService, AppRoleService>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddTokenService(this IServiceCollection services, IConfiguration config)
+    {
+        services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
+        services.AddScoped<ITokenService, AppTokenService>();
 
         return services;
     }

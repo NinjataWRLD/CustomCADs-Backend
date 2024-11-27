@@ -22,6 +22,7 @@
 		<ProjectReference Include="..\CustomCADs.Account.Endpoints\CustomCADs.Account.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Account.Persistence\CustomCADs.Account.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Auth.Endpoints\CustomCADs.Auth.Endpoints.csproj" />
+		<ProjectReference Include="..\CustomCADs.Auth.Infrastructure\CustomCADs.Auth.Infrastructure.csproj" />
 		<ProjectReference Include="..\CustomCADs.Cads.Application\CustomCADs.Cads.Application.csproj" />
 		<ProjectReference Include="..\CustomCADs.Cads.Persistence\CustomCADs.Cads.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Categories.Endpoints\CustomCADs.Categories.Endpoints.csproj" />

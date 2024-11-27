@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CustomCADs.Auth.Infrastructure\CustomCADs.Auth.Infrastructure.csproj" />
+		<ProjectReference Include="..\CustomCADs.Auth.Domain\CustomCADs.Auth.Domain.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.IntegrationEvents\CustomCADs.Shared.IntegrationEvents.csproj" />
 	</ItemGroup>

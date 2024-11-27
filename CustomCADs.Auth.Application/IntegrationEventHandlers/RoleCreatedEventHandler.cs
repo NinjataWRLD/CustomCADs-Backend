@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
-namespace CustomCADs.Auth.Application.EventHandlers;
+namespace CustomCADs.Auth.Application.IntegrationEventHandlers;
 
 public class RoleCreatedEventHandler(IRoleService service)
 {
