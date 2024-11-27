@@ -97,6 +97,46 @@ public static class ProgramExtensions
             }
         });
     }
+    
+    public static IServiceCollection AddAccount(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddAccountExceptionHandler()
+            .AddAccountPersistence(config);
+
+    public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddAuthExceptionHandler()
+            .AddAuthInfrastructure(config)
+            .AddAuthApplication(config)
+            .AddAppIdentity();
+
+    public static IServiceCollection AddCads(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddCadsPersistence(config);
+    
+    public static IServiceCollection AddCategories(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddCategoriesExceptionHandler()
+            .AddCategoriesPersistence(config);
+    
+    public static IServiceCollection AddDelivery(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddDeliveryPersistence(config);
+    
+    public static IServiceCollection AddGallery(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddGalleryExceptionHandler()
+            .AddGalleryPersistence(config);
+    
+    public static IServiceCollection AddInventory(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddInventoryExceptionHandler()
+            .AddInventoryPersistence(config);
+    
+    public static IServiceCollection AddOrders(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddOrdersExceptionHandler()
+            .AddOrdersPersistence(config);
 
     public static void AddEndpoints(this IServiceCollection services)
     {
