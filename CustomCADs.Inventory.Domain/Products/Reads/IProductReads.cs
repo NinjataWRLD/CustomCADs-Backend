@@ -9,5 +9,5 @@ public interface IProductReads
     Task<Result<Product>> AllAsync(ProductQuery query, bool track = true, CancellationToken ct = default);
     Task<Product?> SingleByIdAsync(ProductId id, bool track = true, CancellationToken ct = default);
     Task<bool> ExistsByIdAsync(ProductId id, CancellationToken ct = default);
-    Task<int> CountByStatusAsync(UserId creatorId, ProductStatus status, CancellationToken ct = default);
+    Task<Dictionary<ProductStatus, int>> CountByStatusAsync(UserId creatorId, CancellationToken ct = default);
 }

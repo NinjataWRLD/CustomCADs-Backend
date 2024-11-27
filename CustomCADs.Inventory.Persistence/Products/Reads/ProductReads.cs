@@ -37,10 +37,11 @@ public class ProductReads(InventoryContext context) : IProductReads
             .AnyAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<int> CountByStatusAsync(UserId creatorId, ProductStatus status, CancellationToken ct = default)
+    public async Task<Dictionary<ProductStatus, int>> CountByStatusAsync(UserId creatorId, CancellationToken ct = default)
         => await context.Products
             .WithTracking(false)
             .Where(p => p.CreatorId == creatorId)
-            .CountAsync(p => p.Status == status, ct)
+            .GroupBy(p => p.Status)
+            .ToDictionaryAsync(x => x.Key, x => x.Count(), ct)
             .ConfigureAwait(false);
 }

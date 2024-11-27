@@ -1,10 +1,9 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.Count;
-using CustomCADs.Orders.Domain.Orders.Enums;
 
 namespace CustomCADs.Orders.Endpoints.Client.Get.Count;
 
 public class CountOrdersEndpoint(IRequestSender sender)
-    : EndpointWithoutRequest
+    : EndpointWithoutRequest<CountOrdersResponse>
 {
     public override void Configure()
     {
@@ -15,30 +14,17 @@ public class CountOrdersEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        CountOrdersQuery query = new(
-            BuyerId: User.GetAccountId(),
-            Status: default
+        CountOrdersQuery query = new(User.GetAccountId());
+        CountOrdersDto counts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+
+        CountOrdersResponse response = new(
+            Pending: counts.Pending,
+            Accepted: counts.Accepted,
+            Begun: counts.Begun,
+            Finished: counts.Finished,
+            Reported: counts.Reported,
+            Removed: counts.Removed
         );
-
-        query = query with { Status = OrderStatus.Pending };
-        int pendingOrdersCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        query = query with { Status = OrderStatus.Accepted };
-        int acceptedOrdersCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        query = query with { Status = OrderStatus.Begun };
-        int begunOrdersCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        query = query with { Status = OrderStatus.Finished };
-        int finishedOrdersCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        query = query with { Status = OrderStatus.Reported };
-        int reportedOrdersCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        query = query with { Status = OrderStatus.Removed };
-        int removedOrdersCount = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        CountOrdersResponse response = new(pendingOrdersCount, acceptedOrdersCount, begunOrdersCount, finishedOrdersCount, reportedOrdersCount, removedOrdersCount);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

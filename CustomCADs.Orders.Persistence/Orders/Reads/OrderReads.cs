@@ -40,10 +40,11 @@ public class OrderReads(OrdersContext context) : IOrderReads
             .AnyAsync(o => o.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<int> CountByStatusAsync(UserId buyerId, OrderStatus status, CancellationToken ct = default)
+    public async Task<Dictionary<OrderStatus, int>> CountByStatusAsync(UserId buyerId, CancellationToken ct = default)
         => await context.Orders
             .WithTracking(false)
             .Where(o => o.BuyerId == buyerId)
-            .CountAsync(o => o.OrderStatus == status, ct)
+            .GroupBy(o => o.OrderStatus)
+            .ToDictionaryAsync(x => x.Key, x => x.Count(), ct)
             .ConfigureAwait(false);
 }
