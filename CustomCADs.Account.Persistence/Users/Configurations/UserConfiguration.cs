@@ -12,6 +12,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder
             .SetPrimaryKey()
             .SetStronglyTypedIds()
+            .SetIndexes()
             .SetValueObjects()
             .SetValidations();
     }
@@ -38,6 +39,17 @@ static class UserConfigUtils
         return builder;
     }
 
+    public static EntityTypeBuilder<User> SetIndexes(this EntityTypeBuilder<User> builder)
+    {
+        builder.HasIndex(x => x.Username)
+            .IsUnique();
+
+        builder.HasIndex(x => x.Email)
+            .IsUnique();
+
+        return builder;
+    }
+
     public static EntityTypeBuilder<User> SetValueObjects(this EntityTypeBuilder<User> builder)
     {
         builder.ComplexProperty(x => x.Names, a =>
@@ -53,7 +65,7 @@ static class UserConfigUtils
 
         return builder;
     }
-
+    
     public static EntityTypeBuilder<User> SetValidations(this EntityTypeBuilder<User> builder)
     {
         builder.Property(x => x.Username)
