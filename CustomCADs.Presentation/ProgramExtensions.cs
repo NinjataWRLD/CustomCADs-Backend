@@ -142,15 +142,7 @@ public static class ProgramExtensions
 
     public static void AddEndpoints(this IServiceCollection services)
     {
-        services.AddFastEndpoints(cfg =>
-        {
-            cfg.Assemblies =
-            [
-                AccountEndpointsReference.Assembly,
-                AuthEndpointsReference.Assembly,
-                InventoryEndpointsReference.Assembly,
-            ];
-        });
+        services.AddFastEndpoints();
         services.AddEndpointsApiExplorer();
     }
 
