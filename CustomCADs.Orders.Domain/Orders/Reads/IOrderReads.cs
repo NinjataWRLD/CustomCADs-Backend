@@ -9,5 +9,5 @@ public interface IOrderReads
     Task<Result<Order>> AllAsync(OrderQuery query, bool track = true, CancellationToken ct = default);
     Task<Order?> SingleByIdAsync(OrderId id, bool track = true, CancellationToken ct = default);
     Task<bool> ExistsByIdAsync(OrderId id, CancellationToken ct = default);
-    Task<int> CountByStatusAsync(UserId buyerId, OrderStatus status, CancellationToken ct = default);
+    Task<Dictionary<OrderStatus, int>> CountByStatusAsync(UserId buyerId, CancellationToken ct = default);
 }
