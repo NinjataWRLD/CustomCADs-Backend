@@ -1,9 +1,24 @@
 ﻿using CustomCADs.Gallery.Domain.Common;
+using CustomCADs.Shared.Core.Common.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Gallery.Persistence.Common;
 
 public class UnitOfWork(GalleryContext context) : IUnitOfWork
 {
     public async Task SaveChangesAsync(CancellationToken ct = default)
-        => await context.SaveChangesAsync(ct).ConfigureAwait(false);
+    {
+        try
+        {
+            await context.SaveChangesAsync(ct).ConfigureAwait(false);
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            throw DatabaseConflictException.Custom(ex.Message);
+        }
+        catch (DbUpdateException ex)
+        {
+            throw DatabaseException.Custom(ex.Message);
+        }
+    }
 }

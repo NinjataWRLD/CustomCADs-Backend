@@ -15,14 +15,10 @@ public static class DependencyInjection
 {
     private const string AuthScheme = JwtBearerDefaults.AuthenticationScheme;
 
-    public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddExceptionHandler<GlobalExceptionHandler>()
-            .AddAuthInfrastructure(config)
-            .AddAuthApplication(config)
-            .AddAppIdentity();
+    public static IServiceCollection AddAuthExceptionHandler(this IServiceCollection services)
+        => services.AddExceptionHandler<GlobalExceptionHandler>();
 
-    private static IServiceCollection AddAppIdentity(this IServiceCollection services)
+    public static IServiceCollection AddAppIdentity(this IServiceCollection services)
     {
         services.AddIdentity<AppUser, AppRole>(options =>
         {

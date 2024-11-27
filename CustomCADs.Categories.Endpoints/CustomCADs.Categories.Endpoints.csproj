@@ -13,7 +13,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Categories.Application\CustomCADs.Categories.Application.csproj" />
-		<ProjectReference Include="..\CustomCADs.Categories.Persistence\CustomCADs.Categories.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>

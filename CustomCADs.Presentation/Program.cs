@@ -17,12 +17,12 @@ builder.Services.AddStorage(builder.Configuration);
 // Add Modules
 builder.Services.AddAccount(builder.Configuration);
 builder.Services.AddAuth(builder.Configuration);
-builder.Services.AddCadsPersistence(builder.Configuration);
-builder.Services.AddInventory(builder.Configuration);
+builder.Services.AddCads(builder.Configuration);
 builder.Services.AddCategories(builder.Configuration);
+builder.Services.AddDelivery(builder.Configuration);
 builder.Services.AddGallery(builder.Configuration);
+builder.Services.AddInventory(builder.Configuration);
 builder.Services.AddOrders(builder.Configuration);
-builder.Services.AddDeliveryPersistence(builder.Configuration);
 
 // Add API
 builder.Services.AddEndpoints();

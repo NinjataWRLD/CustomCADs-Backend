@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Gallery.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
+using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Gallery.Endpoints.Helpers;
 
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler : IExceptionHandler
                 message = ex.Message
             }, ct).ConfigureAwait(false);
         }
-        else if (ex is DbUpdateConcurrencyException)
+        else if (ex is DatabaseConflictException)
         {
             context.Response.StatusCode = Status409Conflict;
             await context.Response.WriteAsJsonAsync(new
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler : IExceptionHandler
                 message = ex.Message
             }, ct).ConfigureAwait(false);
         }
-        else if (ex is DbUpdateException)
+        else if (ex is DatabaseException)
         {
             context.Response.StatusCode = Status400BadRequest;
             await context.Response.WriteAsJsonAsync(new
