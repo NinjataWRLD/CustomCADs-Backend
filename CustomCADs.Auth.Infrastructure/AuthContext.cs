@@ -1,4 +1,4 @@
-﻿using CustomCADs.Auth.Infrastructure.Entities;
+﻿using CustomCADs.Auth.Domain.Entities;
 using CustomCADs.Shared.Core;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

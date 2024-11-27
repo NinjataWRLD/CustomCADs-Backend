@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core;
+﻿using CustomCADs.Auth.Domain;
+using CustomCADs.Shared.Core;
 using FluentValidation;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.Register;

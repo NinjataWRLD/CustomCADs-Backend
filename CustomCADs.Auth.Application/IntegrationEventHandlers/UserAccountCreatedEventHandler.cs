@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.IntegrationEvents.Account.Users;
 
-namespace CustomCADs.Auth.Application.EventHandlers;
+namespace CustomCADs.Auth.Application.IntegrationEventHandlers;
 
 public class UserAccountCreatedEventHandler(IUserService service)
 {

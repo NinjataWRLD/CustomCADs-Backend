@@ -1,7 +1,7 @@
-﻿using CustomCADs.Auth.Application.Common.Exceptions.Users;
+﻿using CustomCADs.Auth.Domain.Common.Exceptions.Users;
 using CustomCADs.Shared.IntegrationEvents.Account.Users;
 
-namespace CustomCADs.Auth.Application.EventHandlers;
+namespace CustomCADs.Auth.Application.IntegrationEventHandlers;
 
 public class UserCreatedEventHandler(IUserService service)
 {

@@ -1,13 +1,16 @@
-﻿using CustomCADs.Auth.Application.Common.Exceptions.Users;
-using CustomCADs.Auth.Application.DomainEvents.Email;
+﻿using CustomCADs.Auth.Application.Contracts;
 using CustomCADs.Auth.Application.Dtos;
+using CustomCADs.Auth.Domain.Common.Exceptions.Users;
+using CustomCADs.Auth.Domain.DomainEvents.Email;
+using CustomCADs.Auth.Domain.Entities;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.IntegrationEvents.Auth;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace CustomCADs.Auth.Application.Services;
+namespace CustomCADs.Auth.Infrastructure.Services;
 
 public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, IConfiguration config) : IUserService
 {

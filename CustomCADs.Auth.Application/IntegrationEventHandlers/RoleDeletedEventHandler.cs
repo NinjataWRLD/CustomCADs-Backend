@@ -1,7 +1,7 @@
-﻿using CustomCADs.Auth.Application.Common.Exceptions.Roles;
+﻿using CustomCADs.Auth.Domain.Common.Exceptions.Roles;
 using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
-namespace CustomCADs.Auth.Application.EventHandlers;
+namespace CustomCADs.Auth.Application.IntegrationEventHandlers;
 
 public class RoleDeletedEventHandler(IRoleService service)
 {

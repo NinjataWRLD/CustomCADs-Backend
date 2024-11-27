@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Auth.Application.Dtos;
+﻿namespace CustomCADs.Auth.Infrastructure.Dtos;
 
 public class JwtSettings
 {

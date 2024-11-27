@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Bases.Events;
 
-namespace CustomCADs.Auth.Application.DomainEvents.Email;
+namespace CustomCADs.Auth.Domain.DomainEvents.Email;
 
 public record EmailVerificationRequestedDomainEvent(
     string Email,

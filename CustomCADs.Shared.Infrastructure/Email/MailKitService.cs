@@ -31,9 +31,9 @@ public class MailKitService(IOptions<EmailSettings> settings) : IEmailService
             using SmtpClient client = new();
             await client.SendMessageAsync(Server, port, Options, From, password, message).ConfigureAwait(false);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            Console.WriteLine(ex.Message);
+            throw;
         }
     }
 

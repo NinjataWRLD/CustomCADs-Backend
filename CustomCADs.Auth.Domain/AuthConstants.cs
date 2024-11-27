@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Auth.Infrastructure;
+﻿namespace CustomCADs.Auth.Domain;
 
 public static class AuthConstants
 {

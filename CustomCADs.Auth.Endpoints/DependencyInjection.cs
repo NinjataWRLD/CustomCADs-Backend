@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,47 +16,6 @@ public static class DependencyInjection
 
     public static IServiceCollection AddAuthExceptionHandler(this IServiceCollection services)
         => services.AddExceptionHandler<GlobalExceptionHandler>();
-
-    public static IServiceCollection AddAppIdentity(this IServiceCollection services)
-    {
-        services.AddIdentity<AppUser, AppRole>(options =>
-        {
-            options.SignIn.RequireConfirmedEmail = true;
-            options.SignIn.RequireConfirmedAccount = false;
-            options.Password.RequireDigit = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireLowercase = false;
-            options.Password.RequireUppercase = false;
-            options.User.RequireUniqueEmail = true;
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-        })
-        .AddEntityFrameworkStores<AuthContext>()
-        .AddDefaultTokenProviders();
-
-        return services;
-    }
-
-    public static IApplicationBuilder UseJwtPrincipal(this IApplicationBuilder app)
-    {
-        app.Use(async (context, next) =>
-        {
-            string? jwt = context.Request.Cookies["jwt"];
-            if (jwt is not null)
-            {
-                JwtSecurityTokenHandler handler = new();
-                if (handler.ReadToken(jwt) is JwtSecurityToken jwtToken)
-                {
-                    ClaimsIdentity identity = new(jwtToken.Claims, AuthScheme);
-                    context.User = new(identity);
-                }
-            }
-
-            await next();
-        });
-
-        return app;
-    }
 
     public static AuthenticationBuilder AddAuthN(this IServiceCollection services, string scheme = AuthScheme)
     {
@@ -110,5 +68,26 @@ public static class DependencyInjection
          });
 
         return builder;
+    }
+
+    public static IApplicationBuilder UseJwtPrincipal(this IApplicationBuilder app)
+    {
+        app.Use(async (context, next) =>
+        {
+            string? jwt = context.Request.Cookies["jwt"];
+            if (jwt is not null)
+            {
+                JwtSecurityTokenHandler handler = new();
+                if (handler.ReadToken(jwt) is JwtSecurityToken jwtToken)
+                {
+                    ClaimsIdentity identity = new(jwtToken.Claims, AuthScheme);
+                    context.User = new(identity);
+                }
+            }
+
+            await next();
+        });
+
+        return app;
     }
 }
