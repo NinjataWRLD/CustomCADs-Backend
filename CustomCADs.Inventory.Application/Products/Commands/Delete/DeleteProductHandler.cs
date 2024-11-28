@@ -20,7 +20,7 @@ public class DeleteProductHandler(IProductReads productReads, IWrites<Product> p
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+            throw ProductValidationException.Unauthorized();
         }
 
         productWrites.Remove(product);

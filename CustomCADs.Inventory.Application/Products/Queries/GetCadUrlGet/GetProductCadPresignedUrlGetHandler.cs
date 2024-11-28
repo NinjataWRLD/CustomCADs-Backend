@@ -17,7 +17,7 @@ public class GetProductCadPresignedUrlGetHandler(IProductReads reads, IStorageSe
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+            throw ProductValidationException.Unauthorized();
         }
 
         GetCadByIdQuery cadQuery = new(product.CadId);

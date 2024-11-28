@@ -94,7 +94,7 @@ public class Order : BaseAggregateRoot
 
         if (OrderStatus is not OrderStatus.Finished)
         {
-            throw OrderValidationException.Custom("Cannot set a CadId on an Order that isn't Finished.");
+            throw OrderValidationException.CannotSetCadIdOnNonFinishedOrder();
         }
 
         CadId = cadId;

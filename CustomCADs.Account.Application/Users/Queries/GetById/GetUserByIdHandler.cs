@@ -1,4 +1,5 @@
-﻿using CustomCADs.Account.Domain.Users;
+﻿using CustomCADs.Account.Domain.Common.Exceptions.Users;
+using CustomCADs.Account.Domain.Users;
 using CustomCADs.Account.Domain.Users.Reads;
 
 namespace CustomCADs.Account.Application.Users.Queries.GetById;

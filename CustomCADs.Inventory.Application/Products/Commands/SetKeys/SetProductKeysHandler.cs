@@ -17,7 +17,7 @@ public class SetProductKeysHandler(IProductReads reads, IUnitOfWork uow, IReques
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+            throw ProductValidationException.Unauthorized();
         }
 
         if (req.ImageKey is not null)

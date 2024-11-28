@@ -15,7 +15,7 @@ public class CancelOrderHandler(IOrderReads reads, IUnitOfWork uow)
 
         if (req.CancellerId != order.DesignerId)
         {
-            throw OrderValidationException.Custom("Cannot cancel an Order you aren't associated with.");
+            throw OrderValidationException.DesignerNotAssociated("cancel");
         }
 
         order.SetPendingStatus();

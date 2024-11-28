@@ -15,7 +15,7 @@ public class DeleteCartHandler(ICartReads reads, IWrites<Cart> writes, IUnitOfWo
 
         if (cart.BuyerId == req.BuyerId)
         {
-            throw CartValidationException.Custom("Cannot modify another Buyer's Carts.");
+            throw CartValidationException.Unauthorized();
         }
 
         writes.Remove(cart);

@@ -18,7 +18,7 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+            throw ProductValidationException.Unauthorized();
         }
 
         GetUsernameByIdQuery usernameQuery = new(product.CreatorId);

@@ -26,4 +26,7 @@ public class ProductValidationException : BaseException
 
     public static ProductValidationException InvalidStatus(ProductId id, string status, Exception? inner = default)
         => Custom($"The Product with id: {id} cannot have a status: {status}.", inner);
+
+    public static ProductValidationException Unauthorized(Exception? inner = default)
+        => Custom("Cannot modify another Creator's Products.", inner);
 }

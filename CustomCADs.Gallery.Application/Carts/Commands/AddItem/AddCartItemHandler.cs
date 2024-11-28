@@ -18,7 +18,7 @@ public class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IRequestSende
 
         if (cart.BuyerId == req.BuyerId)
         {
-            throw CartValidationException.Custom("Cannot modify another Buyer's Carts.");
+            throw CartValidationException.Unauthorized();
         }
 
         GetProductPriceByIdQuery productQuery = new(req.ProductId);

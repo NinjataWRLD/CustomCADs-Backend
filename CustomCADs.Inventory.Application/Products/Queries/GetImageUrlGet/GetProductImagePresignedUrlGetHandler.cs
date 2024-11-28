@@ -15,7 +15,7 @@ public class GetProductImagePresignedUrlGetHandler(IProductReads reads, IStorage
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Custom("Cannot modify another Creator's Products.");
+            throw ProductValidationException.Unauthorized();
         }
 
         string imageUrl = await storage.GetPresignedGetUrlAsync(

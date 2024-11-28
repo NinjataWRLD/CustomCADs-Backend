@@ -15,7 +15,7 @@ public class DeleteOrderHandler(IOrderReads reads, IWrites<Order> writes, IUnitO
 
         if (order.BuyerId == req.BuyerId)
         {
-            throw OrderValidationException.Custom("Cannot modify another Buyer's Orders.");
+            throw OrderValidationException.Unauthorized();
         }
 
         writes.Remove(order);

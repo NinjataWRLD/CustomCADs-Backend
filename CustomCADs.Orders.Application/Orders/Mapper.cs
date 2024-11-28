@@ -68,6 +68,6 @@ public static class Mapper
                 buyerId: command.BuyerId,
                 shipmentId: shipmentId
             ),
-            _ => throw OrderValidationException.Custom("Invalid Delivery Type.")
+            _ => throw OrderValidationException.General()
         };
 }

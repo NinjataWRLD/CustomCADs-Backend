@@ -14,7 +14,7 @@ public class GetCartByIdHandler(ICartReads reads)
 
         if (cart.BuyerId == req.BuyerId)
         {
-            throw CartValidationException.Custom("Cannot modify another Buyer's Carts.");
+            throw CartValidationException.Unauthorized();
         }
 
         return cart.ToGetCartByIdDto();

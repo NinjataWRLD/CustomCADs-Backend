@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Domain.Common.Exceptions;
+﻿using CustomCADs.Account.Domain.Common.Exceptions.Users;
 using CustomCADs.Account.Domain.Roles;
 using System.Text.RegularExpressions;
 
