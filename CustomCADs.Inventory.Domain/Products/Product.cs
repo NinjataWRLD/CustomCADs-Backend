@@ -110,7 +110,7 @@ public class Product : BaseAggregateRoot
 
         if (!(Status == ProductStatus.Validated || Status == ProductStatus.Reported))
         {
-            throw ProductValidationException.InvalidStatus(Id, newStatus.ToString());
+            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
         }
         Status = newStatus;
 
@@ -123,7 +123,7 @@ public class Product : BaseAggregateRoot
 
         if (Status != ProductStatus.Unchecked)
         {
-            throw ProductValidationException.InvalidStatus(Id, newStatus.ToString());
+            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
         }
         Status = newStatus;
 
@@ -142,7 +142,7 @@ public class Product : BaseAggregateRoot
 
         if (Status != ProductStatus.Reported)
         {
-            throw ProductValidationException.InvalidStatus(Id, newStatus.ToString());
+            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
         }
         Status = newStatus;
 

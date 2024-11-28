@@ -17,7 +17,7 @@ public class SetProductCoordsHandler(IProductReads reads, IRequestSender sender)
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Unauthorized();
+            throw ProductAuthorizationException.ByProductId(req.Id);
         }
 
         SetCadCoordsCommand command = new(

@@ -16,7 +16,7 @@ public class EditOrderHandler(IOrderReads reads, IUnitOfWork uow)
 
         if (order.BuyerId != req.BuyerId)
         {
-            throw OrderValidationException.Unauthorized();
+            throw OrderAuthorizationException.ByOrderId(req.Id);
         }
 
         order.SetName(req.Name ?? order.Name);

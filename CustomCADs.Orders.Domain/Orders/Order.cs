@@ -119,7 +119,7 @@ public class Order : BaseAggregateRoot
 
         if (!(OrderStatus == OrderStatus.Accepted || OrderStatus == OrderStatus.Begun))
         {
-            throw OrderValidationException.InvalidStatus(Id, newStatus.ToString());
+            throw OrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
 
         OrderStatus = newStatus;
@@ -132,7 +132,7 @@ public class Order : BaseAggregateRoot
 
         if (OrderStatus != OrderStatus.Pending)
         {
-            throw OrderValidationException.InvalidStatus(Id, newStatus.ToString());
+            throw OrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
 
         OrderStatus = newStatus;
@@ -145,7 +145,7 @@ public class Order : BaseAggregateRoot
 
         if (OrderStatus != OrderStatus.Accepted)
         {
-            throw OrderValidationException.InvalidStatus(Id, newStatus.ToString());
+            throw OrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
 
         OrderStatus = newStatus;
@@ -158,7 +158,7 @@ public class Order : BaseAggregateRoot
 
         if (OrderStatus != OrderStatus.Begun)
         {
-            throw OrderValidationException.InvalidStatus(Id, newStatus.ToString());
+            throw OrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
 
         OrderStatus = newStatus;
@@ -171,7 +171,7 @@ public class Order : BaseAggregateRoot
 
         if (OrderStatus != OrderStatus.Pending)
         {
-            throw OrderValidationException.InvalidStatus(Id, newStatus.ToString());
+            throw OrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
 
         OrderStatus = newStatus;
@@ -184,7 +184,7 @@ public class Order : BaseAggregateRoot
 
         if (OrderStatus != OrderStatus.Reported)
         {
-            throw OrderValidationException.InvalidStatus(Id, newStatus.ToString());
+            throw OrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
 
         OrderStatus = newStatus;

@@ -19,7 +19,7 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Unauthorized();
+            throw ProductAuthorizationException.ByProductId(req.Id);
         }
 
         GetUsernameByIdQuery usernameQuery = new(product.CreatorId);

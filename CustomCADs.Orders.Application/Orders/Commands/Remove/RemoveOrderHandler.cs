@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Orders.Exceptions;
 using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
 using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
@@ -24,7 +23,7 @@ public class RemoveOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSend
 
         if (role != Admin)
         {
-            throw OrderValidationException.OnlyAdminsCanRemoveOrders();
+            throw OrderAuthorizationException.UnauthorizedOrderRemoval();
         }
         order.SetRemovedStatus();
 

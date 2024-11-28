@@ -19,7 +19,7 @@ public class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IRequestSende
 
         if (cart.BuyerId == req.BuyerId)
         {
-            throw CartValidationException.Unauthorized();
+            throw CartAuthorizationException.ByCartId(req.Id);
         }
 
         GetProductPriceByIdQuery productQuery = new(req.ProductId);

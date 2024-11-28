@@ -15,9 +15,6 @@ public class UserValidationException : BaseException
     public static UserValidationException Custom(string message, Exception? inner = null)
         => new(message, inner);
 
-    public static UserValidationException CouldNotCreateUser(string username, Exception? inner = null)
-        => Custom($"Couldn't create the user: {username}.", inner);
-
     public static UserValidationException AccountNotCreatedYet(string username, Exception? inner = default)
         => Custom($"The User with username: {username}'s account is still being created.", inner);
 }

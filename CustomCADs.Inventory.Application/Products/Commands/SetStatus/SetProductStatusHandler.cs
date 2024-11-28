@@ -17,14 +17,14 @@ public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Unauthorized();
+            throw ProductAuthorizationException.ByProductId(req.Id);
         }
 
         switch (req.Status)
         {
             case ProductStatus.Validated: product.SetValidatedStatus(); break;
             case ProductStatus.Reported: product.SetReportedStatus(); break;
-            default: throw ProductValidationException.InvalidStatus(req.Id, req.Status.ToString());
+            default: throw ProductValidationException.InvalidStatus(req.Id, product.Status, req.Status);
         }
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

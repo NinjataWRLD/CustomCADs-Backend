@@ -16,7 +16,7 @@ public class DesignerGetOrderByIdHandler(IOrderReads reads)
 
         if (order.OrderStatus is not OrderStatus.Pending && order.DesignerId != req.DesignerId)
         {
-            throw OrderValidationException.CannotViewNonPendingOrderNotAcceptedByYou();
+            throw OrderAuthorizationException.CannotViewNonPendingOrderNotAcceptedByYou();
         }
 
         return order.ToDesignerGetOrderByIdDto();

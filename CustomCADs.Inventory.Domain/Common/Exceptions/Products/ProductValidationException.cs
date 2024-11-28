@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core;
+﻿using CustomCADs.Inventory.Domain.Products.Enums;
+using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Bases.Exceptions;
 
 namespace CustomCADs.Inventory.Domain.Common.Exceptions.Products;
@@ -21,12 +22,9 @@ public class ProductValidationException : BaseException
     public static ProductValidationException Range<TType>(string property, TType max, TType min, Exception? inner = default) where TType : struct
         => new(string.Format(RangeValidation, "a", "Product", property, min, max), inner);
 
+    public static ProductValidationException InvalidStatus(ProductId id, ProductStatus oldStatus, ProductStatus newStatus, Exception? inner = default)
+        => new($"Cannot set a status: {newStatus} to Product with id: {id} and status: {oldStatus}.", inner);
+
     public static ProductValidationException Custom(string message, Exception? inner = default)
         => new(message, inner);
-
-    public static ProductValidationException InvalidStatus(ProductId id, string status, Exception? inner = default)
-        => Custom($"The Product with id: {id} cannot have a status: {status}.", inner);
-
-    public static ProductValidationException Unauthorized(Exception? inner = default)
-        => Custom("Cannot modify another Creator's Products.", inner);
 }

@@ -16,7 +16,7 @@ public class DeleteOrderHandler(IOrderReads reads, IWrites<Order> writes, IUnitO
 
         if (order.BuyerId == req.BuyerId)
         {
-            throw OrderValidationException.Unauthorized();
+            throw OrderAuthorizationException.ByOrderId(req.Id);
         }
 
         writes.Remove(order);

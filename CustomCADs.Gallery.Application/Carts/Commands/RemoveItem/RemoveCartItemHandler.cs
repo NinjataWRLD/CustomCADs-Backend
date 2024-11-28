@@ -16,7 +16,7 @@ public class RemoveCartItemHandler(ICartReads reads, IUnitOfWork uow)
 
         if (cart.BuyerId == req.BuyerId)
         {
-            throw CartValidationException.Unauthorized();
+            throw CartAuthorizationException.ByCartId(req.Id);
         }
 
         cart.RemoveItem(req.ItemId);
