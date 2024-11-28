@@ -19,7 +19,7 @@ public class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSend
 
         if (req.FinisherId != order.DesignerId)
         {
-            throw OrderValidationException.Custom("Cannot finish an order you aren't associated with.");
+            throw OrderValidationException.DesignerNotAssociated("finish");
         }
         order.SetFinishedStatus();
 
@@ -27,7 +27,7 @@ public class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSend
         {
             if (req.Cad is null)
             {
-                throw OrderValidationException.Custom("Cannot finish a Digital delivery type order without providing a CadId.");
+                throw OrderValidationException.CannotFinishOrderWithDigitalDeliveryWithoutCadId();
             }
 
             var (Key, ContentType) = req.Cad.Value;

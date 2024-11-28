@@ -15,7 +15,7 @@ public class EditOrderHandler(IOrderReads reads, IUnitOfWork uow)
 
         if (order.BuyerId != req.BuyerId)
         {
-            throw OrderValidationException.Custom("Cannot modify another Buyer's Orders.");
+            throw OrderValidationException.Unauthorized();
         }
 
         order.SetName(req.Name ?? order.Name);

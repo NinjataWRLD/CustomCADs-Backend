@@ -14,7 +14,7 @@ public class GetOrderByIdHandler(IOrderReads reads)
 
         if (order.BuyerId == req.BuyerId)
         {
-            throw OrderValidationException.Custom("Cannot modify another Buyer's Orders.");
+            throw OrderValidationException.Unauthorized();
         }
 
         return order.ToGetOrderByIdDto();

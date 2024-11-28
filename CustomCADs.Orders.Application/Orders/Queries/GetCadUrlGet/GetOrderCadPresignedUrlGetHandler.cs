@@ -17,7 +17,7 @@ public class GetOrderCadPresignedUrlGetHandler(IOrderReads reads, IStorageServic
 
         if (order.CadId is null)
         {
-            throw OrderValidationException.Custom("Cannot get an Order's Cad without a CadId.");
+            throw OrderValidationException.CannotGetOrderCadWithoutCadId();
         }
         GetCadByIdQuery cadQuery = new(order.CadId.Value);
         var (Key, ContentType, _, _) = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);

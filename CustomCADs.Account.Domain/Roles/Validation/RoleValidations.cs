@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Domain.Common.Exceptions;
+﻿using CustomCADs.Account.Domain.Common.Exceptions.Roles;
 
 namespace CustomCADs.Account.Domain.Roles.Validation;
 

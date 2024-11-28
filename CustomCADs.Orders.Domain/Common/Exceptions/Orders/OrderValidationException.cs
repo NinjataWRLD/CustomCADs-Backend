@@ -29,4 +29,25 @@ public class OrderValidationException : BaseException
 
     public static OrderValidationException ShipmentIdOnNonPhysicalDeliveryType(Exception? inner = default)
         => Custom("Cannot set a ShipmentId for a Order with a DeliveryType that doesn't include a Physical Delivery.", inner);
+
+    public static OrderValidationException Unauthorized(Exception? inner = default)
+        => Custom("Cannot modify another Buyer's Orders.", inner);
+
+    public static OrderValidationException DesignerNotAssociated(string action, Exception? inner = default)
+        => Custom($"Cannot {action} an order you aren't associated with.", inner);
+
+    public static OrderValidationException CannotSetCadIdOnNonFinishedOrder(Exception? inner = default)
+        => Custom("Cannot set a CadId for an Order that isn't Finished.", inner);
+
+    public static OrderValidationException CannotFinishOrderWithDigitalDeliveryWithoutCadId(Exception? inner = default)
+        => Custom("Cannot finish a Digital delivery type Order without providing a CadId.", inner);
+
+    public static OrderValidationException CannotViewNonPendingOrderNotAcceptedByYou(Exception? inner = default)
+        => Custom("Cannot view an Order that isn't pending or accepted by you.", inner);
+
+    public static OrderValidationException OnlyAdminsCanRemoveOrders(Exception? inner = default)
+        => Custom("A User cannot remove an order if he isn't an Admin.", inner);
+
+    public static OrderValidationException CannotGetOrderCadWithoutCadId(Exception? inner = default)
+        => Custom("Cannot get an Order's Cad without a CadId.", inner);
 }

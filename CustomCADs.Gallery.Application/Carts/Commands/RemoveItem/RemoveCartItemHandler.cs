@@ -15,7 +15,7 @@ public class RemoveCartItemHandler(ICartReads reads, IUnitOfWork uow)
 
         if (cart.BuyerId == req.BuyerId)
         {
-            throw CartValidationException.Custom("Cannot modify another Buyer's Carts.");
+            throw CartValidationException.Unauthorized();
         }
 
         cart.RemoveItem(req.ItemId);

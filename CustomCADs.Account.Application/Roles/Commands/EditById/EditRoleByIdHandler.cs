@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Account.Domain.Common;
+using CustomCADs.Account.Domain.Common.Exceptions.Roles;
 using CustomCADs.Account.Domain.Roles;
 using CustomCADs.Account.Domain.Roles.DomainEvents;
 using CustomCADs.Account.Domain.Roles.Reads;

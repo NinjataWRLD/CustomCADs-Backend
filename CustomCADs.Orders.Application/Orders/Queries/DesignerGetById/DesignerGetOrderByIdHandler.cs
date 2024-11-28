@@ -13,10 +13,9 @@ public class DesignerGetOrderByIdHandler(IOrderReads reads)
         Order order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
-        if (order.OrderStatus is not OrderStatus.Pending
-            && order.DesignerId != req.DesignerId)
+        if (order.OrderStatus is not OrderStatus.Pending && order.DesignerId != req.DesignerId)
         {
-            throw OrderValidationException.Custom("");
+            throw OrderValidationException.CannotViewNonPendingOrderNotAcceptedByYou();
         }
 
         return order.ToDesignerGetOrderByIdDto();
