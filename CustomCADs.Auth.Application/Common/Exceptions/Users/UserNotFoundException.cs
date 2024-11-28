@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Bases.Exceptions;
 
-namespace CustomCADs.Auth.Domain.Common.Exceptions.Users;
+namespace CustomCADs.Auth.Application.Common.Exceptions.Users;
 
 using static Constants.ExceptionMessages;
 public class UserNotFoundException : BaseException

@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Auth.Endpoints.Info.UserExists;
+﻿using CustomCADs.Auth.Application.Common.Contracts;
+
+namespace CustomCADs.Auth.Endpoints.Info.UserExists;
 
 public class UserExistsEndpoint(IUserService service)
     : Endpoint<UserExistsRequest>

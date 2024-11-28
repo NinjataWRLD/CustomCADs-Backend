@@ -1,4 +1,5 @@
-﻿using CustomCADs.Auth.Application.Dtos;
+﻿using CustomCADs.Auth.Application.Common.Contracts;
+using CustomCADs.Auth.Application.Common.Dtos;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 

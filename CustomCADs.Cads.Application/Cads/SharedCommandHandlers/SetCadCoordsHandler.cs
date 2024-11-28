@@ -1,7 +1,7 @@
-﻿using CustomCADs.Cads.Domain.Cads;
+﻿using CustomCADs.Cads.Application.Cads.Exceptions;
+using CustomCADs.Cads.Domain.Cads;
 using CustomCADs.Cads.Domain.Cads.Reads;
 using CustomCADs.Cads.Domain.Common;
-using CustomCADs.Cads.Domain.Common.Exceptions.Cads;
 using CustomCADs.Shared.Application.Requests.Commands;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 

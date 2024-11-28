@@ -1,4 +1,5 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
+﻿using CustomCADs.Orders.Application.Orders.Exceptions;
+using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
 using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 

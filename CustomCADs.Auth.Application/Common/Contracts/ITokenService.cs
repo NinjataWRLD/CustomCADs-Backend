@@ -1,7 +1,7 @@
-﻿using CustomCADs.Auth.Application.Dtos;
+﻿using CustomCADs.Auth.Application.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
-namespace CustomCADs.Auth.Application.Contracts;
+namespace CustomCADs.Auth.Application.Common.Contracts;
 
 public interface ITokenService
 {
