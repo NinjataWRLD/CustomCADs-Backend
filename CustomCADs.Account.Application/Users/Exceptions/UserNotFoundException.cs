@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Bases.Exceptions;
 
-namespace CustomCADs.Account.Domain.Common.Exceptions.Users;
+namespace CustomCADs.Account.Application.Users.Exceptions;
 
 using static Constants.ExceptionMessages;
 

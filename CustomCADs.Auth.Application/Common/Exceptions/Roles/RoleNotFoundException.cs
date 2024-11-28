@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Bases.Exceptions;
 
-namespace CustomCADs.Account.Domain.Common.Exceptions.Roles;
+namespace CustomCADs.Auth.Application.Common.Exceptions.Roles;
 
 using static Constants.ExceptionMessages;
 
@@ -12,7 +12,7 @@ public class RoleNotFoundException : BaseException
     public static RoleNotFoundException General(Exception? inner = default)
         => new(string.Format(NotFound, "Role"), inner);
 
-    public static RoleNotFoundException ById(RoleId id, Exception? inner = default)
+    public static RoleNotFoundException ById(int id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Role", nameof(id), id), inner);
 
     public static RoleNotFoundException ByName(string name, Exception? inner = default)

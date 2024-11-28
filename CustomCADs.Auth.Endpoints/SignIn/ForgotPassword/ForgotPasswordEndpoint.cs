@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Auth.Endpoints.SignIn.ForgotPassword;
+﻿using CustomCADs.Auth.Application.Common.Contracts;
+
+namespace CustomCADs.Auth.Endpoints.SignIn.ForgotPassword;
 
 public class ForgotPasswordEndpoint(IUserService service)
     : Endpoint<ForgotPasswordRequest>

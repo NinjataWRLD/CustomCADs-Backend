@@ -1,4 +1,4 @@
-﻿using CustomCADs.Auth.Application.Contracts;
+﻿using CustomCADs.Auth.Application.Common.Contracts;
 using CustomCADs.Auth.Infrastructure;
 using CustomCADs.Auth.Infrastructure.Dtos;
 using CustomCADs.Auth.Infrastructure.Services;

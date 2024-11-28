@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using CustomCADs.Auth.Application.Common.Contracts;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.ResetPassword;

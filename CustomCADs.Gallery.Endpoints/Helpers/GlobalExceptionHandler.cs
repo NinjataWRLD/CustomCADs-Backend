@@ -1,4 +1,5 @@
-﻿using CustomCADs.Gallery.Domain.Common.Exceptions.CartItems;
+﻿using CustomCADs.Gallery.Application.Carts.Exceptions;
+using CustomCADs.Gallery.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
 using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;

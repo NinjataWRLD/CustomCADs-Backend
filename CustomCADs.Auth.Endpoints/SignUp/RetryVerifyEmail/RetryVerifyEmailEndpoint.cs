@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Auth.Endpoints.SignUp.RetryVerifyEmail;
 
+using CustomCADs.Auth.Application.Common.Contracts;
 using static ApiMessages;
 using static StatusCodes;
 

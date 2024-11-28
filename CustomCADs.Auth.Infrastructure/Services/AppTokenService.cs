@@ -1,5 +1,5 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Application.Dtos;
+﻿using CustomCADs.Auth.Application.Common.Contracts;
+using CustomCADs.Auth.Application.Common.Dtos;
 using CustomCADs.Auth.Domain;
 using CustomCADs.Auth.Infrastructure.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;

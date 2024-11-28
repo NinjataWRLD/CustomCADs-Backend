@@ -1,4 +1,5 @@
-﻿using CustomCADs.Inventory.Domain.Common.Exceptions.Products;
+﻿using CustomCADs.Inventory.Application.Products.Exceptions;
+using CustomCADs.Inventory.Domain.Common.Exceptions.Products;
 using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 

@@ -1,5 +1,6 @@
-﻿using CustomCADs.Auth.Application.Contracts;
-using CustomCADs.Auth.Application.Dtos;
+﻿using CustomCADs.Auth.Application.Common.Contracts;
+using CustomCADs.Auth.Application.Common.Dtos;
+using CustomCADs.Auth.Application.Common.Exceptions.Users;
 using CustomCADs.Auth.Domain.Common.Exceptions.Users;
 using CustomCADs.Auth.Domain.DomainEvents.Email;
 using CustomCADs.Auth.Domain.Entities;

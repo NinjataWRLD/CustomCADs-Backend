@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core;
+﻿using CustomCADs.Auth.Application.Common.Contracts;
+using CustomCADs.Shared.Core;
 
 namespace CustomCADs.Auth.Endpoints.SignIn.Logout;
 

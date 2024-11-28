@@ -1,4 +1,4 @@
-﻿global using CustomCADs.Auth.Application.Contracts;
+﻿global using CustomCADs.Auth.Application.Common.Contracts;
 global using CustomCADs.Auth.Domain.Entities;
 global using CustomCADs.Auth.Endpoints.Helpers;
 global using FastEndpoints;
