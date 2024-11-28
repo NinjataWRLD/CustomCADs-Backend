@@ -25,7 +25,7 @@ public class RegisterEndpoint(IUserService service)
             FirstName: req.FirstName,
             LastName: req.LastName
         );
-        IdentityResult result = await service.CreateUserAsync(dto).ConfigureAwait(false);
+        IdentityResult result = await service.CreateAsync(dto).ConfigureAwait(false);
 
         if (!result.Succeeded)
         {

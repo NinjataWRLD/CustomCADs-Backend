@@ -48,10 +48,8 @@ public class LoginEndpoint(IUserService userService, ITokenService tokenService)
             return;
         }
 
-        UserId accountId = user.AccountId ?? throw UserValidationException.AccountNotCreatedYet(user.UserName ?? string.Empty);
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
-
-        AccessTokenDto jwt = tokenService.GenerateAccessToken(accountId, req.Username, role);
+        AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, req.Username, role);
         SaveJwt(jwt.Value, jwt.EndDate);
 
         string rt = tokenService.GenerateRefreshToken();

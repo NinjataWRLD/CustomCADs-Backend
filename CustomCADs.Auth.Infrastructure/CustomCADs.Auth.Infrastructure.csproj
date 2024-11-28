@@ -13,6 +13,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Auth.Domain\CustomCADs.Auth.Domain.csproj" />
 		<ProjectReference Include="..\CustomCADs.Auth.Application\CustomCADs.Auth.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.UseCases\CustomCADs.Shared.UseCases.csproj" />
 	</ItemGroup>
 
 </Project>
