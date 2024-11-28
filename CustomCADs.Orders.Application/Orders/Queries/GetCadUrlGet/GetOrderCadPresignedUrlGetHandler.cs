@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.Orders.Exceptions;
-using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
 using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
@@ -18,7 +17,7 @@ public class GetOrderCadPresignedUrlGetHandler(IOrderReads reads, IStorageServic
 
         if (order.CadId is null)
         {
-            throw OrderValidationException.CannotGetOrderCadWithoutCadId();
+            throw OrderCadException.ById(req.Id);
         }
         GetCadByIdQuery cadQuery = new(order.CadId.Value);
         var (Key, ContentType, _, _) = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);

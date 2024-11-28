@@ -21,7 +21,7 @@ public class DeleteProductHandler(IProductReads productReads, IWrites<Product> p
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Unauthorized();
+            throw ProductAuthorizationException.ByProductId(req.Id);
         }
 
         productWrites.Remove(product);

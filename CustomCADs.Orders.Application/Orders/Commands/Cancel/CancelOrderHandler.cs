@@ -16,7 +16,7 @@ public class CancelOrderHandler(IOrderReads reads, IUnitOfWork uow)
 
         if (req.CancellerId != order.DesignerId)
         {
-            throw OrderValidationException.DesignerNotAssociated("cancel");
+            throw OrderAuthorizationException.NotAssociated("cancel");
         }
 
         order.SetPendingStatus();

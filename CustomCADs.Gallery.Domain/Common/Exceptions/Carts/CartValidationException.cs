@@ -17,7 +17,4 @@ public class CartValidationException : BaseException
 
     public static CartValidationException Custom(string message, Exception? inner = default)
         => new(message, inner);
-
-    public static CartValidationException Unauthorized(Exception? inner = default)
-        => Custom("Cannot modify another Buyer's Carts.", inner);
 }

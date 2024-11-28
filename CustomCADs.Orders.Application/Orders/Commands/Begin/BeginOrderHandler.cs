@@ -16,7 +16,7 @@ public class BeginOrderHandler(IOrderReads reads, IUnitOfWork uow)
 
         if (req.BeginnerId != order.DesignerId)
         {
-            throw OrderValidationException.DesignerNotAssociated("begin");
+            throw OrderAuthorizationException.NotAssociated("begin");
         }
         order.SetBegunStatus();
 

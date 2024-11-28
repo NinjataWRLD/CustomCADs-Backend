@@ -16,7 +16,7 @@ public class GetProductImagePresignedUrlGetHandler(IProductReads reads, IStorage
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Unauthorized();
+            throw ProductAuthorizationException.ByProductId(req.Id);
         }
 
         string imageUrl = await storage.GetPresignedGetUrlAsync(

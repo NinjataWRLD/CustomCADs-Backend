@@ -16,7 +16,7 @@ public class EditProductHandler(IProductReads reads, IUnitOfWork uow)
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Unauthorized();
+            throw ProductAuthorizationException.ByProductId(req.Id);
         }
 
         product

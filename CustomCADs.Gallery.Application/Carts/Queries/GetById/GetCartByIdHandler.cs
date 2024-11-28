@@ -15,7 +15,7 @@ public class GetCartByIdHandler(ICartReads reads)
 
         if (cart.BuyerId == req.BuyerId)
         {
-            throw CartValidationException.Unauthorized();
+            throw CartAuthorizationException.ByCartId(req.Id);
         }
 
         return cart.ToGetCartByIdDto();

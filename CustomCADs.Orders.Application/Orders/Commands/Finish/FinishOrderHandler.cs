@@ -20,7 +20,7 @@ public class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSend
 
         if (req.FinisherId != order.DesignerId)
         {
-            throw OrderValidationException.DesignerNotAssociated("finish");
+            throw OrderAuthorizationException.NotAssociated("finish");
         }
         order.SetFinishedStatus();
 

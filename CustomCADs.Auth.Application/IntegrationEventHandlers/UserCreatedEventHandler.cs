@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Auth.Application.Common.Contracts;
+using CustomCADs.Auth.Application.Common.Exceptions.Users;
 using CustomCADs.Auth.Domain.Common.Exceptions.Users;
 using CustomCADs.Shared.IntegrationEvents.Account.Users;
 
@@ -13,7 +14,7 @@ public class UserCreatedEventHandler(IUserService service)
 
         if (!result.Succeeded)
         {
-            throw UserValidationException.CouldNotCreateUser(ie.Username);
+            throw UserCreationException.ByUsername(ie.Username);
         }
         await service.AddToRoleAsync(user, ie.Role).ConfigureAwait(false);
     }

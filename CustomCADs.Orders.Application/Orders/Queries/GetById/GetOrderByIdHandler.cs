@@ -15,7 +15,7 @@ public class GetOrderByIdHandler(IOrderReads reads)
 
         if (order.BuyerId == req.BuyerId)
         {
-            throw OrderValidationException.Unauthorized();
+            throw OrderAuthorizationException.ByOrderId(req.Id);
         }
 
         return order.ToGetOrderByIdDto();

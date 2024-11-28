@@ -18,7 +18,7 @@ public class GetProductCadPresignedUrlGetHandler(IProductReads reads, IStorageSe
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductValidationException.Unauthorized();
+            throw ProductAuthorizationException.ByProductId(req.Id);
         }
 
         GetCadByIdQuery cadQuery = new(product.CadId);
