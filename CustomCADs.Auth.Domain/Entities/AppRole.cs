@@ -2,4 +2,4 @@
 
 namespace CustomCADs.Auth.Domain.Entities;
 
-public class AppRole : IdentityRole<Guid>;
+public class AppRole(string name) : IdentityRole<Guid>(name);

@@ -57,10 +57,8 @@ public class VerifyEmailEndpoint(IUserService userService, ITokenService tokenSe
             return;
         }
 
-        UserId accountId = user.AccountId ?? throw UserValidationException.AccountNotCreatedYet(user.UserName ?? string.Empty);
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
-
-        AccessTokenDto jwt = tokenService.GenerateAccessToken(accountId, req.Username, role);
+        AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, req.Username, role);
         string rt = tokenService.GenerateRefreshToken();
 
         DateTime rtEnd = DateTime.UtcNow.AddDays(RtDurationInDays);

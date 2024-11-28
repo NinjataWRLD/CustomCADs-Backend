@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Auth.Application.Common.Dtos;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
 
 namespace CustomCADs.Auth.Application.Common.Contracts;
 
@@ -11,12 +10,9 @@ public interface IUserService
     Task<AppUser?> FindByRefreshTokenAsync(string rt);
     Task<string> GetRoleAsync(AppUser user);
     Task<bool> IsLockedOutAsync(AppUser user);
-    Task<IdentityResult> CreateUserAsync(CreateUserDto dto);
-    Task<IdentityResult> CreateAsync(AppUser user);
+    Task<IdentityResult> CreateAsync(CreateUserDto dto);
     Task<IdentityResult> CreateAsync(AppUser user, string password);
     Task<IdentityResult> UpdateAsync(AppUser user);
-    Task<IdentityResult> UpdateAccountIdAsync(Guid id, UserId accountId);
-    Task<IdentityResult> UpdateAccountIdAsync(string username, UserId accountId);
     Task<IdentityResult> UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate);
     Task<IdentityResult> RevokeRefreshTokenAsync(string username);
     Task<IdentityResult> AddToRoleAsync(AppUser user, string role);

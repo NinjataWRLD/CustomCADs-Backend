@@ -1,19 +1,19 @@
 ﻿using CustomCADs.Auth.Application.Common.Contracts;
 using CustomCADs.Auth.Application.Common.Dtos;
 using CustomCADs.Auth.Application.Common.Exceptions.Users;
-using CustomCADs.Auth.Domain.Common.Exceptions.Users;
 using CustomCADs.Auth.Domain.DomainEvents.Email;
 using CustomCADs.Auth.Domain.Entities;
 using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
-using CustomCADs.Shared.IntegrationEvents.Auth;
+using CustomCADs.Shared.UseCases.Users.Commands;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace CustomCADs.Auth.Infrastructure.Services;
 
-public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, IConfiguration config) : IUserService
+public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, IRequestSender sender, IConfiguration config) : IUserService
 {
     private readonly string serverUrl = config["URLs:Server"] ?? throw new KeyNotFoundException("Server Url not provided.");
     private readonly string clientUrl = config["URLs:Client"] ?? throw new KeyNotFoundException("Client Url not provided.");
@@ -36,15 +36,21 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
     public async Task<bool> IsLockedOutAsync(AppUser user)
         => await manager.IsLockedOutAsync(user).ConfigureAwait(false);
 
-    public async Task<IdentityResult> CreateAsync(AppUser user)
-        => await manager.CreateAsync(user).ConfigureAwait(false);
-
     public async Task<IdentityResult> CreateAsync(AppUser user, string password)
         => await manager.CreateAsync(user, password).ConfigureAwait(false);
 
-    public async Task<IdentityResult> CreateUserAsync(CreateUserDto dto)
+    public async Task<IdentityResult> CreateAsync(CreateUserDto dto)
     {
-        AppUser user = new(dto.Username, dto.Email);
+        CreateUserCommand command = new(
+            Role: dto.Role,
+            Username: dto.Username,
+            Email: dto.Email,
+            FirstName: dto.FirstName,
+            LastName: dto.LastName
+        );
+        UserId accountId = await sender.SendCommandAsync(command).ConfigureAwait(false);
+
+        AppUser user = new(dto.Username, dto.Email, accountId);
         IdentityResult createResult = await manager.CreateAsync(user, dto.Password).ConfigureAwait(false);
         if (!createResult.Succeeded)
             return createResult;
@@ -52,42 +58,12 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
         IdentityResult roleResult = await manager.AddToRoleAsync(user, dto.Role);
         if (!roleResult.Succeeded)
             return roleResult;
-
-        await raiser.RaiseIntegrationEventAsync(new UserRegisteredIntegrationEvent(
-            Role: dto.Role,
-            Username: dto.Username,
-            Email: dto.Email,
-            FirstName: dto.FirstName,
-            LastName: dto.LastName
-        )).ConfigureAwait(false);
-
-        return roleResult; // doesn't matter which result
+        
+        return IdentityResult.Success;
     }
 
     public async Task<IdentityResult> UpdateAsync(AppUser user)
         => await manager.UpdateAsync(user).ConfigureAwait(false);
-
-    public async Task<IdentityResult> UpdateAccountIdAsync(Guid id, UserId accountId)
-    {
-        AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
-            ?? throw UserNotFoundException.ById(id);
-
-        user.AccountId = accountId;
-
-        var result = await manager.UpdateAsync(user).ConfigureAwait(false);
-        return result;
-    }
-
-    public async Task<IdentityResult> UpdateAccountIdAsync(string username, UserId accountId)
-    {
-        AppUser user = await FindByNameAsync(username).ConfigureAwait(false)
-            ?? throw UserNotFoundException.ByUsername(username);
-
-        user.AccountId = accountId;
-
-        var result = await manager.UpdateAsync(user).ConfigureAwait(false);
-        return result;
-    }
 
     public async Task<IdentityResult> UpdateRefreshTokenAsync(Guid id, string rt, DateTime endDate)
     {
