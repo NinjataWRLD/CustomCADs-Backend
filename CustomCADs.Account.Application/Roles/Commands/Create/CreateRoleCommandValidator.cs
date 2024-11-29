@@ -1,20 +1,22 @@
 ﻿using CustomCADs.Account.Domain.Roles;
+using CustomCADs.Shared.Application.Requests.Validator;
+using CustomCADs.Shared.Core;
 using FluentValidation;
 
-namespace CustomCADs.Account.Endpoints.Roles.Post;
+namespace CustomCADs.Account.Application.Roles.Commands.Create;
 
 using static Constants.FluentMessages;
 using static RoleConstants;
 
-public class PostRoleRequestValidator : Validator<PostRoleRequest>
+public class CreateRoleCommandValidator : Validator<CreateRoleCommand, RoleId>
 {
-    public PostRoleRequestValidator()
+    public CreateRoleCommandValidator()
     {
-        RuleFor(r => r.Name)
+        RuleFor(r => r.Dto.Name)
             .NotEmpty().WithMessage(RequiredError)
             .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
-        RuleFor(r => r.Description)
+        RuleFor(r => r.Dto.Description)
             .NotEmpty().WithMessage(RequiredError)
             .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
     }
