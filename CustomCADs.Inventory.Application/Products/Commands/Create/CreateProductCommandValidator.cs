@@ -1,14 +1,16 @@
 ﻿using CustomCADs.Inventory.Domain.Products;
+using CustomCADs.Shared.Application.Requests.Validator;
+using CustomCADs.Shared.Core;
 using FluentValidation;
 
-namespace CustomCADs.Inventory.Endpoints.Products.Put;
+namespace CustomCADs.Inventory.Application.Products.Commands.Create;
 
 using static Constants.FluentMessages;
 using static ProductConstants;
 
-public class PostProductRequestValidator : Validator<PutProductRequest>
+public class CreateProductCommandValidator : Validator<CreateProductCommand, ProductId>
 {
-    public PostProductRequestValidator()
+    public CreateProductCommandValidator()
     {
         RuleFor(r => r.Name)
             .NotEmpty().WithMessage(RequiredError)
@@ -22,6 +24,8 @@ public class PostProductRequestValidator : Validator<PutProductRequest>
             .NotEmpty().WithMessage(RequiredError);
 
         RuleFor(r => r.Price)
-            .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError);
+            .ChildRules(a => a.RuleFor(p => p.Amount)
+                .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError)
+            );
     }
 }

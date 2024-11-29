@@ -1,14 +1,16 @@
 ﻿using CustomCADs.Orders.Domain.Orders;
+using CustomCADs.Shared.Application.Requests.Validator;
+using CustomCADs.Shared.Core;
 using FluentValidation;
 
-namespace CustomCADs.Orders.Endpoints.Client.Post;
+namespace CustomCADs.Orders.Application.Orders.Commands.Create;
 
 using static Constants.FluentMessages;
 using static OrderConstants;
 
-public class PostOrderRequestValidator : Validator<PostOrderRequest>
+public class CreateOrderCommandValidator : Validator<CreateOrderCommand, OrderId>
 {
-    public PostOrderRequestValidator()
+    public CreateOrderCommandValidator()
     {
         RuleFor(o => o.Name)
             .NotEmpty().WithMessage(RequiredError)

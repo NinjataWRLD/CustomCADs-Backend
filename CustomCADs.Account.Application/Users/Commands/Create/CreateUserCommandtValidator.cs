@@ -1,14 +1,16 @@
 ﻿using CustomCADs.Account.Domain.Users;
+using CustomCADs.Shared.Application.Requests.Validator;
+using CustomCADs.Shared.Core;
 using FluentValidation;
 
-namespace CustomCADs.Account.Endpoints.Users.Post;
+namespace CustomCADs.Account.Application.Users.Commands.Create;
 
 using static Constants.FluentMessages;
 using static UserConstants;
 
-public class PostUserRequestValidator : Validator<PostUserRequest>
+public class CreateUserCommandtValidator : Validator<CreateUserCommand, UserId>
 {
-    public PostUserRequestValidator()
+    public CreateUserCommandtValidator()
     {
         RuleFor(r => r.Username)
             .NotEmpty().WithMessage(RequiredError)
