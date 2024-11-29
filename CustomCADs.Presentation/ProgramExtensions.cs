@@ -1,24 +1,25 @@
 ﻿using CustomCADs.Account.Application;
-using CustomCADs.Account.Endpoints;
 using CustomCADs.Auth.Application;
 using CustomCADs.Auth.Domain.Entities;
-using CustomCADs.Auth.Endpoints;
 using CustomCADs.Auth.Infrastructure;
 using CustomCADs.Cads.Application;
 using CustomCADs.Categories.Application;
 using CustomCADs.Gallery.Application;
 using CustomCADs.Inventory.Application;
-using CustomCADs.Inventory.Endpoints;
 using CustomCADs.Orders.Application;
+using CustomCADs.Shared.Application.Requests.Middleware;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
 using FastEndpoints;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 #pragma warning disable IDE0130
@@ -30,16 +31,20 @@ public static class ProgramExtensions
 
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
-        services.AddScoped<IRequestSender, RequestSender>();
-
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies([
+        Assembly[] assemblies = [
             AccountApplicationReference.Assembly,
             InventoryApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
             CadsApplicationReference.Assembly,
             GalleryApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
-        ]));
+        ];
+
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
+        services.AddValidatorsFromAssemblies(assemblies);
+        
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+        services.AddScoped<IRequestSender, RequestSender>();
 
         return services;
     }
