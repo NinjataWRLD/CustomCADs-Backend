@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Domain.Products.Enums;
 
-namespace CustomCADs.Inventory.Endpoints.Designer.Get;
+namespace CustomCADs.Inventory.Endpoints.Designer.Get.All;
 
 public class GetUncheckedProductsEndpoint(IRequestSender sender)
     : Endpoint<GetUncheckedProductsRequest, GetUncheckedProductsResponse>

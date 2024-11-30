@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Common.Enums;
 
-namespace CustomCADs.Inventory.Endpoints.Designer.Get;
+namespace CustomCADs.Inventory.Endpoints.Designer.Get.All;
 
 public record GetUncheckedProductsRequest(
     string? Name = null,
