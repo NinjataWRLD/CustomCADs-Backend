@@ -5,7 +5,7 @@ namespace CustomCADs.Shared.Core;
 
 public static class ClaimsPrincipalExtensions
 {
-    public static UserId GetAccountId(this ClaimsPrincipal user)
+    public static AccountId GetAccountId(this ClaimsPrincipal user)
         => new((user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty).ToGuid());
 
     public static string GetName(this ClaimsPrincipal user)

@@ -4,5 +4,5 @@ namespace CustomCADs.Orders.Application.Orders.Commands.Accept;
 
 public record AcceptOrderCommand(
     OrderId Id,
-    UserId DesignerId
+    AccountId DesignerId
 ) : ICommand;

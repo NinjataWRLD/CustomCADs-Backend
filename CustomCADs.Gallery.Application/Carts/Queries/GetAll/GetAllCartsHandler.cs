@@ -3,7 +3,7 @@ using CustomCADs.Gallery.Domain.Carts.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
-using CustomCADs.Shared.UseCases.Users.Queries;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetAll;
 
@@ -20,9 +20,9 @@ public class GetAllCartsHandler(ICartReads reads, IRequestSender sender)
         );
         Result<Cart> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        UserId[] buyerIds = [.. result.Items.Select(c => c.BuyerId)];
+        AccountId[] buyerIds = [.. result.Items.Select(c => c.BuyerId)];
         GetTimeZonesByIdsQuery timeZonesQuery = new(buyerIds);
-        (UserId Id, string TimeZone)[] timeZones = await sender
+        (AccountId Id, string TimeZone)[] timeZones = await sender
             .SendQueryAsync(timeZonesQuery, ct)
             .ConfigureAwait(false);
 

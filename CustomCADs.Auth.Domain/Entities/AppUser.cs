@@ -7,14 +7,14 @@ public class AppUser : IdentityUser<Guid>
 {
     public AppUser() : base() { }
 
-    public AppUser(string username, string email, UserId accountId)
+    public AppUser(string username, string email, AccountId accountId)
         : base(username)
     {
         Email = email;
         AccountId = accountId;
     }
 
-    public UserId AccountId { get; set; }
+    public AccountId AccountId { get; set; }
     public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenEndDate { get; set; }
 }

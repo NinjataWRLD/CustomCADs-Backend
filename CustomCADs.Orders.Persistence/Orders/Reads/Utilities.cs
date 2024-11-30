@@ -8,7 +8,7 @@ namespace CustomCADs.Orders.Persistence.Orders.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Order> WithFilter(this IQueryable<Order> query, DeliveryType? deliveryType = null, OrderStatus? orderStatus = null, UserId? buyerId = null, UserId? designerId = null)
+    public static IQueryable<Order> WithFilter(this IQueryable<Order> query, DeliveryType? deliveryType = null, OrderStatus? orderStatus = null, AccountId? buyerId = null, AccountId? designerId = null)
     {
         if (deliveryType is not null)
         {

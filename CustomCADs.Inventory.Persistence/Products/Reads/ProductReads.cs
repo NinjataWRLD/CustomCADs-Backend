@@ -37,7 +37,7 @@ public class ProductReads(InventoryContext context) : IProductReads
             .AnyAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<Dictionary<ProductStatus, int>> CountByStatusAsync(UserId creatorId, CancellationToken ct = default)
+    public async Task<Dictionary<ProductStatus, int>> CountByStatusAsync(AccountId creatorId, CancellationToken ct = default)
         => await context.Products
             .WithTracking(false)
             .Where(p => p.CreatorId == creatorId)

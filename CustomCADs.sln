@@ -19,15 +19,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Inventory.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Infrastructure", "CustomCADs.Shared.Infrastructure\CustomCADs.Shared.Infrastructure.csproj", "{35D9A7B8-8224-4E44-BF93-4C213DE81CA7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account", "Account", "{29357C6D-C64F-43A4-AC6F-6613E41C9AE9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accounts", "Accounts", "{29357C6D-C64F-43A4-AC6F-6613E41C9AE9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Account.Domain", "CustomCADs.Account.Domain\CustomCADs.Account.Domain.csproj", "{ABD25FC8-480F-4C50-B1C1-77640AFA89A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Accounts.Domain", "CustomCADs.Accounts.Domain\CustomCADs.Accounts.Domain.csproj", "{ABD25FC8-480F-4C50-B1C1-77640AFA89A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Account.Persistence", "CustomCADs.Account.Persistence\CustomCADs.Account.Persistence.csproj", "{8E33A72E-392F-4985-9038-6D5887EBB8F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Accounts.Persistence", "CustomCADs.Accounts.Persistence\CustomCADs.Accounts.Persistence.csproj", "{8E33A72E-392F-4985-9038-6D5887EBB8F7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Persistence", "CustomCADs.Shared.Persistence\CustomCADs.Shared.Persistence.csproj", "{5A60A6C6-F8D8-4A83-A554-D1769D6A58F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Account.Application", "CustomCADs.Account.Application\CustomCADs.Account.Application.csproj", "{A60FF6CC-57EA-44E2-8C70-407E3CD55C07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Accounts.Application", "CustomCADs.Accounts.Application\CustomCADs.Accounts.Application.csproj", "{A60FF6CC-57EA-44E2-8C70-407E3CD55C07}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Auth.Infrastructure", "CustomCADs.Auth.Infrastructure\CustomCADs.Auth.Infrastructure.csproj", "{0E6D82CF-0F69-4BC3-AF93-423065C1C9AE}"
 EndProject
@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Auth.Endpoints",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Presentation", "CustomCADs.Presentation\CustomCADs.Presentation.csproj", "{DD36286C-63DC-41E6-82AD-2A857A6E4694}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Account.Endpoints", "CustomCADs.Account.Endpoints\CustomCADs.Account.Endpoints.csproj", "{582F4AC9-0500-494F-8AB1-18984E8EB7AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Accounts.Endpoints", "CustomCADs.Accounts.Endpoints\CustomCADs.Accounts.Endpoints.csproj", "{582F4AC9-0500-494F-8AB1-18984E8EB7AC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Inventory.Endpoints", "CustomCADs.Inventory.Endpoints\CustomCADs.Inventory.Endpoints.csproj", "{BE01D11A-2AA3-4F5F-B0D5-C0DE795666A6}"
 EndProject

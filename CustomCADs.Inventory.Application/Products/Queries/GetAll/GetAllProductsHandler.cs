@@ -4,8 +4,8 @@ using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
-using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetAll;
 
@@ -24,8 +24,8 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
         );
         Result<Product> result = await reads.AllAsync(productQuery, track: false, ct: ct).ConfigureAwait(false);
 
-        UserId[] userIds = [.. result.Items.Select(p => p.CreatorId).Distinct()];
-        IEnumerable<(UserId Id, string Username)> users = await sender
+        AccountId[] userIds = [.. result.Items.Select(p => p.CreatorId).Distinct()];
+        IEnumerable<(AccountId Id, string Username)> users = await sender
             .SendQueryAsync(new GetUsernamesByIdsQuery(userIds), ct)
             .ConfigureAwait(false);
 
@@ -34,9 +34,9 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
             .SendQueryAsync(new GetCategoriesByIdsQuery(categoryIds), ct)
             .ConfigureAwait(false);
 
-        UserId[] buyerIds = [.. result.Items.Select(c => c.CreatorId)];
+        AccountId[] buyerIds = [.. result.Items.Select(c => c.CreatorId)];
         GetTimeZonesByIdsQuery timeZonesQuery = new(buyerIds);
-        (UserId Id, string TimeZone)[] timeZones = await sender
+        (AccountId Id, string TimeZone)[] timeZones = await sender
             .SendQueryAsync(timeZonesQuery, ct)
             .ConfigureAwait(false);
 

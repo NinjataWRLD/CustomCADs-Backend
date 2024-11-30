@@ -7,7 +7,7 @@ namespace CustomCADs.Inventory.Persistence.Products.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, UserId? creatorId = null, ProductStatus? productStatus = null)
+    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, AccountId? creatorId = null, ProductStatus? productStatus = null)
     {
         if (creatorId is not null)
         {

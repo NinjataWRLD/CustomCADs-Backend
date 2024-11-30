@@ -14,7 +14,7 @@ public class Cart : BaseAggregateRoot
     private readonly List<CartItem> items = [];
 
     private Cart() { }
-    private Cart(UserId buyerId) : this()
+    private Cart(AccountId buyerId) : this()
     {
         BuyerId = buyerId;
         PurchaseDate = DateTime.UtcNow;
@@ -24,10 +24,10 @@ public class Cart : BaseAggregateRoot
     public CartId Id { get; init; }
     public decimal Total { get; private set; }
     public DateTime PurchaseDate { get; }
-    public UserId BuyerId { get; private set; }
+    public AccountId BuyerId { get; private set; }
     public IReadOnlyCollection<CartItem> Items => items.AsReadOnly();
 
-    public static Cart Create(UserId buyerId)
+    public static Cart Create(AccountId buyerId)
         => new Cart(buyerId)
             .ValidateItems();
 

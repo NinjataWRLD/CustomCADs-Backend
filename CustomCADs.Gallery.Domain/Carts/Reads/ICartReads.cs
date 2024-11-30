@@ -10,6 +10,6 @@ public interface ICartReads
     Task<Cart?> SingleByIdAsync(CartId id, bool track = true, CancellationToken ct = default);
     Task<ICollection<CartItem>> ItemsByIdAsync(CartId id, CancellationToken ct = default);
     Task<bool> ExistsByIdAsync(CartId id, CancellationToken ct = default);
-    Task<bool> OwnsByIdAsync(CartId id, UserId buyerId, CancellationToken ct = default);
-    Task<int> CountAsync(UserId buyerId, CancellationToken ct = default);
+    Task<bool> OwnsByIdAsync(CartId id, AccountId buyerId, CancellationToken ct = default);
+    Task<int> CountAsync(AccountId buyerId, CancellationToken ct = default);
 }

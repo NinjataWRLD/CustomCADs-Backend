@@ -19,7 +19,7 @@ public class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
     private const string Algorithm = SecurityAlgorithms.HmacSha256;
     private readonly JwtSettings jwtSettings = jwtOptions.Value;
 
-    public AccessTokenDto GenerateAccessToken(UserId accountId, string username, string role)
+    public AccessTokenDto GenerateAccessToken(AccountId accountId, string username, string role)
     {
         List<Claim> claims =
         [

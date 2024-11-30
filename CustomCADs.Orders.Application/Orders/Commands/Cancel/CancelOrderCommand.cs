@@ -4,5 +4,5 @@ namespace CustomCADs.Orders.Application.Orders.Commands.Cancel;
 
 public record CancelOrderCommand(
     OrderId Id,
-    UserId CancellerId
+    AccountId CancellerId
 ) : ICommand;

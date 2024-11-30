@@ -9,7 +9,7 @@ namespace CustomCADs.Delivery.Domain.Shipments;
 public class Shipment : BaseAggregateRoot
 {
     private Shipment() { }
-    private Shipment(Address address, UserId clientId)
+    private Shipment(Address address, AccountId clientId)
     {
         ShipmentStatus = ShipmentStatus.Pending;
         Address = address;
@@ -19,8 +19,8 @@ public class Shipment : BaseAggregateRoot
     public ShipmentId Id { get; set; }
     public ShipmentStatus ShipmentStatus { get; set; }
     public Address Address { get; set; } = new();
-    public UserId ClientId { get; set; }
+    public AccountId ClientId { get; set; }
 
-    public static Shipment Create(Address address, UserId clientId)
+    public static Shipment Create(Address address, AccountId clientId)
         => new(address, clientId);
 }

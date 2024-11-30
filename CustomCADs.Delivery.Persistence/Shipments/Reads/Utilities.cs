@@ -8,7 +8,7 @@ namespace CustomCADs.Delivery.Persistence.Shipments.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Shipment> WithFilter(this IQueryable<Shipment> query, UserId? clientId = null, string? status = null)
+    public static IQueryable<Shipment> WithFilter(this IQueryable<Shipment> query, AccountId? clientId = null, string? status = null)
     {
         if (clientId is not null)
         {

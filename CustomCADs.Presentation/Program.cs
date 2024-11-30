@@ -15,7 +15,7 @@ builder.Services.AddPayment(builder.Configuration);
 builder.Services.AddStorage(builder.Configuration);
 
 // Add Modules
-builder.Services.AddAccount(builder.Configuration);
+builder.Services.AddAccounts(builder.Configuration);
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddCads(builder.Configuration);
 builder.Services.AddCategories(builder.Configuration);

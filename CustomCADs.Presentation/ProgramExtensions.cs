@@ -1,4 +1,4 @@
-﻿using CustomCADs.Account.Application;
+﻿using CustomCADs.Accounts.Application;
 using CustomCADs.Auth.Application;
 using CustomCADs.Auth.Domain.Entities;
 using CustomCADs.Auth.Infrastructure;
@@ -106,10 +106,10 @@ public static class ProgramExtensions
         });
     }
 
-    public static IServiceCollection AddAccount(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddAccounts(this IServiceCollection services, IConfiguration config)
         => services
-            .AddAccountExceptionHandler()
-            .AddAccountPersistence(config);
+            .AddAccountsExceptionHandler()
+            .AddAccountsPersistence(config);
 
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration config)
         => services

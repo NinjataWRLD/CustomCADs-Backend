@@ -6,7 +6,7 @@ using CustomCADs.Auth.Domain.Entities;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
-using CustomCADs.Shared.UseCases.Users.Commands;
+using CustomCADs.Shared.UseCases.Accounts.Commands;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,7 +41,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
 
     public async Task<IdentityResult> CreateAsync(CreateUserDto dto)
     {
-        CreateUserCommand command = new(
+        CreateAccountCommand command = new(
             Role: dto.Role,
             Username: dto.Username,
             Email: dto.Email,
@@ -49,7 +49,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
             FirstName: dto.FirstName,
             LastName: dto.LastName
         );
-        UserId accountId = await sender.SendCommandAsync(command).ConfigureAwait(false);
+        AccountId accountId = await sender.SendCommandAsync(command).ConfigureAwait(false);
 
         AppUser user = new(dto.Username, dto.Email, accountId);
         IdentityResult createResult = await manager.CreateAsync(user, dto.Password).ConfigureAwait(false);

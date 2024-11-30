@@ -6,5 +6,5 @@ namespace CustomCADs.Auth.Application.Common.Contracts;
 public interface ITokenService
 {
     string GenerateRefreshToken();
-    AccessTokenDto GenerateAccessToken(UserId accountId, string username, string role);
+    AccessTokenDto GenerateAccessToken(AccountId accountId, string username, string role);
 }

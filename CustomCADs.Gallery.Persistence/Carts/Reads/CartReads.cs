@@ -50,14 +50,14 @@ public class CartReads(GalleryContext context) : ICartReads
             .AnyAsync(c => c.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<bool> OwnsByIdAsync(CartId id, UserId buyerId, CancellationToken ct = default)
+    public async Task<bool> OwnsByIdAsync(CartId id, AccountId buyerId, CancellationToken ct = default)
         => await context.Carts
             .WithTracking(false)
             .Where(c => c.BuyerId == buyerId)
             .AnyAsync(o => o.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<int> CountAsync(UserId buyerId, CancellationToken ct = default)
+    public async Task<int> CountAsync(AccountId buyerId, CancellationToken ct = default)
         => await context.Carts
             .WithTracking(false)
             .Where(c => c.BuyerId == buyerId)

@@ -15,5 +15,5 @@ public record CreateProductCommand(
     string CadContentType,
     Money Price,
     ProductStatus Status,
-    UserId CreatorId
+    AccountId CreatorId
 ) : ICommand<ProductId>;

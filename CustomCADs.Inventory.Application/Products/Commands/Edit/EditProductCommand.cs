@@ -10,5 +10,5 @@ public record EditProductCommand(
     string Description,
     Money Price,
     CategoryId CategoryId,
-    UserId CreatorId
+    AccountId CreatorId
 ) : ICommand;

@@ -3,9 +3,9 @@ using CustomCADs.Inventory.Domain.Common.Exceptions.Products;
 using CustomCADs.Inventory.Domain.Products;
 using CustomCADs.Inventory.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
-using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetById;
 
