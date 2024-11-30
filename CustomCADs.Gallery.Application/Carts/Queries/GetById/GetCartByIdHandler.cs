@@ -21,7 +21,7 @@ public class GetCartByIdHandler(ICartReads reads, IRequestSender sender)
 
         GetTimeZoneByIdQuery timeZoneQuery = new(cart.BuyerId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
-        
+
         return cart.ToGetCartByIdDto(timeZone);
     }
 }

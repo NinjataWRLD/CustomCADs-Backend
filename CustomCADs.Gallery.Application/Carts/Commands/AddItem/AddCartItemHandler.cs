@@ -3,7 +3,6 @@ using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Entities;
 using CustomCADs.Gallery.Domain.Carts.Reads;
 using CustomCADs.Gallery.Domain.Common;
-using CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.UseCases.Products.Queries;
 

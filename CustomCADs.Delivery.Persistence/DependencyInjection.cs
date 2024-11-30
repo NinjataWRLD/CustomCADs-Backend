@@ -22,8 +22,8 @@ public static class DependencyInjection
     {
         string connectionString = config.GetConnectionString("DeliveryConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'DeliveryConnection'.");
-        
-        services.AddDbContext<DeliveryContext>(options => 
+
+        services.AddDbContext<DeliveryContext>(options =>
             options.UseSqlServer(connectionString, opt =>
                 opt.MigrationsHistoryTable("__EFMigrationsHistory", "Delivery")
             )

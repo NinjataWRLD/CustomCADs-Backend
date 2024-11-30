@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
-using CustomCADs.Shared.Core.Bases.Exceptions;
+﻿using CustomCADs.Shared.Core.Bases.Exceptions;
 
 namespace CustomCADs.Orders.Application.Orders.Exceptions;
 
@@ -9,7 +8,7 @@ public class OrderAuthorizationException : BaseException
 
     public static OrderAuthorizationException General(Exception? inner = null)
         => new("Cannot modify another Buyer's Orders.", inner);
-    
+
     public static OrderAuthorizationException ByOrderId(OrderId id, Exception? inner = null)
         => new($"Cannot modify another Buyer's Order: {id}.", inner);
 

@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Inventory.Application.Products.Exceptions;
 using CustomCADs.Inventory.Domain.Common;
-using CustomCADs.Inventory.Domain.Common.Exceptions.Products;
 using CustomCADs.Inventory.Domain.Products;
 using CustomCADs.Inventory.Domain.Products.Reads;
 

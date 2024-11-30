@@ -23,8 +23,8 @@ public static class DependencyInjection
         string connectionString = config.GetConnectionString("CadsConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'CadsConnection'.");
 
-        services.AddDbContext<CadsContext>(options => 
-            options.UseSqlServer(connectionString, opt => 
+        services.AddDbContext<CadsContext>(options =>
+            options.UseSqlServer(connectionString, opt =>
                 opt.MigrationsHistoryTable("__EFMigrationsHistory", "Cads")
             )
         );

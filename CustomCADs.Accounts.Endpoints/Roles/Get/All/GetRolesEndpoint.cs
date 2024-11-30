@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Queries;
 using CustomCADs.Accounts.Application.Roles.Queries.GetAll;
-using CustomCADs.Accounts.Endpoints.Roles;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Get.All;
 

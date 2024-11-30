@@ -1,5 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Commands;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
 
@@ -10,7 +9,7 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(IEnumerable<IValida
 {
     public async Task<TResponse> Handle(TRequest req, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
     {
-        if (!validators.Any()) 
+        if (!validators.Any())
         {
             return await next().ConfigureAwait(false);
         }

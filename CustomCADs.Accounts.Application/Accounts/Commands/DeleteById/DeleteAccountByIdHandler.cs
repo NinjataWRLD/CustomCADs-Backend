@@ -2,7 +2,6 @@
 using CustomCADs.Accounts.Domain.Accounts;
 using CustomCADs.Accounts.Domain.Accounts.Reads;
 using CustomCADs.Accounts.Domain.Common;
-using CustomCADs.Accounts.Domain.Common.Exceptions.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.DeleteById;
 
