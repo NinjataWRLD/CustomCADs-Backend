@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Account.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
+using UserDto = (System.Guid Id, string Role, string Username, string Email);
 
 namespace CustomCADs.Account.Domain.Users;
 
@@ -36,6 +37,19 @@ public class User : BaseAggregateRoot
             .ValidateFirstName()
             .ValidateLastName();
 
+    public static IEnumerable<User> CreateRange(UserDto[] users)
+        => users.Select(dto =>
+            new User(dto.Role, dto.Username, dto.Email, "Sofia/Europe", null, null)
+            {
+                Id = new(dto.Id)
+            }
+            .ValidateRole()
+            .ValidateUsername()
+            .ValidateEmail()
+            .ValidateFirstName()
+            .ValidateLastName()
+        );
+
     public User SetUsername(string username)
     {
         Username = username;
@@ -49,7 +63,7 @@ public class User : BaseAggregateRoot
         this.ValidateEmail();
         return this;
     }
-    
+
     public User SetTimeZone(string timeZone)
     {
         TimeZone = timeZone;

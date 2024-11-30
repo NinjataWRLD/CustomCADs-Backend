@@ -1,8 +1,11 @@
 ﻿using CustomCADs.Account.Domain.Users;
+using CustomCADs.Shared.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Account.Persistence.Users.Configurations;
 
+using static Constants.Roles;
+using static Constants.Users;
 using static UserConstants;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
@@ -14,7 +17,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .SetStronglyTypedIds()
             .SetIndexes()
             .SetValueObjects()
-            .SetValidations();
+            .SetValidations()
+            .SetSeeding();
     }
 }
 
@@ -65,7 +69,7 @@ static class UserConfigUtils
 
         return builder;
     }
-    
+
     public static EntityTypeBuilder<User> SetValidations(this EntityTypeBuilder<User> builder)
     {
         builder.Property(x => x.Username)
@@ -77,7 +81,7 @@ static class UserConfigUtils
             .IsRequired()
             .HasMaxLength(EmailMaxLength)
             .HasColumnName("Email");
-        
+
         builder.Property(x => x.TimeZone)
             .IsRequired()
             .HasColumnName("TimeZone");
@@ -89,4 +93,15 @@ static class UserConfigUtils
         return builder;
     }
 
+    public static EntityTypeBuilder<User> SetSeeding(this EntityTypeBuilder<User> builder)
+    {
+        builder.HasData(User.CreateRange([
+            (new(ClientAccountId), Client, ClientUsername, ClientEmail),
+            (new(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail),
+            (new(DesignerAccountId), Designer, DesignerUsername, DesignerEmail),
+            (new(AdminAccountId), Admin, AdminUsername, AdminEmail),
+        ]));
+
+        return builder;
+    }
 }
