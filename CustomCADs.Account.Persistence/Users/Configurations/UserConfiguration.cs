@@ -16,7 +16,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .SetPrimaryKey()
             .SetStronglyTypedIds()
             .SetIndexes()
-            .SetValueObjects()
             .SetValidations()
             .SetSeeding();
     }
@@ -54,22 +53,6 @@ static class UserConfigUtils
         return builder;
     }
 
-    public static EntityTypeBuilder<User> SetValueObjects(this EntityTypeBuilder<User> builder)
-    {
-        builder.ComplexProperty(x => x.Names, a =>
-        {
-            a.Property(x => x.FirstName)
-                .HasMaxLength(NameMaxLength)
-                .HasColumnName("FirstName");
-
-            a.Property(x => x.LastName)
-                .HasMaxLength(NameMaxLength)
-                .HasColumnName("LastName");
-        });
-
-        return builder;
-    }
-
     public static EntityTypeBuilder<User> SetValidations(this EntityTypeBuilder<User> builder)
     {
         builder.Property(x => x.Username)
@@ -85,6 +68,14 @@ static class UserConfigUtils
         builder.Property(x => x.TimeZone)
             .IsRequired()
             .HasColumnName("TimeZone");
+
+        builder.Property(x => x.FirstName)
+            .HasMaxLength(NameMaxLength)
+            .HasColumnName("FirstName");
+
+        builder.Property(x => x.LastName)
+            .HasMaxLength(NameMaxLength)
+            .HasColumnName("LastName");
 
         builder.Property(x => x.RoleName)
             .IsRequired()

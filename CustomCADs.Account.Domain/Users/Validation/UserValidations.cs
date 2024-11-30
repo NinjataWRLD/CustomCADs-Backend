@@ -73,7 +73,7 @@ public static partial class UserValidations
     public static User ValidateFirstName(this User user)
     {
         string property = "First Name";
-        string? firstName = user.Names.FirstName;
+        string? firstName = user.FirstName;
 
         if (firstName is null)
         {
@@ -92,7 +92,7 @@ public static partial class UserValidations
     public static User ValidateLastName(this User user)
     {
         string property = "Last Name";
-        string? lastName = user.Names.LastName;
+        string? lastName = user.LastName;
 
         if (lastName is null)
         {

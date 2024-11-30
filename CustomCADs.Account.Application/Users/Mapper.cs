@@ -12,8 +12,8 @@ public static class Mapper
             user.Username,
             user.Email,
             user.RoleName,
-            user.Names.FirstName,
-            user.Names.LastName
+            user.FirstName,
+            user.LastName
         );
 
     public static GetUserByIdDto ToGetUserByIdDto(this User user)
@@ -21,7 +21,7 @@ public static class Mapper
             Role: user.RoleName,
             Username: user.Username,
             Email: user.Email,
-            FirstName: user.Names.FirstName,
-            LastName: user.Names.LastName
+            FirstName: user.FirstName,
+            LastName: user.LastName
         );
 }
