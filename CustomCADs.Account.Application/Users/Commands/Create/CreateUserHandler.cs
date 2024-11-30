@@ -14,6 +14,7 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow, IEventRais
             req.Role,
             req.Username,
             req.Email,
+            req.TimeZone,
             req.FirstName,
             req.LastName
         );

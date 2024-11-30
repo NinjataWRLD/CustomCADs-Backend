@@ -6,6 +6,7 @@ using CustomCADs.Auth.Domain.Entities;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.IntegrationEvents.Auth;
 using CustomCADs.Shared.UseCases.Users.Commands;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,7 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
             Role: dto.Role,
             Username: dto.Username,
             Email: dto.Email,
+            TimeZone: dto.TimeZone,
             FirstName: dto.FirstName,
             LastName: dto.LastName
         );
@@ -58,7 +60,16 @@ public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, I
         IdentityResult roleResult = await manager.AddToRoleAsync(user, dto.Role);
         if (!roleResult.Succeeded)
             return roleResult;
-        
+
+        await raiser.RaiseIntegrationEventAsync(new UserRegisteredIntegrationEvent(
+            Username: dto.Username,
+            Email: dto.Email,
+            TimeZone: dto.TimeZone,
+            FirstName: dto.FirstName,
+            LastName: dto.LastName,
+            Role: dto.Role
+        )).ConfigureAwait(false);
+
         return IdentityResult.Success;
     }
 
