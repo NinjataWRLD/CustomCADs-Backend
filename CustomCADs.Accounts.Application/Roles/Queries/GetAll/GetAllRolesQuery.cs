@@ -1,6 +1,4 @@
-﻿using CustomCADs.Accounts.Application.Roles.Queries;
-
-namespace CustomCADs.Accounts.Application.Roles.Queries.GetAll;
+﻿namespace CustomCADs.Accounts.Application.Roles.Queries.GetAll;
 
 public record GetAllRolesQuery(
     string? Name = null,

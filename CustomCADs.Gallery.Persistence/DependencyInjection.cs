@@ -22,8 +22,8 @@ public static class DependencyInjection
     {
         string connectionString = config.GetConnectionString("GalleryConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'GalleryConnection'.");
-        
-        services.AddDbContext<GalleryContext>(options => 
+
+        services.AddDbContext<GalleryContext>(options =>
             options.UseSqlServer(connectionString, opt
                 => opt.MigrationsHistoryTable("__EFMigrationsHistory", "Gallery")
             )

@@ -1,7 +1,4 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Exceptions;
-using CustomCADs.Accounts.Application.Roles.Queries;
-using CustomCADs.Accounts.Application.Roles.Queries.GetByName;
-using CustomCADs.Accounts.Domain.Common.Exceptions.Roles;
 using CustomCADs.Accounts.Domain.Roles;
 using CustomCADs.Accounts.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Cache;

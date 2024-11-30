@@ -1,6 +1,4 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.DeleteByName;
-using CustomCADs.Accounts.Endpoints.Roles;
-using CustomCADs.Accounts.Endpoints.Roles.Delete;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Delete;
 

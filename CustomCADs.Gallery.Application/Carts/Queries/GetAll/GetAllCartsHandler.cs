@@ -28,7 +28,7 @@ public class GetAllCartsHandler(ICartReads reads, IRequestSender sender)
 
         return new(
             result.Count,
-            result.Items.Select(c => 
+            result.Items.Select(c =>
                 c.ToGetAllCartsItem(
                     timeZone: timeZones.Single(t => t.Id == c.BuyerId).TimeZone
             )).ToArray()

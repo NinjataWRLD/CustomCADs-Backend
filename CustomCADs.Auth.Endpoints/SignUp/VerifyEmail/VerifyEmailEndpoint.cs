@@ -1,8 +1,5 @@
-﻿using CustomCADs.Auth.Application.Common.Contracts;
-using CustomCADs.Auth.Application.Common.Dtos;
+﻿using CustomCADs.Auth.Application.Common.Dtos;
 using CustomCADs.Auth.Domain;
-using CustomCADs.Auth.Domain.Common.Exceptions.Users;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Auth.Endpoints.SignUp.VerifyEmail;

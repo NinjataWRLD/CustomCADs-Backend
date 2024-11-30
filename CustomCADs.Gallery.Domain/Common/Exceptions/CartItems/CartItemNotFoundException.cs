@@ -11,7 +11,7 @@ public class CartItemNotFoundException : BaseException
 
     public static CartItemNotFoundException General(Exception? inner = default)
         => new(string.Format(NotFound, "Cart Item"), inner);
-    
+
     public static CartItemNotFoundException ById(CartItemId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Cart Item", nameof(id), id), inner);
 

@@ -4,7 +4,6 @@ using CustomCADs.Gallery.Application.Carts.Queries.GetById;
 using CustomCADs.Gallery.Application.Carts.Queries.GetItems;
 using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Entities;
-using System;
 
 namespace CustomCADs.Gallery.Application.Carts;
 
@@ -26,7 +25,7 @@ public static class Mapper
             Id: cart.Id,
             Total: cart.Total,
             PurchaseDate: TimeZoneInfo.ConvertTimeToUtc(
-                cart.PurchaseDate, 
+                cart.PurchaseDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
             BuyerId: cart.BuyerId,

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Accounts.Domain.Common.Exceptions.Roles;
-using CustomCADs.Accounts.Domain.Roles;
 
 namespace CustomCADs.Accounts.Domain.Roles.Validation;
 

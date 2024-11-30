@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
-using CustomCADs.Accounts.Endpoints.Users;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Accounts.Endpoints.Users.Get.All;

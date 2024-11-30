@@ -42,8 +42,8 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
         return new(
             result.Count,
             result.Items.Select(o => o.ToGetAllOrdersItem(
-                buyerUsername: buyers.Single(d => d.Id == o.BuyerId).Username, 
-                designerUsername: designers.Single(d => d.Id == o.DesignerId).Username, 
+                buyerUsername: buyers.Single(d => d.Id == o.BuyerId).Username,
+                designerUsername: designers.Single(d => d.Id == o.DesignerId).Username,
                 timeZone: timeZones.Single(d => d.Id == o.BuyerId).TimeZone
             )).ToArray()
         );

@@ -16,13 +16,13 @@ public class ProductsCountHandler(IProductReads reads)
             Unchecked: counts.TryGetValue(ProductStatus.Unchecked, out int uncheckedCount)
                 ? uncheckedCount : 0,
 
-            Validated: counts.TryGetValue(ProductStatus.Validated, out int validatedCount) 
+            Validated: counts.TryGetValue(ProductStatus.Validated, out int validatedCount)
                 ? validatedCount : 0,
 
-            Reported: counts.TryGetValue(ProductStatus.Reported, out int reportedCount) 
+            Reported: counts.TryGetValue(ProductStatus.Reported, out int reportedCount)
                 ? reportedCount : 0,
 
-            Banned: counts.TryGetValue(ProductStatus.Removed, out int removedCount) 
+            Banned: counts.TryGetValue(ProductStatus.Removed, out int removedCount)
                 ? removedCount : 0
         );
     }

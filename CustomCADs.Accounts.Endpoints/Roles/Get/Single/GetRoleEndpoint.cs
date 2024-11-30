@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Queries;
 using CustomCADs.Accounts.Application.Roles.Queries.GetByName;
-using CustomCADs.Accounts.Endpoints.Roles;
-using CustomCADs.Accounts.Endpoints.Roles.Get.Single;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Get.Single;
 public class GetRoleEndpoint(IRequestSender sender)

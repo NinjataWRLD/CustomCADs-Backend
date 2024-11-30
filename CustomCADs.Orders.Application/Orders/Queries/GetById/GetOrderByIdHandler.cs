@@ -1,9 +1,7 @@
 ﻿using CustomCADs.Orders.Application.Orders.Exceptions;
-using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
 using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetById;

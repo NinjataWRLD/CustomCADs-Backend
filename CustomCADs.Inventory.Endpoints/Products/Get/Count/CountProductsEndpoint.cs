@@ -18,8 +18,8 @@ public class CountProductsEndpoint(IRequestSender sender)
         ProductsCountDto counts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         CountProductsResponse response = new(
-            Unchecked: counts.Unchecked, 
-            Validated: counts.Validated, 
+            Unchecked: counts.Unchecked,
+            Validated: counts.Validated,
             Reported: counts.Reported,
             Banned: counts.Banned
         );

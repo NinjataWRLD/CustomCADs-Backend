@@ -1,6 +1,4 @@
-﻿using CustomCADs.Auth.Application.Common.Contracts;
-
-namespace CustomCADs.Auth.Endpoints.Info.EmailConfirmed;
+﻿namespace CustomCADs.Auth.Endpoints.Info.EmailConfirmed;
 
 public class EmailConfirmedEndpoint(IUserService service)
     : Endpoint<EmailConfirmedRequest>

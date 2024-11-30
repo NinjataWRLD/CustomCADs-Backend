@@ -2,7 +2,6 @@
 using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Reads;
 using CustomCADs.Gallery.Domain.Common;
-using CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.RemoveItem;
 

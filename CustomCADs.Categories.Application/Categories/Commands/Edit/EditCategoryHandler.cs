@@ -3,7 +3,6 @@ using CustomCADs.Categories.Domain.Categories;
 using CustomCADs.Categories.Domain.Categories.DomainEvents;
 using CustomCADs.Categories.Domain.Categories.Reads;
 using CustomCADs.Categories.Domain.Common;
-using CustomCADs.Categories.Domain.Common.Exceptions.Categories;
 using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Edit;

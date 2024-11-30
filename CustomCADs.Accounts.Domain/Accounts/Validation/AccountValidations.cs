@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts;
-using CustomCADs.Accounts.Domain.Common.Exceptions.Accounts;
+﻿using CustomCADs.Accounts.Domain.Common.Exceptions.Accounts;
 using CustomCADs.Accounts.Domain.Roles;
 using System.Text.RegularExpressions;
 
