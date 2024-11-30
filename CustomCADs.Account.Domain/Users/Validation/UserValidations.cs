@@ -108,6 +108,6 @@ public static partial class UserValidations
         return user;
     }
 
-    [GeneratedRegex(@"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$", RegexOptions.Compiled)]
+    [GeneratedRegex(@"^[^@\s]+@[^@\s]+\.\w{2,}$", RegexOptions.Compiled)]
     private static partial Regex EmailRegex();
 }
