@@ -34,11 +34,18 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
             .SendQueryAsync(new GetCategoriesByIdsQuery(categoryIds), ct)
             .ConfigureAwait(false);
 
+        UserId[] buyerIds = [.. result.Items.Select(c => c.CreatorId)];
+        GetTimeZonesByIdsQuery timeZonesQuery = new(buyerIds);
+        (UserId Id, string TimeZone)[] timeZones = await sender
+            .SendQueryAsync(timeZonesQuery, ct)
+            .ConfigureAwait(false);
+
         return new(
             result.Count,
             result.Items.Select(p => p.ToGetAllProductsItem(
                 username: users.Single(u => u.Id == p.CreatorId).Username,
-                categoryName: categories.Single(u => u.Id == p.CategoryId).Name
+                categoryName: categories.Single(c => c.Id == p.CategoryId).Name,
+                timeZone: timeZones.Single(t => t.Id == p.CreatorId).TimeZone
             )).ToArray()
         );
     }

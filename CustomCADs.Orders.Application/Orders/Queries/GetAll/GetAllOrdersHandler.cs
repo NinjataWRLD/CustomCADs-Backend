@@ -33,21 +33,19 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
 
         GetUsernamesByIdsQuery designerUsernamesQuery = new(designerIds);
         GetUsernamesByIdsQuery buyerUsernamesQuery = new(buyerIds);
+        GetTimeZonesByIdsQuery timeZonesQuery = new(buyerIds);
 
-        var designersInfo = await sender.SendQueryAsync(designerUsernamesQuery, ct).ConfigureAwait(false);
-        var buyersInfo = await sender.SendQueryAsync(buyerUsernamesQuery, ct).ConfigureAwait(false);
+        var designers = await sender.SendQueryAsync(designerUsernamesQuery, ct).ConfigureAwait(false);
+        var buyers = await sender.SendQueryAsync(buyerUsernamesQuery, ct).ConfigureAwait(false);
+        var timeZones = await sender.SendQueryAsync(timeZonesQuery, ct).ConfigureAwait(false);
 
         return new(
             result.Count,
-            result.Items
-                .Select(o =>
-                {
-                    var (_, BuyerUsername) = buyersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
-                    var (_, DesignerUsername) = designersInfo.FirstOrDefault(d => d.Id == o.DesignerId);
-
-                    return o.ToGetAllOrdersItem(BuyerUsername, DesignerUsername);
-                })
-                .ToArray()
+            result.Items.Select(o => o.ToGetAllOrdersItem(
+                buyerUsername: buyers.Single(d => d.Id == o.BuyerId).Username, 
+                designerUsername: designers.Single(d => d.Id == o.DesignerId).Username, 
+                timeZone: timeZones.Single(d => d.Id == o.BuyerId).TimeZone
+            )).ToArray()
         );
     }
 }

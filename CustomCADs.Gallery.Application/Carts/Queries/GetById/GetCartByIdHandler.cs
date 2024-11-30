@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Exceptions;
 using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Reads;
-using CustomCADs.Gallery.Domain.Common.Exceptions.Carts;
+using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetById;
 
-public class GetCartByIdHandler(ICartReads reads)
+public class GetCartByIdHandler(ICartReads reads, IRequestSender sender)
     : IQueryHandler<GetCartByIdQuery, GetCartByIdDto>
 {
     public async Task<GetCartByIdDto> Handle(GetCartByIdQuery req, CancellationToken ct)
@@ -18,6 +19,9 @@ public class GetCartByIdHandler(ICartReads reads)
             throw CartAuthorizationException.ByCartId(req.Id);
         }
 
-        return cart.ToGetCartByIdDto();
+        GetTimeZoneByIdQuery timeZoneQuery = new(cart.BuyerId);
+        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        
+        return cart.ToGetCartByIdDto(timeZone);
     }
 }
