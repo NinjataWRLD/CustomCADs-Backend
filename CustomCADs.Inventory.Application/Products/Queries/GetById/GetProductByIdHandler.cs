@@ -31,15 +31,8 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
         string timeZone = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
 
         GetCadByIdQuery cadQuery = new(product.CadId);
-        var (Key, ContentType, CamCoordinates, PanCoordinates) = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
+        var cad = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
 
-        CadDto cad = new(
-            Key: Key,
-            ContentType: ContentType,
-            CamCoordinates: CamCoordinates.ToCoordinates(),
-            PanCoordinates: PanCoordinates.ToCoordinates()
-        );
-
-        return product.ToGetProductByIdDto(cad, username, categoryName, timeZone);
+        return product.ToGetProductByIdDto(cad.ToCadDto(), username, categoryName, timeZone);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries;
+using CustomCADs.Inventory.Application.Products.Queries.DesignerGetById;
 using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products;
@@ -39,10 +40,24 @@ public static class Mapper
             Category: (product.CategoryId, categoryName),
             CreatorName: username
         );
+    
+    public static DesignerGetProductByIdDto ToDesignerGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName)
+        => new(
+            Id: product.Id,
+            Name: product.Name,
+            Description: product.Description,
+            Price: product.Price,
+            Cad: cad,
+            Category: (product.CategoryId, categoryName),
+            CreatorName: username
+        );
 
     public static Coordinates ToCoordinates(this CoordinatesDto coordinates)
         => new(coordinates.X, coordinates.Y, coordinates.Z);
 
     public static CoordinatesDto ToCoordinatesDto(this Coordinates coordinates)
         => new(coordinates.X, coordinates.Y, coordinates.Z);
+
+    public static CadDto ToCadDto(this (string Key, string ContentType, CoordinatesDto CamCoordinates, CoordinatesDto PanCoordinates) cad)
+        => new(cad.Key, cad.ContentType, cad.CamCoordinates.ToCoordinates(), cad.PanCoordinates.ToCoordinates());
 }
