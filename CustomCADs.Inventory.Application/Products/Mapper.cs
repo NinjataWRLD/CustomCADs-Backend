@@ -9,24 +9,30 @@ namespace CustomCADs.Inventory.Application.Products;
 
 public static class Mapper
 {
-    public static GetAllProductsDto ToGetAllProductsItem(this Product product, string username, string categoryName)
+    public static GetAllProductsDto ToGetAllProductsItem(this Product product, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
             Status: product.Status.ToString(),
-            UploadDate: product.UploadDate,
+            UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
+                product.UploadDate,
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            ),
             Image: product.Image,
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
 
-    public static GetProductByIdDto ToGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName)
+    public static GetProductByIdDto ToGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
             Description: product.Description,
             Price: product.Price,
-            UploadDate: product.UploadDate,
+            UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
+                product.UploadDate,
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            ),
             Status: product.Status.ToString(),
             Image: product.Image,
             Cad: cad,

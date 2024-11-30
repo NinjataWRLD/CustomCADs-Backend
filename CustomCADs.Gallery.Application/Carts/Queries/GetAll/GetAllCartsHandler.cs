@@ -1,10 +1,13 @@
 ﻿using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Reads;
+using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.UseCases.Users.Queries;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetAll;
 
-public class GetAllCartsHandler(ICartReads reads)
+public class GetAllCartsHandler(ICartReads reads, IRequestSender sender)
     : IQueryHandler<GetAllCartsQuery, Result<GetAllCartsDto>>
 {
     public async Task<Result<GetAllCartsDto>> Handle(GetAllCartsQuery req, CancellationToken ct)
@@ -17,9 +20,18 @@ public class GetAllCartsHandler(ICartReads reads)
         );
         Result<Cart> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
+        UserId[] buyerIds = [.. result.Items.Select(c => c.BuyerId)];
+        GetTimeZonesByIdsQuery timeZonesQuery = new(buyerIds);
+        (UserId Id, string TimeZone)[] timeZones = await sender
+            .SendQueryAsync(timeZonesQuery, ct)
+            .ConfigureAwait(false);
+
         return new(
             result.Count,
-            [.. result.Items.Select(c => c.ToGetAllCartsItem())]
+            result.Items.Select(c => 
+                c.ToGetAllCartsItem(
+                    timeZone: timeZones.Single(t => t.Id == c.BuyerId).TimeZone
+            )).ToArray()
         );
     }
 }

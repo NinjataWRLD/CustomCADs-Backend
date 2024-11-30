@@ -22,5 +22,5 @@ public class UserValidationException : BaseException
         => new(message, inner);
 
     public static UserValidationException Email(Exception? inner = default)
-        => Custom("An User must have a proper email.", inner);
+        => Custom("A User must have a proper email.", inner);
 }

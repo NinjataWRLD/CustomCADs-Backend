@@ -11,23 +11,29 @@ namespace CustomCADs.Orders.Application.Orders;
 
 public static class Mapper
 {
-    public static GetAllOrdersDto ToGetAllOrdersItem(this Order order, string buyerUsername, string? designerUsername)
+    public static GetAllOrdersDto ToGetAllOrdersItem(this Order order, string buyerUsername, string? designerUsername, string timeZone)
         => new(
             Id: order.Id,
             Name: order.Name,
-            OrderDate: order.OrderDate,
+            OrderDate: TimeZoneInfo.ConvertTimeFromUtc(
+                order.OrderDate,
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            ),
             DeliveryType: order.DeliveryType,
             OrderStatus: order.OrderStatus,
             BuyerName: buyerUsername,
             DesignerName: designerUsername
         );
 
-    public static GetOrderByIdDto ToGetOrderByIdDto(this Order order)
+    public static GetOrderByIdDto ToGetOrderByIdDto(this Order order, string timeZone)
         => new(
             Id: order.Id,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: order.OrderDate,
+            OrderDate: TimeZoneInfo.ConvertTimeFromUtc(
+                order.OrderDate,
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            ),
             DeliveryType: order.DeliveryType,
             OrderStatus: order.OrderStatus,
             DesignerId: order.DesignerId,

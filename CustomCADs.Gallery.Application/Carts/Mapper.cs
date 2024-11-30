@@ -4,24 +4,31 @@ using CustomCADs.Gallery.Application.Carts.Queries.GetById;
 using CustomCADs.Gallery.Application.Carts.Queries.GetItems;
 using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Entities;
+using System;
 
 namespace CustomCADs.Gallery.Application.Carts;
 
 public static class Mapper
 {
-    public static GetAllCartsDto ToGetAllCartsItem(this Cart cart)
+    public static GetAllCartsDto ToGetAllCartsItem(this Cart cart, string timeZone)
         => new(
             Id: cart.Id,
             Total: cart.Total,
-            PurchaseDate: cart.PurchaseDate,
+            PurchaseDate: TimeZoneInfo.ConvertTimeToUtc(
+                cart.PurchaseDate,
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            ),
             ItemsCount: cart.Items.Count
         );
 
-    public static GetCartByIdDto ToGetCartByIdDto(this Cart cart)
+    public static GetCartByIdDto ToGetCartByIdDto(this Cart cart, string timeZone)
         => new(
             Id: cart.Id,
             Total: cart.Total,
-            PurchaseDate: cart.PurchaseDate,
+            PurchaseDate: TimeZoneInfo.ConvertTimeToUtc(
+                cart.PurchaseDate, 
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            ),
             BuyerId: cart.BuyerId,
             Items: [.. cart.Items]
         );
