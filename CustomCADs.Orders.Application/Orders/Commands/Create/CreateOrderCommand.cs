@@ -7,5 +7,5 @@ public record CreateOrderCommand(
     DeliveryType DeliveryType,
     string Name,
     string Description,
-    UserId BuyerId
+    AccountId BuyerId
 ) : ICommand<OrderId>;

@@ -19,8 +19,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CustomCADs.Account.Endpoints\CustomCADs.Account.Endpoints.csproj" />
-		<ProjectReference Include="..\CustomCADs.Account.Persistence\CustomCADs.Account.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Accounts.Endpoints\CustomCADs.Accounts.Endpoints.csproj" />
+		<ProjectReference Include="..\CustomCADs.Accounts.Persistence\CustomCADs.Accounts.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Auth.Endpoints\CustomCADs.Auth.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Auth.Infrastructure\CustomCADs.Auth.Infrastructure.csproj" />
 		<ProjectReference Include="..\CustomCADs.Cads.Application\CustomCADs.Cads.Application.csproj" />

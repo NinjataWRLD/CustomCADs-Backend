@@ -2,4 +2,4 @@
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.Count;
 
-public record CountCartQuery(UserId BuyerId) : IQuery<int>;
+public record CountCartQuery(AccountId BuyerId) : IQuery<int>;

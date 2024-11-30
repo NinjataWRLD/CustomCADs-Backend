@@ -11,7 +11,7 @@ namespace CustomCADs.Orders.Domain.Orders;
 public class Order : BaseAggregateRoot
 {
     private Order() { }
-    private Order(string name, string description, DeliveryType deliveryType, UserId buyerId, ShipmentId? shipmentId) : this()
+    private Order(string name, string description, DeliveryType deliveryType, AccountId buyerId, ShipmentId? shipmentId) : this()
     {
         Name = name;
         Description = description;
@@ -28,15 +28,15 @@ public class Order : BaseAggregateRoot
     public DateTime OrderDate { get; }
     public DeliveryType DeliveryType { get; }
     public OrderStatus OrderStatus { get; private set; }
-    public UserId BuyerId { get; private set; }
-    public UserId? DesignerId { get; private set; }
+    public AccountId BuyerId { get; private set; }
+    public AccountId? DesignerId { get; private set; }
     public CadId? CadId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
 
     public static Order CreateDigital(
         string name,
         string description,
-        UserId buyerId
+        AccountId buyerId
     ) => new Order(name, description, DeliveryType.Digital, buyerId, shipmentId: null)
             .ValidateName()
             .ValidateDescription();
@@ -44,7 +44,7 @@ public class Order : BaseAggregateRoot
     public static Order CreatePhysical(
         string name,
         string description,
-        UserId buyerId,
+        AccountId buyerId,
         ShipmentId? shipmentId
     ) => new Order(name, description, DeliveryType.Physical, buyerId, shipmentId)
             .ValidateName()
@@ -53,7 +53,7 @@ public class Order : BaseAggregateRoot
     public static Order CreateDigitalAndPhysical(
         string name,
         string description,
-        UserId buyerId,
+        AccountId buyerId,
         ShipmentId? shipmentId
     ) => new Order(name, description, DeliveryType.Both, buyerId, shipmentId)
             .ValidateName()
@@ -79,7 +79,7 @@ public class Order : BaseAggregateRoot
         return this;
     }
 
-    public Order SetDesignerId(UserId designerId)
+    public Order SetDesignerId(AccountId designerId)
     {
         DesignerId = designerId;
         return this;

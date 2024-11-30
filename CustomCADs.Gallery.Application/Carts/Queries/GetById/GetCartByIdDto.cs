@@ -7,6 +7,6 @@ public record GetCartByIdDto(
     CartId Id,
     decimal Total,
     DateTime PurchaseDate,
-    UserId BuyerId,
+    AccountId BuyerId,
     ICollection<CartItem> Items
 );

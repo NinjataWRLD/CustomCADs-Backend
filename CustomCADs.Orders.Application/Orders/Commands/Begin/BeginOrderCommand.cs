@@ -4,5 +4,5 @@ namespace CustomCADs.Orders.Application.Orders.Commands.Begin;
 
 public record BeginOrderCommand(
     OrderId Id,
-    UserId BeginnerId
+    AccountId BeginnerId
 ) : ICommand;

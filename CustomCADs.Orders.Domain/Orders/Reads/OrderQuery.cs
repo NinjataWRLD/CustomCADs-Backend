@@ -7,8 +7,8 @@ namespace CustomCADs.Orders.Domain.Orders.Reads;
 public record OrderQuery(
     DeliveryType? DeliveryType = null,
     OrderStatus? OrderStatus = null,
-    UserId? BuyerId = null,
-    UserId? DesignerId = null,
+    AccountId? BuyerId = null,
+    AccountId? DesignerId = null,
     string? Name = null,
     OrderSorting? Sorting = null,
     int Page = 1,

@@ -3,7 +3,7 @@ using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
-using CustomCADs.Shared.UseCases.Users.Queries;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetAll;
 
@@ -24,8 +24,8 @@ public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
         );
         Result<Order> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        UserId[] buyerIds = [.. result.Items.Select(o => o.BuyerId)];
-        UserId[] designerIds = [
+        AccountId[] buyerIds = [.. result.Items.Select(o => o.BuyerId)];
+        AccountId[] designerIds = [
             .. result.Items
             .Where(o => o.DesignerId is not null)
             .Select(o => o.DesignerId!.Value)

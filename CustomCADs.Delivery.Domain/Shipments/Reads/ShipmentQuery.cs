@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Account;
 namespace CustomCADs.Delivery.Domain.Shipments.Reads;
 
 public record ShipmentQuery(
-    UserId? ClientId = null,
+    AccountId? ClientId = null,
     string? ShipmentStatus = null,
     ShipmentSorting? Sorting = null,
     int Page = 1,

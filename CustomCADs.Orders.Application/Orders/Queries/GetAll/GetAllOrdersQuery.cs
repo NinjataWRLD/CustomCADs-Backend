@@ -8,8 +8,8 @@ namespace CustomCADs.Orders.Application.Orders.Queries.GetAll;
 public record GetAllOrdersQuery(
     DeliveryType? DeliveryType = null,
     OrderStatus? OrderStatus = null,
-    UserId? BuyerId = null,
-    UserId? DesignerId = null,
+    AccountId? BuyerId = null,
+    AccountId? DesignerId = null,
     string? Name = null,
     OrderSorting? Sorting = null,
     int Page = 1,

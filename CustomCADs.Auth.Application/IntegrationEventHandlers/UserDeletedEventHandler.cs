@@ -1,13 +1,13 @@
 ﻿using CustomCADs.Auth.Application.Common.Contracts;
 using CustomCADs.Auth.Application.Common.Exceptions.Users;
 using CustomCADs.Auth.Domain.Common.Exceptions.Users;
-using CustomCADs.Shared.IntegrationEvents.Account.Users;
+using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 
 namespace CustomCADs.Auth.Application.IntegrationEventHandlers;
 
 public class UserDeletedEventHandler(IUserService service)
 {
-    public async Task Handle(UserDeletedIntegrationEvent ie)
+    public async Task Handle(AccountDeletedIntegrationEvent ie)
     {
         AppUser user = await service.FindByNameAsync(ie.Username).ConfigureAwait(false)
             ?? throw

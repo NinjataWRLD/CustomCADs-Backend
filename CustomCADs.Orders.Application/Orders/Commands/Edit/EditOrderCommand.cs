@@ -6,5 +6,5 @@ public record EditOrderCommand(
     OrderId Id,
     string Name,
     string Description,
-    UserId BuyerId
+    AccountId BuyerId
 ) : ICommand;

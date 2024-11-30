@@ -8,7 +8,7 @@ namespace CustomCADs.Gallery.Persistence.Carts.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Cart> WithFilter(this IQueryable<Cart> query, UserId? buyerId = null)
+    public static IQueryable<Cart> WithFilter(this IQueryable<Cart> query, AccountId? buyerId = null)
     {
         if (buyerId is not null)
         {

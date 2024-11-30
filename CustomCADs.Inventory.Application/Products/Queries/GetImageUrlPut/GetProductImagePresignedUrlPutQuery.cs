@@ -6,5 +6,5 @@ public record GetProductImagePresignedUrlPutQuery(
     ProductId Id,
     string ContentType,
     string FileName,
-    UserId CreatorId
+    AccountId CreatorId
 ) : IQuery<GetProductImagePresignedUrlPutDto>;

@@ -59,7 +59,7 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
     }
 
     private static AppUser CreateAppUser(Guid id, string username, string email, string passHash, Guid accountId, string concStamp, string secStamp)
-        => new(username, email, new UserId(accountId))
+        => new(username, email, new AccountId(accountId))
         {
             Id = id,
             NormalizedUserName = username.ToUpperInvariant(),

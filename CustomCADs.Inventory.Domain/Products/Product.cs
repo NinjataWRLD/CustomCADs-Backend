@@ -19,7 +19,7 @@ public class Product : BaseAggregateRoot
         Money price,
         Image image,
         ProductStatus status,
-        UserId creatorId,
+        AccountId creatorId,
         CategoryId categoryId,
         CadId cadId
     ) : this()
@@ -42,7 +42,7 @@ public class Product : BaseAggregateRoot
     public DateTime UploadDate { get; }
     public Money Price { get; private set; } = new();
     public Image Image { get; private set; } = new();
-    public UserId CreatorId { get; private set; }
+    public AccountId CreatorId { get; private set; }
     public CategoryId CategoryId { get; private set; }
     public CadId CadId { get; private set; }
 
@@ -53,7 +53,7 @@ public class Product : BaseAggregateRoot
         string imageKey,
         string imageContentType,
         ProductStatus status,
-        UserId creatorId,
+        AccountId creatorId,
         CategoryId categoryId,
         CadId cadId
     ) => new Product(name, description, price, new(imageKey, imageContentType), status, creatorId, categoryId, cadId)

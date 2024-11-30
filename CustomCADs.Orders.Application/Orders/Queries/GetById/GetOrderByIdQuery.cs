@@ -4,5 +4,5 @@ namespace CustomCADs.Orders.Application.Orders.Queries.GetById;
 
 public record GetOrderByIdQuery(
     OrderId Id,
-    UserId BuyerId
+    AccountId BuyerId
 ) : IQuery<GetOrderByIdDto>;

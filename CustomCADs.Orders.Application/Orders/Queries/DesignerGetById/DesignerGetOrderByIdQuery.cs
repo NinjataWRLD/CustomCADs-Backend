@@ -4,5 +4,5 @@ namespace CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 
 public record DesignerGetOrderByIdQuery(
     OrderId Id,
-    UserId DesignerId
+    AccountId DesignerId
 ) : IQuery<DesignerGetOrderByIdDto>;

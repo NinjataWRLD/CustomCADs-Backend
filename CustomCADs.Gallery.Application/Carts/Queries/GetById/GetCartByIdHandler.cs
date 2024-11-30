@@ -2,7 +2,7 @@
 using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.UseCases.Users.Queries;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetById;
 

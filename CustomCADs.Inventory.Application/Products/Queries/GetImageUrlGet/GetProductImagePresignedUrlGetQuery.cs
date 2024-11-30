@@ -4,5 +4,5 @@ namespace CustomCADs.Inventory.Application.Products.Queries.GetImageUrlGet;
 
 public record GetProductImagePresignedUrlGetQuery(
     ProductId Id,
-    UserId CreatorId
+    AccountId CreatorId
 ) : IQuery<GetProductImagePresignedUrlGetDto>;

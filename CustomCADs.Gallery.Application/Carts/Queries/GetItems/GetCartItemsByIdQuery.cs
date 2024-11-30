@@ -4,5 +4,5 @@ namespace CustomCADs.Gallery.Application.Carts.Queries.GetItems;
 
 public record GetCartItemsByIdQuery(
     CartId Id,
-    UserId BuyerId
+    AccountId BuyerId
 ) : IQuery<ICollection<GetCartItemsByIdDto>>;

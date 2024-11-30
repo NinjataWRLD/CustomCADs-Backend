@@ -4,6 +4,6 @@ namespace CustomCADs.Orders.Application.Orders.Commands.Finish;
 
 public record FinishOrderCommand(
     OrderId Id,
-    UserId FinisherId,
+    AccountId FinisherId,
     (string Key, string ContentType)? Cad
 ) : ICommand;

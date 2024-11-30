@@ -5,7 +5,7 @@ namespace CustomCADs.Inventory.Application.Products.Commands.SetCoords;
 
 public record SetProductCoordsCommand(
     ProductId Id,
-    UserId CreatorId,
+    AccountId CreatorId,
     Coordinates? CamCoordinates = default,
     Coordinates? PanCoordinates = default
 ) : ICommand;

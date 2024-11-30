@@ -9,5 +9,5 @@ public record AddCartItemCommand(
     DeliveryType DeliveryType,
     int Quantity,
     ProductId ProductId,
-    UserId BuyerId
+    AccountId BuyerId
 ) : ICommand<CartItemId>;

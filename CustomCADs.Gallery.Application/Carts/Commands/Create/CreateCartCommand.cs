@@ -3,5 +3,5 @@
 namespace CustomCADs.Gallery.Application.Carts.Commands.Create;
 
 public record CreateCartCommand(
-    UserId BuyerId
+    AccountId BuyerId
 ) : ICommand<CartId>;
