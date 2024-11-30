@@ -33,11 +33,11 @@ public static class Utilities
         }
         if (!string.IsNullOrWhiteSpace(firstName))
         {
-            query = query.Where(u => u.Names.FirstName != null && u.Names.FirstName.Contains(firstName));
+            query = query.Where(u => u.FirstName != null && u.FirstName.Contains(firstName));
         }
         if (!string.IsNullOrWhiteSpace(lastName))
         {
-            query = query.Where(u => u.Names.LastName != null && u.Names.LastName.Contains(lastName));
+            query = query.Where(u => u.LastName != null && u.LastName.Contains(lastName));
         }
 
         return query;

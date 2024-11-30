@@ -1,5 +1,4 @@
-﻿using CustomCADs.Account.Domain.Users.ValueObjects;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 using UserDto = (System.Guid Id, string Role, string Username, string Email);
 
 namespace CustomCADs.Account.Domain.Users;
@@ -13,14 +12,16 @@ public class User : BaseAggregateRoot
         Username = username;
         Email = email;
         TimeZone = timeZone;
-        Names = Names.Create(firstName, lastName);
+        FirstName = firstName;
+        LastName = lastName;
     }
 
     public UserId Id { get; init; }
     public string Username { get; private set; } = string.Empty;
     public string Email { get; private set; } = string.Empty;
     public string TimeZone { get; private set; } = string.Empty;
-    public Names Names { get; private set; } = Names.Create();
+    public string? FirstName { get; private set; }
+    public string? LastName { get; private set; }
     public string RoleName { get; private set; } = string.Empty;
 
     public static User Create(
@@ -72,7 +73,8 @@ public class User : BaseAggregateRoot
 
     public User SetNames(string? firstName, string? lastName)
     {
-        Names = Names.Create(firstName, lastName);
+        FirstName = firstName;
+        LastName = lastName;
         this.ValidateFirstName();
         this.ValidateLastName();
         return this;
