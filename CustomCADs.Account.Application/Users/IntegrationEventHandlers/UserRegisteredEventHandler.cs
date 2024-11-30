@@ -12,6 +12,7 @@ public class UserRegisteredEventHandler(IWrites<User> writes, IUnitOfWork uow)
             ie.Role,
             ie.Username,
             ie.Email,
+            ie.TimeZone,
             ie.FirstName,
             ie.LastName
         );

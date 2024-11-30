@@ -77,6 +77,10 @@ static class UserConfigUtils
             .IsRequired()
             .HasMaxLength(EmailMaxLength)
             .HasColumnName("Email");
+        
+        builder.Property(x => x.TimeZone)
+            .IsRequired()
+            .HasColumnName("TimeZone");
 
         builder.Property(x => x.RoleName)
             .IsRequired()

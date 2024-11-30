@@ -6,17 +6,19 @@ namespace CustomCADs.Account.Domain.Users;
 public class User : BaseAggregateRoot
 {
     private User() { }
-    private User(string role, string username, string email, string? firstName, string? lastName) : this()
+    private User(string role, string username, string email, string timeZone, string? firstName, string? lastName) : this()
     {
         RoleName = role;
         Username = username;
         Email = email;
+        TimeZone = timeZone;
         Names = Names.Create(firstName, lastName);
     }
 
     public UserId Id { get; init; }
     public string Username { get; private set; } = string.Empty;
     public string Email { get; private set; } = string.Empty;
+    public string TimeZone { get; private set; } = string.Empty;
     public Names Names { get; private set; } = Names.Create();
     public string RoleName { get; private set; } = string.Empty;
 
@@ -24,9 +26,10 @@ public class User : BaseAggregateRoot
         string role,
         string username,
         string email,
+        string timeZone,
         string? firstName = default,
         string? lastName = default
-    ) => new User(role, username, email, firstName, lastName)
+    ) => new User(role, username, email, timeZone, firstName, lastName)
             .ValidateRole()
             .ValidateUsername()
             .ValidateEmail()
@@ -44,6 +47,12 @@ public class User : BaseAggregateRoot
     {
         Email = email;
         this.ValidateEmail();
+        return this;
+    }
+    
+    public User SetTimeZone(string timeZone)
+    {
+        TimeZone = timeZone;
         return this;
     }
 

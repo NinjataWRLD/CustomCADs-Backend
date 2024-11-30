@@ -21,6 +21,7 @@ public class RegisterEndpoint(IUserService service)
             Role: req.Role,
             Username: req.Username,
             Email: req.Email,
+            TimeZone: req.TimeZone,
             Password: req.Password,
             FirstName: req.FirstName,
             LastName: req.LastName

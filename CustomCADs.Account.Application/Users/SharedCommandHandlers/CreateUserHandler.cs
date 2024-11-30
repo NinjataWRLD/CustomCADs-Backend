@@ -13,6 +13,7 @@ public class CreateUserHandler(IWrites<User> writes, IUnitOfWork uow)
             req.Role,
             req.Username,
             req.Email,
+            req.TimeZone,
             req.FirstName,
             req.LastName
         );
