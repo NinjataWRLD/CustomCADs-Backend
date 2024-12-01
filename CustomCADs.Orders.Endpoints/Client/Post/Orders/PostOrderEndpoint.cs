@@ -2,7 +2,7 @@
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Endpoints.Client.Get.Single;
 
-namespace CustomCADs.Orders.Endpoints.Client.Post;
+namespace CustomCADs.Orders.Endpoints.Client.Post.Orders;
 
 public class PostOrderEndpoint(IRequestSender sender)
     : Endpoint<PostOrderRequest, PostOrderResponse>

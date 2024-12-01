@@ -10,7 +10,7 @@ public class GetOrderGetPresignedCadUrlEndpoint(IRequestSender sender)
         Post("presignedUrl/downloadCad");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("08. Download Cad")
+            .WithSummary("09. Download Cad")
             .WithDescription("Download the Cad for your Finished(!) Order by specifying its Id")
         );
     }
