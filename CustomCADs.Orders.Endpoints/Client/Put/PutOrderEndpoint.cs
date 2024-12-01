@@ -9,7 +9,10 @@ public class PutOrderEndpoint(IRequestSender sender)
     {
         Put("{id}");
         Group<ClientGroup>();
-        Description(d => d.WithSummary("5. I want to edit my Order"));
+        Description(d => d
+            .WithSummary("05. Edit")
+            .WithDescription("Edit your Order by specifying its Id and providing a new Name and Description")
+        );
     }
 
     public override async Task HandleAsync(PutOrderRequest req, CancellationToken ct)

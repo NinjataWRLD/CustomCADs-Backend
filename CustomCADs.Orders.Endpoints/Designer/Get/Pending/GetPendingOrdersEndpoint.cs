@@ -11,7 +11,10 @@ public class GetPendingOrdersEndpoint(IRequestSender sender)
     {
         Get("pending");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to see all Pending Orders."));
+        Description(d => d
+            .WithSummary("01. All Pending")
+            .WithDescription("See all Pending Orders with Filter, Search, Sort and Options options")
+        );
     }
 
     public override async Task HandleAsync(GetPendingOrdersRequest req, CancellationToken ct)

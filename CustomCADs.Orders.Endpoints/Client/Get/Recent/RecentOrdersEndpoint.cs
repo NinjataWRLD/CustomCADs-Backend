@@ -12,7 +12,10 @@ public class RecentOrdersEndpoint(IRequestSender sender)
     {
         Get("recent");
         Group<ClientGroup>();
-        Description(d => d.WithSummary("3. I want to see my recent Orders"));
+        Description(d => d
+            .WithSummary("02. Recent")
+            .WithDescription("See your most recent Orders")
+        );
     }
 
     public override async Task HandleAsync(RecentOrdersRequest req, CancellationToken ct)

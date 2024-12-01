@@ -9,7 +9,10 @@ public class AuthenticationEndpoint
     {
         Get("authentication");
         Group<InfoGroup>();
-        Description(d => d.WithSummary("1. Am I logged in?"));
+        Description(d => d
+            .WithSummary("01. AuthN")
+            .WithDescription("Are you logged in?")
+        );
     }
 
     public override async Task HandleAsync(CancellationToken ct)

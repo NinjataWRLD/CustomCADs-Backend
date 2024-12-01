@@ -9,7 +9,7 @@ public class ClientGroup : Group
         Configure("orders/client", ep =>
         {
             ep.Roles(Client);
-            ep.Description(d => d.WithTags("05. Orders Dashboard"));
+            ep.Description(d => d.WithTags("05. Orders"));
         });
     }
 }

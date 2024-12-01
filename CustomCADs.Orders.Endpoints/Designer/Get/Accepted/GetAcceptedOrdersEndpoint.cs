@@ -11,7 +11,10 @@ public class GetAcceptedOrdersEndpoint(IRequestSender sender)
     {
         Get("accepted");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to see all Accepted Orders."));
+        Description(d => d
+            .WithSummary("04. All Accepted")
+            .WithDescription("See all Accepted Orders with Filter, Search, Sort and Pagination options")
+        );
     }
 
     public override async Task HandleAsync(GetAcceptedOrdersRequest req, CancellationToken ct)

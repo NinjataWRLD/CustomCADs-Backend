@@ -10,7 +10,10 @@ public class GetCartsEndpoint(IRequestSender sender)
     {
         Get("");
         Group<CartsGroup>();
-        Description(d => d.WithSummary("7. I want to see all my Carts"));
+        Description(d => d
+            .WithSummary("06. All")
+            .WithDescription("See all your Carts with Sorting and Pagination options")
+        );
     }
 
     public override async Task HandleAsync(GetCartsRequest req, CancellationToken ct)

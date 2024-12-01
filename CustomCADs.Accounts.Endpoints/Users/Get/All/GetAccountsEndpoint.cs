@@ -10,7 +10,10 @@ public class GetAccountsEndpoint(IRequestSender sender)
     {
         Get("");
         Group<AccountsGroup>();
-        Description(d => d.WithSummary("1. I want to see all Accounts"));
+        Description(d => d
+            .WithSummary("1. All")
+            .WithDescription("See all Accounts with Search, Sort and Pagination options")
+        );
     }
 
     public override async Task HandleAsync(GetAccountsRequest req, CancellationToken ct)

@@ -10,7 +10,10 @@ public class ReportOrderEndpoint(IRequestSender sender)
     {
         Patch("report");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to Report the Order"));
+        Description(d => d
+            .WithSummary("11. Report")
+            .WithDescription("Set an Order's Status to Reported by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(ReportOrderRequest req, CancellationToken ct)

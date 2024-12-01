@@ -9,7 +9,10 @@ public class GetOrderPatchPresignedCadUrlEndpoint(IRequestSender sender)
     {
         Post("presignedUrl/upload");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to upload a Cad for the Order"));
+        Description(d => d
+            .WithSummary("08. Upload Cad")
+            .WithDescription("Upload a Cad before finishing an Order if it's set for Digital Delivery")
+        );
     }
 
     public override async Task HandleAsync(GetOrderPatchPresignedCadUrlRequest req, CancellationToken ct)

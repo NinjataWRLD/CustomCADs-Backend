@@ -12,7 +12,10 @@ public class PatchProductCadEndpoint(IRequestSender sender)
     {
         Patch("{id}");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("5. I want to set the Coordinates of my Product's Cad"));
+        Description(d => d
+            .WithSummary("08. Set Cad Coordinates")
+            .WithDescription("Set the Coordinates of your Product's Cad by specifying the Product's Id and the Cad's Coordinates Type and Values")
+        );
     }
 
     public override async Task HandleAsync(PatchProductCadRequest req, CancellationToken ct)

@@ -9,7 +9,10 @@ public class PatchProductStatusEndpoint(IRequestSender sender)
     {
         Patch("{id}/status");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to change the Status of a Product"));
+        Description(d => d
+            .WithSummary("03. Change Status")
+            .WithDescription("Change a Product's Status")
+        );
     }
 
     public override async Task HandleAsync(PatchProductStatusRequest req, CancellationToken ct)

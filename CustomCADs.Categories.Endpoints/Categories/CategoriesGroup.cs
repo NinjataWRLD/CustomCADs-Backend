@@ -9,7 +9,7 @@ public class CategoriesGroup : Group
         Configure("categories", ep =>
         {
             ep.Roles(Admin);
-            ep.Description(opt => opt.WithTags("10. Categories Dashboard"));
+            ep.Description(opt => opt.WithTags("11. Categories Dashboard"));
         });
     }
 }

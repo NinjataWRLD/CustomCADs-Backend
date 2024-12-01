@@ -9,7 +9,10 @@ public class DeleteRoleEndpoint(IRequestSender sender)
     {
         Delete("{name}");
         Group<RolesGroup>();
-        Description(d => d.WithSummary("4. I want to delete a Role"));
+        Description(d => d
+            .WithSummary("4. Delete")
+            .WithDescription("Delete a Role by specifying its Name")
+        );
     }
 
     public override async Task HandleAsync(DeleteRoleRequest req, CancellationToken ct)

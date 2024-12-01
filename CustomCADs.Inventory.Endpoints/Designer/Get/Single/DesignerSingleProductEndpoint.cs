@@ -9,7 +9,10 @@ public class DesignerSingleProductEndpoint(IRequestSender sender)
     {
         Get("{id}");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to see an Unchecked Product in detail"));
+        Description(d => d
+            .WithSummary("02. Single Unchecked")
+            .WithDescription("See an Unchecked Product by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(DesignerSingleProductRequest req, CancellationToken ct)

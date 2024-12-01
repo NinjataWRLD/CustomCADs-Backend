@@ -10,7 +10,10 @@ public class FinishOrderEndpoint(IRequestSender sender)
     {
         Patch("finish");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to Finish an Order"));
+        Description(d => d
+            .WithSummary("09. Finish")
+            .WithDescription("Set an Order's Status to Finished by specifying its Id, and if its a Digital Delivery then the Cad's Key and Content Type")
+        );
     }
 
     public override async Task HandleAsync(FinishOrderRequest req, CancellationToken ct)

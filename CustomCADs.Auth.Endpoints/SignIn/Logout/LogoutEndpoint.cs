@@ -12,7 +12,10 @@ public class LogoutEndpoint(IUserService service)
     {
         Post("logout");
         Group<SignInGroup>();
-        Description(d => d.WithSummary("3. I want to log out"));
+        Description(d => d
+            .WithSummary("03. Log out")
+            .WithDescription("Log out of your account")
+        );
     }
 
     public override async Task HandleAsync(CancellationToken ct)

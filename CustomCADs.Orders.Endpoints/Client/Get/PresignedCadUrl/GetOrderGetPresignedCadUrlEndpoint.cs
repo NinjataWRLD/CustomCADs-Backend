@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.GetCadUrlGet;
-using CustomCADs.Orders.Endpoints.Designer;
 using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Client.Get.PresignedCadUrl;
@@ -10,8 +9,11 @@ public class GetOrderGetPresignedCadUrlEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Post("presignedUrl/downloadCad");
-        Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to download the Cad for my Order"));
+        Group<ClientGroup>();
+        Description(d => d
+            .WithSummary("08. Download Cad")
+            .WithDescription("Download the Cad for your Finished(!) Order by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(GetOrderGetPresignedCadUrlRequest req, CancellationToken ct)

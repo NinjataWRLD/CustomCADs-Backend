@@ -9,7 +9,10 @@ public class CountProductsEndpoint(IRequestSender sender)
     {
         Get("count");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("4. I want to see the count of my Products by status"));
+        Description(d => d
+            .WithSummary("04. Count")
+            .WithDescription("4. See the Count of your Products grouped by their Status")
+        );
     }
 
     public override async Task HandleAsync(CancellationToken ct)

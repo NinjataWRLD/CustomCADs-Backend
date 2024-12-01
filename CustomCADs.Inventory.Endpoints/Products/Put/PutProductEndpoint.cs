@@ -10,8 +10,10 @@ public class PutProductEndpoint(IRequestSender sender)
     {
         Put("{id}");
         Group<ProductsGroup>();
-        Options(o => o.Accepts<PutProductRequest>("multipart/form-data"));
-        Description(d => d.WithSummary("6. I want to edit my Product"));
+        Description(d => d
+            .WithSummary("05. Edit")
+            .WithDescription("Edit your Product by specifying its Id and a new Name, Description, CategoryId, Price and ImageKey")
+        );
     }
 
     public override async Task HandleAsync(PutProductRequest req, CancellationToken ct)

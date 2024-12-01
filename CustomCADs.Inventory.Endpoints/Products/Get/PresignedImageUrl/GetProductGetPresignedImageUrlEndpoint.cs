@@ -9,7 +9,10 @@ public class GetProductGetPresignedImageUrlEndpoint(IRequestSender sender)
     {
         Post("presignedUrl/downloadImage");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("I want to download the Image for my Product"));
+        Description(d => d
+            .WithSummary("11. Download Image")
+            .WithDescription("Download your Product's Image by specifying the Product's Id")
+        );
     }
 
     public override async Task HandleAsync(GetProductGetPresignedImageUrlRequest req, CancellationToken ct)

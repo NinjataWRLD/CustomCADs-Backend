@@ -9,7 +9,10 @@ public class GetCartEndpoint(IRequestSender sender)
     {
         Get("{id}");
         Group<CartsGroup>();
-        Description(d => d.WithSummary("5. I want to see my Cart in detail"));
+        Description(d => d
+            .WithSummary("04. Single")
+            .WithDescription("See your Cart by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(GetCartRequest req, CancellationToken ct)

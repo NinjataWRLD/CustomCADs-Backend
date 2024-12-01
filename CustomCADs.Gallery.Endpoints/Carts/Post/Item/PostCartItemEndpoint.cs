@@ -10,7 +10,10 @@ public class PostCartItemEndpoint(IRequestSender sender)
     {
         Post("items");
         Group<CartsGroup>();
-        Description(d => d.WithSummary("2. I want to add an Item to my Cart."));
+        Description(d => d
+            .WithSummary("02. Add Item")
+            .WithDescription("Add an Item to your Cart by specifying the Cart and Product's Ids and the Delivery Type and Quantity")
+        );
     }
 
     public override async Task HandleAsync(PostCartItemRequest req, CancellationToken ct)

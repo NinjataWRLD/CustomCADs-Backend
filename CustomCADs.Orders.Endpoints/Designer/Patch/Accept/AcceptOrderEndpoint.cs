@@ -10,7 +10,10 @@ public class AcceptOrderEndpoint(IRequestSender sender)
     {
         Patch("accept");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to Accept the Order"));
+        Description(d => d
+            .WithSummary("03. Accept")
+            .WithDescription("Set an Order's Status to Accepted by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(AcceptOrderRequest req, CancellationToken ct)

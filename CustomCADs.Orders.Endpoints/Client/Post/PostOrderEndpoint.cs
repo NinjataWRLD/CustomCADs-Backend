@@ -12,7 +12,10 @@ public class PostOrderEndpoint(IRequestSender sender)
     {
         Post("");
         Group<ClientGroup>();
-        Description(d => d.WithSummary("2. I want to make my Order"));
+        Description(d => d
+            .WithSummary("01. Create")
+            .WithDescription("Make an Order by specifying a Name, Description and Delivery Type")
+        );
     }
 
     public override async Task HandleAsync(PostOrderRequest req, CancellationToken ct)

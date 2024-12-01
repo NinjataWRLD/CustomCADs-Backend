@@ -10,7 +10,10 @@ public class DesignerGetOrderEndpoint(IRequestSender sender)
     {
         Get("{id}");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to view a Pending or an Accepted by me Order in detail"));
+        Description(d => d
+            .WithSummary("02. Single")
+            .WithDescription("See an Accepted by You or a Pending Order")
+        );
     }
 
     public override async Task HandleAsync(DesignerGetOrderRequest req, CancellationToken ct)
