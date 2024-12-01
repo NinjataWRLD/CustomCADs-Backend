@@ -10,7 +10,7 @@ public class GetCartEndpoint(IRequestSender sender)
         Get("{id}");
         Group<CartsGroup>();
         Description(d => d
-            .WithSummary("04. Single")
+            .WithSummary("05. Single")
             .WithDescription("See your Cart by specifying its Id")
         );
     }

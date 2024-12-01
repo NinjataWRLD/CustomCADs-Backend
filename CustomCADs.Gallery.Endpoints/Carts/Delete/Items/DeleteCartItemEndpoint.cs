@@ -9,7 +9,7 @@ public class DeleteCartItemEndpoint(IRequestSender sender)
         Delete("items");
         Group<CartsGroup>();
         Description(d => d
-            .WithSummary("05. Remove Item")
+            .WithSummary("06. Remove Item")
             .WithDescription("Remove an Item from your Cart by specifying the Cart and Item's Ids")
         );
     }
