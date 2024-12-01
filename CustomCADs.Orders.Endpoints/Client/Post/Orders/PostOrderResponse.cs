@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Orders.Endpoints.Client.Post;
+﻿namespace CustomCADs.Orders.Endpoints.Client.Post.Orders;
 
 public record PostOrderResponse(
     Guid Id,

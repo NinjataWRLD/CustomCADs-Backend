@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Commands.Create;
 using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
-namespace CustomCADs.Gallery.Endpoints.Carts.Post;
+namespace CustomCADs.Gallery.Endpoints.Carts.Post.Cart;
 
 public class PostCartEndpoint(IRequestSender sender)
     : EndpointWithoutRequest<PostCartResponse>

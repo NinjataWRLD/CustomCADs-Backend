@@ -4,7 +4,7 @@ using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Endpoints.Client.Get.All;
 using CustomCADs.Orders.Endpoints.Client.Get.Recent;
 using CustomCADs.Orders.Endpoints.Client.Get.Single;
-using CustomCADs.Orders.Endpoints.Client.Post;
+using CustomCADs.Orders.Endpoints.Client.Post.Orders;
 using CustomCADs.Orders.Endpoints.Designer.Get.Accepted;
 using CustomCADs.Orders.Endpoints.Designer.Get.Begun;
 using CustomCADs.Orders.Endpoints.Designer.Get.Finished;

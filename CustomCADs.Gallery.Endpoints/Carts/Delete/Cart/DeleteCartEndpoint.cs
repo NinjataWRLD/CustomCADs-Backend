@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Commands.Delete;
 using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
-namespace CustomCADs.Gallery.Endpoints.Carts.Delete;
+namespace CustomCADs.Gallery.Endpoints.Carts.Delete.Cart;
 public class DeleteCartEndpoint(IRequestSender sender)
     : Endpoint<DeleteCartRequest>
 {
@@ -10,7 +10,7 @@ public class DeleteCartEndpoint(IRequestSender sender)
         Delete("{id}");
         Group<CartsGroup>();
         Description(d => d
-            .WithSummary("09. Delete")
+            .WithSummary("08. Delete")
             .WithDescription("Delete your Cart by specifying its Id")
         );
     }
