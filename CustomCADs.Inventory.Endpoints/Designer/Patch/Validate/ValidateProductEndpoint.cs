@@ -21,7 +21,7 @@ public class ValidateProductEndpoint(IRequestSender sender)
         SetProductStatusCommand command = new(
             Id: new(req.Id),
             Status: ProductStatus.Validated,
-            CreatorId: User.GetAccountId()
+            DesignerId: User.GetAccountId()
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 

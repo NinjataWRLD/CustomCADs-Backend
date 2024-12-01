@@ -21,9 +21,9 @@ public class GetProductGetPresignedCadUrlEndpoint(IRequestSender sender)
             Id: new(req.Id),
             CreatorId: User.GetAccountId()
         );
-        GetProductCadPresignedUrlGetDto imageDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GetProductCadPresignedUrlGetDto cadDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetProductGetPresignedCadUrlResponse response = new(imageDto.PresignedUrl);
+        GetProductGetPresignedCadUrlResponse response = new(cadDto.PresignedUrl);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

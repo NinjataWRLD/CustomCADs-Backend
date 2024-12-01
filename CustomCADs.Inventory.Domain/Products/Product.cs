@@ -42,9 +42,10 @@ public class Product : BaseAggregateRoot
     public DateTime UploadDate { get; }
     public Money Price { get; private set; } = new();
     public Image Image { get; private set; } = new();
-    public AccountId CreatorId { get; private set; }
     public CategoryId CategoryId { get; private set; }
     public CadId CadId { get; private set; }
+    public AccountId CreatorId { get; private set; }
+    public AccountId? DesignerId { get; private set; }
 
     public static Product Create(
         string name,
@@ -85,6 +86,12 @@ public class Product : BaseAggregateRoot
     public Product SetCategoryId(CategoryId categoryId)
     {
         CategoryId = categoryId;
+        return this;
+    }
+    
+    public Product SetDesignerId(AccountId designerId)
+    {
+        DesignerId = designerId;
         return this;
     }
 

@@ -15,10 +15,11 @@ public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        if (product.CreatorId != req.CreatorId)
+        if (product.DesignerId is not null)
         {
-            throw ProductAuthorizationException.ByProductId(req.Id);
+            throw ProductAuthorizationException.AlreadyChecked();
         }
+        product.SetDesignerId(req.DesignerId);
 
         switch (req.Status)
         {
