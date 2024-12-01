@@ -1,10 +1,7 @@
-﻿using CustomCADs.Shared.Application.Payment.Dtos;
-
-namespace CustomCADs.Shared.Application.Payment;
+﻿namespace CustomCADs.Shared.Application.Payment;
 
 public interface IPaymentService
 {
-    string GetPublicKey();
-    Task<PaymentResult> CapturePaymentAsync(string paymentIntentId);
-    Task<PaymentResult> InitializePayment(string paymentMethod, PurchaseInfo purchase);
+    string PublicKey { get; }
+    Task<string> InitializePayment(string paymentMethodId, decimal price, string description);
 }

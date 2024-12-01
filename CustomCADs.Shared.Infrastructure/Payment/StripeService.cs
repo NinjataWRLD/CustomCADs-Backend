@@ -1,35 +1,27 @@
 ﻿using CustomCADs.Shared.Application.Payment;
-using CustomCADs.Shared.Application.Payment.Dtos;
+using CustomCADs.Shared.Application.Payment.Exceptions;
 using Microsoft.Extensions.Options;
 using Stripe;
 
 namespace CustomCADs.Shared.Infrastructure.Payment;
 
+using static Messages;
+
 public class StripeService(IOptions<PaymentSettings> settings, PaymentIntentService paymentIntentService) : IPaymentService
 {
-    public string GetPublicKey() => settings.Value.TestPublishableKey;
+    public string PublicKey => settings.Value.TestPublishableKey;
 
-    public async Task<PaymentResult> CapturePaymentAsync(string paymentIntentId)
-    {
-        PaymentIntent paymentIntent = await paymentIntentService.CaptureAsync(paymentIntentId).ConfigureAwait(false);
-        return new(
-            paymentIntent.Id,
-            paymentIntent.ClientSecret,
-            paymentIntent.Status
-        );
-    }
-
-    public async Task<PaymentResult> InitializePayment(string paymentMethodId, PurchaseInfo purchase)
+    public async Task<string> InitializePayment(string paymentMethodId, decimal price, string description)
     {
         StripeConfiguration.ApiKey = settings.Value.TestSecretKey;
 
         PaymentIntent paymentIntent = await paymentIntentService.CreateAsync(new()
         {
-            Amount = Convert.ToInt64(purchase.Price * 100),
+            Amount = Convert.ToInt64(price * 100),
             Currency = "USD",
             PaymentMethod = paymentMethodId,
             Confirm = true,
-            Description = $"{purchase.Buyer} bought {purchase.Seller}'s {purchase.Product} for {purchase.Price}$.",
+            Description = description,
             AutomaticPaymentMethods = new()
             {
                 Enabled = true,
@@ -37,10 +29,39 @@ public class StripeService(IOptions<PaymentSettings> settings, PaymentIntentServ
             }
         }).ConfigureAwait(false);
 
-        return new(
-            paymentIntent.Id,
-            paymentIntent.ClientSecret,
-            paymentIntent.Status
-        );
+        string message = GetMessageFromStatus(paymentIntent.Status);
+
+        if (message == FailedPayment)
+        {
+            string retry = await RetryCaptureAsync(paymentIntent.Id).ConfigureAwait(false);
+
+            return retry == SuccessfulPayment
+                ? SuccessfulPayment
+                : throw PaymentFailedException.WithClientSecret(paymentIntent.ClientSecret, retry);
+        }
+
+        if (message is not SuccessfulPayment or ProcessingPayment)
+        {
+            throw PaymentFailedException.General(message);
+        }
+
+        return message;
     }
+
+    private static string GetMessageFromStatus(string status)
+        => status switch
+        {
+            "succeeded" => SuccessfulPayment,
+            "processing" => ProcessingPayment,
+            "canceled" => CanceledPayment,
+            "requires_payment_method" => FailedPaymentMethod,
+            "requires_action" => FailedPayment,
+            "requires_capture" => FailedPaymentCapture,
+            _ => string.Format(UnhandledPayment, status)
+        };
+
+    private async Task<string> RetryCaptureAsync(string id)
+        => (await paymentIntentService.CaptureAsync(id).ConfigureAwait(false)).Status == "succeeded"
+                ? SuccessfulPayment
+                : FailedPaymentCapture;
 }
