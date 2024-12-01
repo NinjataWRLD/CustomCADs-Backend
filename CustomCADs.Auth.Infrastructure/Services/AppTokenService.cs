@@ -2,7 +2,7 @@
 using CustomCADs.Auth.Application.Common.Dtos;
 using CustomCADs.Auth.Domain;
 using CustomCADs.Auth.Infrastructure.Dtos;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

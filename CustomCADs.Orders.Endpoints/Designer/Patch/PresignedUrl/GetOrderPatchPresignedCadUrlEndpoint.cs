@@ -22,11 +22,12 @@ public class GetOrderPatchPresignedCadUrlEndpoint(IRequestSender sender)
             ContentType: req.ContentType,
             FileName: req.FileName
         );
-        var dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GetOrderCadPresignedUrlPostDto dto = await sender
+            .SendQueryAsync(query, ct).ConfigureAwait(false);
 
         GetOrderPatchPresignedCadUrlResponse response = new(
-            GeneratedCadKey: dto.CadKey,
-            PresignedCadUrl: dto.CadUrl
+            GeneratedCadKey: dto.PresignedKey,
+            PresignedCadUrl: dto.GeneratedUrl
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

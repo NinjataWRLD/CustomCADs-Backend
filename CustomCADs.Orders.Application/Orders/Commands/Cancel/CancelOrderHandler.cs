@@ -13,7 +13,7 @@ public class CancelOrderHandler(IOrderReads reads, IUnitOfWork uow)
         Order order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
-        if (req.CancellerId != order.DesignerId)
+        if (req.DesignerId != order.DesignerId)
         {
             throw OrderAuthorizationException.NotAssociated("cancel");
         }

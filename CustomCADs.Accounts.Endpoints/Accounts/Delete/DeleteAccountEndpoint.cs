@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.DeleteByName;
 
-namespace CustomCADs.Accounts.Endpoints.Users.Delete;
+namespace CustomCADs.Accounts.Endpoints.Accounts.Delete;
 
 public class DeleteAccountEndpoint(IRequestSender sender)
     : Endpoint<DeleteAccountRequest>

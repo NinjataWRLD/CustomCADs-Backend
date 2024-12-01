@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Auth.Domain.Entities;
 using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

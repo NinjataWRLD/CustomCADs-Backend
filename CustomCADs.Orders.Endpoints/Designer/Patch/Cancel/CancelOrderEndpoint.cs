@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Cancel;
-using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Patch.Cancel;
 
@@ -18,8 +17,10 @@ public class CancelOrderEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancelOrderRequest req, CancellationToken ct)
     {
-        OrderId id = new(req.Id);
-        CancelOrderCommand command = new(id, User.GetAccountId());
+        CancelOrderCommand command = new(
+            Id: new OrderId(req.Id),
+            DesignerId: User.GetAccountId()
+        );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

@@ -45,8 +45,8 @@ public static class Mapper
             PurchaseDate: item.PurchaseDate.ToString(DateFormatString),
             ProductId: item.ProductId.Value,
             CartId: item.CartId.Value,
-            CadId: item.CadId is null ? null : item.CadId.Value!.Value,
-            ShipmentId: item.ShipmentId is null ? null : item.ShipmentId.Value!.Value,
+            CadId: item.CadId?.Value,
+            ShipmentId: item.ShipmentId?.Value,
             Cost: item.Cost.ToMoneyDto()
         );
 

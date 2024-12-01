@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Commands.Delete;
+using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Delete;
 public class DeleteCartEndpoint(IRequestSender sender)
@@ -17,7 +18,7 @@ public class DeleteCartEndpoint(IRequestSender sender)
     public override async Task HandleAsync(DeleteCartRequest req, CancellationToken ct)
     {
         DeleteCartCommand command = new(
-            Id: new(req.Id),
+            Id: new CartId(req.Id),
             BuyerId: User.GetAccountId()
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

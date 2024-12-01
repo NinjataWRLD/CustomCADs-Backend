@@ -15,6 +15,6 @@ public class GetRoleByNameHandler(IRoleReads reads, ICacheService cache)
             ?? await reads.SingleByNameAsync(req.Name, track: false, ct: ct).ConfigureAwait(false)
             ?? throw RoleNotFoundException.ByName(req.Name);
 
-        return new(role.Id, role.Name, role.Description);
+        return role.ToRoleReadDto();
     }
 }

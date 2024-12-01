@@ -12,7 +12,7 @@ public class CadKeyUpdateRequestedHandler(ICadReads reads, IUnitOfWork uow)
 {
     public async Task Handle(SetCadKeyCommand req, CancellationToken ct = default)
     {
-        Cad cad = await reads.SingleByIdAsync(req.Id, ct: ct)
+        Cad cad = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw CadNotFoundException.ById(req.Id);
 
         cad.SetKey(req.Key);

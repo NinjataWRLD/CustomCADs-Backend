@@ -21,7 +21,9 @@ public class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IRequestSende
             throw CartAuthorizationException.ByCartId(req.Id);
         }
 
-        GetProductPriceByIdQuery productQuery = new(req.ProductId);
+        GetProductPriceByIdQuery productQuery = new(
+            Id: req.ProductId
+        );
         decimal price = await sender.SendQueryAsync(productQuery, ct).ConfigureAwait(false);
 
         CartItem item = cart.AddItem(

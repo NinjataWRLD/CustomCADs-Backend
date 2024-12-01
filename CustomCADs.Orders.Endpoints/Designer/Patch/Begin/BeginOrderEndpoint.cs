@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Begin;
-using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Patch.Begin;
 
@@ -18,8 +17,10 @@ public class BeginOrderEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(BeginOrderRequest req, CancellationToken ct)
     {
-        OrderId id = new(req.Id);
-        BeginOrderCommand command = new(id, User.GetAccountId());
+        BeginOrderCommand command = new(
+            Id: new OrderId(req.Id),
+            DesignerId: User.GetAccountId()
+        );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

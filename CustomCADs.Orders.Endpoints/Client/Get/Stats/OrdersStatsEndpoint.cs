@@ -17,7 +17,9 @@ public class OrdersStatsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        CountOrdersQuery query = new(User.GetAccountId());
+        CountOrdersQuery query = new(
+            BuyerId: User.GetAccountId()
+        );
         CountOrdersDto counts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         OrdersStatsResponse response = new(

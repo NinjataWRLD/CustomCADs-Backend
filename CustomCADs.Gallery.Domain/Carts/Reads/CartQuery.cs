@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Gallery.Domain.Carts.ValueObjects;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Gallery.Domain.Carts.Reads;
 

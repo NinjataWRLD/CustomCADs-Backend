@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetByUsername;
 
-namespace CustomCADs.Accounts.Endpoints.Users.Get.Single;
+namespace CustomCADs.Accounts.Endpoints.Accounts.Get.Single;
 
 public class GetAccountEndpoint(IRequestSender sender)
     : Endpoint<GetAccountRequest, AccountResponse>

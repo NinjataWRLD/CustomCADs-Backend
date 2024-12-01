@@ -9,8 +9,7 @@ public class ProductsCountHandler(IProductReads reads)
     public async Task<ProductsCountDto> Handle(ProductsCountQuery req, CancellationToken ct)
     {
         Dictionary<ProductStatus, int> counts = await reads
-            .CountByStatusAsync(req.CreatorId, ct: ct)
-            .ConfigureAwait(false);
+            .CountByStatusAsync(req.CreatorId, ct: ct).ConfigureAwait(false);
 
         return new(
             Unchecked: counts.TryGetValue(ProductStatus.Unchecked, out int uncheckedCount)

@@ -20,11 +20,6 @@ public class GetCadByIdHandler(ICadReads reads)
         Cad cad = await reads.SingleByIdAsync(req.Id, track: false, ct: ct)
             ?? throw CadNotFoundException.ById(req.Id);
 
-        return (
-            cad.Key,
-            cad.ContentType,
-            CamCoordinates: cad.CamCoordinates.ToCoordinatesDto(),
-            PanCoordinates: cad.PanCoordinates.ToCoordinatesDto()
-        );
+        return cad.ToTuple();
     }
 }

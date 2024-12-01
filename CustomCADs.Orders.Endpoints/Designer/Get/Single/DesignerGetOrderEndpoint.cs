@@ -19,7 +19,7 @@ public class DesignerGetOrderEndpoint(IRequestSender sender)
     public override async Task HandleAsync(DesignerGetOrderRequest req, CancellationToken ct)
     {
         DesignerGetOrderByIdQuery query = new(
-            Id: new(req.Id),
+            Id: new OrderId(req.Id),
             DesignerId: User.GetAccountId()
         );
         DesignerGetOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

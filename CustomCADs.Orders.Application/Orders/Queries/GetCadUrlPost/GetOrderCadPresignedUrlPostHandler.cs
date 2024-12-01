@@ -16,6 +16,9 @@ public class GetOrderCadPresignedUrlPostHandler(IStorageService storage)
         ).ConfigureAwait(false);
 
         GetOrderCadPresignedUrlPostDto response = new(CadKey, CadUrl);
-        return response;
+        return new(
+            PresignedKey: CadKey,
+            GeneratedUrl: CadUrl
+        );
     }
 }

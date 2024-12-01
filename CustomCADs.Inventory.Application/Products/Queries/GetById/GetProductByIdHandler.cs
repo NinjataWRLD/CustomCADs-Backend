@@ -28,7 +28,7 @@ public class GetProductByIdHandler(IProductReads reads, IRequestSender sender)
         string categoryName = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
 
         GetTimeZoneByIdQuery timeZoneQuery = new(product.CreatorId);
-        string timeZone = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
+        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
 
         GetCadByIdQuery cadQuery = new(product.CadId);
         var cad = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);

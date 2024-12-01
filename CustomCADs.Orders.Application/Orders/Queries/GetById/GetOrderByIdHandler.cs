@@ -19,7 +19,7 @@ public class GetOrderByIdHandler(IOrderReads reads, IRequestSender sender)
             throw OrderAuthorizationException.ByOrderId(req.Id);
         }
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(order.BuyerId);
+        GetTimeZoneByIdQuery timeZoneQuery = new(Id: order.BuyerId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
 
         return order.ToGetOrderByIdDto(timeZone);

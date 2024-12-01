@@ -15,6 +15,6 @@ public class GetCategoryByIdHandler(ICategoryReads reads, ICacheService cache)
             ?? await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CategoryNotFoundException.ById(req.Id);
 
-        return new(category.Id, category.Name);
+        return category.ToCategoryReadDto();
     }
 }

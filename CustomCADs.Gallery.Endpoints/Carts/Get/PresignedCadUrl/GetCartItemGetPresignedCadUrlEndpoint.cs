@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Queries.GetCadUrlGet;
+using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Get.PresignedCadUrl;
 
@@ -18,8 +19,8 @@ public class GetCartItemGetPresignedCadUrlEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetCartItemGetPresignedCadUrlRequest req, CancellationToken ct)
     {
         GetCartItemCadPresignedUrlGetQuery query = new(
-            Id: new(req.Id),
-            ItemId: new(req.ItemId),
+            Id: new CartId(req.Id),
+            ItemId: new CartItemId(req.ItemId),
             BuyerId: User.GetAccountId()
         );
         GetCartItemCadPresignedUrlGetDto cadDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

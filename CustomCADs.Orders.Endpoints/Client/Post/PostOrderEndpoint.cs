@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Create;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Endpoints.Client.Get.Single;
-using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Client.Post;
 
@@ -35,6 +34,6 @@ public class PostOrderEndpoint(IRequestSender sender)
         GetOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         PostOrderResponse response = order.ToPostOrderResponse();
-        await SendCreatedAtAsync<GetOrderEndpoint>(new { id.Value }, response).ConfigureAwait(false);
+        await SendCreatedAtAsync<GetOrderEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
     }
 }

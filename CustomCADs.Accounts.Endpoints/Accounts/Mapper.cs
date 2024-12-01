@@ -2,7 +2,7 @@
 using CustomCADs.Accounts.Application.Accounts.Queries.GetById;
 using CustomCADs.Accounts.Application.Accounts.Queries.GetByUsername;
 
-namespace CustomCADs.Accounts.Endpoints.Users;
+namespace CustomCADs.Accounts.Endpoints.Accounts;
 
 public static class Mapper
 {

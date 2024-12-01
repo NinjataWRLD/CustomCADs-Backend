@@ -18,7 +18,7 @@ public class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSend
         Order order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
-        if (req.FinisherId != order.DesignerId)
+        if (req.DesignerId != order.DesignerId)
         {
             throw OrderAuthorizationException.NotAssociated("finish");
         }
@@ -32,8 +32,12 @@ public class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSend
             }
 
             var (Key, ContentType) = req.Cad.Value;
-            CreateCadCommand cadCommand = new(Key, ContentType);
+            CreateCadCommand cadCommand = new(
+                Key: Key,
+                ContentType: ContentType
+            );
             CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
+
             order.SetCadId(cadId);
         }
 

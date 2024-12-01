@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Reads;
 using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;

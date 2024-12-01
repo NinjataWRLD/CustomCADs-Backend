@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Delivery.Domain.Shipments.Reads;
 

@@ -1,2 +1,2 @@
-﻿global using CustomCADs.Shared.Core.Common.TypedIds.Account;
+﻿global using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 global using Microsoft.EntityFrameworkCore;

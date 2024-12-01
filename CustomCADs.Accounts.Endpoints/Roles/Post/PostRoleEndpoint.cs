@@ -21,13 +21,17 @@ public class PostRoleEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PostRoleRequest req, CancellationToken ct)
     {
-        RoleWriteDto writeDto = new(req.Name, req.Description);
-        await sender.SendCommandAsync(new CreateRoleCommand(writeDto), ct).ConfigureAwait(false);
+        CreateRoleCommand command = new(
+            Dto: new RoleWriteDto(req.Name, req.Description)
+        );
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        GetRoleByNameQuery query = new(req.Name);
-        RoleReadDto readDto = await sender.SendQueryAsync(query).ConfigureAwait(false);
+        GetRoleByNameQuery query = new(
+            Name: req.Name
+        );
+        RoleReadDto role = await sender.SendQueryAsync(query).ConfigureAwait(false);
 
-        RoleResponse response = new(readDto.Name, readDto.Description);
-        await SendCreatedAtAsync<GetRoleEndpoint>(new { readDto.Name }, response).ConfigureAwait(false);
+        RoleResponse response = role.ToRoleResponse();
+        await SendCreatedAtAsync<GetRoleEndpoint>(new { role.Name }, response).ConfigureAwait(false);
     }
 }

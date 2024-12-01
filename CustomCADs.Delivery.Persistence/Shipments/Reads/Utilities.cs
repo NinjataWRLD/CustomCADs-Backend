@@ -2,7 +2,7 @@
 using CustomCADs.Delivery.Domain.Shipments.Enums;
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Core.Common.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Delivery.Persistence.Shipments.Reads;
 

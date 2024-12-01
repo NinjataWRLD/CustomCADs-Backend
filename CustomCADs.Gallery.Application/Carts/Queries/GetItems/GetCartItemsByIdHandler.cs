@@ -9,8 +9,7 @@ public class GetCartItemsByIdHandler(ICartReads reads)
 {
     public async Task<ICollection<GetCartItemsByIdDto>> Handle(GetCartItemsByIdQuery req, CancellationToken ct)
     {
-        Cart cart = await reads
-            .SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
+        Cart cart = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw CartNotFoundException.ById(req.Id);
 
         return [.. cart.Items.Select(o => o.ToGetCartItemsByIdDto())];

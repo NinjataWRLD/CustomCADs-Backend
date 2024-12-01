@@ -21,7 +21,7 @@ public class GetRolesEndpoint(IRequestSender sender)
         GetAllRolesQuery query = new();
         IEnumerable<RoleReadDto> roles = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = roles.Select(r => new RoleResponse(r.Name, r.Description)).ToArray();
+        RoleResponse[] response = [.. roles.Select(r => r.ToRoleResponse())];
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

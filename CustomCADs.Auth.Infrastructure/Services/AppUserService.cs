@@ -5,7 +5,7 @@ using CustomCADs.Auth.Domain.DomainEvents.Email;
 using CustomCADs.Auth.Domain.Entities;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Commands;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

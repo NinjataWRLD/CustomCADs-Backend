@@ -18,8 +18,9 @@ public class EditOrderHandler(IOrderReads reads, IUnitOfWork uow)
             throw OrderAuthorizationException.ByOrderId(req.Id);
         }
 
-        order.SetName(req.Name ?? order.Name);
-        order.SetDescription(req.Description ?? order.Description);
+        order
+            .SetName(req.Name)
+            .SetDescription(req.Description);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }

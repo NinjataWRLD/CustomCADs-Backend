@@ -11,9 +11,9 @@ public class GetCategoriesByIdsHandler(ICategoryReads reads)
     {
         IEnumerable<Category> categories = await reads.AllAsync(track: false, ct: ct);
 
-        return categories
-                .Where(c => req.Ids.Contains(c.Id))
-                .Select(c => (c.Id, c.Name))
-                .ToArray();
+        return [.. categories
+            .Where(c => req.Ids.Contains(c.Id))
+            .Select(c => (c.Id, c.Name))
+        ];
     }
 }

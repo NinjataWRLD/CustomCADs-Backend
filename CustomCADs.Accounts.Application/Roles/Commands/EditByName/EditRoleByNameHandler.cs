@@ -15,8 +15,9 @@ public class EditRoleByNameHandler(IRoleReads reads, IUnitOfWork uow, IEventRais
         Role role = await reads.SingleByNameAsync(req.Name, ct: ct).ConfigureAwait(false)
             ?? throw RoleNotFoundException.ByName(req.Name);
 
-        role.SetName(req.Dto.Name);
-        role.SetDescription(req.Dto.Description);
+        role
+            .SetName(req.Dto.Name)
+            .SetDescription(req.Dto.Description);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
