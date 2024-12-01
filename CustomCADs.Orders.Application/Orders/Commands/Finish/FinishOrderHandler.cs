@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Application.Orders.Exceptions;
+﻿using CustomCADs.Orders.Application.Common.Exceptions;
 using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
 using CustomCADs.Orders.Domain.Orders;

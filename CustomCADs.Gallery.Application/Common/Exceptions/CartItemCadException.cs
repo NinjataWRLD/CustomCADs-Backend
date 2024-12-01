@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Bases.Exceptions;
 
-namespace CustomCADs.Gallery.Application.Carts.Exceptions;
+namespace CustomCADs.Gallery.Application.Common.Exceptions;
 
 public class CartItemCadException : BaseException
 {

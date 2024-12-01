@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Bases.Exceptions;
 
-namespace CustomCADs.Orders.Application.Orders.Exceptions;
+namespace CustomCADs.Orders.Application.Common.Exceptions;
 
 public class OrderCadException : BaseException
 {

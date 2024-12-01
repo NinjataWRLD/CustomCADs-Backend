@@ -1,4 +1,4 @@
-﻿using CustomCADs.Cads.Application.Cads.Exceptions;
+﻿using CustomCADs.Cads.Application.Common.Exceptions;
 using CustomCADs.Cads.Domain.Cads;
 using CustomCADs.Cads.Domain.Cads.Reads;
 using CustomCADs.Shared.Application.Requests.Queries;

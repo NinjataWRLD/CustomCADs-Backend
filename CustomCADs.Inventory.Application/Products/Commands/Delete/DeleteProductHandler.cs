@@ -1,4 +1,4 @@
-﻿using CustomCADs.Inventory.Application.Products.Exceptions;
+﻿using CustomCADs.Inventory.Application.Common.Exceptions;
 using CustomCADs.Inventory.Domain.Common;
 using CustomCADs.Inventory.Domain.Products;
 using CustomCADs.Inventory.Domain.Products.DomainEvents;

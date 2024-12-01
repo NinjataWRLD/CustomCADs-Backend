@@ -1,4 +1,4 @@
-﻿using CustomCADs.Gallery.Application.Carts.Exceptions;
+﻿using CustomCADs.Gallery.Application.Common.Exceptions;
 using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
