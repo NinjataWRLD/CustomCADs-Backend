@@ -14,7 +14,10 @@ public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenS
     {
         Post("refreshToken");
         Group<SignInGroup>();
-        Description(d => d.WithSummary("2. I want to renew/extend my login"));
+        Description(d => d
+            .WithSummary("02. Extend")
+            .WithDescription("Extend your login without providing credentials again")
+        );
     }
 
     public override async Task HandleAsync(CancellationToken ct)

@@ -9,7 +9,10 @@ public class DeleteProductEndpoint(IRequestSender sender)
     {
         Delete("{id}");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("8. I want to delete my Product"));
+        Description(d => d
+            .WithSummary("09. Delete")
+            .WithDescription("Delete your Product by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(DeleteProductRequest req, CancellationToken ct)

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Gallery.Endpoints.Carts.Recent;
+﻿namespace CustomCADs.Gallery.Endpoints.Carts.Get.Recent;
 
 public record RecentCartsResponse(
     Guid Id,

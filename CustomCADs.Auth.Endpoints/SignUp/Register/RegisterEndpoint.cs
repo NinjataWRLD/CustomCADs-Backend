@@ -11,7 +11,10 @@ public class RegisterEndpoint(IUserService service)
     {
         Post("register");
         Group<SignUpGroup>();
-        Description(d => d.WithSummary("1. I want to register"));
+        Description(d => d
+            .WithSummary("01. Register")
+            .WithDescription("Register by providing a Role, Username, Email, Password, and Time zone, and optional First and Last names, and receive an email from which to verify your Email")
+        );
     }
 
     public override async Task HandleAsync(RegisterRequest req, CancellationToken ct)

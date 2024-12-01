@@ -9,7 +9,10 @@ public class DeleteAccountEndpoint(IRequestSender sender)
     {
         Delete("{username}");
         Group<AccountsGroup>();
-        Description(d => d.WithSummary("4. I want to delete an Account"));
+        Description(d => d
+            .WithSummary("4. Delete")
+            .WithDescription("Delete an Account by specifying its Username")
+        );
     }
 
     public override async Task HandleAsync(DeleteAccountRequest req, CancellationToken ct)

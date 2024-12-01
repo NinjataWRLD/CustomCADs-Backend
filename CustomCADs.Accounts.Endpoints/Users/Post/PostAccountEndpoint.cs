@@ -12,7 +12,10 @@ public class PostAccountEndpoint(IRequestSender sender)
     {
         Post("");
         Group<AccountsGroup>();
-        Description(d => d.WithSummary("2. I want to create an Account"));
+        Description(d => d
+            .WithSummary("2. Create")
+            .WithDescription("Create an Account by specifying a Role, Username, Email, Time Zone, Password and optional First and Last names")
+        );
     }
 
     public override async Task HandleAsync(PostAccountRequest req, CancellationToken ct)

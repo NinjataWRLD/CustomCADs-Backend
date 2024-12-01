@@ -8,7 +8,10 @@ public class DeleteOrderEndpoint(IRequestSender sender)
     {
         Delete("{id}");
         Group<ClientGroup>();
-        Description(d => d.WithSummary("7. I want to delete my Order"));
+        Description(d => d
+            .WithSummary("07. Delete")
+            .WithDescription("Delete your Order by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(DeleteOrderRequest req, CancellationToken ct)

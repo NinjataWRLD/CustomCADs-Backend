@@ -10,7 +10,10 @@ public class GetRolesEndpoint(IRequestSender sender)
     {
         Get("");
         Group<RolesGroup>();
-        Description(d => d.WithSummary("1. I want to see all Roles"));
+        Description(d => d
+            .WithSummary("1. All")
+            .WithDescription("See all Roles")
+        );
     }
 
     public override async Task HandleAsync(CancellationToken ct)

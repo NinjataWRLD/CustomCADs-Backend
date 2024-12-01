@@ -10,7 +10,10 @@ public class GetUncheckedProductsEndpoint(IRequestSender sender)
     {
         Get("");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to see all Unchecked Products"));
+        Description(d => d
+            .WithSummary("01. All Unchecked")
+            .WithDescription("See all Unchecked Products with Search, Sorting and Pagination options")
+        );
     }
 
     public override async Task HandleAsync(GetUncheckedProductsRequest req, CancellationToken ct)

@@ -10,7 +10,10 @@ public class PostCartEndpoint(IRequestSender sender)
     {
         Post("");
         Group<CartsGroup>();
-        Description(d => d.WithSummary("1. I want to create a Cart"));
+        Description(d => d
+            .WithSummary("01. Create")
+            .WithDescription("Create a Cart")
+        );
     }
 
     public override async Task HandleAsync(CancellationToken ct)

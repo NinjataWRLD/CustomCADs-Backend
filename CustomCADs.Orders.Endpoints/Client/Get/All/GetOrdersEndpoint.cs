@@ -10,7 +10,10 @@ public class GetOrdersEndpoint(IRequestSender sender)
     {
         Get("");
         Group<ClientGroup>();
-        Description(d => d.WithSummary("8. I want to see all my Orders"));
+        Description(d => d
+            .WithSummary("06. All")
+            .WithDescription("See all your Orders with Filter, Search, Sorting and Pagination options")
+        );
     }
 
     public override async Task HandleAsync(GetOrdersRequest req, CancellationToken ct)

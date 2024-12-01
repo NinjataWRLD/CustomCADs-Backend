@@ -9,7 +9,10 @@ public class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
     {
         Post("presignedUrls/replace");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("10. I want to replace the image for my Product"));
+        Description(d => d
+            .WithSummary("12. Change Image")
+            .WithDescription("Change your Product's Image by specifying the Product's Id and the Image's FileName and ContentType")
+        );
     }
 
     public override async Task HandleAsync(GetProductPutPresignedUrlRequest req, CancellationToken ct)

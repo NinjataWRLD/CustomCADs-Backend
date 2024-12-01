@@ -2,8 +2,8 @@
 using CustomCADs.Gallery.Application.Carts.Queries.GetById;
 using CustomCADs.Gallery.Domain.Carts.Entities;
 using CustomCADs.Gallery.Endpoints.Carts.Get.All;
+using CustomCADs.Gallery.Endpoints.Carts.Get.Recent;
 using CustomCADs.Gallery.Endpoints.Carts.Get.Single;
-using CustomCADs.Gallery.Endpoints.Carts.Recent;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.ValueObjects;
 

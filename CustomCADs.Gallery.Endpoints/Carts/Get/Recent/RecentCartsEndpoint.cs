@@ -3,7 +3,7 @@ using CustomCADs.Gallery.Domain.Carts.Enums;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.Enums;
 
-namespace CustomCADs.Gallery.Endpoints.Carts.Recent;
+namespace CustomCADs.Gallery.Endpoints.Carts.Get.Recent;
 
 public class RecentCartsEndpoint(IRequestSender sender)
     : Endpoint<RecentCartsRequest, RecentCartsResponse[]>
@@ -12,7 +12,10 @@ public class RecentCartsEndpoint(IRequestSender sender)
     {
         Get("recent");
         Group<CartsGroup>();
-        Description(d => d.WithSummary("3. I want to see my recent Carts"));
+        Description(d => d
+            .WithSummary("03. Recent")
+            .WithDescription("See your most recent Carts")
+        );
     }
 
     public override async Task HandleAsync(RecentCartsRequest req, CancellationToken ct)

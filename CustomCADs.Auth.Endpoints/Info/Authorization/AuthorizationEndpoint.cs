@@ -9,7 +9,10 @@ public class AuthorizationEndpoint
     {
         Get("authorization");
         Group<InfoGroup>();
-        Description(d => d.WithSummary("2. What Role do I have?"));
+        Description(d => d
+            .WithSummary("02. AuthZ")
+            .WithDescription("What Role do you have?")
+        );
     }
 
     public override async Task HandleAsync(CancellationToken ct)

@@ -10,7 +10,10 @@ public class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
     {
         Post("presignedUrls/upload");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("1. I want to upload the Image and Cad for my Product"));
+        Description(d => d
+            .WithSummary("01. Upload Image & Cad")
+            .WithDescription("Upload the Image and Cad for a Product (prior to creating it)")
+        );
     }
 
     public override async Task HandleAsync(GetProductPostPresignedUrlsRequest req, CancellationToken ct)

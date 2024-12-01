@@ -12,7 +12,10 @@ public class RecentProductsEndpoint(IRequestSender sender)
     {
         Get("recent");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("3. I want to get my recent Products"));
+        Description(d => d
+            .WithSummary("03. Recent")
+            .WithDescription("See your most recent Products")
+        );
     }
 
     public override async Task HandleAsync(RecentProductsRequest req, CancellationToken ct)

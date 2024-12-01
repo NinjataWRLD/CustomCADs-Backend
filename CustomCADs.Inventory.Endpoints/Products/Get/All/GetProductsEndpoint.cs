@@ -10,7 +10,10 @@ public class GetProductsEndpoint(IRequestSender sender)
     {
         Get("");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("9. I want to see all my Product"));
+        Description(d => d
+            .WithSummary("10. All")
+            .WithDescription("See all your Product with Filter, Search, Sorting and Pagination options")
+        );
     }
 
     public override async Task HandleAsync(GetProductsRequest req, CancellationToken ct)

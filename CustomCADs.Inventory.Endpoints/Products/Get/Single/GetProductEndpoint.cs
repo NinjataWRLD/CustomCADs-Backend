@@ -9,7 +9,10 @@ public class GetProductEndpoint(IRequestSender sender)
     {
         Get("{id}");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("7. I want to see my Product in detail"));
+        Description(d => d
+            .WithSummary("06. Single")
+            .WithDescription("See your Product by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(GetProductRequest req, CancellationToken ct)

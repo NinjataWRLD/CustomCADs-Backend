@@ -9,7 +9,10 @@ public class GetProductGetPresignedCadUrlEndpoint(IRequestSender sender)
     {
         Post("presignedUrl/downloadCad");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("I want to download the Cad for my Product"));
+        Description(d => d
+            .WithSummary("07. Download Cad")
+            .WithDescription("Download your Product's Cad by specifying the Product's Id")
+        );
     }
 
     public override async Task HandleAsync(GetProductGetPresignedCadUrlRequest req, CancellationToken ct)

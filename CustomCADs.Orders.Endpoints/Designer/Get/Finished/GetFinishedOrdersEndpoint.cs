@@ -11,7 +11,10 @@ public class GetFinishedOrdersEndpoint(IRequestSender sender)
     {
         Get("finished");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to see all Finished Orders."));
+        Description(d => d
+            .WithSummary("10. All Finished")
+            .WithDescription("See all Finished Orders with Filter, Search, Sort and Options options")
+        );
     }
 
     public override async Task HandleAsync(GetFinishedOrdersRequest req, CancellationToken ct)

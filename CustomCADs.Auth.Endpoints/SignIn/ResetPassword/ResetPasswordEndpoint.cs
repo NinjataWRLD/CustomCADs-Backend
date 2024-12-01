@@ -13,7 +13,10 @@ public class ResetPasswordEndpoint(IUserService service)
     {
         Post("resetPassword");
         Group<SignInGroup>();
-        Description(d => d.WithSummary("5. I want to reset my password (email leads here)"));
+        Description(d => d
+            .WithSummary("05. Reset Password")
+            .WithDescription("Reset your Password by providing the token received in the email")
+        );
     }
 
     public override async Task HandleAsync(ResetPasswordRequest req, CancellationToken ct)

@@ -9,7 +9,7 @@ public class ProductsGroup : Group
         Configure("products", ep =>
         {
             ep.Roles(Contributor, Designer);
-            ep.Description(d => d.WithTags("06. Products Dashboard"));
+            ep.Description(d => d.WithTags("06. Products"));
         });
     }
 }

@@ -8,7 +8,10 @@ public class DeleteCartEndpoint(IRequestSender sender)
     {
         Delete("{id}");
         Group<CartsGroup>();
-        Description(d => d.WithSummary("6. I want to delete my Cart"));
+        Description(d => d
+            .WithSummary("07. Delete")
+            .WithDescription("Delete your Cart by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(DeleteCartRequest req, CancellationToken ct)

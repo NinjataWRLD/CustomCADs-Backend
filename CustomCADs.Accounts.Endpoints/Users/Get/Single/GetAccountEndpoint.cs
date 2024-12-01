@@ -9,7 +9,10 @@ public class GetAccountEndpoint(IRequestSender sender)
     {
         Get("{username}");
         Group<AccountsGroup>();
-        Description(d => d.WithSummary("3. I want to see an Account in detail"));
+        Description(d => d
+            .WithSummary("3. Single")
+            .WithDescription("See an Account by specifying its Username")
+        );
     }
 
     public override async Task HandleAsync(GetAccountRequest req, CancellationToken ct)

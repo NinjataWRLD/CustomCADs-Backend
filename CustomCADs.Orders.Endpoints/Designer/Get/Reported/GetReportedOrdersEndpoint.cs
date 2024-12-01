@@ -11,7 +11,10 @@ public class GetReportedOrdersEndpoint(IRequestSender sender)
     {
         Get("reported");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to see all Reported Orders."));
+        Description(d => d
+            .WithSummary("12. All Reported")
+            .WithDescription("See all Reported Orders with Filter, Search, Sort and Options options")
+        );
     }
 
     public override async Task HandleAsync(GetReportedOrdersRequest req, CancellationToken ct)

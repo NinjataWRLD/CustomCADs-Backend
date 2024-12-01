@@ -14,7 +14,10 @@ public class PostProductEndpoint(IRequestSender sender)
     {
         Post("");
         Group<ProductsGroup>();
-        Description(d => d.WithSummary("2. I want to create a Product"));
+        Description(d => d
+            .WithSummary("02. Create")
+            .WithDescription("Create a Product by specifying a Name, Description, Category, Price, and the Image and Cad's keys and content types")
+        );
     }
 
     public override async Task HandleAsync(PostProductRequest req, CancellationToken ct)

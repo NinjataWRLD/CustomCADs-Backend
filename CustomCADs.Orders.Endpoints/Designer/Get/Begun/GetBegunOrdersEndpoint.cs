@@ -11,7 +11,10 @@ public class GetBegunOrdersEndpoint(IRequestSender sender)
     {
         Get("begun");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to see all Begun Orders."));
+        Description(d => d
+            .WithSummary("06. All Begun")
+            .WithDescription("See all Begun Orders with Filter, Search, Sort and Options options")
+        );
     }
 
     public override async Task HandleAsync(GetBegunOrdersRequest req, CancellationToken ct)

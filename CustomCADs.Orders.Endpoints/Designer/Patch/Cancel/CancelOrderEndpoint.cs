@@ -10,7 +10,10 @@ public class CancelOrderEndpoint(IRequestSender sender)
     {
         Patch("cancel");
         Group<DesignerGroup>();
-        Description(d => d.WithSummary("I want to Cancel the Order"));
+        Description(d => d
+            .WithSummary("07. Cancel")
+            .WithDescription("Set an Order's Status to back Pending by specifying its Id")
+        );
     }
 
     public override async Task HandleAsync(CancelOrderRequest req, CancellationToken ct)

@@ -9,7 +9,7 @@ public class DesignerGroup : Group
         Configure("products/designer", ep =>
         {
             ep.Roles(Designer);
-            ep.Description(d => d.WithTags("Product Management"));
+            ep.Description(d => d.WithTags("08. Product Management"));
         });
     }
 }
