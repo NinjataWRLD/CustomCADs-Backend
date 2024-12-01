@@ -4,6 +4,6 @@ namespace CustomCADs.Inventory.Endpoints.Products.Patch;
 
 public record PatchProductCadRequest(
     Guid Id,
-    string Type,
+    CoordinateType Type,
     CoordinatesDto Coordinates
 );

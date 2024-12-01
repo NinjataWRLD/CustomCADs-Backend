@@ -24,17 +24,26 @@ public class PatchProductCadEndpoint(IRequestSender sender)
             Id: new ProductId(req.Id),
             CreatorId: User.GetAccountId()
         );
-        bool IsType(string type) => req.Type.Equals(type, StringComparison.OrdinalIgnoreCase);
 
-        if (IsType("camera") || IsType("cam"))
-            command = command with { CamCoordinates = req.Coordinates.ToCoordinates() };
-        else if (IsType("pan"))
-            command = command with { PanCoordinates = req.Coordinates.ToCoordinates() };
-        else
+        switch (req.Type)
         {
-            ValidationFailures.Add(new("Type", InvalidCoordValue, req.Type));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
+            case CoordinateType.Cam:
+                command = command with { CamCoordinates = req.Coordinates.ToCoordinates() };
+                break;
+
+            case CoordinateType.Pan:
+                command = command with { PanCoordinates = req.Coordinates.ToCoordinates() };
+                break;
+
+            default:
+                string types = string.Join(", ", Enum.GetNames<CoordinateType>());
+                ValidationFailures.Add(new(
+                    propertyName: nameof(req.Type), 
+                    errorMessage: string.Format(InvalidCoordValue, types), 
+                    attemptedValue: req.Type
+                ));
+                await SendErrorsAsync().ConfigureAwait(false);
+                return;
         }
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
