@@ -6,5 +6,5 @@ namespace CustomCADs.Inventory.Application.Products.Commands.SetStatus;
 public record SetProductStatusCommand(
     ProductId Id,
     ProductStatus Status,
-    AccountId CreatorId
+    AccountId DesignerId
 ) : ICommand;
