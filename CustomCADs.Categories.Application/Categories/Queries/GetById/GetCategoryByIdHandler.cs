@@ -1,4 +1,4 @@
-﻿using CustomCADs.Categories.Application.Categories.Exceptions;
+﻿using CustomCADs.Categories.Application.Common.Exceptions;
 using CustomCADs.Categories.Domain.Categories;
 using CustomCADs.Categories.Domain.Categories.Reads;
 using CustomCADs.Shared.Application.Cache;

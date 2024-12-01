@@ -2,7 +2,7 @@
 using CustomCADs.Shared.Core.Bases.Exceptions;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 
-namespace CustomCADs.Cads.Application.Cads.Exceptions;
+namespace CustomCADs.Cads.Application.Common.Exceptions;
 
 using static Constants.ExceptionMessages;
 

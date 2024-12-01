@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Bases.Exceptions;
 
-namespace CustomCADs.Inventory.Application.Products.Exceptions;
+namespace CustomCADs.Inventory.Application.Common.Exceptions;
 
 public class ProductNotFoundException : BaseException
 {

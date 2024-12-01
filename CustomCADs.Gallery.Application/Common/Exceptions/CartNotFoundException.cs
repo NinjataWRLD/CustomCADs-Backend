@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Bases.Exceptions;
 
-namespace CustomCADs.Gallery.Application.Carts.Exceptions;
+namespace CustomCADs.Gallery.Application.Common.Exceptions;
 
 using static Constants.ExceptionMessages;
 
