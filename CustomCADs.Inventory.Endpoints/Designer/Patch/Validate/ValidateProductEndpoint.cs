@@ -1,25 +1,26 @@
 ﻿using CustomCADs.Inventory.Application.Products.Commands.SetStatus;
+using CustomCADs.Inventory.Domain.Products.Enums;
 
-namespace CustomCADs.Inventory.Endpoints.Designer.Patch;
+namespace CustomCADs.Inventory.Endpoints.Designer.Patch.Validate;
 
-public class PatchProductStatusEndpoint(IRequestSender sender)
-    : Endpoint<PatchProductStatusRequest>
+public class ValidateProductEndpoint(IRequestSender sender)
+    : Endpoint<ValidateProductRequest>
 {
     public override void Configure()
     {
         Patch("{id}/status");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("03. Change Status")
-            .WithDescription("Change a Product's Status")
+            .WithSummary("03. Validate")
+            .WithDescription("Set a Product's Status to Validated")
         );
     }
 
-    public override async Task HandleAsync(PatchProductStatusRequest req, CancellationToken ct)
+    public override async Task HandleAsync(ValidateProductRequest req, CancellationToken ct)
     {
         SetProductStatusCommand command = new(
             Id: new(req.Id),
-            Status: req.Status,
+            Status: ProductStatus.Validated,
             CreatorId: User.GetAccountId()
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

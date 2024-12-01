@@ -40,7 +40,7 @@ public static class Mapper
             Category: (product.CategoryId, categoryName),
             CreatorName: username
         );
-    
+
     public static DesignerGetProductByIdDto ToDesignerGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName)
         => new(
             Id: product.Id,

@@ -21,7 +21,7 @@ public class DesignerGetProductByIdHandler(IProductReads reads, IRequestSender s
 
         GetUsernameByIdQuery usernameQuery = new(product.CreatorId);
         string username = await sender.SendQueryAsync(usernameQuery, ct).ConfigureAwait(false);
-        
+
         GetCategoryNameByIdQuery categoryQuery = new(product.CategoryId);
         string category = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
 
