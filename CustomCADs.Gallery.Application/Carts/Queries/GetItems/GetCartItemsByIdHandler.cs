@@ -1,4 +1,5 @@
-﻿using CustomCADs.Gallery.Domain.Carts.Entities;
+﻿using CustomCADs.Gallery.Application.Carts.Exceptions;
+using CustomCADs.Gallery.Domain.Carts;
 using CustomCADs.Gallery.Domain.Carts.Reads;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetItems;
@@ -8,14 +9,10 @@ public class GetCartItemsByIdHandler(ICartReads reads)
 {
     public async Task<ICollection<GetCartItemsByIdDto>> Handle(GetCartItemsByIdQuery req, CancellationToken ct)
     {
-        bool userOwnsCart = await reads
-            .OwnsByIdAsync(req.Id, req.BuyerId, ct: ct)
-            .ConfigureAwait(false);
+        Cart cart = await reads
+            .SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
+            ?? throw CartNotFoundException.ById(req.Id);
 
-        ICollection<CartItem> items = await reads
-            .ItemsByIdAsync(req.Id, ct: ct)
-            .ConfigureAwait(false);
-
-        return [.. items.Select(o => o.ToGetCartItemsByIdDto())];
+        return [.. cart.Items.Select(o => o.ToGetCartItemsByIdDto())];
     }
 }
