@@ -1,18 +1,18 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Queries.Count;
 using CustomCADs.Gallery.Application.Carts.Queries.CountItems;
 
-namespace CustomCADs.Gallery.Endpoints.Carts.Get.Count;
+namespace CustomCADs.Gallery.Endpoints.Carts.Get.Stats;
 
-public class GetCartsCountEndpoint(IRequestSender sender)
-    : EndpointWithoutRequest<GetCartsCountResponse>
+public class CartsStatsEndpoint(IRequestSender sender)
+    : EndpointWithoutRequest<CartsStatsResponse>
 {
     public override void Configure()
     {
-        Get("count");
+        Get("stats");
         Group<CartsGroup>();
         Description(d => d
-            .WithSummary("Count")
-            .WithDescription("See the total count of Carts and each one's Items count")
+            .WithSummary("03. Stats")
+            .WithDescription("See your Carts' Stats")
         );
     }
 
@@ -24,7 +24,7 @@ public class GetCartsCountEndpoint(IRequestSender sender)
         CountCartItemsQuery itemsQuery = new(User.GetAccountId());
         var counts = await sender.SendQueryAsync(itemsQuery, ct).ConfigureAwait(false);
 
-        GetCartsCountResponse response = new(
+        CartsStatsResponse response = new(
             TotalCount: totalCartCount,
             Counts: counts.ToDictionary(kv => kv.Key.Value, kv => kv.Value)
         );
