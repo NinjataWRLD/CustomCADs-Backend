@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common;
 namespace CustomCADs.Gallery.Endpoints.Carts.Get.All;
 
 public class GetCartsEndpoint(IRequestSender sender)
-    : Endpoint<GetCartsRequest, GetCartsResponse>
+    : Endpoint<GetCartsRequest, Result<GetCartsDto>>
 {
     public override void Configure()
     {
@@ -26,9 +26,9 @@ public class GetCartsEndpoint(IRequestSender sender)
         );
         Result<GetAllCartsDto> carts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetCartsResponse response = new(
+        Result<GetCartsDto> response = new(
             Count: carts.Count,
-            Carts: [.. carts.Items.Select(c => c.ToGetCartsDto())]
+            Items: [.. carts.Items.Select(c => c.ToGetCartsDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

@@ -1,10 +1,11 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Domain.Products.Enums;
+using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Get.All;
 
 public class GetUncheckedProductsEndpoint(IRequestSender sender)
-    : Endpoint<GetUncheckedProductsRequest, GetUncheckedProductsResponse>
+    : Endpoint<GetUncheckedProductsRequest, Result<GetUncheckedProductsDto>>
 {
     public override void Configure()
     {
@@ -27,9 +28,9 @@ public class GetUncheckedProductsEndpoint(IRequestSender sender)
         );
         var result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetUncheckedProductsResponse response = new(
+        Result<GetUncheckedProductsDto> response = new(
             Count: result.Count,
-            Products: [.. result.Items.Select(p => p.ToGetUncheckedProductsDto())]
+            Items: [.. result.Items.Select(p => p.ToGetUncheckedProductsDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

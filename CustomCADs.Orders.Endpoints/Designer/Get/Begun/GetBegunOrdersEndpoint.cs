@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Orders.Endpoints.Client;
+using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Get.Begun;
 
 public class GetBegunOrdersEndpoint(IRequestSender sender)
-    : Endpoint<GetBegunOrdersRequest, GetBegunOrdersResponse>
+    : Endpoint<GetBegunOrdersRequest, Result<GetBegunOrdersDto>>
 {
     public override void Configure()
     {
@@ -30,9 +31,9 @@ public class GetBegunOrdersEndpoint(IRequestSender sender)
         );
         var orders = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetBegunOrdersResponse response = new(
+        Result<GetBegunOrdersDto> response = new(
             Count: orders.Count,
-            Orders: [.. orders.Items.Select(o => o.ToGetBegunOrdersDto())]
+            Items: [.. orders.Items.Select(o => o.ToGetBegunOrdersDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }
