@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common;
 namespace CustomCADs.Orders.Endpoints.Client.Get.All;
 
 public class GetOrdersEndpoint(IRequestSender sender)
-    : Endpoint<GetOrdersRequest, GetOrdersResponse>
+    : Endpoint<GetOrdersRequest, Result<GetOrdersDto>>
 {
     public override void Configure()
     {
@@ -29,9 +29,9 @@ public class GetOrdersEndpoint(IRequestSender sender)
         );
         Result<GetAllOrdersDto> result = await sender.SendQueryAsync(query, ct: ct);
 
-        GetOrdersResponse response = new(
-            result.Count,
-            result.Items.Select(o => o.ToGetOrdersDto()).ToArray()
+        Result<GetOrdersDto> response = new(
+            Count: result.Count,
+            Items: result.Items.Select(o => o.ToGetOrdersDto()).ToArray()
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

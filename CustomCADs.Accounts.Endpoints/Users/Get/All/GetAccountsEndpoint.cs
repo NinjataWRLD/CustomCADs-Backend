@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common;
 namespace CustomCADs.Accounts.Endpoints.Users.Get.All;
 
 public class GetAccountsEndpoint(IRequestSender sender)
-    : Endpoint<GetAccountsRequest, GetAccountsResponse>
+    : Endpoint<GetAccountsRequest, Result<AccountResponse>>
 {
     public override void Configure()
     {
@@ -26,7 +26,7 @@ public class GetAccountsEndpoint(IRequestSender sender)
         );
         Result<GetAllAccountsItem> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetAccountsResponse response = new(
+        Result<AccountResponse> response = new(
             result.Count,
             [.. result.Items.Select(a => a.ToUserResponse())]
         );
