@@ -18,7 +18,7 @@ public class GetProductGetPresignedCadUrlEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetProductGetPresignedCadUrlRequest req, CancellationToken ct)
     {
         GetProductCadPresignedUrlGetQuery query = new(
-            Id: new(req.Id),
+            Id: new ProductId(req.Id),
             CreatorId: User.GetAccountId()
         );
         GetProductCadPresignedUrlGetDto cadDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

@@ -3,7 +3,7 @@ using CustomCADs.Gallery.Domain.Carts.Enums;
 using CustomCADs.Gallery.Domain.Carts.Validation;
 using CustomCADs.Gallery.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 using CustomCADs.Shared.Core.Common.ValueObjects;
 

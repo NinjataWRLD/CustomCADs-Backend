@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CustomCADs.Shared.Core.Common.TypedIds.Account;
+namespace CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 public readonly struct AccountId(Guid value)
 {

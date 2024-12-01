@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Accounts.Endpoints.Users;
+﻿namespace CustomCADs.Accounts.Endpoints.Accounts;
 
 using static Constants.Roles;
 

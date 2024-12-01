@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.Orders.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 

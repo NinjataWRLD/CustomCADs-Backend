@@ -14,8 +14,7 @@ public class GetCartItemCadPresignedUrlGetHandler(IStorageService storage, ICart
 {
     public async Task<GetCartItemCadPresignedUrlGetDto> Handle(GetCartItemCadPresignedUrlGetQuery req, CancellationToken ct)
     {
-        Cart cart = await reads
-            .SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+        Cart cart = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CartNotFoundException.ById(req.Id);
 
         if (cart.BuyerId != req.BuyerId)
@@ -23,8 +22,7 @@ public class GetCartItemCadPresignedUrlGetHandler(IStorageService storage, ICart
             throw CartAuthorizationException.ByCartId(req.Id);
         }
 
-        CartItem item = cart.Items
-            .FirstOrDefault(x => x.Id == req.ItemId)
+        CartItem item = cart.Items.FirstOrDefault(x => x.Id == req.ItemId)
             ?? throw CartItemNotFoundException.ById(req.ItemId);
 
         if (item.CadId is null)
@@ -40,7 +38,6 @@ public class GetCartItemCadPresignedUrlGetHandler(IStorageService storage, ICart
             contentType: ContentType
         );
 
-        GetCartItemCadPresignedUrlGetDto response = new(cadPresignedUrl);
-        return response;
+        return new(PresignedUrl: cadPresignedUrl);
     }
 }

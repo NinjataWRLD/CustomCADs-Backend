@@ -18,7 +18,7 @@ public class GetProductGetPresignedImageUrlEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetProductGetPresignedImageUrlRequest req, CancellationToken ct)
     {
         GetProductImagePresignedUrlGetQuery query = new(
-            Id: new(req.Id),
+            Id: new ProductId(req.Id),
             CreatorId: User.GetAccountId()
         );
         GetProductImagePresignedUrlGetDto imageDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

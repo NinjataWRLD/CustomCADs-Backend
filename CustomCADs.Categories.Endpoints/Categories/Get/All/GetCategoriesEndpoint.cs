@@ -4,7 +4,7 @@ using CustomCADs.Categories.Application.Categories.Queries.GetAll;
 namespace CustomCADs.Categories.Endpoints.Categories.Get.All;
 
 public class GetCategoriesEndpoint(IRequestSender sender)
-    : EndpointWithoutRequest<IEnumerable<CategoryResponse>>
+    : EndpointWithoutRequest<CategoryResponse[]>
 {
     public override void Configure()
     {
@@ -22,7 +22,7 @@ public class GetCategoriesEndpoint(IRequestSender sender)
         GetAllCategoriesQuery query = new();
         IEnumerable<CategoryReadDto> categories = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = categories.Select(c => new CategoryResponse(c.Id.Value, c.Name));
+        CategoryResponse[] response = [.. categories.Select(c => c.ToCategoryResponse())];
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

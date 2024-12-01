@@ -7,14 +7,13 @@ public class GetProductCadPresignedUrlPostHandler(IStorageService storage)
 {
     public async Task<GetProductCadPresignedUrlPostDto> Handle(GetProductCadPresignedUrlPostQuery req, CancellationToken cancellationToken)
     {
-        (string key, string url) = await storage.GetPresignedPostUrlAsync(
+        (string Key, string Url) = await storage.GetPresignedPostUrlAsync(
             folderPath: "cads",
             name: req.ProductName,
             contentType: req.ContentType,
             fileName: req.FileName
         ).ConfigureAwait(false);
 
-        GetProductCadPresignedUrlPostDto response = new(CadKey: key, CadUrl: url);
-        return response;
+        return new(CadKey: Key, CadUrl: Url);
     }
 }

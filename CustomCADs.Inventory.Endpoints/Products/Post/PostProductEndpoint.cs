@@ -2,6 +2,8 @@
 using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Post;
 
@@ -25,16 +27,14 @@ public class PostProductEndpoint(IRequestSender sender)
         CreateProductCommand command = new(
             Name: req.Name,
             Description: req.Description,
-            CategoryId: new(req.CategoryId),
-            Price: new(req.Price, "BGN", 2, "лв"),
+            CategoryId: new CategoryId(req.CategoryId),
+            Price: new Money(req.Price, "BGN", 2, "лв"),
             ImageKey: req.ImageKey,
             ImageContentType: req.ImageContentType,
             CadKey: req.CadKey,
             CadContentType: req.CadContentType,
             CreatorId: User.GetAccountId(),
-            Status: User.IsInRole(Designer)
-                ? ProductStatus.Validated
-                : ProductStatus.Unchecked
+            Status: User.IsInRole(Designer) ? ProductStatus.Validated : ProductStatus.Unchecked
         );
         ProductId id = await sender.SendCommandAsync(command, ct);
 
@@ -42,9 +42,9 @@ public class PostProductEndpoint(IRequestSender sender)
             Id: id,
             CreatorId: User.GetAccountId()
         );
-        var dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GetProductByIdDto dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         PostProductResponse response = dto.ToPostProductResponse();
-        await SendCreatedAtAsync<GetProductEndpoint>(new { id }, response).ConfigureAwait(false);
+        await SendCreatedAtAsync<GetProductEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
     }
 }

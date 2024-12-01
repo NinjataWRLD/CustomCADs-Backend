@@ -23,7 +23,6 @@ public class GetProductImagePresignedUrlGetHandler(IProductReads reads, IStorage
             contentType: product.Image.ContentType
         ).ConfigureAwait(false);
 
-        GetProductImagePresignedUrlGetDto response = new(imageUrl);
-        return response;
+        return new(PresignedUrl: imageUrl);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Gallery.Domain.Carts.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.AddItem;

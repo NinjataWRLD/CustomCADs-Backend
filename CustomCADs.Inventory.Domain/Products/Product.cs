@@ -3,7 +3,7 @@ using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Inventory.Domain.Products.Validation;
 using CustomCADs.Inventory.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.ValueObjects;
@@ -88,7 +88,7 @@ public class Product : BaseAggregateRoot
         CategoryId = categoryId;
         return this;
     }
-    
+
     public Product SetDesignerId(AccountId designerId)
     {
         DesignerId = designerId;

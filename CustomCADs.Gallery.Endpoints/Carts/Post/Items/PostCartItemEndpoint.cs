@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Commands.AddItem;
 using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
+using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Post.Items;
 
@@ -19,10 +20,10 @@ public class PostCartItemEndpoint(IRequestSender sender)
     public override async Task HandleAsync(PostCartItemRequest req, CancellationToken ct)
     {
         AddCartItemCommand commnad = new(
-            Id: new(req.CartId),
+            Id: new CartId(req.CartId),
             DeliveryType: req.DeliveryType,
             Quantity: req.Quantity,
-            ProductId: new(req.ProductId),
+            ProductId: new ProductId(req.ProductId),
             BuyerId: User.GetAccountId()
         );
         CartItemId itemId = await sender.SendCommandAsync(commnad, ct).ConfigureAwait(false);

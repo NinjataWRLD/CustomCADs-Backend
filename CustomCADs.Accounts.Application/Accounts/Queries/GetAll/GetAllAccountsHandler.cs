@@ -22,8 +22,8 @@ public class GetAllAccountsHandler(IAccountReads reads)
         Result<Account> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
         return new(
-            result.Count,
-            [.. result.Items.Select(a => a.ToGetAllAccountsItem())]
+            Count: result.Count,
+            Items: [.. result.Items.Select(a => a.ToGetAllAccountsItem())]
         );
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.GetCadUrlGet;
-using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
 namespace CustomCADs.Orders.Endpoints.Client.Get.PresignedCadUrl;
 
@@ -18,11 +17,12 @@ public class GetOrderGetPresignedCadUrlEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetOrderGetPresignedCadUrlRequest req, CancellationToken ct)
     {
-        OrderId id = new(req.Id);
-        GetOrderCadPresignedUrlGetQuery query = new(id);
+        GetOrderCadPresignedUrlGetQuery query = new(
+            Id: new OrderId(req.Id)
+        );
         var cadDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetOrderGetPresignedCadUrlResponse response = new(cadDto.CadUrl);
+        GetOrderGetPresignedCadUrlResponse response = new(cadDto.PresignedUrl);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

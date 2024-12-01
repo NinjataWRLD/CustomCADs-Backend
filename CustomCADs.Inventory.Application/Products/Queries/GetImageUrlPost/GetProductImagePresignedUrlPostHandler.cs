@@ -7,14 +7,13 @@ public class GetProductImagePresignedUrlPostHandler(IStorageService storage)
 {
     public async Task<GetProductImagePresignedUrlPostDto> Handle(GetProductImagePresignedUrlPostQuery req, CancellationToken cancellationToken)
     {
-        (string key, string url) = await storage.GetPresignedPostUrlAsync(
+        (string Key, string Url) = await storage.GetPresignedPostUrlAsync(
             folderPath: "images",
             name: req.ProductName,
             contentType: req.ContentType,
             fileName: req.FileName
         ).ConfigureAwait(false);
 
-        GetProductImagePresignedUrlPostDto response = new(GeneratedKey: key, PresignedUrl: url);
-        return response;
+        return new(GeneratedKey: Key, PresignedUrl: Url);
     }
 }

@@ -27,7 +27,7 @@ public class GetOrdersEndpoint(IRequestSender sender)
             Page: req.Page,
             Limit: req.Limit
         );
-        Result<GetAllOrdersDto> result = await sender.SendQueryAsync(query, ct: ct);
+        Result<GetAllOrdersDto> result = await sender.SendQueryAsync(query, ct);
 
         Result<GetOrdersDto> response = new(
             Count: result.Count,

@@ -20,7 +20,7 @@ public class GetRoleEndpoint(IRequestSender sender)
         GetRoleByNameQuery query = new(req.Name);
         RoleReadDto role = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        RoleResponse response = new(role.Name, role.Description);
+        RoleResponse response = role.ToRoleResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

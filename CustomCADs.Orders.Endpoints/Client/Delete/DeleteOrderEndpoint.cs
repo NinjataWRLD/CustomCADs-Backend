@@ -17,7 +17,7 @@ public class DeleteOrderEndpoint(IRequestSender sender)
     public override async Task HandleAsync(DeleteOrderRequest req, CancellationToken ct)
     {
         DeleteOrderCommand command = new(
-            Id: new(req.Id),
+            Id: new OrderId(req.Id),
             BuyerId: User.GetAccountId()
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

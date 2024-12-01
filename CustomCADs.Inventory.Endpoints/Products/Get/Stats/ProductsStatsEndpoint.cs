@@ -17,7 +17,9 @@ public class ProductsStatsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        ProductsCountQuery query = new(CreatorId: User.GetAccountId());
+        ProductsCountQuery query = new(
+            CreatorId: User.GetAccountId()
+        );
         ProductsCountDto counts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         ProductsStatsResponse response = new(

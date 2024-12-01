@@ -1,5 +1,5 @@
 using CustomCADs.Inventory.Domain.Products.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.ValueObjects;
 

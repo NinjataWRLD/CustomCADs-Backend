@@ -5,7 +5,6 @@ using CustomCADs.Inventory.Domain.Products.DomainEvents;
 using CustomCADs.Inventory.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.IntegrationEvents.Inventory;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.Delete;
@@ -33,10 +32,6 @@ public class DeleteProductHandler(IProductReads productReads, IWrites<Product> p
             Id: product.Id,
             ImageKey: product.Image.Key,
             CadKey: Key
-        )).ConfigureAwait(false);
-
-        await raiser.RaiseIntegrationEventAsync(new ProductDeletedIntegrationEvent(
-            Id: product.Id
         )).ConfigureAwait(false);
     }
 }

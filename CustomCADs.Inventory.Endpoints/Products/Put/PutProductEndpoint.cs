@@ -1,5 +1,7 @@
 ﻿using CustomCADs.Inventory.Application.Products.Commands.Edit;
 using CustomCADs.Inventory.Application.Products.Commands.SetKeys;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Put;
 
@@ -18,20 +20,20 @@ public class PutProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PutProductRequest req, CancellationToken ct)
     {
-        EditProductCommand editCcommand = new(
-            Id: new(req.Id),
+        EditProductCommand editCommand = new(
+            Id: new ProductId(req.Id),
             Name: req.Name,
             Description: req.Description,
-            CategoryId: new(req.CategoryId),
-            Price: new(req.Price, "BGN", 2, "лв"),
+            CategoryId: new CategoryId(req.CategoryId),
+            Price: new Money(req.Price, "BGN", 2, "лв"),
             CreatorId: User.GetAccountId()
         );
-        await sender.SendCommandAsync(editCcommand, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(editCommand, ct).ConfigureAwait(false);
 
         if (req.ImageKey is not null)
         {
             SetProductKeysCommand keysCommand = new(
-                Id: new(req.Id),
+                Id: new ProductId(req.Id),
                 CadKey: null,
                 ImageKey: req.ImageKey,
                 CreatorId: User.GetAccountId()

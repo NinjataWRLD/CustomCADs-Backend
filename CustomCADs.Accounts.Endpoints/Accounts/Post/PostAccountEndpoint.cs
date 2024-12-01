@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Create;
 using CustomCADs.Accounts.Application.Accounts.Queries.GetById;
-using CustomCADs.Accounts.Endpoints.Users.Get.Single;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Accounts.Endpoints.Accounts.Get.Single;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
-namespace CustomCADs.Accounts.Endpoints.Users.Post;
+namespace CustomCADs.Accounts.Endpoints.Accounts.Post;
 
 public class PostAccountEndpoint(IRequestSender sender)
     : Endpoint<PostAccountRequest, AccountResponse>

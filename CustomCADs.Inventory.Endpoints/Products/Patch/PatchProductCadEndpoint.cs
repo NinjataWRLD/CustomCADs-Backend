@@ -21,7 +21,7 @@ public class PatchProductCadEndpoint(IRequestSender sender)
     public override async Task HandleAsync(PatchProductCadRequest req, CancellationToken ct)
     {
         SetProductCoordsCommand command = new(
-            Id: new(req.Id),
+            Id: new ProductId(req.Id),
             CreatorId: User.GetAccountId()
         );
         bool IsType(string type) => req.Type.Equals(type, StringComparison.OrdinalIgnoreCase);

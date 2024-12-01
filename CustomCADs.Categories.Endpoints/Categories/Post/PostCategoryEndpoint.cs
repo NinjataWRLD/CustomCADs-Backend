@@ -19,11 +19,12 @@ public class PostCategoryEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PostCategoryRequest req, CancellationToken ct)
     {
-        CategoryWriteDto category = new(req.Name);
-        CreateCategoryCommand command = new(category);
+        CreateCategoryCommand command = new(
+            Dto: new CategoryWriteDto(req.Name)
+        );
         CategoryId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         CategoryResponse response = new(id.Value, req.Name);
-        await SendCreatedAtAsync<GetCategoryEndpoint>(new { id }, response).ConfigureAwait(false);
+        await SendCreatedAtAsync<GetCategoryEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
     }
 }

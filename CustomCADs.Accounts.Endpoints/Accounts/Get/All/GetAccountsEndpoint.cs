@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
 using CustomCADs.Shared.Core.Common;
 
-namespace CustomCADs.Accounts.Endpoints.Users.Get.All;
+namespace CustomCADs.Accounts.Endpoints.Accounts.Get.All;
 
 public class GetAccountsEndpoint(IRequestSender sender)
     : Endpoint<GetAccountsRequest, Result<AccountResponse>>

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Inventory.Domain.Products;
 using CustomCADs.Inventory.Domain.Products.Reads;
 using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Account;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Inventory.Persistence.Products.Reads;

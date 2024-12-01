@@ -27,7 +27,6 @@ public class GetOrderCadPresignedUrlGetHandler(IOrderReads reads, IStorageServic
             contentType: ContentType
         ).ConfigureAwait(false);
 
-        GetOrderCadPresignedUrlGetDto response = new(cadUrl);
-        return response;
+        return new(PresignedUrl: cadUrl);
     }
 }

@@ -11,7 +11,7 @@ public class ProductAuthorizationException : BaseException
 
     public static ProductAuthorizationException ByProductId(ProductId id, Exception? inner = null)
         => new($"Cannot modify another Creator's Product: {id}.", inner);
-    
+
     public static ProductAuthorizationException AlreadyChecked(Exception? inner = null)
         => new("A Designer has already checked this product", inner);
 

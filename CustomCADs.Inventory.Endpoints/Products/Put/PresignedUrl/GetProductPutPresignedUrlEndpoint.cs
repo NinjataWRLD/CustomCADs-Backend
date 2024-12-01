@@ -18,7 +18,7 @@ public class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetProductPutPresignedUrlRequest req, CancellationToken ct)
     {
         GetProductImagePresignedUrlPutQuery presignedUrlQuery = new(
-            Id: new(req.Id),
+            Id: new ProductId(req.Id),
             ContentType: req.ContentType,
             FileName: req.FileName,
             CreatorId: User.GetAccountId()

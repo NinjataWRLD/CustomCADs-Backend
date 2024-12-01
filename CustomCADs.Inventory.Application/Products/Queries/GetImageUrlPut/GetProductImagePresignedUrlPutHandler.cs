@@ -18,13 +18,12 @@ public class GetProductImagePresignedUrlPutHandler(IProductReads reads, IStorage
             throw ProductAuthorizationException.ByProductId(req.Id);
         }
 
-        string url = await storage.GetPresignedPutUrlAsync(
+        string Url = await storage.GetPresignedPutUrlAsync(
             key: product.Image.Key,
             contentType: req.ContentType,
             fileName: req.FileName
         ).ConfigureAwait(false);
 
-        GetProductImagePresignedUrlPutDto response = new(PresignedUrl: url);
-        return response;
+        return new(PresignedUrl: Url);
     }
 }

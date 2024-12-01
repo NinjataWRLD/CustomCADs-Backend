@@ -18,7 +18,7 @@ public class GetProductEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetProductRequest req, CancellationToken ct)
     {
         GetProductByIdQuery getProductQuery = new(
-            Id: new(req.Id),
+            Id: new ProductId(req.Id),
             CreatorId: User.GetAccountId()
         );
         GetProductByIdDto product = await sender.SendQueryAsync(getProductQuery, ct).ConfigureAwait(false);

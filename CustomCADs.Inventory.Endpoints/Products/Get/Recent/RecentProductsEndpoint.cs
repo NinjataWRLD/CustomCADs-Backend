@@ -25,9 +25,9 @@ public class RecentProductsEndpoint(IRequestSender sender)
             Sorting: new(ProductSortingType.UploadDate, SortingDirection.Descending),
             Limit: req.Limit
         );
-        Result<GetAllProductsDto> dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        RecentProductsResponse[] response = [.. dto.Items.Select(p => p.ToRecentProductsResponse())];
+        RecentProductsResponse[] response = [.. result.Items.Select(p => p.ToRecentProductsResponse())];
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

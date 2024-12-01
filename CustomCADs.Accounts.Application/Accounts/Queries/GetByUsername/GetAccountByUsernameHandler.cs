@@ -12,6 +12,6 @@ public class GetAccountByUsernameHandler(IAccountReads reads)
         Account account = await reads.SingleByUsernameAsync(req.Username, track: false, ct: ct).ConfigureAwait(false)
             ?? throw AccountNotFoundException.ByUsername(req.Username);
 
-        return new(account.Id, account.RoleName, account.Email);
+        return account.ToGetAccountByUsernameDto();
     }
 }

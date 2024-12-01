@@ -28,7 +28,6 @@ public class GetProductCadPresignedUrlGetHandler(IProductReads reads, IStorageSe
             contentType: ContentType
         ).ConfigureAwait(false);
 
-        GetProductCadPresignedUrlGetDto response = new(cadUrl);
-        return response;
+        return new(PresignedUrl: cadUrl);
     }
 }

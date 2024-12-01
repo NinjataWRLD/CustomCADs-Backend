@@ -13,7 +13,7 @@ public class BeginOrderHandler(IOrderReads reads, IUnitOfWork uow)
         Order order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
-        if (req.BeginnerId != order.DesignerId)
+        if (req.DesignerId != order.DesignerId)
         {
             throw OrderAuthorizationException.NotAssociated("begin");
         }

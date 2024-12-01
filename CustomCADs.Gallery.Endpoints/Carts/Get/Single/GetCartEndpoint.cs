@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Queries.GetById;
+using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Get.Single;
 
@@ -18,7 +19,7 @@ public class GetCartEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetCartRequest req, CancellationToken ct)
     {
         GetCartByIdQuery query = new(
-            Id: new(req.Id),
+            Id: new CartId(req.Id),
             BuyerId: User.GetAccountId()
         );
         GetCartByIdDto cart = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
