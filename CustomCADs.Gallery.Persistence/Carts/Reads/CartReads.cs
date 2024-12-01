@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Gallery.Domain.Carts;
-using CustomCADs.Gallery.Domain.Carts.Entities;
 using CustomCADs.Gallery.Domain.Carts.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Account;
@@ -35,26 +34,10 @@ public class CartReads(GalleryContext context) : ICartReads
             .FirstOrDefaultAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<ICollection<CartItem>> ItemsByIdAsync(CartId id, CancellationToken ct = default)
-        => await context.Carts
-            .WithTracking(false)
-            .Include(c => c.Items)
-            .Where(c => c.Id == id)
-            .SelectMany(c => c.Items)
-            .ToArrayAsync(ct)
-            .ConfigureAwait(false);
-
     public async Task<bool> ExistsByIdAsync(CartId id, CancellationToken ct = default)
         => await context.Carts
             .WithTracking(false)
             .AnyAsync(c => c.Id == id, ct)
-            .ConfigureAwait(false);
-
-    public async Task<bool> OwnsByIdAsync(CartId id, AccountId buyerId, CancellationToken ct = default)
-        => await context.Carts
-            .WithTracking(false)
-            .Where(c => c.BuyerId == buyerId)
-            .AnyAsync(o => o.Id == id, ct)
             .ConfigureAwait(false);
 
     public async Task<int> CountAsync(AccountId buyerId, CancellationToken ct = default)
@@ -62,5 +45,13 @@ public class CartReads(GalleryContext context) : ICartReads
             .WithTracking(false)
             .Where(c => c.BuyerId == buyerId)
             .CountAsync(ct)
+            .ConfigureAwait(false);
+
+    public async Task<Dictionary<CartId, int>> CountItemsAsync(AccountId buyerId, CancellationToken ct = default)
+        => await context.Carts
+            .WithTracking(false)
+            .Include(c => c.Items)
+            .Where(c => c.BuyerId == buyerId)
+            .ToDictionaryAsync(kv => kv.Id, kv => kv.Items.Count, ct)
             .ConfigureAwait(false);
 }

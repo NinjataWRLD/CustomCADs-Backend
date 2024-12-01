@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Gallery.Domain.Carts.Enums;
 
-namespace CustomCADs.Gallery.Endpoints.Carts.Post.Item;
+namespace CustomCADs.Gallery.Endpoints.Carts.Post.Items;
 
 public record PostCartItemRequest(
     Guid CartId,

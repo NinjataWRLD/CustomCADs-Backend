@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Commands.RemoveItem;
 
-namespace CustomCADs.Gallery.Endpoints.Carts.Delete.Item;
+namespace CustomCADs.Gallery.Endpoints.Carts.Delete.Items;
 public class DeleteCartItemEndpoint(IRequestSender sender)
     : Endpoint<DeleteItemItemRequest>
 {

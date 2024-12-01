@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Gallery.Application.Carts.Commands.AddItem;
 using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
-namespace CustomCADs.Gallery.Endpoints.Carts.Post.Item;
+namespace CustomCADs.Gallery.Endpoints.Carts.Post.Items;
 
 public class PostCartItemEndpoint(IRequestSender sender)
     : Endpoint<PostCartItemRequest, Guid>
