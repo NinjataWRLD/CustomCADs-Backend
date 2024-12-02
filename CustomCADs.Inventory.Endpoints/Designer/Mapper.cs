@@ -24,7 +24,7 @@ public static class Mapper
             Id: product.Id.Value,
             Name: product.Name,
             Description: product.Description,
-            Price: product.Price.Amount,
+            Price: product.Price,
             CreatorName: product.CreatorName,
             Cad: product.Cad,
             Category: new(product.Category.Id.Value, product.Category.Name)

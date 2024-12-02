@@ -6,9 +6,7 @@ using CustomCADs.Inventory.Endpoints.Products.Get.All;
 using CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
 using CustomCADs.Inventory.Endpoints.Products.Post;
-using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Endpoints.Products;
 
@@ -39,7 +37,7 @@ public static class Mapper
         => new(
             Id: product.Id.Value,
             Name: product.Name,
-            Price: product.Price.ToMoneyDto(),
+            Price: product.Price,
             Description: product.Description,
             UploadDate: product.UploadDate.ToString(DateFormatString),
             Category: product.Category.ToCategoryDto(),
@@ -53,19 +51,11 @@ public static class Mapper
             Id: product.Id.Value,
             Name: product.Name,
             Description: product.Description,
-            Price: product.Price.ToMoneyDto(),
+            Price: product.Price,
             Status: product.Status,
             UploadDate: product.UploadDate.ToString(DateFormatString),
             CreatorName: product.CreatorName,
             Category: product.Category.ToCategoryDto()
-        );
-
-    public static MoneyDto ToMoneyDto(this Money money)
-        => new(
-            Amount: money.Amount,
-            Currency: money.Currency,
-            Precision: money.Precision,
-            Symbol: money.Symbol
         );
 
     public static CategoryDto ToCategoryDto(this (CategoryId Id, string Name) category)

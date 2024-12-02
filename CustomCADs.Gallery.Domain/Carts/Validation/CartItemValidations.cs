@@ -21,10 +21,10 @@ public static class CartItemValidations
         return item;
     }
 
-    public static CartItem ValidatePriceAmount(this CartItem item)
+    public static CartItem ValidatePrice(this CartItem item)
     {
-        string property = "Price Amount";
-        decimal amount = item.Price.Amount;
+        string property = "Price";
+        decimal amount = item.Price;
 
         decimal max = PriceMax, min = PriceMin;
         if (amount > max || amount < min)

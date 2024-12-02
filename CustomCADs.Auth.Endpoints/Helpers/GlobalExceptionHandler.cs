@@ -1,5 +1,4 @@
-﻿using CustomCADs.Auth.Application.Common.Exceptions.Roles;
-using CustomCADs.Auth.Application.Common.Exceptions.Users;
+﻿using CustomCADs.Auth.Application.Common.Exceptions;
 using CustomCADs.Auth.Domain.Common.Exceptions.Users;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;

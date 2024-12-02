@@ -6,14 +6,13 @@ using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Gallery.Domain.Carts.Entities;
 
 public class CartItem : BaseEntity
 {
     private CartItem() { }
-    private CartItem(DeliveryType deliveryType, Money price, int quantity, ProductId productId, CartId cartId) : this()
+    private CartItem(DeliveryType deliveryType, decimal price, int quantity, ProductId productId, CartId cartId) : this()
     {
         Price = price;
         Quantity = quantity;
@@ -26,16 +25,16 @@ public class CartItem : BaseEntity
     public CartItemId Id { get; init; }
     public int Quantity { get; private set; }
     public DeliveryType DeliveryType { get; }
-    public Money Price { get; private set; } = new();
+    public decimal Price { get; private set; }
     public DateTime PurchaseDate { get; }
     public ProductId ProductId { get; }
     public CartId CartId { get; }
     public Cart Cart { get; } = null!;
     public CadId? CadId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
-    public Money Cost => Price.Multiply(Quantity);
+    public decimal Cost => Price * Quantity;
 
-    public static CartItem Create(DeliveryType type, Money price, int quantity, ProductId productId, CartId cartId)
+    public static CartItem Create(DeliveryType type, decimal price, int quantity, ProductId productId, CartId cartId)
     {
         return type switch
         {
@@ -46,20 +45,20 @@ public class CartItem : BaseEntity
         };
     }
 
-    public static CartItem CreateDigital(Money price, int quantity, ProductId productId, CartId cartId)
+    public static CartItem CreateDigital(decimal price, int quantity, ProductId productId, CartId cartId)
         => new CartItem(DeliveryType.Digital, price, quantity, productId, cartId)
             .ValidateQuantity()
-            .ValidatePriceAmount();
+            .ValidatePrice();
 
-    public static CartItem CreatePhysical(Money price, int quantity, ProductId productId, CartId cartId)
+    public static CartItem CreatePhysical(decimal price, int quantity, ProductId productId, CartId cartId)
         => new CartItem(DeliveryType.Physical, price, quantity, productId, cartId)
             .ValidateQuantity()
-            .ValidatePriceAmount();
+            .ValidatePrice();
 
-    public static CartItem CreateDigitalAndPhysical(Money price, int quantity, ProductId productId, CartId cartId)
+    public static CartItem CreateDigitalAndPhysical(decimal price, int quantity, ProductId productId, CartId cartId)
         => new CartItem(DeliveryType.Both, price, quantity, productId, cartId)
             .ValidateQuantity()
-            .ValidatePriceAmount();
+            .ValidatePrice();
 
     public CartItem SetQuantity(int quantity)
     {
@@ -68,10 +67,10 @@ public class CartItem : BaseEntity
         return this;
     }
 
-    public CartItem SetPrice(Money price)
+    public CartItem SetPrice(decimal price)
     {
         Price = price;
-        this.ValidatePriceAmount();
+        this.ValidatePrice();
         return this;
     }
 

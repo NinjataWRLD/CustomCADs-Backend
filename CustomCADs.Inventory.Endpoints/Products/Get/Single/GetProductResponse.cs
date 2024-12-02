@@ -6,7 +6,7 @@ public record GetProductResponse(
     Guid Id,
     string Name,
     string Description,
-    MoneyDto Price,
+    decimal Price,
     string CadKey,
     string UploadDate,
     CoordinatesDto CamCoordinates,

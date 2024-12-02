@@ -38,8 +38,8 @@ public class PatchProductCadEndpoint(IRequestSender sender)
             default:
                 string types = string.Join(", ", Enum.GetNames<CoordinateType>());
                 ValidationFailures.Add(new(
-                    propertyName: nameof(req.Type), 
-                    errorMessage: string.Format(InvalidCoordValue, types), 
+                    propertyName: nameof(req.Type),
+                    errorMessage: string.Format(InvalidCoordValue, types),
                     attemptedValue: req.Type
                 ));
                 await SendErrorsAsync().ConfigureAwait(false);

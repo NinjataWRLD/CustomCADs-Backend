@@ -24,7 +24,7 @@ public class PurchaseCartHandler(ICartReads reads, IRequestSender sender, IPayme
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
 
         return await payment.InitializePayment(
-            paymentMethodId: req.PaymentMethodId, 
+            paymentMethodId: req.PaymentMethodId,
             price: cart.Total,
             description: $"{buyer} bought {cart.Items.Count} products for a total of {cart.Total}$."
         ).ConfigureAwait(false);

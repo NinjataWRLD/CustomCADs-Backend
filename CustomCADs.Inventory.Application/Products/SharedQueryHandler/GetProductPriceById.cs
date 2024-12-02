@@ -13,6 +13,6 @@ public class GetProductPriceByIdHandler(IProductReads reads)
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        return product.Price.Amount;
+        return product.Price;
     }
 }

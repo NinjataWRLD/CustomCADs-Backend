@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Inventory.Application.Products.Commands.Edit;
 using CustomCADs.Inventory.Application.Products.Commands.SetKeys;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Put;
 
@@ -25,7 +24,7 @@ public class PutProductEndpoint(IRequestSender sender)
             Name: req.Name,
             Description: req.Description,
             CategoryId: new CategoryId(req.CategoryId),
-            Price: new Money(req.Price, "BGN", 2, "лв"),
+            Price: req.Price,
             CreatorId: User.GetAccountId()
         );
         await sender.SendCommandAsync(editCommand, ct).ConfigureAwait(false);

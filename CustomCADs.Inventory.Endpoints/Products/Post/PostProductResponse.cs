@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.Dtos;
-
-namespace CustomCADs.Inventory.Endpoints.Products.Post;
+﻿namespace CustomCADs.Inventory.Endpoints.Products.Post;
 
 public record PostProductResponse(
     Guid Id,
@@ -8,7 +6,7 @@ public record PostProductResponse(
     string Description,
     string CreatorName,
     string UploadDate,
-    MoneyDto Price,
+    decimal Price,
     string Status,
     CategoryDto Category
 );

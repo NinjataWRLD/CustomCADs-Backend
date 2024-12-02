@@ -3,7 +3,6 @@ using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Post;
 
@@ -28,7 +27,7 @@ public class PostProductEndpoint(IRequestSender sender)
             Name: req.Name,
             Description: req.Description,
             CategoryId: new CategoryId(req.CategoryId),
-            Price: new Money(req.Price, "BGN", 2, "лв"),
+            Price: req.Price,
             ImageKey: req.ImageKey,
             ImageContentType: req.ImageContentType,
             CadKey: req.CadKey,

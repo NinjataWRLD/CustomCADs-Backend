@@ -28,7 +28,7 @@ public class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IRequestSende
 
         CartItem item = cart.AddItem(
             deliverType: req.DeliveryType,
-            price: new(price, "BGN"),
+            price: price,
             quantity: req.Quantity,
             productId: req.ProductId
         );

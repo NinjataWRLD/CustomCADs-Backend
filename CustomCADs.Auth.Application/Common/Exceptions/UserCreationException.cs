@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Bases.Exceptions;
 
-namespace CustomCADs.Auth.Application.Common.Exceptions.Users;
+namespace CustomCADs.Auth.Application.Common.Exceptions;
 
 public class UserCreationException : BaseException
 {

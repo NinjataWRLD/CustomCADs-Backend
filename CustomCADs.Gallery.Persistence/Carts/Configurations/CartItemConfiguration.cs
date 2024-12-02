@@ -12,7 +12,6 @@ public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
             .SetPrimaryKey()
             .SetForeignKeys()
             .SetStronglyTypedIds()
-            .SetValueObjects()
             .SetValidations();
 }
 
@@ -79,35 +78,15 @@ public static class CartItemItemConfigUtils
         return builder;
     }
 
-    public static EntityTypeBuilder<CartItem> SetValueObjects(this EntityTypeBuilder<CartItem> builder)
-    {
-        builder.ComplexProperty(x => x.Price, a =>
-        {
-            a.Property(x => x.Amount)
-                .IsRequired()
-                .HasPrecision(18, 2).HasColumnName("PriceAmount");
-
-            a.Property(x => x.Precision)
-                .IsRequired()
-                .HasColumnName("PricePrecision");
-
-            a.Property(x => x.Currency)
-                .IsRequired()
-                .HasColumnName("PriceCurrency");
-
-            a.Property(x => x.Symbol)
-                .IsRequired()
-                .HasColumnName("PriceSymbol");
-        });
-
-        return builder;
-    }
-
     public static EntityTypeBuilder<CartItem> SetValidations(this EntityTypeBuilder<CartItem> builder)
     {
         builder.Property(x => x.Quantity)
             .IsRequired()
             .HasColumnName("Quantity");
+
+        builder.Property(x => x.Price)
+            .IsRequired()
+            .HasColumnName("Price");
 
         builder.Property(x => x.PurchaseDate)
             .IsRequired()

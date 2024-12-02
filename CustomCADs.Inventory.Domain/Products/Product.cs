@@ -6,7 +6,6 @@ using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Domain.Products;
 
@@ -16,7 +15,7 @@ public class Product : BaseAggregateRoot
     private Product(
         string name,
         string description,
-        Money price,
+        decimal price,
         Image image,
         ProductStatus status,
         AccountId creatorId,
@@ -40,7 +39,7 @@ public class Product : BaseAggregateRoot
     public string Description { get; private set; } = string.Empty;
     public ProductStatus Status { get; private set; }
     public DateTime UploadDate { get; }
-    public Money Price { get; private set; } = new();
+    public decimal Price { get; private set; }
     public Image Image { get; private set; } = new();
     public CategoryId CategoryId { get; private set; }
     public CadId CadId { get; private set; }
@@ -50,7 +49,7 @@ public class Product : BaseAggregateRoot
     public static Product Create(
         string name,
         string description,
-        Money price,
+        decimal price,
         string imageKey,
         string imageContentType,
         ProductStatus status,
@@ -76,7 +75,7 @@ public class Product : BaseAggregateRoot
         return this;
     }
 
-    public Product SetPrice(Money price)
+    public Product SetPrice(decimal price)
     {
         Price = price;
         this.ValidatePriceAmount();
