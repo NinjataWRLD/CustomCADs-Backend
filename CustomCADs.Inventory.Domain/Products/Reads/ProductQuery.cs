@@ -6,6 +6,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 namespace CustomCADs.Inventory.Domain.Products.Reads;
 
 public record ProductQuery(
+    ProductId[]? Ids = null,
     AccountId? CreatorId = null,
     CategoryId? CategoryId = null,
     ProductStatus? Status = null,

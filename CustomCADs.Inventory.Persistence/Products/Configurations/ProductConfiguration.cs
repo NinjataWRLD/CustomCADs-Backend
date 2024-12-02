@@ -75,6 +75,21 @@ static class CadConfigUtils
                 .HasColumnName("ImageContentType");
         });
 
+        builder.ComplexProperty(x => x.Counts, c =>
+        {
+            c.Property(x => x.Purchases)
+                .IsRequired()
+                .HasColumnName("Purchases");
+
+            c.Property(x => x.Likes)
+                .IsRequired()
+                .HasColumnName("Likes");
+
+            c.Property(x => x.Views)
+                .IsRequired()
+                .HasColumnName("Views");
+        });
+
         return builder;
     }
 

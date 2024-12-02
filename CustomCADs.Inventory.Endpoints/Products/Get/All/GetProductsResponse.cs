@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Inventory.Endpoints.Products.Get.All;
+﻿using CustomCADs.Inventory.Endpoints.Helpers.Dtos;
+
+namespace CustomCADs.Inventory.Endpoints.Products.Get.All;
 
 public record GetProductsResponse(
     Guid Id,

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+﻿using CustomCADs.Inventory.Domain.Products.ValueObjects;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GalleryGetById;
 
@@ -8,7 +9,8 @@ public record GalleryGetProductByIdDto(
     string Description,
     decimal Price,
     string CreatorName,
-    CadDto Cad,
     DateTime UploadDate,
+    Counts Counts,
+    CadDto Cad,
     (CategoryId Id, string Name) Category
 );

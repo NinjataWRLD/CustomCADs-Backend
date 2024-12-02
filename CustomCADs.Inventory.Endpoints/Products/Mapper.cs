@@ -2,7 +2,7 @@
 using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products.ValueObjects;
-using CustomCADs.Inventory.Endpoints.Gallery.Get.All;
+using CustomCADs.Inventory.Endpoints.Helpers.Dtos;
 using CustomCADs.Inventory.Endpoints.Products.Get.All;
 using CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
@@ -41,10 +41,11 @@ public static class Mapper
             Price: product.Price,
             Description: product.Description,
             UploadDate: product.UploadDate.ToString(DateFormatString),
-            Category: product.Category.ToCategoryDto(),
+            CadKey: product.Cad.Key,
             CamCoordinates: product.Cad.CamCoordinates.ToCoordinatesDto(),
             PanCoordinates: product.Cad.PanCoordinates.ToCoordinatesDto(),
-            CadKey: product.Cad.Key
+            Counts: product.Counts.ToCountsDto(),
+            Category: product.Category.ToCategoryDto()
         );
 
     public static PostProductResponse ToPostProductResponse(this GetProductByIdDto product)
@@ -57,6 +58,13 @@ public static class Mapper
             UploadDate: product.UploadDate.ToString(DateFormatString),
             CreatorName: product.CreatorName,
             Category: product.Category.ToCategoryDto()
+        );
+
+    public static CountsDto ToCountsDto(this Counts counts)
+        => new(
+            Purchases: counts.Purchases,
+            Likes: counts.Likes,
+            Views: counts.Views
         );
 
     public static CategoryDto ToCategoryDto(this (CategoryId Id, string Name) category)

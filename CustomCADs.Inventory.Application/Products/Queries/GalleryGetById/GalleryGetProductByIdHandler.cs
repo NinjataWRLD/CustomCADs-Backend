@@ -24,7 +24,7 @@ public class GalleryGetProductByIdHandler(IProductReads reads, IRequestSender se
 
         GetCadByIdQuery cadQuery = new(product.CadId);
         var cad = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
-        
+
         GetUsernameByIdQuery usernameQuery = new(product.CreatorId);
         string username = await sender.SendQueryAsync(usernameQuery, ct).ConfigureAwait(false);
 

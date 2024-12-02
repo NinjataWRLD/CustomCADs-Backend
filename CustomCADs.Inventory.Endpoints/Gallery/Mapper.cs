@@ -28,6 +28,7 @@ public static class Mapper
             CadKey: product.Cad.Key,
             CamCoordinates: product.Cad.CamCoordinates.ToCoordinatesDto(),
             PanCoordinates: product.Cad.PanCoordinates.ToCoordinatesDto(),
+            Counts: product.Counts.ToCountsDto(),
             Category: product.Category.ToCategoryDto()
         );
 }

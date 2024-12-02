@@ -18,11 +18,12 @@ public static class Mapper
             Description: product.Description,
             Price: product.Price,
             CreatorName: username,
-            Cad: cad,
             UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
                 product.UploadDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
+            Counts: product.Counts,
+            Cad: cad,
             Category: new(product.CategoryId, categoryName)
         );
 
@@ -52,6 +53,7 @@ public static class Mapper
             ),
             Status: product.Status.ToString(),
             Image: product.Image,
+            Counts: product.Counts,
             Cad: cad,
             Category: (product.CategoryId, categoryName),
             CreatorName: username
