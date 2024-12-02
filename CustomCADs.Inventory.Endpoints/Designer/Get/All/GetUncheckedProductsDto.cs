@@ -8,5 +8,5 @@ public record GetUncheckedProductsDto(
     string UploadDate,
     string CreatorName,
     ImageDto Image,
-    CategoryDto Category
+    CategoryResponse Category
 );

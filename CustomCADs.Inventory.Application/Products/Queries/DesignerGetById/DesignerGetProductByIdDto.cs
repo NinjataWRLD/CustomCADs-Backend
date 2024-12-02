@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+﻿using CustomCADs.Inventory.Application.Common.Dtos;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.DesignerGetById;
 
@@ -9,5 +9,5 @@ public record DesignerGetProductByIdDto(
     decimal Price,
     string CreatorName,
     CadDto Cad,
-    (CategoryId Id, string Name) Category
+    CategoryDto Category
 );

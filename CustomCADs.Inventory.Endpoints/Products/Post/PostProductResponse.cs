@@ -10,5 +10,5 @@ public record PostProductResponse(
     string UploadDate,
     decimal Price,
     string Status,
-    CategoryDto Category
+    CategoryResponse Category
 );

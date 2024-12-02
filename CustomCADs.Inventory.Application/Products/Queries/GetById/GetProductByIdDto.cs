@@ -1,5 +1,5 @@
-﻿using CustomCADs.Inventory.Domain.Products.ValueObjects;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+﻿using CustomCADs.Inventory.Application.Common.Dtos;
+using CustomCADs.Inventory.Domain.Products.ValueObjects;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetById;
 
@@ -9,11 +9,11 @@ public record GetProductByIdDto(
     string Description,
     decimal Price,
     string Status,
+    DateTime UploadDate,
     Image Image,
     Counts Counts,
     string CreatorName,
     CadDto Cad,
-    DateTime UploadDate,
-    (CategoryId Id, string Name) Category
+    CategoryDto Category
 );
 

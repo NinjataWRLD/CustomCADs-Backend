@@ -13,5 +13,5 @@ public record GetGalleryProductResponse(
     CoordinatesDto CamCoordinates,
     CoordinatesDto PanCoordinates,
     CountsDto Counts,
-    CategoryDto Category
+    CategoryResponse Category
 );

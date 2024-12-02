@@ -1,4 +1,5 @@
-﻿using CustomCADs.Inventory.Application.Products;
+﻿using CustomCADs.Inventory.Application.Common.Dtos;
+using CustomCADs.Inventory.Application.Products;
 using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products.ValueObjects;
@@ -7,7 +8,6 @@ using CustomCADs.Inventory.Endpoints.Products.Get.All;
 using CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
 using CustomCADs.Inventory.Endpoints.Products.Post;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Endpoints.Products;
 
@@ -67,7 +67,7 @@ public static class Mapper
             Views: counts.Views
         );
 
-    public static CategoryDto ToCategoryDto(this (CategoryId Id, string Name) category)
+    public static CategoryResponse ToCategoryDto(this CategoryDto category)
         => new(
             Id: category.Id.Value,
             Name: category.Name
