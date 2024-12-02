@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries;
 using CustomCADs.Inventory.Application.Products.Queries.DesignerGetById;
+using CustomCADs.Inventory.Application.Products.Queries.GalleryGetById;
 using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products;
@@ -10,6 +11,21 @@ namespace CustomCADs.Inventory.Application.Products;
 
 public static class Mapper
 {
+    public static GalleryGetProductByIdDto ToGalleryGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName, string timeZone)
+        => new(
+            Id: product.Id,
+            Name: product.Name,
+            Description: product.Description,
+            Price: product.Price,
+            CreatorName: username,
+            Cad: cad,
+            UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
+                product.UploadDate,
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            ),
+            Category: new(product.CategoryId, categoryName)
+        );
+
     public static GetAllProductsDto ToGetAllProductsItem(this Product product, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,

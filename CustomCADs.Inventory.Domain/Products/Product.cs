@@ -37,9 +37,9 @@ public class Product : BaseAggregateRoot
     public ProductId Id { get; init; }
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
+    public decimal Price { get; private set; }
     public ProductStatus Status { get; private set; }
     public DateTime UploadDate { get; }
-    public decimal Price { get; private set; }
     public Image Image { get; private set; } = new();
     public CategoryId CategoryId { get; private set; }
     public CadId CadId { get; private set; }

@@ -15,6 +15,7 @@ public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
     public async Task<Result<GetAllProductsDto>> Handle(GetAllProductsQuery req, CancellationToken ct)
     {
         ProductQuery productQuery = new(
+            CategoryId: req.CategoryId,
             CreatorId: req.CreatorId,
             Status: req.Status,
             Name: req.Name,
