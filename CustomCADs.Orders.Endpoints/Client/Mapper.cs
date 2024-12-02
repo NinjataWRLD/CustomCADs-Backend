@@ -7,6 +7,7 @@ using CustomCADs.Orders.Endpoints.Client.Get.Single;
 using CustomCADs.Orders.Endpoints.Client.Post.Orders;
 using CustomCADs.Orders.Endpoints.Designer.Get.Accepted;
 using CustomCADs.Orders.Endpoints.Designer.Get.Begun;
+using CustomCADs.Orders.Endpoints.Designer.Get.Completed;
 using CustomCADs.Orders.Endpoints.Designer.Get.Finished;
 using CustomCADs.Orders.Endpoints.Designer.Get.Pending;
 using CustomCADs.Orders.Endpoints.Designer.Get.Reported;
@@ -99,6 +100,15 @@ public static class Mapper
         );
 
     public static GetFinishedOrdersDto ToGetFinishedOrdersDto(this GetAllOrdersDto order)
+        => new(
+            Id: order.Id.Value,
+            Name: order.Name,
+            OrderDate: order.OrderDate.ToString(DateFormatString),
+            DeliveryType: order.DeliveryType.ToString(),
+            BuyerName: order.BuyerName
+        );
+    
+    public static GetCompletedOrdersDto ToGetCompletedOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,

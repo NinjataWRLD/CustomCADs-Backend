@@ -5,6 +5,7 @@ public record CountOrdersDto(
     int Accepted,
     int Begun,
     int Finished,
+    int Completed,
     int Reported,
     int Removed
 );

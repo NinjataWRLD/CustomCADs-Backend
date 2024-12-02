@@ -24,6 +24,9 @@ public class CountOrdersHandler(IOrderReads reads)
 
             Finished: counts.TryGetValue(OrderStatus.Finished, out int finishedCount)
                 ? finishedCount : 0,
+            
+            Completed: counts.TryGetValue(OrderStatus.Completed, out int completedCount)
+                ? completedCount : 0,
 
             Reported: counts.TryGetValue(OrderStatus.Reported, out int reportedCount)
                 ? reportedCount : 0,
