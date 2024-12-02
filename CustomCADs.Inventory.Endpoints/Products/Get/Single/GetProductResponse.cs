@@ -13,5 +13,5 @@ public record GetProductResponse(
     CoordinatesDto CamCoordinates,
     CoordinatesDto PanCoordinates,
     CountsDto Counts,
-    CategoryDto Category
+    CategoryResponse Category
 );

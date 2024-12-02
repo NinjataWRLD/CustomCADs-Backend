@@ -10,5 +10,5 @@ public record DesignerSingleProductResponse(
     decimal Price,
     string CreatorName,
     CadDto Cad,
-    CategoryDto Category
+    CategoryResponse Category
 );

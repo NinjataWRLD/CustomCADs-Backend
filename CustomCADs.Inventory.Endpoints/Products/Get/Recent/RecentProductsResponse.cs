@@ -7,5 +7,5 @@ public record RecentProductsResponse(
     string Name,
     string Status,
     string UploadDate,
-    CategoryDto Category
+    CategoryResponse Category
 );

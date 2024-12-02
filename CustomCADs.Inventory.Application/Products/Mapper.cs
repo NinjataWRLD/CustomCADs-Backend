@@ -55,7 +55,7 @@ public static class Mapper
             Image: product.Image,
             Counts: product.Counts,
             Cad: cad,
-            Category: (product.CategoryId, categoryName),
+            Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
 
@@ -66,7 +66,7 @@ public static class Mapper
             Description: product.Description,
             Price: product.Price,
             Cad: cad,
-            Category: (product.CategoryId, categoryName),
+            Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
 
