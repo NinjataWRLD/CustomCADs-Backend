@@ -20,16 +20,16 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 
 namespace CustomCADs.Shared.Speedy.Services.Location;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static BlockModel ToModel(this BlockDto dto)
+    internal static BlockModel ToModel(this BlockDto dto)
         => new(
             SiteId: dto.SiteId,
             Name: dto.Name,
             NameEn: dto.NameEn
         );
 
-    public static ComplexModel ToModel(this ComplexDto dto)
+    internal static ComplexModel ToModel(this ComplexDto dto)
         => new(
             Id: dto.Id,
             SiteId: dto.SiteId,
@@ -44,7 +44,7 @@ public static class Mapper
             ActualNameEn: dto.ActualNameEn
         );
 
-    public static CountryModel ToModel(this CountryDto dto)
+    internal static CountryModel ToModel(this CountryDto dto)
         => new(
             Id: dto.Id,
             Name: dto.Name,
@@ -61,7 +61,7 @@ public static class Mapper
             ComplexTypes: [.. dto.ComplexTypes.Select(t => (t.Name, t.NameEn))]
         );
 
-    public static PointOfInterestModel ToModel(this PointOfInterestDto dto)
+    internal static PointOfInterestModel ToModel(this PointOfInterestDto dto)
         => new(
             Id: dto.Id,
             SiteId: dto.SiteId,
@@ -75,7 +75,7 @@ public static class Mapper
             Y: dto.Y
         );
 
-    public static OfficeModel ToModel(this OfficeDto dto)
+    internal static OfficeModel ToModel(this OfficeDto dto)
         => new(
             Id: dto.Id,
             Name: dto.Name,
@@ -106,7 +106,7 @@ public static class Mapper
             DropOffAllowed: dto.DropOffAllowed
         );
 
-    public static OfficeModel ToModel(this OfficeResultDto dto)
+    internal static OfficeModel ToModel(this OfficeResultDto dto)
         => new(
             Id: dto.Id,
             Name: dto.Name,
@@ -137,7 +137,7 @@ public static class Mapper
             DropOffAllowed: dto.DropOffAllowed
         );
 
-    public static OfficeWorkingTimeScheduleModel ToModel(this OfficeWorkingTimeScheduleDto dto)
+    internal static OfficeWorkingTimeScheduleModel ToModel(this OfficeWorkingTimeScheduleDto dto)
         => new(
             Date: DateOnly.Parse(dto.Date),
             WorkingTimeFrom: TimeOnly.Parse(dto.WorkingTimeFrom),
@@ -146,7 +146,7 @@ public static class Mapper
             StandardSchedule: dto.StandardSchedule
         );
 
-    public static SiteModel ToModel(this SiteDto dto)
+    internal static SiteModel ToModel(this SiteDto dto)
         => new(
             Id: dto.Id,
             CountryId: dto.CountryId,
@@ -168,7 +168,7 @@ public static class Mapper
             ServingHubOfficeId: dto.ServingHubOfficeId
         );
 
-    public static StateModel ToModel(this StateDto dto)
+    internal static StateModel ToModel(this StateDto dto)
         => new(
             Id: dto.Id,
             Name: dto.Name,
@@ -176,7 +176,7 @@ public static class Mapper
             StateAlpha: dto.StateAlpha,
             CountryId: dto.CountryId
         );
-    public static StreetModel ToModel(this StreetDto dto)
+    internal static StreetModel ToModel(this StreetDto dto)
         => new(
             Id: dto.Id,
             SiteId: dto.SiteId,

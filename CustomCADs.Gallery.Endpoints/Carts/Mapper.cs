@@ -9,9 +9,9 @@ namespace CustomCADs.Gallery.Endpoints.Carts;
 
 using static Constants;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static GetCartsDto ToGetCartsDto(this GetAllCartsDto cart)
+    internal static GetCartsDto ToGetCartsDto(this GetAllCartsDto cart)
         => new(
             Id: cart.Id.Value,
             Total: cart.Total,
@@ -19,13 +19,13 @@ public static class Mapper
             ItemsCount: cart.ItemsCount
         );
 
-    public static RecentCartsResponse ToRecentCartsResponse(this GetAllCartsDto cart)
+    internal static RecentCartsResponse ToRecentCartsResponse(this GetAllCartsDto cart)
         => new(
             Id: cart.Id.Value,
             PurchaseDate: cart.PurchaseDate.ToString(DateFormatString)
         );
 
-    public static GetCartResponse ToGetCartResponse(this GetCartByIdDto cart)
+    internal static GetCartResponse ToGetCartResponse(this GetCartByIdDto cart)
         => new(
             Id: cart.Id.Value,
             Total: cart.Total,
@@ -34,7 +34,7 @@ public static class Mapper
             Items: [.. cart.Items.Select(o => o.ToCartItemDto())]
         );
 
-    public static CartItemDto ToCartItemDto(this CartItem item)
+    internal static CartItemDto ToCartItemDto(this CartItem item)
         => new(
             Id: item.Id.Value,
             Quantity: item.Quantity,

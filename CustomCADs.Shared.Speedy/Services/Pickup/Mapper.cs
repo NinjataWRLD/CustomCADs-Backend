@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Pickup;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static (long Id, string[] ShipmentIds, DateTime? PickupPeriodFrom, DateTime? PickupPeriodTo) ToModel(this PickupOrderDto dto)
+    internal static (long Id, string[] ShipmentIds, DateTime? PickupPeriodFrom, DateTime? PickupPeriodTo) ToModel(this PickupOrderDto dto)
         => (
             Id: dto.Id,
             ShipmentIds: dto.ShipmentIds,

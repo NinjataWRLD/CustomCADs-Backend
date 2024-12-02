@@ -3,8 +3,8 @@ using CustomCADs.Accounts.Domain.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static RoleReadDto ToRoleReadDto(this Role role) =>
+    internal static RoleReadDto ToRoleReadDto(this Role role) =>
         new(role.Id, role.Name, role.Description);
 }

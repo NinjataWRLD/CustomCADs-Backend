@@ -17,9 +17,9 @@ namespace CustomCADs.Orders.Endpoints.Client;
 
 using static Constants;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static GetOrdersDto ToGetOrdersDto(this GetAllOrdersDto order)
+    internal static GetOrdersDto ToGetOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -28,7 +28,7 @@ public static class Mapper
             OrderStatus: order.OrderStatus.ToString()
         );
 
-    public static RecentOrdersResponse ToRecentOrdersResponse(this GetAllOrdersDto order)
+    internal static RecentOrdersResponse ToRecentOrdersResponse(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -36,7 +36,7 @@ public static class Mapper
             DesignerName: order.DesignerName
         );
 
-    public static PostOrderResponse ToPostOrderResponse(this GetOrderByIdDto order)
+    internal static PostOrderResponse ToPostOrderResponse(this GetOrderByIdDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -46,7 +46,7 @@ public static class Mapper
             OrderStatus: order.OrderStatus.ToString()
         );
 
-    public static GetOrderResponse ToGetOrderResponse(this GetOrderByIdDto order)
+    internal static GetOrderResponse ToGetOrderResponse(this GetOrderByIdDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -59,7 +59,7 @@ public static class Mapper
             ShipmentId: order.DesignerId?.Value
         );
 
-    public static DesignerGetOrderResponse ToDesignerGetOrderResponse(this DesignerGetOrderByIdDto order)
+    internal static DesignerGetOrderResponse ToDesignerGetOrderResponse(this DesignerGetOrderByIdDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -72,7 +72,7 @@ public static class Mapper
             ShipmentId: order.ShipmentId?.Value
         );
 
-    public static GetPendingOrdersDto ToGetPendingOrdersDto(this GetAllOrdersDto order)
+    internal static GetPendingOrdersDto ToGetPendingOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -81,7 +81,7 @@ public static class Mapper
             BuyerName: order.BuyerName
         );
 
-    public static GetAcceptedOrdersDto ToGetAcceptedOrdersDto(this GetAllOrdersDto order)
+    internal static GetAcceptedOrdersDto ToGetAcceptedOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -90,7 +90,7 @@ public static class Mapper
             BuyerName: order.BuyerName
         );
 
-    public static GetBegunOrdersDto ToGetBegunOrdersDto(this GetAllOrdersDto order)
+    internal static GetBegunOrdersDto ToGetBegunOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -99,7 +99,7 @@ public static class Mapper
             BuyerName: order.BuyerName
         );
 
-    public static GetFinishedOrdersDto ToGetFinishedOrdersDto(this GetAllOrdersDto order)
+    internal static GetFinishedOrdersDto ToGetFinishedOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -108,7 +108,7 @@ public static class Mapper
             BuyerName: order.BuyerName
         );
 
-    public static GetCompletedOrdersDto ToGetCompletedOrdersDto(this GetAllOrdersDto order)
+    internal static GetCompletedOrdersDto ToGetCompletedOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -117,7 +117,7 @@ public static class Mapper
             BuyerName: order.BuyerName
         );
 
-    public static GetReportedOrdersDto ToGetReportedOrdersDto(this GetAllOrdersDto order)
+    internal static GetReportedOrdersDto ToGetReportedOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,

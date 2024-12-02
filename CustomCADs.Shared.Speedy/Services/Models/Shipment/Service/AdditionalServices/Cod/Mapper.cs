@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Cod;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentCodAdditionalServiceDto ToDto(this ShipmentCodAdditionalServiceModel model)
+    internal static ShipmentCodAdditionalServiceDto ToDto(this ShipmentCodAdditionalServiceModel model)
         => new(
             Amount: model.Amount,
             CurrencyCode: model.CurrencyCode,
@@ -16,7 +16,7 @@ public static class Mapper
             FiscalReceiptItems: [.. model.FiscalReceiptItems?.Select(i => i.ToDto())]
         );
 
-    public static ShipmentCodFiscalReceiptItemDto ToDto(this ShipmentCodFiscalReceiptItemModel model)
+    internal static ShipmentCodFiscalReceiptItemDto ToDto(this ShipmentCodFiscalReceiptItemModel model)
         => new(
             Description: model.Description,
             VatGroup: model.VatGroup,
@@ -24,7 +24,7 @@ public static class Mapper
             AmountWithVat: model.AmountWithVat
         );
 
-    public static ShipmentCodAdditionalServiceModel ToModel(this ShipmentCodAdditionalServiceDto dto)
+    internal static ShipmentCodAdditionalServiceModel ToModel(this ShipmentCodAdditionalServiceDto dto)
         => new(
             Amount: dto.Amount,
             CurrencyCode: dto.CurrencyCode,
@@ -36,7 +36,7 @@ public static class Mapper
             FiscalReceiptItems: [.. dto.FiscalReceiptItems?.Select(i => i.ToModel())]
         );
 
-    public static ShipmentCodFiscalReceiptItemModel ToModel(this ShipmentCodFiscalReceiptItemDto dto)
+    internal static ShipmentCodFiscalReceiptItemModel ToModel(this ShipmentCodFiscalReceiptItemDto dto)
         => new(
             Description: dto.Description,
             VatGroup: dto.VatGroup,

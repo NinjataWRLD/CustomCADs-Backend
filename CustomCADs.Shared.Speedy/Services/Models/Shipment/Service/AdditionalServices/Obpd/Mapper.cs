@@ -2,16 +2,16 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Obpd;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentObpdDto ToDto(this ShipmentObpdModel model)
+    internal static ShipmentObpdDto ToDto(this ShipmentObpdModel model)
         => new(
             Option: model.Option,
             ReturnShipmentServiceId: model.ReturnShipmentServiceId,
             ReturnShipmentPayer: model.ReturnShipmentPayer
         );
 
-    public static ShipmentObpdModel ToModel(this ShipmentObpdDto dto)
+    internal static ShipmentObpdModel ToModel(this ShipmentObpdDto dto)
         => new(
             Option: dto.Option,
             ReturnShipmentServiceId: dto.ReturnShipmentServiceId,

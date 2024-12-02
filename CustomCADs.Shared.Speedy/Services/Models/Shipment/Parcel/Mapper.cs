@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentParcelRefDto ToDto(this ShipmentParcelRefModel model)
+    internal static ShipmentParcelRefDto ToDto(this ShipmentParcelRefModel model)
         => new(
             Id: model.Id,
             ExternalCarrierParcelNumber: model.ExternalCarrierParcelNumber,

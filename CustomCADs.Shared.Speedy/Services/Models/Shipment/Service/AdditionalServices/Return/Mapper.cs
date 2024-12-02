@@ -12,9 +12,9 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServic
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentReturnAdditionalServicesDto ToDto(this ShipmentReturnAdditionalServicesModel model)
+    internal static ShipmentReturnAdditionalServicesDto ToDto(this ShipmentReturnAdditionalServicesModel model)
         => new(
             SendBackClientId: model.SendBackClientId,
             Rod: model.Rod?.ToDto(),
@@ -25,7 +25,7 @@ public static class Mapper
             ReturnVoucher: model.ReturnVoucher?.ToDto()
         );
 
-    public static ShipmentReturnAdditionalServicesModel ToModel(this ShipmentReturnAdditionalServicesDto dto)
+    internal static ShipmentReturnAdditionalServicesModel ToModel(this ShipmentReturnAdditionalServicesDto dto)
         => new(
             SendBackClientId: dto.SendBackClientId,
             Rod: dto.Rod?.ToModel(),

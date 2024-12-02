@@ -29,11 +29,11 @@ public class PatchProductCadEndpoint(IRequestSender sender)
         switch (req.Type)
         {
             case CoordinateType.Cam:
-                command = command with { CamCoordinates = req.Coordinates.ToCoordinates() };
+                command = command with { CamCoordinates = req.Coordinates };
                 break;
 
             case CoordinateType.Pan:
-                command = command with { PanCoordinates = req.Coordinates.ToCoordinates() };
+                command = command with { PanCoordinates = req.Coordinates };
                 break;
 
             default:

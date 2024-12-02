@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Orders.Endpoints.Designer;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static (string Key, string ContentType)? ToCadDto(this FinishOrderRequest req)
+    internal static (string Key, string ContentType)? ToCadDto(this FinishOrderRequest req)
         => req.CadKey is not null && req.CadContentType is not null ?
             (Key: req.CadKey, ContentType: req.CadContentType)
             : null;

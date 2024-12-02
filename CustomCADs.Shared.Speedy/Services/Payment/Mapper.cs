@@ -3,9 +3,9 @@ using CustomCADs.Shared.Speedy.Services.Payment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Payment;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static (DateOnly Date, long DocId, ProcessingType DocType, PaymentType PaymentType, string Payee, string Currency, double Amount, PayoutDetailsModel[] Details) ToModel(this PayoutDto dto)
+    internal static (DateOnly Date, long DocId, ProcessingType DocType, PaymentType PaymentType, string Payee, string Currency, double Amount, PayoutDetailsModel[] Details) ToModel(this PayoutDto dto)
         => (
             Date: DateOnly.Parse(dto.Date),
             DocId: dto.DocId,
@@ -17,7 +17,7 @@ public static class Mapper
             Details: [.. dto.Details.Select(d => d.ToModel())]
         );
 
-    public static PayoutDetailsModel ToModel(this PayoutDetailsDto dto)
+    internal static PayoutDetailsModel ToModel(this PayoutDetailsDto dto)
         => new(
             LineNo: dto.LineNo,
             ShipmentId: dto.ShipmentId,

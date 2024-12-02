@@ -16,9 +16,9 @@ namespace CustomCADs.Shared.Speedy.Services.Models.Calculation;
 
 using static Constants;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static CalculationRecipientDto ToDto(this CalculationRecipientModel model)
+    internal static CalculationRecipientDto ToDto(this CalculationRecipientModel model)
         => new(
             AddressLocation: model.AddressLocation?.ToDto(),
             ClientId: model.ClientId,
@@ -27,7 +27,7 @@ public static class Mapper
             PickupGeoPUDOIf: model.PickupGeoPUDOIf
         );
 
-    public static CalculationAddressLocationDto ToDto(this CalculationAddressLocationModel model)
+    internal static CalculationAddressLocationDto ToDto(this CalculationAddressLocationModel model)
         => new(
             CountryId: model.CountryId,
             StateId: model.StateId,
@@ -37,7 +37,7 @@ public static class Mapper
             PostCode: model.PostCode
         );
 
-    public static CalculationServiceDto ToDto(this CalculationServiceModel model)
+    internal static CalculationServiceDto ToDto(this CalculationServiceModel model)
         => new(
             ServiceIds: model.ServiceIds,
             PickupDate: model.PickupDate?.ToString(DateFormat),
@@ -47,7 +47,7 @@ public static class Mapper
             SaturdayDelivery: model.SaturdayDelivery
         );
 
-    public static CalculationContentDto ToDto(this CalculationContentModel model)
+    internal static CalculationContentDto ToDto(this CalculationContentModel model)
         => new(
             ParcelsCount: model.ParcelsCount,
             TotalWeight: model.TotalWeight,
@@ -56,7 +56,7 @@ public static class Mapper
             Parcels: [.. model.Parcels?.Select(p => p.ToDto())]
         );
 
-    public static CalculationSenderDto ToDto(this CalculationSenderModel model)
+    internal static CalculationSenderDto ToDto(this CalculationSenderModel model)
         => new(
             AddressLocation: model.AddressLocation?.ToDto(),
             ClientId: model.ClientId,

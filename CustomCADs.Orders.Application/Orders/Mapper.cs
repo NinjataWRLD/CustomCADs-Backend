@@ -9,9 +9,9 @@ using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.Orders.Application.Orders;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static GetAllOrdersDto ToGetAllOrdersItem(this Order order, string buyerUsername, string? designerUsername, string timeZone)
+    internal static GetAllOrdersDto ToGetAllOrdersItem(this Order order, string buyerUsername, string? designerUsername, string timeZone)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -25,7 +25,7 @@ public static class Mapper
             DesignerName: designerUsername
         );
 
-    public static GetOrderByIdDto ToGetOrderByIdDto(this Order order, string timeZone)
+    internal static GetOrderByIdDto ToGetOrderByIdDto(this Order order, string timeZone)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -41,7 +41,7 @@ public static class Mapper
             ShipmentId: order.ShipmentId
         );
 
-    public static DesignerGetOrderByIdDto ToDesignerGetOrderByIdDto(this Order order)
+    internal static DesignerGetOrderByIdDto ToDesignerGetOrderByIdDto(this Order order)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -54,7 +54,7 @@ public static class Mapper
             ShipmentId: order.ShipmentId
         );
 
-    public static Order ToOrder(this CreateOrderCommand command, ShipmentId? shipmentId)
+    internal static Order ToOrder(this CreateOrderCommand command, ShipmentId? shipmentId)
         => command.DeliveryType switch
         {
             DeliveryType.Physical => Order.CreatePhysical(

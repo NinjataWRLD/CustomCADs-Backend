@@ -8,14 +8,15 @@ using CustomCADs.Inventory.Endpoints.Products.Get.All;
 using CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
 using CustomCADs.Inventory.Endpoints.Products.Post;
+using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Inventory.Endpoints.Products;
 
 using static Constants;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static RecentProductsResponse ToRecentProductsResponse(this GetAllProductsDto product)
+    internal static RecentProductsResponse ToRecentProductsResponse(this GetAllProductsDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
@@ -24,7 +25,7 @@ public static class Mapper
             Category: product.Category.ToCategoryDto()
         );
 
-    public static GetProductsResponse ToGetProductsDto(this GetAllProductsDto product)
+    internal static GetProductsResponse ToGetProductsDto(this GetAllProductsDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
@@ -34,7 +35,7 @@ public static class Mapper
             Category: product.Category.ToCategoryDto()
         );
 
-    public static GetProductResponse ToGetProductResponse(this GetProductByIdDto product)
+    internal static GetProductResponse ToGetProductResponse(this GetProductByIdDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
@@ -42,13 +43,13 @@ public static class Mapper
             Description: product.Description,
             UploadDate: product.UploadDate.ToString(DateFormatString),
             CadKey: product.Cad.Key,
-            CamCoordinates: product.Cad.CamCoordinates.ToCoordinatesDto(),
-            PanCoordinates: product.Cad.PanCoordinates.ToCoordinatesDto(),
+            CamCoordinates: product.Cad.CamCoordinates,
+            PanCoordinates: product.Cad.PanCoordinates,
             Counts: product.Counts.ToCountsDto(),
             Category: product.Category.ToCategoryDto()
         );
 
-    public static PostProductResponse ToPostProductResponse(this GetProductByIdDto product)
+    internal static PostProductResponse ToPostProductResponse(this GetProductByIdDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
@@ -60,20 +61,20 @@ public static class Mapper
             Category: product.Category.ToCategoryDto()
         );
 
-    public static CountsDto ToCountsDto(this Counts counts)
+    internal static CountsDto ToCountsDto(this Counts counts)
         => new(
             Purchases: counts.Purchases,
             Likes: counts.Likes,
             Views: counts.Views
         );
 
-    public static CategoryResponse ToCategoryDto(this CategoryDto category)
+    internal static CategoryResponse ToCategoryDto(this CategoryDto category)
         => new(
             Id: category.Id.Value,
             Name: category.Name
         );
 
-    public static ImageDto ToImageDto(this Image image)
+    internal static ImageDto ToImageDto(this Image image)
         => new(
             Key: image.Key,
             ContentType: image.ContentType

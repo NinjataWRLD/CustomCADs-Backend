@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Accounts.Endpoints.Accounts;
+﻿namespace CustomCADs.Accounts.Endpoints.Helpers.Dtos;
 
 public record AccountResponse(
     string Username,

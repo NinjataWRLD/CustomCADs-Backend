@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Categories.Application.Categories.Queries;
+using CustomCADs.Categories.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Categories.Endpoints.Categories;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static CategoryResponse ToCategoryResponse(this CategoryReadDto category)
+    internal static CategoryResponse ToCategoryResponse(this CategoryReadDto category)
         => new(category.Id.Value, category.Name);
 }

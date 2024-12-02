@@ -7,9 +7,9 @@ namespace CustomCADs.Inventory.Endpoints.Designer;
 
 using static Constants;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static GetUncheckedProductsDto ToGetUncheckedProductsDto(this GetAllProductsDto product)
+    internal static GetUncheckedProductsDto ToGetUncheckedProductsDto(this GetAllProductsDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
@@ -19,7 +19,7 @@ public static class Mapper
             Category: new(product.Category.Id.Value, product.Category.Name)
         );
 
-    public static DesignerSingleProductResponse ToDesignerSingleProductResponse(this DesignerGetProductByIdDto product)
+    internal static DesignerSingleProductResponse ToDesignerSingleProductResponse(this DesignerGetProductByIdDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,

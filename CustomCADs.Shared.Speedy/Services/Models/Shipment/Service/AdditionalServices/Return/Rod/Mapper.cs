@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return.Rod;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentRodAdditionalServiceDto ToDto(this ShipmentRodAdditionalServiceModel model)
+    internal static ShipmentRodAdditionalServiceDto ToDto(this ShipmentRodAdditionalServiceModel model)
         => new(
             Enabled: model.Enabled,
             Comment: model.Comment,
@@ -13,7 +13,7 @@ public static class Mapper
             ThirdPartyPayer: model.ThirdPartyPayer
         );
 
-    public static ShipmentRodAdditionalServiceModel ToModel(this ShipmentRodAdditionalServiceDto dto)
+    internal static ShipmentRodAdditionalServiceModel ToModel(this ShipmentRodAdditionalServiceDto dto)
         => new(
             Enabled: dto.Enabled,
             Comment: dto.Comment,

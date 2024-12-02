@@ -1,3 +1,3 @@
-﻿namespace CustomCADs.Accounts.Endpoints.Roles;
+﻿namespace CustomCADs.Accounts.Endpoints.Helpers.Dtos;
 
 public record RoleResponse(string Name, string Description);

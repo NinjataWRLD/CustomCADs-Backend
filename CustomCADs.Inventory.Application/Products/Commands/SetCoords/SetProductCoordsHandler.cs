@@ -21,8 +21,8 @@ public class SetProductCoordsHandler(IProductReads reads, IRequestSender sender)
 
         SetCadCoordsCommand command = new(
             Id: product.CadId,
-            CamCoordinates: req.CamCoordinates?.ToCoordinatesDto(),
-            PanCoordinates: req.PanCoordinates?.ToCoordinatesDto()
+            CamCoordinates: req.CamCoordinates,
+            PanCoordinates: req.PanCoordinates
         );
         await sender.SendCommandAsync(command, ct);
     }

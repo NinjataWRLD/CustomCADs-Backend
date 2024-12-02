@@ -5,9 +5,9 @@ using CustomCADs.Accounts.Domain.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static GetAllAccountsItem ToGetAllAccountsItem(this Account account)
+    internal static GetAllAccountsItem ToGetAllAccountsItem(this Account account)
         => new(
             account.Id,
             account.Username,
@@ -17,7 +17,7 @@ public static class Mapper
             account.LastName
         );
 
-    public static GetAccountByIdDto ToGetAccountByIdDto(this Account account)
+    internal static GetAccountByIdDto ToGetAccountByIdDto(this Account account)
         => new(
             Role: account.RoleName,
             Username: account.Username,
@@ -26,7 +26,7 @@ public static class Mapper
             LastName: account.LastName
         );
 
-    public static GetAccountByUsernameDto ToGetAccountByUsernameDto(this Account account)
+    internal static GetAccountByUsernameDto ToGetAccountByUsernameDto(this Account account)
         => new(
             Id: account.Id,
             Role: account.RoleName,
