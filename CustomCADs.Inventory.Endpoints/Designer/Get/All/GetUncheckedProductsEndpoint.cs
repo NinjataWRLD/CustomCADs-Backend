@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Get.All;
 
@@ -21,6 +22,7 @@ public class GetUncheckedProductsEndpoint(IRequestSender sender)
     {
         GetAllProductsQuery query = new(
             Status: ProductStatus.Unchecked,
+            CategoryId: req.CategoryId is null ? null : new CategoryId(req.CategoryId.Value),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
             Page: req.Page,

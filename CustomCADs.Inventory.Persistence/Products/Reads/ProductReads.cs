@@ -12,7 +12,7 @@ public class ProductReads(InventoryContext context) : IProductReads
     {
         IQueryable<Product> queryable = context.Products
                 .WithTracking(track)
-                .WithFilter(query.CreatorId, query.Status)
+                .WithFilter(query.CreatorId, query.CategoryId, query.Status)
                 .WithSearch(query.Name)
                 .WithSorting(query.Sorting ?? new());
 

@@ -9,7 +9,7 @@ public class CartsGroup : Group
         Configure("carts", ep =>
         {
             ep.Roles(Client);
-            ep.Description(d => d.WithTags("04. Carts"));
+            ep.Description(d => d.WithTags("05. Carts"));
         });
     }
 }

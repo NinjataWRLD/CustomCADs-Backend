@@ -2,16 +2,21 @@
 using CustomCADs.Inventory.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Common.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Persistence.Products.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, AccountId? creatorId = null, ProductStatus? productStatus = null)
+    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, AccountId? creatorId = null, CategoryId? categoryId = null, ProductStatus? productStatus = null)
     {
         if (creatorId is not null)
         {
             query = query.Where(c => c.CreatorId == creatorId);
+        }
+        if (categoryId is not null)
+        {
+            query = query.Where(c => c.CategoryId == categoryId);
         }
         if (productStatus is not null)
         {
@@ -41,8 +46,8 @@ public static class Utilities
             { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Name),
             { Type: ProductSortingType.Status, Direction: SortingDirection.Ascending } => query.OrderBy(m => (int)m.Status),
             { Type: ProductSortingType.Status, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.Status),
-            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Price),
-            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price),
+            { Type: ProductSortingType.Cost, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Price),
+            { Type: ProductSortingType.Cost, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price),
             _ => query,
         };
     }

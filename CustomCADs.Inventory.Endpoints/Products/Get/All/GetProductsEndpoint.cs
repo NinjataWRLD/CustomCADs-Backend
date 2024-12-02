@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.All;
 
@@ -20,6 +21,7 @@ public class GetProductsEndpoint(IRequestSender sender)
     {
         GetAllProductsQuery query = new(
             CreatorId: User.GetAccountId(),
+            CategoryId: req.CategoryId is null ? null : new CategoryId(req.CategoryId.Value),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
             Page: req.Page,
