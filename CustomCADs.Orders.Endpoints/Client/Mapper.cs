@@ -107,7 +107,7 @@ public static class Mapper
             DeliveryType: order.DeliveryType.ToString(),
             BuyerName: order.BuyerName
         );
-    
+
     public static GetCompletedOrdersDto ToGetCompletedOrdersDto(this GetAllOrdersDto order)
         => new(
             Id: order.Id.Value,

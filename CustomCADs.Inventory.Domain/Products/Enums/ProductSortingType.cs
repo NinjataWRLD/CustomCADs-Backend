@@ -6,5 +6,4 @@ public enum ProductSortingType
     Alphabetical,
     Status,
     CostAmount,
-    CostCurrency,
 }

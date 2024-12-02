@@ -75,25 +75,6 @@ static class CadConfigUtils
                 .HasColumnName("ImageContentType");
         });
 
-        builder.ComplexProperty(x => x.Price, c =>
-        {
-            c.Property(x => x.Amount)
-                .IsRequired()
-                .HasPrecision(18, 2).HasColumnName("PriceAmount");
-
-            c.Property(x => x.Precision)
-                .IsRequired()
-                .HasColumnName("PricePrecision");
-
-            c.Property(x => x.Currency)
-                .IsRequired()
-                .HasColumnName("PriceCurrency");
-
-            c.Property(x => x.Symbol)
-                .IsRequired()
-                .HasColumnName("PriceSymbol");
-        });
-
         return builder;
     }
 
@@ -108,6 +89,10 @@ static class CadConfigUtils
             .IsRequired()
             .HasMaxLength(DescriptionMaxLength)
             .HasColumnName("Description");
+
+        builder.Property(x => x.Price)
+            .IsRequired()
+            .HasColumnName("Price");
 
         builder.Property(x => x.Status)
             .IsRequired()

@@ -23,9 +23,7 @@ public class EditProductCommandValidator : Validator<EditProductCommand>
         RuleFor(r => r.CategoryId)
             .NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(r => r.Price).ChildRules(a =>
-            a.RuleFor(r => r.Amount)
-                .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError)
-        );
+        RuleFor(r => r.Price)
+            .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError);
     }
 }

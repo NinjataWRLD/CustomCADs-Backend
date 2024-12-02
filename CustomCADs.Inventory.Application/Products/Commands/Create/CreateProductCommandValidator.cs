@@ -24,8 +24,6 @@ public class CreateProductCommandValidator : Validator<CreateProductCommand, Pro
             .NotEmpty().WithMessage(RequiredError);
 
         RuleFor(r => r.Price)
-            .ChildRules(a => a.RuleFor(p => p.Amount)
-                .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError)
-            );
+            .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError);
     }
 }

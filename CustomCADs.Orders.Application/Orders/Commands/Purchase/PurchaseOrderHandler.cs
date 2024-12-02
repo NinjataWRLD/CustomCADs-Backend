@@ -19,25 +19,25 @@ public class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSe
 
         if (order.BuyerId != req.BuyerId)
             throw OrderAuthorizationException.ByOrderId(order.Id);
-        
+
         if (order.DesignerId is null)
             throw OrderDesignerException.ById(order.Id);
-        
+
         if (order.CadId is null)
             throw OrderCadException.ById(order.Id);
-        
+
         if (order.OrderStatus is not OrderStatus.Finished)
             throw OrderStatusException.ById(order.Id, OrderStatus.Finished);
 
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
-        
+
         GetUsernameByIdQuery sellerQuery = new(order.DesignerId.Value);
         string seller = await sender.SendQueryAsync(sellerQuery, ct).ConfigureAwait(false);
 
         order.SetCompletedStatus();
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-        
+
         return await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: 0m, // figure it out, idk

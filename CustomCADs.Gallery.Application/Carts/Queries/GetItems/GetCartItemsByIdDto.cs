@@ -2,7 +2,6 @@
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetItems;
 
@@ -10,8 +9,8 @@ public record GetCartItemsByIdDto(
     CartItemId Id,
     int Quantity,
     DeliveryType DeliveryType,
-    Money Price,
-    Money Cost,
+    decimal Price,
+    decimal Cost,
     DateTime PurchaseDate,
     ProductId ProductId,
     CartId CartId,

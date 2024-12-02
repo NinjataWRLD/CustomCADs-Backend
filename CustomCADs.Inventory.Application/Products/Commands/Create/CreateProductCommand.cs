@@ -1,7 +1,6 @@
 using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.Create;
 
@@ -13,7 +12,7 @@ public record CreateProductCommand(
     string ImageContentType,
     string CadKey,
     string CadContentType,
-    Money Price,
+    decimal Price,
     ProductStatus Status,
     AccountId CreatorId
 ) : ICommand<ProductId>;

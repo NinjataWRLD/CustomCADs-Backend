@@ -5,7 +5,6 @@ using CustomCADs.Gallery.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Gallery.Domain.Carts;
 
@@ -18,7 +17,7 @@ public class Cart : BaseAggregateRoot
     {
         BuyerId = buyerId;
         PurchaseDate = DateTime.UtcNow;
-        Total = Items.Sum(i => i.Price.Amount);
+        Total = Items.Sum(i => i.Price);
     }
 
     public CartId Id { get; init; }
@@ -31,12 +30,12 @@ public class Cart : BaseAggregateRoot
         => new Cart(buyerId)
             .ValidateItems();
 
-    public CartItem AddItem(DeliveryType deliverType, Money price, int quantity, ProductId productId)
+    public CartItem AddItem(DeliveryType deliverType, decimal price, int quantity, ProductId productId)
     {
         var item = CartItem.Create(deliverType, price, quantity, productId, Id);
         items.Add(item);
 
-        Total += item.Cost.Amount;
+        Total += item.Cost;
         return item;
     }
 
@@ -45,7 +44,7 @@ public class Cart : BaseAggregateRoot
         var item = items.FirstOrDefault(i => i.Id == id) ?? throw CartItemNotFoundException.ById(id);
         items.Remove(item);
 
-        Total += item.Cost.Amount;
+        Total -= item.Cost;
         return item;
     }
 }

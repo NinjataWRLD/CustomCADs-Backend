@@ -46,8 +46,8 @@ public static class ProductValidations
 
     public static Product ValidatePriceAmount(this Product product)
     {
-        string property = "Price Amount";
-        decimal amount = product.Price.Amount;
+        string property = "Price";
+        decimal amount = product.Price;
 
         decimal max = PriceMax, min = PriceMin;
         if (amount > max || amount < min)

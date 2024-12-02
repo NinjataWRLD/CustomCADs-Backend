@@ -4,8 +4,6 @@ using CustomCADs.Gallery.Domain.Carts.Entities;
 using CustomCADs.Gallery.Endpoints.Carts.Get.All;
 using CustomCADs.Gallery.Endpoints.Carts.Get.Recent;
 using CustomCADs.Gallery.Endpoints.Carts.Get.Single;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Gallery.Endpoints.Carts;
 
@@ -41,20 +39,12 @@ public static class Mapper
             Id: item.Id.Value,
             Quantity: item.Quantity,
             DeliveryType: item.DeliveryType.ToString(),
-            Price: item.Price.ToMoneyDto(),
+            Price: item.Price,
             PurchaseDate: item.PurchaseDate.ToString(DateFormatString),
             ProductId: item.ProductId.Value,
             CartId: item.CartId.Value,
             CadId: item.CadId?.Value,
             ShipmentId: item.ShipmentId?.Value,
-            Cost: item.Cost.ToMoneyDto()
-        );
-
-    public static MoneyDto ToMoneyDto(this Money dto)
-        => new(
-            Amount: dto.Amount,
-            Currency: dto.Currency,
-            Precision: dto.Precision,
-            Symbol: dto.Symbol
+            Cost: item.Cost
         );
 }

@@ -41,10 +41,8 @@ public static class Utilities
             { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Name),
             { Type: ProductSortingType.Status, Direction: SortingDirection.Ascending } => query.OrderBy(m => (int)m.Status),
             { Type: ProductSortingType.Status, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.Status),
-            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Price.Amount),
-            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price.Amount),
-            { Type: ProductSortingType.CostCurrency, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Price.Currency),
-            { Type: ProductSortingType.CostCurrency, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price.Currency),
+            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Price),
+            { Type: ProductSortingType.CostAmount, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price),
             _ => query,
         };
     }
