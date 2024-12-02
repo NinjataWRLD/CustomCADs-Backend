@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Queries;
+using CustomCADs.Accounts.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Accounts.Endpoints.Roles;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static RoleResponse ToRoleResponse(this RoleReadDto role)
+    internal static RoleResponse ToRoleResponse(this RoleReadDto role)
         => new(role.Name, role.Description);
 }

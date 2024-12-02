@@ -6,9 +6,9 @@ using CustomCADs.Shared.Speedy.Services.Track.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Track;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static TrackShipmentParcelRefDto ToDto(this (ShipmentParcelRefModel Parcel, string? Ref) model)
+    internal static TrackShipmentParcelRefDto ToDto(this (ShipmentParcelRefModel Parcel, string? Ref) model)
         => new(
             Ref: model.Ref,
             Id: model.Parcel.Id,
@@ -16,7 +16,7 @@ public static class Mapper
             FullBarcode: model.Parcel.FullBarcode
         );
 
-    public static TrackedParcelModel ToModel(this TrackedParcelDto dto)
+    internal static TrackedParcelModel ToModel(this TrackedParcelDto dto)
         => new(
             ParcelId: dto.ParcelId,
             ExternalCarrierParcelNumbers: dto.ExternalCarrierParcelNumbers,
@@ -31,7 +31,7 @@ public static class Mapper
                 )
         );
 
-    public static TrackedParcelOperationModel ToModel(this TrackedParcelOperationDto dto)
+    internal static TrackedParcelOperationModel ToModel(this TrackedParcelOperationDto dto)
         => new(
             DateTime: DateTime.Parse(dto.DateTime),
             OperationCode: dto.OperationCode,
@@ -46,14 +46,14 @@ public static class Mapper
             AdditionalInfo: dto.AdditionalInfo?.ToModel()
         );
 
-    public static TrackedParcelOperationAdditionalInfoModel ToModel(this TrackedParcelOperationAdditionalInfoDto dto)
+    internal static TrackedParcelOperationAdditionalInfoModel ToModel(this TrackedParcelOperationAdditionalInfoDto dto)
         => new(
             OfficeUrl: dto.OfficeURL,
             GeoPudoId: dto.GeoPUDOId,
             Predict: dto.Predict?.ToModel()
         );
 
-    public static TrackedParcelOperationAdditionalInfoPredictModel ToModel(this TrackedParcelOperationAdditionalInfoPredictDto dto)
+    internal static TrackedParcelOperationAdditionalInfoPredictModel ToModel(this TrackedParcelOperationAdditionalInfoPredictDto dto)
         => new(
             PredictedVisitDateTimeFrom: DateTime.Parse(dto.PredictedVisitDateTimeFrom),
             PredictedVisitDateTimeTo: DateTime.Parse(dto.PredictedVisitDateTimeTo),

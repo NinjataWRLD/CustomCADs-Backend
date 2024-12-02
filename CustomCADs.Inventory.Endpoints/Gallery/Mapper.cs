@@ -9,16 +9,16 @@ namespace CustomCADs.Inventory.Endpoints.Gallery;
 
 using static Constants;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static GetAllGaleryProductsResponse ToGetAllGaleryProductsResponse(this GetAllProductsDto product)
+    internal static GetAllGaleryProductsResponse ToGetAllGaleryProductsResponse(this GetAllProductsDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
             Image: product.Image.ToImageDto()
         );
 
-    public static GetGalleryProductResponse ToGetGalleryProductResponse(this GalleryGetProductByIdDto product)
+    internal static GetGalleryProductResponse ToGetGalleryProductResponse(this GalleryGetProductByIdDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
@@ -26,8 +26,8 @@ public static class Mapper
             Price: product.Price,
             UploadDate: product.UploadDate.ToString(DateFormatString),
             CadKey: product.Cad.Key,
-            CamCoordinates: product.Cad.CamCoordinates.ToCoordinatesDto(),
-            PanCoordinates: product.Cad.PanCoordinates.ToCoordinatesDto(),
+            CamCoordinates: product.Cad.CamCoordinates,
+            PanCoordinates: product.Cad.PanCoordinates,
             Counts: product.Counts.ToCountsDto(),
             Category: product.Category.ToCategoryDto()
         );

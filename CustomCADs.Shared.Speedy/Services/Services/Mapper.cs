@@ -4,9 +4,9 @@ using CustomCADs.Shared.Speedy.Services.Services.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Services;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static CourierServiceModel ToModel(this CourierServiceDto model)
+    internal static CourierServiceModel ToModel(this CourierServiceDto model)
        => new(
            Id: model.Id,
            Name: model.Name,
@@ -17,7 +17,7 @@ public static class Mapper
            AdditionalServices: model.AdditionalServices.ToModel()
        );
 
-    public static AdditionalCourierServicesModel ToModel(this AdditionalCourierServicesDto model)
+    internal static AdditionalCourierServicesModel ToModel(this AdditionalCourierServicesDto model)
         => new(
             CodAllowance: model.Cod.Allowance,
             ObpdAllowance: model.Obpd.Allowance,
@@ -32,7 +32,7 @@ public static class Mapper
             ReturnVoucherAllowance: model.ReturnVoucher.Allowance
         );
 
-    public static (string Deadline, CourierServiceModel Courier) ToModel(this ExtendedCourierServiceDto model)
+    internal static (string Deadline, CourierServiceModel Courier) ToModel(this ExtendedCourierServiceDto model)
         => (
             Deadline: model.Deadline,
             new(

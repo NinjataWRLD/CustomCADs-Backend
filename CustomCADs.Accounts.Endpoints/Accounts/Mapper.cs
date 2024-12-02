@@ -1,12 +1,13 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
 using CustomCADs.Accounts.Application.Accounts.Queries.GetById;
 using CustomCADs.Accounts.Application.Accounts.Queries.GetByUsername;
+using CustomCADs.Accounts.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static AccountResponse ToUserResponse(this GetAccountByUsernameDto account, string username)
+    internal static AccountResponse ToUserResponse(this GetAccountByUsernameDto account, string username)
         => new(
             Role: account.Role,
             Email: account.Email,
@@ -15,7 +16,7 @@ public static class Mapper
             Username: username
         );
 
-    public static AccountResponse ToUserResponse(this GetAllAccountsItem account)
+    internal static AccountResponse ToUserResponse(this GetAllAccountsItem account)
         => new(
             Username: account.Username,
             Email: account.Email,
@@ -24,7 +25,7 @@ public static class Mapper
             LastName: account.LastName
         );
 
-    public static AccountResponse ToUserResponse(this GetAccountByIdDto account)
+    internal static AccountResponse ToUserResponse(this GetAccountByIdDto account)
         => new(
             Username: account.Username,
             Email: account.Email,

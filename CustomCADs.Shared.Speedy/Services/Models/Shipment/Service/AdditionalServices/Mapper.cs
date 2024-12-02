@@ -9,9 +9,9 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServic
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentAdditionalServicesDto ToDto(this ShipmentAdditionalServicesModel model)
+    internal static ShipmentAdditionalServicesDto ToDto(this ShipmentAdditionalServicesModel model)
         => new(
             Cod: model.Cod?.ToDto(),
             Obdp: model.Obdp?.ToDto(),
@@ -22,7 +22,7 @@ public static class Mapper
             DeliveryToFloor: model.DeliveryToFloor
         );
 
-    public static ShipmentAdditionalServicesModel ToModel(this ShipmentAdditionalServicesDto dto)
+    internal static ShipmentAdditionalServicesModel ToModel(this ShipmentAdditionalServicesDto dto)
         => new(
             Cod: dto.Cod?.ToModel(),
             Obdp: dto.Obdp?.ToModel(),

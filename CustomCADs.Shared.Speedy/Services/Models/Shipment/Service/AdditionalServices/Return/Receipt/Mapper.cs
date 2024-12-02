@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return.Receipt;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentReturnReceiptAdditionalServiceDto ToDto(this ShipmentReturnReceiptAdditionalServiceModel model)
+    internal static ShipmentReturnReceiptAdditionalServiceDto ToDto(this ShipmentReturnReceiptAdditionalServiceModel model)
         => new(
             Enabled: model.Enabled,
             ReturnToClientId: model.ReturnToClientId,
@@ -12,7 +12,7 @@ public static class Mapper
             ThirdPartyPayer: model.ThirdPartyPayer
         );
 
-    public static ShipmentReturnReceiptAdditionalServiceModel ToModel(this ShipmentReturnReceiptAdditionalServiceDto dto)
+    internal static ShipmentReturnReceiptAdditionalServiceModel ToModel(this ShipmentReturnReceiptAdditionalServiceDto dto)
         => new(
             Enabled: dto.Enabled,
             ReturnToClientId: dto.ReturnToClientId,

@@ -7,9 +7,9 @@ using CustomCADs.Gallery.Domain.Carts.Entities;
 
 namespace CustomCADs.Gallery.Application.Carts;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static GetAllCartsDto ToGetAllCartsItem(this Cart cart, string timeZone)
+    internal static GetAllCartsDto ToGetAllCartsItem(this Cart cart, string timeZone)
         => new(
             Id: cart.Id,
             Total: cart.Total,
@@ -20,7 +20,7 @@ public static class Mapper
             ItemsCount: cart.Items.Count
         );
 
-    public static GetCartByIdDto ToGetCartByIdDto(this Cart cart, string timeZone)
+    internal static GetCartByIdDto ToGetCartByIdDto(this Cart cart, string timeZone)
         => new(
             Id: cart.Id,
             Total: cart.Total,
@@ -32,10 +32,10 @@ public static class Mapper
             Items: [.. cart.Items]
         );
 
-    public static Cart ToCart(this CreateCartCommand command)
+    internal static Cart ToCart(this CreateCartCommand command)
         => Cart.Create(command.BuyerId);
 
-    public static GetCartItemsByIdDto ToGetCartItemsByIdDto(this CartItem item)
+    internal static GetCartItemsByIdDto ToGetCartItemsByIdDto(this CartItem item)
         => new(
             Id: item.Id,
             Quantity: item.Quantity,

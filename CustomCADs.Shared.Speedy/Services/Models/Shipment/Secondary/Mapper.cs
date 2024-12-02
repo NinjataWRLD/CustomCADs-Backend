@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Secondary;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static SecondaryShipmentModel ToModel(this SecondaryShipmentDto dto)
+    internal static SecondaryShipmentModel ToModel(this SecondaryShipmentDto dto)
         => new(
             Id: dto.Id,
             Type: dto.Type,

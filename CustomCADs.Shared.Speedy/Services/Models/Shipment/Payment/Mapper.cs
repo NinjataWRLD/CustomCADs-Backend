@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Payment;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentPaymentDto ToDto(this ShipmentPaymentModel model)
+    internal static ShipmentPaymentDto ToDto(this ShipmentPaymentModel model)
         => new(
             CourierServicePayer: model.CourierServicePayer,
             DeclaredValuePayer: model.DeclaredValuePayer,
@@ -15,19 +15,19 @@ public static class Mapper
             AdministrativeFee: model.AdministrativeFee
         );
 
-    public static ShipmentDiscountCardIdDto ToDto(this ShipmentDiscountCardIdModel model)
+    internal static ShipmentDiscountCardIdDto ToDto(this ShipmentDiscountCardIdModel model)
         => new(
             ContractId: model.ContractId,
             CardId: model.CardId
         );
 
-    public static BankAccountDto ToDto(this BankAccountModel model)
+    internal static BankAccountDto ToDto(this BankAccountModel model)
         => new(
             Iban: model.Iban,
             AccountHolder: model.AccountHolder
         );
 
-    public static ShipmentPaymentModel ToModel(this ShipmentPaymentDto dto)
+    internal static ShipmentPaymentModel ToModel(this ShipmentPaymentDto dto)
         => new(
             CourierServicePayer: dto.CourierServicePayer,
             DeclaredValuePayer: dto.DeclaredValuePayer,
@@ -38,13 +38,13 @@ public static class Mapper
             AdministrativeFee: dto.AdministrativeFee
         );
 
-    public static ShipmentDiscountCardIdModel ToModel(this ShipmentDiscountCardIdDto dto)
+    internal static ShipmentDiscountCardIdModel ToModel(this ShipmentDiscountCardIdDto dto)
         => new(
             ContractId: dto.ContractId,
             CardId: dto.CardId
         );
 
-    public static BankAccountModel ToModel(this BankAccountDto dto)
+    internal static BankAccountModel ToModel(this BankAccountDto dto)
         => new(
             Iban: dto.Iban,
             AccountHolder: dto.AccountHolder

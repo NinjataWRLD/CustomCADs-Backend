@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentSenderDto ToDto(this ShipmentSenderModel model)
+    internal static ShipmentSenderDto ToDto(this ShipmentSenderModel model)
         => new(
             Phone1: model.Phone1.ToDto(),
             Phone2: model.Phone2?.ToDto(),
@@ -19,7 +19,7 @@ public static class Mapper
             DropoffGeoPUDOId: model.DropoffGeoPUDOId
         );
 
-    public static ShipmentSenderModel ToModel(this ShipmentSenderDto dto)
+    internal static ShipmentSenderModel ToModel(this ShipmentSenderDto dto)
         => new(
             Phone1: dto.Phone1.ToModel(),
             Phone2: dto.Phone2?.ToModel(),

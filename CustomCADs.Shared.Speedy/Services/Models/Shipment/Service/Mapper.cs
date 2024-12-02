@@ -7,9 +7,9 @@ namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 
 using static Constants;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentServiceDto ToDto(this ShipmentServiceModel model)
+    internal static ShipmentServiceDto ToDto(this ShipmentServiceModel model)
         => new(
             ServiceId: model.ServiceId,
             PickupDate: model.PickupDate?.ToString(DateFormat),
@@ -19,7 +19,7 @@ public static class Mapper
             AdditionalServices: model.AdditionalServices?.ToDto()
         );
 
-    public static ShipmentServiceModel ToModel(this ShipmentServiceDto dto)
+    internal static ShipmentServiceModel ToModel(this ShipmentServiceDto dto)
         => new(
             ServiceId: dto.ServiceId,
             PickupDate: dto.PickupDate is not null ? DateOnly.Parse(dto.PickupDate) : null,

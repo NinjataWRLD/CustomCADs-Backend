@@ -3,9 +3,9 @@ using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentRecip
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Recipient;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentRecipientDto ToDto(this ShipmentRecipientModel model)
+    internal static ShipmentRecipientDto ToDto(this ShipmentRecipientModel model)
     => new(
         PrivatePerson: model.PrivatePerson,
         ContactName: model.ContactName,
@@ -23,13 +23,13 @@ public static class Mapper
         Phone3: model.Phone3?.ToDto()
     );
 
-    public static AutoSelectNearestOfficePolicyDto ToDto(this AutoSelectNearestOfficePolicyModel model)
+    internal static AutoSelectNearestOfficePolicyDto ToDto(this AutoSelectNearestOfficePolicyModel model)
         => new(
             UnavailableNearestOfficeAction: model.UnavailableNearestOfficeAction,
             OfficeType: model.OfficeType
         );
 
-    public static ShipmentRecipientModel ToModel(this ShipmentRecipientDto dto)
+    internal static ShipmentRecipientModel ToModel(this ShipmentRecipientDto dto)
     => new(
         PrivatePerson: dto.PrivatePerson,
         ContactName: dto.ContactName,
@@ -47,7 +47,7 @@ public static class Mapper
         Phone3: dto.Phone3?.ToModel()
     );
 
-    public static AutoSelectNearestOfficePolicyModel ToModel(this AutoSelectNearestOfficePolicyDto dto)
+    internal static AutoSelectNearestOfficePolicyModel ToModel(this AutoSelectNearestOfficePolicyDto dto)
         => new(
             UnavailableNearestOfficeAction: dto.UnavailableNearestOfficeAction,
             OfficeType: dto.OfficeType

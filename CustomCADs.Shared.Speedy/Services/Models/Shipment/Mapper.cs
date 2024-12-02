@@ -11,9 +11,9 @@ using CustomCADs.Shared.Speedy.Services.Shipment;
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentModel ToModel(this ShipmentDto dto)
+    internal static ShipmentModel ToModel(this ShipmentDto dto)
         => new(
             Recipient: dto.Recipient.ToModel(),
             Service: dto.Service.ToModel(),

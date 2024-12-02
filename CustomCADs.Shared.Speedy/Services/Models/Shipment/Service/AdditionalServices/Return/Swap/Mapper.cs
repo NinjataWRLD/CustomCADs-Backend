@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return.Swap;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentSwapAdditionalServiceDto ToDto(this ShipmentSwapAdditionalServiceModel model)
+    internal static ShipmentSwapAdditionalServiceDto ToDto(this ShipmentSwapAdditionalServiceModel model)
         => new(
             ServiceId: model.ServiceId,
             ParcelsCount: model.ParcelsCount,
@@ -14,7 +14,7 @@ public static class Mapper
             ThirdPartyPayer: model.ThirdPartyPayer
         );
 
-    public static ShipmentSwapAdditionalServiceModel ToModel(this ShipmentSwapAdditionalServiceDto dto)
+    internal static ShipmentSwapAdditionalServiceModel ToModel(this ShipmentSwapAdditionalServiceDto dto)
         => new(
             ServiceId: dto.ServiceId,
             ParcelsCount: dto.ParcelsCount,

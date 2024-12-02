@@ -5,13 +5,12 @@ using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products;
 using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Inventory.Application.Products;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static GalleryGetProductByIdDto ToGalleryGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName, string timeZone)
+    internal static GalleryGetProductByIdDto ToGalleryGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -27,7 +26,7 @@ public static class Mapper
             Category: new(product.CategoryId, categoryName)
         );
 
-    public static GetAllProductsDto ToGetAllProductsItem(this Product product, string username, string categoryName, string timeZone)
+    internal static GetAllProductsDto ToGetAllProductsItem(this Product product, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -41,7 +40,7 @@ public static class Mapper
             CreatorName: username
         );
 
-    public static GetProductByIdDto ToGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName, string timeZone)
+    internal static GetProductByIdDto ToGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -59,7 +58,7 @@ public static class Mapper
             CreatorName: username
         );
 
-    public static DesignerGetProductByIdDto ToDesignerGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName)
+    internal static DesignerGetProductByIdDto ToDesignerGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -70,12 +69,10 @@ public static class Mapper
             CreatorName: username
         );
 
-    public static Coordinates ToCoordinates(this CoordinatesDto coordinates)
-        => new(coordinates.X, coordinates.Y, coordinates.Z);
-
-    public static CoordinatesDto ToCoordinatesDto(this Coordinates coordinates)
-        => new(coordinates.X, coordinates.Y, coordinates.Z);
-
-    public static CadDto ToCadDto(this (string Key, string ContentType, CoordinatesDto CamCoordinates, CoordinatesDto PanCoordinates) cad)
-        => new(cad.Key, cad.ContentType, cad.CamCoordinates.ToCoordinates(), cad.PanCoordinates.ToCoordinates());
+    internal static CadDto ToCadDto(this
+        (string Key,
+        string ContentType,
+        CoordinatesDto CamCoordinates,
+        CoordinatesDto PanCoordinates) cad
+    ) => new(cad.Key, cad.ContentType, cad.CamCoordinates, cad.PanCoordinates);
 }

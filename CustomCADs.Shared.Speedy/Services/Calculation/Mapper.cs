@@ -5,9 +5,9 @@ using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Calculation;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static (int ServiceId, ShipmentAdditionalServicesModel AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, string DeliveryDeadline) ToModel(this CalculationResultDto dto)
+    internal static (int ServiceId, ShipmentAdditionalServicesModel AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, string DeliveryDeadline) ToModel(this CalculationResultDto dto)
         => (
             ServiceId: dto.ServiceId,
             AdditionalServices: dto.AdditionalServices.ToModel(),

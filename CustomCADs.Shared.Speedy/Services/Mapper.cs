@@ -4,15 +4,15 @@ using CustomCADs.Shared.Speedy.Services.Models;
 
 namespace CustomCADs.Shared.Speedy.Services;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentPhoneNumberDto ToDto(this PhoneNumberModel model)
+    internal static ShipmentPhoneNumberDto ToDto(this PhoneNumberModel model)
         => new(model.Number, model.Extension);
 
-    public static PhoneNumberModel ToModel(this ShipmentPhoneNumberDto dto)
+    internal static PhoneNumberModel ToModel(this ShipmentPhoneNumberDto dto)
         => new(dto.Number, dto.Extension);
 
-    public static ShipmentAddressDto ToDto(this ShipmentAddressModel model)
+    internal static ShipmentAddressDto ToDto(this ShipmentAddressModel model)
         => new(
             CountryId: model.CountryId,
             PostCode: model.PostCode,
@@ -36,7 +36,7 @@ public static class Mapper
             Y: model.Y
         );
 
-    public static ShipmentAddressModel ToModel(this ShipmentAddressDto dto)
+    internal static ShipmentAddressModel ToModel(this ShipmentAddressDto dto)
         => new(
             CountryId: dto.CountryId,
             PostCode: dto.PostCode,
@@ -60,7 +60,7 @@ public static class Mapper
             Y: dto.Y
         );
 
-    public static AddressModel ToModel(this AddressDto dto)
+    internal static AddressModel ToModel(this AddressDto dto)
         => new(
             FullAddressString: dto.FullAddressString,
             SiteAddressString: dto.SiteAddressString,

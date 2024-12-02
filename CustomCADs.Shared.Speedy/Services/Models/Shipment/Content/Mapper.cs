@@ -3,9 +3,9 @@ using CustomCADs.Shared.Speedy.API.Dtos.ShipmentContent.ShipmentParcel;
 
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ShipmentContentDto ToDto(this ShipmentContentModel model)
+    internal static ShipmentContentDto ToDto(this ShipmentContentModel model)
         => new(
             Contents: model.Contents,
             Package: model.Package,
@@ -22,7 +22,7 @@ public static class Mapper
             UitCode: model.UitCode
         );
 
-    public static ShipmentParcelDto ToDto(this ShipmentParcelModel model)
+    internal static ShipmentParcelDto ToDto(this ShipmentParcelModel model)
         => new(
             Weight: model.Weight,
             Id: model.Id,
@@ -35,20 +35,20 @@ public static class Mapper
             DeliveryExternalCarrierParcelNumber: model.DeliveryExternalCarrierParcelNumber?.ToDto()
         );
 
-    public static ShipmentParcelSizeDto ToDto(this ShipmentParcelSizeModel model)
+    internal static ShipmentParcelSizeDto ToDto(this ShipmentParcelSizeModel model)
         => new(
             Width: model.Width,
             Depth: model.Depth,
             Height: model.Height
         );
 
-    public static ExternalCarrierParcelNumberDto ToDto(this ExternalCarrierParcelNumberModel model)
+    internal static ExternalCarrierParcelNumberDto ToDto(this ExternalCarrierParcelNumberModel model)
         => new(
             ExternalCarrier: model.ExternalCarrier,
             ParcelNumber: model.ParcelNumber
         );
 
-    public static ShipmentContentModel ToModel(this ShipmentContentDto dto)
+    internal static ShipmentContentModel ToModel(this ShipmentContentDto dto)
         => new(
             Contents: dto.Contents,
             Package: dto.Package,
@@ -65,7 +65,7 @@ public static class Mapper
             UitCode: dto.UitCode
         );
 
-    public static ShipmentParcelModel ToModel(this ShipmentParcelDto dto)
+    internal static ShipmentParcelModel ToModel(this ShipmentParcelDto dto)
         => new(
             Weight: dto.Weight,
             Id: dto.Id,
@@ -78,14 +78,14 @@ public static class Mapper
             DeliveryExternalCarrierParcelNumber: dto.DeliveryExternalCarrierParcelNumber?.ToModel()
         );
 
-    public static ShipmentParcelSizeModel ToModel(this ShipmentParcelSizeDto dto)
+    internal static ShipmentParcelSizeModel ToModel(this ShipmentParcelSizeDto dto)
         => new(
             Width: dto.Width,
             Depth: dto.Depth,
             Height: dto.Height
         );
 
-    public static ExternalCarrierParcelNumberModel ToModel(this ExternalCarrierParcelNumberDto dto)
+    internal static ExternalCarrierParcelNumberModel ToModel(this ExternalCarrierParcelNumberDto dto)
         => new(
             ExternalCarrier: dto.ExternalCarrier,
             ParcelNumber: dto.ParcelNumber

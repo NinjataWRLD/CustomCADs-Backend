@@ -8,9 +8,9 @@ namespace CustomCADs.Shared.Speedy.Services.Shipment;
 
 using static Constants;
 
-public static class Mapper
+internal static class Mapper
 {
-    public static ParcelHandoverDto ToDto(this (DateTime DateTime, ShipmentParcelRefModel Parcel) model)
+    internal static ParcelHandoverDto ToDto(this (DateTime DateTime, ShipmentParcelRefModel Parcel) model)
         => new(
             Id: model.Parcel.Id,
             ExternalCarrierParcelNumber: model.Parcel.ExternalCarrierParcelNumber,
@@ -18,7 +18,7 @@ public static class Mapper
             DateTime: model.DateTime.ToString(DateTimeFormat)
         );
 
-    public static CreatedShipmentParcelModel ToModel(this CreatedShipmentParcelDto dto)
+    internal static CreatedShipmentParcelModel ToModel(this CreatedShipmentParcelDto dto)
         => new(
             SeqNo: dto.SeqNo,
             Id: dto.Id,
@@ -26,7 +26,7 @@ public static class Mapper
             ExternalCarrierParcelNumber: dto.ExternalCarrierParcelNumber
         );
 
-    public static ShipmentPriceModel ToModel(this ShipmentPriceDto dto)
+    internal static ShipmentPriceModel ToModel(this ShipmentPriceDto dto)
         => new(
             Amount: dto.Amount,
             Vat: dto.Vat,
@@ -43,26 +43,26 @@ public static class Mapper
             ReturnAmounts: dto.ReturnAmounts?.ToModel()
         );
 
-    public static ShipmentPriceAmountModel ToModel(this ShipmentPriceAmountDto dto)
+    internal static ShipmentPriceAmountModel ToModel(this ShipmentPriceAmountDto dto)
         => new(
             Amount: dto.Amount,
             VatPercent: dto.VatPercent,
             Percent: dto.Percent
         );
 
-    public static ReturnAmountsModel ToModel(this ReturnAmountsDto dto)
+    internal static ReturnAmountsModel ToModel(this ReturnAmountsDto dto)
         => new(
             MoneyTransfer: dto.MoneyTransfer?.ToModel()
         );
 
-    public static MoneyTransferPremiumModel ToModel(this MoneyTransferPremiumDto dto)
+    internal static MoneyTransferPremiumModel ToModel(this MoneyTransferPremiumDto dto)
         => new(
             Amount: dto.Amount,
             AmountLocal: dto.AmountLocal,
             Payer: dto.Payer
         );
 
-    public static LabelInfoModel ToModel(this LabelInfoDto dto)
+    internal static LabelInfoModel ToModel(this LabelInfoDto dto)
         => new(
             ParcelId: dto.ParcelId,
             FullBarcode: dto.FullBarcode,
