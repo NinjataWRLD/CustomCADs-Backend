@@ -6,6 +6,7 @@ public enum OrderStatus
     Accepted,
     Begun,
     Finished,
+    Completed,
     Reported,
     Removed,
 }

@@ -165,6 +165,19 @@ public class Order : BaseAggregateRoot
         return this;
     }
 
+    public Order SetCompletedStatus()
+    {
+        var newStatus = OrderStatus.Completed;
+
+        if (OrderStatus != OrderStatus.Finished)
+        {
+            throw OrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
+        }
+
+        OrderStatus = newStatus;
+        return this;
+    }
+
     public Order SetReportedStatus()
     {
         var newStatus = OrderStatus.Reported;

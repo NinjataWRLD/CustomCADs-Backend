@@ -27,6 +27,7 @@ public class OrdersStatsEndpoint(IRequestSender sender)
             AcceptedCount: counts.Accepted,
             BegunCount: counts.Begun,
             FinishedCount: counts.Finished,
+            CompletedCount: counts.Completed,
             ReportedCount: counts.Reported,
             RemovedCount: counts.Removed
         );

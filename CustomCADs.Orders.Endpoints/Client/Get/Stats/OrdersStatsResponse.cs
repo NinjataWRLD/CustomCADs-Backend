@@ -5,6 +5,7 @@ public record OrdersStatsResponse(
     int AcceptedCount,
     int BegunCount,
     int FinishedCount,
+    int CompletedCount,
     int ReportedCount,
     int RemovedCount
 );
