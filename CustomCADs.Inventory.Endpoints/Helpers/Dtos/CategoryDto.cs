@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Inventory.Endpoints.Products;
+﻿namespace CustomCADs.Inventory.Endpoints.Helpers.Dtos;
 
 public record CategoryDto(
     int Id,

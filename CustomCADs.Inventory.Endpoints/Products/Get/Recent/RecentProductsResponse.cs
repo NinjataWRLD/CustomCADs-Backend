@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Inventory.Endpoints.Products.Get.Recent;
+﻿using CustomCADs.Inventory.Endpoints.Helpers.Dtos;
+
+namespace CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 
 public record RecentProductsResponse(
     Guid Id,

@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Inventory.Endpoints.Products.Post;
+﻿using CustomCADs.Inventory.Endpoints.Helpers.Dtos;
+
+namespace CustomCADs.Inventory.Endpoints.Products.Post;
 
 public record PostProductResponse(
     Guid Id,

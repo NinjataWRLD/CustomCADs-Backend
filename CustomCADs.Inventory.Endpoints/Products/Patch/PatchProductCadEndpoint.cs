@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Inventory.Application.Products;
 using CustomCADs.Inventory.Application.Products.Commands.SetCoords;
+using CustomCADs.Inventory.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Patch;
 

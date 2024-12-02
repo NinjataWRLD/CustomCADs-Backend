@@ -38,6 +38,7 @@ public class Product : BaseAggregateRoot
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
+    public Counts Counts { get; private set; } = new();
     public ProductStatus Status { get; private set; }
     public DateTime UploadDate { get; }
     public Image Image { get; private set; } = new();
@@ -72,6 +73,30 @@ public class Product : BaseAggregateRoot
     {
         Description = description;
         this.ValidateDescription();
+        return this;
+    }
+
+    public Product AddToPurchaseCount()
+    {
+        Counts = Counts with { Purchases = Counts.Purchases + 1 };
+        return this;
+    }
+
+    public Product AddToViewCount()
+    {
+        Counts = Counts with { Views = Counts.Views + 1 };
+        return this;
+    }
+
+    public Product AddToLikeCount()
+    {
+        Counts = Counts with { Likes = Counts.Likes + 1 };
+        return this;
+    }
+
+    public Product RemoveFromLikeCount()
+    {
+        Counts = Counts with { Likes = Counts.Likes - 1 };
         return this;
     }
 

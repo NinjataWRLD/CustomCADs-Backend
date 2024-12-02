@@ -8,8 +8,12 @@ namespace CustomCADs.Inventory.Persistence.Products.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, AccountId? creatorId = null, CategoryId? categoryId = null, ProductStatus? productStatus = null)
+    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, ProductId[]? ids, AccountId? creatorId = null, CategoryId? categoryId = null, ProductStatus? productStatus = null)
     {
+        if (ids is not null)
+        {
+            query = query.Where(c => ids.Contains(c.Id));
+        }
         if (creatorId is not null)
         {
             query = query.Where(c => c.CreatorId == creatorId);
@@ -48,6 +52,12 @@ public static class Utilities
             { Type: ProductSortingType.Status, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.Status),
             { Type: ProductSortingType.Cost, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Price),
             { Type: ProductSortingType.Cost, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price),
+            { Type: ProductSortingType.Purchases, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Counts.Purchases),
+            { Type: ProductSortingType.Purchases, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Counts.Purchases),
+            { Type: ProductSortingType.Likes, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Counts.Likes),
+            { Type: ProductSortingType.Likes, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Counts.Likes),
+            { Type: ProductSortingType.Views, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Counts.Views),
+            { Type: ProductSortingType.Views, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Counts.Views),
             _ => query,
         };
     }
