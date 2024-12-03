@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.Purchase;
 
-public record PurchaseCartCommand(
+public sealed record PurchaseCartCommand(
     string PaymentMethodId,
     CartId CartId,
     AccountId BuyerId

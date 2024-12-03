@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Designer.Patch.Accept;
 
-public record AcceptOrderRequest(Guid Id);
+public sealed record AcceptOrderRequest(Guid Id);

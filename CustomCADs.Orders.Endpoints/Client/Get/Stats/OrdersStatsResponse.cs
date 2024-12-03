@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Client.Get.Stats;
 
-public record OrdersStatsResponse(
+public sealed record OrdersStatsResponse(
     int PendingCount,
     int AcceptedCount,
     int BegunCount,

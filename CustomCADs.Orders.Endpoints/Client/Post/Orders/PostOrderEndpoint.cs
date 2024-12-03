@@ -4,7 +4,7 @@ using CustomCADs.Orders.Endpoints.Client.Get.Single;
 
 namespace CustomCADs.Orders.Endpoints.Client.Post.Orders;
 
-public class PostOrderEndpoint(IRequestSender sender)
+public sealed class PostOrderEndpoint(IRequestSender sender)
     : Endpoint<PostOrderRequest, PostOrderResponse>
 {
     public override void Configure()

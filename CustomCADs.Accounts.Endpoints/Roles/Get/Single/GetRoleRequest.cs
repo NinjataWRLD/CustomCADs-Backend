@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Accounts.Endpoints.Roles.Get.Single;
 
-public record GetRoleRequest(string Name);
+public sealed record GetRoleRequest(string Name);

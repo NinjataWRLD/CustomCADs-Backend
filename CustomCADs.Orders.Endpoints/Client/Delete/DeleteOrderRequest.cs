@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Client.Delete;
 
-public record DeleteOrderRequest(Guid Id);
+public sealed record DeleteOrderRequest(Guid Id);

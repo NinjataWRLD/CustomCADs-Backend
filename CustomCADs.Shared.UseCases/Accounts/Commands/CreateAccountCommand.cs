@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Shared.UseCases.Accounts.Commands;
 
-public record CreateAccountCommand(
+public sealed record CreateAccountCommand(
     string Role,
     string Username,
     string Email,

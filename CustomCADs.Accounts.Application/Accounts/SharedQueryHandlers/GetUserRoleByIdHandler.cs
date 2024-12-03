@@ -5,7 +5,7 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers;
 
-public class GetUserRoleByIdHandler(IAccountReads reads)
+public sealed class GetUserRoleByIdHandler(IAccountReads reads)
     : IQueryHandler<GetUserRoleByIdQuery, string>
 {
     public async Task<string> Handle(GetUserRoleByIdQuery req, CancellationToken ct)

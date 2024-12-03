@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Designer.Patch.PresignedUrl;
 
-public class GetOrderPatchPresignedCadUrlEndpoint(IRequestSender sender)
+public sealed class GetOrderPatchPresignedCadUrlEndpoint(IRequestSender sender)
     : Endpoint<GetOrderPatchPresignedCadUrlRequest, GetOrderPatchPresignedCadUrlResponse>
 {
     public override void Configure()

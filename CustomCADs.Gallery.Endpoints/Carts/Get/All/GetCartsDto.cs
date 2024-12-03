@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Gallery.Endpoints.Carts.Get.All;
 
-public record GetCartsDto(
+public sealed record GetCartsDto(
     Guid Id,
     decimal Total,
     string PurchaseDate,

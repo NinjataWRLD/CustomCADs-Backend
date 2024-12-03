@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Get.Pending;
 
-public record GetPendingOrdersRequest(
+public sealed record GetPendingOrdersRequest(
     DeliveryType? DeliveryType = null,
     string? Name = null,
     OrderSortingType SortingType = OrderSortingType.OrderDate,

@@ -6,7 +6,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetAll;
 
-public record GetAllProductsQuery(
+public sealed record GetAllProductsQuery(
     CategoryId? CategoryId = null,
     AccountId? CreatorId = null,
     ProductStatus? Status = null,

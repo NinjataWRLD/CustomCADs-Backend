@@ -7,7 +7,7 @@ using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.DeleteByName;
 
-public class DeleteAccountByNameHandler(IAccountReads reads, IWrites<Account> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class DeleteAccountByNameHandler(IAccountReads reads, IWrites<Account> writes, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<DeleteAccountByNameCommand>
 {
     public async Task Handle(DeleteAccountByNameCommand req, CancellationToken ct)

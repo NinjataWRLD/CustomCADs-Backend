@@ -6,7 +6,7 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetById;
 
-public class GetCartByIdHandler(ICartReads reads, IRequestSender sender)
+public sealed class GetCartByIdHandler(ICartReads reads, IRequestSender sender)
     : IQueryHandler<GetCartByIdQuery, GetCartByIdDto>
 {
     public async Task<GetCartByIdDto> Handle(GetCartByIdQuery req, CancellationToken ct)

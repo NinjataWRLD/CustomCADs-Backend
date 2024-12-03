@@ -9,7 +9,7 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Purchase;
 
-public class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment)
+public sealed class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment)
     : ICommandHandler<PurchaseOrderCommand, string>
 {
     public async Task<string> Handle(PurchaseOrderCommand req, CancellationToken ct)

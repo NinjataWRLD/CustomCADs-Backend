@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Finish;
 
-public record FinishOrderCommand(
+public sealed record FinishOrderCommand(
     OrderId Id,
     AccountId DesignerId,
     (string Key, string ContentType)? Cad

@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.Create;
 
-public record CreateProductCommand(
+public sealed record CreateProductCommand(
     string Name,
     string Description,
     CategoryId CategoryId,

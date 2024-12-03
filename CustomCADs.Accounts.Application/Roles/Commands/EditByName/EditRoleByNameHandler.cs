@@ -7,7 +7,7 @@ using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.EditByName;
 
-public class EditRoleByNameHandler(IRoleReads reads, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class EditRoleByNameHandler(IRoleReads reads, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<EditRoleByNameCommand>
 {
     public async Task Handle(EditRoleByNameCommand req, CancellationToken ct)

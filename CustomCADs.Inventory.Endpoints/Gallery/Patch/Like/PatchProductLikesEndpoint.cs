@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Gallery.Patch.Like;
 
-public class PatchProductLikesEndpoint(IRequestSender sender)
+public sealed class PatchProductLikesEndpoint(IRequestSender sender)
     : Endpoint<PatchProductLikesRequest>
 {
     public override void Configure()

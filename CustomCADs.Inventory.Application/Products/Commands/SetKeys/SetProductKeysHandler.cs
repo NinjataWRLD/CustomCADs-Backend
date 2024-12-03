@@ -7,7 +7,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.SetKeys;
 
-public class SetProductKeysHandler(IProductReads reads, IUnitOfWork uow, IRequestSender sender)
+public sealed class SetProductKeysHandler(IProductReads reads, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<SetProductKeysCommand>
 {
     public async Task Handle(SetProductKeysCommand req, CancellationToken ct)

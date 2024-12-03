@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Gallery.Patch.View;
 
-public class PatchProductViewsEndpoint(IRequestSender sender)
+public sealed class PatchProductViewsEndpoint(IRequestSender sender)
     : Endpoint<PatchProductViewsRequest>
 {
     public override void Configure()

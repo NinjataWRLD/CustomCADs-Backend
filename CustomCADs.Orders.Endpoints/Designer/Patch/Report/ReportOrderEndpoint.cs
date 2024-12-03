@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Designer.Patch.Report;
 
-public class ReportOrderEndpoint(IRequestSender sender)
+public sealed class ReportOrderEndpoint(IRequestSender sender)
     : Endpoint<ReportOrderRequest>
 {
     public override void Configure()

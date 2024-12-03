@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Shared.Infrastructure.Delivery;
 
-public class SpeedyService(
+public sealed class SpeedyService(
     IOptions<DeliverySettings> settings,
     ShipmentService shipmentService
 ) : IDeliveryService

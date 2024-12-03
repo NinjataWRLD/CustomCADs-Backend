@@ -1,3 +1,5 @@
 ﻿namespace CustomCADs.Accounts.Application.Accounts.Commands.DeleteByName;
 
-public record DeleteAccountByNameCommand(string Username) : ICommand;
+public sealed record DeleteAccountByNameCommand(
+    string Username
+) : ICommand;

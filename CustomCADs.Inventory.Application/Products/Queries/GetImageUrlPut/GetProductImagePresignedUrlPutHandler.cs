@@ -5,7 +5,7 @@ using CustomCADs.Shared.Application.Storage;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPut;
 
-public class GetProductImagePresignedUrlPutHandler(IProductReads reads, IStorageService storage)
+public sealed class GetProductImagePresignedUrlPutHandler(IProductReads reads, IStorageService storage)
     : IQueryHandler<GetProductImagePresignedUrlPutQuery, GetProductImagePresignedUrlPutDto>
 {
     public async Task<GetProductImagePresignedUrlPutDto> Handle(GetProductImagePresignedUrlPutQuery req, CancellationToken ct)

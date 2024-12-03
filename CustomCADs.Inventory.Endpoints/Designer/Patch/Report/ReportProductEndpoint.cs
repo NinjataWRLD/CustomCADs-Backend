@@ -3,7 +3,7 @@ using CustomCADs.Inventory.Domain.Products.Enums;
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Patch.Report;
 
-public class ReportProductEndpoint(IRequestSender sender)
+public sealed class ReportProductEndpoint(IRequestSender sender)
     : Endpoint<ReportProductRequest>
 {
     public override void Configure()

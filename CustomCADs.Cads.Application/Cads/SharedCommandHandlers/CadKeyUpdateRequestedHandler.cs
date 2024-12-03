@@ -7,7 +7,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Cads.Application.Cads.SharedCommandHandlers;
 
-public class CadKeyUpdateRequestedHandler(ICadReads reads, IUnitOfWork uow)
+public sealed class CadKeyUpdateRequestedHandler(ICadReads reads, IUnitOfWork uow)
     : ICommandHandler<SetCadKeyCommand>
 {
     public async Task Handle(SetCadKeyCommand req, CancellationToken ct = default)

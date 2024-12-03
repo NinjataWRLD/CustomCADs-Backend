@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Categories.Endpoints.Categories.Delete;
 
-public record DeleteCategoryRequest(int Id);
+public sealed record DeleteCategoryRequest(int Id);

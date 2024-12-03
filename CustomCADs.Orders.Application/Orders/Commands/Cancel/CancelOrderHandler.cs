@@ -5,7 +5,7 @@ using CustomCADs.Orders.Domain.Orders.Reads;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Cancel;
 
-public class CancelOrderHandler(IOrderReads reads, IUnitOfWork uow)
+public sealed class CancelOrderHandler(IOrderReads reads, IUnitOfWork uow)
     : ICommandHandler<CancelOrderCommand>
 {
     public async Task Handle(CancelOrderCommand req, CancellationToken ct)

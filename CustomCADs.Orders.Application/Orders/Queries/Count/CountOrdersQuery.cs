@@ -2,4 +2,6 @@
 
 namespace CustomCADs.Orders.Application.Orders.Queries.Count;
 
-public record CountOrdersQuery(AccountId BuyerId) : IQuery<CountOrdersDto>;
+public sealed record CountOrdersQuery(
+    AccountId BuyerId
+) : IQuery<CountOrdersDto>;

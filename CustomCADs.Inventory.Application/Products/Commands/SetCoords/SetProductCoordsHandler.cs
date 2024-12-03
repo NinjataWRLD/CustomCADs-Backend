@@ -6,7 +6,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.SetCoords;
 
-public class SetProductCoordsHandler(IProductReads reads, IRequestSender sender)
+public sealed class SetProductCoordsHandler(IProductReads reads, IRequestSender sender)
     : ICommandHandler<SetProductCoordsCommand>
 {
     public async Task Handle(SetProductCoordsCommand req, CancellationToken ct = default)

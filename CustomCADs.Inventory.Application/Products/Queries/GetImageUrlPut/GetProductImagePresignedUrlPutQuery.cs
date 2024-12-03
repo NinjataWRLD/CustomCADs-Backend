@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPut;
 
-public record GetProductImagePresignedUrlPutQuery(
+public sealed record GetProductImagePresignedUrlPutQuery(
     ProductId Id,
     string ContentType,
     string FileName,

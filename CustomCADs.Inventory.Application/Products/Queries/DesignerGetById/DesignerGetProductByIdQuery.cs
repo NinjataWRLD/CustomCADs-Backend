@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Application.Products.Queries.DesignerGetById;
 
-public record DesignerGetProductByIdQuery(
+public sealed record DesignerGetProductByIdQuery(
     ProductId Id,
     AccountId DesignerId
 ) : IQuery<DesignerGetProductByIdDto>;

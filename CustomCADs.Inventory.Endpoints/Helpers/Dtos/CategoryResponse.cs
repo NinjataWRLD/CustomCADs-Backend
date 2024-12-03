@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Inventory.Endpoints.Helpers.Dtos;
 
-public record CategoryResponse(
+public sealed record CategoryResponse(
     int Id,
     string Name
 );

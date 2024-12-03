@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Gallery.Persistence.Carts.Reads;
 
-public class CartReads(GalleryContext context) : ICartReads
+public sealed class CartReads(GalleryContext context) : ICartReads
 {
     public async Task<Result<Cart>> AllAsync(CartQuery query, bool track = true, CancellationToken ct = default)
     {

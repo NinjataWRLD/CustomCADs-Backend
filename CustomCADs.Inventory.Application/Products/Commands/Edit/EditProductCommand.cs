@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.Edit;
 
-public record EditProductCommand(
+public sealed record EditProductCommand(
     ProductId Id,
     string Name,
     string Description,

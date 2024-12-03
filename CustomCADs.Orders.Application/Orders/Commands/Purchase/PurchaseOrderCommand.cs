@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Purchase;
 
-public record PurchaseOrderCommand(
+public sealed record PurchaseOrderCommand(
     string PaymentMethodId,
     OrderId OrderId,
     AccountId BuyerId

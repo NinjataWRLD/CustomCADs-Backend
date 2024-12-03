@@ -2,6 +2,6 @@
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.Create;
 
-public record CreateCartCommand(
+public sealed record CreateCartCommand(
     AccountId BuyerId
 ) : ICommand<CartId>;

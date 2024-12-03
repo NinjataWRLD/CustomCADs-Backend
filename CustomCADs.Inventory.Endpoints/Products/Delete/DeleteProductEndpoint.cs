@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Products.Delete;
 
-public class DeleteProductEndpoint(IRequestSender sender)
+public sealed class DeleteProductEndpoint(IRequestSender sender)
     : Endpoint<DeleteProductRequest>
 {
     public override void Configure()

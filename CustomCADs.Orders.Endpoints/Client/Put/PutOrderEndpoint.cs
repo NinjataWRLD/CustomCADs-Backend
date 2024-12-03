@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Client.Put;
 
-public class PutOrderEndpoint(IRequestSender sender)
+public sealed class PutOrderEndpoint(IRequestSender sender)
     : Endpoint<PutOrderRequest>
 {
     public override void Configure()

@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 
-public class RecentProductsEndpoint(IRequestSender sender)
+public sealed class RecentProductsEndpoint(IRequestSender sender)
     : Endpoint<RecentProductsRequest, RecentProductsResponse[]>
 {
     public override void Configure()

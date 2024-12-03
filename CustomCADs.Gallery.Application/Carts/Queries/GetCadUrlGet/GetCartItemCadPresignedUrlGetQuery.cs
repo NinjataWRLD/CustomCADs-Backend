@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetCadUrlGet;
 
-public record GetCartItemCadPresignedUrlGetQuery(
+public sealed record GetCartItemCadPresignedUrlGetQuery(
     CartId Id,
     CartItemId ItemId,
     AccountId BuyerId

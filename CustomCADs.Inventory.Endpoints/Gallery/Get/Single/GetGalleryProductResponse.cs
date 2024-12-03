@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Inventory.Endpoints.Gallery.Get.Single;
 
-public record GetGalleryProductResponse(
+public sealed record GetGalleryProductResponse(
     Guid Id,
     string Name,
     string Description,

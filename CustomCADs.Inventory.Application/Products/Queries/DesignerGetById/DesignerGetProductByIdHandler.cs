@@ -8,7 +8,7 @@ using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.DesignerGetById;
 
-public class DesignerGetProductByIdHandler(IProductReads reads, IRequestSender sender)
+public sealed class DesignerGetProductByIdHandler(IProductReads reads, IRequestSender sender)
     : IQueryHandler<DesignerGetProductByIdQuery, DesignerGetProductByIdDto>
 {
     public async Task<DesignerGetProductByIdDto> Handle(DesignerGetProductByIdQuery req, CancellationToken ct)

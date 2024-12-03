@@ -3,7 +3,7 @@ using CustomCADs.Inventory.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Get.Single;
 
-public record DesignerSingleProductResponse(
+public sealed record DesignerSingleProductResponse(
     Guid Id,
     string Name,
     string Description,

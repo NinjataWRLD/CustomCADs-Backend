@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Auth.Infrastructure.Services;
 
-public class AppRoleService(RoleManager<AppRole> manager) : IRoleService
+public sealed class AppRoleService(RoleManager<AppRole> manager) : IRoleService
 {
     public async Task<IEnumerable<AppRole>> GetRoles()
         => await manager.Roles.ToArrayAsync().ConfigureAwait(false);

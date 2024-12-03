@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Get.PresignedCadUrl;
 
-public class GetCartItemGetPresignedCadUrlEndpoint(IRequestSender sender)
+public sealed class GetCartItemGetPresignedCadUrlEndpoint(IRequestSender sender)
     : Endpoint<GetCartItemGetPresignedCadUrlRequest, GetCartItemGetPresignedCadUrlResponse>
 {
     public override void Configure()

@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Gallery.Endpoints.Carts.Post.Purchase;
 
-public record PurchaseCartRequest(
+public sealed record PurchaseCartRequest(
     Guid CartId,
     string PaymentMethodId
 );

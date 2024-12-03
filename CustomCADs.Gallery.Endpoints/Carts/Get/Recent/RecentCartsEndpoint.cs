@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Get.Recent;
 
-public class RecentCartsEndpoint(IRequestSender sender)
+public sealed class RecentCartsEndpoint(IRequestSender sender)
     : Endpoint<RecentCartsRequest, RecentCartsResponse[]>
 {
     public override void Configure()

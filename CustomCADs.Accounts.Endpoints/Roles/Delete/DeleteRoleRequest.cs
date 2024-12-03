@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Accounts.Endpoints.Roles.Delete;
 
-public record DeleteRoleRequest(string Name);
+public sealed record DeleteRoleRequest(string Name);

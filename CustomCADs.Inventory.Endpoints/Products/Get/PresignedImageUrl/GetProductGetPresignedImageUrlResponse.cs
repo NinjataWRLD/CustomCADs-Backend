@@ -1,3 +1,5 @@
 ﻿namespace CustomCADs.Inventory.Endpoints.Products.Get.PresignedImageUrl;
 
-public record GetProductGetPresignedImageUrlResponse(string PresignedImageUrl);
+public sealed record GetProductGetPresignedImageUrlResponse(
+    string PresignedImageUrl
+);

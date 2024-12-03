@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Create;
 
-public record CreateOrderCommand(
+public sealed record CreateOrderCommand(
     DeliveryType DeliveryType,
     string Name,
     string Description,

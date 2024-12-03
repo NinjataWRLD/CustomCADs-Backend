@@ -5,7 +5,7 @@ using CustomCADs.Orders.Domain.Orders.Reads;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Begin;
 
-public class BeginOrderHandler(IOrderReads reads, IUnitOfWork uow)
+public sealed class BeginOrderHandler(IOrderReads reads, IUnitOfWork uow)
     : ICommandHandler<BeginOrderCommand>
 {
     public async Task Handle(BeginOrderCommand req, CancellationToken ct)

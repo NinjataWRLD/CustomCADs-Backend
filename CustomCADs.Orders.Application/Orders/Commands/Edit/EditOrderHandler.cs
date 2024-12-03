@@ -5,7 +5,7 @@ using CustomCADs.Orders.Domain.Orders.Reads;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Edit;
 
-public class EditOrderHandler(IOrderReads reads, IUnitOfWork uow)
+public sealed class EditOrderHandler(IOrderReads reads, IUnitOfWork uow)
     : ICommandHandler<EditOrderCommand>
 {
     public async Task Handle(EditOrderCommand req, CancellationToken ct)

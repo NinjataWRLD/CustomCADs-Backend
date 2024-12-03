@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Client.Post.Orders;
 
-public record PostOrderRequest(
+public sealed record PostOrderRequest(
     DeliveryType DeliveryType,
     string Name,
     string Description

@@ -7,7 +7,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Cads.Application.Cads.SharedCommandHandlers;
 
-public class SetCadCoordsHandler(ICadReads reads, IUnitOfWork uow)
+public sealed class SetCadCoordsHandler(ICadReads reads, IUnitOfWork uow)
     : ICommandHandler<SetCadCoordsCommand>
 {
     public async Task Handle(SetCadCoordsCommand req, CancellationToken ct)

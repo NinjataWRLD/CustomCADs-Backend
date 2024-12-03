@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.SetStatus;
 
-public record SetProductStatusCommand(
+public sealed record SetProductStatusCommand(
     ProductId Id,
     ProductStatus Status,
     AccountId DesignerId

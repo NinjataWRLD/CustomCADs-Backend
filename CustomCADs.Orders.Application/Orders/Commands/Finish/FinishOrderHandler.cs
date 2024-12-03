@@ -10,7 +10,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Finish;
 
-public class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender)
+public sealed class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<FinishOrderCommand>
 {
     public async Task Handle(FinishOrderCommand req, CancellationToken ct)

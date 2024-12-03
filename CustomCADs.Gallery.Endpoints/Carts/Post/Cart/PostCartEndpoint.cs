@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Post.Cart;
 
-public class PostCartEndpoint(IRequestSender sender)
+public sealed class PostCartEndpoint(IRequestSender sender)
     : EndpointWithoutRequest<PostCartResponse>
 {
     public override void Configure()

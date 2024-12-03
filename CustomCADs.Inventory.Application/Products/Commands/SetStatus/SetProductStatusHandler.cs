@@ -7,7 +7,7 @@ using CustomCADs.Inventory.Domain.Products.Reads;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.SetStatus;
 
-public class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
+public sealed class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
     : ICommandHandler<SetProductStatusCommand>
 {
     public async Task Handle(SetProductStatusCommand req, CancellationToken ct)

@@ -1,3 +1,5 @@
 ﻿namespace CustomCADs.Accounts.Application.Accounts.Commands.DeleteById;
 
-public record DeleteAccountByIdCommand(AccountId Id) : ICommand;
+public sealed record DeleteAccountByIdCommand(
+    AccountId Id
+) : ICommand;

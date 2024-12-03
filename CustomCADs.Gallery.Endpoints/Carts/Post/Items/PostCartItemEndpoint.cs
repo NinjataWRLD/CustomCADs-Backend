@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Post.Items;
 
-public class PostCartItemEndpoint(IRequestSender sender)
+public sealed class PostCartItemEndpoint(IRequestSender sender)
     : Endpoint<PostCartItemRequest, Guid>
 {
     public override void Configure()

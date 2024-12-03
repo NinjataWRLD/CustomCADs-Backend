@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.Delete;
 
-public record DeleteCartCommand(
+public sealed record DeleteCartCommand(
     CartId Id,
     AccountId BuyerId
 ) : ICommand;

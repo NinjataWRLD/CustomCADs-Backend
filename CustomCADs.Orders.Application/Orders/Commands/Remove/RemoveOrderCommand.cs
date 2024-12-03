@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Remove;
 
-public record RemoveOrderCommand(
+public sealed record RemoveOrderCommand(
     OrderId Id,
     AccountId RemoverId
 ) : ICommand;

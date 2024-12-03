@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Edit;
 
-public record EditOrderCommand(
+public sealed record EditOrderCommand(
     OrderId Id,
     string Name,
     string Description,

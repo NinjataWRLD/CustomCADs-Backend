@@ -1,3 +1,5 @@
 ﻿namespace CustomCADs.Shared.UseCases.Shipments.Commands;
 
-public record CreateShipmentCommand(AccountId ClientId) : ICommand<ShipmentId>;
+public sealed record CreateShipmentCommand(
+    AccountId ClientId
+) : ICommand<ShipmentId>;

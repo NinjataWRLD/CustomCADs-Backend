@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Shared.UseCases.Cads.Commands;
 
-public record SetCadCoordsCommand(
+public sealed record SetCadCoordsCommand(
     CadId Id,
     CoordinatesDto? CamCoordinates,
     CoordinatesDto? PanCoordinates

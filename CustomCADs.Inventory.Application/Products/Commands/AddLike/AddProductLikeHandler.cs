@@ -5,7 +5,7 @@ using CustomCADs.Inventory.Domain.Products.Reads;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.AddLike;
 
-public class AddProductLikeHandler(IProductReads reads, IUnitOfWork uow)
+public sealed class AddProductLikeHandler(IProductReads reads, IUnitOfWork uow)
     : ICommandHandler<AddProductLikeCommand>
 {
     public async Task Handle(AddProductLikeCommand req, CancellationToken ct)

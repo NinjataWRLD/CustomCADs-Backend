@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Gallery.Get.All;
 
-public record GetAllGaleryProductsRequest(
+public sealed record GetAllGaleryProductsRequest(
     int? CategoryId = null,
     string? Name = null,
     ProductSorting? Sorting = null,

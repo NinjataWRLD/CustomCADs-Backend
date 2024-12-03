@@ -3,8 +3,8 @@ using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Orders.Endpoints.Client.Get.All;
 
-public class GetOrdersEndpoint(IRequestSender sender)
-    : Endpoint<GetOrdersRequest, Result<GetOrdersDto>>
+public sealed class GetOrdersEndpoint(IRequestSender sender)
+    : Endpoint<GetOrdersRequest, Result<GetOrdersResponse>>
 {
     public override void Configure()
     {
@@ -29,7 +29,7 @@ public class GetOrdersEndpoint(IRequestSender sender)
         );
         Result<GetAllOrdersDto> result = await sender.SendQueryAsync(query, ct);
 
-        Result<GetOrdersDto> response = new(
+        Result<GetOrdersResponse> response = new(
             Count: result.Count,
             Items: result.Items.Select(o => o.ToGetOrdersDto()).ToArray()
         );

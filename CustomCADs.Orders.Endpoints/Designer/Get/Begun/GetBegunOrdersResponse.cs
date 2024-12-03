@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Designer.Get.Begun;
 
-public record GetBegunOrdersDto(
+public sealed record GetBegunOrdersResponse(
     Guid Id,
     string Name,
     string DeliveryType,

@@ -6,7 +6,7 @@ using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Create;
 
-public class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<CreateRoleCommand, RoleId>
 {
     public async Task<RoleId> Handle(CreateRoleCommand req, CancellationToken ct)

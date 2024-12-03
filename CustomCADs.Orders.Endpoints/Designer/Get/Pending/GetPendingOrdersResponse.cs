@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Designer.Get.Pending;
 
-public record GetPendingOrdersDto(
+public sealed record GetPendingOrdersResponse(
     Guid Id,
     string Name,
     string DeliveryType,

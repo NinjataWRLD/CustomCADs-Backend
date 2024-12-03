@@ -5,7 +5,7 @@ using CustomCADs.Shared.Application.Cache;
 
 namespace CustomCADs.Accounts.Application.Roles.Queries.GetByName;
 
-public class GetRoleByNameHandler(IRoleReads reads, ICacheService cache)
+public sealed class GetRoleByNameHandler(IRoleReads reads, ICacheService cache)
     : IQueryHandler<GetRoleByNameQuery, RoleReadDto>
 {
     public async Task<RoleReadDto> Handle(GetRoleByNameQuery req, CancellationToken ct)

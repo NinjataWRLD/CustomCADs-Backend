@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Auth.Endpoints.SignUp.Register;
 
-public record RegisterRequest(
+public sealed record RegisterRequest(
     string Role,
     string Username,
     string Email,

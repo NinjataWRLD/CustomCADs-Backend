@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPost;
 
-public record GetProductImagePresignedUrlPostQuery(
+public sealed record GetProductImagePresignedUrlPostQuery(
     string ProductName,
     string ContentType,
     string FileName

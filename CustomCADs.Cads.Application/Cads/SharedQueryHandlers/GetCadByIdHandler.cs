@@ -12,7 +12,7 @@ using CadDto = (
 
 namespace CustomCADs.Cads.Application.Cads.SharedQueryHandlers;
 
-public class GetCadByIdHandler(ICadReads reads)
+public sealed class GetCadByIdHandler(ICadReads reads)
     : IQueryHandler<GetCadByIdQuery, CadDto>
 {
     public async Task<CadDto> Handle(GetCadByIdQuery req, CancellationToken ct)

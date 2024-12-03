@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Get.Single;
 
-public class GetCartEndpoint(IRequestSender sender)
+public sealed class GetCartEndpoint(IRequestSender sender)
     : Endpoint<GetCartRequest, GetCartResponse>
 {
     public override void Configure()

@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetAll;
 
-public record GetAllCartsQuery(
+public sealed record GetAllCartsQuery(
     AccountId? BuyerId = null,
     CartSorting? Sorting = null,
     int Page = 1,

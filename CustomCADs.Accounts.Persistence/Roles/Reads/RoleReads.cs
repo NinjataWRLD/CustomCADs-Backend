@@ -4,7 +4,7 @@ using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Accounts.Persistence.Roles.Reads;
 
-public class RoleReads(AccountsContext context) : IRoleReads
+public sealed class RoleReads(AccountsContext context) : IRoleReads
 {
     public async Task<IEnumerable<Role>> AllAsync(bool track = true, CancellationToken ct = default)
         => await context.Roles

@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.CountItems;
 
-public class CountCartItemsHandler(ICartReads reads)
+public sealed class CountCartItemsHandler(ICartReads reads)
     : IQueryHandler<CountCartItemsQuery, Dictionary<CartId, int>>
 {
     public async Task<Dictionary<CartId, int>> Handle(CountCartItemsQuery req, CancellationToken ct)

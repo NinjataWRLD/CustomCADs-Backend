@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Designer.Patch.Accept;
 
-public class AcceptOrderEndpoint(IRequestSender sender)
+public sealed class AcceptOrderEndpoint(IRequestSender sender)
     : Endpoint<AcceptOrderRequest>
 {
     public override void Configure()

@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Get.All;
 
-public record GetUncheckedProductsDto(
+public sealed record GetUncheckedProductsDto(
     Guid Id,
     string Name,
     string UploadDate,

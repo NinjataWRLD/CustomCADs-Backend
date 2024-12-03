@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Get.All;
 
-public class GetAccountsEndpoint(IRequestSender sender)
+public sealed class GetAccountsEndpoint(IRequestSender sender)
     : Endpoint<GetAccountsRequest, Result<AccountResponse>>
 {
     public override void Configure()

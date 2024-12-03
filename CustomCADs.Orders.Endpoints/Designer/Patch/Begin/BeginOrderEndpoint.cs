@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Designer.Patch.Begin;
 
-public class BeginOrderEndpoint(IRequestSender sender)
+public sealed class BeginOrderEndpoint(IRequestSender sender)
     : Endpoint<BeginOrderRequest>
 {
     public override void Configure()

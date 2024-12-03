@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CustomCADs.Auth.Infrastructure.Services;
 
-public class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, IRequestSender sender, IConfiguration config) : IUserService
+public sealed class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, IRequestSender sender, IConfiguration config) : IUserService
 {
     private readonly string serverUrl = config["URLs:Server"] ?? throw new KeyNotFoundException("Server Url not provided.");
     private readonly string clientUrl = config["URLs:Client"] ?? throw new KeyNotFoundException("Client Url not provided.");

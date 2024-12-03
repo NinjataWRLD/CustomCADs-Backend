@@ -4,7 +4,7 @@ using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Categories.Application.Categories.SharedQueryHandlers;
 
-public class GetCategoriesByIdsHandler(ICategoryReads reads)
+public sealed class GetCategoriesByIdsHandler(ICategoryReads reads)
     : IQueryHandler<GetCategoriesByIdsQuery, IEnumerable<(CategoryId Id, string Name)>>
 {
     public async Task<IEnumerable<(CategoryId Id, string Name)>> Handle(GetCategoriesByIdsQuery req, CancellationToken ct)

@@ -8,7 +8,7 @@ using CustomCADs.Shared.UseCases.Products.Commands.AddPurchase;
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.Purchase;
 
-public class PurchaseCartHandler(ICartReads reads, IRequestSender sender, IPaymentService payment)
+public sealed class PurchaseCartHandler(ICartReads reads, IRequestSender sender, IPaymentService payment)
     : ICommandHandler<PurchaseCartCommand, string>
 {
     public async Task<string> Handle(PurchaseCartCommand req, CancellationToken ct)

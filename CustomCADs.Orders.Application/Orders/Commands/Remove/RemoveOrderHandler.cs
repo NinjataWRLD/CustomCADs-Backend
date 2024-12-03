@@ -10,7 +10,7 @@ namespace CustomCADs.Orders.Application.Orders.Commands.Remove;
 
 using static Constants.Roles;
 
-public class RemoveOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender)
+public sealed class RemoveOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<RemoveOrderCommand>
 {
     public async Task Handle(RemoveOrderCommand req, CancellationToken ct)

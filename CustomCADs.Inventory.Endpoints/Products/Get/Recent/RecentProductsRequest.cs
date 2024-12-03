@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 
-public record RecentProductsRequest(int Limit = 4);
+public sealed record RecentProductsRequest(int Limit = 4);

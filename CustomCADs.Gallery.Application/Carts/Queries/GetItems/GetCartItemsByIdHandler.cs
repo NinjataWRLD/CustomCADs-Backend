@@ -4,7 +4,7 @@ using CustomCADs.Gallery.Domain.Carts.Reads;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetItems;
 
-public class GetCartItemsByIdHandler(ICartReads reads)
+public sealed class GetCartItemsByIdHandler(ICartReads reads)
     : IQueryHandler<GetCartItemsByIdQuery, ICollection<GetCartItemsByIdDto>>
 {
     public async Task<ICollection<GetCartItemsByIdDto>> Handle(GetCartItemsByIdQuery req, CancellationToken ct)

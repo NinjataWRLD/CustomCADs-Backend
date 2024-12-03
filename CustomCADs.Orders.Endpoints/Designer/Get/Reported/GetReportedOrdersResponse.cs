@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Designer.Get.Reported;
 
-public record GetReportedOrdersDto(
+public sealed record GetReportedOrdersResponse(
     Guid Id,
     string Name,
     string DeliveryType,

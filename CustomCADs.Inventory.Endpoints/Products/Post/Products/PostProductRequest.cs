@@ -1,6 +1,6 @@
-﻿namespace CustomCADs.Inventory.Endpoints.Products.Post;
+﻿namespace CustomCADs.Inventory.Endpoints.Products.Post.Products;
 
-public record PostProductRequest(
+public sealed record PostProductRequest(
     string Name,
     string Description,
     int CategoryId,

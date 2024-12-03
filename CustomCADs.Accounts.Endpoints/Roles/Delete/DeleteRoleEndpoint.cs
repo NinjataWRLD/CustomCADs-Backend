@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Delete;
 
-public class DeleteRoleEndpoint(IRequestSender sender)
+public sealed class DeleteRoleEndpoint(IRequestSender sender)
     : Endpoint<DeleteRoleRequest>
 {
     public override void Configure()

@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Inventory.Application.Products.Commands.AddView;
 
-public record AddProductViewCommand(
+public sealed record AddProductViewCommand(
     ProductId Id
 ) : ICommand;

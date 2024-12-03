@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
 
-public record GetAllAccountsQuery(
+public sealed record GetAllAccountsQuery(
     string? Role = null,
     string? Username = null,
     string? Email = null,

@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Get.Completed;
 
-public record GetCompletedOrdersRequest(
+public sealed record GetCompletedOrdersRequest(
     DeliveryType? DeliveryType = null,
     string? Name = null,
     OrderSortingType SortingType = OrderSortingType.OrderDate,

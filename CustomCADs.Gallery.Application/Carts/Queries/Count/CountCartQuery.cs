@@ -2,4 +2,6 @@
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.Count;
 
-public record CountCartQuery(AccountId BuyerId) : IQuery<int>;
+public sealed record CountCartQuery(
+    AccountId BuyerId
+) : IQuery<int>;

@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetItems;
 
-public record GetCartItemsByIdQuery(
+public sealed record GetCartItemsByIdQuery(
     CartId Id,
     AccountId BuyerId
 ) : IQuery<ICollection<GetCartItemsByIdDto>>;

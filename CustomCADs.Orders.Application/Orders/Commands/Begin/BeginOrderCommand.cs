@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Begin;
 
-public record BeginOrderCommand(
+public sealed record BeginOrderCommand(
     OrderId Id,
     AccountId DesignerId
 ) : ICommand;

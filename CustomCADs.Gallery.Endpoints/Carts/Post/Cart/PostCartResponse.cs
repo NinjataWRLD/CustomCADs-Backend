@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Gallery.Endpoints.Carts.Post.Cart;
 
-public record PostCartResponse(Guid Id);
+public sealed record PostCartResponse(Guid Id);

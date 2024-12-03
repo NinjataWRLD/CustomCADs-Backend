@@ -5,7 +5,7 @@ using CustomCADs.Orders.Domain.Orders.Reads;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Accept;
 
-public class AcceptOrderHandler(IOrderReads reads, IUnitOfWork uow)
+public sealed class AcceptOrderHandler(IOrderReads reads, IUnitOfWork uow)
     : ICommandHandler<AcceptOrderCommand>
 {
     public async Task Handle(AcceptOrderCommand req, CancellationToken ct)

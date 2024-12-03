@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPost;
 
-public class GetProductImagePresignedUrlPostHandler(IStorageService storage)
+public sealed class GetProductImagePresignedUrlPostHandler(IStorageService storage)
     : IQueryHandler<GetProductImagePresignedUrlPostQuery, GetProductImagePresignedUrlPostDto>
 {
     public async Task<GetProductImagePresignedUrlPostDto> Handle(GetProductImagePresignedUrlPostQuery req, CancellationToken cancellationToken)

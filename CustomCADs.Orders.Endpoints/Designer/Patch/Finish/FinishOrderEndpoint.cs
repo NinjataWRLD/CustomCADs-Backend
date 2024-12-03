@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Designer.Patch.Finish;
 
-public class FinishOrderEndpoint(IRequestSender sender)
+public sealed class FinishOrderEndpoint(IRequestSender sender)
     : Endpoint<FinishOrderRequest>
 {
     public override void Configure()

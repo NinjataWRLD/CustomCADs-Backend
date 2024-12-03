@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Accounts.Endpoints.Accounts.Post;
 
-public record PostAccountRequest(
+public sealed record PostAccountRequest(
     string Role,
     string Username,
     string Email,

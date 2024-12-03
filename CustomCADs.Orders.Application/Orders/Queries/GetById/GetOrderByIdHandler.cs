@@ -6,7 +6,7 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetById;
 
-public class GetOrderByIdHandler(IOrderReads reads, IRequestSender sender)
+public sealed class GetOrderByIdHandler(IOrderReads reads, IRequestSender sender)
     : IQueryHandler<GetOrderByIdQuery, GetOrderByIdDto>
 {
     public async Task<GetOrderByIdDto> Handle(GetOrderByIdQuery req, CancellationToken ct)

@@ -5,7 +5,7 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers;
 
-public class GetUsernamesByIdsHandler(IAccountReads reads)
+public sealed class GetUsernamesByIdsHandler(IAccountReads reads)
     : IQueryHandler<GetUsernamesByIdsQuery, IEnumerable<(AccountId Id, string Username)>>
 {
     public async Task<IEnumerable<(AccountId Id, string Username)>> Handle(GetUsernamesByIdsQuery req, CancellationToken ct)

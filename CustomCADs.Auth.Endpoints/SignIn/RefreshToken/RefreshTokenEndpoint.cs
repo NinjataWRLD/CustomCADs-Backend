@@ -7,7 +7,7 @@ using static ApiMessages;
 using static AuthConstants;
 using static StatusCodes;
 
-public class RefreshTokenEndpoint(IUserService userService, ITokenService tokenService)
+public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService tokenService)
     : EndpointWithoutRequest
 {
     public override void Configure()

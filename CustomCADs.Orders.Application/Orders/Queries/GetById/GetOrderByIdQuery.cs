@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetById;
 
-public record GetOrderByIdQuery(
+public sealed record GetOrderByIdQuery(
     OrderId Id,
     AccountId BuyerId
 ) : IQuery<GetOrderByIdDto>;

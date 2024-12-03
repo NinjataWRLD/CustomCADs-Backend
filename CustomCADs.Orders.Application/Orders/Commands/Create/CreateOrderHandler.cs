@@ -7,7 +7,7 @@ using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Create;
 
-public class CreateOrderHandler(IWrites<Order> writes, IUnitOfWork uow, IRequestSender sender)
+public sealed class CreateOrderHandler(IWrites<Order> writes, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<CreateOrderCommand, OrderId>
 {
     public async Task<OrderId> Handle(CreateOrderCommand req, CancellationToken ct)

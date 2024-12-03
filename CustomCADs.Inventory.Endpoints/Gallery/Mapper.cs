@@ -1,5 +1,4 @@
-﻿using CustomCADs.Inventory.Application.Products;
-using CustomCADs.Inventory.Application.Products.Queries.GalleryGetById;
+﻿using CustomCADs.Inventory.Application.Products.Queries.GalleryGetById;
 using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Endpoints.Gallery.Get.All;
 using CustomCADs.Inventory.Endpoints.Gallery.Get.Single;
