@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Accounts.Endpoints.Helpers.Dtos;
+﻿namespace CustomCADs.Accounts.Endpoints.Common.Dtos;
 
 public sealed record RoleResponse(
     string Name,

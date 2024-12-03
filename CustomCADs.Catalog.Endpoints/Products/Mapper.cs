@@ -2,7 +2,7 @@
 using CustomCADs.Catalog.Application.Products.Queries.GetAll;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
-using CustomCADs.Catalog.Endpoints.Helpers.Dtos;
+using CustomCADs.Catalog.Endpoints.Common.Dtos;
 using CustomCADs.Catalog.Endpoints.Products.Get.All;
 using CustomCADs.Catalog.Endpoints.Products.Get.Recent;
 using CustomCADs.Catalog.Endpoints.Products.Get.Single;

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Categories.Endpoints.Helpers;
+﻿namespace CustomCADs.Categories.Endpoints.Common;
 
 public static class ApiMessages
 {

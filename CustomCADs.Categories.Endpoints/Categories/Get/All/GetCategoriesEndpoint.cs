@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.Queries;
 using CustomCADs.Categories.Application.Categories.Queries.GetAll;
-using CustomCADs.Categories.Endpoints.Helpers.Dtos;
+using CustomCADs.Categories.Endpoints.Common.Dtos;
 
 namespace CustomCADs.Categories.Endpoints.Categories.Get.All;
 

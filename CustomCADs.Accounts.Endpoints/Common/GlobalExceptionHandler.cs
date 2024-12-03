@@ -1,9 +1,10 @@
-﻿using CustomCADs.Categories.Application.Common.Exceptions;
-using CustomCADs.Categories.Domain.Common.Exceptions.Categories;
+﻿using CustomCADs.Accounts.Application.Common.Exceptions;
+using CustomCADs.Accounts.Domain.Common.Exceptions.Accounts;
+using CustomCADs.Accounts.Domain.Common.Exceptions.Roles;
 using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace CustomCADs.Categories.Endpoints.Helpers;
+namespace CustomCADs.Accounts.Endpoints.Common;
 
 using static StatusCodes;
 
@@ -11,7 +12,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is CategoryValidationException)
+        if (ex is AccountValidationException or RoleValidationException)
         {
             context.Response.StatusCode = Status400BadRequest;
             await context.Response.WriteAsJsonAsync(new
@@ -20,13 +21,13 @@ public class GlobalExceptionHandler : IExceptionHandler
                 message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
-        else if (ex is CategoryNotFoundException)
+        else if (ex is AccountNotFoundException or RoleNotFoundException)
         {
             context.Response.StatusCode = Status404NotFound;
             await context.Response.WriteAsJsonAsync(new
             {
                 error = "Resource Not Found",
-                message = ex.Message
+                message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
         else if (ex is DatabaseConflictException)
@@ -35,7 +36,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             await context.Response.WriteAsJsonAsync(new
             {
                 error = "Database Conflict Ocurred",
-                message = ex.Message
+                message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
         else if (ex is DatabaseException)
@@ -44,7 +45,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             await context.Response.WriteAsJsonAsync(new
             {
                 error = "Database Error",
-                message = ex.Message
+                message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
         else
@@ -53,7 +54,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             await context.Response.WriteAsJsonAsync(new
             {
                 error = "Internal Server Error",
-                message = ex.Message
+                message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
 

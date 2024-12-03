@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Endpoints.Helpers.Dtos;
+﻿using CustomCADs.Catalog.Endpoints.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Get.Single;

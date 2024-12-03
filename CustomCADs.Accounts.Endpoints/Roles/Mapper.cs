@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Queries;
-using CustomCADs.Accounts.Endpoints.Helpers.Dtos;
+using CustomCADs.Accounts.Endpoints.Common.Dtos;
 
 namespace CustomCADs.Accounts.Endpoints.Roles;
 

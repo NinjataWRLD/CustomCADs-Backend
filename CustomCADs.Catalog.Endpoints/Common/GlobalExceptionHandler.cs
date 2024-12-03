@@ -3,7 +3,7 @@ using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace CustomCADs.Catalog.Endpoints.Helpers;
+namespace CustomCADs.Catalog.Endpoints.Common;
 
 using static StatusCodes;
 
@@ -11,13 +11,22 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is ProductValidationException)
+        if (ex is ProductValidationException or ProductStatusException)
         {
             context.Response.StatusCode = Status400BadRequest;
             await context.Response.WriteAsJsonAsync(new
             {
                 error = "Invalid Request Parameters",
                 message = ex.Message,
+            }, ct).ConfigureAwait(false);
+        }
+        else if (ex is ProductAuthorizationException)
+        {
+            context.Response.StatusCode = Status403Forbidden;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                error = "Authorization Issue",
+                message = ex.Message
             }, ct).ConfigureAwait(false);
         }
         else if (ex is ProductNotFoundException)

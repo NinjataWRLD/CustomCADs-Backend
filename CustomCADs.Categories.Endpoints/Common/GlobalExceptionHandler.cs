@@ -1,9 +1,9 @@
-﻿using CustomCADs.Orders.Application.Common.Exceptions;
-using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
+﻿using CustomCADs.Categories.Application.Common.Exceptions;
+using CustomCADs.Categories.Domain.Common.Exceptions.Categories;
 using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace CustomCADs.Orders.Endpoints.Helpers;
+namespace CustomCADs.Categories.Endpoints.Common;
 
 using static StatusCodes;
 
@@ -11,7 +11,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is OrderValidationException)
+        if (ex is CategoryValidationException)
         {
             context.Response.StatusCode = Status400BadRequest;
             await context.Response.WriteAsJsonAsync(new
@@ -20,7 +20,7 @@ public class GlobalExceptionHandler : IExceptionHandler
                 message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
-        else if (ex is OrderNotFoundException)
+        else if (ex is CategoryNotFoundException)
         {
             context.Response.StatusCode = Status404NotFound;
             await context.Response.WriteAsJsonAsync(new

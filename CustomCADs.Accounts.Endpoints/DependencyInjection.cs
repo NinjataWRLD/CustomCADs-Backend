@@ -1,4 +1,5 @@
-﻿using CustomCADs.Accounts.Endpoints.Helpers;
+﻿using CustomCADs.Accounts.Endpoints.Common;
+
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;

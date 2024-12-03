@@ -7,10 +7,10 @@ public class UserCreationException : BaseException
     private UserCreationException(string message, Exception? inner) : base(message, inner) { }
 
     public static UserCreationException General(Exception? inner = null)
-        => new("Couldn't create a user.", inner);
+        => new("Couldn't create an account.", inner);
 
     public static UserCreationException ByUsername(string username, Exception? inner = null)
-        => new($"Couldn't create the user: {username}.", inner);
+        => new($"Couldn't create an account for: {username}.", inner);
 
     public static UserCreationException Custom(string message, Exception? inner = null)
         => new(message, inner);
