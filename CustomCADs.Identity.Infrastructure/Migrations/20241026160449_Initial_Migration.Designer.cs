@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CustomCADs.Identity.Infrastructure.Migrations
 {
-    [DbContext(typeof(AuthContext))]
+    [DbContext(typeof(IdentityContext))]
     [Migration("20241026160449_Initial_Migration")]
     partial class Initial_Migration
     {

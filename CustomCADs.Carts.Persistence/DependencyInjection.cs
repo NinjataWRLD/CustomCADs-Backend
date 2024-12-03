@@ -11,21 +11,21 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddGalleryPersistence(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddCartsPersistence(this IServiceCollection services, IConfiguration config)
         => services
-            .AddGalleryContext(config)
+            .AddContext(config)
             .AddReads()
             .AddWrites()
             .AddUnitOfWork();
 
-    private static IServiceCollection AddGalleryContext(this IServiceCollection services, IConfiguration config)
+    private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
-        string connectionString = config.GetConnectionString("GalleryConnection")
-            ?? throw new KeyNotFoundException("Could not find connection string 'GalleryConnection'.");
+        string connectionString = config.GetConnectionString("CartsConnection")
+            ?? throw new KeyNotFoundException("Could not find connection string 'CartsConnection'.");
 
-        services.AddDbContext<GalleryContext>(options =>
+        services.AddDbContext<CartsContext>(options =>
             options.UseSqlServer(connectionString, opt
-                => opt.MigrationsHistoryTable("__EFMigrationsHistory", "Gallery")
+                => opt.MigrationsHistoryTable("__EFMigrationsHistory", "Carts")
             )
         );
 

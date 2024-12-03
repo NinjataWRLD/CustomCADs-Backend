@@ -4,8 +4,8 @@ using CustomCADs.Carts.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Carts.Domain.Common.Exceptions.Carts;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
-using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Carts.Domain.Carts.Entities;
 

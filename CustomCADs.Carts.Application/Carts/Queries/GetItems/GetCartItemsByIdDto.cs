@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.Carts.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
-using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
 
 namespace CustomCADs.Carts.Application.Carts.Queries.GetItems;
 

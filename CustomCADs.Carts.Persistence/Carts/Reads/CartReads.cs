@@ -2,13 +2,13 @@
 using CustomCADs.Carts.Domain.Carts.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Carts.Persistence.Carts.Reads;
 
-public sealed class CartReads(GalleryContext context) : ICartReads
+public sealed class CartReads(CartsContext context) : ICartReads
 {
     public async Task<Result<Cart>> AllAsync(CartQuery query, bool track = true, CancellationToken ct = default)
     {

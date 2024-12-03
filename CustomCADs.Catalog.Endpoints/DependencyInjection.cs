@@ -3,6 +3,6 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInventoryExceptionHandler(this IServiceCollection services)
+    public static IServiceCollection AddCatalogExceptionHandler(this IServiceCollection services)
         => services.AddExceptionHandler<GlobalExceptionHandler>();
 }

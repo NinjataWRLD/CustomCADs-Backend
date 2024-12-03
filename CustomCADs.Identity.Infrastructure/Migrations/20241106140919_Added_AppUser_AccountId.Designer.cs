@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CustomCADs.Identity.Infrastructure.Migrations
 {
-    [DbContext(typeof(AuthContext))]
+    [DbContext(typeof(IdentityContext))]
     [Migration("20241106140919_Added_AppUser_AccountId")]
     partial class Added_AppUser_AccountId
     {

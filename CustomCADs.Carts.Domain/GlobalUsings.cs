@@ -1,1 +1,1 @@
-﻿global using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
+﻿global using CustomCADs.Shared.Core.Common.TypedIds.Carts;

@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Identity.Domain;
 
-public static class AuthConstants
+public static class AccountConstants
 {
     public const int UsernameMinLength = 2;
     public const int UsernameMaxLength = 20;

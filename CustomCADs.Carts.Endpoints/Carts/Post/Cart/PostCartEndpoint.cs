@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Application.Carts.Commands.Create;
-using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 
 namespace CustomCADs.Carts.Endpoints.Carts.Post.Cart;
 

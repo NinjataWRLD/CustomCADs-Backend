@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Accounts.Application;
+using CustomCADs.Cads.Application;
+using CustomCADs.Carts.Application;
+using CustomCADs.Catalog.Application;
+using CustomCADs.Categories.Application;
 using CustomCADs.Identity.Application;
 using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Infrastructure;
-using CustomCADs.Cads.Application;
-using CustomCADs.Categories.Application;
-using CustomCADs.Carts.Application;
-using CustomCADs.Catalog.Application;
 using CustomCADs.Orders.Application;
 using CustomCADs.Shared.Application.Requests.Middleware;
 using CustomCADs.Shared.Application.Requests.Sender;
@@ -33,10 +33,10 @@ public static class ProgramExtensions
     {
         Assembly[] assemblies = [
             AccountApplicationReference.Assembly,
-            InventoryApplicationReference.Assembly,
-            CategoriesApplicationReference.Assembly,
             CadsApplicationReference.Assembly,
-            GalleryApplicationReference.Assembly,
+            CatalogApplicationReference.Assembly,
+            CategoriesApplicationReference.Assembly,
+            CartsApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
         ];
 
@@ -60,11 +60,11 @@ public static class ProgramExtensions
     {
         services.AddEventRaiser([
             AccountApplicationReference.Assembly,
-            AuthApplicationReference.Assembly,
-            InventoryApplicationReference.Assembly,
-            CategoriesApplicationReference.Assembly,
             CadsApplicationReference.Assembly,
-            GalleryApplicationReference.Assembly,
+            CartsApplicationReference.Assembly,
+            CatalogApplicationReference.Assembly,
+            CategoriesApplicationReference.Assembly,
+            IdentityApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
         ]);
 
@@ -111,15 +111,19 @@ public static class ProgramExtensions
             .AddAccountsExceptionHandler()
             .AddAccountsPersistence(config);
 
-    public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddAuthExceptionHandler()
-            .AddAuthInfrastructure(config)
-            .AddAppIdentity();
-
     public static IServiceCollection AddCads(this IServiceCollection services, IConfiguration config)
         => services
             .AddCadsPersistence(config);
+
+    public static IServiceCollection AddCarts(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddCartsExceptionHandler()
+            .AddCartsPersistence(config);
+
+    public static IServiceCollection AddCatalog(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddCatalogExceptionHandler()
+            .AddCatalogPersistence(config);
 
     public static IServiceCollection AddCategories(this IServiceCollection services, IConfiguration config)
         => services
@@ -130,15 +134,11 @@ public static class ProgramExtensions
         => services
             .AddDeliveryPersistence(config);
 
-    public static IServiceCollection AddGallery(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration config)
         => services
-            .AddGalleryExceptionHandler()
-            .AddGalleryPersistence(config);
-
-    public static IServiceCollection AddInventory(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddInventoryExceptionHandler()
-            .AddInventoryPersistence(config);
+            .AddIdentityExceptionHandler()
+            .AddIdentityInfrastructure(config)
+            .AddIdentityConfigs();
 
     public static IServiceCollection AddOrders(this IServiceCollection services, IConfiguration config)
         => services
@@ -168,10 +168,9 @@ public static class ProgramExtensions
                 string description = """
 **The best API to**: 
 <ul> 
-<li>Order 3D Models and Track Deliveries</li>
-<li>Upload and Sell 3D Models</li>
-<li>Take Orders and Validate 3D Models</li>
-<li>Administer the Whole System.</li>
+    <li>Order and Purchase 3D Models</li>
+    <li>Download them and have them Delivered</li>
+    <li>Upload and Sell 3D Models</li>
 </ul>
 """;
 
@@ -250,7 +249,7 @@ public static class ProgramExtensions
         return app;
     }
 
-    private static IServiceCollection AddAppIdentity(this IServiceCollection services)
+    private static IServiceCollection AddIdentityConfigs(this IServiceCollection services)
     {
         services.AddIdentity<AppUser, AppRole>(options =>
         {
@@ -264,7 +263,7 @@ public static class ProgramExtensions
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
         })
-        .AddEntityFrameworkStores<AuthContext>()
+        .AddEntityFrameworkStores<IdentityContext>()
         .AddDefaultTokenProviders();
 
         return services;

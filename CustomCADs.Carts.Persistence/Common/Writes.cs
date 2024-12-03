@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Carts.Persistence.Common;
 
-public class Writes<TEntity>(GalleryContext context) : IWrites<TEntity>
+public class Writes<TEntity>(CartsContext context) : IWrites<TEntity>
     where TEntity : BaseAggregateRoot
 {
     public async Task<TEntity> AddAsync(TEntity entity, CancellationToken ct = default)

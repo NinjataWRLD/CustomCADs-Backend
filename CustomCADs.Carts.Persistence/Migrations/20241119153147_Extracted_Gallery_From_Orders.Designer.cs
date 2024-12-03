@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CustomCADs.Carts.Persistence.Migrations
 {
-    [DbContext(typeof(GalleryContext))]
+    [DbContext(typeof(CartsContext))]
     [Migration("20241119153147_Extracted_Gallery_From_Orders")]
     partial class Extracted_Gallery_From_Orders
     {

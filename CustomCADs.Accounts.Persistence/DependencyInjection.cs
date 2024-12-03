@@ -14,12 +14,12 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddAccountsPersistence(this IServiceCollection services, IConfiguration config)
         => services
-            .AddAccountsContext(config)
-            .AddAccountsReads()
-            .AddAccountsWrites()
-            .AddAccountsUnitOfWork();
+            .AddContext(config)
+            .AddReads()
+            .AddWrites()
+            .AddUnitOfWork();
 
-    private static IServiceCollection AddAccountsContext(this IServiceCollection services, IConfiguration config)
+    private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("AccountsConnection")
                 ?? throw new KeyNotFoundException("Could not find connection string 'AccountsConnection'.");
@@ -33,7 +33,7 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddAccountsReads(this IServiceCollection services)
+    private static IServiceCollection AddReads(this IServiceCollection services)
     {
         services.AddScoped<IRoleReads, RoleReads>();
         services.AddScoped<IAccountReads, AccountReads>();
@@ -41,14 +41,14 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddAccountsWrites(this IServiceCollection services)
+    private static IServiceCollection AddWrites(this IServiceCollection services)
     {
         services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
 
         return services;
     }
 
-    private static IServiceCollection AddAccountsUnitOfWork(this IServiceCollection services)
+    private static IServiceCollection AddUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

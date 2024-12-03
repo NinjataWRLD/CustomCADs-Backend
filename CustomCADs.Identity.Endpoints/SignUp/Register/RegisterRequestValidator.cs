@@ -4,8 +4,8 @@ using FluentValidation;
 
 namespace CustomCADs.Identity.Endpoints.SignUp.Register;
 
+using static AccountConstants;
 using static ApiMessages;
-using static AuthConstants;
 using static Constants.FluentMessages;
 using static Constants.Roles;
 

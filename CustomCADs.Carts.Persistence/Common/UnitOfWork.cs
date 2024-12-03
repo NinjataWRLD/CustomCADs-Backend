@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Carts.Persistence.Common;
 
-public class UnitOfWork(GalleryContext context) : IUnitOfWork
+public class UnitOfWork(CartsContext context) : IUnitOfWork
 {
     public async Task SaveChangesAsync(CancellationToken ct = default)
     {

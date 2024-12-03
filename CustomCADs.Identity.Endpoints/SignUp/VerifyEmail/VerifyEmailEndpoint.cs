@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Identity.Endpoints.SignUp.VerifyEmail;
 
+using static AccountConstants;
 using static ApiMessages;
-using static AuthConstants;
 using static StatusCodes;
 
 public sealed class VerifyEmailEndpoint(IUserService userService, ITokenService tokenService)

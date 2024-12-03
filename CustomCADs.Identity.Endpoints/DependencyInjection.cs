@@ -14,7 +14,7 @@ public static class DependencyInjection
 {
     private const string AuthScheme = JwtBearerDefaults.AuthenticationScheme;
 
-    public static IServiceCollection AddAuthExceptionHandler(this IServiceCollection services)
+    public static IServiceCollection AddIdentityExceptionHandler(this IServiceCollection services)
         => services.AddExceptionHandler<GlobalExceptionHandler>();
 
     public static AuthenticationBuilder AddAuthN(this IServiceCollection services, string scheme = AuthScheme)

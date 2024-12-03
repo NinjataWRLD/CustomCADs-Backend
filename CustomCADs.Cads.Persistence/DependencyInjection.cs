@@ -13,12 +13,12 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddCadsPersistence(this IServiceCollection services, IConfiguration config)
         => services
-            .AddCadsContext(config)
+            .AddContext(config)
             .AddReads()
             .AddWrites()
             .AddUnitOfWork();
 
-    public static IServiceCollection AddCadsContext(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("CadsConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'CadsConnection'.");
