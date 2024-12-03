@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries;
-using CustomCADs.Catalog.Endpoints.Helpers.Dtos;
+using CustomCADs.Catalog.Endpoints.Common.Dtos;
 
 namespace CustomCADs.Catalog.Endpoints.Designer.Get.Single;
 

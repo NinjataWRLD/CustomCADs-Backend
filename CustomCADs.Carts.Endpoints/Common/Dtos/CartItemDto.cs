@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Carts.Endpoints.Helpers.Dtos;
+﻿namespace CustomCADs.Carts.Endpoints.Common.Dtos;
 
 public sealed record CartItemDto(
     Guid Id,

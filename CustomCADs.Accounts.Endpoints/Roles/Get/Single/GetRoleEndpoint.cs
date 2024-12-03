@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Queries;
 using CustomCADs.Accounts.Application.Roles.Queries.GetByName;
-using CustomCADs.Accounts.Endpoints.Helpers.Dtos;
+using CustomCADs.Accounts.Endpoints.Common.Dtos;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Get.Single;
 

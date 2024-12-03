@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
-using CustomCADs.Accounts.Endpoints.Helpers.Dtos;
+using CustomCADs.Accounts.Endpoints.Common.Dtos;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Get.All;

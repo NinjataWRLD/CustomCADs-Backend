@@ -3,7 +3,7 @@ using CustomCADs.Identity.Domain.Common.Exceptions.Users;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Identity.Endpoints.Helpers;
+namespace CustomCADs.Identity.Endpoints.Common;
 
 using static StatusCodes;
 

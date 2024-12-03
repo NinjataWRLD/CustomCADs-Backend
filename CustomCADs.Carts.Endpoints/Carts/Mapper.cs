@@ -4,7 +4,7 @@ using CustomCADs.Carts.Domain.Carts.Entities;
 using CustomCADs.Carts.Endpoints.Carts.Get.All;
 using CustomCADs.Carts.Endpoints.Carts.Get.Recent;
 using CustomCADs.Carts.Endpoints.Carts.Get.Single;
-using CustomCADs.Carts.Endpoints.Helpers.Dtos;
+using CustomCADs.Carts.Endpoints.Common.Dtos;
 
 namespace CustomCADs.Carts.Endpoints.Carts;
 
