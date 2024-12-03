@@ -71,15 +71,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Delivery.Persist
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.Speedy", "CustomCADs.Shared.Speedy\CustomCADs.Shared.Speedy.csproj", "{5D14B3D4-A73F-4BA0-92D3-C840B4EBF9F9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gallery", "Gallery", "{F8BF6E1A-A61D-4620-94BF-6F76D53F2977}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Carts", "Carts", "{F8BF6E1A-A61D-4620-94BF-6F76D53F2977}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Gallery.Domain", "CustomCADs.Gallery.Domain\CustomCADs.Gallery.Domain.csproj", "{A666EF40-401F-407A-B675-52DA45F78830}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Carts.Domain", "CustomCADs.Carts.Domain\CustomCADs.Carts.Domain.csproj", "{A666EF40-401F-407A-B675-52DA45F78830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Gallery.Persistence", "CustomCADs.Gallery.Persistence\CustomCADs.Gallery.Persistence.csproj", "{28DF49B8-CF13-4B89-957A-F8868277BAD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Carts.Persistence", "CustomCADs.Carts.Persistence\CustomCADs.Carts.Persistence.csproj", "{28DF49B8-CF13-4B89-957A-F8868277BAD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Gallery.Application", "CustomCADs.Gallery.Application\CustomCADs.Gallery.Application.csproj", "{ED106124-41BA-4344-9774-8D1DA5234BEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Carts.Application", "CustomCADs.Carts.Application\CustomCADs.Carts.Application.csproj", "{ED106124-41BA-4344-9774-8D1DA5234BEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Gallery.Endpoints", "CustomCADs.Gallery.Endpoints\CustomCADs.Gallery.Endpoints.csproj", "{8B3DC2BF-813A-47B2-8C70-00A4E58B0408}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Carts.Endpoints", "CustomCADs.Carts.Endpoints\CustomCADs.Carts.Endpoints.csproj", "{8B3DC2BF-813A-47B2-8C70-00A4E58B0408}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Cads.Application", "CustomCADs.Cads.Application\CustomCADs.Cads.Application.csproj", "{2690DB75-8054-4D31-A465-8438349FE7A6}"
 EndProject
