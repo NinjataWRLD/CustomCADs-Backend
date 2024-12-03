@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Application;
-using CustomCADs.Auth.Application;
-using CustomCADs.Auth.Domain.Entities;
-using CustomCADs.Auth.Infrastructure;
+using CustomCADs.Identity.Application;
+using CustomCADs.Identity.Domain.Entities;
+using CustomCADs.Identity.Infrastructure;
 using CustomCADs.Cads.Application;
 using CustomCADs.Categories.Application;
 using CustomCADs.Gallery.Application;
