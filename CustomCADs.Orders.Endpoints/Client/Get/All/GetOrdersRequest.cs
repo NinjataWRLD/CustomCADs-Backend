@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Orders.Endpoints.Client.Get.All;
 
-public record GetOrdersRequest(
+public sealed record GetOrdersRequest(
     DeliveryType? DeliveryType = null,
     OrderStatus? OrderStatus = null,
     string? Name = null,

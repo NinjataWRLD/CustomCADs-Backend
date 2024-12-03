@@ -3,7 +3,7 @@ using CustomCADs.Accounts.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Get.Single;
 
-public class GetAccountEndpoint(IRequestSender sender)
+public sealed class GetAccountEndpoint(IRequestSender sender)
     : Endpoint<GetAccountRequest, AccountResponse>
 {
     public override void Configure()

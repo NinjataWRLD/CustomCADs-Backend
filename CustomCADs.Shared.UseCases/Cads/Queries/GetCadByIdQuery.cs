@@ -7,4 +7,6 @@
 
 namespace CustomCADs.Shared.UseCases.Cads.Queries;
 
-public record GetCadByIdQuery(CadId Id) : IQuery<CadDto>;
+public sealed record GetCadByIdQuery(
+    CadId Id
+) : IQuery<CadDto>;

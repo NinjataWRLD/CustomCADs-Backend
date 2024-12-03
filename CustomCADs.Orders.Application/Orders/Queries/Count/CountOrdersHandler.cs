@@ -3,7 +3,7 @@ using CustomCADs.Orders.Domain.Orders.Reads;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.Count;
 
-public class CountOrdersHandler(IOrderReads reads)
+public sealed class CountOrdersHandler(IOrderReads reads)
     : IQueryHandler<CountOrdersQuery, CountOrdersDto>
 {
     public async Task<CountOrdersDto> Handle(CountOrdersQuery req, CancellationToken ct)

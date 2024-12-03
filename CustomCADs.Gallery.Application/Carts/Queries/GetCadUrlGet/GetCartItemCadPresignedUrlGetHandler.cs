@@ -9,7 +9,7 @@ using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Gallery.Application.Carts.Queries.GetCadUrlGet;
 
-public class GetCartItemCadPresignedUrlGetHandler(IStorageService storage, ICartReads reads, IRequestSender sender)
+public sealed class GetCartItemCadPresignedUrlGetHandler(IStorageService storage, ICartReads reads, IRequestSender sender)
     : IQueryHandler<GetCartItemCadPresignedUrlGetQuery, GetCartItemCadPresignedUrlGetDto>
 {
     public async Task<GetCartItemCadPresignedUrlGetDto> Handle(GetCartItemCadPresignedUrlGetQuery req, CancellationToken ct)

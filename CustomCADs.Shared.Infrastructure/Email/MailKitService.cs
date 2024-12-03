@@ -6,7 +6,7 @@ using MimeKit;
 
 namespace CustomCADs.Shared.Infrastructure.Email;
 
-public class MailKitService(IOptions<EmailSettings> settings) : IEmailService
+public sealed class MailKitService(IOptions<EmailSettings> settings) : IEmailService
 {
     private const string Server = "smtp.gmail.com";
     private const string From = "customcads414@gmail.com";

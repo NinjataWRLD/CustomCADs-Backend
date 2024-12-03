@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Client.Get.Single;
 
-public class GetOrderEndpoint(IRequestSender sender)
+public sealed class GetOrderEndpoint(IRequestSender sender)
     : Endpoint<GetOrderRequest, GetOrderResponse>
 {
     public override void Configure()

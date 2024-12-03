@@ -1,3 +1,5 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Client.Get.PresignedCadUrl;
 
-public record GetOrderGetPresignedCadUrlRequest(Guid Id);
+public sealed record GetOrderGetPresignedCadUrlRequest(
+    Guid Id
+);

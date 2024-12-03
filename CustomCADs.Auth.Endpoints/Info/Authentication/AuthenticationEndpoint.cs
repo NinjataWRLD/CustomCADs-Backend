@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Auth.Endpoints.Info.Authentication;
 
-public class AuthenticationEndpoint
+public sealed class AuthenticationEndpoint
     : EndpointWithoutRequest
 {
     public override void Configure()

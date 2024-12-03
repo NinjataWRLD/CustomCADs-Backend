@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Endpoints.Gallery.Get.All;
 
-public class GetAllGaleryProductsEndpoint(IRequestSender sender)
+public sealed class GetAllGaleryProductsEndpoint(IRequestSender sender)
     : Endpoint<GetAllGaleryProductsRequest, Result<GetAllGaleryProductsResponse>>
 {
     public override void Configure()

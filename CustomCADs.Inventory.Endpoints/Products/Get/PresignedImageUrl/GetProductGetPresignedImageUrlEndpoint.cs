@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.PresignedImageUrl;
 
-public class GetProductGetPresignedImageUrlEndpoint(IRequestSender sender)
+public sealed class GetProductGetPresignedImageUrlEndpoint(IRequestSender sender)
     : Endpoint<GetProductGetPresignedImageUrlRequest, GetProductGetPresignedImageUrlResponse>
 {
     public override void Configure()

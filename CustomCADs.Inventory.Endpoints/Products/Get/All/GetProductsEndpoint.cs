@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.All;
 
-public class GetProductsEndpoint(IRequestSender sender)
+public sealed class GetProductsEndpoint(IRequestSender sender)
     : Endpoint<GetProductsRequest, Result<GetProductsResponse>>
 {
     public override void Configure()

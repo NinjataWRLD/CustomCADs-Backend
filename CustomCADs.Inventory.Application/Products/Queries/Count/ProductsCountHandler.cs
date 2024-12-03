@@ -3,7 +3,7 @@ using CustomCADs.Inventory.Domain.Products.Reads;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.Count;
 
-public class ProductsCountHandler(IProductReads reads)
+public sealed class ProductsCountHandler(IProductReads reads)
     : IQueryHandler<ProductsCountQuery, ProductsCountDto>
 {
     public async Task<ProductsCountDto> Handle(ProductsCountQuery req, CancellationToken ct)

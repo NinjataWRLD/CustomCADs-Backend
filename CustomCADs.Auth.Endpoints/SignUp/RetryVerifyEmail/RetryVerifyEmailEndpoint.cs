@@ -4,7 +4,7 @@ using CustomCADs.Auth.Application.Common.Contracts;
 using static ApiMessages;
 using static StatusCodes;
 
-public class RetryVerifyEmailEndpoint(IUserService service)
+public sealed class RetryVerifyEmailEndpoint(IUserService service)
     : Endpoint<RetryVerifyEmailRequest>
 {
     public override void Configure()

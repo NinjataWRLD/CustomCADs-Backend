@@ -3,7 +3,7 @@ using CustomCADs.Orders.Endpoints.Client;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Get.Single;
 
-public class DesignerGetOrderEndpoint(IRequestSender sender)
+public sealed class DesignerGetOrderEndpoint(IRequestSender sender)
     : Endpoint<DesignerGetOrderRequest, DesignerGetOrderResponse>
 {
     public override void Configure()

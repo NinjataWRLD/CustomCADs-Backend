@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Report;
 
-public record ReportOrderCommand(
+public sealed record ReportOrderCommand(
     OrderId Id,
     AccountId DesignerId
 ) : ICommand;

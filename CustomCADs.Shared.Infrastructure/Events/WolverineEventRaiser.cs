@@ -4,7 +4,7 @@ using Wolverine;
 
 namespace CustomCADs.Shared.Infrastructure.Events;
 
-public class WolverineEventRaiser(IMessageBus bus) : IEventRaiser
+public sealed class WolverineEventRaiser(IMessageBus bus) : IEventRaiser
 {
     public async Task RaiseDomainEventAsync<TEvent>(TEvent @event) where TEvent : BaseDomainEvent
         => await bus.PublishAsync(@event);

@@ -4,7 +4,7 @@ using CustomCADs.Shared.UseCases.Accounts.Commands;
 
 namespace CustomCADs.Accounts.Application.Accounts.SharedCommandHandlers;
 
-public class CreateAccountHandler(IWrites<Account> writes, IUnitOfWork uow)
+public sealed class CreateAccountHandler(IWrites<Account> writes, IUnitOfWork uow)
     : ICommandHandler<CreateAccountCommand, AccountId>
 {
     public async Task<AccountId> Handle(CreateAccountCommand req, CancellationToken ct)

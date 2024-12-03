@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Shared.Infrastructure.Storage;
 
-public class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> settings) : IStorageService
+public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> settings) : IStorageService
 {
     public async Task<string> GetPresignedGetUrlAsync(string key, string contentType)
     {

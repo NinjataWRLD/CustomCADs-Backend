@@ -1,6 +1,6 @@
-﻿namespace CustomCADs.Inventory.Endpoints.Products.Put;
+﻿namespace CustomCADs.Inventory.Endpoints.Products.Put.Products;
 
-public record PutProductRequest(
+public sealed record PutProductRequest(
     Guid Id,
     string Name,
     string Description,

@@ -1,3 +1,4 @@
 ﻿namespace CustomCADs.Categories.Application.Categories.Queries.GetAll;
 
-public record GetAllCategoriesQuery : IQuery<IEnumerable<CategoryReadDto>>;
+public sealed record GetAllCategoriesQuery
+    : IQuery<IEnumerable<CategoryReadDto>>;

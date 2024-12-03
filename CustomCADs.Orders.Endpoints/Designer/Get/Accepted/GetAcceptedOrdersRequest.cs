@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Orders.Endpoints.Designer.Get.Accepted;
 
-public record GetAcceptedOrdersRequest(
+public sealed record GetAcceptedOrdersRequest(
     DeliveryType? DeliveryType = null,
     string? Name = null,
     OrderSortingType SortingType = OrderSortingType.OrderDate,

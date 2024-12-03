@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Categories.Endpoints.Categories.Delete;
 
-public class DeleteCategoryEndpoint(IRequestSender sender)
+public sealed class DeleteCategoryEndpoint(IRequestSender sender)
     : Endpoint<DeleteCategoryRequest>
 {
     public override void Configure()

@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Accept;
 
-public record AcceptOrderCommand(
+public sealed record AcceptOrderCommand(
     OrderId Id,
     AccountId DesignerId
 ) : ICommand;

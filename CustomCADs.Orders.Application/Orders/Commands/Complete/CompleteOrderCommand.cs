@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Complete;
 
-public record CompleteOrderCommand(
+public sealed record CompleteOrderCommand(
     OrderId Id,
     AccountId BuyerId
 ) : ICommand;

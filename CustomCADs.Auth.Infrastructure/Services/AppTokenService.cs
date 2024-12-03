@@ -14,7 +14,7 @@ namespace CustomCADs.Auth.Infrastructure.Services;
 
 using static AuthConstants;
 
-public class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
+public sealed class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
 {
     private const string Algorithm = SecurityAlgorithms.HmacSha256;
     private readonly JwtSettings jwtSettings = jwtOptions.Value;

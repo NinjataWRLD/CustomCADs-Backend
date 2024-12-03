@@ -8,7 +8,7 @@ using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.AddItem;
 
-public class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IRequestSender sender)
+public sealed class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<AddCartItemCommand, CartItemId>
 {
     public async Task<CartItemId> Handle(AddCartItemCommand req, CancellationToken ct)

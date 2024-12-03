@@ -3,7 +3,7 @@ using CustomCADs.Gallery.Application.Carts.Queries.CountItems;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Get.Stats;
 
-public class CartsStatsEndpoint(IRequestSender sender)
+public sealed class CartsStatsEndpoint(IRequestSender sender)
     : EndpointWithoutRequest<CartsStatsResponse>
 {
     public override void Configure()

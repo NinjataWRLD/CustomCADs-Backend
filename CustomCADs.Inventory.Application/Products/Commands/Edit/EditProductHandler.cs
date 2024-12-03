@@ -5,7 +5,7 @@ using CustomCADs.Inventory.Domain.Products.Reads;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.Edit;
 
-public class EditProductHandler(IProductReads reads, IUnitOfWork uow)
+public sealed class EditProductHandler(IProductReads reads, IUnitOfWork uow)
     : ICommandHandler<EditProductCommand>
 {
     public async Task Handle(EditProductCommand req, CancellationToken ct)

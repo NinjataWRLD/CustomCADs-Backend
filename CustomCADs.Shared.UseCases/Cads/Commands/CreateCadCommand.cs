@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Shared.UseCases.Cads.Commands;
 
-public record CreateCadCommand(
+public sealed record CreateCadCommand(
     string Key,
     string ContentType
 ) : ICommand<CadId>;

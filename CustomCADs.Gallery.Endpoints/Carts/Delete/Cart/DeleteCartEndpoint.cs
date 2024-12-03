@@ -2,7 +2,7 @@
 using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Delete.Cart;
-public class DeleteCartEndpoint(IRequestSender sender)
+public sealed class DeleteCartEndpoint(IRequestSender sender)
     : Endpoint<DeleteCartRequest>
 {
     public override void Configure()

@@ -5,7 +5,7 @@ using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.Inventory.Application.Products.SharedQueryHandler;
 
-public class GetProductPriceByIdHandler(IProductReads reads)
+public sealed class GetProductPriceByIdHandler(IProductReads reads)
     : IQueryHandler<GetProductPriceByIdQuery, decimal>
 {
     public async Task<decimal> Handle(GetProductPriceByIdQuery req, CancellationToken ct)

@@ -3,7 +3,7 @@ using CustomCADs.Categories.Application.Categories.Commands.Edit;
 
 namespace CustomCADs.Categories.Endpoints.Categories.Put;
 
-public class PutCategoryEndpoint(IRequestSender sender)
+public sealed class PutCategoryEndpoint(IRequestSender sender)
     : Endpoint<PutCategoryRequest>
 {
     public override void Configure()

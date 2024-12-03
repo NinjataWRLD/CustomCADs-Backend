@@ -6,7 +6,7 @@ using CustomCADs.Shared.UseCases.Products.Commands.AddPurchase;
 
 namespace CustomCADs.Inventory.Application.Products.SharedCommandHandlers;
 
-public class AddProductPurchaseHandler(IProductReads reads, IUnitOfWork uow)
+public sealed class AddProductPurchaseHandler(IProductReads reads, IUnitOfWork uow)
     : ICommandHandler<AddProductPurchaseCommand>
 {
     public async Task Handle(AddProductPurchaseCommand req, CancellationToken ct)

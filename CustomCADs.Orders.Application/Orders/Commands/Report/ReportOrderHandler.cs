@@ -5,7 +5,7 @@ using CustomCADs.Orders.Domain.Orders.Reads;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Report;
 
-public class ReportOrderHandler(IOrderReads reads, IUnitOfWork uow)
+public sealed class ReportOrderHandler(IOrderReads reads, IUnitOfWork uow)
     : ICommandHandler<ReportOrderCommand>
 {
     public async Task Handle(ReportOrderCommand req, CancellationToken ct)

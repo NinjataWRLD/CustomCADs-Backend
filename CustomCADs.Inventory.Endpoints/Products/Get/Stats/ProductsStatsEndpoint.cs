@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.Stats;
 
-public class ProductsStatsEndpoint(IRequestSender sender)
+public sealed class ProductsStatsEndpoint(IRequestSender sender)
     : EndpointWithoutRequest<ProductsStatsResponse>
 {
     public override void Configure()

@@ -9,7 +9,7 @@ using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetAll;
 
-public class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
+public sealed class GetAllProductsHandler(IProductReads reads, IRequestSender sender)
     : IQueryHandler<GetAllProductsQuery, Result<GetAllProductsDto>>
 {
     public async Task<Result<GetAllProductsDto>> Handle(GetAllProductsQuery req, CancellationToken ct)

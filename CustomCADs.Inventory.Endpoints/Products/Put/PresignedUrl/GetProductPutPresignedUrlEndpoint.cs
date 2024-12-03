@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Products.Put.PresignedUrl;
 
-public class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
+public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
     : Endpoint<GetProductPutPresignedUrlRequest, GetProductPutPresignedUrlResponse>
 {
     public override void Configure()

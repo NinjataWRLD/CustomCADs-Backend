@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Inventory.Endpoints.Designer.Patch.Report;
 
-public record ReportProductRequest(Guid Id);
+public sealed record ReportProductRequest(Guid Id);

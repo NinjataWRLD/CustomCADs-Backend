@@ -5,7 +5,7 @@ using CustomCADs.Orders.Domain.Orders.Reads;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 
-public class DesignerGetOrderByIdHandler(IOrderReads reads)
+public sealed class DesignerGetOrderByIdHandler(IOrderReads reads)
     : IQueryHandler<DesignerGetOrderByIdQuery, DesignerGetOrderByIdDto>
 {
     public async Task<DesignerGetOrderByIdDto> Handle(DesignerGetOrderByIdQuery req, CancellationToken ct)

@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Client.Get.Single;
 
-public record GetOrderRequest(Guid Id);
+public sealed record GetOrderRequest(Guid Id);

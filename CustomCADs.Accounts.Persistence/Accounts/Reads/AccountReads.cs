@@ -5,7 +5,7 @@ using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Accounts.Persistence.Accounts.Reads;
 
-public class AccountReads(AccountsContext context) : IAccountReads
+public sealed class AccountReads(AccountsContext context) : IAccountReads
 {
     public async Task<Result<Account>> AllAsync(AccountQuery query, bool track = true, CancellationToken ct = default)
     {

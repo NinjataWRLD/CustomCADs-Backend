@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Delete;
 
 namespace CustomCADs.Orders.Endpoints.Client.Delete;
-public class DeleteOrderEndpoint(IRequestSender sender)
+public sealed class DeleteOrderEndpoint(IRequestSender sender)
     : Endpoint<DeleteOrderRequest>
 {
     public override void Configure()

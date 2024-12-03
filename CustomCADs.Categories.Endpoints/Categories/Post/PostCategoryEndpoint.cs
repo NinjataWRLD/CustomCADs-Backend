@@ -5,7 +5,7 @@ using CustomCADs.Categories.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Categories.Endpoints.Categories.Post;
 
-public class PostCategoryEndpoint(IRequestSender sender)
+public sealed class PostCategoryEndpoint(IRequestSender sender)
     : Endpoint<PostCategoryRequest, CategoryResponse>
 {
     public override void Configure()

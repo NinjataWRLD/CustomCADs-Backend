@@ -4,7 +4,7 @@ using CustomCADs.Shared.Application.Cache;
 
 namespace CustomCADs.Categories.Application.Categories.Queries.GetAll;
 
-public class GetAllCategoriesHandler(ICategoryReads reads, ICacheService cache)
+public sealed class GetAllCategoriesHandler(ICategoryReads reads, ICacheService cache)
     : IQueryHandler<GetAllCategoriesQuery, IEnumerable<CategoryReadDto>>
 {
     public async Task<IEnumerable<CategoryReadDto>> Handle(GetAllCategoriesQuery req, CancellationToken ct)

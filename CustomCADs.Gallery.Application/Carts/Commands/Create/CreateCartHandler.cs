@@ -3,7 +3,7 @@ using CustomCADs.Gallery.Domain.Common;
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.Create;
 
-public class CreateCartHandler(IWrites<Cart> writes, IUnitOfWork uow)
+public sealed class CreateCartHandler(IWrites<Cart> writes, IUnitOfWork uow)
     : ICommandHandler<CreateCartCommand, CartId>
 {
     public async Task<CartId> Handle(CreateCartCommand req, CancellationToken ct)

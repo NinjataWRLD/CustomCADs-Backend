@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Client.Get.All;
 
-public record GetOrdersDto(
+public sealed record GetOrdersResponse(
     Guid Id,
     string Name,
     string OrderDate,

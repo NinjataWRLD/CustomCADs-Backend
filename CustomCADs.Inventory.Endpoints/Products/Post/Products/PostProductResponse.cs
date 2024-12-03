@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Inventory.Endpoints.Helpers.Dtos;
 
-namespace CustomCADs.Inventory.Endpoints.Products.Post;
+namespace CustomCADs.Inventory.Endpoints.Products.Post.Products;
 
-public record PostProductResponse(
+public sealed record PostProductResponse(
     Guid Id,
     string Name,
     string Description,

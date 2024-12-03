@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Designer.Get.Accepted;
 
-public record GetAcceptedOrdersDto(
+public sealed record GetAcceptedOrdersResponse(
     Guid Id,
     string Name,
     string DeliveryType,

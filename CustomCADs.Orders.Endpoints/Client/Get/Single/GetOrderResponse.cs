@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Client.Get.Single;
 
-public record GetOrderResponse(
+public sealed record GetOrderResponse(
     Guid Id,
     string Name,
     string Description,

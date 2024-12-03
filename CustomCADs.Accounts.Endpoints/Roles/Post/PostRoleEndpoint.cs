@@ -7,7 +7,7 @@ using CustomCADs.Accounts.Endpoints.Roles.Get.Single;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Post;
 
-public class PostRoleEndpoint(IRequestSender sender)
+public sealed class PostRoleEndpoint(IRequestSender sender)
     : Endpoint<PostRoleRequest, RoleResponse>
 {
     public override void Configure()

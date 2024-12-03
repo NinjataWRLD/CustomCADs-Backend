@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Accounts.Endpoints.Accounts.Delete;
 
-public record DeleteAccountRequest(string Username);
+public sealed record DeleteAccountRequest(string Username);

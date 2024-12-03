@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Client.Post.Purchase;
 
-public record PurchaseOrderRequest(
+public sealed record PurchaseOrderRequest(
     Guid OrderId,
     string PaymentMethodId
 );

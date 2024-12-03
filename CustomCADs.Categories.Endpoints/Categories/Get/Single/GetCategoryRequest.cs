@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Categories.Endpoints.Categories.Get.Single;
 
-public record GetCategoryRequest(int Id);
+public sealed record GetCategoryRequest(int Id);

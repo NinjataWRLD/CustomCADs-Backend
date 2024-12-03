@@ -1,4 +1,5 @@
 ﻿namespace CustomCADs.Shared.UseCases.Accounts.Queries;
 
-public record GetUsernamesByIdsQuery(params AccountId[] Ids)
-    : IQuery<IEnumerable<(AccountId Id, string Username)>>;
+public sealed record GetUsernamesByIdsQuery(
+     AccountId[] Ids
+) : IQuery<IEnumerable<(AccountId Id, string Username)>>;

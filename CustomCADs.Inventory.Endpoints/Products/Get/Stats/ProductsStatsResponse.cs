@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Inventory.Endpoints.Products.Get.Stats;
 
-public record ProductsStatsResponse(
+public sealed record ProductsStatsResponse(
     int UncheckedCount,
     int ValidatedCount,
     int ReportedCount,

@@ -5,7 +5,7 @@ using CustomCADs.Accounts.Domain.Common;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.DeleteById;
 
-public class DeleteAccountByIdHandler(IAccountReads reads, IWrites<Account> writes, IUnitOfWork uow)
+public sealed class DeleteAccountByIdHandler(IAccountReads reads, IWrites<Account> writes, IUnitOfWork uow)
     : ICommandHandler<DeleteAccountByIdCommand>
 {
     public async Task Handle(DeleteAccountByIdCommand req, CancellationToken ct)

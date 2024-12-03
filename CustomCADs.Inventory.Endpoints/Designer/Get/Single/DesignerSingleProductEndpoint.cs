@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Get.Single;
 
-public class DesignerSingleProductEndpoint(IRequestSender sender)
+public sealed class DesignerSingleProductEndpoint(IRequestSender sender)
     : Endpoint<DesignerSingleProductRequest, DesignerSingleProductResponse>
 {
     public override void Configure()

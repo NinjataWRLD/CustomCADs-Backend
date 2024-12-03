@@ -5,7 +5,7 @@ using CustomCADs.Gallery.Domain.Common;
 
 namespace CustomCADs.Gallery.Application.Carts.Commands.RemoveItem;
 
-public class RemoveCartItemHandler(ICartReads reads, IUnitOfWork uow)
+public sealed class RemoveCartItemHandler(ICartReads reads, IUnitOfWork uow)
     : ICommandHandler<RemoveCartItemCommand>
 {
     public async Task Handle(RemoveCartItemCommand req, CancellationToken ct)

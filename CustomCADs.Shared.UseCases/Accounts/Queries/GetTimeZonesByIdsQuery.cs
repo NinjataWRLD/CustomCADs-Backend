@@ -1,4 +1,5 @@
 ﻿namespace CustomCADs.Shared.UseCases.Accounts.Queries;
 
-public record GetTimeZonesByIdsQuery(params AccountId[] Ids)
-    : IQuery<(AccountId Id, string TimeZone)[]>;
+public sealed record GetTimeZonesByIdsQuery(
+    AccountId[] Ids
+) : IQuery<(AccountId Id, string TimeZone)[]>;

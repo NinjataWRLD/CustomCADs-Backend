@@ -1,3 +1,6 @@
 ﻿namespace CustomCADs.Accounts.Application.Roles.Commands.EditByName;
 
-public record EditRoleByNameCommand(string Name, RoleWriteDto Dto) : ICommand;
+public sealed record EditRoleByNameCommand(
+    string Name,
+    RoleWriteDto Dto
+) : ICommand;

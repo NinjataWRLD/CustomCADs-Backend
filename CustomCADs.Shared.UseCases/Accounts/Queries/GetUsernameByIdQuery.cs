@@ -1,3 +1,5 @@
 ﻿namespace CustomCADs.Shared.UseCases.Accounts.Queries;
 
-public record GetUsernameByIdQuery(AccountId Id) : IQuery<string>;
+public sealed record GetUsernameByIdQuery(
+    AccountId Id
+) : IQuery<string>;

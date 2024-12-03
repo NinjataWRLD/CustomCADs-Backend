@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Orders.Persistence.Orders.Reads;
 
-public class OrderReads(OrdersContext context) : IOrderReads
+public sealed class OrderReads(OrdersContext context) : IOrderReads
 {
     public async Task<Result<Order>> AllAsync(OrderQuery query, bool track = true, CancellationToken ct = default)
     {

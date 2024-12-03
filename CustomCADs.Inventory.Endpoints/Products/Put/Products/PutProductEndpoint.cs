@@ -2,9 +2,9 @@
 using CustomCADs.Inventory.Application.Products.Commands.SetKeys;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
-namespace CustomCADs.Inventory.Endpoints.Products.Put;
+namespace CustomCADs.Inventory.Endpoints.Products.Put.Products;
 
-public class PutProductEndpoint(IRequestSender sender)
+public sealed class PutProductEndpoint(IRequestSender sender)
     : Endpoint<PutProductRequest>
 {
     public override void Configure()

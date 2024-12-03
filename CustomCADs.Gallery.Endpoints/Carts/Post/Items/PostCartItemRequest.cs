@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Gallery.Endpoints.Carts.Post.Items;
 
-public record PostCartItemRequest(
+public sealed record PostCartItemRequest(
     Guid CartId,
     DeliveryType DeliveryType,
     int Quantity,

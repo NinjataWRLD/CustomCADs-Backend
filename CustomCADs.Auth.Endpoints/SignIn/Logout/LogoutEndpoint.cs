@@ -5,7 +5,7 @@ namespace CustomCADs.Auth.Endpoints.SignIn.Logout;
 using static ApiMessages;
 using static StatusCodes;
 
-public class LogoutEndpoint(IUserService service)
+public sealed class LogoutEndpoint(IUserService service)
     : EndpointWithoutRequest<string>
 {
     public override void Configure()

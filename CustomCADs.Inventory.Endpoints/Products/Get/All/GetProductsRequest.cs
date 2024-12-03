@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.All;
 
-public record GetProductsRequest(
+public sealed record GetProductsRequest(
     int? CategoryId = default,
     string? Name = default,
     ProductSortingType SortingType = ProductSortingType.UploadDate,

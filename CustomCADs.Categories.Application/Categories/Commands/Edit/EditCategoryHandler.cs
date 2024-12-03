@@ -7,7 +7,7 @@ using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Edit;
 
-public class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<EditCategoryCommand>
 {
     public async Task Handle(EditCategoryCommand req, CancellationToken ct)

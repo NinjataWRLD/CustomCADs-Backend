@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Accounts.Endpoints.Helpers.Dtos;
 
-public record AccountResponse(
+public sealed record AccountResponse(
     string Username,
     string Email,
     string Role,

@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Gallery.Endpoints.Carts.Get.Single;
 
-public record GetCartRequest(Guid Id);
+public sealed record GetCartRequest(Guid Id);

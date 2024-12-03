@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Inventory.Application.Products.Commands.AddLike;
 
-public record AddProductLikeCommand(
+public sealed record AddProductLikeCommand(
     ProductId Id
 ) : ICommand;

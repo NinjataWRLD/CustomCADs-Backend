@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Delivery.Persistence.Shipments.Reads;
 
-public class ShipmentReads(DeliveryContext context) : IShipmentReads
+public sealed class ShipmentReads(DeliveryContext context) : IShipmentReads
 {
     public async Task<Result<Shipment>> AllAsync(ShipmentQuery query, bool track = true, CancellationToken ct = default)
     {

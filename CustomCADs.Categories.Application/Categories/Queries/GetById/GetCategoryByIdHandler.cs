@@ -5,7 +5,7 @@ using CustomCADs.Shared.Application.Cache;
 
 namespace CustomCADs.Categories.Application.Categories.Queries.GetById;
 
-public class GetCategoryByIdHandler(ICategoryReads reads, ICacheService cache)
+public sealed class GetCategoryByIdHandler(ICategoryReads reads, ICacheService cache)
     : IQueryHandler<GetCategoryByIdQuery, CategoryReadDto>
 {
     public async Task<CategoryReadDto> Handle(GetCategoryByIdQuery req, CancellationToken ct)

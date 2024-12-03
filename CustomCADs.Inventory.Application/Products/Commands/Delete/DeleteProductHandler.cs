@@ -9,7 +9,7 @@ using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.Delete;
 
-public class DeleteProductHandler(IProductReads productReads, IWrites<Product> productWrites, IUnitOfWork uow, IRequestSender sender, IEventRaiser raiser)
+public sealed class DeleteProductHandler(IProductReads productReads, IWrites<Product> productWrites, IUnitOfWork uow, IRequestSender sender, IEventRaiser raiser)
     : ICommandHandler<DeleteProductCommand>
 {
     public async Task Handle(DeleteProductCommand req, CancellationToken ct)

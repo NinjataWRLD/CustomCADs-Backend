@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Auth.Endpoints.SignUp.RetryVerifyEmail;
 
-public record RetryVerifyEmailRequest(string Username);
+public sealed record RetryVerifyEmailRequest(string Username);

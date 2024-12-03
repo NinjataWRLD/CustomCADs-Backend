@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Designer.Get.Completed;
 
-public record GetCompletedOrdersDto(
+public sealed record GetCompletedOrdersResponse(
     Guid Id,
     string Name,
     string DeliveryType,

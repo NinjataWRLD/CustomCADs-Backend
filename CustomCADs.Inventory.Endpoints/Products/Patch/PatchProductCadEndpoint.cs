@@ -1,12 +1,11 @@
-﻿using CustomCADs.Inventory.Application.Products;
-using CustomCADs.Inventory.Application.Products.Commands.SetCoords;
+﻿using CustomCADs.Inventory.Application.Products.Commands.SetCoords;
 using CustomCADs.Inventory.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Patch;
 
 using static ApiMessages;
 
-public class PatchProductCadEndpoint(IRequestSender sender)
+public sealed class PatchProductCadEndpoint(IRequestSender sender)
     : Endpoint<PatchProductCadRequest>
 {
     public override void Configure()

@@ -4,7 +4,7 @@ using CustomCADs.Categories.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Categories.Endpoints.Categories.Get.All;
 
-public class GetCategoriesEndpoint(IRequestSender sender)
+public sealed class GetCategoriesEndpoint(IRequestSender sender)
     : EndpointWithoutRequest<CategoryResponse[]>
 {
     public override void Configure()

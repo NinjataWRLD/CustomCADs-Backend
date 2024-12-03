@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Gallery.Get.Single;
 
-public class GetGalleryProductEndpoint(IRequestSender sender)
+public sealed class GetGalleryProductEndpoint(IRequestSender sender)
     : Endpoint<GetGalleryProductRequest, GetGalleryProductResponse>
 {
     public override void Configure()

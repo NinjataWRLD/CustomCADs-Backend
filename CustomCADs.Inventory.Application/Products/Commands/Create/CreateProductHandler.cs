@@ -6,7 +6,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.Create;
 
-public class CreateProductHandler(IWrites<Product> productWrites, IUnitOfWork uow, IRequestSender sender)
+public sealed class CreateProductHandler(IWrites<Product> productWrites, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<CreateProductCommand, ProductId>
 {
     public async Task<ProductId> Handle(CreateProductCommand req, CancellationToken ct)

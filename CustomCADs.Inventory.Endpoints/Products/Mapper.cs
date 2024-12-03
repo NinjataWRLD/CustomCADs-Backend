@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Inventory.Application.Common.Dtos;
-using CustomCADs.Inventory.Application.Products;
 using CustomCADs.Inventory.Application.Products.Queries.GetAll;
 using CustomCADs.Inventory.Application.Products.Queries.GetById;
 using CustomCADs.Inventory.Domain.Products.ValueObjects;
@@ -7,8 +6,7 @@ using CustomCADs.Inventory.Endpoints.Helpers.Dtos;
 using CustomCADs.Inventory.Endpoints.Products.Get.All;
 using CustomCADs.Inventory.Endpoints.Products.Get.Recent;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
-using CustomCADs.Inventory.Endpoints.Products.Post;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Inventory.Endpoints.Products.Post.Products;
 
 namespace CustomCADs.Inventory.Endpoints.Products;
 

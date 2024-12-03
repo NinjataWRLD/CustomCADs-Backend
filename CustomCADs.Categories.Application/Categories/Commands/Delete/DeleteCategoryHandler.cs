@@ -7,7 +7,7 @@ using CustomCADs.Shared.Application.Events;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Delete;
 
-public class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category> writes, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<DeleteCategoryCommand>
 {
     public async Task Handle(DeleteCategoryCommand req, CancellationToken ct)

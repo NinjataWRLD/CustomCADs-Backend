@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.All;
 
-public record GetProductsResponse(
+public sealed record GetProductsResponse(
     Guid Id,
     string Name,
     string CreatorName,

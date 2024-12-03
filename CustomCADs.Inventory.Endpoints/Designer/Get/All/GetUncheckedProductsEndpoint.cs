@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Get.All;
 
-public class GetUncheckedProductsEndpoint(IRequestSender sender)
+public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
     : Endpoint<GetUncheckedProductsRequest, Result<GetUncheckedProductsDto>>
 {
     public override void Configure()

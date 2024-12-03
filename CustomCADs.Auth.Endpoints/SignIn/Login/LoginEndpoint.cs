@@ -7,7 +7,7 @@ using static ApiMessages;
 using static AuthConstants;
 using static StatusCodes;
 
-public class LoginEndpoint(IUserService userService, ITokenService tokenService)
+public sealed class LoginEndpoint(IUserService userService, ITokenService tokenService)
     : Endpoint<LoginRequest>
 {
     public override void Configure()

@@ -7,7 +7,7 @@ namespace CustomCADs.Shared.Infrastructure.Payment;
 
 using static Messages;
 
-public class StripeService(IOptions<PaymentSettings> settings, PaymentIntentService paymentIntentService) : IPaymentService
+public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentIntentService paymentIntentService) : IPaymentService
 {
     public string PublicKey => settings.Value.TestPublishableKey;
 

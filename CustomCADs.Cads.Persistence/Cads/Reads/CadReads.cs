@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Cads.Persistence.Cads.Reads;
 
-public class CadReads(CadsContext context) : ICadReads
+public sealed class CadReads(CadsContext context) : ICadReads
 {
     public async Task<Result<Cad>> AllAsync(CadQuery query, bool track = true, CancellationToken ct = default)
     {

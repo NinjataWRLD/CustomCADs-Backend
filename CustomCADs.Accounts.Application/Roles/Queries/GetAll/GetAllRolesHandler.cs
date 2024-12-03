@@ -3,7 +3,7 @@ using CustomCADs.Accounts.Domain.Roles.Reads;
 
 namespace CustomCADs.Accounts.Application.Roles.Queries.GetAll;
 
-public class GetAllRolesHandler(IRoleReads reads)
+public sealed class GetAllRolesHandler(IRoleReads reads)
     : IQueryHandler<GetAllRolesQuery, IEnumerable<RoleReadDto>>
 {
     public async Task<IEnumerable<RoleReadDto>> Handle(GetAllRolesQuery req, CancellationToken ct)

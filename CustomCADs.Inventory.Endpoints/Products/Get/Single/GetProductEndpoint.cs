@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.Single;
 
-public class GetProductEndpoint(IRequestSender sender)
+public sealed class GetProductEndpoint(IRequestSender sender)
     : Endpoint<GetProductRequest, GetProductResponse>
 {
     public override void Configure()

@@ -3,7 +3,7 @@ using CustomCADs.Inventory.Domain.Products.Enums;
 
 namespace CustomCADs.Inventory.Endpoints.Designer.Patch.Validate;
 
-public class ValidateProductEndpoint(IRequestSender sender)
+public sealed class ValidateProductEndpoint(IRequestSender sender)
     : Endpoint<ValidateProductRequest>
 {
     public override void Configure()

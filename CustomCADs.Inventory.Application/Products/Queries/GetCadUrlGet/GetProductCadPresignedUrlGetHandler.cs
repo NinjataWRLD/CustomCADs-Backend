@@ -7,7 +7,7 @@ using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GetCadUrlGet;
 
-public class GetProductCadPresignedUrlGetHandler(IProductReads reads, IStorageService storage, IRequestSender sender)
+public sealed class GetProductCadPresignedUrlGetHandler(IProductReads reads, IStorageService storage, IRequestSender sender)
     : IQueryHandler<GetProductCadPresignedUrlGetQuery, GetProductCadPresignedUrlGetDto>
 {
     public async Task<GetProductCadPresignedUrlGetDto> Handle(GetProductCadPresignedUrlGetQuery req, CancellationToken ct)

@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Delete;
 
-public class DeleteAccountEndpoint(IRequestSender sender)
+public sealed class DeleteAccountEndpoint(IRequestSender sender)
     : Endpoint<DeleteAccountRequest>
 {
     public override void Configure()

@@ -4,7 +4,7 @@ using CustomCADs.Accounts.Domain.Accounts.Reads;
 
 namespace CustomCADs.Accounts.Application.Accounts.Queries.GetByUsername;
 
-public class GetAccountByUsernameHandler(IAccountReads reads)
+public sealed class GetAccountByUsernameHandler(IAccountReads reads)
     : IQueryHandler<GetAccountByUsernameQuery, GetAccountByUsernameDto>
 {
     public async Task<GetAccountByUsernameDto> Handle(GetAccountByUsernameQuery req, CancellationToken ct)

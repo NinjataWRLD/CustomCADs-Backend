@@ -6,7 +6,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Post;
 
-public class PostAccountEndpoint(IRequestSender sender)
+public sealed class PostAccountEndpoint(IRequestSender sender)
     : Endpoint<PostAccountRequest, AccountResponse>
 {
     public override void Configure()

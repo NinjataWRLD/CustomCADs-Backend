@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Inventory.Endpoints.Products.Delete;
 
-public record DeleteProductRequest(Guid Id);
+public sealed record DeleteProductRequest(Guid Id);

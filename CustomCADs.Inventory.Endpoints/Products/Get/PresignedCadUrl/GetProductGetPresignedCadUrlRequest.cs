@@ -1,3 +1,5 @@
 ﻿namespace CustomCADs.Inventory.Endpoints.Products.Get.PresignedCadUrl;
 
-public record GetProductGetPresignedCadUrlRequest(Guid Id);
+public sealed record GetProductGetPresignedCadUrlRequest(
+    Guid Id
+);

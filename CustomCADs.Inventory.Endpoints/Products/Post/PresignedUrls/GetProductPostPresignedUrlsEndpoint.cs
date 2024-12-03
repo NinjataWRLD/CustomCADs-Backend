@@ -3,7 +3,7 @@ using CustomCADs.Inventory.Application.Products.Queries.GetImageUrlPost;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Post.PresignedUrls;
 
-public class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
+public sealed class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
     : Endpoint<GetProductPostPresignedUrlsRequest, GetProductPostPresignedUrlsResponse>
 {
     public override void Configure()

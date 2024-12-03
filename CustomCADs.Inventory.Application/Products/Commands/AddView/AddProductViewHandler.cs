@@ -5,7 +5,7 @@ using CustomCADs.Inventory.Domain.Products.Reads;
 
 namespace CustomCADs.Inventory.Application.Products.Commands.AddView;
 
-public class AddProductViewHandler(IProductReads reads, IUnitOfWork uow)
+public sealed class AddProductViewHandler(IProductReads reads, IUnitOfWork uow)
     : ICommandHandler<AddProductViewCommand>
 {
     public async Task Handle(AddProductViewCommand req, CancellationToken ct)

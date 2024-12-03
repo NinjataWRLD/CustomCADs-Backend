@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 
-public record DesignerGetOrderByIdQuery(
+public sealed record DesignerGetOrderByIdQuery(
     OrderId Id,
     AccountId DesignerId
 ) : IQuery<DesignerGetOrderByIdDto>;

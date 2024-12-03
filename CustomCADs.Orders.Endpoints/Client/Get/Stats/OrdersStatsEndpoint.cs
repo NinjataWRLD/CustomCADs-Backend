@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Client.Get.Stats;
 
-public class OrdersStatsEndpoint(IRequestSender sender)
+public sealed class OrdersStatsEndpoint(IRequestSender sender)
     : EndpointWithoutRequest<OrdersStatsResponse>
 {
     public override void Configure()

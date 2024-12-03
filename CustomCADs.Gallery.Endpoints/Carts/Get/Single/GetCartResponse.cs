@@ -1,6 +1,8 @@
-﻿namespace CustomCADs.Gallery.Endpoints.Carts.Get.Single;
+﻿using CustomCADs.Gallery.Endpoints.Helpers.Dtos;
 
-public record GetCartResponse(
+namespace CustomCADs.Gallery.Endpoints.Carts.Get.Single;
+
+public sealed record GetCartResponse(
     Guid Id,
     decimal Total,
     string PurchaseDate,

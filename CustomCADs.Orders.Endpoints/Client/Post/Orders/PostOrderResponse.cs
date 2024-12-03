@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Client.Post.Orders;
 
-public record PostOrderResponse(
+public sealed record PostOrderResponse(
     Guid Id,
     string Name,
     string Description,

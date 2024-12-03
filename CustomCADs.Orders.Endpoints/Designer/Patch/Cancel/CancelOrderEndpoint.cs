@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Designer.Patch.Cancel;
 
-public class CancelOrderEndpoint(IRequestSender sender)
+public sealed class CancelOrderEndpoint(IRequestSender sender)
     : Endpoint<CancelOrderRequest>
 {
     public override void Configure()

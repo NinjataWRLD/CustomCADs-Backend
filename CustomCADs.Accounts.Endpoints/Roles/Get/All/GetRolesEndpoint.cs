@@ -4,7 +4,7 @@ using CustomCADs.Accounts.Endpoints.Helpers.Dtos;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Get.All;
 
-public class GetRolesEndpoint(IRequestSender sender)
+public sealed class GetRolesEndpoint(IRequestSender sender)
     : EndpointWithoutRequest<RoleResponse[]>
 {
     public override void Configure()

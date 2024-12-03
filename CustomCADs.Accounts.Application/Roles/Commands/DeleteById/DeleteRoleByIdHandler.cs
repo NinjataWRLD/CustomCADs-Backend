@@ -8,7 +8,7 @@ using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.DeleteById;
 
-public class DeleteRoleByIdHandler(IRoleReads reads, IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class DeleteRoleByIdHandler(IRoleReads reads, IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<DeleteRoleByIdCommand>
 {
     public async Task Handle(DeleteRoleByIdCommand req, CancellationToken ct)

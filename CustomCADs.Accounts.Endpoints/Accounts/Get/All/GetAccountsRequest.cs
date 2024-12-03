@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Get.All;
 
-public record GetAccountsRequest(
+public sealed record GetAccountsRequest(
     string? Name = default,
     AccountSortingType SortingType = AccountSortingType.CreationDate,
     SortingDirection SortingDirection = SortingDirection.Descending,

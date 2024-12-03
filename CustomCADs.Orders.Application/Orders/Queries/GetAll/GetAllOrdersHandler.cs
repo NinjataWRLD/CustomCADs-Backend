@@ -7,7 +7,7 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Orders.Application.Orders.Queries.GetAll;
 
-public class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
+public sealed class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender)
     : IQueryHandler<GetAllOrdersQuery, Result<GetAllOrdersDto>>
 {
     public async Task<Result<GetAllOrdersDto>> Handle(GetAllOrdersQuery req, CancellationToken ct)

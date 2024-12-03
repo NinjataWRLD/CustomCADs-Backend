@@ -9,7 +9,7 @@ using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Inventory.Application.Products.Queries.GalleryGetById;
 
-public class GalleryGetProductByIdHandler(IProductReads reads, IRequestSender sender)
+public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSender sender)
     : IQueryHandler<GalleryGetProductByIdQuery, GalleryGetProductByIdDto>
 {
     public async Task<GalleryGetProductByIdDto> Handle(GalleryGetProductByIdQuery req, CancellationToken ct)

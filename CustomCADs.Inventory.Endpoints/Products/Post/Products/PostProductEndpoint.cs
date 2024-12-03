@@ -4,11 +4,11 @@ using CustomCADs.Inventory.Domain.Products.Enums;
 using CustomCADs.Inventory.Endpoints.Products.Get.Single;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
-namespace CustomCADs.Inventory.Endpoints.Products.Post;
+namespace CustomCADs.Inventory.Endpoints.Products.Post.Products;
 
 using static Constants.Roles;
 
-public class PostProductEndpoint(IRequestSender sender)
+public sealed class PostProductEndpoint(IRequestSender sender)
     : Endpoint<PostProductRequest, PostProductResponse>
 {
     public override void Configure()

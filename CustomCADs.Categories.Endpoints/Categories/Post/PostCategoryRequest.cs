@@ -1,3 +1,5 @@
 ﻿namespace CustomCADs.Categories.Endpoints.Categories.Post;
 
-public record PostCategoryRequest(string Name);
+public sealed record PostCategoryRequest(
+    string Name
+);

@@ -1,3 +1,3 @@
 ﻿namespace CustomCADs.Orders.Endpoints.Designer.Patch.Begin;
 
-public record BeginOrderRequest(Guid Id);
+public sealed record BeginOrderRequest(Guid Id);

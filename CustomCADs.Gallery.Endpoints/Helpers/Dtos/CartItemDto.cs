@@ -1,6 +1,6 @@
-﻿namespace CustomCADs.Gallery.Endpoints.Carts.Get.Single;
+﻿namespace CustomCADs.Gallery.Endpoints.Helpers.Dtos;
 
-public record CartItemDto(
+public sealed record CartItemDto(
     Guid Id,
     int Quantity,
     string DeliveryType,

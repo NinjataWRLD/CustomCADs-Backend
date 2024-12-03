@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Endpoints.Client.Post.Purchase;
 
-public class PurchaseOrderEndpoint(IRequestSender sender)
+public sealed class PurchaseOrderEndpoint(IRequestSender sender)
     : Endpoint<PurchaseOrderRequest, string>
 {
     public override void Configure()

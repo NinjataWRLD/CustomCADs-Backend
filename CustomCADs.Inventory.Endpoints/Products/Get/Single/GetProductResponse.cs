@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Inventory.Endpoints.Products.Get.Single;
 
-public record GetProductResponse(
+public sealed record GetProductResponse(
     Guid Id,
     string Name,
     string Description,

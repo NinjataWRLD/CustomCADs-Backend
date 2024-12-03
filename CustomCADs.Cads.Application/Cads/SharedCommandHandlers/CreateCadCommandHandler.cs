@@ -6,7 +6,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Cads.Application.Cads.SharedCommandHandlers;
 
-public class CreateCadCommandHandler(IWrites<Cad> writes, IUnitOfWork uow)
+public sealed class CreateCadCommandHandler(IWrites<Cad> writes, IUnitOfWork uow)
     : ICommandHandler<CreateCadCommand, CadId>
 {
     public async Task<CadId> Handle(CreateCadCommand req, CancellationToken ct)

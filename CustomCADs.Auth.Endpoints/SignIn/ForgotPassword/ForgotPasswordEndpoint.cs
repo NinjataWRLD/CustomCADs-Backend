@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Auth.Endpoints.SignIn.ForgotPassword;
 
-public class ForgotPasswordEndpoint(IUserService service)
+public sealed class ForgotPasswordEndpoint(IUserService service)
     : Endpoint<ForgotPasswordRequest>
 {
     public override void Configure()
