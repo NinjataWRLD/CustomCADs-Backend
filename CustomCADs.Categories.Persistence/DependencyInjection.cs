@@ -12,12 +12,12 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddCategoriesPersistence(this IServiceCollection services, IConfiguration config)
         => services
-            .AddCategoriesContext(config)
-            .AddCategoriesReads()
-            .AddCategoriesWrites()
-            .AddCategoriesUnitOfWork();
+            .AddContext(config)
+            .AddReads()
+            .AddWrites()
+            .AddUnitOfWork();
 
-    private static IServiceCollection AddCategoriesContext(this IServiceCollection services, IConfiguration config)
+    private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("CategoriesConnection")
                 ?? throw new KeyNotFoundException("Could not find connection string 'CategoriesConnection'.");
@@ -31,21 +31,21 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddCategoriesReads(this IServiceCollection services)
+    private static IServiceCollection AddReads(this IServiceCollection services)
     {
         services.AddScoped<ICategoryReads, CategoryReads>();
 
         return services;
     }
 
-    private static IServiceCollection AddCategoriesWrites(this IServiceCollection services)
+    private static IServiceCollection AddWrites(this IServiceCollection services)
     {
         services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
 
         return services;
     }
 
-    private static IServiceCollection AddCategoriesUnitOfWork(this IServiceCollection services)
+    private static IServiceCollection AddUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

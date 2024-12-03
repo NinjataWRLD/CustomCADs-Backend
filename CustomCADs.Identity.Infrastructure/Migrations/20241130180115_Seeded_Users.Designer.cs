@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CustomCADs.Identity.Infrastructure.Migrations
 {
-    [DbContext(typeof(AuthContext))]
+    [DbContext(typeof(IdentityContext))]
     [Migration("20241130180115_Seeded_Users")]
     partial class Seeded_Users
     {

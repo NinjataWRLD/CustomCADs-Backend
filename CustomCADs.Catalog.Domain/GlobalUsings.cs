@@ -1,1 +1,1 @@
-﻿global using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
+﻿global using CustomCADs.Shared.Core.Common.TypedIds.Catalog;

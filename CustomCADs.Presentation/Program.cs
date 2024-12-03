@@ -16,12 +16,12 @@ builder.Services.AddStorage(builder.Configuration);
 
 // Add Modules
 builder.Services.AddAccounts(builder.Configuration);
-builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddCads(builder.Configuration);
+builder.Services.AddCarts(builder.Configuration);
+builder.Services.AddCatalog(builder.Configuration);
 builder.Services.AddCategories(builder.Configuration);
 builder.Services.AddDelivery(builder.Configuration);
-builder.Services.AddGallery(builder.Configuration);
-builder.Services.AddInventory(builder.Configuration);
+builder.Services.AddIdentity(builder.Configuration);
 builder.Services.AddOrders(builder.Configuration);
 
 // Add API
@@ -43,15 +43,12 @@ app.UseStaticFiles();
 
 // Use API & Map Documentation
 app.UseEndpoints();
-if (true) // Maybe I'll return 'app.Environment.IsDevelopment()' one day
-{
-    app.MapApiDocumentationUi(
-        apiPattern: "/openapi/{documentName}.json",
-        uiPattern: "/scalar/{documentName}"
-    ).MapApiDocumentationUi(
-        apiPattern: "/{documentName}.json",
-        uiPattern: "/{documentName}"
-    );
-}
+app.MapApiDocumentationUi(
+    apiPattern: "/openapi/{documentName}.json",
+    uiPattern: "/scalar/{documentName}"
+).MapApiDocumentationUi(
+    apiPattern: "/{documentName}.json",
+    uiPattern: "/{documentName}"
+);
 
 await app.RunAsync().ConfigureAwait(false);

@@ -3,8 +3,8 @@ using CustomCADs.Identity.Domain;
 
 namespace CustomCADs.Identity.Endpoints.SignIn.RefreshToken;
 
+using static AccountConstants;
 using static ApiMessages;
-using static AuthConstants;
 using static StatusCodes;
 
 public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService tokenService)

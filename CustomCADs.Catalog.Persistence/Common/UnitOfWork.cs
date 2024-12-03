@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.Exceptions;
 
 namespace CustomCADs.Catalog.Persistence.Common;
 
-public class UnitOfWork(InventoryContext context) : IUnitOfWork
+public class UnitOfWork(CatalogContext context) : IUnitOfWork
 {
     public async Task SaveChangesAsync(CancellationToken ct = default)
     {

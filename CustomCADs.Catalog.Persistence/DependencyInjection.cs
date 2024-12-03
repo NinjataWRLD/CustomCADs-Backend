@@ -10,42 +10,42 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInventoryPersistence(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddCatalogPersistence(this IServiceCollection services, IConfiguration config)
         => services
-            .AddInventoryContext(config)
-            .AddInventoryReads()
-            .AddInventoryWrites()
-            .AddInventoryUnitOfWork();
+            .AddContext(config)
+            .AddReads()
+            .AddWrites()
+            .AddUnitOfWork();
 
-    private static IServiceCollection AddInventoryContext(this IServiceCollection services, IConfiguration config)
+    private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
-        string connectionString = config.GetConnectionString("InventoryConnection")
-                ?? throw new KeyNotFoundException("Could not find connection string 'InventoryConnection'.");
+        string connectionString = config.GetConnectionString("CatalogConnection")
+                ?? throw new KeyNotFoundException("Could not find connection string 'CatalogConnection'.");
 
-        services.AddDbContext<InventoryContext>(options =>
+        services.AddDbContext<CatalogContext>(options =>
             options.UseSqlServer(connectionString, opt =>
-                opt.MigrationsHistoryTable("__EFMigrationsHistory", "Inventory")
+                opt.MigrationsHistoryTable("__EFMigrationsHistory", "Catalog")
             )
         );
 
         return services;
     }
 
-    private static IServiceCollection AddInventoryReads(this IServiceCollection services)
+    private static IServiceCollection AddReads(this IServiceCollection services)
     {
         services.AddScoped<IProductReads, ProductReads>();
 
         return services;
     }
 
-    private static IServiceCollection AddInventoryWrites(this IServiceCollection services)
+    private static IServiceCollection AddWrites(this IServiceCollection services)
     {
         services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
 
         return services;
     }
 
-    private static IServiceCollection AddInventoryUnitOfWork(this IServiceCollection services)
+    private static IServiceCollection AddUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

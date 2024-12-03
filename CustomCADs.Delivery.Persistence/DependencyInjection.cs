@@ -13,12 +13,12 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddDeliveryPersistence(this IServiceCollection services, IConfiguration config)
         => services
-            .AddDeliveryContext(config)
+            .AddContext(config)
             .AddReads()
             .AddWrites()
             .AddUnitOfWork();
 
-    public static IServiceCollection AddDeliveryContext(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("DeliveryConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'DeliveryConnection'.");

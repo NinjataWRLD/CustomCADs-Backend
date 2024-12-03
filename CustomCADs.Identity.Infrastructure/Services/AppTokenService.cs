@@ -12,7 +12,7 @@ using System.Text;
 
 namespace CustomCADs.Identity.Infrastructure.Services;
 
-using static AuthConstants;
+using static AccountConstants;
 
 public sealed class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
 {

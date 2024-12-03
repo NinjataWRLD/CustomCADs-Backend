@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Application.Carts.Queries.GetCadUrlGet;
-using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 
 namespace CustomCADs.Carts.Endpoints.Carts.Get.PresignedCadUrl;
 

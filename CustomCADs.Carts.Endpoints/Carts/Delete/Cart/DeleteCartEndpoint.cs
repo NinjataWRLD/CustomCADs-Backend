@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Application.Carts.Commands.Delete;
-using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 
 namespace CustomCADs.Carts.Endpoints.Carts.Delete.Cart;
 public sealed class DeleteCartEndpoint(IRequestSender sender)

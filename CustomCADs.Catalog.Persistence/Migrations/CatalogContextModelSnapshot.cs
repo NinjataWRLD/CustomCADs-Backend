@@ -11,20 +11,20 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CustomCADs.Catalog.Persistence.Migrations
 {
-    [DbContext(typeof(InventoryContext))]
+    [DbContext(typeof(CatalogContext))]
     partial class CatalogContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("Inventory")
+                .HasDefaultSchema("Catalog")
                 .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CustomCADs.Inventory.Domain.Products.Product", b =>
+            modelBuilder.Entity("CustomCADs.Catalog.Domain.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,7 +71,7 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("UploadDate");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Counts", "CustomCADs.Inventory.Domain.Products.Product.Counts#Counts", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Counts", "CustomCADs.Catalog.Domain.Products.Product.Counts#Counts", b1 =>
                         {
                             b1.IsRequired();
 
@@ -88,7 +88,7 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                                 .HasColumnName("Views");
                         });
 
-                    b.ComplexProperty<Dictionary<string, object>>("Image", "CustomCADs.Inventory.Domain.Products.Product.Image#Image", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("Image", "CustomCADs.Catalog.Domain.Products.Product.Image#Image", b1 =>
                         {
                             b1.IsRequired();
 
@@ -105,7 +105,7 @@ namespace CustomCADs.Catalog.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products", "Inventory");
+                    b.ToTable("Products", "Catalog");
                 });
 #pragma warning restore 612, 618
         }

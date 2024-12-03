@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CustomCADs.Catalog.Persistence.Migrations
 {
-    [DbContext(typeof(InventoryContext))]
+    [DbContext(typeof(CatalogContext))]
     [Migration("20241120163357_Updated_Image")]
     partial class Updated_Image
     {

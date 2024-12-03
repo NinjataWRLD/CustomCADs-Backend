@@ -6,7 +6,7 @@ using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Catalog.Persistence.Products.Reads;
 
-public sealed class ProductReads(InventoryContext context) : IProductReads
+public sealed class ProductReads(CatalogContext context) : IProductReads
 {
     public async Task<Result<Product>> AllAsync(ProductQuery query, bool track = true, CancellationToken ct = default)
     {

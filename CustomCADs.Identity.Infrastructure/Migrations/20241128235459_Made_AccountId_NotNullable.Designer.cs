@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CustomCADs.Identity.Infrastructure.Migrations
 {
-    [DbContext(typeof(AuthContext))]
+    [DbContext(typeof(IdentityContext))]
     [Migration("20241128235459_Made_AccountId_NotNullable")]
     partial class Made_AccountId_NotNullable
     {

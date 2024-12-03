@@ -1,14 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CustomCADs.Shared.Core.Common.TypedIds.Inventory;
+namespace CustomCADs.Shared.Core.Common.TypedIds.Identity;
 
-public readonly struct ProductId(Guid value)
+public readonly struct UserId(Guid value)
 {
-    public ProductId() : this(Guid.Empty) { }
+    public UserId() : this(Guid.Empty) { }
     public Guid Value { get; init; } = value;
 
     public override bool Equals([NotNullWhen(true)] object? obj)
-        => obj is ProductId productId && this == productId;
+        => obj is UserId userId && this == userId;
 
     public override int GetHashCode()
         => Value.GetHashCode();
@@ -16,9 +16,9 @@ public readonly struct ProductId(Guid value)
     public override string ToString()
         => Value.ToString();
 
-    public static bool operator ==(ProductId left, ProductId right)
+    public static bool operator ==(UserId left, UserId right)
         => left.Value == right.Value;
 
-    public static bool operator !=(ProductId left, ProductId right)
+    public static bool operator !=(UserId left, UserId right)
         => !(left == right);
 }

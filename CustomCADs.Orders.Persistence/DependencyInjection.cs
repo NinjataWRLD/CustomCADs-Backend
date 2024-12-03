@@ -13,12 +13,12 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddOrdersPersistence(this IServiceCollection services, IConfiguration config)
         => services
-            .AddOrdersContext(config)
+            .AddContext(config)
             .AddReads()
             .AddWrites()
             .AddUnitOfWork();
 
-    private static IServiceCollection AddOrdersContext(this IServiceCollection services, IConfiguration config)
+    private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
         string connectionString = config.GetConnectionString("OrdersConnection")
             ?? throw new KeyNotFoundException("Could not find connection string 'OrdersConnection'.");

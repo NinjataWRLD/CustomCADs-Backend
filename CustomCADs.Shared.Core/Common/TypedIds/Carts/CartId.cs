@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CustomCADs.Shared.Core.Common.TypedIds.Gallery;
+namespace CustomCADs.Shared.Core.Common.TypedIds.Carts;
 
 public readonly struct CartId(Guid value)
 {

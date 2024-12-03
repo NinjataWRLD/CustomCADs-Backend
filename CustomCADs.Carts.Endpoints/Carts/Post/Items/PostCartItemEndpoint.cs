@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.Carts.Commands.AddItem;
-using CustomCADs.Shared.Core.Common.TypedIds.Gallery;
-using CustomCADs.Shared.Core.Common.TypedIds.Inventory;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Endpoints.Carts.Post.Items;
 
