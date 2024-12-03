@@ -5,7 +5,7 @@ using CustomCADs.Identity.Infrastructure;
 using CustomCADs.Cads.Application;
 using CustomCADs.Categories.Application;
 using CustomCADs.Gallery.Application;
-using CustomCADs.Inventory.Application;
+using CustomCADs.Catalog.Application;
 using CustomCADs.Orders.Application;
 using CustomCADs.Shared.Application.Requests.Middleware;
 using CustomCADs.Shared.Application.Requests.Sender;

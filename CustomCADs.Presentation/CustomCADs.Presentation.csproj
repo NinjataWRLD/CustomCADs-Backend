@@ -23,6 +23,8 @@
 		<ProjectReference Include="..\CustomCADs.Accounts.Persistence\CustomCADs.Accounts.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Cads.Application\CustomCADs.Cads.Application.csproj" />
 		<ProjectReference Include="..\CustomCADs.Cads.Persistence\CustomCADs.Cads.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Catalog.Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
+		<ProjectReference Include="..\CustomCADs.Catalog.Persistence\CustomCADs.Catalog.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Categories.Endpoints\CustomCADs.Categories.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Categories.Persistence\CustomCADs.Categories.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Delivery.Persistence\CustomCADs.Delivery.Persistence.csproj" />
@@ -30,8 +32,6 @@
 		<ProjectReference Include="..\CustomCADs.Gallery.Persistence\CustomCADs.Gallery.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Identity.Endpoints\CustomCADs.Identity.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Identity.Infrastructure\CustomCADs.Identity.Infrastructure.csproj" />
-		<ProjectReference Include="..\CustomCADs.Inventory.Endpoints\CustomCADs.Inventory.Endpoints.csproj" />
-		<ProjectReference Include="..\CustomCADs.Inventory.Persistence\CustomCADs.Inventory.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Orders.Endpoints\CustomCADs.Orders.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Orders.Persistence\CustomCADs.Orders.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
