@@ -107,6 +107,7 @@ static class CadConfigUtils
 
         builder.Property(x => x.Price)
             .IsRequired()
+            .HasPrecision(19, 2)
             .HasColumnName("Price");
 
         builder.Property(x => x.Status)
