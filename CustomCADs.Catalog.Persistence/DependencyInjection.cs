@@ -19,8 +19,8 @@ public static class DependencyInjection
 
     private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
-        string connectionString = config.GetConnectionString("CatalogConnection")
-                ?? throw new KeyNotFoundException("Could not find connection string 'CatalogConnection'.");
+        string connectionString = config.GetConnectionString("ApplicationConnection")
+            ?? throw new KeyNotFoundException("Could not find connection string 'ApplicationConnection'.");
 
         services.AddDbContext<CatalogContext>(options =>
             options.UseSqlServer(connectionString, opt =>

@@ -20,8 +20,8 @@ public static class DependencyInjection
 
     private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
-        string connectionString = config.GetConnectionString("OrdersConnection")
-            ?? throw new KeyNotFoundException("Could not find connection string 'OrdersConnection'.");
+        string connectionString = config.GetConnectionString("ApplicationConnection")
+            ?? throw new KeyNotFoundException("Could not find connection string 'ApplicationConnection'.");
 
         services.AddDbContext<OrdersContext>(opt =>
             opt.UseSqlServer(connectionString, opt =>
