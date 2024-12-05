@@ -100,9 +100,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0646BF04-B70A-4939-BF1F-9810C68B06B1}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		Dockerfile = Dockerfile
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		Dockerfile = Dockerfile
+		Dockerrun.aws.json = Dockerrun.aws.json
 	EndProjectSection
 EndProject
 Global
