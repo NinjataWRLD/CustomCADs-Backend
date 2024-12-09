@@ -11,6 +11,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
+    public static async Task<IServiceProvider> UpdateCadsContextAsync(this IServiceProvider provider)
+    {
+        CadsContext context = provider.GetRequiredService<CadsContext>();
+        await context.Database.MigrateAsync().ConfigureAwait(false);
+
+        return provider;
+    }
+
     public static IServiceCollection AddCadsPersistence(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)

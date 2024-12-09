@@ -11,6 +11,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
+    public static async Task<IServiceProvider> UpdateOrdersContextAsync(this IServiceProvider provider)
+    {
+        OrdersContext context = provider.GetRequiredService<OrdersContext>();
+        await context.Database.MigrateAsync().ConfigureAwait(false);
+
+        return provider;
+    }
+
     public static IServiceCollection AddOrdersPersistence(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)
@@ -32,21 +40,21 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddReads(this IServiceCollection services)
+    private static IServiceCollection AddReads(this IServiceCollection services)
     {
         services.AddScoped<IOrderReads, OrderReads>();
 
         return services;
     }
 
-    public static IServiceCollection AddWrites(this IServiceCollection services)
+    private static IServiceCollection AddWrites(this IServiceCollection services)
     {
         services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
 
         return services;
     }
 
-    public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
+    private static IServiceCollection AddUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

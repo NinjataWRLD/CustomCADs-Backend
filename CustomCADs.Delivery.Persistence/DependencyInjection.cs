@@ -11,6 +11,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
+    public static async Task<IServiceProvider> UpdateDeliveryContextAsync(this IServiceProvider provider)
+    {
+        DeliveryContext context = provider.GetRequiredService<DeliveryContext>();
+        await context.Database.MigrateAsync().ConfigureAwait(false);
+
+        return provider;
+    }
+
     public static IServiceCollection AddDeliveryPersistence(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)

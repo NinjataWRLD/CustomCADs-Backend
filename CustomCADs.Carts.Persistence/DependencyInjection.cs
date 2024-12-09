@@ -11,6 +11,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
+    public static async Task<IServiceProvider> UpdateCartsContextAsync(this IServiceProvider provider)
+    {
+        CartsContext context = provider.GetRequiredService<CartsContext>();
+        await context.Database.MigrateAsync().ConfigureAwait(false);
+
+        return provider;
+    }
+
     public static IServiceCollection AddCartsPersistence(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)

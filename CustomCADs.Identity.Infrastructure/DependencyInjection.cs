@@ -10,6 +10,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
+    public static async Task<IServiceProvider> UpdateIdentityContextAsync(this IServiceProvider provider)
+    {
+        IdentityContext context = provider.GetRequiredService<IdentityContext>();
+        await context.Database.MigrateAsync().ConfigureAwait(false);
+
+        return provider;
+    }
+
     public static IServiceCollection AddIdentityInfrastructure(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)

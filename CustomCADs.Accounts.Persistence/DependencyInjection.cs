@@ -12,6 +12,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
+    public static async Task<IServiceProvider> UpdateAccountsContextAsync(this IServiceProvider provider)
+    {
+        AccountsContext context = provider.GetRequiredService<AccountsContext>();
+        await context.Database.MigrateAsync().ConfigureAwait(false);
+
+        return provider;
+    }
+
     public static IServiceCollection AddAccountsPersistence(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)

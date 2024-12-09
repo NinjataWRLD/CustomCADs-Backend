@@ -4,6 +4,7 @@ using CustomCADs.Accounts.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomCADs.Accounts.Persistence.Migrations
 {
     [DbContext(typeof(AccountsContext))]
-    partial class AccountContextModelSnapshot : ModelSnapshot
+    [Migration("20241207205753_Renamed_Stuff")]
+    partial class Renamed_Stuff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

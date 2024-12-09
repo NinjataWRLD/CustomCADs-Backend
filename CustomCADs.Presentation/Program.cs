@@ -24,6 +24,17 @@ builder.Services.AddDelivery(builder.Configuration);
 builder.Services.AddIdentity(builder.Configuration);
 builder.Services.AddOrders(builder.Configuration);
 
+// Add Database Updater
+if (args.Contains("--migrate"))
+{
+    await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
+} 
+else if (args.Contains("--migrate-only"))
+{
+    await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
+    return;
+}
+
 // Add API
 builder.Services.AddEndpoints();
 builder.Services.AddJsonOptions();

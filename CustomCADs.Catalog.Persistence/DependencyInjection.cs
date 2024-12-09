@@ -10,6 +10,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
+    public static async Task<IServiceProvider> UpdateCatalogContextAsync(this IServiceProvider provider)
+    {
+        CatalogContext context = provider.GetRequiredService<CatalogContext>();
+        await context.Database.MigrateAsync().ConfigureAwait(false);
+
+        return provider;
+    }
+
     public static IServiceCollection AddCatalogPersistence(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)

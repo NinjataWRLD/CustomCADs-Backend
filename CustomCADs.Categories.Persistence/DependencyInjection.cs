@@ -10,6 +10,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
+    public static async Task<IServiceProvider> UpdateCategoriesContextAsync(this IServiceProvider provider)
+    {
+        CategoriesContext context = provider.GetRequiredService<CategoriesContext>();
+        await context.Database.MigrateAsync().ConfigureAwait(false);
+
+        return provider;
+    }
+
     public static IServiceCollection AddCategoriesPersistence(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)

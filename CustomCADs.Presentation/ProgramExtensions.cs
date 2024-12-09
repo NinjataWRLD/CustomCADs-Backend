@@ -145,6 +145,21 @@ public static class ProgramExtensions
             .AddOrdersExceptionHandler()
             .AddOrdersPersistence(config);
 
+    public static async Task AddDbMigrationUpdater(this IServiceCollection services)
+    {
+        using IServiceScope scope = services.BuildServiceProvider().CreateScope();
+        IServiceProvider provider = scope.ServiceProvider;
+
+        await provider.UpdateAccountsContextAsync().ConfigureAwait(false);
+        await provider.UpdateCadsContextAsync().ConfigureAwait(false);
+        await provider.UpdateCartsContextAsync().ConfigureAwait(false);
+        await provider.UpdateCatalogContextAsync().ConfigureAwait(false);
+        await provider.UpdateCategoriesContextAsync().ConfigureAwait(false);
+        await provider.UpdateDeliveryContextAsync().ConfigureAwait(false);
+        await provider.UpdateIdentityContextAsync().ConfigureAwait(false);
+        await provider.UpdateOrdersContextAsync().ConfigureAwait(false);
+    }
+
     public static void AddEndpoints(this IServiceCollection services)
     {
         services.AddFastEndpoints();
@@ -203,7 +218,7 @@ public static class ProgramExtensions
             });
         });
     }
-
+    
     public static void LimitUploadSize(this IWebHostBuilder webhost, int limit = 300_000_000)
     {
         webhost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = limit);
