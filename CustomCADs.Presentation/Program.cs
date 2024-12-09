@@ -58,8 +58,8 @@ app.MapApiDocumentationUi(
     apiPattern: "/openapi/{documentName}.json",
     uiPattern: "/scalar/{documentName}"
 ).MapApiDocumentationUi(
-    apiPattern: "/{documentName}.json",
-    uiPattern: "/{documentName}"
+    apiPattern: "/swagger/{documentName}.json",
+    uiPattern: "/swagger/{documentName}"
 );
 
 await app.RunAsync().ConfigureAwait(false);
