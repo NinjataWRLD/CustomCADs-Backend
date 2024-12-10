@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.AddLike;
-using CustomCADs.Catalog.Endpoints.Products.Gallery;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Gallery.Patch.Like;
+
+using static Constants.Roles;
 
 public sealed class PatchProductLikesEndpoint(IRequestSender sender)
     : Endpoint<PatchProductLikesRequest>
@@ -10,6 +11,7 @@ public sealed class PatchProductLikesEndpoint(IRequestSender sender)
     {
         Patch("{id}/like");
         Group<GalleryGroup>();
+        Roles(Client);
         Description(d => d
             .WithSummary("04. Like")
             .WithDescription("Increment the like count of a Product by specifying its Id")

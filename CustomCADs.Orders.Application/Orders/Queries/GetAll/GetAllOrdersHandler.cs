@@ -13,7 +13,7 @@ public sealed class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender
     public async Task<Result<GetAllOrdersDto>> Handle(GetAllOrdersQuery req, CancellationToken ct)
     {
         OrderQuery query = new(
-            DeliveryType: req.DeliveryType,
+            Delivery: req.Delivery,
             OrderStatus: req.OrderStatus,
             BuyerId: req.BuyerId,
             DesignerId: req.DesignerId,

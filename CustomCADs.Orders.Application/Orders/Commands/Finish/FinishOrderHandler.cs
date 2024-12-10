@@ -24,7 +24,7 @@ public sealed class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequ
         }
         order.SetFinishedStatus();
 
-        if (order.DeliveryType is DeliveryType.Digital or DeliveryType.Both)
+        if (!order.Delivery)
         {
             if (req.Cad is null)
             {

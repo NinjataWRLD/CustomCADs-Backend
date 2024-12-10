@@ -6,7 +6,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 namespace CustomCADs.Orders.Domain.Orders.Reads;
 
 public record OrderQuery(
-    DeliveryType? DeliveryType = null,
+    bool? Delivery = null,
     OrderStatus? OrderStatus = null,
     ProductId? ProductId = null,
     AccountId? BuyerId = null,

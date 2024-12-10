@@ -39,7 +39,7 @@ internal static class Mapper
         => new(
             Id: item.Id.Value,
             Quantity: item.Quantity,
-            DeliveryType: item.DeliveryType.ToString(),
+            Delivery: item.Delivery,
             Price: item.Price,
             PurchaseDate: item.PurchaseDate.ToString(DateFormatString),
             ProductId: item.ProductId.Value,

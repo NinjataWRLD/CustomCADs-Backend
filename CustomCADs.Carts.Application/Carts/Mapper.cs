@@ -39,7 +39,7 @@ internal static class Mapper
         => new(
             Id: item.Id,
             Quantity: item.Quantity,
-            DeliveryType: item.DeliveryType,
+            Delivery: item.Delivery,
             Price: item.Price,
             Cost: item.Cost,
             PurchaseDate: item.PurchaseDate,

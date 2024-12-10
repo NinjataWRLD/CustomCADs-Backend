@@ -3,7 +3,7 @@
 public sealed record CartItemDto(
     Guid Id,
     int Quantity,
-    string DeliveryType,
+    bool Delivery,
     decimal Price,
     string PurchaseDate,
     Guid ProductId,

@@ -19,7 +19,7 @@ public sealed class GetOrdersEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetOrdersRequest req, CancellationToken ct)
     {
         GetAllOrdersQuery query = new(
-            DeliveryType: req.DeliveryType,
+            Delivery: req.Delivery,
             OrderStatus: req.OrderStatus,
             BuyerId: User.GetAccountId(),
             Name: req.Name,
