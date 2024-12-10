@@ -33,7 +33,7 @@ public static class DependencyInjection
                 ?? throw new KeyNotFoundException("Could not find connection string 'ApplicationConnection'.");
 
         services.AddDbContext<AccountsContext>(options =>
-            options.UseSqlServer(connectionString, opt =>
+            options.UseNpgsql(connectionString, opt =>
                 opt.MigrationsHistoryTable("__EFMigrationsHistory", "Accounts")
             )
         );
