@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Application.Carts.Commands.AddItem;
+using CustomCADs.Carts.Domain.Carts.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
@@ -13,7 +14,7 @@ public sealed class PostCartItemEndpoint(IRequestSender sender)
         Group<CartsGroup>();
         Description(d => d
             .WithSummary("02. Add Item")
-            .WithDescription("Add an Item to your Cart by specifying the Cart and Product's Ids and the Delivery Type and Quantity")
+            .WithDescription("Add an Item to your Cart by specifying the Cart and Product's Ids, Quantity and if you want it delivered")
         );
     }
 
@@ -21,7 +22,7 @@ public sealed class PostCartItemEndpoint(IRequestSender sender)
     {
         AddCartItemCommand commnad = new(
             Id: new CartId(req.CartId),
-            DeliveryType: req.DeliveryType,
+            Delivery: req.Delivery,
             Quantity: req.Quantity,
             ProductId: new ProductId(req.ProductId),
             BuyerId: User.GetAccountId()

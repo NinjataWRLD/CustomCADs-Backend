@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common.Enums;
 namespace CustomCADs.Orders.Endpoints.Orders.Client.Get.All;
 
 public sealed record GetOrdersRequest(
-    DeliveryType? DeliveryType = null,
+    bool? Delivery = null,
     OrderStatus? OrderStatus = null,
     string? Name = null,
     OrderSortingType SortingType = OrderSortingType.OrderDate,

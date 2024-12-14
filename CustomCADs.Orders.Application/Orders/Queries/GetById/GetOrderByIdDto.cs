@@ -10,7 +10,7 @@ public record GetOrderByIdDto(
     string Name,
     string Description,
     DateTime OrderDate,
-    DeliveryType DeliveryType,
+    bool Delivery,
     OrderStatus OrderStatus,
     AccountId? DesignerId,
     CadId? CadId,

@@ -19,7 +19,7 @@ internal static class Mapper
                 order.OrderDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
-            DeliveryType: order.DeliveryType,
+            Delivery: order.Delivery,
             OrderStatus: order.OrderStatus,
             BuyerName: buyerUsername,
             DesignerName: designerUsername
@@ -34,7 +34,7 @@ internal static class Mapper
                 order.OrderDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
-            DeliveryType: order.DeliveryType,
+            Delivery: order.Delivery,
             OrderStatus: order.OrderStatus,
             DesignerId: order.DesignerId,
             CadId: order.CadId,
@@ -47,7 +47,7 @@ internal static class Mapper
             Name: order.Name,
             Description: order.Description,
             OrderDate: order.OrderDate,
-            DeliveryType: order.DeliveryType,
+            Delivery: order.Delivery,
             OrderStatus: order.OrderStatus,
             BuyerId: order.BuyerId,
             CadId: order.CadId,
@@ -55,25 +55,10 @@ internal static class Mapper
         );
 
     internal static Order ToOrder(this CreateOrderCommand command, ShipmentId? shipmentId)
-        => command.DeliveryType switch
-        {
-            DeliveryType.Physical => Order.CreatePhysical(
-                name: command.Name,
-                description: command.Description,
-                buyerId: command.BuyerId,
-                shipmentId: shipmentId
-            ),
-            DeliveryType.Digital => Order.CreateDigital(
-                name: command.Name,
-                description: command.Description,
-                buyerId: command.BuyerId
-            ),
-            DeliveryType.Both => Order.CreateDigitalAndPhysical(
-                name: command.Name,
-                description: command.Description,
-                buyerId: command.BuyerId,
-                shipmentId: shipmentId
-            ),
-            _ => throw OrderValidationException.General()
-        };
+        => Order.Create(
+            name: command.Name,
+            description: command.Description,
+            buyerId: command.BuyerId,
+            shipmentId: shipmentId
+        );
 }

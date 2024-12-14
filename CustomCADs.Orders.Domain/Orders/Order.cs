@@ -11,11 +11,10 @@ namespace CustomCADs.Orders.Domain.Orders;
 public class Order : BaseAggregateRoot
 {
     private Order() { }
-    private Order(string name, string description, DeliveryType deliveryType, AccountId buyerId, ShipmentId? shipmentId) : this()
+    private Order(string name, string description, AccountId buyerId, ShipmentId? shipmentId) : this()
     {
         Name = name;
         Description = description;
-        DeliveryType = deliveryType;
         OrderDate = DateTime.UtcNow;
         OrderStatus = OrderStatus.Pending;
         BuyerId = buyerId;
@@ -26,36 +25,36 @@ public class Order : BaseAggregateRoot
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
     public DateTime OrderDate { get; }
-    public DeliveryType DeliveryType { get; }
     public OrderStatus OrderStatus { get; private set; }
     public AccountId BuyerId { get; private set; }
     public AccountId? DesignerId { get; private set; }
     public CadId? CadId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
+    public bool Delivery => ShipmentId is not null;
 
-    public static Order CreateDigital(
+    public static Order Create(
+        string name,
+        string description,
+        AccountId buyerId,
+        ShipmentId? shipmentId
+    ) => shipmentId is not null
+            ? CreatePhysical(name, description, buyerId, shipmentId.Value)
+            : CreateDigital(name, description, buyerId);
+
+    private static Order CreateDigital(
         string name,
         string description,
         AccountId buyerId
-    ) => new Order(name, description, DeliveryType.Digital, buyerId, shipmentId: null)
+    ) => new Order(name, description, buyerId, shipmentId: null)
             .ValidateName()
             .ValidateDescription();
 
-    public static Order CreatePhysical(
+    private static Order CreatePhysical(
         string name,
         string description,
         AccountId buyerId,
-        ShipmentId? shipmentId
-    ) => new Order(name, description, DeliveryType.Physical, buyerId, shipmentId)
-            .ValidateName()
-            .ValidateDescription();
-
-    public static Order CreateDigitalAndPhysical(
-        string name,
-        string description,
-        AccountId buyerId,
-        ShipmentId? shipmentId
-    ) => new Order(name, description, DeliveryType.Both, buyerId, shipmentId)
+        ShipmentId shipmentId
+    ) => new Order(name, description, buyerId, shipmentId)
             .ValidateName()
             .ValidateDescription();
 
@@ -87,14 +86,9 @@ public class Order : BaseAggregateRoot
 
     public Order SetCadId(CadId cadId)
     {
-        if (DeliveryType is not DeliveryType.Digital and not DeliveryType.Both)
-        {
-            throw OrderValidationException.CadIdOnNonDigitalDeliveryType();
-        }
-
         if (OrderStatus is not OrderStatus.Finished)
         {
-            throw OrderValidationException.CannotSetCadIdOnNonFinishedOrder();
+            throw OrderValidationException.CadIdOnNonFinished();
         }
 
         CadId = cadId;
@@ -104,11 +98,17 @@ public class Order : BaseAggregateRoot
 
     public Order SetShipmentId(ShipmentId shipmentId)
     {
-        if (DeliveryType is DeliveryType.Physical or DeliveryType.Both)
+        if (!Delivery)
         {
-            ShipmentId = shipmentId;
+            throw OrderValidationException.ShipmentIdOnNonDelivery();
         }
-        else throw OrderValidationException.ShipmentIdOnNonPhysicalDeliveryType();
+
+        if (OrderStatus is not OrderStatus.Finished)
+        {
+            throw OrderValidationException.ShipmentIdOnNonFinished();
+        }
+
+        ShipmentId = shipmentId;
 
         return this;
     }

@@ -8,11 +8,11 @@ namespace CustomCADs.Orders.Persistence.Orders.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Order> WithFilter(this IQueryable<Order> query, DeliveryType? deliveryType = null, OrderStatus? orderStatus = null, AccountId? buyerId = null, AccountId? designerId = null)
+    public static IQueryable<Order> WithFilter(this IQueryable<Order> query, bool? delivery = null, OrderStatus? orderStatus = null, AccountId? buyerId = null, AccountId? designerId = null)
     {
-        if (deliveryType is not null)
+        if (delivery is not null)
         {
-            query = query.Where(c => c.DeliveryType == deliveryType);
+            query = query.Where(c => c.Delivery);
         }
         if (orderStatus is not null)
         {
@@ -50,8 +50,8 @@ public static class Utilities
             { Type: OrderSortingType.Alphabetical, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Name),
             { Type: OrderSortingType.OrderStatus, Direction: SortingDirection.Ascending } => query.OrderBy(m => (int)m.OrderStatus),
             { Type: OrderSortingType.OrderStatus, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.OrderStatus),
-            { Type: OrderSortingType.DeliveryType, Direction: SortingDirection.Ascending } => query.OrderBy(m => (int)m.DeliveryType),
-            { Type: OrderSortingType.DeliveryType, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.DeliveryType),
+            { Type: OrderSortingType.Delivery, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Delivery),
+            { Type: OrderSortingType.Delivery, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Delivery),
             _ => query,
         };
     }

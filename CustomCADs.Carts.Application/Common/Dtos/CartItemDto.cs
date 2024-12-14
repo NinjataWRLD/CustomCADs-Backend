@@ -1,14 +1,13 @@
-﻿using CustomCADs.Carts.Domain.Carts.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Cads;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
-namespace CustomCADs.Carts.Application.Carts.Queries.GetItems;
+namespace CustomCADs.Carts.Application.Common.Dtos;
 
-public record GetCartItemsByIdDto(
+public record CartItemDto(
     CartItemId Id,
     int Quantity,
-    DeliveryType DeliveryType,
+    bool Delivery,
     decimal Price,
     decimal Cost,
     DateTime PurchaseDate,

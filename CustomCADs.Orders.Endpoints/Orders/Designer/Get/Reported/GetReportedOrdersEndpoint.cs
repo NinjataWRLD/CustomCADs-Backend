@@ -22,7 +22,7 @@ public sealed class GetReportedOrdersEndpoint(IRequestSender sender)
     {
         GetAllOrdersQuery query = new(
             OrderStatus: OrderStatus.Reported,
-            DeliveryType: req.DeliveryType,
+            Delivery: req.Delivery,
             DesignerId: User.GetAccountId(),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),

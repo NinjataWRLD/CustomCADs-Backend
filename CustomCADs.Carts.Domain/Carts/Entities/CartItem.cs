@@ -1,7 +1,5 @@
-﻿using CustomCADs.Carts.Domain.Carts.Enums;
-using CustomCADs.Carts.Domain.Carts.Validation;
+﻿using CustomCADs.Carts.Domain.Carts.Validation;
 using CustomCADs.Carts.Domain.Common.Exceptions.CartItems;
-using CustomCADs.Carts.Domain.Common.Exceptions.Carts;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
@@ -12,19 +10,23 @@ namespace CustomCADs.Carts.Domain.Carts.Entities;
 public class CartItem : BaseEntity
 {
     private CartItem() { }
-    private CartItem(DeliveryType deliveryType, decimal price, int quantity, ProductId productId, CartId cartId) : this()
+    private CartItem(
+        decimal price,
+        int quantity,
+        ProductId productId,
+        CartId cartId,
+        ShipmentId? shipmentId) : this()
     {
         Price = price;
         Quantity = quantity;
-        DeliveryType = deliveryType;
         PurchaseDate = DateTime.UtcNow;
         ProductId = productId;
         CartId = cartId;
+        ShipmentId = shipmentId;
     }
 
     public CartItemId Id { get; init; }
     public int Quantity { get; private set; }
-    public DeliveryType DeliveryType { get; }
     public decimal Price { get; private set; }
     public DateTime PurchaseDate { get; }
     public ProductId ProductId { get; }
@@ -33,30 +35,20 @@ public class CartItem : BaseEntity
     public CadId? CadId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
     public decimal Cost => Price * Quantity;
+    public bool Delivery => ShipmentId is not null;
 
-    public static CartItem Create(DeliveryType type, decimal price, int quantity, ProductId productId, CartId cartId)
-    {
-        return type switch
-        {
-            DeliveryType.Digital => CreateDigital(price, quantity, productId, cartId),
-            DeliveryType.Physical => CreatePhysical(price, quantity, productId, cartId),
-            DeliveryType.Both => CreateDigitalAndPhysical(price, quantity, productId, cartId),
-            _ => throw CartValidationException.General(),
-        };
-    }
+    public static CartItem Create(decimal price, int quantity, ProductId productId, CartId cartId, ShipmentId? shipmentId)
+        => shipmentId is not null
+            ? CreatePhysical(price, quantity, productId, cartId, shipmentId.Value)
+            : CreateDigital(price, quantity, productId, cartId);
 
-    public static CartItem CreateDigital(decimal price, int quantity, ProductId productId, CartId cartId)
-        => new CartItem(DeliveryType.Digital, price, quantity, productId, cartId)
+    private static CartItem CreateDigital(decimal price, int quantity, ProductId productId, CartId cartId)
+        => new CartItem(price, quantity, productId, cartId, shipmentId: null)
             .ValidateQuantity()
             .ValidatePrice();
 
-    public static CartItem CreatePhysical(decimal price, int quantity, ProductId productId, CartId cartId)
-        => new CartItem(DeliveryType.Physical, price, quantity, productId, cartId)
-            .ValidateQuantity()
-            .ValidatePrice();
-
-    public static CartItem CreateDigitalAndPhysical(decimal price, int quantity, ProductId productId, CartId cartId)
-        => new CartItem(DeliveryType.Both, price, quantity, productId, cartId)
+    private static CartItem CreatePhysical(decimal price, int quantity, ProductId productId, CartId cartId, ShipmentId shipmentId)
+        => new CartItem(price, quantity, productId, cartId, shipmentId)
             .ValidateQuantity()
             .ValidatePrice();
 
@@ -76,22 +68,22 @@ public class CartItem : BaseEntity
 
     public CartItem SetCadId(CadId cadId)
     {
-        if (DeliveryType is DeliveryType.Digital or DeliveryType.Both)
+        if (Delivery)
         {
-            CadId = cadId;
+            throw CartItemValidationException.CadIdOnNonDigitalDeliveryType();
         }
-        else throw CartItemValidationException.CadIdOnNonDigitalDeliveryType();
+        CadId = cadId;
 
         return this;
     }
 
     public CartItem SetShipmentId(ShipmentId shipmentId)
     {
-        if (DeliveryType is DeliveryType.Physical or DeliveryType.Both)
+        if (!Delivery)
         {
-            ShipmentId = shipmentId;
+            throw CartItemValidationException.ShipmentIdOnNonPhysicalDeliveryType();
         }
-        else throw CartItemValidationException.ShipmentIdOnNonPhysicalDeliveryType();
+        ShipmentId = shipmentId;
 
         return this;
     }

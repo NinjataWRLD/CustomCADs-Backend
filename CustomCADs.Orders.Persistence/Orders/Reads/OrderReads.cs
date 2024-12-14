@@ -15,7 +15,7 @@ public sealed class OrderReads(OrdersContext context) : IOrderReads
     {
         IQueryable<Order> queryable = context.Orders
             .WithTracking(track)
-            .WithFilter(query.DeliveryType, query.OrderStatus, query.BuyerId, query.DesignerId)
+            .WithFilter(query.Delivery, query.OrderStatus, query.BuyerId, query.DesignerId)
             .WithSearch(query.Name);
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);

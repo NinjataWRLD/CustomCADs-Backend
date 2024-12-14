@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.Carts.Queries.GetAll;
 using CustomCADs.Carts.Application.Carts.Queries.GetById;
-using CustomCADs.Carts.Domain.Carts.Entities;
+using CustomCADs.Carts.Application.Common.Dtos;
 using CustomCADs.Carts.Endpoints.Carts.Get.All;
 using CustomCADs.Carts.Endpoints.Carts.Get.Recent;
 using CustomCADs.Carts.Endpoints.Carts.Get.Single;
@@ -32,14 +32,14 @@ internal static class Mapper
             Total: cart.Total,
             PurchaseDate: cart.PurchaseDate.ToString(DateFormatString),
             BuyerId: cart.BuyerId.Value,
-            Items: [.. cart.Items.Select(o => o.ToCartItemDto())]
+            Items: [.. cart.Items.Select(o => o.ToCartItemResponse())]
         );
 
-    internal static CartItemDto ToCartItemDto(this CartItem item)
+    internal static CartItemResponse ToCartItemResponse(this CartItemDto item)
         => new(
             Id: item.Id.Value,
             Quantity: item.Quantity,
-            DeliveryType: item.DeliveryType.ToString(),
+            Delivery: item.Delivery,
             Price: item.Price,
             PurchaseDate: item.PurchaseDate.ToString(DateFormatString),
             ProductId: item.ProductId.Value,

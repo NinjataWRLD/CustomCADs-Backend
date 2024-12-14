@@ -56,13 +56,6 @@ public static class CartItemItemConfigUtils
                 v => new(v)
             );
 
-        builder.Property(x => x.DeliveryType)
-            .IsRequired()
-            .HasConversion(
-                x => x.ToString(),
-                s => Enum.Parse<DeliveryType>(s)
-            );
-
         builder.Property(x => x.CadId)
             .HasConversion<Guid?>(
                 x => x == null ? null : x.Value.Value,
@@ -83,7 +76,7 @@ public static class CartItemItemConfigUtils
         builder.Property(x => x.Quantity)
             .IsRequired()
             .HasColumnName("Quantity");
-
+        
         builder.Property(x => x.Price)
             .IsRequired()
             .HasPrecision(19, 2)

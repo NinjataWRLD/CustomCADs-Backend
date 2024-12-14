@@ -1,9 +1,9 @@
 ﻿namespace CustomCADs.Carts.Endpoints.Common.Dtos;
 
-public sealed record CartItemDto(
+public sealed record CartItemResponse(
     Guid Id,
     int Quantity,
-    string DeliveryType,
+    bool Delivery,
     decimal Price,
     string PurchaseDate,
     Guid ProductId,

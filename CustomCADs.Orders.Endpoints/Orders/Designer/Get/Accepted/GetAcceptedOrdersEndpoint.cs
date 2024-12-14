@@ -22,7 +22,7 @@ public sealed class GetAcceptedOrdersEndpoint(IRequestSender sender)
     {
         GetAllOrdersQuery query = new(
             OrderStatus: OrderStatus.Accepted,
-            DeliveryType: req.DeliveryType,
+            Delivery: req.Delivery,
             DesignerId: User.GetAccountId(),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),

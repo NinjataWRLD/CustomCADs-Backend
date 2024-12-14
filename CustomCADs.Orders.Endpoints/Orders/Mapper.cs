@@ -25,7 +25,7 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             OrderStatus: order.OrderStatus.ToString()
         );
 
@@ -43,7 +43,7 @@ internal static class Mapper
             Name: order.Name,
             Description: order.Description,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             OrderStatus: order.OrderStatus.ToString()
         );
 
@@ -53,7 +53,7 @@ internal static class Mapper
             Name: order.Name,
             Description: order.Description,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             OrderStatus: order.OrderStatus.ToString(),
             DesignerId: order.DesignerId?.Value,
             CadId: order.DesignerId?.Value,
@@ -66,7 +66,7 @@ internal static class Mapper
             Name: order.Name,
             Description: order.Description,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             Status: order.OrderStatus.ToString(),
             BuyerId: order.BuyerId.Value,
             CadId: order.CadId?.Value,
@@ -78,7 +78,7 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             BuyerName: order.BuyerName
         );
 
@@ -87,7 +87,7 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             BuyerName: order.BuyerName
         );
 
@@ -96,7 +96,7 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             BuyerName: order.BuyerName
         );
 
@@ -105,7 +105,7 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             BuyerName: order.BuyerName
         );
 
@@ -114,7 +114,7 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             BuyerName: order.BuyerName
         );
 
@@ -123,12 +123,10 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             OrderDate: order.OrderDate.ToString(DateFormatString),
-            DeliveryType: order.DeliveryType.ToString(),
+            DeliveryType: order.Delivery.ToString(),
             BuyerName: order.BuyerName
         );
 
-    internal static (string Key, string ContentType)? ToCadDto(this FinishOrderRequest req)
-        => req.CadKey is not null && req.CadContentType is not null ?
-            (Key: req.CadKey, ContentType: req.CadContentType)
-            : null;
+    internal static (string Key, string ContentType) ToCadDto(this FinishOrderRequest req)
+        => (Key: req.CadKey, ContentType: req.CadContentType);
 }

@@ -5,5 +5,5 @@ public enum OrderSortingType
     OrderDate = 1,
     Alphabetical,
     OrderStatus,
-    DeliveryType,
+    Delivery,
 }

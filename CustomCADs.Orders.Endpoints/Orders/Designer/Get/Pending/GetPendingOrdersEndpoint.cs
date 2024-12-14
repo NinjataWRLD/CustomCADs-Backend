@@ -22,7 +22,7 @@ public sealed class GetPendingOrdersEndpoint(IRequestSender sender)
     {
         GetAllOrdersQuery query = new(
             OrderStatus: OrderStatus.Pending,
-            DeliveryType: req.DeliveryType,
+            Delivery: req.Delivery,
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
             Page: req.Page,

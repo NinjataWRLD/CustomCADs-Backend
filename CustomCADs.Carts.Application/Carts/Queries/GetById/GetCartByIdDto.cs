@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Domain.Carts.Entities;
+﻿using CustomCADs.Carts.Application.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Carts.Application.Carts.Queries.GetById;
@@ -8,5 +8,5 @@ public record GetCartByIdDto(
     decimal Total,
     DateTime PurchaseDate,
     AccountId BuyerId,
-    ICollection<CartItem> Items
+    ICollection<CartItemDto> Items
 );

@@ -19,20 +19,17 @@ public class OrderValidationException : BaseException
     public static OrderValidationException Length(string property, int max, int min, Exception? inner = default)
         => new(string.Format(LengthValidation, "An", "Order", property, min, max), inner);
 
-    public static OrderValidationException CadIdOnNonDigitalDeliveryType(Exception? inner = default)
-        => new("Cannot set a CadId for a Order with a DeliveryType that doesn't include a Digital Delivery.", inner);
-
-    public static OrderValidationException ShipmentIdOnNonPhysicalDeliveryType(Exception? inner = default)
-        => new("Cannot set a ShipmentId for a Order with a DeliveryType that doesn't include a Physical Delivery.", inner);
-
     public static OrderValidationException InvalidStatus(OrderId id, OrderStatus oldStatus, OrderStatus newStatus, Exception? inner = default)
         => new($"Cannot set a status: {newStatus} to Product with id: {id} and status: {oldStatus}.", inner);
 
-    public static OrderValidationException CannotSetCadIdOnNonFinishedOrder(Exception? inner = default)
-        => new("Cannot set a CadId for an Order that isn't Finished.", inner);
+    public static OrderValidationException ShipmentIdOnNonDelivery(Exception? inner = default)
+        => new("Cannot set a ShipmentId for an Order without Delivery.", inner);
 
-    public static OrderValidationException CannotFinishOrderWithDigitalDeliveryWithoutCadId(Exception? inner = default)
-        => new("Cannot finish a Digital delivery type Order without providing a CadId.", inner);
+    public static OrderValidationException CadIdOnNonFinished(Exception? inner = default)
+        => new("Cannot set a CadId for an Order that isn't Finished.", inner);
+    
+    public static OrderValidationException ShipmentIdOnNonFinished(Exception? inner = default)
+        => new("Cannot set a ShipemntId for an Order that isn't Finished.", inner);
 
     public static OrderValidationException Custom(string message, Exception? inner = default)
         => new(message, inner);

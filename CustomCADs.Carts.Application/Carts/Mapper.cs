@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Application.Carts.Commands.Create;
 using CustomCADs.Carts.Application.Carts.Queries.GetAll;
 using CustomCADs.Carts.Application.Carts.Queries.GetById;
-using CustomCADs.Carts.Application.Carts.Queries.GetItems;
+using CustomCADs.Carts.Application.Common.Dtos;
 using CustomCADs.Carts.Domain.Carts;
 using CustomCADs.Carts.Domain.Carts.Entities;
 
@@ -29,17 +29,17 @@ internal static class Mapper
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
             BuyerId: cart.BuyerId,
-            Items: [.. cart.Items]
+            Items: [.. cart.Items.Select(i => i.ToCartItemDto())]
         );
 
     internal static Cart ToCart(this CreateCartCommand command)
         => Cart.Create(command.BuyerId);
 
-    internal static GetCartItemsByIdDto ToGetCartItemsByIdDto(this CartItem item)
+    internal static CartItemDto ToCartItemDto(this CartItem item)
         => new(
             Id: item.Id,
             Quantity: item.Quantity,
-            DeliveryType: item.DeliveryType,
+            Delivery: item.Delivery,
             Price: item.Price,
             Cost: item.Cost,
             PurchaseDate: item.PurchaseDate,

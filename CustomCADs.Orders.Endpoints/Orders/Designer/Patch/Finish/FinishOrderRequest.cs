@@ -2,6 +2,6 @@
 
 public sealed record FinishOrderRequest(
     Guid Id,
-    string? CadKey,
-    string? CadContentType
+    string CadKey,
+    string CadContentType
 );

@@ -6,7 +6,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 namespace CustomCADs.Orders.Application.Orders.Queries.GetAll;
 
 public sealed record GetAllOrdersQuery(
-    DeliveryType? DeliveryType = null,
+    bool? Delivery = null,
     OrderStatus? OrderStatus = null,
     AccountId? BuyerId = null,
     AccountId? DesignerId = null,

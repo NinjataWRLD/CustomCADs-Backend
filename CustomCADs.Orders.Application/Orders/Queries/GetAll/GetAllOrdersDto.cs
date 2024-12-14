@@ -6,7 +6,7 @@ public record GetAllOrdersDto(
     OrderId Id,
     string Name,
     DateTime OrderDate,
-    DeliveryType DeliveryType,
+    bool Delivery,
     OrderStatus OrderStatus,
     string BuyerName,
     string? DesignerName
