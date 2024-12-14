@@ -1,13 +1,15 @@
 name: Continuous Delivery pipeline
 
 on:
-  push:
-    branches: [ "main" ]
+  workflow_run:
+    workflows: ["Continuous Integration pipeline"]
+    types: [ completed ]
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main'
 
     steps:
     - name: Checkout repo
