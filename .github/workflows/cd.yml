@@ -2,35 +2,11 @@ name: Continuous Delivery pipeline
 
 on:
   workflow_run:
-    workflows: ["Continuous Integration pipeline"]
-    types: [ completed ]
+    workflows: Continuous Integration pipeline
+    types: completed
+    branches: main
 
 jobs:
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main'
-
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-    
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
-
-    - name: Login to ECR
-      uses: aws-actions/amazon-ecr-login@v2
-
-    - name: Build, tag and push image to ECR
-      env:
-        ECR_REGISTRY: ${{ secrets.AWS_ECR_REGISTRY }}
-        ECR_REPOSITORY: ninjatabg/customcads
-        IMAGE_TAG: latest
-      run: |
-        docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-        docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+  deliver:
+    if: github.event.workflow_run.conclusion == 'success'
+    uses: ./.github/workflows/deliver-ecr.yml
