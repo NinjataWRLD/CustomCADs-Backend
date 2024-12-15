@@ -1,6 +1,14 @@
 name: Deliver to AWS ECR Action
 
-on: workflow_call
+on: 
+  workflow_call:
+    secrets:
+        aws-access-key-id:
+          required: true
+        aws-secret-access-key:
+          required: true
+        aws-region:
+          required: true
 
 jobs:
   deliver:
@@ -13,9 +21,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.aws-secrets-key-id }}
+          aws-secret-access-key: ${{ secrets.aws-secrets-access-key }}
+          aws-region: ${{ secrets.aws-region }}
 
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2
