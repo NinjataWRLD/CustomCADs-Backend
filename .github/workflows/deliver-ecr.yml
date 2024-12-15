@@ -9,6 +9,8 @@ on:
           required: true
         aws-region:
           required: true
+        aws-ecr-registry:
+          required: true
 
 jobs:
   deliver:
@@ -30,7 +32,7 @@ jobs:
 
       - name: Build, tag and push image to ECR
         env:
-          ECR_REGISTRY: ${{ secrets.AWS_ECR_REGISTRY }}
+          ECR_REGISTRY: ${{ secrets.aws-ecr-registry }}
           ECR_REPOSITORY: ninjatabg/customcads
           IMAGE_TAG: latest
         run: |
