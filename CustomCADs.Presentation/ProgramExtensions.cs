@@ -218,7 +218,7 @@ public static class ProgramExtensions
             });
         });
     }
-    
+
     public static void LimitUploadSize(this IWebHostBuilder webhost, int limit = 300_000_000)
     {
         webhost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = limit);

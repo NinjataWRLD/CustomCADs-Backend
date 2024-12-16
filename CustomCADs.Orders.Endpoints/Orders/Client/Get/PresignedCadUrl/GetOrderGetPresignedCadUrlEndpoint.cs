@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.GetCadUrlGet;
-using CustomCADs.Orders.Endpoints.Orders.Client;
 
 namespace CustomCADs.Orders.Endpoints.Orders.Client.Get.PresignedCadUrl;
 

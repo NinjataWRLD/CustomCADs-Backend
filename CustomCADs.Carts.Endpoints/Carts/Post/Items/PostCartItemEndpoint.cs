@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.Carts.Commands.AddItem;
-using CustomCADs.Carts.Domain.Carts.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Domain.Carts.Entities;
-using CustomCADs.Carts.Domain.Carts.Enums;
 using CustomCADs.Carts.Domain.Carts.Validation;
 using CustomCADs.Carts.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;

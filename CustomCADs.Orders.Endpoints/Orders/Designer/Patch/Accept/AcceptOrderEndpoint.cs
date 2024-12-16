@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Accept;
-using CustomCADs.Orders.Endpoints.Orders.Designer;
 
 namespace CustomCADs.Orders.Endpoints.Orders.Designer.Patch.Accept;
 

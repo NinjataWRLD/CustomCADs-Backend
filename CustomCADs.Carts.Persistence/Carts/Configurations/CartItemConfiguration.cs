@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Domain.Carts.Entities;
-using CustomCADs.Carts.Domain.Carts.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -76,7 +75,7 @@ public static class CartItemItemConfigUtils
         builder.Property(x => x.Quantity)
             .IsRequired()
             .HasColumnName("Quantity");
-        
+
         builder.Property(x => x.Price)
             .IsRequired()
             .HasPrecision(19, 2)
