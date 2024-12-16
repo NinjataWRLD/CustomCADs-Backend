@@ -115,6 +115,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postdeploy", "postdeploy", 
 		.platform\hooks\postdeploy\migrations.sh = .platform\hooks\postdeploy\migrations.sh
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terraform", "terraform", "{F1E10E99-8DD0-4BA7-8172-ABE250ADA792}"
+	ProjectSection(SolutionItems) = preProject
+		terraform\app.tf = terraform\app.tf
+		terraform\database.tf = terraform\database.tf
+		terraform\main.tf = terraform\main.tf
+		terraform\networking.tf = terraform\networking.tf
+		terraform\storage.tf = terraform\storage.tf
+		terraform\subnets.tf = terraform\subnets.tf
+		terraform\variables.tf = terraform\variables.tf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -321,6 +332,7 @@ Global
 		{C5729589-AD90-4F8F-A743-1DA54B6E0527} = {0646BF04-B70A-4939-BF1F-9810C68B06B1}
 		{D759A717-B0F9-4DCE-BADB-EF68056E4F0F} = {C5729589-AD90-4F8F-A743-1DA54B6E0527}
 		{C48AF50F-3357-482A-81F6-79D5945B49B3} = {D759A717-B0F9-4DCE-BADB-EF68056E4F0F}
+		{F1E10E99-8DD0-4BA7-8172-ABE250ADA792} = {0646BF04-B70A-4939-BF1F-9810C68B06B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C24A0A28-5B9B-4659-B244-171070EE9DCF}
