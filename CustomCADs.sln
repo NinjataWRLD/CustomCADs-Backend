@@ -119,6 +119,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Delivery.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Delivery.Endpoints", "CustomCADs.Delivery.Endpoints\CustomCADs.Delivery.Endpoints.csproj", "{80604D2A-7BCF-49E1-A87C-65A62CFE4442}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{E8BE4C5E-BDF6-4BF7-A18A-6D96A114BCA7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{BB0F3658-6FBD-4FCA-949A-592D1830A978}"
+	ProjectSection(SolutionItems) = preProject
+		.github/workflows/build-dotnet.yml = .github/workflows/build-dotnet.yml
+		.github/workflows/ci.yml = .github/workflows/ci.yml
+		.github/workflows/deliver-ecr.yml = .github/workflows/deliver-ecr.yml
+		.github/workflows/cd.yml = .github/workflows/cd.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -335,6 +345,8 @@ Global
 		{C48AF50F-3357-482A-81F6-79D5945B49B3} = {D759A717-B0F9-4DCE-BADB-EF68056E4F0F}
 		{89CF9BE4-6F76-4E13-B10C-348DAA472C9A} = {42AE8AD4-70FF-4EB7-A7EA-94D6BFF422AA}
 		{80604D2A-7BCF-49E1-A87C-65A62CFE4442} = {42AE8AD4-70FF-4EB7-A7EA-94D6BFF422AA}
+		{E8BE4C5E-BDF6-4BF7-A18A-6D96A114BCA7} = {0646BF04-B70A-4939-BF1F-9810C68B06B1}
+		{BB0F3658-6FBD-4FCA-949A-592D1830A978} = {E8BE4C5E-BDF6-4BF7-A18A-6D96A114BCA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C24A0A28-5B9B-4659-B244-171070EE9DCF}
