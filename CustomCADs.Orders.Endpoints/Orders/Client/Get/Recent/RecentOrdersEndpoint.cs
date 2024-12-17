@@ -23,7 +23,7 @@ public sealed class RecentOrdersEndpoint(IRequestSender sender)
         GetAllOrdersQuery query = new(
             BuyerId: User.GetAccountId(),
             Sorting: new(OrderSortingType.OrderDate, SortingDirection.Descending),
-            Limit: req.Limit
+            Pagination: new(Limit: req.Limit)
         );
         Result<GetAllOrdersDto> orders = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

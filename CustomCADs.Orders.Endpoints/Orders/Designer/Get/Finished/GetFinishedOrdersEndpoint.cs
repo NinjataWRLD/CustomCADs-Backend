@@ -25,8 +25,7 @@ public sealed class GetFinishedOrdersEndpoint(IRequestSender sender)
             DesignerId: User.GetAccountId(),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: new(req.Page, req.Limit)
         );
         var orders = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

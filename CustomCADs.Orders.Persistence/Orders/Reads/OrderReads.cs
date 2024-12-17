@@ -21,7 +21,7 @@ public sealed class OrderReads(OrdersContext context) : IOrderReads
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         Order[] orders = await queryable
             .WithSorting(query.Sorting ?? new())
-            .WithPagination(query.Page, query.Limit)
+            .WithPagination(query.Pagination.Page, query.Pagination.Limit)
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
 

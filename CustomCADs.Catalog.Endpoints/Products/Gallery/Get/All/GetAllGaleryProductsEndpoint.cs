@@ -25,8 +25,7 @@ public sealed class GetAllGaleryProductsEndpoint(IRequestSender sender)
             Status: ProductStatus.Validated,
             Name: req.Name,
             Sorting: req.Sorting,
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: new(req.Page, req.Limit)
         );
         Result<GetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

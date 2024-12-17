@@ -25,8 +25,7 @@ public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
             CategoryId: req.CategoryId is null ? null : new CategoryId(req.CategoryId.Value),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: new(req.Page, req.Limit)
         );
         var result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

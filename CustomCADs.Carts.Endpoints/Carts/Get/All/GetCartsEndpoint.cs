@@ -21,8 +21,7 @@ public sealed class GetCartsEndpoint(IRequestSender sender)
         GetAllCartsQuery query = new(
             BuyerId: User.GetAccountId(),
             Sorting: new(req.SortingType, req.SortingDirection),
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: new(req.Page, req.Limit)
         );
         Result<GetAllCartsDto> carts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

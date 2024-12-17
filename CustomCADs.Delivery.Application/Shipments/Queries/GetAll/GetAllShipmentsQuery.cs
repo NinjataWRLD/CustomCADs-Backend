@@ -6,9 +6,8 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 namespace CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
 
 public sealed record GetAllShipmentsQuery(
+    Pagination Pagination,
     AccountId? ClientId = null,
     ShipmentStatus? ShipmentStatus = null,
-    ShipmentSorting? Sorting = null,
-    int Page = 1,
-    int Limit = 20
+    ShipmentSorting? Sorting = null
 ) : IQuery<Result<GetAllShipmentsDto>>;

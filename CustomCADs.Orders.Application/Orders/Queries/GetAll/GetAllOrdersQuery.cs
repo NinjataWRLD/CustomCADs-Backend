@@ -6,12 +6,11 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 namespace CustomCADs.Orders.Application.Orders.Queries.GetAll;
 
 public sealed record GetAllOrdersQuery(
+    Pagination Pagination,
     bool? Delivery = null,
     OrderStatus? OrderStatus = null,
     AccountId? BuyerId = null,
     AccountId? DesignerId = null,
     string? Name = null,
-    OrderSorting? Sorting = null,
-    int Page = 1,
-    int Limit = 20
+    OrderSorting? Sorting = null
 ) : IQuery<Result<GetAllOrdersDto>>;

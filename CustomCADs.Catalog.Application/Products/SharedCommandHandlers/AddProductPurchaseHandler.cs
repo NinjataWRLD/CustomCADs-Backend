@@ -11,7 +11,10 @@ public sealed class AddProductPurchaseHandler(IProductReads reads, IUnitOfWork u
 {
     public async Task Handle(AddProductPurchaseCommand req, CancellationToken ct)
     {
-        ProductQuery query = new(Ids: req.Ids);
+        ProductQuery query = new(
+            Ids: req.Ids,
+            Pagination: new(Limit: req.Ids.Length)
+        );
         Result<Product> result = await reads.AllAsync(query, ct: ct).ConfigureAwait(false);
 
         foreach (Product product in result.Items)

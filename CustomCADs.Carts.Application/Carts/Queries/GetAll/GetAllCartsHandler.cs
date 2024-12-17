@@ -15,8 +15,7 @@ public sealed class GetAllCartsHandler(ICartReads reads, IRequestSender sender)
         CartQuery query = new(
             BuyerId: req.BuyerId,
             Sorting: req.Sorting,
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: req.Pagination
         );
         Result<Cart> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 

@@ -17,7 +17,7 @@ public sealed class AccountReads(AccountsContext context) : IAccountReads
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         Account[] accounts = await queryable
-            .WithPagination(query.Page, query.Limit)
+            .WithPagination(query.Pagination.Page, query.Pagination.Limit)
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
 

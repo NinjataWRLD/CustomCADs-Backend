@@ -5,8 +5,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 namespace CustomCADs.Carts.Application.Carts.Queries.GetAll;
 
 public sealed record GetAllCartsQuery(
+    Pagination Pagination,
     AccountId? BuyerId = null,
-    CartSorting? Sorting = null,
-    int Page = 1,
-    int Limit = 20
+    CartSorting? Sorting = null
 ) : IQuery<Result<GetAllCartsDto>>;

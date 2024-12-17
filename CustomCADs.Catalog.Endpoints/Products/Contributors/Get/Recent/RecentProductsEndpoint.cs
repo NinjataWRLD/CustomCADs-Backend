@@ -23,7 +23,7 @@ public sealed class RecentProductsEndpoint(IRequestSender sender)
         GetAllProductsQuery query = new(
             CreatorId: User.GetAccountId(),
             Sorting: new(ProductSortingType.UploadDate, SortingDirection.Descending),
-            Limit: req.Limit
+            Pagination: new(Limit: req.Limit)
         );
         Result<GetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
