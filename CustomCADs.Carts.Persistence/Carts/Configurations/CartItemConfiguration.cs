@@ -80,6 +80,10 @@ public static class CartItemItemConfigUtils
             .IsRequired()
             .HasPrecision(19, 2)
             .HasColumnName("Price");
+        
+        builder.Property(x => x.Delivery)
+            .IsRequired()
+            .HasColumnName("Delivery");
 
         builder.Property(x => x.PurchaseDate)
             .IsRequired()

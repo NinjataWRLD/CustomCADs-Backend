@@ -4,7 +4,6 @@ using CustomCADs.Carts.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.Carts.Domain.Carts;
 
@@ -30,9 +29,9 @@ public class Cart : BaseAggregateRoot
         => new Cart(buyerId)
             .ValidateItems();
 
-    public CartItem AddItem(decimal price, int quantity, ProductId productId, ShipmentId? shipmentId)
+    public CartItem AddItem(decimal price, int quantity, ProductId productId, bool delivery)
     {
-        var item = CartItem.Create(price, quantity, productId, Id, shipmentId);
+        var item = CartItem.Create(price, quantity, productId, Id, delivery);
         items.Add(item);
 
         Total += item.Cost;

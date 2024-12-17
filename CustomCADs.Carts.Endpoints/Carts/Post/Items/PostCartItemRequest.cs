@@ -4,5 +4,5 @@ public sealed record PostCartItemRequest(
     Guid CartId,
     int Quantity,
     Guid ProductId,
-    bool Delivery = false
+    bool Delivery
 );
