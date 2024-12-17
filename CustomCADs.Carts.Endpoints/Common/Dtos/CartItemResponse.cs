@@ -9,6 +9,5 @@ public sealed record CartItemResponse(
     Guid ProductId,
     Guid CartId,
     Guid? CadId,
-    Guid? ShipmentId,
     decimal Cost
 );

@@ -7,5 +7,6 @@ public sealed record GetCartResponse(
     decimal Total,
     string PurchaseDate,
     Guid BuyerId,
+    Guid? ShipmentId,
     ICollection<CartItemResponse> Items
 );

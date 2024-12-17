@@ -1,9 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.Carts.Validation;
-using CustomCADs.Carts.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.Carts.Domain.Carts.Entities;
 
@@ -34,7 +32,6 @@ public class CartItem : BaseEntity
     public CartId CartId { get; }
     public Cart Cart { get; } = null!;
     public CadId? CadId { get; private set; }
-    public ShipmentId? ShipmentId { get; private set; }
     public decimal Cost => Price * Quantity;
 
     public static CartItem Create(decimal price, int quantity, ProductId productId, CartId cartId, bool delivery)
@@ -58,22 +55,7 @@ public class CartItem : BaseEntity
 
     public CartItem SetCadId(CadId cadId)
     {
-        if (Delivery)
-        {
-            throw CartItemValidationException.CadIdOnNonDigitalDeliveryType();
-        }
         CadId = cadId;
-
-        return this;
-    }
-
-    public CartItem SetShipmentId(ShipmentId shipmentId)
-    {
-        if (!Delivery)
-        {
-            throw CartItemValidationException.ShipmentIdOnNonPhysicalDeliveryType();
-        }
-        ShipmentId = shipmentId;
 
         return this;
     }

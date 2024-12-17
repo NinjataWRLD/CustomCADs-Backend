@@ -15,6 +15,9 @@ public class CartValidationException : BaseException
     public static CartValidationException Range(string property, int max, int min, Exception? inner = default)
         => new(string.Format(RangeValidation, "A", "Cart", property, min, max), inner);
 
+    public static CartValidationException ShipmentIdOnCartWithNoDelivery(Exception? inner = default)
+        => new("Cannot set ShipmentId on a Cart with no requested Delivery", inner);
+
     public static CartValidationException Custom(string message, Exception? inner = default)
         => new(message, inner);
 }

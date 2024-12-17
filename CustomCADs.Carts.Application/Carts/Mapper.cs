@@ -29,6 +29,7 @@ internal static class Mapper
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
             BuyerId: cart.BuyerId,
+            ShipmentId: cart.ShipmentId,
             Items: [.. cart.Items.Select(i => i.ToCartItemDto())]
         );
 
@@ -45,7 +46,6 @@ internal static class Mapper
             PurchaseDate: item.PurchaseDate,
             ProductId: item.ProductId,
             CartId: item.CartId,
-            CadId: item.CadId,
-            ShipmentId: item.ShipmentId
+            CadId: item.CadId
         );
 }
