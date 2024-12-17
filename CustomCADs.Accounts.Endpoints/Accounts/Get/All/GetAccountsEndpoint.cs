@@ -22,8 +22,7 @@ public sealed class GetAccountsEndpoint(IRequestSender sender)
         GetAllAccountsQuery query = new(
             Username: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: new(req.Page, req.Limit)
         );
         Result<GetAllAccountsItem> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

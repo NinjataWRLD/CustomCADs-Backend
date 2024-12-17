@@ -22,8 +22,7 @@ public class GetShipmentsEndpoint(IRequestSender sender)
             ClientId: User.GetAccountId(),
             ShipmentStatus: req.ShipmentStatus,
             Sorting: new(req.SortingType, req.SortingDirection),
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: new(req.Page, req.Limit)
         );
         Result<GetAllShipmentsDto> result = await sender.SendQueryAsync(query, ct);
 

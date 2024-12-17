@@ -18,7 +18,7 @@ public sealed class ProductReads(CatalogContext context) : IProductReads
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         Product[] products = await queryable
-                .WithPagination(query.Page, query.Limit)
+                .WithPagination(query.Pagination.Page, query.Pagination.Limit)
                 .ToArrayAsync(ct)
                 .ConfigureAwait(false);
 

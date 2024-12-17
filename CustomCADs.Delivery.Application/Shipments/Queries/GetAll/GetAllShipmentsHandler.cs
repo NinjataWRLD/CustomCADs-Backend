@@ -13,8 +13,7 @@ public class GetAllShipmentsHandler(IShipmentReads reads)
             ClientId: req.ClientId,
             ShipmentStatus: req.ShipmentStatus,
             Sorting: req.Sorting,
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: req.Pagination
         );
         Result<Shipment> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 

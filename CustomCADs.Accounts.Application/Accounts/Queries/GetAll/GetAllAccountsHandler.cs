@@ -16,8 +16,7 @@ public sealed class GetAllAccountsHandler(IAccountReads reads)
             FirstName: req.FirstName,
             LastName: req.LastName,
             Sorting: req.Sorting,
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: req.Pagination
         );
         Result<Account> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 

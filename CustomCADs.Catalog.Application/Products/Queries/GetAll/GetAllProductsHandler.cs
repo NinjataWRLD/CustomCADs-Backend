@@ -20,8 +20,7 @@ public sealed class GetAllProductsHandler(IProductReads reads, IRequestSender se
             Status: req.Status,
             Name: req.Name,
             Sorting: req.Sorting,
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: req.Pagination
         );
         Result<Product> result = await reads.AllAsync(productQuery, track: false, ct: ct).ConfigureAwait(false);
 

@@ -20,7 +20,7 @@ public sealed class CartReads(CartsContext context) : ICartReads
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         Cart[] carts = await queryable
-            .WithPagination(query.Page, query.Limit)
+            .WithPagination(query.Pagination.Page, query.Pagination.Limit)
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
 

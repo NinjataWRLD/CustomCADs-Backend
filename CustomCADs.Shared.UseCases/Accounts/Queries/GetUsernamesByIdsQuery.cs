@@ -2,4 +2,4 @@
 
 public sealed record GetUsernamesByIdsQuery(
      AccountId[] Ids
-) : IQuery<IEnumerable<(AccountId Id, string Username)>>;
+) : IQuery<(AccountId Id, string Username)[]>;

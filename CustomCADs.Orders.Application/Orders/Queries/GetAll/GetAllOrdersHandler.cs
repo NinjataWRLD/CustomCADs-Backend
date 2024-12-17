@@ -19,8 +19,7 @@ public sealed class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender
             DesignerId: req.DesignerId,
             Name: req.Name,
             Sorting: req.Sorting,
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: req.Pagination
         );
         Result<Order> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
@@ -31,11 +30,11 @@ public sealed class GetAllOrdersHandler(IOrderReads reads, IRequestSender sender
         ];
 
         GetUsernamesByIdsQuery designerUsernamesQuery = new(designerIds);
-        IEnumerable<(AccountId Id, string Username)> designers = await sender
+        (AccountId Id, string Username)[] designers = await sender
             .SendQueryAsync(designerUsernamesQuery, ct).ConfigureAwait(false);
 
         GetUsernamesByIdsQuery buyerUsernamesQuery = new(buyerIds);
-        IEnumerable<(AccountId Id, string Username)> buyers = await sender
+        (AccountId Id, string Username)[] buyers = await sender
             .SendQueryAsync(buyerUsernamesQuery, ct).ConfigureAwait(false);
 
         GetTimeZonesByIdsQuery timeZonesQuery = new(buyerIds);
