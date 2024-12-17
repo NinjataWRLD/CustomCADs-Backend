@@ -3,6 +3,7 @@ using CustomCADs.Cads.Application;
 using CustomCADs.Carts.Application;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Categories.Application;
+using CustomCADs.Delivery.Application;
 using CustomCADs.Identity.Application;
 using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Infrastructure;
@@ -38,6 +39,7 @@ public static class ProgramExtensions
             CategoriesApplicationReference.Assembly,
             CartsApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
+            DeliveryApplicationReference.Assembly,
         ];
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
@@ -132,6 +134,7 @@ public static class ProgramExtensions
 
     public static IServiceCollection AddDelivery(this IServiceCollection services, IConfiguration config)
         => services
+            .AddDeliveryExceptionHandler()
             .AddDeliveryPersistence(config);
 
     public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration config)
