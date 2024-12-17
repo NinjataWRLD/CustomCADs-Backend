@@ -117,6 +117,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postdeploy", "postdeploy", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Delivery.Application", "CustomCADs.Delivery.Application\CustomCADs.Delivery.Application.csproj", "{89CF9BE4-6F76-4E13-B10C-348DAA472C9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Delivery.Endpoints", "CustomCADs.Delivery.Endpoints\CustomCADs.Delivery.Endpoints.csproj", "{80604D2A-7BCF-49E1-A87C-65A62CFE4442}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -275,6 +277,10 @@ Global
 		{89CF9BE4-6F76-4E13-B10C-348DAA472C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89CF9BE4-6F76-4E13-B10C-348DAA472C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89CF9BE4-6F76-4E13-B10C-348DAA472C9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80604D2A-7BCF-49E1-A87C-65A62CFE4442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80604D2A-7BCF-49E1-A87C-65A62CFE4442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80604D2A-7BCF-49E1-A87C-65A62CFE4442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80604D2A-7BCF-49E1-A87C-65A62CFE4442}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -328,6 +334,7 @@ Global
 		{D759A717-B0F9-4DCE-BADB-EF68056E4F0F} = {C5729589-AD90-4F8F-A743-1DA54B6E0527}
 		{C48AF50F-3357-482A-81F6-79D5945B49B3} = {D759A717-B0F9-4DCE-BADB-EF68056E4F0F}
 		{89CF9BE4-6F76-4E13-B10C-348DAA472C9A} = {42AE8AD4-70FF-4EB7-A7EA-94D6BFF422AA}
+		{80604D2A-7BCF-49E1-A87C-65A62CFE4442} = {42AE8AD4-70FF-4EB7-A7EA-94D6BFF422AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C24A0A28-5B9B-4659-B244-171070EE9DCF}

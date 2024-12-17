@@ -29,6 +29,7 @@
 		<ProjectReference Include="..\CustomCADs.Catalog.Persistence\CustomCADs.Catalog.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Categories.Endpoints\CustomCADs.Categories.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Categories.Persistence\CustomCADs.Categories.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Delivery.Endpoints\CustomCADs.Delivery.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Delivery.Persistence\CustomCADs.Delivery.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Identity.Endpoints\CustomCADs.Identity.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Identity.Infrastructure\CustomCADs.Identity.Infrastructure.csproj" />

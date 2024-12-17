@@ -10,6 +10,6 @@ public static class Mapper
             Id: shipment.Id,
             ShipmentStatus: shipment.ShipmentStatus,
             Address: shipment.Address,
-            ClientId: shipment.BuyerId
+            BuyerId: shipment.BuyerId
         );
 }

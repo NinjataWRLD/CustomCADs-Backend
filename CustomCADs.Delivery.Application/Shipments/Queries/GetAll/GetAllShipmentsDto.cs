@@ -8,5 +8,5 @@ public record GetAllShipmentsDto(
     ShipmentId Id,
     ShipmentStatus ShipmentStatus,
     Address Address,
-    AccountId ClientId
+    AccountId BuyerId
 );
