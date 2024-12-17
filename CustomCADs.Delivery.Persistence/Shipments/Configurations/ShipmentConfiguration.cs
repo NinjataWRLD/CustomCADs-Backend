@@ -34,7 +34,7 @@ public static class ShipmentConfigUtils
                 v => new(v)
             );
 
-        builder.Property(x => x.ClientId)
+        builder.Property(x => x.BuyerId)
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
@@ -73,9 +73,9 @@ public static class ShipmentConfigUtils
                 s => Enum.Parse<ShipmentStatus>(s)
             ).HasColumnName("Status"); ;
 
-        builder.Property(x => x.ClientId)
+        builder.Property(x => x.BuyerId)
             .IsRequired()
-            .HasColumnName("ClientId"); ;
+            .HasColumnName("BuyerId"); ;
 
         return builder;
     }

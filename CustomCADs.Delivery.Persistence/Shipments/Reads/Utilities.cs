@@ -8,13 +8,13 @@ namespace CustomCADs.Delivery.Persistence.Shipments.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Shipment> WithFilter(this IQueryable<Shipment> query, AccountId? clientId = null, string? status = null)
+    public static IQueryable<Shipment> WithFilter(this IQueryable<Shipment> query, AccountId? clientId = null, ShipmentStatus? shipmentStatus = null)
     {
         if (clientId is not null)
         {
-            query = query.Where(s => s.ClientId == clientId);
+            query = query.Where(s => s.BuyerId == clientId);
         }
-        if (status is not null && Enum.TryParse(status, out ShipmentStatus shipmentStatus))
+        if (shipmentStatus is not null)
         {
             query = query.Where(s => s.ShipmentStatus == shipmentStatus);
         }

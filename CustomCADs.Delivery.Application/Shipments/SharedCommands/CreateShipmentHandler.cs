@@ -9,7 +9,7 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
 {
     public async Task<ShipmentId> Handle(CreateShipmentCommand req, CancellationToken ct)
     {
-        var shipment = Shipment.Create(new(), req.ClientId); // populate address
+        var shipment = Shipment.Create(new(), req.BuyerId); // populate address
 
         await writes.AddAsync(shipment, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
