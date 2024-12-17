@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
-using CustomCADs.Orders.Endpoints.Orders.Designer;
 
 namespace CustomCADs.Orders.Endpoints.Orders.Designer.Get.Single;
 

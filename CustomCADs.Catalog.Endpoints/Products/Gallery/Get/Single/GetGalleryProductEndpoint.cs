@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
-using CustomCADs.Catalog.Endpoints.Products.Gallery;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Gallery.Get.Single;
 

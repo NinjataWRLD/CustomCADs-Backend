@@ -2,9 +2,7 @@
 using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
-using CustomCADs.Orders.Domain.Common.Exceptions.Orders;
 using CustomCADs.Orders.Domain.Orders;
-using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.Orders.Application.Orders;

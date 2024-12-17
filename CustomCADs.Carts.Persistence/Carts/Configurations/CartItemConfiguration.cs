@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Domain.Carts.Entities;
-using CustomCADs.Carts.Domain.Carts.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -62,12 +61,6 @@ public static class CartItemItemConfigUtils
                 v => v == null ? null : new(v.Value)
             );
 
-        builder.Property(x => x.ShipmentId)
-            .HasConversion<Guid?>(
-                x => x == null ? null : x.Value.Value,
-                v => v == null ? null : new(v.Value)
-            );
-
         return builder;
     }
 
@@ -76,11 +69,15 @@ public static class CartItemItemConfigUtils
         builder.Property(x => x.Quantity)
             .IsRequired()
             .HasColumnName("Quantity");
-        
+
         builder.Property(x => x.Price)
             .IsRequired()
             .HasPrecision(19, 2)
             .HasColumnName("Price");
+        
+        builder.Property(x => x.Delivery)
+            .IsRequired()
+            .HasColumnName("Delivery");
 
         builder.Property(x => x.PurchaseDate)
             .IsRequired()
@@ -96,9 +93,6 @@ public static class CartItemItemConfigUtils
 
         builder.Property(x => x.CadId)
             .HasColumnName("CadId");
-
-        builder.Property(x => x.ShipmentId)
-            .HasColumnName("ShipmentId");
 
         return builder;
     }

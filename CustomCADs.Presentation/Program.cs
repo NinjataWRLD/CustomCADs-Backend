@@ -28,7 +28,7 @@ builder.Services.AddOrders(builder.Configuration);
 if (args.Contains("--migrate"))
 {
     await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
-} 
+}
 else if (args.Contains("--migrate-only"))
 {
     await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);

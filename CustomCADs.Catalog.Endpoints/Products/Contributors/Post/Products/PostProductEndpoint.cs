@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Endpoints.Products.Contributors;
 using CustomCADs.Catalog.Endpoints.Products.Contributors.Get.Single;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 

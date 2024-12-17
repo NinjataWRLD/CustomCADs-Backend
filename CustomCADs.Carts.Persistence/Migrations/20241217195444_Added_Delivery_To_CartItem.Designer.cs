@@ -3,6 +3,7 @@ using System;
 using CustomCADs.Carts.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Carts.Persistence.Migrations
 {
     [DbContext(typeof(CartsContext))]
-    partial class CartsContextModelSnapshot : ModelSnapshot
+    [Migration("20241217195444_Added_Delivery_To_CartItem")]
+    partial class Added_Delivery_To_CartItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,10 +39,6 @@ namespace CustomCADs.Carts.Persistence.Migrations
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("PurchaseDate");
-
-                    b.Property<Guid?>("ShipmentId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("ShipmentId");
 
                     b.Property<decimal>("Total")
                         .HasPrecision(18, 2)
@@ -85,6 +84,10 @@ namespace CustomCADs.Carts.Persistence.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
                         .HasColumnName("Quantity");
+
+                    b.Property<Guid?>("ShipmentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("ShipmentId");
 
                     b.HasKey("Id");
 
