@@ -20,7 +20,6 @@ builder.Services.AddCads(builder.Configuration);
 builder.Services.AddCarts(builder.Configuration);
 builder.Services.AddCatalog(builder.Configuration);
 builder.Services.AddCategories(builder.Configuration);
-builder.Services.AddDelivery(builder.Configuration);
 builder.Services.AddIdentity(builder.Configuration);
 builder.Services.AddOrders(builder.Configuration);
 
