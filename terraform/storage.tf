@@ -1,9 +1,9 @@
-# S3
+# Simple Storage Service
 resource "aws_s3_bucket" "customcads_bucket" {
   bucket = "customcads"
 }
 
-# ECR
+# Elastic Container Registry
 resource "aws_ecr_repository" "customcads_container_registry" {
   name = "ninjatabg/customcads"
   encryption_configuration {

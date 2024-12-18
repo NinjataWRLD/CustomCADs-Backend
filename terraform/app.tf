@@ -76,7 +76,7 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "ConnectionStrings__ApplicationConnection"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = "Host=${aws_db_instance.customcads_database.endpoint};Database=${aws_db_instance.customcads_database.db_name};Username=${aws_db_instance.customcads_database.username};Password=${data.aws_secretsmanager_secret_version.customcads_database_password_version.secret_string}"
+    value     = "Host=${aws_db_instance.customcads_database.endpoint};Database=${aws_db_instance.customcads_database.db_name};Username=${local.db_username};Password=${local.db_password}"
   }
   setting {
     name      = "DefaultSSHPort"

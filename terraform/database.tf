@@ -7,8 +7,8 @@ resource "aws_db_instance" "customcads_database" {
   engine_version = "16.3"
   port           = 5432
 
-  username                    = "ninjatabg"
-  manage_master_user_password = true
+  username                    = local.db_username
+  manage_master_user_password = local.db_password
 
   vpc_security_group_ids = [aws_security_group.customcads_db_security_group.id]
   db_subnet_group_name   = aws_db_subnet_group.customcads_subnet_group.name
