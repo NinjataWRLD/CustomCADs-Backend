@@ -1,11 +1,13 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Application.Storage;
+using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetImageUrlPut;
 
-public sealed class GetProductImagePresignedUrlPutHandler(IProductReads reads, IStorageService storage)
+public sealed class GetProductImagePresignedUrlPutHandler(IProductReads reads, IStorageService storage, IRequestSender sender)
     : IQueryHandler<GetProductImagePresignedUrlPutQuery, GetProductImagePresignedUrlPutDto>
 {
     public async Task<GetProductImagePresignedUrlPutDto> Handle(GetProductImagePresignedUrlPutQuery req, CancellationToken ct)
@@ -18,8 +20,11 @@ public sealed class GetProductImagePresignedUrlPutHandler(IProductReads reads, I
             throw ProductAuthorizationException.ByProductId(req.Id);
         }
 
+        GetImageByIdQuery imageQuery = new(product.ImageId);
+        var (_, Key, _) = await sender.SendQueryAsync(imageQuery, ct).ConfigureAwait(false);
+
         string Url = await storage.GetPresignedPutUrlAsync(
-            key: product.Image.Key,
+            key: Key,
             contentType: req.ContentType,
             fileName: req.FileName
         ).ConfigureAwait(false);

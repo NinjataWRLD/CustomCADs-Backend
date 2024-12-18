@@ -7,6 +7,6 @@ public sealed record GetProductsResponse(
     string Name,
     string CreatorName,
     string UploadDate,
-    ImageDto Image,
+    ImageResponse Image,
     CategoryResponse Category
 );

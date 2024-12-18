@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.Carts.Validation;
 using CustomCADs.Shared.Core.Bases.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Carts.Domain.Carts.Entities;
 

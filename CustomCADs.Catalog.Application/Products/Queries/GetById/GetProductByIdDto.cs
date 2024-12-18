@@ -10,7 +10,7 @@ public record GetProductByIdDto(
     decimal Price,
     string Status,
     DateTime UploadDate,
-    Image Image,
+    ImageDto Image,
     Counts Counts,
     string CreatorName,
     CadDto Cad,

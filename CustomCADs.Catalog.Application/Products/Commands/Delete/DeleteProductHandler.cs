@@ -6,6 +6,7 @@ using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.UseCases.Cads.Queries;
+using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Delete;
 
@@ -25,13 +26,16 @@ public sealed class DeleteProductHandler(IProductReads productReads, IWrites<Pro
         productWrites.Remove(product);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        GetCadByIdQuery query = new(product.CadId);
-        var (Key, _, _, _) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GetImageByIdQuery imageQuery = new(product.ImageId);
+        var (_, ImageKey, _) = await sender.SendQueryAsync(imageQuery, ct).ConfigureAwait(false);
+
+        GetCadByIdQuery cadQuery = new(product.CadId);
+        var (CadKey, _, _, _) = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
 
         await raiser.RaiseDomainEventAsync(new ProductDeletedDomainEvent(
             Id: product.Id,
-            ImageKey: product.Image.Key,
-            CadKey: Key
+            ImageKey: ImageKey,
+            CadKey: CadKey
         )).ConfigureAwait(false);
     }
 }

@@ -1,10 +1,12 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries;
+﻿using CustomCADs.Catalog.Application.Common.Dtos;
+using CustomCADs.Catalog.Application.Products.Queries;
 using CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
 using CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
 using CustomCADs.Catalog.Application.Products.Queries.GetAll;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Catalog.Application.Products;
 
@@ -26,7 +28,7 @@ internal static class Mapper
             Category: new(product.CategoryId, categoryName)
         );
 
-    internal static GetAllProductsDto ToGetAllProductsItem(this Product product, string username, string categoryName, string timeZone)
+    internal static GetAllProductsDto ToGetAllProductsItem(this Product product, ImageDto image, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -35,12 +37,12 @@ internal static class Mapper
                 product.UploadDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
-            Image: product.Image,
+            Image: image,
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
 
-    internal static GetProductByIdDto ToGetProductByIdDto(this Product product, CadDto cad, string username, string categoryName, string timeZone)
+    internal static GetProductByIdDto ToGetProductByIdDto(this Product product, ImageDto image, CadDto cad, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -51,7 +53,7 @@ internal static class Mapper
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
             Status: product.Status.ToString(),
-            Image: product.Image,
+            Image: image,
             Counts: product.Counts,
             Cad: cad,
             Category: new(product.CategoryId, categoryName),
@@ -68,6 +70,9 @@ internal static class Mapper
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
+
+    internal static ImageDto ToImageDto(this (ImageId Id, string Key, string ContentType) image)
+        => new(image.Id, image.Key, image.ContentType);
 
     internal static CadDto ToCadDto(this
         (string Key,

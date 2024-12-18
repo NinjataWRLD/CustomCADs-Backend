@@ -1,13 +1,13 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.UseCases.Cads.Commands;
+using CustomCADs.Shared.UseCases.Images.Commands;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetKeys;
 
-public sealed class SetProductKeysHandler(IProductReads reads, IUnitOfWork uow, IRequestSender sender)
+public sealed class SetProductKeysHandler(IProductReads reads, IRequestSender sender)
     : ICommandHandler<SetProductKeysCommand>
 {
     public async Task Handle(SetProductKeysCommand req, CancellationToken ct)
@@ -22,8 +22,8 @@ public sealed class SetProductKeysHandler(IProductReads reads, IUnitOfWork uow, 
 
         if (req.ImageKey is not null)
         {
-            product.SetImage(req.ImageKey);
-            await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+            SetImageKeyCommand command = new(product.ImageId, req.ImageKey);
+            await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
         }
 
         if (req.CadKey is not null)
