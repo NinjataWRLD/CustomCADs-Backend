@@ -1,14 +1,15 @@
 # Database
 resource "aws_db_instance" "customcads_database" {
-  db_name        = "customcads-db"
+  identifier     = "customcads-db"
+  db_name        = "CustomCADs"
   instance_class = "db.t3.micro"
 
-  engine         = "PostgreSQL"
+  engine         = "postgres"
   engine_version = "16.3"
   port           = 5432
 
-  username                    = local.db_username
-  manage_master_user_password = local.db_password
+  username = local.db_username
+  password = local.db_password
 
   vpc_security_group_ids = [aws_security_group.customcads_db_security_group.id]
   db_subnet_group_name   = aws_db_subnet_group.customcads_subnet_group.name

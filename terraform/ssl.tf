@@ -1,5 +1,5 @@
 locals {
-  origin_id = "EB-customcads_app"
+  origin_id = "eb-customcads_app"
 }
 
 # Certificate Manager
@@ -16,6 +16,9 @@ resource "aws_acm_certificate" "customcads_certificate" {
 }
 
 # CloudFront Distribution
+data "aws_cloudfront_cache_policy" "customcads_cdn_cache_policy" {
+  name = "Managed-CachingOptimized"
+}
 resource "aws_cloudfront_distribution" "customcads_cdn" {
   origin {
     domain_name = aws_elastic_beanstalk_environment.customcads_env_prod.cname
@@ -23,6 +26,13 @@ resource "aws_cloudfront_distribution" "customcads_cdn" {
     origin_shield {
       enabled              = true
       origin_shield_region = var.region
+    }
+
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
     }
   }
 
@@ -35,7 +45,7 @@ resource "aws_cloudfront_distribution" "customcads_cdn" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = local.origin_id
 
-    cache_policy_id        = "Managed-CachingOptimized"
+    cache_policy_id        = data.aws_cloudfront_cache_policy.customcads_cdn_cache_policy.id
     viewer_protocol_policy = "redirect-to-https"
 
     min_ttl     = 0

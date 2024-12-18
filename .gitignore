@@ -376,3 +376,5 @@ FodyWeavers.xsd
 *.tfstate**
 *.tfvars
 *.tfplan
+*.pem
+*.pub

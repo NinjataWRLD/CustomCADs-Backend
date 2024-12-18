@@ -1,26 +1,29 @@
 # Subnets
 resource "aws_subnet" "customcads_subnet_public1_a" {
-  vpc_id            = aws_vpc.customcads_vpc.id
-  cidr_block        = "10.0.0.0/20"
-  availability_zone = "us-east-1a"
+  vpc_id                  = aws_vpc.customcads_vpc.id
+  cidr_block              = "10.0.0.0/20"
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "customcads-subnet-public1-us-east-1a"
   }
 }
 resource "aws_subnet" "customcads_subnet_public2_b" {
-  vpc_id            = aws_vpc.customcads_vpc.id
-  cidr_block        = "10.0.16.0/20"
-  availability_zone = "us-east-1b"
+  vpc_id                  = aws_vpc.customcads_vpc.id
+  cidr_block              = "10.0.16.0/20"
+  availability_zone       = "us-east-1b"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "customcads-subnet-public2-us-east-1b"
   }
 }
 resource "aws_subnet" "customcads_subnet_public3_c" {
-  vpc_id            = aws_vpc.customcads_vpc.id
-  cidr_block        = "10.0.32.0/20"
-  availability_zone = "us-east-1c"
+  vpc_id                  = aws_vpc.customcads_vpc.id
+  cidr_block              = "10.0.32.0/20"
+  availability_zone       = "us-east-1c"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "customcads-subnet-public3-us-east-1c"
