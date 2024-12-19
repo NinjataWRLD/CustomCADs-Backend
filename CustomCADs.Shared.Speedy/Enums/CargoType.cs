@@ -2,7 +2,7 @@
 
 public enum CargoType
 {
-    PARCELL,
+    PARCEL,
     PALLET,
     TYRE,
 }

@@ -24,7 +24,7 @@ internal static class Mapper
             ClientId: model.ClientId,
             PrivatePerson: model.PrivatePerson,
             PickupOfficeId: model.PickupOfficeId,
-            PickupGeoPUDOIf: model.PickupGeoPUDOIf
+            PickupGeoPUDOId: model.PickupGeoPUDOIf
         );
 
     internal static CalculationAddressLocationDto ToDto(this CalculationAddressLocationModel model)

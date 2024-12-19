@@ -8,5 +8,5 @@ public record ShipmentServiceModel(
     ShipmentAdditionalServicesModel? AdditionalServices,
     bool? SaturdayDelivery,
     bool AutoAdjustPickupDate = false,
-    int DefferedValue = 0
+    int DeferredDays = 0
 );

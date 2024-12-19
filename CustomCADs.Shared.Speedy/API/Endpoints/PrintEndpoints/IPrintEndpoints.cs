@@ -9,15 +9,15 @@ using PrintVoucher;
 
 public interface IPrintEndpoints
 {
-    [Post("")]
+    [Post("/")]
     Task<HttpResponseMessage> PrintAsync(PrintRequest request, CancellationToken ct = default);
 
-    [Post("extended")]
+    [Post("/extended")]
     Task<ExtendedPrintResponse> ExtendedPrintAsync(ExtendedPrintRequest request, CancellationToken ct = default);
 
-    [Post("labelInfo")]
+    [Post("/labelInfo")]
     Task<LabelInfoResponse> LabelInfoAsync(LabelInfoRequest request, CancellationToken ct = default);
 
-    [Post("voucher")]
+    [Post("/voucher")]
     Task<HttpResponseMessage> PrintVoucherAsync(PrintVoucherRequest request, CancellationToken ct = default);
 }

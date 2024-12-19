@@ -6,6 +6,6 @@ using Payout;
 
 public interface IPaymentEndpoints
 {
-    [Post("")]
+    [Post("/")]
     Task<PayoutResponse> Payout(PayoutRequest request, CancellationToken ct = default);
 }

@@ -15,7 +15,7 @@ internal static class Mapper
             PickupDate: model.PickupDate?.ToString(DateFormat),
             SaturdayDelivery: model.SaturdayDelivery,
             AutoAdjustPickupDate: model.AutoAdjustPickupDate,
-            DefferedValue: model.DefferedValue,
+            DefferedValue: model.DeferredDays,
             AdditionalServices: model.AdditionalServices?.ToDto()
         );
 
@@ -25,7 +25,7 @@ internal static class Mapper
             PickupDate: dto.PickupDate is not null ? DateOnly.Parse(dto.PickupDate) : null,
             SaturdayDelivery: dto.SaturdayDelivery,
             AutoAdjustPickupDate: dto.AutoAdjustPickupDate,
-            DefferedValue: dto.DefferedValue,
+            DeferredDays: dto.DefferedValue,
             AdditionalServices: dto.AdditionalServices?.ToModel()
         );
 }

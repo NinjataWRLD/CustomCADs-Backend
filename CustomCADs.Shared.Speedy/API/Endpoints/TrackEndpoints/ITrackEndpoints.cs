@@ -7,9 +7,9 @@ using Track;
 
 public interface ITrackEndpoints
 {
-    [Post("")]
+    [Post("/")]
     Task<TrackResponse> Track(TrackRequest request, CancellationToken ct = default);
 
-    [Post("bulk")]
+    [Post("/bulk")]
     Task<BulkTrackingDataFilesResponse> BulkTrackingDataFiles(BulkTrackingDataFilesRequest request, CancellationToken ct = default);
 }

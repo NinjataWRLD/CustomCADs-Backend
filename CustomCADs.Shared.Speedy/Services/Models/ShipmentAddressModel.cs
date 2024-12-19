@@ -12,7 +12,7 @@ public record ShipmentAddressModel(
     string? ComplexType,
     string? ComplexName,
 
-    string? StreetId,
+    long? StreetId,
     string? StreetType,
     string? StreetName,
 

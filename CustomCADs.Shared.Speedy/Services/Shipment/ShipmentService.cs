@@ -2,6 +2,7 @@
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentRecipient;
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentService;
 using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints.CreateShipment;
 using CustomCADs.Shared.Speedy.Services.Calculation;
 using CustomCADs.Shared.Speedy.Services.Client;
 using CustomCADs.Shared.Speedy.Services.Location.Office;
@@ -37,7 +38,7 @@ public class ShipmentService(
         string package,
         string contents,
         int parcelCount,
-        int totalWeight,
+        double totalWeight,
         string? shipmentNote = null,
         CancellationToken ct = default)
     {
@@ -49,19 +50,11 @@ public class ShipmentService(
 
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
 
-        CalculationAddressLocationModel calcAddress = new(
-            CountryId: null,
-            StateId: null,
-            SiteName: null,
-            SiteType: null,
-            SiteId: null,
-            PostCode: null
-        );
-        CalculationRecipientModel calcRecipient = new(calcAddress, clientId, null, pickupOfficeId, null);
-        CalculationSenderModel calcSender = new(calcAddress, clientId, null, dropoffOfficeId, null);
+        CalculationRecipientModel calcRecipient = new(null, clientId, null, pickupOfficeId, null);
+        CalculationSenderModel calcSender = new(null, clientId, null, dropoffOfficeId, null);
         var services = await servicesService.DestinationServices(account, calcRecipient, null, calcSender, ct).ConfigureAwait(false);
 
-        var response = await endpoints.CreateShipmentAsync(new(
+        CreateShipmentRequest request = new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
@@ -133,7 +126,8 @@ public class ShipmentService(
             Ref2: null,
             ConsolidationRef: null,
             RequireUnsuccessfulDeliveryStickerImage: null
-        ), ct).ConfigureAwait(false);
+        );
+        var response = await endpoints.CreateShipmentAsync(request, ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
         return new(
