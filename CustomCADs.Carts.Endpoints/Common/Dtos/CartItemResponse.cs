@@ -4,6 +4,7 @@ public sealed record CartItemResponse(
     Guid Id,
     int Quantity,
     bool Delivery,
+    double Weight,
     decimal Price,
     string PurchaseDate,
     Guid ProductId,

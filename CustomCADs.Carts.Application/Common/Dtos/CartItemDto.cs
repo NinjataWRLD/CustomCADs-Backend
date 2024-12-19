@@ -7,6 +7,7 @@ public record CartItemDto(
     CartItemId Id,
     int Quantity,
     bool Delivery,
+    double Weight,
     decimal Price,
     decimal Cost,
     DateTime PurchaseDate,

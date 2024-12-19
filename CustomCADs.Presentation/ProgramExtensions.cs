@@ -51,14 +51,7 @@ public static class ProgramExtensions
         return services;
     }
 
-    public static IServiceCollection AddCache(this IServiceCollection services)
-    {
-        services.AddCacheService();
-
-        return services;
-    }
-
-    public static IServiceCollection AddRaiser(this IServiceCollection services)
+    public static IServiceCollection AddRaiserService(this IServiceCollection services)
     {
         services.AddEventRaiser([
             AccountApplicationReference.Assembly,
@@ -73,7 +66,7 @@ public static class ProgramExtensions
         return services;
     }
 
-    public static IServiceCollection AddEmail(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddEmailService(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<EmailSettings>(config.GetSection("Email"));
         services.AddEmailService();
@@ -81,7 +74,7 @@ public static class ProgramExtensions
         return services;
     }
 
-    public static IServiceCollection AddPayment(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddPaymentService(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<PaymentSettings>(config.GetSection("Payment"));
         services.AddPaymentService();
@@ -89,7 +82,7 @@ public static class ProgramExtensions
         return services;
     }
 
-    public static IServiceCollection AddStorage(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddStorageService(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<StorageSettings>(config.GetSection("Storage"));
         services.AddStorageService();

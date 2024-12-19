@@ -23,6 +23,7 @@ public sealed class PostCartItemEndpoint(IRequestSender sender)
             Id: new CartId(req.CartId),
             Delivery: req.Delivery,
             Quantity: req.Quantity,
+            Weight: req.Weight,
             ProductId: new ProductId(req.ProductId),
             BuyerId: User.GetAccountId()
         );
