@@ -4,5 +4,5 @@ namespace CustomCADs.Shared.Application.Delivery;
 
 public interface IDeliveryService
 {
-    Task<ShipmentDto> Ship(string package, string contents, int parcelCount, int totalWeight, CancellationToken ct = default);
+    Task<ShipmentDto> ShipAsync(string package, string contents, int parcelCount, int totalWeight, CancellationToken ct = default);
 }

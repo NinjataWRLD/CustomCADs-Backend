@@ -14,6 +14,7 @@ builder.Services.AddRaiserService();
 // External Services 
 builder.Services.AddEmailService(builder.Configuration);
 builder.Services.AddPaymentService(builder.Configuration);
+builder.Services.AddDeliveryService(builder.Configuration);
 builder.Services.AddStorageService(builder.Configuration);
 
 // Modules

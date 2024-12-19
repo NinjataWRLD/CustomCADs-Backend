@@ -10,6 +10,7 @@ using CustomCADs.Identity.Infrastructure;
 using CustomCADs.Orders.Application;
 using CustomCADs.Shared.Application.Requests.Middleware;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Infrastructure.Delivery;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
@@ -78,6 +79,14 @@ public static class ProgramExtensions
     {
         services.Configure<PaymentSettings>(config.GetSection("Payment"));
         services.AddPaymentService();
+
+        return services;
+    }
+
+    public static IServiceCollection AddDeliveryService(this IServiceCollection services, IConfiguration config)
+    {
+        services.Configure<DeliverySettings>(config.GetSection("Delivery"));
+        services.AddDeliveryService();
 
         return services;
     }

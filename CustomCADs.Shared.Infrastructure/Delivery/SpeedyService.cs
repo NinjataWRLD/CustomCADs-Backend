@@ -10,7 +10,7 @@ public sealed class SpeedyService(
     ShipmentService shipmentService
 ) : IDeliveryService
 {
-    public async Task<ShipmentDto> Ship(string package, string contents, int parcelCount, int totalWeight, CancellationToken ct = default)
+    public async Task<ShipmentDto> ShipAsync(string package, string contents, int parcelCount, int totalWeight, CancellationToken ct = default)
     {
         var response = await shipmentService.CreateShipmentAsync(
             account: new(settings.Value.Username, settings.Value.Password),

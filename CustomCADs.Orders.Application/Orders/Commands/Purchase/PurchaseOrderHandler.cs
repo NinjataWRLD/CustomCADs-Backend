@@ -3,13 +3,15 @@ using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Orders.Domain.Orders.Reads;
+using CustomCADs.Shared.Application.Delivery;
+using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Purchase;
 
-public sealed class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment)
+public sealed class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment, IDeliveryService delivery)
     : ICommandHandler<PurchaseOrderCommand, string>
 {
     public async Task<string> Handle(PurchaseOrderCommand req, CancellationToken ct)
@@ -38,10 +40,27 @@ public sealed class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRe
         order.SetCompletedStatus();
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        return await payment.InitializePayment(
+        decimal price = 0m;
+        int count = 1;
+        if (order.Delivery)
+        {
+            int weight = 5; // integrate calculations
+            ShipmentDto shipment = await delivery.ShipAsync(
+                package: "BOX",
+                contents: $"{count} 3D Model/s, each wrapped in a box",
+                parcelCount: count,
+                totalWeight: weight,
+                ct: ct
+            ).ConfigureAwait(false);
+            price += shipment.Price;
+        }
+
+        string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
-            price: 0m, // figure it out, idk
+            price: price,
             description: $"{buyer} bought {order.Name} from {seller}."
         ).ConfigureAwait(false);
+
+        return message;
     }
 }
