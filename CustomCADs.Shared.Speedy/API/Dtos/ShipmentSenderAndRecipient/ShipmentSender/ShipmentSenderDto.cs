@@ -14,5 +14,5 @@ public record ShipmentSenderDto(
     string? ContactName,
     bool? PrivatePerson,
     int? DropoffOfficeId,
-    int? DropoffGeoPUDOId
+    string? DropoffGeoPUDOId
 );

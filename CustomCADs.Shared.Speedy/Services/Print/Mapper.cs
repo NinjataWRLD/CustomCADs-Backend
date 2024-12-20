@@ -9,7 +9,7 @@ internal static class Mapper
     internal static ParcelToPrintDto ToDto(this ParcelToPrintModel model)
         => new(
             Parcel: model.Parcel.ToDto(),
-            AdditionalBarcode: model.AdditionalBarcode.ToDto()
+            AdditionalBarcode: model.AdditionalBarcode?.ToDto()
         );
 
     internal static ParcelToPrintAdditionalBarcodeDto ToDto(this ParcelToPrintAdditionalBarcodeModel model)

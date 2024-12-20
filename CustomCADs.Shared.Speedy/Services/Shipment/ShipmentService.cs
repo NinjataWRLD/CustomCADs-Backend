@@ -7,8 +7,6 @@ using CustomCADs.Shared.Speedy.Services.Calculation;
 using CustomCADs.Shared.Speedy.Services.Client;
 using CustomCADs.Shared.Speedy.Services.Location.Office;
 using CustomCADs.Shared.Speedy.Services.Models;
-using CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
-using CustomCADs.Shared.Speedy.Services.Models.Calculation.Sender;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
@@ -38,6 +36,7 @@ public class ShipmentService(
         string package,
         string contents,
         int parcelCount,
+        Payer payer,
         double totalWeight,
         string? shipmentNote = null,
         CancellationToken ct = default)
@@ -50,9 +49,7 @@ public class ShipmentService(
 
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
 
-        CalculationRecipientModel calcRecipient = new(null, clientId, null, pickupOfficeId, null);
-        CalculationSenderModel calcSender = new(null, clientId, null, dropoffOfficeId, null);
-        var services = await servicesService.DestinationServices(account, calcRecipient, null, calcSender, ct).ConfigureAwait(false);
+        var services = await servicesService.Services(account, null, ct).ConfigureAwait(false);
 
         CreateShipmentRequest request = new(
             UserName: account.Username,
@@ -91,7 +88,7 @@ public class ShipmentService(
                 Phone3: null
             ),
             Service: new ShipmentServiceDto(
-                ServiceId: services.First().CourierService.Id,
+                ServiceId: services.First().Id,
                 PickupDate: null,
                 AdditionalServices: null,
                 SaturdayDelivery: null
@@ -112,7 +109,7 @@ public class ShipmentService(
                 UitCode: null
             ),
             Payment: new(
-                CourierServicePayer: Payer.RECIPIENT,
+                CourierServicePayer: payer,
                 DeclaredValuePayer: null,
                 PackagePayer: null,
                 ThirdPartyClientId: null,

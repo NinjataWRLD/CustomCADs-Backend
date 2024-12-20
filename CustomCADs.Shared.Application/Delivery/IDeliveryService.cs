@@ -4,6 +4,7 @@ namespace CustomCADs.Shared.Application.Delivery;
 
 public interface IDeliveryService
 {
-    Task<CalculationDto[]> CalculateAsync(string shipmentId, CancellationToken ct = default);
     Task<ShipmentDto> ShipAsync(string package, string contents, int parcelCount, double totalWeight, CancellationToken ct = default);
+    Task<CalculationDto[]> CalculateAsync(string shipmentId, CancellationToken ct = default);
+    Task<byte[]> PrintAsync(string shipmentId, CancellationToken ct = default);
 }

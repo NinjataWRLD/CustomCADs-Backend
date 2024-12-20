@@ -1,6 +1,8 @@
-﻿using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints;
+﻿using CustomCADs.Shared.Speedy.API.Dtos.ParcelToPrint;
+using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints;
 using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
 using CustomCADs.Shared.Speedy.Services.Models;
+using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 using CustomCADs.Shared.Speedy.Services.Print.Models;
 using CustomCADs.Shared.Speedy.Services.Shipment;
@@ -8,11 +10,14 @@ using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Print;
 
-public class PrintService(IPrintEndpoints endpoints)
+public class PrintService(
+    IPrintEndpoints endpoints,
+    ShipmentService shipmentService
+)
 {
     public async Task<byte[]> PrintAsync(
         AccountModel account,
-        ParcelToPrintModel[] parcels,
+        string shipmentId,
         PaperSize paperSize,
         PaperFormat format = PaperFormat.pdf,
         Dpi dpi = Dpi.dpi203,
@@ -20,6 +25,14 @@ public class PrintService(IPrintEndpoints endpoints)
         string? printerName = null,
         CancellationToken ct = default)
     {
+
+        var shipments = await shipmentService.ShipmentInfoAsync(
+            account: account,
+            shipmentIds: [shipmentId],
+            ct: ct
+        ).ConfigureAwait(false);
+        var parcels = shipments.Single().Content.Parcels;
+
         var response = await endpoints.PrintAsync(new(
             UserName: account.Username,
             Password: account.Password,
@@ -30,7 +43,7 @@ public class PrintService(IPrintEndpoints endpoints)
             PaperSize: paperSize,
             Dpi: dpi,
             AdditionalWaybillSenderCopy: additionalWaybillSenderCopy,
-            Parcels: [.. parcels.Select(p => p.ToDto())]
+            Parcels: [.. parcels?.Select(p => new ParcelToPrintDto(new(p.Id, null, null), null))]
         ), ct).ConfigureAwait(false);
 
         response.EnsureSuccessStatusCode();
@@ -41,7 +54,7 @@ public class PrintService(IPrintEndpoints endpoints)
 
     public async Task<(byte[] Data, LabelInfoModel[] PrintLabelsInfo)> ExtendedPrintAsync(
         AccountModel account,
-        ParcelToPrintModel[] parcels,
+        string shipmentId,
         PaperSize paperSize,
         PaperFormat format = PaperFormat.pdf,
         Dpi dpi = Dpi.dpi203,
@@ -49,6 +62,13 @@ public class PrintService(IPrintEndpoints endpoints)
         string? printerName = null,
         CancellationToken ct = default)
     {
+        var shipments = await shipmentService.ShipmentInfoAsync(
+            account: account,
+            shipmentIds: [shipmentId],
+            ct: ct
+        ).ConfigureAwait(false);
+        var parcels = shipments.Single().Content.Parcels;
+
         var response = await endpoints.ExtendedPrintAsync(new(
             UserName: account.Username,
             Password: account.Password,
@@ -59,7 +79,7 @@ public class PrintService(IPrintEndpoints endpoints)
             PaperSize: paperSize,
             Dpi: dpi,
             AdditionalWaybillSenderCopy: additionalWaybillSenderCopy,
-            Parcels: [.. parcels.Select(p => p.ToDto())]
+            Parcels: [.. parcels?.Select(p => new ParcelToPrintDto(new(p.Id, null, null), null))]
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
