@@ -1,21 +1,11 @@
-﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentParcels;
-using CustomCADs.Shared.Speedy.API.Dtos.TrackedParcel;
+﻿using CustomCADs.Shared.Speedy.API.Dtos.TrackedParcel;
 using CustomCADs.Shared.Speedy.API.Dtos.TrackedParcel.TrackedParcelOperation;
-using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
 using CustomCADs.Shared.Speedy.Services.Track.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Track;
 
 internal static class Mapper
 {
-    internal static TrackShipmentParcelRefDto ToDto(this (ShipmentParcelRefModel Parcel, string? Ref) model)
-        => new(
-            Ref: model.Ref,
-            Id: model.Parcel.Id,
-            ExternalCarrierParcelNumber: model.Parcel.ExternalCarrierParcelNumber,
-            FullBarcode: model.Parcel.FullBarcode
-        );
-
     internal static TrackedParcelModel ToModel(this TrackedParcelDto dto)
         => new(
             ParcelId: dto.ParcelId,

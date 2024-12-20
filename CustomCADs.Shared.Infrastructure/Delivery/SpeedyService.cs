@@ -2,10 +2,12 @@
 using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
 using CustomCADs.Shared.Speedy.Enums;
+using CustomCADs.Shared.Speedy.Services;
 using CustomCADs.Shared.Speedy.Services.Calculation;
 using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Print;
 using CustomCADs.Shared.Speedy.Services.Shipment;
+using CustomCADs.Shared.Speedy.Services.Track;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Shared.Infrastructure.Delivery;
@@ -14,7 +16,8 @@ public sealed class SpeedyService(
     IOptions<DeliverySettings> settings,
     ShipmentService shipmentService,
     CalculationService calculationService,
-    PrintService printService
+    PrintService printService,
+    TrackService trackService
 ) : IDeliveryService
 {
     private readonly AccountModel account = new(settings.Value.Username, settings.Value.Password);
@@ -70,5 +73,22 @@ public sealed class SpeedyService(
         ).ConfigureAwait(false);
 
         return waybill;
+    }
+
+    public async Task<ShipmentStatusDto[]> TrackAsync(string shipmentId, CancellationToken ct = default)
+    {
+        var response = await trackService.TrackAsync(
+            account: account,
+            shipmentId: shipmentId,
+            ct: ct
+        ).ConfigureAwait(false);
+
+        return [
+            .. response.Single().Operations.Select(o => new ShipmentStatusDto(
+                DateTime: o.DateTime,
+                Place: o.Place,
+                Message: o.Translate()
+            ))
+        ];
     }
 }

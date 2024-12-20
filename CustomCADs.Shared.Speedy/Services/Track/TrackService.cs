@@ -1,24 +1,35 @@
-﻿using CustomCADs.Shared.Speedy.API.Endpoints.TrackEndpoints;
+﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentParcels;
+using CustomCADs.Shared.Speedy.API.Endpoints.TrackEndpoints;
 using CustomCADs.Shared.Speedy.Services.Models;
-using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
+using CustomCADs.Shared.Speedy.Services.Shipment;
 using CustomCADs.Shared.Speedy.Services.Track.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Track;
 
-public class TrackService(ITrackEndpoints endpoints)
+public class TrackService(
+    ITrackEndpoints endpoints,
+    ShipmentService shipmentService
+)
 {
-    public async Task<TrackedParcelModel[]> Track(
+    public async Task<TrackedParcelModel[]> TrackAsync(
         AccountModel account,
-        (ShipmentParcelRefModel Parcel, string? Ref)[] parcels,
+        string shipmentId,
         bool? lastOperationOnly = null,
         CancellationToken ct = default)
     {
+        var shipments = await shipmentService.ShipmentInfoAsync(
+            account: account,
+            shipmentIds: [shipmentId],
+            ct: ct
+        ).ConfigureAwait(false);
+        var parcels = shipments.Single().Content.Parcels;
+
         var response = await endpoints.Track(new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            Parcels: [.. parcels.Select(p => p.ToDto())],
+            Parcels: [.. parcels?.Select(p => new TrackShipmentParcelRefDto(null, Id: p.Id, null, null))],
             LastOperationOnly: lastOperationOnly
         ), ct).ConfigureAwait(false);
 
