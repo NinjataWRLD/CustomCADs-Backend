@@ -4,8 +4,8 @@ using CustomCADs.Catalog.Domain.Products.Validation;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Catalog.Domain.Products;
 
@@ -16,21 +16,21 @@ public class Product : BaseAggregateRoot
         string name,
         string description,
         decimal price,
-        Image image,
         ProductStatus status,
         AccountId creatorId,
         CategoryId categoryId,
+        ImageId imageId,
         CadId cadId
     ) : this()
     {
         Name = name;
         Description = description;
         Price = price;
-        Image = image;
         Status = status;
         UploadDate = DateTime.UtcNow;
         CreatorId = creatorId;
         CategoryId = categoryId;
+        ImageId = imageId;
         CadId = cadId;
     }
 
@@ -41,8 +41,8 @@ public class Product : BaseAggregateRoot
     public Counts Counts { get; private set; } = new();
     public ProductStatus Status { get; private set; }
     public DateTime UploadDate { get; }
-    public Image Image { get; private set; } = new();
     public CategoryId CategoryId { get; private set; }
+    public ImageId ImageId { get; private set; }
     public CadId CadId { get; private set; }
     public AccountId CreatorId { get; private set; }
     public AccountId? DesignerId { get; private set; }
@@ -51,13 +51,12 @@ public class Product : BaseAggregateRoot
         string name,
         string description,
         decimal price,
-        string imageKey,
-        string imageContentType,
         ProductStatus status,
         AccountId creatorId,
         CategoryId categoryId,
+        ImageId imageId,
         CadId cadId
-    ) => new Product(name, description, price, new(imageKey, imageContentType), status, creatorId, categoryId, cadId)
+    ) => new Product(name, description, price, status, creatorId, categoryId, imageId, cadId)
             .ValidateName()
             .ValidateDescription()
             .ValidatePriceAmount();
@@ -116,22 +115,6 @@ public class Product : BaseAggregateRoot
     public Product SetDesignerId(AccountId designerId)
     {
         DesignerId = designerId;
-        return this;
-    }
-
-    public Product SetImage(string key, string? contentType = default)
-    {
-        if (string.IsNullOrEmpty(key))
-        {
-            throw ProductValidationException.NotNull(nameof(key));
-        }
-
-        Image = Image with { Key = key };
-        if (!string.IsNullOrEmpty(contentType))
-        {
-            Image = Image with { ContentType = contentType };
-        }
-
         return this;
     }
 

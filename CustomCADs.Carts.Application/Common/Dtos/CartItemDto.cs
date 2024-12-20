@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Cads;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Carts.Application.Common.Dtos;
 

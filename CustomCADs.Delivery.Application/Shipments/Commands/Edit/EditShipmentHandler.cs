@@ -18,7 +18,7 @@ public class EditShipmentHandler(IShipmentReads reads, IUnitOfWork uow)
             throw ShipmentAuthorizationException.ById(req.Id);
         }
 
-        shipment.SetAddress(req.Address);        
+        shipment.SetAddress(req.Address);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

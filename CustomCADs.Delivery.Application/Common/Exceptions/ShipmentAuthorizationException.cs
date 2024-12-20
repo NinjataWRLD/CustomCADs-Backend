@@ -1,5 +1,4 @@
-﻿using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Bases.Exceptions;
+﻿using CustomCADs.Shared.Core.Bases.Exceptions;
 
 namespace CustomCADs.Delivery.Application.Common.Exceptions;
 
@@ -9,7 +8,7 @@ public class ShipmentAuthorizationException : BaseException
 
     public static ShipmentAuthorizationException General(Exception? inner = null)
         => new("Cannot modify another Buyer's Shipment.", inner);
-    
+
     public static ShipmentAuthorizationException ById(ShipmentId id, Exception? inner = null)
         => new($"Cannot modify another Buyer's Shipment: {id}.", inner);
 

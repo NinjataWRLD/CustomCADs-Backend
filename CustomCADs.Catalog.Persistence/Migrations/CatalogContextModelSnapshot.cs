@@ -52,6 +52,10 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("DesignerId");
 
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("ImageId");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(18)
@@ -87,21 +91,6 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                             b1.Property<int>("Views")
                                 .HasColumnType("integer")
                                 .HasColumnName("Views");
-                        });
-
-                    b.ComplexProperty<Dictionary<string, object>>("Image", "CustomCADs.Catalog.Domain.Products.Product.Image#Image", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<string>("ContentType")
-                                .IsRequired()
-                                .HasColumnType("text")
-                                .HasColumnName("ImageContentType");
-
-                            b1.Property<string>("Key")
-                                .IsRequired()
-                                .HasColumnType("text")
-                                .HasColumnName("ImageKey");
                         });
 
                     b.HasKey("Id");

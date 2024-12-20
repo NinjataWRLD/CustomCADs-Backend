@@ -41,6 +41,12 @@ static class CadConfigUtils
                 v => new(v)
             );
 
+        builder.Property(x => x.ImageId)
+            .HasConversion(
+                x => x.Value,
+                v => new(v)
+            );
+
         builder.Property(x => x.CadId)
             .HasConversion(
                 x => x.Value,
@@ -64,17 +70,6 @@ static class CadConfigUtils
 
     public static EntityTypeBuilder<Product> SetValueObjects(this EntityTypeBuilder<Product> builder)
     {
-        builder.ComplexProperty(x => x.Image, c =>
-        {
-            c.Property(x => x.Key)
-                .IsRequired()
-                .HasColumnName("ImageKey");
-
-            c.Property(x => x.ContentType)
-                .IsRequired()
-                .HasColumnName("ImageContentType");
-        });
-
         builder.ComplexProperty(x => x.Counts, c =>
         {
             c.Property(x => x.Purchases)
@@ -124,6 +119,10 @@ static class CadConfigUtils
         builder.Property(x => x.CategoryId)
             .IsRequired()
             .HasColumnName("CategoryId");
+
+        builder.Property(x => x.ImageId)
+            .IsRequired()
+            .HasColumnName("ImageId");
 
         builder.Property(x => x.CadId)
             .IsRequired()

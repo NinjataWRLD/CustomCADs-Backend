@@ -24,7 +24,7 @@ internal static class Mapper
         => new(
             Id: product.Id.Value,
             Name: product.Name,
-            Image: product.Image.ToImageDto()
+            Image: product.Image.ToImageResponse()
         );
 
     internal static GetGalleryProductResponse ToGetGalleryProductResponse(this GalleryGetProductByIdDto product)
@@ -55,7 +55,7 @@ internal static class Mapper
             Id: product.Id.Value,
             Name: product.Name,
             UploadDate: product.UploadDate.ToString(DateFormatString),
-            Image: product.Image.ToImageDto(),
+            Image: product.Image.ToImageResponse(),
             CreatorName: product.CreatorName,
             Category: product.Category.ToCategoryDto()
         );
@@ -114,7 +114,7 @@ internal static class Mapper
             Views: counts.Views
         );
 
-    internal static ImageDto ToImageDto(this Image image)
+    internal static ImageResponse ToImageResponse(this ImageDto image)
         => new(
             Key: image.Key,
             ContentType: image.ContentType
