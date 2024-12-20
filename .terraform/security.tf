@@ -8,7 +8,7 @@ resource "aws_security_group" "customcads_db_security_group" {
     {
       description      = "Allow SQL Server access from VPC"
       protocol         = "tcp"
-      cidr_blocks      = ["10.0.0.0/16"]
+      cidr_blocks      = [aws_vpc.customcads_vpc.cidr_block]
       to_port          = 5432
       from_port        = 5432
       ipv6_cidr_blocks = []

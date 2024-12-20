@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "535002872631.dkr.ecr.us-east-1.amazonaws.com/ninjatabg/customcads:latest"
+    "Name": "222634368027.dkr.ecr.us-east-1.amazonaws.com/ninjatabg/customcads:latest"
   },
   "Ports": [
     {

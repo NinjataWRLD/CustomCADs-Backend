@@ -372,7 +372,7 @@ FodyWeavers.xsd
 !.elasticbeanstalk/*.global.yml
 
 # Terraform
-.terraform**
+.terraform/.terraform**
 *.tfstate**
 *.tfvars
 *.tfplan
