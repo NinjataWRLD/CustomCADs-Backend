@@ -109,13 +109,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postdeploy", "postdeploy", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terraform", "terraform", "{F1E10E99-8DD0-4BA7-8172-ABE250ADA792}"
 	ProjectSection(SolutionItems) = preProject
-		terraform\app.tf = terraform\app.tf
-		terraform\database.tf = terraform\database.tf
-		terraform\main.tf = terraform\main.tf
-		terraform\networking.tf = terraform\networking.tf
-		terraform\storage.tf = terraform\storage.tf
-		terraform\subnets.tf = terraform\subnets.tf
-		terraform\variables.tf = terraform\variables.tf
+		.terraform\app.tf = .terraform\app.tf
+		.terraform\database.tf = .terraform\database.tf
+		.terraform\main.tf = .terraform\main.tf
+		.terraform\networking.tf = .terraform\networking.tf
+		.terraform\storage.tf = .terraform\storage.tf
+		.terraform\subnets.tf = .terraform\subnets.tf
+		.terraform\variables.tf = .terraform\variables.tf
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Delivery.Application", "CustomCADs.Delivery.Application\CustomCADs.Delivery.Application.csproj", "{89CF9BE4-6F76-4E13-B10C-348DAA472C9A}"
