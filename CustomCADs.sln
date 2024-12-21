@@ -107,6 +107,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postdeploy", "postdeploy", 
 		.platform\hooks\postdeploy\migrations.sh = .platform\hooks\postdeploy\migrations.sh
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terraform", "terraform", "{F1E10E99-8DD0-4BA7-8172-ABE250ADA792}"
+	ProjectSection(SolutionItems) = preProject
+		terraform\app.tf = terraform\app.tf
+		terraform\database.tf = terraform\database.tf
+		terraform\main.tf = terraform\main.tf
+		terraform\networking.tf = terraform\networking.tf
+		terraform\storage.tf = terraform\storage.tf
+		terraform\subnets.tf = terraform\subnets.tf
+		terraform\variables.tf = terraform\variables.tf
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Delivery.Application", "CustomCADs.Delivery.Application\CustomCADs.Delivery.Application.csproj", "{89CF9BE4-6F76-4E13-B10C-348DAA472C9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Delivery.Endpoints", "CustomCADs.Delivery.Endpoints\CustomCADs.Delivery.Endpoints.csproj", "{80604D2A-7BCF-49E1-A87C-65A62CFE4442}"
@@ -339,6 +350,7 @@ Global
 		{C5729589-AD90-4F8F-A743-1DA54B6E0527} = {0646BF04-B70A-4939-BF1F-9810C68B06B1}
 		{D759A717-B0F9-4DCE-BADB-EF68056E4F0F} = {C5729589-AD90-4F8F-A743-1DA54B6E0527}
 		{C48AF50F-3357-482A-81F6-79D5945B49B3} = {D759A717-B0F9-4DCE-BADB-EF68056E4F0F}
+		{F1E10E99-8DD0-4BA7-8172-ABE250ADA792} = {0646BF04-B70A-4939-BF1F-9810C68B06B1}
 		{89CF9BE4-6F76-4E13-B10C-348DAA472C9A} = {42AE8AD4-70FF-4EB7-A7EA-94D6BFF422AA}
 		{80604D2A-7BCF-49E1-A87C-65A62CFE4442} = {42AE8AD4-70FF-4EB7-A7EA-94D6BFF422AA}
 		{E8BE4C5E-BDF6-4BF7-A18A-6D96A114BCA7} = {0646BF04-B70A-4939-BF1F-9810C68B06B1}
