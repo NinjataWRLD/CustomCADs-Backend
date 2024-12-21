@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Accounts.Application;
-using CustomCADs.Cads.Application;
 using CustomCADs.Carts.Application;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Categories.Application;
+using CustomCADs.Delivery.Application;
+using CustomCADs.Files.Application;
 using CustomCADs.Identity.Application;
 using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Infrastructure;
@@ -33,10 +34,11 @@ public static class ProgramExtensions
     {
         Assembly[] assemblies = [
             AccountApplicationReference.Assembly,
-            CadsApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
             CartsApplicationReference.Assembly,
+            DeliveryApplicationReference.Assembly,
+            FilesApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
         ];
 
@@ -60,7 +62,6 @@ public static class ProgramExtensions
     {
         services.AddEventRaiser([
             AccountApplicationReference.Assembly,
-            CadsApplicationReference.Assembly,
             CartsApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
@@ -111,10 +112,6 @@ public static class ProgramExtensions
             .AddAccountsExceptionHandler()
             .AddAccountsPersistence(config);
 
-    public static IServiceCollection AddCads(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddCadsPersistence(config);
-
     public static IServiceCollection AddCarts(this IServiceCollection services, IConfiguration config)
         => services
             .AddCartsExceptionHandler()
@@ -132,7 +129,12 @@ public static class ProgramExtensions
 
     public static IServiceCollection AddDelivery(this IServiceCollection services, IConfiguration config)
         => services
+            .AddDeliveryExceptionHandler()
             .AddDeliveryPersistence(config);
+
+    public static IServiceCollection AddFiles(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddFilesPersistence(config);
 
     public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration config)
         => services
@@ -151,11 +153,11 @@ public static class ProgramExtensions
         IServiceProvider provider = scope.ServiceProvider;
 
         await provider.UpdateAccountsContextAsync().ConfigureAwait(false);
-        await provider.UpdateCadsContextAsync().ConfigureAwait(false);
         await provider.UpdateCartsContextAsync().ConfigureAwait(false);
         await provider.UpdateCatalogContextAsync().ConfigureAwait(false);
         await provider.UpdateCategoriesContextAsync().ConfigureAwait(false);
         await provider.UpdateDeliveryContextAsync().ConfigureAwait(false);
+        await provider.UpdateFilesContextAsync().ConfigureAwait(false);
         await provider.UpdateIdentityContextAsync().ConfigureAwait(false);
         await provider.UpdateOrdersContextAsync().ConfigureAwait(false);
     }
@@ -218,7 +220,7 @@ public static class ProgramExtensions
             });
         });
     }
-    
+
     public static void LimitUploadSize(this IWebHostBuilder webhost, int limit = 300_000_000)
     {
         webhost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = limit);

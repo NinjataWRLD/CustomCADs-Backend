@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetAll;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Endpoints.Products.Designer;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
@@ -26,8 +25,7 @@ public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
             CategoryId: req.CategoryId is null ? null : new CategoryId(req.CategoryId.Value),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: new(req.Page, req.Limit)
         );
         var result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

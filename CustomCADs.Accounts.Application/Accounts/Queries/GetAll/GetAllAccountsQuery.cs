@@ -4,12 +4,11 @@ using CustomCADs.Shared.Core.Common;
 namespace CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
 
 public sealed record GetAllAccountsQuery(
+    Pagination Pagination,
     string? Role = null,
     string? Username = null,
     string? Email = null,
     string? FirstName = null,
     string? LastName = null,
-    AccountSorting? Sorting = null,
-    int Page = 1,
-    int Limit = 20
+    AccountSorting? Sorting = null
 ) : IQuery<Result<GetAllAccountsItem>>;

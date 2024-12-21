@@ -27,7 +27,7 @@ public class OrderValidationException : BaseException
 
     public static OrderValidationException CadIdOnNonFinished(Exception? inner = default)
         => new("Cannot set a CadId for an Order that isn't Finished.", inner);
-    
+
     public static OrderValidationException ShipmentIdOnNonFinished(Exception? inner = default)
         => new("Cannot set a ShipemntId for an Order that isn't Finished.", inner);
 

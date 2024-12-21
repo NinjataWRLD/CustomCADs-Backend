@@ -5,6 +5,7 @@ using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
+using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 
@@ -33,6 +34,9 @@ public sealed class GetProductByIdHandler(IProductReads reads, IRequestSender se
         GetCadByIdQuery cadQuery = new(product.CadId);
         var cad = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
 
-        return product.ToGetProductByIdDto(cad.ToCadDto(), username, categoryName, timeZone);
+        GetImageByIdQuery imageQuery = new(product.ImageId);
+        var image = await sender.SendQueryAsync(imageQuery, ct).ConfigureAwait(false);
+
+        return product.ToGetProductByIdDto(image.ToImageDto(), cad.ToCadDto(), username, categoryName, timeZone);
     }
 }

@@ -17,7 +17,7 @@ public sealed class ShipmentReads(DeliveryContext context) : IShipmentReads
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         Shipment[] shipments = await queryable
-            .WithPagination(query.Page, query.Limit)
+            .WithPagination(query.Pagination.Page, query.Pagination.Limit)
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
 

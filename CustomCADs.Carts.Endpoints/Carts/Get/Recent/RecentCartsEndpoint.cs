@@ -23,7 +23,7 @@ public sealed class RecentCartsEndpoint(IRequestSender sender)
         GetAllCartsQuery query = new(
             BuyerId: User.GetAccountId(),
             Sorting: new(CartSortingType.PurchaseDate, SortingDirection.Descending),
-            Limit: req.Limit
+            Pagination: new(Limit: req.Limit)
         );
         Result<GetAllCartsDto> carts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Edit;
 using CustomCADs.Catalog.Application.Products.Commands.SetKeys;
-using CustomCADs.Catalog.Endpoints.Products.Contributors;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Contributors.Put.Products;

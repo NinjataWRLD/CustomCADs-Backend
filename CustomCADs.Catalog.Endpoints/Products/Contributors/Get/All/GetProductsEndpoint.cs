@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetAll;
-using CustomCADs.Catalog.Endpoints.Products.Contributors;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
@@ -25,8 +24,7 @@ public sealed class GetProductsEndpoint(IRequestSender sender)
             CategoryId: req.CategoryId is null ? null : new CategoryId(req.CategoryId.Value),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: new(req.Page, req.Limit)
         );
         Result<GetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

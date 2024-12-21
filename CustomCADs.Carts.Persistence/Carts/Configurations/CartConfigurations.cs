@@ -49,6 +49,12 @@ public static class CartItemConfigurUitls
                 v => new(v)
             );
 
+        builder.Property(x => x.ShipmentId)
+            .HasConversion<Guid?>(
+                x => x == null ? null : x.Value.Value,
+                v => v == null ? null : new(v.Value)
+            );
+
         return builder;
     }
 
@@ -66,6 +72,9 @@ public static class CartItemConfigurUitls
         builder.Property(x => x.BuyerId)
             .IsRequired()
             .HasColumnName("BuyerId");
+
+        builder.Property(x => x.ShipmentId)
+            .HasColumnName("ShipmentId");
 
         return builder;
     }

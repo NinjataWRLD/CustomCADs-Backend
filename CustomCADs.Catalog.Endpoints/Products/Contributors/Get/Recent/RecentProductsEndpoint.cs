@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetAll;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Endpoints.Products.Contributors;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.Enums;
 
@@ -24,7 +23,7 @@ public sealed class RecentProductsEndpoint(IRequestSender sender)
         GetAllProductsQuery query = new(
             CreatorId: User.GetAccountId(),
             Sorting: new(ProductSortingType.UploadDate, SortingDirection.Descending),
-            Limit: req.Limit
+            Pagination: new(Limit: req.Limit)
         );
         Result<GetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

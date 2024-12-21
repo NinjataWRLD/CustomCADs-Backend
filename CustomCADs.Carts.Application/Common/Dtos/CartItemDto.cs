@@ -1,6 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Cads;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Carts.Application.Common.Dtos;
 
@@ -13,6 +12,5 @@ public record CartItemDto(
     DateTime PurchaseDate,
     ProductId ProductId,
     CartId CartId,
-    CadId? CadId,
-    ShipmentId? ShipmentId
+    CadId? CadId
 );

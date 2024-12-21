@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Create;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
-using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Orders.Endpoints.Orders.Client.Get.Single;
 
 namespace CustomCADs.Orders.Endpoints.Orders.Client.Post.Orders;

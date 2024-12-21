@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Domain.Orders.Enums;
-using CustomCADs.Orders.Endpoints.Orders.Designer;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Orders.Endpoints.Orders.Designer.Get.Reported;
@@ -26,8 +25,7 @@ public sealed class GetReportedOrdersEndpoint(IRequestSender sender)
             DesignerId: User.GetAccountId(),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
-            Page: req.Page,
-            Limit: req.Limit
+            Pagination: new(req.Page, req.Limit)
         );
         var orders = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

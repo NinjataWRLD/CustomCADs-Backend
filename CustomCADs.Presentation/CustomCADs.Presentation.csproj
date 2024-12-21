@@ -21,15 +21,16 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Accounts.Endpoints\CustomCADs.Accounts.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Accounts.Persistence\CustomCADs.Accounts.Persistence.csproj" />
-		<ProjectReference Include="..\CustomCADs.Cads.Application\CustomCADs.Cads.Application.csproj" />
-		<ProjectReference Include="..\CustomCADs.Cads.Persistence\CustomCADs.Cads.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Carts.Endpoints\CustomCADs.Carts.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Carts.Persistence\CustomCADs.Carts.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Catalog.Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Catalog.Persistence\CustomCADs.Catalog.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Categories.Endpoints\CustomCADs.Categories.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Categories.Persistence\CustomCADs.Categories.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Delivery.Endpoints\CustomCADs.Delivery.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Delivery.Persistence\CustomCADs.Delivery.Persistence.csproj" />
+		<ProjectReference Include="..\CustomCADs.Files.Application\CustomCADs.Files.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Files.Persistence\CustomCADs.Files.Persistence.csproj" />
 		<ProjectReference Include="..\CustomCADs.Identity.Endpoints\CustomCADs.Identity.Endpoints.csproj" />
 		<ProjectReference Include="..\CustomCADs.Identity.Infrastructure\CustomCADs.Identity.Infrastructure.csproj" />
 		<ProjectReference Include="..\CustomCADs.Orders.Endpoints\CustomCADs.Orders.Endpoints.csproj" />

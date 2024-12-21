@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.AddView;
-using CustomCADs.Catalog.Endpoints.Products.Gallery;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Gallery.Patch.View;
 

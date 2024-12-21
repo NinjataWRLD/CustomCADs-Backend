@@ -1,9 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.Carts.Validation;
-using CustomCADs.Carts.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Cads;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Carts.Domain.Carts.Entities;
 
@@ -15,40 +13,29 @@ public class CartItem : BaseEntity
         int quantity,
         ProductId productId,
         CartId cartId,
-        ShipmentId? shipmentId) : this()
+        bool delivery) : this()
     {
         Price = price;
         Quantity = quantity;
         PurchaseDate = DateTime.UtcNow;
         ProductId = productId;
         CartId = cartId;
-        ShipmentId = shipmentId;
+        Delivery = delivery;
     }
 
     public CartItemId Id { get; init; }
     public int Quantity { get; private set; }
     public decimal Price { get; private set; }
+    public bool Delivery { get; set; }
     public DateTime PurchaseDate { get; }
     public ProductId ProductId { get; }
     public CartId CartId { get; }
     public Cart Cart { get; } = null!;
     public CadId? CadId { get; private set; }
-    public ShipmentId? ShipmentId { get; private set; }
     public decimal Cost => Price * Quantity;
-    public bool Delivery => ShipmentId is not null;
 
-    public static CartItem Create(decimal price, int quantity, ProductId productId, CartId cartId, ShipmentId? shipmentId)
-        => shipmentId is not null
-            ? CreatePhysical(price, quantity, productId, cartId, shipmentId.Value)
-            : CreateDigital(price, quantity, productId, cartId);
-
-    private static CartItem CreateDigital(decimal price, int quantity, ProductId productId, CartId cartId)
-        => new CartItem(price, quantity, productId, cartId, shipmentId: null)
-            .ValidateQuantity()
-            .ValidatePrice();
-
-    private static CartItem CreatePhysical(decimal price, int quantity, ProductId productId, CartId cartId, ShipmentId shipmentId)
-        => new CartItem(price, quantity, productId, cartId, shipmentId)
+    public static CartItem Create(decimal price, int quantity, ProductId productId, CartId cartId, bool delivery)
+        => new CartItem(price, quantity, productId, cartId, delivery)
             .ValidateQuantity()
             .ValidatePrice();
 
@@ -68,22 +55,7 @@ public class CartItem : BaseEntity
 
     public CartItem SetCadId(CadId cadId)
     {
-        if (Delivery)
-        {
-            throw CartItemValidationException.CadIdOnNonDigitalDeliveryType();
-        }
         CadId = cadId;
-
-        return this;
-    }
-
-    public CartItem SetShipmentId(ShipmentId shipmentId)
-    {
-        if (!Delivery)
-        {
-            throw CartItemValidationException.ShipmentIdOnNonPhysicalDeliveryType();
-        }
-        ShipmentId = shipmentId;
 
         return this;
     }
