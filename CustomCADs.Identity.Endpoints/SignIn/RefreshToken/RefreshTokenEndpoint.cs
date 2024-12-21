@@ -22,7 +22,7 @@ public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        string? rt = GetRefreshTokenFromCookies();
+        string? rt = HttpContext.GetRefreshTokenCookie();
         if (string.IsNullOrEmpty(rt))
         {
             ValidationFailures.Add(new("RefreshToken", NoRefreshToken));
@@ -40,16 +40,16 @@ public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService
 
         if (user.RefreshTokenEndDate < DateTime.UtcNow)
         {
-            DeleteCookies("jwt", "rt", "username", "role");
-
+            HttpContext.DeleteAllCookies();
             ValidationFailures.Add(new("RefreshToken", RefreshTokenExpired, rt));
+            
             await SendErrorsAsync(Status401Unauthorized).ConfigureAwait(false);
             return;
         }
 
-        string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
-        AccessTokenDto newJwt = tokenService.GenerateAccessToken(user.AccountId, user.UserName ?? string.Empty, role);
-        SaveAccessToken(newJwt.Value, newJwt.EndDate);
+        string username = user.UserName ?? string.Empty,
+            role = await userService.GetRoleAsync(user).ConfigureAwait(false);
+        AccessTokenDto newJwt = tokenService.GenerateAccessToken(user.AccountId, username, role);
 
         if (user.RefreshTokenEndDate >= DateTime.UtcNow.AddMinutes(1))
         {
@@ -61,44 +61,11 @@ public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService
         DateTime newRtEnd = DateTime.UtcNow.AddDays(RtDurationInDays);
         await userService.UpdateRefreshTokenAsync(user.Id, newRt, newRtEnd).ConfigureAwait(false);
 
-        SaveRefreshToken(newRt, newRtEnd);
-
-        SaveRole(role, newRtEnd);
-        SaveUsername(user.UserName ?? string.Empty, newRtEnd);
+        HttpContext.SaveAccessTokenCookie(newJwt.Value, newJwt.EndDate);
+        HttpContext.SaveRefreshTokenCookie(newRt, newRtEnd);
+        HttpContext.SaveRoleCookie(role, newRtEnd);
+        HttpContext.SaveUsernameCookie(username, newRtEnd);
 
         await SendOkAsync($"{NewRefreshTokenNotNeeded} {NewRefreshTokenGranted}").ConfigureAwait(false);
-    }
-
-    private void SaveAccessToken(string jwt, DateTime end)
-    {
-        HttpContext.Response.Cookies.Append("jwt", jwt, new() { HttpOnly = true, Secure = true, Expires = end });
-    }
-
-    private void SaveRefreshToken(string rt, DateTime end)
-    {
-        HttpContext.Response.Cookies.Append("rt", rt, new() { HttpOnly = true, Secure = true, Expires = end });
-    }
-
-    private void SaveUsername(string username, DateTime end)
-    {
-        HttpContext.Response.Cookies.Append("username", username, new() { Expires = end });
-    }
-
-    private void SaveRole(string role, DateTime end)
-    {
-        HttpContext.Response.Cookies.Append("role", role, new() { Expires = end });
-    }
-
-    private void DeleteCookies(params string[] cookies)
-    {
-        foreach (string cookie in cookies)
-        {
-            HttpContext.Response.Cookies.Delete(cookie);
-        }
-    }
-
-    private string? GetRefreshTokenFromCookies()
-    {
-        return HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "rt").Value;
     }
 }
