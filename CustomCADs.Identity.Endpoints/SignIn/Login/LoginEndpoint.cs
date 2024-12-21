@@ -50,16 +50,15 @@ public sealed class LoginEndpoint(IUserService userService, ITokenService tokenS
 
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, req.Username, role);
-        SaveJwt(jwt.Value, jwt.EndDate);
 
         string rt = tokenService.GenerateRefreshToken();
         DateTime rtEndDate = DateTime.UtcNow.AddDays(RtDurationInDays);
-
         await userService.UpdateRefreshTokenAsync(user.Id, rt, rtEndDate).ConfigureAwait(false);
-        SaveRt(rt, rtEndDate);
 
-        SaveRole(role, rtEndDate);
-        SaveUsername(req.Username, rtEndDate);
+        HttpContext.SaveAccessTokenCookie(jwt.Value, jwt.EndDate);
+        HttpContext.SaveRefreshTokenCookie(rt, rtEndDate);
+        HttpContext.SaveRoleCookie(role, rtEndDate);
+        HttpContext.SaveUsernameCookie(req.Username, rtEndDate);
 
         await SendOkAsync("Welcome back!").ConfigureAwait(false);
     }
@@ -74,35 +73,5 @@ public sealed class LoginEndpoint(IUserService userService, ITokenService tokenS
         });
 
         await SendErrorsAsync(Status423Locked).ConfigureAwait(false);
-    }
-
-    private void SaveJwt(string jwt, DateTime expire)
-    {
-        HttpContext.Response.Cookies.Append("jwt", jwt, new()
-        {
-            HttpOnly = true,
-            Secure = true,
-            Expires = expire,
-        });
-    }
-
-    private void SaveRt(string rt, DateTime expire)
-    {
-        HttpContext.Response.Cookies.Append("rt", rt, new()
-        {
-            HttpOnly = true,
-            Secure = true,
-            Expires = expire,
-        });
-    }
-
-    private void SaveRole(string role, DateTime expire)
-    {
-        HttpContext.Response.Cookies.Append("role", role, new() { Expires = expire });
-    }
-
-    private void SaveUsername(string username, DateTime expire)
-    {
-        HttpContext.Response.Cookies.Append("username", username, new() { Expires = expire });
     }
 }

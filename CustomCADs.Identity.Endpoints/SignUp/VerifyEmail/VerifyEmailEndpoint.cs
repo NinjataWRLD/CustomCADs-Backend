@@ -64,31 +64,11 @@ public sealed class VerifyEmailEndpoint(IUserService userService, ITokenService 
         DateTime rtEnd = DateTime.UtcNow.AddDays(RtDurationInDays);
         await userService.UpdateRefreshTokenAsync(user.Id, rt, rtEnd).ConfigureAwait(false);
 
-        SaveAccessToken(jwt.Value, jwt.EndDate);
-        SaveRefreshToken(rt, rtEnd);
-        SaveRole(role, rtEnd);
-        SaveUsername(req.Username, rtEnd);
+        HttpContext.SaveAccessTokenCookie(jwt.Value, jwt.EndDate);
+        HttpContext.SaveRefreshTokenCookie(rt, rtEnd);
+        HttpContext.SaveRoleCookie(role, rtEnd);
+        HttpContext.SaveUsernameCookie(req.Username, rtEnd);
 
         await SendOkAsync("Welcome!").ConfigureAwait(false);
-    }
-
-    private void SaveAccessToken(string jwt, DateTime end)
-    {
-        HttpContext.Response.Cookies.Append("jwt", jwt, new() { HttpOnly = true, Secure = true, Expires = end });
-    }
-
-    private void SaveRefreshToken(string rt, DateTime end)
-    {
-        HttpContext.Response.Cookies.Append("rt", rt, new() { HttpOnly = true, Secure = true, Expires = end });
-    }
-
-    private void SaveRole(string role, DateTime end)
-    {
-        HttpContext.Response.Cookies.Append("role", role, new() { Expires = end });
-    }
-
-    private void SaveUsername(string username, DateTime end)
-    {
-        HttpContext.Response.Cookies.Append("username", username, new() { Expires = end });
     }
 }

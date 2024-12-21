@@ -28,15 +28,6 @@ public sealed class LogoutEndpoint(IUserService service)
         }
 
         await service.RevokeRefreshTokenAsync(User.GetName()).ConfigureAwait(false);
-        DeleteCookies(["jwt", "rt", "username", "rt"]);
-        DeleteCookies(["jwt", "rt", "username", "role"]);
-    }
-
-    private void DeleteCookies(params string[] cookies)
-    {
-        foreach (string cookie in cookies)
-        {
-            HttpContext.Response.Cookies.Delete(cookie);
-        }
+        HttpContext.DeleteAllCookies();
     }
 }
