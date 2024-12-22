@@ -7,5 +7,5 @@ public record CalculationRecipientDto(
     long? ClientId,
     bool? PrivatePerson,
     int? PickupOfficeId,
-    string? PickupGeoPUDOIf
+    string? PickupGeoPUDOId
 );

@@ -11,13 +11,14 @@ public class CartItem : BaseEntity
     private CartItem(
         decimal price,
         int quantity,
+        double weight,
         ProductId productId,
         CartId cartId,
         bool delivery) : this()
     {
         Price = price;
+        Weight = weight;
         Quantity = quantity;
-        PurchaseDate = DateTime.UtcNow;
         ProductId = productId;
         CartId = cartId;
         Delivery = delivery;
@@ -25,6 +26,7 @@ public class CartItem : BaseEntity
 
     public CartItemId Id { get; init; }
     public int Quantity { get; private set; }
+    public double Weight { get; private set; }
     public decimal Price { get; private set; }
     public bool Delivery { get; set; }
     public DateTime PurchaseDate { get; }
@@ -34,9 +36,10 @@ public class CartItem : BaseEntity
     public CadId? CadId { get; private set; }
     public decimal Cost => Price * Quantity;
 
-    public static CartItem Create(decimal price, int quantity, ProductId productId, CartId cartId, bool delivery)
-        => new CartItem(price, quantity, productId, cartId, delivery)
+    public static CartItem Create(decimal price, int quantity, double weight, ProductId productId, CartId cartId, bool delivery)
+        => new CartItem(price, quantity, weight, productId, cartId, delivery)
             .ValidateQuantity()
+            .ValidateWeight()
             .ValidatePrice();
 
     public CartItem SetQuantity(int quantity)

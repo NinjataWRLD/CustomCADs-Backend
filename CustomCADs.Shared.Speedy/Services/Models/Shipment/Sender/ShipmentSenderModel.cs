@@ -11,5 +11,5 @@ public record ShipmentSenderModel(
     string? ContactName,
     bool? PrivatePerson,
     int? DropoffOfficeId,
-    int? DropoffGeoPUDOId
+    string? DropoffGeoPUDOId
 );

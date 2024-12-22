@@ -3,6 +3,7 @@ using System;
 using CustomCADs.Carts.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Carts.Persistence.Migrations
 {
     [DbContext(typeof(CartsContext))]
-    partial class CartsContextModelSnapshot : ModelSnapshot
+    [Migration("20241219091649_Added_CartItem_Weight")]
+    partial class Added_CartItem_Weight
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,6 +80,10 @@ namespace CustomCADs.Carts.Persistence.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid")
                         .HasColumnName("ProductId");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("PurchaseDate");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")

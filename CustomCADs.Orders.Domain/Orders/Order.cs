@@ -11,14 +11,13 @@ namespace CustomCADs.Orders.Domain.Orders;
 public class Order : BaseAggregateRoot
 {
     private Order() { }
-    private Order(string name, string description, AccountId buyerId, ShipmentId? shipmentId) : this()
+    private Order(string name, string description, AccountId buyerId) : this()
     {
         Name = name;
         Description = description;
         OrderDate = DateTime.UtcNow;
         OrderStatus = OrderStatus.Pending;
         BuyerId = buyerId;
-        ShipmentId = shipmentId;
     }
 
     public OrderId Id { get; init; }
@@ -35,26 +34,8 @@ public class Order : BaseAggregateRoot
     public static Order Create(
         string name,
         string description,
-        AccountId buyerId,
-        ShipmentId? shipmentId
-    ) => shipmentId is not null
-            ? CreatePhysical(name, description, buyerId, shipmentId.Value)
-            : CreateDigital(name, description, buyerId);
-
-    private static Order CreateDigital(
-        string name,
-        string description,
         AccountId buyerId
-    ) => new Order(name, description, buyerId, shipmentId: null)
-            .ValidateName()
-            .ValidateDescription();
-
-    private static Order CreatePhysical(
-        string name,
-        string description,
-        AccountId buyerId,
-        ShipmentId shipmentId
-    ) => new Order(name, description, buyerId, shipmentId)
+    ) => new Order(name, description, buyerId)
             .ValidateName()
             .ValidateDescription();
 

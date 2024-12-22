@@ -48,10 +48,6 @@ public static class ShipmentConfigUtils
     {
         builder.ComplexProperty(x => x.Address, a =>
         {
-            a.Property(x => x.Street)
-                .IsRequired()
-                .HasColumnName("Street");
-
             a.Property(x => x.City)
                 .IsRequired()
                 .HasColumnName("City");

@@ -6,6 +6,6 @@ using Calculation;
 
 public interface ICalculationEndpoints
 {
-    [Post("calculate")]
+    [Post("/calculate")]
     Task<CalculationResponse> Calculation(CalculationRequest request, CancellationToken ct = default);
 }

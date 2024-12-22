@@ -52,11 +52,10 @@ internal static class Mapper
             ShipmentId: order.ShipmentId
         );
 
-    internal static Order ToOrder(this CreateOrderCommand command, ShipmentId? shipmentId)
+    internal static Order ToOrder(this CreateOrderCommand command)
         => Order.Create(
             name: command.Name,
             description: command.Description,
-            buyerId: command.BuyerId,
-            shipmentId: shipmentId
+            buyerId: command.BuyerId
         );
 }

@@ -33,9 +33,9 @@ public class Cart : BaseAggregateRoot
         => new Cart(buyerId)
             .ValidateItems();
 
-    public CartItem AddItem(decimal price, int quantity, ProductId productId, bool delivery)
+    public CartItem AddItem(decimal price, int quantity, double weight, ProductId productId, bool delivery)
     {
-        var item = CartItem.Create(price, quantity, productId, Id, delivery);
+        var item = CartItem.Create(price, quantity, weight, productId, Id, delivery);
         items.Add(item);
         this.ValidateItems();
 

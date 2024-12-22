@@ -29,6 +29,7 @@ public sealed class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IReque
         CartItem item = cart.AddItem(
             productId: req.ProductId,
             quantity: req.Quantity,
+            weight: req.Weight,
             delivery: req.Delivery,
             price: price
         );

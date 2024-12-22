@@ -7,9 +7,9 @@ using Services;
 
 public interface IServicesEndpoints
 {
-    [Post("")]
+    [Post("/")]
     Task<ServicesResponse> Services(ServicesRequest request, CancellationToken ct = default);
 
-    [Post("destination")]
+    [Post("/destination")]
     Task<DestinationServicesResponse> DestinationServices(DestinationServicesRequest request, CancellationToken ct = default);
 }

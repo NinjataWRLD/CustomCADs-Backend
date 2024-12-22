@@ -4,5 +4,5 @@ using ShipmentParcels;
 
 public record ParcelToPrintDto(
     ShipmentParcelRefDto Parcel,
-    ParcelToPrintAdditionalBarcodeDto AdditionalBarcode
+    ParcelToPrintAdditionalBarcodeDto? AdditionalBarcode
 );

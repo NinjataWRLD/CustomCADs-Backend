@@ -70,18 +70,23 @@ public static class CartItemItemConfigUtils
             .IsRequired()
             .HasColumnName("Quantity");
 
+        builder.Property(x => x.Weight)
+            .IsRequired()
+            .HasPrecision(6, 2)
+            .HasColumnName("Weight");
+        
         builder.Property(x => x.Price)
             .IsRequired()
-            .HasPrecision(19, 2)
+            .HasPrecision(10, 2)
             .HasColumnName("Price");
 
         builder.Property(x => x.Delivery)
             .IsRequired()
             .HasColumnName("Delivery");
 
-        builder.Property(x => x.PurchaseDate)
+        builder.Property(x => x.Delivery)
             .IsRequired()
-            .HasColumnName("PurchaseDate");
+            .HasColumnName("Delivery");
 
         builder.Property(x => x.ProductId)
             .IsRequired()

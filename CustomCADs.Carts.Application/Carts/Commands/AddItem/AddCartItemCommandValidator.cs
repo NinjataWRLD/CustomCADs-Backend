@@ -14,5 +14,8 @@ public class AddCartItemCommandValidator : Validator<AddCartItemCommand, CartIte
     {
         RuleFor(i => i.Quantity)
             .ExclusiveBetween(QuantityMin, QuantityMax).WithMessage(RangeError);
+
+        RuleFor(i => i.Weight)
+            .ExclusiveBetween(WeightMin, WeightMax).WithMessage(RangeError);
     }
 }

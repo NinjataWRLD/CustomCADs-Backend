@@ -2,12 +2,14 @@
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentRecipient;
 using CustomCADs.Shared.Speedy.API.Dtos.ShipmentService;
 using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
+using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints.CreateShipment;
 using CustomCADs.Shared.Speedy.Services.Calculation;
 using CustomCADs.Shared.Speedy.Services.Client;
+using CustomCADs.Shared.Speedy.Services.Location;
+using CustomCADs.Shared.Speedy.Services.Location.Country;
 using CustomCADs.Shared.Speedy.Services.Location.Office;
+using CustomCADs.Shared.Speedy.Services.Location.Site;
 using CustomCADs.Shared.Speedy.Services.Models;
-using CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
-using CustomCADs.Shared.Speedy.Services.Models.Calculation.Sender;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
@@ -27,78 +29,82 @@ using static Constants;
 
 public class ShipmentService(
     IShipmentEndpoints endpoints,
-    OfficeService officeService,
+    LocationService locationService,
     ClientService clientService,
     ServicesService servicesService
 )
 {
+    public const string PhoneNumber1 = "0884874113";
+    public const string PhoneNumber2 = "0885440400";
+    public const string Email = "customcads2023@gmail.com";
+    public const string PickupCountry = "Bulgaria";
+    public const string PickupSite = "Burgas";
+
     public async Task<WrittenShipmentModel> CreateShipmentAsync(
         AccountModel account,
         string package,
         string contents,
         int parcelCount,
-        int totalWeight,
-        string? shipmentNote = null,
+        Payer payer,
+        double totalWeight,
+        string country,
+        string site,
+        string name,
+        string? email,
+        string? phoneNumber,
         CancellationToken ct = default)
     {
-        var dropoffOffices = await officeService.FindAsync(account, 100, null, null, null, null, ct).ConfigureAwait(false);
-        int dropoffOfficeId = dropoffOffices.First().Id;
+        int dropoffCountryId = await GetCountryId(account, country, ct).ConfigureAwait(false);
+        int pickupCountryId = await GetCountryId(account, PickupCountry, ct).ConfigureAwait(false);
 
-        var pickupOffices = await officeService.FindAsync(account, 100, null, null, null, null, ct).ConfigureAwait(false);
-        int pickupOfficeId = pickupOffices.Last().Id;
+        long dropoffSiteId = await GetSiteId(account, dropoffCountryId, site, ct);
+        long pickupSiteId = await GetSiteId(account, pickupCountryId, PickupSite, ct);
+
+        int dropoffOfficeId = await GetOfficeId(account, dropoffCountryId, dropoffSiteId, ct).ConfigureAwait(false);
+        int pickupOfficeId = await GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);
 
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
 
-        CalculationAddressLocationModel calcAddress = new(
-            CountryId: null,
-            StateId: null,
-            SiteName: null,
-            SiteType: null,
-            SiteId: null,
-            PostCode: null
-        );
-        CalculationRecipientModel calcRecipient = new(calcAddress, clientId, null, pickupOfficeId, null);
-        CalculationSenderModel calcSender = new(calcAddress, clientId, null, dropoffOfficeId, null);
-        var services = await servicesService.DestinationServices(account, calcRecipient, null, calcSender, ct).ConfigureAwait(false);
+        var services = await servicesService.Services(account, null, ct).ConfigureAwait(false);
 
-        var response = await endpoints.CreateShipmentAsync(new(
+        CreateShipmentRequest request = new(
             UserName: account.Username,
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            ShipmentNote: shipmentNote,
+            ShipmentNote: null,
 
             Sender: new(
                 ClientId: clientId,
                 DropoffOfficeId: dropoffOfficeId,
-                Phone1: new("0885440400", null),
-                DropoffGeoPUDOId: null,
-                ClientName: null,
-                Address: null,
-                PrivatePerson: null,
-                ContactName: null,
-                Email: null,
-                Phone2: null,
-                Phone3: null
+                ContactName: name,
+                Email: Email,
+                Phone1: new(PhoneNumber1, null),
+                Phone2: new(PhoneNumber2, null),
+                Phone3: null,
+                DropoffGeoPUDOId: null, // forbidden
+                Address: null, // forbidden
+                ClientName: null, // forbidden
+                PrivatePerson: null // forbidden
             ),
             Recipient: new ShipmentRecipientDto(
-                PickupOfficeId: pickupOfficeId,
                 ClientId: clientId,
-                Address: null,
-                ClientName: null,
-                Phone1: null,
-                PrivatePerson: null,
-                ContactName: null,
-                Email: null,
-                ObjectName: null,
-                PickupGeoPUDOIf: null,
+                PickupOfficeId: pickupOfficeId,
+                Phone1: phoneNumber is not null ? new(phoneNumber, null) : null,
+                Email: email,
+                Phone2: null,
+                Phone3: null,
                 AutoSelectNearestOffice: null,
                 AutoSelectNearestOfficePolicy: null,
-                Phone2: null,
-                Phone3: null
+                ContactName: null,
+                ClientName: null, // forbidden
+                ObjectName: null, // forbidden
+                PrivatePerson: null, // forbidden
+                Address: null, // forbidden
+                PickupGeoPUDOIf: null // forbidden
             ),
             Service: new ShipmentServiceDto(
-                ServiceId: services.First().CourierService.Id,
+                ServiceId: services.First().Id,
                 PickupDate: null,
                 AdditionalServices: null,
                 SaturdayDelivery: null
@@ -119,7 +125,7 @@ public class ShipmentService(
                 UitCode: null
             ),
             Payment: new(
-                CourierServicePayer: Payer.RECIPIENT,
+                CourierServicePayer: payer,
                 DeclaredValuePayer: null,
                 PackagePayer: null,
                 ThirdPartyClientId: null,
@@ -133,7 +139,8 @@ public class ShipmentService(
             Ref2: null,
             ConsolidationRef: null,
             RequireUnsuccessfulDeliveryStickerImage: null
-        ), ct).ConfigureAwait(false);
+        );
+        var response = await endpoints.CreateShipmentAsync(request, ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
         return new(
@@ -143,6 +150,45 @@ public class ShipmentService(
             PickupDate: DateOnly.Parse(response.PickupDate),
             DeliveryDeadline: DateTime.Parse(response.DeliveryDeadline)
         );
+
+    }
+
+    private async Task<int> GetCountryId(AccountModel account, string country, CancellationToken ct)
+    {
+        CountryModel[] countries = await locationService.FindCountryAsync(
+            account: account,
+            name: country,
+            ct: ct
+        ).ConfigureAwait(false);
+
+        return countries.First().Id;
+    }
+    
+    private async Task<long> GetSiteId(AccountModel account, int countryId, string site, CancellationToken ct)
+    {
+        SiteModel[] sites = await locationService.FindSiteAsync(
+            account: account,
+            countryId: countryId,
+            name: site,
+            ct: ct
+        ).ConfigureAwait(false);
+
+        return sites.First().Id;
+    }
+
+    private async Task<int> GetOfficeId(AccountModel account, int countryId, long siteId, CancellationToken ct)
+    {
+        OfficeModel[] offices = await locationService.FindOfficeAsync(
+            account: account,
+            countryId: countryId,
+            siteId: siteId,
+            name: null,
+            siteName: null,
+            limit: null,
+            ct: ct
+        ).ConfigureAwait(false);
+
+        return offices.First().Id;
     }
 
     public async Task CancelShipmentAsync(

@@ -41,6 +41,7 @@ internal static class Mapper
             Id: item.Id,
             Quantity: item.Quantity,
             Delivery: item.Delivery,
+            Weight: item.Weight,
             Price: item.Price,
             Cost: item.Cost,
             PurchaseDate: item.PurchaseDate,

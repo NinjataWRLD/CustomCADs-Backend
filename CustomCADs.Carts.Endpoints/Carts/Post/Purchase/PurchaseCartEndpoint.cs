@@ -21,6 +21,8 @@ public sealed class PurchaseCartEndpoint(IRequestSender sender)
         PurchaseCartCommand command = new(
             PaymentMethodId: req.PaymentMethodId,
             CartId: new CartId(req.CartId),
+            Address: req.Address,
+            Contact: req.Contact,
             BuyerId: User.GetAccountId()
         );
         string message = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

@@ -11,21 +11,21 @@ using GetOwnClientId;
 
 public interface IClientEndpoints
 {
-    [Post("{id}")]
+    [Post("/{id}")]
     Task<GetClientResponse> GetClientAsync(long id, GetClientRequest request, CancellationToken ct = default);
 
-    [Post("contract")]
+    [Post("/contract")]
     Task<GetContractClientsResponse> GetContractClientsAsync(GetContractClientsRequest request, CancellationToken ct = default);
 
-    [Post("contact")]
+    [Post("/contact")]
     Task<CreateContactResponse> CreateContactAsync(CreateContactRequest request, CancellationToken ct = default);
 
-    [Post("contact/external/{id}")]
+    [Post("/contact/external/{id}")]
     Task<GetContactByExternalIdResponse> GetContactByExternalIdAsync(long id, GetContactByExternalIdRequest request, CancellationToken ct = default);
 
-    [Post("")]
+    [Post("/")]
     Task<GetOwnClientIdResponse> GetOwnClientIdAsync(GetOwnClientIdRequest request, CancellationToken ct = default);
 
-    [Post("contact/info")]
+    [Post("/contact/info")]
     Task<ContractInfoResponse> ContractInfoAsync(ContractInfoRequest request, CancellationToken ct = default);
 }

@@ -8,7 +8,7 @@ public record ShipmentRecipientModel(
     string? ClientName,
     string? ObjectName,
     int? PickupOfficeId,
-    string? PickupGeoPUDOIf,
+    string? PickupGeoPUDOId,
     bool? AutoSelectNearestOffice,
     AutoSelectNearestOfficePolicyModel? AutoSelectNearestOfficePolicy,
     ShipmentAddressModel? Address,

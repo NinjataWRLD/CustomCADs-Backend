@@ -7,9 +7,9 @@ using PickupTerms;
 
 public interface IPickupEndpoints
 {
-    [Post("")]
+    [Post("/")]
     Task<PickupResponse> Pickup(PickupRequest request, CancellationToken ct = default);
 
-    [Post("")]
+    [Post("/")]
     Task<PickupTermsResponse> PickupTerms(PickupTermsRequest request, CancellationToken ct = default);
 }
