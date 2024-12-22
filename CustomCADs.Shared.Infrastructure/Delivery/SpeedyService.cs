@@ -22,14 +22,22 @@ public sealed class SpeedyService(
 {
     private readonly AccountModel account = new(settings.Value.Username, settings.Value.Password);
 
-    public async Task<ShipmentDto> ShipAsync(string package, string contents, int parcelCount, double totalWeight, CancellationToken ct = default)
+    public async Task<ShipmentDto> ShipAsync(
+        ShipRequestDto req,
+        CancellationToken ct = default
+    )
     {
         var response = await shipmentService.CreateShipmentAsync(
             account: account,
-            package: package,
-            contents: contents,
-            parcelCount: parcelCount,
-            totalWeight: totalWeight,
+            package: req.Package,
+            contents: req.Contents,
+            parcelCount: req.ParcelCount,
+            totalWeight: req.TotalWeight,
+            country: req.Country,
+            site: req.City,
+            name: req.Name,
+            email: req.Email,
+            phoneNumber: req.Phone,
             payer: Payer.RECIPIENT,
             ct: ct
         ).ConfigureAwait(false);

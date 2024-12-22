@@ -28,9 +28,6 @@ public sealed class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRe
         if (order.CadId is null)
             throw OrderCadException.ById(order.Id);
 
-        if (order.OrderStatus is not OrderStatus.Finished)
-            throw OrderStatusException.ById(order.Id, OrderStatus.Finished);
-
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
 
@@ -46,10 +43,17 @@ public sealed class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRe
         {
             int weight = 5; // integrate calculations
             ShipmentDto shipment = await delivery.ShipAsync(
-                package: "BOX",
-                contents: $"{count} 3D Model/s, each wrapped in a box",
-                parcelCount: count,
-                totalWeight: weight,
+                req: new(
+                    Package: "BOX",
+                    Contents: $"{count} 3D Model/s, each wrapped in a box",
+                    ParcelCount: count,
+                    Name: buyer,
+                    TotalWeight: weight,
+                    Country: req.Address.Country,
+                    City: req.Address.City,
+                    Phone: req.Contact.Phone,
+                    Email: req.Contact.Email
+                ),
                 ct: ct
             ).ConfigureAwait(false);
             price += shipment.Price;

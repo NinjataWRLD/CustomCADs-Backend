@@ -32,10 +32,17 @@ public sealed class PurchaseCartHandler(ICartReads reads, IRequestSender sender,
         {
             int weight = 5; // integrate calculations
             ShipmentDto shipment = await delivery.ShipAsync(
-                package: "BOX",
-                contents: $"{count} 3D Model/s, each wrapped in a box",
-                parcelCount: count,
-                totalWeight: weight,
+                req: new(
+                    Package: "BOX",
+                    Contents: $"{count} 3D Model/s, each wrapped in a box",
+                    ParcelCount: count,
+                    TotalWeight: weight,
+                    Country: req.Address.Country,
+                    City: req.Address.City,
+                    Phone: req.Contact.Phone,
+                    Email: req.Contact.Email,
+                    Name: buyer
+                ),
                 ct: ct
             ).ConfigureAwait(false);
             price += shipment.Price;
