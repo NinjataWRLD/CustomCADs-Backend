@@ -13,7 +13,7 @@ public sealed class DeleteCartHandler(ICartReads reads, IWrites<Cart> writes, IU
         Cart cart = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw CartNotFoundException.ById(req.Id);
 
-        if (cart.BuyerId == req.BuyerId)
+        if (cart.BuyerId != req.BuyerId)
         {
             throw CartAuthorizationException.ByCartId(req.Id);
         }

@@ -16,9 +16,6 @@ resource "aws_acm_certificate" "customcads_certificate" {
 }
 
 # CloudFront Distribution
-data "aws_cloudfront_cache_policy" "customcads_cdn_cache_policy" {
-  name = "Managed-CachingOptimized"
-}
 resource "aws_cloudfront_distribution" "customcads_cdn" {
   origin {
     domain_name = aws_elastic_beanstalk_environment.customcads_env_prod.cname
@@ -43,14 +40,21 @@ resource "aws_cloudfront_distribution" "customcads_cdn" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = local.origin_id
 
-    cache_policy_id        = data.aws_cloudfront_cache_policy.customcads_cdn_cache_policy.id
+    target_origin_id = local.origin_id
+    cache_policy_id        = null
     viewer_protocol_policy = "redirect-to-https"
 
     min_ttl     = 0
     default_ttl = 3600
     max_ttl     = 86400
+
+    forwarded_values {
+      query_string = true
+      cookies {
+        forward = "all"
+      }
+    }
   }
 
   price_class = "PriceClass_100"

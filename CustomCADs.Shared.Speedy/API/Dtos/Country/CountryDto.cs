@@ -7,7 +7,7 @@ public record CountryDto(
     string IsoAlpha2,
     string IsoAlpha3,
     string[] PostCodeFormats,
-    string RequireState,
+    bool RequireState,
     int AddressType,
     string CurrencyCode,
     int DefaultOfficeId,

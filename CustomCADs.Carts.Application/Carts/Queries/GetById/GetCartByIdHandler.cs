@@ -14,7 +14,7 @@ public sealed class GetCartByIdHandler(ICartReads reads, IRequestSender sender)
         Cart cart = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CartNotFoundException.ById(req.Id);
 
-        if (cart.BuyerId == req.BuyerId)
+        if (cart.BuyerId != req.BuyerId)
         {
             throw CartAuthorizationException.ByCartId(req.Id);
         }

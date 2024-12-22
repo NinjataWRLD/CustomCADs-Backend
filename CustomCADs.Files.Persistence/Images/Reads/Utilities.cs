@@ -2,11 +2,22 @@
 using CustomCADs.Files.Domain.Images.Enums;
 using CustomCADs.Files.Domain.Images.ValueObjects;
 using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Files.Persistence.Images.Reads;
 
 public static class Utilities
 {
+    public static IQueryable<Image> WithFilter(this IQueryable<Image> query, ImageId[]? ids)
+    {
+        if (ids is not null)
+        {
+            query = query.Where(c => ids.Contains(c.Id));
+        }
+
+        return query;
+    }
+
     public static IQueryable<Image> WithSorting(this IQueryable<Image> query, ImageSorting? sorting = null)
     {
         return sorting switch

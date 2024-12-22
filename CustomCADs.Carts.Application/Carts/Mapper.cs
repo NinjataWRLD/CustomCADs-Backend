@@ -13,7 +13,7 @@ internal static class Mapper
         => new(
             Id: cart.Id,
             Total: cart.Total,
-            PurchaseDate: TimeZoneInfo.ConvertTimeToUtc(
+            PurchaseDate: TimeZoneInfo.ConvertTimeFromUtc(
                 cart.PurchaseDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
@@ -24,7 +24,7 @@ internal static class Mapper
         => new(
             Id: cart.Id,
             Total: cart.Total,
-            PurchaseDate: TimeZoneInfo.ConvertTimeToUtc(
+            PurchaseDate: TimeZoneInfo.ConvertTimeFromUtc(
                 cart.PurchaseDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),

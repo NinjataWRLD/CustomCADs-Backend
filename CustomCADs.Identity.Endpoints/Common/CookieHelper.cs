@@ -42,6 +42,7 @@ public static class CookieHelper
         {
             Secure = true,
             Expires = expire,
+            SameSite = SameSiteMode.None,
         };
 
     private static CookieOptions HttpOnlyCookieOptions(DateTime expire) 
@@ -50,5 +51,6 @@ public static class CookieHelper
             HttpOnly = true,
             Secure = true,
             Expires = expire,
+            SameSite = SameSiteMode.None,
         };
 }

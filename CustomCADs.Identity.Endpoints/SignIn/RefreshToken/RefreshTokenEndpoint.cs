@@ -50,6 +50,7 @@ public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService
         string username = user.UserName ?? string.Empty,
             role = await userService.GetRoleAsync(user).ConfigureAwait(false);
         AccessTokenDto newJwt = tokenService.GenerateAccessToken(user.AccountId, username, role);
+        HttpContext.SaveAccessTokenCookie(newJwt.Value, newJwt.EndDate);
 
         if (user.RefreshTokenEndDate >= DateTime.UtcNow.AddMinutes(1))
         {
@@ -61,7 +62,6 @@ public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService
         DateTime newRtEnd = DateTime.UtcNow.AddDays(RtDurationInDays);
         await userService.UpdateRefreshTokenAsync(user.Id, newRt, newRtEnd).ConfigureAwait(false);
 
-        HttpContext.SaveAccessTokenCookie(newJwt.Value, newJwt.EndDate);
         HttpContext.SaveRefreshTokenCookie(newRt, newRtEnd);
         HttpContext.SaveRoleCookie(role, newRtEnd);
         HttpContext.SaveUsernameCookie(username, newRtEnd);
