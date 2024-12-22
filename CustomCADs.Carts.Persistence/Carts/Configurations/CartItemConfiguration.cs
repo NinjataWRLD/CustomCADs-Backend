@@ -84,9 +84,9 @@ public static class CartItemItemConfigUtils
             .IsRequired()
             .HasColumnName("Delivery");
 
-        builder.Property(x => x.PurchaseDate)
+        builder.Property(x => x.Delivery)
             .IsRequired()
-            .HasColumnName("PurchaseDate");
+            .HasColumnName("Delivery");
 
         builder.Property(x => x.ProductId)
             .IsRequired()

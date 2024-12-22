@@ -19,7 +19,6 @@ public class CartItem : BaseEntity
         Price = price;
         Weight = weight;
         Quantity = quantity;
-        PurchaseDate = DateTime.UtcNow;
         ProductId = productId;
         CartId = cartId;
         Delivery = delivery;

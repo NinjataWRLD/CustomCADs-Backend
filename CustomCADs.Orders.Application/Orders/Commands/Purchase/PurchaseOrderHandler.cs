@@ -1,13 +1,14 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions;
 using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Orders;
-using CustomCADs.Orders.Domain.Orders.Enums;
 using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Purchase;
 
@@ -57,6 +58,13 @@ public sealed class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRe
                 ct: ct
             ).ConfigureAwait(false);
             price += shipment.Price;
+
+            CreateShipmentCommand shipmentCommand = new(
+                Address: req.Address,
+                BuyerId: req.BuyerId
+            );
+            ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
+            order.SetShipmentId(shipmentId);
         }
 
         string message = await payment.InitializePayment(

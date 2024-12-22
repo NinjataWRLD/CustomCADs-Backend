@@ -43,7 +43,6 @@ internal static class Mapper
             Delivery: item.Delivery,
             Weight: item.Weight,
             Price: item.Price,
-            PurchaseDate: item.PurchaseDate.ToString(DateFormatString),
             ProductId: item.ProductId.Value,
             CartId: item.CartId.Value,
             CadId: item.CadId?.Value,

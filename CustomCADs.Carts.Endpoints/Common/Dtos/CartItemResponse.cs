@@ -6,7 +6,6 @@ public sealed record CartItemResponse(
     bool Delivery,
     double Weight,
     decimal Price,
-    string PurchaseDate,
     Guid ProductId,
     Guid CartId,
     Guid? CadId,

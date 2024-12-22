@@ -18,14 +18,12 @@ public static class Mapper
     public static Address ToAddress(this AddressDto address)
         => new(
             country: address.Country,
-            city: address.City,
-            street: address.Street
+            city: address.City
         );
 
     public static AddressDto ToAddressDto(this Address address)
         => new(
             Country: address.Country,
-            City: address.City,
-            Street: address.Street
+            City: address.City
         );
 }
