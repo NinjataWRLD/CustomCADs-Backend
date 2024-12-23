@@ -2,7 +2,7 @@
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Endpoints.Orders.Client.Get.Single;
 
-namespace CustomCADs.Orders.Endpoints.Orders.Client.Post.Orders;
+namespace CustomCADs.Orders.Endpoints.Orders.Client.Post.Create;
 
 public sealed class PostOrderEndpoint(IRequestSender sender)
     : Endpoint<PostOrderRequest, PostOrderResponse>
@@ -20,7 +20,6 @@ public sealed class PostOrderEndpoint(IRequestSender sender)
     public override async Task HandleAsync(PostOrderRequest req, CancellationToken ct)
     {
         CreateOrderCommand command = new(
-            Delivery: req.Delivery,
             Name: req.Name,
             Description: req.Description,
             BuyerId: User.GetAccountId()

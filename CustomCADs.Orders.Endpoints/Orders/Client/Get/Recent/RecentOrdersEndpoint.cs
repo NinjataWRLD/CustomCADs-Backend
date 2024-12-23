@@ -13,7 +13,7 @@ public sealed class RecentOrdersEndpoint(IRequestSender sender)
         Get("recent");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("03. Recent")
+            .WithSummary("04. Recent")
             .WithDescription("See your most recent Orders")
         );
     }

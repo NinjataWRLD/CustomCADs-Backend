@@ -11,31 +11,40 @@ namespace CustomCADs.Orders.Domain.Orders;
 public class Order : BaseAggregateRoot
 {
     private Order() { }
-    private Order(string name, string description, AccountId buyerId) : this()
+    private Order(string name, string description, bool delivery, AccountId buyerId) : this()
     {
         Name = name;
         Description = description;
         OrderDate = DateTime.UtcNow;
         OrderStatus = OrderStatus.Pending;
         BuyerId = buyerId;
+        Delivery = delivery;
     }
 
     public OrderId Id { get; init; }
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
+    public bool Delivery { get; private set; }
     public DateTime OrderDate { get; }
     public OrderStatus OrderStatus { get; private set; }
     public AccountId BuyerId { get; private set; }
     public AccountId? DesignerId { get; private set; }
     public CadId? CadId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
-    public bool Delivery => ShipmentId is not null;
 
     public static Order Create(
         string name,
         string description,
         AccountId buyerId
-    ) => new Order(name, description, buyerId)
+    ) => new Order(name, description, delivery: false, buyerId)
+            .ValidateName()
+            .ValidateDescription();
+    
+    public static Order CreateWithDelivery(
+        string name,
+        string description,
+        AccountId buyerId
+    ) => new Order(name, description, delivery: true, buyerId)
             .ValidateName()
             .ValidateDescription();
 

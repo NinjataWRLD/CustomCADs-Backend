@@ -4,7 +4,8 @@ using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Endpoints.Orders.Client.Get.All;
 using CustomCADs.Orders.Endpoints.Orders.Client.Get.Recent;
 using CustomCADs.Orders.Endpoints.Orders.Client.Get.Single;
-using CustomCADs.Orders.Endpoints.Orders.Client.Post.Orders;
+using CustomCADs.Orders.Endpoints.Orders.Client.Post.Create;
+using CustomCADs.Orders.Endpoints.Orders.Client.Post.CreateWithDelivery;
 using CustomCADs.Orders.Endpoints.Orders.Designer.Get.Accepted;
 using CustomCADs.Orders.Endpoints.Orders.Designer.Get.Begun;
 using CustomCADs.Orders.Endpoints.Orders.Designer.Get.Completed;
@@ -38,6 +39,16 @@ internal static class Mapper
         );
 
     internal static PostOrderResponse ToPostOrderResponse(this GetOrderByIdDto order)
+        => new(
+            Id: order.Id.Value,
+            Name: order.Name,
+            Description: order.Description,
+            OrderDate: order.OrderDate.ToString(DateFormatString),
+            DeliveryType: order.Delivery.ToString(),
+            OrderStatus: order.OrderStatus.ToString()
+        );
+    
+    internal static PostOrderWithDeliveryResponse ToPostOrderWithDeliveryResponse(this GetOrderByIdDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,

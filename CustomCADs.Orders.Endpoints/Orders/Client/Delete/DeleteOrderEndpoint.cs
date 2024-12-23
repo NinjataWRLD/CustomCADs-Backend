@@ -9,7 +9,7 @@ public sealed class DeleteOrderEndpoint(IRequestSender sender)
         Delete("{id}");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("07. Delete")
+            .WithSummary("08. Delete")
             .WithDescription("Delete your Order by specifying its Id")
         );
     }

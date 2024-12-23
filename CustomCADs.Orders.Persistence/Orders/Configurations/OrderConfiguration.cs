@@ -72,6 +72,10 @@ public static class OrderConfigUtils
             .IsRequired()
             .HasMaxLength(DescriptionMaxLength)
             .HasColumnName("Description");
+        
+        builder.Property(x => x.Delivery)
+            .IsRequired()
+            .HasColumnName("Delivery");
 
         builder.Property(x => x.OrderDate)
             .IsRequired()

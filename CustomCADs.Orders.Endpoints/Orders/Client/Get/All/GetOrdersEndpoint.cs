@@ -11,7 +11,7 @@ public sealed class GetOrdersEndpoint(IRequestSender sender)
         Get("");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("06. All")
+            .WithSummary("07. All")
             .WithDescription("See all your Orders with Filter, Search, Sorting and Pagination options")
         );
     }

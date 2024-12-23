@@ -10,7 +10,7 @@ public sealed class PurchaseOrderEndpoint(IRequestSender sender)
         Post("purchase");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("08. Purchase")
+            .WithSummary("09. Purchase")
             .WithDescription("Purchase the Order")
         );
     }
@@ -20,8 +20,6 @@ public sealed class PurchaseOrderEndpoint(IRequestSender sender)
         PurchaseOrderCommand command = new(
             PaymentMethodId: req.PaymentMethodId,
             OrderId: new OrderId(req.OrderId),
-            Address: req.Address,
-            Contact: req.Contact,
             BuyerId: User.GetAccountId()
         );
         string message = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
