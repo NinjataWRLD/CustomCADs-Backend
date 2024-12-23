@@ -30,7 +30,7 @@ public sealed class PurchaseCartHandler(ICartReads reads, IRequestSender sender,
         int count = cart.Items.Count;
         if (cart.Delivery)
         {
-            int weight = 5; // integrate calculations
+            double weight = cart.Items.Sum(i => i.Weight);
             ShipmentDto shipment = await delivery.ShipAsync(
                 req: new(
                     Package: "BOX",

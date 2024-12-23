@@ -13,7 +13,7 @@ public sealed class RemoveCartItemHandler(ICartReads reads, IUnitOfWork uow)
         Cart cart = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw CartNotFoundException.ById(req.Id);
 
-        if (cart.BuyerId == req.BuyerId)
+        if (cart.BuyerId != req.BuyerId)
         {
             throw CartAuthorizationException.ByCartId(req.Id);
         }

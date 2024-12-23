@@ -41,7 +41,7 @@ public class Account : BaseAggregateRoot
 
     public static IEnumerable<Account> CreateRange(UserDto[] users)
         => users.Select(dto =>
-            new Account(dto.Role, dto.Username, dto.Email, "Sofia/Europe", null, null)
+            new Account(dto.Role, dto.Username, dto.Email, "Europe/Sofia", null, null)
             {
                 Id = new(dto.Id)
             }

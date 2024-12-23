@@ -12,7 +12,7 @@ public sealed class ImageReads(FilesContext context) : IImageReads
     public async Task<Result<Image>> AllAsync(ImageQuery query, bool track = true, CancellationToken ct = default)
     {
         IQueryable<Image> queryable = context.Images
-            .WithSorting(query.Sorting);
+            .WithFilter(query.Ids);
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
         Image[] images = await queryable

@@ -133,7 +133,6 @@ static class CadConfigUtils
             .HasColumnName("CreatorId");
 
         builder.Property(x => x.DesignerId)
-            .IsRequired()
             .HasColumnName("DesignerId");
 
         return builder;
