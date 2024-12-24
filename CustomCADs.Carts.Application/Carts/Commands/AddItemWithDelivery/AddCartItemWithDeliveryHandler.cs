@@ -6,12 +6,12 @@ using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.UseCases.Products.Queries;
 
-namespace CustomCADs.Carts.Application.Carts.Commands.AddItem;
+namespace CustomCADs.Carts.Application.Carts.Commands.AddItemWithDelivery;
 
-public sealed class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IRequestSender sender)
-    : ICommandHandler<AddCartItemCommand, CartItemId>
+public sealed class AddCartItemWithDeliveryHandler(ICartReads reads, IUnitOfWork uow, IRequestSender sender)
+    : ICommandHandler<AddCartItemWithDeliveryCommand, CartItemId>
 {
-    public async Task<CartItemId> Handle(AddCartItemCommand req, CancellationToken ct)
+    public async Task<CartItemId> Handle(AddCartItemWithDeliveryCommand req, CancellationToken ct)
     {
         Cart cart = await reads.SingleByIdAsync(req.Id, ct: ct)
             ?? throw CartNotFoundException.ById(req.Id);
@@ -30,7 +30,7 @@ public sealed class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IReque
             productId: req.ProductId,
             quantity: req.Quantity,
             weight: req.Weight,
-            delivery: false,
+            delivery: true,
             price: price
         );
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
