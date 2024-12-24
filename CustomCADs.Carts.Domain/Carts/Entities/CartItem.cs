@@ -29,7 +29,6 @@ public class CartItem : BaseEntity
     public double Weight { get; private set; }
     public decimal Price { get; private set; }
     public bool Delivery { get; set; }
-    public DateTime PurchaseDate { get; }
     public ProductId ProductId { get; }
     public CartId CartId { get; }
     public Cart Cart { get; } = null!;

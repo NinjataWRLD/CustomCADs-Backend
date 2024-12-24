@@ -10,7 +10,6 @@ public record CartItemDto(
     double Weight,
     decimal Price,
     decimal Cost,
-    DateTime PurchaseDate,
     ProductId ProductId,
     CartId CartId,
     CadId? CadId

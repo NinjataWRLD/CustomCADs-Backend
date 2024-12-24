@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.Carts.Entities;
+using CustomCADs.Carts.Domain.Carts.Enums;
 using CustomCADs.Carts.Domain.Carts.Validation;
 using CustomCADs.Carts.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Carts.Domain.Common.Exceptions.Carts;
@@ -17,12 +18,14 @@ public class Cart : BaseAggregateRoot
     private Cart(AccountId buyerId) : this()
     {
         BuyerId = buyerId;
+        Status = CartStatus.Active;
         PurchaseDate = DateTime.UtcNow;
         Total = Items.Sum(i => i.Price);
     }
 
     public CartId Id { get; init; }
     public decimal Total { get; private set; }
+    public CartStatus Status { get; private set; }
     public DateTime PurchaseDate { get; }
     public AccountId BuyerId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
@@ -60,6 +63,17 @@ public class Cart : BaseAggregateRoot
             throw CartValidationException.ShipmentIdOnCartWithNoDelivery();
         }
         ShipmentId = shipmentId;
+
+        return this;
+    }
+
+    public Cart SetPurchasedStatus()
+    {
+        if (Delivery && ShipmentId is null)
+        {
+            throw CartValidationException.ShipmentIdOnCartWithNoDelivery();
+        }
+        Status = CartStatus.Purchased;
 
         return this;
     }

@@ -5,8 +5,10 @@ using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Products.Commands.AddPurchase;
+using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Carts.Application.Carts.Commands.Purchase;
 
@@ -46,6 +48,13 @@ public sealed class PurchaseCartHandler(ICartReads reads, IRequestSender sender,
                 ct: ct
             ).ConfigureAwait(false);
             price += shipment.Price;
+
+            CreateShipmentCommand shipmentCommand = new(
+                Address: new(req.Address.Country, req.Address.City),
+                BuyerId: req.BuyerId
+            );
+            ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
+            cart.SetShipmentId(shipmentId);
         }
 
         price += cart.Total;
@@ -54,6 +63,7 @@ public sealed class PurchaseCartHandler(ICartReads reads, IRequestSender sender,
             price: price,
             description: $"{buyer} bought {count} products for a total of {price}$."
         ).ConfigureAwait(false);
+        cart.SetPurchasedStatus();
 
         AddProductPurchaseCommand productCommand = new(
             Ids: [.. cart.Items.Select(i => i.ProductId)]
