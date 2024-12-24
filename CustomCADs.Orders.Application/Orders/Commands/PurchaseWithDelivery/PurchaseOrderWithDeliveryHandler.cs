@@ -39,11 +39,11 @@ public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfW
         string seller = await sender.SendQueryAsync(sellerQuery, ct).ConfigureAwait(false);
 
         order.SetCompletedStatus();
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        decimal price = 0m; // integrate order prices
-        double weight = req.Weight; // integrate calculations
         int count = 1;
+        double weight = req.Weight;
+        decimal price = 0m; // integrate order prices
+
         ShipmentDto shipment = await delivery.ShipAsync(
             req: new(
                 Package: "BOX",
@@ -72,6 +72,8 @@ public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfW
             price: price,
             description: $"{buyer} bought {order.Name} from {seller}."
         ).ConfigureAwait(false);
+
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return message;
     }

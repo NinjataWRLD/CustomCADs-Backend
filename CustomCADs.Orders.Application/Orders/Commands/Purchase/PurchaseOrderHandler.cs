@@ -34,15 +34,15 @@ public sealed class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRe
         GetUsernameByIdQuery sellerQuery = new(order.DesignerId.Value);
         string seller = await sender.SendQueryAsync(sellerQuery, ct).ConfigureAwait(false);
 
-        order.SetCompletedStatus();
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-
         decimal price = 0m; // integrate order prices
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: price,
             description: $"{buyer} bought {order.Name} from {seller}."
         ).ConfigureAwait(false);
+
+        order.SetCompletedStatus();
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return message;
     }

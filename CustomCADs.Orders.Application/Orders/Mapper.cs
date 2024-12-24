@@ -1,10 +1,11 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Create;
 using CustomCADs.Orders.Application.Orders.Commands.CreateWithDelivery;
+using CustomCADs.Orders.Application.Orders.Queries.CalculateShipment;
 using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Domain.Orders;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
+using CustomCADs.Shared.Application.Delivery.Dtos;
 
 namespace CustomCADs.Orders.Application.Orders;
 
@@ -38,6 +39,21 @@ internal static class Mapper
             DesignerId: order.DesignerId,
             CadId: order.CadId,
             ShipmentId: order.ShipmentId
+        );
+    
+    internal static CalculateOrderShipmentDto ToCalculateOrderShipmentDto(this CalculationDto calculation, string timeZone)
+        => new(
+            Total: calculation.Price.Total,
+            Currency: calculation.Price.Currency,
+            PickupDate: DateOnly.FromDateTime(TimeZoneInfo.ConvertTime(
+                calculation.PickupDate.ToDateTime(new TimeOnly(9, 0)),
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            )),
+            DeliveryDeadline: TimeZoneInfo.ConvertTime(
+                calculation.DeliveryDeadline,
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            ),
+            Service: calculation.Service
         );
 
     internal static DesignerGetOrderByIdDto ToDesignerGetOrderByIdDto(this Order order)

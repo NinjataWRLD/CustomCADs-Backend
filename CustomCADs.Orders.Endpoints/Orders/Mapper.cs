@@ -1,7 +1,9 @@
-﻿using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
+﻿using CustomCADs.Orders.Application.Orders.Queries.CalculateShipment;
+using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
 using CustomCADs.Orders.Endpoints.Orders.Client.Get.All;
+using CustomCADs.Orders.Endpoints.Orders.Client.Get.CalculateShipment;
 using CustomCADs.Orders.Endpoints.Orders.Client.Get.Recent;
 using CustomCADs.Orders.Endpoints.Orders.Client.Get.Single;
 using CustomCADs.Orders.Endpoints.Orders.Client.Post.Create;
@@ -56,6 +58,14 @@ internal static class Mapper
             OrderDate: order.OrderDate.ToString(DateFormatString),
             DeliveryType: order.Delivery.ToString(),
             OrderStatus: order.OrderStatus.ToString()
+        );
+    
+    internal static CalculateOrderShipmentResponse ToCalculateOrderShipmentResponse(this CalculateOrderShipmentDto calculation)
+        => new(
+            Total: calculation.Total,
+            Currency: calculation.Currency,
+            PickupDate: calculation.PickupDate.ToString(SpeedyDateFormatString),
+            DeliveryDeadline: calculation.DeliveryDeadline.ToString(SpeedyDateFormatString)
         );
 
     internal static GetOrderResponse ToGetOrderResponse(this GetOrderByIdDto order)

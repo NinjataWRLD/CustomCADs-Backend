@@ -10,7 +10,7 @@ public sealed class PurchaseOrderWithDeliveryEndpoint(IRequestSender sender)
         Post("purchase/delivery");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("10. Purchase (Delivery)")
+            .WithSummary("11. Purchase (Delivery)")
             .WithDescription("Purchase the Order with Delivery")
         );
     }
