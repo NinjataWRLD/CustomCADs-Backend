@@ -13,13 +13,13 @@ namespace CustomCADs.Shared.Speedy.Services.Models.Shipment;
 
 internal static class Mapper
 {
-    internal static ShipmentModel ToModel(this ShipmentDto dto)
+    internal static ShipmentModel ToModel(this ShipmentDto dto, string phone)
         => new(
             Recipient: dto.Recipient.ToModel(),
             Service: dto.Service.ToModel(),
             Content: dto.Content.ToModel(),
             Payment: dto.Payment.ToModel(),
-            Sender: dto.Sender.ToModel(),
+            Sender: dto.Sender.ToModel(phone),
             Id: dto.Id,
             ShipmentNote: dto.ShipmentNote,
             Ref1: dto.Ref1,

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Delivery.Endpoints.Common.Dto;
-using CustomCADs.Delivery.Endpoints.Shipments.Get;
+using CustomCADs.Delivery.Endpoints.Shipments.Get.Shipment;
 
 namespace CustomCADs.Delivery.Endpoints.Shipments;
 

@@ -288,7 +288,7 @@ public class ShipmentService(
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Shipments.Select(d => d.ToModel())];
+        return [.. response.Shipments.Select(d => d.ToModel(PhoneNumber1))];
     }
 
     public async Task<SecondaryShipmentModel[]> SecondaryShipmentAsync(

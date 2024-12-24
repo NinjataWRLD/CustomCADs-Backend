@@ -4,7 +4,6 @@ using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
 using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Parcel;
-using CustomCADs.Shared.Speedy.Services.Print.Models;
 using CustomCADs.Shared.Speedy.Services.Shipment;
 using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
@@ -18,14 +17,13 @@ public class PrintService(
     public async Task<byte[]> PrintAsync(
         AccountModel account,
         string shipmentId,
-        PaperSize paperSize,
+        PaperSize paperSize = PaperSize.A4,
         PaperFormat format = PaperFormat.pdf,
         Dpi dpi = Dpi.dpi203,
         AdditionalWaybillSenderCopy additionalWaybillSenderCopy = AdditionalWaybillSenderCopy.NONE,
         string? printerName = null,
         CancellationToken ct = default)
     {
-
         var shipments = await shipmentService.ShipmentInfoAsync(
             account: account,
             shipmentIds: [shipmentId],

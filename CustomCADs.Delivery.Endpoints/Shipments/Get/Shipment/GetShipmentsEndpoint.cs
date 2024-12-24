@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
 using CustomCADs.Shared.Core.Common;
 
-namespace CustomCADs.Delivery.Endpoints.Shipments.Get;
+namespace CustomCADs.Delivery.Endpoints.Shipments.Get.Shipment;
 
 public class GetShipmentsEndpoint(IRequestSender sender)
     : Endpoint<GetShipmentsRequest, Result<GetShipmentsResponse>>

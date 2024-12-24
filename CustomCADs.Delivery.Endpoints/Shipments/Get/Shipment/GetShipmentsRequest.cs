@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.Enums;
 using CustomCADs.Shared.Core.Common.Enums;
 
-namespace CustomCADs.Delivery.Endpoints.Shipments.Get;
+namespace CustomCADs.Delivery.Endpoints.Shipments.Get.Shipment;
 
 public record GetShipmentsRequest(
     ShipmentStatus? ShipmentStatus = null,
