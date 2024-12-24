@@ -13,7 +13,7 @@ public sealed class RecentCartsEndpoint(IRequestSender sender)
         Get("recent");
         Group<CartsGroup>();
         Description(d => d
-            .WithSummary("04. Recent")
+            .WithSummary("05. Recent")
             .WithDescription("See your most recent Carts")
         );
     }

@@ -30,7 +30,7 @@ public sealed class AddCartItemHandler(ICartReads reads, IUnitOfWork uow, IReque
             productId: req.ProductId,
             quantity: req.Quantity,
             weight: req.Weight,
-            delivery: req.Delivery,
+            delivery: false,
             price: price
         );
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

@@ -10,7 +10,7 @@ public sealed class PutOrderEndpoint(IRequestSender sender)
         Put("{id}");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("05. Edit")
+            .WithSummary("06. Edit")
             .WithDescription("Edit your Order by specifying its Id and providing a new Name and Description")
         );
     }

@@ -3,7 +3,6 @@
 namespace CustomCADs.Orders.Application.Orders.Commands.Create;
 
 public sealed record CreateOrderCommand(
-    bool Delivery,
     string Name,
     string Description,
     AccountId BuyerId

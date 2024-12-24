@@ -37,6 +37,10 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("CadId");
 
+                    b.Property<bool>("Delivery")
+                        .HasColumnType("boolean")
+                        .HasColumnName("Delivery");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)

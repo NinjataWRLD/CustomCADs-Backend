@@ -11,7 +11,7 @@ public sealed class PurchaseCartEndpoint(IRequestSender sender)
         Post("purchase");
         Group<CartsGroup>();
         Description(d => d
-            .WithSummary("09. Purchase")
+            .WithSummary("10. Purchase")
             .WithDescription("Purchase all the Items in the Cart")
         );
     }
@@ -21,8 +21,6 @@ public sealed class PurchaseCartEndpoint(IRequestSender sender)
         PurchaseCartCommand command = new(
             PaymentMethodId: req.PaymentMethodId,
             CartId: new CartId(req.CartId),
-            Address: req.Address,
-            Contact: req.Contact,
             BuyerId: User.GetAccountId()
         );
         string message = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

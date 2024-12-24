@@ -41,6 +41,11 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("ShipmentId");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Status");
+
                     b.Property<decimal>("Total")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)")

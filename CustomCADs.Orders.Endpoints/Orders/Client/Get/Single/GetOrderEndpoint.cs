@@ -10,7 +10,7 @@ public sealed class GetOrderEndpoint(IRequestSender sender)
         Get("{id}");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("04. Single")
+            .WithSummary("05. Single")
             .WithDescription("See your Order by specifying its Id")
         );
     }

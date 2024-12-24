@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.Carts;
+using CustomCADs.Carts.Domain.Carts.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -64,6 +65,14 @@ public static class CartItemConfigurUitls
             .IsRequired()
             .HasPrecision(18, 2)
             .HasColumnName("Total");
+        
+        builder.Property(x => x.Status)
+            .IsRequired()
+            .HasConversion(
+                x => x.ToString(),
+                s => Enum.Parse<CartStatus>(s)
+            )
+            .HasColumnName("Status");
 
         builder.Property(x => x.PurchaseDate)
             .IsRequired()

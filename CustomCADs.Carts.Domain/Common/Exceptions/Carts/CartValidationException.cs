@@ -17,6 +17,9 @@ public class CartValidationException : BaseException
 
     public static CartValidationException ShipmentIdOnCartWithNoDelivery(Exception? inner = default)
         => new("Cannot set ShipmentId on a Cart with no requested Delivery", inner);
+    
+    public static CartValidationException NoShipmentIdOnCartWithDelivery(Exception? inner = default)
+        => new("Must set ShipmentId on a Cart with requested Delivery", inner);
 
     public static CartValidationException Custom(string message, Exception? inner = default)
         => new(message, inner);

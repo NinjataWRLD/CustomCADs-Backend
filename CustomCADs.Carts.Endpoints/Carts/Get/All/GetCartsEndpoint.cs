@@ -11,7 +11,7 @@ public sealed class GetCartsEndpoint(IRequestSender sender)
         Get("");
         Group<CartsGroup>();
         Description(d => d
-            .WithSummary("07. All")
+            .WithSummary("08. All")
             .WithDescription("See all your Carts with Sorting and Pagination options")
         );
     }

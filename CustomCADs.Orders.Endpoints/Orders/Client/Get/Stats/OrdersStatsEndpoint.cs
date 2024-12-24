@@ -10,7 +10,7 @@ public sealed class OrdersStatsEndpoint(IRequestSender sender)
         Get("stats");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("02. Stats")
+            .WithSummary("03. Stats")
             .WithDescription("See your Orders' stats")
         );
     }

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Create;
+using CustomCADs.Orders.Application.Orders.Commands.CreateWithDelivery;
 using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
@@ -54,6 +55,13 @@ internal static class Mapper
 
     internal static Order ToOrder(this CreateOrderCommand command)
         => Order.Create(
+            name: command.Name,
+            description: command.Description,
+            buyerId: command.BuyerId
+        );
+
+    internal static Order ToOrder(this CreateOrderWithDeliveryCommand command)
+        => Order.CreateWithDelivery(
             name: command.Name,
             description: command.Description,
             buyerId: command.BuyerId
