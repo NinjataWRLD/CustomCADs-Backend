@@ -1,7 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentContent;
-using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentRecipient;
-using CustomCADs.Shared.Speedy.API.Dtos.ShipmentService;
-using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
+﻿using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
 using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints.CreateShipment;
 using CustomCADs.Shared.Speedy.Services.Calculation;
 using CustomCADs.Shared.Speedy.Services.Client;
@@ -73,7 +70,6 @@ public class ShipmentService(
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
             ShipmentNote: null,
-
             Sender: new(
                 ClientId: clientId,
                 DropoffOfficeId: dropoffOfficeId,
@@ -87,7 +83,7 @@ public class ShipmentService(
                 ClientName: null, // forbidden
                 PrivatePerson: null // forbidden
             ),
-            Recipient: new ShipmentRecipientDto(
+            Recipient: new(
                 ClientId: clientId,
                 PickupOfficeId: pickupOfficeId,
                 Phone1: phoneNumber is not null ? new(phoneNumber, null) : null,
@@ -103,13 +99,13 @@ public class ShipmentService(
                 Address: null, // forbidden
                 PickupGeoPUDOIf: null // forbidden
             ),
-            Service: new ShipmentServiceDto(
+            Service: new(
                 ServiceId: services.First().Id,
                 PickupDate: null,
                 AdditionalServices: null,
                 SaturdayDelivery: null
             ),
-            Content: new ShipmentContentDto(
+            Content: new(
                 Package: package,
                 Contents: contents,
                 ParcelsCount: parcelCount,
@@ -150,7 +146,6 @@ public class ShipmentService(
             PickupDate: DateOnly.Parse(response.PickupDate),
             DeliveryDeadline: DateTime.Parse(response.DeliveryDeadline)
         );
-
     }
 
     private async Task<int> GetCountryId(AccountModel account, string country, CancellationToken ct)

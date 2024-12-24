@@ -6,7 +6,7 @@ using ShipmentService.ShipmentAdditionalServices;
 
 public record CalculationResultDto(
     int ServiceId,
-    ShipmentAdditionalServicesDto AdditionalServices,
+    ShipmentAdditionalServicesDto? AdditionalServices,
     ShipmentPriceDto Price,
     string PickupDate,
     string DeliveryDeadline,

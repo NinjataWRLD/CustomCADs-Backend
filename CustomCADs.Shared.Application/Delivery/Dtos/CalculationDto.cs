@@ -1,8 +1,8 @@
 ﻿namespace CustomCADs.Shared.Application.Delivery.Dtos;
 
 public record CalculationDto(
-    int ServiceId,
+    string Service,
     ShipmentPriceDto Price,
     DateOnly PickupDate,
-    string DeliveryDeadline
+    DateTime DeliveryDeadline
 );
