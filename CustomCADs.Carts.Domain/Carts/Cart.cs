@@ -20,17 +20,18 @@ public class Cart : BaseAggregateRoot
         BuyerId = buyerId;
         Status = CartStatus.Active;
         PurchaseDate = DateTime.UtcNow;
-        Total = Items.Sum(i => i.Price);
     }
 
     public CartId Id { get; init; }
-    public decimal Total { get; private set; }
     public CartStatus Status { get; private set; }
     public DateTime PurchaseDate { get; }
     public AccountId BuyerId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
     public IReadOnlyCollection<CartItem> Items => items.AsReadOnly();
-    public bool Delivery => items.Any(i => i.Delivery);
+    public int TotalDeliveryCount => Items.Where(i => i.Delivery).Count();
+    public decimal TotalCost => Items.Sum(i => i.Price);
+    public double TotalDeliveryWeight => Items.Where(i => i.Delivery).Sum(i => i.Weight);
+    public bool HasDelivery => items.Any(i => i.Delivery);
 
     public static Cart Create(AccountId buyerId)
         => new Cart(buyerId)
@@ -42,7 +43,6 @@ public class Cart : BaseAggregateRoot
         items.Add(item);
         this.ValidateItems();
 
-        Total += item.Cost;
         return item;
     }
 
@@ -52,13 +52,12 @@ public class Cart : BaseAggregateRoot
         items.Remove(item);
         this.ValidateItems();
 
-        Total -= item.Cost;
         return item;
     }
 
     public Cart SetShipmentId(ShipmentId shipmentId)
     {
-        if (!Delivery)
+        if (!HasDelivery)
         {
             throw CartValidationException.ShipmentIdOnCartWithNoDelivery();
         }
@@ -69,7 +68,7 @@ public class Cart : BaseAggregateRoot
 
     public Cart SetPurchasedStatus()
     {
-        if (Delivery && ShipmentId is null)
+        if (HasDelivery && ShipmentId is null)
         {
             throw CartValidationException.ShipmentIdOnCartWithNoDelivery();
         }

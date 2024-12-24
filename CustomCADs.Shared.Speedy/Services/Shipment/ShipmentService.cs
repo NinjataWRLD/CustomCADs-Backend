@@ -61,7 +61,6 @@ public class ShipmentService(
         int pickupOfficeId = await GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);
 
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
-
         var services = await servicesService.Services(account, null, ct).ConfigureAwait(false);
 
         CreateShipmentRequest request = new(
@@ -136,16 +135,39 @@ public class ShipmentService(
             ConsolidationRef: null,
             RequireUnsuccessfulDeliveryStickerImage: null
         );
-        var response = await endpoints.CreateShipmentAsync(request, ct).ConfigureAwait(false);
 
-        response.Error.EnsureNull();
-        return new(
-            Id: response.Id,
-            Parcels: [.. response.Parcels.Select(p => p.ToModel())],
-            Price: response.Price.ToModel(),
-            PickupDate: DateOnly.Parse(response.PickupDate),
-            DeliveryDeadline: DateTime.Parse(response.DeliveryDeadline)
-        );
+        DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+        DateOnly[] weekdays = [.. Enumerable.Range(0, 7).Select(today.AddDays)];
+        
+        Exception e = new();
+        foreach (DateOnly day in weekdays)
+        {
+            request = request with { Service = request.Service with { PickupDate = day.ToString(DateFormat) } };
+            var response = await endpoints.CreateShipmentAsync(request, ct).ConfigureAwait(false);
+
+            try
+            {
+                response.Error.EnsureNull();
+            }
+            catch (Exception ex) 
+            when (ex is SpeedyInvalidPickupOfficeException or SpeedyInvalidDropOffOfficeException)
+            {
+                e = ex;
+                if (weekdays.Last().Day == day.Day) throw;
+
+                continue;
+            }
+
+            return new(
+                Id: response.Id,
+                Parcels: [.. response.Parcels.Select(p => p.ToModel())],
+                Price: response.Price.ToModel(),
+                PickupDate: DateOnly.Parse(response.PickupDate),
+                DeliveryDeadline: DateTime.Parse(response.DeliveryDeadline)
+            );
+        }
+
+        throw e;
     }
 
     private async Task<int> GetCountryId(AccountModel account, string country, CancellationToken ct)
@@ -158,7 +180,7 @@ public class ShipmentService(
 
         return countries.First().Id;
     }
-    
+
     private async Task<long> GetSiteId(AccountModel account, int countryId, string site, CancellationToken ct)
     {
         SiteModel[] sites = await locationService.FindSiteAsync(

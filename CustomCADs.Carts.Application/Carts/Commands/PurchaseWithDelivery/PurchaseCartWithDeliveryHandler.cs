@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
 using CustomCADs.Carts.Domain.Carts;
 using CustomCADs.Carts.Domain.Carts.Reads;
+using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.Application.Payment;
@@ -12,7 +13,7 @@ using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Carts.Application.Carts.Commands.PurchaseWithDelivery;
 
-public sealed class PurchaseCartWithDeliveryHandler(ICartReads reads, IRequestSender sender, IPaymentService payment, IDeliveryService delivery)
+public sealed class PurchaseCartWithDeliveryHandler(ICartReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment, IDeliveryService delivery)
     : ICommandHandler<PurchaseCartWithDeliveryCommand, string>
 {
     public async Task<string> Handle(PurchaseCartWithDeliveryCommand req, CancellationToken ct)
@@ -23,15 +24,15 @@ public sealed class PurchaseCartWithDeliveryHandler(ICartReads reads, IRequestSe
         if (cart.BuyerId != req.BuyerId)
             throw CartAuthorizationException.ByCartId(cart.Id);
 
-        if (!cart.Delivery)
+        if (!cart.HasDelivery)
             throw CartItemDeliveryException.ById(cart.Id);
 
         GetUsernameByIdQuery buyerQuery = new(cart.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
 
-        decimal price = 0m;
-        int count = cart.Items.Count;
-        double weight = cart.Items.Sum(i => i.Weight);
+        int count = cart.TotalDeliveryCount;
+        double weight = cart.TotalDeliveryWeight;
+        decimal price = cart.TotalCost;
 
         ShipmentDto shipment = await delivery.ShipAsync(
             req: new(
@@ -56,13 +57,14 @@ public sealed class PurchaseCartWithDeliveryHandler(ICartReads reads, IRequestSe
         ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
         cart.SetShipmentId(shipmentId);
 
-        price += cart.Total;
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: price,
             description: $"{buyer} bought {count} products for a total of {price}$."
         ).ConfigureAwait(false);
         cart.SetPurchasedStatus();
+
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         AddProductPurchaseCommand productCommand = new(
             Ids: [.. cart.Items.Select(i => i.ProductId)]

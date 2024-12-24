@@ -2,7 +2,6 @@
 
 public sealed record PostCartItemRequest(
     Guid CartId,
-    int Quantity,
     double Weight,
     Guid ProductId
 );

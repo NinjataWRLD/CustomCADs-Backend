@@ -4,8 +4,8 @@ using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Endpoints.Carts.Post.ItemWithDelivery;
 
-public sealed class PostCartItemEndpoint(IRequestSender sender)
-    : Endpoint<PostCartItemRequest, Guid>
+public sealed class PostCartItemWithDeliveryEndpoint(IRequestSender sender)
+    : Endpoint<PostCartItemWithDeliveryRequest, Guid>
 {
     public override void Configure()
     {
@@ -17,7 +17,7 @@ public sealed class PostCartItemEndpoint(IRequestSender sender)
         );
     }
 
-    public override async Task HandleAsync(PostCartItemRequest req, CancellationToken ct)
+    public override async Task HandleAsync(PostCartItemWithDeliveryRequest req, CancellationToken ct)
     {
         AddCartItemWithDeliveryCommand commnad = new(
             Id: new CartId(req.CartId),

@@ -13,7 +13,7 @@ public sealed class PostCartItemEndpoint(IRequestSender sender)
         Group<CartsGroup>();
         Description(d => d
             .WithSummary("02. Add Item")
-            .WithDescription("Add an Item to your Cart by specifying the Cart and Product's Ids, Quantity and if you want it delivered")
+            .WithDescription("Add an Item to your Cart by specifying the Cart and Product's Ids")
         );
     }
 
@@ -21,9 +21,8 @@ public sealed class PostCartItemEndpoint(IRequestSender sender)
     {
         AddCartItemCommand commnad = new(
             Id: new CartId(req.CartId),
-            Quantity: req.Quantity,
-            Weight: req.Weight,
             ProductId: new ProductId(req.ProductId),
+            Weight: req.Weight,
             BuyerId: User.GetAccountId()
         );
         CartItemId itemId = await sender.SendCommandAsync(commnad, ct).ConfigureAwait(false);

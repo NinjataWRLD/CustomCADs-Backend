@@ -24,8 +24,8 @@ public static class Utilities
         {
             { Type: CartSortingType.PurchaseDate, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.PurchaseDate),
             { Type: CartSortingType.PurchaseDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.PurchaseDate),
-            { Type: CartSortingType.Total, Direction: SortingDirection.Ascending } => query.OrderByDescending(c => c.Total),
-            { Type: CartSortingType.Total, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Total),
+            { Type: CartSortingType.Total, Direction: SortingDirection.Ascending } => query.OrderByDescending(c => c.TotalCost),
+            { Type: CartSortingType.Total, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.TotalCost),
             _ => query,
         };
     }
