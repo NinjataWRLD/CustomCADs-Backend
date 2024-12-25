@@ -1,8 +1,9 @@
-﻿namespace CustomCADs.Orders.Application.Orders.Queries.CalculateShipment;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
+
+namespace CustomCADs.Orders.Application.Orders.Queries.CalculateShipment;
 
 public record CalculateOrderShipmentQuery(
     OrderId Id,
     double TotalWeight,
-    string Country,
-    string City
+    AddressDto Address
 ) : IQuery<CalculateOrderShipmentDto[]>;

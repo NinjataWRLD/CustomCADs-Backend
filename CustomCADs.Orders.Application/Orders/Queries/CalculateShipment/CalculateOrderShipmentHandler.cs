@@ -16,12 +16,11 @@ public class CalculateOrderShipmentHandler(IOrderReads reads, IRequestSender sen
         Order order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
-        int count = 1;
         CalculationDto[] calculations = await delivery.CalculateAsync(new(
-            ParcelCount: count,
+            ParcelCount: 1,
             TotalWeight: req.TotalWeight,
-            Country: req.Country,
-            City: req.City
+            Country: req.Address.Country,
+            City: req.Address.City
         ), ct).ConfigureAwait(false);
 
         GetTimeZoneByIdQuery timeZoneQuery = new(order.BuyerId);

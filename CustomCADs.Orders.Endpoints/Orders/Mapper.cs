@@ -62,6 +62,7 @@ internal static class Mapper
     
     internal static CalculateOrderShipmentResponse ToCalculateOrderShipmentResponse(this CalculateOrderShipmentDto calculation)
         => new(
+            Service: calculation.Service,
             Total: calculation.Total,
             Currency: calculation.Currency,
             PickupDate: calculation.PickupDate.ToString(SpeedyDateFormatString),

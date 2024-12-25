@@ -7,7 +7,7 @@ public class CalculateOrderShipmentEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Get("calculate/shipment/{id}");
+        Get("calculate/{id}");
         Group<ClientGroup>();
         Description(d => d
             .WithSummary("10. Calculate Shipment")
@@ -20,8 +20,7 @@ public class CalculateOrderShipmentEndpoint(IRequestSender sender)
         CalculateOrderShipmentQuery query = new(
             Id: new OrderId(req.Id),
             TotalWeight: req.Weight,
-            Country: req.Country,
-            City: req.City
+            Address: new(req.Country, req.City)
         );
         CalculateOrderShipmentDto[] calculations = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
