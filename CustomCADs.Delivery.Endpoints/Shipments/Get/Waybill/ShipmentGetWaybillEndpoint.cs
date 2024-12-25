@@ -9,10 +9,10 @@ public class GetShipmentWaybillEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Get("shipments/{shipmentId}/waybill");
+        Get("{id}/waybill");
+        Group<ShipmentGroup>();
         Roles(Designer);
         Description(d => d
-            .WithTags("06. Shipments")
             .WithSummary("03. Get Shipment waybill")
             .WithDescription("Download this Shipment's waybill")
         );
@@ -21,10 +21,11 @@ public class GetShipmentWaybillEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetShipmentWaybillRequest req, CancellationToken ct)
     {
         GetShipmentWaybillQuery query = new(
-            ShipmentId: req.ShipmentId,
+            Id: new ShipmentId(req.Id),
             DesignerId: User.GetAccountId()
         );
         byte[] bytes = await sender.SendQueryAsync(query, ct);
+
         await SendBytesAsync(bytes, "waybill.pdf", "application/pdf");
     }
 }

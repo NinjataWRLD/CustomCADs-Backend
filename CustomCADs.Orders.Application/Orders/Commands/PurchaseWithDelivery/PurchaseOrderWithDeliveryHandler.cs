@@ -2,17 +2,14 @@
 using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
-using CustomCADs.Shared.Application.Delivery;
-using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.PurchaseWithDelivery;
 
-public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment, IDeliveryService delivery)
+public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment)
     : ICommandHandler<PurchaseOrderWithDeliveryCommand, string>
 {
     public async Task<string> Handle(PurchaseOrderWithDeliveryCommand req, CancellationToken ct)
@@ -32,40 +29,27 @@ public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfW
         if (!order.Delivery)
             throw OrderDeliveryException.ById(order.Id);
 
-        GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
-        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
-
-        GetUsernameByIdQuery sellerQuery = new(order.DesignerId.Value);
-        string seller = await sender.SendQueryAsync(sellerQuery, ct).ConfigureAwait(false);
-
         order.SetCompletedStatus();
+        GetUsernameByIdQuery buyerQuery = new(order.BuyerId), 
+            sellerQuery = new(order.DesignerId.Value);
+
+        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
+        string seller = await sender.SendQueryAsync(sellerQuery, ct).ConfigureAwait(false);
 
         int count = 1;
         double weight = req.Weight;
         decimal price = 0m; // integrate order prices
 
-        ShipmentDto shipment = await delivery.ShipAsync(
-            req: new(
-                Package: "BOX",
-                Contents: $"{count} 3D Model/s, each wrapped in a box",
-                ParcelCount: count,
-                Name: buyer,
-                TotalWeight: weight,
-                Country: req.Address.Country,
-                City: req.Address.City,
-                Phone: req.Contact.Phone,
-                Email: req.Contact.Email
-            ),
-            ct: ct
-        ).ConfigureAwait(false);
-        price += shipment.Price;
-
         CreateShipmentCommand shipmentCommand = new(
+            Info: new(count, weight, buyer),
             Address: req.Address,
+            Contact: req.Contact,
             BuyerId: req.BuyerId
         );
-        ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
-        order.SetShipmentId(shipmentId);
+        var (ShipmentId, Price) = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
+
+        order.SetShipmentId(ShipmentId);
+        price += Price;
 
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,

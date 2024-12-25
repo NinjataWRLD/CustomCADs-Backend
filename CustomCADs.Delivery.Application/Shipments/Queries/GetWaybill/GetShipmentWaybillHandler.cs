@@ -1,12 +1,26 @@
-﻿using CustomCADs.Shared.Application.Delivery;
+﻿using CustomCADs.Delivery.Application.Common.Exceptions;
+using CustomCADs.Delivery.Domain.Shipments;
+using CustomCADs.Delivery.Domain.Shipments.Reads;
+using CustomCADs.Shared.Application.Delivery;
+using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Delivery.Application.Shipments.Queries.GetWaybill;
 
-public class GetShipmentWaybillHandler(IDeliveryService delivery)
+using static Constants.Users;
+
+public class GetShipmentWaybillHandler(IShipmentReads reads, IDeliveryService delivery)
     : IQueryHandler<GetShipmentWaybillQuery, byte[]>
 {
     public async Task<byte[]> Handle(GetShipmentWaybillQuery req, CancellationToken ct)
     {
-        return await delivery.PrintAsync(req.ShipmentId, ct: ct);
+        Shipment shipment = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+            ?? throw ShipmentNotFoundException.ById(req.Id);
+
+        var headDesignerId = Guid.Parse(DesignerAccountId);
+        if (req.DesignerId != new AccountId(headDesignerId))
+            throw ShipmentAuthorizationException.ById(req.Id);
+
+        return await delivery.PrintAsync(shipment.ReferenceId, ct: ct);
     }
 }

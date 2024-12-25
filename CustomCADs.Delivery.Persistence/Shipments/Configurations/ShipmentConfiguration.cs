@@ -69,6 +69,10 @@ public static class ShipmentConfigUtils
                 s => Enum.Parse<ShipmentStatus>(s)
             ).HasColumnName("Status"); ;
 
+        builder.Property(x => x.ReferenceId)
+            .IsRequired()
+            .HasColumnName("ReferenceId"); ;
+        
         builder.Property(x => x.BuyerId)
             .IsRequired()
             .HasColumnName("BuyerId"); ;

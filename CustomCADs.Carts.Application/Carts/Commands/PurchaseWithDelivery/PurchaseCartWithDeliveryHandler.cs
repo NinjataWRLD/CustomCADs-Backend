@@ -34,28 +34,16 @@ public sealed class PurchaseCartWithDeliveryHandler(ICartReads reads, IUnitOfWor
         double weight = cart.TotalDeliveryWeight;
         decimal price = cart.TotalCost;
 
-        ShipmentDto shipment = await delivery.ShipAsync(
-            req: new(
-                Package: "BOX",
-                Contents: $"{count} 3D Model/s, each wrapped in a box",
-                ParcelCount: count,
-                TotalWeight: weight,
-                Country: req.Address.Country,
-                City: req.Address.City,
-                Phone: req.Contact.Phone,
-                Email: req.Contact.Email,
-                Name: buyer
-            ),
-            ct: ct
-        ).ConfigureAwait(false);
-        price += shipment.Price;
-
         CreateShipmentCommand shipmentCommand = new(
-            Address: new(req.Address.Country, req.Address.City),
+            Info: new(count, weight, buyer),
+            Address: req.Address,
+            Contact: req.Contact,
             BuyerId: req.BuyerId
         );
-        ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
-        cart.SetShipmentId(shipmentId);
+        var (ShipmentId, Price) = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
+        
+        cart.SetShipmentId(ShipmentId);
+        price += Price;
 
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
