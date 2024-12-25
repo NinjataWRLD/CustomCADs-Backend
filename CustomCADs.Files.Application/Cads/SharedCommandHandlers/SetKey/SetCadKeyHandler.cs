@@ -5,9 +5,9 @@ using CustomCADs.Files.Domain.Common;
 using CustomCADs.Shared.Application.Requests.Commands;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
-namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers;
+namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetKey;
 
-public sealed class CadKeyUpdateRequestedHandler(ICadReads reads, IUnitOfWork uow)
+public sealed class SetCadKeyHandler(ICadReads reads, IUnitOfWork uow)
     : ICommandHandler<SetCadKeyCommand>
 {
     public async Task Handle(SetCadKeyCommand req, CancellationToken ct = default)

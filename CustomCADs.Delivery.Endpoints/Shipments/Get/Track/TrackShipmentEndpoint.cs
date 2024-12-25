@@ -8,7 +8,7 @@ public class TrackShipmentEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Get("track");
+        Get("track/{id}");
         Group<ShipmentGroup>();
         Description(d => d
             .WithSummary("05.Track")

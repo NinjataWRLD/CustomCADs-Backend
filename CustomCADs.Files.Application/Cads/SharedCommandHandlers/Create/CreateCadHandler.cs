@@ -4,9 +4,9 @@ using CustomCADs.Shared.Application.Requests.Commands;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
-namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers;
+namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.Create;
 
-public sealed class CreateCadCommandHandler(IWrites<Cad> writes, IUnitOfWork uow)
+public sealed class CreateCadHandler(IWrites<Cad> writes, IUnitOfWork uow)
     : ICommandHandler<CreateCadCommand, CadId>
 {
     public async Task<CadId> Handle(CreateCadCommand req, CancellationToken ct)

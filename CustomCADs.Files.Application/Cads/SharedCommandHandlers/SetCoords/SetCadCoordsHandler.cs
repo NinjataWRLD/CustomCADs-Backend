@@ -5,9 +5,9 @@ using CustomCADs.Files.Domain.Common;
 using CustomCADs.Shared.Application.Requests.Commands;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
-namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers;
+namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetCoords;
 
-public sealed class SetImageCoordsHandler(ICadReads reads, IUnitOfWork uow)
+public sealed class SetCadCoordsHandler(ICadReads reads, IUnitOfWork uow)
     : ICommandHandler<SetCadCoordsCommand>
 {
     public async Task Handle(SetCadCoordsCommand req, CancellationToken ct)

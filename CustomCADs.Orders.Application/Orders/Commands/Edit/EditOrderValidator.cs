@@ -1,17 +1,16 @@
-﻿using CustomCADs.Orders.Application.Orders.Commands.Create;
-using CustomCADs.Orders.Domain.Orders;
+﻿using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Shared.Application.Requests.Validator;
 using CustomCADs.Shared.Core;
 using FluentValidation;
 
-namespace CustomCADs.Orders.Application.Orders.Commands.CreateWithDelivery;
+namespace CustomCADs.Orders.Application.Orders.Commands.Edit;
 
 using static Constants.FluentMessages;
 using static OrderConstants;
 
-public class CreateOrderWithDeliveryValidator : Validator<CreateOrderCommand, OrderId>
+public class EditOrderValidator : Validator<EditOrderCommand>
 {
-    public CreateOrderWithDeliveryValidator()
+    public EditOrderValidator()
     {
         RuleFor(o => o.Name)
             .NotEmpty().WithMessage(RequiredError)

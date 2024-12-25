@@ -3,14 +3,14 @@ using CustomCADs.Shared.Application.Requests.Validator;
 using CustomCADs.Shared.Core;
 using FluentValidation;
 
-namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
+namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 
 using static Constants.FluentMessages;
 using static ProductConstants;
 
-public class EditProductCommandValidator : Validator<EditProductCommand>
+public class CreateProductValidator : Validator<CreateProductCommand, ProductId>
 {
-    public EditProductCommandValidator()
+    public CreateProductValidator()
     {
         RuleFor(r => r.Name)
             .NotEmpty().WithMessage(RequiredError)
@@ -19,9 +19,6 @@ public class EditProductCommandValidator : Validator<EditProductCommand>
         RuleFor(r => r.Description)
             .NotEmpty().WithMessage(RequiredError)
             .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
-
-        RuleFor(r => r.CategoryId)
-            .NotEmpty().WithMessage(RequiredError);
 
         RuleFor(r => r.Price)
             .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError);

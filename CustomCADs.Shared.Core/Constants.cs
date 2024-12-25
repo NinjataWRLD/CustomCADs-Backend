@@ -23,6 +23,8 @@ public static class Constants
         public const string LengthError = "{PropertyName} length must be between {MinLength} and {MaxLength} characters";
         public const string RangeError = "{PropertyName} must be between {From} and {To}";
         public const string EmailError = "Invalid Email";
+        public const string PhoneError = "Invalid Phone";
+        public const string PhoneRegex = "^[+ 0-9]+$";
     }
 
     public static class Roles

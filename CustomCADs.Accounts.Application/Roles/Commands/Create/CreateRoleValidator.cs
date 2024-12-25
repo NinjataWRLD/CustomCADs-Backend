@@ -1,23 +1,22 @@
-﻿using CustomCADs.Orders.Application.Orders.Commands.Create;
-using CustomCADs.Orders.Domain.Orders;
+﻿using CustomCADs.Accounts.Domain.Roles;
 using CustomCADs.Shared.Application.Requests.Validator;
 using CustomCADs.Shared.Core;
 using FluentValidation;
 
-namespace CustomCADs.Orders.Application.Orders.Commands.CreateWithDelivery;
+namespace CustomCADs.Accounts.Application.Roles.Commands.Create;
 
 using static Constants.FluentMessages;
-using static OrderConstants;
+using static RoleConstants;
 
-public class CreateOrderWithDeliveryValidator : Validator<CreateOrderCommand, OrderId>
+public class CreateRoleValidator : Validator<CreateRoleCommand, RoleId>
 {
-    public CreateOrderWithDeliveryValidator()
+    public CreateRoleValidator()
     {
-        RuleFor(o => o.Name)
+        RuleFor(r => r.Dto.Name)
             .NotEmpty().WithMessage(RequiredError)
             .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
-        RuleFor(o => o.Description)
+        RuleFor(r => r.Dto.Description)
             .NotEmpty().WithMessage(RequiredError)
             .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
     }

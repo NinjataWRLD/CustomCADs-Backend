@@ -4,9 +4,9 @@ using CustomCADs.Shared.Application.Requests.Commands;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Images.Commands;
 
-namespace CustomCADs.Files.Application.Images.SharedCommandHandlers;
+namespace CustomCADs.Files.Application.Images.SharedCommandHandlers.Create;
 
-public sealed class CreateImageCommandHandler(IWrites<Image> writes, IUnitOfWork uow)
+public sealed class CreateImageHandler(IWrites<Image> writes, IUnitOfWork uow)
     : ICommandHandler<CreateImageCommand, ImageId>
 {
     public async Task<ImageId> Handle(CreateImageCommand req, CancellationToken ct)

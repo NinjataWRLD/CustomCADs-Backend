@@ -8,20 +8,28 @@ namespace CustomCADs.Accounts.Application.Accounts.Commands.Create;
 using static AccountConstants;
 using static Constants.FluentMessages;
 
-public class CreateAccountCommandtValidator : Validator<CreateAccountCommand, AccountId>
+public class CreateAccountValidator : Validator<CreateAccountCommand, AccountId>
 {
-    public CreateAccountCommandtValidator()
+    public CreateAccountValidator()
     {
+        RuleFor(r => r.Role)
+            .NotEmpty().WithMessage(RequiredError);
+
         RuleFor(r => r.Username)
             .NotEmpty().WithMessage(RequiredError)
             .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
+        RuleFor(r => r.Password)
+            .NotEmpty().WithMessage(RequiredError)
+            .Length(PasswordMinLength, PasswordMaxLength).WithMessage(LengthError);
+
         RuleFor(r => r.Email)
-            .NotEmpty().WithMessage(RequiredError);
+            .NotEmpty().WithMessage(RequiredError)
+            .EmailAddress().WithMessage(EmailError);
 
-        RuleFor(r => r.Role)
+        RuleFor(r => r.TimeZone)
             .NotEmpty().WithMessage(RequiredError);
-
+        
         RuleFor(r => r.FirstName)
             .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 

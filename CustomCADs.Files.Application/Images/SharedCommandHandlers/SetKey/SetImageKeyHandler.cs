@@ -5,9 +5,9 @@ using CustomCADs.Files.Domain.Images.Reads;
 using CustomCADs.Shared.Application.Requests.Commands;
 using CustomCADs.Shared.UseCases.Images.Commands;
 
-namespace CustomCADs.Files.Application.Images.SharedCommandHandlers;
+namespace CustomCADs.Files.Application.Images.SharedCommandHandlers.SetKey;
 
-public sealed class ImageKeyUpdateRequestedHandler(IImageReads reads, IUnitOfWork uow)
+public sealed class SetImageKeyHandler(IImageReads reads, IUnitOfWork uow)
     : ICommandHandler<SetImageKeyCommand>
 {
     public async Task Handle(SetImageKeyCommand req, CancellationToken ct = default)

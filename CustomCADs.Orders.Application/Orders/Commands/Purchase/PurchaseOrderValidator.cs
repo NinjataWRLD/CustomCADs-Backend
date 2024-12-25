@@ -2,15 +2,15 @@
 using CustomCADs.Shared.Core;
 using FluentValidation;
 
-namespace CustomCADs.Categories.Application.Categories.Commands.Edit;
+namespace CustomCADs.Orders.Application.Orders.Commands.Purchase;
 
 using static Constants.FluentMessages;
 
-public class EditCategoryValidator : Validator<EditCategoryCommand>
+public class PurchaseOrderValidator : Validator<PurchaseOrderCommand, string>
 {
-    public EditCategoryValidator()
+    public PurchaseOrderValidator()
     {
-        RuleFor(x => x.Dto.Name)
+        RuleFor(x => x.PaymentMethodId)
             .NotEmpty().WithMessage(RequiredError);
     }
 }

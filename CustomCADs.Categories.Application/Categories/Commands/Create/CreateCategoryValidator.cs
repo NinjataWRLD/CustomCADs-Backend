@@ -2,13 +2,13 @@
 using CustomCADs.Shared.Core;
 using FluentValidation;
 
-namespace CustomCADs.Categories.Application.Categories.Commands.Edit;
+namespace CustomCADs.Categories.Application.Categories.Commands.Create;
 
 using static Constants.FluentMessages;
 
-public class EditCategoryValidator : Validator<EditCategoryCommand>
+public class CreateCategoryValidator : Validator<CreateCategoryCommand, CategoryId>
 {
-    public EditCategoryValidator()
+    public CreateCategoryValidator()
     {
         RuleFor(x => x.Dto.Name)
             .NotEmpty().WithMessage(RequiredError);
