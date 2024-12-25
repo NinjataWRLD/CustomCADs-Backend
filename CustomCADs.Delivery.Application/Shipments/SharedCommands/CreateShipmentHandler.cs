@@ -18,6 +18,7 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
                 ParcelCount: req.Info.Count,
                 Name: req.Info.Recipient,
                 TotalWeight: req.Info.Weight,
+                Service: req.Service,
                 Country: req.Address.Country,
                 City: req.Address.City,
                 Phone: req.Contact.Phone,

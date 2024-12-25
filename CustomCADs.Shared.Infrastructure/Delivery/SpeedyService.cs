@@ -37,6 +37,7 @@ public sealed class SpeedyService(
             country: req.Country,
             site: req.City,
             name: req.Name,
+            service: req.Service,
             email: req.Email,
             phoneNumber: req.Phone,
             payer: payer,
@@ -51,6 +52,7 @@ public sealed class SpeedyService(
             DeliveryDeadline: response.DeliveryDeadline
         );
     }
+
     public async Task<CalculationDto[]> CalculateAsync(CalculateRequest req, CancellationToken ct = default)
     {
         var response = await calculationService.CalculateAsync(

@@ -18,6 +18,7 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Cod;
 using CustomCADs.Shared.Speedy.Services.Services;
+using CustomCADs.Shared.Speedy.Services.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment;
@@ -47,6 +48,7 @@ public class ShipmentService(
         string country,
         string site,
         string name,
+        string service,
         string? email,
         string? phoneNumber,
         CancellationToken ct = default)
@@ -59,9 +61,9 @@ public class ShipmentService(
 
         int dropoffOfficeId = await GetOfficeId(account, dropoffCountryId, dropoffSiteId, ct).ConfigureAwait(false);
         int pickupOfficeId = await GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);
-
+        
+        int serviceId = await GetServiceId(account, service, ct).ConfigureAwait(false); 
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
-        var services = await servicesService.Services(account, null, ct).ConfigureAwait(false);
 
         CreateShipmentRequest request = new(
             UserName: account.Username,
@@ -99,7 +101,7 @@ public class ShipmentService(
                 PickupGeoPUDOIf: null // forbidden
             ),
             Service: new(
-                ServiceId: services.First().Id,
+                ServiceId: serviceId,
                 PickupDate: null,
                 AdditionalServices: null,
                 SaturdayDelivery: null
@@ -138,7 +140,7 @@ public class ShipmentService(
 
         DateOnly today = DateOnly.FromDateTime(DateTime.Now);
         DateOnly[] weekdays = [.. Enumerable.Range(0, 7).Select(today.AddDays)];
-        
+
         Exception e = new();
         foreach (DateOnly day in weekdays)
         {
@@ -149,7 +151,7 @@ public class ShipmentService(
             {
                 response.Error.EnsureNull();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             when (ex is SpeedyInvalidPickupOfficeException or SpeedyInvalidDropOffOfficeException)
             {
                 e = ex;
@@ -168,6 +170,17 @@ public class ShipmentService(
         }
 
         throw e;
+    }
+
+    private async Task<int> GetServiceId(AccountModel account, string service, CancellationToken ct)
+    {
+        CourierServiceModel[] services = await servicesService.Services(
+            account: account, 
+            date: null, 
+            ct: ct
+        ).ConfigureAwait(false);
+
+        return services.First(s => s.Name == service || s.NameEn == service).Id;
     }
 
     private async Task<int> GetCountryId(AccountModel account, string country, CancellationToken ct)

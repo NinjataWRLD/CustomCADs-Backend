@@ -33,6 +33,7 @@ public sealed class PurchaseCartWithDeliveryHandler(ICartReads reads, IUnitOfWor
 
         CreateShipmentCommand shipmentCommand = new(
             Info: new(count, weight, buyer),
+            Service: req.ShipmentService,
             Address: req.Address,
             Contact: req.Contact,
             BuyerId: req.BuyerId

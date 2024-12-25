@@ -5,6 +5,7 @@ namespace CustomCADs.Carts.Application.Carts.Commands.PurchaseWithDelivery;
 
 public sealed record PurchaseCartWithDeliveryCommand(
     string PaymentMethodId,
+    string ShipmentService,
     CartId CartId,
     AddressDto Address,
     ContactDto Contact,

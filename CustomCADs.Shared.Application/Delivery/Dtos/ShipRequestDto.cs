@@ -6,6 +6,7 @@ public record ShipRequestDto(
     string? Phone,
     string? Email,
     string Name,
+    string Service,
     string Package,
     string Contents,
     int ParcelCount,

@@ -7,5 +7,6 @@ public sealed record PurchaseOrderWithDeliveryRequest(
     AddressDto Address,
     ContactDto Contact,
     string PaymentMethodId,
+    string ShipmentService,
     double Weight
 );

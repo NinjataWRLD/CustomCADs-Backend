@@ -42,6 +42,7 @@ public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfW
 
         CreateShipmentCommand shipmentCommand = new(
             Info: new(count, weight, buyer),
+            Service: req.ShipmentService,
             Address: req.Address,
             Contact: req.Contact,
             BuyerId: req.BuyerId

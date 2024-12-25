@@ -19,6 +19,7 @@ public sealed class PurchaseOrderWithDeliveryEndpoint(IRequestSender sender)
     {
         PurchaseOrderWithDeliveryCommand command = new(
             PaymentMethodId: req.PaymentMethodId,
+            ShipmentService: req.ShipmentService,
             Weight: req.Weight,
             OrderId: new OrderId(req.OrderId),
             Address: req.Address,
