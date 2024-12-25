@@ -5,6 +5,7 @@ namespace CustomCADs.Orders.Application.Orders.Commands.PurchaseWithDelivery;
 
 public sealed record PurchaseOrderWithDeliveryCommand(
     string PaymentMethodId,
+    string ShipmentService,
     double Weight,
     OrderId OrderId,
     AddressDto Address,

@@ -248,7 +248,6 @@ public static class ProgramExtensions
         {
             ScalarTheme[] themes =
             [
-                ScalarTheme.Solarized,
                 ScalarTheme.BluePlanet,
                 ScalarTheme.Kepler,
                 ScalarTheme.Mars,

@@ -20,6 +20,7 @@ public sealed class PurchaseCartEndpoint(IRequestSender sender)
     {
         PurchaseCartWithDeliveryCommand command = new(
             PaymentMethodId: req.PaymentMethodId,
+            ShipmentService: req.ShipmentService,
             CartId: new CartId(req.CartId),
             Address: req.Address,
             Contact: req.Contact,

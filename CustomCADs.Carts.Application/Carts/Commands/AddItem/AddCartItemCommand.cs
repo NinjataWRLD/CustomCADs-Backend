@@ -5,8 +5,7 @@ namespace CustomCADs.Carts.Application.Carts.Commands.AddItem;
 
 public sealed record AddCartItemCommand(
     CartId Id,
-    int Quantity,
-    double Weight,
     ProductId ProductId,
+    double Weight,
     AccountId BuyerId
 ) : ICommand<CartItemId>;

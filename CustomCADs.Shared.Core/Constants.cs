@@ -3,6 +3,8 @@
 public static class Constants
 {
     public const string DateFormatString = "dd.MM.yyyy HH:mm:ss";
+    public const string SpeedyDateFormatString = "dd.MM.yyyy 'г.'";
+    public const string SpeedyDateTimeFormatString = "dd.MM.yyyy 'г.' HH:mm:ss";
 
     public static class ExceptionMessages
     {

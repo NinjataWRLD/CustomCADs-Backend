@@ -14,7 +14,7 @@ public sealed class GetOrderByIdHandler(IOrderReads reads, IRequestSender sender
         Order order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
-        if (order.BuyerId == req.BuyerId)
+        if (order.BuyerId != req.BuyerId)
         {
             throw OrderAuthorizationException.ByOrderId(req.Id);
         }

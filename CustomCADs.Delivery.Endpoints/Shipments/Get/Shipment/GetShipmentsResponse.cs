@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.Enums;
 using CustomCADs.Delivery.Endpoints.Common.Dto;
 
-namespace CustomCADs.Delivery.Endpoints.Shipments.Get;
+namespace CustomCADs.Delivery.Endpoints.Shipments.Get.Shipment;
 
 public record GetShipmentsResponse(
     Guid Id,

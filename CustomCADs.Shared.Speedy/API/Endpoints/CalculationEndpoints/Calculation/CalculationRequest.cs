@@ -14,6 +14,6 @@ public record CalculationRequest(
     CalculationContentDto Content,
     ShipmentPaymentDto Payment,
     CalculationSenderDto? Sender,
-    string? Location,
+    string? Language,
     long? ClientSystemId
 );

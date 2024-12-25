@@ -26,10 +26,12 @@ public sealed class AddCartItemWithDeliveryHandler(ICartReads reads, IUnitOfWork
         );
         decimal price = await sender.SendQueryAsync(productQuery, ct).ConfigureAwait(false);
 
+        int quantity = 1;
+        double weight = req.Weight;
         CartItem item = cart.AddItem(
             productId: req.ProductId,
-            quantity: req.Quantity,
-            weight: req.Weight,
+            quantity: quantity,
+            weight: weight,
             delivery: true,
             price: price
         );

@@ -61,11 +61,6 @@ public static class CartItemConfigurUitls
 
     public static EntityTypeBuilder<Cart> SetValidations(this EntityTypeBuilder<Cart> builder)
     {
-        builder.Property(x => x.Total)
-            .IsRequired()
-            .HasPrecision(18, 2)
-            .HasColumnName("Total");
-        
         builder.Property(x => x.Status)
             .IsRequired()
             .HasConversion(

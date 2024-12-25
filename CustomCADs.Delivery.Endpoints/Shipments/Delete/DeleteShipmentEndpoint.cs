@@ -10,7 +10,7 @@ public class DeleteShipmentEndpoint(IRequestSender sender)
         Delete("/{id}");
         Group<ShipmentGroup>();
         Description(d => d
-            .WithSummary("03. Delete")
+            .WithSummary("04. Delete")
             .WithDescription("Delete your Shipment by specifying its Id")
         );
     }

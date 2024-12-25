@@ -21,6 +21,7 @@ public sealed class SpeedyService(
 ) : IDeliveryService
 {
     private readonly AccountModel account = new(settings.Value.Username, settings.Value.Password);
+    private const Payer payer = Payer.RECIPIENT;
 
     public async Task<ShipmentDto> ShipAsync(
         ShipRequestDto req,
@@ -36,9 +37,10 @@ public sealed class SpeedyService(
             country: req.Country,
             site: req.City,
             name: req.Name,
+            service: req.Service,
             email: req.Email,
             phoneNumber: req.Phone,
-            payer: Payer.RECIPIENT,
+            payer: payer,
             ct: ct
         ).ConfigureAwait(false);
 
@@ -50,16 +52,21 @@ public sealed class SpeedyService(
             DeliveryDeadline: response.DeliveryDeadline
         );
     }
-    public async Task<CalculationDto[]> CalculateAsync(string shipmentId, CancellationToken ct = default)
+
+    public async Task<CalculationDto[]> CalculateAsync(CalculateRequest req, CancellationToken ct = default)
     {
         var response = await calculationService.CalculateAsync(
             account: account,
-            shipmentId: shipmentId,
+            parcelCount: req.ParcelCount,
+            totalWeight: req.TotalWeight,
+            country: req.Country,
+            site: req.City,
+            payer: payer,
             ct: ct
         ).ConfigureAwait(false);
 
         return [.. response.Select(c => new CalculationDto(
-            ServiceId: c.ServiceId,
+            Service: c.Service,
             Price: new(
                 Amount: c.Price.Amount,
                 Vat: c.Price.Vat,

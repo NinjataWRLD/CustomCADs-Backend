@@ -1,7 +1,9 @@
-﻿using CustomCADs.Carts.Application.Carts.Queries.GetAll;
+﻿using CustomCADs.Carts.Application.Carts.Queries.CalculateShipment;
+using CustomCADs.Carts.Application.Carts.Queries.GetAll;
 using CustomCADs.Carts.Application.Carts.Queries.GetById;
 using CustomCADs.Carts.Application.Common.Dtos;
 using CustomCADs.Carts.Endpoints.Carts.Get.All;
+using CustomCADs.Carts.Endpoints.Carts.Get.CalculateShipment;
 using CustomCADs.Carts.Endpoints.Carts.Get.Recent;
 using CustomCADs.Carts.Endpoints.Carts.Get.Single;
 using CustomCADs.Carts.Endpoints.Common.Dtos;
@@ -47,5 +49,14 @@ internal static class Mapper
             CartId: item.CartId.Value,
             CadId: item.CadId?.Value,
             Cost: item.Cost
+        );
+
+    internal static CalculateCartShipmentResponse ToCalculateCartShipmentResponse(this CalculateCartShipmentDto calculation)
+        => new(
+            Service: calculation.Service,
+            Total: calculation.Total,
+            Currency: calculation.Currency,
+            PickupDate: calculation.PickupDate.ToString(SpeedyDateFormatString),
+            DeliveryDeadline: calculation.DeliveryDeadline.ToString(SpeedyDateFormatString)
         );
 }

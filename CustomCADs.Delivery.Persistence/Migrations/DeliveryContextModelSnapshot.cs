@@ -35,6 +35,11 @@ namespace CustomCADs.Delivery.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("BuyerId");
 
+                    b.Property<string>("ReferenceId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("ReferenceId");
+
                     b.Property<string>("ShipmentStatus")
                         .IsRequired()
                         .HasColumnType("text")

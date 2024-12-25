@@ -2,7 +2,7 @@
 
 public record ShipmentDeliveryDto(
     string Deadline,
-    string DeliveryDateTime,
-    string Consignee,
-    string DeliveryNote
+    string? DeliveryDateTime,
+    string? Consignee,
+    string? DeliveryNote
 );

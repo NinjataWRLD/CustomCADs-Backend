@@ -6,5 +6,6 @@ public sealed record PurchaseCartRequest(
     Guid CartId,
     AddressDto Address,
     ContactDto Contact,
-    string PaymentMethodId
+    string PaymentMethodId,
+    string ShipmentService
 );

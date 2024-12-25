@@ -1,7 +1,4 @@
-﻿using CustomCADs.Shared.Speedy.API.Dtos.ShipmentContent;
-using CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentRecipient;
-using CustomCADs.Shared.Speedy.API.Dtos.ShipmentService;
-using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
+﻿using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints;
 using CustomCADs.Shared.Speedy.API.Endpoints.ShipmentEndpoints.CreateShipment;
 using CustomCADs.Shared.Speedy.Services.Calculation;
 using CustomCADs.Shared.Speedy.Services.Client;
@@ -21,6 +18,7 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Sender;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Cod;
 using CustomCADs.Shared.Speedy.Services.Services;
+using CustomCADs.Shared.Speedy.Services.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 
 namespace CustomCADs.Shared.Speedy.Services.Shipment;
@@ -50,6 +48,7 @@ public class ShipmentService(
         string country,
         string site,
         string name,
+        string service,
         string? email,
         string? phoneNumber,
         CancellationToken ct = default)
@@ -62,10 +61,9 @@ public class ShipmentService(
 
         int dropoffOfficeId = await GetOfficeId(account, dropoffCountryId, dropoffSiteId, ct).ConfigureAwait(false);
         int pickupOfficeId = await GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);
-
+        
+        int serviceId = await GetServiceId(account, service, ct).ConfigureAwait(false); 
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
-
-        var services = await servicesService.Services(account, null, ct).ConfigureAwait(false);
 
         CreateShipmentRequest request = new(
             UserName: account.Username,
@@ -73,7 +71,6 @@ public class ShipmentService(
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
             ShipmentNote: null,
-
             Sender: new(
                 ClientId: clientId,
                 DropoffOfficeId: dropoffOfficeId,
@@ -87,7 +84,7 @@ public class ShipmentService(
                 ClientName: null, // forbidden
                 PrivatePerson: null // forbidden
             ),
-            Recipient: new ShipmentRecipientDto(
+            Recipient: new(
                 ClientId: clientId,
                 PickupOfficeId: pickupOfficeId,
                 Phone1: phoneNumber is not null ? new(phoneNumber, null) : null,
@@ -103,13 +100,13 @@ public class ShipmentService(
                 Address: null, // forbidden
                 PickupGeoPUDOIf: null // forbidden
             ),
-            Service: new ShipmentServiceDto(
-                ServiceId: services.First().Id,
+            Service: new(
+                ServiceId: serviceId,
                 PickupDate: null,
                 AdditionalServices: null,
                 SaturdayDelivery: null
             ),
-            Content: new ShipmentContentDto(
+            Content: new(
                 Package: package,
                 Contents: contents,
                 ParcelsCount: parcelCount,
@@ -140,17 +137,50 @@ public class ShipmentService(
             ConsolidationRef: null,
             RequireUnsuccessfulDeliveryStickerImage: null
         );
-        var response = await endpoints.CreateShipmentAsync(request, ct).ConfigureAwait(false);
 
-        response.Error.EnsureNull();
-        return new(
-            Id: response.Id,
-            Parcels: [.. response.Parcels.Select(p => p.ToModel())],
-            Price: response.Price.ToModel(),
-            PickupDate: DateOnly.Parse(response.PickupDate),
-            DeliveryDeadline: DateTime.Parse(response.DeliveryDeadline)
-        );
+        DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+        DateOnly[] weekdays = [.. Enumerable.Range(0, 7).Select(today.AddDays)];
 
+        Exception e = new();
+        foreach (DateOnly day in weekdays)
+        {
+            request = request with { Service = request.Service with { PickupDate = day.ToString(DateFormat) } };
+            var response = await endpoints.CreateShipmentAsync(request, ct).ConfigureAwait(false);
+
+            try
+            {
+                response.Error.EnsureNull();
+            }
+            catch (Exception ex)
+            when (ex is SpeedyInvalidPickupOfficeException or SpeedyInvalidDropOffOfficeException)
+            {
+                e = ex;
+                if (weekdays.Last().Day == day.Day) throw;
+
+                continue;
+            }
+
+            return new(
+                Id: response.Id,
+                Parcels: [.. response.Parcels.Select(p => p.ToModel())],
+                Price: response.Price.ToModel(),
+                PickupDate: DateOnly.Parse(response.PickupDate),
+                DeliveryDeadline: DateTime.Parse(response.DeliveryDeadline)
+            );
+        }
+
+        throw e;
+    }
+
+    private async Task<int> GetServiceId(AccountModel account, string service, CancellationToken ct)
+    {
+        CourierServiceModel[] services = await servicesService.Services(
+            account: account, 
+            date: null, 
+            ct: ct
+        ).ConfigureAwait(false);
+
+        return services.First(s => s.Name == service || s.NameEn == service).Id;
     }
 
     private async Task<int> GetCountryId(AccountModel account, string country, CancellationToken ct)
@@ -163,7 +193,7 @@ public class ShipmentService(
 
         return countries.First().Id;
     }
-    
+
     private async Task<long> GetSiteId(AccountModel account, int countryId, string site, CancellationToken ct)
     {
         SiteModel[] sites = await locationService.FindSiteAsync(
@@ -271,7 +301,7 @@ public class ShipmentService(
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Shipments.Select(d => d.ToModel())];
+        return [.. response.Shipments.Select(d => d.ToModel(PhoneNumber1))];
     }
 
     public async Task<SecondaryShipmentModel[]> SecondaryShipmentAsync(

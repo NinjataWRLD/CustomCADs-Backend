@@ -13,7 +13,7 @@ public sealed class DeleteOrderHandler(IOrderReads reads, IWrites<Order> writes,
         Order order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
-        if (order.BuyerId == req.BuyerId)
+        if (order.BuyerId != req.BuyerId)
         {
             throw OrderAuthorizationException.ByOrderId(req.Id);
         }

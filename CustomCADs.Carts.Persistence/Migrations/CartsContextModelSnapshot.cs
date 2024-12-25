@@ -46,11 +46,6 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("Status");
 
-                    b.Property<decimal>("Total")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("numeric(18,2)")
-                        .HasColumnName("Total");
-
                     b.HasKey("Id");
 
                     b.ToTable("Carts", "Carts");
