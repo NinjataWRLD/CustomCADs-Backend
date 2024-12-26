@@ -39,10 +39,10 @@ public static class Constants
         public const string Designer = "Designer";
         public const string Admin = "Administrator";
 
-        public const string ClientDescription = "Has access to Orders endpoints - can buy 3D Models from the Gallery and make and track Orders.";
-        public const string ContributorDescription = "Has access to Cads endpoints - can apply to upload his 3D Models to the Gallery, set their prices and track their status";
-        public const string DesignerDescription = "Has access to Cads and Designer endpoints - can upload his 3D Models straight to the Gallery, validate contributors' cads and finish clients' orders.";
-        public const string AdminDescription = "Has full access to Users, Roles, Orders, Cads, Categories and all other endpoints - can do anyhting.";
+        public const string ClientDescription = "Can buy Products from the Gallery as Cart Items; Can make Orders to our Designers and contact them; Can download purchased CADs and track requested Shipments.";
+        public const string ContributorDescription = "Can upload 3D Models to the Gallery as Products; Can sell CADs to our Designers and contact them; Can apply to become a Designer himself.";
+        public const string DesignerDescription = "Can accept and work on Clients' Orders; Can validate or report Contributors' Products; Can do everything a Contributor can do.";
+        public const string AdminDescription = "Can access all non-sensitive info from all resources; Can ban reported resources - Orders, Products, Users, ...; Can modify Categories and Roles.";
     }
 
     public static class Users

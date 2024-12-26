@@ -2,5 +2,6 @@
 
 public sealed record CategoryResponse(
     int Id,
-    string Name
+    string Name,
+    string Description
 );

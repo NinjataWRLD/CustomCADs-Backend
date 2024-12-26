@@ -43,6 +43,11 @@ static class CategoryConfigUtils
             .IsRequired()
             .HasMaxLength(NameMaxLength)
             .HasColumnName("Name");
+            
+        builder.Property(x => x.Description)
+            .IsRequired()
+            .HasMaxLength(DescriptionMaxLength)
+            .HasColumnName("Description");
 
         return builder;
     }
@@ -50,17 +55,17 @@ static class CategoryConfigUtils
     public static EntityTypeBuilder<Category> SetSeedData(this EntityTypeBuilder<Category> builder)
     {
         builder.HasData(Category.CreateRange([
-            (new(1), "Animals"),
-            (new(2), "Characters"),
-            (new(3), "Electronics"),
-            (new(4), "Fashion"),
-            (new(5), "Furniture"),
-            (new(6), "Nature"),
-            (new(7), "Science"),
-            (new(8), "Sports"),
-            (new(9), "Toys"),
-            (new(10), "Vehicles"),
-            (new(11), "Others"),
+            (new(1), "Animals", "Includes pets, wild animals, etc."),
+            (new(2), "Characters", "Includes movie characters, book characters, game characters, etc."),
+            (new(3), "Electronics", "Includes phones, computers, e-devices, earphones, etc."),
+            (new(4), "Fashion", "Includes clothes, shoes, accessories, hats, etc."),
+            (new(5), "Furniture", "Includes tables, chairs, beds, etc."),
+            (new(6), "Nature", "Includes flowers, forests, seas, etc."),
+            (new(7), "Science", "Includes organs, tools, chemical fluids, etc."),
+            (new(8), "Sports", "Includes footballs, boxing gloves, hockey sticks, etc."),
+            (new(9), "Toys", "Includes pet toys, action figures, plushies, etc."),
+            (new(10), "Vehicles", "Includes cars, trucks, tanks, bikes, planes, ships, etc."),
+            (new(11), "Others", "Includes anything that doesn't fit into the other categories."),
         ]));
 
         return builder;

@@ -19,7 +19,7 @@ public sealed class PutCategoryEndpoint(IRequestSender sender)
     {
         EditCategoryCommand command = new(
             Id: new CategoryId(req.Id),
-            Dto: new CategoryWriteDto(req.Name)
+            Dto: new CategoryWriteDto(req.Name, req.Description)
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
