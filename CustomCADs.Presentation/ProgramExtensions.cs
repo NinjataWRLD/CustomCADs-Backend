@@ -154,14 +154,16 @@ public static class ProgramExtensions
         using IServiceScope scope = services.BuildServiceProvider().CreateScope();
         IServiceProvider provider = scope.ServiceProvider;
 
-        await provider.UpdateAccountsContextAsync().ConfigureAwait(false);
-        await provider.UpdateCartsContextAsync().ConfigureAwait(false);
-        await provider.UpdateCatalogContextAsync().ConfigureAwait(false);
-        await provider.UpdateCategoriesContextAsync().ConfigureAwait(false);
-        await provider.UpdateDeliveryContextAsync().ConfigureAwait(false);
-        await provider.UpdateFilesContextAsync().ConfigureAwait(false);
-        await provider.UpdateIdentityContextAsync().ConfigureAwait(false);
-        await provider.UpdateOrdersContextAsync().ConfigureAwait(false);
+        await Task.WhenAll([
+            provider.UpdateAccountsContextAsync(),
+            provider.UpdateCartsContextAsync(),
+            provider.UpdateCatalogContextAsync(),
+            provider.UpdateCategoriesContextAsync(),
+            provider.UpdateDeliveryContextAsync(),
+            provider.UpdateFilesContextAsync(),
+            provider.UpdateIdentityContextAsync(),
+            provider.UpdateOrdersContextAsync(),
+        ]).ConfigureAwait(false);
     }
 
     public static void AddEndpoints(this IServiceCollection services)
