@@ -10,21 +10,19 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
 {
     public async Task<(ShipmentId Id, decimal Price)> Handle(CreateShipmentCommand req, CancellationToken ct)
     {
-        ShipmentDto reference = await delivery.ShipAsync(
-            req: new(
-                Package: "BOX",
-                Contents: $"{req.Info.Count} 3D Model/s, each wrapped in a box",
-                ParcelCount: req.Info.Count,
-                Name: req.Info.Recipient,
-                TotalWeight: req.Info.Weight,
-                Service: req.Service,
-                Country: req.Address.Country,
-                City: req.Address.City,
-                Phone: req.Contact.Phone,
-                Email: req.Contact.Email
-            ),
-            ct: ct
-        ).ConfigureAwait(false);
+        ShipRequestDto request = new(
+            Package: "BOX",
+            Contents: $"{req.Info.Count} 3D Model/s, each wrapped in a box",
+            ParcelCount: req.Info.Count,
+            Name: req.Info.Recipient,
+            TotalWeight: req.Info.Weight,
+            Service: req.Service,
+            Country: req.Address.Country,
+            City: req.Address.City,
+            Phone: req.Contact.Phone,
+            Email: req.Contact.Email
+        );
+        ShipmentDto reference = await delivery.ShipAsync(request, ct).ConfigureAwait(false);
 
         var shipment = Shipment.Create(
             address: new(req.Address.Country, req.Address.City),
