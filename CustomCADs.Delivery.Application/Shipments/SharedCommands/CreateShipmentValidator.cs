@@ -7,7 +7,7 @@ namespace CustomCADs.Delivery.Application.Shipments.SharedCommands;
 using static Constants.FluentMessages;
 using static ShipmentConstants;
 
-public class CreateShipmentValidator : Validator<CreateShipmentCommand, (ShipmentId, decimal)>
+public class CreateShipmentValidator : Validator<CreateShipmentCommand, ShipmentId>
 {
     public CreateShipmentValidator()
     {

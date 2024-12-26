@@ -6,9 +6,9 @@ using CustomCADs.Shared.UseCases.Shipments.Commands;
 namespace CustomCADs.Delivery.Application.Shipments.SharedCommands;
 
 public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork uow, IDeliveryService delivery)
-    : ICommandHandler<CreateShipmentCommand, (ShipmentId Id, decimal Price)>
+    : ICommandHandler<CreateShipmentCommand, ShipmentId>
 {
-    public async Task<(ShipmentId Id, decimal Price)> Handle(CreateShipmentCommand req, CancellationToken ct)
+    public async Task<ShipmentId> Handle(CreateShipmentCommand req, CancellationToken ct)
     {
         ShipRequestDto request = new(
             Package: "BOX",
@@ -26,6 +26,7 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
 
         var shipment = Shipment.Create(
             address: new(req.Address.Country, req.Address.City),
+            price: reference.Price,
             referenceId: reference.Id,
             buyerId: req.BuyerId
         );
@@ -33,6 +34,6 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
         await writes.AddAsync(shipment, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        return (shipment.Id, reference.Price);
+        return shipment.Id;
     }
 }
