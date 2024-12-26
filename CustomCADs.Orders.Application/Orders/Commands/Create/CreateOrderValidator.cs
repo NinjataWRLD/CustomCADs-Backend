@@ -1,6 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Orders;
-using CustomCADs.Shared.Application.Requests.Validator;
-using CustomCADs.Shared.Core;
+﻿using CustomCADs.Shared.Application.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Create;

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Roles;
-using CustomCADs.Shared.Application.Requests.Validator;
-using CustomCADs.Shared.Core;
+﻿using CustomCADs.Shared.Application.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.EditByName;

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Delivery.Endpoints.Common.Dto;
+﻿namespace CustomCADs.Delivery.Endpoints.Common.Dtos;
 
 public record AddressDto(
     string City,

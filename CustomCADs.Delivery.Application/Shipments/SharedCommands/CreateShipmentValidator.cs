@@ -1,6 +1,4 @@
-﻿using CustomCADs.Delivery.Domain.Shipments;
-using CustomCADs.Shared.Application.Requests.Validator;
-using CustomCADs.Shared.Core;
+﻿using CustomCADs.Shared.Application.Requests.Validator;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 using FluentValidation;
 

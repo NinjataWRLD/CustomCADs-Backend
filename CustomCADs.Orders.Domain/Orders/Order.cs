@@ -39,7 +39,7 @@ public class Order : BaseAggregateRoot
     ) => new Order(name, description, delivery: false, buyerId)
             .ValidateName()
             .ValidateDescription();
-    
+
     public static Order CreateWithDelivery(
         string name,
         string description,

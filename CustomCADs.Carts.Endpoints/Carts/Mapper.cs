@@ -1,12 +1,10 @@
 ﻿using CustomCADs.Carts.Application.Carts.Queries.CalculateShipment;
 using CustomCADs.Carts.Application.Carts.Queries.GetAll;
 using CustomCADs.Carts.Application.Carts.Queries.GetById;
-using CustomCADs.Carts.Application.Common.Dtos;
 using CustomCADs.Carts.Endpoints.Carts.Get.All;
 using CustomCADs.Carts.Endpoints.Carts.Get.CalculateShipment;
 using CustomCADs.Carts.Endpoints.Carts.Get.Recent;
 using CustomCADs.Carts.Endpoints.Carts.Get.Single;
-using CustomCADs.Carts.Endpoints.Common.Dtos;
 
 namespace CustomCADs.Carts.Endpoints.Carts;
 

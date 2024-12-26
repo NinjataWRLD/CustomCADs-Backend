@@ -61,8 +61,8 @@ public class ShipmentService(
 
         int dropoffOfficeId = await GetOfficeId(account, dropoffCountryId, dropoffSiteId, ct).ConfigureAwait(false);
         int pickupOfficeId = await GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);
-        
-        int serviceId = await GetServiceId(account, service, ct).ConfigureAwait(false); 
+
+        int serviceId = await GetServiceId(account, service, ct).ConfigureAwait(false);
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
 
         CreateShipmentRequest request = new(
@@ -175,8 +175,8 @@ public class ShipmentService(
     private async Task<int> GetServiceId(AccountModel account, string service, CancellationToken ct)
     {
         CourierServiceModel[] services = await servicesService.Services(
-            account: account, 
-            date: null, 
+            account: account,
+            date: null,
             ct: ct
         ).ConfigureAwait(false);
 

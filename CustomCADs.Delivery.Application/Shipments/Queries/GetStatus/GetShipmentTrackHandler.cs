@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Delivery.Application.Common.Exceptions;
-using CustomCADs.Delivery.Domain.Shipments;
 using CustomCADs.Delivery.Domain.Shipments.Reads;
 using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;
@@ -15,7 +14,7 @@ public class GetShipmentTrackHandler(IShipmentReads reads, IDeliveryService deli
             ?? throw ShipmentNotFoundException.ById(req.Id);
 
         ShipmentStatusDto[] statuses = await delivery.TrackAsync(
-            shipment.ReferenceId, 
+            shipment.ReferenceId,
             ct
         ).ConfigureAwait(false);
 

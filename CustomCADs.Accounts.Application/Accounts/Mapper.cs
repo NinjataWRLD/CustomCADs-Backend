@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
 using CustomCADs.Accounts.Application.Accounts.Queries.GetById;
 using CustomCADs.Accounts.Application.Accounts.Queries.GetByUsername;
-using CustomCADs.Accounts.Domain.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts;
 

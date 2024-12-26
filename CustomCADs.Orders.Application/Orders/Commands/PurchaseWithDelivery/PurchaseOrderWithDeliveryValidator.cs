@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Application.Requests.Validator;
-using CustomCADs.Shared.Core;
 using FluentValidation;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.PurchaseWithDelivery;

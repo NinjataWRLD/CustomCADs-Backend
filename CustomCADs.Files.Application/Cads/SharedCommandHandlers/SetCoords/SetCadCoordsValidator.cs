@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Application.Requests.Validator;
-using CustomCADs.Shared.Core;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using FluentValidation;
 
@@ -22,7 +21,7 @@ public class SetCadCoordsValidator : Validator<SetCadCoordsCommand>
             RuleFor(x => x.CamCoordinates!.Z)
                 .NotEmpty().WithMessage(RequiredError);
         });
-        
+
         When(x => x.PanCoordinates != null, () =>
         {
             RuleFor(x => x.PanCoordinates!.X)

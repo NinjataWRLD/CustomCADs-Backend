@@ -1,5 +1,4 @@
-﻿using CustomCADs.Identity.Application.Common.Dtos;
-using CustomCADs.Identity.Domain;
+﻿using CustomCADs.Identity.Domain;
 
 namespace CustomCADs.Identity.Endpoints.SignIn.RefreshToken;
 
@@ -42,7 +41,7 @@ public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService
         {
             HttpContext.DeleteAllCookies();
             ValidationFailures.Add(new("RefreshToken", RefreshTokenExpired, rt));
-            
+
             await SendErrorsAsync(Status401Unauthorized).ConfigureAwait(false);
             return;
         }

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Dtos;
-using CustomCADs.Catalog.Domain.Products.ValueObjects;
+﻿using CustomCADs.Catalog.Domain.Products.ValueObjects;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetById;
 

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.Carts;
 using CustomCADs.Carts.Domain.Carts.Reads;
 using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;

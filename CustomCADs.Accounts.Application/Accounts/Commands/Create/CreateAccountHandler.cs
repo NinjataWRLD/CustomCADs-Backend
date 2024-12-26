@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts;
-using CustomCADs.Accounts.Domain.Common;
+﻿using CustomCADs.Accounts.Domain.Common;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 

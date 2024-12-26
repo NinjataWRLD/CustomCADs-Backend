@@ -1,8 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Common;
-using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Commands;

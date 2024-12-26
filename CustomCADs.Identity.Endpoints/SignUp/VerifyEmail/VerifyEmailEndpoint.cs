@@ -1,5 +1,4 @@
-﻿using CustomCADs.Identity.Application.Common.Dtos;
-using CustomCADs.Identity.Domain;
+﻿using CustomCADs.Identity.Domain;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Identity.Endpoints.SignUp.VerifyEmail;

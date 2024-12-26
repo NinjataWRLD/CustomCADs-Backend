@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions;
 using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Requests.Sender;
@@ -30,7 +29,7 @@ public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfW
             throw OrderDeliveryException.ById(order.Id);
 
         order.SetCompletedStatus();
-        GetUsernameByIdQuery buyerQuery = new(order.BuyerId), 
+        GetUsernameByIdQuery buyerQuery = new(order.BuyerId),
             sellerQuery = new(order.DesignerId.Value);
 
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);

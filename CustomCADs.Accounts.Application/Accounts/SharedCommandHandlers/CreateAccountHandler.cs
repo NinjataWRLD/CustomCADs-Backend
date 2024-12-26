@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts;
-using CustomCADs.Accounts.Domain.Common;
+﻿using CustomCADs.Accounts.Domain.Common;
 using CustomCADs.Shared.UseCases.Accounts.Commands;
 
 namespace CustomCADs.Accounts.Application.Accounts.SharedCommandHandlers;

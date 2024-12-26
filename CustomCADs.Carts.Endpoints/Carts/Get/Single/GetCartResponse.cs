@@ -1,6 +1,4 @@
-﻿using CustomCADs.Carts.Endpoints.Common.Dtos;
-
-namespace CustomCADs.Carts.Endpoints.Carts.Get.Single;
+﻿namespace CustomCADs.Carts.Endpoints.Carts.Get.Single;
 
 public sealed record GetCartResponse(
     Guid Id,

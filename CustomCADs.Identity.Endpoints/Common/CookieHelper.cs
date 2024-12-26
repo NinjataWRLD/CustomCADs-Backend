@@ -37,7 +37,7 @@ public static class CookieHelper
         }
     }
 
-    private static CookieOptions CookieOptions(DateTime expire) 
+    private static CookieOptions CookieOptions(DateTime expire)
         => new()
         {
             Secure = true,
@@ -45,7 +45,7 @@ public static class CookieHelper
             SameSite = SameSiteMode.None,
         };
 
-    private static CookieOptions HttpOnlyCookieOptions(DateTime expire) 
+    private static CookieOptions HttpOnlyCookieOptions(DateTime expire)
         => new()
         {
             HttpOnly = true,

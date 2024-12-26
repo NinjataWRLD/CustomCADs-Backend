@@ -1,5 +1,4 @@
-﻿using CustomCADs.Categories.Domain.Categories;
-using CustomCADs.Categories.Domain.Categories.DomainEvents;
+﻿using CustomCADs.Categories.Domain.Categories.DomainEvents;
 using CustomCADs.Categories.Domain.Common;
 using CustomCADs.Shared.Application.Events;
 

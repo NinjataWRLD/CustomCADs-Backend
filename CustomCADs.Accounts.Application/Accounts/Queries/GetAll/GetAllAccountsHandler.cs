@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts;
-using CustomCADs.Accounts.Domain.Accounts.Reads;
+﻿using CustomCADs.Accounts.Domain.Accounts.Reads;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Accounts.Application.Accounts.Queries.GetAll;

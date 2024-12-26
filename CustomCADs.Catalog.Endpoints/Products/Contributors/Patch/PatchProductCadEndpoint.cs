@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
-using CustomCADs.Catalog.Endpoints.Common.Dtos;
+using CustomCADs.Catalog.Endpoints.Common;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Contributors.Patch;
 

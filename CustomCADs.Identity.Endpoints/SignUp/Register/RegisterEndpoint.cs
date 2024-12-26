@@ -1,5 +1,4 @@
-﻿using CustomCADs.Identity.Application.Common.Dtos;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Identity.Endpoints.SignUp.Register;

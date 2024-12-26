@@ -49,7 +49,7 @@ internal static class Mapper
             DeliveryType: order.Delivery.ToString(),
             OrderStatus: order.OrderStatus.ToString()
         );
-    
+
     internal static PostOrderWithDeliveryResponse ToPostOrderWithDeliveryResponse(this GetOrderByIdDto order)
         => new(
             Id: order.Id.Value,
@@ -59,7 +59,7 @@ internal static class Mapper
             DeliveryType: order.Delivery.ToString(),
             OrderStatus: order.OrderStatus.ToString()
         );
-    
+
     internal static CalculateOrderShipmentResponse ToCalculateOrderShipmentResponse(this CalculateOrderShipmentDto calculation)
         => new(
             Service: calculation.Service,

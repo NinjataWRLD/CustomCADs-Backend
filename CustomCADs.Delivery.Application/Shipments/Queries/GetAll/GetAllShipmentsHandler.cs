@@ -1,5 +1,4 @@
-﻿using CustomCADs.Delivery.Domain.Shipments;
-using CustomCADs.Delivery.Domain.Shipments.Reads;
+﻿using CustomCADs.Delivery.Domain.Shipments.Reads;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Delivery.Application.Shipments.Queries.GetAll;

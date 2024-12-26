@@ -1,6 +1,4 @@
-﻿using CustomCADs.Carts.Application.Common.Dtos;
-using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.Carts;
+﻿using CustomCADs.Carts.Application.Common.Exceptions;
 using CustomCADs.Carts.Domain.Carts.Reads;
 
 namespace CustomCADs.Carts.Application.Carts.Queries.GetItems;

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products;
-using CustomCADs.Shared.Application.Requests.Validator;
-using CustomCADs.Shared.Core;
+﻿using CustomCADs.Shared.Application.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Create;

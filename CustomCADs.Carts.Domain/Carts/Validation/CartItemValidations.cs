@@ -20,7 +20,7 @@ public static class CartItemValidations
 
         return item;
     }
-    
+
     public static CartItem ValidateWeight(this CartItem item)
     {
         string property = "Weight";

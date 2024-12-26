@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.Carts;
-using CustomCADs.Carts.Domain.Common;
+﻿using CustomCADs.Carts.Domain.Common;
 
 namespace CustomCADs.Carts.Application.Carts.Commands.Create;
 

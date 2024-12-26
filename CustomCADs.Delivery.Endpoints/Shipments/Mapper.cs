@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
 using CustomCADs.Delivery.Application.Shipments.Queries.GetStatus;
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
-using CustomCADs.Delivery.Endpoints.Common.Dto;
 using CustomCADs.Delivery.Endpoints.Shipments.Get.Shipment;
 using CustomCADs.Delivery.Endpoints.Shipments.Get.Track;
 
@@ -18,7 +17,7 @@ public static class Mapper
             Address: shipment.Address.ToAddressDto(),
             BuyerId: shipment.BuyerId.Value
         );
-    
+
     public static Dictionary<string, TrackShipmentResponse> ToTrackShipmentResponse(this Dictionary<DateTime, GetShipmentTrackDto> tracks)
         => tracks.ToDictionary(
             x => x.Key.ToString(SpeedyDateTimeFormatString),

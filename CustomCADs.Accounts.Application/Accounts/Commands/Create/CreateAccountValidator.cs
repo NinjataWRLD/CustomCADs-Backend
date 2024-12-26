@@ -1,6 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts;
-using CustomCADs.Shared.Application.Requests.Validator;
-using CustomCADs.Shared.Core;
+﻿using CustomCADs.Shared.Application.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.Create;
@@ -29,7 +27,7 @@ public class CreateAccountValidator : Validator<CreateAccountCommand, AccountId>
 
         RuleFor(r => r.TimeZone)
             .NotEmpty().WithMessage(RequiredError);
-        
+
         RuleFor(r => r.FirstName)
             .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 

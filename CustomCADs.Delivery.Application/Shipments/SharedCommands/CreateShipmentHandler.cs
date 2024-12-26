@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Delivery.Domain.Common;
-using CustomCADs.Delivery.Domain.Shipments;
 using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
@@ -28,7 +27,7 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
         ).ConfigureAwait(false);
 
         var shipment = Shipment.Create(
-            address: new(req.Address.Country, req.Address.City), 
+            address: new(req.Address.Country, req.Address.City),
             referenceId: reference.Id,
             buyerId: req.BuyerId
         );

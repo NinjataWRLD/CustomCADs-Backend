@@ -74,7 +74,7 @@ public static class CartItemItemConfigUtils
             .IsRequired()
             .HasPrecision(6, 2)
             .HasColumnName("Weight");
-        
+
         builder.Property(x => x.Price)
             .IsRequired()
             .HasPrecision(10, 2)
