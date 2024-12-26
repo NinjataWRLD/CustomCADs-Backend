@@ -1,12 +1,11 @@
 ﻿using CustomCADs.Carts.Application.Carts.Queries.CalculateShipment;
 using CustomCADs.Carts.Application.Carts.Queries.GetAll;
 using CustomCADs.Carts.Application.Carts.Queries.GetById;
-using CustomCADs.Carts.Application.Common.Dtos;
 using CustomCADs.Carts.Endpoints.Carts.Get.All;
 using CustomCADs.Carts.Endpoints.Carts.Get.CalculateShipment;
 using CustomCADs.Carts.Endpoints.Carts.Get.Recent;
 using CustomCADs.Carts.Endpoints.Carts.Get.Single;
-using CustomCADs.Carts.Endpoints.Common.Dtos;
+using CustomCADs.Carts.Endpoints.Carts.Post.Cart;
 
 namespace CustomCADs.Carts.Endpoints.Carts;
 
@@ -36,6 +35,13 @@ internal static class Mapper
             BuyerId: cart.BuyerId.Value,
             ShipmentId: cart.ShipmentId?.Value,
             Items: [.. cart.Items.Select(o => o.ToCartItemResponse())]
+        );
+    
+    internal static PostCartResponse ToPostCartResponse(this GetCartByIdDto cart)
+        => new(
+            Id: cart.Id.Value,
+            PurchaseDate: cart.PurchaseDate.ToString(DateFormatString),
+            BuyerId: cart.BuyerId.Value
         );
 
     internal static CartItemResponse ToCartItemResponse(this CartItemDto item)

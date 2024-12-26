@@ -2,9 +2,6 @@
 using CustomCADs.Shared.Speedy.API.Endpoints.CalculationEndpoints.Calculation;
 using CustomCADs.Shared.Speedy.Services.Client;
 using CustomCADs.Shared.Speedy.Services.Location;
-using CustomCADs.Shared.Speedy.Services.Location.Country;
-using CustomCADs.Shared.Speedy.Services.Location.Office;
-using CustomCADs.Shared.Speedy.Services.Location.Site;
 using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
 using CustomCADs.Shared.Speedy.Services.Services;
@@ -34,14 +31,14 @@ public class CalculationService(
         string site,
         CancellationToken ct = default)
     {
-        int dropoffCountryId = await GetCountryId(account, country, ct).ConfigureAwait(false);
-        int pickupCountryId = await GetCountryId(account, PickupCountry, ct).ConfigureAwait(false);
+        int dropoffCountryId = await locationService.GetCountryId(account, country, ct).ConfigureAwait(false);
+        int pickupCountryId = await locationService.GetCountryId(account, PickupCountry, ct).ConfigureAwait(false);
 
-        long dropoffSiteId = await GetSiteId(account, dropoffCountryId, site, ct);
-        long pickupSiteId = await GetSiteId(account, pickupCountryId, PickupSite, ct);
+        long dropoffSiteId = await locationService.GetSiteId(account, dropoffCountryId, site, ct);
+        long pickupSiteId = await locationService.GetSiteId(account, pickupCountryId, PickupSite, ct);
 
-        int dropoffOfficeId = await GetOfficeId(account, dropoffCountryId, dropoffSiteId, ct).ConfigureAwait(false);
-        int pickupOfficeId = await GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);
+        int dropoffOfficeId = await locationService.GetOfficeId(account, dropoffCountryId, dropoffSiteId, ct).ConfigureAwait(false);
+        int pickupOfficeId = await locationService.GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);
 
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
         var services = await servicesService.Services(account, null, ct).ConfigureAwait(false);
@@ -99,43 +96,5 @@ public class CalculationService(
             calculations.ForEach(c => c.Error.EnsureNull());
 
         return [.. calculations.Where(c => c.Error is null).Select(c => c.ToModel(services))];
-    }
-
-    private async Task<int> GetCountryId(AccountModel account, string country, CancellationToken ct)
-    {
-        CountryModel[] countries = await locationService.FindCountryAsync(
-            account: account,
-            name: country,
-            ct: ct
-        ).ConfigureAwait(false);
-
-        return countries.First().Id;
-    }
-
-    private async Task<long> GetSiteId(AccountModel account, int countryId, string site, CancellationToken ct)
-    {
-        SiteModel[] sites = await locationService.FindSiteAsync(
-            account: account,
-            countryId: countryId,
-            name: site,
-            ct: ct
-        ).ConfigureAwait(false);
-
-        return sites.First().Id;
-    }
-
-    private async Task<int> GetOfficeId(AccountModel account, int countryId, long siteId, CancellationToken ct)
-    {
-        OfficeModel[] offices = await locationService.FindOfficeAsync(
-            account: account,
-            countryId: countryId,
-            siteId: siteId,
-            name: null,
-            siteName: null,
-            limit: null,
-            ct: ct
-        ).ConfigureAwait(false);
-
-        return offices.First().Id;
     }
 }

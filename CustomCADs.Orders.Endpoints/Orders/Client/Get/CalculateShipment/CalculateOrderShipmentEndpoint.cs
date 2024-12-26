@@ -24,7 +24,7 @@ public class CalculateOrderShipmentEndpoint(IRequestSender sender)
         );
         CalculateOrderShipmentDto[] calculations = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        ICollection<CalculateOrderShipmentResponse> response = 
+        ICollection<CalculateOrderShipmentResponse> response =
             [.. calculations.Select(c => c.ToCalculateOrderShipmentResponse())];
         await SendOkAsync(response).ConfigureAwait(false);
     }

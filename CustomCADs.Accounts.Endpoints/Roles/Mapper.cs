@@ -1,7 +1,4 @@
-﻿using CustomCADs.Accounts.Application.Roles.Queries;
-using CustomCADs.Accounts.Endpoints.Common.Dtos;
-
-namespace CustomCADs.Accounts.Endpoints.Roles;
+﻿namespace CustomCADs.Accounts.Endpoints.Roles;
 
 internal static class Mapper
 {

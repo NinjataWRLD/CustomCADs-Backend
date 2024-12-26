@@ -1,5 +1,4 @@
-﻿using CustomCADs.Files.Domain.Cads;
-using CustomCADs.Shared.Core.Common.Dtos;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Files.Application.Cads;

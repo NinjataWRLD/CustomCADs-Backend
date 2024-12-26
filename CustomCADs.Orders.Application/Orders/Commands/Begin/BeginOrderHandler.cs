@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions;
 using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Reads;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Begin;

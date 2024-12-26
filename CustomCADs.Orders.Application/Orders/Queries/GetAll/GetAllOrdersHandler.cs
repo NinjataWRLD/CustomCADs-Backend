@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Orders;
-using CustomCADs.Orders.Domain.Orders.Reads;
+﻿using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;

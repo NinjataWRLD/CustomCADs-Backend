@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Dtos;
-
-namespace CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
+﻿namespace CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
 
 public record DesignerGetProductByIdDto(
     ProductId Id,

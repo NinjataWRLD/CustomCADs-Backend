@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Categories.Application.Common.Exceptions;
-using CustomCADs.Categories.Domain.Categories;
 using CustomCADs.Categories.Domain.Categories.DomainEvents;
 using CustomCADs.Categories.Domain.Categories.Reads;
 using CustomCADs.Categories.Domain.Common;

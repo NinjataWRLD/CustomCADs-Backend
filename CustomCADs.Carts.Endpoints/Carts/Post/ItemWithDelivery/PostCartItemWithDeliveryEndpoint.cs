@@ -1,11 +1,13 @@
 ﻿using CustomCADs.Carts.Application.Carts.Commands.AddItemWithDelivery;
+using CustomCADs.Carts.Application.Carts.Queries.GetItem;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Endpoints.Carts.Post.ItemWithDelivery;
 
 public sealed class PostCartItemWithDeliveryEndpoint(IRequestSender sender)
-    : Endpoint<PostCartItemWithDeliveryRequest, Guid>
+    : Endpoint<PostCartItemWithDeliveryRequest, CartItemResponse>
 {
     public override void Configure()
     {
@@ -19,15 +21,22 @@ public sealed class PostCartItemWithDeliveryEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PostCartItemWithDeliveryRequest req, CancellationToken ct)
     {
+        CartId cartId = new(req.CartId);
+        AccountId buyerId = User.GetAccountId();
+
         AddCartItemWithDeliveryCommand commnad = new(
-            Id: new CartId(req.CartId),
+            Id: cartId,
             Quantity: req.Quantity,
             Weight: req.Weight,
             ProductId: new ProductId(req.ProductId),
-            BuyerId: User.GetAccountId()
+            BuyerId: buyerId
         );
         CartItemId itemId = await sender.SendCommandAsync(commnad, ct).ConfigureAwait(false);
 
-        await SendOkAsync(itemId.Value).ConfigureAwait(false);
+        GetCartItemByIdQuery query = new(cartId, itemId, buyerId);
+        CartItemDto item = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+
+        var response = item.ToCartItemResponse();
+        await SendOkAsync(response).ConfigureAwait(false);
     }
 }

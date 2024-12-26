@@ -1,8 +1,6 @@
 ﻿using CustomCADs.Delivery.Application.Common.Exceptions;
-using CustomCADs.Delivery.Domain.Shipments;
 using CustomCADs.Delivery.Domain.Shipments.Reads;
 using CustomCADs.Shared.Application.Delivery;
-using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Delivery.Application.Shipments.Queries.GetWaybill;

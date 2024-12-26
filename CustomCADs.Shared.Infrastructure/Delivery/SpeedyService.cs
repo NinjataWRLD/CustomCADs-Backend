@@ -22,6 +22,7 @@ public sealed class SpeedyService(
 {
     private readonly AccountModel account = new(settings.Value.Username, settings.Value.Password);
     private const Payer payer = Payer.RECIPIENT;
+    private const PaperSize paper = PaperSize.A4;
 
     public async Task<ShipmentDto> ShipAsync(
         ShipRequestDto req,
@@ -30,6 +31,7 @@ public sealed class SpeedyService(
     {
         var response = await shipmentService.CreateShipmentAsync(
             account: account,
+            payer: payer,
             package: req.Package,
             contents: req.Contents,
             parcelCount: req.ParcelCount,
@@ -40,7 +42,6 @@ public sealed class SpeedyService(
             service: req.Service,
             email: req.Email,
             phoneNumber: req.Phone,
-            payer: payer,
             ct: ct
         ).ConfigureAwait(false);
 
@@ -57,11 +58,11 @@ public sealed class SpeedyService(
     {
         var response = await calculationService.CalculateAsync(
             account: account,
+            payer: payer,
             parcelCount: req.ParcelCount,
             totalWeight: req.TotalWeight,
             country: req.Country,
             site: req.City,
-            payer: payer,
             ct: ct
         ).ConfigureAwait(false);
 
@@ -82,8 +83,8 @@ public sealed class SpeedyService(
     {
         byte[] waybill = await printService.PrintAsync(
             account: account,
+            paperSize: paper,
             shipmentId: shipmentId,
-            paperSize: PaperSize.A4,
             ct: ct
         ).ConfigureAwait(false);
 
@@ -98,12 +99,10 @@ public sealed class SpeedyService(
             ct: ct
         ).ConfigureAwait(false);
 
-        return [
-            .. response.Single().Operations.Select(o => new ShipmentStatusDto(
-                DateTime: o.DateTime,
-                Place: o.Place,
-                Message: o.Translate()
-            ))
-        ];
+        return [.. response.Single().Operations.Select(o => new ShipmentStatusDto(
+            DateTime: o.DateTime,
+            Place: o.Place,
+            Message: o.Translate()
+        ))];
     }
 }

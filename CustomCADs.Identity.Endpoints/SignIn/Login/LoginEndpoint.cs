@@ -1,5 +1,4 @@
-﻿using CustomCADs.Identity.Application.Common.Dtos;
-using CustomCADs.Identity.Domain;
+﻿using CustomCADs.Identity.Domain;
 
 namespace CustomCADs.Identity.Endpoints.SignIn.Login;
 

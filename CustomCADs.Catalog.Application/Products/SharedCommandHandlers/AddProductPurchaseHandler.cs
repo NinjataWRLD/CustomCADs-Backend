@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Domain.Common;
-using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.UseCases.Products.Commands.AddPurchase;

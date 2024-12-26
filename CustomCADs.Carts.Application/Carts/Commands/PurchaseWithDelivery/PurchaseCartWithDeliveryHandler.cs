@@ -1,12 +1,13 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.Carts;
 using CustomCADs.Carts.Domain.Carts.Reads;
 using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Products.Commands.AddPurchase;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
+using CustomCADs.Shared.UseCases.Shipments.Queries;
 
 namespace CustomCADs.Carts.Application.Carts.Commands.PurchaseWithDelivery;
 
@@ -38,10 +39,11 @@ public sealed class PurchaseCartWithDeliveryHandler(ICartReads reads, IUnitOfWor
             Contact: req.Contact,
             BuyerId: req.BuyerId
         );
-        var (ShipmentId, Price) = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
-        
-        cart.SetShipmentId(ShipmentId);
-        price += Price;
+        ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
+        cart.SetShipmentId(shipmentId);
+
+        GetShipmentPriceByIdQuery shipmentQuery = new(shipmentId);
+        price += await sender.SendQueryAsync(shipmentQuery, ct).ConfigureAwait(false);
 
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,

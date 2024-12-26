@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Roles;
-using CustomCADs.Accounts.Domain.Roles.Reads;
+﻿using CustomCADs.Accounts.Domain.Roles.Reads;
 
 namespace CustomCADs.Accounts.Application.Roles.Queries.GetAll;
 

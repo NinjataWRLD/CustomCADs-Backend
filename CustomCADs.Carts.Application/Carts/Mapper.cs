@@ -2,8 +2,6 @@
 using CustomCADs.Carts.Application.Carts.Queries.CalculateShipment;
 using CustomCADs.Carts.Application.Carts.Queries.GetAll;
 using CustomCADs.Carts.Application.Carts.Queries.GetById;
-using CustomCADs.Carts.Application.Common.Dtos;
-using CustomCADs.Carts.Domain.Carts;
 using CustomCADs.Carts.Domain.Carts.Entities;
 using CustomCADs.Shared.Application.Delivery.Dtos;
 

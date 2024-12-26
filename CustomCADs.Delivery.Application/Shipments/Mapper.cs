@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
-using CustomCADs.Delivery.Domain.Shipments;
 
 namespace CustomCADs.Delivery.Application.Shipments;
 

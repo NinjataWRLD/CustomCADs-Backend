@@ -4,7 +4,6 @@ using CustomCADs.Orders.Application.Orders.Queries.CalculateShipment;
 using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
-using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Shared.Application.Delivery.Dtos;
 
 namespace CustomCADs.Orders.Application.Orders;
@@ -40,7 +39,7 @@ internal static class Mapper
             CadId: order.CadId,
             ShipmentId: order.ShipmentId
         );
-    
+
     internal static CalculateOrderShipmentDto ToCalculateOrderShipmentDto(this CalculationDto calculation, string timeZone)
         => new(
             Total: calculation.Price.Total,

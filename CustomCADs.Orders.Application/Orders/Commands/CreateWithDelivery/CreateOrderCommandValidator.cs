@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Orders.Commands.Create;
-using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Shared.Application.Requests.Validator;
-using CustomCADs.Shared.Core;
 using FluentValidation;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.CreateWithDelivery;
@@ -9,9 +7,9 @@ namespace CustomCADs.Orders.Application.Orders.Commands.CreateWithDelivery;
 using static Constants.FluentMessages;
 using static OrderConstants;
 
-public class CreateOrderWithDeliveryCommandValidator : Validator<CreateOrderCommand, OrderId>
+public class CreateOrderWithDeliveryValidator : Validator<CreateOrderCommand, OrderId>
 {
-    public CreateOrderWithDeliveryCommandValidator()
+    public CreateOrderWithDeliveryValidator()
     {
         RuleFor(o => o.Name)
             .NotEmpty().WithMessage(RequiredError)

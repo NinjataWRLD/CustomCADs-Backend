@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Accounts.Application.Common.Exceptions;
-using CustomCADs.Accounts.Domain.Accounts;
 using CustomCADs.Accounts.Domain.Accounts.Reads;
 using CustomCADs.Accounts.Domain.Common;
 

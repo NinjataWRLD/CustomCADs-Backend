@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Common.Exceptions;
 using CustomCADs.Accounts.Domain.Common;
-using CustomCADs.Accounts.Domain.Roles;
 using CustomCADs.Accounts.Domain.Roles.DomainEvents;
 using CustomCADs.Accounts.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Events;

@@ -29,7 +29,7 @@ internal static class Mapper
             Palletized: model.Palletized,
             Parcels: [.. model.Parcels?.Select(p => p.ToDto())]
         );
-    
+
     internal static CalculationServiceDto ToCalculation(this ShipmentServiceModel model)
         => new(
             ServiceIds: [model.ServiceId],
@@ -39,7 +39,7 @@ internal static class Mapper
             DeferredDays: model.DeferredDays,
             SaturdayDelivery: model.SaturdayDelivery
         );
-    
+
     internal static CalculationSenderDto ToCalculation(this ShipmentSenderModel model, CalculationAddressLocationModel? location = null)
         => new(
             AddressLocation: location?.ToDto(),
@@ -48,7 +48,7 @@ internal static class Mapper
             DropoffOfficeId: model.DropoffOfficeId,
             DropoffGeoPUDOId: model.DropoffGeoPUDOId
         );
-    
+
     internal static CalculationRecipientDto ToCalculation(this ShipmentRecipientModel model, CalculationAddressLocationModel? location = null)
         => new(
             AddressLocation: location?.ToDto(),
@@ -57,7 +57,7 @@ internal static class Mapper
             PickupOfficeId: model.PickupOfficeId,
             PickupGeoPUDOId: model.PickupGeoPUDOId
         );
-    
+
     internal static (string Service, ShipmentAdditionalServicesModel? AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, DateTime DeliveryDeadline) ToModel(this CalculationResultDto dto, CourierServiceModel[] services)
         => (
             Service: services.Single(s => s.Id == dto.ServiceId).NameEn,

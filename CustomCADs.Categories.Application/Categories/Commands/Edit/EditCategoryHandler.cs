@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Categories.Application.Common.Exceptions;
-using CustomCADs.Categories.Domain.Categories;
 using CustomCADs.Categories.Domain.Categories.DomainEvents;
 using CustomCADs.Categories.Domain.Categories.Reads;
 using CustomCADs.Categories.Domain.Common;
@@ -16,6 +15,7 @@ public sealed class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow, I
             ?? throw CategoryNotFoundException.ById(req.Id);
 
         category.SetName(req.Dto.Name);
+        category.SetDescription(req.Dto.Description);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         await raiser.RaiseDomainEventAsync(new CategoryEditedDomainEvent(

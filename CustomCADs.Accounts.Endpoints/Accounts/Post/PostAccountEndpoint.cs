@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Create;
 using CustomCADs.Accounts.Application.Accounts.Queries.GetById;
 using CustomCADs.Accounts.Endpoints.Accounts.Get.Single;
-using CustomCADs.Accounts.Endpoints.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Post;

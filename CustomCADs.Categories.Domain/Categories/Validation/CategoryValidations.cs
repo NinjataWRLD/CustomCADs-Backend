@@ -24,4 +24,23 @@ public static class CategoryValidations
 
         return category;
     }
+
+    public static Category ValidateDescription(this Category category)
+    {
+        string property = "Description";
+        string description = category.Description;
+
+        if (string.IsNullOrEmpty(description))
+        {
+            throw CategoryValidationException.NotNull(property);
+        }
+
+        int maxLength = DescriptionMaxLength, minLength = DescriptionMinLength;
+        if (description.Length > maxLength || description.Length < minLength)
+        {
+            throw CategoryValidationException.Length(property, maxLength, minLength);
+        }
+
+        return category;
+    }
 }

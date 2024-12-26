@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Dtos;
-
-namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
+﻿namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
 public record GetAllProductsDto(
     ProductId Id,

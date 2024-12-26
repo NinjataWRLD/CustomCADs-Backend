@@ -1,5 +1,4 @@
-﻿using CustomCADs.Categories.Domain.Categories;
-using CustomCADs.Categories.Domain.Categories.DomainEvents;
+﻿using CustomCADs.Categories.Domain.Categories.DomainEvents;
 using CustomCADs.Categories.Domain.Common;
 using CustomCADs.Shared.Application.Events;
 
@@ -10,7 +9,7 @@ public sealed class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork 
 {
     public async Task<CategoryId> Handle(CreateCategoryCommand req, CancellationToken ct)
     {
-        var category = Category.Create(req.Dto.Name);
+        var category = req.Dto.ToCategory();
 
         await writes.AddAsync(category, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

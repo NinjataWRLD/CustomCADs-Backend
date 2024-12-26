@@ -1,12 +1,9 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
 using CustomCADs.Catalog.Application.Products.Queries.GetById;
-using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Endpoints.Products.Contributors.Get.Single;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Contributors.Post.Products;
-
-using static Constants.Roles;
 
 public sealed class PostProductEndpoint(IRequestSender sender)
     : Endpoint<PostProductRequest, PostProductResponse>
@@ -32,8 +29,7 @@ public sealed class PostProductEndpoint(IRequestSender sender)
             ImageContentType: req.ImageContentType,
             CadKey: req.CadKey,
             CadContentType: req.CadContentType,
-            CreatorId: User.GetAccountId(),
-            Status: User.IsInRole(Designer) ? ProductStatus.Validated : ProductStatus.Unchecked
+            CreatorId: User.GetAccountId()
         );
         ProductId id = await sender.SendCommandAsync(command, ct);
 

@@ -25,7 +25,7 @@ public sealed class PurchaseOrderWithDeliveryEndpoint(IRequestSender sender)
             Address: req.Address,
             Contact: req.Contact,
             BuyerId: User.GetAccountId()
-        ); 
+        );
         string message = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendOkAsync(message).ConfigureAwait(false);

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Bases.Exceptions;
+﻿using CustomCADs.Shared.Core.Bases.Exceptions;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Files.Application.Common.Exceptions;

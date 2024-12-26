@@ -35,6 +35,9 @@ namespace CustomCADs.Delivery.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("BuyerId");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
                     b.Property<string>("ReferenceId")
                         .IsRequired()
                         .HasColumnType("text")

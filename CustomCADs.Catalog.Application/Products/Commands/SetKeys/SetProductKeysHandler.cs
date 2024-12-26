@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.UseCases.Cads.Commands;

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Carts.Domain.Carts;
-using CustomCADs.Shared.Application.Requests.Validator;
-using CustomCADs.Shared.Core;
+﻿using CustomCADs.Shared.Application.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Carts.Application.Carts.Commands.AddItemWithDelivery;

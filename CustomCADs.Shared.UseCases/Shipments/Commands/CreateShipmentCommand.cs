@@ -8,4 +8,4 @@ public sealed record CreateShipmentCommand(
     AddressDto Address,
     ContactDto Contact,
     AccountId BuyerId
-) : ICommand<(ShipmentId Id, decimal Price)>;
+) : ICommand<ShipmentId>;
