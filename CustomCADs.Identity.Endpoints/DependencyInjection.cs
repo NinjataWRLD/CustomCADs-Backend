@@ -85,7 +85,7 @@ public static class DependencyInjection
                 }
             }
 
-            await next();
+            await next().ConfigureAwait(false);
         });
 
         return app;

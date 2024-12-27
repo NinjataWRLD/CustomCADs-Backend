@@ -28,6 +28,6 @@ public sealed class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequ
         CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
         order.SetCadId(cadId);
 
-        await uow.SaveChangesAsync(ct);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

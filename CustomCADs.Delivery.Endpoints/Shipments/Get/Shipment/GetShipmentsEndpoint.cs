@@ -24,12 +24,12 @@ public class GetShipmentsEndpoint(IRequestSender sender)
             Sorting: new(req.SortingType, req.SortingDirection),
             Pagination: new(req.Page, req.Limit)
         );
-        Result<GetAllShipmentsDto> result = await sender.SendQueryAsync(query, ct);
+        Result<GetAllShipmentsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         Result<GetShipmentsResponse> response = new(
             Count: result.Count,
             Items: [.. result.Items.Select(i => i.ToGetShipmentsResponse())]
         );
-        await SendAsync(response, cancellation: ct);
+        await SendOkAsync(response).ConfigureAwait(false);
     }
 }

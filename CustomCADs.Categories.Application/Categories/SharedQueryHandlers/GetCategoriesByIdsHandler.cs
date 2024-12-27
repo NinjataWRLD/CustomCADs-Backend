@@ -8,7 +8,7 @@ public sealed class GetCategoriesByIdsHandler(ICategoryReads reads)
 {
     public async Task<IEnumerable<(CategoryId Id, string Name)>> Handle(GetCategoriesByIdsQuery req, CancellationToken ct)
     {
-        IEnumerable<Category> categories = await reads.AllAsync(track: false, ct: ct);
+        IEnumerable<Category> categories = await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
 
         return [.. categories
             .Where(c => req.Ids.Contains(c.Id))

@@ -9,7 +9,7 @@ public sealed class GetUserRoleByIdHandler(IAccountReads reads)
 {
     public async Task<string> Handle(GetUserRoleByIdQuery req, CancellationToken ct)
     {
-        Account account = await reads.SingleByIdAsync(req.Id, track: false, ct: ct)
+        Account account = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw AccountNotFoundException.ById(req.Id);
 
         return account.RoleName;

@@ -11,7 +11,7 @@ public sealed class GetImageByIdHandler(IImageReads reads)
 {
     public async Task<(ImageId Id, string Key, string ContentType)> Handle(GetImageByIdQuery req, CancellationToken ct)
     {
-        Image image = await reads.SingleByIdAsync(req.Id, track: false, ct: ct)
+        Image image = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ImageNotFoundException.ById(req.Id);
 
         return (Id: image.Id, Key: image.Key, ContentType: image.ContentType);

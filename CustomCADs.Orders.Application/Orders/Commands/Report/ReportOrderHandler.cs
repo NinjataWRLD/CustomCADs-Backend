@@ -14,7 +14,7 @@ public sealed class ReportOrderHandler(IOrderReads reads, IUnitOfWork uow)
 
         order.SetReportedStatus();
 
-        await uow.SaveChangesAsync(ct);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }
 

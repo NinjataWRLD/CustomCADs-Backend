@@ -52,8 +52,8 @@ public class ShipmentService(
         int dropoffCountryId = await locationService.GetCountryId(account, country, ct).ConfigureAwait(false);
         int pickupCountryId = await locationService.GetCountryId(account, PickupCountry, ct).ConfigureAwait(false);
 
-        long dropoffSiteId = await locationService.GetSiteId(account, dropoffCountryId, site, ct);
-        long pickupSiteId = await locationService.GetSiteId(account, pickupCountryId, PickupSite, ct);
+        long dropoffSiteId = await locationService.GetSiteId(account, dropoffCountryId, site, ct).ConfigureAwait(false);
+        long pickupSiteId = await locationService.GetSiteId(account, pickupCountryId, PickupSite, ct).ConfigureAwait(false);
 
         int dropoffOfficeId = await locationService.GetOfficeId(account, dropoffCountryId, dropoffSiteId, ct).ConfigureAwait(false);
         int pickupOfficeId = await locationService.GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);

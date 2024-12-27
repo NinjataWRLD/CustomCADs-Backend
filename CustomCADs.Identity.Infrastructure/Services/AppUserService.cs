@@ -56,7 +56,7 @@ public sealed class AppUserService(UserManager<AppUser> manager, IEventRaiser ra
         if (!createResult.Succeeded)
             return createResult;
 
-        IdentityResult roleResult = await manager.AddToRoleAsync(user, dto.Role);
+        IdentityResult roleResult = await manager.AddToRoleAsync(user, dto.Role).ConfigureAwait(false);
         if (!roleResult.Succeeded)
             return roleResult;
 
