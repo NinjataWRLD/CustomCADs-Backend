@@ -10,7 +10,7 @@ public sealed class GetCadByIdHandler(ICadReads reads)
 {
     public async Task<CadDto> Handle(GetCadByIdQuery req, CancellationToken ct)
     {
-        Cad cad = await reads.SingleByIdAsync(req.Id, track: false, ct: ct)
+        Cad cad = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CadNotFoundException.ById(req.Id);
 
         return cad.ToTuple();

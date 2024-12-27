@@ -23,7 +23,7 @@ public sealed class LogoutEndpoint(IUserService service)
         if (!User.GetAuthentication())
         {
             ValidationFailures.Add(new("Account", LoginBeforeLogout));
-            await SendErrorsAsync(Status401Unauthorized);
+            await SendErrorsAsync(Status401Unauthorized).ConfigureAwait(false);
             return;
         }
 

@@ -13,7 +13,7 @@ public sealed class GetTimeZonesByIdsHandler(IAccountReads reads)
             Ids: req.Ids,
             Pagination: new(Limit: req.Ids.Length)
         );
-        Result<Account> result = await reads.AllAsync(query, track: false, ct: ct);
+        Result<Account> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
         return [.. result.Items.Select(a => (a.Id, a.TimeZone))];
     }

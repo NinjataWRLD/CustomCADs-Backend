@@ -9,7 +9,7 @@ public sealed class GetProductPriceByIdHandler(IProductReads reads)
 {
     public async Task<decimal> Handle(GetProductPriceByIdQuery req, CancellationToken ct)
     {
-        Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct)
+        Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
         return product.Price;

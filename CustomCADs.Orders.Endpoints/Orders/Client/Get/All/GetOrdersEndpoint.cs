@@ -26,7 +26,7 @@ public sealed class GetOrdersEndpoint(IRequestSender sender)
             Sorting: new(req.SortingType, req.SortingDirection),
             Pagination: new(req.Page, req.Limit)
         );
-        Result<GetAllOrdersDto> result = await sender.SendQueryAsync(query, ct);
+        Result<GetAllOrdersDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         Result<GetOrdersResponse> response = new(
             Count: result.Count,

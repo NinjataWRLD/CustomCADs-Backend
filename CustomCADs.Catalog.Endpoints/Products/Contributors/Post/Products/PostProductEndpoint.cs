@@ -31,7 +31,7 @@ public sealed class PostProductEndpoint(IRequestSender sender)
             CadContentType: req.CadContentType,
             CreatorId: User.GetAccountId()
         );
-        ProductId id = await sender.SendCommandAsync(command, ct);
+        ProductId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         GetProductByIdQuery query = new(
             Id: id,

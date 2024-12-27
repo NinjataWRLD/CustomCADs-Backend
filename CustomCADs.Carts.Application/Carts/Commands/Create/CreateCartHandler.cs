@@ -9,7 +9,7 @@ public sealed class CreateCartHandler(IWrites<Cart> writes, IUnitOfWork uow)
     {
         Cart cart = req.ToCart();
 
-        await writes.AddAsync(cart, ct);
+        await writes.AddAsync(cart, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return cart.Id;

@@ -9,7 +9,7 @@ public sealed class CompleteOrderHandler(IOrderReads reads, IUnitOfWork uow)
 {
     public async Task Handle(CompleteOrderCommand req, CancellationToken ct)
     {
-        Order order = await reads.SingleByIdAsync(req.Id, ct: ct)
+        Order order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
         if (req.BuyerId != order.BuyerId)
@@ -18,6 +18,6 @@ public sealed class CompleteOrderHandler(IOrderReads reads, IUnitOfWork uow)
         }
         order.SetCompletedStatus();
 
-        await uow.SaveChangesAsync(ct);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

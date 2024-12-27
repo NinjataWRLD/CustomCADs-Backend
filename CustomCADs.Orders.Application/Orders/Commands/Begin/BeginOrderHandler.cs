@@ -18,7 +18,7 @@ public sealed class BeginOrderHandler(IOrderReads reads, IUnitOfWork uow)
         }
         order.SetBegunStatus();
 
-        await uow.SaveChangesAsync(ct);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }
 

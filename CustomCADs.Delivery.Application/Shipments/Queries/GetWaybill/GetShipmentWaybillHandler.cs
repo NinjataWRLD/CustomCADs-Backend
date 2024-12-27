@@ -19,6 +19,6 @@ public class GetShipmentWaybillHandler(IShipmentReads reads, IDeliveryService de
         if (req.DesignerId != new AccountId(headDesignerId))
             throw ShipmentAuthorizationException.ById(req.Id);
 
-        return await delivery.PrintAsync(shipment.ReferenceId, ct: ct);
+        return await delivery.PrintAsync(shipment.ReferenceId, ct: ct).ConfigureAwait(false);
     }
 }

@@ -9,7 +9,7 @@ public sealed class CreateOrderWithDeliveryHandler(IWrites<Order> writes, IUnitO
     {
         Order order = req.ToOrder();
 
-        await writes.AddAsync(order, ct);
+        await writes.AddAsync(order, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return order.Id;

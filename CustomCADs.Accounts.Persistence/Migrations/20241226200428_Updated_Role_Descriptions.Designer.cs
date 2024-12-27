@@ -3,6 +3,7 @@ using System;
 using CustomCADs.Accounts.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Accounts.Persistence.Migrations
 {
     [DbContext(typeof(AccountsContext))]
-    partial class AccountsContextModelSnapshot : ModelSnapshot
+    [Migration("20241226200428_Updated_Role_Descriptions")]
+    partial class Updated_Role_Descriptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

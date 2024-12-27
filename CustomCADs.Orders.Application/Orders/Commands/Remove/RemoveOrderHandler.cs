@@ -13,7 +13,7 @@ public sealed class RemoveOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequ
 {
     public async Task Handle(RemoveOrderCommand req, CancellationToken ct)
     {
-        Order order = await reads.SingleByIdAsync(req.Id, ct: ct)
+        Order order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
         GetUserRoleByIdQuery userRoleQuery = new(req.RemoverId);
