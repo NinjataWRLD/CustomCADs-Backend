@@ -18,9 +18,9 @@ public sealed class GetAccountEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetAccountRequest req, CancellationToken ct)
     {
         GetAccountByUsernameQuery query = new(req.Username);
-        GetAccountByUsernameDto dto = await sender.SendQueryAsync(query, ct);
+        GetAccountByUsernameDto account = await sender.SendQueryAsync(query, ct);
 
-        AccountResponse response = dto.ToUserResponse(req.Username);
+        AccountResponse response = account.ToUserResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

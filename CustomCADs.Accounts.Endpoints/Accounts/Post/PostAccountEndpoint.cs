@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Create;
-using CustomCADs.Accounts.Application.Accounts.Queries.GetById;
+using CustomCADs.Accounts.Application.Accounts.Queries.GetByUsername;
 using CustomCADs.Accounts.Endpoints.Accounts.Get.Single;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
@@ -29,10 +29,10 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
             FirstName: req.FirstName,
             LastName: req.LastName
         );
-        AccountId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        GetAccountByIdQuery getByIdQuery = new(id);
-        GetAccountByIdDto newAccount = await sender.SendQueryAsync(getByIdQuery, ct).ConfigureAwait(false);
+        GetAccountByUsernameQuery getByIdQuery = new(req.Username);
+        GetAccountByUsernameDto newAccount = await sender.SendQueryAsync(getByIdQuery, ct).ConfigureAwait(false);
 
         AccountResponse response = newAccount.ToUserResponse();
         await SendCreatedAtAsync<GetAccountEndpoint>(new { req.Username }, response).ConfigureAwait(false);

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Application.Accounts.Commands.DeleteByName;
+﻿using CustomCADs.Accounts.Application.Accounts.Commands.Delete;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Delete;
 
@@ -17,7 +17,7 @@ public sealed class DeleteAccountEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteAccountRequest req, CancellationToken ct)
     {
-        DeleteAccountByNameCommand command = new(req.Username);
+        DeleteAccountCommand command = new(req.Username);
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

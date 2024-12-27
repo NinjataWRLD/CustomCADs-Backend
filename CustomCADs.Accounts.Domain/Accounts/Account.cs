@@ -72,11 +72,16 @@ public class Account : BaseAggregateRoot
         return this;
     }
 
-    public Account SetNames(string? firstName, string? lastName)
+    public Account SetFirstName(string? firstName)
     {
         FirstName = firstName;
-        LastName = lastName;
         this.ValidateFirstName();
+        return this;
+    }
+    
+    public Account SetLastName(string? lastName)
+    {
+        LastName = lastName;
         this.ValidateLastName();
         return this;
     }

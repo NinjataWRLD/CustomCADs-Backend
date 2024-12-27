@@ -89,13 +89,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Categories.Endpo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Identity.Domain", "CustomCADs.Identity.Domain\CustomCADs.Identity.Domain.csproj", "{4D018431-FF53-40B7-97A6-19735CCCD987}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0646BF04-B70A-4939-BF1F-9810C68B06B1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "etc", "etc", "{0646BF04-B70A-4939-BF1F-9810C68B06B1}"
 	ProjectSection(SolutionItems) = preProject
-		.dockerignore = .dockerignore
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		Dockerfile = Dockerfile
-		Dockerrun.aws.json = Dockerrun.aws.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".platform", ".platform", "{C5729589-AD90-4F8F-A743-1DA54B6E0527}"
@@ -107,7 +104,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postdeploy", "postdeploy", 
 		.platform\hooks\postdeploy\migrations.sh = .platform\hooks\postdeploy\migrations.sh
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terraform", "terraform", "{F1E10E99-8DD0-4BA7-8172-ABE250ADA792}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".terraform", ".terraform", "{F1E10E99-8DD0-4BA7-8172-ABE250ADA792}"
 	ProjectSection(SolutionItems) = preProject
 		.terraform\app.tf = .terraform\app.tf
 		.terraform\database.tf = .terraform\database.tf
@@ -146,6 +143,25 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Files.Persistence", "CustomCADs.Files.Persistence\CustomCADs.Files.Persistence.csproj", "{DEA6E2F8-0D66-4D90-9CD5-E234E0BFCFCA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Files.Application", "CustomCADs.Files.Application\CustomCADs.Files.Application.csproj", "{FF9A5BCA-84FB-4F5F-BDED-EAEA6F8A63A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D2C43CCA-0468-4FB1-ACA4-B6DDDBDE700E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{48BBBC87-8C64-40F7-ABD4-78A0BE69E162}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docker", ".docker", "{31F977E7-DDBF-4A62-83E9-EB767840C374}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		Dockerfile = Dockerfile
+		Dockerrun.aws.json = Dockerrun.aws.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accounts", "Accounts", "{F31FE0CB-1C0A-44E0-B1DD-EC23C3CAAC1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Accounts.UnitTests.Domain", "CustomCADs.Accounts.UnitTests.Domain\CustomCADs.Accounts.UnitTests.Domain.csproj", "{C27481A0-97A8-4581-AB44-3C793AD932FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{E4343D5A-9707-40F4-B73F-49595165F7AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Accounts.UnitTests.Application", "CustomCADs.Accounts.UnitTests.Application\CustomCADs.Accounts.UnitTests.Application.csproj", "{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -309,11 +325,21 @@ Global
 		{FF9A5BCA-84FB-4F5F-BDED-EAEA6F8A63A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF9A5BCA-84FB-4F5F-BDED-EAEA6F8A63A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF9A5BCA-84FB-4F5F-BDED-EAEA6F8A63A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C27481A0-97A8-4581-AB44-3C793AD932FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C27481A0-97A8-4581-AB44-3C793AD932FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C27481A0-97A8-4581-AB44-3C793AD932FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C27481A0-97A8-4581-AB44-3C793AD932FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{AACD7530-149A-43EE-A093-2D27DD5B00D3} = {D2C43CCA-0468-4FB1-ACA4-B6DDDBDE700E}
+		{4FCE842E-611A-439D-A946-3887F0522102} = {D2C43CCA-0468-4FB1-ACA4-B6DDDBDE700E}
 		{7A768DDB-B4B0-4625-A12E-F0E2F60DDBA3} = {4FCE842E-611A-439D-A946-3887F0522102}
 		{C2FF7D6A-0BEE-4940-B894-3437A44B2473} = {4FCE842E-611A-439D-A946-3887F0522102}
 		{166847F3-2165-4F35-9DB3-322B7E00D4E6} = {C2FF7D6A-0BEE-4940-B894-3437A44B2473}
@@ -328,6 +354,7 @@ Global
 		{0E6D82CF-0F69-4BC3-AF93-423065C1C9AE} = {7A768DDB-B4B0-4625-A12E-F0E2F60DDBA3}
 		{78D545E4-9892-40BA-A0EA-9E678C8D5C9A} = {7A768DDB-B4B0-4625-A12E-F0E2F60DDBA3}
 		{D608E347-B70C-472F-9A09-674707ADC67B} = {7A768DDB-B4B0-4625-A12E-F0E2F60DDBA3}
+		{DD36286C-63DC-41E6-82AD-2A857A6E4694} = {D2C43CCA-0468-4FB1-ACA4-B6DDDBDE700E}
 		{582F4AC9-0500-494F-8AB1-18984E8EB7AC} = {29357C6D-C64F-43A4-AC6F-6613E41C9AE9}
 		{BE01D11A-2AA3-4F5F-B0D5-C0DE795666A6} = {C2FF7D6A-0BEE-4940-B894-3437A44B2473}
 		{FC6EBFFD-24E6-4AE4-A040-5EA618AAF754} = {AACD7530-149A-43EE-A093-2D27DD5B00D3}
@@ -366,6 +393,11 @@ Global
 		{02E64B62-B89C-4106-8DB3-923395C4DF97} = {2E67FCCD-29F4-4B89-805B-574EACD87368}
 		{DEA6E2F8-0D66-4D90-9CD5-E234E0BFCFCA} = {2E67FCCD-29F4-4B89-805B-574EACD87368}
 		{FF9A5BCA-84FB-4F5F-BDED-EAEA6F8A63A7} = {2E67FCCD-29F4-4B89-805B-574EACD87368}
+		{31F977E7-DDBF-4A62-83E9-EB767840C374} = {0646BF04-B70A-4939-BF1F-9810C68B06B1}
+		{F31FE0CB-1C0A-44E0-B1DD-EC23C3CAAC1E} = {E4343D5A-9707-40F4-B73F-49595165F7AE}
+		{C27481A0-97A8-4581-AB44-3C793AD932FB} = {F31FE0CB-1C0A-44E0-B1DD-EC23C3CAAC1E}
+		{E4343D5A-9707-40F4-B73F-49595165F7AE} = {48BBBC87-8C64-40F7-ABD4-78A0BE69E162}
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E} = {F31FE0CB-1C0A-44E0-B1DD-EC23C3CAAC1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C24A0A28-5B9B-4659-B244-171070EE9DCF}
