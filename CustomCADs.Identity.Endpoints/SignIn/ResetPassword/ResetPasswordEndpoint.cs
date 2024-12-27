@@ -25,7 +25,7 @@ public sealed class ResetPasswordEndpoint(IUserService service)
         if (user is null)
         {
             ValidationFailures.Add(new("Email", UserNotFound, req.Email));
-            await SendErrorsAsync(Status404NotFound);
+            await SendErrorsAsync(Status404NotFound).ConfigureAwait(false);
             return;
         }
 

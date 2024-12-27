@@ -24,8 +24,8 @@ public class GetShipmentWaybillEndpoint(IRequestSender sender)
             Id: new ShipmentId(req.Id),
             DesignerId: User.GetAccountId()
         );
-        byte[] bytes = await sender.SendQueryAsync(query, ct);
+        byte[] bytes = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        await SendBytesAsync(bytes, "waybill.pdf", "application/pdf");
+        await SendBytesAsync(bytes, "waybill.pdf", "application/pdf").ConfigureAwait(false);
     }
 }

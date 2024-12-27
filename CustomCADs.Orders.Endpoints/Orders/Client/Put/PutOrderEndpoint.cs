@@ -23,7 +23,7 @@ public sealed class PutOrderEndpoint(IRequestSender sender)
             Description: req.Description,
             BuyerId: User.GetAccountId()
         );
-        await sender.SendCommandAsync(command, ct);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

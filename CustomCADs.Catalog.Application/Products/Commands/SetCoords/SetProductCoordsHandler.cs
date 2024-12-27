@@ -23,6 +23,6 @@ public sealed class SetProductCoordsHandler(IProductReads reads, IRequestSender 
             CamCoordinates: req.CamCoordinates,
             PanCoordinates: req.PanCoordinates
         );
-        await sender.SendCommandAsync(command, ct);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
     }
 }

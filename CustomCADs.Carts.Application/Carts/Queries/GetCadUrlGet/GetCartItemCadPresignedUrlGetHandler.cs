@@ -35,7 +35,7 @@ public sealed class GetCartItemCadPresignedUrlGetHandler(IStorageService storage
         string cadPresignedUrl = await storage.GetPresignedGetUrlAsync(
             key: Key,
             contentType: ContentType
-        );
+        ).ConfigureAwait(false);
 
         return new(PresignedUrl: cadPresignedUrl);
     }

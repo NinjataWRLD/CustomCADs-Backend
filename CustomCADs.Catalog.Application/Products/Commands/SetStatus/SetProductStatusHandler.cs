@@ -11,7 +11,7 @@ public sealed class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow
 {
     public async Task Handle(SetProductStatusCommand req, CancellationToken ct)
     {
-        Product product = await reads.SingleByIdAsync(req.Id, ct: ct)
+        Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
         if (product.DesignerId is not null)

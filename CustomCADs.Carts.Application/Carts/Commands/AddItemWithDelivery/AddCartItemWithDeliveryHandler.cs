@@ -12,7 +12,7 @@ public sealed class AddCartItemWithDeliveryHandler(ICartReads reads, IUnitOfWork
 {
     public async Task<CartItemId> Handle(AddCartItemWithDeliveryCommand req, CancellationToken ct)
     {
-        Cart cart = await reads.SingleByIdAsync(req.Id, ct: ct)
+        Cart cart = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw CartNotFoundException.ById(req.Id);
 
         if (cart.BuyerId != req.BuyerId)

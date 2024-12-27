@@ -15,7 +15,7 @@ public sealed class AcceptOrderHandler(IOrderReads reads, IUnitOfWork uow)
         order.SetAcceptedStatus();
         order.SetDesignerId(req.DesignerId);
 
-        await uow.SaveChangesAsync(ct);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }
 

@@ -22,8 +22,8 @@ public class PutShipmentEndpoint(IRequestSender sender)
             Address: req.Address.ToAddress(),
             BuyerId: User.GetAccountId()
         );
-        await sender.SendCommandAsync(command, ct);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        await SendNoContentAsync();
+        await SendNoContentAsync().ConfigureAwait(false);
     }
 }

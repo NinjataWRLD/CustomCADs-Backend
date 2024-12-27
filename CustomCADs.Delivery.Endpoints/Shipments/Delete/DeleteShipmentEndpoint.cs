@@ -21,8 +21,8 @@ public class DeleteShipmentEndpoint(IRequestSender sender)
             Id: new ShipmentId(req.Id),
             BuyerId: User.GetAccountId()
         );
-        await sender.SendCommandAsync(command, ct);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        await SendNoContentAsync();
+        await SendNoContentAsync().ConfigureAwait(false);
     }
 }

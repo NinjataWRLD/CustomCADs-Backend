@@ -20,7 +20,7 @@ public sealed class CancelOrderHandler(IOrderReads reads, IUnitOfWork uow)
         order.SetPendingStatus();
         order.EraseDesignerId();
 
-        await uow.SaveChangesAsync(ct);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }
 
