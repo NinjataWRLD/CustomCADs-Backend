@@ -161,6 +161,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Accounts.UnitTes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{E4343D5A-9707-40F4-B73F-49595165F7AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Accounts.UnitTests.Application", "CustomCADs.Accounts.UnitTests.Application\CustomCADs.Accounts.UnitTests.Application.csproj", "{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -327,6 +329,10 @@ Global
 		{C27481A0-97A8-4581-AB44-3C793AD932FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C27481A0-97A8-4581-AB44-3C793AD932FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C27481A0-97A8-4581-AB44-3C793AD932FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -391,6 +397,7 @@ Global
 		{F31FE0CB-1C0A-44E0-B1DD-EC23C3CAAC1E} = {E4343D5A-9707-40F4-B73F-49595165F7AE}
 		{C27481A0-97A8-4581-AB44-3C793AD932FB} = {F31FE0CB-1C0A-44E0-B1DD-EC23C3CAAC1E}
 		{E4343D5A-9707-40F4-B73F-49595165F7AE} = {48BBBC87-8C64-40F7-ABD4-78A0BE69E162}
+		{66D4EEB3-C554-4B4F-817C-FE8CF709B19E} = {F31FE0CB-1C0A-44E0-B1DD-EC23C3CAAC1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C24A0A28-5B9B-4659-B244-171070EE9DCF}
