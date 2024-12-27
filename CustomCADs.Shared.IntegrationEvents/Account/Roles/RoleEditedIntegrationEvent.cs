@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
-public record RoleDeletedIntegrationEvent(
-    string Name
+public record RoleEditedIntegrationEvent(
+    string Name,
+    string Description
 ) : BaseIntegrationEvent;

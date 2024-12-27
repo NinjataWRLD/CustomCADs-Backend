@@ -2,9 +2,9 @@
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
-namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers;
+namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.TimeZone;
 
-public sealed class GetTimeZoneByIdsHandler(IAccountReads reads)
+public sealed class GetTimeZonesByIdsHandler(IAccountReads reads)
     : IQueryHandler<GetTimeZonesByIdsQuery, (AccountId Id, string TimeZone)[]>
 {
     public async Task<(AccountId Id, string TimeZone)[]> Handle(GetTimeZonesByIdsQuery req, CancellationToken ct)

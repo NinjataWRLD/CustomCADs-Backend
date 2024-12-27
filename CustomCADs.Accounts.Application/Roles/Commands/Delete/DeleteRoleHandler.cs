@@ -5,15 +5,15 @@ using CustomCADs.Accounts.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
-namespace CustomCADs.Accounts.Application.Roles.Commands.DeleteById;
+namespace CustomCADs.Accounts.Application.Roles.Commands.Delete;
 
-public sealed class DeleteRoleByIdHandler(IRoleReads reads, IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
-    : ICommandHandler<DeleteRoleByIdCommand>
+public sealed class DeleteRoleHandler(IRoleReads reads, IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
+    : ICommandHandler<DeleteRoleCommand>
 {
-    public async Task Handle(DeleteRoleByIdCommand req, CancellationToken ct)
+    public async Task Handle(DeleteRoleCommand req, CancellationToken ct)
     {
-        Role role = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw RoleNotFoundException.ById(req.Id);
+        Role role = await reads.SingleByNameAsync(req.Name, ct: ct).ConfigureAwait(false)
+            ?? throw RoleNotFoundException.ByName(req.Name);
 
         writes.Remove(role);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

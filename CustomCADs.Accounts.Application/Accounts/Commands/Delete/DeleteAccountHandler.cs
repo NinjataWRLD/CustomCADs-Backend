@@ -4,17 +4,17 @@ using CustomCADs.Accounts.Domain.Common;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 
-namespace CustomCADs.Accounts.Application.Accounts.Commands.DeleteByName;
+namespace CustomCADs.Accounts.Application.Accounts.Commands.Delete;
 
-public sealed class DeleteAccountByNameHandler(IAccountReads reads, IWrites<Account> writes, IUnitOfWork uow, IEventRaiser raiser)
-    : ICommandHandler<DeleteAccountByNameCommand>
+public sealed class DeleteAccountHandler(IAccountReads reads, IWrites<Account> writes, IUnitOfWork uow, IEventRaiser raiser)
+    : ICommandHandler<DeleteAccountCommand>
 {
-    public async Task Handle(DeleteAccountByNameCommand req, CancellationToken ct)
+    public async Task Handle(DeleteAccountCommand req, CancellationToken ct)
     {
-        Account user = await reads.SingleByUsernameAsync(req.Username, ct: ct).ConfigureAwait(false)
+        Account account = await reads.SingleByUsernameAsync(req.Username, ct: ct).ConfigureAwait(false)
             ?? throw AccountNotFoundException.ByUsername(req.Username);
 
-        writes.Remove(user);
+        writes.Remove(account);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         await raiser.RaiseIntegrationEventAsync(new AccountDeletedIntegrationEvent(

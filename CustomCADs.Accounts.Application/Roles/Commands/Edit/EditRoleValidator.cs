@@ -1,14 +1,14 @@
 ﻿using CustomCADs.Shared.Application.Requests.Validator;
 using FluentValidation;
 
-namespace CustomCADs.Accounts.Application.Roles.Commands.EditByName;
+namespace CustomCADs.Accounts.Application.Roles.Commands.Edit;
 
 using static Constants.FluentMessages;
 using static RoleConstants;
 
-public class EditRoleByNameValidator : Validator<EditRoleByNameCommand>
+public class EditRoleValidator : Validator<EditRoleCommand>
 {
-    public EditRoleByNameValidator()
+    public EditRoleValidator()
     {
         RuleFor(r => r.Dto.Name)
             .NotEmpty().WithMessage(RequiredError)

@@ -2,7 +2,7 @@
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
-namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers;
+namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.Username;
 
 public sealed class GetUsernamesByIdsHandler(IAccountReads reads)
     : IQueryHandler<GetUsernamesByIdsQuery, (AccountId Id, string Username)[]>

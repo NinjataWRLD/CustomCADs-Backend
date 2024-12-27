@@ -5,26 +5,30 @@ using CustomCADs.Accounts.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
-namespace CustomCADs.Accounts.Application.Roles.Commands.DeleteByName;
+namespace CustomCADs.Accounts.Application.Roles.Commands.Edit;
 
-public sealed class DeleteRoleByNameHandler(IRoleReads reads, IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
-    : ICommandHandler<DeleteRoleByNameCommand>
+public sealed class EditRoleHandler(IRoleReads reads, IUnitOfWork uow, IEventRaiser raiser)
+    : ICommandHandler<EditRoleCommand>
 {
-    public async Task Handle(DeleteRoleByNameCommand req, CancellationToken ct)
+    public async Task Handle(EditRoleCommand req, CancellationToken ct)
     {
         Role role = await reads.SingleByNameAsync(req.Name, ct: ct).ConfigureAwait(false)
             ?? throw RoleNotFoundException.ByName(req.Name);
 
-        writes.Remove(role);
+        role
+            .SetName(req.Dto.Name)
+            .SetDescription(req.Dto.Description);
+
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseDomainEventAsync(new RoleDeletedDomainEvent(
+        await raiser.RaiseDomainEventAsync(new RoleEditedDomainEvent(
             Id: role.Id,
-            Name: role.Name
+            Role: role
         )).ConfigureAwait(false);
 
-        await raiser.RaiseIntegrationEventAsync(new RoleDeletedIntegrationEvent(
-            Name: role.Name
+        await raiser.RaiseIntegrationEventAsync(new RoleEditedIntegrationEvent(
+            Name: role.Name,
+            Description: role.Description
         )).ConfigureAwait(false);
     }
 }

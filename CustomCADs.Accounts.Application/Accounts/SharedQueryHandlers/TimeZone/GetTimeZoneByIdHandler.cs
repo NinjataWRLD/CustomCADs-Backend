@@ -2,7 +2,7 @@
 using CustomCADs.Accounts.Domain.Accounts.Reads;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
-namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers;
+namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.TimeZone;
 
 public sealed class GetTimeZoneByIdHandler(IAccountReads reads)
     : IQueryHandler<GetTimeZoneByIdQuery, string>
