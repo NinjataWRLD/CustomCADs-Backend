@@ -1,5 +1,4 @@
-﻿using CustomCADs.Delivery.Domain.Shipments.Enums;
-using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
+﻿using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
@@ -11,6 +10,7 @@ public class Shipment : BaseAggregateRoot
     private Shipment() { }
     private Shipment(Address address, string referenceId, AccountId buyerId)
     {
+        RequestDate = DateTime.UtcNow;
         Address = address;
         ReferenceId = referenceId;
         BuyerId = buyerId;
@@ -18,6 +18,7 @@ public class Shipment : BaseAggregateRoot
 
     public ShipmentId Id { get; private set; }
     public string ReferenceId { get; private set; } = string.Empty;
+    public DateTime RequestDate { get; private set; }
     public Address Address { get; private set; } = new();
     public AccountId BuyerId { get; private set; }
 

@@ -2,5 +2,7 @@
 
 public enum ShipmentSortingType
 {
-    CreationDate,
+    RequestDate,
+    Country,
+    City,
 }

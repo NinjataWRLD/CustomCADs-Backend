@@ -22,8 +22,12 @@ public static class Utilities
     {
         return sorting switch
         {
-            { Type: ShipmentSortingType.CreationDate, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.Id), // will fix
-            { Type: ShipmentSortingType.CreationDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Id), // will fix
+            { Type: ShipmentSortingType.RequestDate, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.RequestDate),
+            { Type: ShipmentSortingType.RequestDate, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.RequestDate),
+            { Type: ShipmentSortingType.Country, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.Address.Country),
+            { Type: ShipmentSortingType.Country, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.Address.Country),
+            { Type: ShipmentSortingType.City, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.Address.City),
+            { Type: ShipmentSortingType.City, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.Address.City),
             _ => query,
         };
     }

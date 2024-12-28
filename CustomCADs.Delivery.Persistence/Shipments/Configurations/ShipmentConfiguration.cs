@@ -65,6 +65,10 @@ public static class ShipmentConfigUtils
         builder.Property(x => x.ReferenceId)
             .IsRequired()
             .HasColumnName("ReferenceId"); ;
+        
+        builder.Property(x => x.RequestDate)
+            .IsRequired()
+            .HasColumnName("RequestDate"); ;
 
         builder.Property(x => x.BuyerId)
             .IsRequired()
