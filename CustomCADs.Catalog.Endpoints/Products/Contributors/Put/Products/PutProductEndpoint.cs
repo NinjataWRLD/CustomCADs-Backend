@@ -29,16 +29,13 @@ public sealed class PutProductEndpoint(IRequestSender sender)
         );
         await sender.SendCommandAsync(editCommand, ct).ConfigureAwait(false);
 
-        if (req.ImageKey is not null)
-        {
-            SetProductKeysCommand keysCommand = new(
-                Id: new ProductId(req.Id),
-                CadKey: null,
-                ImageKey: req.ImageKey,
-                CreatorId: User.GetAccountId()
-            );
-            await sender.SendCommandAsync(keysCommand, ct).ConfigureAwait(false);
-        }
+        EditProductFilesCommand keysCommand = new(
+            Id: new ProductId(req.Id),
+            Cad: (req.CadKey, req.CadContentType),
+            Image: (req.ImageKey, req.ImageContentType),
+            CreatorId: User.GetAccountId()
+        );
+        await sender.SendCommandAsync(keysCommand, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }
