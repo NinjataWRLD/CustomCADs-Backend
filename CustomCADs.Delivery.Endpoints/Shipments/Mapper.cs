@@ -24,12 +24,6 @@ public static class Mapper
             x => new TrackShipmentResponse(x.Value.Message, x.Value.Place)
         );
 
-    public static Address ToAddress(this AddressDto address)
-        => new(
-            country: address.Country,
-            city: address.City
-        );
-
     public static AddressDto ToAddressDto(this Address address)
         => new(
             Country: address.Country,
