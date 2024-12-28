@@ -23,18 +23,21 @@ public class Image : BaseAggregateRoot
         string key,
         string contentType
     ) => new Image(key, contentType)
-        .ValidateKey();
+        .ValidateKey()
+        .ValidateContentType();
 
     public Image SetKey(string key)
     {
         Key = key;
+        this.ValidateKey();
 
         return this;
     }
 
     public Image SetContentType(string contentType)
     {
-        Key = contentType;
+        ContentType = contentType;
+        this.ValidateContentType();
 
         return this;
     }

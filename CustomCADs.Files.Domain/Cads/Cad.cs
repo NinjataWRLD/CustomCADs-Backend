@@ -34,18 +34,22 @@ public class Cad : BaseAggregateRoot
         Coordinates panCoordinates
     ) => new Cad(key, contentType, camCoordinates, panCoordinates)
         .ValidateKey()
-        .ValidateCoordinates();
+        .ValidateContentType()
+        .ValidateCamCoordinates()
+        .ValidatePanCoordinates();
 
     public Cad SetKey(string key)
     {
         Key = key;
+        this.ValidateKey();
 
         return this;
     }
 
     public Cad SetContentType(string contentType)
     {
-        Key = contentType;
+        ContentType = contentType;
+        this.ValidateContentType();
 
         return this;
     }
@@ -53,6 +57,7 @@ public class Cad : BaseAggregateRoot
     public Cad SetCamCoordinates(Coordinates coords)
     {
         CamCoordinates = coords;
+        this.ValidateCamCoordinates();
 
         return this;
     }
@@ -60,6 +65,7 @@ public class Cad : BaseAggregateRoot
     public Cad SetPanCoordinates(Coordinates coords)
     {
         PanCoordinates = coords;
+        this.ValidatePanCoordinates();
 
         return this;
     }

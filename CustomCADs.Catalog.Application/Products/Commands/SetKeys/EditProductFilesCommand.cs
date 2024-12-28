@@ -2,9 +2,9 @@
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetKeys;
 
-public sealed record SetProductKeysCommand(
+public sealed record EditProductFilesCommand(
     ProductId Id,
-    AccountId CreatorId,
-    string? CadKey = default,
-    string? ImageKey = default
+    (string? Key, string? ContentType) Cad,
+    (string? Key, string? ContentType) Image,
+    AccountId CreatorId
 ) : ICommand;

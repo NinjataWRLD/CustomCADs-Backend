@@ -19,24 +19,25 @@ public static class CadValidations
 
         return cad;
     }
-
-    static bool AreCoordsValid(params int[] coords)
-        => coords.All(c => c > CoordMin && c < CoordMax);
-
-    public static Cad ValidateCoordinates(this Cad cad)
+    
+    public static Cad ValidateContentType(this Cad cad)
     {
-        string property;
-        Coordinates coords;
+        string property = "ContentType";
+        string contentType = cad.ContentType;
 
-        property = "CamCoordinates";
-        coords = cad.CamCoordinates;
-        if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
+        if (string.IsNullOrEmpty(contentType))
         {
-            throw CadValidationException.Range(property, CoordMax, CoordMin);
+            throw CadValidationException.NotNull(property);
         }
 
-        property = "PanCoordinates";
-        coords = cad.CamCoordinates;
+        return cad;
+    }
+
+    public static Cad ValidateCamCoordinates(this Cad cad)
+    {
+        string property = "CamCoordinates";
+        Coordinates coords = cad.CamCoordinates;
+
         if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
         {
             throw CadValidationException.Range(property, CoordMax, CoordMin);
@@ -44,4 +45,20 @@ public static class CadValidations
 
         return cad;
     }
+
+    public static Cad ValidatePanCoordinates(this Cad cad)
+    {
+        string property = "PanCoordinates";
+        Coordinates coords = cad.PanCoordinates;
+
+        if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
+        {
+            throw CadValidationException.Range(property, CoordMax, CoordMin);
+        }
+
+        return cad;
+    }
+
+    static bool AreCoordsValid(params int[] coords)
+        => coords.All(c => c > CoordMin && c < CoordMax);
 }
