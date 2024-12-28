@@ -6,7 +6,6 @@ using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
-using CustomCADs.Shared.UseCases.Shipments.Queries;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.PurchaseWithDelivery;
 
@@ -50,10 +49,6 @@ public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfW
         );
         ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
         order.SetShipmentId(shipmentId);
-
-        GetShipmentPriceByIdQuery shipmentQuery = new(shipmentId);
-        price += await sender.SendQueryAsync(shipmentQuery, ct).ConfigureAwait(false);
-
 
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
