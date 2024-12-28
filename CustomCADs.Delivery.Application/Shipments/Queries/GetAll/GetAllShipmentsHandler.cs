@@ -10,7 +10,6 @@ public class GetAllShipmentsHandler(IShipmentReads reads)
     {
         ShipmentQuery query = new(
             ClientId: req.ClientId,
-            ShipmentStatus: req.ShipmentStatus,
             Sorting: req.Sorting,
             Pagination: req.Pagination
         );

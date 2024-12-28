@@ -7,7 +7,6 @@ public static class Mapper
     public static GetAllShipmentsDto ToGetAllShipmentsDto(this Shipment shipment)
         => new(
             Id: shipment.Id,
-            ShipmentStatus: shipment.ShipmentStatus,
             Address: shipment.Address,
             BuyerId: shipment.BuyerId
         );

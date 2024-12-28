@@ -12,7 +12,7 @@ public sealed class ShipmentReads(DeliveryContext context) : IShipmentReads
     public async Task<Result<Shipment>> AllAsync(ShipmentQuery query, bool track = true, CancellationToken ct = default)
     {
         IQueryable<Shipment> queryable = context.Shipments
-            .WithFilter(query.ClientId, query.ShipmentStatus)
+            .WithFilter(query.ClientId)
             .WithSorting(query.Sorting ?? new());
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);

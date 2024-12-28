@@ -13,7 +13,6 @@ public static class Mapper
     public static GetShipmentsResponse ToGetShipmentsResponse(this GetAllShipmentsDto shipment)
         => new(
             Id: shipment.Id.Value,
-            ShipmentStatus: shipment.ShipmentStatus,
             Address: shipment.Address.ToAddressDto(),
             BuyerId: shipment.BuyerId.Value
         );

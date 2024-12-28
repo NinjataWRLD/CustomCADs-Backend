@@ -62,13 +62,6 @@ public static class ShipmentConfigUtils
 
     public static EntityTypeBuilder<Shipment> SetValidations(this EntityTypeBuilder<Shipment> builder)
     {
-        builder.Property(x => x.ShipmentStatus)
-            .IsRequired()
-            .HasConversion(
-                x => x.ToString(),
-                s => Enum.Parse<ShipmentStatus>(s)
-            ).HasColumnName("Status"); ;
-
         builder.Property(x => x.ReferenceId)
             .IsRequired()
             .HasColumnName("ReferenceId"); ;
