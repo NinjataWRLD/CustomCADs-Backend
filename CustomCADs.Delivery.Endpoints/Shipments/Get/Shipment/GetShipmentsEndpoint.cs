@@ -20,7 +20,6 @@ public class GetShipmentsEndpoint(IRequestSender sender)
     {
         GetAllShipmentsQuery query = new(
             ClientId: User.GetAccountId(),
-            ShipmentStatus: req.ShipmentStatus,
             Sorting: new(req.SortingType, req.SortingDirection),
             Pagination: new(req.Page, req.Limit)
         );

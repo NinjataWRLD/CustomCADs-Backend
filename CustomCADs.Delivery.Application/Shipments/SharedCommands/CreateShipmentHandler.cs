@@ -26,7 +26,6 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
 
         var shipment = Shipment.Create(
             address: new(req.Address.Country, req.Address.City),
-            price: reference.Price,
             referenceId: reference.Id,
             buyerId: req.BuyerId
         );

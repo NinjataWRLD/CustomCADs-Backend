@@ -8,17 +8,13 @@ namespace CustomCADs.Delivery.Persistence.Shipments.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Shipment> WithFilter(this IQueryable<Shipment> query, AccountId? clientId = null, ShipmentStatus? shipmentStatus = null)
+    public static IQueryable<Shipment> WithFilter(this IQueryable<Shipment> query, AccountId? clientId = null)
     {
         if (clientId is not null)
         {
             query = query.Where(s => s.BuyerId == clientId);
         }
-        if (shipmentStatus is not null)
-        {
-            query = query.Where(s => s.ShipmentStatus == shipmentStatus);
-        }
-
+        
         return query;
     }
 
@@ -26,8 +22,12 @@ public static class Utilities
     {
         return sorting switch
         {
-            { Type: ShipmentSortingType.CreationDate, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.Id), // will fix
-            { Type: ShipmentSortingType.CreationDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Id), // will fix
+            { Type: ShipmentSortingType.RequestDate, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.RequestDate),
+            { Type: ShipmentSortingType.RequestDate, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.RequestDate),
+            { Type: ShipmentSortingType.Country, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.Address.Country),
+            { Type: ShipmentSortingType.Country, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.Address.Country),
+            { Type: ShipmentSortingType.City, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.Address.City),
+            { Type: ShipmentSortingType.City, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.Address.City),
             _ => query,
         };
     }
