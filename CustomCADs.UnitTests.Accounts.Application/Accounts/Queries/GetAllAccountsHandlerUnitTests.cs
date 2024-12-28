@@ -25,7 +25,7 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
     [Test]
     public async Task Handle_ShouldCallDatabase()
     {
-        // Assert
+        // Arrange
         GetAllRolesQuery query = new();
         GetAllRolesHandler handler = new(reads);
 
@@ -39,7 +39,7 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
     [Test]
     public async Task Handle_ShouldReturnResult()
     {
-        // Assert
+        // Arrange
         GetAllRolesQuery query = new();
         GetAllRolesHandler handler = new(reads);
 
