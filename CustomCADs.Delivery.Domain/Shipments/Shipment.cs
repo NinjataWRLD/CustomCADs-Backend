@@ -9,11 +9,10 @@ namespace CustomCADs.Delivery.Domain.Shipments;
 public class Shipment : BaseAggregateRoot
 {
     private Shipment() { }
-    private Shipment(Address address, decimal price, string referenceId, AccountId buyerId)
+    private Shipment(Address address, string referenceId, AccountId buyerId)
     {
         ShipmentStatus = ShipmentStatus.Pending;
         Address = address;
-        Price = price;
         ReferenceId = referenceId;
         BuyerId = buyerId;
     }
@@ -21,12 +20,11 @@ public class Shipment : BaseAggregateRoot
     public ShipmentId Id { get; private set; }
     public string ReferenceId { get; private set; } = string.Empty;
     public ShipmentStatus ShipmentStatus { get; private set; }
-    public decimal Price { get; private set; }
     public Address Address { get; private set; } = new();
     public AccountId BuyerId { get; private set; }
 
-    public static Shipment Create(Address address, decimal price, string referenceId, AccountId buyerId)
-        => new(address, price, referenceId, buyerId);
+    public static Shipment Create(Address address, string referenceId, AccountId buyerId)
+        => new(address, referenceId, buyerId);
 
     public Shipment SetAddress(Address address)
     {
