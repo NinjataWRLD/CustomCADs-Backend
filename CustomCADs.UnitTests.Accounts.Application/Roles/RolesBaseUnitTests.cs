@@ -8,5 +8,5 @@ public class RolesBaseUnitTests
     protected static readonly CancellationToken ct = CancellationToken.None;
 
     protected static Role CreateRole(string name = Name, string description = Description)
-        => Domain.Roles.Role.Create(name, description);
+        => Role.Create(name, description);
 }

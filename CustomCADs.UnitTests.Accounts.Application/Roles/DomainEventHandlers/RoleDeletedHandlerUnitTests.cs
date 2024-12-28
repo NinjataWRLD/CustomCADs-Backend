@@ -24,7 +24,7 @@ public class RoleDeletedHandlerUnitTests : RolesBaseUnitTests
     public async Task Handle_ShouldUpdateCache(string name, string description)
     {
         // Arrange
-        Role role = Domain.Roles.Role.Create(name, description);
+        Role role = CreateRole(name, description);
         RoleDeletedDomainEvent de = new(role.Id, role.Name);
         RoleDeletedEventHandler handler = new(cache);
 

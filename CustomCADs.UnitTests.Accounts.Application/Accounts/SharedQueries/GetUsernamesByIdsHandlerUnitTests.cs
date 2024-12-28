@@ -50,7 +50,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
 
     [Test]
     [TestCase(ClientAccountId, ContributorAccountId, DesignerAccountId, AdminAccountId)]
-    public async Task Handle_ShouldReturnProperly_WhenAccountsExist(params string[] ids)
+    public async Task Handle_ShouldReturnProperly(params string[] ids)
     {
         // Arrange
         AccountId[] accountIds = [.. ids.Select(id => new AccountId(Guid.Parse(id)))];

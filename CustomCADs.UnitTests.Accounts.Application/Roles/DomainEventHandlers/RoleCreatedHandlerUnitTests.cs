@@ -24,7 +24,7 @@ public class RoleCreatedHandlerUnitTests : RolesBaseUnitTests
     public async Task Handle_ShouldUpdateCache(string name, string description)
     {
         // Arrange
-        Role role = Domain.Roles.Role.Create(name, description);
+        Role role = CreateRole(name, description);
         RoleCreatedDomainEvent de = new(role);
         RoleCreatedEventHandler handler = new(cache);
 
