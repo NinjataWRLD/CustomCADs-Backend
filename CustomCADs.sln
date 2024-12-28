@@ -157,11 +157,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docker", ".docker", "{31F9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accounts", "Accounts", "{F31FE0CB-1C0A-44E0-B1DD-EC23C3CAAC1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Accounts.UnitTests.Domain", "CustomCADs.Accounts.UnitTests.Domain\CustomCADs.Accounts.UnitTests.Domain.csproj", "{C27481A0-97A8-4581-AB44-3C793AD932FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Accounts.Domain", "CustomCADs.UnitTests.Accounts.Domain\CustomCADs.UnitTests.Accounts.Domain.csproj", "{C27481A0-97A8-4581-AB44-3C793AD932FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{E4343D5A-9707-40F4-B73F-49595165F7AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Accounts.UnitTests.Application", "CustomCADs.Accounts.UnitTests.Application\CustomCADs.Accounts.UnitTests.Application.csproj", "{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Accounts.Application", "CustomCADs.UnitTests.Accounts.Application\CustomCADs.UnitTests.Accounts.Application.csproj", "{66D4EEB3-C554-4B4F-817C-FE8CF709B19E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
