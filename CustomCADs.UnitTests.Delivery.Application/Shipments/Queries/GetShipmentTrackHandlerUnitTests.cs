@@ -15,7 +15,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
     public GetShipmentTrackHandlerUnitTests()
     {
         reads.SingleByIdAsync(id, false, ct).Returns(Shipment);
-        delivery.TrackAsync(ValidReferenceId, ct).Returns(Statuses);
+        delivery.TrackAsync(ShipmentValidReferenceId, ct).Returns(Statuses);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
         await handler.Handle(query, ct);
 
         // Assert
-        await delivery.Received(1).TrackAsync(ValidReferenceId, ct);
+        await delivery.Received(1).TrackAsync(ShipmentValidReferenceId, ct);
     }
 
     [Fact]

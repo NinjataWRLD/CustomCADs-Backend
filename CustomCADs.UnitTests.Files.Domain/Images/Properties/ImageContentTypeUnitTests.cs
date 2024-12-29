@@ -3,7 +3,7 @@
 public class ImageContentTypeUnitTests : ImagesBaseUnitTests
 {
     [Theory]
-    [InlineData(ValidContentType2)]
+    [InlineData(ImageValidContentType2)]
     public void SetContentType_ShouldNotThrowException_WhenContentTypeIsValid(string contentType)
     {
         var image = CreateImage();
@@ -12,7 +12,7 @@ public class ImageContentTypeUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [InlineData(ValidContentType2)]
+    [InlineData(ImageValidContentType2)]
     public void SetContentType_ShouldPopulateProperly_WhenContentTypeIsValid(string contentType)
     {
         var image = CreateImage();
@@ -23,7 +23,7 @@ public class ImageContentTypeUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [InlineData(InvalidContentType)]
+    [InlineData(ImageInvalidContentType)]
     public void SetContentType_ShouldThrowException_WhenContentTypeIsInvalid(string contentType)
     {
         var image = CreateImage();

@@ -1,18 +1,20 @@
-﻿namespace CustomCADs.UnitTests.Files.Domain.Cads.Create;
+﻿using CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
+
+namespace CustomCADs.UnitTests.Files.Domain.Cads.Create;
+
+public class CadCreateData : TheoryData<string, string, int, int, int>;
 
 public class CadCreateUnitTests : CadsBaseUnitTests
 {
     [Theory]
-    [InlineData(ValidKey1, ValidContentType1, ValidCoord1, ValidCoord1, ValidCoord1)]
-    [InlineData(ValidKey2, ValidContentType2, ValidCoord2, ValidCoord2, ValidCoord2)]
+    [ClassData(typeof(CadCreateValidData))]
     public void Create_ShouldNotThrowExcepion_WhenCadIsValid(string key, string contentType, int x, int y, int z)
     {
         Cad.Create(key, contentType, new(x, y, z), new(x, y, z));
     }
 
     [Theory]
-    [InlineData(ValidKey1, ValidContentType1, ValidCoord1, ValidCoord1, ValidCoord1)]
-    [InlineData(ValidKey2, ValidContentType2, ValidCoord2, ValidCoord2, ValidCoord2)]
+    [ClassData(typeof(CadCreateValidData))]
     public void Create_ShouldPopulatePropertiesProperly_WhenCadIsValid(string key, string contentType, int x, int y, int z)
     {
         var cad = Cad.Create(key, contentType, new(x, y, z), new(x, y, z));
@@ -26,8 +28,7 @@ public class CadCreateUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(InvalidKey, ValidContentType1, ValidCoord1, ValidCoord1, ValidCoord1)]
-    [InlineData(InvalidKey, ValidContentType2, ValidCoord2, ValidCoord2, ValidCoord2)]
+    [ClassData(typeof(CadCreateInvalidKeyData))]
     public void Create_ShouldThrowException_WhenKeyIsInvalid(string key, string contentType, int x, int y, int z)
     {
         Assert.Throws<CadValidationException>(() =>
@@ -37,8 +38,7 @@ public class CadCreateUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(ValidKey1, InvalidContentType, ValidCoord1, ValidCoord1, ValidCoord1)]
-    [InlineData(ValidKey2, InvalidContentType, ValidCoord2, ValidCoord2, ValidCoord2)]
+    [ClassData(typeof(CadCreateInvalidContentTypeData))]
     public void Create_ShouldThrowException_WhenContentTypeIsInvalid(string key, string contentType, int x, int y, int z)
     {
         Assert.Throws<CadValidationException>(() =>
@@ -48,8 +48,7 @@ public class CadCreateUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(ValidKey1, InvalidContentType, InvalidCoord1, InvalidCoord1, InvalidCoord1)]
-    [InlineData(ValidKey2, InvalidContentType, InvalidCoord2, InvalidCoord2, InvalidCoord2)]
+    [ClassData(typeof(CadCreateInvalidCoordsData))]
     public void Create_ShouldThrowException_WhenCoordsAreInvalid(string key, string contentType, int x, int y, int z)
     {
         Assert.Throws<CadValidationException>(() =>

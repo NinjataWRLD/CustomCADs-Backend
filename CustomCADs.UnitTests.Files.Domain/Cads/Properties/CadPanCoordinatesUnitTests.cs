@@ -5,7 +5,7 @@ namespace CustomCADs.UnitTests.Files.Domain.Cads.Properties;
 public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
 {
     [Theory]
-    [InlineData(ValidCoord1, ValidCoord1, ValidCoord1)]
+    [InlineData(CadValidCoord1, CadValidCoord1, CadValidCoord1)]
     public void SetPanCoordinates_ShouldNotThrowException_WhenCoordinatesAreValid(int x, int y, int z)
     {
         var cad = CreateCad();
@@ -14,7 +14,7 @@ public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(ValidCoord1, ValidCoord1, ValidCoord1)]
+    [InlineData(CadValidCoord1, CadValidCoord1, CadValidCoord1)]
     public void SetPanCoordinates_ShouldPopulateProperly_WhenCoordinatesAreValid(int x, int y, int z)
     {
         var cad = CreateCad();
@@ -26,7 +26,7 @@ public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(InvalidCoord1, InvalidCoord1, InvalidCoord1)]
+    [InlineData(CadInvalidCoord1, CadInvalidCoord1, CadInvalidCoord1)]
     public void SetPanCoordinates_ShouldThrowException_WhenCoordinatesIsInvalid(int x, int y, int z)
     {
         var cad = CreateCad();

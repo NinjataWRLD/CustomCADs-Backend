@@ -8,10 +8,10 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 {
     private readonly IShipmentReads reads = Substitute.For<IShipmentReads>();
     private static readonly Shipment[] Shipments = [
-        Shipment.Create(new(ValidCountry1, ValidCity1), ValidReferenceId, new(Guid.Parse(ValidBuyerId))),
-        Shipment.Create(new(ValidCountry1, ValidCity2), ValidReferenceId, new(Guid.Parse(ValidBuyerId))),
-        Shipment.Create(new(ValidCountry1, ValidCity2), ValidReferenceId, new(Guid.Parse(ValidBuyerId))),
-        Shipment.Create(new(ValidCountry2, ValidCity2), ValidReferenceId, new(Guid.Parse(ValidBuyerId))),
+        Shipment.Create(new(ShipmentValidCountry1, ShipmentValidCity1), ShipmentValidReferenceId, new(Guid.Parse(ShipmentValidBuyerId))),
+        Shipment.Create(new(ShipmentValidCountry1, ShipmentValidCity2), ShipmentValidReferenceId, new(Guid.Parse(ShipmentValidBuyerId))),
+        Shipment.Create(new(ShipmentValidCountry1, ShipmentValidCity2), ShipmentValidReferenceId, new(Guid.Parse(ShipmentValidBuyerId))),
+        Shipment.Create(new(ShipmentValidCountry2, ShipmentValidCity2), ShipmentValidReferenceId, new(Guid.Parse(ShipmentValidBuyerId))),
     ];
     private readonly ShipmentQuery shipmentQuery = new(new(), null, null);
 

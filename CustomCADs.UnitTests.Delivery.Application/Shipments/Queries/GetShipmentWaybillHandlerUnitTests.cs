@@ -19,7 +19,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     public GetShipmentWaybillHandlerUnitTests()
     {
         reads.SingleByIdAsync(id, false, ct).Returns(Shipment);
-        delivery.PrintAsync(ValidReferenceId, ct).Returns(Bytes);
+        delivery.PrintAsync(ShipmentValidReferenceId, ct).Returns(Bytes);
     }
 
     [Fact]
@@ -47,7 +47,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
         await handler.Handle(query, ct);
 
         // Assert
-        await delivery.Received(1).PrintAsync(ValidReferenceId, ct);
+        await delivery.Received(1).PrintAsync(ShipmentValidReferenceId, ct);
     }
 
     [Fact]
@@ -84,7 +84,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCallerIsNotHeadDesigner()
     {
         // Arrange
-        GetShipmentWaybillQuery query = new(id, new(Guid.Parse(ValidBuyerId)));
+        GetShipmentWaybillQuery query = new(id, new(Guid.Parse(ShipmentValidBuyerId)));
         GetShipmentWaybillHandler handler = new(reads, delivery);
 
         // Assert

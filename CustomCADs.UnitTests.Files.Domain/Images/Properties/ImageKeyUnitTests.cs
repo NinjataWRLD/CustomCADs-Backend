@@ -3,7 +3,7 @@
 public class ImageKeyUnitTests : ImagesBaseUnitTests
 {
     [Theory]
-    [InlineData(ValidKey2)]
+    [InlineData(ImageValidKey2)]
     public void SetKey_ShouldNotThrowException_WhenKeyIsValid(string key)
     {
         var image = CreateImage();
@@ -12,7 +12,7 @@ public class ImageKeyUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [InlineData(ValidKey2)]
+    [InlineData(ImageValidKey2)]
     public void SetKey_ShouldPopulateProperly_WhenKeyIsValid(string key)
     {
         var image = CreateImage();
@@ -23,7 +23,7 @@ public class ImageKeyUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [InlineData(InvalidKey)]
+    [InlineData(ImageInvalidKey)]
     public void SetKey_ShouldThrowException_WhenKeyIsInvalid(string key)
     {
         var image = CreateImage();

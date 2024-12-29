@@ -3,7 +3,7 @@
 public class CadKeyUnitTests : CadsBaseUnitTests
 {
     [Theory]
-    [InlineData(ValidKey2)]
+    [InlineData(CadValidKey2)]
     public void SetKey_ShouldNotThrowException_WhenKeyIsValid(string key)
     {
         var cad = CreateCad();
@@ -12,7 +12,7 @@ public class CadKeyUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(ValidKey2)]
+    [InlineData(CadValidKey2)]
     public void SetKey_ShouldPopulateProperly_WhenKeyIsValid(string key)
     {
         var cad = CreateCad();
@@ -23,7 +23,7 @@ public class CadKeyUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(InvalidKey)]
+    [InlineData(CadInvalidKey)]
     public void SetKey_ShouldThrowException_WhenKeyIsInvalid(string key)
     {
         var cad = CreateCad();

@@ -3,7 +3,7 @@
 public class CadContentTypeUnitTests : CadsBaseUnitTests
 {
     [Theory]
-    [InlineData(ValidContentType2)]
+    [InlineData(CadValidContentType2)]
     public void SetContentType_ShouldNotThrowException_WhenContentTypeIsValid(string contentType)
     {
         var cad = CreateCad();
@@ -12,7 +12,7 @@ public class CadContentTypeUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(ValidContentType2)]
+    [InlineData(CadValidContentType2)]
     public void SetContentType_ShouldPopulateProperly_WhenContentTypeIsValid(string contentType)
     {
         var cad = CreateCad();
@@ -23,7 +23,7 @@ public class CadContentTypeUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(InvalidContentType)]
+    [InlineData(CadInvalidContentType)]
     public void SetContentType_ShouldThrowException_WhenContentTypeIsInvalid(string contentType)
     {
         var cad = CreateCad();
