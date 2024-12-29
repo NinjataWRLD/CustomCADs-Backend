@@ -6,7 +6,7 @@ using static AccountConstants;
 
 public class AccountRoleUnitTests : AccountsBaseUnitTests
 {
-    [Test]
+    [Fact]
     public void SetRole_ShouldNotThrowException_WhenRoleIsValid()
     {
         string role = new('a', RoleConstants.NameMinLength);
@@ -16,13 +16,10 @@ public class AccountRoleUnitTests : AccountsBaseUnitTests
 
         var account = Account.Create(role, username, Email, TimeZone, firstName, lastName);
 
-        Assert.DoesNotThrow(() =>
-        {
-            account.SetRole(role);
-        });
+        account.SetRole(role);
     }
 
-    [Test]
+    [Fact]
     public void SetRole_SetsRole_WhenRoleIsValid()
     {
         string role = new('a', RoleConstants.NameMinLength);
@@ -33,13 +30,13 @@ public class AccountRoleUnitTests : AccountsBaseUnitTests
         var account = Account.Create(role, username, Email, TimeZone, firstName, lastName);
         account.SetRole(role);
 
-        Assert.That(account.RoleName, Is.EqualTo(role));
+        Assert.Equal(account.RoleName, role);
     }
 
-    [Test]
-    [TestCase(0)]
-    [TestCase(NameMinLength - 1)]
-    [TestCase(NameMaxLength + 1)]
+    [Theory]
+    [InlineData(0)]
+    [InlineData(NameMinLength - 1)]
+    [InlineData(NameMaxLength + 1)]
     public void SetRole_ThrowsException_WhenRoleIsInvalid(int roleLength)
     {
         string role = new('a', RoleConstants.NameMinLength);

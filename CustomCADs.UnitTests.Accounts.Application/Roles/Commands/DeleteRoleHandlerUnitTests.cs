@@ -11,18 +11,13 @@ using static Constants.Roles;
 
 public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 {
-    private static IEventRaiser raiser;
-    private static IUnitOfWork uow;
-    private static IRoleReads reads;
-    private static IWrites<Role> writes;
+    private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
+    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly IWrites<Role> writes = Substitute.For<IWrites<Role>>();
+    private readonly IRoleReads reads = Substitute.For<IRoleReads>();
 
-    [SetUp]
-    public void SetUp()
+    public DeleteRoleHandlerUnitTests()
     {
-        raiser = Substitute.For<IEventRaiser>();
-        uow = Substitute.For<IUnitOfWork>();
-        writes = Substitute.For<IWrites<Role>>();
-        reads = Substitute.For<IRoleReads>();
         reads.SingleByNameAsync(Name, true, ct).Returns(CreateRole());
         reads.SingleByNameAsync(Client, true, ct).Returns(CreateRole(Client, ClientDescription));
         reads.SingleByNameAsync(Contributor, true, ct).Returns(CreateRole(Contributor, ContributorDescription));
@@ -30,11 +25,11 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
         reads.SingleByNameAsync(Admin, true, ct).Returns(CreateRole(Admin, AdminDescription));
     }
 
-    [Test]
-    [TestCase(Client)]
-    [TestCase(Contributor)]
-    [TestCase(Designer)]
-    [TestCase(Admin)]
+    [Theory]
+    [InlineData(Client)]
+    [InlineData(Contributor)]
+    [InlineData(Designer)]
+    [InlineData(Admin)]
     public async Task Handler_ShouldCallDatabase(string name)
     {
         // Arrange
@@ -50,11 +45,11 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
-    [Test]
-    [TestCase(Client)]
-    [TestCase(Contributor)]
-    [TestCase(Designer)]
-    [TestCase(Admin)]
+    [Theory]
+    [InlineData(Client)]
+    [InlineData(Contributor)]
+    [InlineData(Designer)]
+    [InlineData(Admin)]
     public async Task Handler_ShouldRaiseEvents(string name)
     {
         // Arrange
@@ -73,12 +68,12 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
         );
     }
 
-    [Test]
-    [TestCase(Client)]
-    [TestCase(Contributor)]
-    [TestCase(Designer)]
-    [TestCase(Admin)]
-    public void Handle_ShouldThrowException_WhenRoleDoesNotExists(string role)
+    [Theory]
+    [InlineData(Client)]
+    [InlineData(Contributor)]
+    [InlineData(Designer)]
+    [InlineData(Admin)]
+    public async Task Handle_ShouldThrowException_WhenRoleDoesNotExists(string role)
     {
         // Arrange
         reads.SingleByNameAsync(role, true, ct).Returns(null as Role);
@@ -87,7 +82,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
         DeleteRoleHandler handler = new(reads, writes, uow, raiser);
 
         // Assert
-        Assert.ThrowsAsync<RoleNotFoundException>(async () =>
+        await Assert.ThrowsAsync<RoleNotFoundException>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

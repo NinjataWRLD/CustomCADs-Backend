@@ -6,7 +6,7 @@ using static AccountConstants;
 
 public class AccountEmailUnitTests : AccountsBaseUnitTests
 {
-    [Test]
+    [Fact]
     public void SetEmail_ShouldNotThrowException_WhenEmailIsValid()
     {
         string role = new('a', RoleConstants.NameMinLength);
@@ -16,13 +16,10 @@ public class AccountEmailUnitTests : AccountsBaseUnitTests
 
         var account = Account.Create(role, username, Email, TimeZone, firstName, lastName);
 
-        Assert.DoesNotThrow(() =>
-        {
-            account.SetEmail(Email);
-        });
+        account.SetEmail(Email);
     }
 
-    [Test]
+    [Fact]
     public void SetEmail_SetsEmail_WhenEmailIsValid()
     {
         string role = new('a', RoleConstants.NameMinLength);
@@ -33,17 +30,17 @@ public class AccountEmailUnitTests : AccountsBaseUnitTests
         var account = Account.Create(role, username, Email, TimeZone, firstName, lastName);
         account.SetEmail(Email);
 
-        Assert.That(account.Email, Is.EqualTo(Email));
+        Assert.Equal(Email, account.Email);
     }
 
-    [Test]
-    [TestCase(null!)]
-    [TestCase("a")]
-    [TestCase("@a")]
-    [TestCase("a@a")]
-    [TestCase("a@a.a")]
-    [TestCase(" a@a.co")]
-    [TestCase("a@a.co ")]
+    [Theory]
+    [InlineData("")]
+    [InlineData("a")]
+    [InlineData("@a")]
+    [InlineData("a@a")]
+    [InlineData("a@a.a")]
+    [InlineData(" a@a.co")]
+    [InlineData("a@a.co ")]
     public void SetEmail_ThrowsException_WhenEmailIsInvalid(string email)
     {
         string role = new('a', RoleConstants.NameMinLength);

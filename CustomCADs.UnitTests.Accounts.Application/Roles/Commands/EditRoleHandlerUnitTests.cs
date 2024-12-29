@@ -11,24 +11,20 @@ using static Constants.Roles;
 
 public class EditRoleHandlerUnitTests : RolesBaseUnitTests
 {
-    private static IEventRaiser raiser;
-    private static IUnitOfWork uow;
-    private static IRoleReads reads;
+    private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
+    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly IRoleReads reads = Substitute.For<IRoleReads>();
 
-    [SetUp]
-    public void SetUp()
+    public EditRoleHandlerUnitTests()
     {
-        raiser = Substitute.For<IEventRaiser>();
-        uow = Substitute.For<IUnitOfWork>();
-        reads = Substitute.For<IRoleReads>();
         reads.SingleByNameAsync(Name, true, ct).Returns(CreateRole());
     }
 
-    [Test]
-    [TestCase(Client, ClientDescription)]
-    [TestCase(Contributor, ContributorDescription)]
-    [TestCase(Designer, DesignerDescription)]
-    [TestCase(Admin, AdminDescription)]
+    [Theory]
+    [InlineData(Client, ClientDescription)]
+    [InlineData(Contributor, ContributorDescription)]
+    [InlineData(Designer, DesignerDescription)]
+    [InlineData(Admin, AdminDescription)]
     public async Task Handler_ShouldModifyRole(string name, string description)
     {
         Role role = CreateRole();
@@ -45,16 +41,16 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
         // Assert
         Assert.Multiple(() =>
         {
-            Assert.That(role.Name, Is.EqualTo(name));
-            Assert.That(role.Description, Is.EqualTo(description));
+            Assert.Equal(role.Name, name);
+            Assert.Equal(role.Description, description);
         });
     }
 
-    [Test]
-    [TestCase(Client, ClientDescription)]
-    [TestCase(Contributor, ContributorDescription)]
-    [TestCase(Designer, DesignerDescription)]
-    [TestCase(Admin, AdminDescription)]
+    [Theory]
+    [InlineData(Client, ClientDescription)]
+    [InlineData(Contributor, ContributorDescription)]
+    [InlineData(Designer, DesignerDescription)]
+    [InlineData(Admin, AdminDescription)]
     public async Task Handler_ShouldCallDatabase(string name, string description)
     {
         // Arrange
@@ -70,11 +66,11 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
-    [Test]
-    [TestCase(Client, ClientDescription)]
-    [TestCase(Contributor, ContributorDescription)]
-    [TestCase(Designer, DesignerDescription)]
-    [TestCase(Admin, AdminDescription)]
+    [Theory]
+    [InlineData(Client, ClientDescription)]
+    [InlineData(Contributor, ContributorDescription)]
+    [InlineData(Designer, DesignerDescription)]
+    [InlineData(Admin, AdminDescription)]
     public async Task Handler_ShouldRaiseEvents(string name, string description)
     {
         // Arrange
@@ -94,12 +90,12 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
         );
     }
 
-    [Test]
-    [TestCase(Client)]
-    [TestCase(Contributor)]
-    [TestCase(Designer)]
-    [TestCase(Admin)]
-    public void Handle_ShouldThrowException_WhenRoleDoesNotExists(string role)
+    [Theory]
+    [InlineData(Client)]
+    [InlineData(Contributor)]
+    [InlineData(Designer)]
+    [InlineData(Admin)]
+    public async Task Handle_ShouldThrowException_WhenRoleDoesNotExists(string role)
     {
         // Arrange
         reads.SingleByNameAsync(role, true, ct).Returns(null as Role);
@@ -108,7 +104,7 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
         EditRoleHandler handler = new(reads, uow, raiser);
 
         // Assert
-        Assert.ThrowsAsync<RoleNotFoundException>(async () =>
+        await Assert.ThrowsAsync<RoleNotFoundException>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Accounts;
 
-[TestFixture]
 public class AccountsBaseUnitTests
 {
     protected const string Username = "J0hn_D03";

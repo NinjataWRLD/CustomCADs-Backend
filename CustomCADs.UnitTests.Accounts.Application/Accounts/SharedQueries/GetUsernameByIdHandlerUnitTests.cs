@@ -10,20 +10,14 @@ using static Constants.Users;
 
 public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
 {
-    private static IAccountReads reads;
+    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
     private static AccountId Id => new(Guid.Parse("f8f8f8f8-f8f8-f8f8-f8f8-f8f8f8f8f8f8"));
 
-    [SetUp]
-    public void Setup()
-    {
-        reads = Substitute.For<IAccountReads>();
-    }
-
-    [Test]
-    [TestCase(Client)]
-    [TestCase(Contributor)]
-    [TestCase(Designer)]
-    [TestCase(Admin)]
+    [Theory]
+    [InlineData(Client)]
+    [InlineData(Contributor)]
+    [InlineData(Designer)]
+    [InlineData(Admin)]
     public async Task Handle_CallsDatabase(string role)
     {
         // Arrange
@@ -39,11 +33,11 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
         await reads.Received(1).SingleByIdAsync(Id, false, ct);
     }
 
-    [Test]
-    [TestCase(Client, ClientUsername)]
-    [TestCase(Contributor, ContributorUsername)]
-    [TestCase(Designer, DesignerUsername)]
-    [TestCase(Admin, AdminUsername)]
+    [Theory]
+    [InlineData(Client, ClientUsername)]
+    [InlineData(Contributor, ContributorUsername)]
+    [InlineData(Designer, DesignerUsername)]
+    [InlineData(Admin, AdminUsername)]
     public async Task Handle_ShouldReturnProperly_WhenAccountExists(string role, string username)
     {
         // Arrange
@@ -56,11 +50,11 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
         string actualUsername = await handler.Handle(query, ct);
 
         // Assert
-        Assert.That(actualUsername, Is.EqualTo(username));
+        Assert.Equal(actualUsername, username);
     }
 
-    [Test]
-    public void Handle_ShouldThrowException_WhenAccountDoesNotExists()
+    [Fact]
+    public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists()
     {
         // Arrange
         reads.SingleByIdAsync(Id, false, ct).Returns(null as Account);
@@ -69,7 +63,7 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
         GetUsernameByIdHandler handler = new(reads);
 
         // Assert
-        Assert.ThrowsAsync<AccountNotFoundException>(async () =>
+        await Assert.ThrowsAsync<AccountNotFoundException>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

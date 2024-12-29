@@ -8,19 +8,13 @@ using static Constants.Roles;
 
 public class RoleDeletedHandlerUnitTests : RolesBaseUnitTests
 {
-    private static ICacheService cache;
+    private readonly ICacheService cache = Substitute.For<ICacheService>();
 
-    [SetUp]
-    public void SetUp()
-    {
-        cache = Substitute.For<ICacheService>();
-    }
-
-    [Test]
-    [TestCase(Client, ClientDescription)]
-    [TestCase(Contributor, ContributorDescription)]
-    [TestCase(Designer, DesignerDescription)]
-    [TestCase(Admin, AdminDescription)]
+    [Theory]
+    [InlineData(Client, ClientDescription)]
+    [InlineData(Contributor, ContributorDescription)]
+    [InlineData(Designer, DesignerDescription)]
+    [InlineData(Admin, AdminDescription)]
     public async Task Handle_ShouldUpdateCache(string name, string description)
     {
         // Arrange

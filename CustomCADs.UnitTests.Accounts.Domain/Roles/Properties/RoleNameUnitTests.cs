@@ -6,7 +6,7 @@ using static RoleConstants;
 
 public class RoleNameUnitTests : RolesBaseUnitTests
 {
-    [Test]
+    [Fact]
     public void SetName_ShouldNotThrowException_WhenNameIsValid()
     {
         string name = new('a', NameMinLength);
@@ -14,13 +14,10 @@ public class RoleNameUnitTests : RolesBaseUnitTests
 
         var role = Role.Create(name, description);
 
-        Assert.DoesNotThrow(() =>
-        {
-            role.SetName(name);
-        });
+        role.SetName(name);
     }
 
-    [Test]
+    [Fact]
     public void SetName_SetsName_WhenNameIsValid()
     {
         string name = new('a', NameMinLength);
@@ -29,13 +26,13 @@ public class RoleNameUnitTests : RolesBaseUnitTests
         var role = Role.Create(name, description);
         role.SetName(name);
 
-        Assert.That(role.Name, Is.EqualTo(name));
+        Assert.Equal(role.Name, name);
     }
 
-    [Test]
-    [TestCase(0)]
-    [TestCase(NameMinLength - 1)]
-    [TestCase(NameMaxLength + 1)]
+    [Theory]
+    [InlineData(0)]
+    [InlineData(NameMinLength - 1)]
+    [InlineData(NameMaxLength + 1)]
     public void SetName_ThrowsException_WhenNameIsInvalid(int nameLength)
     {
         string name = new('a', NameMinLength);

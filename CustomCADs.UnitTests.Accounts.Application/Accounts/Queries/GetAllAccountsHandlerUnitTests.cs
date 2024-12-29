@@ -7,7 +7,7 @@ using static Constants.Roles;
 
 public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 {
-    private static IRoleReads reads;
+    private readonly IRoleReads reads = Substitute.For<IRoleReads>();
     private readonly Role[] roles = Role.CreateRange(
         (1, Client, ClientDescription),
         (2, Contributor, ContributorDescription),
@@ -15,14 +15,12 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
         (4, Admin, AdminDescription)
     ).ToArray();
 
-    [SetUp]
-    public void Setup()
+    public GetAllAccountsHandlerUnitTests()
     {
-        reads = Substitute.For<IRoleReads>();
         reads.AllAsync(track: false, ct).Returns(roles);
     }
 
-    [Test]
+    [Fact]
     public async Task Handle_ShouldCallDatabase()
     {
         // Arrange
@@ -36,7 +34,7 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
         await reads.Received(1).AllAsync(track: false, ct);
     }
 
-    [Test]
+    [Fact]
     public async Task Handle_ShouldReturnResult()
     {
         // Arrange
@@ -49,9 +47,9 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
         // Assert
         Assert.Multiple(() =>
         {
-            Assert.That(roles.Select(r => r.Id), Is.EqualTo(this.roles.Select(r => r.Id)));
-            Assert.That(roles.Select(r => r.Name), Is.EqualTo(this.roles.Select(r => r.Name)));
-            Assert.That(roles.Select(r => r.Description), Is.EqualTo(this.roles.Select(r => r.Description)));
+            Assert.Equal(roles.Select(r => r.Id), this.roles.Select(r => r.Id));
+            Assert.Equal(roles.Select(r => r.Name), this.roles.Select(r => r.Name));
+            Assert.Equal(roles.Select(r => r.Description), this.roles.Select(r => r.Description));
         });
     }
 }

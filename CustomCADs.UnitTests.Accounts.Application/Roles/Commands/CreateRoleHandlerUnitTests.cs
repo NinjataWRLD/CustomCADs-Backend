@@ -10,23 +10,15 @@ using static Constants.Roles;
 
 public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 {
-    private static IEventRaiser raiser;
-    private static IUnitOfWork uow;
-    private static IWrites<Role> writes;
+    private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
+    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly IWrites<Role> writes = Substitute.For<IWrites<Role>>();
 
-    [SetUp]
-    public void SetUp()
-    {
-        raiser = Substitute.For<IEventRaiser>();
-        uow = Substitute.For<IUnitOfWork>();
-        writes = Substitute.For<IWrites<Role>>();
-    }
-
-    [Test]
-    [TestCase(Client, ClientDescription)]
-    [TestCase(Contributor, ContributorDescription)]
-    [TestCase(Designer, DesignerDescription)]
-    [TestCase(Admin, AdminDescription)]
+    [Theory]
+    [InlineData(Client, ClientDescription)]
+    [InlineData(Contributor, ContributorDescription)]
+    [InlineData(Designer, DesignerDescription)]
+    [InlineData(Admin, AdminDescription)]
     public async Task Handler_ShouldCallDatabase(string name, string description)
     {
         // Arrange
@@ -45,11 +37,11 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
-    [Test]
-    [TestCase(Client, ClientDescription)]
-    [TestCase(Contributor, ContributorDescription)]
-    [TestCase(Designer, DesignerDescription)]
-    [TestCase(Admin, AdminDescription)]
+    [Theory]
+    [InlineData(Client, ClientDescription)]
+    [InlineData(Contributor, ContributorDescription)]
+    [InlineData(Designer, DesignerDescription)]
+    [InlineData(Admin, AdminDescription)]
     public async Task Handler_ShouldRaiseEvents(string name, string description)
     {
         // Arrange

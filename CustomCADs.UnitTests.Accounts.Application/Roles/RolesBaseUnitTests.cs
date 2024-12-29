@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Roles;
 
-[TestFixture]
 public class RolesBaseUnitTests
 {
     protected const string Name = "Role Name";

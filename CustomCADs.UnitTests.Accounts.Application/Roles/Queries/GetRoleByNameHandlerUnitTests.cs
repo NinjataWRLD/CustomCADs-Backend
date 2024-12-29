@@ -8,30 +8,27 @@ using static Constants.Roles;
 
 public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 {
-    private static IRoleReads reads;
-    private static ICacheService cache;
+    private readonly IRoleReads reads = Substitute.For<IRoleReads>();
+    private readonly ICacheService cache = Substitute.For<ICacheService>();
 
-    [SetUp]
-    public void Setup()
+    public GetRoleByNameHandlerUnitTests()
     {
-        reads = Substitute.For<IRoleReads>();
         reads.SingleByNameAsync(Client, track: false, ct).Returns(CreateRole(Client, ClientDescription));
         reads.SingleByNameAsync(Contributor, track: false, ct).Returns(CreateRole(Contributor, ContributorDescription));
         reads.SingleByNameAsync(Designer, track: false, ct).Returns(CreateRole(Designer, DesignerDescription));
         reads.SingleByNameAsync(Admin, track: false, ct).Returns(CreateRole(Admin, AdminDescription));
 
-        cache = Substitute.For<ICacheService>();
         cache.GetAsync<Role>($"role/{Client}").Returns(CreateRole(Client, ClientDescription));
         cache.GetAsync<Role>($"role/{Contributor}").Returns(CreateRole(Contributor, ContributorDescription));
         cache.GetAsync<Role>($"role/{Designer}").Returns(CreateRole(Designer, DesignerDescription));
         cache.GetAsync<Role>($"role/{Admin}").Returns(CreateRole(Admin, AdminDescription));
     }
 
-    [Test]
-    [TestCase(Client)]
-    [TestCase(Contributor)]
-    [TestCase(Designer)]
-    [TestCase(Admin)]
+    [Theory]
+    [InlineData(Client)]
+    [InlineData(Contributor)]
+    [InlineData(Designer)]
+    [InlineData(Admin)]
     public async Task Handle_ShouldPullFromCache_WhenCacheHit(string name)
     {
         // Assert
@@ -45,11 +42,11 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
         await cache.Received(1).GetAsync<Role>($"roles/{name}");
     }
 
-    [Test]
-    [TestCase(Client)]
-    [TestCase(Contributor)]
-    [TestCase(Designer)]
-    [TestCase(Admin)]
+    [Theory]
+    [InlineData(Client)]
+    [InlineData(Contributor)]
+    [InlineData(Designer)]
+    [InlineData(Admin)]
     public async Task Handle_ShouldCallDatabase_WhenCacheMiss(string name)
     {
         // Assert
@@ -63,12 +60,12 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
         await reads.Received(1).SingleByNameAsync(name, track: false, ct);
     }
 
-    [Test]
-    [TestCase(Client)]
-    [TestCase(Contributor)]
-    [TestCase(Designer)]
-    [TestCase(Admin)]
-    public void Handle_ShouldThrowException_WhenDatabaseMiss(string name)
+    [Theory]
+    [InlineData(Client)]
+    [InlineData(Contributor)]
+    [InlineData(Designer)]
+    [InlineData(Admin)]
+    public async Task Handle_ShouldThrowException_WhenDatabaseMiss(string name)
     {
         // Assert
         reads.SingleByNameAsync(name, false, ct).Returns(null as Role);
@@ -77,7 +74,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
         GetRoleByNameHandler handler = new(reads, cache);
 
         // Assert
-        Assert.ThrowsAsync<RoleNotFoundException>(async () =>
+        await Assert.ThrowsAsync<RoleNotFoundException>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

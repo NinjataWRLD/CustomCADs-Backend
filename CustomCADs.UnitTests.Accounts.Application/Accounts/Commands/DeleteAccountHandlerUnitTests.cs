@@ -11,25 +11,16 @@ using static Constants.Users;
 
 public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 {
-    private static IAccountReads reads;
-    private static IWrites<Account> writes;
-    private static IUnitOfWork uow;
-    private static IEventRaiser raiser;
+    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
+    private readonly IWrites<Account> writes = Substitute.For<IWrites<Account>>();
+    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
 
-    [SetUp]
-    public void Setup()
-    {
-        reads = Substitute.For<IAccountReads>();
-        writes = Substitute.For<IWrites<Account>>();
-        uow = Substitute.For<IUnitOfWork>();
-        raiser = Substitute.For<IEventRaiser>();
-    }
-
-    [Test]
-    [TestCase(Client, ClientUsername)]
-    [TestCase(Contributor, ContributorUsername)]
-    [TestCase(Designer, DesignerUsername)]
-    [TestCase(Admin, AdminUsername)]
+    [Theory]
+    [InlineData(Client, ClientUsername)]
+    [InlineData(Contributor, ContributorUsername)]
+    [InlineData(Designer, DesignerUsername)]
+    [InlineData(Admin, AdminUsername)]
     public async Task Handle_ShouldCallDatabase(string role, string username)
     {
         // Arrange
@@ -47,11 +38,11 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
-    [Test]
-    [TestCase(Client, ClientUsername)]
-    [TestCase(Contributor, ContributorUsername)]
-    [TestCase(Designer, DesignerUsername)]
-    [TestCase(Admin, AdminUsername)]
+    [Theory]
+    [InlineData(Client, ClientUsername)]
+    [InlineData(Contributor, ContributorUsername)]
+    [InlineData(Designer, DesignerUsername)]
+    [InlineData(Admin, AdminUsername)]
     public async Task Handle_ShouldRaiseEvents(string role, string username)
     {
         // Arrange
@@ -70,12 +61,12 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         );
     }
 
-    [Test]
-    [TestCase(ClientUsername)]
-    [TestCase(ContributorUsername)]
-    [TestCase(DesignerUsername)]
-    [TestCase(AdminUsername)]
-    public void Handle_ShouldThrowException_WhenAccountDoesNotExists(string username)
+    [Theory]
+    [InlineData(ClientUsername)]
+    [InlineData(ContributorUsername)]
+    [InlineData(DesignerUsername)]
+    [InlineData(AdminUsername)]
+    public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(string username)
     {
         // Arrange
         reads.SingleByUsernameAsync(username, false, ct).Returns(null as Account);
@@ -84,7 +75,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         DeleteAccountHandler handler = new(reads, writes, uow, raiser);
 
         // Assert
-        Assert.ThrowsAsync<AccountNotFoundException>(async () =>
+        await Assert.ThrowsAsync<AccountNotFoundException>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

@@ -6,9 +6,9 @@ using static AccountConstants;
 
 public class AccountLastNameUnitTests : AccountsBaseUnitTests
 {
-    [Test]
-    [TestCase(null)]
-    [TestCase("Doe")]
+    [Theory]
+    [InlineData(null)]
+    [InlineData("Doe")]
     public void SetLastName_ShouldNotThrowException_WhenLastNameIsValid(string? lastName)
     {
         string role = new('a', RoleConstants.NameMinLength);
@@ -17,13 +17,10 @@ public class AccountLastNameUnitTests : AccountsBaseUnitTests
 
         var account = Account.Create(role, username, Email, TimeZone, firstName, lastName);
 
-        Assert.DoesNotThrow(() =>
-        {
-            account.SetLastName(lastName);
-        });
+        account.SetLastName(lastName);
     }
 
-    [Test]
+    [Fact]
     public void SetLastName_SetsLastName_WhenLastNameIsValid()
     {
         string role = new('a', RoleConstants.NameMinLength);
@@ -34,13 +31,13 @@ public class AccountLastNameUnitTests : AccountsBaseUnitTests
         var account = Account.Create(role, username, Email, TimeZone, firstName, lastName);
         account.SetLastName(lastName);
 
-        Assert.That(account.LastName, Is.EqualTo(lastName));
+        Assert.Equal(account.LastName, lastName);
     }
 
-    [Test]
-    [TestCase(0)]
-    [TestCase(NameMinLength - 1)]
-    [TestCase(NameMaxLength + 1)]
+    [Theory]
+    [InlineData(0)]
+    [InlineData(NameMinLength - 1)]
+    [InlineData(NameMaxLength + 1)]
     public void SetLastName_ThrowsException_WhenLastNameIsInvalid(int lastNameLength)
     {
         string role = new('a', RoleConstants.NameMinLength);

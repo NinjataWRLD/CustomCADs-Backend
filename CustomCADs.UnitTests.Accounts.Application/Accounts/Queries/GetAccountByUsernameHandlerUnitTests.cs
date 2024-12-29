@@ -8,13 +8,10 @@ using static Constants.Users;
 
 public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
 {
-    private static IAccountReads reads;
+    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
 
-    [SetUp]
-    public void Setup()
+    public GetAccountByUsernameHandlerUnitTests()
     {
-        reads = Substitute.For<IAccountReads>();
-
         reads.SingleByUsernameAsync(ClientUsername, track: false, ct)
             .Returns(CreateAccount(role: Client, username: ClientUsername, email: ClientEmail));
 
@@ -29,11 +26,11 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
 
     }
 
-    [Test]
-    [TestCase(ClientUsername)]
-    [TestCase(ContributorUsername)]
-    [TestCase(DesignerUsername)]
-    [TestCase(AdminUsername)]
+    [Theory]
+    [InlineData(ClientUsername)]
+    [InlineData(ContributorUsername)]
+    [InlineData(DesignerUsername)]
+    [InlineData(AdminUsername)]
     public async Task Handle_ShouldCallDatabase(string username)
     {
         // Assert
@@ -47,12 +44,12 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
         await reads.Received(1).SingleByUsernameAsync(username, track: false, ct);
     }
 
-    [Test]
-    [TestCase(ClientUsername)]
-    [TestCase(ContributorUsername)]
-    [TestCase(DesignerUsername)]
-    [TestCase(AdminUsername)]
-    public void Handle_ShouldThrowException_WhenDatabaseMiss(string username)
+    [Theory]
+    [InlineData(ClientUsername)]
+    [InlineData(ContributorUsername)]
+    [InlineData(DesignerUsername)]
+    [InlineData(AdminUsername)]
+    public async Task Handle_ShouldThrowException_WhenDatabaseMiss(string username)
     {
         // Assert
         reads.SingleByUsernameAsync(username, false, ct).Returns(null as Account);
@@ -61,7 +58,7 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
         GetAccountByUsernameHandler handler = new(reads);
 
         // Assert
-        Assert.ThrowsAsync<AccountNotFoundException>(async () =>
+        await Assert.ThrowsAsync<AccountNotFoundException>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

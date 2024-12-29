@@ -11,23 +11,16 @@ using static Constants.Users;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
-    private static IWrites<Account> writes;
-    private static IUnitOfWork uow;
-    private static IEventRaiser raiser;
+    private readonly IWrites<Account> writes = Substitute.For<IWrites<Account>>();
+    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
 
-    [SetUp]
-    public void Setup()
-    {
-        writes = Substitute.For<IWrites<Account>>();
-        uow = Substitute.For<IUnitOfWork>();
-        raiser = Substitute.For<IEventRaiser>();
-    }
 
-    [Test]
-    [TestCase(Client, ClientUsername, ClientEmail, TimeZone, Password, null, null)]
-    [TestCase(Contributor, ContributorUsername, ContributorEmail, TimeZone, Password, null, null)]
-    [TestCase(Designer, DesignerUsername, DesignerEmail, TimeZone, Password, null, null)]
-    [TestCase(Admin, AdminUsername, AdminEmail, TimeZone, Password, null, null)]
+    [Theory]
+    [InlineData(Client, ClientUsername, ClientEmail, TimeZone, Password, null, null)]
+    [InlineData(Contributor, ContributorUsername, ContributorEmail, TimeZone, Password, null, null)]
+    [InlineData(Designer, DesignerUsername, DesignerEmail, TimeZone, Password, null, null)]
+    [InlineData(Admin, AdminUsername, AdminEmail, TimeZone, Password, null, null)]
     public async Task Handle_ShouldCallDatabase(string role, string username, string email, string timeZone, string password, string? firstName, string? lastName)
     {
         // Arrange
@@ -60,11 +53,11 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
-    [Test]
-    [TestCase(Client, ClientUsername, ClientEmail, TimeZone, Password, null, null)]
-    [TestCase(Contributor, ContributorUsername, ContributorEmail, TimeZone, Password, null, null)]
-    [TestCase(Designer, DesignerUsername, DesignerEmail, TimeZone, Password, null, null)]
-    [TestCase(Admin, AdminUsername, AdminEmail, TimeZone, Password, null, null)]
+    [Theory]
+    [InlineData(Client, ClientUsername, ClientEmail, TimeZone, Password, null, null)]
+    [InlineData(Contributor, ContributorUsername, ContributorEmail, TimeZone, Password, null, null)]
+    [InlineData(Designer, DesignerUsername, DesignerEmail, TimeZone, Password, null, null)]
+    [InlineData(Admin, AdminUsername, AdminEmail, TimeZone, Password, null, null)]
     public async Task Handle_ShouldRaiseEvents(string role, string username, string email, string timeZone, string password, string? firstName, string? lastName)
     {
         // Arrange

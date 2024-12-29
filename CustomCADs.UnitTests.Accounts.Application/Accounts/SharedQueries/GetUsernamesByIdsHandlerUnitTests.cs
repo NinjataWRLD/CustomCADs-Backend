@@ -11,17 +11,11 @@ using static Constants.Users;
 
 public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
 {
-    private static IAccountReads reads;
+    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
     private static readonly string[] usernames = [ClientUsername, ContributorUsername, DesignerUsername, AdminUsername];
 
-    [SetUp]
-    public void Setup()
-    {
-        reads = Substitute.For<IAccountReads>();
-    }
-
-    [Test]
-    [TestCase(ClientAccountId, ContributorAccountId, DesignerAccountId, AdminAccountId)]
+    [Theory]
+    [InlineData(ClientAccountId, ContributorAccountId, DesignerAccountId, AdminAccountId)]
     public async Task Handle_CallsDatabase(params string[] ids)
     {
         // Arrange
@@ -48,8 +42,8 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         await reads.Received(1).AllAsync(accountQuery, false, ct);
     }
 
-    [Test]
-    [TestCase(ClientAccountId, ContributorAccountId, DesignerAccountId, AdminAccountId)]
+    [Theory]
+    [InlineData(ClientAccountId, ContributorAccountId, DesignerAccountId, AdminAccountId)]
     public async Task Handle_ShouldReturnProperly(params string[] ids)
     {
         // Arrange
@@ -73,6 +67,6 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         string[] actualUsernames = [.. (await handler.Handle(query, ct)).Select(t => t.Username)];
 
         // Assert
-        Assert.That(actualUsernames, Is.EqualTo(usernames));
+        Assert.Equal(actualUsernames, usernames);
     }
 }

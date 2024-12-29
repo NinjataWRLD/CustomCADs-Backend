@@ -9,21 +9,14 @@ using static Constants.Users;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
-    private static IWrites<Account> writes;
-    private static IUnitOfWork uow;
+    private readonly IWrites<Account> writes = Substitute.For<IWrites<Account>>();
+    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
 
-    [SetUp]
-    public void Setup()
-    {
-        writes = Substitute.For<IWrites<Account>>();
-        uow = Substitute.For<IUnitOfWork>();
-    }
-
-    [Test]
-    [TestCase(Client, ClientUsername, ClientEmail, TimeZone, FirstName, LastName)]
-    [TestCase(Contributor, ContributorUsername, ContributorEmail, TimeZone, null, LastName)]
-    [TestCase(Designer, DesignerUsername, DesignerEmail, TimeZone, FirstName, null)]
-    [TestCase(Admin, AdminUsername, AdminEmail, TimeZone, null, null)]
+    [Theory]
+    [InlineData(Client, ClientUsername, ClientEmail, TimeZone, FirstName, LastName)]
+    [InlineData(Contributor, ContributorUsername, ContributorEmail, TimeZone, null, LastName)]
+    [InlineData(Designer, DesignerUsername, DesignerEmail, TimeZone, FirstName, null)]
+    [InlineData(Admin, AdminUsername, AdminEmail, TimeZone, null, null)]
     public async Task Handle_ShouldCallDatabase(string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
         // Arrange
