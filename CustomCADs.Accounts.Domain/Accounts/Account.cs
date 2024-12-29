@@ -36,6 +36,7 @@ public class Account : BaseAggregateRoot
             .ValidateRole()
             .ValidateUsername()
             .ValidateEmail()
+            .ValidateTimeZone()
             .ValidateFirstName()
             .ValidateLastName();
 

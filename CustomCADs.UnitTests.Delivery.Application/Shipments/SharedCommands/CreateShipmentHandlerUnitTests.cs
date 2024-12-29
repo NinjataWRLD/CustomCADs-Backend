@@ -3,15 +3,20 @@ using CustomCADs.Delivery.Domain.Common;
 using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
+using CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Data;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands;
+
+using static ShipmentsData;
+
+public class CreateShipmentHandlerData : TheoryData<string, int, double, string, string, string, string?, string?>;
 
 public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 {
     private readonly IWrites<Shipment> writes = Substitute.For<IWrites<Shipment>>();
     private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
     private readonly IDeliveryService delivery = Substitute.For<IDeliveryService>();
-    private readonly ShipmentDto shipmentDto = new(ValidReferenceId, default!, default, default, default);
+    private static readonly ShipmentDto shipmentDto = new(ValidReferenceId, default!, default, default, default);
 
     public CreateShipmentHandlerUnitTests()
     {
@@ -19,8 +24,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(ValidService1, ValidCount1, ValidWeight1, ValidRecipient1, ValidCountry1, ValidCity1, ValidPhone1, ValidEmail1)]
-    [InlineData(ValidService2, ValidCount2, ValidWeight2, ValidRecipient2, ValidCountry2, ValidCity2, ValidPhone2, ValidEmail2)]
+    [ClassData(typeof(CreateShipmentHandlerValidData))]
     public async Task Handle_ShouldCallDatabase(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -29,7 +33,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Info: new(count, weight, recipient),
             Address: new(country, city),
             Contact: new(phone, email),
-            BuyerId: new(Guid.Parse(ValidBuyerId))
+            BuyerId: ValidBuyerId
         );
         CreateShipmentHandler handler = new(writes, uow, delivery);
 
@@ -45,8 +49,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(ValidService1, ValidCount1, ValidWeight1, ValidRecipient1, ValidCountry1, ValidCity1, ValidPhone1, ValidEmail1)]
-    [InlineData(ValidService2, ValidCount2, ValidWeight2, ValidRecipient2, ValidCountry2, ValidCity2, ValidPhone2, ValidEmail2)]
+    [ClassData(typeof(CreateShipmentHandlerValidData))]
     public async Task Handle_ShouldCallDelivery(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -55,7 +58,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Info: new(count, weight, recipient),
             Address: new(country, city),
             Contact: new(phone, email),
-            BuyerId: new(Guid.Parse(ValidBuyerId))
+            BuyerId: ValidBuyerId
         );
         CreateShipmentHandler handler = new(writes, uow, delivery);
         

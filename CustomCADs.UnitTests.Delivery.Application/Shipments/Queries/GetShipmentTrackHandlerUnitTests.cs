@@ -5,16 +5,17 @@ using CustomCADs.Shared.Application.Delivery.Dtos;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Queries;
 
+using static ShipmentsData;
+
 public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 {
     private readonly IShipmentReads reads = Substitute.For<IShipmentReads>();
     private readonly IDeliveryService delivery = Substitute.For<IDeliveryService>();
-    private static readonly Shipment Shipment = CreateShipment();
-    private static readonly ShipmentStatusDto[] Statuses = CreateShipmentStatusDto("Message");
+    private static readonly ShipmentStatusDto[] Statuses = CreateShipmentStatusDtos(4, "Message");
 
     public GetShipmentTrackHandlerUnitTests()
     {
-        reads.SingleByIdAsync(id, false, ct).Returns(Shipment);
+        reads.SingleByIdAsync(id, false, ct).Returns(CreateShipment());
         delivery.TrackAsync(ValidReferenceId, ct).Returns(Statuses);
     }
 
@@ -76,9 +77,9 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
         });
     }
 
-    private static ShipmentStatusDto[] CreateShipmentStatusDto(string message)
+    private static ShipmentStatusDto[] CreateShipmentStatusDtos(int count, string message)
         => [..
-            Enumerable.Range(1, 3).Select(i => new ShipmentStatusDto(
+            Enumerable.Range(1, count).Select(i => new ShipmentStatusDto(
                 DateTime: DateTime.UtcNow.AddSeconds(i),
                 Place: null,
                 Message: message + i

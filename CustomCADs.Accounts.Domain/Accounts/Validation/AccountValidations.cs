@@ -69,6 +69,19 @@ public static partial class AccountValidations
 
         return account;
     }
+    
+    public static Account ValidateTimeZone(this Account account)
+    {
+        string property = "TimeZone";
+        string timeZone = account.TimeZone;
+
+        if (string.IsNullOrEmpty(timeZone))
+        {
+            throw AccountValidationException.NotNull(property);
+        }
+
+        return account;
+    }
 
     public static Account ValidateFirstName(this Account account)
     {

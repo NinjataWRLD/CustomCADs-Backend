@@ -18,6 +18,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\CustomCADs.Delivery.Application\CustomCADs.Delivery.Application.csproj" />
+	  <ProjectReference Include="..\CustomCADs.UnitTests.Delivery.Data\CustomCADs.UnitTests.Delivery.Data.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,69 +1,49 @@
 ﻿using CustomCADs.Accounts.Domain.Common.Exceptions.Roles;
-using CustomCADs.Shared.Core;
+using CustomCADs.UnitTests.Accounts.Domain.Roles.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Create;
 
-using static Constants.Roles;
-using static RoleConstants;
+public class RoleCreateData : TheoryData<string, string>;
 
 public class RoleCreateUnitTests : RolesBaseUnitTests
 {
-    [Test]
-    [TestCase(Client, ClientDescription)]
-    [TestCase(Contributor, ContributorDescription)]
-    [TestCase(Designer, DesignerDescription)]
-    [TestCase(Admin, AdminDescription)]
+    [Theory]
+    [ClassData(typeof(RoleCreateValidData))]
     public void Create_ShouldNotThrowException_WhenRoleIsValid(string name, string description)
     {
-        Assert.DoesNotThrow(() =>
-        {
-            Role.Create(name, description);
-        });
+        CreateRole(name, description);
     }
 
-    [Test]
-    [TestCase(Client, ClientDescription)]
-    [TestCase(Contributor, ContributorDescription)]
-    [TestCase(Designer, DesignerDescription)]
-    [TestCase(Admin, AdminDescription)]
+    [Theory]
+    [ClassData(typeof(RoleCreateValidData))]
     public void Create_ShouldPopulatePropertiesProperly_WhenRoleIsValid(string name, string description)
     {
-        var role = Role.Create(name, description);
+        var role = CreateRole(name, description);
 
         Assert.Multiple(() =>
         {
-            Assert.That(role.Name, Is.EqualTo(name));
-            Assert.That(role.Description, Is.EqualTo(description));
+            Assert.Equal(role.Name, name);
+            Assert.Equal(role.Description, description);
         });
     }
 
-    [Test]
-    [TestCase(0)]
-    [TestCase(NameMinLength - 1)]
-    [TestCase(NameMaxLength + 1)]
-    public void Create_ShouldThrowException_WhenNameIsInvalid(int nameLength)
+    [Theory]
+    [ClassData(typeof(RoleCreateInvalidNameData))]
+    public void Create_ShouldThrowException_WhenNameIsInvalid(string name, string description)
     {
-        string name = new('a', nameLength);
-        string description = new('a', DescriptionMaxLength);
-
         Assert.Throws<RoleValidationException>(() =>
         {
-            Role.Create(name, description);
+            CreateRole(name, description);
         });
     }
 
-    [Test]
-    [TestCase(0)]
-    [TestCase(DescriptionMinLength - 1)]
-    [TestCase(DescriptionMaxLength + 1)]
-    public void Create_ShouldThrowException_WhenDescriptionIsInvalid(int descriptionLength)
+    [Theory]
+    [ClassData(typeof(RoleCreateInvalidDescriptionData))]
+    public void Create_ShouldThrowException_WhenDescriptionIsInvalid(string name, string description)
     {
-        string name = new('a', NameMinLength);
-        string description = new('a', descriptionLength);
-
         Assert.Throws<RoleValidationException>(() =>
         {
-            Role.Create(name, description);
+            CreateRole(name, description);
         });
     }
 }
