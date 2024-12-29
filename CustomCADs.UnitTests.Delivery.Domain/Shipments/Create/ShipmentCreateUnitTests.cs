@@ -41,7 +41,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(ShipmentCreateInvalidCountryData))]
+    [ClassData(typeof(ShipmentCreateInvalidCityData))]
     public void Create_ShouldThrowException_WhenCityIsInvalid(string country, string city, string referenceId, AccountId buyerId)
     {
         Assert.Throws<ShipmentValidationException>(() =>

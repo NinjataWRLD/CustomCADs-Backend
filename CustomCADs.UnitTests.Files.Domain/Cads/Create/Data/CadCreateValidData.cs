@@ -1,10 +1,12 @@
 ﻿namespace CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
 
+using static CadsData;
+
 public class CadCreateValidData : CadCreateData
 {
     public CadCreateValidData()
     {
-        Add(CadValidKey1, CadValidContentType1, CadValidCoord1, CadValidCoord1, CadValidCoord1);
-        Add(CadValidKey2, CadValidContentType2, CadValidCoord2, CadValidCoord2, CadValidCoord2);
+        Add(ValidKey1, ValidContentType1, ValidCoord1, ValidCoord1, ValidCoord1);
+        Add(ValidKey2, ValidContentType2, ValidCoord2, ValidCoord2, ValidCoord2);
     }
 }

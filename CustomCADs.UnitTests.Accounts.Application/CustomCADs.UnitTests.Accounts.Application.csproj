@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Accounts.Application\CustomCADs.Accounts.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.UnitTests.Accounts.Data\CustomCADs.UnitTests.Accounts.Data.csproj" />
 	</ItemGroup>
 
 </Project>

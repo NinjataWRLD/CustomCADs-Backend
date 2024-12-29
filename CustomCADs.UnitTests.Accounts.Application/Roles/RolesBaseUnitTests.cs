@@ -1,11 +1,11 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Roles;
 
+using static RolesData;
+
 public class RolesBaseUnitTests
 {
-    protected const string Name = "Role Name";
-    protected const string Description = "Role Description";
-    protected static readonly CancellationToken ct = CancellationToken.None;
+    public static readonly CancellationToken ct = CancellationToken.None;
 
-    protected static Role CreateRole(string name = Name, string description = Description)
+    protected static Role CreateRole(string name = ValidName1, string description = ValidDescription2)
         => Role.Create(name, description);
 }

@@ -7,6 +7,8 @@ using CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Data;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands;
 
+using static ShipmentsData;
+
 public class CreateShipmentHandlerData : TheoryData<string, int, double, string, string, string, string?, string?>;
 
 public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
@@ -14,7 +16,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     private readonly IWrites<Shipment> writes = Substitute.For<IWrites<Shipment>>();
     private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
     private readonly IDeliveryService delivery = Substitute.For<IDeliveryService>();
-    private readonly ShipmentDto shipmentDto = new(ShipmentValidReferenceId, default!, default, default, default);
+    private static readonly ShipmentDto shipmentDto = new(ValidReferenceId, default!, default, default, default);
 
     public CreateShipmentHandlerUnitTests()
     {
@@ -31,7 +33,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Info: new(count, weight, recipient),
             Address: new(country, city),
             Contact: new(phone, email),
-            BuyerId: new(Guid.Parse(ShipmentValidBuyerId))
+            BuyerId: ValidBuyerId
         );
         CreateShipmentHandler handler = new(writes, uow, delivery);
 
@@ -56,7 +58,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Info: new(count, weight, recipient),
             Address: new(country, city),
             Contact: new(phone, email),
-            BuyerId: new(Guid.Parse(ShipmentValidBuyerId))
+            BuyerId: ValidBuyerId
         );
         CreateShipmentHandler handler = new(writes, uow, delivery);
         

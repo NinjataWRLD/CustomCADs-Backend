@@ -1,10 +1,12 @@
 ﻿namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Data;
 
+using static ShipmentsData;
+
 public class CreateShipmentHandlerValidData : CreateShipmentHandlerData
 {
     public CreateShipmentHandlerValidData()
     {
-        Add(ShipmentValidService1, ShipmentValidCount1, ShipmentValidWeight1, ShipmentValidRecipient1, ShipmentValidCountry1, ShipmentValidCity1, ShipmentValidPhone1, ShipmentValidEmail1);
-        Add(ShipmentValidService2, ShipmentValidCount2, ShipmentValidWeight2, ShipmentValidRecipient2, ShipmentValidCountry2, ShipmentValidCity2, ShipmentValidPhone2, ShipmentValidEmail2);
+        Add(ValidService1, ValidCount1, ValidWeight1, ValidRecipient1, ValidCountry1, ValidCity1, ValidPhone1, ValidEmail1);
+        Add(ValidService2, ValidCount2, ValidWeight2, ValidRecipient2, ValidCountry2, ValidCity2, ValidPhone2, ValidEmail2);
     }
 }

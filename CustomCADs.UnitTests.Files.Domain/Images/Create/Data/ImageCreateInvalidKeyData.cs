@@ -1,10 +1,12 @@
 ﻿namespace CustomCADs.UnitTests.Files.Domain.Images.Create.Data;
 
+using static ImagesData;
+
 public class ImageCreateInvalidKeyData : ImageCreateData
 {
     public ImageCreateInvalidKeyData()
     {
-        Add(ImageInvalidKey, ImageValidContentType1);
-        Add(ImageInvalidKey, ImageValidContentType2);
+        Add(InvalidKey, ValidContentType1);
+        Add(InvalidKey, ValidContentType2);
     }
 }

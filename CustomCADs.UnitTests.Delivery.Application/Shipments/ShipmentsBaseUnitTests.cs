@@ -1,12 +1,15 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments;
 
+using static ShipmentsData;
+
 public class ShipmentsBaseUnitTests
 {
-    protected static readonly ShipmentId id = new(Guid.Parse("00000000-0000-0000-0000-000000000001"));
+    protected static readonly ShipmentId id = new(Guid.NewGuid());
     protected static readonly CancellationToken ct = CancellationToken.None;
 
-    protected static Shipment CreateShipment(string country = ShipmentValidCountry1, string city = ShipmentValidCity1, string referenceId = ShipmentValidReferenceId, string buyerId = ShipmentValidBuyerId)
-        => Shipment.Create(new(country, city), referenceId, new(Guid.Parse(buyerId)));
+    protected static Shipment CreateShipment(string country = ValidCountry1, string city = ValidCity1, string referenceId = ValidReferenceId, AccountId? buyerId = null)
+        => Shipment.Create(new(country, city), referenceId, buyerId ?? ValidBuyerId);
 }

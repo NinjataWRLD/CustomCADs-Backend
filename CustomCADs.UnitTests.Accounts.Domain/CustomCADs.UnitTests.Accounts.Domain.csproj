@@ -17,6 +17,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Accounts.Domain\CustomCADs.Accounts.Domain.csproj" />
+		<ProjectReference Include="..\CustomCADs.UnitTests.Accounts.Data\CustomCADs.UnitTests.Accounts.Data.csproj" />
 	</ItemGroup>
 
 </Project>
