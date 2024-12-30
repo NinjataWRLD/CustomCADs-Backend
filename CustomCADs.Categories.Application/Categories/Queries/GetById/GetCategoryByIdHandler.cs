@@ -9,10 +9,15 @@ public sealed class GetCategoryByIdHandler(ICategoryReads reads, ICacheService c
 {
     public async Task<CategoryReadDto> Handle(GetCategoryByIdQuery req, CancellationToken ct)
     {
-        Category category =
-            await cache.GetAsync<Category>($"categories/{req.Id}").ConfigureAwait(false)
-            ?? await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CategoryNotFoundException.ById(req.Id);
+        Category? category = await cache.GetCategoryAsync(req.Id).ConfigureAwait(false);
+
+        if (category is null)
+        {
+            category = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+                ?? throw CategoryNotFoundException.ById(req.Id);
+
+            await cache.SetCategoryAsync(category.Id, category).ConfigureAwait(false);
+        }
 
         return category.ToCategoryReadDto();
     }

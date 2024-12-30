@@ -5,7 +5,7 @@ namespace CustomCADs.Accounts.Application.Accounts;
 
 internal static class Mapper
 {
-    internal static GetAllAccountsItem ToGetAllAccountsItem(this Account account)
+    internal static GetAllAccountsDto ToGetAllAccountsItem(this Account account)
         => new(
             account.Id,
             account.Username,

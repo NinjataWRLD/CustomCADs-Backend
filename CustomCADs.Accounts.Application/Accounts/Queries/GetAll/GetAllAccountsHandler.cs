@@ -4,9 +4,9 @@ using CustomCADs.Shared.Core.Common;
 namespace CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
 
 public sealed class GetAllAccountsHandler(IAccountReads reads)
-    : IQueryHandler<GetAllAccountsQuery, Result<GetAllAccountsItem>>
+    : IQueryHandler<GetAllAccountsQuery, Result<GetAllAccountsDto>>
 {
-    public async Task<Result<GetAllAccountsItem>> Handle(GetAllAccountsQuery req, CancellationToken ct)
+    public async Task<Result<GetAllAccountsDto>> Handle(GetAllAccountsQuery req, CancellationToken ct)
     {
         AccountQuery query = new(
             Role: req.Role,

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Accounts.Application.Roles.DomainEventHandlers;
+﻿using CustomCADs.Accounts.Application.Common.Caching.Roles;
+using CustomCADs.Accounts.Application.Roles.DomainEventHandlers;
 using CustomCADs.Accounts.Domain.Roles.DomainEvents;
 using CustomCADs.Shared.Application.Cache;
 using CustomCADs.UnitTests.Accounts.Application.Roles.DomainEventHandlers.Deleted.Data;
@@ -24,10 +25,8 @@ public class RoleDeletedHandlerUnitTests : RolesBaseUnitTests
         await handler.Handle(de);
 
         // Assert
-        await cache.Received(1).RemoveAsync<IEnumerable<Role>>("roles");
-        await cache.Received(1).RemoveRangeAsync<Role>(
-            $"roles/{de.Id}",
-            $"roles/{de.Name}"
-        );
+        await cache.Received(1).RemoveRolesArrayAsync();
+        await cache.Received(1).RemoveRoleAsync(de.Id);
+        await cache.Received(1).RemoveRoleAsync(de.Name);
     }
 }

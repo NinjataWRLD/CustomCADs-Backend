@@ -23,7 +23,7 @@ public sealed class GetAccountsEndpoint(IRequestSender sender)
             Sorting: new(req.SortingType, req.SortingDirection),
             Pagination: new(req.Page, req.Limit)
         );
-        Result<GetAllAccountsItem> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllAccountsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         Result<AccountResponse> response = new(
             result.Count,
