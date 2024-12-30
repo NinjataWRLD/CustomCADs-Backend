@@ -78,14 +78,12 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
         // Assert
         Role role = CreateRole(name);
         await cache.Received(1).SetAsync(
-            Arg.Is<(string Key, Role Item)>(tuple => 
-                tuple.Key == $"{RoleKey}/{role.Id}"
-                && tuple.Item.Name == role.Name)
+            Arg.Is<string>(key => key == $"{RoleKey}/{role.Id}"),
+            Arg.Is<Role>(item => item.Name == role.Name)
         );
         await cache.Received(1).SetAsync(
-            Arg.Is<(string Key, Role Item)>(tuple => 
-                tuple.Key == $"{RoleKey}/{role.Name}"
-                && tuple.Item.Name == role.Name)
+            Arg.Is<string>(key => key == $"{RoleKey}/{role.Name}"),
+            Arg.Is<Role>(item => item.Name == role.Name)
         );
     }
 
