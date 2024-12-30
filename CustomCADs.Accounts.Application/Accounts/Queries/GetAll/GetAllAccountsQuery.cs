@@ -11,4 +11,4 @@ public sealed record GetAllAccountsQuery(
     string? FirstName = null,
     string? LastName = null,
     AccountSorting? Sorting = null
-) : IQuery<Result<GetAllAccountsItem>>;
+) : IQuery<Result<GetAllAccountsDto>>;

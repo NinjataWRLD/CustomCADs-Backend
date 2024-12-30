@@ -14,7 +14,7 @@ internal static class Mapper
             LastName: account.LastName
         );
 
-    internal static AccountResponse ToUserResponse(this GetAllAccountsItem account)
+    internal static AccountResponse ToUserResponse(this GetAllAccountsDto account)
         => new(
             Username: account.Username,
             Email: account.Email,

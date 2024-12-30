@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
 
-public record GetAllAccountsItem(
+public record GetAllAccountsDto(
     AccountId Id,
     string Username,
     string Email,
