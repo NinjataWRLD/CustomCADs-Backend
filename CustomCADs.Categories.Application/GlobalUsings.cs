@@ -1,4 +1,5 @@
-﻿global using CustomCADs.Categories.Application.Common.Dtos;
+﻿global using CustomCADs.Categories.Application.Common.Caching.Categories;
+global using CustomCADs.Categories.Application.Common.Dtos;
 global using CustomCADs.Categories.Domain.Categories;
 global using CustomCADs.Shared.Application.Requests.Commands;
 global using CustomCADs.Shared.Application.Requests.Queries;

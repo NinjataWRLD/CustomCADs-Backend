@@ -9,10 +9,16 @@ public sealed class GetRoleByNameHandler(IRoleReads reads, ICacheService cache)
 {
     public async Task<RoleReadDto> Handle(GetRoleByNameQuery req, CancellationToken ct)
     {
-        Role role =
-            await cache.GetAsync<Role>($"roles/{req.Name}").ConfigureAwait(false)
-            ?? await reads.SingleByNameAsync(req.Name, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw RoleNotFoundException.ByName(req.Name);
+        Role? role = await cache.GetRoleAsync(req.Name).ConfigureAwait(false);
+
+        if (role is null)
+        {
+            role = await reads.SingleByNameAsync(req.Name, track: false, ct: ct).ConfigureAwait(false)
+                ?? throw RoleNotFoundException.ByName(req.Name);
+
+            await cache.SetRoleAsync(role.Id, role).ConfigureAwait(false);
+            await cache.SetRoleAsync(role.Name, role).ConfigureAwait(false);
+        }
 
         return role.ToRoleReadDto();
     }

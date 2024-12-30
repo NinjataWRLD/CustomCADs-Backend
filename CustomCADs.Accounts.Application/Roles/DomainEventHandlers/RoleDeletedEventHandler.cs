@@ -7,10 +7,8 @@ public class RoleDeletedEventHandler(ICacheService cache)
 {
     public async Task Handle(RoleDeletedDomainEvent de)
     {
-        await cache.RemoveAsync<IEnumerable<Role>>($"roles").ConfigureAwait(false);
-        await cache.RemoveRangeAsync<Role>(
-            $"roles/{de.Id}",
-            $"roles/{de.Name}"
-        ).ConfigureAwait(false);
+        await cache.RemoveRolesArrayAsync().ConfigureAwait(false);
+        await cache.RemoveRoleAsync(de.Id).ConfigureAwait(false);
+        await cache.RemoveRoleAsync(de.Name).ConfigureAwait(false);
     }
 }

@@ -7,10 +7,8 @@ public class RoleEditedEventHandler(ICacheService cache)
 {
     public async Task Handle(RoleEditedDomainEvent de)
     {
-        await cache.RemoveAsync<IEnumerable<Role>>($"roles").ConfigureAwait(false);
-        await cache.SetRangeAsync(
-            ($"roles/{de.Id}", de.Role),
-            ($"roles/{de.Role.Name}", de.Role)
-        ).ConfigureAwait(false);
+        await cache.RemoveRolesArrayAsync().ConfigureAwait(false);
+        await cache.SetRoleAsync(de.Id, de.Role).ConfigureAwait(false);
+        await cache.SetRoleAsync(de.Role.Name, de.Role).ConfigureAwait(false);
     }
 }

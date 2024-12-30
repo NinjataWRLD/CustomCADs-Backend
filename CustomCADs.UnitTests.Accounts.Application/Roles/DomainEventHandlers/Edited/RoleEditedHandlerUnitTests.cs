@@ -1,4 +1,5 @@
-﻿using CustomCADs.Accounts.Application.Roles.DomainEventHandlers;
+﻿using CustomCADs.Accounts.Application.Common.Caching.Roles;
+using CustomCADs.Accounts.Application.Roles.DomainEventHandlers;
 using CustomCADs.Accounts.Domain.Roles.DomainEvents;
 using CustomCADs.Shared.Application.Cache;
 using CustomCADs.UnitTests.Accounts.Application.Roles.DomainEventHandlers.Edited.Data;
@@ -24,10 +25,8 @@ public class RoleEditedHandlerUnitTests : RolesBaseUnitTests
         await handler.Handle(de);
 
         // Assert
-        await cache.Received(1).RemoveAsync<IEnumerable<Role>>("roles");
-        await cache.Received(1).SetRangeAsync(
-            ($"roles/{de.Role.Id}", de.Role),
-            ($"roles/{de.Role.Name}", de.Role)
-        );
+        await cache.Received(1).RemoveRolesArrayAsync();
+        await cache.Received(1).SetRoleAsync(de.Role.Id, de.Role);
+        await cache.Received(1).SetRoleAsync(de.Role.Name, de.Role);
     }
 }
