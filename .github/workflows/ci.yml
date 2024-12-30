@@ -6,3 +6,6 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/build-dotnet.yml
+  unit_test:
+    needs: build
+    uses: ./.github/workflows/unit-test.yml

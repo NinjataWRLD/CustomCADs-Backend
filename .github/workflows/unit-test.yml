@@ -1,0 +1,15 @@
+name: Run .NET Unit Tests Action
+
+on: workflow_call
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Run Unit Tests
+        run: |
+            for testProject in $(find . -type f -path "*UnitTests*.csproj"); do
+            echo "Running tests in $testProject"
+            dotnet test $testProject --no-build --configuration Release --logger "trx;LogFileName=$(basename $testProject)-unit-tests.trx"
+            done
