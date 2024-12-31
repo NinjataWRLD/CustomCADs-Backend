@@ -32,7 +32,7 @@ public static class DependencyInjection
 
     public static void AddEmailService(this IServiceCollection services)
     {
-        services.AddScoped<IEmailService, MailKitService>();
+        services.AddScoped<IEmailService, FluentEmailService>();
     }
 
     public static void AddEventRaiser(this IServiceCollection services, params Assembly[] assemblies)
