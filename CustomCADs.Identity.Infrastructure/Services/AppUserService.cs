@@ -164,7 +164,7 @@ public sealed class AppUserService(UserManager<AppUser> manager, IEventRaiser ra
     }
 
     private string GetVerifyEmailEndpoint(string username, string token)
-        => $"{serverUrl}/api/v1/auth/signup/verifyEmail/{username}?token={token}";
+        => $"{serverUrl}/api/v1/identity/signup/verifyEmail/{username}?token={token}";
 
     private string GetResetPasswordPage(string email, string token)
         => $"{clientUrl}/login/reset-password?email={email}&token={token}";
