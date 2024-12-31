@@ -13,9 +13,9 @@ public class MemoryCacheService<TKey>(IMemoryCache cache) : ICacheService<TKey> 
             cache.TryGetValue(key, out TItem? result) ? result : null
         ).ConfigureAwait(false);
 
-    public async Task SetAsync<TItem>((TKey Key, TItem Item) value)
+    public async Task SetAsync<TItem>(TKey key, TItem item)
         => await Task.Run(() =>
-            cache.Set(value.Key, value.Item)
+            cache.Set(key, item)
         ).ConfigureAwait(false);
 
     public async Task RemoveAsync<TItem>(TKey key)
