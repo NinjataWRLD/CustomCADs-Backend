@@ -3,7 +3,7 @@ using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 
-namespace CustomCADs.Delivery.Application.Shipments.SharedCommands;
+namespace CustomCADs.Delivery.Application.Shipments.SharedCommands.Create;
 
 public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork uow, IDeliveryService delivery)
     : ICommandHandler<CreateShipmentCommand, ShipmentId>

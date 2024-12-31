@@ -11,7 +11,7 @@ public class TrackShipmentEndpoint(IRequestSender sender)
         Get("track/{id}");
         Group<ShipmentGroup>();
         Description(d => d
-            .WithSummary("05.Track")
+            .WithSummary("02.Track")
             .WithDescription("See the tracking history of your shipment")
         );
     }

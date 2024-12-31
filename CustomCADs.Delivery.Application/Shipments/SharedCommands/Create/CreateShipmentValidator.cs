@@ -2,7 +2,7 @@
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 using FluentValidation;
 
-namespace CustomCADs.Delivery.Application.Shipments.SharedCommands;
+namespace CustomCADs.Delivery.Application.Shipments.SharedCommands.Create;
 
 using static Constants.FluentMessages;
 using static ShipmentConstants;

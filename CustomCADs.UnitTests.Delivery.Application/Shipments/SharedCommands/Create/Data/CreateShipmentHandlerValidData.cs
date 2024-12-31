@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Data;
+﻿namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Create.Data;
 
 using static ShipmentsData;
 

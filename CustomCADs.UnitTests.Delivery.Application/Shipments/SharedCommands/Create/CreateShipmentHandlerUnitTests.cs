@@ -1,11 +1,11 @@
-﻿using CustomCADs.Delivery.Application.Shipments.SharedCommands;
+﻿using CustomCADs.Delivery.Application.Shipments.SharedCommands.Create;
 using CustomCADs.Delivery.Domain.Common;
 using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
-using CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Data;
+using CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Create.Data;
 
-namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands;
+namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Create;
 
 using static ShipmentsData;
 
@@ -42,7 +42,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 
         // Assert
         await writes.Received(1).AddAsync(
-            entity: Arg.Is<Shipment>(x => x.Address.Country == country && x.Address.City == city), 
+            entity: Arg.Is<Shipment>(x => x.Address.Country == country && x.Address.City == city),
             ct: ct
         );
         await uow.Received(1).SaveChangesAsync(ct);
@@ -61,7 +61,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             BuyerId: ValidBuyerId
         );
         CreateShipmentHandler handler = new(writes, uow, delivery);
-        
+
         // Act
         await handler.Handle(command, ct);
 
