@@ -28,7 +28,7 @@ public sealed class GetCartItemCadPresignedUrlGetHandler(ICartReads reads, IRequ
             throw CartItemCadException.ById(req.ItemId);
         }
 
-        GetCadGetPresignedUrlByIdQuery query = new(item.CadId.Value);
+        GetCadPresignedUrlGetByIdQuery query = new(item.CadId.Value);
         string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
         
         return new(PresignedUrl: url);

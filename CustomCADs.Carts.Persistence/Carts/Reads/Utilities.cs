@@ -3,16 +3,21 @@ using CustomCADs.Carts.Domain.Carts.Enums;
 using CustomCADs.Carts.Domain.Carts.ValueObjects;
 using CustomCADs.Shared.Core.Common.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Persistence.Carts.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Cart> WithFilter(this IQueryable<Cart> query, AccountId? buyerId = null)
+    public static IQueryable<Cart> WithFilter(this IQueryable<Cart> query, AccountId? buyerId = null, ProductId? productId = null)
     {
         if (buyerId is not null)
         {
             query = query.Where(c => c.BuyerId == buyerId);
+        }
+        if (productId is not null)
+        {
+            query = query.Where(c => c.Items.Any(i => i.ProductId == productId));
         }
 
         return query;
