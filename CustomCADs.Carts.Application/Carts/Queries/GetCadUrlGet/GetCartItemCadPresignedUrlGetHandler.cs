@@ -3,12 +3,11 @@ using CustomCADs.Carts.Domain.Carts.Entities;
 using CustomCADs.Carts.Domain.Carts.Reads;
 using CustomCADs.Carts.Domain.Common.Exceptions.CartItems;
 using CustomCADs.Shared.Application.Requests.Sender;
-using CustomCADs.Shared.Application.Storage;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Carts.Application.Carts.Queries.GetCadUrlGet;
 
-public sealed class GetCartItemCadPresignedUrlGetHandler(IStorageService storage, ICartReads reads, IRequestSender sender)
+public sealed class GetCartItemCadPresignedUrlGetHandler(ICartReads reads, IRequestSender sender)
     : IQueryHandler<GetCartItemCadPresignedUrlGetQuery, GetCartItemCadPresignedUrlGetDto>
 {
     public async Task<GetCartItemCadPresignedUrlGetDto> Handle(GetCartItemCadPresignedUrlGetQuery req, CancellationToken ct)
@@ -29,14 +28,9 @@ public sealed class GetCartItemCadPresignedUrlGetHandler(IStorageService storage
             throw CartItemCadException.ById(req.ItemId);
         }
 
-        GetCadByIdQuery query = new(item.CadId.Value);
-        var (Key, ContentType, _, _) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        string cadPresignedUrl = await storage.GetPresignedGetUrlAsync(
-            key: Key,
-            contentType: ContentType
-        ).ConfigureAwait(false);
-
-        return new(PresignedUrl: cadPresignedUrl);
+        GetCadGetPresignedUrlByIdQuery query = new(item.CadId.Value);
+        string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        
+        return new(PresignedUrl: url);
     }
 }

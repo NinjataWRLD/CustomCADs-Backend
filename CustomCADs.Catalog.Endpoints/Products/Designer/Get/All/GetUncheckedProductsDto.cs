@@ -5,6 +5,6 @@ public sealed record GetUncheckedProductsDto(
     string Name,
     string UploadDate,
     string CreatorName,
-    ImageResponse Image,
+    Guid ImageId,
     CategoryResponse Category
 );
