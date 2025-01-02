@@ -72,7 +72,7 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenImageNotFound(string key)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(image);
+        reads.SingleByIdAsync(id, true, ct).Returns(null as Image);
 
         SetImageKeyCommand command = new(id, key);
         SetImageKeyHandler handler = new(reads, uow);

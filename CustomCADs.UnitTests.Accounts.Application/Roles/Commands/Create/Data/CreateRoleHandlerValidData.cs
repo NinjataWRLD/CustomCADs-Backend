@@ -2,9 +2,9 @@
 
 using static RolesData;
 
-public class EditRoleHandlerValidData : CreateRoleHandlerData
+public class CreateRoleHandlerValidData : CreateRoleHandlerData
 {
-    public EditRoleHandlerValidData()
+    public CreateRoleHandlerValidData()
     {
         Add(ValidName1, ValidDescription1);
         Add(ValidName2, ValidDescription2);

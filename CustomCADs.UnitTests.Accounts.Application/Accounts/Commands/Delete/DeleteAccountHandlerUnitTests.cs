@@ -31,7 +31,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        await reads.Received(1).SingleByUsernameAsync(username, false, ct);writes.Received(1).Remove(account);
+        await reads.Received(1).SingleByUsernameAsync(username, true, ct);writes.Received(1).Remove(account);
     }
     
     [Theory]

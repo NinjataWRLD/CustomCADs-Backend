@@ -2,9 +2,9 @@
 
 using static CategoriesData;
 
-public class EditCategoryHandlerValidData : CreateCategroyHandlerData
+public class CreateCategoryHandlerValidData : CreateCategoryHandlerData
 {
-    public EditCategoryHandlerValidData()
+    public CreateCategoryHandlerValidData()
     {
         Add(ValidName1, ValidDescription1);
         Add(ValidName2, ValidDescription2);

@@ -41,7 +41,6 @@ public class CreateShipmentValidator : Validator<CreateShipmentCommand, Shipment
             .ChildRules(x =>
             {
                 x.RuleFor(x => x.Email)
-                    .NotEmpty().WithMessage(RequiredError)
                     .EmailAddress().WithMessage(EmailError);
 
                 x.RuleFor(x => x.Phone)

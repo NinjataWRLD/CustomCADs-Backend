@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetContentType.Data;
 
-using static ImagesData;
+using static CadsData;
 
 public class SetCadContentTypeHandlerValidData : SetCadContentTypeHandlerData
 {

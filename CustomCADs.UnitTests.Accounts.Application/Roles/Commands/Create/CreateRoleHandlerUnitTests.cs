@@ -16,7 +16,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
     private readonly IWrites<Role> writes = Substitute.For<IWrites<Role>>();
 
     [Theory]
-    [ClassData(typeof(EditRoleHandlerValidData))]
+    [ClassData(typeof(CreateRoleHandlerValidData))]
     public async Task Handler_ShouldPersistToDatabase(string name, string description)
     {
         // Arrange
@@ -36,7 +36,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditRoleHandlerValidData))]
+    [ClassData(typeof(CreateRoleHandlerValidData))]
     public async Task Handler_ShouldRaiseEvents(string name, string description)
     {
         // Arrange

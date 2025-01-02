@@ -3,7 +3,6 @@ using CustomCADs.Files.Domain.Common;
 using CustomCADs.Files.Domain.Images.Reads;
 using CustomCADs.Shared.UseCases.Images.Commands;
 using CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType.Data;
-using System.Net.Mime;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType;
 
@@ -71,7 +70,7 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenImageNotFound(string contentType)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(image);
+        reads.SingleByIdAsync(id, true, ct).Returns(null as Image);
 
         SetImageContentTypeCommand command = new(id, contentType);
         SetImageContentTypeHandler handler = new(reads, uow);
