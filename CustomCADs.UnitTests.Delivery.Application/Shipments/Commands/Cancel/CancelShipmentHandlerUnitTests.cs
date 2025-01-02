@@ -22,7 +22,7 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatabase()
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
         CancelShipmentCommand command = new(
@@ -39,7 +39,7 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDelivery()
+    public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
     {
         // Arrange
         CancelShipmentCommand command = new(

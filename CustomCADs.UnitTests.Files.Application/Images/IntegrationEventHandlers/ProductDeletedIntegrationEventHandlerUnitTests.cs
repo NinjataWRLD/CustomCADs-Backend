@@ -20,7 +20,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ImagesBaseUnitTest
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatabase_WhenCadExists()
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
         ProductDeletedIntegrationEvent ie = new(
@@ -35,12 +35,29 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ImagesBaseUnitTest
 
         // Assert
         await reads.Received(1).SingleByIdAsync(id, true, ct);
+    }
+    
+    [Fact]
+    public async Task Handle_ShouldPersistToDatabase_WhenImageFound()
+    {
+        // Arrange
+        ProductDeletedIntegrationEvent ie = new(
+            Id: default,
+            ImageId: id,
+            CadId: default
+        );
+        ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
+
+        // Act
+        await handler.Handle(ie);
+
+        // Assert
         writes.Received(1).Remove(image);
         await uow.Received(1).SaveChangesAsync();
     }
 
     [Fact]
-    public async Task Handle_ShouldCallStorage_WhenCadExists()
+    public async Task Handle_ShouldCallStorage_WhenImageFound()
     {
         // Arrange
         ProductDeletedIntegrationEvent ie = new(
@@ -58,7 +75,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ImagesBaseUnitTest
     }
 
     [Fact]
-    public async Task Handle_ShouldThrowException_WhenCadNotFound()
+    public async Task Handle_ShouldThrowException_WhenImageNotFound()
     {
         // Arrange
         reads.SingleByIdAsync(id, true, ct).Returns(null as Image);

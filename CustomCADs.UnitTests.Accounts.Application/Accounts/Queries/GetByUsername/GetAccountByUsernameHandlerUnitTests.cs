@@ -17,7 +17,7 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetAccountByUsernameHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string username)
+    public async Task Handle_ShouldQueryDatabase(string username)
     {
         // Assert
         GetAccountByUsernameQuery query = new(username);

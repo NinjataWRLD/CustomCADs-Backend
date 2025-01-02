@@ -28,7 +28,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetCategoryByIdHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(CategoryId id)
+    public async Task Handle_ShouldQueryDatabase(CategoryId id)
     {
         // Assert
         GetCategoryNameByIdQuery query = new(id);

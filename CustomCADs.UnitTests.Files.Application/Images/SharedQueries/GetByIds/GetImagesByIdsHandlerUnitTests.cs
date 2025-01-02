@@ -18,7 +18,7 @@ public class GetImagesByIdsHandlerUnitTests : ImagesBaseUnitTests
     ];
 
     [Fact]
-    public async Task Handle_CallsDatabase()
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
         ImageQuery imageQuery = new(Pagination: new(1, ids.Length), Ids: ids);

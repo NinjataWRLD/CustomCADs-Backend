@@ -24,7 +24,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatabase()
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
         GetAllShipmentsQuery query = new(

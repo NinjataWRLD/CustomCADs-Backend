@@ -18,7 +18,7 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateAccountHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string role, string username, string email, string timeZone, string password, string? firstName, string? lastName)
+    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string timeZone, string password, string? firstName, string? lastName)
     {
         // Arrange
         CreateAccountCommand command = new(

@@ -17,7 +17,7 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(SetCadCoordsHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(int x1, int y1, int z1, int x2, int y2, int z2)
+    public async Task Handle_ShouldQueryDatabase(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
         reads.SingleByIdAsync(id, true, ct).Returns(cad);
@@ -34,12 +34,32 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 
         // Assert
         await reads.Received(1).SingleByIdAsync(id, true, ct);
+    }
+    
+    [Theory]
+    [ClassData(typeof(SetCadCoordsHandlerValidData))]
+    public async Task Handle_ShouldPersistToDatabase_WhenCadFound(int x1, int y1, int z1, int x2, int y2, int z2)
+    {
+        // Arrange
+        reads.SingleByIdAsync(id, true, ct).Returns(cad);
+
+        SetCadCoordsCommand command = new(
+            Id: id,
+            CamCoordinates: new(x1, y1, z1),
+            PanCoordinates: new(x2, y2, z2)
+        );
+        SetCadCoordsHandler handler = new(reads, uow);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
     [Theory]
     [ClassData(typeof(SetCadCoordsHandlerValidData))]
-    public async Task Handle_ShouldModifyCad(int x1, int y1, int z1, int x2, int y2, int z2)
+    public async Task Handle_ShouldModifyCad_WhenCadFound(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
         reads.SingleByIdAsync(id, true, ct).Returns(cad);
@@ -65,5 +85,29 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
             () => Assert.Equal(panCoords.Y, cad.PanCoordinates.Y),
             () => Assert.Equal(panCoords.Z, cad.PanCoordinates.Z)
         );
+    }
+
+    [Theory]
+    [ClassData(typeof(SetCadCoordsHandlerValidData))]
+    public async Task Handle_ShouldThrowException_WhenCadNotFound(int x1, int y1, int z1, int x2, int y2, int z2)
+    {
+        // Arrange
+        reads.SingleByIdAsync(id, true, ct).Returns(null as Cad);
+        CoordinatesDto camCoords = new(x1, y1, z1);
+        CoordinatesDto panCoords = new(x2, y2, z2);
+
+        SetCadCoordsCommand command = new(
+            Id: id,
+            CamCoordinates: camCoords,
+            PanCoordinates: panCoords
+        );
+        SetCadCoordsHandler handler = new(reads, uow);
+
+        // Assert
+        await Assert.ThrowsAsync<CadNotFoundException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
     }
 }

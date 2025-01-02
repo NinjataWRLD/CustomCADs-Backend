@@ -19,7 +19,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetUsernamesByIdsHandlerValidData))]
-    public async Task Handle_CallsDatabase(params AccountId[] ids)
+    public async Task Handle_ShouldQueryDatabase(params AccountId[] ids)
     {
         // Arrange
         AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);

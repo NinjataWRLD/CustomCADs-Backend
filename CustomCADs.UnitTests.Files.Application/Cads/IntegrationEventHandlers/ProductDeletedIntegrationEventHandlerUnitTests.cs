@@ -20,7 +20,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : CadsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatabase_WhenCadExists()
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
         ProductDeletedIntegrationEvent ie = new(
@@ -35,12 +35,29 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : CadsBaseUnitTests
 
         // Assert
         await reads.Received(1).SingleByIdAsync(id, true, ct);
+    }
+    
+    [Fact]
+    public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
+    {
+        // Arrange
+        ProductDeletedIntegrationEvent ie = new(
+            Id: default,
+            ImageId: default,
+            CadId: id
+        );
+        ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
+
+        // Act
+        await handler.Handle(ie);
+
+        // Assert
         writes.Received(1).Remove(cad);
         await uow.Received(1).SaveChangesAsync();
     }
 
     [Fact]
-    public async Task Handle_ShouldCallStorage_WhenCadExists()
+    public async Task Handle_ShouldCallStorage_WhenCadFound()
     {
         // Arrange
         ProductDeletedIntegrationEvent ie = new(

@@ -16,7 +16,7 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(SetCadKeyHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string key)
+    public async Task Handle_ShouldQueryDatabase(string key)
     {
         // Arrange
         reads.SingleByIdAsync(id, true, ct).Returns(cad);
@@ -29,12 +29,28 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 
         // Assert
         await reads.Received(1).SingleByIdAsync(id, true, ct);
+    }
+    
+    [Theory]
+    [ClassData(typeof(SetCadKeyHandlerValidData))]
+    public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string key)
+    {
+        // Arrange
+        reads.SingleByIdAsync(id, true, ct).Returns(cad);
+
+        SetCadKeyCommand command = new(id, key);
+        SetCadKeyHandler handler = new(reads, uow);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
     [Theory]
     [ClassData(typeof(SetCadKeyHandlerValidData))]
-    public async Task Handle_ShouldModifyImage(string key)
+    public async Task Handle_ShouldModifyCad_WhenCadFound(string key)
     {
         // Arrange
         reads.SingleByIdAsync(id, true, ct).Returns(cad);
@@ -47,5 +63,23 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 
         // Assert
         Assert.Equal(key, cad.Key);
+    }
+
+    [Theory]
+    [ClassData(typeof(SetCadKeyHandlerValidData))]
+    public async Task Handle_ShouldThrowException_WhenCadNotFound(string key)
+    {
+        // Arrange
+        reads.SingleByIdAsync(id, true, ct).Returns(null as Cad);
+
+        SetCadKeyCommand command = new(id, key);
+        SetCadKeyHandler handler = new(reads, uow);
+
+        // Assert
+        await Assert.ThrowsAsync<CadNotFoundException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
     }
 }

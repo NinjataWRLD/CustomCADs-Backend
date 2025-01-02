@@ -17,7 +17,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatabase_WhenCadExists()
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Assert
         GetImagePresignedUrlGetByIdQuery query = new(id);
@@ -31,7 +31,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallStorage_WhenCadExists()
+    public async Task Handle_ShouldCallStorage_WhenImageFound()
     {
         // Assert
         GetImagePresignedUrlGetByIdQuery query = new(id);
@@ -48,7 +48,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldThrowException_WhenCadDoesNotExists()
+    public async Task Handle_ShouldThrowException_WhenImageNotFound()
     {
         // Assert
         reads.SingleByIdAsync(id, false).Returns(null as Image);

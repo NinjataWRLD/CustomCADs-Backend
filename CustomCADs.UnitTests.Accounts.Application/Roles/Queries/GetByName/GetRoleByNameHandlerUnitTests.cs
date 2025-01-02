@@ -32,7 +32,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetRoleByNameHandlerValidData))]
-    public async Task Handle_ShouldPullFromCache_WhenCacheHit(string name)
+    public async Task Handle_ShouldCallCache_WhenCacheHit(string name)
     {
         // Arrange
         GetRoleByNameQuery query = new(name);
@@ -47,7 +47,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetRoleByNameHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase_WhenCacheMiss(string name)
+    public async Task Handle_ShouldQueryDatabase_WhenCacheMiss(string name)
     {
         // Arrange
         cache.GetRoleAsync(name).Returns(null as Role);

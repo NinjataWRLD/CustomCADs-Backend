@@ -39,7 +39,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     }
     
     [Fact]
-    public async Task Handle_ShouldCallDatabase_OnCacheMiss()
+    public async Task Handle_ShouldQueryDatabase_OnCacheMiss()
     {
         // Assert
         cache.GetRolesArrayAsync().Returns(null as Role[]);

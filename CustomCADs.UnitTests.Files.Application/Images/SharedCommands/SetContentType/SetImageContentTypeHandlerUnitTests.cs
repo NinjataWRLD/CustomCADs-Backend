@@ -3,10 +3,9 @@ using CustomCADs.Files.Domain.Common;
 using CustomCADs.Files.Domain.Images.Reads;
 using CustomCADs.Shared.UseCases.Images.Commands;
 using CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType.Data;
+using System.Net.Mime;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType;
-
-using static ImagesData;
 
 public class SetImageContentTypeHandlerData : TheoryData<string>;
 
@@ -18,7 +17,7 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(SetImageContentTypeHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string contentType)
+    public async Task Handle_ShouldQueryDatabase(string contentType)
     {
         // Arrange
         reads.SingleByIdAsync(id, true, ct).Returns(image);
@@ -31,12 +30,28 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 
         // Assert
         await reads.Received(1).SingleByIdAsync(id, true, ct);
+    }
+    
+    [Theory]
+    [ClassData(typeof(SetImageContentTypeHandlerValidData))]
+    public async Task Handle_ShouldPersistToDatabase_WhenImageFound(string contentType)
+    {
+        // Arrange
+        reads.SingleByIdAsync(id, true, ct).Returns(image);
+
+        SetImageContentTypeCommand command = new(id, contentType);
+        SetImageContentTypeHandler handler = new(reads, uow);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
     [Theory]
     [ClassData(typeof(SetImageContentTypeHandlerValidData))]
-    public async Task Handle_ShouldModifyImage(string contentType)
+    public async Task Handle_ShouldModifyImage_WhenImageFound(string contentType)
     {
         // Arrange
         reads.SingleByIdAsync(id, true, ct).Returns(image);
@@ -49,5 +64,23 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 
         // Assert
         Assert.Equal(contentType, image.ContentType);
+    }
+
+    [Theory]
+    [ClassData(typeof(SetImageContentTypeHandlerValidData))]
+    public async Task Handle_ShouldThrowException_WhenImageNotFound(string contentType)
+    {
+        // Arrange
+        reads.SingleByIdAsync(id, true, ct).Returns(image);
+
+        SetImageContentTypeCommand command = new(id, contentType);
+        SetImageContentTypeHandler handler = new(reads, uow);
+
+        // Assert
+        await Assert.ThrowsAsync<ImageNotFoundException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
     }
 }

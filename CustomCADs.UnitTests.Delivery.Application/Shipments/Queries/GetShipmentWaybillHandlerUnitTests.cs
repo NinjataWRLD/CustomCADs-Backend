@@ -19,7 +19,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatbase()
+    public async Task Handle_ShouldQueryDatbase()
     {
         // Arrange
         GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
@@ -33,7 +33,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDelivery()
+    public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
     {
         // Arrange
         GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
@@ -47,7 +47,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnProperly()
+    public async Task Handle_ShouldReturnProperly_WhenShipmentFound()
     {
         // Arrange
         GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
@@ -77,7 +77,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldThrowException_WhenCallerIsNotHeadDesigner()
+    public async Task Handle_ShouldThrowException_WhenCallerNotHeadDesigner()
     {
         // Arrange
         GetShipmentWaybillQuery query = new(id, ValidBuyerId);

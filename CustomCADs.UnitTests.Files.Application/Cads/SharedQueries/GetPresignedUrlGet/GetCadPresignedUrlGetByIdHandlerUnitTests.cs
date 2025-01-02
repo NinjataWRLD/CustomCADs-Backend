@@ -17,7 +17,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatabase_WhenCadExists()
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Assert
         GetCadPresignedUrlGetByIdQuery query = new(id);
@@ -31,7 +31,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallStorage_WhenCadExists()
+    public async Task Handle_ShouldCallStorage_WhenCadFound()
     {
         // Assert
         GetCadPresignedUrlGetByIdQuery query = new(id);
@@ -48,7 +48,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldThrowException_WhenCadDoesNotExists()
+    public async Task Handle_ShouldThrowException_WhenCadNotFound()
     {
         // Assert
         reads.SingleByIdAsync(id, false).Returns(null as Cad);

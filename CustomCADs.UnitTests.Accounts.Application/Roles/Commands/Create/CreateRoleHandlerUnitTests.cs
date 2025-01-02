@@ -17,7 +17,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(EditRoleHandlerValidData))]
-    public async Task Handler_ShouldCallDatabase(string name, string description)
+    public async Task Handler_ShouldPersistToDatabase(string name, string description)
     {
         // Arrange
         RoleWriteDto dto = new(name, description);

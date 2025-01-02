@@ -25,7 +25,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public async Task Handle_ShouldPersistToDatabase(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(

@@ -27,7 +27,37 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(EditCategoryHandlerValidData))]
-    public async Task Handler_ShouldModifyCategory(string name, string description)
+    public async Task Handler_ShouldQueryDatabase(string name, string description)
+    {
+        // Arrange
+        EditCategoryCommand command = new(ValidId1, new(name, description));
+        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        reads.Verify(v => v.SingleByIdAsync(ValidId1, true, ct), Times.Once());
+    }
+    
+    [Theory]
+    [ClassData(typeof(EditCategoryHandlerValidData))]
+    public async Task Handler_ShouldPersistToDatabase(string name, string description)
+    {
+        // Arrange
+        EditCategoryCommand command = new(ValidId1, new(name, description));
+        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
+    }
+
+    [Theory]
+    [ClassData(typeof(EditCategoryHandlerValidData))]
+    public async Task Handler_ShouldModifyCategory_WhenCategoryFound(string name, string description)
     {
         // Arrange
         EditCategoryCommand command = new(ValidId1, new(name, description));
@@ -46,23 +76,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(EditCategoryHandlerValidData))]
-    public async Task Handler_ShouldCallDatabase(string name, string description)
-    {
-        // Arrange
-        EditCategoryCommand command = new(ValidId1, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
-
-        // Act
-        await handler.Handle(command, ct);
-
-        // Assert
-        reads.Verify(v => v.SingleByIdAsync(ValidId1, true, ct), Times.Once());
-        uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
-    }
-
-    [Theory]
-    [ClassData(typeof(EditCategoryHandlerValidData))]
-    public async Task Handler_ShouldRaiseEvents(string name, string description)
+    public async Task Handler_ShouldRaiseEvents_WhenCategoryFound(string name, string description)
     {
         // Arrange
         EditCategoryCommand command = new(ValidId1, new(name, description));

@@ -14,7 +14,7 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateCadHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string key, string contentType)
+    public async Task Handle_ShouldPersistToDatabase(string key, string contentType)
     {
         // Arrange
         CreateCadCommand command = new(

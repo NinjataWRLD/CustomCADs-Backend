@@ -25,7 +25,57 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(EditRoleHandlerValidData))]
-    public async Task Handler_ShouldModifyRole(string name, string description)
+    public async Task Handler_ShouldQueryDatabase(string name, string description)
+    {
+        // Arrange
+        EditRoleCommand command = new(ValidName1, new(name, description));
+        EditRoleHandler handler = new(reads, uow, raiser);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        await reads.Received(1).SingleByNameAsync(ValidName1, track: true, ct: ct);
+    }
+    
+    [Theory]
+    [ClassData(typeof(EditRoleHandlerValidData))]
+    public async Task Handler_ShouldPersistToDatabase_WhenRoleFound(string name, string description)
+    {
+        // Arrange
+        EditRoleCommand command = new(ValidName1, new(name, description));
+        EditRoleHandler handler = new(reads, uow, raiser);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        await uow.Received(1).SaveChangesAsync(ct);
+    }
+
+    [Theory]
+    [ClassData(typeof(EditRoleHandlerValidData))]
+    public async Task Handler_ShouldRaiseEvents_WhenRoleFound(string name, string description)
+    {
+        // Arrange
+        EditRoleCommand command = new(ValidName1, new(name, description));
+        EditRoleHandler handler = new(reads, uow, raiser);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        await raiser.Received(1).RaiseDomainEventAsync(
+            Arg.Is<RoleEditedDomainEvent>(x => x.Role.Name == name && x.Role.Description == description)
+        );
+        await raiser.Received(1).RaiseIntegrationEventAsync(
+            Arg.Is<RoleEditedIntegrationEvent>(x => x.Name == name && x.Description == description)
+        );
+    }
+
+    [Theory]
+    [ClassData(typeof(EditRoleHandlerValidData))]
+    public async Task Handler_ShouldModifyRole_WhenRoleFound(string name, string description)
     {
         Role role = CreateRole();
         reads.SingleByNameAsync(ValidName1, true, ct).Returns(role);
@@ -47,43 +97,7 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(EditRoleHandlerValidData))]
-    public async Task Handler_ShouldCallDatabase(string name, string description)
-    {
-        // Arrange
-        EditRoleCommand command = new(ValidName1, new(name, description));
-        EditRoleHandler handler = new(reads, uow, raiser);
-
-        // Act
-        await handler.Handle(command, ct);
-
-        // Assert
-        await reads.Received(1).SingleByNameAsync(ValidName1, track: true, ct: ct);
-        await uow.Received(1).SaveChangesAsync(ct);
-    }
-
-    [Theory]
-    [ClassData(typeof(EditRoleHandlerValidData))]
-    public async Task Handler_ShouldRaiseEvents(string name, string description)
-    {
-        // Arrange
-        EditRoleCommand command = new(ValidName1, new(name, description));
-        EditRoleHandler handler = new(reads, uow, raiser);
-
-        // Act
-        await handler.Handle(command, ct);
-
-        // Assert
-        await raiser.Received(1).RaiseDomainEventAsync(
-            Arg.Is<RoleEditedDomainEvent>(x => x.Role.Name == name && x.Role.Description == description)
-        );
-        await raiser.Received(1).RaiseIntegrationEventAsync(
-            Arg.Is<RoleEditedIntegrationEvent>(x => x.Name == name && x.Description == description)
-        );
-    }
-
-    [Theory]
-    [ClassData(typeof(EditRoleHandlerValidData))]
-    public async Task Handle_ShouldThrowException_WhenRoleDoesNotExists(string name, string description)
+    public async Task Handle_ShouldThrowException_WhenRoleNotFound(string name, string description)
     {
         // Arrange
         string role = ValidName1;

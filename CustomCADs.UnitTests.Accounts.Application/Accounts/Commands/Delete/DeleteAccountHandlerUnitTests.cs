@@ -18,7 +18,25 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(DeleteAccountHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string username)
+    public async Task Handle_ShouldQueryDatabase(string username)
+    {
+        // Arrange
+        Account account = CreateAccount(username: username);
+        reads.SingleByUsernameAsync(username).Returns(account);
+
+        DeleteAccountCommand command = new(username);
+        DeleteAccountHandler handler = new(reads, writes, uow, raiser);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        await reads.Received(1).SingleByUsernameAsync(username, false, ct);writes.Received(1).Remove(account);
+    }
+    
+    [Theory]
+    [ClassData(typeof(DeleteAccountHandlerValidData))]
+    public async Task Handle_ShouldPersistToDatabase_WhenAccountFound(string username)
     {
         // Arrange
         Account account = CreateAccount(username: username);

@@ -14,7 +14,7 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateImageHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string key, string contentType)
+    public async Task Handle_ShouldPersistToDatabase(string key, string contentType)
     {
         // Arrange
         CreateImageCommand command = new(

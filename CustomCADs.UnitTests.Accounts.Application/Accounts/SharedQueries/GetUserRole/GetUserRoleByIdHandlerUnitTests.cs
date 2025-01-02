@@ -11,11 +11,10 @@ public class GetUserRoleByIdHandlerData : TheoryData<AccountId>;
 public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IAccountReads reads = Substitute.For<IAccountReads>();
-    private static AccountId Id => new(Guid.Parse("f8f8f8f8-f8f8-f8f8-f8f8-f8f8f8f8f8f8"));
 
     [Theory]
     [ClassData(typeof(GetUserRoleByIdHandlerValidData))]
-    public async Task Handle_CallsDatabase(AccountId id)
+    public async Task Handle_ShouldQueryDatabase(AccountId id)
     {
         // Arrange
         reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount());
@@ -32,7 +31,7 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetUserRoleByIdHandlerValidData))]
-    public async Task Handle_ShouldReturnProperly_WhenAccountExists(AccountId id)
+    public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
     {
         // Arrange
         const string role = RolesData.ValidName1;

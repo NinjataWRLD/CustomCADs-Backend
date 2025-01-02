@@ -16,7 +16,7 @@ public class GetTimeZoneByIdHandlerUnitTests : AccountsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetTimeZoneByIdHandlerValidData))]
-    public async Task Handle_CallsDatabase(AccountId id)
+    public async Task Handle_ShouldQueryDatabase(AccountId id)
     {
         // Arrange
         reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount());
@@ -33,7 +33,7 @@ public class GetTimeZoneByIdHandlerUnitTests : AccountsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetTimeZoneByIdHandlerValidData))]
-    public async Task Handle_ShouldReturnProperly_WhenAccountExists(AccountId id)
+    public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
     {
         // Arrange
         reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount(timeZone: ValidTimeZone1));

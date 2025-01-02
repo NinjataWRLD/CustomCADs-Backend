@@ -16,7 +16,7 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(EditCategoryHandlerValidData))]
-    public async Task Handler_ShouldCallDatabase(string name, string description)
+    public async Task Handler_ShouldPersistToDatabase(string name, string description)
     {
         // Arrange
         CategoryWriteDto dto = new(name, description);

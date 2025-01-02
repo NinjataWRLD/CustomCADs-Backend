@@ -20,7 +20,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatbase()
+    public async Task Handle_ShouldQueryDatbase()
     {
         // Arrange
         GetShipmentTrackQuery query = new(id);
@@ -34,7 +34,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDelivery()
+    public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
     {
         // Arrange
         GetShipmentTrackQuery query = new(id);
@@ -48,7 +48,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnProperly()
+    public async Task Handle_ShouldReturnProperly_WhenShipmentFound()
     {
         // Arrange
         GetShipmentTrackQuery query = new(id);

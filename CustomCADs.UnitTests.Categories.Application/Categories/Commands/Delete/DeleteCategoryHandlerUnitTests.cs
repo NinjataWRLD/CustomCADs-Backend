@@ -33,7 +33,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(DeleteCategoryHandlerValidData))]
-    public async Task Handler_ShouldCallDatabase(CategoryId id)
+    public async Task Handler_ShouldQueryDatabase(CategoryId id)
     {
         // Arrange
         DeleteCategoryCommand command = new(id);
@@ -44,6 +44,20 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 
         // Assert
         reads.Verify(v => v.SingleByIdAsync(id, true, ct), Times.Once());
+    }
+    
+    [Theory]
+    [ClassData(typeof(DeleteCategoryHandlerValidData))]
+    public async Task Handler_ShouldPersistToDatabase_WhenCategoryFound(CategoryId id)
+    {
+        // Arrange
+        DeleteCategoryCommand command = new(id);
+        DeleteCategoryHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
         writes.Verify(v => v.Remove(It.Is<Category>(x => x.Id == id)), Times.Once());
         uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
     }
@@ -67,7 +81,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(DeleteCategoryHandlerValidData))]
-    public async Task Handle_ShouldThrowException_WhenCategoryDoesNotExists(CategoryId id)
+    public async Task Handle_ShouldThrowException_WhenCategoryNotFound(CategoryId id)
     {
         // Arrange
         reads.Setup(v => v.SingleByIdAsync(id, true, ct)).ReturnsAsync(null as Category);

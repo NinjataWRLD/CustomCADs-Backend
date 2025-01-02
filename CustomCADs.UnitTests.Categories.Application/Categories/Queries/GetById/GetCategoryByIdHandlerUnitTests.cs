@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Categories.Application.Categories.Queries.GetById;
 using CustomCADs.Categories.Application.Common.Caching;
-using CustomCADs.Categories.Application.Common.Caching.Categories;
 using CustomCADs.Categories.Domain.Categories.Reads;
 using CustomCADs.Shared.Application.Cache;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
@@ -31,7 +30,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetCategoryByNameHandlerValidData))]
-    public async Task Handle_ShouldPullFromCache_WhenCacheHit(CategoryId id)
+    public async Task Handle_ShouldCallCache_WhenCacheHit(CategoryId id)
     {
         // Arrange
         GetCategoryByIdQuery query = new(id);
@@ -46,7 +45,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetCategoryByNameHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase_WhenCacheMiss(CategoryId id)
+    public async Task Handle_ShouldQueryDatabase_WhenCacheMiss(CategoryId id)
     {
         // Arrange
         cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{id}")).ReturnsAsync(null as Category);
