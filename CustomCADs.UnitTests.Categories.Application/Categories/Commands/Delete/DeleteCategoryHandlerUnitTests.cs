@@ -10,8 +10,6 @@ namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Delete
 
 using static CategoriesData;
 
-public class DeleteCategoryHandlerData : TheoryData<CategoryId>;
-
 public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 {
     private readonly Mock<IEventRaiser> raiser = new();
@@ -32,7 +30,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteCategoryHandlerValidData))]
+    [ClassData(typeof(DeleteCategoryValidData))]
     public async Task Handler_ShouldQueryDatabase(CategoryId id)
     {
         // Arrange
@@ -47,7 +45,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(DeleteCategoryHandlerValidData))]
+    [ClassData(typeof(DeleteCategoryValidData))]
     public async Task Handler_ShouldPersistToDatabase_WhenCategoryFound(CategoryId id)
     {
         // Arrange
@@ -63,7 +61,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteCategoryHandlerValidData))]
+    [ClassData(typeof(DeleteCategoryValidData))]
     public async Task Handler_ShouldRaiseEvents(CategoryId id)
     {
         // Arrange
@@ -80,7 +78,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteCategoryHandlerValidData))]
+    [ClassData(typeof(DeleteCategoryValidData))]
     public async Task Handle_ShouldThrowException_WhenCategoryNotFound(CategoryId id)
     {
         // Arrange

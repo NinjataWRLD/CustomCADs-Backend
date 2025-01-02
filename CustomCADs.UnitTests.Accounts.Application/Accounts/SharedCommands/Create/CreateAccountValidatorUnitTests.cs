@@ -10,7 +10,7 @@ public class CreateAccountValidatorUnitTests : AccountsBaseUnitTests
     private readonly CreateAccountValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerValidData))]
+    [ClassData(typeof(CreateAccountValidData))]
     public void Validate_ShouldBeValid_WhenAccountIsValid(string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
         // Arrange
@@ -31,11 +31,11 @@ public class CreateAccountValidatorUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerInvalidUsernameData))]
-    [ClassData(typeof(CreateAccountHandlerInvalidEmailData))]
-    [ClassData(typeof(CreateAccountHandlerInvalidTimeZoneData))]
-    [ClassData(typeof(CreateAccountHandlerInvalidFirstNameData))]
-    [ClassData(typeof(CreateAccountHandlerInvalidLastNameData))]
+    [ClassData(typeof(CreateAccountInvalidUsernameData))]
+    [ClassData(typeof(CreateAccountInvalidEmailData))]
+    [ClassData(typeof(CreateAccountInvalidTimeZoneData))]
+    [ClassData(typeof(CreateAccountInvalidFirstNameData))]
+    [ClassData(typeof(CreateAccountInvalidLastNameData))]
     public void Validate_ShouldBeInvalid_WhenAccountIsNotValid(string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
         // Arrange
@@ -56,7 +56,7 @@ public class CreateAccountValidatorUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerInvalidUsernameData))]
+    [ClassData(typeof(CreateAccountInvalidUsernameData))]
     public void Validate_ShouldReturnProperErrors_WhenUsernameIsNotValid(string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
         // Arrange
@@ -77,7 +77,7 @@ public class CreateAccountValidatorUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerInvalidEmailData))]
+    [ClassData(typeof(CreateAccountInvalidEmailData))]
     public void Validate_ShouldReturnProperErrors_WhenEmailIsNotValid(string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
         // Arrange
@@ -98,7 +98,7 @@ public class CreateAccountValidatorUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerInvalidTimeZoneData))]
+    [ClassData(typeof(CreateAccountInvalidTimeZoneData))]
     public void Validate_ShouldReturnProperErrors_WhenTimeZoneIsNotValid(string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
         // Arrange
@@ -119,7 +119,7 @@ public class CreateAccountValidatorUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerInvalidFirstNameData))]
+    [ClassData(typeof(CreateAccountInvalidFirstNameData))]
     public void Validate_ShouldReturnProperErrors_WhenFirstNameIsNotValid(string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
         // Arrange
@@ -140,7 +140,7 @@ public class CreateAccountValidatorUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerInvalidLastNameData))]
+    [ClassData(typeof(CreateAccountInvalidLastNameData))]
     public void Validate_ShouldReturnProperErrors_WhenLastNameIsNotValid(string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
         // Arrange

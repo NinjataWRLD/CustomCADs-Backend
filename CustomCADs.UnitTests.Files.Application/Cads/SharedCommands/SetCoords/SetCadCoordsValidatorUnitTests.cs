@@ -10,7 +10,7 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
     private readonly SetCadCoordsValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(SetCadCoordsHandlerValidData))]
+    [ClassData(typeof(SetCadCoordsValidData))]
     public void Validate_ShouldBeValid_WhenCoordsIsValid(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
@@ -24,7 +24,7 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetCadCoordsHandlerInvalidCamData))]
+    [ClassData(typeof(SetCadCoordsInvalidCamData))]
     public void Validate_ShouldReturnProperErrors_WhenCamCoordsIsNotValid(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
@@ -40,7 +40,7 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetCadCoordsHandlerInvalidPanData))]
+    [ClassData(typeof(SetCadCoordsInvalidPanData))]
     public void Validate_ShouldReturnProperErrors_WhenPanCoordsIsNotValid(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange

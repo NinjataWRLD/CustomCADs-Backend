@@ -8,14 +8,12 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetUs
 
 using static AccountsData;
 
-public class GetUsernameByIdHandlerData : TheoryData<AccountId>;
-
 public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IAccountReads reads = Substitute.For<IAccountReads>();
 
     [Theory]
-    [ClassData(typeof(GetUsernameByIdHandlerValidData))]
+    [ClassData(typeof(GetUsernameByIdValidData))]
     public async Task Handle_ShouldQueryDatabase(AccountId id)
     {
         // Arrange
@@ -32,7 +30,7 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetUsernameByIdHandlerValidData))]
+    [ClassData(typeof(GetUsernameByIdValidData))]
     public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
     {
         // Arrange
@@ -49,7 +47,7 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetUsernameByIdHandlerValidData))]
+    [ClassData(typeof(GetUsernameByIdValidData))]
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(AccountId id)
     {
         // Arrange

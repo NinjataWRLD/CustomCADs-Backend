@@ -6,8 +6,6 @@ using CustomCADs.UnitTests.Files.Application.Images.SharedQueries.GetPresignedUr
 
 namespace CustomCADs.UnitTests.Files.Application.Images.SharedQueries.GetPresignedUrlPut;
 
-public class GetImagePresignedUrlPutByIdHandlerData : TheoryData<string, string>;
-
 public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
 {
     private readonly IImageReads reads = Substitute.For<IImageReads>();
@@ -20,7 +18,7 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetImagePresignedUrlPutByIdHandlerValidData))]
+    [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
     public async Task Handle_ShouldQueryDatabase(string newContentType, string newFileName)
     {
         // Assert
@@ -39,7 +37,7 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetImagePresignedUrlPutByIdHandlerValidData))]
+    [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
     public async Task Handle_ShouldCallStorage_WhenImageFound(string newContentType, string newFileName)
     {
         // Assert
@@ -62,7 +60,7 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetImagePresignedUrlPutByIdHandlerValidData))]
+    [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
     public async Task Handle_ShouldThrowException_WhenImageNotFound(string newContentType, string newFileName)
     {
         // Assert

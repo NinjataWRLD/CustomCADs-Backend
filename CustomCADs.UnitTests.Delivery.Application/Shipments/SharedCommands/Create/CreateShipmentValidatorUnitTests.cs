@@ -11,7 +11,7 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     private readonly CreateShipmentValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerValidData))]
+    [ClassData(typeof(CreateShipmentValidData))]
     public void Validator_ShouldBeValid_WhenShipmentIsValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -31,14 +31,14 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerInvalidServiceData))]
-    [ClassData(typeof(CreateShipmentHandlerInvalidCountData))]
-    [ClassData(typeof(CreateShipmentHandlerInvalidWeightData))]
-    [ClassData(typeof(CreateShipmentHandlerInvalidRecipientData))]
-    [ClassData(typeof(CreateShipmentHandlerInvalidCountryData))]
-    [ClassData(typeof(CreateShipmentHandlerInvalidCityData))]
-    [ClassData(typeof(CreateShipmentHandlerInvalidPhoneData))]
-    [ClassData(typeof(CreateShipmentHandlerInvalidEmailData))]
+    [ClassData(typeof(CreateShipmentInvalidServiceData))]
+    [ClassData(typeof(CreateShipmentInvalidCountData))]
+    [ClassData(typeof(CreateShipmentInvalidWeightData))]
+    [ClassData(typeof(CreateShipmentInvalidRecipientData))]
+    [ClassData(typeof(CreateShipmentInvalidCountryData))]
+    [ClassData(typeof(CreateShipmentInvalidCityData))]
+    [ClassData(typeof(CreateShipmentInvalidPhoneData))]
+    [ClassData(typeof(CreateShipmentInvalidEmailData))]
     public void Validator_ShouldBeInvalid_WhenShipmentIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -58,7 +58,7 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerInvalidServiceData))]
+    [ClassData(typeof(CreateShipmentInvalidServiceData))]
     public void Validator_ShouldBeInvalid_WhenServiceIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -78,7 +78,7 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerInvalidCountData))]
+    [ClassData(typeof(CreateShipmentInvalidCountData))]
     public void Validator_ShouldBeInvalid_WhenCountIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -98,7 +98,7 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerInvalidWeightData))]
+    [ClassData(typeof(CreateShipmentInvalidWeightData))]
     public void Validator_ShouldBeInvalid_WhenWeightIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -118,7 +118,7 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerInvalidRecipientData))]
+    [ClassData(typeof(CreateShipmentInvalidRecipientData))]
     public void Validator_ShouldBeInvalid_WhenRecipientIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -138,7 +138,7 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerInvalidCountryData))]
+    [ClassData(typeof(CreateShipmentInvalidCountryData))]
     public void Validator_ShouldBeInvalid_WhenCountryIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -158,7 +158,7 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerInvalidCityData))]
+    [ClassData(typeof(CreateShipmentInvalidCityData))]
     public void Validator_ShouldBeInvalid_WhenCityIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -178,7 +178,7 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerInvalidPhoneData))]
+    [ClassData(typeof(CreateShipmentInvalidPhoneData))]
     public void Validator_ShouldBeInvalid_WhenPhoneIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -198,7 +198,7 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerInvalidEmailData))]
+    [ClassData(typeof(CreateShipmentInvalidEmailData))]
     public void Validator_ShouldBeInvalid_WhenEmailIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange

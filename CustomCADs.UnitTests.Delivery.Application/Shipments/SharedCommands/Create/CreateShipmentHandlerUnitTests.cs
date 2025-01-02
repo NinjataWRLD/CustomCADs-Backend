@@ -9,8 +9,6 @@ namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Cre
 
 using static ShipmentsData;
 
-public class CreateShipmentHandlerData : TheoryData<string, int, double, string, string, string, string?, string?>;
-
 public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 {
     private readonly IWrites<Shipment> writes = Substitute.For<IWrites<Shipment>>();
@@ -24,7 +22,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerValidData))]
+    [ClassData(typeof(CreateShipmentValidData))]
     public async Task Handle_ShouldPersistToDatabase(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
@@ -49,7 +47,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateShipmentHandlerValidData))]
+    [ClassData(typeof(CreateShipmentValidData))]
     public async Task Handle_ShouldCallDelivery(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange

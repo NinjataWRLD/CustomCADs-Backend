@@ -10,7 +10,7 @@ public class SetImageKeyValidatorUnitTests : ImagesBaseUnitTests
     private readonly SetImageKeyValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(SetImageKeyHandlerValidData))]
+    [ClassData(typeof(SetImageKeyValidData))]
     public void Validate_ShouldBeValid_WhenKeyIsValid(string key)
     {
         // Arrange
@@ -24,7 +24,7 @@ public class SetImageKeyValidatorUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetImageKeyHandlerInvalidData))]
+    [ClassData(typeof(SetImageKeyInvalidData))]
     public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key)
     {
         // Arrange

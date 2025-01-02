@@ -6,14 +6,12 @@ using CustomCADs.UnitTests.Accounts.Application.Roles.DomainEventHandlers.Delete
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.DomainEventHandlers.Deleted;
 
-public class RoleDeletedHandlerData : TheoryData<string, string>;
-
 public class RoleDeletedHandlerUnitTests : RolesBaseUnitTests
 {
     private readonly ICacheService cache = Substitute.For<ICacheService>();
 
     [Theory]
-    [ClassData(typeof(RoleDeletedHandlerValidData))]
+    [ClassData(typeof(RoleDeletedValidData))]
     public async Task Handle_ShouldUpdateCache(string name, string description)
     {
         // Arrange

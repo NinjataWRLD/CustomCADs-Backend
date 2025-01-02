@@ -10,7 +10,7 @@ public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
     private readonly SetCadKeyValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(SetCadKeyHandlerValidData))]
+    [ClassData(typeof(SetCadKeyValidData))]
     public void Validate_ShouldBeValid_WhenKeyIsValid(string key)
     {
         // Arrange
@@ -24,7 +24,7 @@ public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetCadKeyHandlerInvalidData))]
+    [ClassData(typeof(SetCadKeyInvalidData))]
     public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key)
     {
         // Arrange

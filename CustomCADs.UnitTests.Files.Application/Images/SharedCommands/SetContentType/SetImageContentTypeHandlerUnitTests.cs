@@ -6,8 +6,6 @@ using CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentTyp
 
 namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType;
 
-public class SetImageContentTypeHandlerData : TheoryData<string>;
-
 public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 {
     private readonly IImageReads reads = Substitute.For<IImageReads>();
@@ -15,7 +13,7 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
     private readonly Image image = CreateImage();
 
     [Theory]
-    [ClassData(typeof(SetImageContentTypeHandlerValidData))]
+    [ClassData(typeof(SetImageContentTypeValidData))]
     public async Task Handle_ShouldQueryDatabase(string contentType)
     {
         // Arrange
@@ -32,7 +30,7 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(SetImageContentTypeHandlerValidData))]
+    [ClassData(typeof(SetImageContentTypeValidData))]
     public async Task Handle_ShouldPersistToDatabase_WhenImageFound(string contentType)
     {
         // Arrange
@@ -49,7 +47,7 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetImageContentTypeHandlerValidData))]
+    [ClassData(typeof(SetImageContentTypeValidData))]
     public async Task Handle_ShouldModifyImage_WhenImageFound(string contentType)
     {
         // Arrange
@@ -66,7 +64,7 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetImageContentTypeHandlerValidData))]
+    [ClassData(typeof(SetImageContentTypeValidData))]
     public async Task Handle_ShouldThrowException_WhenImageNotFound(string contentType)
     {
         // Arrange

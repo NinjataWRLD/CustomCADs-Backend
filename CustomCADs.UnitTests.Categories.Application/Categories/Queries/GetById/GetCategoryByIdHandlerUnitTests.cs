@@ -10,8 +10,6 @@ namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.GetById
 using static CachingKeys;
 using static CategoriesData;
 
-public class GetCategoryByIdHandlerData : TheoryData<CategoryId>;
-
 public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 {
     private readonly Mock<ICategoryReads> reads = new();
@@ -29,7 +27,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByNameHandlerValidData))]
+    [ClassData(typeof(GetCategoryByNameValidData))]
     public async Task Handle_ShouldCallCache_WhenCacheHit(CategoryId id)
     {
         // Arrange
@@ -44,7 +42,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByNameHandlerValidData))]
+    [ClassData(typeof(GetCategoryByNameValidData))]
     public async Task Handle_ShouldQueryDatabase_WhenCacheMiss(CategoryId id)
     {
         // Arrange
@@ -61,7 +59,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByNameHandlerValidData))]
+    [ClassData(typeof(GetCategoryByNameValidData))]
     public async Task Handle_ShouldUpdateCache_WhenDatabaseHit(CategoryId id)
     {
         // Arrange
@@ -82,7 +80,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByNameHandlerValidData))]
+    [ClassData(typeof(GetCategoryByNameValidData))]
     public async Task Handle_ShouldThrowException_WhenDatabaseMiss(CategoryId id)
     {
         // Arrange

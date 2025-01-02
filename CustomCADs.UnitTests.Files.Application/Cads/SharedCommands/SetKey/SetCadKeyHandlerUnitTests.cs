@@ -6,8 +6,6 @@ using CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetKey.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetKey;
 
-public class SetCadKeyHandlerData : TheoryData<string>;
-
 public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 {
     private readonly ICadReads reads = Substitute.For<ICadReads>();
@@ -15,7 +13,7 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
     private readonly Cad cad = CreateCad();
 
     [Theory]
-    [ClassData(typeof(SetCadKeyHandlerValidData))]
+    [ClassData(typeof(SetCadKeyValidData))]
     public async Task Handle_ShouldQueryDatabase(string key)
     {
         // Arrange
@@ -32,7 +30,7 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(SetCadKeyHandlerValidData))]
+    [ClassData(typeof(SetCadKeyValidData))]
     public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string key)
     {
         // Arrange
@@ -49,7 +47,7 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetCadKeyHandlerValidData))]
+    [ClassData(typeof(SetCadKeyValidData))]
     public async Task Handle_ShouldModifyCad_WhenCadFound(string key)
     {
         // Arrange
@@ -66,7 +64,7 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetCadKeyHandlerValidData))]
+    [ClassData(typeof(SetCadKeyValidData))]
     public async Task Handle_ShouldThrowException_WhenCadNotFound(string key)
     {
         // Arrange

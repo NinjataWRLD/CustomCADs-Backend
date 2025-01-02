@@ -7,8 +7,6 @@ using CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetCoords.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetCoords;
 
-public class SetCadCoordsHandlerData : TheoryData<int, int, int, int, int, int>;
-
 public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 {
     private readonly ICadReads reads = Substitute.For<ICadReads>();
@@ -16,7 +14,7 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
     private readonly Cad cad = CreateCad();
 
     [Theory]
-    [ClassData(typeof(SetCadCoordsHandlerValidData))]
+    [ClassData(typeof(SetCadCoordsValidData))]
     public async Task Handle_ShouldQueryDatabase(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
@@ -37,7 +35,7 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(SetCadCoordsHandlerValidData))]
+    [ClassData(typeof(SetCadCoordsValidData))]
     public async Task Handle_ShouldPersistToDatabase_WhenCadFound(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
@@ -58,7 +56,7 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetCadCoordsHandlerValidData))]
+    [ClassData(typeof(SetCadCoordsValidData))]
     public async Task Handle_ShouldModifyCad_WhenCadFound(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
@@ -88,7 +86,7 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetCadCoordsHandlerValidData))]
+    [ClassData(typeof(SetCadCoordsValidData))]
     public async Task Handle_ShouldThrowException_WhenCadNotFound(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange

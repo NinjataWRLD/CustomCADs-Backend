@@ -5,15 +5,13 @@ using CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.Create.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.Create;
 
-public class CreateCadHandlerData : TheoryData<string, string>;
-
 public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 {
     private readonly IWrites<Cad> writes = Substitute.For<IWrites<Cad>>();
     private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
 
     [Theory]
-    [ClassData(typeof(CreateCadHandlerValidData))]
+    [ClassData(typeof(CreateCadValidData))]
     public async Task Handle_ShouldPersistToDatabase(string key, string contentType)
     {
         // Arrange

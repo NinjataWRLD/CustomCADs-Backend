@@ -10,8 +10,6 @@ namespace CustomCADs.UnitTests.Accounts.Application.Roles.Queries.GetByName;
 using static CachingKeys;
 using static RolesData;
 
-public class GetRoleByNameHandlerData : TheoryData<string>;
-
 public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 {
     private readonly IRoleReads reads = Substitute.For<IRoleReads>();
@@ -31,7 +29,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetRoleByNameHandlerValidData))]
+    [ClassData(typeof(GetRoleByNameValidData))]
     public async Task Handle_ShouldCallCache_WhenCacheHit(string name)
     {
         // Arrange
@@ -46,7 +44,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetRoleByNameHandlerValidData))]
+    [ClassData(typeof(GetRoleByNameValidData))]
     public async Task Handle_ShouldQueryDatabase_WhenCacheMiss(string name)
     {
         // Arrange
@@ -63,7 +61,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetRoleByNameHandlerValidData))]
+    [ClassData(typeof(GetRoleByNameValidData))]
     public async Task Handle_ShouldUpdateCache_WhenDatabaseHit(string name)
     {
         // Arrange
@@ -88,7 +86,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetRoleByNameHandlerValidData))]
+    [ClassData(typeof(GetRoleByNameValidData))]
     public async Task Handle_ShouldThrowException_WhenDatabaseMiss(string name)
     {
         // Arrange

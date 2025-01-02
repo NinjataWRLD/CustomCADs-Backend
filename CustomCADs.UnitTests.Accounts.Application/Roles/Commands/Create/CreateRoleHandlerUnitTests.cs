@@ -7,8 +7,6 @@ using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Create;
 
-public class CreateRoleHandlerData : TheoryData<string, string>;
-
 public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 {
     private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
@@ -16,7 +14,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
     private readonly IWrites<Role> writes = Substitute.For<IWrites<Role>>();
 
     [Theory]
-    [ClassData(typeof(CreateRoleHandlerValidData))]
+    [ClassData(typeof(CreateRoleValidData))]
     public async Task Handler_ShouldPersistToDatabase(string name, string description)
     {
         // Arrange
@@ -36,7 +34,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateRoleHandlerValidData))]
+    [ClassData(typeof(CreateRoleValidData))]
     public async Task Handler_ShouldRaiseEvents(string name, string description)
     {
         // Arrange

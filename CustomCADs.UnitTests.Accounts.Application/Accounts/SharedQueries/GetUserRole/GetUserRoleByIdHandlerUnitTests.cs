@@ -6,14 +6,12 @@ using CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetUserRo
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetUserRole;
 
-public class GetUserRoleByIdHandlerData : TheoryData<AccountId>;
-
 public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IAccountReads reads = Substitute.For<IAccountReads>();
 
     [Theory]
-    [ClassData(typeof(GetUserRoleByIdHandlerValidData))]
+    [ClassData(typeof(GetUserRoleByIdValidData))]
     public async Task Handle_ShouldQueryDatabase(AccountId id)
     {
         // Arrange
@@ -30,7 +28,7 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetUserRoleByIdHandlerValidData))]
+    [ClassData(typeof(GetUserRoleByIdValidData))]
     public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
     {
         // Arrange
@@ -48,7 +46,7 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetUserRoleByIdHandlerValidData))]
+    [ClassData(typeof(GetUserRoleByIdValidData))]
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(AccountId id)
     {
         // Arrange

@@ -11,7 +11,7 @@ public class EditCategoryValidatorUnitTests : CategoriesBaseUnitTests
     private readonly CategoryId id = new();
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerValidData))]
+    [ClassData(typeof(EditCategoryValidData))]
     public void Validator_ShouldBeValid_WhenCategoryIsValid(string name, string description)
     {
         // Arrange
@@ -26,8 +26,8 @@ public class EditCategoryValidatorUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerInvalidNameData))]
-    [ClassData(typeof(EditCategoryHandlerInvalidDescriptionData))]
+    [ClassData(typeof(EditCategoryInvalidNameData))]
+    [ClassData(typeof(EditCategoryInvalidDescriptionData))]
     public void Validator_ShouldBeInvalid_WhenCategoryIsNotValid(string name, string description)
     {
         // Arrange
@@ -42,7 +42,7 @@ public class EditCategoryValidatorUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerInvalidNameData))]
+    [ClassData(typeof(EditCategoryInvalidNameData))]
     public void Validator_ShouldBeInvalid_WhenNameIsNotValid(string name, string description)
     {
         // Arrange
@@ -57,7 +57,7 @@ public class EditCategoryValidatorUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerInvalidDescriptionData))]
+    [ClassData(typeof(EditCategoryInvalidDescriptionData))]
     public void Validator_ShouldBeInvalid_WhenDescriptionIsNotValid(string name, string description)
     {
         // Arrange

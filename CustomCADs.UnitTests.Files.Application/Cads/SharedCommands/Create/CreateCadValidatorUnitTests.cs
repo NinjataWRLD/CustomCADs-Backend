@@ -10,7 +10,7 @@ public class CreateCadValidatorUnitTests : CadsBaseUnitTests
     private readonly CreateCadValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(CreateCadHandlerValidData))]
+    [ClassData(typeof(CreateCadValidData))]
     public void Validate_ShouldBeValid_WhenCadIsValid(string key, string contentType)
     {
         // Arrange
@@ -24,8 +24,8 @@ public class CreateCadValidatorUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateCadHandlerInvalidKeyData))]
-    [ClassData(typeof(CreateCadHandlerInvalidContentTypeData))]
+    [ClassData(typeof(CreateCadInvalidKeyData))]
+    [ClassData(typeof(CreateCadInvalidContentTypeData))]
     public void Validate_ShouldBeInvalid_WhenCadIsNotValid(string key, string contentType)
     {
         // Arrange
@@ -39,7 +39,7 @@ public class CreateCadValidatorUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateCadHandlerInvalidKeyData))]
+    [ClassData(typeof(CreateCadInvalidKeyData))]
     public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key, string contentType)
     {
         // Arrange
@@ -53,7 +53,7 @@ public class CreateCadValidatorUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateCadHandlerInvalidContentTypeData))]
+    [ClassData(typeof(CreateCadInvalidContentTypeData))]
     public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string key, string contentType)
     {
         // Arrange

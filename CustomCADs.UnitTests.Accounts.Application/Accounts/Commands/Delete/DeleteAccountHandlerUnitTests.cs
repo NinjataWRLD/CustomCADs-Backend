@@ -7,8 +7,6 @@ using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete;
 
-public class DeleteAccountHandlerData : TheoryData<string>;
-
 public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IAccountReads reads = Substitute.For<IAccountReads>();
@@ -17,7 +15,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
 
     [Theory]
-    [ClassData(typeof(DeleteAccountHandlerValidData))]
+    [ClassData(typeof(DeleteAccountValidData))]
     public async Task Handle_ShouldQueryDatabase(string username)
     {
         // Arrange
@@ -35,7 +33,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(DeleteAccountHandlerValidData))]
+    [ClassData(typeof(DeleteAccountValidData))]
     public async Task Handle_ShouldPersistToDatabase_WhenAccountFound(string username)
     {
         // Arrange
@@ -54,7 +52,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteAccountHandlerValidData))]
+    [ClassData(typeof(DeleteAccountValidData))]
     public async Task Handle_ShouldRaiseEvents(string username)
     {
         // Arrange
@@ -74,7 +72,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteAccountHandlerValidData))]
+    [ClassData(typeof(DeleteAccountValidData))]
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(string username)
     {
         // Arrange

@@ -8,8 +8,6 @@ namespace CustomCADs.UnitTests.Categories.Application.Categories.SharedQueries.G
 
 using static CategoriesData;
 
-public class GetCategoryByIdHandlerData : TheoryData<CategoryId>;
-
 public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 {
     private readonly Mock<ICategoryReads> reads = new();
@@ -27,7 +25,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByIdHandlerValidData))]
+    [ClassData(typeof(GetCategoryByIdValidData))]
     public async Task Handle_ShouldQueryDatabase(CategoryId id)
     {
         // Assert
@@ -42,7 +40,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByIdHandlerValidData))]
+    [ClassData(typeof(GetCategoryByIdValidData))]
     public async Task Handle_ShouldThrowException_WhenDatabaseMiss(CategoryId id)
     {
         // Assert

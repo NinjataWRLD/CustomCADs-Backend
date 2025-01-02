@@ -10,8 +10,6 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetTi
 
 using static AccountsData;
 
-public class GetTimeZonesByIdsHandlerData : TheoryData<AccountId[]>;
-
 public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IAccountReads reads = Substitute.For<IAccountReads>();
@@ -23,7 +21,7 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
     ];
 
     [Theory]
-    [ClassData(typeof(GetTimeZonesByIdsHandlerValidData))]
+    [ClassData(typeof(GetTimeZonesByIdsValidData))]
     public async Task Handle_ShouldQueryDatabase(params AccountId[] ids)
     {
         // Arrange
@@ -44,7 +42,7 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetTimeZonesByIdsHandlerValidData))]
+    [ClassData(typeof(GetTimeZonesByIdsValidData))]
     public async Task Handle_ShouldReturnProperly(AccountId[] ids)
     {
         // Arrange

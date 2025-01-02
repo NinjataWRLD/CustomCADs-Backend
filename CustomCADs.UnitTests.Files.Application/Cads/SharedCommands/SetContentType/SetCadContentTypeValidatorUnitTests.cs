@@ -10,7 +10,7 @@ public class SetCadContentTypeValidatorUnitTests : CadsBaseUnitTests
     private readonly SetCadContentTypeValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(SetCadContentTypeHandlerValidData))]
+    [ClassData(typeof(SetCadContentTypeValidData))]
     public void Validate_ShouldBeValid_WhenContentTypeIsValid(string contentType)
     {
         // Arrange
@@ -24,7 +24,7 @@ public class SetCadContentTypeValidatorUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetCadContentTypeHandlerInvalidData))]
+    [ClassData(typeof(SetCadContentTypeInvalidData))]
     public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string contentType)
     {
         // Arrange

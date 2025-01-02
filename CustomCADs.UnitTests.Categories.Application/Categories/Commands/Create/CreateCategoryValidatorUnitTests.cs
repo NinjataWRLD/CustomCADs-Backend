@@ -9,7 +9,7 @@ public class CreateCategoryValidatorUnitTests : CategoriesBaseUnitTests
     private readonly CreateCategoryValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(CreateCategoryHandlerValidData))]
+    [ClassData(typeof(CreateCategoryValidData))]
     public void Validate_ShouldBeValid_WhenCategoryIsValid(string name, string description)
     {
         // Arrange
@@ -24,8 +24,8 @@ public class CreateCategoryValidatorUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateCategoryHandlerInvalidNameData))]
-    [ClassData(typeof(CreateCategoryHandlerInvalidDescriptionData))]
+    [ClassData(typeof(CreateCategoryInvalidNameData))]
+    [ClassData(typeof(CreateCategoryInvalidDescriptionData))]
     public void Validate_ShouldBeInvalid_WhenCategoryIsNotValid(string name, string description)
     {
         // Arrange
@@ -40,7 +40,7 @@ public class CreateCategoryValidatorUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateCategoryHandlerInvalidNameData))]
+    [ClassData(typeof(CreateCategoryInvalidNameData))]
     public void Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description)
     {
         // Arrange
@@ -55,7 +55,7 @@ public class CreateCategoryValidatorUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateCategoryHandlerInvalidDescriptionData))]
+    [ClassData(typeof(CreateCategoryInvalidDescriptionData))]
     public void Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description)
     {
         // Arrange

@@ -10,7 +10,7 @@ public class SetImageContentTypeValidatorUnitTests : ImagesBaseUnitTests
     private readonly SetImageContentTypeValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(SetImageContentTypeHandlerValidData))]
+    [ClassData(typeof(SetImageContentTypeValidData))]
     public void Validate_ShouldBeValid_WhenContentTypeIsValid(string contentType)
     {
         // Arrange
@@ -24,7 +24,7 @@ public class SetImageContentTypeValidatorUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(SetImageContentTypeHandlerInvalidData))]
+    [ClassData(typeof(SetImageContentTypeInvalidData))]
     public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string contentType)
     {
         // Arrange

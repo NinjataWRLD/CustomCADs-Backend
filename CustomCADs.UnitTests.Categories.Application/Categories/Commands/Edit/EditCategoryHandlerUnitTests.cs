@@ -10,8 +10,6 @@ namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Edit;
 
 using static CategoriesData;
 
-public class EditCategoryHandlerData : TheoryData<string, string>;
-
 public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 {
     private readonly Mock<IEventRaiser> raiser = new();
@@ -26,7 +24,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerValidData))]
+    [ClassData(typeof(EditCategoryValidData))]
     public async Task Handler_ShouldQueryDatabase(string name, string description)
     {
         // Arrange
@@ -41,7 +39,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerValidData))]
+    [ClassData(typeof(EditCategoryValidData))]
     public async Task Handler_ShouldPersistToDatabase(string name, string description)
     {
         // Arrange
@@ -56,7 +54,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerValidData))]
+    [ClassData(typeof(EditCategoryValidData))]
     public async Task Handler_ShouldModifyCategory_WhenCategoryFound(string name, string description)
     {
         // Arrange
@@ -75,7 +73,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerValidData))]
+    [ClassData(typeof(EditCategoryValidData))]
     public async Task Handler_ShouldRaiseEvents_WhenCategoryFound(string name, string description)
     {
         // Arrange
@@ -92,7 +90,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerValidData))]
+    [ClassData(typeof(EditCategoryValidData))]
     public async Task Handle_ShouldThrowException_WhenCategoryDoesNotExists(string name, string description)
     {
         // Arrange

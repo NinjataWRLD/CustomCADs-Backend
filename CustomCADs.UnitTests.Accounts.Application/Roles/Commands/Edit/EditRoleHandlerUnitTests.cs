@@ -10,8 +10,6 @@ namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Edit;
 
 using static RolesData;
 
-public class EditRoleHandlerData : TheoryData<string, string>;
-
 public class EditRoleHandlerUnitTests : RolesBaseUnitTests
 {
     private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
@@ -24,7 +22,7 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditRoleHandlerValidData))]
+    [ClassData(typeof(EditRoleValidData))]
     public async Task Handler_ShouldQueryDatabase(string name, string description)
     {
         // Arrange
@@ -39,7 +37,7 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(EditRoleHandlerValidData))]
+    [ClassData(typeof(EditRoleValidData))]
     public async Task Handler_ShouldPersistToDatabase_WhenRoleFound(string name, string description)
     {
         // Arrange
@@ -54,7 +52,7 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditRoleHandlerValidData))]
+    [ClassData(typeof(EditRoleValidData))]
     public async Task Handler_ShouldRaiseEvents_WhenRoleFound(string name, string description)
     {
         // Arrange
@@ -74,7 +72,7 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditRoleHandlerValidData))]
+    [ClassData(typeof(EditRoleValidData))]
     public async Task Handler_ShouldModifyRole_WhenRoleFound(string name, string description)
     {
         Role role = CreateRole();
@@ -96,7 +94,7 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditRoleHandlerValidData))]
+    [ClassData(typeof(EditRoleValidData))]
     public async Task Handle_ShouldThrowException_WhenRoleNotFound(string name, string description)
     {
         // Arrange

@@ -7,8 +7,6 @@ namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Cancel;
 
 using static ShipmentsData;
 
-public class CancelShipmentHandlerData : TheoryData<string, int, double, string, string, string, string?, string?>;
-
 public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 {
     private readonly IShipmentReads reads = Substitute.For<IShipmentReads>();

@@ -10,7 +10,7 @@ public class CreateImageValidatorUnitTests : ImagesBaseUnitTests
     private readonly CreateImageValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(CreateImageHandlerValidData))]
+    [ClassData(typeof(CreateImageValidData))]
     public void Validate_ShouldBeValid_WhenImageIsValid(string key, string contentType)
     {
         // Arrange
@@ -24,8 +24,8 @@ public class CreateImageValidatorUnitTests : ImagesBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(CreateImageHandlerInvalidKeyData))]
-    [ClassData(typeof(CreateImageHandlerInvalidContentTypeData))]
+    [ClassData(typeof(CreateImageInvalidKeyData))]
+    [ClassData(typeof(CreateImageInvalidContentTypeData))]
     public void Validate_ShouldBeInvalid_WhenImageIsNotValid(string key, string contentType)
     {
         // Arrange
@@ -39,7 +39,7 @@ public class CreateImageValidatorUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateImageHandlerInvalidKeyData))]
+    [ClassData(typeof(CreateImageInvalidKeyData))]
     public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key, string contentType)
     {
         // Arrange
@@ -53,7 +53,7 @@ public class CreateImageValidatorUnitTests : ImagesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateImageHandlerInvalidContentTypeData))]
+    [ClassData(typeof(CreateImageInvalidContentTypeData))]
     public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string key, string contentType)
     {
         // Arrange

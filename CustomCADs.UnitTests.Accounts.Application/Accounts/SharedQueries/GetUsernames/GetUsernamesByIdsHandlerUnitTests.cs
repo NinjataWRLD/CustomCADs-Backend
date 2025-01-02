@@ -10,15 +10,13 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetUs
 using static Constants.Roles;
 using static Constants.Users;
 
-public class GetUsernamesByIdsHandlerData : TheoryData<AccountId[]>;
-
 public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IAccountReads reads = Substitute.For<IAccountReads>();
     private static readonly string[] usernames = [ClientUsername, ContributorUsername, DesignerUsername, AdminUsername];
 
     [Theory]
-    [ClassData(typeof(GetUsernamesByIdsHandlerValidData))]
+    [ClassData(typeof(GetUsernamesByIdsValidData))]
     public async Task Handle_ShouldQueryDatabase(params AccountId[] ids)
     {
         // Arrange
@@ -45,7 +43,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetUsernamesByIdsHandlerValidData))]
+    [ClassData(typeof(GetUsernamesByIdsValidData))]
     public async Task Handle_ShouldReturnProperly(params AccountId[] ids)
     {
         // Arrange

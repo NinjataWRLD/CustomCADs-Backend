@@ -10,8 +10,6 @@ namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Delete;
 
 using static RolesData;
 
-public class DeleteRoleHandlerData : TheoryData<string>;
-
 public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 {
     private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
@@ -35,7 +33,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteRoleHandlerValidData))]
+    [ClassData(typeof(DeleteRoleValidData))]
     public async Task Handler_ShouldQueryDatabase(string name)
     {
         // Arrange
@@ -50,7 +48,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     }
     
     [Theory]
-    [ClassData(typeof(DeleteRoleHandlerValidData))]
+    [ClassData(typeof(DeleteRoleValidData))]
     public async Task Handler_ShouldPersistToDatabase_WhenRoleFound(string name)
     {
         // Arrange
@@ -66,7 +64,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteRoleHandlerValidData))]
+    [ClassData(typeof(DeleteRoleValidData))]
     public async Task Handler_ShouldRaiseEvents_WhenRoleFound(string name)
     {
         // Arrange
@@ -86,7 +84,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteRoleHandlerValidData))]
+    [ClassData(typeof(DeleteRoleValidData))]
     public async Task Handle_ShouldThrowException_WhenRoleNotFound(string role)
     {
         // Arrange

@@ -9,7 +9,7 @@ public class CreateRoleValidatorUnitTests : RolesBaseUnitTests
     private readonly CreateRoleValidator validator = new();
 
     [Theory]
-    [ClassData(typeof(CreateRoleHandlerValidData))]
+    [ClassData(typeof(CreateRoleValidData))]
     public void Validate_ShouldBeValid_WhenRoleIsValid(string name, string description)
     {
         // Arrange
@@ -24,8 +24,8 @@ public class CreateRoleValidatorUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateRoleHandlerInvalidNameData))]
-    [ClassData(typeof(CreateRoleHandlerInvalidDescriptionData))]
+    [ClassData(typeof(CreateRoleInvalidNameData))]
+    [ClassData(typeof(CreateRoleInvalidDescriptionData))]
     public void Validate_ShouldBeInvalid_WhenRoleIsNotValid(string name, string description)
     {
         // Arrange
@@ -40,7 +40,7 @@ public class CreateRoleValidatorUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateRoleHandlerInvalidNameData))]
+    [ClassData(typeof(CreateRoleInvalidNameData))]
     public void Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description)
     {
         // Arrange
@@ -55,7 +55,7 @@ public class CreateRoleValidatorUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateRoleHandlerInvalidDescriptionData))]
+    [ClassData(typeof(CreateRoleInvalidDescriptionData))]
     public void Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description)
     {
         // Arrange
