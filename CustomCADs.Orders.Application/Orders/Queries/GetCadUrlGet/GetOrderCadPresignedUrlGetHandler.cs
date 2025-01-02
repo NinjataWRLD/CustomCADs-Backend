@@ -14,6 +14,11 @@ public sealed class GetOrderCadPresignedUrlGetHandler(IOrderReads reads, IReques
         Order order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
 
+        if (order.BuyerId != req.BuyerId)
+        {
+            throw OrderAuthorizationException.ByOrderId(req.Id);
+        }
+
         if (order.CadId is null)
         {
             throw OrderCadException.ById(req.Id);

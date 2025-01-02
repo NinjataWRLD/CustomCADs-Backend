@@ -11,7 +11,7 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
 {
     public string PublicKey => settings.Value.TestPublishableKey;
 
-    public async Task<string> InitializePayment(string paymentMethodId, decimal price, string description)
+    public async Task<string> InitializePayment(string paymentMethodId, decimal price, string description, CancellationToken ct = default)
     {
         StripeConfiguration.ApiKey = settings.Value.TestSecretKey;
 
@@ -27,13 +27,13 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
                 Enabled = true,
                 AllowRedirects = "never"
             }
-        }).ConfigureAwait(false);
+        }, cancellationToken: ct).ConfigureAwait(false);
 
         string message = GetMessageFromStatus(paymentIntent.Status);
 
         if (message == FailedPayment)
         {
-            string retry = await RetryCaptureAsync(paymentIntent.Id).ConfigureAwait(false);
+            string retry = await RetryCaptureAsync(paymentIntent.Id, ct).ConfigureAwait(false);
 
             return retry == SuccessfulPayment
                 ? SuccessfulPayment
@@ -60,8 +60,8 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
             _ => string.Format(UnhandledPayment, status)
         };
 
-    private async Task<string> RetryCaptureAsync(string id)
-        => (await paymentIntentService.CaptureAsync(id).ConfigureAwait(false)).Status == "succeeded"
+    private async Task<string> RetryCaptureAsync(string id, CancellationToken ct = default)
+        => (await paymentIntentService.CaptureAsync(id, cancellationToken: ct).ConfigureAwait(false)).Status == "succeeded"
                 ? SuccessfulPayment
                 : FailedPaymentCapture;
 }

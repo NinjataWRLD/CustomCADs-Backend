@@ -11,14 +11,15 @@ public sealed class GetOrderGetPresignedCadUrlEndpoint(IRequestSender sender)
         Group<ClientGroup>();
         Description(d => d
             .WithSummary("12. Download Cad")
-            .WithDescription("Download the Cad for your Finished(!) Order by specifying its Id")
+            .WithDescription("Download the Cad for your Completed(!) Order by specifying its Id")
         );
     }
 
     public override async Task HandleAsync(GetOrderGetPresignedCadUrlRequest req, CancellationToken ct)
     {
         GetOrderCadPresignedUrlGetQuery query = new(
-            Id: new OrderId(req.Id)
+            Id: new OrderId(req.Id),
+            BuyerId: User.GetAccountId()
         );
         var cadDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

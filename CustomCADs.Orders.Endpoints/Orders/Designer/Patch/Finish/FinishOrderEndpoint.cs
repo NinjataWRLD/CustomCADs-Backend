@@ -22,8 +22,9 @@ public sealed class FinishOrderEndpoint(IRequestSender sender)
             DesignerId: User.GetAccountId(),
             Cad: req.ToCadDto()
         );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        FinishOrderDto dto = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        await SendNoContentAsync().ConfigureAwait(false);
+        FinishOrderResponse response = dto.ToFinishOrderResponse();
+        await SendOkAsync(response).ConfigureAwait(false);
     }
 }
