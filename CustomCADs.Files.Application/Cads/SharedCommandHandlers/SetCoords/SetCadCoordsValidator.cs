@@ -4,6 +4,7 @@ using FluentValidation;
 
 namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetCoords;
 
+using static CadConstants.Coordinates;
 using static Constants.FluentMessages;
 
 public class SetCadCoordsValidator : Validator<SetCadCoordsCommand>
@@ -13,25 +14,31 @@ public class SetCadCoordsValidator : Validator<SetCadCoordsCommand>
         When(x => x.CamCoordinates != null, () =>
         {
             RuleFor(x => x.CamCoordinates!.X)
-                .NotEmpty().WithMessage(RequiredError);
+                .NotNull().WithMessage(RequiredError)
+                .ExclusiveBetween(CoordMin, CoordMax).WithMessage(RangeError);
 
             RuleFor(x => x.CamCoordinates!.Y)
-                .NotEmpty().WithMessage(RequiredError);
+                .NotNull().WithMessage(RequiredError)
+                .ExclusiveBetween(CoordMin, CoordMax).WithMessage(RangeError);
 
             RuleFor(x => x.CamCoordinates!.Z)
-                .NotEmpty().WithMessage(RequiredError);
+                .NotNull().WithMessage(RequiredError)
+                .ExclusiveBetween(CoordMin, CoordMax).WithMessage(RangeError);
         });
 
         When(x => x.PanCoordinates != null, () =>
         {
             RuleFor(x => x.PanCoordinates!.X)
-                .NotEmpty().WithMessage(RequiredError);
+                .NotNull().WithMessage(RequiredError)
+                .ExclusiveBetween(CoordMin, CoordMax).WithMessage(RangeError);
 
             RuleFor(x => x.PanCoordinates!.Y)
-                .NotEmpty().WithMessage(RequiredError);
+                .NotNull().WithMessage(RequiredError)
+                .ExclusiveBetween(CoordMin, CoordMax).WithMessage(RangeError);
 
             RuleFor(x => x.PanCoordinates!.Z)
-                .NotEmpty().WithMessage(RequiredError);
+                .NotNull().WithMessage(RequiredError)
+                .ExclusiveBetween(CoordMin, CoordMax).WithMessage(RangeError);
         });
     }
 }

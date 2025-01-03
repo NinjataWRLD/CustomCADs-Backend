@@ -44,7 +44,8 @@ public sealed class PurchaseCartWithDeliveryHandler(ICartReads reads, IUnitOfWor
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: price,
-            description: $"{buyer} bought {count} products for a total of {price}$."
+            description: $"{buyer} bought {count} products for a total of {price}$.",
+            ct
         ).ConfigureAwait(false);
         cart.SetPurchasedStatus();
 

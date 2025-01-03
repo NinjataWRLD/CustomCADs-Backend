@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Categories.Application.Categories.Queries.GetAll;
 using CustomCADs.Categories.Application.Common.Caching;
-using CustomCADs.Categories.Application.Common.Caching.Categories;
 using CustomCADs.Categories.Domain.Categories.Reads;
 using CustomCADs.Shared.Application.Cache;
 
@@ -40,7 +39,7 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatabase_OnCacheMiss()
+    public async Task Handle_ShouldQueryDatabase_OnCacheMiss()
     {
         // Assert
         cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(null as Category[]);

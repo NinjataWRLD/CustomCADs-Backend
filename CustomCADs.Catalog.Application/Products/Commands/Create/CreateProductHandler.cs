@@ -34,10 +34,10 @@ public sealed class CreateProductHandler(IWrites<Product> productWrites, IUnitOf
             name: req.Name,
             description: req.Description,
             price: req.Price,
-            imageId: imageId,
             status: role is Designer ? ProductStatus.Validated : ProductStatus.Unchecked,
-            creatorId: req.CreatorId,
             categoryId: req.CategoryId,
+            creatorId: req.CreatorId,
+            imageId: imageId,
             cadId: cadId
         );
 

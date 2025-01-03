@@ -1,9 +1,7 @@
 ﻿using CustomCADs.Categories.Application.Categories.SharedQueryHandlers;
 using CustomCADs.Categories.Domain.Categories.Reads;
-using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.UseCases.Categories.Queries;
-using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.SharedQueries.GetByIds;
 
@@ -20,7 +18,7 @@ public class GetCategoriesByIdsHandlerUnitTests : CategoriesBaseUnitTests
     ];
 
     [Fact]
-    public async Task Handle_CallsDatabase()
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
         reads.Setup(v => v.AllAsync(false, ct)).ReturnsAsync(

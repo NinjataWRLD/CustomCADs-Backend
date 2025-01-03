@@ -3,8 +3,6 @@ using CustomCADs.UnitTests.Accounts.Domain.Accounts.Properties.LastName.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Properties.LastName;
 
-public class AccountLastNameData : TheoryData<string?>;
-
 public class AccountLastNameUnitTests : AccountsBaseUnitTests
 {
     [Theory]

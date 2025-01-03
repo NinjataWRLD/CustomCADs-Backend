@@ -29,17 +29,18 @@ public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfW
         if (!order.Delivery)
             throw OrderDeliveryException.ById(order.Id);
 
-        order.SetCompletedStatus();
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId),
             sellerQuery = new(order.DesignerId.Value);
 
-        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
-        string seller = await sender.SendQueryAsync(sellerQuery, ct).ConfigureAwait(false);
+        string[] users = await Task.WhenAll(
+            sender.SendQueryAsync(buyerQuery, ct),
+            sender.SendQueryAsync(sellerQuery, ct)
+        ).ConfigureAwait(false);
+
+        string buyer = users[0], seller = users[1];
 
         int count = 1;
         double weight = req.Weight;
-        decimal price = 0m; // integrate order prices
-
         CreateShipmentCommand shipmentCommand = new(
             Info: new(count, weight, buyer),
             Service: req.ShipmentService,
@@ -50,12 +51,15 @@ public sealed class PurchaseOrderWithDeliveryHandler(IOrderReads reads, IUnitOfW
         ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
         order.SetShipmentId(shipmentId);
 
+        decimal price = 0m; // integrate order prices
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: price,
-            description: $"{buyer} bought {order.Name} from {seller}."
+            description: $"{buyer} bought {order.Name} from {seller}.",
+            ct
         ).ConfigureAwait(false);
 
+        order.SetCompletedStatus();
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return message;

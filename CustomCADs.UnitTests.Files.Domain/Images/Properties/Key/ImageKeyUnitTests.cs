@@ -1,9 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Files.Domain.Images.Properties.Key;
+﻿using CustomCADs.UnitTests.Files.Domain.Images.Properties.Key.Data;
 
-using CustomCADs.UnitTests.Files.Domain.Images.Properties.Key.Data;
-using static ImagesData;
-
-public class ImageKeyData : TheoryData<string>;
+namespace CustomCADs.UnitTests.Files.Domain.Images.Properties.Key;
 
 public class ImageKeyUnitTests : ImagesBaseUnitTests
 {

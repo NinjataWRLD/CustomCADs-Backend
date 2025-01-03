@@ -10,14 +10,12 @@ namespace CustomCADs.UnitTests.Categories.Application.Categories.DomainEventHand
 using static CachingKeys;
 using static CategoriesData;
 
-public class CategoryEditedHandlerData : TheoryData<string, string>;
-
 public class CategoryEditedHandlerUnitTests : CategoriesBaseUnitTests
 {
     private readonly Mock<ICacheService> cache = new();
 
     [Theory]
-    [ClassData(typeof(CategoryEditedHandlerValidData))]
+    [ClassData(typeof(CategoryEditedValidData))]
     public async Task Handle_ShouldUpdateCache(string name, string description)
     {
         // Arrange

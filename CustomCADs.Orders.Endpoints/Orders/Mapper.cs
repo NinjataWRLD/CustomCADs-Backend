@@ -1,4 +1,5 @@
-﻿using CustomCADs.Orders.Application.Orders.Queries.CalculateShipment;
+﻿using CustomCADs.Orders.Application.Orders.Commands.Finish;
+using CustomCADs.Orders.Application.Orders.Queries.CalculateShipment;
 using CustomCADs.Orders.Application.Orders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.Orders.Queries.GetAll;
 using CustomCADs.Orders.Application.Orders.Queries.GetById;
@@ -129,6 +130,12 @@ internal static class Mapper
             OrderDate: order.OrderDate.ToString(DateFormatString),
             DeliveryType: order.Delivery.ToString(),
             BuyerName: order.BuyerName
+        );
+    
+    internal static FinishOrderResponse ToFinishOrderResponse(this FinishOrderDto dto)
+        => new(
+            PresignedKey: dto.PresignedKey,
+            GeneratedUrl: dto.GeneratedUrl
         );
 
     internal static GetCompletedOrdersResponse ToGetCompletedOrdersDto(this GetAllOrdersDto order)

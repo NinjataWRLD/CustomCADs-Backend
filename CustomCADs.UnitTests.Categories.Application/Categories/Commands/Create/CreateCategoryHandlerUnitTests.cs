@@ -6,8 +6,6 @@ using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Create.Dat
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Create;
 
-public class CreateCategroyHandlerData : TheoryData<string, string>;
-
 public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 {
     private readonly Mock<IEventRaiser> raiser = new();
@@ -15,8 +13,8 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
     private readonly Mock<IWrites<Category>> writes = new();
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerValidData))]
-    public async Task Handler_ShouldCallDatabase(string name, string description)
+    [ClassData(typeof(CreateCategoryValidData))]
+    public async Task Handler_ShouldPersistToDatabase(string name, string description)
     {
         // Arrange
         CategoryWriteDto dto = new(name, description);
@@ -35,7 +33,7 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(EditCategoryHandlerValidData))]
+    [ClassData(typeof(CreateCategoryValidData))]
     public async Task Handler_ShouldRaiseEvents(string name, string description)
     {
         // Arrange

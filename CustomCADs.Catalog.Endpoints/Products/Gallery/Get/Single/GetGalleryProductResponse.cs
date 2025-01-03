@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.Dtos;
-
-namespace CustomCADs.Catalog.Endpoints.Products.Gallery.Get.Single;
+﻿namespace CustomCADs.Catalog.Endpoints.Products.Gallery.Get.Single;
 
 public sealed record GetGalleryProductResponse(
     Guid Id,
@@ -8,9 +6,7 @@ public sealed record GetGalleryProductResponse(
     string Description,
     decimal Price,
     string UploadDate,
-    string CadKey,
-    CoordinatesDto CamCoordinates,
-    CoordinatesDto PanCoordinates,
+    Guid CadId,
     CountsDto Counts,
     CategoryResponse Category
 );

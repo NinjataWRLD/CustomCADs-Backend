@@ -23,6 +23,32 @@ public sealed class SpeedyService(
     private readonly AccountModel account = new(settings.Value.Username, settings.Value.Password);
     private const Payer payer = Payer.RECIPIENT;
     private const PaperSize paper = PaperSize.A4;
+    
+    public async Task<CalculationDto[]> CalculateAsync(CalculateRequest req, CancellationToken ct = default)
+    {
+        var response = await calculationService.CalculateAsync(
+            account: account,
+            payer: payer,
+            parcelCount: req.ParcelCount,
+            totalWeight: req.TotalWeight,
+            country: req.Country,
+            site: req.City,
+            ct: ct
+        ).ConfigureAwait(false);
+
+        return [.. response.Select(c => new CalculationDto(
+            Service: c.Service,
+            Price: new(
+                Amount: c.Price.Amount,
+                Vat: c.Price.Vat,
+                Total: c.Price.Total,
+                Currency: c.Price.Currency
+            ),
+            PickupDate: c.PickupDate,
+            DeliveryDeadline: c.DeliveryDeadline
+        ))];
+    }
+
 
     public async Task<ShipmentDto> ShipAsync(
         ShipRequestDto req,
@@ -54,42 +80,13 @@ public sealed class SpeedyService(
         );
     }
 
-    public async Task<CalculationDto[]> CalculateAsync(CalculateRequest req, CancellationToken ct = default)
-    {
-        var response = await calculationService.CalculateAsync(
+    public async Task CancelAsync(string shipmentId, string comment, CancellationToken ct = default)
+        =>  await shipmentService.CancelShipmentAsync(
             account: account,
-            payer: payer,
-            parcelCount: req.ParcelCount,
-            totalWeight: req.TotalWeight,
-            country: req.Country,
-            site: req.City,
-            ct: ct
-        ).ConfigureAwait(false);
-
-        return [.. response.Select(c => new CalculationDto(
-            Service: c.Service,
-            Price: new(
-                Amount: c.Price.Amount,
-                Vat: c.Price.Vat,
-                Total: c.Price.Total,
-                Currency: c.Price.Currency
-            ),
-            PickupDate: c.PickupDate,
-            DeliveryDeadline: c.DeliveryDeadline
-        ))];
-    }
-
-    public async Task<byte[]> PrintAsync(string shipmentId, CancellationToken ct = default)
-    {
-        byte[] waybill = await printService.PrintAsync(
-            account: account,
-            paperSize: paper,
             shipmentId: shipmentId,
+            comment: comment,
             ct: ct
         ).ConfigureAwait(false);
-
-        return waybill;
-    }
 
     public async Task<ShipmentStatusDto[]> TrackAsync(string shipmentId, CancellationToken ct = default)
     {
@@ -105,4 +102,12 @@ public sealed class SpeedyService(
             Message: o.Translate()
         ))];
     }
+
+    public async Task<byte[]> PrintAsync(string shipmentId, CancellationToken ct = default)
+        => await printService.PrintAsync(
+            account: account,
+            paperSize: paper,
+            shipmentId: shipmentId,
+            ct: ct
+        ).ConfigureAwait(false);
 }

@@ -7,6 +7,6 @@ public sealed class CountCartItemsHandler(ICartReads reads)
 {
     public async Task<Dictionary<CartId, int>> Handle(CountCartItemsQuery req, CancellationToken ct)
     {
-        return await reads.CountItemsAsync(req.BuyerId, ct: ct).ConfigureAwait(false);
+        return await reads.CountItemsByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false);
     }
 }

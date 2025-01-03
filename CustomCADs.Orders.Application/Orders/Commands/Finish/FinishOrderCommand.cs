@@ -6,4 +6,4 @@ public sealed record FinishOrderCommand(
     OrderId Id,
     AccountId DesignerId,
     (string Key, string ContentType) Cad
-) : ICommand;
+) : ICommand<FinishOrderDto>;

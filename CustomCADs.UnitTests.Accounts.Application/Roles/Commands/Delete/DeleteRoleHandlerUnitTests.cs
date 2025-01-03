@@ -10,8 +10,6 @@ namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Delete;
 
 using static RolesData;
 
-public class DeleteRoleHandlerData : TheoryData<string>;
-
 public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 {
     private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
@@ -35,8 +33,8 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteRoleHandlerValidData))]
-    public async Task Handler_ShouldCallDatabase(string name)
+    [ClassData(typeof(DeleteRoleValidData))]
+    public async Task Handler_ShouldQueryDatabase(string name)
     {
         // Arrange
         DeleteRoleCommand command = new(name);
@@ -47,13 +45,27 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 
         // Assert
         await reads.Received(1).SingleByNameAsync(name, track: true, ct: ct);
+    }
+    
+    [Theory]
+    [ClassData(typeof(DeleteRoleValidData))]
+    public async Task Handler_ShouldPersistToDatabase_WhenRoleFound(string name)
+    {
+        // Arrange
+        DeleteRoleCommand command = new(name);
+        DeleteRoleHandler handler = new(reads, writes, uow, raiser);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
         writes.Received(1).Remove(Arg.Is<Role>(x => x.Name == name));
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
     [Theory]
-    [ClassData(typeof(DeleteRoleHandlerValidData))]
-    public async Task Handler_ShouldRaiseEvents(string name)
+    [ClassData(typeof(DeleteRoleValidData))]
+    public async Task Handler_ShouldRaiseEvents_WhenRoleFound(string name)
     {
         // Arrange
         DeleteRoleCommand command = new(name);
@@ -72,8 +84,8 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteRoleHandlerValidData))]
-    public async Task Handle_ShouldThrowException_WhenRoleDoesNotExists(string role)
+    [ClassData(typeof(DeleteRoleValidData))]
+    public async Task Handle_ShouldThrowException_WhenRoleNotFound(string role)
     {
         // Arrange
         reads.SingleByNameAsync(role, true, ct).Returns(null as Role);

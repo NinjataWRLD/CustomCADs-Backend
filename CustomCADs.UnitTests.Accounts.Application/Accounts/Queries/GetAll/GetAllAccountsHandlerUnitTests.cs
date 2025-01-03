@@ -17,7 +17,7 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
         (Guid.NewGuid(), Constants.Roles.Designer, DesignerUsername, DesignerEmail),
         (Guid.NewGuid(), Constants.Roles.Admin, AdminUsername, AdminEmail),
     ]).ToArray();
-    private readonly AccountQuery accountQuery = new(GetPagination(count));
+    private readonly AccountQuery accountQuery = new(GetPagination());
 
     public GetAllAccountsHandlerUnitTests()
     {
@@ -26,10 +26,10 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallDatabase()
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        GetAllAccountsQuery query = new(GetPagination(count));
+        GetAllAccountsQuery query = new(GetPagination());
         GetAllAccountsHandler handler = new(reads);
 
         // Act
@@ -43,7 +43,7 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
     public async Task Handle_ShouldReturnResult()
     {
         // Arrange
-        GetAllAccountsQuery query = new(GetPagination(count));
+        GetAllAccountsQuery query = new(GetPagination());
         GetAllAccountsHandler handler = new(reads);
 
         // Act

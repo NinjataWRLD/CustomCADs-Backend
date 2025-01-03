@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries;
-
-namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.Single;
+﻿namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.Single;
 
 public sealed record DesignerSingleProductResponse(
     Guid Id,
@@ -8,6 +6,6 @@ public sealed record DesignerSingleProductResponse(
     string Description,
     decimal Price,
     string CreatorName,
-    CadDto Cad,
+    Guid CadId,
     CategoryResponse Category
 );

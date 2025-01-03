@@ -3,6 +3,7 @@ using FluentValidation;
 
 namespace CustomCADs.Carts.Application.Carts.Commands.PurchaseWithDelivery;
 
+using static Constants;
 using static Constants.FluentMessages;
 
 public class PurchaseCartWithDeliveryValidator : Validator<PurchaseCartWithDeliveryCommand, string>
@@ -30,11 +31,11 @@ public class PurchaseCartWithDeliveryValidator : Validator<PurchaseCartWithDeliv
             {
                 x.RuleFor(x => x.Email)
                     .NotEmpty().WithMessage(RequiredError)
-                    .EmailAddress().WithMessage(EmailError);
+                    .Matches(Regexes.Email).WithMessage(EmailError);
 
                 x.RuleFor(x => x.Phone)
                     .NotEmpty().WithMessage(RequiredError)
-                    .Matches(PhoneRegex).WithMessage(PhoneError);
+                    .Matches(Regexes.Phone).WithMessage(PhoneError);
             });
     }
 }

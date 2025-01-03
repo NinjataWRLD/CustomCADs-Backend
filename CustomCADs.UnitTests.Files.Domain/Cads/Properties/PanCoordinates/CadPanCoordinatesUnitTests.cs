@@ -3,8 +3,6 @@ using CustomCADs.UnitTests.Files.Domain.Cads.Properties.CamCoordinates.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Properties.PanCoordinates;
 
-public class CadPanCoordinatesData : TheoryData<Coordinates>;
-
 public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
 {
     [Theory]

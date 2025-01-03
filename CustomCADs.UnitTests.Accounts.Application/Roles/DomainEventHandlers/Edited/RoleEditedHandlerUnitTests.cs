@@ -6,14 +6,12 @@ using CustomCADs.UnitTests.Accounts.Application.Roles.DomainEventHandlers.Edited
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.DomainEventHandlers.Edited;
 
-public class RoleEditedHandlerData : TheoryData<string, string>;
-
 public class RoleEditedHandlerUnitTests : RolesBaseUnitTests
 {
     private readonly ICacheService cache = Substitute.For<ICacheService>();
 
     [Theory]
-    [ClassData(typeof(RoleEditedHandlerValidData))]
+    [ClassData(typeof(RoleEditedValidData))]
     public async Task Handle_ShouldUpdateCache(string name, string description)
     {
         // Arrange

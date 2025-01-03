@@ -7,6 +7,6 @@ public sealed class CountCartHandler(ICartReads reads)
 {
     public async Task<int> Handle(CountCartQuery req, CancellationToken ct)
     {
-        return await reads.CountAsync(req.BuyerId, ct: ct).ConfigureAwait(false);
+        return await reads.CountByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false);
     }
 }

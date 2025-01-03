@@ -38,14 +38,9 @@ public sealed class GetAllProductsHandler(IProductReads reads, IRequestSender se
         (AccountId Id, string TimeZone)[] timeZones = await sender
             .SendQueryAsync(timeZonesQuery, ct).ConfigureAwait(false);
 
-        ImageId[] imageIds = [.. result.Items.Select(c => c.ImageId)]; ;
-        GetImagesByIdsQuery imagesQuery = new(imageIds);
-        var images = await sender.SendQueryAsync(imagesQuery, ct).ConfigureAwait(false);
-
         return new(
             Count: result.Count,
             Items: result.Items.Select(p => p.ToGetAllProductsItem(
-                image: images.Single(i => i.Id == p.ImageId).ToImageDto(),
                 username: users.Single(u => u.Id == p.CreatorId).Username,
                 categoryName: categories.Single(c => c.Id == p.CategoryId).Name,
                 timeZone: timeZones.Single(t => t.Id == p.CreatorId).TimeZone

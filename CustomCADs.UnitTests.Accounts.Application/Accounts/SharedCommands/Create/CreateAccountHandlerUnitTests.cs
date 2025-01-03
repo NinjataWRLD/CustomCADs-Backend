@@ -5,16 +5,14 @@ using CustomCADs.UnitTests.Accounts.Application.Accounts.SharedCommands.Create.D
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.SharedCommands.Create;
 
-public class CreateAccountHandlerData : TheoryData<string, string, string, string, string?, string?>;
-
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IWrites<Account> writes = Substitute.For<IWrites<Account>>();
     private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string role, string username, string email, string timeZone, string? firstName, string? lastName)
+    [ClassData(typeof(CreateAccountValidData))]
+    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
         // Arrange
         CreateAccountCommand command = new(

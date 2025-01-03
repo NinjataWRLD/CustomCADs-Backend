@@ -7,8 +7,6 @@ using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Create;
 
-public class CreateAccountHandlerData : TheoryData<string, string, string, string, string, string?, string?>;
-
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IWrites<Account> writes = Substitute.For<IWrites<Account>>();
@@ -17,8 +15,8 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string role, string username, string email, string timeZone, string password, string? firstName, string? lastName)
+    [ClassData(typeof(CreateAccountValidData))]
+    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string timeZone, string password, string? firstName, string? lastName)
     {
         // Arrange
         CreateAccountCommand command = new(
@@ -51,7 +49,7 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CreateAccountHandlerValidData))]
+    [ClassData(typeof(CreateAccountValidData))]
     public async Task Handle_ShouldRaiseEvents(string role, string username, string email, string timeZone, string password, string? firstName, string? lastName)
     {
         // Arrange
