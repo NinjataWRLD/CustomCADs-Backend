@@ -6,6 +6,7 @@ namespace CustomCADs.Identity.Endpoints.SignUp.Register;
 
 using static AccountConstants;
 using static ApiMessages;
+using static Constants;
 using static Constants.FluentMessages;
 using static Constants.Roles;
 
@@ -33,7 +34,7 @@ public class RegisterRequestValidator : Validator<RegisterRequest>
 
         RuleFor(r => r.Email)
             .NotEmpty().WithMessage(RequiredError)
-            .EmailAddress();
+            .Matches(Regexes.Email).WithMessage(EmailError);
 
         RuleFor(r => r.FirstName)
             .Length(UsernameMinLength, UsernameMaxLength).WithMessage(LengthError);

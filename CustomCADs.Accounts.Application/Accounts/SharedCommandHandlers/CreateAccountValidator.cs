@@ -5,6 +5,7 @@ using FluentValidation;
 namespace CustomCADs.Accounts.Application.Accounts.SharedCommandHandlers;
 
 using static AccountConstants;
+using static Constants;
 using static Constants.FluentMessages;
 
 public class CreateAccountValidator : Validator<CreateAccountCommand, AccountId>
@@ -20,7 +21,7 @@ public class CreateAccountValidator : Validator<CreateAccountCommand, AccountId>
 
         RuleFor(r => r.Email)
             .NotEmpty().WithMessage(RequiredError)
-            .EmailAddress().WithMessage(EmailError);
+            .Matches(Regexes.Email).WithMessage(EmailError);
 
         RuleFor(r => r.TimeZone)
             .NotEmpty().WithMessage(RequiredError);

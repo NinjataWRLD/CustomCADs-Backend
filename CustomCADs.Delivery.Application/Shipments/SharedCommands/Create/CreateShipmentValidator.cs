@@ -4,6 +4,7 @@ using FluentValidation;
 
 namespace CustomCADs.Delivery.Application.Shipments.SharedCommands.Create;
 
+using static Constants;
 using static Constants.FluentMessages;
 using static ShipmentConstants;
 
@@ -41,10 +42,10 @@ public class CreateShipmentValidator : Validator<CreateShipmentCommand, Shipment
             .ChildRules(x =>
             {
                 x.RuleFor(x => x.Email)
-                    .EmailAddress().WithMessage(EmailError);
+                    .Matches(Regexes.Email).WithMessage(EmailError);
 
                 x.RuleFor(x => x.Phone)
-                    .Matches(PhoneRegex).WithMessage(PhoneError);
+                    .Matches(Regexes.Phone).WithMessage(PhoneError);
             });
     }
 }
