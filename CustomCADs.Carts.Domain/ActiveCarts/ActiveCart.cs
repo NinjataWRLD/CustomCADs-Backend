@@ -16,13 +16,10 @@ public class ActiveCart : BaseAggregateRoot
     private ActiveCart(AccountId buyerId) : this()
     {
         BuyerId = buyerId;
-        PurchaseDate = DateTime.UtcNow;
     }
 
     public ActiveCartId Id { get; init; }
-    public DateTime PurchaseDate { get; }
     public AccountId BuyerId { get; private set; }
-    public ShipmentId? ShipmentId { get; private set; }
     public bool HasDelivery => items.Any(i => i.Delivery);
     public double TotalDeliveryWeight => Items.Where(i => i.Delivery).Sum(i => i.Weight);
     public int TotalDeliveryCount => Items.Where(i => i.Delivery).Count();

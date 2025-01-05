@@ -1,12 +1,12 @@
-﻿using CustomCADs.Carts.Domain.Carts.Entities;
+﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CustomCADs.Carts.Persistence.Carts.Configurations;
+namespace CustomCADs.Carts.Persistence.ActiveCarts.Configurations;
 
-public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
+public class ActiveCartItemConfiguration : IEntityTypeConfiguration<ActiveCartItem>
 {
-    public void Configure(EntityTypeBuilder<CartItem> builder)
+    public void Configure(EntityTypeBuilder<ActiveCartItem> builder)
         => builder
             .SetPrimaryKey()
             .SetForeignKeys()
@@ -14,16 +14,16 @@ public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
             .SetValidations();
 }
 
-public static class CartItemItemConfigUtils
+public static class ActiveCartItemItemConfigUtils
 {
-    public static EntityTypeBuilder<CartItem> SetPrimaryKey(this EntityTypeBuilder<CartItem> builder)
+    public static EntityTypeBuilder<ActiveCartItem> SetPrimaryKey(this EntityTypeBuilder<ActiveCartItem> builder)
     {
         builder.HasKey(x => x.Id);
 
         return builder;
     }
 
-    public static EntityTypeBuilder<CartItem> SetForeignKeys(this EntityTypeBuilder<CartItem> builder)
+    public static EntityTypeBuilder<ActiveCartItem> SetForeignKeys(this EntityTypeBuilder<ActiveCartItem> builder)
     {
         builder
             .HasOne(x => x.Cart)
@@ -34,7 +34,7 @@ public static class CartItemItemConfigUtils
         return builder;
     }
 
-    public static EntityTypeBuilder<CartItem> SetStronglyTypedIds(this EntityTypeBuilder<CartItem> builder)
+    public static EntityTypeBuilder<ActiveCartItem> SetStronglyTypedIds(this EntityTypeBuilder<ActiveCartItem> builder)
     {
         builder.Property(x => x.Id)
             .ValueGeneratedOnAdd()
@@ -55,16 +55,10 @@ public static class CartItemItemConfigUtils
                 v => new(v)
             );
 
-        builder.Property(x => x.CadId)
-            .HasConversion<Guid?>(
-                x => x == null ? null : x.Value.Value,
-                v => v == null ? null : new(v.Value)
-            );
-
         return builder;
     }
 
-    public static EntityTypeBuilder<CartItem> SetValidations(this EntityTypeBuilder<CartItem> builder)
+    public static EntityTypeBuilder<ActiveCartItem> SetValidations(this EntityTypeBuilder<ActiveCartItem> builder)
     {
         builder.Property(x => x.Quantity)
             .IsRequired()
@@ -74,15 +68,6 @@ public static class CartItemItemConfigUtils
             .IsRequired()
             .HasPrecision(6, 2)
             .HasColumnName("Weight");
-
-        builder.Property(x => x.Price)
-            .IsRequired()
-            .HasPrecision(10, 2)
-            .HasColumnName("Price");
-
-        builder.Property(x => x.Delivery)
-            .IsRequired()
-            .HasColumnName("Delivery");
 
         builder.Property(x => x.Delivery)
             .IsRequired()
@@ -95,9 +80,6 @@ public static class CartItemItemConfigUtils
         builder.Property(x => x.CartId)
             .IsRequired()
             .HasColumnName("CartId");
-
-        builder.Property(x => x.CadId)
-            .HasColumnName("CadId");
 
         return builder;
     }

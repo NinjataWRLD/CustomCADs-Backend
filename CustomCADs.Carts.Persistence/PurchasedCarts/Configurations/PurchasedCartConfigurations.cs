@@ -1,13 +1,12 @@
-﻿using CustomCADs.Carts.Domain.Carts;
-using CustomCADs.Carts.Domain.Carts.Enums;
+﻿using CustomCADs.Carts.Domain.PurchasedCarts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CustomCADs.Carts.Persistence.Carts.Configurations;
+namespace CustomCADs.Carts.Persistence.PurchasedCarts.Configurations;
 
-public class CartConfigurations : IEntityTypeConfiguration<Cart>
+public class PurchasedCartConfigurations : IEntityTypeConfiguration<PurchasedCart>
 {
-    public void Configure(EntityTypeBuilder<Cart> builder)
+    public void Configure(EntityTypeBuilder<PurchasedCart> builder)
         => builder
             .SetPrimaryKey()
             .SetForeignKeys()
@@ -15,16 +14,16 @@ public class CartConfigurations : IEntityTypeConfiguration<Cart>
             .SetValidations();
 }
 
-public static class CartItemConfigurUitls
+public static class PurchasedCartItemConfigurUitls
 {
-    public static EntityTypeBuilder<Cart> SetPrimaryKey(this EntityTypeBuilder<Cart> builder)
+    public static EntityTypeBuilder<PurchasedCart> SetPrimaryKey(this EntityTypeBuilder<PurchasedCart> builder)
     {
         builder.HasKey(x => x.Id);
 
         return builder;
     }
 
-    public static EntityTypeBuilder<Cart> SetForeignKeys(this EntityTypeBuilder<Cart> builder)
+    public static EntityTypeBuilder<PurchasedCart> SetForeignKeys(this EntityTypeBuilder<PurchasedCart> builder)
     {
         builder
             .HasMany(x => x.Items)
@@ -35,7 +34,7 @@ public static class CartItemConfigurUitls
         return builder;
     }
 
-    public static EntityTypeBuilder<Cart> SetStronglyTypedIds(this EntityTypeBuilder<Cart> builder)
+    public static EntityTypeBuilder<PurchasedCart> SetStronglyTypedIds(this EntityTypeBuilder<PurchasedCart> builder)
     {
         builder.Property(x => x.Id)
             .ValueGeneratedOnAdd()
@@ -59,16 +58,8 @@ public static class CartItemConfigurUitls
         return builder;
     }
 
-    public static EntityTypeBuilder<Cart> SetValidations(this EntityTypeBuilder<Cart> builder)
+    public static EntityTypeBuilder<PurchasedCart> SetValidations(this EntityTypeBuilder<PurchasedCart> builder)
     {
-        builder.Property(x => x.Status)
-            .IsRequired()
-            .HasConversion(
-                x => x.ToString(),
-                s => Enum.Parse<CartStatus>(s)
-            )
-            .HasColumnName("Status");
-
         builder.Property(x => x.PurchaseDate)
             .IsRequired()
             .HasColumnName("PurchaseDate");
