@@ -9,7 +9,7 @@ public class ShipmentGroup : Group
         Configure("shipments", ep =>
         {
             ep.Roles(Client);
-            ep.Description(d => d.WithTags("06. Shipments"));
+            ep.Description(d => d.WithTags("07. Shipments"));
         });
     }
 }
