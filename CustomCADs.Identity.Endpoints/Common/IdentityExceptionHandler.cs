@@ -1,13 +1,12 @@
 ﻿using CustomCADs.Identity.Application.Common.Exceptions;
 using CustomCADs.Identity.Domain.Common.Exceptions.Users;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Identity.Endpoints.Common;
 
 using static StatusCodes;
 
-public class GlobalExceptionHandler : IExceptionHandler
+public class IdentityExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
@@ -29,30 +28,12 @@ public class GlobalExceptionHandler : IExceptionHandler
                 message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
-        else if (ex is DbUpdateConcurrencyException)
-        {
-            context.Response.StatusCode = Status409Conflict;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                error = "Database Conflict Ocurred",
-                message = ex.Message,
-            }, ct).ConfigureAwait(false);
-        }
-        else if (ex is DbUpdateException)
-        {
-            context.Response.StatusCode = Status400BadRequest;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                error = "Database Error",
-                message = ex.Message,
-            }, ct).ConfigureAwait(false);
-        }
-        else
+        else if (ex is UserCreationException)
         {
             context.Response.StatusCode = Status500InternalServerError;
             await context.Response.WriteAsJsonAsync(new
             {
-                error = "Internal Server Error",
+                error = "Inside Error, contact Support",
                 message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
