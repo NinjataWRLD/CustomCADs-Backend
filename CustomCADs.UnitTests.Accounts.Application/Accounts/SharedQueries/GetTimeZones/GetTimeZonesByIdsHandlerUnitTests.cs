@@ -12,7 +12,7 @@ using static AccountsData;
 
 public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
+    private readonly Mock<IAccountReads> reads = new();
     private static readonly string[] timeZones = [
         ValidTimeZone1, 
         ValidTimeZone2,
@@ -26,19 +26,19 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);
-        reads.AllAsync(accountQuery, false, ct).Returns(new Result<Account>(
+        reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
             Items: [.. ids.Select(id => CreateAccount())]
         ));
 
         GetTimeZonesByIdsQuery query = new(ids);
-        GetTimeZonesByIdsHandler handler = new(reads);
+        GetTimeZonesByIdsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).AllAsync(accountQuery, false, ct);
+        reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
     }
 
     [Theory]
@@ -47,7 +47,7 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);
-        reads.AllAsync(accountQuery, false, ct).Returns(new Result<Account>(
+        reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
             Items: [.. 
                 Enumerable.Range(0, ids.Length).Select(i => 
@@ -56,7 +56,7 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
         ));
 
         GetTimeZonesByIdsQuery query = new(ids);
-        GetTimeZonesByIdsHandler handler = new(reads);
+        GetTimeZonesByIdsHandler handler = new(reads.Object);
 
         // Act
         string[] actualTimeZones = [.. (await handler.Handle(query, ct)).Select(t => t.TimeZone)];

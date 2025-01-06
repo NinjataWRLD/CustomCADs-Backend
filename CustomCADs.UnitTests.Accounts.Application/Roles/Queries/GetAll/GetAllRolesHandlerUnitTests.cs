@@ -1,16 +1,17 @@
-﻿using CustomCADs.Accounts.Application.Common.Caching.Roles;
+﻿using CustomCADs.Accounts.Application.Common.Caching;
 using CustomCADs.Accounts.Application.Roles.Queries.GetAll;
 using CustomCADs.Accounts.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Cache;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Queries.GetAll;
 
+using static CachingKeys;
 using static Constants.Roles;
 
 public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 {
-    private readonly IRoleReads reads = Substitute.For<IRoleReads>();
-    private readonly ICacheService cache = Substitute.For<ICacheService>();
+    private readonly Mock<IRoleReads> reads = new();
+    private readonly Mock<ICacheService> cache = new();
     private readonly Role[] roles = Role.CreateRange(
         (1, Client, ClientDescription),
         (2, Contributor, ContributorDescription),
@@ -20,8 +21,8 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 
     public GetAllRolesHandlerUnitTests()
     {
-        cache.GetRolesArrayAsync().Returns(roles);
-        reads.AllAsync(track: false, ct).Returns(roles);
+        cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(roles);
+        reads.Setup(x => x.AllAsync(false, ct)).ReturnsAsync(roles);
     }
 
     [Fact]
@@ -29,29 +30,29 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     {
         // Assert
         GetAllRolesQuery query = new();
-        GetAllRolesHandler handler = new(reads, cache);
+        GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await cache.Received(1).GetRolesArrayAsync();
+        cache.Verify(x => x.GetAsync<IEnumerable<Role>>(RoleKey), Times.Once);
     }
     
     [Fact]
     public async Task Handle_ShouldQueryDatabase_OnCacheMiss()
     {
         // Assert
-        cache.GetRolesArrayAsync().Returns(null as Role[]);
+        cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(null as Role[]);
 
         GetAllRolesQuery query = new();
-        GetAllRolesHandler handler = new(reads, cache);
+        GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).AllAsync(track: false, ct);
+        reads.Verify(x => x.AllAsync(false, ct), Times.Once);
     }
 
     [Fact]
@@ -59,7 +60,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     {
         // Assert
         GetAllRolesQuery query = new();
-        GetAllRolesHandler handler = new(reads, cache);
+        GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         IEnumerable<RoleReadDto> roles = await handler.Handle(query, ct);
@@ -77,9 +78,10 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     public async Task Handle_ShouldReturnResult_OnCacheMiss()
     {
         // Assert
-        cache.GetRolesArrayAsync().Returns(null as Role[]);
+        cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(null as Role[]);
+
         GetAllRolesQuery query = new();
-        GetAllRolesHandler handler = new(reads, cache);
+        GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         IEnumerable<RoleReadDto> roles = await handler.Handle(query, ct);

@@ -1,10 +1,11 @@
-﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
-using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.Carts;
+﻿using CustomCADs.Files.Application.Common.Exceptions;
+using CustomCADs.Files.Domain.Common.Exceptions.Cads;
+using CustomCADs.Files.Domain.Common.Exceptions.Images;
+using CustomCADs.Shared.Application.Payment.Exceptions;
 using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace CustomCADs.Carts.Endpoints.Common;
+namespace CustomCADs.Presentation;
 
 using static StatusCodes;
 
@@ -12,7 +13,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is ActiveCartValidationException or ActiveCartValidationException or PurchasedCartValidationException or PurchasedCartValidationException)
+        if (ex is CadValidationException or ImageValidationException)
         {
             context.Response.StatusCode = Status400BadRequest;
             await context.Response.WriteAsJsonAsync(new
@@ -21,21 +22,21 @@ public class GlobalExceptionHandler : IExceptionHandler
                 message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
-        else if (ex is PurchasedCartAuthorizationException)
-        {
-            context.Response.StatusCode = Status403Forbidden;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                error = "Authorization Issue",
-                message = ex.Message
-            }, ct).ConfigureAwait(false);
-        }
-        else if (ex is ActiveCartNotFoundException or ActiveCartItemNotFoundException or PurchasedCartNotFoundException or PurchasedCartItemNotFoundException)
+        else if (ex is CadNotFoundException or ImageNotFoundException)
         {
             context.Response.StatusCode = Status404NotFound;
             await context.Response.WriteAsJsonAsync(new
             {
                 error = "Resource Not Found",
+                message = ex.Message
+            }, ct).ConfigureAwait(false);
+        }
+        else if (ex is PaymentFailedException)
+        {
+            context.Response.StatusCode = Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                error = "Payment Failure",
                 message = ex.Message
             }, ct).ConfigureAwait(false);
         }

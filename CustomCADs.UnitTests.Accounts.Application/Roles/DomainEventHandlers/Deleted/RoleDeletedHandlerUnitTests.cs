@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Application.Common.Caching.Roles;
+﻿using CustomCADs.Accounts.Application.Common.Caching;
 using CustomCADs.Accounts.Application.Roles.DomainEventHandlers;
 using CustomCADs.Accounts.Domain.Roles.DomainEvents;
 using CustomCADs.Shared.Application.Cache;
@@ -6,9 +6,11 @@ using CustomCADs.UnitTests.Accounts.Application.Roles.DomainEventHandlers.Delete
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.DomainEventHandlers.Deleted;
 
+using static CachingKeys;
+
 public class RoleDeletedHandlerUnitTests : RolesBaseUnitTests
 {
-    private readonly ICacheService cache = Substitute.For<ICacheService>();
+    private readonly Mock<ICacheService> cache = new();
 
     [Theory]
     [ClassData(typeof(RoleDeletedValidData))]
@@ -17,14 +19,14 @@ public class RoleDeletedHandlerUnitTests : RolesBaseUnitTests
         // Arrange
         Role role = CreateRole(name, description);
         RoleDeletedDomainEvent de = new(role.Id, role.Name);
-        RoleDeletedEventHandler handler = new(cache);
+        RoleDeletedEventHandler handler = new(cache.Object);
 
         // Act
         await handler.Handle(de);
 
         // Assert
-        await cache.Received(1).RemoveRolesArrayAsync();
-        await cache.Received(1).RemoveRoleAsync(de.Id);
-        await cache.Received(1).RemoveRoleAsync(de.Name);
+        cache.Verify(x => x.RemoveAsync<IEnumerable<Role>>(RoleKey), Times.Once);
+        cache.Verify(x => x.RemoveAsync<Role>($"{RoleKey}/{de.Id}"), Times.Once);
+        cache.Verify(x => x.RemoveAsync<Role>($"{RoleKey}/{de.Name}"), Times.Once);
     }
 }

@@ -14,7 +14,7 @@ public class SetImageContentTypeValidatorUnitTests : ImagesBaseUnitTests
     public void Validate_ShouldBeValid_WhenContentTypeIsValid(string contentType)
     {
         // Arrange
-        SetImageContentTypeCommand command = new(id, contentType);
+        SetImageContentTypeCommand command = new(id1, contentType);
 
         // Act
         var result = validator.TestValidate(command);
@@ -28,7 +28,7 @@ public class SetImageContentTypeValidatorUnitTests : ImagesBaseUnitTests
     public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string contentType)
     {
         // Arrange
-        SetImageContentTypeCommand command = new(id, contentType);
+        SetImageContentTypeCommand command = new(id1, contentType);
 
         // Act
         var result = validator.TestValidate(new(command));

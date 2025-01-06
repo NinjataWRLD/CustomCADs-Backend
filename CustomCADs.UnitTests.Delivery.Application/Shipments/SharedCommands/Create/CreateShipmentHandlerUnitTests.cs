@@ -11,14 +11,15 @@ using static ShipmentsData;
 
 public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 {
-    private readonly IWrites<Shipment> writes = Substitute.For<IWrites<Shipment>>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
-    private readonly IDeliveryService delivery = Substitute.For<IDeliveryService>();
+    private readonly Mock<IWrites<Shipment>> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IDeliveryService> delivery = new();
     private static readonly ShipmentDto shipmentDto = new(ValidReferenceId, default!, default, default, default);
 
     public CreateShipmentHandlerUnitTests()
     {
-        delivery.ShipAsync(Arg.Any<ShipRequestDto>()).Returns(shipmentDto);
+        delivery.Setup(x => x.ShipAsync(It.IsAny<ShipRequestDto>(), ct))
+            .ReturnsAsync(shipmentDto);
     }
 
     [Theory]
@@ -33,17 +34,16 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
-        CreateShipmentHandler handler = new(writes, uow, delivery);
+        CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await writes.Received(1).AddAsync(
-            entity: Arg.Is<Shipment>(x => x.Address.Country == country && x.Address.City == city),
-            ct: ct
-        );
-        await uow.Received(1).SaveChangesAsync(ct);
+        writes.Verify(x => x.AddAsync(
+            It.Is<Shipment>(x => x.Address.Country == country && x.Address.City == city),
+        ct), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
     [Theory]
@@ -58,21 +58,22 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
-        CreateShipmentHandler handler = new(writes, uow, delivery);
+        CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await delivery.Received(1).ShipAsync(Arg.Is<ShipRequestDto>(x =>
-            x.Country == country
-            && x.City == city
-            && x.Phone == phone
-            && x.Email == email
-            && x.Name == recipient
-            && x.Service == service
-            && x.ParcelCount == count
-            && x.TotalWeight == weight
-        ), ct);
+        delivery.Verify(x => x.ShipAsync(
+            It.Is<ShipRequestDto>(x =>
+                x.Country == country
+                && x.City == city
+                && x.Phone == phone
+                && x.Email == email
+                && x.Name == recipient
+                && x.Service == service
+                && x.ParcelCount == count
+                && x.TotalWeight == weight
+        ), ct), Times.Once);
     }
 }

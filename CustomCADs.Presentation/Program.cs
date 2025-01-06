@@ -26,6 +26,7 @@ builder.Services.AddDelivery(builder.Configuration);
 builder.Services.AddFiles(builder.Configuration);
 builder.Services.AddIdentity(builder.Configuration);
 builder.Services.AddOrders(builder.Configuration);
+builder.Services.AddGlobalExceptionHandler();
 
 // Database Updater
 if (args.Contains("--migrate"))

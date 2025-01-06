@@ -1,9 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetCoords;
-using CustomCADs.Catalog.Endpoints.Common;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Contributors.Patch;
-
-using static ApiMessages;
 
 public sealed class PatchProductCadEndpoint(IRequestSender sender)
     : Endpoint<PatchProductCadRequest>
@@ -39,7 +36,7 @@ public sealed class PatchProductCadEndpoint(IRequestSender sender)
                 string types = string.Join(", ", Enum.GetNames<CoordinateType>());
                 ValidationFailures.Add(new(
                     propertyName: nameof(req.Type),
-                    errorMessage: string.Format(InvalidCoordValue, types),
+                    errorMessage: $"Type property must be one of: [{types}]",
                     attemptedValue: req.Type
                 ));
                 await SendErrorsAsync().ConfigureAwait(false);

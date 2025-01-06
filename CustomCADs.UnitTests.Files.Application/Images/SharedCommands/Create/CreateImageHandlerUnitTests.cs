@@ -7,8 +7,8 @@ namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.Create;
 
 public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 {
-    private readonly IWrites<Image> writes = Substitute.For<IWrites<Image>>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly Mock<IWrites<Image>> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
 
     [Theory]
     [ClassData(typeof(CreateImageValidData))]
@@ -19,19 +19,18 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
             Key: key,
             ContentType: contentType
         );
-        CreateImageHandler handler = new(writes, uow);
+        CreateImageHandler handler = new(writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await writes.Received(1).AddAsync(
-            Arg.Is<Image>(x =>
+        writes.Verify(x => x.AddAsync(
+            It.Is<Image>(x =>
                 x.Key == key
                 && x.ContentType == contentType
             ),
-            ct: ct
-        );
-        await uow.Received(1).SaveChangesAsync(ct);
+        ct), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 }

@@ -6,7 +6,8 @@ using static ImagesData;
 
 public class ImagesBaseUnitTests
 {
-    protected static readonly ImageId id = new(Guid.NewGuid());
+    protected static readonly ImageId id1 = new(Guid.NewGuid());
+    protected static readonly ImageId id2 = new(Guid.NewGuid());
     protected static readonly CancellationToken ct = CancellationToken.None;
 
     protected static Image CreateImage(string key = ValidKey1, string contentType = ValidContentType1)

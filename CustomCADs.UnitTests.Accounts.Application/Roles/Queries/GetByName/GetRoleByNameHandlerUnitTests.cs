@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Accounts.Application.Common.Caching;
-using CustomCADs.Accounts.Application.Common.Caching.Roles;
 using CustomCADs.Accounts.Application.Roles.Queries.GetByName;
 using CustomCADs.Accounts.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Cache;
@@ -12,20 +11,20 @@ using static RolesData;
 
 public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 {
-    private readonly IRoleReads reads = Substitute.For<IRoleReads>();
-    private readonly ICacheService cache = Substitute.For<ICacheService>();
+    private readonly Mock<IRoleReads> reads = new();
+    private readonly Mock<ICacheService> cache = new();
 
     public GetRoleByNameHandlerUnitTests()
     {
-        reads.SingleByNameAsync(ValidName1, track: false, ct).Returns(CreateRole(ValidName1, ValidDescription1));
-        reads.SingleByNameAsync(ValidName2, track: false, ct).Returns(CreateRole(ValidName2, ValidDescription2));
-        reads.SingleByNameAsync(ValidName3, track: false, ct).Returns(CreateRole(ValidName3, ValidDescription3));
-        reads.SingleByNameAsync(ValidName4, track: false, ct).Returns(CreateRole(ValidName4, ValidDescription4));
+        reads.Setup(x => x.SingleByNameAsync(ValidName1, false, ct)).ReturnsAsync(CreateRole(ValidName1, ValidDescription1));
+        reads.Setup(x => x.SingleByNameAsync(ValidName2, false, ct)).ReturnsAsync(CreateRole(ValidName2, ValidDescription2));
+        reads.Setup(x => x.SingleByNameAsync(ValidName3, false, ct)).ReturnsAsync(CreateRole(ValidName3, ValidDescription3));
+        reads.Setup(x => x.SingleByNameAsync(ValidName4, false, ct)).ReturnsAsync(CreateRole(ValidName4, ValidDescription4));
 
-        cache.GetRoleAsync(ValidName1).Returns(CreateRole(ValidName1, ValidDescription1));
-        cache.GetRoleAsync(ValidName2).Returns(CreateRole(ValidName2, ValidDescription2));
-        cache.GetRoleAsync(ValidName3).Returns(CreateRole(ValidName3, ValidDescription3));
-        cache.GetRoleAsync(ValidName4).Returns(CreateRole(ValidName4, ValidDescription4));
+        cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{ValidName1}")).ReturnsAsync(CreateRole(ValidName1, ValidDescription1));
+        cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{ValidName2}")).ReturnsAsync(CreateRole(ValidName2, ValidDescription2));
+        cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{ValidName3}")).ReturnsAsync(CreateRole(ValidName3, ValidDescription3));
+        cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{ValidName4}")).ReturnsAsync(CreateRole(ValidName4, ValidDescription4));
     }
 
     [Theory]
@@ -34,13 +33,13 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
     {
         // Arrange
         GetRoleByNameQuery query = new(name);
-        GetRoleByNameHandler handler = new(reads, cache);
+        GetRoleByNameHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await cache.Received(1).GetRoleAsync(name);
+        cache.Verify(x => x.GetAsync<Role>($"{RoleKey}/{name}"), Times.Once);
     }
 
     [Theory]
@@ -48,16 +47,16 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
     public async Task Handle_ShouldQueryDatabase_WhenCacheMiss(string name)
     {
         // Arrange
-        cache.GetRoleAsync(name).Returns(null as Role);
+        cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{name}")).ReturnsAsync(null as Role);
 
         GetRoleByNameQuery query = new(name);
-        GetRoleByNameHandler handler = new(reads, cache);
+        GetRoleByNameHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).SingleByNameAsync(name, track: false, ct);
+        reads.Verify(x => x.SingleByNameAsync(name, false, ct), Times.Once);
     }
 
     [Theory]
@@ -65,24 +64,24 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
     public async Task Handle_ShouldUpdateCache_WhenDatabaseHit(string name)
     {
         // Arrange
-        cache.GetRoleAsync(name).Returns(null as Role);
+        cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{name}")).ReturnsAsync(null as Role);
 
         GetRoleByNameQuery query = new(name);
-        GetRoleByNameHandler handler = new(reads, cache);
+        GetRoleByNameHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
         Role role = CreateRole(name);
-        await cache.Received(1).SetAsync(
-            Arg.Is<string>(key => key == $"{RoleKey}/{role.Id}"),
-            Arg.Is<Role>(item => item.Name == role.Name)
-        );
-        await cache.Received(1).SetAsync(
-            Arg.Is<string>(key => key == $"{RoleKey}/{role.Name}"),
-            Arg.Is<Role>(item => item.Name == role.Name)
-        );
+        cache.Verify(x => x.SetAsync(
+            It.Is<string>(key => key == $"{RoleKey}/{role.Id}"),
+            It.Is<Role>(item => item.Name == role.Name)
+        ), Times.Once);
+        cache.Verify(x => x.SetAsync(
+            It.Is<string>(key => key == $"{RoleKey}/{role.Name}"),
+            It.Is<Role>(item => item.Name == role.Name)
+        ), Times.Once);
     }
 
     [Theory]
@@ -90,11 +89,11 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenDatabaseMiss(string name)
     {
         // Arrange
-        cache.GetRoleAsync(name).Returns(null as Role);
-        reads.SingleByNameAsync(name, false, ct).Returns(null as Role);
+        cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{name}")).ReturnsAsync(null as Role);
+        reads.Setup(x => x.SingleByNameAsync(name, false, ct)).ReturnsAsync(null as Role);
 
         GetRoleByNameQuery query = new(name);
-        GetRoleByNameHandler handler = new(reads, cache);
+        GetRoleByNameHandler handler = new(reads.Object, cache.Object);
 
         // Assert
         await Assert.ThrowsAsync<RoleNotFoundException>(async () =>

@@ -14,7 +14,7 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
     public void Validate_ShouldBeValid_WhenCoordsIsValid(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
-        SetCadCoordsCommand command = new(id, new(x1, y1, z1), new(x2, y2, z2));
+        SetCadCoordsCommand command = new(id1, new(x1, y1, z1), new(x2, y2, z2));
 
         // Act
         var result = validator.TestValidate(command);
@@ -28,7 +28,7 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
     public void Validate_ShouldReturnProperErrors_WhenCamCoordsIsNotValid(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
-        SetCadCoordsCommand command = new(id, new(x1, y1, z1), new(x2, y2, z2));
+        SetCadCoordsCommand command = new(id1, new(x1, y1, z1), new(x2, y2, z2));
 
         // Act
         var result = validator.TestValidate(new(command));
@@ -44,7 +44,7 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
     public void Validate_ShouldReturnProperErrors_WhenPanCoordsIsNotValid(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
-        SetCadCoordsCommand command = new(id, new(x1, y1, z1), new(x2, y2, z2));
+        SetCadCoordsCommand command = new(id1, new(x1, y1, z1), new(x2, y2, z2));
 
         // Act
         var result = validator.TestValidate(new(command));

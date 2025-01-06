@@ -18,7 +18,7 @@ public class DuplicateCadsByIdsHandler(ICadReads reads, IWrites<Cad> writes, IUn
         );
         Result<Cad> result = await reads.AllAsync(query, track: false, ct).ConfigureAwait(false);
 
-        Dictionary<CadId, CadId> response = [];
+        Dictionary<Cad, Cad> newCads = [];
         foreach (Cad cad in result.Items) 
         {
             Cad newCad = Cad.Create(
@@ -28,10 +28,10 @@ public class DuplicateCadsByIdsHandler(ICadReads reads, IWrites<Cad> writes, IUn
                 panCoordinates: cad.PanCoordinates
             );
             await writes.AddAsync(newCad, ct).ConfigureAwait(false);
-            response[cad.Id] = newCad.Id;
+            newCads[cad] = newCad;
         }
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        return response;
+        return newCads.ToDictionary(x => x.Key.Id, x => x.Value.Id);
     }
 }

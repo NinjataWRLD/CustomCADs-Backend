@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Delete;
 using CustomCADs.Accounts.Domain.Accounts.Reads;
 using CustomCADs.Accounts.Domain.Common;
+using CustomCADs.Accounts.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete.Data;
@@ -9,10 +10,10 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete;
 
 public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
-    private readonly IWrites<Account> writes = Substitute.For<IWrites<Account>>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
-    private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
+    private readonly Mock<IEventRaiser> raiser = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IWrites<Account>> writes = new();
+    private readonly Mock<IAccountReads> reads = new();
 
     [Theory]
     [ClassData(typeof(DeleteAccountValidData))]
@@ -20,16 +21,16 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         Account account = CreateAccount(username: username);
-        reads.SingleByUsernameAsync(username).Returns(account);
+        reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(account);
 
         DeleteAccountCommand command = new(username);
-        DeleteAccountHandler handler = new(reads, writes, uow, raiser);
+        DeleteAccountHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await reads.Received(1).SingleByUsernameAsync(username, true, ct);writes.Received(1).Remove(account);
+        reads.Verify(x => x.SingleByUsernameAsync(username, true, ct), Times.Once);
     }
     
     [Theory]
@@ -38,17 +39,17 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         Account account = CreateAccount(username: username);
-        reads.SingleByUsernameAsync(username).Returns(account);
+        reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(account);
 
         DeleteAccountCommand command = new(username);
-        DeleteAccountHandler handler = new(reads, writes, uow, raiser);
+        DeleteAccountHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        writes.Received(1).Remove(account);
-        await uow.Received(1).SaveChangesAsync(ct);
+        writes.Verify(x => x.Remove(account), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
     [Theory]
@@ -57,18 +58,18 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         Account account = CreateAccount(username: username);
-        reads.SingleByUsernameAsync(username).Returns(account);
+        reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(account);
 
         DeleteAccountCommand command = new(username);
-        DeleteAccountHandler handler = new(reads, writes, uow, raiser);
+        DeleteAccountHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await raiser.Received(1).RaiseIntegrationEventAsync(
-            Arg.Is<AccountDeletedIntegrationEvent>(x => x.Username == username)
-        );
+        raiser.Verify(x => x.RaiseIntegrationEventAsync(
+            It.Is<AccountDeletedIntegrationEvent>(x => x.Username == username)
+        ), Times.Once);
     }
 
     [Theory]
@@ -76,10 +77,10 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(string username)
     {
         // Arrange
-        reads.SingleByUsernameAsync(username, false, ct).Returns(null as Account);
+        reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(null as Account);
 
         DeleteAccountCommand command = new(username);
-        DeleteAccountHandler handler = new(reads, writes, uow, raiser);
+        DeleteAccountHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<AccountNotFoundException>(async () =>

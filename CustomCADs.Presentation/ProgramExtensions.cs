@@ -8,6 +8,7 @@ using CustomCADs.Identity.Application;
 using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Infrastructure;
 using CustomCADs.Orders.Application;
+using CustomCADs.Presentation;
 using CustomCADs.Shared.Application.Requests.Middleware;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Delivery;
@@ -148,6 +149,9 @@ public static class ProgramExtensions
         => services
             .AddOrdersExceptionHandler()
             .AddOrdersPersistence(config);
+
+    public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
+        => services.AddExceptionHandler<GlobalExceptionHandler>();
 
     public static async Task AddDbMigrationUpdater(this IServiceCollection services)
     {

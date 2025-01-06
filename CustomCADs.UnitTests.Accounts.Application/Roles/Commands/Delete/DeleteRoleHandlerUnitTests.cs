@@ -12,24 +12,17 @@ using static RolesData;
 
 public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 {
-    private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
-    private readonly IWrites<Role> writes = Substitute.For<IWrites<Role>>();
-    private readonly IRoleReads reads = Substitute.For<IRoleReads>();
+    private readonly Mock<IEventRaiser> raiser = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IWrites<Role>> writes = new();
+    private readonly Mock<IRoleReads> reads = new();
 
     public DeleteRoleHandlerUnitTests()
     {
-        reads.SingleByNameAsync(ValidName1, true, ct)
-            .Returns(CreateRole(ValidName1, ValidDescription1));
-
-        reads.SingleByNameAsync(ValidName2, true, ct)
-            .Returns(CreateRole(ValidName2, ValidDescription2));
-
-        reads.SingleByNameAsync(ValidName3, true, ct)
-            .Returns(CreateRole(ValidName3, ValidDescription3));
-
-        reads.SingleByNameAsync(ValidName4, true, ct)
-            .Returns(CreateRole(ValidName4, ValidDescription4));
+        reads.Setup(x => x.SingleByNameAsync(ValidName1, true, ct)).ReturnsAsync(CreateRole(ValidName1, ValidDescription1));
+        reads.Setup(x => x.SingleByNameAsync(ValidName2, true, ct)).ReturnsAsync(CreateRole(ValidName2, ValidDescription2));
+        reads.Setup(x => x.SingleByNameAsync(ValidName3, true, ct)).ReturnsAsync(CreateRole(ValidName3, ValidDescription3));
+        reads.Setup(x => x.SingleByNameAsync(ValidName4, true, ct)).ReturnsAsync(CreateRole(ValidName4, ValidDescription4));
     }
 
     [Theory]
@@ -38,13 +31,13 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     {
         // Arrange
         DeleteRoleCommand command = new(name);
-        DeleteRoleHandler handler = new(reads, writes, uow, raiser);
+        DeleteRoleHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await reads.Received(1).SingleByNameAsync(name, track: true, ct: ct);
+        reads.Verify(x => x.SingleByNameAsync(name, true, ct), Times.Once);
     }
     
     [Theory]
@@ -53,14 +46,14 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     {
         // Arrange
         DeleteRoleCommand command = new(name);
-        DeleteRoleHandler handler = new(reads, writes, uow, raiser);
+        DeleteRoleHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        writes.Received(1).Remove(Arg.Is<Role>(x => x.Name == name));
-        await uow.Received(1).SaveChangesAsync(ct);
+        writes.Verify(x => x.Remove(It.Is<Role>(x => x.Name == name)), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
     [Theory]
@@ -69,18 +62,18 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     {
         // Arrange
         DeleteRoleCommand command = new(name);
-        DeleteRoleHandler handler = new(reads, writes, uow, raiser);
+        DeleteRoleHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await raiser.Received(1).RaiseDomainEventAsync(
-            Arg.Is<RoleDeletedDomainEvent>(x => x.Name == name)
-        );
-        await raiser.Received(1).RaiseIntegrationEventAsync(
-            Arg.Is<RoleDeletedIntegrationEvent>(x => x.Name == name)
-        );
+        raiser.Verify(x => x.RaiseDomainEventAsync(
+            It.Is<RoleDeletedDomainEvent>(x => x.Name == name)
+        ));
+        raiser.Verify(x => x.RaiseIntegrationEventAsync(
+            It.Is<RoleDeletedIntegrationEvent>(x => x.Name == name)
+        ), Times.Once);
     }
 
     [Theory]
@@ -88,10 +81,10 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenRoleNotFound(string role)
     {
         // Arrange
-        reads.SingleByNameAsync(role, true, ct).Returns(null as Role);
+        reads.Setup(x => x.SingleByNameAsync(role, true, ct)).ReturnsAsync(null as Role);
 
         DeleteRoleCommand command = new(role);
-        DeleteRoleHandler handler = new(reads, writes, uow, raiser);
+        DeleteRoleHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<RoleNotFoundException>(async () =>

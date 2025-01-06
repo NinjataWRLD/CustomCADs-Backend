@@ -14,7 +14,7 @@ public class SetCadContentTypeValidatorUnitTests : CadsBaseUnitTests
     public void Validate_ShouldBeValid_WhenContentTypeIsValid(string contentType)
     {
         // Arrange
-        SetCadContentTypeCommand command = new(id, contentType);
+        SetCadContentTypeCommand command = new(id1, contentType);
 
         // Act
         var result = validator.TestValidate(command);
@@ -28,7 +28,7 @@ public class SetCadContentTypeValidatorUnitTests : CadsBaseUnitTests
     public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string contentType)
     {
         // Arrange
-        SetCadContentTypeCommand command = new(id, contentType);
+        SetCadContentTypeCommand command = new(id1, contentType);
 
         // Act
         var result = validator.TestValidate(new(command));
