@@ -4,6 +4,7 @@ using CustomCADs.Files.Domain.Common;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Commands;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.DuplicateByIds;
 
@@ -11,9 +12,9 @@ using static CadsData;
 
 public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 {
-    private readonly ICadReads reads = Substitute.For<ICadReads>();
-    private readonly IWrites<Cad> writes = Substitute.For<IWrites<Cad>>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly Mock<ICadReads> reads = new();
+    private readonly Mock<IWrites<Cad>> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
     private readonly Cad[] cads = [
         CreateCadWithId(id1, ValidKey1, ValidContentType1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1),
         CreateCadWithId(id2, ValidKey2, ValidContentType2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2),
@@ -26,49 +27,45 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
     {
         query = new(new(1, ids.Length), ids);
         result = new Result<Cad>(cads.Length, cads);
+        reads.Setup(x => x.AllAsync(query, false, ct))
+            .ReturnsAsync(result);
     }
 
     [Fact]
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        reads.AllAsync(query, false, ct).Returns(result);
-
         DuplicateCadsByIdsCommand command = new(ids);
-        DuplicateCadsByIdsHandler handler = new(reads, writes, uow);
+        DuplicateCadsByIdsHandler handler = new(reads.Object, writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await reads.Received(1).AllAsync(query, false, ct);
+        reads.Verify(x => x.AllAsync(query, false, ct), Times.Once);
     }
 
     [Fact]
     public async Task Handle_ShouldPersistToDatabase()
     {
         // Arrange
-        reads.AllAsync(query, false, ct).Returns(result);
-
         DuplicateCadsByIdsCommand command = new(ids);
-        DuplicateCadsByIdsHandler handler = new(reads, writes, uow);
+        DuplicateCadsByIdsHandler handler = new(reads.Object, writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await writes.Received(cads.Length).AddAsync(Arg.Any<Cad>(), ct);
-        await uow.Received(1).SaveChangesAsync(ct);
+        writes.Verify(x => x.AddAsync(It.IsAny<Cad>(), ct), Times.Exactly(cads.Length));
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
     [Fact]
     public async Task Handle_ShouldReturnKeysProperly()
     {
         // Arrange
-        reads.AllAsync(query, false, ct).Returns(this.result);
-
         DuplicateCadsByIdsCommand command = new(ids);
-        DuplicateCadsByIdsHandler handler = new(reads, writes, uow);
+        DuplicateCadsByIdsHandler handler = new(reads.Object, writes.Object, uow.Object);
 
         // Act
         var result = await handler.Handle(command, ct);

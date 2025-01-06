@@ -12,7 +12,7 @@ using static Constants.Users;
 
 public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
+    private readonly Mock<IAccountReads> reads = new();
     private static readonly string[] usernames = [ClientUsername, ContributorUsername, DesignerUsername, AdminUsername];
 
     [Theory]
@@ -22,7 +22,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         // Arrange
         AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);
 
-        reads.AllAsync(accountQuery, false, ct).Returns(new Result<Account>(
+        reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
             Items: [
                 CreateAccount(Client),
@@ -33,13 +33,13 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         ));
 
         GetUsernamesByIdsQuery query = new(ids);
-        GetUsernamesByIdsHandler handler = new(reads);
+        GetUsernamesByIdsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).AllAsync(accountQuery, false, ct);
+        reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
     }
 
     [Theory]
@@ -49,7 +49,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         // Arrange
         AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);
 
-        reads.AllAsync(accountQuery, false, ct).Returns(new Result<Account>(
+        reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
             Items: [
                 CreateAccount(Client, username: usernames[0]),
@@ -60,7 +60,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         ));
 
         GetUsernamesByIdsQuery query = new(ids);
-        GetUsernamesByIdsHandler handler = new(reads);
+        GetUsernamesByIdsHandler handler = new(reads.Object);
 
         // Act
         string[] actualUsernames = [.. (await handler.Handle(query, ct)).Select(t => t.Username)];

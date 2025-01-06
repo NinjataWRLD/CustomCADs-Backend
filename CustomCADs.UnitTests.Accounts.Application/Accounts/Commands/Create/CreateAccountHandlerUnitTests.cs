@@ -4,14 +4,15 @@ using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Create.Data;
+using System.Xml.Linq;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Create;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly IWrites<Account> writes = Substitute.For<IWrites<Account>>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
-    private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
+    private readonly Mock<IWrites<Account>> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IEventRaiser> raiser = new();
 
 
     [Theory]
@@ -28,14 +29,14 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
             FirstName: firstName,
             LastName: lastName
         );
-        CreateAccountHandler handler = new(writes, uow, raiser);
+        CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await writes.Received(1).AddAsync(
-            Arg.Is<Account>(x =>
+        writes.Verify(x => x.AddAsync(
+            It.Is<Account>(x =>
                 x.RoleName == role
                 && x.Username == username
                 && x.Email == email
@@ -43,9 +44,9 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
                 && x.FirstName == firstName
                 && x.LastName == lastName
             ),
-            ct: ct
-        );
-        await uow.Received(1).SaveChangesAsync(ct);
+            ct
+        ), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
     [Theory]
@@ -62,18 +63,19 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
             FirstName: firstName,
             LastName: lastName
         );
-        CreateAccountHandler handler = new(writes, uow, raiser);
+        CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
         // Act
         AccountId id = await handler.Handle(command, CancellationToken.None);
 
         // Assert
-        await raiser.Received(1).RaiseIntegrationEventAsync(
-            Arg.Is<AccountCreatedIntegrationEvent>(x =>
+        raiser.Verify(x => x.RaiseIntegrationEventAsync(
+            It.Is<AccountCreatedIntegrationEvent>(x =>
                 x.Id == id
                 && x.Username == username
                 && x.Email == email
-                && x.Password == password)
-        );
+                && x.Password == password
+            )
+        ),Times.Once);
     }
 }

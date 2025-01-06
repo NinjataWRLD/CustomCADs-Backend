@@ -8,15 +8,15 @@ namespace CustomCADs.UnitTests.Files.Application.Images.IntegrationEventHandlers
 
 public class ProductDeletedIntegrationEventHandlerUnitTests : ImagesBaseUnitTests
 {
-    private readonly IImageReads reads = Substitute.For<IImageReads>();
-    private readonly IWrites<Image> writes = Substitute.For<IWrites<Image>>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
-    private readonly IStorageService storage = Substitute.For<IStorageService>();
+    private readonly Mock<IImageReads> reads = new();
+    private readonly Mock<IWrites<Image>> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IStorageService> storage = new();
     private static readonly Image image = CreateImage();
 
     public ProductDeletedIntegrationEventHandlerUnitTests()
     {
-        reads.SingleByIdAsync(id, true, ct).Returns(image);
+        reads.Setup(x => x.SingleByIdAsync(id1, true, ct)).ReturnsAsync(image);
     }
 
     [Fact]
@@ -25,16 +25,16 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ImagesBaseUnitTest
         // Arrange
         ProductDeletedIntegrationEvent ie = new(
             Id: default,
-            ImageId: id,
+            ImageId: id1,
             CadId: default
         );
-        ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
+        ProductDeletedIntegrationEventHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Act
         await handler.Handle(ie);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id, true, ct);
+        reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
     }
     
     [Fact]
@@ -43,17 +43,17 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ImagesBaseUnitTest
         // Arrange
         ProductDeletedIntegrationEvent ie = new(
             Id: default,
-            ImageId: id,
+            ImageId: id1,
             CadId: default
         );
-        ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
+        ProductDeletedIntegrationEventHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Act
         await handler.Handle(ie);
 
         // Assert
-        writes.Received(1).Remove(image);
-        await uow.Received(1).SaveChangesAsync();
+        writes.Verify(x => x.Remove(image), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
     [Fact]
@@ -62,30 +62,31 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ImagesBaseUnitTest
         // Arrange
         ProductDeletedIntegrationEvent ie = new(
             Id: default,
-            ImageId: id,
+            ImageId: id1,
             CadId: default
         );
-        ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
+        ProductDeletedIntegrationEventHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Act
         await handler.Handle(ie);
 
         // Assert
-        await storage.Received(1).DeleteFileAsync(image.Key, ct);
+        storage.Verify(x => x.DeleteFileAsync(image.Key, ct), Times.Once);
     }
 
     [Fact]
     public async Task Handle_ShouldThrowException_WhenImageNotFound()
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(null as Image);
+        reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+            .ReturnsAsync(null as Image);
 
         ProductDeletedIntegrationEvent ie = new(
             Id: default,
-            ImageId: id,
+            ImageId: id1,
             CadId: default
         );
-        ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
+        ProductDeletedIntegrationEventHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Assert
         await Assert.ThrowsAsync<ImageNotFoundException>(async () =>

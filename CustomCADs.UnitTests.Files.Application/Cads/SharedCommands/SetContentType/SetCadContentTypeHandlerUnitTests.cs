@@ -8,42 +8,44 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetContentT
 
 public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 {
-    private readonly ICadReads reads = Substitute.For<ICadReads>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly Mock<ICadReads> reads = new();
+    private readonly Mock<IUnitOfWork> uow = new();
     private readonly Cad cad = CreateCad();
+
+    public SetCadContentTypeHandlerUnitTests()
+    {
+        reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+            .ReturnsAsync(cad);
+    }
 
     [Theory]
     [ClassData(typeof(SetCadContentTypeValidData))]
     public async Task Handle_ShouldQueryDatabase(string contentType)
     {
         // Arrange
-        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
-
         SetCadContentTypeCommand command = new(id1, contentType);
-        SetCadContentTypeHandler handler = new(reads, uow);
+        SetCadContentTypeHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id1, true, ct);
+        reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
     }
-    
+
     [Theory]
     [ClassData(typeof(SetCadContentTypeValidData))]
     public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string contentType)
     {
         // Arrange
-        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
-
         SetCadContentTypeCommand command = new(id1, contentType);
-        SetCadContentTypeHandler handler = new(reads, uow);
+        SetCadContentTypeHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await uow.Received(1).SaveChangesAsync(ct);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
     [Theory]
@@ -51,10 +53,8 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldModifyCad_WhenCadFound(string contentType)
     {
         // Arrange
-        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
-
         SetCadContentTypeCommand command = new(id1, contentType);
-        SetCadContentTypeHandler handler = new(reads, uow);
+        SetCadContentTypeHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -68,10 +68,11 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCadNotFound(string contentType)
     {
         // Arrange
-        reads.SingleByIdAsync(id1, true, ct).Returns(null as Cad);
+        reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+            .ReturnsAsync(null as Cad);
 
         SetCadContentTypeCommand command = new(id1, contentType);
-        SetCadContentTypeHandler handler = new(reads, uow);
+        SetCadContentTypeHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CadNotFoundException>(async () =>

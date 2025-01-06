@@ -8,7 +8,7 @@ using static ShipmentsData;
 
 public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 {
-    private readonly IShipmentReads reads = Substitute.For<IShipmentReads>();
+    private readonly Mock<IShipmentReads> reads = new();
     private static readonly Shipment[] Shipments = [
         Shipment.Create(new(ValidCountry1, ValidCity1), ValidReferenceId, ValidBuyerId),
         Shipment.Create(new(ValidCountry2, ValidCity1), ValidReferenceId, ValidBuyerId),
@@ -20,7 +20,8 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
     public GetAllShipmentsHandlerUnitTests()
     {
         Result<Shipment> result = new(Shipments.Length, Shipments);
-        reads.AllAsync(Arg.Any<ShipmentQuery>(), track: false, ct).Returns(result);
+        reads.Setup(x => x.AllAsync(It.IsAny<ShipmentQuery>(), false, ct))
+            .ReturnsAsync(result);
     }
 
     [Fact]
@@ -32,13 +33,13 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
             ClientId: null,
             Sorting: null
         );
-        GetAllShipmentsHandler handler = new(reads);
+        GetAllShipmentsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).AllAsync(shipmentQuery, track: false, ct);
+        reads.Verify(x => x.AllAsync(shipmentQuery, false, ct), Times.Once);
     }
 
     [Fact]
@@ -50,7 +51,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
             ClientId: null,
             Sorting: null
         );
-        GetAllShipmentsHandler handler = new(reads);
+        GetAllShipmentsHandler handler = new(reads.Object);
 
         // Act
         Result<GetAllShipmentsDto> result = await handler.Handle(query, ct);

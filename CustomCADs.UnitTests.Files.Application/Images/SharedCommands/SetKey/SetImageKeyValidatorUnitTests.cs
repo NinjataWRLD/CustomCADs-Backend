@@ -14,7 +14,7 @@ public class SetImageKeyValidatorUnitTests : ImagesBaseUnitTests
     public void Validate_ShouldBeValid_WhenKeyIsValid(string key)
     {
         // Arrange
-        SetImageKeyCommand command = new(id, key);
+        SetImageKeyCommand command = new(id1, key);
 
         // Act
         var result = validator.TestValidate(command);
@@ -28,7 +28,7 @@ public class SetImageKeyValidatorUnitTests : ImagesBaseUnitTests
     public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key)
     {
         // Arrange
-        SetImageKeyCommand command = new(id, key);
+        SetImageKeyCommand command = new(id1, key);
 
         // Act
         var result = validator.TestValidate(new(command));

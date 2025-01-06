@@ -10,7 +10,7 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 {
     private const int count = 30;
 
-    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
+    private readonly Mock<IAccountReads> reads = new();
     private readonly Account[] accounts = Account.CreateRange([
         (Guid.NewGuid(), Constants.Roles.Client, ClientUsername, ClientEmail),
         (Guid.NewGuid(), Constants.Roles.Contributor, ContributorUsername, ContributorEmail),
@@ -21,8 +21,8 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 
     public GetAllAccountsHandlerUnitTests()
     {
-        reads.AllAsync(accountQuery, track: false, ct)
-            .Returns(new Result<Account>(count, accounts));
+        reads.Setup(x => x.AllAsync(accountQuery, false, ct))
+            .ReturnsAsync(new Result<Account>(count, accounts));
     }
 
     [Fact]
@@ -30,13 +30,13 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         GetAllAccountsQuery query = new(GetPagination());
-        GetAllAccountsHandler handler = new(reads);
+        GetAllAccountsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).AllAsync(accountQuery, track: false, ct);
+        reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         GetAllAccountsQuery query = new(GetPagination());
-        GetAllAccountsHandler handler = new(reads);
+        GetAllAccountsHandler handler = new(reads.Object);
 
         // Act
         Result<GetAllAccountsDto> accounts = await handler.Handle(query, ct);

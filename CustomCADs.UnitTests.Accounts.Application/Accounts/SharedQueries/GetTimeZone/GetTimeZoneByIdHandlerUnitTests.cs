@@ -10,23 +10,24 @@ using static AccountsData;
 
 public class GetTimeZoneByIdHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
+    private readonly Mock<IAccountReads> reads = new();
 
     [Theory]
     [ClassData(typeof(GetTimeZoneByIdValidData))]
     public async Task Handle_ShouldQueryDatabase(AccountId id)
     {
         // Arrange
-        reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount());
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+            .ReturnsAsync(CreateAccount());
 
         GetTimeZoneByIdQuery query = new(id);
-        GetTimeZoneByIdHandler handler = new(reads);
+        GetTimeZoneByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id, false, ct);
+        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
     }
 
     [Theory]
@@ -34,10 +35,11 @@ public class GetTimeZoneByIdHandlerUnitTests : AccountsBaseUnitTests
     public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
     {
         // Arrange
-        reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount(timeZone: ValidTimeZone1));
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+            .ReturnsAsync(CreateAccount(timeZone: ValidTimeZone1));
 
         GetTimeZoneByIdQuery query = new(id);
-        GetTimeZoneByIdHandler handler = new(reads);
+        GetTimeZoneByIdHandler handler = new(reads.Object);
 
         // Act
         string actualTimeZone = await handler.Handle(query, ct);
@@ -51,10 +53,11 @@ public class GetTimeZoneByIdHandlerUnitTests : AccountsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(AccountId id)
     {
         // Arrange
-        reads.SingleByIdAsync(id, false, ct).Returns(null as Account);
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+            .ReturnsAsync(null as Account);
 
         GetTimeZoneByIdQuery query = new(id);
-        GetTimeZoneByIdHandler handler = new(reads);
+        GetTimeZoneByIdHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<AccountNotFoundException>(async () =>

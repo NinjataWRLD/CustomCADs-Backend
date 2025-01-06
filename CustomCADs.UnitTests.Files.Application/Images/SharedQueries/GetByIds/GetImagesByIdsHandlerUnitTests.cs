@@ -10,51 +10,50 @@ using static ImagesData;
 
 public class GetImagesByIdsHandlerUnitTests : ImagesBaseUnitTests
 {
-    private readonly IImageReads reads = Substitute.For<IImageReads>();
-    private readonly static ImageId[] ids = [id, id, id, id];
+    private readonly Mock<IImageReads> reads = new();
+    private readonly static ImageId[] ids = [id1, id2, id1, id2];
     private static readonly (string Key, string ContentType)[] images = [
         (ValidKey1, ValidContentType1),
         (ValidKey2, ValidContentType2),
     ];
+    private static readonly ImageQuery imageQuery = new(
+        Pagination: new(1, ids.Length), 
+        Ids: ids
+    );
+    private static readonly Result<Image> result = new(
+        Count: ids.Length,
+        Items: [
+            CreateImage(ValidKey1, ValidContentType1),
+            CreateImage(ValidKey2, ValidContentType2),
+        ]
+    );
 
     [Fact]
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        ImageQuery imageQuery = new(Pagination: new(1, ids.Length), Ids: ids);
-        reads.AllAsync(imageQuery, false, ct).Returns(new Result<Image>(
-            Count: ids.Length,
-            Items: [
-                CreateImage(ValidKey1, ValidContentType1),
-                CreateImage(ValidKey2, ValidContentType2),
-            ]
-        ));
+        reads.Setup(x => x.AllAsync(imageQuery, false, ct))
+            .ReturnsAsync(result);
 
         GetImagesByIdsQuery query = new(ids);
-        GetImagesByIdsHandler handler = new(reads);
+        GetImagesByIdsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).AllAsync(imageQuery, false, ct);
+        reads.Verify(x => x.AllAsync(imageQuery, false, ct), Times.Once);
     }
 
     [Fact]
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        ImageQuery imageQuery = new(Pagination: new(1, ids.Length), Ids: ids);
-        reads.AllAsync(imageQuery, false, ct).Returns(new Result<Image>(
-            Count: ids.Length,
-            Items: [
-                CreateImage(ValidKey1, ValidContentType1),
-                CreateImage(ValidKey2, ValidContentType2),
-            ]
-        ));
+        reads.Setup(x => x.AllAsync(imageQuery, false, ct))
+            .ReturnsAsync(result);
 
         GetImagesByIdsQuery query = new(ids);
-        GetImagesByIdsHandler handler = new(reads);
+        GetImagesByIdsHandler handler = new(reads.Object);
 
         // Act
         var actualImages = (await handler.Handle(query, ct)).Select(i => (i.Key, i.ContentType));

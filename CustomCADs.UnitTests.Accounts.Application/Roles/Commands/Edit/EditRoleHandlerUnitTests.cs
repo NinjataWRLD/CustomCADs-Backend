@@ -12,13 +12,14 @@ using static RolesData;
 
 public class EditRoleHandlerUnitTests : RolesBaseUnitTests
 {
-    private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
-    private readonly IRoleReads reads = Substitute.For<IRoleReads>();
+    private readonly Mock<IEventRaiser> raiser = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IRoleReads> reads = new();
 
     public EditRoleHandlerUnitTests()
     {
-        reads.SingleByNameAsync(ValidName1, true, ct).Returns(CreateRole());
+        reads.Setup(x => x.SingleByNameAsync(ValidName1, true, ct))
+            .ReturnsAsync(CreateRole());
     }
 
     [Theory]
@@ -27,13 +28,13 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     {
         // Arrange
         EditRoleCommand command = new(ValidName1, new(name, description));
-        EditRoleHandler handler = new(reads, uow, raiser);
+        EditRoleHandler handler = new(reads.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await reads.Received(1).SingleByNameAsync(ValidName1, track: true, ct: ct);
+        reads.Verify(x => x.SingleByNameAsync(ValidName1, true, ct), Times.Once);
     }
     
     [Theory]
@@ -42,13 +43,13 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     {
         // Arrange
         EditRoleCommand command = new(ValidName1, new(name, description));
-        EditRoleHandler handler = new(reads, uow, raiser);
+        EditRoleHandler handler = new(reads.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await uow.Received(1).SaveChangesAsync(ct);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
     [Theory]
@@ -57,18 +58,18 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     {
         // Arrange
         EditRoleCommand command = new(ValidName1, new(name, description));
-        EditRoleHandler handler = new(reads, uow, raiser);
+        EditRoleHandler handler = new(reads.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await raiser.Received(1).RaiseDomainEventAsync(
-            Arg.Is<RoleEditedDomainEvent>(x => x.Role.Name == name && x.Role.Description == description)
-        );
-        await raiser.Received(1).RaiseIntegrationEventAsync(
-            Arg.Is<RoleEditedIntegrationEvent>(x => x.Name == name && x.Description == description)
-        );
+        raiser.Verify(x => x.RaiseDomainEventAsync(
+            It.Is<RoleEditedDomainEvent>(x => x.Role.Name == name && x.Role.Description == description)
+        ), Times.Once);
+        raiser.Verify(x => x.RaiseIntegrationEventAsync(
+            It.Is<RoleEditedIntegrationEvent>(x => x.Name == name && x.Description == description)
+        ), Times.Once);
     }
 
     [Theory]
@@ -76,11 +77,11 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     public async Task Handler_ShouldModifyRole_WhenRoleFound(string name, string description)
     {
         Role role = CreateRole();
-        reads.SingleByNameAsync(ValidName1, true, ct).Returns(role);
+        reads.Setup(x => x.SingleByNameAsync(ValidName1, true, ct)).ReturnsAsync(role);
 
         // Arrange
         EditRoleCommand command = new(ValidName1, new(name, description));
-        EditRoleHandler handler = new(reads, uow, raiser);
+        EditRoleHandler handler = new(reads.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -99,10 +100,10 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
     {
         // Arrange
         string role = ValidName1;
-        reads.SingleByNameAsync(role, true, ct).Returns(null as Role);
+        reads.Setup(x => x.SingleByNameAsync(role, true, ct)).ReturnsAsync(null as Role);
 
         EditRoleCommand command = new(role, new(name, description));
-        EditRoleHandler handler = new(reads, uow, raiser);
+        EditRoleHandler handler = new(reads.Object, uow.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<RoleNotFoundException>(async () =>

@@ -6,37 +6,37 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.GetByUserna
 
 public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
+    private readonly Mock<IAccountReads> reads = new();
 
     public GetAccountByUsernameHandlerUnitTests()
     {
-        reads.SingleByUsernameAsync(Arg.Any<string>(), false, ct).Returns(CreateAccount());
+        reads.Setup(x => x.SingleByUsernameAsync(It.IsAny<string>(), false, ct)).ReturnsAsync(CreateAccount());
     }
 
     [Theory]
     [ClassData(typeof(GetAccountByUsernameValidData))]
     public async Task Handle_ShouldQueryDatabase(string username)
     {
-        // Assert
+        // Arrange
         GetAccountByUsernameQuery query = new(username);
-        GetAccountByUsernameHandler handler = new(reads);
+        GetAccountByUsernameHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).SingleByUsernameAsync(username, track: false, ct);
+        reads.Verify(x => x.SingleByUsernameAsync(username, false, ct), Times.Once);
     }
 
     [Theory]
     [ClassData(typeof(GetAccountByUsernameValidData))]
     public async Task Handle_ShouldThrowException_WhenDatabaseMiss(string username)
     {
-        // Assert
-        reads.SingleByUsernameAsync(username, false, ct).Returns(null as Account);
+        // Arrange
+        reads.Setup(x => x.SingleByUsernameAsync(username, false, ct)).ReturnsAsync(null as Account);
 
         GetAccountByUsernameQuery query = new(username);
-        GetAccountByUsernameHandler handler = new(reads);
+        GetAccountByUsernameHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<AccountNotFoundException>(async () =>
@@ -44,6 +44,5 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
             // Act
             await handler.Handle(query, ct);
         });
-
     }
 }

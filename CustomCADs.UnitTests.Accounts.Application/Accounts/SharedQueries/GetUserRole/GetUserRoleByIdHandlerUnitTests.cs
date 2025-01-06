@@ -8,23 +8,23 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetUs
 
 public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
+    private readonly Mock<IAccountReads> reads = new();
 
     [Theory]
     [ClassData(typeof(GetUserRoleByIdValidData))]
     public async Task Handle_ShouldQueryDatabase(AccountId id)
     {
         // Arrange
-        reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount());
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount());
 
         GetUserRoleByIdQuery query = new(id);
-        GetUserRoleByIdHandler handler = new(reads);
+        GetUserRoleByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id, false, ct);
+        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
     }
 
     [Theory]
@@ -33,10 +33,10 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         const string role = RolesData.ValidName1;
-        reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount(role: role));
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount(role: role));
 
         GetUserRoleByIdQuery query = new(id);
-        GetUserRoleByIdHandler handler = new(reads);
+        GetUserRoleByIdHandler handler = new(reads.Object);
 
         // Act
         string actualRole = await handler.Handle(query, ct);
@@ -50,10 +50,10 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(AccountId id)
     {
         // Arrange
-        reads.SingleByIdAsync(id, false, ct).Returns(null as Account);
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Account);
 
         GetUserRoleByIdQuery query = new(id);
-        GetUserRoleByIdHandler handler = new(reads);
+        GetUserRoleByIdHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<AccountNotFoundException>(async () =>

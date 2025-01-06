@@ -1,39 +1,84 @@
 ﻿using CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetKey;
+using CustomCADs.Files.Domain.Cads.Reads;
+using CustomCADs.Files.Domain.Common;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetKey.Data;
-using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetKey;
 
 public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
 {
-    private readonly SetCadKeyValidator validator = new();
+    private readonly Mock<ICadReads> reads = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Cad cad = CreateCad();
 
-    [Theory]
-    [ClassData(typeof(SetCadKeyValidData))]
-    public void Validate_ShouldBeValid_WhenKeyIsValid(string key)
+    public SetCadKeyValidatorUnitTests()
     {
-        // Arrange
-        SetCadKeyCommand command = new(id1, key);
-
-        // Act
-        var result = validator.TestValidate(command);
-
-        // Assert
-        Assert.True(result.IsValid);
+        reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+            .ReturnsAsync(cad);
     }
 
     [Theory]
-    [ClassData(typeof(SetCadKeyInvalidData))]
-    public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key)
+    [ClassData(typeof(SetCadKeyValidData))]
+    public async Task Handle_ShouldQueryDatabase(string key)
     {
         // Arrange
         SetCadKeyCommand command = new(id1, key);
+        SetCadKeyHandler handler = new(reads.Object, uow.Object);
 
         // Act
-        var result = validator.TestValidate(new(command));
+        await handler.Handle(command, ct);
 
         // Assert
-        result.ShouldHaveValidationErrorFor(x => x.Key);
+        reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
+    }
+
+    [Theory]
+    [ClassData(typeof(SetCadKeyValidData))]
+    public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string key)
+    {
+        // Arrange
+        SetCadKeyCommand command = new(id1, key);
+        SetCadKeyHandler handler = new(reads.Object, uow.Object);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+    }
+
+    [Theory]
+    [ClassData(typeof(SetCadKeyValidData))]
+    public async Task Handle_ShouldModifyCad_WhenCadFound(string key)
+    {
+        // Arrange
+        SetCadKeyCommand command = new(id1, key);
+        SetCadKeyHandler handler = new(reads.Object, uow.Object);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        Assert.Equal(key, cad.Key);
+    }
+
+    [Theory]
+    [ClassData(typeof(SetCadKeyValidData))]
+    public async Task Handle_ShouldThrowException_WhenCadNotFound(string key)
+    {
+        // Arrange
+        reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+            .ReturnsAsync(null as Cad);
+
+        SetCadKeyCommand command = new(id1, key);
+        SetCadKeyHandler handler = new(reads.Object, uow.Object);
+
+        // Assert
+        await Assert.ThrowsAsync<CadNotFoundException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
     }
 }

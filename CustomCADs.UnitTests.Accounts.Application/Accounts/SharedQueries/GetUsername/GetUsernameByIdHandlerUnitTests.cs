@@ -10,23 +10,23 @@ using static AccountsData;
 
 public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly IAccountReads reads = Substitute.For<IAccountReads>();
+    private readonly Mock<IAccountReads> reads = new();
 
     [Theory]
     [ClassData(typeof(GetUsernameByIdValidData))]
     public async Task Handle_ShouldQueryDatabase(AccountId id)
     {
         // Arrange
-        reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount());
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount());
 
         GetUsernameByIdQuery query = new(id);
-        GetUsernameByIdHandler handler = new(reads);
+        GetUsernameByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id, false, ct);
+        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
     }
 
     [Theory]
@@ -34,10 +34,10 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
     public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
     {
         // Arrange
-        reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount(username: ValidUsername1));
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount(username: ValidUsername1));
 
         GetUsernameByIdQuery query = new(id);
-        GetUsernameByIdHandler handler = new(reads);
+        GetUsernameByIdHandler handler = new(reads.Object);
 
         // Act
         string actualUsername = await handler.Handle(query, ct);
@@ -51,10 +51,10 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(AccountId id)
     {
         // Arrange
-        reads.SingleByIdAsync(id, false, ct).Returns(null as Account);
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Account);
 
         GetUsernameByIdQuery query = new(id);
-        GetUsernameByIdHandler handler = new(reads);
+        GetUsernameByIdHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<AccountNotFoundException>(async () =>

@@ -7,8 +7,8 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.Create;
 
 public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 {
-    private readonly IWrites<Cad> writes = Substitute.For<IWrites<Cad>>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly Mock<IWrites<Cad>> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
 
     [Theory]
     [ClassData(typeof(CreateCadValidData))]
@@ -19,19 +19,18 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
             Key: key,
             ContentType: contentType
         );
-        CreateCadHandler handler = new(writes, uow);
+        CreateCadHandler handler = new(writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await writes.Received(1).AddAsync(
-            Arg.Is<Cad>(x =>
+        writes.Verify(x => x.AddAsync(
+            It.Is<Cad>(x =>
                 x.Key == key
                 && x.ContentType == contentType
             ),
-            ct: ct
-        );
-        await uow.Received(1).SaveChangesAsync(ct);
+        ct), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 }

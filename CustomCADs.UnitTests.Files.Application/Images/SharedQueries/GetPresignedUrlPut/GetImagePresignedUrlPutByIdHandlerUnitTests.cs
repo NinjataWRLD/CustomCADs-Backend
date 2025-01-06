@@ -8,13 +8,13 @@ namespace CustomCADs.UnitTests.Files.Application.Images.SharedQueries.GetPresign
 
 public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
 {
-    private readonly IImageReads reads = Substitute.For<IImageReads>();
-    private readonly IStorageService storage = Substitute.For<IStorageService>();
+    private readonly Mock<IImageReads> reads = new();
+    private readonly Mock<IStorageService> storage = new();
     private static readonly Image image = CreateImage();
 
     public GetImagePresignedUrlPutByIdHandlerUnitTests()
     {
-        reads.SingleByIdAsync(id, false).Returns(image);
+        reads.Setup(x => x.SingleByIdAsync(id1, false, ct)).ReturnsAsync(image);
     }
 
     [Theory]
@@ -23,17 +23,17 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
     {
         // Assert
         GetImagePresignedUrlPutByIdQuery query = new(
-            id,
+            id1,
             NewContentType: newContentType,
             NewFileName: newFileName
         );
-        GetImagePresignedUrlPutByIdHandler handler = new(reads, storage);
+        GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id, false);
+        reads.Verify(x => x.SingleByIdAsync(id1, false, ct), Times.Once);
     }
 
     [Theory]
@@ -42,21 +42,21 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
     {
         // Assert
         GetImagePresignedUrlPutByIdQuery query = new(
-            id,
+            id1,
             NewContentType: newContentType,
             NewFileName: newFileName
         );
-        GetImagePresignedUrlPutByIdHandler handler = new(reads, storage);
+        GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await storage.Received(1).GetPresignedPutUrlAsync(
+        storage.Verify(x => x.GetPresignedPutUrlAsync(
             image.Key,
             newContentType,
             newFileName
-        );
+        ), Times.Once);
     }
 
     [Theory]
@@ -64,14 +64,14 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenImageNotFound(string newContentType, string newFileName)
     {
         // Assert
-        reads.SingleByIdAsync(id, false).Returns(null as Image);
+        reads.Setup(x => x.SingleByIdAsync(id1, false, ct)).ReturnsAsync(null as Image);
 
         GetImagePresignedUrlPutByIdQuery query = new(
-            id,
+            id1,
             NewContentType: newContentType,
             NewFileName: newFileName
         );
-        GetImagePresignedUrlPutByIdHandler handler = new(reads, storage);
+        GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
         // Assert
         await Assert.ThrowsAsync<ImageNotFoundException>(async () =>

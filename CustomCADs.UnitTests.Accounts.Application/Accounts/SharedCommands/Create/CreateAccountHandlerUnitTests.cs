@@ -7,8 +7,8 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.SharedCommands.Crea
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly IWrites<Account> writes = Substitute.For<IWrites<Account>>();
-    private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
+    private readonly Mock<IWrites<Account>> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
 
     [Theory]
     [ClassData(typeof(CreateAccountValidData))]
@@ -23,14 +23,14 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
             FirstName: firstName,
             LastName: lastName
         );
-        CreateAccountHandler handler = new(writes, uow);
+        CreateAccountHandler handler = new(writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, CancellationToken.None);
 
         // Assert
-        await writes.Received(1).AddAsync(
-            Arg.Is<Account>(x =>
+        writes.Verify(x => x.AddAsync(
+            It.Is<Account>(x =>
                 x.RoleName == role
                 && x.Username == username
                 && x.Email == email
@@ -38,8 +38,8 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
                 && x.FirstName == firstName
                 && x.LastName == lastName
             ),
-            ct: ct
-        );
-        await uow.Received(1).SaveChangesAsync(ct);
+            ct
+        ), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 }

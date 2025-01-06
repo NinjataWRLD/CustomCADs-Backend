@@ -7,13 +7,14 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.SharedQueries.GetPresigned
 
 public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 {
-    private readonly ICadReads reads = Substitute.For<ICadReads>();
-    private readonly IStorageService storage = Substitute.For<IStorageService>();
+    private readonly Mock<ICadReads> reads = new();
+    private readonly Mock<IStorageService> storage = new();
     private static readonly Cad cad = CreateCad();
 
     public GetCadPresignedUrlGetByIdHandlerUnitTests()
     {
-        reads.SingleByIdAsync(id1, false).Returns(cad);
+        reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+            .ReturnsAsync(cad);
     }
 
     [Fact]
@@ -21,13 +22,13 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
     {
         // Assert
         GetCadPresignedUrlGetByIdQuery query = new(id1);
-        GetCadPresignedUrlGetByIdHandler handler = new(reads, storage);
+        GetCadPresignedUrlGetByIdHandler handler = new(reads.Object, storage.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id1, false);
+        reads.Verify(x => x.SingleByIdAsync(id1, false, ct), Times.Once);
     }
 
     [Fact]
@@ -35,26 +36,27 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
     {
         // Assert
         GetCadPresignedUrlGetByIdQuery query = new(id1);
-        GetCadPresignedUrlGetByIdHandler handler = new(reads, storage);
+        GetCadPresignedUrlGetByIdHandler handler = new(reads.Object, storage.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        await storage.Received(1).GetPresignedGetUrlAsync(
+        storage.Verify(x => x.GetPresignedGetUrlAsync(
             cad.Key,
             cad.ContentType
-        );
+        ), Times.Once);
     }
 
     [Fact]
     public async Task Handle_ShouldThrowException_WhenCadNotFound()
     {
         // Assert
-        reads.SingleByIdAsync(id1, false).Returns(null as Cad);
+        reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+            .ReturnsAsync(null as Cad);
 
         GetCadPresignedUrlGetByIdQuery query = new(id1);
-        GetCadPresignedUrlGetByIdHandler handler = new(reads, storage);
+        GetCadPresignedUrlGetByIdHandler handler = new(reads.Object, storage.Object);
 
         // Assert
         await Assert.ThrowsAsync<CadNotFoundException>(async () =>
