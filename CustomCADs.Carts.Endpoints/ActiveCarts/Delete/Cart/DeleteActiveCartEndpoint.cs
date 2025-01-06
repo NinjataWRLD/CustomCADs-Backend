@@ -10,7 +10,7 @@ public sealed class DeleteActiveCartEndpoint(IRequestSender sender)
         Delete("");
         Group<ActiveCartsGroup>();
         Description(d => d
-            .WithSummary("06. Delete")
+            .WithSummary("08. Delete")
             .WithDescription("Delete your Cart by specifying its Id")
         );
     }

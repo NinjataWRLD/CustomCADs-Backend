@@ -25,7 +25,7 @@ public class PurchasedCart : BaseAggregateRoot
     public AccountId BuyerId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
     public decimal TotalCost => items.Sum(i => i.Price);
-    public bool HasDelivery => items.Any(i => i.Delivery);
+    public bool HasDelivery => items.Any(i => i.ForDelivery);
     public IReadOnlyCollection<PurchasedCartItem> Items => items.AsReadOnly();
 
     public static PurchasedCart Create(AccountId buyerId)
@@ -39,7 +39,7 @@ public class PurchasedCart : BaseAggregateRoot
             cadId: i.CadId,
             price: i.Price,
             quantity: i.Item.Quantity,
-            delivery: i.Item.Delivery
+            forDelivery: i.Item.ForDelivery
         ))]);
         this.ValidateItems();
 

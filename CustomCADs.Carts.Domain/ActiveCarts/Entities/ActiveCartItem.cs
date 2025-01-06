@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Validation;
+using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
@@ -11,52 +12,53 @@ public class ActiveCartItem : BaseEntity
         double weight,
         ProductId productId,
         ActiveCartId cartId,
-        bool delivery) : this()
+        bool forDelivery) : this()
     {
         CartId = cartId;
         ProductId = productId;
         Quantity = 1;
         Weight = weight;
-        Delivery = delivery;
+        ForDelivery = forDelivery;
     }
 
     public ActiveCartItemId Id { get; init; }
     public int Quantity { get; private set; }
     public double Weight { get; private set; }
-    public bool Delivery { get; set; }
+    public bool ForDelivery { get; set; }
     public ProductId ProductId { get; }
     public ActiveCartId CartId { get; }
     public ActiveCart Cart { get; } = null!;
 
-    public static ActiveCartItem Create(double weight, ProductId productId, ActiveCartId cartId, bool delivery)
-        => new ActiveCartItem(weight, productId, cartId, delivery)
+    public static ActiveCartItem Create(double weight, ProductId productId, ActiveCartId cartId, bool forDelivery)
+        => new ActiveCartItem(weight, productId, cartId, forDelivery)
             .ValidateQuantity()
             .ValidateWeight();
 
-    public ActiveCartItem IncrementQuantity()
+    public ActiveCartItem IncreaseQuantity(int amount)
     {
-        Quantity++;
+        if (!ForDelivery)
+            throw ActiveCartItemValidationException.EditQuantityOnNonDelivery(Id);
+
+        Quantity += amount;
         this.ValidateQuantity();
+
         return this;
     }
 
-    public ActiveCartItem DecrementQuantity()
+    public ActiveCartItem DecreaseQuantity(int amount)
     {
-        Quantity--;
+        if (!ForDelivery)
+            throw ActiveCartItemValidationException.EditQuantityOnNonDelivery(Id);
+
+        Quantity -= amount;
         this.ValidateQuantity();
-        return this;
-    }
-
-    public ActiveCartItem TurnDeliveryOn()
-    {
-        Delivery = true;
 
         return this;
     }
 
-    public ActiveCartItem TurnDeliveryOff()
+    public ActiveCartItem SetForDelivery(bool forDelivery)
     {
-        Delivery = false;
+        ForDelivery = forDelivery;
 
         return this;
     }

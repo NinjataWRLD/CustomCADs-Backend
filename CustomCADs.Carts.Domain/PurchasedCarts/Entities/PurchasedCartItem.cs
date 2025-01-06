@@ -14,20 +14,20 @@ public class PurchasedCartItem : BaseEntity
         CadId cadId,
         decimal price,
         int quantity,
-        bool delivery) : this()
+        bool forDelivery) : this()
     {
         CartId = cartId;
         ProductId = productId;
         CadId = cadId;
         Price = price;
         Quantity = quantity;
-        Delivery = delivery;
+        ForDelivery = forDelivery;
     }
 
     public PurchasedCartItemId Id { get; init; }
     public int Quantity { get; private set; }
     public decimal Price { get; private set; }
-    public bool Delivery { get; set; }
+    public bool ForDelivery { get; set; }
     public ProductId ProductId { get; }
     public PurchasedCartId CartId { get; }
     public PurchasedCart Cart { get; } = null!;
@@ -40,14 +40,14 @@ public class PurchasedCartItem : BaseEntity
         CadId cadId,
         decimal price,
         int quantity,
-        bool delivery
+        bool forDelivery
     ) => new PurchasedCartItem(
             cartId,
             productId,
             cadId,
             price,
             quantity,
-            delivery
+            forDelivery
         ).ValidateQuantity()
         .ValidatePrice();
 }

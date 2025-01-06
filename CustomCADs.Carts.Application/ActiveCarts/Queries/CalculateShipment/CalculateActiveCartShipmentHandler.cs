@@ -12,8 +12,8 @@ public class CalculateActiveCartShipmentHandler(IActiveCartReads reads, IRequest
 {
     public async Task<CalculateActiveCartShipmentDto[]> Handle(CalculateActiveCartShipmentQuery req, CancellationToken ct)
     {
-        ActiveCart cart = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw ActiveCartNotFoundException.ById(req.Id);
+        ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
+            ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
         CalculationDto[] calculations = await delivery.CalculateAsync(new(
             ParcelCount: cart.TotalDeliveryCount,

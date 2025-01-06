@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Create;
-using CustomCADs.Carts.Application.ActiveCarts.Queries.GetById;
+using CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
 using CustomCADs.Carts.Endpoints.ActiveCarts.Get.Single;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Post.Cart;

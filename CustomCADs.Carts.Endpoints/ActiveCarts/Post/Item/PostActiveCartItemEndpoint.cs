@@ -3,7 +3,6 @@ using CustomCADs.Carts.Application.ActiveCarts.Queries.GetItem;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using System;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Post.Item;
 
@@ -16,7 +15,7 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
         Group<ActiveCartsGroup>();
         Description(d => d
             .WithSummary("02. Add Item")
-            .WithDescription("Add an Item to your Cart by specifying the Cart and Product's Ids")
+            .WithDescription("Add an Item to your Cart by specifying the Cart's Id, the Product's Id, the Weight and whether it's to be delivered")
         );
     }
 
@@ -24,12 +23,13 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
     {
         AccountId buyerId = User.GetAccountId();
 
-        AddActiveCartItemCommand commnad = new(
+        AddActiveCartItemCommand command = new(
             ProductId: new ProductId(req.ProductId),
             Weight: req.Weight,
+            ForDelivery: req.ForDelivery,
             BuyerId: buyerId
         );
-        ActiveCartItemId itemId = await sender.SendCommandAsync(commnad, ct).ConfigureAwait(false);
+        ActiveCartItemId itemId = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         GetActiveCartItemByIdQuery query = new(
             BuyerId: buyerId, 

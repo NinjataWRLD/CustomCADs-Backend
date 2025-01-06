@@ -3,6 +3,7 @@ using System;
 using CustomCADs.Carts.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Carts.Persistence.Migrations
 {
     [DbContext(typeof(CartsContext))]
-    partial class CartsContextModelSnapshot : ModelSnapshot
+    [Migration("20250106002707_Renamed_Delivery_To_ForDelivery")]
+    partial class Renamed_Delivery_To_ForDelivery
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

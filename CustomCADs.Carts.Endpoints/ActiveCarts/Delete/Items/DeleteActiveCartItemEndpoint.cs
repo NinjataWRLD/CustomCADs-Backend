@@ -11,7 +11,7 @@ public sealed class DeleteActiveCartItemEndpoint(IRequestSender sender)
         Delete("items");
         Group<ActiveCartsGroup>();
         Description(d => d
-            .WithSummary("05. Remove Item")
+            .WithSummary("07. Remove Item")
             .WithDescription("Remove an Item from your Cart by specifying the Cart and Item's Ids")
         );
     }

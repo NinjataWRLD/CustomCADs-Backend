@@ -3,7 +3,7 @@ using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
-namespace CustomCADs.Carts.Application.ActiveCarts.Queries.GetById;
+namespace CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
 
 public sealed class GetActiveCartHandler(IActiveCartReads reads, IRequestSender sender)
     : IQueryHandler<GetActiveCartQuery, GetActiveCartDto>

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.GetById;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Get.Single;
 
@@ -7,10 +7,10 @@ public sealed class GetActiveCartEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Get("{id}");
+        Get("");
         Group<ActiveCartsGroup>();
         Description(d => d
-            .WithSummary("04. Single")
+            .WithSummary("03. Single")
             .WithDescription("See your Cart by specifying its Id")
         );
     }

@@ -1,7 +1,7 @@
 ﻿namespace CustomCADs.Carts.Endpoints.ActiveCarts.Post.Item;
 
 public sealed record PostActiveCartItemRequest(
-    Guid CartId,
+    Guid ProductId,
     double Weight,
-    Guid ProductId
+    bool ForDelivery
 );

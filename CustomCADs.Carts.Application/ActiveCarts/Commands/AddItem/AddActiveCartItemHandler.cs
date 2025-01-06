@@ -13,11 +13,10 @@ public sealed class AddActiveCartItemHandler(IActiveCartReads reads, IUnitOfWork
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
-        double weight = req.Weight;
         ActiveCartItem item = cart.AddItem(
             productId: req.ProductId,
-            weight: weight,
-            delivery: false
+            weight: req.Weight,
+            forDelivery: req.ForDelivery
         );
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 

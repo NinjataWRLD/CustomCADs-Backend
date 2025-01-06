@@ -69,9 +69,9 @@ public static class ActiveCartItemItemConfigUtils
             .HasPrecision(6, 2)
             .HasColumnName("Weight");
 
-        builder.Property(x => x.Delivery)
+        builder.Property(x => x.ForDelivery)
             .IsRequired()
-            .HasColumnName("Delivery");
+            .HasColumnName("ForDelivery");
 
         builder.Property(x => x.ProductId)
             .IsRequired()

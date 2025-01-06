@@ -3,7 +3,7 @@
 public sealed record PurchasedCartItemResponse(
     Guid Id,
     int Quantity,
-    bool Delivery,
+    bool ForDelivery,
     decimal Price,
     Guid ProductId,
     Guid CartId,

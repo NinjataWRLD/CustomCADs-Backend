@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.CalculateShipment;
-using CustomCADs.Carts.Application.ActiveCarts.Queries.GetById;
+using CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
 using CustomCADs.Carts.Endpoints.ActiveCarts.Get.CalculateShipment;
 using CustomCADs.Carts.Endpoints.ActiveCarts.Get.Single;
 using CustomCADs.Carts.Endpoints.ActiveCarts.Post.Cart;
@@ -27,7 +27,7 @@ internal static class Mapper
         => new(
             Id: item.Id.Value,
             Quantity: item.Quantity,
-            Delivery: item.Delivery,
+            ForDelivery: item.ForDelivery,
             Weight: item.Weight,
             ProductId: item.ProductId.Value,
             CartId: item.CartId.Value

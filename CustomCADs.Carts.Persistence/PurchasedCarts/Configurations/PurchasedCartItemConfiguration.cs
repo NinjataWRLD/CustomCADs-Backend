@@ -75,9 +75,9 @@ public static class PurchasedCartItemItemConfigUtils
             .HasPrecision(10, 2)
             .HasColumnName("Price");
 
-        builder.Property(x => x.Delivery)
+        builder.Property(x => x.ForDelivery)
             .IsRequired()
-            .HasColumnName("Delivery");
+            .HasColumnName("ForDelivery");
 
         builder.Property(x => x.ProductId)
             .IsRequired()
