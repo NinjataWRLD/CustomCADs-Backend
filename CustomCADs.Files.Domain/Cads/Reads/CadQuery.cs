@@ -5,5 +5,6 @@ namespace CustomCADs.Files.Domain.Cads.Reads;
 
 public record CadQuery(
     Pagination Pagination,
+    CadId[]? Ids = null,
     CadSorting? Sorting = null
 );

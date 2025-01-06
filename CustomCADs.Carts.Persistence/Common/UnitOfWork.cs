@@ -27,7 +27,7 @@ public class UnitOfWork(CartsContext context) : IUnitOfWork
     {
         try
         {
-            await context.CartItems
+            await context.ActiveCartItems
                 .Where(item => item.ProductId == id)
                 .ExecuteDeleteAsync(ct)
                 .ConfigureAwait(false);

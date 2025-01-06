@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.UseCases.Products.Commands.AddPurchase;
+using CustomCADs.Shared.UseCases.Products.Commands;
 
 namespace CustomCADs.Catalog.Application.Products.SharedCommandHandlers;
 

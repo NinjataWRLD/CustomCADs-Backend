@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.Common.Exceptions.CartItems;
-using CustomCADs.Carts.Domain.Common.Exceptions.Carts;
+using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
+using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.Carts;
 using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
@@ -12,7 +12,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is CartValidationException or CartItemValidationException or CartItemCadException)
+        if (ex is ActiveCartValidationException or ActiveCartValidationException or PurchasedCartValidationException or PurchasedCartValidationException)
         {
             context.Response.StatusCode = Status400BadRequest;
             await context.Response.WriteAsJsonAsync(new
@@ -21,7 +21,7 @@ public class GlobalExceptionHandler : IExceptionHandler
                 message = ex.Message,
             }, ct).ConfigureAwait(false);
         }
-        else if (ex is CartAuthorizationException)
+        else if (ex is PurchasedCartAuthorizationException)
         {
             context.Response.StatusCode = Status403Forbidden;
             await context.Response.WriteAsJsonAsync(new
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler : IExceptionHandler
                 message = ex.Message
             }, ct).ConfigureAwait(false);
         }
-        else if (ex is CartNotFoundException or CartItemNotFoundException)
+        else if (ex is ActiveCartNotFoundException or ActiveCartItemNotFoundException or PurchasedCartNotFoundException or PurchasedCartItemNotFoundException)
         {
             context.Response.StatusCode = Status404NotFound;
             await context.Response.WriteAsJsonAsync(new
