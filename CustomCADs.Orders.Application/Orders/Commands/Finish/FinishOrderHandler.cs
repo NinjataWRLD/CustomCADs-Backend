@@ -2,15 +2,16 @@
 using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.Orders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Application.Storage;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.Orders.Application.Orders.Commands.Finish;
 
-public sealed class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender)
-    : ICommandHandler<FinishOrderCommand>
+public sealed class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequestSender sender, IStorageService storage)
+    : ICommandHandler<FinishOrderCommand, FinishOrderDto>
 {
-    public async Task Handle(FinishOrderCommand req, CancellationToken ct)
+    public async Task<FinishOrderDto> Handle(FinishOrderCommand req, CancellationToken ct)
     {
         Order order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OrderNotFoundException.ById(req.Id);
@@ -29,5 +30,17 @@ public sealed class FinishOrderHandler(IOrderReads reads, IUnitOfWork uow, IRequ
         order.SetCadId(cadId);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+        var (CadKey, CadUrl) = await storage.GetPresignedPostUrlAsync(
+            folderPath: "cads",
+            name: order.Name,
+            contentType: req.Cad.ContentType,
+            fileName: order.Name
+        ).ConfigureAwait(false);
+        
+        return new(
+            PresignedKey: CadKey,
+            GeneratedUrl: CadUrl
+        );
     }
 }

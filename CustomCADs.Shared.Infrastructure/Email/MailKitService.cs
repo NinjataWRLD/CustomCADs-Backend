@@ -8,17 +8,17 @@ namespace CustomCADs.Shared.Infrastructure.Email;
 
 public sealed class MailKitService(IOptions<EmailSettings> settings) : IEmailService
 {
-    private const string Server = "smtp.gmail.com";
-    private const string From = "customcads414@gmail.com";
     private const SecureSocketOptions Options = SecureSocketOptions.StartTls;
+    private readonly string server = settings.Value.Server;
     private readonly int port = settings.Value.Port;
+    private readonly string from = settings.Value.From;
     private readonly string password = settings.Value.Password;
 
-    public async Task SendEmailAsync(string to, string subject, string body)
+    public async Task SendEmailAsync(string to, string subject, string body, CancellationToken ct = default)
     {
         try
         {
-            MailboxAddress toEmail = new("", to), fromEmail = new("", From);
+            MailboxAddress toEmail = new("", to), fromEmail = new("", from);
 
             MimeMessage message = new()
             {
@@ -29,7 +29,7 @@ public sealed class MailKitService(IOptions<EmailSettings> settings) : IEmailSer
             message.To.Add(toEmail);
 
             using SmtpClient client = new();
-            await client.SendMessageAsync(Server, port, Options, From, password, message).ConfigureAwait(false);
+            await client.SendMessageAsync(server, port, Options, from, password, message, ct).ConfigureAwait(false);
         }
         catch (Exception)
         {
@@ -37,11 +37,11 @@ public sealed class MailKitService(IOptions<EmailSettings> settings) : IEmailSer
         }
     }
 
-    public async Task SendVerificationEmailAsync(string to, string endpoint)
+    public async Task SendVerificationEmailAsync(string to, string endpoint, CancellationToken ct = default)
     {
         try
         {
-            MailboxAddress toEmail = new("", to), fromEmail = new("", From);
+            MailboxAddress toEmail = new("", to), fromEmail = new("", from);
             string html = @$"
 <h2>Welcome to CustomCADs!</h2>
 <p>Please confirm your email by clicking the button below:</p>
@@ -56,7 +56,7 @@ public sealed class MailKitService(IOptions<EmailSettings> settings) : IEmailSer
             message.To.Add(toEmail);
 
             using SmtpClient client = new();
-            await client.SendMessageAsync(Server, port, Options, From, password, message).ConfigureAwait(false);
+            await client.SendMessageAsync(server, port, Options, from, password, message, ct: ct).ConfigureAwait(false);
         }
         catch (Exception)
         {
@@ -64,11 +64,11 @@ public sealed class MailKitService(IOptions<EmailSettings> settings) : IEmailSer
         }
     }
 
-    public async Task SendForgotPasswordEmailAsync(string to, string endpoint)
+    public async Task SendForgotPasswordEmailAsync(string to, string endpoint, CancellationToken ct = default)
     {
         try
         {
-            MailboxAddress toEmail = new("", to), fromEmail = new("", From);
+            MailboxAddress toEmail = new("", to), fromEmail = new("", from);
 
             string html = @$"
 <h2>We've got you!</h2>
@@ -85,7 +85,7 @@ public sealed class MailKitService(IOptions<EmailSettings> settings) : IEmailSer
             message.To.Add(toEmail);
 
             using SmtpClient client = new();
-            await client.SendMessageAsync(Server, port, Options, From, password, message).ConfigureAwait(false);
+            await client.SendMessageAsync(server, port, Options, from, password, message, ct: ct).ConfigureAwait(false);
         }
         catch (Exception)
         {

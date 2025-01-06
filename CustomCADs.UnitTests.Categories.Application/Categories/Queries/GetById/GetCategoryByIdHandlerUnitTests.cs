@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Categories.Application.Categories.Queries.GetById;
 using CustomCADs.Categories.Application.Common.Caching;
-using CustomCADs.Categories.Application.Common.Caching.Categories;
 using CustomCADs.Categories.Domain.Categories.Reads;
 using CustomCADs.Shared.Application.Cache;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
@@ -10,8 +9,6 @@ namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.GetById
 
 using static CachingKeys;
 using static CategoriesData;
-
-public class GetCategoryByIdHandlerData : TheoryData<CategoryId>;
 
 public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 {
@@ -30,8 +27,8 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByNameHandlerValidData))]
-    public async Task Handle_ShouldPullFromCache_WhenCacheHit(CategoryId id)
+    [ClassData(typeof(GetCategoryByNameValidData))]
+    public async Task Handle_ShouldCallCache_WhenCacheHit(CategoryId id)
     {
         // Arrange
         GetCategoryByIdQuery query = new(id);
@@ -45,8 +42,8 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByNameHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase_WhenCacheMiss(CategoryId id)
+    [ClassData(typeof(GetCategoryByNameValidData))]
+    public async Task Handle_ShouldQueryDatabase_WhenCacheMiss(CategoryId id)
     {
         // Arrange
         cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{id}")).ReturnsAsync(null as Category);
@@ -62,7 +59,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByNameHandlerValidData))]
+    [ClassData(typeof(GetCategoryByNameValidData))]
     public async Task Handle_ShouldUpdateCache_WhenDatabaseHit(CategoryId id)
     {
         // Arrange
@@ -83,7 +80,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetCategoryByNameHandlerValidData))]
+    [ClassData(typeof(GetCategoryByNameValidData))]
     public async Task Handle_ShouldThrowException_WhenDatabaseMiss(CategoryId id)
     {
         // Arrange

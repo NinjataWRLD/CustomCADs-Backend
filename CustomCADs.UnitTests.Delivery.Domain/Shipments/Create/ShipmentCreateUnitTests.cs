@@ -4,8 +4,6 @@ using CustomCADs.UnitTests.Delivery.Domain.Shipments.Create.Data;
 
 namespace CustomCADs.UnitTests.Delivery.Domain.Shipments.Create;
 
-public class ShipmentCreateData : TheoryData<string, string, string, AccountId>;
-
 public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
 {
     [Theory]

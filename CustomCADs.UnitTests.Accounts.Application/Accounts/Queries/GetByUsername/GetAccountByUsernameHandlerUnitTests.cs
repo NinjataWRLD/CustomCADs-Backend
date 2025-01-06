@@ -4,8 +4,6 @@ using CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.GetByUsername.D
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.GetByUsername;
 
-public class GetAccountByUsernameHandlerData : TheoryData<string>;
-
 public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IAccountReads reads = Substitute.For<IAccountReads>();
@@ -16,8 +14,8 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetAccountByUsernameHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string username)
+    [ClassData(typeof(GetAccountByUsernameValidData))]
+    public async Task Handle_ShouldQueryDatabase(string username)
     {
         // Assert
         GetAccountByUsernameQuery query = new(username);
@@ -31,7 +29,7 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetAccountByUsernameHandlerValidData))]
+    [ClassData(typeof(GetAccountByUsernameValidData))]
     public async Task Handle_ShouldThrowException_WhenDatabaseMiss(string username)
     {
         // Assert

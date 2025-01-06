@@ -7,8 +7,6 @@ using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete;
 
-public class DeleteAccountHandlerData : TheoryData<string>;
-
 public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IAccountReads reads = Substitute.For<IAccountReads>();
@@ -17,8 +15,26 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     private readonly IEventRaiser raiser = Substitute.For<IEventRaiser>();
 
     [Theory]
-    [ClassData(typeof(DeleteAccountHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string username)
+    [ClassData(typeof(DeleteAccountValidData))]
+    public async Task Handle_ShouldQueryDatabase(string username)
+    {
+        // Arrange
+        Account account = CreateAccount(username: username);
+        reads.SingleByUsernameAsync(username).Returns(account);
+
+        DeleteAccountCommand command = new(username);
+        DeleteAccountHandler handler = new(reads, writes, uow, raiser);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        await reads.Received(1).SingleByUsernameAsync(username, true, ct);writes.Received(1).Remove(account);
+    }
+    
+    [Theory]
+    [ClassData(typeof(DeleteAccountValidData))]
+    public async Task Handle_ShouldPersistToDatabase_WhenAccountFound(string username)
     {
         // Arrange
         Account account = CreateAccount(username: username);
@@ -36,7 +52,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteAccountHandlerValidData))]
+    [ClassData(typeof(DeleteAccountValidData))]
     public async Task Handle_ShouldRaiseEvents(string username)
     {
         // Arrange
@@ -56,7 +72,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(DeleteAccountHandlerValidData))]
+    [ClassData(typeof(DeleteAccountValidData))]
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(string username)
     {
         // Arrange

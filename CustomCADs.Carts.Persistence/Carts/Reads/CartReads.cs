@@ -3,6 +3,7 @@ using CustomCADs.Carts.Domain.Carts.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ public sealed class CartReads(CartsContext context) : ICartReads
         IQueryable<Cart> queryable = context.Carts
             .WithTracking(track)
             .Include(c => c.Items)
-            .WithFilter(query.BuyerId)
+            .WithFilter(query.BuyerId, query.ProductId)
             .WithSorting(query.Sorting ?? new());
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
@@ -40,14 +41,21 @@ public sealed class CartReads(CartsContext context) : ICartReads
             .AnyAsync(c => c.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<int> CountAsync(AccountId buyerId, CancellationToken ct = default)
+    public async Task<int> CountByBuyerIdAsync(AccountId buyerId, CancellationToken ct = default)
         => await context.Carts
             .WithTracking(false)
             .Where(c => c.BuyerId == buyerId)
             .CountAsync(ct)
             .ConfigureAwait(false);
+    
+    public async Task<int> CountByProductIdAsync(ProductId productId, CancellationToken ct = default)
+        => await context.Carts
+            .WithTracking(false)
+            .Where(c => c.Items.Any(i => i.ProductId == productId))
+            .CountAsync(ct)
+            .ConfigureAwait(false);
 
-    public async Task<Dictionary<CartId, int>> CountItemsAsync(AccountId buyerId, CancellationToken ct = default)
+    public async Task<Dictionary<CartId, int>> CountItemsByBuyerIdAsync(AccountId buyerId, CancellationToken ct = default)
         => await context.Carts
             .WithTracking(false)
             .Include(c => c.Items)

@@ -6,10 +6,6 @@ using CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetKey.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetKey;
 
-using static ImagesData;
-
-public class SetImageKeyHandlerData : TheoryData<string>;
-
 public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 {
     private readonly IImageReads reads = Substitute.For<IImageReads>();
@@ -17,8 +13,8 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
     private readonly Image image = CreateImage();
 
     [Theory]
-    [ClassData(typeof(SetImageKeyHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string key)
+    [ClassData(typeof(SetImageKeyValidData))]
+    public async Task Handle_ShouldQueryDatabase(string key)
     {
         // Arrange
         reads.SingleByIdAsync(id, true, ct).Returns(image);
@@ -31,13 +27,28 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 
         // Assert
         await reads.Received(1).SingleByIdAsync(id, true, ct);
+    }
+    
+    [Theory]
+    [ClassData(typeof(SetImageKeyValidData))]
+    public async Task Handle_ShouldPersistToDatabase_WhenImageFound(string key)
+    {
+        // Arrange
+        reads.SingleByIdAsync(id, true, ct).Returns(image);
+
+        SetImageKeyCommand command = new(id, key);
+        SetImageKeyHandler handler = new(reads, uow);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
         await uow.Received(1).SaveChangesAsync(ct);
     }
 
     [Theory]
-    [InlineData(ValidKey1)]
-    [InlineData(ValidKey2)]
-    public async Task Handle_ShouldModifyImage(string key)
+    [ClassData(typeof(SetImageKeyValidData))]
+    public async Task Handle_ShouldModifyImage_WhenImageFound(string key)
     {
         // Arrange
         reads.SingleByIdAsync(id, true, ct).Returns(image);
@@ -50,5 +61,23 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 
         // Assert
         Assert.Equal(key, image.Key);
+    }
+
+    [Theory]
+    [ClassData(typeof(SetImageKeyValidData))]
+    public async Task Handle_ShouldThrowException_WhenImageNotFound(string key)
+    {
+        // Arrange
+        reads.SingleByIdAsync(id, true, ct).Returns(null as Image);
+
+        SetImageKeyCommand command = new(id, key);
+        SetImageKeyHandler handler = new(reads, uow);
+
+        // Assert
+        await Assert.ThrowsAsync<ImageNotFoundException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
     }
 }

@@ -8,8 +8,10 @@ locals {
   payment_test_secret_key      = local.payment["TestSecretKey"]
   payment_test_publishable_key = local.payment["TestPublishableKey"]
 
-  email_password = local.email["Password"]
+  email_server = local.email["Server"]
   email_port     = local.email["Port"]
+  email_from     = local.email["From"]
+  email_password = local.email["Password"]
 
   storage_access_key = local.storage["AccessKey"]
   storage_secret_key = local.storage["SecretKey"]
@@ -133,16 +135,28 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     value     = aws_subnet.customcads_subnet_public2_b.id
   }
   setting {
-    name      = "Email__Password"
+    name      = "Email__Server"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.email_password
+    value     = local.email_server
   }
   setting {
     name      = "Email__Port"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.email_port
+  }
+  setting {
+    name      = "Email__From"
+    namespace = "aws:elasticbeanstalk:application:environment"
+    resource  = null
+    value     = local.email_from
+  }
+  setting {
+    name      = "Email__Password"
+    namespace = "aws:elasticbeanstalk:application:environment"
+    resource  = null
+    value     = local.email_password
   }
   setting {
     name      = "EnhancedHealthAuthEnabled"

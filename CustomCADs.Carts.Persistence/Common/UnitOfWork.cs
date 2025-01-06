@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Carts.Persistence.Common;
@@ -11,6 +12,25 @@ public class UnitOfWork(CartsContext context) : IUnitOfWork
         try
         {
             await context.SaveChangesAsync(ct).ConfigureAwait(false);
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            throw DatabaseConflictException.Custom(ex.Message);
+        }
+        catch (DbUpdateException ex)
+        {
+            throw DatabaseException.Custom(ex.Message);
+        }
+    }
+
+    public async Task BulkDeleteItemsByProductIdAsync(ProductId id, CancellationToken ct = default)
+    {
+        try
+        {
+            await context.CartItems
+                .Where(item => item.ProductId == id)
+                .ExecuteDeleteAsync(ct)
+                .ConfigureAwait(false);
         }
         catch (DbUpdateConcurrencyException ex)
         {

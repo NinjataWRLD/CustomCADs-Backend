@@ -22,7 +22,7 @@ internal static class Mapper
         => new(
             Id: product.Id.Value,
             Name: product.Name,
-            Image: product.Image.ToImageResponse()
+            ImageId: product.ImageId.Value
         );
 
     internal static GetGalleryProductResponse ToGetGalleryProductResponse(this GalleryGetProductByIdDto product)
@@ -32,9 +32,7 @@ internal static class Mapper
             Description: product.Description,
             Price: product.Price,
             UploadDate: product.UploadDate.ToString(DateFormatString),
-            CadKey: product.Cad.Key,
-            CamCoordinates: product.Cad.CamCoordinates,
-            PanCoordinates: product.Cad.PanCoordinates,
+            CadId: product.CadId.Value,
             Counts: product.Counts.ToCountsDto(),
             Category: product.Category.ToCategoryDto()
         );
@@ -53,7 +51,7 @@ internal static class Mapper
             Id: product.Id.Value,
             Name: product.Name,
             UploadDate: product.UploadDate.ToString(DateFormatString),
-            Image: product.Image.ToImageResponse(),
+            ImageId: product.ImageId.Value,
             CreatorName: product.CreatorName,
             Category: product.Category.ToCategoryDto()
         );
@@ -65,9 +63,7 @@ internal static class Mapper
             Price: product.Price,
             Description: product.Description,
             UploadDate: product.UploadDate.ToString(DateFormatString),
-            CadKey: product.Cad.Key,
-            CamCoordinates: product.Cad.CamCoordinates,
-            PanCoordinates: product.Cad.PanCoordinates,
+            CadId: product.CadId.Value,
             Counts: product.Counts.ToCountsDto(),
             Category: product.Category.ToCategoryDto()
         );
@@ -89,7 +85,7 @@ internal static class Mapper
         Id: product.Id.Value,
         Name: product.Name,
         UploadDate: product.UploadDate.ToString(DateFormatString),
-        Image: new(product.Image.Key, product.Image.ContentType),
+        ImageId: product.ImageId.Value,
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
@@ -101,7 +97,7 @@ internal static class Mapper
             Description: product.Description,
             Price: product.Price,
             CreatorName: product.CreatorName,
-            Cad: product.Cad,
+            CadId: product.CadId.Value,
             Category: new(product.Category.Id.Value, product.Category.Name)
         );
 
@@ -110,12 +106,6 @@ internal static class Mapper
             Purchases: counts.Purchases,
             Likes: counts.Likes,
             Views: counts.Views
-        );
-
-    internal static ImageResponse ToImageResponse(this ImageDto image)
-        => new(
-            Key: image.Key,
-            ContentType: image.ContentType
         );
 
     internal static CategoryResponse ToCategoryDto(this CategoryDto category)

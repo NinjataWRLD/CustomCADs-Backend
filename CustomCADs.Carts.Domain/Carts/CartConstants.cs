@@ -2,6 +2,8 @@
 
 public static class CartConstants
 {
+    public const int BulkDeleteThreshold = 100;
+
     public const int ItemsCountMax = 10;
     public const int ItemsCountMin = 0;
 

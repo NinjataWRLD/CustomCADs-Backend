@@ -5,16 +5,14 @@ using CustomCADs.UnitTests.Files.Application.Images.SharedCommands.Create.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.Create;
 
-public class CreateImageHandlerData : TheoryData<string, string>;
-
 public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 {
     private readonly IWrites<Image> writes = Substitute.For<IWrites<Image>>();
     private readonly IUnitOfWork uow = Substitute.For<IUnitOfWork>();
 
     [Theory]
-    [ClassData(typeof(CreateImageHandlerValidData))]
-    public async Task Handle_ShouldCallDatabase(string key, string contentType)
+    [ClassData(typeof(CreateImageValidData))]
+    public async Task Handle_ShouldPersistToDatabase(string key, string contentType)
     {
         // Arrange
         CreateImageCommand command = new(

@@ -3,8 +3,6 @@ using CustomCADs.UnitTests.Files.Domain.Cads.Properties.CamCoordinates.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Properties.CamCoordinates;
 
-public class CadCamCoordinatesData : TheoryData<Coordinates>;
-
 public class CadCamCoordinatesUnitTests : CadsBaseUnitTests
 {
     [Theory]

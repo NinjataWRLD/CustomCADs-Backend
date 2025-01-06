@@ -54,6 +54,14 @@ public class Cart : BaseAggregateRoot
 
         return item;
     }
+    
+    public int RemoveItemsByProductId(ProductId id)
+    {
+        var removedCount = items.RemoveAll(i => i.ProductId == id);
+        this.ValidateItems();
+
+        return removedCount;
+    }
 
     public Cart SetShipmentId(ShipmentId shipmentId)
     {

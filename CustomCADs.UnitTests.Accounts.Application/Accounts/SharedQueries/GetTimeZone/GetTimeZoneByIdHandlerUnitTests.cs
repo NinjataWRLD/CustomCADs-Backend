@@ -8,15 +8,13 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetTi
 
 using static AccountsData;
 
-public class GetTimeZoneByIdHandlerData : TheoryData<AccountId>;
-
 public class GetTimeZoneByIdHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly IAccountReads reads = Substitute.For<IAccountReads>();
 
     [Theory]
-    [ClassData(typeof(GetTimeZoneByIdHandlerValidData))]
-    public async Task Handle_CallsDatabase(AccountId id)
+    [ClassData(typeof(GetTimeZoneByIdValidData))]
+    public async Task Handle_ShouldQueryDatabase(AccountId id)
     {
         // Arrange
         reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount());
@@ -32,8 +30,8 @@ public class GetTimeZoneByIdHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetTimeZoneByIdHandlerValidData))]
-    public async Task Handle_ShouldReturnProperly_WhenAccountExists(AccountId id)
+    [ClassData(typeof(GetTimeZoneByIdValidData))]
+    public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
     {
         // Arrange
         reads.SingleByIdAsync(id, false, ct).Returns(CreateAccount(timeZone: ValidTimeZone1));
@@ -49,7 +47,7 @@ public class GetTimeZoneByIdHandlerUnitTests : AccountsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(GetTimeZoneByIdHandlerValidData))]
+    [ClassData(typeof(GetTimeZoneByIdValidData))]
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(AccountId id)
     {
         // Arrange

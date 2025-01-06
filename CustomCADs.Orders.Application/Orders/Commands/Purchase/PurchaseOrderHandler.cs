@@ -27,17 +27,22 @@ public sealed class PurchaseOrderHandler(IOrderReads reads, IUnitOfWork uow, IRe
         if (order.Delivery)
             throw OrderDeliveryException.ById(order.Id);
 
-        GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
-        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
+            GetUsernameByIdQuery buyerQuery = new(order.BuyerId),
+                sellerQuery = new(order.DesignerId.Value);
 
-        GetUsernameByIdQuery sellerQuery = new(order.DesignerId.Value);
-        string seller = await sender.SendQueryAsync(sellerQuery, ct).ConfigureAwait(false);
+            string[] users = await Task.WhenAll(
+                sender.SendQueryAsync(buyerQuery, ct),
+                sender.SendQueryAsync(sellerQuery, ct)
+            ).ConfigureAwait(false);
+        
+            string buyer = users[0], seller = users[1];
 
         decimal price = 0m; // integrate order prices
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: price,
-            description: $"{buyer} bought {order.Name} from {seller}."
+            description: $"{buyer} bought {order.Name} from {seller}.",
+            ct
         ).ConfigureAwait(false);
 
         order.SetCompletedStatus();

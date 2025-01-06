@@ -1,9 +1,11 @@
-﻿using CustomCADs.Shared.Core;
+﻿using CustomCADs.Delivery.Domain.Shipments;
+using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Delivery.Data;
 
 using static Constants.Users;
+using static ShipmentConstants;
 
 public static class ShipmentsData
 {
@@ -15,23 +17,31 @@ public static class ShipmentsData
     public const string ValidCity2 = "Bucharest";
     public const string InvalidCity = "";
 
-    public const string? ValidPhone1 = "1234567890";
+    public const string? ValidPhone1 = "+1234567890";
     public const string? ValidPhone2 = null;
+    public const string? InvalidPhone = "abcdefghijklmnopqrstuvwxyz";
 
     public const string? ValidEmail1 = "john.doe@example.com";
     public const string? ValidEmail2 = null;
+    public const string? InvalidEmail = "";
 
     public const string ValidService1 = "Standard";
     public const string ValidService2 = "Express";
+    public const string InvalidService = "";
 
-    public const int ValidCount1 = 1;
-    public const int ValidCount2 = 2;
+    public const int ValidCount1 = MinCount + 1;
+    public const int ValidCount2 = MaxCount - 1;
+    public const int InvalidCount1 = MinCount - 1;
+    public const int InvalidCount2 = MaxCount + 1;
 
-    public const double ValidWeight1 = 1.5;
-    public const double ValidWeight2 = 2.5;
+    public const double ValidWeight1 = MinWeight + 1;
+    public const double ValidWeight2 = MaxWeight - 1;
+    public const double InvalidWeight1 = MinWeight - 1;
+    public const double InvalidWeight2 = MaxWeight + 1;
 
     public const string ValidRecipient1 = "John Doe";
     public const string ValidRecipient2 = "Jane Doe";
+    public const string InvalidRecipient = "";
 
     public const string ValidReferenceId = "some-reference-id";
 

@@ -1,10 +1,11 @@
 ﻿using CustomCADs.Accounts.Domain.Common.Exceptions.Accounts;
 using CustomCADs.Accounts.Domain.Roles;
-using System.Text.RegularExpressions;
+using CustomCADs.Shared.Core;
 
 namespace CustomCADs.Accounts.Domain.Accounts.Validation;
 
 using static AccountConstants;
+using static Constants;
 
 public static partial class AccountValidations
 {
@@ -62,7 +63,7 @@ public static partial class AccountValidations
             throw AccountValidationException.Length(property, maxLength, minLength);
         }
 
-        if (!EmailRegex().IsMatch(email))
+        if (!Regexes.Email.IsMatch(email))
         {
             throw AccountValidationException.Email();
         }
@@ -120,7 +121,4 @@ public static partial class AccountValidations
 
         return account;
     }
-
-    [GeneratedRegex(@"^[^@\s]+@[^@\s]+\.\w{2,}$", RegexOptions.Compiled)]
-    private static partial Regex EmailRegex();
 }

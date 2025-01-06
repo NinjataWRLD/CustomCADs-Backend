@@ -3,8 +3,6 @@ using CustomCADs.UnitTests.Accounts.Domain.Accounts.Properties.Email.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Properties.Email;
 
-public class AccountEmailData : TheoryData<string>;
-
 public class AccountEmailUnitTests : AccountsBaseUnitTests
 {
     [Theory]

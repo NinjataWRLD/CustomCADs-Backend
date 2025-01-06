@@ -3,8 +3,6 @@ using CustomCADs.UnitTests.Accounts.Domain.Roles.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Create;
 
-public class RoleCreateData : TheoryData<string, string>;
-
 public class RoleCreateUnitTests : RolesBaseUnitTests
 {
     [Theory]

@@ -1,10 +1,24 @@
-﻿namespace CustomCADs.Shared.Core;
+﻿using System.Text.RegularExpressions;
 
-public static class Constants
+namespace CustomCADs.Shared.Core;
+
+public static partial class Constants
 {
     public const string DateFormatString = "dd.MM.yyyy HH:mm:ss";
     public const string SpeedyDateFormatString = "dd.MM.yyyy 'г.'";
     public const string SpeedyDateTimeFormatString = "dd.MM.yyyy 'г.' HH:mm:ss";
+
+    public partial class Regexes
+    {
+        public static Regex Email => EmailRegex();
+        public static Regex Phone => PhoneRegex();
+
+        [GeneratedRegex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled)]
+        private static partial Regex EmailRegex();
+
+        [GeneratedRegex(@"^\+?[1-9]\d{1,14}$", RegexOptions.Compiled)]
+        private static partial Regex PhoneRegex();
+    }
 
     public static class ExceptionMessages
     {
@@ -24,7 +38,6 @@ public static class Constants
         public const string RangeError = "{PropertyName} must be between {From} and {To}";
         public const string EmailError = "Invalid Email";
         public const string PhoneError = "Invalid Phone";
-        public const string PhoneRegex = "^[+ 0-9]+$";
     }
 
     public static class Roles
@@ -66,11 +79,5 @@ public static class Constants
         public const string ContributorEmail = "PDMatsaliev20@codingburgas.bg";
         public const string DesignerEmail = "boriskolev2006@gmail.com";
         public const string AdminEmail = "ivanangelov414@gmail.com";
-    }
-
-    public static class MoneyRules
-    {
-        public const int PrecisionMax = 13;
-        public const int PrecisionMin = 1;
     }
 }
