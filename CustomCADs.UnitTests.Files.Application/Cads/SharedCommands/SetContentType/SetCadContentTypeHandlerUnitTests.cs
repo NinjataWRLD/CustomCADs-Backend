@@ -17,16 +17,16 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldQueryDatabase(string contentType)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
 
-        SetCadContentTypeCommand command = new(id, contentType);
+        SetCadContentTypeCommand command = new(id1, contentType);
         SetCadContentTypeHandler handler = new(reads, uow);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id, true, ct);
+        await reads.Received(1).SingleByIdAsync(id1, true, ct);
     }
     
     [Theory]
@@ -34,9 +34,9 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string contentType)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
 
-        SetCadContentTypeCommand command = new(id, contentType);
+        SetCadContentTypeCommand command = new(id1, contentType);
         SetCadContentTypeHandler handler = new(reads, uow);
 
         // Act
@@ -51,9 +51,9 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldModifyCad_WhenCadFound(string contentType)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
 
-        SetCadContentTypeCommand command = new(id, contentType);
+        SetCadContentTypeCommand command = new(id1, contentType);
         SetCadContentTypeHandler handler = new(reads, uow);
 
         // Act
@@ -68,9 +68,9 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCadNotFound(string contentType)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(null as Cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(null as Cad);
 
-        SetCadContentTypeCommand command = new(id, contentType);
+        SetCadContentTypeCommand command = new(id1, contentType);
         SetCadContentTypeHandler handler = new(reads, uow);
 
         // Assert

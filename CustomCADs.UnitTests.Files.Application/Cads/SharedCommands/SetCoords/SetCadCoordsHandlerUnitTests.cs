@@ -18,10 +18,10 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldQueryDatabase(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
 
         SetCadCoordsCommand command = new(
-            Id: id,
+            Id: id1,
             CamCoordinates: new(x1, y1, z1),
             PanCoordinates: new(x2, y2, z2)
         );
@@ -31,7 +31,7 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id, true, ct);
+        await reads.Received(1).SingleByIdAsync(id1, true, ct);
     }
     
     [Theory]
@@ -39,10 +39,10 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldPersistToDatabase_WhenCadFound(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
 
         SetCadCoordsCommand command = new(
-            Id: id,
+            Id: id1,
             CamCoordinates: new(x1, y1, z1),
             PanCoordinates: new(x2, y2, z2)
         );
@@ -60,12 +60,12 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldModifyCad_WhenCadFound(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
         CoordinatesDto camCoords = new(x1, y1, z1);
         CoordinatesDto panCoords = new(x2, y2, z2);
 
         SetCadCoordsCommand command = new(
-            Id: id,
+            Id: id1,
             CamCoordinates: camCoords,
             PanCoordinates: panCoords
         );
@@ -90,12 +90,12 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCadNotFound(int x1, int y1, int z1, int x2, int y2, int z2)
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(null as Cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(null as Cad);
         CoordinatesDto camCoords = new(x1, y1, z1);
         CoordinatesDto panCoords = new(x2, y2, z2);
 
         SetCadCoordsCommand command = new(
-            Id: id,
+            Id: id1,
             CamCoordinates: camCoords,
             PanCoordinates: panCoords
         );

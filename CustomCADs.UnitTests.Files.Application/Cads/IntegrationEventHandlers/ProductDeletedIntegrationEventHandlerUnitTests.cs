@@ -16,7 +16,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : CadsBaseUnitTests
 
     public ProductDeletedIntegrationEventHandlerUnitTests()
     {
-        reads.SingleByIdAsync(id, true, ct).Returns(cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(cad);
     }
 
     [Fact]
@@ -26,7 +26,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : CadsBaseUnitTests
         ProductDeletedIntegrationEvent ie = new(
             Id: default,
             ImageId: default,
-            CadId: id
+            CadId: id1
         );
         ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
 
@@ -34,7 +34,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : CadsBaseUnitTests
         await handler.Handle(ie);
 
         // Assert
-        await reads.Received(1).SingleByIdAsync(id, true, ct);
+        await reads.Received(1).SingleByIdAsync(id1, true, ct);
     }
     
     [Fact]
@@ -44,7 +44,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : CadsBaseUnitTests
         ProductDeletedIntegrationEvent ie = new(
             Id: default,
             ImageId: default,
-            CadId: id
+            CadId: id1
         );
         ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
 
@@ -63,7 +63,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : CadsBaseUnitTests
         ProductDeletedIntegrationEvent ie = new(
             Id: default,
             ImageId: default,
-            CadId: id
+            CadId: id1
         );
         ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
 
@@ -78,12 +78,12 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : CadsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCadNotFound()
     {
         // Arrange
-        reads.SingleByIdAsync(id, true, ct).Returns(null as Cad);
+        reads.SingleByIdAsync(id1, true, ct).Returns(null as Cad);
 
         ProductDeletedIntegrationEvent ie = new(
             Id: default,
             ImageId: default,
-            CadId: id
+            CadId: id1
         );
         ProductDeletedIntegrationEventHandler handler = new(reads, writes, uow, storage);
 

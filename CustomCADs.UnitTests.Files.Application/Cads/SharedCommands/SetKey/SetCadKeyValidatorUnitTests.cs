@@ -14,7 +14,7 @@ public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
     public void Validate_ShouldBeValid_WhenKeyIsValid(string key)
     {
         // Arrange
-        SetCadKeyCommand command = new(id, key);
+        SetCadKeyCommand command = new(id1, key);
 
         // Act
         var result = validator.TestValidate(command);
@@ -28,7 +28,7 @@ public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
     public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key)
     {
         // Arrange
-        SetCadKeyCommand command = new(id, key);
+        SetCadKeyCommand command = new(id1, key);
 
         // Act
         var result = validator.TestValidate(new(command));
