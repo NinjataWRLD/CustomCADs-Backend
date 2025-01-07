@@ -2,7 +2,7 @@
 
 using static CategoriesData;
 
-public class CategoryCreateInvalidNameData : RoleCreateData
+public class CategoryCreateInvalidNameData : CategoryCreateData
 {
     public CategoryCreateInvalidNameData()
     {

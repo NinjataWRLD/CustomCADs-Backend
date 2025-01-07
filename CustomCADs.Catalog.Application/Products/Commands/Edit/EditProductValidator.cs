@@ -19,6 +19,6 @@ public class EditProductValidator : Validator<EditProductCommand>
             .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.Price)
-            .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError);
+            .ExclusiveBetween(PriceMin, PriceMax).WithMessage(RangeError);
     }
 }

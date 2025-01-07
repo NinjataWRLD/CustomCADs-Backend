@@ -3,10 +3,8 @@ using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
-using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetAll;
 
@@ -34,9 +32,8 @@ public sealed class GetAllProductsHandler(IProductReads reads, IRequestSender se
             .SendQueryAsync(new GetCategoriesByIdsQuery(categoryIds), ct).ConfigureAwait(false);
 
         AccountId[] buyerIds = [.. result.Items.Select(c => c.CreatorId)];
-        GetTimeZonesByIdsQuery timeZonesQuery = new(buyerIds);
         (AccountId Id, string TimeZone)[] timeZones = await sender
-            .SendQueryAsync(timeZonesQuery, ct).ConfigureAwait(false);
+            .SendQueryAsync(new GetTimeZonesByIdsQuery(buyerIds), ct).ConfigureAwait(false);
 
         return new(
             Count: result.Count,

@@ -16,7 +16,6 @@ public class Product : BaseAggregateRoot
         string name,
         string description,
         decimal price,
-        ProductStatus status,
         AccountId creatorId,
         CategoryId categoryId,
         ImageId imageId,
@@ -26,7 +25,7 @@ public class Product : BaseAggregateRoot
         Name = name;
         Description = description;
         Price = price;
-        Status = status;
+        Status = ProductStatus.Unchecked;
         UploadDate = DateTime.UtcNow;
         CreatorId = creatorId;
         CategoryId = categoryId;
@@ -51,15 +50,31 @@ public class Product : BaseAggregateRoot
         string name,
         string description,
         decimal price,
-        ProductStatus status,
         AccountId creatorId,
         CategoryId categoryId,
         ImageId imageId,
         CadId cadId
-    ) => new Product(name, description, price, status, creatorId, categoryId, imageId, cadId)
+    ) => new Product(name, description, price, creatorId, categoryId, imageId, cadId)
             .ValidateName()
             .ValidateDescription()
-            .ValidatePriceAmount();
+            .ValidatePrice();
+    
+    public static Product CreateWithId(
+        string name,
+        string description,
+        decimal price,
+        AccountId creatorId,
+        CategoryId categoryId,
+        ImageId imageId,
+        CadId cadId,
+        ProductId? id = null
+    ) => new Product(name, description, price, creatorId, categoryId, imageId, cadId)
+        {
+            Id = id ?? new ProductId(Guid.NewGuid())
+        }
+        .ValidateName()
+        .ValidateDescription()
+        .ValidatePrice();
 
     public Product SetName(string name)
     {
@@ -96,13 +111,14 @@ public class Product : BaseAggregateRoot
     public Product RemoveFromLikeCount()
     {
         Counts = Counts with { Likes = Counts.Likes - 1 };
+        this.ValidateLikes();
         return this;
     }
 
     public Product SetPrice(decimal price)
     {
         Price = price;
-        this.ValidatePriceAmount();
+        this.ValidatePrice();
         return this;
     }
 
@@ -122,7 +138,7 @@ public class Product : BaseAggregateRoot
     {
         var newStatus = ProductStatus.Unchecked;
 
-        if (!(Status == ProductStatus.Validated || Status == ProductStatus.Reported))
+        if (Status is not (ProductStatus.Validated or ProductStatus.Reported))
         {
             throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
         }
@@ -135,7 +151,7 @@ public class Product : BaseAggregateRoot
     {
         var newStatus = ProductStatus.Validated;
 
-        if (Status != ProductStatus.Unchecked)
+        if (Status is not ProductStatus.Unchecked)
         {
             throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
         }
@@ -146,7 +162,14 @@ public class Product : BaseAggregateRoot
 
     public Product SetReportedStatus()
     {
-        Status = ProductStatus.Reported;
+        var newStatus = ProductStatus.Reported;
+        
+        if (Status is not (ProductStatus.Unchecked or ProductStatus.Validated))
+        {
+            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
+        }
+        Status = newStatus;
+        
         return this;
     }
 
@@ -154,7 +177,7 @@ public class Product : BaseAggregateRoot
     {
         var newStatus = ProductStatus.Removed;
 
-        if (Status != ProductStatus.Reported)
+        if (Status is not ProductStatus.Reported)
         {
             throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
         }

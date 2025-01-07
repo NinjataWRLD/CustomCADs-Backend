@@ -10,7 +10,4 @@ public static class ProductConstants
 
     public const decimal PriceMax = 1_000_000m;
     public const decimal PriceMin = 0.00_000_1m;
-
-    public const decimal CostMin = 0.01m;
-    public const decimal CostMax = 1000m;
 }

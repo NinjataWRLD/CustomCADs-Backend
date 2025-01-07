@@ -1,12 +1,8 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
+﻿using CustomCADs.Catalog.Application.Products.Queries.CreatorGetById;
+using CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
 using CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
 using CustomCADs.Catalog.Application.Products.Queries.GetAll;
-using CustomCADs.Catalog.Application.Products.Queries.GetById;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
-using CustomCADs.Catalog.Endpoints.Products.Contributors.Get.All;
-using CustomCADs.Catalog.Endpoints.Products.Contributors.Get.Recent;
-using CustomCADs.Catalog.Endpoints.Products.Contributors.Get.Single;
-using CustomCADs.Catalog.Endpoints.Products.Contributors.Post.Products;
 using CustomCADs.Catalog.Endpoints.Products.Designer.Get.All;
 using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Single;
 using CustomCADs.Catalog.Endpoints.Products.Gallery.Get.All;
@@ -56,7 +52,7 @@ internal static class Mapper
             Category: product.Category.ToCategoryDto()
         );
 
-    internal static GetProductResponse ToGetProductResponse(this GetProductByIdDto product)
+    internal static GetProductResponse ToGetProductResponse(this CreatorGetProductByIdDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
@@ -68,7 +64,7 @@ internal static class Mapper
             Category: product.Category.ToCategoryDto()
         );
 
-    internal static PostProductResponse ToPostProductResponse(this GetProductByIdDto product)
+    internal static PostProductResponse ToPostProductResponse(this CreatorGetProductByIdDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
