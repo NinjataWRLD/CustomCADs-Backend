@@ -25,10 +25,10 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
             Items: [
-                CreateAccount(Client),
-                CreateAccount(Contributor),
-                CreateAccount(Designer),
-                CreateAccount(Admin),
+                CreateAccountWithId(AccountId.New(), Client),
+                CreateAccountWithId(AccountId.New(), Contributor),
+                CreateAccountWithId(AccountId.New(), Designer),
+                CreateAccountWithId(AccountId.New(), Admin),
             ]
         ));
 
@@ -52,10 +52,10 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
             Items: [
-                CreateAccount(Client, username: usernames[0]),
-                CreateAccount(Contributor, username: usernames[1]),
-                CreateAccount(Designer, username: usernames[2]),
-                CreateAccount(Admin, username: usernames[3]),
+                CreateAccountWithId(AccountId.New(), Client, username: usernames[0]),
+                CreateAccountWithId(AccountId.New(), Contributor, username: usernames[1]),
+                CreateAccountWithId(AccountId.New(), Designer, username: usernames[2]),
+                CreateAccountWithId(AccountId.New(), Admin, username: usernames[3]),
             ]
         ));
 
@@ -63,7 +63,8 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         GetUsernamesByIdsHandler handler = new(reads.Object);
 
         // Act
-        string[] actualUsernames = [.. (await handler.Handle(query, ct)).Select(t => t.Username)];
+        Dictionary<AccountId, string> result = await handler.Handle(query, ct);
+        string[] actualUsernames = [.. result.Select(kvp => kvp.Value)];
 
         // Assert
         Assert.Equal(actualUsernames, usernames);

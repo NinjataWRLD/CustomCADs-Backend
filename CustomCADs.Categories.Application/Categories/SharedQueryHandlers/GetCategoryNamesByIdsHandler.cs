@@ -3,16 +3,15 @@ using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Categories.Application.Categories.SharedQueryHandlers;
 
-public sealed class GetCategoriesByIdsHandler(ICategoryReads reads)
-    : IQueryHandler<GetCategoriesByIdsQuery, IEnumerable<(CategoryId Id, string Name)>>
+public sealed class GetCategoryNamesByIdsHandler(ICategoryReads reads)
+    : IQueryHandler<GetCategoryNamesByIdsQuery, Dictionary<CategoryId, string>>
 {
-    public async Task<IEnumerable<(CategoryId Id, string Name)>> Handle(GetCategoriesByIdsQuery req, CancellationToken ct)
+    public async Task<Dictionary<CategoryId, string>> Handle(GetCategoryNamesByIdsQuery req, CancellationToken ct)
     {
         IEnumerable<Category> categories = await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
 
-        return [.. categories
+        return categories
             .Where(c => req.Ids.Contains(c.Id))
-            .Select(c => (c.Id, c.Name))
-        ];
+            .ToDictionary(x => x.Id, x => x.Name);
     }
 }

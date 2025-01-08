@@ -66,8 +66,8 @@ static class CategoryConfigUtils
             Category.CreateWithId(CategoryId.New(8), "Sports", "Includes footballs, boxing gloves, hockey sticks, etc."),
             Category.CreateWithId(CategoryId.New(9), "Toys", "Includes pet toys, action figures, plushies, etc."),
             Category.CreateWithId(CategoryId.New(10), "Vehicles", "Includes cars, trucks, tanks, bikes, planes, ships, etc."),
-            Category.CreateWithId(CategoryId.New(11), "Others", "Includes anything that doesn't fit into the other categories.")
-        );
+            Category.CreateWithId(CategoryId.New(11), "Others", "Includes anything that doesn't fit into the other categories."),
+        ]);
 
         return builder;
     }

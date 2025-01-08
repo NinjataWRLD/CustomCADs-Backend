@@ -31,13 +31,13 @@ public class GetAllProductsHandlerUnitTests : ProductsBaseUnitTests
             .ReturnsAsync(result);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct))
-            .ReturnsAsync([.. products.Select(p => (p.CreatorId, "Username123"))]);
+            .ReturnsAsync(products.ToDictionary(x => x.CreatorId, x => "Username123"));
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoriesByIdsQuery>(), ct))
-            .ReturnsAsync([.. products.Select(p => (p.CategoryId, "Cateogry123"))]);
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct))
+            .ReturnsAsync(products.ToDictionary(x => x.CategoryId, x => "Cateogry123"));
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZonesByIdsQuery>(), ct))
-            .ReturnsAsync([.. products.Select(p => (p.CreatorId, "TimeZone123"))]);
+            .ReturnsAsync(products.ToDictionary(x => x.CreatorId, x => "TimeZone123"));
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class GetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoriesByIdsQuery>(), ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetTimeZonesByIdsQuery>(), ct), Times.Once);
     }
 

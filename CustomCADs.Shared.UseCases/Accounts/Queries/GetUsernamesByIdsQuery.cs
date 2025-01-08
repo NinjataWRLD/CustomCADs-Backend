@@ -2,4 +2,4 @@
 
 public sealed record GetUsernamesByIdsQuery(
      AccountId[] Ids
-) : IQuery<(AccountId Id, string Username)[]>;
+) : IQuery<Dictionary<AccountId, string>>;

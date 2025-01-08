@@ -23,8 +23,8 @@ public class GetImagesByIdsHandlerUnitTests : ImagesBaseUnitTests
     private static readonly Result<Image> result = new(
         Count: ids.Length,
         Items: [
-            CreateImage(ValidKey1, ValidContentType1),
-            CreateImage(ValidKey2, ValidContentType2),
+            CreateImageWithId(ImageId.New(), ValidKey1, ValidContentType1),
+            CreateImageWithId(ImageId.New(), ValidKey2, ValidContentType2),
         ]
     );
 
@@ -56,7 +56,7 @@ public class GetImagesByIdsHandlerUnitTests : ImagesBaseUnitTests
         GetImagesByIdsHandler handler = new(reads.Object);
 
         // Act
-        var actualImages = (await handler.Handle(query, ct)).Select(i => (i.Key, i.ContentType));
+        var actualImages = (await handler.Handle(query, ct)).Select(i => (i.Value.Key, i.Value.ContentType));
 
         // Assert
         Assert.Equal(actualImages, images);

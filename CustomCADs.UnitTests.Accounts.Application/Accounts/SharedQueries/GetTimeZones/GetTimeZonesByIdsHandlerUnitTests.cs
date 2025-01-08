@@ -59,7 +59,7 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
         GetTimeZonesByIdsHandler handler = new(reads.Object);
 
         // Act
-        string[] actualTimeZones = [.. (await handler.Handle(query, ct)).Select(t => t.TimeZone)];
+        string[] actualTimeZones = [.. (await handler.Handle(query, ct)).Select(t => t.Value)];
 
         // Assert
         Assert.Equal(actualTimeZones, timeZones);

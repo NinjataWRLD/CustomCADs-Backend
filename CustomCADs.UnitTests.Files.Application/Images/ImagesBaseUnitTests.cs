@@ -12,4 +12,7 @@ public class ImagesBaseUnitTests
 
     protected static Image CreateImage(string key = ValidKey1, string contentType = ValidContentType1)
         => Image.Create(key, contentType);
+
+    protected static Image CreateImageWithId(ImageId? id = null, string key = ValidKey1, string contentType = ValidContentType1)
+        => Image.CreateWithId(id ?? id1, key, contentType);
 }

@@ -2,4 +2,4 @@
 
 public sealed record GetTimeZonesByIdsQuery(
     AccountId[] Ids
-) : IQuery<(AccountId Id, string TimeZone)[]>;
+) : IQuery<Dictionary<AccountId, string>>;
