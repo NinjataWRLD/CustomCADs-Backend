@@ -48,7 +48,6 @@ public sealed class PurchaseActiveCartHandler(IActiveCartReads activeCartsReads,
             
             return (price, itemCadId, item);
         })]);
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         AddProductPurchaseCommand purchasesCommand = new(productIds);
         await sender.SendCommandAsync(purchasesCommand, ct).ConfigureAwait(false);
@@ -64,6 +63,8 @@ public sealed class PurchaseActiveCartHandler(IActiveCartReads activeCartsReads,
             description: $"{buyer} bought {totalCount} products for a total of {totalCost}$.",
             ct
         ).ConfigureAwait(false);
+        
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return message;
     }
