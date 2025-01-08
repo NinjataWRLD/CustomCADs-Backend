@@ -1,4 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Products;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Catalog.Persistence.Products.Configurations;
@@ -32,37 +35,37 @@ static class CadConfigUtils
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => ProductId.New(v)
             );
 
         builder.Property(x => x.CategoryId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => CategoryId.New(v)
             );
 
         builder.Property(x => x.ImageId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => ImageId.New(v)
             );
 
         builder.Property(x => x.CadId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => CadId.New(v)
             );
 
         builder.Property(x => x.CreatorId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => AccountId.New(v)
             );
 
         builder.Property(x => x.DesignerId)
             .HasConversion<Guid?>(
                 x => x == null ? null : x.Value.Value,
-                v => v == null ? null : new(v.Value)
+                v => AccountId.New(v)
             );
 
         return builder;

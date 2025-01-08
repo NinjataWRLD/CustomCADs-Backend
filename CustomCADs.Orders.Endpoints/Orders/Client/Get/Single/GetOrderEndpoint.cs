@@ -18,7 +18,7 @@ public sealed class GetOrderEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetOrderRequest req, CancellationToken ct)
     {
         GetOrderByIdQuery query = new(
-            Id: new OrderId(req.Id),
+            Id: OrderId.New(req.Id),
             BuyerId: User.GetAccountId()
         );
         GetOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

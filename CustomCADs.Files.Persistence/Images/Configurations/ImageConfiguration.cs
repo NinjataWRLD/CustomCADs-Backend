@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Images;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -28,7 +29,7 @@ public static class ImageConfigUtils
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => ImageId.New(v)
             );
 
         return builder;

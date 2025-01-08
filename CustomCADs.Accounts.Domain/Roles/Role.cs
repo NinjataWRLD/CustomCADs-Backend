@@ -26,7 +26,7 @@ public class Role : BaseAggregateRoot
         => roles.Select(dto =>
             new Role(dto.Name, dto.Description)
             {
-                Id = new(dto.Id)
+                Id = RoleId.New(dto.Id)
             }
             .ValidateName()
             .ValidateDescription()

@@ -8,7 +8,7 @@ namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Edit;
 public class EditCategoryValidatorUnitTests : CategoriesBaseUnitTests
 {
     private readonly EditCategoryValidator validator = new();
-    private readonly CategoryId id = new();
+    private readonly CategoryId id = CategoryId.New();
 
     [Theory]
     [ClassData(typeof(EditCategoryValidData))]

@@ -18,7 +18,7 @@ public sealed class DesignerSingleProductEndpoint(IRequestSender sender)
     public override async Task HandleAsync(DesignerSingleProductRequest req, CancellationToken ct)
     {
         DesignerGetProductByIdQuery query = new(
-            Id: new(req.Id),
+            Id: ProductId.New(req.Id),
             DesignerId: User.GetAccountId()
         );
         DesignerGetProductByIdDto product = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

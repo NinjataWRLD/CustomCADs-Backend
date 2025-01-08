@@ -20,7 +20,7 @@ public class SetActiveCartItemForDeliveryEndpoint(IRequestSender sender)
     {
         SetActiveCartItemForDeliveryCommand command = new(
             BuyerId: User.GetAccountId(),
-            ItemId: new ActiveCartItemId(req.ItemId),
+            ItemId: ActiveCartItemId.New(req.ItemId),
             Value: req.Value
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

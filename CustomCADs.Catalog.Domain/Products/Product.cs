@@ -70,7 +70,7 @@ public class Product : BaseAggregateRoot
         ProductId? id = null
     ) => new Product(name, description, price, creatorId, categoryId, imageId, cadId)
         {
-            Id = id ?? new ProductId(Guid.NewGuid())
+            Id = id ?? ProductId.New()
         }
         .ValidateName()
         .ValidateDescription()

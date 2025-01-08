@@ -44,7 +44,7 @@ public class Account : BaseAggregateRoot
         => users.Select(dto =>
             new Account(dto.Role, dto.Username, dto.Email, "Europe/Sofia", null, null)
             {
-                Id = new(dto.Id)
+                Id = AccountId.New(dto.Id)
             }
             .ValidateRole()
             .ValidateUsername()

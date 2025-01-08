@@ -9,10 +9,10 @@ using static Constants.Users;
 
 public static class AccountsData
 {
-    public static readonly AccountId ValidId1 = new(Guid.Parse(ClientAccountId));
-    public static readonly AccountId ValidId2 = new(Guid.Parse(ContributorAccountId));
-    public static readonly AccountId ValidId3 = new(Guid.Parse(DesignerAccountId));
-    public static readonly AccountId ValidId4 = new(Guid.Parse(AdminAccountId));
+    public static readonly AccountId ValidId1 = AccountId.New(ClientAccountId);
+    public static readonly AccountId ValidId2 = AccountId.New(ContributorAccountId);
+    public static readonly AccountId ValidId3 = AccountId.New(DesignerAccountId);
+    public static readonly AccountId ValidId4 = AccountId.New(AdminAccountId);
 
     public const string ValidUsername1 = ClientUsername;
     public const string ValidUsername2 = ContributorUsername;

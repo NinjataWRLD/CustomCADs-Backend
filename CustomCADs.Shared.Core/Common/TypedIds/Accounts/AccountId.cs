@@ -2,10 +2,20 @@
 
 namespace CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
-public readonly struct AccountId(Guid value)
+public readonly struct AccountId
 {
     public AccountId() : this(Guid.Empty) { }
-    public Guid Value { get; init; } = value;
+    private AccountId(Guid value)
+    {
+        Value = value;
+    }
+
+    public Guid Value { get; init; }
+
+    public static AccountId New() => new(Guid.NewGuid());
+    public static AccountId New(Guid id) => new(id);
+    public static AccountId? New(Guid? id) => id is null ? null : new(id.Value);
+    public static AccountId New(string? id) => id is null ? new() : new(Guid.Parse(id));
 
     public override bool Equals([NotNullWhen(true)] object? obj)
         => obj is AccountId userId && this == userId;

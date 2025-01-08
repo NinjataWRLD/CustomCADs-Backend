@@ -2,10 +2,18 @@
 
 namespace CustomCADs.Shared.Core.Common.TypedIds.Carts;
 
-public readonly struct ActiveCartItemId(Guid value)
+public readonly struct ActiveCartItemId
 {
     public ActiveCartItemId() : this(Guid.Empty) { }
-    public Guid Value { get; init; } = value;
+    private ActiveCartItemId(Guid value)
+    {
+        Value = value;
+    }
+
+    public Guid Value { get; init; }
+
+    public static ActiveCartItemId New() => new(Guid.NewGuid());
+    public static ActiveCartItemId New(Guid id) => new(id);
 
     public override bool Equals([NotNullWhen(true)] object? obj)
         => obj is ActiveCartItemId orderId && this == orderId;

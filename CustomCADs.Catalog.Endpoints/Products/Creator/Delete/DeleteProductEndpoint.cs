@@ -18,7 +18,7 @@ public sealed class DeleteProductEndpoint(IRequestSender sender)
     public override async Task HandleAsync(DeleteProductRequest req, CancellationToken ct)
     {
         DeleteProductCommand command = new(
-            Id: new ProductId(req.Id),
+            Id: ProductId.New(req.Id),
             CreatorId: User.GetAccountId()
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

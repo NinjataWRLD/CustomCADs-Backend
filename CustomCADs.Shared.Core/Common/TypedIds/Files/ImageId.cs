@@ -2,11 +2,18 @@
 
 namespace CustomCADs.Shared.Core.Common.TypedIds.Files;
 
-public readonly struct ImageId(Guid value)
+public readonly struct ImageId
 {
     public ImageId() : this(Guid.Empty) { }
+    private ImageId(Guid value)
+    {
+        Value = value;
+    }
 
-    public Guid Value { get; } = value;
+    public Guid Value { get; }
+
+    public static ImageId New() => new(Guid.NewGuid());
+    public static ImageId New(Guid id) => new(id);
 
     public override bool Equals([NotNullWhen(true)] object? obj)
         => obj is ImageId imageId && this == imageId;

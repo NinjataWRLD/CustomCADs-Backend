@@ -24,7 +24,7 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
         AccountId buyerId = User.GetAccountId();
 
         AddActiveCartItemCommand command = new(
-            ProductId: new ProductId(req.ProductId),
+            ProductId: ProductId.New(req.ProductId),
             Weight: req.Weight,
             ForDelivery: req.ForDelivery,
             BuyerId: buyerId

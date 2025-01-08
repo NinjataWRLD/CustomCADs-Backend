@@ -18,7 +18,7 @@ public sealed class PutCategoryEndpoint(IRequestSender sender)
     public override async Task HandleAsync(PutCategoryRequest req, CancellationToken ct)
     {
         EditCategoryCommand command = new(
-            Id: new CategoryId(req.Id),
+            Id: CategoryId.New(req.Id),
             Dto: new CategoryWriteDto(req.Name, req.Description)
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

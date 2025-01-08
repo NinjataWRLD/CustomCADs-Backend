@@ -21,7 +21,7 @@ public class GetShipmentWaybillEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetShipmentWaybillRequest req, CancellationToken ct)
     {
         GetShipmentWaybillQuery query = new(
-            Id: new ShipmentId(req.Id),
+            Id: ShipmentId.New(req.Id),
             DesignerId: User.GetAccountId()
         );
         byte[] bytes = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

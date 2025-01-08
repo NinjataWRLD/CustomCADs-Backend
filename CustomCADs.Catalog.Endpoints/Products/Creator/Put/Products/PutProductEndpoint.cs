@@ -19,12 +19,13 @@ public sealed class PutProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PutProductRequest req, CancellationToken ct)
     {
-        ProductId id = new(req.Id);
+        var id = ProductId.New(req.Id);
+
         EditProductCommand editCommand = new(
             Id: id,
             Name: req.Name,
             Description: req.Description,
-            CategoryId: new CategoryId(req.CategoryId),
+            CategoryId: CategoryId.New(req.CategoryId),
             Price: req.Price,
             CreatorId: User.GetAccountId()
         );

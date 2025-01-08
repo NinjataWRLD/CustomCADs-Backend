@@ -7,9 +7,9 @@ using static CategoryConstants;
 
 public static class CategoriesData
 {
-    public static readonly CategoryId ValidId1 = new(1);
-    public static readonly CategoryId ValidId2 = new(2);
-    public static readonly CategoryId ValidId3 = new(3);
+    public static readonly CategoryId ValidId1 = CategoryId.New(1);
+    public static readonly CategoryId ValidId2 = CategoryId.New(2);
+    public static readonly CategoryId ValidId3 = CategoryId.New(3);
 
     public const string ValidName1 = "CategoryA";
     public static readonly string ValidName2 = new('a', NameMinLength + 1);

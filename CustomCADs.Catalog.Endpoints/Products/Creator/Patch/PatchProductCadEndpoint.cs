@@ -18,7 +18,7 @@ public sealed class PatchProductCadEndpoint(IRequestSender sender)
     public override async Task HandleAsync(PatchProductCadRequest req, CancellationToken ct)
     {
         SetProductCoordsCommand command = new(
-            Id: new ProductId(req.Id),
+            Id: ProductId.New(req.Id),
             CreatorId: User.GetAccountId()
         );
 

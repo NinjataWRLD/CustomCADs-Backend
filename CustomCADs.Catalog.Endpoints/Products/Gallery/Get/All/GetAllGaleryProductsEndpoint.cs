@@ -21,7 +21,7 @@ public sealed class GetAllGaleryProductsEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetAllGaleryProductsRequest req, CancellationToken ct)
     {
         GetAllProductsQuery query = new(
-            CategoryId: req.CategoryId is null ? null : new CategoryId(req.CategoryId.Value),
+            CategoryId: CategoryId.New(req.CategoryId),
             Status: ProductStatus.Validated,
             Name: req.Name,
             Sorting: req.Sorting,

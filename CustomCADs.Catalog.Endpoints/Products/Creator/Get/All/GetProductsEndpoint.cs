@@ -21,7 +21,7 @@ public sealed class GetProductsEndpoint(IRequestSender sender)
     {
         GetAllProductsQuery query = new(
             CreatorId: User.GetAccountId(),
-            CategoryId: req.CategoryId is null ? null : new CategoryId(req.CategoryId.Value),
+            CategoryId: CategoryId.New(req.CategoryId),
             Name: req.Name,
             Sorting: new(req.SortingType, req.SortingDirection),
             Pagination: new(req.Page, req.Limit)

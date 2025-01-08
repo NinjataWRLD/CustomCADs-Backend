@@ -19,7 +19,7 @@ public sealed class PurchaseOrderEndpoint(IRequestSender sender)
     {
         PurchaseOrderCommand command = new(
             PaymentMethodId: req.PaymentMethodId,
-            OrderId: new OrderId(req.OrderId),
+            OrderId: OrderId.New(req.OrderId),
             BuyerId: User.GetAccountId()
         );
         string message = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

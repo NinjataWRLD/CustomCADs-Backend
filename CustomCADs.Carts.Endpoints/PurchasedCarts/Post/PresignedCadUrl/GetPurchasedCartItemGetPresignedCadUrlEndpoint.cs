@@ -19,8 +19,8 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
     public override async Task HandleAsync(GetPurchasedCartItemGetPresignedCadUrlRequest req, CancellationToken ct)
     {
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: new PurchasedCartId(req.Id),
-            ItemId: new PurchasedCartItemId(req.ItemId),
+            Id: PurchasedCartId.New(req.Id),
+            ItemId: PurchasedCartItemId.New(req.ItemId),
             BuyerId: User.GetAccountId()
         );
         GetPurchasedCartItemCadPresignedUrlGetDto cad = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

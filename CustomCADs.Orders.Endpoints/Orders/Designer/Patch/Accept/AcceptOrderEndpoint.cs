@@ -18,7 +18,7 @@ public sealed class AcceptOrderEndpoint(IRequestSender sender)
     public override async Task HandleAsync(AcceptOrderRequest req, CancellationToken ct)
     {
         AcceptOrderCommand command = new(
-            Id: new OrderId(req.Id),
+            Id: OrderId.New(req.Id),
             DesignerId: User.GetAccountId()
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

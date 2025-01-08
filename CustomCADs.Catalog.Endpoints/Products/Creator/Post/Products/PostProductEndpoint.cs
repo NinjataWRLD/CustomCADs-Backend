@@ -23,7 +23,7 @@ public sealed class PostProductEndpoint(IRequestSender sender)
         CreateProductCommand command = new(
             Name: req.Name,
             Description: req.Description,
-            CategoryId: new CategoryId(req.CategoryId),
+            CategoryId: CategoryId.New(req.CategoryId),
             Price: req.Price,
             ImageKey: req.ImageKey,
             ImageContentType: req.ImageContentType,

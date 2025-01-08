@@ -48,7 +48,7 @@ static class RoleConfigUtils
         builder.Property(x => x.Id)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => RoleId.New(v)
             ).UseIdentityColumn();
 
         return builder;
