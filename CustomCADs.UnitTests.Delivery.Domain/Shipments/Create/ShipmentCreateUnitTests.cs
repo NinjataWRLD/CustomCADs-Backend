@@ -12,7 +12,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
     {
         Shipment.Create(new(country, city), referenceId, buyerId);
     }
-    
+
     [Theory]
     [ClassData(typeof(ShipmentCreateValidData))]
     public void Create_ShouldPopulatePropertiesProperly_WhenShipmentIsValid(string country, string city, string referenceId, AccountId buyerId)
@@ -27,7 +27,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
             () => Assert.True(DateTime.UtcNow - shipment.RequestDate < TimeSpan.FromSeconds(1))
         );
     }
-    
+
     [Theory]
     [ClassData(typeof(ShipmentCreateInvalidCountryData))]
     public void Create_ShouldThrowException_WhenCountryIsInvalid(string country, string city, string referenceId, AccountId buyerId)
@@ -37,7 +37,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
             Shipment.Create(new(country, city), referenceId, buyerId);
         });
     }
-    
+
     [Theory]
     [ClassData(typeof(ShipmentCreateInvalidCityData))]
     public void Create_ShouldThrowException_WhenCityIsInvalid(string country, string city, string referenceId, AccountId buyerId)
