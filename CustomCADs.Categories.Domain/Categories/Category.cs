@@ -19,18 +19,15 @@ public class Category : BaseAggregateRoot
     public static Category Create(string name, string description)
         => new Category(name, description)
             .ValidateName()
-            .ValidateDescription()            ;
+            .ValidateDescription();
 
-    public static IEnumerable<Category> CreateRange(
-        params (CategoryId Id, string Name, string Description)[] categories
-    ) => categories.Select(category =>
-            new Category(category.Name, category.Description)
-            {
-                Id = category.Id
-            }
-            .ValidateName()
-            .ValidateDescription()
-        );
+    public static Category CreateWithId(CategoryId id, string name, string description)
+        => new Category(name, description)
+        {
+            Id = id
+        }
+        .ValidateName()
+        .ValidateDescription();
 
     public Category SetName(string name)
     {
@@ -38,7 +35,7 @@ public class Category : BaseAggregateRoot
         this.ValidateName();
         return this;
     }
-  
+
     public Category SetDescription(string description)
     {
         Description = description;

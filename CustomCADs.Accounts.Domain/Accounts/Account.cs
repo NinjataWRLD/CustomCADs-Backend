@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Accounts.Domain.Accounts.Validation;
 using CustomCADs.Shared.Core.Bases.Entities;
-using UserDto = (System.Guid Id, string Role, string Username, string Email);
 
 namespace CustomCADs.Accounts.Domain.Accounts;
 
@@ -40,18 +39,24 @@ public class Account : BaseAggregateRoot
             .ValidateFirstName()
             .ValidateLastName();
 
-    public static IEnumerable<Account> CreateRange(UserDto[] users)
-        => users.Select(dto =>
-            new Account(dto.Role, dto.Username, dto.Email, "Europe/Sofia", null, null)
-            {
-                Id = AccountId.New(dto.Id)
-            }
-            .ValidateRole()
-            .ValidateUsername()
-            .ValidateEmail()
-            .ValidateFirstName()
-            .ValidateLastName()
-        );
+    public static Account CreateWithId(
+        AccountId id,
+        string role,
+        string username,
+        string email,
+        string timeZone,
+        string? firstName = default,
+        string? lastName = default
+    ) => new Account(role, username, email, timeZone, firstName, lastName)
+    {
+        Id = id,
+    }
+    .ValidateRole()
+    .ValidateUsername()
+    .ValidateEmail()
+    .ValidateTimeZone()
+    .ValidateFirstName()
+    .ValidateLastName();
 
     public Account SetUsername(string username)
     {
@@ -79,7 +84,7 @@ public class Account : BaseAggregateRoot
         this.ValidateFirstName();
         return this;
     }
-    
+
     public Account SetLastName(string? lastName)
     {
         LastName = lastName;

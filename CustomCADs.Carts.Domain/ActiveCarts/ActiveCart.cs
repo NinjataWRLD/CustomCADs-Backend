@@ -29,6 +29,13 @@ public class ActiveCart : BaseAggregateRoot
         => new ActiveCart(buyerId)
             .ValidateItems();
 
+    public static ActiveCart CreateWithId(ActiveCartId id, AccountId buyerId)
+        => new ActiveCart(buyerId)
+        {
+            Id = id
+        }
+        .ValidateItems();
+
     public ActiveCartItem AddItem(double weight, ProductId productId, bool forDelivery)
     {
         var item = ActiveCartItem.Create(weight, productId, Id, forDelivery);

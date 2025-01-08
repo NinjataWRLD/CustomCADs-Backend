@@ -24,10 +24,22 @@ public class Shipment : BaseAggregateRoot
     public AccountId BuyerId { get; private set; }
 
     public static Shipment Create(
-        Address address, 
-        string referenceId, 
+        Address address,
+        string referenceId,
         AccountId buyerId
     ) => new Shipment(address, referenceId, buyerId)
         .ValidateCountry()
         .ValidateCity();
+
+    public static Shipment CreateWithId(
+        ShipmentId id,
+        Address address,
+        string referenceId,
+        AccountId buyerId
+    ) => new Shipment(address, referenceId, buyerId)
+    {
+        Id = id
+    }
+    .ValidateCountry()
+    .ValidateCity();
 }

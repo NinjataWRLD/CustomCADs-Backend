@@ -37,7 +37,7 @@ public class Cad : BaseAggregateRoot
         .ValidateContentType()
         .ValidateCamCoordinates()
         .ValidatePanCoordinates();
-    
+
     public static Cad CreateWithId(
         CadId id,
         string key,
@@ -45,12 +45,13 @@ public class Cad : BaseAggregateRoot
         Coordinates camCoordinates,
         Coordinates panCoordinates
     ) => new Cad(key, contentType, camCoordinates, panCoordinates)
-        {
-            Id = id
-        }.ValidateKey()
-        .ValidateContentType()
-        .ValidateCamCoordinates()
-        .ValidatePanCoordinates();
+    {
+        Id = id
+    }
+    .ValidateKey()
+    .ValidateContentType()
+    .ValidateCamCoordinates()
+    .ValidatePanCoordinates();
 
     public Cad SetKey(string key)
     {

@@ -31,6 +31,13 @@ public class PurchasedCart : BaseAggregateRoot
     public static PurchasedCart Create(AccountId buyerId)
         => new(buyerId);
 
+    public static PurchasedCart CreateWithId(PurchasedCartId id, AccountId buyerId)
+        => new PurchasedCart(buyerId)
+        {
+            Id = id
+        }
+        .ValidateItems();
+
     public PurchasedCartItem[] AddItems((decimal Price, CadId CadId, ActiveCartItem Item)[] items)
     {
         this.items.AddRange([.. items.Select(i => PurchasedCartItem.Create(

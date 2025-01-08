@@ -1,9 +1,12 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
 using CustomCADs.Accounts.Domain.Accounts.Reads;
 using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.GetAll;
 
+using static AccountsData;
+using static Constants;
 using static Constants.Users;
 
 public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
@@ -11,12 +14,12 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
     private const int count = 30;
 
     private readonly Mock<IAccountReads> reads = new();
-    private readonly Account[] accounts = Account.CreateRange([
-        (Guid.NewGuid(), Constants.Roles.Client, ClientUsername, ClientEmail),
-        (Guid.NewGuid(), Constants.Roles.Contributor, ContributorUsername, ContributorEmail),
-        (Guid.NewGuid(), Constants.Roles.Designer, DesignerUsername, DesignerEmail),
-        (Guid.NewGuid(), Constants.Roles.Admin, AdminUsername, AdminEmail),
-    ]).ToArray();
+    private readonly Account[] accounts = [
+        Account.CreateWithId(AccountId.New(), Roles.Client, ClientUsername, ClientEmail, ValidTimeZone1),
+        Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail, ValidTimeZone2),
+        Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail, ValidTimeZone1),
+        Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail, ValidTimeZone2),
+    ];
     private readonly AccountQuery accountQuery = new(GetPagination());
 
     public GetAllAccountsHandlerUnitTests()

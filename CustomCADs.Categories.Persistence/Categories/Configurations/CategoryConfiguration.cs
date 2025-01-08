@@ -55,19 +55,19 @@ static class CategoryConfigUtils
 
     public static EntityTypeBuilder<Category> SetSeedData(this EntityTypeBuilder<Category> builder)
     {
-        builder.HasData(Category.CreateRange([
-            (CategoryId.New(1), "Animals", "Includes pets, wild animals, etc."),
-            (CategoryId.New(2), "Characters", "Includes movie characters, book characters, game characters, etc."),
-            (CategoryId.New(3), "Electronics", "Includes phones, computers, e-devices, earphones, etc."),
-            (CategoryId.New(4), "Fashion", "Includes clothes, shoes, accessories, hats, etc."),
-            (CategoryId.New(5), "Furniture", "Includes tables, chairs, beds, etc."),
-            (CategoryId.New(6), "Nature", "Includes flowers, forests, seas, etc."),
-            (CategoryId.New(7), "Science", "Includes organs, tools, chemical fluids, etc."),
-            (CategoryId.New(8), "Sports", "Includes footballs, boxing gloves, hockey sticks, etc."),
-            (CategoryId.New(9), "Toys", "Includes pet toys, action figures, plushies, etc."),
-            (CategoryId.New(10), "Vehicles", "Includes cars, trucks, tanks, bikes, planes, ships, etc."),
-            (CategoryId.New(11), "Others", "Includes anything that doesn't fit into the other categories."),
-        ]));
+        builder.HasData([
+            Category.CreateWithId(CategoryId.New(1), "Animals", "Includes pets, wild animals, etc."),
+            Category.CreateWithId(CategoryId.New(2), "Characters", "Includes movie characters, book characters, game characters, etc."),
+            Category.CreateWithId(CategoryId.New(3), "Electronics", "Includes phones, computers, e-devices, earphones, etc."),
+            Category.CreateWithId(CategoryId.New(4), "Fashion", "Includes clothes, shoes, accessories, hats, etc."),
+            Category.CreateWithId(CategoryId.New(5), "Furniture", "Includes tables, chairs, beds, etc."),
+            Category.CreateWithId(CategoryId.New(6), "Nature", "Includes flowers, forests, seas, etc."),
+            Category.CreateWithId(CategoryId.New(7), "Science", "Includes organs, tools, chemical fluids, etc."),
+            Category.CreateWithId(CategoryId.New(8), "Sports", "Includes footballs, boxing gloves, hockey sticks, etc."),
+            Category.CreateWithId(CategoryId.New(9), "Toys", "Includes pet toys, action figures, plushies, etc."),
+            Category.CreateWithId(CategoryId.New(10), "Vehicles", "Includes cars, trucks, tanks, bikes, planes, ships, etc."),
+            Category.CreateWithId(CategoryId.New(11), "Others", "Includes anything that doesn't fit into the other categories.")
+        );
 
         return builder;
     }

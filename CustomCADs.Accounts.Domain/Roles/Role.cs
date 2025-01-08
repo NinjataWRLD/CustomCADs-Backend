@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Accounts.Domain.Roles.Validation;
 using CustomCADs.Shared.Core.Bases.Entities;
-using RoleDto = (int Id, string Name, string Description);
 
 namespace CustomCADs.Accounts.Domain.Roles;
 
@@ -22,15 +21,13 @@ public class Role : BaseAggregateRoot
             .ValidateName()
             .ValidateDescription();
 
-    public static IEnumerable<Role> CreateRange(params RoleDto[] roles)
-        => roles.Select(dto =>
-            new Role(dto.Name, dto.Description)
-            {
-                Id = RoleId.New(dto.Id)
-            }
-            .ValidateName()
-            .ValidateDescription()
-        );
+    public static Role CreateWithId(RoleId id, string name, string description)
+        => new Role(name, description)
+        {
+            Id = id
+        }
+        .ValidateName()
+        .ValidateDescription();
 
     public Role SetName(string name)
     {
