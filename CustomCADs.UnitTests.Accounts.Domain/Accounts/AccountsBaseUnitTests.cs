@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Domain.Accounts;
 
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using static AccountsData;
 
 public class AccountsBaseUnitTests
@@ -12,6 +13,24 @@ public class AccountsBaseUnitTests
         string? firstName = ValidFirstName1,
         string? lastName = ValidLastName1
     ) => Account.Create(
+            role: role,
+            username: username,
+            email: email,
+            timeZone: timeZone,
+            firstName: firstName,
+            lastName: lastName
+        );
+
+    protected static Account CreateAccountWithId(
+        AccountId? id = null,
+        string role = RolesData.ValidName1,
+        string username = ValidUsername1,
+        string email = ValidEmail1,
+        string timeZone = ValidTimeZone1,
+        string? firstName = ValidFirstName1,
+        string? lastName = ValidLastName1
+    ) => Account.CreateWithId(
+            id: id ?? ValidId1,
             role: role,
             username: username,
             email: email,

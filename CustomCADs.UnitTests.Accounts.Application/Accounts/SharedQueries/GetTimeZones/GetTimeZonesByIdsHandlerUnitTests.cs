@@ -28,7 +28,7 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
         AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);
         reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
-            Items: [.. ids.Select(id => CreateAccount())]
+            Items: [.. ids.Select(id => CreateAccountWithId(id))]
         ));
 
         GetTimeZonesByIdsQuery query = new(ids);
@@ -51,7 +51,7 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
             Count: ids.Length,
             Items: [.. 
                 Enumerable.Range(0, ids.Length).Select(i => 
-                    CreateAccount(timeZone: timeZones[i]))
+                    CreateAccountWithId(id: ids[i], timeZone: timeZones[i]))
             ]
         ));
 
