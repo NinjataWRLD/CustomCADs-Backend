@@ -1,4 +1,6 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -40,13 +42,13 @@ public static class ActiveCartItemConfigurUitls
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => ActiveCartId.New(v)
             );
 
         builder.Property(x => x.BuyerId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => AccountId.New(v)
             );
 
         return builder;

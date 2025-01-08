@@ -5,8 +5,8 @@ using static CadsData;
 
 public class CadsBaseUnitTests
 {
-    protected static readonly CadId id1 = new(Guid.NewGuid());
-    protected static readonly CadId id2 = new(Guid.NewGuid());
+    protected static readonly CadId id1 = CadId.New();
+    protected static readonly CadId id2 = CadId.New();
     protected static readonly CancellationToken ct = CancellationToken.None;
 
     protected static Cad CreateCad(string key = ValidKey1, string contentType = ValidContentType1, int x1 = ValidCoord1, int y1 = ValidCoord1, int z1 = ValidCoord1, int x2 = ValidCoord2, int y2 = ValidCoord2, int z2 = ValidCoord2)

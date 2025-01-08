@@ -2,6 +2,7 @@
 using CustomCADs.Accounts.Application.Roles.Queries.GetAll;
 using CustomCADs.Accounts.Domain.Roles.Reads;
 using CustomCADs.Shared.Application.Cache;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Queries.GetAll;
 
@@ -12,12 +13,12 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 {
     private readonly Mock<IRoleReads> reads = new();
     private readonly Mock<ICacheService> cache = new();
-    private readonly Role[] roles = Role.CreateRange(
-        (1, Client, ClientDescription),
-        (2, Contributor, ContributorDescription),
-        (3, Designer, DesignerDescription),
-        (4, Admin, AdminDescription)
-    ).ToArray();
+    private readonly Role[] roles = [
+        Role.CreateWithId(RoleId.New(), Client, ClientDescription),
+        Role.CreateWithId(RoleId.New(), Contributor, ContributorDescription),
+        Role.CreateWithId(RoleId.New(), Designer, DesignerDescription),
+        Role.CreateWithId(RoleId.New(), Admin, AdminDescription),
+    ];
 
     public GetAllRolesHandlerUnitTests()
     {

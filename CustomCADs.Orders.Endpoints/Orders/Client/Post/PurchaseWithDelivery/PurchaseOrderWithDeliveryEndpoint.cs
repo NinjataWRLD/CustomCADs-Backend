@@ -21,7 +21,7 @@ public sealed class PurchaseOrderWithDeliveryEndpoint(IRequestSender sender)
             PaymentMethodId: req.PaymentMethodId,
             ShipmentService: req.ShipmentService,
             Weight: req.Weight,
-            OrderId: new OrderId(req.OrderId),
+            OrderId: OrderId.New(req.OrderId),
             Address: req.Address,
             Contact: req.Contact,
             BuyerId: User.GetAccountId()

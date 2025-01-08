@@ -8,5 +8,5 @@ public class CategoriesBaseUnitTests
     public static readonly CancellationToken ct = CancellationToken.None;
 
     protected static Category CreateCategory(CategoryId? id = null, string name = ValidName1, string description = ValidDescription1)
-        => Category.CreateRange((id ?? ValidId1, name, description)).First();
+        => Category.CreateWithId(id ?? ValidId1, name, description);
 }

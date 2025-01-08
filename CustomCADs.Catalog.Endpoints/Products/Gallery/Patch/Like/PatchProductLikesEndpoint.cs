@@ -21,7 +21,7 @@ public sealed class PatchProductLikesEndpoint(IRequestSender sender)
     public override async Task HandleAsync(PatchProductLikesRequest req, CancellationToken ct)
     {
         AddProductLikeCommand command = new(
-            Id: new ProductId(req.Id)
+            Id: ProductId.New(req.Id)
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 

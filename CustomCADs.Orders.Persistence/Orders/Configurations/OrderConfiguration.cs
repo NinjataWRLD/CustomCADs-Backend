@@ -1,5 +1,9 @@
 ﻿using CustomCADs.Orders.Domain.Orders;
 using CustomCADs.Orders.Domain.Orders.Enums;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
+using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -31,31 +35,31 @@ public static class OrderConfigUtils
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => OrderId.New(v)
             );
 
         builder.Property(x => x.BuyerId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => AccountId.New(v)
             );
 
         builder.Property(x => x.DesignerId)
             .HasConversion<Guid?>(
                 x => x == null ? null : x.Value.Value,
-                v => v == null ? null : new(v.Value)
+                v => AccountId.New(v)
             );
 
         builder.Property(x => x.CadId)
             .HasConversion<Guid?>(
                 x => x == null ? null : x.Value.Value,
-                v => v == null ? null : new(v.Value)
+                v => CadId.New(v)
             );
 
         builder.Property(x => x.ShipmentId)
             .HasConversion<Guid?>(
                 x => x == null ? null : x.Value.Value,
-                v => v == null ? null : new(v.Value)
+                v => ShipmentId.New(v)
             );
 
         return builder;

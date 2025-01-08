@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -29,7 +30,7 @@ public static class CadConfigUtils
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => CadId.New(v)
             );
 
         return builder;

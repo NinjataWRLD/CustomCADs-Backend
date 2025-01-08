@@ -17,7 +17,9 @@ public sealed class DeleteCategoryEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteCategoryRequest req, CancellationToken ct)
     {
-        DeleteCategoryCommand command = new(Id: new(req.Id));
+        DeleteCategoryCommand command = new(
+            Id: CategoryId.New(req.Id)
+        );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

@@ -19,7 +19,7 @@ public sealed class ReportProductEndpoint(IRequestSender sender)
     public override async Task HandleAsync(ReportProductRequest req, CancellationToken ct)
     {
         SetProductStatusCommand command = new(
-            Id: new(req.Id),
+            Id: ProductId.New(req.Id),
             Status: ProductStatus.Reported,
             DesignerId: User.GetAccountId()
         );

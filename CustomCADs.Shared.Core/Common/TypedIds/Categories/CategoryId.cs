@@ -2,10 +2,19 @@
 
 namespace CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
-public readonly struct CategoryId(int value)
+public readonly struct CategoryId
 {
     public CategoryId() : this(0) { }
-    public int Value { get; init; } = value;
+    private CategoryId(int value)
+    {
+        Value = value;
+    }
+
+    public int Value { get; init; }
+
+    public static CategoryId New() => new(0);
+    public static CategoryId New(int id) => new(id);
+    public static CategoryId? New(int? id) => id is null ? null : new(id.Value);
 
     public override bool Equals([NotNullWhen(true)] object? obj)
         => obj is CategoryId categoryId && this == categoryId;

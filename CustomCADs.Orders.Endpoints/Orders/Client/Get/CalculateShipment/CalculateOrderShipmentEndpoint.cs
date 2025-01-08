@@ -18,7 +18,7 @@ public class CalculateOrderShipmentEndpoint(IRequestSender sender)
     public override async Task HandleAsync(CalculateOrderShipmentRequest req, CancellationToken ct)
     {
         CalculateOrderShipmentQuery query = new(
-            Id: new OrderId(req.Id),
+            Id: OrderId.New(req.Id),
             TotalWeight: req.Weight,
             Address: new(req.Country, req.City)
         );

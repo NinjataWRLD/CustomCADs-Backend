@@ -55,10 +55,27 @@ public class Product : BaseAggregateRoot
         ImageId imageId,
         CadId cadId
     ) => new Product(name, description, price, creatorId, categoryId, imageId, cadId)
-            .ValidateName()
-            .ValidateDescription()
-            .ValidatePrice();
-    
+        .ValidateName()
+        .ValidateDescription()
+        .ValidatePrice();
+
+    public static Product CreateWithId(
+        ProductId id,
+        string name,
+        string description,
+        decimal price,
+        AccountId creatorId,
+        CategoryId categoryId,
+        ImageId imageId,
+        CadId cadId
+    ) => new Product(name, description, price, creatorId, categoryId, imageId, cadId)
+    {
+        Id = id
+    }
+    .ValidateName()
+    .ValidateDescription()
+    .ValidatePrice();
+
     public static Product CreateWithId(
         string name,
         string description,
@@ -69,9 +86,9 @@ public class Product : BaseAggregateRoot
         CadId cadId,
         ProductId? id = null
     ) => new Product(name, description, price, creatorId, categoryId, imageId, cadId)
-        {
-            Id = id ?? new ProductId(Guid.NewGuid())
-        }
+    {
+        Id = id ?? ProductId.New()
+    }
         .ValidateName()
         .ValidateDescription()
         .ValidatePrice();
@@ -163,13 +180,13 @@ public class Product : BaseAggregateRoot
     public Product SetReportedStatus()
     {
         var newStatus = ProductStatus.Reported;
-        
+
         if (Status is not (ProductStatus.Unchecked or ProductStatus.Validated))
         {
             throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
         }
         Status = newStatus;
-        
+
         return this;
     }
 

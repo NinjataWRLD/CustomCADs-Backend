@@ -18,7 +18,7 @@ public sealed class PutOrderEndpoint(IRequestSender sender)
     public override async Task HandleAsync(PutOrderRequest req, CancellationToken ct)
     {
         EditOrderCommand command = new(
-            Id: new OrderId(req.Id),
+            Id: OrderId.New(req.Id),
             Name: req.Name,
             Description: req.Description,
             BuyerId: User.GetAccountId()

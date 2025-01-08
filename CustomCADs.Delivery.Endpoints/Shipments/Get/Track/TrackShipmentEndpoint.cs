@@ -19,7 +19,7 @@ public class TrackShipmentEndpoint(IRequestSender sender)
     public override async Task HandleAsync(TrackShipmentRequest req, CancellationToken ct)
     {
         GetShipmentTrackQuery query = new(
-            Id: new ShipmentId(req.Id)
+            Id: ShipmentId.New(req.Id)
         );
         Dictionary<DateTime, GetShipmentTrackDto> tracks = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

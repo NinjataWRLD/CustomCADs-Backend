@@ -15,7 +15,7 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
         builder.Property(u => u.AccountId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => AccountId.New(v)
             );
 
         builder.HasData([
@@ -59,7 +59,7 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
     }
 
     private static AppUser CreateAppUser(Guid id, string username, string email, string passHash, Guid accountId, string concStamp, string secStamp)
-        => new(username, email, new AccountId(accountId))
+        => new(username, email, AccountId.New(accountId))
         {
             Id = id,
             NormalizedUserName = username.ToUpperInvariant(),

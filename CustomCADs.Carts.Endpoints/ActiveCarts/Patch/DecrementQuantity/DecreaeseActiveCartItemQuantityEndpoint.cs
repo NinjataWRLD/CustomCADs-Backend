@@ -20,7 +20,7 @@ public class DecreaeseActiveCartItemQuantityEndpoint(IRequestSender sender)
     {
         DecreaseActiveCartItemQuantityCommand command = new(
             BuyerId: User.GetAccountId(),
-            ItemId: new ActiveCartItemId(req.ItemId),
+            ItemId: ActiveCartItemId.New(req.ItemId),
             Amount: req.Amount
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

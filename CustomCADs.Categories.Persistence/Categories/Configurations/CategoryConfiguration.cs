@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Categories.Domain.Categories;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Categories.Persistence.Categories.Configurations;
@@ -31,7 +32,7 @@ static class CategoryConfigUtils
         builder.Property(x => x.Id)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => CategoryId.New(v)
             ).UseIdentityColumn();
 
         return builder;
@@ -54,19 +55,19 @@ static class CategoryConfigUtils
 
     public static EntityTypeBuilder<Category> SetSeedData(this EntityTypeBuilder<Category> builder)
     {
-        builder.HasData(Category.CreateRange([
-            (new(1), "Animals", "Includes pets, wild animals, etc."),
-            (new(2), "Characters", "Includes movie characters, book characters, game characters, etc."),
-            (new(3), "Electronics", "Includes phones, computers, e-devices, earphones, etc."),
-            (new(4), "Fashion", "Includes clothes, shoes, accessories, hats, etc."),
-            (new(5), "Furniture", "Includes tables, chairs, beds, etc."),
-            (new(6), "Nature", "Includes flowers, forests, seas, etc."),
-            (new(7), "Science", "Includes organs, tools, chemical fluids, etc."),
-            (new(8), "Sports", "Includes footballs, boxing gloves, hockey sticks, etc."),
-            (new(9), "Toys", "Includes pet toys, action figures, plushies, etc."),
-            (new(10), "Vehicles", "Includes cars, trucks, tanks, bikes, planes, ships, etc."),
-            (new(11), "Others", "Includes anything that doesn't fit into the other categories."),
-        ]));
+        builder.HasData([
+            Category.CreateWithId(CategoryId.New(1), "Animals", "Includes pets, wild animals, etc."),
+            Category.CreateWithId(CategoryId.New(2), "Characters", "Includes movie characters, book characters, game characters, etc."),
+            Category.CreateWithId(CategoryId.New(3), "Electronics", "Includes phones, computers, e-devices, earphones, etc."),
+            Category.CreateWithId(CategoryId.New(4), "Fashion", "Includes clothes, shoes, accessories, hats, etc."),
+            Category.CreateWithId(CategoryId.New(5), "Furniture", "Includes tables, chairs, beds, etc."),
+            Category.CreateWithId(CategoryId.New(6), "Nature", "Includes flowers, forests, seas, etc."),
+            Category.CreateWithId(CategoryId.New(7), "Science", "Includes organs, tools, chemical fluids, etc."),
+            Category.CreateWithId(CategoryId.New(8), "Sports", "Includes footballs, boxing gloves, hockey sticks, etc."),
+            Category.CreateWithId(CategoryId.New(9), "Toys", "Includes pet toys, action figures, plushies, etc."),
+            Category.CreateWithId(CategoryId.New(10), "Vehicles", "Includes cars, trucks, tanks, bikes, planes, ships, etc."),
+            Category.CreateWithId(CategoryId.New(11), "Others", "Includes anything that doesn't fit into the other categories."),
+        ]);
 
         return builder;
     }

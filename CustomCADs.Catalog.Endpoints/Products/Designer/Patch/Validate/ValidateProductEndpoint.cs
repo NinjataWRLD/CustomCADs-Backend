@@ -19,7 +19,7 @@ public sealed class ValidateProductEndpoint(IRequestSender sender)
     public override async Task HandleAsync(ValidateProductRequest req, CancellationToken ct)
     {
         SetProductStatusCommand command = new(
-            Id: new(req.Id),
+            Id: ProductId.New(req.Id),
             Status: ProductStatus.Validated,
             DesignerId: User.GetAccountId()
         );

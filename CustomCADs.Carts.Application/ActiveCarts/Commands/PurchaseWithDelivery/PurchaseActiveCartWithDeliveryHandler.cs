@@ -1,19 +1,19 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Carts.Domain.Common;
+using CustomCADs.Carts.Domain.PurchasedCarts.Events;
+using CustomCADs.Shared.Application.Events;
 using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Products.Commands;
 using CustomCADs.Shared.UseCases.Products.Queries;
-using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.PurchaseWithDelivery;
 
-public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads activeCartsReads, IWrites<PurchasedCart> purchasedCartWrites, IUnitOfWork uow, IRequestSender sender, IPaymentService payment)
+public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads activeCartsReads, IWrites<PurchasedCart> purchasedCartWrites, IUnitOfWork uow, IRequestSender sender, IPaymentService payment, IEventRaiser raiser)
     : ICommandHandler<PurchaseActiveCartWithDeliveryCommand, string>
 {
     public async Task<string> Handle(PurchaseActiveCartWithDeliveryCommand req, CancellationToken ct)
@@ -39,7 +39,6 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads activ
         purchasedCart.AddItems([.. cart.Items.Select(i =>
             (Price: prices[i.ProductId], Cad: cads[i.ProductId], Item: i)
         )]);
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         AddProductPurchaseCommand productPurchasesCommand = new(productIds);
         await sender.SendCommandAsync(productPurchasesCommand, ct).ConfigureAwait(false);
@@ -49,16 +48,6 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads activ
         double weight = cart.TotalDeliveryWeight;
         int deliveryCount = cart.TotalDeliveryCount;
 
-        CreateShipmentCommand shipmentCommand = new(
-            Info: new(deliveryCount, weight, buyer),
-            Service: req.ShipmentService,
-            Address: req.Address,
-            Contact: req.Contact,
-            BuyerId: req.BuyerId
-        );
-        ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand, ct).ConfigureAwait(false);
-        purchasedCart.SetShipmentId(shipmentId);
-
         decimal totalCost = purchasedCart.TotalCost;
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
@@ -66,6 +55,17 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads activ
             description: $"{buyer} bought {cart.TotalCount} products for a total of {totalCost}$.",
             ct
         ).ConfigureAwait(false);
+
+        await raiser.RaiseDomainEventAsync(new CartPurchasedWithDeliveryDomainEvent(
+            CartId: purchasedCart.Id,
+            ShipmentService: req.ShipmentService,
+            Weight: weight,
+            Count: deliveryCount,
+            Address: req.Address,
+            Contact: req.Contact
+        )).ConfigureAwait(false);
+
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return message;
     }

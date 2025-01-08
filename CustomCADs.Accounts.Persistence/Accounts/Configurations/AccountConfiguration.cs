@@ -36,7 +36,7 @@ static class UserConfigUtils
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => AccountId.New(v)
             );
 
         return builder;
@@ -86,12 +86,13 @@ static class UserConfigUtils
 
     public static EntityTypeBuilder<Account> SetSeeding(this EntityTypeBuilder<Account> builder)
     {
-        builder.HasData(Account.CreateRange([
-            (new(ClientAccountId), Client, ClientUsername, ClientEmail),
-            (new(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail),
-            (new(DesignerAccountId), Designer, DesignerUsername, DesignerEmail),
-            (new(AdminAccountId), Admin, AdminUsername, AdminEmail),
-        ]));
+        const string TimeZone = "Europe/Sofia";
+        builder.HasData([
+            Account.CreateWithId(AccountId.New(ClientAccountId), Client, ClientUsername, ClientEmail, TimeZone),
+            Account.CreateWithId(AccountId.New(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail, TimeZone),
+            Account.CreateWithId(AccountId.New(DesignerAccountId), Designer, DesignerUsername, DesignerEmail, TimeZone),
+            Account.CreateWithId(AccountId.New(AdminAccountId), Admin, AdminUsername, AdminEmail, TimeZone),
+        ]);
 
         return builder;
     }

@@ -45,8 +45,32 @@ public class Order : BaseAggregateRoot
         string description,
         AccountId buyerId
     ) => new Order(name, description, delivery: true, buyerId)
-            .ValidateName()
-            .ValidateDescription();
+        .ValidateName()
+        .ValidateDescription();
+
+    public static Order CreateWithId(
+        OrderId id,
+        string name,
+        string description,
+        AccountId buyerId
+    ) => new Order(name, description, delivery: false, buyerId)
+    {
+        Id = id
+    }
+    .ValidateName()
+    .ValidateDescription();
+
+    public static Order CreateWithDeliveryAndId(
+        OrderId id,
+        string name,
+        string description,
+        AccountId buyerId
+    ) => new Order(name, description, delivery: true, buyerId)
+    {
+        Id = id
+    }
+    .ValidateName()
+    .ValidateDescription();
 
     public Order SetName(string name)
     {

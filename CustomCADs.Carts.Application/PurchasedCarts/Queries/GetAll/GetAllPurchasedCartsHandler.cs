@@ -20,15 +20,12 @@ public sealed class GetAllPurchasedCartsHandler(IPurchasedCartReads reads, IRequ
 
         AccountId[] buyerIds = [.. result.Items.Select(c => c.BuyerId)];
         GetTimeZonesByIdsQuery timeZonesQuery = new(buyerIds);
-        (AccountId Id, string TimeZone)[] timeZones = await sender
+        Dictionary<AccountId, string> timeZones = await sender
             .SendQueryAsync(timeZonesQuery, ct).ConfigureAwait(false);
 
         return new(
             result.Count,
-            result.Items.Select(c =>
-                c.ToGetAllCartsItem(
-                    timeZone: timeZones.Single(t => t.Id == c.BuyerId).TimeZone
-            )).ToArray()
+            [.. result.Items.Select(c => c.ToGetAllCartsItem(timeZones[c.BuyerId]))]
         );
     }
 }

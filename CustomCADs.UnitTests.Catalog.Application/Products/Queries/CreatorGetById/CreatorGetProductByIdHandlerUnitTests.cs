@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.CreatorGetById;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
@@ -79,7 +80,7 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(CreateProduct(creatorId: new(Guid.NewGuid())));
+            .ReturnsAsync(CreateProduct(creatorId: AccountId.New()));
 
         CreatorGetProductByIdQuery query = new(ValidId, ValidCreatorId);
         CreatorGetProductByIdHandler handler = new(reads.Object, sender.Object);

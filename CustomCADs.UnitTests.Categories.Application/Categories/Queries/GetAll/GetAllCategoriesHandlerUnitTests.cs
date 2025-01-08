@@ -12,11 +12,11 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
 {
     private readonly Mock<ICategoryReads> reads = new();
     private readonly Mock<ICacheService> cache = new();
-    private readonly Category[] categories = Category.CreateRange(
-        (ValidId1, ValidName1, ValidDescription1),
-        (ValidId2, ValidName2, ValidDescription2),
-        (ValidId3, ValidName3, ValidDescription3)
-    ).ToArray();
+    private readonly Category[] categories = [
+        Category.CreateWithId(ValidId1, ValidName1, ValidDescription1),
+        Category.CreateWithId(ValidId2, ValidName2, ValidDescription2),
+        Category.CreateWithId(ValidId3, ValidName3, ValidDescription3)
+    ];
 
     public GetAllCategoriesHandlerUnitTests()
     {

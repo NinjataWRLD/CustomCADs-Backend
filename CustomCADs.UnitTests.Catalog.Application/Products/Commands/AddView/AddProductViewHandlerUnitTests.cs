@@ -49,7 +49,7 @@ public class AddProductViewHandlerUnitTests : ProductsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenProductNotFound()
     {
         // Arrange
-        AddProductViewCommand command = new(new ProductId());
+        AddProductViewCommand command = new(ProductId.New());
         AddProductViewHandler handler = new(reads.Object, uow.Object);
 
         // Assert

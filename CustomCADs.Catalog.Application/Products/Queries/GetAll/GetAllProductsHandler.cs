@@ -24,23 +24,23 @@ public sealed class GetAllProductsHandler(IProductReads reads, IRequestSender se
         Result<Product> result = await reads.AllAsync(productQuery, track: false, ct: ct).ConfigureAwait(false);
 
         AccountId[] userIds = [.. result.Items.Select(p => p.CreatorId).Distinct()];
-        IEnumerable<(AccountId Id, string Username)> users = await sender
+        Dictionary<AccountId, string> users = await sender
             .SendQueryAsync(new GetUsernamesByIdsQuery(userIds), ct).ConfigureAwait(false);
 
         CategoryId[] categoryIds = [.. result.Items.Select(p => p.CategoryId).Distinct()];
-        IEnumerable<(CategoryId Id, string Name)> categories = await sender
-            .SendQueryAsync(new GetCategoriesByIdsQuery(categoryIds), ct).ConfigureAwait(false);
+        Dictionary<CategoryId, string> categories = await sender
+            .SendQueryAsync(new GetCategoryNamesByIdsQuery(categoryIds), ct).ConfigureAwait(false);
 
         AccountId[] buyerIds = [.. result.Items.Select(c => c.CreatorId)];
-        (AccountId Id, string TimeZone)[] timeZones = await sender
+        Dictionary<AccountId, string> timeZones = await sender
             .SendQueryAsync(new GetTimeZonesByIdsQuery(buyerIds), ct).ConfigureAwait(false);
 
         return new(
             Count: result.Count,
             Items: result.Items.Select(p => p.ToGetAllProductsItem(
-                username: users.Single(u => u.Id == p.CreatorId).Username,
-                categoryName: categories.Single(c => c.Id == p.CategoryId).Name,
-                timeZone: timeZones.Single(t => t.Id == p.CreatorId).TimeZone
+                username: users[p.CreatorId],
+                categoryName: categories[p.CategoryId],
+                timeZone: timeZones[p.CreatorId]
             )).ToArray()
         );
     }

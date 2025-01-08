@@ -19,12 +19,18 @@ public class Image : BaseAggregateRoot
     public string Key { get; private set; } = string.Empty;
     public string ContentType { get; private set; } = string.Empty;
 
-    public static Image Create(
-        string key,
-        string contentType
+    public static Image Create(string key, string contentType
     ) => new Image(key, contentType)
         .ValidateKey()
         .ValidateContentType();
+
+    public static Image CreateWithId(ImageId id, string key, string contentType
+    ) => new Image(key, contentType)
+    {
+        Id = id
+    }
+    .ValidateKey()
+    .ValidateContentType();
 
     public Image SetKey(string key)
     {

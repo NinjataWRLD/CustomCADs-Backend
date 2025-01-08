@@ -34,6 +34,14 @@ public class ActiveCartItem : BaseEntity
             .ValidateQuantity()
             .ValidateWeight();
 
+    public static ActiveCartItem CreateWithId(ActiveCartItemId id, double weight, ProductId productId, ActiveCartId cartId, bool forDelivery)
+        => new ActiveCartItem(weight, productId, cartId, forDelivery)
+        {
+            Id = id
+        }
+        .ValidateQuantity()
+        .ValidateWeight();
+
     public ActiveCartItem IncreaseQuantity(int amount)
     {
         if (!ForDelivery)

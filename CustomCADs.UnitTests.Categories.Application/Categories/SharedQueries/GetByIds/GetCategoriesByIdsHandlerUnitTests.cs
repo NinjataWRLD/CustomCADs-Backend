@@ -25,8 +25,8 @@ public class GetCategoriesByIdsHandlerUnitTests : CategoriesBaseUnitTests
             [.. categories.Select(c => CreateCategory(c.Id, c.Name, ValidDescription1))]
         );
 
-        GetCategoriesByIdsQuery query = new(ids);
-        GetCategoriesByIdsHandler handler = new(reads.Object);
+        GetCategoryNamesByIdsQuery query = new(ids);
+        GetCategoryNamesByIdsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -43,11 +43,11 @@ public class GetCategoriesByIdsHandlerUnitTests : CategoriesBaseUnitTests
             [.. categories.Select(c => CreateCategory(c.Id, c.Name, ValidDescription1))]
         );
 
-        GetCategoriesByIdsQuery query = new(ids);
-        GetCategoriesByIdsHandler handler = new(reads.Object);
+        GetCategoryNamesByIdsQuery query = new(ids);
+        GetCategoryNamesByIdsHandler handler = new(reads.Object);
 
         // Act
-        var actualCategories = (await handler.Handle(query, ct)).Select(c => (c.Id, c.Name));
+        var actualCategories = (await handler.Handle(query, ct)).Select(x => (x.Key, x.Value));
 
         // Assert
         Assert.Equal(actualCategories, categories);

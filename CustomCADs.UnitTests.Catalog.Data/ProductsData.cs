@@ -28,10 +28,10 @@ public static class ProductsData
     public const decimal InvalidPrice2 = PriceMax + 1;
 
     public static readonly CancellationToken ct = CancellationToken.None;
-    public static readonly ProductId ValidId = new(Guid.NewGuid());
-    public static readonly AccountId ValidCreatorId = new(Guid.NewGuid());
-    public static readonly AccountId ValidDesignerId = new(Guid.NewGuid());
-    public static readonly CategoryId ValidCategoryId = new(0);
-    public static readonly ImageId ValidImageId = new(Guid.NewGuid());
-    public static readonly CadId ValidCadId = new(Guid.NewGuid());
+    public static readonly ProductId ValidId = ProductId.New();
+    public static readonly AccountId ValidCreatorId = AccountId.New();
+    public static readonly AccountId ValidDesignerId = AccountId.New();
+    public static readonly CategoryId ValidCategoryId = CategoryId.New();
+    public static readonly ImageId ValidImageId = ImageId.New();
+    public static readonly CadId ValidCadId = CadId.New();
 }

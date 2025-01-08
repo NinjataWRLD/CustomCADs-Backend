@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Accounts.Domain.Roles;
 using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Data;
 
@@ -8,6 +9,11 @@ using static RoleConstants;
 
 public static class RolesData
 {
+    public static readonly RoleId ValidId1 = RoleId.New();
+    public static readonly RoleId ValidId2 = RoleId.New();
+    public static readonly RoleId ValidId3 = RoleId.New();
+    public static readonly RoleId ValidId4 = RoleId.New();
+
     public const string ValidName1 = Client;
     public const string ValidName2 = Contributor;
     public const string ValidName3 = Designer;

@@ -18,7 +18,7 @@ public sealed class PatchProductViewsEndpoint(IRequestSender sender)
     public override async Task HandleAsync(PatchProductViewsRequest req, CancellationToken ct)
     {
         AddProductViewCommand command = new(
-            Id: new ProductId(req.Id)
+            Id: ProductId.New(req.Id)
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 

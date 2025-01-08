@@ -1,4 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -40,25 +43,25 @@ public static class PurchasedCartItemItemConfigUtils
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => PurchasedCartItemId.New(v)
             );
 
         builder.Property(x => x.CartId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => PurchasedCartId.New(v)
             );
 
         builder.Property(x => x.ProductId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => ProductId.New(v)
             );
 
         builder.Property(x => x.CadId)
             .HasConversion(
                 x => x.Value,
-                v => new(v)
+                v => CadId.New(v)
             );
 
         return builder;

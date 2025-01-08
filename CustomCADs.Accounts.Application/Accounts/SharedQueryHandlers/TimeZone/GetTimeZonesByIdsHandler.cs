@@ -5,9 +5,9 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.TimeZone;
 
 public sealed class GetTimeZonesByIdsHandler(IAccountReads reads)
-    : IQueryHandler<GetTimeZonesByIdsQuery, (AccountId Id, string TimeZone)[]>
+    : IQueryHandler<GetTimeZonesByIdsQuery, Dictionary<AccountId, string>>
 {
-    public async Task<(AccountId Id, string TimeZone)[]> Handle(GetTimeZonesByIdsQuery req, CancellationToken ct)
+    public async Task<Dictionary<AccountId, string>> Handle(GetTimeZonesByIdsQuery req, CancellationToken ct)
     {
         AccountQuery query = new(
             Ids: req.Ids,
@@ -15,6 +15,6 @@ public sealed class GetTimeZonesByIdsHandler(IAccountReads reads)
         );
         Result<Account> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        return [.. result.Items.Select(a => (a.Id, a.TimeZone))];
+        return result.Items.ToDictionary(a => a.Id, x => x.TimeZone);
     }
 }

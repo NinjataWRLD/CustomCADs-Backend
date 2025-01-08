@@ -18,7 +18,7 @@ public class CancelShipmentEndpoint(IRequestSender sender)
     public override async Task HandleAsync(CancelShipmentRequest req, CancellationToken ct)
     {
         CancelShipmentCommand command = new(
-            Id: new ShipmentId(req.Id),
+            Id: ShipmentId.New(req.Id),
             Comment: req.Comment
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

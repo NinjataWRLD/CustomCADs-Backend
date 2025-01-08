@@ -2,10 +2,18 @@
 
 namespace CustomCADs.Shared.Core.Common.TypedIds.Orders;
 
-public readonly struct OrderId(Guid value)
+public readonly struct OrderId
 {
     public OrderId() : this(Guid.Empty) { }
-    public Guid Value { get; init; } = value;
+    private OrderId(Guid value)
+    {
+        Value = value;
+    }
+
+    public Guid Value { get; init; }
+
+    public static OrderId New() => new(Guid.NewGuid());
+    public static OrderId New(Guid id) => new(id);
 
     public override bool Equals([NotNullWhen(true)] object? obj)
         => obj is OrderId orderId && this == orderId;

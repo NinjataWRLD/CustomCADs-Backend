@@ -18,7 +18,7 @@ public sealed class FinishOrderEndpoint(IRequestSender sender)
     public override async Task HandleAsync(FinishOrderRequest req, CancellationToken ct)
     {
         FinishOrderCommand command = new(
-            Id: new OrderId(req.Id),
+            Id: OrderId.New(req.Id),
             DesignerId: User.GetAccountId(),
             Cad: req.ToCadDto()
         );
