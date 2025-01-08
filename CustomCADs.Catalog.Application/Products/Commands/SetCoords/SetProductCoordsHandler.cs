@@ -10,7 +10,7 @@ public sealed class SetProductCoordsHandler(IProductReads reads, IRequestSender 
 {
     public async Task Handle(SetProductCoordsCommand req, CancellationToken ct = default)
     {
-        Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
+        Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
         if (product.CreatorId != req.CreatorId)

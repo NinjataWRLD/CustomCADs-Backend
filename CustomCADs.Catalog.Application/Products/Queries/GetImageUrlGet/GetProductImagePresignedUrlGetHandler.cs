@@ -13,11 +13,6 @@ public sealed class GetProductImagePresignedUrlGetHandler(IProductReads reads, I
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        if (product.CreatorId != req.CreatorId)
-        {
-            throw ProductAuthorizationException.ByProductId(req.Id);
-        }
-
         GetImagePresignedUrlGetByIdQuery query = new(product.ImageId);
         string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
         

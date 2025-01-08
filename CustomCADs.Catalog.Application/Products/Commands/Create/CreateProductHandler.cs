@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Domain.Common;
-using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -27,19 +26,21 @@ public sealed class CreateProductHandler(IWrites<Product> productWrites, IUnitOf
         );
         ImageId imageId = await sender.SendCommandAsync(imageCommand, ct).ConfigureAwait(false);
 
-        GetUserRoleByIdQuery roleQuery = new(req.CreatorId);
-        string role = await sender.SendQueryAsync(roleQuery, ct).ConfigureAwait(false);
-
         var product = Product.Create(
             name: req.Name,
             description: req.Description,
             price: req.Price,
-            status: role is Designer ? ProductStatus.Validated : ProductStatus.Unchecked,
             categoryId: req.CategoryId,
             creatorId: req.CreatorId,
             imageId: imageId,
             cadId: cadId
         );
+
+        GetUserRoleByIdQuery roleQuery = new(req.CreatorId);
+        string role = await sender.SendQueryAsync(roleQuery, ct).ConfigureAwait(false);
+
+        if (role is Designer) 
+            product.SetValidatedStatus();
 
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

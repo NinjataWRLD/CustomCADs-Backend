@@ -1,18 +1,19 @@
-﻿using CustomCADs.Shared.Application.Storage;
+﻿using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetImageUrlPost;
 
-public sealed class GetProductImagePresignedUrlPostHandler(IStorageService storage)
+public sealed class GetProductImagePresignedUrlPostHandler(IRequestSender sender)
     : IQueryHandler<GetProductImagePresignedUrlPostQuery, GetProductImagePresignedUrlPostDto>
 {
-    public async Task<GetProductImagePresignedUrlPostDto> Handle(GetProductImagePresignedUrlPostQuery req, CancellationToken cancellationToken)
+    public async Task<GetProductImagePresignedUrlPostDto> Handle(GetProductImagePresignedUrlPostQuery req, CancellationToken ct)
     {
-        (string Key, string Url) = await storage.GetPresignedPostUrlAsync(
-            folderPath: "images",
-            name: req.ProductName,
-            contentType: req.ContentType,
-            fileName: req.FileName
-        ).ConfigureAwait(false);
+        GetImagePresignedUrlPostByIdQuery query = new(
+            Name: req.ProductName,
+            ContentType: req.ContentType,
+            FileName: req.FileName
+        );
+        (string Key, string Url) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         return new(GeneratedKey: Key, PresignedUrl: Url);
     }

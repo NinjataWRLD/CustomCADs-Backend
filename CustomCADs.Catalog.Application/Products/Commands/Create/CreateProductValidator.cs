@@ -19,6 +19,6 @@ public class CreateProductValidator : Validator<CreateProductCommand, ProductId>
             .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
 
         RuleFor(r => r.Price)
-            .ExclusiveBetween(CostMin, CostMax).WithMessage(RangeError);
+            .ExclusiveBetween(PriceMin, PriceMax).WithMessage(RangeError);
     }
 }

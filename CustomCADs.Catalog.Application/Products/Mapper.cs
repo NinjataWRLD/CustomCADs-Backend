@@ -1,7 +1,7 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
+﻿using CustomCADs.Catalog.Application.Products.Queries.CreatorGetById;
+using CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
 using CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
 using CustomCADs.Catalog.Application.Products.Queries.GetAll;
-using CustomCADs.Catalog.Application.Products.Queries.GetById;
 
 namespace CustomCADs.Catalog.Application.Products;
 
@@ -37,7 +37,7 @@ internal static class Mapper
             CreatorName: username
         );
 
-    internal static GetProductByIdDto ToGetProductByIdDto(this Product product, string username, string categoryName, string timeZone)
+    internal static CreatorGetProductByIdDto ToGetProductByIdDto(this Product product, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,

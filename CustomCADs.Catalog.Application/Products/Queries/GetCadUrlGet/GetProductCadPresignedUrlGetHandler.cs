@@ -13,11 +13,6 @@ public sealed class GetProductCadPresignedUrlGetHandler(IProductReads reads, IRe
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ProductNotFoundException.ById(req.Id);
 
-        if (product.CreatorId != req.CreatorId)
-        {
-            throw ProductAuthorizationException.ByProductId(req.Id);
-        }
-
         GetCadPresignedUrlGetByIdQuery query = new(product.CadId);
         string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

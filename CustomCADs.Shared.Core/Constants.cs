@@ -29,6 +29,7 @@ public static partial class Constants
         public const string NonNullValidation = "{0} {1} must have a non-null {2}.";
         public const string LengthValidation = "{0} {1}'s {2} be shorter than {3} and longer than {4} characters.";
         public const string RangeValidation = "{0} {1}'s {2} must be less than {3} and more than {4}.";
+        public const string MinimumValidation = "{0} {1}'s {2} must be more than {3}.";
     }
 
     public static class FluentMessages
