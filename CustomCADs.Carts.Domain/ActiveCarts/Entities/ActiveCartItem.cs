@@ -15,10 +15,10 @@ public class ActiveCartItem : BaseEntity
         bool forDelivery) : this()
     {
         CartId = cartId;
-        ProductId = productId;
         Quantity = 1;
         Weight = weight;
         ForDelivery = forDelivery;
+        ProductId = productId;
     }
 
     public ActiveCartItemId Id { get; init; }
@@ -31,7 +31,6 @@ public class ActiveCartItem : BaseEntity
 
     public static ActiveCartItem Create(double weight, ProductId productId, ActiveCartId cartId, bool forDelivery)
         => new ActiveCartItem(weight, productId, cartId, forDelivery)
-            .ValidateQuantity()
             .ValidateWeight();
 
     public static ActiveCartItem CreateWithId(ActiveCartItemId id, double weight, ProductId productId, ActiveCartId cartId, bool forDelivery)
@@ -39,7 +38,6 @@ public class ActiveCartItem : BaseEntity
         {
             Id = id
         }
-        .ValidateQuantity()
         .ValidateWeight();
 
     public ActiveCartItem IncreaseQuantity(int amount)

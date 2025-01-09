@@ -22,6 +22,7 @@ public sealed class PurchaseOngoingOrderWithDeliveryEndpoint(IRequestSender send
             PaymentMethodId: req.PaymentMethodId,
             ShipmentService: req.ShipmentService,
             Weight: req.Weight,
+            Count: req.Count,
             Address: req.Address,
             Contact: req.Contact,
             BuyerId: User.GetAccountId()

@@ -8,6 +8,7 @@ public sealed record PurchaseOngoingOrderWithDeliveryCommand(
     string PaymentMethodId,
     string ShipmentService,
     double Weight,
+    int Count,
     AddressDto Address,
     ContactDto Contact,
     AccountId BuyerId

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Purchase;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Purchase.Normal;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Post.Purchase;
 

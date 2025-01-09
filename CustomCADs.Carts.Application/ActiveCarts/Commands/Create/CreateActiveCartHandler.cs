@@ -9,11 +9,10 @@ public sealed class CreateActiveCartHandler(IActiveCartReads reads, IWrites<Acti
 {
     public async Task<ActiveCartId> Handle(CreateActiveCartCommand req, CancellationToken ct)
     {
-        ActiveCart? cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false);
-        if (cart != null)
-            throw ActiveCartAlreadyExistsException.ByBuyerId(req.BuyerId);
+        bool exists = await reads.ExistsByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false);
+        if (exists) throw ActiveCartAlreadyExistsException.ByBuyerId(req.BuyerId);
 
-        cart = req.ToCart();
+        ActiveCart cart = req.ToCart();
 
         await writes.AddAsync(cart, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

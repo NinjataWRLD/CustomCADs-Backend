@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
+using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.CartItems;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 
 namespace CustomCADs.Carts.Domain.PurchasedCarts.Validation;
 
-using static PurchasedCartConstants.CartItems;
+using static PurchasedCartConstants.PurchasedCartItems;
 
 public static class PurchasedCartItemValidations
 {
@@ -15,7 +16,7 @@ public static class PurchasedCartItemValidations
         int max = QuantityMax, min = QuantityMin;
         if (quantity > max || quantity < min)
         {
-            throw ActiveCartValidationException.Range(property, max, min);
+            throw PurchasedCartItemValidationException.Range(property, max, min);
         }
 
         return item;
@@ -29,7 +30,7 @@ public static class PurchasedCartItemValidations
         decimal max = PriceMax, min = PriceMin;
         if (amount > max || amount < min)
         {
-            throw ActiveCartValidationException.Range(property, max, min);
+            throw PurchasedCartItemValidationException.Range(property, max, min);
         }
 
         return item;

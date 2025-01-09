@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.SetActiveCartItemDelivery;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.SetDelivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Patch.SetDelivery;

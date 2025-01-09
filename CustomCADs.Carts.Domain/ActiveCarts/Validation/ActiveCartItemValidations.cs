@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
+using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
 
 namespace CustomCADs.Carts.Domain.ActiveCarts.Validation;
 
@@ -15,7 +15,7 @@ public static class ActiveCartItemValidations
         int max = QuantityMax, min = QuantityMin;
         if (quantity > max || quantity < min)
         {
-            throw ActiveCartValidationException.Range(property, max, min);
+            throw ActiveCartItemValidationException.Range(property, max, min);
         }
 
         return item;
@@ -29,7 +29,7 @@ public static class ActiveCartItemValidations
         double max = WeightMax, min = WeightMin;
         if (quantity > max || quantity < min)
         {
-            throw ActiveCartValidationException.Range(property, max, min);
+            throw ActiveCartItemValidationException.Range(property, max, min);
         }
 
         return item;

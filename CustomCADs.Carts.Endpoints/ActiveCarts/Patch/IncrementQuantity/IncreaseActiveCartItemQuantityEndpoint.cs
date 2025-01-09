@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.IncrementQuantity;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Quantity.Increment;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Patch.IncrementQuantity;

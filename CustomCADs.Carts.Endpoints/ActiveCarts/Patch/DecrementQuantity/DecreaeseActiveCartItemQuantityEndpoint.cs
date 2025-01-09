@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.DecrementQuantity;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Quantity.Decrement;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Patch.DecrementQuantity;

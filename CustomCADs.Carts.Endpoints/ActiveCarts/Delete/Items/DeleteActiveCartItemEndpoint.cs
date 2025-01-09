@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.RemoveItem;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Remove;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Delete.Items;

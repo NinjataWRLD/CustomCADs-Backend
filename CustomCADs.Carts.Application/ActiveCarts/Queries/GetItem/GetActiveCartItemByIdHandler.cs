@@ -9,7 +9,7 @@ public sealed class GetActiveCartItemByIdHandler(IActiveCartReads reads)
 {
     public async Task<ActiveCartItemDto> Handle(GetActiveCartItemByIdQuery req, CancellationToken ct)
     {
-        ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false)
+        ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
         ActiveCartItem item = cart.Items.FirstOrDefault(i => i.Id == req.ItemId)

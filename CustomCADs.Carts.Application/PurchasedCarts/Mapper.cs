@@ -1,8 +1,11 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.CalculateShipment;
 using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetAll;
 using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetById;
+using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Shared.Application.Delivery.Dtos;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts;
 
@@ -58,4 +61,13 @@ internal static class Mapper
             CartId: item.CartId,
             CadId: item.CadId
         );
+
+    internal static (decimal Price, CadId CadId, ActiveCartItem Item) ToPurchasedCartItemDto(this ActiveCartItem item, Dictionary<ProductId, decimal> prices, Dictionary<ProductId, CadId> productCads, Dictionary<CadId, CadId> itemCads)
+    {
+        decimal price = prices[item.ProductId];
+        CadId productCadId = productCads[item.ProductId];
+        CadId itemCadId = itemCads[productCadId];
+
+        return (price, itemCadId, item);
+    }
 }
