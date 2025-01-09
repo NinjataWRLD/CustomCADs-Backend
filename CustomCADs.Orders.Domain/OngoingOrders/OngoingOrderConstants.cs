@@ -1,6 +1,6 @@
-﻿namespace CustomCADs.Orders.Domain.Orders;
+﻿namespace CustomCADs.Orders.Domain.OngoingOrders;
 
-public static class OrderConstants
+public static class OngoingOrderConstants
 {
     public const int NameMaxLength = 100;
     public const int NameMinLength = 2;
