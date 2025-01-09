@@ -23,7 +23,58 @@ namespace CustomCADs.Orders.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CustomCADs.Orders.Domain.Orders.Order", b =>
+            modelBuilder.Entity("CustomCADs.Orders.Domain.CompletedOrders.CompletedOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BuyerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("BuyerId");
+
+                    b.Property<Guid>("CadId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CadId");
+
+                    b.Property<bool>("Delivery")
+                        .HasColumnType("boolean")
+                        .HasColumnName("Delivery");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("Description");
+
+                    b.Property<Guid>("DesignerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DesignerId");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("Name");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("OrderDate");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("PurchaseDate");
+
+                    b.Property<Guid?>("ShipmentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("ShipmentId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompletedOrders", "Orders");
+                });
+
+            modelBuilder.Entity("CustomCADs.Orders.Domain.OngoingOrders.OngoingOrder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,13 +117,9 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("OrderStatus");
 
-                    b.Property<Guid?>("ShipmentId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("ShipmentId");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Orders", "Orders");
+                    b.ToTable("OngoingOrders", "Orders");
                 });
 #pragma warning restore 612, 618
         }

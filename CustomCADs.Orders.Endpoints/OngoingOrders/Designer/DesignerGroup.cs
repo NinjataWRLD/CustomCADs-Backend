@@ -1,0 +1,15 @@
+﻿namespace CustomCADs.Orders.Endpoints.OngoingOrders.Designer;
+
+using static Constants.Roles;
+
+public class DesignerGroup : Group
+{
+    public DesignerGroup()
+    {
+        Configure("orders/designer", ep =>
+        {
+            ep.Roles(Designer);
+            ep.Description(d => d.WithTags("10. Order Management"));
+        });
+    }
+}
