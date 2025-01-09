@@ -1,25 +1,25 @@
-﻿using CustomCADs.Orders.Domain.Orders;
-using CustomCADs.Orders.Domain.Orders.Enums;
-using CustomCADs.Orders.Domain.Orders.Reads;
+﻿using CustomCADs.Orders.Domain.OngoingOrders;
+using CustomCADs.Orders.Domain.OngoingOrders.Enums;
+using CustomCADs.Orders.Domain.OngoingOrders.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 using CustomCADs.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Orders.Persistence.Orders.Reads;
+namespace CustomCADs.Orders.Persistence.OngoingOrders.Reads;
 
-public sealed class OrderReads(OrdersContext context) : IOrderReads
+public sealed class OngoingOrderReads(OrdersContext context) : IOngoingOrderReads
 {
-    public async Task<Result<Order>> AllAsync(OrderQuery query, bool track = true, CancellationToken ct = default)
+    public async Task<Result<OngoingOrder>> AllAsync(OngoingOrderQuery query, bool track = true, CancellationToken ct = default)
     {
-        IQueryable<Order> queryable = context.Orders
+        IQueryable<OngoingOrder> queryable = context.OngoingOrders
             .WithTracking(track)
             .WithFilter(query.Delivery, query.OrderStatus, query.BuyerId, query.DesignerId)
             .WithSearch(query.Name);
 
         int count = await queryable.CountAsync(ct).ConfigureAwait(false);
-        Order[] orders = await queryable
+        OngoingOrder[] orders = await queryable
             .WithSorting(query.Sorting ?? new())
             .WithPagination(query.Pagination.Page, query.Pagination.Limit)
             .ToArrayAsync(ct)
@@ -28,20 +28,20 @@ public sealed class OrderReads(OrdersContext context) : IOrderReads
         return new(count, orders);
     }
 
-    public async Task<Order?> SingleByIdAsync(OrderId id, bool track = true, CancellationToken ct = default)
-        => await context.Orders
+    public async Task<OngoingOrder?> SingleByIdAsync(OngoingOrderId id, bool track = true, CancellationToken ct = default)
+        => await context.OngoingOrders
             .WithTracking(track)
             .FirstOrDefaultAsync(o => o.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<bool> ExistsByIdAsync(OrderId id, CancellationToken ct = default)
-        => await context.Orders
+    public async Task<bool> ExistsByIdAsync(OngoingOrderId id, CancellationToken ct = default)
+        => await context.OngoingOrders
             .WithTracking(false)
             .AnyAsync(o => o.Id == id, ct)
             .ConfigureAwait(false);
 
-    public async Task<Dictionary<OrderStatus, int>> CountByStatusAsync(AccountId buyerId, CancellationToken ct = default)
-        => await context.Orders
+    public async Task<Dictionary<OngoingOrderStatus, int>> CountByStatusAsync(AccountId buyerId, CancellationToken ct = default)
+        => await context.OngoingOrders
             .WithTracking(false)
             .Where(o => o.BuyerId == buyerId)
             .GroupBy(o => o.OrderStatus)

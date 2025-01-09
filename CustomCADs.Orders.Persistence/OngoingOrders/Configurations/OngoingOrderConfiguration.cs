@@ -1,19 +1,18 @@
-﻿using CustomCADs.Orders.Domain.Orders;
-using CustomCADs.Orders.Domain.Orders.Enums;
+﻿using CustomCADs.Orders.Domain.OngoingOrders;
+using CustomCADs.Orders.Domain.OngoingOrders.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.Core.Common.TypedIds.Orders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CustomCADs.Orders.Persistence.Orders.Configurations;
+namespace CustomCADs.Orders.Persistence.OngoingOrders.Configurations;
 
-using static OrderConstants;
+using static OngoingOrderConstants;
 
-public class OrderConfiguration : IEntityTypeConfiguration<Order>
+public class OngoingOrderConfiguration : IEntityTypeConfiguration<OngoingOrder>
 {
-    public void Configure(EntityTypeBuilder<Order> builder)
+    public void Configure(EntityTypeBuilder<OngoingOrder> builder)
         => builder
             .SetPrimaryKey()
             .SetStronglyTypedIds()
@@ -22,20 +21,20 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 
 public static class OrderConfigUtils
 {
-    public static EntityTypeBuilder<Order> SetPrimaryKey(this EntityTypeBuilder<Order> builder)
+    public static EntityTypeBuilder<OngoingOrder> SetPrimaryKey(this EntityTypeBuilder<OngoingOrder> builder)
     {
         builder.HasKey(x => x.Id);
 
         return builder;
     }
 
-    public static EntityTypeBuilder<Order> SetStronglyTypedIds(this EntityTypeBuilder<Order> builder)
+    public static EntityTypeBuilder<OngoingOrder> SetStronglyTypedIds(this EntityTypeBuilder<OngoingOrder> builder)
     {
         builder.Property(x => x.Id)
             .ValueGeneratedOnAdd()
             .HasConversion(
                 x => x.Value,
-                v => OrderId.New(v)
+                v => OngoingOrderId.New(v)
             );
 
         builder.Property(x => x.BuyerId)
@@ -56,16 +55,10 @@ public static class OrderConfigUtils
                 v => CadId.New(v)
             );
 
-        builder.Property(x => x.ShipmentId)
-            .HasConversion<Guid?>(
-                x => x == null ? null : x.Value.Value,
-                v => ShipmentId.New(v)
-            );
-
         return builder;
     }
 
-    public static EntityTypeBuilder<Order> SetValidations(this EntityTypeBuilder<Order> builder)
+    public static EntityTypeBuilder<OngoingOrder> SetValidations(this EntityTypeBuilder<OngoingOrder> builder)
     {
         builder.Property(x => x.Name)
             .IsRequired()
@@ -89,7 +82,7 @@ public static class OrderConfigUtils
             .IsRequired()
             .HasConversion(
                 x => x.ToString(),
-                s => Enum.Parse<OrderStatus>(s)
+                s => Enum.Parse<OngoingOrderStatus>(s)
             ).HasColumnName("OrderStatus");
 
         builder.Property(x => x.BuyerId)
@@ -101,9 +94,6 @@ public static class OrderConfigUtils
 
         builder.Property(x => x.CadId)
             .HasColumnName("CadId");
-
-        builder.Property(x => x.ShipmentId)
-            .HasColumnName("ShipmentId");
 
         return builder;
     }
