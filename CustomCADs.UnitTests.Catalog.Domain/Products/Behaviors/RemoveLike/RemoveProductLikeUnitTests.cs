@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.RemoveLike.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.RemoveLike;
 
@@ -14,10 +15,7 @@ public class RemoveProductLikeUnitTests : ProductsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(3)]
-    [InlineData(5)]
-    [InlineData(10)]
+    [ClassData(typeof(RemoveProductLikeValidData))]
     public void Add_ShouldDecreaseLikeCountProperly(int iterations)
     {
         var product = CreateProduct();
@@ -35,10 +33,7 @@ public class RemoveProductLikeUnitTests : ProductsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(3)]
-    [InlineData(5)]
-    [InlineData(10)]
+    [ClassData(typeof(RemoveProductLikeValidData))]
     public void Add_ShouldThrowException_WhenCountIsNotValid(int iterations)
     {
         var product = CreateProduct();

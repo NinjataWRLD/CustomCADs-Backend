@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddView;
+﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddView.Data;
+
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddView;
 
 public class AddProductViewUnitTests : ProductsBaseUnitTests
 {
@@ -10,10 +12,7 @@ public class AddProductViewUnitTests : ProductsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(3)]
-    [InlineData(5)]
-    [InlineData(10)]
+    [ClassData(typeof(AddProductViewValidData))]
     public void Add_ShouldIncreaseViewCountProperly(int iterations)
     {
         var product = CreateProduct();

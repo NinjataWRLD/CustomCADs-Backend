@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddPurchase;
+﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddPurchase.Data;
+
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddPurchase;
 
 public class AddProductPurchaseUnitTests : ProductsBaseUnitTests
 {
@@ -10,10 +12,7 @@ public class AddProductPurchaseUnitTests : ProductsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(3)]
-    [InlineData(5)]
-    [InlineData(10)]
+    [ClassData(typeof(AddProductPurchaseValidData))]
     public void Add_ShouldIncreasePurchaseCountProperly(int iterations)
     {
         var product = CreateProduct();

@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddLike;
+﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddLike.Data;
+
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddLike;
 
 public class AddProductLikeUnitTests : ProductsBaseUnitTests
 {
@@ -10,10 +12,7 @@ public class AddProductLikeUnitTests : ProductsBaseUnitTests
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(3)]
-    [InlineData(5)]
-    [InlineData(10)]
+    [ClassData(typeof(AddProductLikeValidData))]
     public void Add_ShouldIncreaseLikeCountProperly(int iterations)
     {
         var product = CreateProduct();
