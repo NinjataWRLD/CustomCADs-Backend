@@ -1,0 +1,40 @@
+﻿using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
+using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.DecreaseQuantity.Data;
+
+namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.DecreaseQuantity;
+
+public class ActiveCartItemDecreaseQuantityUnitTests : ActiveCartItemsBaseUnitTests
+{
+    [Theory]
+    [ClassData(typeof(ActiveCartItemDecreaseQuantityValidData))]
+    public void Decrease_ShouldNotThrowException_WhenValid(int amount)
+    {
+        CreateItem(forDelivery: true)
+            .IncreaseQuantity(amount)
+            .DecreaseQuantity(amount);
+    }
+
+    [Theory]
+    [ClassData(typeof(ActiveCartItemDecreaseQuantityValidData))]
+    public void Decrease_ShouldThrowException_WhenInvalidAmount(int amount)
+    {
+        Assert.Throws<ActiveCartItemValidationException>(() =>
+        {
+            CreateItem(forDelivery: true)
+                .IncreaseQuantity(amount - 1)
+                .DecreaseQuantity(amount);
+        });
+    }
+
+    [Theory]
+    [ClassData(typeof(ActiveCartItemDecreaseQuantityValidData))]
+    public void Decrease_ShouldThrowException_WhenNotForDelivery(int amount)
+    {
+        Assert.Throws<ActiveCartItemValidationException>(() =>
+        {
+            CreateItem(forDelivery: false)
+                .IncreaseQuantity(amount)
+                .DecreaseQuantity(amount);
+        });
+    }
+}
