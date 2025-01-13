@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetRemovedStatus;
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetStatus.Removed;
 
 public class SetProductRemovedStatusUnitTests : ProductsBaseUnitTests
 {

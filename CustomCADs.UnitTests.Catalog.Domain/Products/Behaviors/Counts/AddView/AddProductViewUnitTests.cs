@@ -1,6 +1,6 @@
-﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddView.Data;
+﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddView.Data;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddView;
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddView;
 
 public class AddProductViewUnitTests : ProductsBaseUnitTests
 {

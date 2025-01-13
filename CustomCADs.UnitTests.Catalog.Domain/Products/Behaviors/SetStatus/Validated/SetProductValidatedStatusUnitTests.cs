@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetValidatedStatus;
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetStatus.Validated;
 
 public class SetProductValidatedStatusUnitTests : ProductsBaseUnitTests
 {

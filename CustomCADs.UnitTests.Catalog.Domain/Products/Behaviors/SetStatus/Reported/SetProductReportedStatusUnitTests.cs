@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetReportedStatus;
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetStatus.Reported;
 
 public class SetProductReportedStatusUnitTests : ProductsBaseUnitTests
 {

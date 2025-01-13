@@ -1,6 +1,6 @@
-﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddLike.Data;
+﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddLike.Data;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddLike;
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddLike;
 
 public class AddProductLikeUnitTests : ProductsBaseUnitTests
 {

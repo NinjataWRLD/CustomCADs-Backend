@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddPurchase.Data;
+﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddPurchase;
+
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddPurchase.Data;
 
 public class AddProductPurchaseValidData : AddProductPurchaseData
 {

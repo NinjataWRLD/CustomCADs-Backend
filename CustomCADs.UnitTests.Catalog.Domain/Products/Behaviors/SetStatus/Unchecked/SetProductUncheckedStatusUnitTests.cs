@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetUncheckedStatus;
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetStatus.Unchecked;
 
 public class SetProductUncheckedStatusUnitTests : ProductsBaseUnitTests
 {

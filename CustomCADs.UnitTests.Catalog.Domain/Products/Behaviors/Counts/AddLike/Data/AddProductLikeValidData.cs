@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddLike.Data;
+﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddLike;
+
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddLike.Data;
 
 public class AddProductLikeValidData : AddProductLikeData
 {

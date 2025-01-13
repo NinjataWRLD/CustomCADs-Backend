@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.RemoveLike.Data;
+﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.RemoveLike;
+
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.RemoveLike.Data;
 
 public class RemoveProductLikeValidData : RemoveProductLikeData
 {

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
-using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.RemoveLike.Data;
+using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.RemoveLike.Data;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.RemoveLike;
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.RemoveLike;
 
 public class RemoveProductLikeUnitTests : ProductsBaseUnitTests
 {

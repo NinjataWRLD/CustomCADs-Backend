@@ -1,6 +1,6 @@
-﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddPurchase.Data;
+﻿using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddPurchase.Data;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.AddPurchase;
+namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.Counts.AddPurchase;
 
 public class AddProductPurchaseUnitTests : ProductsBaseUnitTests
 {
