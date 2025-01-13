@@ -33,37 +33,19 @@ public class OngoingOrder : BaseAggregateRoot
     public static OngoingOrder Create(
         string name,
         string description,
+        bool delivery,
         AccountId buyerId
-    ) => new OngoingOrder(name, description, delivery: false, buyerId)
+    ) => new OngoingOrder(name, description, delivery, buyerId)
             .ValidateName()
             .ValidateDescription();
-
-    public static OngoingOrder CreateWithDelivery(
-        string name,
-        string description,
-        AccountId buyerId
-    ) => new OngoingOrder(name, description, delivery: true, buyerId)
-        .ValidateName()
-        .ValidateDescription();
 
     public static OngoingOrder CreateWithId(
         OngoingOrderId id,
         string name,
         string description,
+        bool delivery,
         AccountId buyerId
-    ) => new OngoingOrder(name, description, delivery: false, buyerId)
-    {
-        Id = id
-    }
-    .ValidateName()
-    .ValidateDescription();
-
-    public static OngoingOrder CreateWithDeliveryAndId(
-        OngoingOrderId id,
-        string name,
-        string description,
-        AccountId buyerId
-    ) => new OngoingOrder(name, description, delivery: true, buyerId)
+    ) => new OngoingOrder(name, description, delivery, buyerId)
     {
         Id = id
     }
@@ -83,9 +65,20 @@ public class OngoingOrder : BaseAggregateRoot
         this.ValidateDescription();
         return this;
     }
+    
+    public OngoingOrder SetDelivery(bool value)
+    {
+        Delivery = value;
+        
+        return this;
+    }
 
     public OngoingOrder SetCadId(CadId cadId)
     {
+        if (DesignerId is null) 
+        {
+            throw OngoingOrderValidationException.CadIdOnOrderWithoutDesignerId(Id);
+        }
         CadId = cadId;
 
         return this;
@@ -107,7 +100,7 @@ public class OngoingOrder : BaseAggregateRoot
     {
         var newStatus = OngoingOrderStatus.Pending;
 
-        if (!(OrderStatus == OngoingOrderStatus.Accepted || OrderStatus == OngoingOrderStatus.Begun))
+        if (OrderStatus is not (OngoingOrderStatus.Accepted or OngoingOrderStatus.Begun or OngoingOrderStatus.Reported))
         {
             throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
@@ -120,7 +113,7 @@ public class OngoingOrder : BaseAggregateRoot
     {
         var newStatus = OngoingOrderStatus.Accepted;
 
-        if (OrderStatus != OngoingOrderStatus.Pending)
+        if (OrderStatus is not OngoingOrderStatus.Pending)
         {
             throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
@@ -133,7 +126,7 @@ public class OngoingOrder : BaseAggregateRoot
     {
         var newStatus = OngoingOrderStatus.Begun;
 
-        if (OrderStatus != OngoingOrderStatus.Accepted)
+        if (OrderStatus is not OngoingOrderStatus.Accepted)
         {
             throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
@@ -146,7 +139,7 @@ public class OngoingOrder : BaseAggregateRoot
     {
         var newStatus = OngoingOrderStatus.Finished;
 
-        if (OrderStatus != OngoingOrderStatus.Begun)
+        if (OrderStatus is not (OngoingOrderStatus.Accepted or OngoingOrderStatus.Begun))
         {
             throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
@@ -159,7 +152,7 @@ public class OngoingOrder : BaseAggregateRoot
     {
         var newStatus = OngoingOrderStatus.Reported;
 
-        if (OrderStatus != OngoingOrderStatus.Pending)
+        if (OrderStatus is not (OngoingOrderStatus.Pending or OngoingOrderStatus.Accepted or OngoingOrderStatus.Begun or OngoingOrderStatus.Finished))
         {
             throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }
@@ -172,7 +165,7 @@ public class OngoingOrder : BaseAggregateRoot
     {
         var newStatus = OngoingOrderStatus.Removed;
 
-        if (OrderStatus != OngoingOrderStatus.Reported)
+        if (OrderStatus is not OngoingOrderStatus.Reported)
         {
             throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
         }

@@ -2,5 +2,6 @@
 
 public sealed record PostOngoingOrderRequest(
     string Name,
-    string Description
+    string Description,
+    bool Delivery
 );

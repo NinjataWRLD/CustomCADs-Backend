@@ -3,14 +3,13 @@ using CustomCADs.Orders.Domain.OngoingOrders.Reads;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Finish;
 
 public sealed class FinishOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfWork uow, IRequestSender sender)
-    : ICommandHandler<FinishOngoingOrderCommand, FinishOngoingOrderDto>
+    : ICommandHandler<FinishOngoingOrderCommand>
 {
-    public async Task<FinishOngoingOrderDto> Handle(FinishOngoingOrderCommand req, CancellationToken ct)
+    public async Task Handle(FinishOngoingOrderCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OngoingOrderNotFoundException.ById(req.Id);
@@ -29,17 +28,5 @@ public sealed class FinishOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
         order.SetCadId(cadId);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-
-        GetCadPresignedUrlPostByIdQuery cadQuery = new(
-            Name: order.Name,
-            ContentType: req.Cad.ContentType,
-            FileName: order.Name
-        );
-        var (Key, Url) = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
-
-        return new(
-            PresignedKey: Key,
-            GeneratedUrl: Url
-        );
     }
 }

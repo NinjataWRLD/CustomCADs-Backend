@@ -14,8 +14,5 @@ public static class ActiveCartConstants
 
         public const double WeightMax = 1000;
         public const double WeightMin = 0.01;
-
-        public const decimal PriceMax = 1_000_000m;
-        public const decimal PriceMin = 0.00_000_1m;
     }
 }

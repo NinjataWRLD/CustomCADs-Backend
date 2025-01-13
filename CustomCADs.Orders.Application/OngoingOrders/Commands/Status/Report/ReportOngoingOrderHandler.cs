@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.Common;
+using CustomCADs.Orders.Domain.OngoingOrders.Enums;
 using CustomCADs.Orders.Domain.OngoingOrders.Reads;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Report;
@@ -11,8 +12,16 @@ public sealed class ReportOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw OngoingOrderNotFoundException.ById(req.Id);
 
-        order.SetReportedStatus();
+        if (order.OrderStatus is OngoingOrderStatus.Pending)
+        {
+            order.SetDesignerId(req.DesignerId);
+        }
+        else if (order.DesignerId != req.DesignerId)
+        {
+            throw OngoingOrderAuthorizationException.ByOrderId(req.Id);
+        }
 
+        order.SetReportedStatus();
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

@@ -1,8 +1,8 @@
-﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Finish;
-using CustomCADs.Orders.Application.OngoingOrders.Queries.CalculateShipment;
+﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.CalculateShipment;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.ClientGetById;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.GetAll;
+using CustomCADs.Orders.Application.OngoingOrders.Queries.GetCadUrlPost;
 using CustomCADs.Orders.Endpoints.OngoingOrders.Client.Get.All;
 using CustomCADs.Orders.Endpoints.OngoingOrders.Client.Get.CalculateShipment;
 using CustomCADs.Orders.Endpoints.OngoingOrders.Client.Get.Recent;
@@ -15,6 +15,7 @@ using CustomCADs.Orders.Endpoints.OngoingOrders.Designer.Get.Pending;
 using CustomCADs.Orders.Endpoints.OngoingOrders.Designer.Get.Reported;
 using CustomCADs.Orders.Endpoints.OngoingOrders.Designer.Get.Single;
 using CustomCADs.Orders.Endpoints.OngoingOrders.Designer.Patch.Finish;
+using CustomCADs.Orders.Endpoints.OngoingOrders.Designer.Post;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders;
 
@@ -116,10 +117,10 @@ internal static class Mapper
             BuyerName: order.BuyerName
         );
 
-    internal static FinishOngoingOrderResponse ToFinishOrderResponse(this FinishOngoingOrderDto dto)
+    internal static GetOngoingOrderPostPresignedUrlResponse ToGetOngoingOrderPostPresignedUrlResponse(this GetOngoingOrderCadPresignedUrlPostDto dto)
         => new(
-            PresignedKey: dto.PresignedKey,
-            GeneratedUrl: dto.GeneratedUrl
+            CadKey: dto.GeneratedKey,
+            CadUrl: dto.PresignedUrl
         );
 
     internal static GetReportedOngoingOrdersResponse ToGetReportedOrdersDto(this GetAllOngoingOrdersDto order)

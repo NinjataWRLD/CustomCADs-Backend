@@ -30,11 +30,9 @@ public class PurchaseOngoingOrderWithDeliveryValidator : Validator<PurchaseOngoi
             .ChildRules(x =>
             {
                 x.RuleFor(x => x.Email)
-                    .NotEmpty().WithMessage(RequiredError)
                     .Matches(Regexes.Email).WithMessage(EmailError);
 
                 x.RuleFor(x => x.Phone)
-                    .NotEmpty().WithMessage(RequiredError)
                     .Matches(Regexes.Phone).WithMessage(PhoneError);
             });
     }

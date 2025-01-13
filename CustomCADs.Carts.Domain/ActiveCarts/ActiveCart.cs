@@ -45,6 +45,26 @@ public class ActiveCart : BaseAggregateRoot
         return item;
     }
 
+    public ActiveCartItem AddItemWithId(double weight, ProductId productId, bool forDelivery, ActiveCartItemId? id = null)
+    {
+        var item = ActiveCartItem.CreateWithId(
+            id: id ?? ActiveCartItemId.New(),
+            weight: weight,
+            productId: productId,
+            cartId: Id,
+            forDelivery: forDelivery
+        );
+        items.Add(item);
+        this.ValidateItems();
+
+        return item;
+    }
+
+    public void AddItem(object weight, object productId, bool forDelivery)
+    {
+        throw new NotImplementedException();
+    }
+
     public ActiveCartItem RemoveItem(ActiveCartItemId id)
     {
         ActiveCartItem item = items.FirstOrDefault(i => i.Id == id)

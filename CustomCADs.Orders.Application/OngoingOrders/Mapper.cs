@@ -67,6 +67,7 @@ internal static class Mapper
         => OngoingOrder.Create(
             name: command.Name,
             description: command.Description,
+            delivery: command.Delivery,
             buyerId: command.BuyerId
         );
 }

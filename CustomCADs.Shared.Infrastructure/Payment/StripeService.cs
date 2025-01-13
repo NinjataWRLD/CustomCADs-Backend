@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Shared.Application.Payment;
 using CustomCADs.Shared.Application.Payment.Exceptions;
+using JasperFx.CodeGeneration.Frames;
 using Microsoft.Extensions.Options;
 using Stripe;
 
@@ -30,22 +31,25 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
         }, cancellationToken: ct).ConfigureAwait(false);
 
         string message = GetMessageFromStatus(paymentIntent.Status);
-
-        if (message == FailedPayment)
+        switch (message)
         {
-            string retry = await RetryCaptureAsync(paymentIntent.Id, ct).ConfigureAwait(false);
+            case FailedPayment:
+                string retry = await RetryCaptureAsync(paymentIntent.Id, ct).ConfigureAwait(false);
 
-            return retry == SuccessfulPayment
-                ? SuccessfulPayment
-                : throw PaymentFailedException.WithClientSecret(paymentIntent.ClientSecret, retry);
+                return retry == SuccessfulPayment
+                    ? SuccessfulPayment
+                    : throw PaymentFailedException.WithClientSecret(paymentIntent.ClientSecret, retry);
+
+            case ProcessingPayment:
+                await WaitForProcessingToResolve(paymentIntent.Id, ct).ConfigureAwait(false);
+                return message;
+                
+            case SuccessfulPayment:
+                return message;
+
+            default:
+                throw PaymentFailedException.General(message);
         }
-
-        if (message is not SuccessfulPayment or ProcessingPayment)
-        {
-            throw PaymentFailedException.General(message);
-        }
-
-        return message;
     }
 
     private static string GetMessageFromStatus(string status)
@@ -64,4 +68,31 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
         => (await paymentIntentService.CaptureAsync(id, cancellationToken: ct).ConfigureAwait(false)).Status == "succeeded"
                 ? SuccessfulPayment
                 : FailedPaymentCapture;
+
+    private async Task<string> WaitForProcessingToResolve(string id, CancellationToken ct = default)
+    {
+        const int MaxRetries = 10;
+        const int SecondsBetweenRetries = 1;
+        const string ErrorMessage = "Payment is still processing after maximum retries.";
+
+        for (int i = 0; i < MaxRetries; i++)
+        {
+            PaymentIntent intent = await paymentIntentService.GetAsync(id, cancellationToken: ct).ConfigureAwait(false);
+            string message = GetMessageFromStatus(intent.Status);
+
+            switch (message)
+            {
+                case SuccessfulPayment: 
+                    return message;
+                
+                case ProcessingPayment: 
+                    await Task.Delay(SecondsBetweenRetries * 1000, ct).ConfigureAwait(false); break;
+
+                default: 
+                    throw PaymentFailedException.General(message);
+            }
+        }
+
+        throw new TimeoutException(ErrorMessage);
+    }
 }

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.AddItem;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Add;
 using CustomCADs.Carts.Application.ActiveCarts.Queries.GetItem;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;

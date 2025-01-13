@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.PurchaseWithDelivery;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Purchase.WithDelivery;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Post.PurchaseWithDelivery;
 

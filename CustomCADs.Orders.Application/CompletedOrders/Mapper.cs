@@ -1,4 +1,5 @@
-﻿using CustomCADs.Orders.Application.CompletedOrders.Queries.ClientGetById;
+﻿using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
+using CustomCADs.Orders.Application.CompletedOrders.Queries.ClientGetById;
 using CustomCADs.Orders.Application.CompletedOrders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.CompletedOrders.Queries.GetAll;
 
@@ -53,5 +54,16 @@ internal static class Mapper
             BuyerId: order.BuyerId,
             CadId: order.CadId,
             ShipmentId: order.ShipmentId
+        );
+
+    internal static CompletedOrder ToCompletedOrder(this CreateCompletedOrderCommand order)
+        => CompletedOrder.Create(
+            name: order.Name,
+            description: order.Description,
+            delivery: order.Delivery,
+            orderDate: order.OrderDate,
+            buyerId: order.BuyerId,
+            designerId: order.DesignerId,
+            cadId: order.CadId
         );
 }

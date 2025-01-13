@@ -19,6 +19,7 @@ public class CalculateOngoingOrderShipmentEndpoint(IRequestSender sender)
     {
         CalculateOngoingOrderShipmentQuery query = new(
             Id: OngoingOrderId.New(req.Id),
+            TotalCount: req.Count,
             TotalWeight: req.Weight,
             Address: new(req.Country, req.City)
         );

@@ -21,6 +21,9 @@ public class OngoingOrderValidationException : BaseException
 
     public static OngoingOrderValidationException InvalidStatus(OngoingOrderId id, OngoingOrderStatus oldStatus, OngoingOrderStatus newStatus, Exception? inner = default)
         => new($"Cannot set a status: {newStatus} to Ongoing Order with id: {id} and status: {oldStatus}.", inner);
+    
+    public static OngoingOrderValidationException CadIdOnOrderWithoutDesignerId(OngoingOrderId id, Exception? inner = default)
+        => new($"Cannot set CadId on Ongoing Order: {id} as it has no DesignerId", inner);
 
     public static OngoingOrderValidationException Custom(string message, Exception? inner = default)
         => new(message, inner);

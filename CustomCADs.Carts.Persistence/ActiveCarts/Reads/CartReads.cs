@@ -27,13 +27,6 @@ public sealed class ActiveCartReads(CartsContext context) : IActiveCartReads
         return new(count, carts);
     }
 
-    public async Task<ActiveCart?> SingleByIdAsync(ActiveCartId id, bool track = true, CancellationToken ct = default)
-        => await context.ActiveCarts
-            .WithTracking(track)
-            .Include(c => c.Items)
-            .SingleOrDefaultAsync(p => p.Id == id, ct)
-            .ConfigureAwait(false);
-
     public async Task<ActiveCart?> SingleByBuyerIdAsync(AccountId buyerId, bool track = true, CancellationToken ct = default)
         => await context.ActiveCarts
             .WithTracking(track)
@@ -41,10 +34,10 @@ public sealed class ActiveCartReads(CartsContext context) : IActiveCartReads
             .SingleOrDefaultAsync(p => p.BuyerId == buyerId, ct)
             .ConfigureAwait(false);
 
-    public async Task<bool> ExistsByIdAsync(ActiveCartId id, CancellationToken ct = default)
+    public async Task<bool> ExistsByBuyerIdAsync(AccountId buyerId, CancellationToken ct = default)
         => await context.ActiveCarts
             .WithTracking(false)
-            .AnyAsync(c => c.Id == id, ct)
+            .AnyAsync(c => c.BuyerId == buyerId, ct)
             .ConfigureAwait(false);
 
     public async Task<int> CountByProductIdAsync(ProductId productId, CancellationToken ct = default)
