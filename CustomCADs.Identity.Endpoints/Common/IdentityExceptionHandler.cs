@@ -6,54 +6,84 @@ namespace CustomCADs.Identity.Endpoints.Common;
 
 using static StatusCodes;
 
-public class IdentityExceptionHandler : IExceptionHandler
+public class IdentityExceptionHandler(IProblemDetailsService service) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
         if (ex is UserValidationException or UserPasswordException)
         {
-            context.Response.StatusCode = Status400BadRequest;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Invalid Request Parameters",
-                message = ex.Message,
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Invalid Request Parameters",
+                    Detail = ex.Message,
+                    Status = Status400BadRequest,
+                },
+            }).ConfigureAwait(false);
         }
         else if (ex is UserRegisterException or UserLoginException or UserRefreshTokenException)
         {
-            context.Response.StatusCode = Status401Unauthorized;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Inappropriately Unauthenticated",
-                message = ex.Message,
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Inappropriately Unauthenticated",
+                    Detail = ex.Message,
+                    Status = Status401Unauthorized,
+                },
+            }).ConfigureAwait(false);
         }
         else if (ex is UserLockedOutException)
         {
-            context.Response.StatusCode = Status423Locked;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Account Locked",
-                message = ex.Message,
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Account Locked",
+                    Detail = ex.Message,
+                    Status = Status423Locked,
+                },
+            }).ConfigureAwait(false);
         }
         else if (ex is UserNotFoundException or RoleNotFoundException)
         {
-            context.Response.StatusCode = Status404NotFound;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Resource Not Found",
-                message = ex.Message,
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Resource Not Found",
+                    Detail = ex.Message,
+                    Status = Status404NotFound,
+                },
+            }).ConfigureAwait(false);
         }
         else if (ex is UserCreationException)
         {
-            context.Response.StatusCode = Status500InternalServerError;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Inside Error, contact Support",
-                message = ex.Message,
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Internal Error, contact Support",
+                    Detail = ex.Message,
+                    Status = Status500InternalServerError,
+                },
+            }).ConfigureAwait(false);
         }
 
         return true;
