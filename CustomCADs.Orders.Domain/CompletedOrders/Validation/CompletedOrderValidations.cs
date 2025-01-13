@@ -43,4 +43,14 @@ public static class CompletedOrderValidations
 
         return order;
     }
+
+    public static CompletedOrder ValidateOrderDate(this CompletedOrder order)
+    {
+        if (order.OrderDate > order.PurchaseDate)
+        {
+            throw CompletedOrderValidationException.OrderDateAfterPurchaseDate(order.OrderDate, order.PurchaseDate);
+        }
+
+        return order;
+    }
 }

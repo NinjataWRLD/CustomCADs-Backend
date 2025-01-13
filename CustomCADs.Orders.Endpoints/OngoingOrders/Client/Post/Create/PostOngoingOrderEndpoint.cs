@@ -22,6 +22,7 @@ public sealed class PostOngoingOrderEndpoint(IRequestSender sender)
         CreateOngoingOrderCommand command = new(
             Name: req.Name,
             Description: req.Description,
+            Delivery: req.Delivery,
             BuyerId: User.GetAccountId()
         );
         OngoingOrderId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

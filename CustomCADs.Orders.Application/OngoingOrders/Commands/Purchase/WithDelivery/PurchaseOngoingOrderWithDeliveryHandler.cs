@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
+using CustomCADs.Orders.Domain.OngoingOrders.Enums;
 using CustomCADs.Orders.Domain.OngoingOrders.Events;
 using CustomCADs.Orders.Domain.OngoingOrders.Reads;
 using CustomCADs.Shared.Application.Events;
@@ -19,14 +20,17 @@ public sealed class PurchaseOngoingOrderWithDeliveryHandler(IOngoingOrderReads r
         if (order.BuyerId != req.BuyerId)
             throw OngoingOrderAuthorizationException.ByOrderId(order.Id);
 
+        if (order.OrderStatus is not OngoingOrderStatus.Finished)
+            throw OngoingOrderStatusException.NotFinished(order.Id);
+
+        if (!order.Delivery)
+            throw OngoingOrderDeliveryException.ById(order.Id);
+
         if (order.DesignerId is null)
             throw OngoingOrderDesignerException.ById(order.Id);
 
         if (order.CadId is null)
             throw OngoingOrderCadException.ById(order.Id);
-
-        if (!order.Delivery)
-            throw OngoingOrderDeliveryException.ById(order.Id);
 
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId),
             sellerQuery = new(order.DesignerId.Value);
@@ -49,7 +53,11 @@ public sealed class PurchaseOngoingOrderWithDeliveryHandler(IOngoingOrderReads r
         CreateCompletedOrderCommand command = new(
             Name: order.Name,
             Description: order.Description,
-            BuyerId: order.BuyerId
+            Delivery: true,
+            OrderDate: order.OrderDate,
+            BuyerId: order.BuyerId,
+            DesignerId: order.DesignerId.Value,
+            CadId: order.CadId.Value
         );
         CompletedOrderId completedOrderId = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 

@@ -7,12 +7,8 @@ public class CreateCompletedOrderHandler(IWrites<CompletedOrder> writes, IUnitOf
 {
     public async Task<CompletedOrderId> Handle(CreateCompletedOrderCommand req, CancellationToken ct)
     {
-        CompletedOrder order = CompletedOrder.Create(
-            name: req.Name,
-            description: req.Description,
-            buyerId: req.BuyerId
-        );
-        
+        CompletedOrder order = req.ToCompletedOrder();
+
         await writes.AddAsync(order, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 

@@ -14,8 +14,13 @@ public class CalculateOngoingOrderShipmentHandler(IOngoingOrderReads reads, IReq
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw OngoingOrderNotFoundException.ById(req.Id);
 
+        if (!order.Delivery)
+        {
+            throw OngoingOrderDeliveryException.ById(order.Id);
+        }
+
         CalculateShipmentQuery query = new(
-            ParcelCount: 1,
+            ParcelCount: req.TotalCount,
             TotalWeight: req.TotalWeight,
             Address: req.Address
         );

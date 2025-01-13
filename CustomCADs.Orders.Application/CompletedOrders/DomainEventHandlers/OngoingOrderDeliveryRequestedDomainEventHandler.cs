@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Orders.Domain.CompletedOrders.Reads;
+﻿using CustomCADs.Orders.Domain.CompletedOrders.Reads;
 using CustomCADs.Orders.Domain.OngoingOrders.Events;
 using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
@@ -8,7 +7,7 @@ using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Orders.Application.CompletedOrders.DomainEventHandlers;
 
-public class OngoingOrderDeliveryRequestedDomainEventHandler(ICompletedOrderReads reads, IUnitOfWork uow, IRequestSender sender)
+public class OngoingOrderDeliveryRequestedDomainEventHandler(ICompletedOrderReads reads, IRequestSender sender)
 {
     public async Task Handle(OngoingOrderDeliveryRequestedDomainEvent de)
     {
@@ -29,7 +28,5 @@ public class OngoingOrderDeliveryRequestedDomainEventHandler(ICompletedOrderRead
         );
         ShipmentId shipmentId = await sender.SendCommandAsync(shipmentCommand).ConfigureAwait(false);
         order.SetShipmentId(shipmentId);
-
-        await uow.SaveChangesAsync().ConfigureAwait(false);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace CustomCADs.Orders.Application.CompletedOrders.Queries.Count;
 
-public sealed class CountOrdersHandler(ICompletedOrderReads reads)
+public sealed class CountCompletedOrdersHandler(ICompletedOrderReads reads)
     : IQueryHandler<CountCompletedOrdersQuery, int>
 {
     public async Task<int> Handle(CountCompletedOrdersQuery req, CancellationToken ct)

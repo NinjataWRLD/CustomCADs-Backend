@@ -17,6 +17,9 @@ public class CompletedOrderValidationException : BaseException
 
     public static CompletedOrderValidationException Length(string property, int max, int min, Exception? inner = default)
         => new(string.Format(LengthValidation, "A", "Completed Order", property, min, max), inner);
+    
+    public static CompletedOrderValidationException OrderDateAfterPurchaseDate(DateTime orderDate, DateTime purchaseDate, Exception? inner = default)
+        => new($"Order Date ({orderDate}) cannot be after Purchase Date ({purchaseDate}).", inner);
 
     public static CompletedOrderValidationException ShipmentIdOnNonDelivery(Exception? inner = default)
         => new("Cannot set a ShipmentId for a Completed Order without Delivery.", inner);

@@ -11,7 +11,7 @@ public sealed class FinishOngoingOrderEndpoint(IRequestSender sender)
         Group<DesignerGroup>();
         Description(d => d
             .WithSummary("09. Finish")
-            .WithDescription("Set an Order's Status to Finished by specifying its Id, and if its a Digital Delivery then the Cad's Key and Content Type")
+            .WithDescription("Set an Order's Status to Finished by specifying its Id and Cad")
         );
     }
 
@@ -19,12 +19,11 @@ public sealed class FinishOngoingOrderEndpoint(IRequestSender sender)
     {
         FinishOngoingOrderCommand command = new(
             Id: OngoingOrderId.New(req.Id),
-            DesignerId: User.GetAccountId(),
-            Cad: req.ToCadDto()
+            Cad: req.ToCadDto(),
+            DesignerId: User.GetAccountId()
         );
-        FinishOngoingOrderDto dto = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        FinishOngoingOrderResponse response = dto.ToFinishOrderResponse();
-        await SendOkAsync(response).ConfigureAwait(false);
+        await SendNoContentAsync().ConfigureAwait(false);
     }
 }
