@@ -1,9 +1,10 @@
 ﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Routing;
 
 namespace CustomCADs.Identity.Endpoints.SignUp.Register;
 
-public sealed class RegisterEndpoint(IUserService service)
+public sealed class RegisterEndpoint(IUserService service, LinkGenerator links)
     : Endpoint<RegisterRequest>
 {
     public override void Configure()
@@ -38,7 +39,12 @@ public sealed class RegisterEndpoint(IUserService service)
             await SendErrorsAsync().ConfigureAwait(false);
             return;
         }
-        await service.SendVerificationEmailAsync(req.Username).ConfigureAwait(false);
+
+        string token = await service.GenerateEmailConfirmationTokenAsync(req.Username).ConfigureAwait(false);
+        string uri = links.GetUriByName(HttpContext, SignUpNames.ConfirmEmail, new { username = req.Username, token = token })
+            ?? throw new InvalidOperationException("Unable to generate confirmation link.");
+
+        await service.SendVerificationEmailAsync(req.Username, uri).ConfigureAwait(false);
 
         await SendOkAsync().ConfigureAwait(false);
     }

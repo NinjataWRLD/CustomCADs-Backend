@@ -1,10 +1,11 @@
-﻿namespace CustomCADs.Identity.Endpoints.SignUp.RetryVerifyEmail;
+﻿using Microsoft.AspNetCore.Routing;
 
-using CustomCADs.Identity.Application.Common.Contracts;
+namespace CustomCADs.Identity.Endpoints.SignUp.RetryVerifyEmail;
+
 using static ApiMessages;
 using static StatusCodes;
 
-public sealed class RetryConfirmEmailEndpoint(IUserService service)
+public sealed class RetryConfirmEmailEndpoint(IUserService service, LinkGenerator links)
     : Endpoint<RetryConfirmEmailRequest>
 {
     public override void Configure()
@@ -34,7 +35,12 @@ public sealed class RetryConfirmEmailEndpoint(IUserService service)
             await SendErrorsAsync().ConfigureAwait(false);
             return;
         }
-        await service.SendVerificationEmailAsync(user).ConfigureAwait(false);
+
+        string token = await service.GenerateEmailConfirmationTokenAsync(req.Username).ConfigureAwait(false);
+        string uri = links.GetUriByName(HttpContext, SignUpNames.ConfirmEmail, new { username = req.Username, token = token })
+            ?? throw new InvalidOperationException("Unable to generate confirmation link.");
+
+        await service.SendVerificationEmailAsync(user, uri).ConfigureAwait(false);
 
         await SendOkAsync("Check your email.").ConfigureAwait(false);
     }

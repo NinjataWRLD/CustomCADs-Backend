@@ -20,8 +20,10 @@ public interface IUserService
     Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token);
     Task<IdentityResult> ResetPasswordAsync(AppUser user, string token, string newPassword);
     Task<IdentityResult> DeleteAsync(AppUser user);
-    Task SendVerificationEmailAsync(string username);
-    Task SendVerificationEmailAsync(AppUser user);
+    Task SendVerificationEmailAsync(string username, string uri);
+    Task SendVerificationEmailAsync(AppUser user, string uri);
+    Task<string> GenerateEmailConfirmationTokenAsync(string username);
+    Task<string> GenerateEmailConfirmationTokenAsync(AppUser user);
     Task SendResetPasswordEmailAsync(AppUser user);
     Task SendResetPasswordEmailAsync(string email);
     Task<bool> CheckPasswordAsync(AppUser user, string password);

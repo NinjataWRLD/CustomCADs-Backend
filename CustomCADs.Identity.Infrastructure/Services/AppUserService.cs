@@ -15,7 +15,6 @@ namespace CustomCADs.Identity.Infrastructure.Services;
 
 public sealed class AppUserService(UserManager<AppUser> manager, IEventRaiser raiser, IRequestSender sender, IConfiguration config) : IUserService
 {
-    private readonly string serverUrl = config["URLs:Server"] ?? throw new KeyNotFoundException("Server Url not provided.");
     private readonly string clientUrl = config["URLs:Client"] ?? throw new KeyNotFoundException("Client Url not provided.");
 
     public async Task<AppUser?> FindByIdAsync(Guid id)
@@ -105,27 +104,36 @@ public sealed class AppUserService(UserManager<AppUser> manager, IEventRaiser ra
     public async Task<IdentityResult> DeleteAsync(AppUser user)
         => await manager.DeleteAsync(user).ConfigureAwait(false);
 
-    public async Task SendVerificationEmailAsync(AppUser user)
+    public async Task SendVerificationEmailAsync(AppUser user, string uri)
     {
-        string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-
         await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
             Email: user.Email ?? string.Empty,
-            Endpoint: GetVerifyEmailEndpoint(user.UserName!, token)
+            Endpoint: uri
         )).ConfigureAwait(false);
     }
 
-    public async Task SendVerificationEmailAsync(string username)
+    public async Task SendVerificationEmailAsync(string username, string uri)
+    {
+        AppUser user = await manager.FindByNameAsync(username).ConfigureAwait(false)
+            ?? throw UserNotFoundException.ByUsername(username);
+        
+        await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
+            Email: user.Email ?? string.Empty,
+            Endpoint: uri
+        )).ConfigureAwait(false);
+    }
+
+    public async Task<string> GenerateEmailConfirmationTokenAsync(AppUser user)
+    {
+        return await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+    }
+
+    public async Task<string> GenerateEmailConfirmationTokenAsync(string username)
     {
         AppUser user = await manager.FindByNameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
 
-        string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-
-        await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
-            Email: user.Email ?? string.Empty,
-            Endpoint: GetVerifyEmailEndpoint(user.UserName!, token)
-        )).ConfigureAwait(false);
+        return await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
     }
 
     public async Task SendResetPasswordEmailAsync(AppUser user)
@@ -163,9 +171,6 @@ public sealed class AppUserService(UserManager<AppUser> manager, IEventRaiser ra
         return success;
     }
 
-    private string GetVerifyEmailEndpoint(string username, string token)
-        => $"{serverUrl}/api/v1/identity/signup/verifyEmail/{username}?token={token}";
-
     private string GetResetPasswordPage(string email, string token)
-        => $"{clientUrl}/login/reset-password?email={email}&token={token}";
+        => $"{clientUrl}/reset-password?email={email}&token={token}";
 }
