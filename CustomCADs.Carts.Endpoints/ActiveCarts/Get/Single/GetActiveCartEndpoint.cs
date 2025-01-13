@@ -11,7 +11,7 @@ public sealed class GetActiveCartEndpoint(IRequestSender sender)
         Group<ActiveCartsGroup>();
         Description(d => d
             .WithSummary("03. Single")
-            .WithDescription("See your Cart by specifying its Id")
+            .WithDescription("See your Cart in detail")
         );
     }
 

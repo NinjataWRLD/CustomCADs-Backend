@@ -14,7 +14,7 @@ public sealed class PostProductEndpoint(IRequestSender sender)
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("02. Create")
-            .WithDescription("Create a Product by specifying a Name, Description, Category, Price, and the Image and Cad's keys and content types")
+            .WithDescription("Create a Product")
         );
     }
 

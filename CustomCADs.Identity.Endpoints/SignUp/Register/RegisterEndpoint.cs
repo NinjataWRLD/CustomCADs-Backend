@@ -12,7 +12,7 @@ public sealed class RegisterEndpoint(IUserService service)
         Group<SignUpGroup>();
         Description(d => d
             .WithSummary("01. Register")
-            .WithDescription("Register by providing a Role, Username, Email, Password, and Time zone, and optional First and Last names, and receive an email from which to verify your Email")
+            .WithDescription("Register an Account")
         );
     }
 

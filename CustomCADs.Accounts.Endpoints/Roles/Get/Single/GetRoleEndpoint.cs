@@ -11,7 +11,7 @@ public sealed class GetRoleEndpoint(IRequestSender sender)
         Group<RolesGroup>();
         Description(d => d
             .WithSummary("3. Single")
-            .WithDescription("See a Role by specifying its Name")
+            .WithDescription("See a Role in detail")
         );
     }
 

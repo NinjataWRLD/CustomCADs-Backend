@@ -6,7 +6,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.All;
 
 public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
-    : Endpoint<GetUncheckedProductsRequest, Result<GetUncheckedProductsDto>>
+    : Endpoint<GetUncheckedProductsRequest, Result<GetUncheckedProductsResponse>>
 {
     public override void Configure()
     {
@@ -29,7 +29,7 @@ public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
         );
         var result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        Result<GetUncheckedProductsDto> response = new(
+        Result<GetUncheckedProductsResponse> response = new(
             Count: result.Count,
             Items: [.. result.Items.Select(p => p.ToGetUncheckedProductsDto())]
         );

@@ -16,7 +16,7 @@ public sealed class LoginEndpoint(IUserService userService, ITokenService tokenS
         AllowAnonymous();
         Description(d => d
             .WithSummary("01. Login")
-            .WithDescription("Log in to your account by providing your Username and Password and an optional Remember Me")
+            .WithDescription("Log in to your account")
         );
     }
 

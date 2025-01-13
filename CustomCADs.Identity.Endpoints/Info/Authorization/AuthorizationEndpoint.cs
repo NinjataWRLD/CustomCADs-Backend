@@ -11,7 +11,7 @@ public sealed class AuthorizationEndpoint
         Group<InfoGroup>();
         Description(d => d
             .WithSummary("02. AuthZ")
-            .WithDescription("What Role do you have?")
+            .WithDescription("See what Role you're logged in with")
         );
     }
 

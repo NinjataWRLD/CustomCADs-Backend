@@ -11,7 +11,7 @@ public sealed class PutCategoryEndpoint(IRequestSender sender)
         Group<CategoriesGroup>();
         Description(d => d
             .WithSummary("4. Edit")
-            .WithDescription("Edit a Category by specifying its Id and a new Name")
+            .WithDescription("Edit a Category")
         );
     }
 

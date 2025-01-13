@@ -9,7 +9,7 @@ public sealed class RetryVerifyEmailEndpoint(IUserService service)
 {
     public override void Configure()
     {
-        Get("verifyEmail/{username}/retry");
+        Get("email/verify/{username}/retry");
         Group<SignUpGroup>();
         Description(d => d
             .WithSummary("02. Retry Send Email")

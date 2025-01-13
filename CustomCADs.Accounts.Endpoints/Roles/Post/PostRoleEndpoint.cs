@@ -13,7 +13,7 @@ public sealed class PostRoleEndpoint(IRequestSender sender)
         Group<RolesGroup>();
         Description(d => d
             .WithSummary("2. Create")
-            .WithDescription("Create a Role by specifying a Name and Description.")
+            .WithDescription("Create a Role")
         );
     }
 

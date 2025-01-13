@@ -11,7 +11,7 @@ public sealed class DeleteAccountEndpoint(IRequestSender sender)
         Group<AccountsGroup>();
         Description(d => d
             .WithSummary("4. Delete")
-            .WithDescription("Delete an Account by specifying its Username")
+            .WithDescription("Delete an Account")
         );
     }
 

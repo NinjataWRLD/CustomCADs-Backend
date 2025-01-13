@@ -11,7 +11,7 @@ public sealed class DeleteCategoryEndpoint(IRequestSender sender)
         Group<CategoriesGroup>();
         Description(d => d
             .WithSummary("5. Delete")
-            .WithDescription("Delete a Category by specifying its Id")
+            .WithDescription("Delete a Category")
         );
     }
 

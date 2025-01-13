@@ -14,8 +14,8 @@ public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService
         Post("refresh");
         Group<SignInGroup>();
         Description(d => d
-            .WithSummary("02. Extend")
-            .WithDescription("Extend your login without providing credentials again")
+            .WithSummary("02. Refresh")
+            .WithDescription("Refresh your login")
         );
     }
 

@@ -11,7 +11,7 @@ public sealed class DeleteProductEndpoint(IRequestSender sender)
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("09. Delete")
-            .WithDescription("Delete your Product by specifying its Id")
+            .WithDescription("Delete your Product")
         );
     }
 

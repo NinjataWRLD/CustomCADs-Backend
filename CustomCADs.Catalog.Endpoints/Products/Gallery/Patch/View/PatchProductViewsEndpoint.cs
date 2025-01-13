@@ -11,7 +11,7 @@ public sealed class PatchProductViewsEndpoint(IRequestSender sender)
         Group<GalleryGroup>();
         Description(d => d
             .WithSummary("03. View")
-            .WithDescription("Increment the view count of a Product by specifying its Id")
+            .WithDescription("Increment the view count of a Product")
         );
     }
 

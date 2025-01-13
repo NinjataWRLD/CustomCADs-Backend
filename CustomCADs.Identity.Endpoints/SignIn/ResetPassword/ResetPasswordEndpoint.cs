@@ -15,7 +15,7 @@ public sealed class ResetPasswordEndpoint(IUserService service)
         Group<SignInGroup>();
         Description(d => d
             .WithSummary("05. Reset Password")
-            .WithDescription("Reset your Password by providing the token received in the email")
+            .WithDescription("Reset your Password with the token from the email")
         );
     }
 

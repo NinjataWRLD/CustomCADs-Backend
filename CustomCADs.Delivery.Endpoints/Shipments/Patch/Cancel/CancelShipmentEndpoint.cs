@@ -11,7 +11,7 @@ public class CancelShipmentEndpoint(IRequestSender sender)
         Group<ShipmentGroup>();
         Description(d => d
             .WithSummary("03. Cancel")
-            .WithDescription("Cancel a Shipment by providing its id (this doesn't delete the shipment, it just cancels the current delivery)")
+            .WithDescription("Cancel a Shipment (this doesn't delete the shipment, it simply cancels the requested delivery)")
         );
     }
 

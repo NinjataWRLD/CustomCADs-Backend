@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetImageUrlPut;
 
-namespace CustomCADs.Catalog.Endpoints.Products.Creator.Put.PresignedUrl;
+namespace CustomCADs.Catalog.Endpoints.Products.Creator.Put.PresignedUrl.Image;
 
 public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
     : Endpoint<GetProductPutPresignedUrlRequest, GetProductPutPresignedUrlResponse>
@@ -11,7 +11,7 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("12. Change Image")
-            .WithDescription("Change your Product's Image by specifying the Product's Id and the Image's FileName and ContentType")
+            .WithDescription("Change your Product's Image")
         );
     }
 

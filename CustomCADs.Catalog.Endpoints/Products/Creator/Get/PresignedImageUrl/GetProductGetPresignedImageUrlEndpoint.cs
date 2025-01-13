@@ -11,7 +11,7 @@ public sealed class GetProductGetPresignedImageUrlEndpoint(IRequestSender sender
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("11. Download Image")
-            .WithDescription("Download an Product's Image by specifying the Product's Id")
+            .WithDescription("Download an Product's Image")
         );
     }
 

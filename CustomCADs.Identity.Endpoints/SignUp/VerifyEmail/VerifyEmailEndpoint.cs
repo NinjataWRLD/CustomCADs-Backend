@@ -12,11 +12,11 @@ public sealed class VerifyEmailEndpoint(IUserService userService, ITokenService 
 {
     public override void Configure()
     {
-        Get("verifyEmail/{username}");
+        Get("email/verify/{username}");
         Group<SignUpGroup>();
         Description(d => d
-            .WithSummary("03. Verify Email")
-            .WithDescription("Verify your Email by providing the token received in the email")
+            .WithSummary("03. Confirm Email")
+            .WithDescription("Confirm the verification email")
         );
     }
 

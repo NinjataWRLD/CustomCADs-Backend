@@ -11,7 +11,7 @@ public sealed class GetCompletedOrderEndpoint(IRequestSender sender)
         Group<ClientGroup>();
         Description(d => d
             .WithSummary("05. Single")
-            .WithDescription("See your Completed Order by specifying its Id")
+            .WithDescription("See your Completed Order")
         );
     }
 

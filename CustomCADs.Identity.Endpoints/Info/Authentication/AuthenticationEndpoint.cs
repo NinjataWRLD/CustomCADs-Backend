@@ -11,7 +11,7 @@ public sealed class AuthenticationEndpoint
         Group<InfoGroup>();
         Description(d => d
             .WithSummary("01. AuthN")
-            .WithDescription("Are you logged in?")
+            .WithDescription("See if you're logged in")
         );
     }
 

@@ -13,7 +13,7 @@ public sealed class PutProductEndpoint(IRequestSender sender)
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("05. Edit")
-            .WithDescription("Edit your Product by specifying its Id and a new Name, Description, CategoryId, Price and ImageKey")
+            .WithDescription("Edit your Product")
         );
     }
 

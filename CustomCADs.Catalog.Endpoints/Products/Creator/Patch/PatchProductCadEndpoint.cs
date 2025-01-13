@@ -11,7 +11,7 @@ public sealed class PatchProductCadEndpoint(IRequestSender sender)
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("08. Set Cad Coordinates")
-            .WithDescription("Set the Coordinates of your Product's Cad by specifying the Product's Id and the Cad's Coordinates Type and Values")
+            .WithDescription("Set the Coordinates of your Product's Cad")
         );
     }
 
