@@ -10,6 +10,7 @@ public sealed class AuthenticationEndpoint
         Get("authentication");
         Group<InfoGroup>();
         Description(d => d
+            .WithName(InfoNames.Authentication)
             .WithSummary("01. AuthN")
             .WithDescription("See if you're logged in")
         );

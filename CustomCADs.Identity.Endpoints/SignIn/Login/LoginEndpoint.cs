@@ -15,6 +15,7 @@ public sealed class LoginEndpoint(IUserService userService, ITokenService tokenS
         Group<SignInGroup>();
         AllowAnonymous();
         Description(d => d
+            .WithName(SignInNames.Login)
             .WithSummary("01. Login")
             .WithDescription("Log in to your account")
         );

@@ -7,20 +7,21 @@ using static AccountConstants;
 using static ApiMessages;
 using static StatusCodes;
 
-public sealed class VerifyEmailEndpoint(IUserService userService, ITokenService tokenService)
-    : Endpoint<VerifyEmailRequest>
+public sealed class ConfirmEmailEndpoint(IUserService userService, ITokenService tokenService)
+    : Endpoint<ConfirmEmailRequest>
 {
     public override void Configure()
     {
-        Get("email/verify/{username}");
+        Get("email/confirm/{username}");
         Group<SignUpGroup>();
         Description(d => d
+            .WithName(SignUpNames.ConfirmEmail)
             .WithSummary("03. Confirm Email")
             .WithDescription("Confirm the verification email")
         );
     }
 
-    public override async Task HandleAsync(VerifyEmailRequest req, CancellationToken ct)
+    public override async Task HandleAsync(ConfirmEmailRequest req, CancellationToken ct)
     {
         if (string.IsNullOrEmpty(req.Token))
         {

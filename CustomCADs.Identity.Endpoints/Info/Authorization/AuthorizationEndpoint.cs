@@ -10,6 +10,7 @@ public sealed class AuthorizationEndpoint
         Get("authorization");
         Group<InfoGroup>();
         Description(d => d
+            .WithName(InfoNames.Authorization)
             .WithSummary("02. AuthZ")
             .WithDescription("See what Role you're logged in with")
         );

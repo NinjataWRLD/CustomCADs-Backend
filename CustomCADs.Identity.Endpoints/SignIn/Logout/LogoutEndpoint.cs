@@ -13,6 +13,7 @@ public sealed class LogoutEndpoint(IUserService service)
         Post("logout");
         Group<SignInGroup>();
         Description(d => d
+            .WithName(SignInNames.Logout)
             .WithSummary("03. Log out")
             .WithDescription("Log out of your account")
         );

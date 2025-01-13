@@ -11,6 +11,7 @@ public sealed class RegisterEndpoint(IUserService service)
         Post("register");
         Group<SignUpGroup>();
         Description(d => d
+            .WithName(SignUpNames.Register)
             .WithSummary("01. Register")
             .WithDescription("Register an Account")
         );

@@ -14,6 +14,7 @@ public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService
         Post("refresh");
         Group<SignInGroup>();
         Description(d => d
+            .WithName(SignInNames.Refresh)
             .WithSummary("02. Refresh")
             .WithDescription("Refresh your login")
         );

@@ -4,20 +4,21 @@ using CustomCADs.Identity.Application.Common.Contracts;
 using static ApiMessages;
 using static StatusCodes;
 
-public sealed class RetryVerifyEmailEndpoint(IUserService service)
-    : Endpoint<RetryVerifyEmailRequest>
+public sealed class RetryConfirmEmailEndpoint(IUserService service)
+    : Endpoint<RetryConfirmEmailRequest>
 {
     public override void Configure()
     {
-        Get("email/verify/{username}/retry");
+        Get("email/confirm/{username}/retry");
         Group<SignUpGroup>();
         Description(d => d
+            .WithName(SignUpNames.RetryConfirmEmail)
             .WithSummary("02. Retry Send Email")
             .WithDescription("Receive another verification email")
         );
     }
 
-    public override async Task HandleAsync(RetryVerifyEmailRequest req, CancellationToken ct)
+    public override async Task HandleAsync(RetryConfirmEmailRequest req, CancellationToken ct)
     {
         AppUser? user = await service.FindByNameAsync(req.Username).ConfigureAwait(false);
         if (user is null)
