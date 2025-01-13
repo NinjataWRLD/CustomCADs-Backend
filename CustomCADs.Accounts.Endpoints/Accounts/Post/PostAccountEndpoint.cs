@@ -14,7 +14,7 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
         Group<AccountsGroup>();
         Description(d => d
             .WithSummary("2. Create")
-            .WithDescription("Create an Account by specifying a Role, Username, Email, Time Zone, Password and optional First and Last names")
+            .WithDescription("Create an Account")
         );
     }
 

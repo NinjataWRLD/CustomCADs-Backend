@@ -8,11 +8,11 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
 {
     public override void Configure()
     {
-        Post("presignedUrl/downloadCad");
+        Post("presignedUrls/download/cad");
         Group<PurchasedCartsGroup>();
         Description(d => d
             .WithSummary("03. Download Cad")
-            .WithDescription("Download your Cart Item's Cad by specifying the Cart Item's Id")
+            .WithDescription("Download your Cart Item's Cad")
         );
     }
 

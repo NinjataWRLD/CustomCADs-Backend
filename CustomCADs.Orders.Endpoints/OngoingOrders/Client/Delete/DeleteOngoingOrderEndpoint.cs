@@ -2,16 +2,16 @@
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Client.Delete;
 
-public sealed class DeleteOrderEndpoint(IRequestSender sender)
+public sealed class DeleteOngoingOrderEndpoint(IRequestSender sender)
     : Endpoint<DeleteOngoingOrderRequest>
 {
     public override void Configure()
     {
-        Delete("{id}");
+        Delete("");
         Group<ClientGroup>();
         Description(d => d
             .WithSummary("08. Delete")
-            .WithDescription("Delete your Order by specifying its Id")
+            .WithDescription("Delete your Order")
         );
     }
 

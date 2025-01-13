@@ -13,7 +13,7 @@ public sealed class PostOngoingOrderEndpoint(IRequestSender sender)
         Group<ClientGroup>();
         Description(d => d
             .WithSummary("01. Create")
-            .WithDescription("Make an Order by specifying a Name, Description and Delivery Type")
+            .WithDescription("Make an Order")
         );
     }
 

@@ -5,7 +5,6 @@ using FluentValidation;
 namespace CustomCADs.Identity.Endpoints.SignUp.Register;
 
 using static AccountConstants;
-using static ApiMessages;
 using static Constants;
 using static Constants.FluentMessages;
 using static Constants.Roles;
@@ -22,9 +21,7 @@ public class RegisterRequestValidator : Validator<RegisterRequest>
                 bool isValidRole = roles.Contains(role);
                 if (!isValidRole)
                 {
-                    string error = string.Format(ForbiddenRoleRegister,
-                        string.Join(", ", [Client, Contributor]));
-                    ctx.AddFailure(error);
+                    ctx.AddFailure($"You must choose a role from: [{Client}, {Contributor}].");
                 }
             });
 

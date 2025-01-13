@@ -6,10 +6,10 @@ public class DesignerGroup : Group
 {
     public DesignerGroup()
     {
-        Configure("orders/designer", ep =>
+        Configure("orders/designer/ongoing", ep =>
         {
             ep.Roles(Designer);
-            ep.Description(d => d.WithTags("10. Order Management"));
+            ep.Description(d => d.WithTags("11. Ongoing Order Management"));
         });
     }
 }

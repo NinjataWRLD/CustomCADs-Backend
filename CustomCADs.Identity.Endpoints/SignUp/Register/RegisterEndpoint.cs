@@ -1,9 +1,10 @@
 ﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Routing;
 
 namespace CustomCADs.Identity.Endpoints.SignUp.Register;
 
-public sealed class RegisterEndpoint(IUserService service)
+public sealed class RegisterEndpoint(IUserService service, LinkGenerator links)
     : Endpoint<RegisterRequest>
 {
     public override void Configure()
@@ -11,8 +12,9 @@ public sealed class RegisterEndpoint(IUserService service)
         Post("register");
         Group<SignUpGroup>();
         Description(d => d
+            .WithName(SignUpNames.Register)
             .WithSummary("01. Register")
-            .WithDescription("Register by providing a Role, Username, Email, Password, and Time zone, and optional First and Last names, and receive an email from which to verify your Email")
+            .WithDescription("Register an Account")
         );
     }
 
@@ -27,18 +29,14 @@ public sealed class RegisterEndpoint(IUserService service)
             FirstName: req.FirstName,
             LastName: req.LastName
         );
-        IdentityResult result = await service.CreateAsync(dto).ConfigureAwait(false);
+        await service.CreateAsync(dto).ConfigureAwait(false);
 
-        if (!result.Succeeded)
-        {
-            ValidationFailures.AddRange(result.Errors
-                .Select(e => new ValidationFailure(e.Code, e.Description)));
+        string token = await service.GenerateEmailConfirmationTokenAsync(req.Username).ConfigureAwait(false);
+        string uri = links.GetUriByName(HttpContext, SignUpNames.ConfirmEmail, new { username = req.Username, token = token })
+            ?? throw new InvalidOperationException("Unable to generate confirmation link.");
 
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-        await service.SendVerificationEmailAsync(req.Username).ConfigureAwait(false);
+        await service.SendVerificationEmailAsync(req.Username, uri).ConfigureAwait(false);
 
-        await SendOkAsync().ConfigureAwait(false);
+        await SendOkAsync("Welcome!").ConfigureAwait(false);
     }
 }

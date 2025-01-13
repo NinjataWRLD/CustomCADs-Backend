@@ -9,12 +9,12 @@ public sealed class PatchProductLikesEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Patch("{id}/like");
+        Patch("like");
         Group<GalleryGroup>();
         Roles(Client);
         Description(d => d
             .WithSummary("04. Like")
-            .WithDescription("Increment the like count of a Product by specifying its Id")
+            .WithDescription("Increment the like count of a Product")
         );
     }
 

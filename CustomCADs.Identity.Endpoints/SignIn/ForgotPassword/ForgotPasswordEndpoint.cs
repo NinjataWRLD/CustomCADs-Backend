@@ -5,11 +5,12 @@ public sealed class ForgotPasswordEndpoint(IUserService service)
 {
     public override void Configure()
     {
-        Get("forgotPassword");
+        Get("password/forgot/{email}");
         Group<SignInGroup>();
         Description(d => d
+            .WithName(SignInNames.ForgotPassword)
             .WithSummary("04. Reset Password Email")
-            .WithDescription("Receive an Email with a link Reset your Password")
+            .WithDescription("Receive an Email with a link to reset your Password")
         );
     }
 

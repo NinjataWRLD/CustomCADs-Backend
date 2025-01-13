@@ -7,11 +7,11 @@ public sealed class DeleteRoleEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Delete("{name}");
+        Delete("");
         Group<RolesGroup>();
         Description(d => d
             .WithSummary("4. Delete")
-            .WithDescription("Delete a Role by specifying its Name")
+            .WithDescription("Delete a Role")
         );
     }
 

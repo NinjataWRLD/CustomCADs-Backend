@@ -7,7 +7,7 @@ public sealed class GetOngoingOrderPostPresignedUrlEndpoint(IRequestSender sende
 {
     public override void Configure()
     {
-        Patch("presignedUrl/uploadCad");
+        Patch("presignedUrls/upload/cad");
         Group<DesignerGroup>();
         Description(d => d
             .WithSummary("09. Upload")

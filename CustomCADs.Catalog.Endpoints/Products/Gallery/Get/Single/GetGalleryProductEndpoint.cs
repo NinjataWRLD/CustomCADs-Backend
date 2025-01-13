@@ -11,7 +11,7 @@ public sealed class GetGalleryProductEndpoint(IRequestSender sender)
         Group<GalleryGroup>();
         Description(d => d
             .WithSummary("02. Single")
-            .WithDescription("See a Validated Product by specifying its Id")
+            .WithDescription("See a Validated Product in detail")
         );
     }
 

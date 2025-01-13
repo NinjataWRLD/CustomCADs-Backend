@@ -80,7 +80,7 @@ internal static class Mapper
             Category: product.Category.ToCategoryDto()
         );
 
-    internal static GetUncheckedProductsDto ToGetUncheckedProductsDto(this GetAllProductsDto product)
+    internal static GetUncheckedProductsResponse ToGetUncheckedProductsDto(this GetAllProductsDto product)
     => new(
         Id: product.Id.Value,
         Name: product.Name,

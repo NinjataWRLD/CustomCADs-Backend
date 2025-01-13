@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common;
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Get.All;
 
 public sealed class GetPurchasedCartsEndpoint(IRequestSender sender)
-    : Endpoint<GetCartsPurchasedRequest, Result<GetPurchasedCartsResponse>>
+    : Endpoint<GetPurchasedCartsRequest, Result<GetPurchasedCartsResponse>>
 {
     public override void Configure()
     {
@@ -16,7 +16,7 @@ public sealed class GetPurchasedCartsEndpoint(IRequestSender sender)
         );
     }
 
-    public override async Task HandleAsync(GetCartsPurchasedRequest req, CancellationToken ct)
+    public override async Task HandleAsync(GetPurchasedCartsRequest req, CancellationToken ct)
     {
         GetAllPurchasedCartsQuery query = new(
             BuyerId: User.GetAccountId(),

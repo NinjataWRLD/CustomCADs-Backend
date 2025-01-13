@@ -15,7 +15,7 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
         Group<ActiveCartsGroup>();
         Description(d => d
             .WithSummary("02. Add Item")
-            .WithDescription("Add an Item to your Cart by specifying the Cart's Id, the Product's Id, the Weight and whether it's to be delivered")
+            .WithDescription("Add an Item to your Cart")
         );
     }
 

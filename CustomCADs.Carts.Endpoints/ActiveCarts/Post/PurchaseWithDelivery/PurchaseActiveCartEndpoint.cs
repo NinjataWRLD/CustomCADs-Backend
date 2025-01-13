@@ -11,7 +11,7 @@ public sealed class PurchaseActiveCartEndpoint(IRequestSender sender)
         Group<ActiveCartsGroup>();
         Description(d => d
             .WithSummary("11. Purchase (Delivery)")
-            .WithDescription("Purchase all the Items in the Cart with Delivery")
+            .WithDescription("Purchase all the Items in the Cart (and Ship those marked for Delivery)")
         );
     }
 

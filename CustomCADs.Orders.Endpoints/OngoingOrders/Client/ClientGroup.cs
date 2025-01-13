@@ -6,10 +6,10 @@ public class ClientGroup : Group
 {
     public ClientGroup()
     {
-        Configure("orders/client", ep =>
+        Configure("orders/client/ongoing", ep =>
         {
             ep.Roles(Client);
-            ep.Description(d => d.WithTags("08. Orders"));
+            ep.Description(d => d.WithTags("08. Ongoing Orders"));
         });
     }
 }
