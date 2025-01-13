@@ -7,7 +7,7 @@ public sealed class DeleteOrderEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Delete("{id}");
+        Delete("");
         Group<ClientGroup>();
         Description(d => d
             .WithSummary("08. Delete")

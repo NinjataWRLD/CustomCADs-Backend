@@ -9,7 +9,7 @@ public sealed class PatchProductLikesEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Patch("{id}/like");
+        Patch("like");
         Group<GalleryGroup>();
         Roles(Client);
         Description(d => d

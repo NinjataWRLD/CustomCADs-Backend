@@ -7,7 +7,7 @@ public sealed class GetProductGetPresignedCadUrlEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Post("presignedUrl/downloadCad");
+        Post("presignedUrls/download/cad");
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("07. Download Cad")

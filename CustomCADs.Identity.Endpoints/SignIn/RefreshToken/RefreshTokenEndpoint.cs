@@ -11,7 +11,7 @@ public sealed class RefreshTokenEndpoint(IUserService userService, ITokenService
 {
     public override void Configure()
     {
-        Post("refreshToken");
+        Post("refresh");
         Group<SignInGroup>();
         Description(d => d
             .WithSummary("02. Extend")

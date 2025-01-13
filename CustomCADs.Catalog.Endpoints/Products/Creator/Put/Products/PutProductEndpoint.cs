@@ -9,7 +9,7 @@ public sealed class PutProductEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Put("{id}");
+        Put("");
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("05. Edit")

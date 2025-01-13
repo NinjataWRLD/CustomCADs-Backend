@@ -7,7 +7,7 @@ public sealed class PutOngoingOrderEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Put("{id}");
+        Put("");
         Group<ClientGroup>();
         Description(d => d
             .WithSummary("06. Edit")

@@ -7,7 +7,7 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Post("presignedUrls/replace");
+        Post("presignedUrls/replace/image");
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("12. Change Image")

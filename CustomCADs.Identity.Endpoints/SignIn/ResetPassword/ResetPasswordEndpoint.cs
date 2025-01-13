@@ -11,7 +11,7 @@ public sealed class ResetPasswordEndpoint(IUserService service)
 {
     public override void Configure()
     {
-        Post("resetPassword/{email}");
+        Post("password/reset");
         Group<SignInGroup>();
         Description(d => d
             .WithSummary("05. Reset Password")

@@ -7,7 +7,7 @@ public sealed class GetProductGetPresignedImageUrlEndpoint(IRequestSender sender
 {
     public override void Configure()
     {
-        Post("presignedUrl/downloadImage");
+        Post("presignedUrls/download/image");
         Group<ProductsGroup>();
         Description(d => d
             .WithSummary("11. Download Image")

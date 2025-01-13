@@ -7,7 +7,7 @@ public sealed class DeleteAccountEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Delete("{username}");
+        Delete("");
         Group<AccountsGroup>();
         Description(d => d
             .WithSummary("4. Delete")

@@ -7,7 +7,7 @@ public sealed class DeleteCategoryEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Delete("{id}");
+        Delete("");
         Group<CategoriesGroup>();
         Description(d => d
             .WithSummary("5. Delete")

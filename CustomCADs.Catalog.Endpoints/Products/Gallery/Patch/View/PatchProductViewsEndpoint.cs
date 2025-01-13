@@ -7,7 +7,7 @@ public sealed class PatchProductViewsEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Patch("{id}/view");
+        Patch("view");
         Group<GalleryGroup>();
         Description(d => d
             .WithSummary("03. View")

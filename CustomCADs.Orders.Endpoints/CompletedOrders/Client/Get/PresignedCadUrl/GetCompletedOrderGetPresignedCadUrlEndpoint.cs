@@ -7,7 +7,7 @@ public sealed class GetCompletedOrderGetPresignedCadUrlEndpoint(IRequestSender s
 {
     public override void Configure()
     {
-        Post("presignedUrl/downloadCad");
+        Post("presignedUrls/download/cad");
         Group<ClientGroup>();
         Description(d => d
             .WithSummary("12. Download Cad")
