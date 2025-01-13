@@ -1,11 +1,4 @@
-﻿using CustomCADs.Identity.Domain;
-using Microsoft.AspNetCore.Identity;
-
-namespace CustomCADs.Identity.Endpoints.SignUp.VerifyEmail;
-
-using static AccountConstants;
-using static ApiMessages;
-using static StatusCodes;
+﻿namespace CustomCADs.Identity.Endpoints.SignUp.VerifyEmail;
 
 public sealed class ConfirmEmailEndpoint(IUserService userService, ITokenService tokenService)
     : Endpoint<ConfirmEmailRequest>
@@ -23,51 +16,19 @@ public sealed class ConfirmEmailEndpoint(IUserService userService, ITokenService
 
     public override async Task HandleAsync(ConfirmEmailRequest req, CancellationToken ct)
     {
-        if (string.IsNullOrEmpty(req.Token))
-        {
-            ValidationFailures.Add(new("EmailToken", IsRequired, req.Token)
-            {
-                FormattedMessagePlaceholderValues = new() { ["0"] = "Email Token" },
-            });
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-
-        AppUser? user = await userService.FindByNameAsync(req.Username).ConfigureAwait(false);
-        if (user is null)
-        {
-            ValidationFailures.Add(new("Username", UserNotFound, req.Username));
-            await SendErrorsAsync(Status404NotFound).ConfigureAwait(false);
-            return;
-        }
-
-        if (user.EmailConfirmed)
-        {
-            ValidationFailures.Add(new("Email", EmailAlreadyVerified));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
+        AppUser user = await userService.FindByNameAsync(req.Username).ConfigureAwait(false);
 
         string decodedEct = req.Token.Replace(' ', '+');
-        IdentityResult result = await userService.ConfirmEmailAsync(user, decodedEct).ConfigureAwait(false);
-        if (!result.Succeeded)
-        {
-            ValidationFailures.Add(new("EmailToken", InvalidEmailToken, decodedEct));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-
+        await userService.ConfirmEmailAsync(user, decodedEct).ConfigureAwait(false);
+        
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, req.Username, role);
-        string rt = tokenService.GenerateRefreshToken();
-
-        DateTime rtEnd = DateTime.UtcNow.AddDays(RtDurationInDays);
-        await userService.UpdateRefreshTokenAsync(user.Id, rt, rtEnd).ConfigureAwait(false);
+        RefreshTokenDto rt = await userService.UpdateRefreshTokenAsync(user.Id).ConfigureAwait(false);
 
         HttpContext.SaveAccessTokenCookie(jwt.Value, jwt.EndDate);
-        HttpContext.SaveRefreshTokenCookie(rt, rtEnd);
-        HttpContext.SaveRoleCookie(role, rtEnd);
-        HttpContext.SaveUsernameCookie(req.Username, rtEnd);
+        HttpContext.SaveRefreshTokenCookie(rt.Value, rt.EndDate);
+        HttpContext.SaveRoleCookie(role, rt.EndDate);
+        HttpContext.SaveUsernameCookie(req.Username, rt.EndDate);
 
         await SendOkAsync("Welcome!").ConfigureAwait(false);
     }

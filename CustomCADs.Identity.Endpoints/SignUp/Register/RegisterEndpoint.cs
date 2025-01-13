@@ -29,16 +29,7 @@ public sealed class RegisterEndpoint(IUserService service, LinkGenerator links)
             FirstName: req.FirstName,
             LastName: req.LastName
         );
-        IdentityResult result = await service.CreateAsync(dto).ConfigureAwait(false);
-
-        if (!result.Succeeded)
-        {
-            ValidationFailures.AddRange(result.Errors
-                .Select(e => new ValidationFailure(e.Code, e.Description)));
-
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
+        await service.CreateAsync(dto).ConfigureAwait(false);
 
         string token = await service.GenerateEmailConfirmationTokenAsync(req.Username).ConfigureAwait(false);
         string uri = links.GetUriByName(HttpContext, SignUpNames.ConfirmEmail, new { username = req.Username, token = token })
@@ -46,6 +37,6 @@ public sealed class RegisterEndpoint(IUserService service, LinkGenerator links)
 
         await service.SendVerificationEmailAsync(req.Username, uri).ConfigureAwait(false);
 
-        await SendOkAsync().ConfigureAwait(false);
+        await SendOkAsync("Welcome!").ConfigureAwait(false);
     }
 }

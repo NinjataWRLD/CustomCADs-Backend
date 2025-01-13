@@ -2,9 +2,6 @@
 
 namespace CustomCADs.Identity.Endpoints.SignIn.Logout;
 
-using static ApiMessages;
-using static StatusCodes;
-
 public sealed class LogoutEndpoint(IUserService service)
     : EndpointWithoutRequest<string>
 {
@@ -21,13 +18,6 @@ public sealed class LogoutEndpoint(IUserService service)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        if (!User.GetAuthentication())
-        {
-            ValidationFailures.Add(new("Account", LoginBeforeLogout));
-            await SendErrorsAsync(Status401Unauthorized).ConfigureAwait(false);
-            return;
-        }
-
         await service.RevokeRefreshTokenAsync(User.GetName()).ConfigureAwait(false);
         HttpContext.DeleteAllCookies();
     }

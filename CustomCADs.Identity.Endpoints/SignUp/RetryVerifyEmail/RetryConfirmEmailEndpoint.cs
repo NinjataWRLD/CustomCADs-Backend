@@ -2,9 +2,6 @@
 
 namespace CustomCADs.Identity.Endpoints.SignUp.RetryVerifyEmail;
 
-using static ApiMessages;
-using static StatusCodes;
-
 public sealed class RetryConfirmEmailEndpoint(IUserService service, LinkGenerator links)
     : Endpoint<RetryConfirmEmailRequest>
 {
@@ -21,22 +18,9 @@ public sealed class RetryConfirmEmailEndpoint(IUserService service, LinkGenerato
 
     public override async Task HandleAsync(RetryConfirmEmailRequest req, CancellationToken ct)
     {
-        AppUser? user = await service.FindByNameAsync(req.Username).ConfigureAwait(false);
-        if (user is null)
-        {
-            ValidationFailures.Add(new("Name", UserNotFound, req.Username));
-            await SendErrorsAsync(Status404NotFound).ConfigureAwait(false);
-            return;
-        }
-
-        if (user.EmailConfirmed)
-        {
-            ValidationFailures.Add(new("Email", EmailAlreadyVerified));
-            await SendErrorsAsync().ConfigureAwait(false);
-            return;
-        }
-
-        string token = await service.GenerateEmailConfirmationTokenAsync(req.Username).ConfigureAwait(false);
+        AppUser user = await service.FindByNameAsync(req.Username).ConfigureAwait(false);
+        
+        string token = await service.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
         string uri = links.GetUriByName(HttpContext, SignUpNames.ConfirmEmail, new { username = req.Username, token = token })
             ?? throw new InvalidOperationException("Unable to generate confirmation link.");
 

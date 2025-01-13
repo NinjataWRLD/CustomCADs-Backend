@@ -11,6 +11,9 @@ public class UserCreationException : BaseException
 
     public static UserCreationException ByUsername(string username, Exception? inner = null)
         => new($"Couldn't create an account for: {username}.", inner);
+    
+    public static UserCreationException WithRole(string username, string role, Exception? inner = null)
+        => new($"Couldn't add account: {username} to role: {role}.", inner);
 
     public static UserCreationException Custom(string message, Exception? inner = null)
         => new(message, inner);

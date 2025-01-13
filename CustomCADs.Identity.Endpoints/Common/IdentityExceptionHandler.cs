@@ -10,12 +10,30 @@ public class IdentityExceptionHandler : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is UserValidationException)
+        if (ex is UserValidationException or UserPasswordException)
         {
             context.Response.StatusCode = Status400BadRequest;
             await context.Response.WriteAsJsonAsync(new
             {
                 error = "Invalid Request Parameters",
+                message = ex.Message,
+            }, ct).ConfigureAwait(false);
+        }
+        else if (ex is UserRegisterException or UserLoginException or UserRefreshTokenException)
+        {
+            context.Response.StatusCode = Status401Unauthorized;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                error = "Inappropriately Unauthenticated",
+                message = ex.Message,
+            }, ct).ConfigureAwait(false);
+        }
+        else if (ex is UserLockedOutException)
+        {
+            context.Response.StatusCode = Status423Locked;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                error = "Account Locked",
                 message = ex.Message,
             }, ct).ConfigureAwait(false);
         }

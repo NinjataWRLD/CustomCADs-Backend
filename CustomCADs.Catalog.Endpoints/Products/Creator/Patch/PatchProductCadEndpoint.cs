@@ -22,26 +22,12 @@ public sealed class PatchProductCadEndpoint(IRequestSender sender)
             CreatorId: User.GetAccountId()
         );
 
-        switch (req.Type)
+        command = req.Type switch
         {
-            case CoordinateType.Cam:
-                command = command with { CamCoordinates = req.Coordinates };
-                break;
-
-            case CoordinateType.Pan:
-                command = command with { PanCoordinates = req.Coordinates };
-                break;
-
-            default:
-                string types = string.Join(", ", Enum.GetNames<CoordinateType>());
-                ValidationFailures.Add(new(
-                    propertyName: nameof(req.Type),
-                    errorMessage: $"Type property must be one of: [{types}]",
-                    attemptedValue: req.Type
-                ));
-                await SendErrorsAsync().ConfigureAwait(false);
-                return;
-        }
+            CoordinateType.Cam => command with { CamCoordinates = req.Coordinates },
+            CoordinateType.Pan => command with { PanCoordinates = req.Coordinates },
+            _ => command,
+        };
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);

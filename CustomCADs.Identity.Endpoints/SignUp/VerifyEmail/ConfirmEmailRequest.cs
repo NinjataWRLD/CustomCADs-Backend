@@ -2,5 +2,5 @@
 
 public sealed record ConfirmEmailRequest(
     string Username,
-    string? Token = default
+    string Token
 );
