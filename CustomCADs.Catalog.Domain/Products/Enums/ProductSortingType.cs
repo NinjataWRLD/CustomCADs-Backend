@@ -7,6 +7,5 @@ public enum ProductSortingType
     Status,
     Cost,
     Purchases,
-    Likes,
     Views,
 }

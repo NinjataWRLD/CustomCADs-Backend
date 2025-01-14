@@ -119,19 +119,6 @@ public class Product : BaseAggregateRoot
         return this;
     }
 
-    public Product AddToLikeCount()
-    {
-        Counts = Counts with { Likes = Counts.Likes + 1 };
-        return this;
-    }
-
-    public Product RemoveFromLikeCount()
-    {
-        Counts = Counts with { Likes = Counts.Likes - 1 };
-        this.ValidateLikes();
-        return this;
-    }
-
     public Product SetPrice(decimal price)
     {
         Price = price;

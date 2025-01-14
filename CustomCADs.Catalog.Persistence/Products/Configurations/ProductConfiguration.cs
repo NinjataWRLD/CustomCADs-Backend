@@ -79,10 +79,6 @@ static class CadConfigUtils
                 .IsRequired()
                 .HasColumnName("Purchases");
 
-            c.Property(x => x.Likes)
-                .IsRequired()
-                .HasColumnName("Likes");
-
             c.Property(x => x.Views)
                 .IsRequired()
                 .HasColumnName("Views");
