@@ -11,7 +11,7 @@ public interface IUserService
     Task<string> GetRoleAsync(AppUser user);
     Task CreateAsync(CreateUserDto dto);
     Task CreateAsync(AppUser user, string password);
-    Task<RefreshTokenDto> UpdateRefreshTokenAsync(Guid id);
+    Task<RefreshTokenDto> UpdateRefreshTokenAsync(Guid id, bool longerSession);
     Task<IdentityResult> RevokeRefreshTokenAsync(string username);
     Task<IdentityResult> AddToRoleAsync(AppUser user, string role);
     Task ConfirmEmailAsync(AppUser user, string token);

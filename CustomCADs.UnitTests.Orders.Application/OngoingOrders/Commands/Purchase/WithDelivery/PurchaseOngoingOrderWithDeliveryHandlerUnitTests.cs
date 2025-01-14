@@ -30,13 +30,17 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
     private static readonly OngoingOrder order = CreateOrder(
         buyerId: buyerId,
         delivery: true
-    ).SetAcceptedStatus().SetDesignerId(ValidDesignerId1).SetBegunStatus().SetCadId(ValidCadId1).SetFinishedStatus();
+    ).SetAcceptedStatus().SetDesignerId(ValidDesignerId1).SetBegunStatus().SetCadId(ValidCadId1).SetFinishedStatus().SetPrice(ValidPrice1);
     private static readonly OngoingOrder orderNotFinished = CreateOrder(
         buyerId: buyerId
-    ).SetAcceptedStatus().SetDesignerId(ValidDesignerId1).SetBegunStatus().SetCadId(ValidCadId1);
+    ).SetAcceptedStatus().SetDesignerId(ValidDesignerId1).SetBegunStatus().SetCadId(ValidCadId1).SetPrice(ValidPrice1);
     private static readonly OngoingOrder orderWithoutDelivery = CreateOrder(
         buyerId: buyerId,
         delivery: false
+    ).SetAcceptedStatus().SetDesignerId(ValidDesignerId1).SetBegunStatus().SetCadId(ValidCadId1).SetFinishedStatus().SetPrice(ValidPrice1);
+    private static readonly OngoingOrder orderWithoutPrice = CreateOrder(
+        buyerId: buyerId,
+        delivery: true
     ).SetAcceptedStatus().SetDesignerId(ValidDesignerId1).SetBegunStatus().SetCadId(ValidCadId1).SetFinishedStatus();
 
     public PurchaseOngoingOrderWithDeliveryHandlerUnitTests()
@@ -245,7 +249,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
     }
 
     [Fact]
-    public async Task Handle_ShouldThrowException_WhenNotOrderForDelivery()
+    public async Task Handle_ShouldThrowException_WhenNoForDelivery()
     {
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
@@ -265,6 +269,33 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
 
         // Assert
         await Assert.ThrowsAsync<OngoingOrderDeliveryException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
+    }
+    
+    [Fact]
+    public async Task Handle_ShouldThrowException_WhenNoPrice()
+    {
+        // Arrange
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+            .ReturnsAsync(orderWithoutPrice);
+
+        PurchaseOngoingOrderWithDeliveryCommand command = new(
+            OrderId: id,
+            Count: default,
+            Weight: default,
+            PaymentMethodId: string.Empty,
+            ShipmentService: string.Empty,
+            BuyerId: buyerId,
+            Address: address,
+            Contact: contact
+        );
+        PurchaseOngoingOrderWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
+
+        // Assert
+        await Assert.ThrowsAsync<OngoingOrderPriceException>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
