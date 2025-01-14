@@ -24,7 +24,7 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
                 accountId: new(ClientAccountId),
                 username: ClientUsername,
                 email: ClientEmail,
-                passHash: "AQAAAAIAAYagAAAAEMxKo17QTeytzknDR27c10aVDBF1wGzycD+CSTbVliUg0h8g6f4U2AAQTh9YAoPXYw==",
+                passHash: "AQAAAAIAAYagAAAAEJFCGOTxNAgjhqU5lrA63WEtv924ujxXHt0x1R70qlS8dV9Pzz4II8GOgjVOaRzuDQ==",
                 concStamp: "0c5bbfb2-d132-407b-9b1b-e1e640ccc14e",
                 secStamp: "3A6TFN6VVZNRZEG22J777XJTPQY7342B"
             ),
@@ -33,7 +33,7 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
                 accountId: new(ContributorAccountId),
                 username: ContributorUsername,
                 email: ContributorEmail,
-                passHash: "AQAAAAIAAYagAAAAEJNqqiC31XGVrNSSflDLpuNzs/PIzg8VXCyEOL2hqvWAYi8a37bn5CUxHdvVuszSsQ==",
+                passHash: "AQAAAAIAAYagAAAAEGjQ1Zes3r2XJgjoHQykiyr11OgUEDw+YDnOKeENyN7Kqi9RWKKRCtwd7ZtEyywdYA==",
                 concStamp: "c77927de-61e7-4d53-be8d-a5390fafc75c",
                 secStamp: "NWGZ3JTQSDNS346DMU7RP4IT4BDLHIQC"
             ),
@@ -42,7 +42,7 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
                 accountId: new(DesignerAccountId),
                 username: DesignerUsername,
                 email: DesignerEmail,
-                passHash: "AQAAAAIAAYagAAAAEIuVU3Ziopa1Dv4t79ImAnluJSpVuJpvQawEaF/11u9szawuOWYd5yErqFGevwRHwg==",
+                passHash: "AQAAAAIAAYagAAAAEEUe31maWfuZY6V8MQBzUWKerMKobDukREinVfML3Yl2z+Nr6IIQZKvX4WKqbTUw6w==",
                 concStamp: "c5940d6f-d5c0-4f84-a262-da9b07525c3c",
                 secStamp: "FNNIT3NPOZKZK2E67WFLV5R3RGVBX7LV"
             ),
@@ -51,7 +51,7 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
                 accountId: new(AdminAccountId),
                 username: AdminUsername,
                 email: AdminEmail,
-                passHash: "AQAAAAIAAYagAAAAEI/R+FhQaDs57q+Z94HwbWVhv8PXnUlhXb71NicOb2CQPwTgdN9C1bRsRAIsfijjsA==",
+                passHash: "AQAAAAIAAYagAAAAEFqtQ33BvarNRyFcmV4z48fPBlIY8zd0de90qq3Cdm1Row+2WRmEjVJk1yPadBkrSA==",
                 concStamp: "5c94b43f-861c-4efa-a670-5627e49d354d",
                 secStamp: "YIA26UZDSN2V2U5PVDEK4F3EJS3P5D3X"
             ),
