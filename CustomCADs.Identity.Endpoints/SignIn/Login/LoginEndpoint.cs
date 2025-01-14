@@ -17,8 +17,13 @@ public sealed class LoginEndpoint(IUserService userService)
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
     {
-        LoginDto dto = await userService.LoginAsync(new(req.Username, req.Password)).ConfigureAwait(false);
-       
+        LoginCommand command = new(
+            Username: req.Username,
+            Password: req.Password,
+            LongerExpireTime: req.RememberMe ?? false
+        );
+        LoginDto dto = await userService.LoginAsync(command).ConfigureAwait(false);
+
         HttpContext.SaveAccessTokenCookie(dto.AccessToken.Value, dto.AccessToken.EndDate);
         HttpContext.SaveRefreshTokenCookie(dto.RefreshToken.Value, dto.RefreshToken.EndDate);
         HttpContext.SaveRoleCookie(dto.Role, dto.RefreshToken.EndDate);

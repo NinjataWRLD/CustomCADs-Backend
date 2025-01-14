@@ -165,7 +165,7 @@ namespace CustomCADs.Identity.Infrastructure.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "IVANZLATINOV006@GMAIL.COM",
                             NormalizedUserName = "FOR7A7A",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMxKo17QTeytzknDR27c10aVDBF1wGzycD+CSTbVliUg0h8g6f4U2AAQTh9YAoPXYw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJFCGOTxNAgjhqU5lrA63WEtv924ujxXHt0x1R70qlS8dV9Pzz4II8GOgjVOaRzuDQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "3A6TFN6VVZNRZEG22J777XJTPQY7342B",
                             TwoFactorEnabled = false,
@@ -181,12 +181,12 @@ namespace CustomCADs.Identity.Infrastructure.Migrations
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "PDMATSALIEV20@CODINGBURGAS.BG",
-                            NormalizedUserName = "PETARDMATSALIEV",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJNqqiC31XGVrNSSflDLpuNzs/PIzg8VXCyEOL2hqvWAYi8a37bn5CUxHdvVuszSsQ==",
+                            NormalizedUserName = "PDMATSALIEV20",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGjQ1Zes3r2XJgjoHQykiyr11OgUEDw+YDnOKeENyN7Kqi9RWKKRCtwd7ZtEyywdYA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "NWGZ3JTQSDNS346DMU7RP4IT4BDLHIQC",
                             TwoFactorEnabled = false,
-                            UserName = "PetarDMatsaliev"
+                            UserName = "PDMatsaliev20"
                         },
                         new
                         {
@@ -199,7 +199,7 @@ namespace CustomCADs.Identity.Infrastructure.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "BORISKOLEV2006@GMAIL.COM",
                             NormalizedUserName = "ORACLE3000",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIuVU3Ziopa1Dv4t79ImAnluJSpVuJpvQawEaF/11u9szawuOWYd5yErqFGevwRHwg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEUe31maWfuZY6V8MQBzUWKerMKobDukREinVfML3Yl2z+Nr6IIQZKvX4WKqbTUw6w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "FNNIT3NPOZKZK2E67WFLV5R3RGVBX7LV",
                             TwoFactorEnabled = false,
@@ -216,7 +216,7 @@ namespace CustomCADs.Identity.Infrastructure.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "IVANANGELOV414@GMAIL.COM",
                             NormalizedUserName = "NINJATABG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI/R+FhQaDs57q+Z94HwbWVhv8PXnUlhXb71NicOb2CQPwTgdN9C1bRsRAIsfijjsA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFqtQ33BvarNRyFcmV4z48fPBlIY8zd0de90qq3Cdm1Row+2WRmEjVJk1yPadBkrSA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "YIA26UZDSN2V2U5PVDEK4F3EJS3P5D3X",
                             TwoFactorEnabled = false,

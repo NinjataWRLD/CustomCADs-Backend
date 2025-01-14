@@ -54,8 +54,6 @@ public static class Utilities
             { Type: ProductSortingType.Cost, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Price),
             { Type: ProductSortingType.Purchases, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Counts.Purchases),
             { Type: ProductSortingType.Purchases, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Counts.Purchases),
-            { Type: ProductSortingType.Likes, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Counts.Likes),
-            { Type: ProductSortingType.Likes, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Counts.Likes),
             { Type: ProductSortingType.Views, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Counts.Views),
             { Type: ProductSortingType.Views, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Counts.Views),
             _ => query,

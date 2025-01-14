@@ -74,19 +74,20 @@ public sealed class AppUserService(UserManager<AppUser> manager, ITokenService t
         }
     }
 
-    public async Task<RefreshTokenDto> UpdateRefreshTokenAsync(Guid id)
+    public async Task<RefreshTokenDto> UpdateRefreshTokenAsync(Guid id, bool longerSession)
     {
         AppUser user = await FindByIdAsync(id).ConfigureAwait(false)
             ?? throw UserNotFoundException.ById(id);
 
-        string rt = tokenService.GenerateRefreshToken();
-        DateTime end = DateTime.UtcNow.AddDays(RtDurationInDays);
+        int days = longerSession ? LongerRtDurationInDays : RtDurationInDays;
+        DateTime rtEndDate = DateTime.UtcNow.AddDays(days);
+        string rtValue = tokenService.GenerateRefreshToken();
 
-        user.RefreshToken = rt;
-        user.RefreshTokenEndDate = end;
+        user.RefreshToken = rtValue;
+        user.RefreshTokenEndDate = rtEndDate;
 
         await manager.UpdateAsync(user).ConfigureAwait(false);
-        return new(rt, end);
+        return new(rtValue, rtEndDate);
     }
 
     public async Task<IdentityResult> RevokeRefreshTokenAsync(string username)
@@ -240,7 +241,7 @@ public sealed class AppUserService(UserManager<AppUser> manager, ITokenService t
         string role = await GetRoleAsync(user).ConfigureAwait(false);
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, req.Username, role);
 
-        RefreshTokenDto rt = await UpdateRefreshTokenAsync(user.Id).ConfigureAwait(false);
+        RefreshTokenDto rt = await UpdateRefreshTokenAsync(user.Id, req.LongerExpireTime).ConfigureAwait(false);
 
         return new(
             Role: role,
@@ -270,7 +271,7 @@ public sealed class AppUserService(UserManager<AppUser> manager, ITokenService t
 
         if (user.RefreshTokenEndDate < DateTime.UtcNow.AddMinutes(1))
         {
-            newRt = await UpdateRefreshTokenAsync(user.Id).ConfigureAwait(false);
+            newRt = await UpdateRefreshTokenAsync(user.Id, longerSession: false).ConfigureAwait(false);
         }
 
         return new(

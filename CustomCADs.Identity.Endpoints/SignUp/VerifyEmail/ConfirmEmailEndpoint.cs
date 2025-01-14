@@ -23,7 +23,7 @@ public sealed class ConfirmEmailEndpoint(IUserService userService, ITokenService
         
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, req.Username, role);
-        RefreshTokenDto rt = await userService.UpdateRefreshTokenAsync(user.Id).ConfigureAwait(false);
+        RefreshTokenDto rt = await userService.UpdateRefreshTokenAsync(user.Id, longerSession: false).ConfigureAwait(false);
 
         HttpContext.SaveAccessTokenCookie(jwt.Value, jwt.EndDate);
         HttpContext.SaveRefreshTokenCookie(rt.Value, rt.EndDate);

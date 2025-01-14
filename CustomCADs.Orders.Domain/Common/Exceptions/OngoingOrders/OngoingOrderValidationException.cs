@@ -18,6 +18,9 @@ public class OngoingOrderValidationException : BaseException
 
     public static OngoingOrderValidationException Length(string property, int max, int min, Exception? inner = default)
         => new(string.Format(LengthValidation, "An", "Ongoing Order", property, min, max), inner);
+    
+    public static OngoingOrderValidationException Range(string property, decimal max, decimal min, Exception? inner = default)
+        => new(string.Format(RangeValidation, "An", "Ongoing Order", property, min, max), inner);
 
     public static OngoingOrderValidationException InvalidStatus(OngoingOrderId id, OngoingOrderStatus oldStatus, OngoingOrderStatus newStatus, Exception? inner = default)
         => new($"Cannot set a status: {newStatus} to Ongoing Order with id: {id} and status: {oldStatus}.", inner);

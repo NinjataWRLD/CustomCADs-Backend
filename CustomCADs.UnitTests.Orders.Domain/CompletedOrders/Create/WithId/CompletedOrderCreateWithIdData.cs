@@ -2,4 +2,4 @@
 
 namespace CustomCADs.UnitTests.Orders.Domain.CompletedOrders.Create.WithId;
 
-public class CompletedOrderCreateWithIdData : TheoryData<CompletedOrderId, string, string, bool, DateTime, AccountId>;
+public class CompletedOrderCreateWithIdData : TheoryData<CompletedOrderId, string, string, decimal, bool, DateTime, AccountId>;

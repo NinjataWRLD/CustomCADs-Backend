@@ -43,6 +43,20 @@ public static class CompletedOrderValidations
 
         return order;
     }
+    
+    public static CompletedOrder ValidatePrice(this CompletedOrder order)
+    {
+        string property = "Price";
+        decimal price = order.Price;
+
+        decimal max = PriceMax, min = PriceMin;
+        if (price > max || price < min)
+        {
+            throw CompletedOrderValidationException.Range(property, max, min);
+        }
+
+        return order;
+    }
 
     public static CompletedOrder ValidateOrderDate(this CompletedOrder order)
     {

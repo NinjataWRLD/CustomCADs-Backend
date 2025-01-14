@@ -17,5 +17,8 @@ public class CreateCompletedOrderValidator : Validator<CreateCompletedOrderComma
         RuleFor(x => x.Description)
             .NotEmpty().WithMessage(RequiredError)
             .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
+
+        RuleFor(x => x.Price)
+            .ExclusiveBetween(PriceMin, PriceMax).WithMessage(RangeError);
     }
 }

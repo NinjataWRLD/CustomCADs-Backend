@@ -2,6 +2,5 @@
 
 public sealed record CountsDto(
     int Purchases,
-    int Likes,
     int Views
 );

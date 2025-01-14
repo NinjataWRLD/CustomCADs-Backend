@@ -7,4 +7,7 @@ public static class OngoingOrderConstants
 
     public const int DescriptionMaxLength = 500;
     public const int DescriptionMinLength = 5;
+
+    public const decimal PriceMax = 100_000.0m;
+    public const decimal PriceMin = 0.01m;
 }

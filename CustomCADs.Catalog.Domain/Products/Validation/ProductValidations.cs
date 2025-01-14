@@ -57,18 +57,4 @@ public static class ProductValidations
 
         return product;
     }
-
-    public static Product ValidateLikes(this Product product)
-    {
-        string property = "Likes";
-        int likes = product.Counts.Likes;
-
-        const int min = 0;
-        if (likes < min)
-        {
-            throw ProductValidationException.Minimum(property, min);
-        }
-
-        return product;
-    }
 }

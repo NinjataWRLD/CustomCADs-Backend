@@ -10,4 +10,5 @@ public static class AccountConstants
 
     public const int JwtDurationInMinutes = 15;
     public const int RtDurationInDays = 7;
+    public const int LongerRtDurationInDays = 15;
 }

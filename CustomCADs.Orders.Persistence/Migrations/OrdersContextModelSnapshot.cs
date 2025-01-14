@@ -61,6 +61,11 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("OrderDate");
 
+                    b.Property<decimal>("Price")
+                        .HasPrecision(19, 2)
+                        .HasColumnType("numeric(19,2)")
+                        .HasColumnName("Price");
+
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("PurchaseDate");
@@ -116,6 +121,11 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("OrderStatus");
+
+                    b.Property<decimal?>("Price")
+                        .HasPrecision(19, 2)
+                        .HasColumnType("numeric(19,2)")
+                        .HasColumnName("Price");
 
                     b.HasKey("Id");
 

@@ -26,6 +26,11 @@ public static class OngoingOrdersData
     public static readonly string InvalidDescription2 = new('a', DescriptionMaxLength + 1);
     public const string InvalidDescription3 = "";
 
+    public const decimal ValidPrice1 = PriceMin + 1;
+    public const decimal ValidPrice2 = PriceMax - 1;
+    public const decimal InvalidPrice1 = PriceMin - 1;
+    public const decimal InvalidPrice2 = PriceMax + 1;
+
     public static readonly AccountId ValidBuyerId1 = AccountId.New();
     public static readonly AccountId ValidBuyerId2 = AccountId.New();
 

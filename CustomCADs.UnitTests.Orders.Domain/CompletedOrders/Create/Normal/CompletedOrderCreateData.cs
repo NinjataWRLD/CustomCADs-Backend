@@ -2,4 +2,4 @@
 
 namespace CustomCADs.UnitTests.Orders.Domain.CompletedOrders.Create.Normal;
 
-public class CompletedOrderCreateData : TheoryData<string, string, bool, DateTime, AccountId>;
+public class CompletedOrderCreateData : TheoryData<string, string, decimal, bool, DateTime, AccountId>;

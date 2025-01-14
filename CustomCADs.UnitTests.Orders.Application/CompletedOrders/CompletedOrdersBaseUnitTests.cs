@@ -10,6 +10,7 @@ public class CompletedOrdersBaseUnitTests
     public static CompletedOrder CreateOrder(
         string? name = null,
         string? description = null,
+        decimal? price = null,
         bool? delivery = null,
         DateTime? orderDate = null,
         AccountId? buyerId = null,
@@ -19,6 +20,7 @@ public class CompletedOrdersBaseUnitTests
         => CompletedOrder.Create(
             name: name ?? ValidName1,
             description: description ?? ValidDescription1,
+            price: price ?? ValidPrice1,
             delivery: delivery ?? false,
             orderDate: orderDate ?? DateTime.UtcNow.AddDays(-1),
             buyerId: buyerId ?? ValidBuyerId1,
@@ -30,6 +32,7 @@ public class CompletedOrdersBaseUnitTests
         CompletedOrderId? id = null,
         string? name = null,
         string? description = null,
+        decimal? price = null,
         bool? delivery = null,
         DateTime? orderDate = null,
         AccountId? buyerId = null,
@@ -39,6 +42,7 @@ public class CompletedOrdersBaseUnitTests
             id: id ?? ValidId1,
             name: name ?? ValidName1,
             description: description ?? ValidDescription1,
+            price: price ?? ValidPrice1,
             delivery: delivery ?? false,
             orderDate: orderDate ?? DateTime.UtcNow.AddDays(-1),
             buyerId: buyerId ?? ValidBuyerId1,

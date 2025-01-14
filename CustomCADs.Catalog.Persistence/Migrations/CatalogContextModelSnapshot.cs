@@ -80,10 +80,6 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         {
                             b1.IsRequired();
 
-                            b1.Property<int>("Likes")
-                                .HasColumnType("integer")
-                                .HasColumnName("Likes");
-
                             b1.Property<int>("Purchases")
                                 .HasColumnType("integer")
                                 .HasColumnName("Purchases");

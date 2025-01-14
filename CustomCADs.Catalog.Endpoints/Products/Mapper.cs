@@ -104,7 +104,6 @@ internal static class Mapper
     internal static CountsDto ToCountsDto(this Counts counts)
         => new(
             Purchases: counts.Purchases,
-            Likes: counts.Likes,
             Views: counts.Views
         );
 
