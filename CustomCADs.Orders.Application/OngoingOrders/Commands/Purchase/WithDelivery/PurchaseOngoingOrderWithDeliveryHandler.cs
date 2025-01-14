@@ -32,6 +32,9 @@ public sealed class PurchaseOngoingOrderWithDeliveryHandler(IOngoingOrderReads r
         if (order.CadId is null)
             throw OngoingOrderCadException.ById(order.Id);
 
+        if (order.Price is null)
+            throw OngoingOrderPriceException.ById(order.Id);
+
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId),
             sellerQuery = new(order.DesignerId.Value);
 
@@ -42,7 +45,7 @@ public sealed class PurchaseOngoingOrderWithDeliveryHandler(IOngoingOrderReads r
 
         string buyer = users[0], seller = users[1];
 
-        decimal price = 0m; // integrate order prices
+        decimal price = order.Price.Value; // integrate order prices
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: price,
@@ -53,6 +56,7 @@ public sealed class PurchaseOngoingOrderWithDeliveryHandler(IOngoingOrderReads r
         CreateCompletedOrderCommand command = new(
             Name: order.Name,
             Description: order.Description,
+            Price: price,
             Delivery: true,
             OrderDate: order.OrderDate,
             BuyerId: order.BuyerId,

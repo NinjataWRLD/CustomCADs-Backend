@@ -23,6 +23,7 @@ public class OngoingOrder : BaseAggregateRoot
     public OngoingOrderId Id { get; init; }
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
+    public decimal? Price { get; private set; }
     public bool Delivery { get; private set; }
     public DateTime OrderDate { get; }
     public OngoingOrderStatus OrderStatus { get; private set; }
@@ -70,6 +71,13 @@ public class OngoingOrder : BaseAggregateRoot
     {
         Delivery = value;
         
+        return this;
+    }
+    
+    public OngoingOrder SetPrice(decimal price)
+    {
+        Price = price;
+        this.ValidatePrice();
         return this;
     }
 

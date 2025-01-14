@@ -12,7 +12,7 @@ public class OrderExceptionHandler(IProblemDetailsService service) : IExceptionH
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is CompletedOrderValidationException or OngoingOrderValidationException or OngoingOrderDesignerException or OngoingOrderDeliveryException or OngoingOrderCadException or OngoingOrderStatusException)
+        if (ex is CompletedOrderValidationException or OngoingOrderValidationException or OngoingOrderDesignerException or OngoingOrderDeliveryException or OngoingOrderCadException or OngoingOrderStatusException or OngoingOrderPriceException)
         {
             return await service.TryWriteAsync(new()
             {

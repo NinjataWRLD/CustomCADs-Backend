@@ -27,6 +27,7 @@ public sealed class FinishOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
         CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
         order.SetCadId(cadId);
 
+        order.SetPrice(req.Price);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

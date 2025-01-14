@@ -5,5 +5,6 @@ namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Finish;
 public sealed record FinishOngoingOrderCommand(
     OngoingOrderId Id,
     (string Key, string ContentType) Cad,
+    decimal Price,
     AccountId DesignerId
 ) : ICommand;

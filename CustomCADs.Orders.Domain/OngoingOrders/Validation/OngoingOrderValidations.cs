@@ -43,4 +43,18 @@ public static class OngoingOrderValidations
 
         return order;
     }
+
+    public static OngoingOrder ValidatePrice(this OngoingOrder order)
+    {
+        string property = "Price";
+        decimal? price = order.Price;
+
+        decimal max = PriceMax, min = PriceMin;
+        if (price > max || price < min)
+        {
+            throw OngoingOrderValidationException.Range(property, max, min);
+        }
+
+        return order;
+    }
 }

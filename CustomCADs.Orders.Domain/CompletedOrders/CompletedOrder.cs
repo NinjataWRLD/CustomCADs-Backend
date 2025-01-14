@@ -10,10 +10,11 @@ namespace CustomCADs.Orders.Domain.CompletedOrders;
 public class CompletedOrder : BaseAggregateRoot
 {
     private CompletedOrder() { }
-    private CompletedOrder(string name, string description, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId) : this()
+    private CompletedOrder(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId) : this()
     {
         Name = name;
         Description = description;
+        Price = price;
         Delivery = delivery;
         PurchaseDate = DateTime.UtcNow;
         OrderDate = orderDate;
@@ -25,6 +26,7 @@ public class CompletedOrder : BaseAggregateRoot
     public CompletedOrderId Id { get; init; }
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
+    public decimal Price { get; private set; }
     public bool Delivery { get; private set; }
     public DateTime OrderDate { get; }
     public DateTime PurchaseDate { get; }
@@ -36,31 +38,35 @@ public class CompletedOrder : BaseAggregateRoot
     public static CompletedOrder Create(
         string name,
         string description,
+        decimal price,
         bool delivery,
         DateTime orderDate,
         AccountId buyerId,
         AccountId designerId,
         CadId cadId
-    ) => new CompletedOrder(name, description, delivery, orderDate, buyerId, designerId, cadId)
+    ) => new CompletedOrder(name, description, price, delivery, orderDate, buyerId, designerId, cadId)
             .ValidateName()
             .ValidateDescription()
+            .ValidatePrice()
             .ValidateOrderDate();
 
     public static CompletedOrder CreateWithId(
         CompletedOrderId id,
         string name,
         string description,
+        decimal price,
         bool delivery,
         DateTime orderDate,
         AccountId buyerId,
         AccountId designerId,
         CadId cadId
-    ) => new CompletedOrder(name, description, delivery, orderDate, buyerId, designerId, cadId)
+    ) => new CompletedOrder(name, description, price, delivery, orderDate, buyerId, designerId, cadId)
     {
         Id = id
     }
     .ValidateName()
     .ValidateDescription()
+    .ValidatePrice()
     .ValidateOrderDate();
 
     public CompletedOrder SetShipmentId(ShipmentId shipmentId)

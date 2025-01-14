@@ -60,6 +60,7 @@ internal static class Mapper
         => CompletedOrder.Create(
             name: order.Name,
             description: order.Description,
+            price: order.Price,
             delivery: order.Delivery,
             orderDate: order.OrderDate,
             buyerId: order.BuyerId,

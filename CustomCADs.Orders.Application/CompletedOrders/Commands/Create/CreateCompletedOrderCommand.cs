@@ -6,6 +6,7 @@ namespace CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
 public record CreateCompletedOrderCommand(
     string Name,
     string Description,
+    decimal Price,
     bool Delivery,
     DateTime OrderDate,
     AccountId BuyerId,
