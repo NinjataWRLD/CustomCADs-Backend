@@ -3,7 +3,7 @@ name: Continuous Delivery pipeline
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: Continuous Integration pipeline
+    workflows: [Continuous Integration pipeline, Enforce Version Tag]
     types: completed
     branches: main
 

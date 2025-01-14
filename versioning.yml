@@ -1,0 +1,22 @@
+name: Enforce Version Tag
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  tag_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check for version tag
+        run: |
+          if git describe --tags --exact-match > /dev/null 2>&1; then
+            echo "Version tag exists."
+          else
+            echo "Error: No version tag found. Please tag the commit with a version number."
+            exit 1
+          fi
