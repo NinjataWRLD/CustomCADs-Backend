@@ -15,12 +15,13 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string name, string description, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    public async Task Handle_ShouldPersistToDatabase(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
             Name: name,
             Description: description,
+            Price: price,
             Delivery: delivery,
             OrderDate: orderDate,
             BuyerId: buyerId,

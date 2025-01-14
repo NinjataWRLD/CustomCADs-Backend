@@ -14,12 +14,13 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderValidData))]
-    public async Task Validate_ShouldBeValid_WhenOrderIsValid(string name, string description, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    public async Task Validate_ShouldBeValid_WhenOrderIsValid(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
             Name: name,
             Description: description,
+            Price: price,
             Delivery: delivery,
             OrderDate: orderDate,
             BuyerId: buyerId,
@@ -37,12 +38,14 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
     [Theory]
     [ClassData(typeof(CreateCompletedOrderInvalidNameData))]
     [ClassData(typeof(CreateCompletedOrderInvalidDescriptionData))]
-    public async Task Validate_ShouldBeInvalid_WhenOrderIsNotValid(string name, string description, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    [ClassData(typeof(CreateCompletedOrderInvalidPriceData))]
+    public async Task Validate_ShouldBeInvalid_WhenOrderIsNotValid(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
             Name: name,
             Description: description,
+            Price: price,
             Delivery: delivery,
             OrderDate: orderDate,
             BuyerId: buyerId,
@@ -59,12 +62,13 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderInvalidNameData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    public async Task Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
             Name: name,
             Description: description,
+            Price: price,
             Delivery: delivery,
             OrderDate: orderDate,
             BuyerId: buyerId,
@@ -81,12 +85,13 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderInvalidDescriptionData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    public async Task Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
             Name: name,
             Description: description,
+            Price: price,
             Delivery: delivery,
             OrderDate: orderDate,
             BuyerId: buyerId,
@@ -99,5 +104,28 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Description);
+    }
+
+    [Theory]
+    [ClassData(typeof(CreateCompletedOrderInvalidPriceData))]
+    public async Task Validate_ShouldReturnProperErrors_WhenPriceIsNotValid(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    {
+        // Arrange
+        CreateCompletedOrderCommand command = new(
+            Name: name,
+            Description: description,
+            Price: price,
+            Delivery: delivery,
+            OrderDate: orderDate,
+            BuyerId: buyerId,
+            DesignerId: designerId,
+            CadId: cadId
+        );
+
+        // Act
+        var result = await validator.TestValidateAsync(command, cancellationToken: ct);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(x => x.Price);
     }
 }

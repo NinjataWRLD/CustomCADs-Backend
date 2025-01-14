@@ -20,6 +20,7 @@ public class FinishOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
 
     private const string Key = "generated-key";
     private const string ContentType = "model/gltf-binary";
+    private const decimal Price = ValidPrice1;
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly CadId cadId = ValidCadId1;
     private static readonly AccountId designerId = ValidDesignerId1;
@@ -47,6 +48,7 @@ public class FinishOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         FinishOngoingOrderCommand command = new(
             Id: id,
             Cad: cad,
+            Price: Price,
             DesignerId: designerId
         );
         FinishOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
@@ -65,6 +67,7 @@ public class FinishOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         FinishOngoingOrderCommand command = new(
             Id: id,
             Cad: cad,
+            Price: Price,
             DesignerId: designerId
         );
         FinishOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
@@ -83,6 +86,7 @@ public class FinishOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         FinishOngoingOrderCommand command = new(
             Id: id,
             Cad: cad,
+            Price: Price,
             DesignerId: designerId
         );
         FinishOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
@@ -107,6 +111,7 @@ public class FinishOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         FinishOngoingOrderCommand command = new(
             Id: id,
             Cad: cad,
+            Price: Price,
             DesignerId: designerId
         );
         FinishOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
@@ -129,6 +134,7 @@ public class FinishOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         FinishOngoingOrderCommand command = new(
             Id: id,
             Cad: cad,
+            Price: Price,
             DesignerId: designerId
         );
         FinishOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);

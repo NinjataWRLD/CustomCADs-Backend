@@ -6,7 +6,7 @@ public class CompletedOrderCreateInvalidDescriptionData : CompletedOrderCreateDa
 {
     public CompletedOrderCreateInvalidDescriptionData()
     {
-        Add(ValidName1, InvalidDescription1, true, ValidOrderDate1, ValidBuyerId1);
-        Add(ValidName2, InvalidDescription2, false, ValidOrderDate2, ValidBuyerId2);
+        Add(ValidName1, InvalidDescription1, ValidPrice1, true, ValidOrderDate1, ValidBuyerId1);
+        Add(ValidName2, InvalidDescription2, ValidPrice1, false, ValidOrderDate2, ValidBuyerId2);
     }
 }
