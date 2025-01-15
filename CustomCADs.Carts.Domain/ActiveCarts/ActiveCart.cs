@@ -60,11 +60,6 @@ public class ActiveCart : BaseAggregateRoot
         return item;
     }
 
-    public void AddItem(object weight, object productId, bool forDelivery)
-    {
-        throw new NotImplementedException();
-    }
-
     public ActiveCartItem RemoveItem(ActiveCartItemId id)
     {
         ActiveCartItem item = items.FirstOrDefault(i => i.Id == id)

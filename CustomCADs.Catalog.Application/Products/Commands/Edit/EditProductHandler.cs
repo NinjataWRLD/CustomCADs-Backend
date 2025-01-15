@@ -1,10 +1,12 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
 
-public sealed class EditProductHandler(IProductReads reads, IUnitOfWork uow)
+public sealed class EditProductHandler(IProductReads reads, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<EditProductCommand>
 {
     public async Task Handle(EditProductCommand req, CancellationToken ct)
@@ -15,6 +17,13 @@ public sealed class EditProductHandler(IProductReads reads, IUnitOfWork uow)
         if (product.CreatorId != req.CreatorId)
         {
             throw ProductAuthorizationException.ByProductId(req.Id);
+        }
+
+        GetCategoryExistsByIdQuery categoryQuery = new(req.CategoryId);
+        bool categoryExists = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
+        if (!categoryExists)
+        {
+            throw ProductNotFoundException.CategoryId(req.CategoryId);
         }
 
         product

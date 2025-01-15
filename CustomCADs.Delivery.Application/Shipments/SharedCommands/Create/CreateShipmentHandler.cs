@@ -1,11 +1,14 @@
-﻿using CustomCADs.Delivery.Domain.Common;
+﻿using CustomCADs.Delivery.Application.Common.Exceptions;
+using CustomCADs.Delivery.Domain.Common;
 using CustomCADs.Shared.Application.Delivery;
 using CustomCADs.Shared.Application.Delivery.Dtos;
+using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Delivery.Application.Shipments.SharedCommands.Create;
 
-public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork uow, IDeliveryService delivery)
+public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork uow, IDeliveryService delivery, IRequestSender sender)
     : ICommandHandler<CreateShipmentCommand, ShipmentId>
 {
     public async Task<ShipmentId> Handle(CreateShipmentCommand req, CancellationToken ct)
@@ -23,6 +26,13 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
             Email: req.Contact.Email
         );
         ShipmentDto reference = await delivery.ShipAsync(request, ct).ConfigureAwait(false);
+
+        GetAccountExistsByIdQuery creatorQuery = new(req.BuyerId);
+        bool creatorExists = await sender.SendQueryAsync(creatorQuery, ct).ConfigureAwait(false);
+        if (!creatorExists)
+        {
+            throw ShipmentNotFoundException.BuyerId(req.BuyerId);
+        }
 
         var shipment = Shipment.Create(
             address: new(req.Address.Country, req.Address.City),

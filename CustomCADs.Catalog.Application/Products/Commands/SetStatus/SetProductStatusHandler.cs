@@ -3,10 +3,12 @@ using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.SetStatus;
 
-public sealed class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow)
+public sealed class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<SetProductStatusCommand>
 {
     public async Task Handle(SetProductStatusCommand req, CancellationToken ct)
@@ -18,6 +20,14 @@ public sealed class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow
         {
             throw ProductAuthorizationException.AlreadyChecked();
         }
+
+        GetAccountExistsByIdQuery designerQuery = new(req.DesignerId);
+        bool designerExists = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
+        if (!designerExists)
+        {
+            throw ProductNotFoundException.DesignerId(req.DesignerId);
+        }
+        
         product.SetDesignerId(req.DesignerId);
 
         switch (req.Status)
