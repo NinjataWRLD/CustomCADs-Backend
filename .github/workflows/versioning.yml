@@ -16,9 +16,18 @@ jobs:
 
       - name: Check for version tag
         run: |
-          if git tag --points-at HEAD | grep -E -q "v[0-9]+\.[0-9]+\.[0-9]+"; then
-            echo "Version tag exists."
-          else
-            echo "Error: No version tag found. Please tag the commit with a version number."
-            exit 1
-          fi
+            if git tag --points-at HEAD | grep -E -q "v[0-9]+\.[0-9]+\.[0-9]+"; then
+                echo "Version tag exists."
+            else
+                echo "Error: No version tag found. Please tag the commit with a version number."
+                echo "Available tags at HEAD:"
+                git tag --points-at HEAD
+                echo "All tags in repo:"
+                git tag
+                echo "Current commit:"
+                git rev-parse HEAD
+                exit 1
+            fi
+            
+            
+          
