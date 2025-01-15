@@ -3,7 +3,9 @@ using CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Accept;
 using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.OngoingOrders.Enums;
 using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Shared.Application.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.Status.Accept;
 
@@ -13,6 +15,7 @@ public class AcceptOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
 {
     private readonly Mock<IOngoingOrderReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IRequestSender> sender = new();
 
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly AccountId designerId = ValidDesignerId1;
@@ -22,6 +25,9 @@ public class AcceptOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
     {
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
             .ReturnsAsync(order);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
+            .ReturnsAsync(true);
     }
 
     [Fact]
@@ -32,7 +38,7 @@ public class AcceptOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object);
+        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -49,13 +55,30 @@ public class AcceptOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object);
+        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+    }
+    
+    [Fact]
+    public async Task Handle_ShouldSendRequests()
+    {
+        // Arrange
+        AcceptOngoingOrderCommand command = new(
+            Id: id,
+            DesignerId: designerId
+        );
+        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
+
+        // Act
+        await handler.Handle(command, ct);
+
+        // Assert
+        sender.Verify(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId), ct), Times.Once);
     }
     
     [Fact]
@@ -66,7 +89,7 @@ public class AcceptOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object);
+        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -76,6 +99,27 @@ public class AcceptOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
             () => Assert.Equal(designerId, order.DesignerId),
             () => Assert.Equal(OngoingOrderStatus.Accepted, order.OrderStatus)
         );
+    }
+
+    [Fact]
+    public async Task Handle_ShouldThrowException_WhenDesignerNotFound()
+    {
+        // Arrange
+        sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId), ct))
+            .ReturnsAsync(false);
+
+        AcceptOngoingOrderCommand command = new(
+            Id: id,
+            DesignerId: designerId
+        );
+        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
+
+        // Assert
+        await Assert.ThrowsAsync<OngoingOrderNotFoundException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
     }
 
     [Fact]
@@ -89,7 +133,7 @@ public class AcceptOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object);
+        AcceptOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<OngoingOrderNotFoundException>(async () =>

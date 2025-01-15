@@ -2,10 +2,12 @@
 using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Carts.Domain.Common;
+using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Add;
 
-public sealed class AddActiveCartItemHandler(IActiveCartReads reads, IUnitOfWork uow)
+public sealed class AddActiveCartItemHandler(IActiveCartReads reads, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<AddActiveCartItemCommand, ActiveCartItemId>
 {
     public async Task<ActiveCartItemId> Handle(AddActiveCartItemCommand req, CancellationToken ct)
@@ -13,6 +15,13 @@ public sealed class AddActiveCartItemHandler(IActiveCartReads reads, IUnitOfWork
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
+        GetProductExistsByIdQuery query = new(req.ProductId);
+        bool productExists = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+
+        if (!productExists)
+        {
+            throw PurchasedCartNotFoundException.BuyerId(req.BuyerId);
+        }
         ActiveCartItem item = cart.AddItem(
             productId: req.ProductId,
             weight: req.Weight,

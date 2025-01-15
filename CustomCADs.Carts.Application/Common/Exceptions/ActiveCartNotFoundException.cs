@@ -12,11 +12,11 @@ public class ActiveCartNotFoundException : BaseException
     public static ActiveCartNotFoundException General(Exception? inner = default)
         => new(string.Format(NotFound, "Cart"), inner);
 
-    public static ActiveCartNotFoundException ById(ActiveCartId id, Exception? inner = default)
-        => new(string.Format(NotFoundByProp, "Cart", nameof(id), id), inner);
-
     public static ActiveCartNotFoundException ByBuyerId(AccountId buyerId, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Cart", nameof(buyerId), buyerId), inner);
+    
+    public static ActiveCartNotFoundException BuyerId(AccountId buyerId, Exception? inner = default)
+        => new(string.Format(NotFoundByProp, "Account", nameof(buyerId), buyerId), inner);
 
     public static ActiveCartNotFoundException Custom(string message, Exception? inner = default)
         => new(message, inner);

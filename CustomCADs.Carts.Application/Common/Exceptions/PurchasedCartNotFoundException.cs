@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Shared.Core.Bases.Exceptions;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Carts.Application.Common.Exceptions;
 
@@ -13,6 +14,9 @@ public class PurchasedCartNotFoundException : BaseException
 
     public static PurchasedCartNotFoundException ById(PurchasedCartId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Cart", nameof(id), id), inner);
+    
+    public static PurchasedCartNotFoundException BuyerId(AccountId id, Exception? inner = default)
+        => new(string.Format(NotFoundByProp, "Account", nameof(id), id), inner);
 
     public static PurchasedCartNotFoundException Custom(string message, Exception? inner = default)
         => new(message, inner);

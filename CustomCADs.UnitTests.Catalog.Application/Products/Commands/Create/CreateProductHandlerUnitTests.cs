@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
+using CustomCADs.Catalog.Application.Products.Commands.Edit;
 using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Application.Requests.Sender;
@@ -7,8 +8,10 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Commands;
+using CustomCADs.Shared.UseCases.Categories.Queries;
 using CustomCADs.Shared.UseCases.Images.Commands;
 using CustomCADs.UnitTests.Catalog.Application.Products.Commands.Create.Data;
+using System.Xml.Linq;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Create;
 
@@ -35,6 +38,12 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUserRoleByIdQuery>(), ct))
             .ReturnsAsync(Contributor);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
+            .ReturnsAsync(true);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
+            .ReturnsAsync(true);
     }
 
     [Theory]
@@ -96,6 +105,8 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
+        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct), Times.Once);
         sender.Verify(x => x.SendCommandAsync(It.IsAny<CreateCadCommand>(), ct), Times.Once);
         sender.Verify(x => x.SendCommandAsync(It.IsAny<CreateImageCommand>(), ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUserRoleByIdQuery>(), ct), Times.Once);
@@ -129,5 +140,63 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
         writes.Verify(x => x.AddAsync(
             It.Is<Product>(x => x.Status == ProductStatus.Validated)
         , ct), Times.Once);
+    }
+
+    [Theory]
+    [ClassData(typeof(CreateProductValidData))]
+    public async Task Handler_ShouldThrowException_WhenCategoryNotFound(string name, string description, decimal price)
+    {
+        // Arrange
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
+            .ReturnsAsync(false);
+
+        CreateProductCommand command = new(
+            Name: name,
+            Description: description,
+            Price: price,
+            ImageKey: string.Empty,
+            ImageContentType: string.Empty,
+            CadKey: string.Empty,
+            CadContentType: string.Empty,
+            CategoryId: categoryId,
+            CreatorId: creatorId
+        );
+        CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
+
+        // Assert
+        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
+    }
+
+    [Theory]
+    [ClassData(typeof(CreateProductValidData))]
+    public async Task Handler_ShouldThrowException_WhenAccountNotFound(string name, string description, decimal price)
+    {
+        // Arrange
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
+            .ReturnsAsync(false);
+
+        CreateProductCommand command = new(
+            Name: name,
+            Description: description,
+            Price: price,
+            ImageKey: string.Empty,
+            ImageContentType: string.Empty,
+            CadKey: string.Empty,
+            CadContentType: string.Empty,
+            CategoryId: categoryId,
+            CreatorId: creatorId
+        );
+        CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
+
+        // Assert
+        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
     }
 }
