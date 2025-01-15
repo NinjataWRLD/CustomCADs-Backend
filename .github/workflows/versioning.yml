@@ -1,0 +1,33 @@
+name: Enforce Version Tag
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  tag_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for version tag
+        run: |
+            if git tag --points-at ${{ github.event.pull_request.head.sha }} | grep -E -q "v[0-9]+\.[0-9]+\.[0-9]+"; then
+                echo "Version tag exists."
+            else
+                echo "Error: No version tag found. Please tag the commit with a version number."
+                echo "Available tags at HEAD:"
+                git tag --points-at HEAD
+                echo "All tags in repo:"
+                git tag
+                echo "Current commit:"
+                git rev-parse HEAD
+                exit 1
+            fi
+            
+            
+          
