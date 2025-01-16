@@ -30,12 +30,21 @@ jobs:
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Obtain Git Version tag
+        run: |
+          VERSION=$(git tag --points-at ${{ github.event.pull_request.head.sha }})
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Build, tag and push image to ECR
         env:
           ECR_REGISTRY: ${{ secrets.aws-ecr-registry }}
           ECR_REPOSITORY: ninjatabg/customcads
-          IMAGE_TAG: latest
+          VERSION: ${{ env.VERSION }}
         run: |
-          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-          docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t $ECR_REPOSITORY:latest -t $ECR_REPOSITORY:$VERSION .
+
+          docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker tag $ECR_REPOSITORY:$VERSION $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION
+
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION
