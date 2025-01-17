@@ -56,6 +56,6 @@ public class CatalogExceptionHandler(IProblemDetailsService service) : IExceptio
             }).ConfigureAwait(false);
         }
 
-        return true;
+        return false;
     }
 }

@@ -36,9 +36,9 @@ public static class ProgramExtensions
     {
         Assembly[] assemblies = [
             AccountApplicationReference.Assembly,
+            CartsApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
-            CartsApplicationReference.Assembly,
             DeliveryApplicationReference.Assembly,
             FilesApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
@@ -108,6 +108,26 @@ public static class ProgramExtensions
                 options.AddPolicy(role, policy => policy.RequireRole(role));
             }
         });
+    }
+
+    private static IServiceCollection AddIdentityConfigs(this IServiceCollection services)
+    {
+        services.AddIdentity<AppUser, AppRole>(options =>
+        {
+            options.SignIn.RequireConfirmedEmail = true;
+            options.SignIn.RequireConfirmedAccount = false;
+            options.Password.RequireDigit = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.User.RequireUniqueEmail = true;
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        })
+        .AddEntityFrameworkStores<IdentityContext>()
+        .AddDefaultTokenProviders();
+
+        return services;
     }
 
     public static IServiceCollection AddAccounts(this IServiceCollection services, IConfiguration config)
@@ -271,25 +291,5 @@ public static class ProgramExtensions
         });
 
         return app;
-    }
-
-    private static IServiceCollection AddIdentityConfigs(this IServiceCollection services)
-    {
-        services.AddIdentity<AppUser, AppRole>(options =>
-        {
-            options.SignIn.RequireConfirmedEmail = true;
-            options.SignIn.RequireConfirmedAccount = false;
-            options.Password.RequireDigit = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireLowercase = false;
-            options.Password.RequireUppercase = false;
-            options.User.RequireUniqueEmail = true;
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-        })
-        .AddEntityFrameworkStores<IdentityContext>()
-        .AddDefaultTokenProviders();
-
-        return services;
     }
 }

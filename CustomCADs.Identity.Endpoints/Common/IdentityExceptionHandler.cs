@@ -86,6 +86,6 @@ public class IdentityExceptionHandler(IProblemDetailsService service) : IExcepti
             }).ConfigureAwait(false);
         }
 
-        return true;
+        return false;
     }
 }

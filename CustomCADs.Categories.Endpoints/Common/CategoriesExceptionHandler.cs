@@ -41,6 +41,6 @@ public class CategoriesExceptionHandler(IProblemDetailsService service) : IExcep
             }).ConfigureAwait(false);
         }
 
-        return true;
+        return false;
     }
 }

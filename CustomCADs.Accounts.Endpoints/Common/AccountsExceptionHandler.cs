@@ -42,6 +42,6 @@ public class AccountsExceptionHandler(IProblemDetailsService service) : IExcepti
             }).ConfigureAwait(false);
         }
 
-        return true;
+        return false;
     }
 }

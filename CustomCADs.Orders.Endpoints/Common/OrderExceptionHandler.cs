@@ -58,6 +58,6 @@ public class OrderExceptionHandler(IProblemDetailsService service) : IExceptionH
             }).ConfigureAwait(false);
         }
 
-        return true;
+        return false;
     }
 }

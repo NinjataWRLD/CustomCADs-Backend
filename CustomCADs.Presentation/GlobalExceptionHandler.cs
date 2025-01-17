@@ -9,65 +9,99 @@ namespace CustomCADs.Presentation;
 
 using static StatusCodes;
 
-public class GlobalExceptionHandler : IExceptionHandler
+public class GlobalExceptionHandler(IProblemDetailsService service) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
         if (ex is CadValidationException or ImageValidationException)
         {
-            context.Response.StatusCode = Status400BadRequest;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Invalid Request Parameters",
-                message = ex.Message,
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Invalid Request Parameters",
+                    Detail = ex.Message,
+                    Status = Status400BadRequest,
+                },
+            }).ConfigureAwait(false);
         }
         else if (ex is CadNotFoundException or ImageNotFoundException)
         {
-            context.Response.StatusCode = Status404NotFound;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Resource Not Found",
-                message = ex.Message
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Resource Not Found",
+                    Detail = ex.Message,
+                    Status = Status404NotFound,
+                },
+            }).ConfigureAwait(false);
         }
         else if (ex is PaymentFailedException)
         {
-            context.Response.StatusCode = Status400BadRequest;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Payment Failure",
-                message = ex.Message
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Payment Failure",
+                    Detail = ex.Message,
+                    Status = Status400BadRequest,
+                },
+            }).ConfigureAwait(false);
         }
         else if (ex is DatabaseConflictException)
         {
-            context.Response.StatusCode = Status409Conflict;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Database Conflict Ocurred",
-                message = ex.Message
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Database Conflict",
+                    Detail = ex.Message,
+                    Status = Status409Conflict,
+                },
+            }).ConfigureAwait(false);
         }
         else if (ex is DatabaseException)
         {
-            context.Response.StatusCode = Status400BadRequest;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Database Error",
-                message = ex.Message
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Database Error",
+                    Detail = ex.Message,
+                    Status = Status400BadRequest,
+                },
+            }).ConfigureAwait(false);
         }
         else
         {
-            context.Response.StatusCode = Status500InternalServerError;
-            await context.Response.WriteAsJsonAsync(new
+            return await service.TryWriteAsync(new()
             {
-                error = "Internal Server Error",
-                message = ex.Message
-            }, ct).ConfigureAwait(false);
+                HttpContext = context,
+                Exception = ex,
+                ProblemDetails = new()
+                {
+                    Type = ex.GetType().Name,
+                    Title = "Internal Server Error",
+                    Detail = ex.Message,
+                    Status = Status500InternalServerError,
+                },
+            }).ConfigureAwait(false);
         }
-
-        return true;
     }
 }

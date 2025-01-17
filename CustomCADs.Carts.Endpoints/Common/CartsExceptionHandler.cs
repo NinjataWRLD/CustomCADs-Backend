@@ -1,5 +1,7 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
+using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
 using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
+using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.CartItems;
 using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.Carts;
 using Microsoft.AspNetCore.Diagnostics;
 
@@ -11,22 +13,7 @@ public class CartsExceptionHandler(IProblemDetailsService service) : IExceptionH
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
     {
-        if (ex is ActiveCartValidationException or ActiveCartValidationException or PurchasedCartValidationException)
-        {
-            return await service.TryWriteAsync(new()
-            {
-                HttpContext = context,
-                Exception = ex,
-                ProblemDetails = new()
-                {
-                    Type = ex.GetType().Name,
-                    Title = "Invalid Request Parameters",
-                    Detail = ex.Message,
-                    Status = Status400BadRequest,
-                },
-            }).ConfigureAwait(false);
-        }
-        else if (ex is Domain.Common.Exceptions.ActiveCarts.CartItems.ActiveCartItemNotFoundException)
+        if (ex is ActiveCartValidationException or ActiveCartItemValidationException or PurchasedCartValidationException or PurchasedCartItemValidationException)
         {
             return await service.TryWriteAsync(new()
             {
@@ -86,7 +73,7 @@ public class CartsExceptionHandler(IProblemDetailsService service) : IExceptionH
                 },
             }).ConfigureAwait(false);
         }
-        
-        return true;
+
+        return false;
     }
 }
