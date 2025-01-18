@@ -7,14 +7,14 @@ namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.GetImageUrlG
 
 using static ProductsData;
 
-public class GetProductImageUrlGetHandlerUnitTests : ProductsBaseUnitTests
+public class GetProductImagePresignedUrlGetHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Product product = CreateProduct();
     private const string url = "presigned-url";
 
-    public GetProductImageUrlGetHandlerUnitTests()
+    public GetProductImagePresignedUrlGetHandlerUnitTests()
     {
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);

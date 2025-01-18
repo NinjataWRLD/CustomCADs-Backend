@@ -9,7 +9,8 @@ public class ActiveCartRemoveItemUnitTests : ActiveCartsBaseUnitTests
     [Fact]
     public void RemoveItem_ShouldNotThrowException_WhenCartItemFound()
     {
-        foreach (ActiveCartItem item in cart.Items)
+        ActiveCartItem[] items = [.. cart.Items];
+        foreach (ActiveCartItem item in items)
         {
             cart.RemoveItem(item);
         }

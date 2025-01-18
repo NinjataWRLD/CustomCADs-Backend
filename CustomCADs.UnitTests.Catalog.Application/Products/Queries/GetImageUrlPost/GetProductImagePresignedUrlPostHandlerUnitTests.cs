@@ -6,7 +6,7 @@ namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.GetImageUrlP
 
 using static ProductsData;
 
-public class GetProductImageUrlPostHandlerUnitTests : ProductsBaseUnitTests
+public class GetProductImagePresignedUrlPostHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly Mock<IRequestSender> sender = new();
     private const string key = "generated-key";
@@ -15,7 +15,7 @@ public class GetProductImageUrlPostHandlerUnitTests : ProductsBaseUnitTests
     private const string contentType = "content-type";
     private const string fileName = "file-name";
 
-    public GetProductImageUrlPostHandlerUnitTests()
+    public GetProductImagePresignedUrlPostHandlerUnitTests()
     {
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetImagePresignedUrlPostByIdQuery>(), ct))
             .ReturnsAsync((key, url));

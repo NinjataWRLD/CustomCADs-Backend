@@ -7,7 +7,7 @@ namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.GetCadUrlPut
 
 using static ProductsData;
 
-public class GetProductCadUrlPutHandlerUnitTests : ProductsBaseUnitTests
+public class GetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
@@ -16,7 +16,7 @@ public class GetProductCadUrlPutHandlerUnitTests : ProductsBaseUnitTests
     private const string contentType = "content-type";
     private const string fileName = "file-name";
 
-    public GetProductCadUrlPutHandlerUnitTests()
+    public GetProductCadPresignedUrlPutHandlerUnitTests()
     {
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
