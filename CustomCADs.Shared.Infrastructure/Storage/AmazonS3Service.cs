@@ -1,6 +1,6 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
-using CustomCADs.Shared.Application.Storage;
+using CustomCADs.Shared.Abstractions.Storage;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Shared.Infrastructure.Storage;

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetStatus;
 using CustomCADs.Delivery.Domain.Shipments.Reads;
-using CustomCADs.Shared.Application.Delivery;
-using CustomCADs.Shared.Application.Delivery.Dtos;
+using CustomCADs.Shared.Abstractions.Delivery;
+using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Queries.GetTrack;
 

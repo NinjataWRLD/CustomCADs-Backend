@@ -2,7 +2,7 @@
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
 using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;

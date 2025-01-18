@@ -3,7 +3,7 @@ using CustomCADs.Carts.Domain.ActiveCarts.Events;
 using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;

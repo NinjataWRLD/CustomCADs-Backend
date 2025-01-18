@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetImageUrlPost;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.GetImageUrlPost;

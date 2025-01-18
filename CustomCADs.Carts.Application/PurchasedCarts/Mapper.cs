@@ -3,7 +3,7 @@ using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetAll;
 using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetById;
 using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
-using CustomCADs.Shared.Application.Delivery.Dtos;
+using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 

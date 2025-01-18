@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetFiles;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.Shared.UseCases.Images.Commands;
 

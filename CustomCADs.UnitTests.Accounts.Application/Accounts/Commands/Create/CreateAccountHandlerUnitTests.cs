@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Create;
 using CustomCADs.Accounts.Domain.Common;
-using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Create.Data;

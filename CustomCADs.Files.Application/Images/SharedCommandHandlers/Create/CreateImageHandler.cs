@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Common;
-using CustomCADs.Shared.Application.Requests.Commands;
+using CustomCADs.Shared.Abstractions.Requests.Commands;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Images.Commands;
 

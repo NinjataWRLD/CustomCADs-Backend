@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using FluentValidation;
 

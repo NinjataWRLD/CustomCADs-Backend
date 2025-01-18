@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Application.Common.Exceptions;
 using CustomCADs.Files.Domain.Common;
 using CustomCADs.Files.Domain.Images.Reads;
-using CustomCADs.Shared.Application.Requests.Commands;
+using CustomCADs.Shared.Abstractions.Requests.Commands;
 using CustomCADs.Shared.UseCases.Images.Commands;
 
 namespace CustomCADs.Files.Application.Images.SharedCommandHandlers.SetContentType;

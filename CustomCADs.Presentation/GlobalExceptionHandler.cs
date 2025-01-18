@@ -3,7 +3,7 @@ using CustomCADs.Files.Application.Common.Exceptions;
 using CustomCADs.Files.Domain.Common.Exceptions.Cads;
 using CustomCADs.Files.Domain.Common.Exceptions.Images;
 using CustomCADs.Shared.API;
-using CustomCADs.Shared.Application.Payment.Exceptions;
+using CustomCADs.Shared.Abstractions.Payment.Exceptions;
 using CustomCADs.Shared.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 

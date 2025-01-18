@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Common.Caching;
 using CustomCADs.Accounts.Application.Roles.Queries.GetAll;
 using CustomCADs.Accounts.Domain.Roles.Reads;
-using CustomCADs.Shared.Application.Cache;
+using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Queries.GetAll;

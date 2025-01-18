@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Cache;
+﻿using CustomCADs.Shared.Abstractions.Cache;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace CustomCADs.Shared.Infrastructure.Cache;

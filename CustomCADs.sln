@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Orders.Endpoints
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Orders.Persistence", "CustomCADs.Orders.Persistence\CustomCADs.Orders.Persistence.csproj", "{BCBAB136-92AE-47AB-9929-3144769FBF2B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Application", "CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj", "{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.Abstractions", "CustomCADs.Shared.Abstractions\CustomCADs.Shared.Abstractions.csproj", "{C5DDCDD9-E4B0-4D33-B0BB-6268FAB570C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCADs.Shared.IntegrationEvents", "CustomCADs.Shared.IntegrationEvents\CustomCADs.Shared.IntegrationEvents.csproj", "{F1547934-1F9A-47D3-A4F6-1ED1166FE510}"
 EndProject

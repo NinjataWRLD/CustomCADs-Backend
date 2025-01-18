@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Domain.Common;
 using CustomCADs.Accounts.Domain.Roles.DomainEvents;
-using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Create;

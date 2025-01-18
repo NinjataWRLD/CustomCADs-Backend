@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
 using CustomCADs.Carts.Domain.Common;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Commands.Create;

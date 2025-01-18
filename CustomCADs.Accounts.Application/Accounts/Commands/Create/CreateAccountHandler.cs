@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Domain.Common;
-using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.Create;

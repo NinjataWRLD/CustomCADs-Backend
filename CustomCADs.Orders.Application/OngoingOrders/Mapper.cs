@@ -3,7 +3,7 @@ using CustomCADs.Orders.Application.OngoingOrders.Queries.CalculateShipment;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.ClientGetById;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.DesignerGetById;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.GetAll;
-using CustomCADs.Shared.Application.Delivery.Dtos;
+using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 
 namespace CustomCADs.Orders.Application.OngoingOrders;
 

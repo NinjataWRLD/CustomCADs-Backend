@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.OngoingOrders.Reads;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Accept;

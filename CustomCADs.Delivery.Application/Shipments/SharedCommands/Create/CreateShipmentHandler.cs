@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Delivery.Application.Common.Exceptions;
 using CustomCADs.Delivery.Domain.Common;
-using CustomCADs.Shared.Application.Delivery;
-using CustomCADs.Shared.Application.Delivery.Dtos;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Delivery;
+using CustomCADs.Shared.Abstractions.Delivery.Dtos;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 

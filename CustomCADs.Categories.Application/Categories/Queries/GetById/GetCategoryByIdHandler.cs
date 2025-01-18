@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Common.Exceptions;
 using CustomCADs.Categories.Domain.Categories.Reads;
-using CustomCADs.Shared.Application.Cache;
+using CustomCADs.Shared.Abstractions.Cache;
 
 namespace CustomCADs.Categories.Application.Categories.Queries.GetById;
 

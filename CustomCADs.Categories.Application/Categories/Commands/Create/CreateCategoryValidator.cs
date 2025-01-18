@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Create;

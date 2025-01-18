@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Categories.Application.Categories.DomainEventHandlers;
 using CustomCADs.Categories.Application.Common.Caching;
 using CustomCADs.Categories.Domain.Categories.DomainEvents;
-using CustomCADs.Shared.Application.Cache;
+using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.UnitTests.Categories.Application.Categories.DomainEventHandlers.Deleted.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.DomainEventHandlers.Deleted;

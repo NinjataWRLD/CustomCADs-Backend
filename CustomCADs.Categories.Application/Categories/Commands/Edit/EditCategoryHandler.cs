@@ -2,7 +2,7 @@
 using CustomCADs.Categories.Domain.Categories.DomainEvents;
 using CustomCADs.Categories.Domain.Categories.Reads;
 using CustomCADs.Categories.Domain.Common;
-using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Abstractions.Events;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Edit;
 

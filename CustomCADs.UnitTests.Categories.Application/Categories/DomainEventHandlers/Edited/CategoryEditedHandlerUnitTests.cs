@@ -2,7 +2,7 @@
 using CustomCADs.Categories.Application.Common.Caching;
 using CustomCADs.Categories.Application.Common.Caching.Categories;
 using CustomCADs.Categories.Domain.Categories.DomainEvents;
-using CustomCADs.Shared.Application.Cache;
+using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.UnitTests.Categories.Application.Categories.DomainEventHandlers.Edited.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.DomainEventHandlers.Edited;

@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Application.Delivery;
-using CustomCADs.Shared.Application.Delivery.Dtos;
+﻿using CustomCADs.Shared.Abstractions.Delivery;
+using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
 using CustomCADs.Shared.Speedy.Enums;
 using CustomCADs.Shared.Speedy.Services;

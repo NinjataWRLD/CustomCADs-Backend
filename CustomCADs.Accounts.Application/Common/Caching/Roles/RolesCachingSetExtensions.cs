@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Cache;
+﻿using CustomCADs.Shared.Abstractions.Cache;
 
 namespace CustomCADs.Accounts.Application.Common.Caching.Roles;
 

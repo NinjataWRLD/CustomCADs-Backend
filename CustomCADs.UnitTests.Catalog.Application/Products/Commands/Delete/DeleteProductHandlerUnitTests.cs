@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Delete;
 using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.IntegrationEvents.Files;
 

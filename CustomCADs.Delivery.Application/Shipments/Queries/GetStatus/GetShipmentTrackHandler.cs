@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Delivery.Application.Common.Exceptions;
 using CustomCADs.Delivery.Domain.Shipments.Reads;
-using CustomCADs.Shared.Application.Delivery;
-using CustomCADs.Shared.Application.Delivery.Dtos;
+using CustomCADs.Shared.Abstractions.Delivery;
+using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 
 namespace CustomCADs.Delivery.Application.Shipments.Queries.GetStatus;
 

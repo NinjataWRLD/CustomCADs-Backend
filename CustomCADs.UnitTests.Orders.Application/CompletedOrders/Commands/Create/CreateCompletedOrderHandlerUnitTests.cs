@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions.Completed;
 using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
 using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;

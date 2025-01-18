@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Files;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Delete;

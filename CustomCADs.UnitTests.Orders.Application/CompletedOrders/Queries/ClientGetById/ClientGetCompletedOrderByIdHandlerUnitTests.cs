@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions.Completed;
 using CustomCADs.Orders.Application.CompletedOrders.Queries.ClientGetById;
 using CustomCADs.Orders.Domain.CompletedOrders.Reads;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
