@@ -7,7 +7,7 @@ using static AccountConstants;
 using static Constants;
 using static Constants.FluentMessages;
 
-public class CreateAccountValidator : Validator<CreateAccountCommand, AccountId>
+public class CreateAccountValidator : CommandValidator<CreateAccountCommand, AccountId>
 {
     public CreateAccountValidator()
     {

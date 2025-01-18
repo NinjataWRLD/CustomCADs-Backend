@@ -6,7 +6,7 @@ namespace CustomCADs.Categories.Application.Categories.Commands.Edit;
 using static CategoryConstants;
 using static Constants.FluentMessages;
 
-public class EditCategoryValidator : Validator<EditCategoryCommand>
+public class EditCategoryValidator : CommandValidator<EditCategoryCommand>
 {
     public EditCategoryValidator()
     {

@@ -6,7 +6,7 @@ namespace CustomCADs.Accounts.Application.Roles.Commands.Edit;
 using static Constants.FluentMessages;
 using static RoleConstants;
 
-public class EditRoleValidator : Validator<EditRoleCommand>
+public class EditRoleValidator : CommandValidator<EditRoleCommand>
 {
     public EditRoleValidator()
     {

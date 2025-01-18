@@ -7,7 +7,7 @@ namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetCoords;
 using static CadConstants.Coordinates;
 using static Constants.FluentMessages;
 
-public class SetCadCoordsValidator : Validator<SetCadCoordsCommand>
+public class SetCadCoordsValidator : CommandValidator<SetCadCoordsCommand>
 {
     public SetCadCoordsValidator()
     {

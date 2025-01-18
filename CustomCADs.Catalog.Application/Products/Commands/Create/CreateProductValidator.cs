@@ -6,7 +6,7 @@ namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 using static Constants.FluentMessages;
 using static ProductConstants;
 
-public class CreateProductValidator : Validator<CreateProductCommand, ProductId>
+public class CreateProductValidator : CommandValidator<CreateProductCommand, ProductId>
 {
     public CreateProductValidator()
     {

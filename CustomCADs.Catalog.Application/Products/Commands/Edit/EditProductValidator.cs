@@ -6,7 +6,7 @@ namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
 using static Constants.FluentMessages;
 using static ProductConstants;
 
-public class EditProductValidator : Validator<EditProductCommand>
+public class EditProductValidator : CommandValidator<EditProductCommand>
 {
     public EditProductValidator()
     {

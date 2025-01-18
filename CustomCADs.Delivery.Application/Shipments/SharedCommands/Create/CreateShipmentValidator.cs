@@ -8,7 +8,7 @@ using static Constants;
 using static Constants.FluentMessages;
 using static ShipmentConstants;
 
-public class CreateShipmentValidator : Validator<CreateShipmentCommand, ShipmentId>
+public class CreateShipmentValidator : CommandValidator<CreateShipmentCommand, ShipmentId>
 {
     public CreateShipmentValidator()
     {

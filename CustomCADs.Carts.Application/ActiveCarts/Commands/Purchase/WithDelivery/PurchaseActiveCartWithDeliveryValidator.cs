@@ -6,7 +6,7 @@ namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Purchase.WithDeliver
 using static Constants;
 using static Constants.FluentMessages;
 
-public class PurchaseActiveCartWithDeliveryValidator : Validator<PurchaseActiveCartWithDeliveryCommand, string>
+public class PurchaseActiveCartWithDeliveryValidator : CommandValidator<PurchaseActiveCartWithDeliveryCommand, string>
 {
     public PurchaseActiveCartWithDeliveryValidator()
     {

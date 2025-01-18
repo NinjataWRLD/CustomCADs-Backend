@@ -5,7 +5,7 @@ namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.Normal;
 
 using static Constants.FluentMessages;
 
-public class PurchaseOngoingOrderValidator : Validator<PurchaseOngoingOrderCommand, string>
+public class PurchaseOngoingOrderValidator : CommandValidator<PurchaseOngoingOrderCommand, string>
 {
     public PurchaseOngoingOrderValidator()
     {

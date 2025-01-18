@@ -6,7 +6,7 @@ namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Add;
 using static ActiveCartConstants.ActiveCartItems;
 using static Constants.FluentMessages;
 
-public class AddActiveCartItemValidator : Validator<AddActiveCartItemCommand, ActiveCartItemId>
+public class AddActiveCartItemValidator : CommandValidator<AddActiveCartItemCommand, ActiveCartItemId>
 {
     public AddActiveCartItemValidator()
     {

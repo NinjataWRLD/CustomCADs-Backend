@@ -6,7 +6,7 @@ namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.WithDeli
 using static Constants;
 using static Constants.FluentMessages;
 
-public class PurchaseOngoingOrderWithDeliveryValidator : Validator<PurchaseOngoingOrderWithDeliveryCommand, string>
+public class PurchaseOngoingOrderWithDeliveryValidator : CommandValidator<PurchaseOngoingOrderWithDeliveryCommand, string>
 {
     public PurchaseOngoingOrderWithDeliveryValidator()
     {

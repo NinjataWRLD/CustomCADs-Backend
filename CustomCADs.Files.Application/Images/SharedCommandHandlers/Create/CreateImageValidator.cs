@@ -7,7 +7,7 @@ namespace CustomCADs.Files.Application.Images.SharedCommandHandlers.Create;
 
 using static Constants.FluentMessages;
 
-public class CreateImageValidator : Validator<CreateImageCommand, ImageId>
+public class CreateImageValidator : CommandValidator<CreateImageCommand, ImageId>
 {
     public CreateImageValidator()
     {

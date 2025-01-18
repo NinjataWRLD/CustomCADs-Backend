@@ -15,6 +15,9 @@ public class CalculateActiveCartShipmentHandler(IActiveCartReads reads, IRequest
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
+        if (!cart.HasDelivery)
+            throw ActiveCartItemDeliveryException.ById(cart.Id);
+
         CalculateShipmentQuery query = new(
             ParcelCount: cart.TotalDeliveryCount,
             TotalWeight: cart.TotalDeliveryWeight,

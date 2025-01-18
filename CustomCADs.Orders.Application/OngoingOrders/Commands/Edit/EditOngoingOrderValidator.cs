@@ -6,7 +6,7 @@ namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Edit;
 using static Constants.FluentMessages;
 using static OngoingOrderConstants;
 
-public class EditOngoingOrderValidator : Validator<EditOngoingOrderCommand>
+public class EditOngoingOrderValidator : CommandValidator<EditOngoingOrderCommand>
 {
     public EditOngoingOrderValidator()
     {

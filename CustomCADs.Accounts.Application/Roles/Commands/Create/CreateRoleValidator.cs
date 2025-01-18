@@ -6,7 +6,7 @@ namespace CustomCADs.Accounts.Application.Roles.Commands.Create;
 using static Constants.FluentMessages;
 using static RoleConstants;
 
-public class CreateRoleValidator : Validator<CreateRoleCommand, RoleId>
+public class CreateRoleValidator : CommandValidator<CreateRoleCommand, RoleId>
 {
     public CreateRoleValidator()
     {

@@ -6,7 +6,7 @@ namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetContentType
 
 using static Constants.FluentMessages;
 
-public class SetCadContentTypeValidator : Validator<SetCadContentTypeCommand>
+public class SetCadContentTypeValidator : CommandValidator<SetCadContentTypeCommand>
 {
     public SetCadContentTypeValidator()
     {

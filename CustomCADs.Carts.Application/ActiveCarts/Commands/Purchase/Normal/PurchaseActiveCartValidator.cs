@@ -5,7 +5,7 @@ namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Purchase.Normal;
 
 using static Constants.FluentMessages;
 
-public class PurchaseActiveCartValidator : Validator<PurchaseActiveCartCommand, string>
+public class PurchaseActiveCartValidator : CommandValidator<PurchaseActiveCartCommand, string>
 {
     public PurchaseActiveCartValidator()
     {

@@ -6,7 +6,7 @@ namespace CustomCADs.Categories.Application.Categories.Commands.Create;
 using static Constants.FluentMessages;
 using static CategoryConstants;
 
-public class CreateCategoryValidator : Validator<CreateCategoryCommand, CategoryId>
+public class CreateCategoryValidator : CommandValidator<CreateCategoryCommand, CategoryId>
 {
     public CreateCategoryValidator()
     {

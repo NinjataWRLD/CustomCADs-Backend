@@ -7,7 +7,7 @@ namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.Create;
 
 using static Constants.FluentMessages;
 
-public class CreateCadValidator : Validator<CreateCadCommand, CadId>
+public class CreateCadValidator : CommandValidator<CreateCadCommand, CadId>
 {
     public CreateCadValidator()
     {

@@ -6,7 +6,7 @@ namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetKey;
 
 using static Constants.FluentMessages;
 
-public class SetCadKeyValidator : Validator<SetCadKeyCommand>
+public class SetCadKeyValidator : CommandValidator<SetCadKeyCommand>
 {
     public SetCadKeyValidator()
     {

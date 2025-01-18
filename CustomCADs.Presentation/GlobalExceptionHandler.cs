@@ -5,6 +5,7 @@ using CustomCADs.Files.Domain.Common.Exceptions.Images;
 using CustomCADs.Shared.API;
 using CustomCADs.Shared.Abstractions.Payment.Exceptions;
 using CustomCADs.Shared.Core.Common.Exceptions;
+using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CustomCADs.Presentation;
@@ -18,6 +19,9 @@ public class GlobalExceptionHandler(IProblemDetailsService service) : IException
         {
             CadValidationException or ImageValidationException
                 => await service.BadRequestResponseAsync(context, ex).ConfigureAwait(false),
+
+            ValidationException
+                => await service.BadRequestResponseAsync(context, ex, "Validation Error").ConfigureAwait(false),
 
             PaymentFailedException
                 => await service.BadRequestResponseAsync(context, ex, "Payment Failure").ConfigureAwait(false),

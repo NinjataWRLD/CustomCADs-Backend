@@ -6,7 +6,7 @@ namespace CustomCADs.Files.Application.Images.SharedCommandHandlers.SetKey;
 
 using static Constants.FluentMessages;
 
-public class SetImageKeyValidator : Validator<SetImageKeyCommand>
+public class SetImageKeyValidator : CommandValidator<SetImageKeyCommand>
 {
     public SetImageKeyValidator()
     {

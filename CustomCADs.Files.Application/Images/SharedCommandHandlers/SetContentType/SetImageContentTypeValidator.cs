@@ -6,7 +6,7 @@ namespace CustomCADs.Files.Application.Images.SharedCommandHandlers.SetContentTy
 
 using static Constants.FluentMessages;
 
-public class SetImageContentTypeValidator : Validator<SetImageContentTypeCommand>
+public class SetImageContentTypeValidator : CommandValidator<SetImageContentTypeCommand>
 {
     public SetImageContentTypeValidator()
     {
