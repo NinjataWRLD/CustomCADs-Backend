@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Orders.Application\CustomCADs.Orders.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.API\CustomCADs.Shared.API.csproj" />
 	</ItemGroup>
 
 </Project>

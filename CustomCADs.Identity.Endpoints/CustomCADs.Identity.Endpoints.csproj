@@ -14,6 +14,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Identity.Application\CustomCADs.Identity.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.API\CustomCADs.Shared.API.csproj" />
 	</ItemGroup>
 
 </Project>

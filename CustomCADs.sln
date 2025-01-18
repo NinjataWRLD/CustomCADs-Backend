@@ -215,6 +215,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Carts.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Carts.Application", "CustomCADs.UnitTests.Carts.Application\CustomCADs.UnitTests.Carts.Application.csproj", "{02318C16-D474-4ECE-85D1-9B4A810D2201}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.API", "CustomCADs.Shared.API\CustomCADs.Shared.API.csproj", "{230ED51F-CE36-44D0-B034-A1ED3580247C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -461,6 +463,10 @@ Global
 		{02318C16-D474-4ECE-85D1-9B4A810D2201}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02318C16-D474-4ECE-85D1-9B4A810D2201}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02318C16-D474-4ECE-85D1-9B4A810D2201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230ED51F-CE36-44D0-B034-A1ED3580247C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230ED51F-CE36-44D0-B034-A1ED3580247C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230ED51F-CE36-44D0-B034-A1ED3580247C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230ED51F-CE36-44D0-B034-A1ED3580247C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -551,6 +557,7 @@ Global
 		{ECA7230E-FDD5-4DC2-AB72-60FEF9F52C30} = {C88BEA56-89C6-4720-85C6-9C117ABF94B8}
 		{601E699D-9BD8-44BB-B1CD-DEDA3EFDE4CA} = {C88BEA56-89C6-4720-85C6-9C117ABF94B8}
 		{02318C16-D474-4ECE-85D1-9B4A810D2201} = {C88BEA56-89C6-4720-85C6-9C117ABF94B8}
+		{230ED51F-CE36-44D0-B034-A1ED3580247C} = {AACD7530-149A-43EE-A093-2D27DD5B00D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C24A0A28-5B9B-4659-B244-171070EE9DCF}
