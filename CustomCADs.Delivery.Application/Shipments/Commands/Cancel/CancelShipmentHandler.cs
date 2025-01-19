@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Delivery.Application.Common.Exceptions;
 using CustomCADs.Delivery.Domain.Shipments.Reads;
-using CustomCADs.Shared.Application.Delivery;
+using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Delivery.Application.Shipments.Commands.Cancel;

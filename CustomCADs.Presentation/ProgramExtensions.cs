@@ -9,8 +9,8 @@ using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Infrastructure;
 using CustomCADs.Orders.Application;
 using CustomCADs.Presentation;
-using CustomCADs.Shared.Application.Requests.Middleware;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Middleware;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Delivery;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
@@ -36,9 +36,9 @@ public static class ProgramExtensions
     {
         Assembly[] assemblies = [
             AccountApplicationReference.Assembly,
+            CartsApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
-            CartsApplicationReference.Assembly,
             DeliveryApplicationReference.Assembly,
             FilesApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
@@ -108,6 +108,27 @@ public static class ProgramExtensions
                 options.AddPolicy(role, policy => policy.RequireRole(role));
             }
         });
+    }
+
+    private static IServiceCollection AddIdentityConfigs(this IServiceCollection services)
+    {
+        services.AddIdentity<AppUser, AppRole>(options =>
+        {
+            options.SignIn.RequireConfirmedEmail = true;
+            options.SignIn.RequireConfirmedAccount = false;
+            options.Password.RequireDigit = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.User.RequireUniqueEmail = true;
+            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+" + ' '; // default + space
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        })
+        .AddEntityFrameworkStores<IdentityContext>()
+        .AddDefaultTokenProviders();
+
+        return services;
     }
 
     public static IServiceCollection AddAccounts(this IServiceCollection services, IConfiguration config)
@@ -271,25 +292,5 @@ public static class ProgramExtensions
         });
 
         return app;
-    }
-
-    private static IServiceCollection AddIdentityConfigs(this IServiceCollection services)
-    {
-        services.AddIdentity<AppUser, AppRole>(options =>
-        {
-            options.SignIn.RequireConfirmedEmail = true;
-            options.SignIn.RequireConfirmedAccount = false;
-            options.Password.RequireDigit = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireLowercase = false;
-            options.Password.RequireUppercase = false;
-            options.User.RequireUniqueEmail = true;
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-        })
-        .AddEntityFrameworkStores<IdentityContext>()
-        .AddDefaultTokenProviders();
-
-        return services;
     }
 }

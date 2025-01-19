@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Create;
 using CustomCADs.Accounts.Domain.Common;
 using CustomCADs.Accounts.Domain.Roles.DomainEvents;
-using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Create.Data;
 

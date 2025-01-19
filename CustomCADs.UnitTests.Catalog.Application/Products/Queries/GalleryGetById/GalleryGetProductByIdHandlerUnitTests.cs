@@ -1,6 +1,9 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
+using CustomCADs.Catalog.Domain.Products.DomainEvents;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Events;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
@@ -12,6 +15,7 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+    private readonly Mock<IEventRaiser> raiser = new();
     private readonly Product product = CreateProduct();
     private const string TimeZone = "Europe/Sofia";
 
@@ -30,8 +34,8 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     public async Task Handle_ShouldQueryDatbase()
     {
         // Arrange
-        GalleryGetProductByIdQuery query = new(ValidId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object);
+        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
+        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -44,8 +48,8 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     public async Task Handle_ShouldSendRequests()
     {
         // Arrange
-        GalleryGetProductByIdQuery query = new(ValidId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object);
+        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
+        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -54,13 +58,45 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNameByIdQuery>(), ct), Times.Once);
     }
+    
+    [Fact]
+    public async Task Handle_ShouldRaiseEvents_WhenAccountIdEmpty()
+    {
+        // Arrange
+        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
+        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
+
+        // Act
+        await handler.Handle(query, ct);
+
+        // Assert
+        raiser.Verify(x => x.RaiseDomainEventAsync(
+            It.IsAny<ProductViewedDomainEvent>())
+        , Times.Once);
+    }
+        
+    [Fact]
+    public async Task Handle_ShouldNotRaiseEvents_WhenAccountIdEmpty()
+    {
+        // Arrange
+        GalleryGetProductByIdQuery query = new(ValidId, AccountId.New(Guid.Empty));
+        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
+
+        // Act
+        await handler.Handle(query, ct);
+
+        // Assert
+        raiser.Verify(x => x.RaiseDomainEventAsync(
+            It.IsAny<ProductViewedDomainEvent>())
+        , Times.Never);
+    }
 
     [Fact]
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        GalleryGetProductByIdQuery query = new(ValidId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object);
+        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
+        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
 
         // Act
         var result = await handler.Handle(query, ct);
@@ -82,8 +118,8 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         // Arrange
         product.SetReportedStatus();
 
-        GalleryGetProductByIdQuery query = new(ValidId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object);
+        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
+        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<ProductStatusException>(async () =>
@@ -100,8 +136,8 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(null as Product);
 
-        GalleryGetProductByIdQuery query = new(ValidId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object);
+        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
+        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<ProductNotFoundException>(async () =>

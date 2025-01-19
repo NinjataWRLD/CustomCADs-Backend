@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Orders.Application.CompletedOrders.Queries.GetAll;
 using CustomCADs.Orders.Domain.CompletedOrders.Reads;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;

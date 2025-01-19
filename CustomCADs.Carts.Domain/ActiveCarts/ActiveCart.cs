@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Validation;
-using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
@@ -60,11 +59,8 @@ public class ActiveCart : BaseAggregateRoot
         return item;
     }
 
-    public ActiveCartItem RemoveItem(ActiveCartItemId id)
+    public ActiveCartItem RemoveItem(ActiveCartItem item)
     {
-        ActiveCartItem item = items.FirstOrDefault(i => i.Id == id)
-            ?? throw ActiveCartItemNotFoundException.ById(id);
-
         items.Remove(item);
         this.ValidateItems();
 

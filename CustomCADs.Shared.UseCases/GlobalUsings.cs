@@ -1,5 +1,5 @@
-﻿global using CustomCADs.Shared.Application.Requests.Commands;
-global using CustomCADs.Shared.Application.Requests.Queries;
+﻿global using CustomCADs.Shared.Abstractions.Requests.Commands;
+global using CustomCADs.Shared.Abstractions.Requests.Queries;
 global using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 global using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 global using CustomCADs.Shared.Core.Common.TypedIds.Categories;

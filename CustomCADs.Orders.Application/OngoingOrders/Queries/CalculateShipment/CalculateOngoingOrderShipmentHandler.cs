@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Orders.Domain.OngoingOrders.Reads;
-using CustomCADs.Shared.Application.Delivery.Dtos;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Delivery.Dtos;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 

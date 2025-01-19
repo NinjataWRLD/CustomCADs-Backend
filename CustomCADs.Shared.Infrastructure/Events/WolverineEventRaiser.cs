@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Events;
+﻿using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Bases.Events;
 using Wolverine;
 

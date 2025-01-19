@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Create;
@@ -6,7 +6,7 @@ namespace CustomCADs.Accounts.Application.Roles.Commands.Create;
 using static Constants.FluentMessages;
 using static RoleConstants;
 
-public class CreateRoleValidator : Validator<CreateRoleCommand, RoleId>
+public class CreateRoleValidator : CommandValidator<CreateRoleCommand, RoleId>
 {
     public CreateRoleValidator()
     {

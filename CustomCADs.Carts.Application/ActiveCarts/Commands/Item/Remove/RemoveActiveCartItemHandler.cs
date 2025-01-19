@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
+using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Carts.Domain.Common;
 
@@ -12,7 +13,10 @@ public sealed class RemoveActiveCartItemHandler(IActiveCartReads reads, IUnitOfW
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
-        cart.RemoveItem(req.ItemId);
+        ActiveCartItem item = cart.Items.FirstOrDefault(i => i.Id == req.ItemId)
+            ?? throw ActiveCartItemNotFoundException.ById(req.ItemId);
+
+        cart.RemoveItem(item);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

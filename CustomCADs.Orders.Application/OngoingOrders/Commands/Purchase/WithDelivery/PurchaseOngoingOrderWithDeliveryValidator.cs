@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery;
@@ -6,7 +6,7 @@ namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.WithDeli
 using static Constants;
 using static Constants.FluentMessages;
 
-public class PurchaseOngoingOrderWithDeliveryValidator : Validator<PurchaseOngoingOrderWithDeliveryCommand, string>
+public class PurchaseOngoingOrderWithDeliveryValidator : CommandValidator<PurchaseOngoingOrderWithDeliveryCommand, string>
 {
     public PurchaseOngoingOrderWithDeliveryValidator()
     {

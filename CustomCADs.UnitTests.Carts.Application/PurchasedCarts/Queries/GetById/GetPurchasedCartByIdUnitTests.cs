@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetById;
 using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;

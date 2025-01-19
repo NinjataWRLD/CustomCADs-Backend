@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Add;
@@ -6,7 +6,7 @@ namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Add;
 using static ActiveCartConstants.ActiveCartItems;
 using static Constants.FluentMessages;
 
-public class AddActiveCartItemValidator : Validator<AddActiveCartItemCommand, ActiveCartItemId>
+public class AddActiveCartItemValidator : CommandValidator<AddActiveCartItemCommand, ActiveCartItemId>
 {
     public AddActiveCartItemValidator()
     {

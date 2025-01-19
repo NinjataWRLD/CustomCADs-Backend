@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Cads.Reads;
-using CustomCADs.Shared.Application.Requests.Queries;
+using CustomCADs.Shared.Abstractions.Requests.Queries;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Files.Application.Cads.SharedQueryHandlers;

@@ -1,11 +1,11 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Purchase.Normal;
 
 using static Constants.FluentMessages;
 
-public class PurchaseActiveCartValidator : Validator<PurchaseActiveCartCommand, string>
+public class PurchaseActiveCartValidator : CommandValidator<PurchaseActiveCartCommand, string>
 {
     public PurchaseActiveCartValidator()
     {

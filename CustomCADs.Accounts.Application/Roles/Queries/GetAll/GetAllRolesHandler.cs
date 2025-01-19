@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Domain.Roles.Reads;
-using CustomCADs.Shared.Application.Cache;
+using CustomCADs.Shared.Abstractions.Cache;
 
 namespace CustomCADs.Accounts.Application.Roles.Queries.GetAll;
 

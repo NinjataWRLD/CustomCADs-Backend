@@ -2,7 +2,7 @@
 using CustomCADs.Accounts.Domain.Accounts.Reads;
 using CustomCADs.Accounts.Domain.Common;
 using CustomCADs.Accounts.Domain.Roles.Reads;
-using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete.Data;
 

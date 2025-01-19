@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using CustomCADs.Shared.UseCases.Images.Commands;
 using FluentValidation;
 
@@ -6,7 +6,7 @@ namespace CustomCADs.Files.Application.Images.SharedCommandHandlers.SetKey;
 
 using static Constants.FluentMessages;
 
-public class SetImageKeyValidator : Validator<SetImageKeyCommand>
+public class SetImageKeyValidator : CommandValidator<SetImageKeyCommand>
 {
     public SetImageKeyValidator()
     {

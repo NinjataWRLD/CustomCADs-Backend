@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Application.Images.IntegrationEventHandlers;
 using CustomCADs.Files.Domain.Common;
 using CustomCADs.Files.Domain.Images.Reads;
-using CustomCADs.Shared.Application.Storage;
+using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.IntegrationEvents.Files;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.IntegrationEventHandlers;

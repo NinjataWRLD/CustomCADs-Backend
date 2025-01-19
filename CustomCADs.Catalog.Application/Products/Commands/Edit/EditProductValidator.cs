@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
@@ -6,7 +6,7 @@ namespace CustomCADs.Catalog.Application.Products.Commands.Edit;
 using static Constants.FluentMessages;
 using static ProductConstants;
 
-public class EditProductValidator : Validator<EditProductCommand>
+public class EditProductValidator : CommandValidator<EditProductCommand>
 {
     public EditProductValidator()
     {

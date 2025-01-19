@@ -61,6 +61,11 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         .HasColumnType("character varying(62)")
                         .HasColumnName("Username");
 
+                    b.Property<Guid[]>("ViewedProductIds")
+                        .IsRequired()
+                        .HasColumnType("uuid[]")
+                        .HasColumnName("ViewedProductIds");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -80,7 +85,8 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             Email = "ivanzlatinov006@gmail.com",
                             RoleName = "Client",
                             TimeZone = "Europe/Sofia",
-                            Username = "For7a7a"
+                            Username = "For7a7a",
+                            ViewedProductIds = new Guid[0]
                         },
                         new
                         {
@@ -88,7 +94,8 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             Email = "PDMatsaliev20@codingburgas.bg",
                             RoleName = "Contributor",
                             TimeZone = "Europe/Sofia",
-                            Username = "PetarDMatsaliev"
+                            Username = "PDMatsaliev20",
+                            ViewedProductIds = new Guid[0]
                         },
                         new
                         {
@@ -96,7 +103,8 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             Email = "boriskolev2006@gmail.com",
                             RoleName = "Designer",
                             TimeZone = "Europe/Sofia",
-                            Username = "Oracle3000"
+                            Username = "Oracle3000",
+                            ViewedProductIds = new Guid[0]
                         },
                         new
                         {
@@ -104,7 +112,8 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             Email = "ivanangelov414@gmail.com",
                             RoleName = "Administrator",
                             TimeZone = "Europe/Sofia",
-                            Username = "NinjataBG"
+                            Username = "NinjataBG",
+                            ViewedProductIds = new Guid[0]
                         });
                 });
 

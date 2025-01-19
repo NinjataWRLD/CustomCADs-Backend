@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using FluentValidation;
 
@@ -7,7 +7,7 @@ namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetCoords;
 using static CadConstants.Coordinates;
 using static Constants.FluentMessages;
 
-public class SetCadCoordsValidator : Validator<SetCadCoordsCommand>
+public class SetCadCoordsValidator : CommandValidator<SetCadCoordsCommand>
 {
     public SetCadCoordsValidator()
     {

@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Abstractions\CustomCADs.Shared.Abstractions.csproj" />
 	</ItemGroup>
 
 </Project>

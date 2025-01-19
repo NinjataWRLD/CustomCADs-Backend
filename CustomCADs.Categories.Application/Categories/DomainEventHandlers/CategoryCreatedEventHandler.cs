@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Categories.Domain.Categories.DomainEvents;
-using CustomCADs.Shared.Application.Cache;
+using CustomCADs.Shared.Abstractions.Cache;
 
 namespace CustomCADs.Categories.Application.Categories.DomainEventHandlers;
 

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
@@ -6,7 +6,7 @@ namespace CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
 using static CompletedOrderConstants;
 using static Constants.FluentMessages;
 
-public class CreateCompletedOrderValidator : Validator<CreateCompletedOrderCommand, CompletedOrderId>
+public class CreateCompletedOrderValidator : CommandValidator<CreateCompletedOrderCommand, CompletedOrderId>
 {
     public CreateCompletedOrderValidator()
     {

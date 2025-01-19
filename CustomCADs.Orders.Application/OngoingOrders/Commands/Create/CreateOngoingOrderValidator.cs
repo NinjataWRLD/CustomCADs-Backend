@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Create;
@@ -6,7 +6,7 @@ namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Create;
 using static Constants.FluentMessages;
 using static OngoingOrderConstants;
 
-public class CreateOngoingOrderValidator : Validator<CreateOngoingOrderCommand, OngoingOrderId>
+public class CreateOngoingOrderValidator : CommandValidator<CreateOngoingOrderCommand, OngoingOrderId>
 {
     public CreateOngoingOrderValidator()
     {

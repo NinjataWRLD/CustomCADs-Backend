@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Application.Common.Exceptions;
 using CustomCADs.Files.Domain.Common;
 using CustomCADs.Files.Domain.Images.Reads;
-using CustomCADs.Shared.Application.Storage;
+using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.IntegrationEvents.Files;
 
 namespace CustomCADs.Files.Application.Images.IntegrationEventHandlers;

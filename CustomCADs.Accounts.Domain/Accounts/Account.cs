@@ -1,10 +1,13 @@
 ﻿using CustomCADs.Accounts.Domain.Accounts.Validation;
 using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Accounts.Domain.Accounts;
 
 public class Account : BaseAggregateRoot
 {
+    private readonly List<ProductId> viewedProductIds = [];
+
     private Account() { }
     private Account(string role, string username, string email, string timeZone, string? firstName, string? lastName) : this()
     {
@@ -23,6 +26,7 @@ public class Account : BaseAggregateRoot
     public string? FirstName { get; private set; }
     public string? LastName { get; private set; }
     public string RoleName { get; private set; } = string.Empty;
+    public IReadOnlyCollection<ProductId> ViewedProductIds => viewedProductIds.AsReadOnly();
 
     public static Account Create(
         string role,
@@ -57,6 +61,16 @@ public class Account : BaseAggregateRoot
     .ValidateTimeZone()
     .ValidateFirstName()
     .ValidateLastName();
+
+    public Account AddViewedProduct(ProductId id)
+    {
+        if (!viewedProductIds.Contains(id))
+        {
+            viewedProductIds.Add(id);
+        }
+
+        return this;
+    }
 
     public Account SetUsername(string username)
     {

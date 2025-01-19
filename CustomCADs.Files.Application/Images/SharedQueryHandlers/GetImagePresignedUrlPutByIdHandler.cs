@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Application.Common.Exceptions;
 using CustomCADs.Files.Domain.Images.Reads;
-using CustomCADs.Shared.Application.Requests.Queries;
-using CustomCADs.Shared.Application.Storage;
+using CustomCADs.Shared.Abstractions.Requests.Queries;
+using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.Files.Application.Images.SharedQueryHandlers;

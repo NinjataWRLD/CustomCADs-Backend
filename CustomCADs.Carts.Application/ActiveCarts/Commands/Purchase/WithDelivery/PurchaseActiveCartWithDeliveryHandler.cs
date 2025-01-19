@@ -3,9 +3,9 @@ using CustomCADs.Carts.Application.PurchasedCarts.Commands.Create;
 using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetById;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
-using CustomCADs.Shared.Application.Events;
-using CustomCADs.Shared.Application.Payment;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Events;
+using CustomCADs.Shared.Abstractions.Payment;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Purchase.WithDelivery;

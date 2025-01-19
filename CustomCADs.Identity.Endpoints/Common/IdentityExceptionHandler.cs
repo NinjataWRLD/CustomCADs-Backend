@@ -9,83 +9,23 @@ using static StatusCodes;
 public class IdentityExceptionHandler(IProblemDetailsService service) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
-    {
-        if (ex is UserValidationException or UserPasswordException)
+        => ex switch
         {
-            return await service.TryWriteAsync(new()
-            {
-                HttpContext = context,
-                Exception = ex,
-                ProblemDetails = new()
-                {
-                    Type = ex.GetType().Name,
-                    Title = "Invalid Request Parameters",
-                    Detail = ex.Message,
-                    Status = Status400BadRequest,
-                },
-            }).ConfigureAwait(false);
-        }
-        else if (ex is UserRegisterException or UserLoginException or UserRefreshTokenException)
-        {
-            return await service.TryWriteAsync(new()
-            {
-                HttpContext = context,
-                Exception = ex,
-                ProblemDetails = new()
-                {
-                    Type = ex.GetType().Name,
-                    Title = "Inappropriately Unauthenticated",
-                    Detail = ex.Message,
-                    Status = Status401Unauthorized,
-                },
-            }).ConfigureAwait(false);
-        }
-        else if (ex is UserLockedOutException)
-        {
-            return await service.TryWriteAsync(new()
-            {
-                HttpContext = context,
-                Exception = ex,
-                ProblemDetails = new()
-                {
-                    Type = ex.GetType().Name,
-                    Title = "Account Locked",
-                    Detail = ex.Message,
-                    Status = Status423Locked,
-                },
-            }).ConfigureAwait(false);
-        }
-        else if (ex is UserNotFoundException or RoleNotFoundException)
-        {
-            return await service.TryWriteAsync(new()
-            {
-                HttpContext = context,
-                Exception = ex,
-                ProblemDetails = new()
-                {
-                    Type = ex.GetType().Name,
-                    Title = "Resource Not Found",
-                    Detail = ex.Message,
-                    Status = Status404NotFound,
-                },
-            }).ConfigureAwait(false);
-        }
-        else if (ex is UserCreationException)
-        {
-            return await service.TryWriteAsync(new()
-            {
-                HttpContext = context,
-                Exception = ex,
-                ProblemDetails = new()
-                {
-                    Type = ex.GetType().Name,
-                    Title = "Internal Error, contact Support",
-                    Detail = ex.Message,
-                    Status = Status500InternalServerError,
-                },
-            }).ConfigureAwait(false);
-        }
+            UserValidationException or UserPasswordException
+                => await service.BadRequestResponseAsync(context, ex).ConfigureAwait(false),
 
-        return true;
-    }
+            UserNotFoundException or RoleNotFoundException
+                => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),
+
+            UserCreationException
+                => await service.InternalServerErrorResponseAsync(context, ex).ConfigureAwait(false),
+
+            UserRegisterException or UserLoginException or UserRefreshTokenException
+                => await service.CusotmResponseAsync(context, ex, Status401Unauthorized, "Inappropriately Unauthenticated").ConfigureAwait(false),
+
+            UserLockedOutException
+                => await service.CusotmResponseAsync(context, ex, Status423Locked, "Account Locked").ConfigureAwait(false),
+
+            _ => false
+        };
 }

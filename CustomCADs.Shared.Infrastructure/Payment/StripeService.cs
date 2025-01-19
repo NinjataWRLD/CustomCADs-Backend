@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Application.Payment;
-using CustomCADs.Shared.Application.Payment.Exceptions;
+﻿using CustomCADs.Shared.Abstractions.Payment;
+using CustomCADs.Shared.Abstractions.Payment.Exceptions;
 using JasperFx.CodeGeneration.Frames;
 using Microsoft.Extensions.Options;
 using Stripe;

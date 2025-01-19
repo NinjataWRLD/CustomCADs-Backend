@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using CustomCADs.Shared.UseCases.Accounts.Commands;
 using FluentValidation;
 
@@ -8,7 +8,7 @@ using static AccountConstants;
 using static Constants;
 using static Constants.FluentMessages;
 
-public class CreateAccountValidator : Validator<CreateAccountCommand, AccountId>
+public class CreateAccountValidator : CommandValidator<CreateAccountCommand, AccountId>
 {
     public CreateAccountValidator()
     {

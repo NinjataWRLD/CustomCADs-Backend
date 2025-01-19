@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Application.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using FluentValidation;
 
@@ -6,7 +6,7 @@ namespace CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetKey;
 
 using static Constants.FluentMessages;
 
-public class SetCadKeyValidator : Validator<SetCadKeyCommand>
+public class SetCadKeyValidator : CommandValidator<SetCadKeyCommand>
 {
     public SetCadKeyValidator()
     {

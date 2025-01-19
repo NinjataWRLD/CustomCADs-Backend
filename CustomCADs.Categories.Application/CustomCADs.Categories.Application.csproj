@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CustomCADs.Categories.Domain\CustomCADs.Categories.Domain.csproj" />
-		<ProjectReference Include="..\CustomCADs.Shared.Application\CustomCADs.Shared.Application.csproj" />
+		<ProjectReference Include="..\CustomCADs.Shared.Abstractions\CustomCADs.Shared.Abstractions.csproj" />
 		<ProjectReference Include="..\CustomCADs.Shared.UseCases\CustomCADs.Shared.UseCases.csproj" />
 	</ItemGroup>
 

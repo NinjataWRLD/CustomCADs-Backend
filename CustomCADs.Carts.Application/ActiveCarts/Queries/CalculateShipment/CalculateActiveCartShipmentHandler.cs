@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
-using CustomCADs.Shared.Application.Delivery.Dtos;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Delivery.Dtos;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
@@ -14,6 +14,9 @@ public class CalculateActiveCartShipmentHandler(IActiveCartReads reads, IRequest
     {
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
+
+        if (!cart.HasDelivery)
+            throw ActiveCartItemDeliveryException.ById(cart.Id);
 
         CalculateShipmentQuery query = new(
             ParcelCount: cart.TotalDeliveryCount,

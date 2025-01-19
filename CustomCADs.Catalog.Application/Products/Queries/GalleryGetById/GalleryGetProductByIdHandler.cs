@@ -1,13 +1,15 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
+using CustomCADs.Catalog.Domain.Products.DomainEvents;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Shared.Application.Requests.Sender;
+using CustomCADs.Shared.Abstractions.Events;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
 
-public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSender sender)
+public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSender sender, IEventRaiser raiser)
     : IQueryHandler<GalleryGetProductByIdQuery, GalleryGetProductByIdDto>
 {
     public async Task<GalleryGetProductByIdDto> Handle(GalleryGetProductByIdQuery req, CancellationToken ct)
@@ -28,6 +30,14 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
 
         GetTimeZoneByIdQuery timeZoneQuery = new(product.CreatorId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+
+        if (!req.AccountId.IsEmpty())
+        {
+            await raiser.RaiseDomainEventAsync(new ProductViewedDomainEvent(
+                Id: req.Id,
+                AccountId: req.AccountId
+            )).ConfigureAwait(false);
+        }
 
         return product.ToGalleryGetProductByIdDto(username, categoryName, timeZone);
     }

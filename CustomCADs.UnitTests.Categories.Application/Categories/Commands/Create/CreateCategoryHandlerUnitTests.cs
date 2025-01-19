@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Create;
 using CustomCADs.Categories.Domain.Categories.DomainEvents;
 using CustomCADs.Categories.Domain.Common;
-using CustomCADs.Shared.Application.Events;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Create.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Create;
