@@ -16,8 +16,5 @@ jobs:
           dotnet-version: 9.0.x
 
       - name: Run Unit Tests
-        run: |
-            for testProject in $(find . -type f -path "*UnitTests*.csproj"); do
-            echo "Running tests in $testProject"
-            dotnet test $testProject --no-build --configuration Release --logger "trx;LogFileName=$(basename $testProject)-unit-tests.trx"
-            done
+        working-directory: ./test/UnitTests
+        run: dotnet test CustomCADs.sln --no-build --configuration Release --logger "trx;LogFileName=unit-tests.trx"
