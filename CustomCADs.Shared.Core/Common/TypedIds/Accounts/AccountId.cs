@@ -12,6 +12,7 @@ public readonly struct AccountId
 
     public Guid Value { get; init; }
 
+    public bool IsEmpty() => Value == Guid.Empty;
     public static AccountId New() => new(Guid.NewGuid());
     public static AccountId New(Guid id) => new(id);
     public static AccountId? New(Guid? id) => id is null ? null : new(id.Value);
