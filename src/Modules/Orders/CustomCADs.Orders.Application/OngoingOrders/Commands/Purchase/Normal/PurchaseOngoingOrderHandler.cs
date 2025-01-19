@@ -17,7 +17,7 @@ public sealed class PurchaseOngoingOrderHandler(IOngoingOrderReads reads, IReque
 
         if (order.BuyerId != req.BuyerId)
             throw OngoingOrderAuthorizationException.ByOrderId(order.Id);
-        
+
         if (order.OrderStatus is not OngoingOrderStatus.Finished)
             throw OngoingOrderStatusException.NotFinished(order.Id);
 
@@ -29,7 +29,7 @@ public sealed class PurchaseOngoingOrderHandler(IOngoingOrderReads reads, IReque
 
         if (order.CadId is null)
             throw OngoingOrderCadException.ById(order.Id);
-        
+
         if (order.Price is null)
             throw OngoingOrderPriceException.ById(order.Id);
 

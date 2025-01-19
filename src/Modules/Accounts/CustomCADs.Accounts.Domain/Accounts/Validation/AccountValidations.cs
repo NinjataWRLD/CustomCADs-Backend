@@ -70,7 +70,7 @@ public static partial class AccountValidations
 
         return account;
     }
-    
+
     public static Account ValidateTimeZone(this Account account)
     {
         string property = "TimeZone";

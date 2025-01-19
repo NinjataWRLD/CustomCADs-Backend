@@ -11,7 +11,7 @@ public class CountActiveCartItemsHandlerUnitTests : ActiveCartsBaseUnitTests
     private const int Count = 5;
     private readonly Mock<IActiveCartReads> reads = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
-    
+
     public CountActiveCartItemsHandlerUnitTests()
     {
         reads.Setup(x => x.CountItemsByBuyerIdAsync(buyerId, ct))

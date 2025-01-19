@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Delivery.Domain.Common.Exceptions.Shipments;
-using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 
 namespace CustomCADs.Delivery.Domain.Shipments.Validations;
 
@@ -14,7 +13,7 @@ public static class ShipmentValidations
         {
             throw ShipmentValidationException.NotNull(property);
         }
-        
+
         return shipment;
     }
 

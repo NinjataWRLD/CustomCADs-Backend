@@ -39,7 +39,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByBuyerIdAsync(buyerId, false, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldReturnProperly()
     {

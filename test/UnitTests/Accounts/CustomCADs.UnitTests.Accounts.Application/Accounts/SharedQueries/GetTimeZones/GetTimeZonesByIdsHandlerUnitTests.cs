@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.TimeZone;
-using CustomCADs.Accounts.Application.Roles.Commands.Create;
 using CustomCADs.Accounts.Domain.Accounts.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
@@ -14,9 +13,9 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly Mock<IAccountReads> reads = new();
     private static readonly string[] timeZones = [
-        ValidTimeZone1, 
+        ValidTimeZone1,
         ValidTimeZone2,
-        ValidTimeZone1, 
+        ValidTimeZone1,
         ValidTimeZone2,
     ];
 
@@ -49,8 +48,8 @@ public class GetTimeZonesByIdsHandlerUnitTests : AccountsBaseUnitTests
         AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);
         reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
-            Items: [.. 
-                Enumerable.Range(0, ids.Length).Select(i => 
+            Items: [..
+                Enumerable.Range(0, ids.Length).Select(i =>
                     CreateAccountWithId(id: ids[i], timeZone: timeZones[i]))
             ]
         ));

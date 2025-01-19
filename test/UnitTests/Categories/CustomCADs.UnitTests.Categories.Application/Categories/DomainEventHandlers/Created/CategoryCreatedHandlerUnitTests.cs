@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Categories.Application.Categories.DomainEventHandlers;
 using CustomCADs.Categories.Application.Common.Caching;
-using CustomCADs.Categories.Application.Common.Caching.Categories;
 using CustomCADs.Categories.Domain.Categories.DomainEvents;
 using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.UnitTests.Categories.Application.Categories.DomainEventHandlers.Created.Data;
@@ -27,7 +26,7 @@ public class CategoryCreatedHandlerUnitTests : CategoriesBaseUnitTests
         await handler.Handle(de);
 
         // Assert
-        cache.Verify( v => v.RemoveAsync<IEnumerable<Category>>(CategoryKey), Times.Once());
-        cache.Verify( v => v.SetAsync($"{CategoryKey}/{de.Category.Id}", de.Category), Times.Once());
+        cache.Verify(v => v.RemoveAsync<IEnumerable<Category>>(CategoryKey), Times.Once());
+        cache.Verify(v => v.SetAsync($"{CategoryKey}/{de.Category.Id}", de.Category), Times.Once());
     }
 }

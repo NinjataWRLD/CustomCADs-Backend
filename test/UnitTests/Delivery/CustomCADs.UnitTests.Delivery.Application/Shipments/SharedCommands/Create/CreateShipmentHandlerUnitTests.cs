@@ -6,7 +6,6 @@ using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 using CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Create.Data;
-using System.Numerics;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Create;
 
@@ -52,7 +51,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
         ct), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
-    
+
     [Theory]
     [ClassData(typeof(CreateShipmentValidData))]
     public async Task Handle_ShouldSendRequests(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)

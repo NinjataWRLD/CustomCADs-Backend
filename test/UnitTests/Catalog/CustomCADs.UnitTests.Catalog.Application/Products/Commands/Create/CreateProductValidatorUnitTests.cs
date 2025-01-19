@@ -30,10 +30,10 @@ public class CreateProductValidatorUnitTests
             CategoryId: categoryId,
             CreatorId: creatorId
         );
-        
+
         // Act
         var result = validator.TestValidate(command);
-        
+
         // Assert
         Assert.True(result.IsValid);
     }
@@ -80,10 +80,10 @@ public class CreateProductValidatorUnitTests
             CategoryId: categoryId,
             CreatorId: creatorId
         );
-        
+
         // Act
         var result = validator.TestValidate(command);
-        
+
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Name);
     }
@@ -107,7 +107,7 @@ public class CreateProductValidatorUnitTests
 
         // Act
         var result = validator.TestValidate(command);
-        
+
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Description);
     }
@@ -128,10 +128,10 @@ public class CreateProductValidatorUnitTests
             CategoryId: categoryId,
             CreatorId: creatorId
         );
-        
+
         // Act
         var result = validator.TestValidate(command);
-        
+
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Price);
     }

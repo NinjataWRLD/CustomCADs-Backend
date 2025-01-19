@@ -23,11 +23,11 @@ public static class ProblemDetailsExtensions
             },
         }).ConfigureAwait(false);
     }
-    
+
     public static async Task<bool> ForbidednResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, string message = "Authorization Issue")
     {
         context.Response.StatusCode = Status403Forbidden;
-            
+
         return await service.TryWriteAsync(new()
         {
             HttpContext = context,
@@ -59,7 +59,7 @@ public static class ProblemDetailsExtensions
             },
         }).ConfigureAwait(false);
     }
-    
+
     public static async Task<bool> InternalServerErrorResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, string message = "Internal Error")
     {
         context.Response.StatusCode = Status500InternalServerError;

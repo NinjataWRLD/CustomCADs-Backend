@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Delete;
 using CustomCADs.Accounts.Domain.Accounts.Reads;
 using CustomCADs.Accounts.Domain.Common;
-using CustomCADs.Accounts.Domain.Roles.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete.Data;
@@ -32,7 +31,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByUsernameAsync(username, true, ct), Times.Once);
     }
-    
+
     [Theory]
     [ClassData(typeof(DeleteAccountValidData))]
     public async Task Handle_ShouldPersistToDatabase_WhenAccountFound(string username)

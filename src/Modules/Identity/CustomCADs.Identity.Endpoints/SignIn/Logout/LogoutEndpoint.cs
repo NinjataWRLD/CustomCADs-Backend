@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core;
-
-namespace CustomCADs.Identity.Endpoints.SignIn.Logout;
+﻿namespace CustomCADs.Identity.Endpoints.SignIn.Logout;
 
 public sealed class LogoutEndpoint(IUserService service)
     : EndpointWithoutRequest<string>

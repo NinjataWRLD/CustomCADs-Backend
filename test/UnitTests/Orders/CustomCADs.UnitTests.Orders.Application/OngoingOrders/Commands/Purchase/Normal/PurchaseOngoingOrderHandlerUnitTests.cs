@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
 using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
-using CustomCADs.Orders.Application.CompletedOrders.Queries.ClientGetById;
 using CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.Normal;
 using CustomCADs.Orders.Domain.OngoingOrders.Reads;
 using CustomCADs.Shared.Abstractions.Payment;
@@ -17,7 +16,7 @@ public class PurchaseOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
     private readonly Mock<IOngoingOrderReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Mock<IPaymentService> payment = new();
-    
+
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AccountId wrongBuyerId = ValidBuyerId2;
@@ -129,7 +128,7 @@ public class PurchaseOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
             await handler.Handle(command, ct);
         });
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenNotFinished()
     {
@@ -147,7 +146,7 @@ public class PurchaseOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
             await handler.Handle(command, ct);
         });
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenForDelivery()
     {
@@ -165,7 +164,7 @@ public class PurchaseOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
             await handler.Handle(command, ct);
         });
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenNoPrice()
     {

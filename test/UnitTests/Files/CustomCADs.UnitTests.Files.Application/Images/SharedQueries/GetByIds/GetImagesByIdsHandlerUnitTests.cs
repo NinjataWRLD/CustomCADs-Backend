@@ -17,7 +17,7 @@ public class GetImagesByIdsHandlerUnitTests : ImagesBaseUnitTests
         (ValidKey2, ValidContentType2),
     ];
     private static readonly ImageQuery imageQuery = new(
-        Pagination: new(1, ids.Length), 
+        Pagination: new(1, ids.Length),
         Ids: ids
     );
     private static readonly Result<Image> result = new(

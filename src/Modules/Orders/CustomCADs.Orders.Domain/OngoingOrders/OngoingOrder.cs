@@ -66,14 +66,14 @@ public class OngoingOrder : BaseAggregateRoot
         this.ValidateDescription();
         return this;
     }
-    
+
     public OngoingOrder SetDelivery(bool value)
     {
         Delivery = value;
-        
+
         return this;
     }
-    
+
     public OngoingOrder SetPrice(decimal price)
     {
         Price = price;
@@ -83,7 +83,7 @@ public class OngoingOrder : BaseAggregateRoot
 
     public OngoingOrder SetCadId(CadId cadId)
     {
-        if (DesignerId is null) 
+        if (DesignerId is null)
         {
             throw OngoingOrderValidationException.CadIdOnOrderWithoutDesignerId(Id);
         }

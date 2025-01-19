@@ -19,12 +19,12 @@ public class DuplicateCadsByIdsHandler(ICadReads reads, IWrites<Cad> writes, IUn
         Result<Cad> result = await reads.AllAsync(query, track: false, ct).ConfigureAwait(false);
 
         Dictionary<Cad, Cad> newCads = [];
-        foreach (Cad cad in result.Items) 
+        foreach (Cad cad in result.Items)
         {
             Cad newCad = Cad.Create(
-                key: cad.Key, 
-                contentType: cad.ContentType, 
-                camCoordinates: cad.CamCoordinates, 
+                key: cad.Key,
+                contentType: cad.ContentType,
+                camCoordinates: cad.CamCoordinates,
                 panCoordinates: cad.PanCoordinates
             );
             await writes.AddAsync(newCad, ct).ConfigureAwait(false);

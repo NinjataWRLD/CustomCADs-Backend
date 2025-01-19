@@ -22,14 +22,14 @@ public sealed class CreateProductHandler(IWrites<Product> productWrites, IUnitOf
         {
             throw ProductNotFoundException.CategoryId(req.CategoryId);
         }
-        
+
         GetAccountExistsByIdQuery creatorQuery = new(req.CreatorId);
         bool creatorExists = await sender.SendQueryAsync(creatorQuery, ct).ConfigureAwait(false);
         if (!creatorExists)
         {
             throw ProductNotFoundException.CreatorId(req.CreatorId);
         }
-        
+
         CreateCadCommand cadCommand = new(
             Key: req.CadKey,
             ContentType: req.CadContentType
@@ -55,7 +55,7 @@ public sealed class CreateProductHandler(IWrites<Product> productWrites, IUnitOf
         GetUserRoleByIdQuery roleQuery = new(req.CreatorId);
         string role = await sender.SendQueryAsync(roleQuery, ct).ConfigureAwait(false);
 
-        if (role is Designer) 
+        if (role is Designer)
             product.SetValidatedStatus();
 
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);

@@ -3,8 +3,6 @@ using CustomCADs.Carts.Application.ActiveCarts.Queries.CalculateShipment;
 using CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
 using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Carts.Application.ActiveCarts;
 

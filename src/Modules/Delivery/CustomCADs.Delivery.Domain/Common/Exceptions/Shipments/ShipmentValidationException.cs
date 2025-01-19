@@ -11,7 +11,7 @@ public class ShipmentValidationException : BaseException
 
     public static ShipmentValidationException General(Exception? inner = default)
         => new(string.Format(Validation, "a", "Shipment"), inner);
-    
+
     public static ShipmentValidationException NotNull(string property, Exception? inner = default)
         => new(string.Format(NonNullValidation, "A", "Shipment", property), inner);
 

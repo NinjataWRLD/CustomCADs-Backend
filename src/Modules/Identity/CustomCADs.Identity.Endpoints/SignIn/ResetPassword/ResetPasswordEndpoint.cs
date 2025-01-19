@@ -20,7 +20,7 @@ public sealed class ResetPasswordEndpoint(IUserService service)
 
         string encodedToken = req.Token.Replace(' ', '+');
         await service.ResetPasswordAsync(user, encodedToken, req.NewPassword).ConfigureAwait(false);
-        
+
         await SendOkAsync("Done!").ConfigureAwait(false);
     }
 }

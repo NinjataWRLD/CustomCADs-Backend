@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Domain.Common.Exceptions.CompletedOrder;
-using CustomCADs.Orders.Domain.Common.Exceptions.OngoingOrders;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Orders.Domain.CompletedOrders.Create.Normal.Data;
 

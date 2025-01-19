@@ -32,7 +32,7 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
     }
-    
+
     [Theory]
     [ClassData(typeof(SetCadKeyValidData))]
     public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string key)

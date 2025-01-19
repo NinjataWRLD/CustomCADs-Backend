@@ -89,7 +89,7 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
             Cad: (null, null),
             Image: (null, null),
             CreatorId: ValidDesignerId
-        ); 
+        );
         SetProductFilesHandler handler = new(reads.Object, sender.Object);
 
         // Assert

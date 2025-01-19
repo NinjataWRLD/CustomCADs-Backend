@@ -37,7 +37,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
         // Assert
         reads.Verify(v => v.SingleByIdAsync(ValidId1, true, ct), Times.Once());
     }
-    
+
     [Theory]
     [ClassData(typeof(EditCategoryValidData))]
     public async Task Handler_ShouldPersistToDatabase(string name, string description)

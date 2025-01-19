@@ -1,6 +1,4 @@
-﻿using FluentValidation.Results;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Routing;
 
 namespace CustomCADs.Identity.Endpoints.SignUp.Register;
 

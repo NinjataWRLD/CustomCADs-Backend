@@ -83,7 +83,7 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
             It.IsAny<GetTimeZoneByIdQuery>()
         , ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldReturnProperly()
     {
@@ -116,7 +116,7 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(CreateOrderWithId(id, delivery: false));
-        
+
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
             TotalWeight: TotalWeight,
@@ -139,7 +139,7 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(null as OngoingOrder);
-        
+
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
             TotalWeight: TotalWeight,

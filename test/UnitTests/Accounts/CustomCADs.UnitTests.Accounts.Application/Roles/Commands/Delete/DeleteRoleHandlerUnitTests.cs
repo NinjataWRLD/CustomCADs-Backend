@@ -39,7 +39,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByNameAsync(name, true, ct), Times.Once);
     }
-    
+
     [Theory]
     [ClassData(typeof(DeleteRoleValidData))]
     public async Task Handler_ShouldPersistToDatabase_WhenRoleFound(string name)

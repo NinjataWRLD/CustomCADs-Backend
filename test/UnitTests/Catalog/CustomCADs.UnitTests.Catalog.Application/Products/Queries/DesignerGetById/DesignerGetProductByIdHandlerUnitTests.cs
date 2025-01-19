@@ -33,7 +33,7 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {

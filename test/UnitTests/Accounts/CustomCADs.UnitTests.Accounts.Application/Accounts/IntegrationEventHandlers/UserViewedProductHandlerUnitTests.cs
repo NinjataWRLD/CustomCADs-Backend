@@ -35,7 +35,7 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldPersistToDatabase()
     {
@@ -49,7 +49,7 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
         // Assert
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldPopulateProperly()
     {

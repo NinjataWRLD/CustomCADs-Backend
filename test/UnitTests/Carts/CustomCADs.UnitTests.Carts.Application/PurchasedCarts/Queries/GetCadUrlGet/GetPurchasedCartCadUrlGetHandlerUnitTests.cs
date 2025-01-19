@@ -35,7 +35,7 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
         ]
     );
     private static readonly PurchasedCartId cartId = ValidId1;
-    private static readonly PurchasedCartItemId itemId = PurchasedCartItemId.New(Guid.Empty); 
+    private static readonly PurchasedCartItemId itemId = PurchasedCartItemId.New(Guid.Empty);
     private static readonly AccountId buyerId = ValidBuyerId1;
     private const string url = "presigned-url";
 

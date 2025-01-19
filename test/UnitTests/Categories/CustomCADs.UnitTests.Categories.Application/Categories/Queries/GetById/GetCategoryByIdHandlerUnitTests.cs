@@ -36,7 +36,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 
         // Act
         await handler.Handle(query, ct);
-        
+
         // Assert
         cache.Verify(v => v.GetAsync<Category>($"{CategoryKey}/{id}"), Times.Once());
     }

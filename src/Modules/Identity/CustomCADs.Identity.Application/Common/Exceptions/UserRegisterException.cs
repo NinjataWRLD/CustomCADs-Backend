@@ -14,7 +14,7 @@ public class UserRegisterException : BaseException
 
     public static UserRegisterException AlreadyConfirmed(string username, Exception? inner = null)
         => new($"Account: {username} has already confirmed their email.", inner);
-    
+
     public static UserRegisterException EmailToken(string username, Exception? inner = null)
         => new($"Error confirming Account: {username}'s email.", inner);
 

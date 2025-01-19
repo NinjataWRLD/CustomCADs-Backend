@@ -112,7 +112,7 @@ public sealed class AppUserService(UserManager<AppUser> manager, ITokenService t
         }
 
         var result = await manager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
-        if (!result.Succeeded) 
+        if (!result.Succeeded)
         {
             throw UserRegisterException.EmailToken(user.UserName ?? string.Empty);
         }

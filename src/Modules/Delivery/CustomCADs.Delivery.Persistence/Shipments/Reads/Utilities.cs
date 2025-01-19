@@ -14,7 +14,7 @@ public static class Utilities
         {
             query = query.Where(s => s.BuyerId == clientId);
         }
-        
+
         return query;
     }
 

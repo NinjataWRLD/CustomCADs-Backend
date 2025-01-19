@@ -3,8 +3,8 @@ using FluentValidation;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Create;
 
-using static Constants.FluentMessages;
 using static CategoryConstants;
+using static Constants.FluentMessages;
 
 public class CreateCategoryValidator : CommandValidator<CreateCategoryCommand, CategoryId>
 {

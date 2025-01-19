@@ -18,10 +18,10 @@ public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
             cadId: cadId,
             price: price,
             quantity: quantity,
-            forDelivery: forDelivery        
+            forDelivery: forDelivery
         );
     }
-    
+
     [Theory]
     [ClassData(typeof(PurchasedCartItemCreateValidData))]
     public void Create_ShouldPopulateProperties(PurchasedCartId cartId, ProductId productId, CadId cadId, decimal price, int quantity, bool forDelivery)
@@ -32,7 +32,7 @@ public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
             cadId: cadId,
             price: price,
             quantity: quantity,
-            forDelivery: forDelivery        
+            forDelivery: forDelivery
         );
 
         Assert.Multiple(

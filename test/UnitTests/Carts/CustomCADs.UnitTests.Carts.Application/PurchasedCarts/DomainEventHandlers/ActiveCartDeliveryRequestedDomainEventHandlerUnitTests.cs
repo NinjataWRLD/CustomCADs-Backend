@@ -73,10 +73,10 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>(), 
+            It.IsAny<GetUsernameByIdQuery>(),
         ct), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<CreateShipmentCommand>(), 
+            It.IsAny<CreateShipmentCommand>(),
         ct), Times.Once);
     }
 

@@ -2,7 +2,6 @@
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Cads.Queries;
-using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetCadUrlPut;
 

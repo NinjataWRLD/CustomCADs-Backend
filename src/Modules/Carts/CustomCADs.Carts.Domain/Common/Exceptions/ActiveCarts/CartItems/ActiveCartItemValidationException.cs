@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
-using CustomCADs.Shared.Core;
+﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Bases.Exceptions;
 
 namespace CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;

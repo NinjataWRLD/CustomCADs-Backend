@@ -22,7 +22,7 @@ public class CreateImageValidatorUnitTests : ImagesBaseUnitTests
         // Assert
         Assert.True(result.IsValid);
     }
-    
+
     [Theory]
     [ClassData(typeof(CreateImageInvalidKeyData))]
     [ClassData(typeof(CreateImageInvalidContentTypeData))]

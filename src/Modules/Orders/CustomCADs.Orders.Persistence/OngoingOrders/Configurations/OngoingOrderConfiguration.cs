@@ -69,7 +69,7 @@ public static class OrderConfigUtils
             .IsRequired()
             .HasMaxLength(DescriptionMaxLength)
             .HasColumnName("Description");
-        
+
         builder.Property(x => x.Price)
             .HasPrecision(19, 2)
             .HasColumnName("Price");

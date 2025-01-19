@@ -12,14 +12,14 @@ public class CompletedOrderSetShipmentIdUnitTests : CompletedOrdersBaseUnitTests
     {
         CreateOrder(delivery: true).SetShipmentId(shipmentId);
     }
-    
+
     [Theory]
     [ClassData(typeof(CompletedOrderSetShipmentIdValidData))]
     public void SetShipmentId_ShouldPopulateProperly(ShipmentId shipmentId)
     {
         var order = CreateOrder(delivery: true);
         order.SetShipmentId(shipmentId);
-        Assert.Equal(shipmentId, order.ShipmentId); 
+        Assert.Equal(shipmentId, order.ShipmentId);
     }
 
     [Theory]

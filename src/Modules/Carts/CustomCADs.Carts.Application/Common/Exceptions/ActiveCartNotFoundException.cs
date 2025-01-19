@@ -14,7 +14,7 @@ public class ActiveCartNotFoundException : BaseException
 
     public static ActiveCartNotFoundException ByBuyerId(AccountId buyerId, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Cart", nameof(buyerId), buyerId), inner);
-    
+
     public static ActiveCartNotFoundException BuyerId(AccountId buyerId, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Account", nameof(buyerId), buyerId), inner);
 

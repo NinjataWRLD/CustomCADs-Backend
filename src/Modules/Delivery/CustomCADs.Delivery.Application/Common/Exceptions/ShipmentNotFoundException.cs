@@ -14,7 +14,7 @@ public class ShipmentNotFoundException : BaseException
 
     public static ShipmentNotFoundException ById(ShipmentId id, Exception? inner = null)
         => new(string.Format(NotFoundByProp, "Shipment", nameof(id), id), inner);
-    
+
     public static ShipmentNotFoundException BuyerId(AccountId id, Exception? inner = null)
         => new(string.Format(NotFoundByProp, "Account", nameof(id), id), inner);
 

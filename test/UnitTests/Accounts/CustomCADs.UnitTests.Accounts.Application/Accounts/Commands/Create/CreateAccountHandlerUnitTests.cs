@@ -4,7 +4,6 @@ using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Create.Data;
-using System.Xml.Linq;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Create;
 
@@ -76,6 +75,6 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
                 && x.Email == email
                 && x.Password == password
             )
-        ),Times.Once);
+        ), Times.Once);
     }
 }

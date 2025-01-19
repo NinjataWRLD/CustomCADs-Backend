@@ -14,10 +14,10 @@ public class OngoingOrderNotFoundException : BaseException
 
     public static OngoingOrderNotFoundException ById(OngoingOrderId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Ongoing Order", nameof(id), id), inner);
-    
+
     public static OngoingOrderNotFoundException BuyerId(AccountId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Account", nameof(id), id), inner);
-    
+
     public static OngoingOrderNotFoundException DesignerId(AccountId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Account", nameof(id), id), inner);
 

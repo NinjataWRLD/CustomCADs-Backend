@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments;
-using CustomCADs.Delivery.Domain.Shipments.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using Microsoft.EntityFrameworkCore;
@@ -67,7 +66,7 @@ public static class ShipmentConfigUtils
         builder.Property(x => x.ReferenceId)
             .IsRequired()
             .HasColumnName("ReferenceId"); ;
-        
+
         builder.Property(x => x.RequestDate)
             .IsRequired()
             .HasColumnName("RequestDate"); ;

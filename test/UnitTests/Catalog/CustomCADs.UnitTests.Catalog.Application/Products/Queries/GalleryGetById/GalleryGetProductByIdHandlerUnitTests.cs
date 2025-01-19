@@ -58,7 +58,7 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNameByIdQuery>(), ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldRaiseEvents_WhenAccountIdEmpty()
     {
@@ -74,7 +74,7 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
             It.IsAny<ProductViewedDomainEvent>())
         , Times.Once);
     }
-        
+
     [Fact]
     public async Task Handle_ShouldNotRaiseEvents_WhenAccountIdEmpty()
     {

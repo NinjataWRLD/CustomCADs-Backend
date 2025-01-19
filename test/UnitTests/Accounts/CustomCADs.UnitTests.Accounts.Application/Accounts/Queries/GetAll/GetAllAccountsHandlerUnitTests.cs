@@ -60,7 +60,7 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
             () => Assert.Equal(accounts.Items.Select(r => r.Email), this.accounts.Select(r => r.Email))
         );
     }
- 
+
     private static Pagination GetPagination(int count = count)
             => new(1, count);
 }

@@ -63,7 +63,7 @@ public class AcceptOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         // Assert
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {
@@ -80,7 +80,7 @@ public class AcceptOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         // Assert
         sender.Verify(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId), ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldPopulateProperly()
     {

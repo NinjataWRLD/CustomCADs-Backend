@@ -10,7 +10,7 @@ using static OngoingOrderConstants;
 public static class OngoingOrdersData
 {
     public static readonly CancellationToken ct = CancellationToken.None;
-    
+
     public static readonly OngoingOrderId ValidId1 = OngoingOrderId.New();
     public static readonly OngoingOrderId ValidId2 = OngoingOrderId.New();
 

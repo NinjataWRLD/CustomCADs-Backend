@@ -11,7 +11,7 @@ public class UserRefreshTokenException : BaseException
 
     public static UserRefreshTokenException Missing(Exception? inner = null)
         => new("No Refresh Token found.", inner);
-    
+
     public static UserRefreshTokenException Expired(Exception? inner = null)
         => new("Refresh Token found, but expired.", inner);
 

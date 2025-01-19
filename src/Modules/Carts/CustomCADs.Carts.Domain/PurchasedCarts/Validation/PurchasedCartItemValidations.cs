@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
-using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.CartItems;
+﻿using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.CartItems;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 
 namespace CustomCADs.Carts.Domain.PurchasedCarts.Validation;

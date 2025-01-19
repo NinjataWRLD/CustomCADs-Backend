@@ -32,7 +32,7 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
     }
-    
+
     [Theory]
     [ClassData(typeof(SetImageContentTypeValidData))]
     public async Task Handle_ShouldPersistToDatabase_WhenImageFound(string contentType)

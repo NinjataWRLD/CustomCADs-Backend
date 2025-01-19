@@ -36,7 +36,7 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByNameAsync(ValidName1, true, ct), Times.Once);
     }
-    
+
     [Theory]
     [ClassData(typeof(EditRoleValidData))]
     public async Task Handler_ShouldPersistToDatabase_WhenRoleFound(string name, string description)

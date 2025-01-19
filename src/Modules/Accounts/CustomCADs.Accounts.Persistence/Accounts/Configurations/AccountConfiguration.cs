@@ -81,7 +81,7 @@ static class UserConfigUtils
         builder.Property(x => x.RoleName)
             .IsRequired()
             .HasColumnName("RoleName");
-        
+
         builder.Property(x => x.ViewedProductIds)
             .IsRequired()
             .HasConversion(

@@ -98,7 +98,7 @@ public class ReportOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         // Assert
         await handler.Handle(command, ct);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
     {

@@ -27,7 +27,7 @@ public sealed class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow
         {
             throw ProductNotFoundException.DesignerId(req.DesignerId);
         }
-        
+
         product.SetDesignerId(req.DesignerId);
 
         switch (req.Status)

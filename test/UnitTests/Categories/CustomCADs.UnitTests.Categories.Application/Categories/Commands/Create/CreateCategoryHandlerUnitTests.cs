@@ -26,7 +26,7 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 
         // Assert
         writes.Verify(v => v.AddAsync(
-            It.Is<Category>(x => x.Name == name && x.Description == description), 
+            It.Is<Category>(x => x.Name == name && x.Description == description),
             ct
         ), Times.Once());
         uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
@@ -45,7 +45,7 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        raiser.Verify(v => v .RaiseDomainEventAsync(
+        raiser.Verify(v => v.RaiseDomainEventAsync(
             It.Is<CategoryCreatedDomainEvent>(x => x.Category.Name == name && x.Category.Description == description)
         ), Times.Once());
     }

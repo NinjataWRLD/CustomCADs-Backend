@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
-using CustomCADs.Catalog.Application.Products.Commands.Edit;
 using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -11,7 +10,6 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 using CustomCADs.Shared.UseCases.Images.Commands;
 using CustomCADs.UnitTests.Catalog.Application.Products.Commands.Create.Data;
-using System.Xml.Linq;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Create;
 

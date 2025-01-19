@@ -69,7 +69,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         // Assert
         uow.Verify(x => x.SaveChangesAsync(ct));
     }
-    
+
     [Theory]
     [ClassData(typeof(AddActiveCartValidData))]
     public async Task Handle_ShouldSendRequests(AccountId buyerId, double weight, bool forDelivery, ProductId productId)
@@ -92,7 +92,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetProductExistsByIdQuery>(x => x.Id == productId), 
+            It.Is<GetProductExistsByIdQuery>(x => x.Id == productId),
         ct), Times.Once);
     }
 

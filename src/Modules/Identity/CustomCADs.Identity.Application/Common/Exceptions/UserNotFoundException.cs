@@ -19,7 +19,7 @@ public class UserNotFoundException : BaseException
 
     public static UserNotFoundException ByEmail(string email, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "User", nameof(email), email), inner);
-    
+
     public static UserNotFoundException ByRefreshToken(string rt, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "User", nameof(rt), rt), inner);
 

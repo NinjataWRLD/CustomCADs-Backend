@@ -39,7 +39,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
         // Assert
         cache.Verify(x => x.GetAsync<IEnumerable<Role>>(RoleKey), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldQueryDatabase_OnCacheMiss()
     {

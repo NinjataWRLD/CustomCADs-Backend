@@ -59,7 +59,7 @@ public static class ActiveCartItemConfigurUitls
         builder.Property(x => x.BuyerId)
             .IsRequired()
             .HasColumnName("BuyerId");
-        
+
         return builder;
     }
 }

@@ -30,7 +30,7 @@ public class GetProductImagePresignedUrlPutHandlerUnitTests : ProductsBaseUnitTe
     {
         // Arrange
         GetProductImagePresignedUrlPutQuery query = new(
-            Id: ValidId, 
+            Id: ValidId,
             ContentType: contentType,
             FileName: fileName,
             CreatorId: ValidCreatorId

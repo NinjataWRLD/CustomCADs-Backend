@@ -15,13 +15,13 @@ public class CompletedOrderNotFoundException : BaseException
 
     public static CompletedOrderNotFoundException ById(CompletedOrderId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Completed Order", nameof(id), id), inner);
-    
+
     public static CompletedOrderNotFoundException BuyerId(AccountId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Account", nameof(id), id), inner);
-    
+
     public static CompletedOrderNotFoundException DesignerId(AccountId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Account", nameof(id), id), inner);
-    
+
     public static CompletedOrderNotFoundException CadId(CadId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Cad", nameof(id), id), inner);
 

@@ -2,7 +2,6 @@
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.SharedQueries.CadIdsByIds;

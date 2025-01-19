@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core;
-
-namespace CustomCADs.Identity.Endpoints.Info.Authentication;
+﻿namespace CustomCADs.Identity.Endpoints.Info.Authentication;
 
 public sealed class AuthenticationEndpoint
     : EndpointWithoutRequest

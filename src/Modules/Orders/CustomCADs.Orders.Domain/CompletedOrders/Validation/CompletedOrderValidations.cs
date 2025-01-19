@@ -43,7 +43,7 @@ public static class CompletedOrderValidations
 
         return order;
     }
-    
+
     public static CompletedOrder ValidatePrice(this CompletedOrder order)
     {
         string property = "Price";

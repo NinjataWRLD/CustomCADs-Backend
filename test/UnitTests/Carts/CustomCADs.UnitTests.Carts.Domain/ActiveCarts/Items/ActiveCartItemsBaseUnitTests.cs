@@ -19,7 +19,7 @@ public class ActiveCartItemsBaseUnitTests
             weight: weight ?? ValidWeight1,
             forDelivery: forDelivery ?? false
         );
-    
+
     protected static ActiveCartItem CreateItemWithId(
         ActiveCartItemId? id = null,
         ActiveCartId? cartId = null,

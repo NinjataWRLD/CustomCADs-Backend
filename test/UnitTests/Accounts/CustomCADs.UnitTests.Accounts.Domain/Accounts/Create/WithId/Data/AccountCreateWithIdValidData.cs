@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Create.WithId.Data;
 
-using CustomCADs.UnitTests.Accounts.Domain.Accounts.Create.Normal;
 using static AccountsData;
 
 public class AccountCreateWithIdValidData : AccountCreateWithIdData

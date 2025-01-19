@@ -38,7 +38,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldPersistToDatabase()
     {

@@ -80,7 +80,7 @@ public static class OrderConfigUtils
             .IsRequired()
             .HasPrecision(19, 2)
             .HasColumnName("Price");
-        
+
         builder.Property(x => x.Delivery)
             .IsRequired()
             .HasColumnName("Delivery");

@@ -44,7 +44,7 @@ static class CategoryConfigUtils
             .IsRequired()
             .HasMaxLength(NameMaxLength)
             .HasColumnName("Name");
-            
+
         builder.Property(x => x.Description)
             .IsRequired()
             .HasMaxLength(DescriptionMaxLength)

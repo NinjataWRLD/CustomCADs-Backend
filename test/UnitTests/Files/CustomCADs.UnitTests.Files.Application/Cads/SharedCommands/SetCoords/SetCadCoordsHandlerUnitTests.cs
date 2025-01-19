@@ -37,7 +37,7 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
     }
-    
+
     [Theory]
     [ClassData(typeof(SetCadCoordsValidData))]
     public async Task Handle_ShouldPersistToDatabase_WhenCadFound(int x1, int y1, int z1, int x2, int y2, int z2)

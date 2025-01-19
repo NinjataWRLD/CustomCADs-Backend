@@ -15,7 +15,7 @@ public sealed class GetProductImagePresignedUrlGetHandler(IProductReads reads, I
 
         GetImagePresignedUrlGetByIdQuery query = new(product.ImageId);
         string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-        
+
         return new(PresignedUrl: url);
     }
 }

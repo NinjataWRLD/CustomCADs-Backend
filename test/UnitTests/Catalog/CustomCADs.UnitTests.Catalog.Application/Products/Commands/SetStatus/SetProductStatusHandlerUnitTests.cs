@@ -53,7 +53,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
         // Assert
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {
@@ -111,7 +111,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(null as Product);
-        
+
         SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
         SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 

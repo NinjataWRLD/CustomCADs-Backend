@@ -20,7 +20,7 @@ public sealed class ConfirmEmailEndpoint(IUserService userService, ITokenService
 
         string decodedEct = req.Token.Replace(' ', '+');
         await userService.ConfirmEmailAsync(user, decodedEct).ConfigureAwait(false);
-        
+
         string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, req.Username, role);
         RefreshTokenDto rt = await userService.UpdateRefreshTokenAsync(user.Id, longerSession: false).ConfigureAwait(false);

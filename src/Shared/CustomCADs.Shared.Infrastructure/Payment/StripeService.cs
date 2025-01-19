@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Payment.Exceptions;
-using JasperFx.CodeGeneration.Frames;
 using Microsoft.Extensions.Options;
 using Stripe;
 
@@ -43,7 +42,7 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
             case ProcessingPayment:
                 await WaitForProcessingToResolve(paymentIntent.Id, ct).ConfigureAwait(false);
                 return message;
-                
+
             case SuccessfulPayment:
                 return message;
 
@@ -82,13 +81,13 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
 
             switch (message)
             {
-                case SuccessfulPayment: 
+                case SuccessfulPayment:
                     return message;
-                
-                case ProcessingPayment: 
+
+                case ProcessingPayment:
                     await Task.Delay(SecondsBetweenRetries * 1000, ct).ConfigureAwait(false); break;
 
-                default: 
+                default:
                     throw PaymentFailedException.General(message);
             }
         }

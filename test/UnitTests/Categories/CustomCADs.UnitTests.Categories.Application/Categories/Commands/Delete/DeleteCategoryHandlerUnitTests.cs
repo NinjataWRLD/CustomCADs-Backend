@@ -24,7 +24,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 
         reads.Setup(v => v.SingleByIdAsync(ValidId2, true, ct))
             .ReturnsAsync(CreateCategory(ValidId2, ValidName2, ValidDescription2));
-        
+
         reads.Setup(v => v.SingleByIdAsync(ValidId3, true, ct))
             .ReturnsAsync(CreateCategory(ValidId3, ValidName3, ValidDescription3));
     }
@@ -43,7 +43,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
         // Assert
         reads.Verify(v => v.SingleByIdAsync(id, true, ct), Times.Once());
     }
-    
+
     [Theory]
     [ClassData(typeof(DeleteCategoryValidData))]
     public async Task Handler_ShouldPersistToDatabase_WhenCategoryFound(CategoryId id)

@@ -48,7 +48,7 @@ public class CreateOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         ), ct), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
-    
+
     [Theory]
     [ClassData(typeof(CreateOngoingOrderValidData))]
     public async Task Handle_ShouldSendRequests(string name, string description, bool delivery, AccountId buyerId)

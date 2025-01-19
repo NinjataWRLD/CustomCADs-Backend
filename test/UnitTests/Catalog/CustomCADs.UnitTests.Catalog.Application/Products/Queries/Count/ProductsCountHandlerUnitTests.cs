@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Count;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Catalog.Domain.Products.ValueObjects;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Count;
 

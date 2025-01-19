@@ -81,12 +81,12 @@ public class OngoingOrderDeliveryRequestedDomainEventHandlerUnitTests : Complete
         // Assert
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetUsernameByIdQuery>()
-        , ct) , Times.Once);
+        , ct), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
             It.IsAny<CreateShipmentCommand>()
         , ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldPopulateProperly()
     {

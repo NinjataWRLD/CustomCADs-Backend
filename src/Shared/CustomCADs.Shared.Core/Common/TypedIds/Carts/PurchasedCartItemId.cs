@@ -11,7 +11,7 @@ public readonly struct PurchasedCartItemId
     }
 
     public Guid Value { get; init; }
-    
+
     public static PurchasedCartItemId New() => new(Guid.NewGuid());
     public static PurchasedCartItemId New(Guid id) => new(id);
 

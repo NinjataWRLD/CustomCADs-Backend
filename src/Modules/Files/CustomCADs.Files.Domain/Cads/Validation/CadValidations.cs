@@ -19,7 +19,7 @@ public static class CadValidations
 
         return cad;
     }
-    
+
     public static Cad ValidateContentType(this Cad cad)
     {
         string property = "ContentType";

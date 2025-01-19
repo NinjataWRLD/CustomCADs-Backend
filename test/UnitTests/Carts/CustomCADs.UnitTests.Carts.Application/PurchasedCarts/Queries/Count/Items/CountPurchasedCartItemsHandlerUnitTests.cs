@@ -13,7 +13,7 @@ public class CountPurchasedCartItemsHandlerUnitTests : PurchasedCartsBaseUnitTes
     private readonly Mock<IPurchasedCartReads> reads = new();
     private readonly Dictionary<AccountId, Dictionary<PurchasedCartId, int>> counts = new()
     {
-        [ValidBuyerId1] = new() { [ValidId1] =  1, [ValidId2] = 2 },
+        [ValidBuyerId1] = new() { [ValidId1] = 1, [ValidId2] = 2 },
         [ValidBuyerId2] = new() { [ValidId1] = 2, [ValidId2] = 1 },
     };
 

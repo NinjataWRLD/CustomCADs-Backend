@@ -12,7 +12,7 @@ public class EditOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
 {
     private readonly Mock<IOngoingOrderReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
-    
+
     private static readonly OngoingOrderId id = OngoingOrderId.New();
     private static readonly AccountId buyerId = AccountId.New();
     private readonly OngoingOrder order = CreateOrderWithId(buyerId: buyerId);

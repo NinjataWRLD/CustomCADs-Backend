@@ -18,7 +18,7 @@ public class CreateCategoryValidatorUnitTests : CategoriesBaseUnitTests
 
         // Act
         var result = validator.TestValidate(new(command));
-        
+
         // Assert
         Assert.True(result.IsValid);
     }

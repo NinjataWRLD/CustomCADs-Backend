@@ -116,7 +116,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
             It.IsAny<ActiveCartPurchasedDomainEvent>()
         ), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldReturnProperly()
     {

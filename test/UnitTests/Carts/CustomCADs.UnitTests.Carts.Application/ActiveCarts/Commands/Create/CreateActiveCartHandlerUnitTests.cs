@@ -58,7 +58,7 @@ public class CreateActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
         ct), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {

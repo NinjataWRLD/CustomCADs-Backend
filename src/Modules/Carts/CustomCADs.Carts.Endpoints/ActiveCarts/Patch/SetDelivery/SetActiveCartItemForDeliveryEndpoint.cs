@@ -24,7 +24,7 @@ public class SetActiveCartItemForDeliveryEndpoint(IRequestSender sender)
             Value: req.Value
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
-        
+
         await SendNoContentAsync().ConfigureAwait(false);
     }
 }

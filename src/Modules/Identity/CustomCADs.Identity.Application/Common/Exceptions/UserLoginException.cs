@@ -11,7 +11,7 @@ public class UserLoginException : BaseException
 
     public static UserLoginException ByUsername(string username, Exception? inner = null)
         => new($"Account: {username} doesn't exist or password is incorrect.", inner);
-    
+
     public static UserLoginException NotConfirmed(string username, Exception? inner = null)
         => new($"Account: {username} hasn't verified their email.", inner);
 

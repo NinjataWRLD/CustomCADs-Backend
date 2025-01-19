@@ -33,8 +33,8 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ActiveCartsBaseUni
             .ReturnsAsync(BulkDeleteThreshold - 1);
 
         reads.Setup(x => x.AllAsync(
-            It.Is<ActiveCartQuery>(q => q.ProductId == productId), 
-            true, 
+            It.Is<ActiveCartQuery>(q => q.ProductId == productId),
+            true,
             ct
         )).ReturnsAsync(new Result<ActiveCart>(carts.Length, carts));
     }
@@ -58,7 +58,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ActiveCartsBaseUni
             It.Is<ActiveCartQuery>(q => q.ProductId == productId), true, ct)
         , Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldNotQueryDatabase_WhenThresholdReached()
     {

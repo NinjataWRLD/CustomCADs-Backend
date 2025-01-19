@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Carts.Behaviors.RemoveItemsByProductId;
 

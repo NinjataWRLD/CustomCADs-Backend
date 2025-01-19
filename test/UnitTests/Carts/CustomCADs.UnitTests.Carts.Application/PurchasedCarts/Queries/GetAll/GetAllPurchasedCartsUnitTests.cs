@@ -12,7 +12,7 @@ using static PurchasedCartsData;
 
 public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
 {
-    private readonly Mock<IPurchasedCartReads> reads= new();
+    private readonly Mock<IPurchasedCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly PurchasedCart[] carts = [
         CreateCartWithId(id: ValidId1),
@@ -28,14 +28,14 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
 
         reads.Setup(x => x.AllAsync(query, false, ct))
             .ReturnsAsync(new Result<PurchasedCart>(
-                carts.Length, 
+                carts.Length,
                 carts
             ));
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZonesByIdsQuery>(), ct))
-            .ReturnsAsync(new Dictionary<AccountId, string>() 
-            { 
-                [ValidBuyerId1] = "Europe/Sofia" 
+            .ReturnsAsync(new Dictionary<AccountId, string>()
+            {
+                [ValidBuyerId1] = "Europe/Sofia"
             });
     }
 
@@ -52,7 +52,7 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
         // Assert
         reads.Verify(x => x.AllAsync(this.query, false, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {
@@ -65,7 +65,7 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetTimeZonesByIdsQuery>(), 
+            It.IsAny<GetTimeZonesByIdsQuery>(),
         ct), Times.Once);
     }
 

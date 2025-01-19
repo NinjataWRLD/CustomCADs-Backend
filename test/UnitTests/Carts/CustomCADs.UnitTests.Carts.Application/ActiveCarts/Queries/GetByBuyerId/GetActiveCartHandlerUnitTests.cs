@@ -54,7 +54,7 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
             It.IsAny<GetTimeZoneByIdQuery>()
         , ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldReturnProperly()
     {

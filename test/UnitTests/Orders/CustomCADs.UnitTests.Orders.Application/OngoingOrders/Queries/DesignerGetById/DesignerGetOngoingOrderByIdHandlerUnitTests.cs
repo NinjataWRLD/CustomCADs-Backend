@@ -14,7 +14,7 @@ public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnit
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly AccountId designerId = ValidDesignerId1;
     private static readonly AccountId wrongDesignerId = ValidDesignerId2;
-    private readonly OngoingOrder order = 
+    private readonly OngoingOrder order =
         CreateOrderWithId(id)
         .SetAcceptedStatus()
         .SetDesignerId(designerId);
@@ -82,7 +82,7 @@ public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnit
         // Assert
         await handler.Handle(query, ct);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenDesignerNotAssociated()
     {

@@ -19,7 +19,7 @@ public sealed class RetryConfirmEmailEndpoint(IUserService service, LinkGenerato
     public override async Task HandleAsync(RetryConfirmEmailRequest req, CancellationToken ct)
     {
         AppUser user = await service.FindByNameAsync(req.Username).ConfigureAwait(false);
-        
+
         string token = await service.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
         string uri = links.GetUriByName(HttpContext, SignUpNames.ConfirmEmail, new { username = req.Username, token = token })
             ?? throw new InvalidOperationException("Unable to generate confirmation link.");

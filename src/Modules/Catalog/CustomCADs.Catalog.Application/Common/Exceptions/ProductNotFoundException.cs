@@ -15,16 +15,16 @@ public class ProductNotFoundException : BaseException
 
     public static ProductNotFoundException ById(ProductId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Product", nameof(id), id), inner);
-    
+
     public static ProductNotFoundException CategoryId(CategoryId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Category", nameof(id), id), inner);
-    
+
     public static ProductNotFoundException DesignerId(AccountId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Account", nameof(id), id), inner);
-    
+
     public static ProductNotFoundException CreatorId(AccountId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Account", nameof(id), id), inner);
-    
+
     public static ProductNotFoundException Custom(string message, Exception? inner = default)
         => new(message, inner);
 }

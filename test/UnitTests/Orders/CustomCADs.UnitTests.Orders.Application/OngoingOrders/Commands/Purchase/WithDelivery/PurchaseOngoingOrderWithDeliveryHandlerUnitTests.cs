@@ -21,7 +21,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
     private readonly Mock<IRequestSender> sender = new();
     private readonly Mock<IPaymentService> payment = new();
     private readonly Mock<IEventRaiser> raiser = new();
-    
+
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AccountId wrongBuyerId = ValidBuyerId2;
@@ -196,7 +196,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         // Assert
         Assert.Equal(expected, actual);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
     {
@@ -220,7 +220,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
             await handler.Handle(command, ct);
         });
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenNotFinished()
     {
@@ -274,7 +274,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
             await handler.Handle(command, ct);
         });
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenNoPrice()
     {

@@ -2,7 +2,7 @@
 
 using static CompletedOrdersData;
 
-public class CompletedOrderCreateInvalidPriceData :  CompletedOrderCreateData
+public class CompletedOrderCreateInvalidPriceData : CompletedOrderCreateData
 {
     public CompletedOrderCreateInvalidPriceData()
     {

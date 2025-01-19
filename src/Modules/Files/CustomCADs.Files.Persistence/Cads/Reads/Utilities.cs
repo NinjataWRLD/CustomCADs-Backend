@@ -17,7 +17,7 @@ public static class Utilities
 
         return query;
     }
-    
+
     public static IQueryable<Cad> WithSorting(this IQueryable<Cad> query, CadSorting? sorting = null)
     {
         return sorting switch

@@ -21,10 +21,10 @@ public class ProductValidationException : BaseException
 
     public static ProductValidationException Range<TType>(string property, TType max, TType min, Exception? inner = default) where TType : struct
         => new(string.Format(RangeValidation, "a", "Product", property, min, max), inner);
-    
+
     public static ProductValidationException Minimum<TType>(string property, TType min, Exception? inner = default) where TType : struct
         => new(string.Format(MinimumValidation, "a", "Product", property, min), inner);
-    
+
     public static ProductValidationException InvalidStatus(ProductId id, ProductStatus oldStatus, ProductStatus newStatus, Exception? inner = default)
         => new($"Cannot set a status: {newStatus} to Product with id: {id} and status: {oldStatus}.", inner);
 

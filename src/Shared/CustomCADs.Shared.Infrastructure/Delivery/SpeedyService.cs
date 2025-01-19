@@ -23,7 +23,7 @@ public sealed class SpeedyService(
     private readonly AccountModel account = new(settings.Value.Username, settings.Value.Password);
     private const Payer payer = Payer.RECIPIENT;
     private const PaperSize paper = PaperSize.A4;
-    
+
     public async Task<CalculationDto[]> CalculateAsync(CalculateRequest req, CancellationToken ct = default)
     {
         var response = await calculationService.CalculateAsync(
@@ -81,7 +81,7 @@ public sealed class SpeedyService(
     }
 
     public async Task CancelAsync(string shipmentId, string comment, CancellationToken ct = default)
-        =>  await shipmentService.CancelShipmentAsync(
+        => await shipmentService.CancelShipmentAsync(
             account: account,
             shipmentId: shipmentId,
             comment: comment,

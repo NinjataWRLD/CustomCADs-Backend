@@ -65,7 +65,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
         // Assert
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handler_ShouldSendRequests()
     {

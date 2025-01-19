@@ -36,7 +36,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ImagesBaseUnitTest
         // Assert
         reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldPersistToDatabase_WhenImageFound()
     {

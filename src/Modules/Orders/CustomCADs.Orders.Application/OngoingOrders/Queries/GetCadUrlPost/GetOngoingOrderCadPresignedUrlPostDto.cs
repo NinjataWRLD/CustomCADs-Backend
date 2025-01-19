@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Orders.Application.OngoingOrders.Queries.GetCadUrlPost;
 
 public record GetOngoingOrderCadPresignedUrlPostDto(
-    string GeneratedKey, 
+    string GeneratedKey,
     string PresignedUrl
 );

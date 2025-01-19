@@ -68,7 +68,7 @@ public class ActiveCartPurchasedDomainEventHandlerUnitTests : PurchasedCartsBase
         // Assert
         reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldPersistToDatabase()
     {
@@ -101,16 +101,16 @@ public class ActiveCartPurchasedDomainEventHandlerUnitTests : PurchasedCartsBase
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetProductPricesByIdsQuery>(), 
+            It.IsAny<GetProductPricesByIdsQuery>(),
         ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetProductCadIdsByIdsQuery>(), 
+            It.IsAny<GetProductCadIdsByIdsQuery>(),
         ct), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<DuplicateCadsByIdsCommand>(), 
+            It.IsAny<DuplicateCadsByIdsCommand>(),
         ct), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<AddProductPurchaseCommand>(), 
+            It.IsAny<AddProductPurchaseCommand>(),
         ct), Times.Once);
     }
 

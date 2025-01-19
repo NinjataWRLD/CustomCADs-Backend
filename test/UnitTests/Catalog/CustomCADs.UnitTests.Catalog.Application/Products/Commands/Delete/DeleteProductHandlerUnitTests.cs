@@ -2,7 +2,6 @@
 using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.IntegrationEvents.Files;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Delete;
@@ -36,7 +35,7 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
         // Assert
         reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handler_ShouldPersistToDatabase()
     {
