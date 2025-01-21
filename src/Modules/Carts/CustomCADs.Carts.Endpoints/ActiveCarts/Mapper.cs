@@ -13,14 +13,14 @@ internal static class Mapper
     internal static GetActiveCartResponse ToGetCartResponse(this GetActiveCartDto cart)
         => new(
             Id: cart.Id.Value,
-            BuyerId: cart.BuyerId.Value,
+            BuyerName: cart.BuyerName,
             Items: [.. cart.Items.Select(o => o.ToCartItemResponse())]
         );
 
     internal static PostActiveCartResponse ToPostCartResponse(this GetActiveCartDto cart)
         => new(
             Id: cart.Id.Value,
-            BuyerId: cart.BuyerId.Value
+            BuyerName: cart.BuyerName
         );
 
     internal static ActiveCartItemResponse ToCartItemResponse(this ActiveCartItemDto item)

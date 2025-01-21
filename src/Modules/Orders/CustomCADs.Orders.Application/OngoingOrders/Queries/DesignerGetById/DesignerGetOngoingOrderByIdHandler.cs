@@ -1,9 +1,11 @@
 ﻿using CustomCADs.Orders.Domain.OngoingOrders.Enums;
 using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Queries.DesignerGetById;
 
-public sealed class DesignerGetOngoingOrderByIdHandler(IOngoingOrderReads reads)
+public sealed class DesignerGetOngoingOrderByIdHandler(IOngoingOrderReads reads, IRequestSender sender)
     : IQueryHandler<DesignerGetOngoingOrderByIdQuery, DesignerGetOngoingOrderByIdDto>
 {
     public async Task<DesignerGetOngoingOrderByIdDto> Handle(DesignerGetOngoingOrderByIdQuery req, CancellationToken ct)
@@ -17,6 +19,9 @@ public sealed class DesignerGetOngoingOrderByIdHandler(IOngoingOrderReads reads)
             throw OngoingOrderAuthorizationException.NotAssociated(order.Id, "view");
         }
 
-        return order.ToDesignerGetOrderByIdDto();
+        GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
+        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
+
+        return order.ToDesignerGetOrderByIdDto(buyer);
     }
 }

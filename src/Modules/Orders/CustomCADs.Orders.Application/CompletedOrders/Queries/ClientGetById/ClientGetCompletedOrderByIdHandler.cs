@@ -17,9 +17,12 @@ public sealed class ClientGetCompletedOrderByIdHandler(ICompletedOrderReads read
             throw CompletedOrderAuthorizationException.ByOrderId(req.Id);
         }
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(Id: order.BuyerId);
+        GetTimeZoneByIdQuery timeZoneQuery = new(order.BuyerId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        
+        GetUsernameByIdQuery designerQuery = new(order.BuyerId);
+        string designer = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
 
-        return order.ToGetOrderByIdDto(timeZone);
+        return order.ToGetOrderByIdDto(timeZone, designer);
     }
 }

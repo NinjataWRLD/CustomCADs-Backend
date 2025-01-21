@@ -29,8 +29,7 @@ internal static class Mapper
             OrderDate: order.OrderDate.ToString(DateFormatString),
             PurchaseDate: order.PurchaseDate.ToString(DateFormatString),
             Delivery: order.Delivery,
-            DesignerId: order.DesignerId.Value,
-            CadId: order.CadId.Value,
+            DesignerName: order.DesignerName,
             ShipmentId: order.ShipmentId?.Value
         );
 
@@ -42,8 +41,7 @@ internal static class Mapper
             OrderDate: order.OrderDate.ToString(DateFormatString),
             PurchaseDate: order.PurchaseDate.ToString(DateFormatString),
             Delivery: order.Delivery,
-            BuyerId: order.BuyerId.Value,
-            CadId: order.CadId.Value,
+            BuyerName: order.BuyerName,
             ShipmentId: order.ShipmentId?.Value
         );
 

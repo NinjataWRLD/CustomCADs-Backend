@@ -13,9 +13,9 @@ public sealed class GetActiveCartHandler(IActiveCartReads reads, IRequestSender 
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(cart.BuyerId);
-        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        GetUsernameByIdQuery buyerQuery = new(cart.BuyerId);
+        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
 
-        return cart.ToGetCartByIdDto(timeZone);
+        return cart.ToGetCartByIdDto(buyer);
     }
 }

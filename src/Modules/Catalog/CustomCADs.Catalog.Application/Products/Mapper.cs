@@ -19,7 +19,6 @@ internal static class Mapper
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
             Counts: product.Counts,
-            CadId: product.CadId,
             Category: new(product.CategoryId, categoryName)
         );
 
@@ -32,7 +31,6 @@ internal static class Mapper
                 product.UploadDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
-            ImageId: product.ImageId,
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
@@ -49,7 +47,6 @@ internal static class Mapper
             ),
             Status: product.Status.ToString(),
             Counts: product.Counts,
-            CadId: product.CadId,
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
@@ -60,7 +57,6 @@ internal static class Mapper
             Name: product.Name,
             Description: product.Description,
             Price: product.Price,
-            CadId: product.CadId,
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );

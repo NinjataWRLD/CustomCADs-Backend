@@ -22,7 +22,7 @@ internal static class Mapper
             ItemsCount: cart.Items.Count
         );
 
-    internal static GetPurchasedCartByIdDto ToGetCartByIdDto(this PurchasedCart cart, string timeZone)
+    internal static GetPurchasedCartByIdDto ToGetCartByIdDto(this PurchasedCart cart, string timeZone, string buyer)
         => new(
             Id: cart.Id,
             Total: cart.TotalCost,
@@ -30,7 +30,7 @@ internal static class Mapper
                 cart.PurchaseDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
-            BuyerId: cart.BuyerId,
+            BuyerName: buyer,
             ShipmentId: cart.ShipmentId,
             Items: [.. cart.Items.Select(i => i.ToCartItemDto())]
         );
@@ -58,8 +58,7 @@ internal static class Mapper
             Price: item.Price,
             Cost: item.Cost,
             ProductId: item.ProductId,
-            CartId: item.CartId,
-            CadId: item.CadId
+            CartId: item.CartId
         );
 
     internal static (decimal Price, CadId CadId, ActiveCartItem Item) ToPurchasedCartItemDto(this ActiveCartItem item, Dictionary<ProductId, decimal> prices, Dictionary<ProductId, CadId> productCads, Dictionary<CadId, CadId> itemCads)

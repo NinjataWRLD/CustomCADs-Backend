@@ -8,10 +8,10 @@ namespace CustomCADs.Carts.Application.ActiveCarts;
 
 internal static class Mapper
 {
-    internal static GetActiveCartDto ToGetCartByIdDto(this ActiveCart cart, string timeZone)
+    internal static GetActiveCartDto ToGetCartByIdDto(this ActiveCart cart, string buyer)
         => new(
             Id: cart.Id,
-            BuyerId: cart.BuyerId,
+            BuyerName: buyer,
             Items: [.. cart.Items.Select(i => i.ToCartItemDto())]
         );
 

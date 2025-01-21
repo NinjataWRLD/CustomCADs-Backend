@@ -6,6 +6,5 @@ public sealed record DesignerSingleProductResponse(
     string Description,
     decimal Price,
     string CreatorName,
-    Guid CadId,
     CategoryResponse Category
 );

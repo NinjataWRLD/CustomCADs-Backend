@@ -1,8 +1,10 @@
 ﻿using CustomCADs.Orders.Domain.CompletedOrders.Reads;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Orders.Application.CompletedOrders.Queries.DesignerGetById;
 
-public sealed class DesignerGetCompletedOrderByIdHandler(ICompletedOrderReads reads)
+public sealed class DesignerGetCompletedOrderByIdHandler(ICompletedOrderReads reads, IRequestSender sender)
     : IQueryHandler<DesignerGetCompletedOrderByIdQuery, DesignerGetCompletedOrderByIdDto>
 {
     public async Task<DesignerGetCompletedOrderByIdDto> Handle(DesignerGetCompletedOrderByIdQuery req, CancellationToken ct)
@@ -15,6 +17,9 @@ public sealed class DesignerGetCompletedOrderByIdHandler(ICompletedOrderReads re
             throw CompletedOrderAuthorizationException.NotAssociated(order.Id, "view");
         }
 
-        return order.ToDesignerGetOrderByIdDto();
+        GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
+        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
+
+        return order.ToDesignerGetOrderByIdDto(buyer);
     }
 }

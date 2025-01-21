@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Domain.Products.ValueObjects;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.CreatorGetById;
 
@@ -12,7 +11,6 @@ public record CreatorGetProductByIdDto(
     DateTime UploadDate,
     Counts Counts,
     string CreatorName,
-    CadId CadId,
     CategoryDto Category
 );
 

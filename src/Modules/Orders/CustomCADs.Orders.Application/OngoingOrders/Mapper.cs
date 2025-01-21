@@ -23,7 +23,7 @@ internal static class Mapper
             DesignerName: designerUsername
         );
 
-    internal static ClientGetOngoingOrderByIdDto ToGetOrderByIdDto(this OngoingOrder order, string timeZone)
+    internal static ClientGetOngoingOrderByIdDto ToGetOrderByIdDto(this OngoingOrder order, string timeZone, string? designer)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -34,7 +34,7 @@ internal static class Mapper
             ),
             Delivery: order.Delivery,
             OrderStatus: order.OrderStatus,
-            DesignerId: order.DesignerId
+            DesignerName: designer
         );
 
     internal static CalculateOngoingOrderShipmentDto ToCalculateOrderShipmentDto(this CalculationDto calculation, string timeZone)
@@ -52,7 +52,7 @@ internal static class Mapper
             Service: calculation.Service
         );
 
-    internal static DesignerGetOngoingOrderByIdDto ToDesignerGetOrderByIdDto(this OngoingOrder order)
+    internal static DesignerGetOngoingOrderByIdDto ToDesignerGetOrderByIdDto(this OngoingOrder order, string buyer)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -60,7 +60,7 @@ internal static class Mapper
             OrderDate: order.OrderDate,
             Delivery: order.Delivery,
             OrderStatus: order.OrderStatus,
-            BuyerId: order.BuyerId
+            BuyerName: buyer
         );
 
     internal static OngoingOrder ToOngoingOrder(this CreateOngoingOrderCommand command)

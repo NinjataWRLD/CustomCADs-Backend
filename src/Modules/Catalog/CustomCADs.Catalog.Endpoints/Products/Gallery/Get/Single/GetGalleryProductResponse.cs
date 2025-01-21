@@ -6,7 +6,6 @@ public sealed record GetGalleryProductResponse(
     string Description,
     decimal Price,
     string UploadDate,
-    Guid CadId,
     CountsDto Counts,
     CategoryResponse Category
 );

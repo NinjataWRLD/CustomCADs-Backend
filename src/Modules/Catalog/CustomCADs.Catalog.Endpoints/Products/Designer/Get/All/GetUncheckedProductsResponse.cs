@@ -5,6 +5,5 @@ public sealed record GetUncheckedProductsResponse(
     string Name,
     string UploadDate,
     string CreatorName,
-    Guid ImageId,
     CategoryResponse Category
 );

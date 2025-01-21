@@ -24,7 +24,7 @@ internal static class Mapper
             DesignerName: designerUsername
         );
 
-    internal static ClientGetCompletedOrderByIdDto ToGetOrderByIdDto(this CompletedOrder order, string timeZone)
+    internal static ClientGetCompletedOrderByIdDto ToGetOrderByIdDto(this CompletedOrder order, string timeZone, string designer)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -38,12 +38,11 @@ internal static class Mapper
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
             Delivery: order.Delivery,
-            DesignerId: order.DesignerId,
-            CadId: order.CadId,
+            DesignerName: designer,
             ShipmentId: order.ShipmentId
         );
 
-    internal static DesignerGetCompletedOrderByIdDto ToDesignerGetOrderByIdDto(this CompletedOrder order)
+    internal static DesignerGetCompletedOrderByIdDto ToDesignerGetOrderByIdDto(this CompletedOrder order, string buyer)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -51,8 +50,7 @@ internal static class Mapper
             OrderDate: order.OrderDate,
             PurchaseDate: order.PurchaseDate,
             Delivery: order.Delivery,
-            BuyerId: order.BuyerId,
-            CadId: order.CadId,
+            BuyerName: buyer,
             ShipmentId: order.ShipmentId
         );
 

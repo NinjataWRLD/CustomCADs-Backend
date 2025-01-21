@@ -2,6 +2,6 @@
 
 public sealed record GetActiveCartResponse(
     Guid Id,
-    Guid BuyerId,
+    string BuyerName,
     ICollection<ActiveCartItemResponse> Items
 );

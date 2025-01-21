@@ -4,7 +4,7 @@ public sealed record GetPurchasedCartResponse(
     Guid Id,
     decimal Total,
     string PurchaseDate,
-    Guid BuyerId,
+    string BuyerName,
     Guid? ShipmentId,
     ICollection<PurchasedCartItemResponse> Items
 );

@@ -29,7 +29,7 @@ public sealed class PurchasedCartsStatsEndpoint(IRequestSender sender)
         var counts = await sender.SendQueryAsync(itemsQuery, ct).ConfigureAwait(false);
 
         PurchasedCartsStatsResponse response = new(
-            TotalCount: totalCartCount,
+            Total: totalCartCount,
             Counts: counts.ToDictionary(kv => kv.Key.Value, kv => kv.Value)
         );
         await SendOkAsync(response).ConfigureAwait(false);

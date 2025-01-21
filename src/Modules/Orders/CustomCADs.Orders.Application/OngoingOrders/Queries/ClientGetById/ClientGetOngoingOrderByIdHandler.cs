@@ -20,6 +20,13 @@ public sealed class ClientGetOngoingOrderByIdHandler(IOngoingOrderReads reads, I
         GetTimeZoneByIdQuery timeZoneQuery = new(Id: order.BuyerId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
 
-        return order.ToGetOrderByIdDto(timeZone);
+        string? designer = null;
+        if (order.DesignerId is not null)
+        {
+            GetUsernameByIdQuery designerQuery = new(order.DesignerId.Value);
+            designer = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
+        }
+
+        return order.ToGetOrderByIdDto(timeZone, designer);
     }
 }

@@ -5,6 +5,5 @@ public sealed record GetProductsResponse(
     string Name,
     string CreatorName,
     string UploadDate,
-    Guid ImageId,
     CategoryResponse Category
 );
