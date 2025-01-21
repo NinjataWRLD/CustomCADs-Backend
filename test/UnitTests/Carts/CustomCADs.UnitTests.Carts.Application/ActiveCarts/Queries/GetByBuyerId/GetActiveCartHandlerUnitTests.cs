@@ -10,7 +10,7 @@ using static ActiveCartsData;
 
 public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private const string TimeZone = "Europe/Sofia";
+    private const string Buyer = "For7a7a";
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
@@ -21,8 +21,8 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, false, ct))
             .ReturnsAsync(cart);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
-            .ReturnsAsync(TimeZone);
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
+            .ReturnsAsync(Buyer);
     }
 
     [Fact]
@@ -51,7 +51,7 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetTimeZoneByIdQuery>()
+            It.IsAny<GetUsernameByIdQuery>()
         , ct), Times.Once);
     }
 

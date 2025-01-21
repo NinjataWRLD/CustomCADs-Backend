@@ -56,8 +56,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
                 Delivery: default,
                 OrderDate: default,
                 PurchaseDate: default,
-                DesignerId: default,
-                CadId: default,
+                DesignerName: string.Empty,
                 ShipmentId: default
             ));
     }

@@ -15,6 +15,7 @@ public class ClientGetCompletedOrderByIdHandlerUnitTests : CompletedOrdersBaseUn
     private readonly Mock<IRequestSender> sender = new();
 
     private const string TimeZone = "Europe/Sofia";
+    private const string Designer = "Oracle3000";
     private static readonly CompletedOrderId id = ValidId1;
     private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AccountId wrongBuyerId = ValidBuyerId2;
@@ -27,6 +28,9 @@ public class ClientGetCompletedOrderByIdHandlerUnitTests : CompletedOrdersBaseUn
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
             .ReturnsAsync(TimeZone);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
+            .ReturnsAsync(Designer);
     }
 
     [Fact]
@@ -63,6 +67,9 @@ public class ClientGetCompletedOrderByIdHandlerUnitTests : CompletedOrdersBaseUn
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetTimeZoneByIdQuery>()
         , ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetUsernameByIdQuery>()
+        , ct), Times.Once);
     }
 
     [Fact]
@@ -80,11 +87,11 @@ public class ClientGetCompletedOrderByIdHandlerUnitTests : CompletedOrdersBaseUn
 
         // Assert
         Assert.Multiple(
-            () => Assert.Equal(result.Id, order.Id),
-            () => Assert.Equal(result.Name, order.Name),
-            () => Assert.Equal(result.Description, order.Description),
-            () => Assert.Equal(result.Delivery, order.Delivery),
-            () => Assert.Equal(result.DesignerId, order.DesignerId)
+            () => Assert.Equal(order.Id, result.Id),
+            () => Assert.Equal(order.Name, result.Name),
+            () => Assert.Equal(order.Description, result.Description),
+            () => Assert.Equal(order.Delivery, result.Delivery),
+            () => Assert.Equal(Designer, result.DesignerName)
         );
     }
 

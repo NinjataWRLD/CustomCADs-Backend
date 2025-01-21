@@ -14,6 +14,7 @@ public class ClientGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnitTe
     private readonly Mock<IOngoingOrderReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
 
+    private const string Designer = "PDMatsaliev20";
     private const string TimeZone = "Europe/Sofia";
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly AccountId buyerId = ValidBuyerId1;
@@ -27,6 +28,9 @@ public class ClientGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnitTe
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
             .ReturnsAsync(TimeZone);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
+            .ReturnsAsync(Designer);
     }
 
     [Fact]
@@ -46,10 +50,17 @@ public class ClientGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnitTe
         reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
     }
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task Handle_ShouldSendRequests(bool hasDesignerId)
     {
         // Arrange
+        if (hasDesignerId)
+        {
+            order.SetDesignerId(AccountId.New());
+        }
+
         ClientGetOngoingOrderByIdQuery query = new(
             Id: id,
             BuyerId: buyerId
@@ -63,12 +74,22 @@ public class ClientGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnitTe
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetTimeZoneByIdQuery>()
         , ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetUsernameByIdQuery>()
+        , ct), Times.Exactly(hasDesignerId ? 1 : 0));
     }
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task Handle_ShouldReturnProperly(bool hasDesignerId)
     {
         // Arrange
+        if (hasDesignerId)
+        {
+            order.SetDesignerId(AccountId.New());
+        }
+
         ClientGetOngoingOrderByIdQuery query = new(
             Id: id,
             BuyerId: buyerId
@@ -80,12 +101,12 @@ public class ClientGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnitTe
 
         // Assert
         Assert.Multiple(
-            () => Assert.Equal(result.Id, order.Id),
-            () => Assert.Equal(result.Name, order.Name),
-            () => Assert.Equal(result.Description, order.Description),
-            () => Assert.Equal(result.Delivery, order.Delivery),
-            () => Assert.Equal(result.OrderStatus, order.OrderStatus),
-            () => Assert.Equal(result.DesignerId, order.DesignerId)
+            () => Assert.Equal(order.Id, result.Id),
+            () => Assert.Equal(order.Name, result.Name),
+            () => Assert.Equal(order.Description, result.Description),
+            () => Assert.Equal(order.Delivery, result.Delivery),
+            () => Assert.Equal(order.OrderStatus, result.OrderStatus),
+            () => Assert.Equal(hasDesignerId ? Designer : null, result.DesignerName)
         );
     }
 

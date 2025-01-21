@@ -13,6 +13,8 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
 {
     private readonly Mock<IPurchasedCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+
+    private const string Buyer = "PDMatsaliev20";
     private readonly PurchasedCart cart = CreateCartWithId();
     private static readonly PurchasedCartId id = ValidId1;
     private static readonly AccountId buyerId = ValidBuyerId1;
@@ -24,6 +26,9 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
             .ReturnsAsync("Europe/Sofia");
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
+            .ReturnsAsync(Buyer);
     }
 
     [Fact]
@@ -53,6 +58,9 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
         // Assert
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetTimeZoneByIdQuery>(),
+        ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetUsernameByIdQuery>(),
         ct), Times.Once);
     }
 

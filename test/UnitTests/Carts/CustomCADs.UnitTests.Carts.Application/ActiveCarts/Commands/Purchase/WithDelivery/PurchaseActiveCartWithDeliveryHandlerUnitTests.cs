@@ -43,7 +43,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
                 Id: default,
                 Total: TotalCost,
                 PurchaseDate: default,
-                BuyerId: default,
+                BuyerName: string.Empty,
                 ShipmentId: default,
                 Items: []
             ));

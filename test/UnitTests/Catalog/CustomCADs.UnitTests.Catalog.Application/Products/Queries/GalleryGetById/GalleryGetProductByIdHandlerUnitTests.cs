@@ -107,7 +107,6 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
             () => Assert.Equal(product.Name, result.Name),
             () => Assert.Equal(product.Description, result.Description),
             () => Assert.Equal(product.Price, result.Price),
-            () => Assert.Equal(product.CadId, result.CadId),
             () => Assert.Equal(product.CategoryId, result.Category.Id)
         );
     }
