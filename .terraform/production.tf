@@ -20,7 +20,6 @@ locals {
   delivery_password = local.delivery["Password"]
 
   urls_client = local.urls["Client"]
-  urls_server = local.urls["Server"]
 }
 
 # Production Environment
@@ -433,12 +432,6 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.urls_client
-  }
-  setting {
-    name      = "URLs__Server_"
-    namespace = "aws:elasticbeanstalk:application:environment"
-    resource  = null
-    value     = local.urls_server
   }
   setting {
     name      = "UpdateLevel"

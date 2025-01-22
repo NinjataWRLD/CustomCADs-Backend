@@ -52,6 +52,7 @@ builder.WebHost.LimitUploadSize();
 var app = builder.Build();
 
 // Stuff
+app.UseCorsForClient();
 app.UseExceptionHandler();
 app.UseJwtPrincipal();
 app.UseStaticFiles();
