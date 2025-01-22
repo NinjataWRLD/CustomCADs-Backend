@@ -255,6 +255,11 @@ public static class ProgramExtensions
         webhost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = limit);
     }
 
+    public static void UseCorsForClient(this IApplicationBuilder app)
+    {
+        app.UseCors();
+    }
+
     public static IApplicationBuilder UseEndpoints(this IApplicationBuilder app)
     {
         app.UseFastEndpoints(cfg =>

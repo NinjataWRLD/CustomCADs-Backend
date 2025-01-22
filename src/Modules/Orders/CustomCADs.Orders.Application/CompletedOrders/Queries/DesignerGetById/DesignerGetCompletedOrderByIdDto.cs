@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.Orders.Application.CompletedOrders.Queries.DesignerGetById;
 
@@ -11,7 +9,6 @@ public record DesignerGetCompletedOrderByIdDto(
     bool Delivery,
     DateTime OrderDate,
     DateTime PurchaseDate,
-    AccountId BuyerId,
-    CadId CadId,
+    string BuyerName,
     ShipmentId? ShipmentId
 );

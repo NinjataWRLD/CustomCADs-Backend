@@ -14,7 +14,7 @@ public static class Mapper
         => new(
             Id: shipment.Id.Value,
             Address: shipment.Address.ToAddressDto(),
-            BuyerId: shipment.BuyerId.Value
+            BuyerName: shipment.BuyerName
         );
 
     public static Dictionary<string, TrackShipmentResponse> ToTrackShipmentResponse(this Dictionary<DateTime, GetShipmentTrackDto> tracks)

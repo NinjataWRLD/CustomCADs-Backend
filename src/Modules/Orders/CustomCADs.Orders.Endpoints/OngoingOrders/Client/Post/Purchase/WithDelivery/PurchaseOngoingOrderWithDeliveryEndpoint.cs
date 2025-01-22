@@ -7,7 +7,7 @@ public sealed class PurchaseOngoingOrderWithDeliveryEndpoint(IRequestSender send
 {
     public override void Configure()
     {
-        Post("purchase/delivery");
+        Post("purchase-delivery");
         Group<ClientGroup>();
         Description(d => d
             .WithSummary("11. Purchase (Delivery)")

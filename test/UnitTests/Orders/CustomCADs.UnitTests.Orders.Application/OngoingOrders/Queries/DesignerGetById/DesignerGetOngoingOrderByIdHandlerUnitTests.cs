@@ -1,7 +1,9 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.DesignerGetById;
 using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Queries.DesignerGetById;
 
@@ -10,7 +12,9 @@ using static OngoingOrdersData;
 public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnitTests
 {
     private readonly Mock<IOngoingOrderReads> reads = new();
+    private readonly Mock<IRequestSender> sender = new();
 
+    private const string Buyer = "ivanzlatinov1";
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly AccountId designerId = ValidDesignerId1;
     private static readonly AccountId wrongDesignerId = ValidDesignerId2;
@@ -23,6 +27,9 @@ public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnit
     {
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(order);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
+            .ReturnsAsync(Buyer);
     }
 
     [Fact]
@@ -33,13 +40,32 @@ public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnit
             Id: id,
             DesignerId: designerId
         );
-        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object);
+        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
         reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+    }
+    
+    [Fact]
+    public async Task Handle_ShouldSendRequests()
+    {
+        // Arrange
+        DesignerGetOngoingOrderByIdQuery query = new(
+            Id: id,
+            DesignerId: designerId
+        );
+        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object, sender.Object);
+
+        // Act
+        await handler.Handle(query, ct);
+
+        // Assert
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetUsernameByIdQuery>()
+        , ct), Times.Once);
     }
 
     [Fact]
@@ -50,19 +76,19 @@ public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnit
             Id: id,
             DesignerId: designerId
         );
-        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object);
+        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         var result = await handler.Handle(query, ct);
 
         // Assert
         Assert.Multiple(
-            () => Assert.Equal(result.Id, order.Id),
-            () => Assert.Equal(result.Name, order.Name),
-            () => Assert.Equal(result.Description, order.Description),
-            () => Assert.Equal(result.Delivery, order.Delivery),
-            () => Assert.Equal(result.OrderStatus, order.OrderStatus),
-            () => Assert.Equal(result.BuyerId, order.BuyerId)
+            () => Assert.Equal(order.Id, result.Id),
+            () => Assert.Equal(order.Name, result.Name),
+            () => Assert.Equal(order.Description, result.Description),
+            () => Assert.Equal(order.Delivery, result.Delivery),
+            () => Assert.Equal(order.OrderStatus, result.OrderStatus),
+            () => Assert.Equal(Buyer, result.BuyerName)
         );
     }
 
@@ -76,7 +102,7 @@ public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnit
             Id: id,
             DesignerId: wrongDesignerId
         );
-        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object);
+        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         // Assert
@@ -91,7 +117,7 @@ public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnit
             Id: id,
             DesignerId: wrongDesignerId
         );
-        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object);
+        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<OngoingOrderAuthorizationException>(async () =>
@@ -112,7 +138,7 @@ public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnit
             Id: id,
             DesignerId: designerId
         );
-        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object);
+        DesignerGetOngoingOrderByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<OngoingOrderNotFoundException>(async () =>

@@ -7,8 +7,10 @@ using CustomCADs.Catalog.Endpoints.Products.Creator.Get.All;
 using CustomCADs.Catalog.Endpoints.Products.Creator.Get.Recent;
 using CustomCADs.Catalog.Endpoints.Products.Creator.Get.Single;
 using CustomCADs.Catalog.Endpoints.Products.Creator.Post.Products;
-using CustomCADs.Catalog.Endpoints.Products.Designer.Get.All;
+using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Reported;
 using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Single;
+using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Unchecked;
+using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Validated;
 using CustomCADs.Catalog.Endpoints.Products.Gallery.Get.All;
 using CustomCADs.Catalog.Endpoints.Products.Gallery.Get.Single;
 
@@ -21,8 +23,7 @@ internal static class Mapper
     internal static GetAllGaleryProductsResponse ToGetAllGaleryProductsResponse(this GetAllProductsDto product)
         => new(
             Id: product.Id.Value,
-            Name: product.Name,
-            ImageId: product.ImageId.Value
+            Name: product.Name
         );
 
     internal static GetGalleryProductResponse ToGetGalleryProductResponse(this GalleryGetProductByIdDto product)
@@ -32,7 +33,6 @@ internal static class Mapper
             Description: product.Description,
             Price: product.Price,
             UploadDate: product.UploadDate.ToString(DateFormatString),
-            CadId: product.CadId.Value,
             Counts: product.Counts.ToCountsDto(),
             Category: product.Category.ToCategoryDto()
         );
@@ -51,7 +51,6 @@ internal static class Mapper
             Id: product.Id.Value,
             Name: product.Name,
             UploadDate: product.UploadDate.ToString(DateFormatString),
-            ImageId: product.ImageId.Value,
             CreatorName: product.CreatorName,
             Category: product.Category.ToCategoryDto()
         );
@@ -63,7 +62,6 @@ internal static class Mapper
             Price: product.Price,
             Description: product.Description,
             UploadDate: product.UploadDate.ToString(DateFormatString),
-            CadId: product.CadId.Value,
             Counts: product.Counts.ToCountsDto(),
             Category: product.Category.ToCategoryDto()
         );
@@ -85,7 +83,24 @@ internal static class Mapper
         Id: product.Id.Value,
         Name: product.Name,
         UploadDate: product.UploadDate.ToString(DateFormatString),
-        ImageId: product.ImageId.Value,
+        CreatorName: product.CreatorName,
+        Category: new(product.Category.Id.Value, product.Category.Name)
+    );
+    
+    internal static GetValidatedProductsResponse ToGetValidatedProductsDto(this GetAllProductsDto product)
+    => new(
+        Id: product.Id.Value,
+        Name: product.Name,
+        UploadDate: product.UploadDate.ToString(DateFormatString),
+        CreatorName: product.CreatorName,
+        Category: new(product.Category.Id.Value, product.Category.Name)
+    );
+    
+    internal static GetReportedProductsResponse ToGetReportedProductsDto(this GetAllProductsDto product)
+    => new(
+        Id: product.Id.Value,
+        Name: product.Name,
+        UploadDate: product.UploadDate.ToString(DateFormatString),
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
@@ -97,7 +112,6 @@ internal static class Mapper
             Description: product.Description,
             Price: product.Price,
             CreatorName: product.CreatorName,
-            CadId: product.CadId.Value,
             Category: new(product.Category.Id.Value, product.Category.Name)
         );
 

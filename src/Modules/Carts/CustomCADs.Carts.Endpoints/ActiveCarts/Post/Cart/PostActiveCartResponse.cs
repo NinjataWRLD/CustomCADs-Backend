@@ -2,5 +2,5 @@
 
 public sealed record PostActiveCartResponse(
     Guid Id,
-    Guid BuyerId
+    string BuyerName
 );

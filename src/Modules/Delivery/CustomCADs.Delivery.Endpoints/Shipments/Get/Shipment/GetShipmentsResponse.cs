@@ -3,5 +3,5 @@
 public record GetShipmentsResponse(
     Guid Id,
     AddressDto Address,
-    Guid BuyerId
+    string BuyerName
 );

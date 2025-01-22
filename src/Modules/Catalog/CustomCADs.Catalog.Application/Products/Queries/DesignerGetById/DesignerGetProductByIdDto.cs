@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Files;
-
-namespace CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
+﻿namespace CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
 
 public record DesignerGetProductByIdDto(
     ProductId Id,
@@ -8,6 +6,5 @@ public record DesignerGetProductByIdDto(
     string Description,
     decimal Price,
     string CreatorName,
-    CadId CadId,
     CategoryDto Category
 );

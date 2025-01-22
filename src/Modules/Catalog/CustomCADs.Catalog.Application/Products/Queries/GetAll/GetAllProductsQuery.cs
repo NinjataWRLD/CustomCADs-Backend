@@ -10,6 +10,7 @@ public sealed record GetAllProductsQuery(
     Pagination Pagination,
     CategoryId? CategoryId = null,
     AccountId? CreatorId = null,
+    AccountId? DesignerId = null,
     ProductStatus? Status = null,
     string? Name = null,
     ProductSorting? Sorting = null

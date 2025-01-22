@@ -7,5 +7,5 @@ public sealed record GetOngoingOrderResponse(
     string OrderDate,
     string OrderStatus,
     bool Delivery,
-    Guid? DesignerId
+    string? DesignerName
 );

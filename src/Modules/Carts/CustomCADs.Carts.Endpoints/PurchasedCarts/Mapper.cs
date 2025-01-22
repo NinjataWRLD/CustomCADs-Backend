@@ -22,7 +22,7 @@ internal static class Mapper
             Id: cart.Id.Value,
             Total: cart.Total,
             PurchaseDate: cart.PurchaseDate.ToString(DateFormatString),
-            BuyerId: cart.BuyerId.Value,
+            BuyerName: cart.BuyerName,
             ShipmentId: cart.ShipmentId?.Value,
             Items: [.. cart.Items.Select(o => o.ToPurchasedCartItemResponse())]
         );
@@ -35,7 +35,6 @@ internal static class Mapper
             Price: item.Price,
             Cost: item.Cost,
             ProductId: item.ProductId.Value,
-            CartId: item.CartId.Value,
-            CadId: item.CadId.Value
+            CartId: item.CartId.Value
         );
 }

@@ -1,9 +1,7 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-
-namespace CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
+﻿namespace CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
 
 public record GetActiveCartDto(
     ActiveCartId Id,
-    AccountId BuyerId,
+    string BuyerName,
     ICollection<ActiveCartItemDto> Items
 );

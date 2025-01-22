@@ -4,10 +4,10 @@ namespace CustomCADs.Delivery.Application.Shipments;
 
 public static class Mapper
 {
-    public static GetAllShipmentsDto ToGetAllShipmentsDto(this Shipment shipment)
+    public static GetAllShipmentsDto ToGetAllShipmentsDto(this Shipment shipment, string buyer)
         => new(
             Id: shipment.Id,
             Address: shipment.Address,
-            BuyerId: shipment.BuyerId
+            BuyerName: buyer
         );
 }

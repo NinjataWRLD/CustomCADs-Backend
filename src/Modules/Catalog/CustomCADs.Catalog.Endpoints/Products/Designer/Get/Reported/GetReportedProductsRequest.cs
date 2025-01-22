@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Common.Enums;
 
-namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.All;
+namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.Reported;
 
-public sealed record GetUncheckedProductsRequest(
+public sealed record GetReportedProductsRequest(
     int? CategoryId = null,
     string? Name = null,
     ProductSortingType SortingType = ProductSortingType.UploadDate,

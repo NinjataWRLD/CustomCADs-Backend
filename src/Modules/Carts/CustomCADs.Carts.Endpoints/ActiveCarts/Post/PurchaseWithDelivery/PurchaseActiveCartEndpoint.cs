@@ -7,7 +7,7 @@ public sealed class PurchaseActiveCartEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Post("purchase/delivery");
+        Post("purchase-delivery");
         Group<ActiveCartsGroup>();
         Description(d => d
             .WithSummary("11. Purchase (Delivery)")

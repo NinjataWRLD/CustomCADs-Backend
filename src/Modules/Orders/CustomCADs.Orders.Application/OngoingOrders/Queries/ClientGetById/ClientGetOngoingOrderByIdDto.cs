@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Domain.OngoingOrders.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Queries.ClientGetById;
 
@@ -8,7 +7,7 @@ public record ClientGetOngoingOrderByIdDto(
     string Name,
     string Description,
     bool Delivery,
+    string? DesignerName,
     OngoingOrderStatus OrderStatus,
-    DateTime OrderDate,
-    AccountId? DesignerId
+    DateTime OrderDate
 );

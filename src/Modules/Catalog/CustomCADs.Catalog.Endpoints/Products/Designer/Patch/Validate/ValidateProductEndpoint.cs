@@ -8,7 +8,7 @@ public sealed class ValidateProductEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Patch("status");
+        Patch("validate");
         Group<DesignerGroup>();
         Description(d => d
             .WithSummary("03. Validate")

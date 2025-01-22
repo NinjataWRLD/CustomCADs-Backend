@@ -7,6 +7,5 @@ public sealed record PurchasedCartItemResponse(
     decimal Price,
     Guid ProductId,
     Guid CartId,
-    Guid CadId,
     decimal Cost
 );

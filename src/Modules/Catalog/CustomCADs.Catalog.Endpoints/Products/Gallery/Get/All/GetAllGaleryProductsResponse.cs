@@ -2,6 +2,5 @@
 
 public sealed record GetAllGaleryProductsResponse(
     Guid Id,
-    string Name,
-    Guid ImageId
+    string Name
 );

@@ -67,7 +67,7 @@ internal static class Mapper
             OrderDate: order.OrderDate.ToString(DateFormatString),
             Delivery: order.Delivery,
             OrderStatus: order.OrderStatus.ToString(),
-            DesignerId: order.DesignerId?.Value
+            DesignerName: order.DesignerName
         );
 
     internal static DesignerGetOngoingOrderResponse ToDesignerGetOrderResponse(this DesignerGetOngoingOrderByIdDto order)
@@ -78,7 +78,7 @@ internal static class Mapper
             OrderDate: order.OrderDate.ToString(DateFormatString),
             Delivery: order.Delivery,
             Status: order.OrderStatus.ToString(),
-            BuyerId: order.BuyerId.Value
+            BuyerName: order.BuyerName
         );
 
     internal static GetPendingOngoingOrdersResponse ToGetPendingOrdersDto(this GetAllOngoingOrdersDto order)

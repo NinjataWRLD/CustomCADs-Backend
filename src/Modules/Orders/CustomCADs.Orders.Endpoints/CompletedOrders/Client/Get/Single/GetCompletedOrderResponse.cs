@@ -7,7 +7,6 @@ public sealed record GetCompletedOrderResponse(
     string OrderDate,
     string PurchaseDate,
     bool Delivery,
-    Guid DesignerId,
-    Guid CadId,
+    string DesignerName,
     Guid? ShipmentId
 );
