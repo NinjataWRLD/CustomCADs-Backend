@@ -12,7 +12,7 @@ public sealed class ProductReads(CatalogContext context) : IProductReads
     {
         IQueryable<Product> queryable = context.Products
                 .WithTracking(track)
-                .WithFilter(query.Ids, query.CreatorId, query.CategoryId, query.Status)
+                .WithFilter(query.Ids, query.CreatorId, query.DesignerId, query.CategoryId, query.Status)
                 .WithSearch(query.Name)
                 .WithSorting(query.Sorting ?? new());
 

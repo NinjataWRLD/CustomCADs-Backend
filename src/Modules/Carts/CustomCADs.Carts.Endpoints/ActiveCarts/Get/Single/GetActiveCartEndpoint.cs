@@ -3,7 +3,7 @@
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Get.Single;
 
 public sealed class GetActiveCartEndpoint(IRequestSender sender)
-    : Endpoint<GetActiveCartRequest, GetActiveCartResponse>
+    : EndpointWithoutRequest<GetActiveCartResponse>
 {
     public override void Configure()
     {
@@ -15,7 +15,7 @@ public sealed class GetActiveCartEndpoint(IRequestSender sender)
         );
     }
 
-    public override async Task HandleAsync(GetActiveCartRequest req, CancellationToken ct)
+    public override async Task HandleAsync(CancellationToken ct)
     {
         GetActiveCartQuery query = new(
             BuyerId: User.GetAccountId()

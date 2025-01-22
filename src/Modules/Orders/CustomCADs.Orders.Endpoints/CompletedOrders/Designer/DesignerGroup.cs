@@ -6,7 +6,7 @@ public class DesignerGroup : Group
 {
     public DesignerGroup()
     {
-        Configure("orders/designer/completed", ep =>
+        Configure("orders/completed/designer", ep =>
         {
             ep.Roles(Designer);
             ep.Description(d => d.WithTags("12. Completed Order Management"));

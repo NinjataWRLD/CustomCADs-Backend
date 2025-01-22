@@ -8,7 +8,7 @@ namespace CustomCADs.Catalog.Persistence.Products.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, ProductId[]? ids, AccountId? creatorId = null, CategoryId? categoryId = null, ProductStatus? productStatus = null)
+    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, ProductId[]? ids, AccountId? creatorId = null, AccountId? designerId = null, CategoryId? categoryId = null, ProductStatus? productStatus = null)
     {
         if (ids is not null)
         {
@@ -17,6 +17,10 @@ public static class Utilities
         if (creatorId is not null)
         {
             query = query.Where(c => c.CreatorId == creatorId);
+        }
+        if (designerId is not null)
+        {
+            query = query.Where(c => c.DesignerId == designerId);
         }
         if (categoryId is not null)
         {

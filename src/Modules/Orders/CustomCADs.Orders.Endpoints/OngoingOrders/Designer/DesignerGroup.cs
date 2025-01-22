@@ -6,7 +6,7 @@ public class DesignerGroup : Group
 {
     public DesignerGroup()
     {
-        Configure("orders/designer/ongoing", ep =>
+        Configure("orders/ongoing/designer", ep =>
         {
             ep.Roles(Designer);
             ep.Description(d => d.WithTags("11. Ongoing Order Management"));

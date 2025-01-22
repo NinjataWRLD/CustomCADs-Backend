@@ -7,8 +7,10 @@ using CustomCADs.Catalog.Endpoints.Products.Creator.Get.All;
 using CustomCADs.Catalog.Endpoints.Products.Creator.Get.Recent;
 using CustomCADs.Catalog.Endpoints.Products.Creator.Get.Single;
 using CustomCADs.Catalog.Endpoints.Products.Creator.Post.Products;
-using CustomCADs.Catalog.Endpoints.Products.Designer.Get.All;
+using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Reported;
 using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Single;
+using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Unchecked;
+using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Validated;
 using CustomCADs.Catalog.Endpoints.Products.Gallery.Get.All;
 using CustomCADs.Catalog.Endpoints.Products.Gallery.Get.Single;
 
@@ -77,6 +79,24 @@ internal static class Mapper
         );
 
     internal static GetUncheckedProductsResponse ToGetUncheckedProductsDto(this GetAllProductsDto product)
+    => new(
+        Id: product.Id.Value,
+        Name: product.Name,
+        UploadDate: product.UploadDate.ToString(DateFormatString),
+        CreatorName: product.CreatorName,
+        Category: new(product.Category.Id.Value, product.Category.Name)
+    );
+    
+    internal static GetValidatedProductsResponse ToGetValidatedProductsDto(this GetAllProductsDto product)
+    => new(
+        Id: product.Id.Value,
+        Name: product.Name,
+        UploadDate: product.UploadDate.ToString(DateFormatString),
+        CreatorName: product.CreatorName,
+        Category: new(product.Category.Id.Value, product.Category.Name)
+    );
+    
+    internal static GetReportedProductsResponse ToGetReportedProductsDto(this GetAllProductsDto product)
     => new(
         Id: product.Id.Value,
         Name: product.Name,

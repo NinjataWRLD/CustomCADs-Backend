@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.All;
+﻿namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.Unchecked;
 
 public sealed record GetUncheckedProductsResponse(
     Guid Id,

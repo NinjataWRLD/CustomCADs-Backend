@@ -3,14 +3,14 @@ using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
-namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.All;
+namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.Unchecked;
 
 public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
     : Endpoint<GetUncheckedProductsRequest, Result<GetUncheckedProductsResponse>>
 {
     public override void Configure()
     {
-        Get("");
+        Get("unchecked");
         Group<DesignerGroup>();
         Description(d => d
             .WithSummary("01. All Unchecked")
