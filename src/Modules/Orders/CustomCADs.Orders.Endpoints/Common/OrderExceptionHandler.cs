@@ -15,7 +15,7 @@ public class OrderExceptionHandler(IProblemDetailsService service) : IExceptionH
                 => await service.BadRequestResponseAsync(context, ex).ConfigureAwait(false),
 
             CompletedOrderAuthorizationException or OngoingOrderAuthorizationException
-                => await service.ForbidednResponseAsync(context, ex).ConfigureAwait(false),
+                => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
 
             CompletedOrderNotFoundException or OngoingOrderNotFoundException
                 => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),

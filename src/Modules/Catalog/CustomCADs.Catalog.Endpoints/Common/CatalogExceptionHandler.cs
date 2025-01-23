@@ -13,7 +13,7 @@ public class CatalogExceptionHandler(IProblemDetailsService service) : IExceptio
                 => await service.BadRequestResponseAsync(context, ex).ConfigureAwait(false),
 
             ProductAuthorizationException
-                => await service.ForbidednResponseAsync(context, ex).ConfigureAwait(false),
+                => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
 
             ProductNotFoundException
                 => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),

@@ -30,7 +30,7 @@ public class GlobalExceptionHandler(IProblemDetailsService service) : IException
                 => await service.BadRequestResponseAsync(context, ex, "Database Error").ConfigureAwait(false),
 
             ProductAuthorizationException
-                => await service.ForbidednResponseAsync(context, ex).ConfigureAwait(false),
+                => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
 
             CadNotFoundException or ImageNotFoundException
                 => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),
