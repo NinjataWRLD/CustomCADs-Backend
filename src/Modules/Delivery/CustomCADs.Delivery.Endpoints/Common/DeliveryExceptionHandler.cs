@@ -13,7 +13,7 @@ public class DeliveryExceptionHandler(IProblemDetailsService service) : IExcepti
                 => await service.BadRequestResponseAsync(context, ex).ConfigureAwait(false),
 
             ShipmentAuthorizationException
-                => await service.ForbidednResponseAsync(context, ex).ConfigureAwait(false),
+                => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
 
             ShipmentNotFoundException
                 => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),

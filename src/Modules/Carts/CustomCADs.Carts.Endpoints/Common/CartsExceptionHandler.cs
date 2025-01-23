@@ -16,7 +16,7 @@ public class CartsExceptionHandler(IProblemDetailsService service) : IExceptionH
                 => await service.BadRequestResponseAsync(context, ex).ConfigureAwait(false),
 
             PurchasedCartAuthorizationException
-                => await service.ForbidednResponseAsync(context, ex).ConfigureAwait(false),
+                => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
 
             ActiveCartNotFoundException or ActiveCartItemNotFoundException or PurchasedCartNotFoundException or PurchasedCartItemNotFoundException
                 => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),

@@ -24,7 +24,25 @@ public static class ProblemDetailsExtensions
         }).ConfigureAwait(false);
     }
 
-    public static async Task<bool> ForbidednResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, string message = "Authorization Issue")
+    public static async Task<bool> UnauthorizedResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, string message = "Inappropriately Unauthenticated")
+    {
+        context.Response.StatusCode = Status401Unauthorized;
+
+        return await service.TryWriteAsync(new()
+        {
+            HttpContext = context,
+            Exception = ex,
+            ProblemDetails = new()
+            {
+                Type = ex.GetType().Name,
+                Title = message,
+                Detail = ex.Message,
+                Status = Status401Unauthorized,
+            },
+        }).ConfigureAwait(false);
+    }
+
+    public static async Task<bool> ForbiddenResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, string message = "Authorization Issue")
     {
         context.Response.StatusCode = Status403Forbidden;
 

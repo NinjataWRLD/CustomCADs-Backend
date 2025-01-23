@@ -2,7 +2,8 @@ using static CustomCADs.Shared.Core.Constants.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// AuthN & AuthZ
+// Neccessities
+builder.Services.AddCorsForClient(builder.Configuration);
 builder.Services.AddAuthN().AddJwt(builder.Configuration);
 builder.Services.AddAuthZ([Client, Contributor, Designer, Admin]);
 
@@ -43,9 +44,6 @@ else if (args.Contains("--migrate-only"))
 builder.Services.AddEndpoints();
 builder.Services.AddJsonOptions();
 builder.Services.AddApiDocumentation();
-
-// Stuff
-builder.Services.AddCorsForClient(builder.Configuration);
 builder.Services.AddProblemDetails();
 builder.WebHost.LimitUploadSize();
 
@@ -53,6 +51,9 @@ var app = builder.Build();
 
 // Stuff
 app.UseCorsForClient();
+app.UseAuthentication();
+app.UseAuthorization(); 
+
 app.UseExceptionHandler();
 app.UseJwtPrincipal();
 app.UseStaticFiles();

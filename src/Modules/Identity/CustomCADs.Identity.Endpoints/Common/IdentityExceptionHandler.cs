@@ -21,7 +21,7 @@ public class IdentityExceptionHandler(IProblemDetailsService service) : IExcepti
                 => await service.InternalServerErrorResponseAsync(context, ex).ConfigureAwait(false),
 
             UserRegisterException or UserLoginException or UserRefreshTokenException
-                => await service.CusotmResponseAsync(context, ex, Status401Unauthorized, "Inappropriately Unauthenticated").ConfigureAwait(false),
+                => await service.UnauthorizedResponseAsync(context, ex).ConfigureAwait(false),
 
             UserLockedOutException
                 => await service.CusotmResponseAsync(context, ex, Status423Locked, "Account Locked").ConfigureAwait(false),
