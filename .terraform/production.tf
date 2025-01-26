@@ -8,7 +8,7 @@ locals {
   payment_test_secret_key      = local.payment["TestSecretKey"]
   payment_test_publishable_key = local.payment["TestPublishableKey"]
 
-  email_server = local.email["Server"]
+  email_server   = local.email["Server"]
   email_port     = local.email["Port"]
   email_from     = local.email["From"]
   email_password = local.email["Password"]
@@ -28,7 +28,7 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
   cname_prefix        = "customcads"
   description         = "CustomCADs Production environment"
   name                = "CustomCADs-prod"
-  solution_stack_name = "64bit Amazon Linux 2023 v4.4.1 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2023 v4.4.2 running Docker"
   tier                = "WebServer"
   version_label       = "latest"
 
