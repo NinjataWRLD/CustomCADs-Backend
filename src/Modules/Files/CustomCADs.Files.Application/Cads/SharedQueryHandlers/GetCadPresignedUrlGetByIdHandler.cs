@@ -7,9 +7,9 @@ using CustomCADs.Shared.UseCases.Cads.Queries;
 namespace CustomCADs.Files.Application.Cads.SharedQueryHandlers;
 
 public class GetCadPresignedUrlGetByIdHandler(ICadReads reads, IStorageService storage)
-    : IQueryHandler<GetCadPresignedUrlGetByIdQuery, string>
+    : IQueryHandler<GetCadPresignedUrlGetByIdQuery, (string, string)>
 {
-    public async Task<string> Handle(GetCadPresignedUrlGetByIdQuery req, CancellationToken ct)
+    public async Task<(string, string)> Handle(GetCadPresignedUrlGetByIdQuery req, CancellationToken ct)
     {
         Cad cad = await reads.SingleByIdAsync(req.Id, track: false, ct).ConfigureAwait(false)
             ?? throw CadNotFoundException.ById(req.Id);
@@ -19,6 +19,6 @@ public class GetCadPresignedUrlGetByIdHandler(ICadReads reads, IStorageService s
             contentType: cad.ContentType
         ).ConfigureAwait(false);
 
-        return url;
+        return (url, cad.ContentType);
     }
 }

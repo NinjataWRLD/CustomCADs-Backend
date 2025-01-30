@@ -18,8 +18,11 @@ public sealed class GetCompletedOrderCadPresignedUrlGetHandler(ICompletedOrderRe
         }
 
         GetCadPresignedUrlGetByIdQuery query = new(order.CadId);
-        string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        var (Url, ContetType) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        return new(PresignedUrl: url);
+        return new(
+            PresignedUrl: Url,
+            ContentType: ContetType
+        );
     }
 }

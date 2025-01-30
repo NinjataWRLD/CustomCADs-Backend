@@ -2,4 +2,4 @@
 
 public record GetImagePresignedUrlGetByIdQuery(
     ImageId Id
-) : IQuery<string>;
+) : IQuery<(string Url, string ContentType)>;

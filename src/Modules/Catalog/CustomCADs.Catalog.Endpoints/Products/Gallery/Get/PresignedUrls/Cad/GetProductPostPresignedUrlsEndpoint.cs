@@ -22,7 +22,10 @@ public sealed class GetProductGetPresignedUrlsEndpoint(IRequestSender sender)
         );
         var dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetProductGetPresignedUrlsResponse response = new(dto.PresignedUrl);
+        GetProductGetPresignedUrlsResponse response = new(
+            PresignedUrl: dto.PresignedUrl,
+            ContentType: dto.ContentType
+        );
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

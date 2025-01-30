@@ -2,4 +2,4 @@
 
 public record GetCadPresignedUrlGetByIdQuery(
     CadId Id
-) : IQuery<string>;
+) : IQuery<(string, string)>;

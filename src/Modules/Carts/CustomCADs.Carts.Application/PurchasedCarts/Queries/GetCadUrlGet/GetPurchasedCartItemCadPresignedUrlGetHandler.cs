@@ -23,8 +23,11 @@ public sealed class GetPurchasedCartItemCadPresignedUrlGetHandler(IPurchasedCart
             ?? throw PurchasedCartItemNotFoundException.ById(req.ItemId);
 
         GetCadPresignedUrlGetByIdQuery query = new(item.CadId);
-        string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        var (Url, ContentType) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        return new(PresignedUrl: url);
+        return new(
+            PresignedUrl: Url,
+            ContentType: ContentType
+        );
     }
 }
