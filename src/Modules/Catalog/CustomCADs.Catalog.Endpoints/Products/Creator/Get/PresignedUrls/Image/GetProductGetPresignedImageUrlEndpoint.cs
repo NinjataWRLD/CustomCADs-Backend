@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetImageUrlGet;
 
-namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.PresignedImageUrl;
+namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.PresignedUrls.Image;
 
 public sealed class GetProductGetPresignedImageUrlEndpoint(IRequestSender sender)
     : Endpoint<GetProductGetPresignedImageUrlRequest, GetProductGetPresignedImageUrlResponse>

@@ -6,7 +6,7 @@ public class ProductsGroup : Group
 {
     public ProductsGroup()
     {
-        Configure("products", ep =>
+        Configure("products/creator", ep =>
         {
             ep.Roles(Contributor, Designer);
             ep.Description(d => d.WithTags("10. Products"));
