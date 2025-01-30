@@ -9,7 +9,7 @@ public class TrackShipmentEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Get("{id}/track");
-        Group<ShipmentGroup>();
+        Group<ShipmentsGroup>();
         Description(d => d
             .WithSummary("02.Track")
             .WithDescription("See the tracking history of your shipment")

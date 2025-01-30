@@ -9,7 +9,7 @@ public class GetShipmentsEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Get("");
-        Group<ShipmentGroup>();
+        Group<ShipmentsGroup>();
         Description(d => d
             .WithSummary("01. All")
             .WithDescription("See all your Shipments with Filter, Search, Sorting and Pagination options")

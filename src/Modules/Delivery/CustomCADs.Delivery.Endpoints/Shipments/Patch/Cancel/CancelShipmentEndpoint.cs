@@ -8,7 +8,7 @@ public class CancelShipmentEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Patch("");
-        Group<ShipmentGroup>();
+        Group<ShipmentsGroup>();
         Description(d => d
             .WithSummary("03. Cancel")
             .WithDescription("Cancel a Shipment (this doesn't delete the shipment, it simply cancels the requested delivery)")
