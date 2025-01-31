@@ -10,11 +10,15 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     private readonly Mock<IImageReads> reads = new();
     private readonly Mock<IStorageService> storage = new();
     private static readonly Image image = CreateImage();
+    private const string PresignedUrl = "PresignedUrl";
 
     public GetImagePresignedUrlGetByIdHandlerUnitTests()
     {
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
             .ReturnsAsync(image);
+
+        storage.Setup(x => x.GetPresignedGetUrlAsync(image.Key, image.ContentType))
+            .ReturnsAsync(PresignedUrl);
     }
 
     [Fact]
@@ -32,7 +36,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldCallStorage_WhenImageFound()
+    public async Task Handle_ShouldCallStorage()
     {
         // Assert
         GetImagePresignedUrlGetByIdQuery query = new(id1);
@@ -46,6 +50,23 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
             image.Key,
             image.ContentType
         ), Times.Once);
+    }
+
+    [Fact]
+    public async Task Handle_ShouldReturnProperly()
+    {
+        // Assert
+        GetImagePresignedUrlGetByIdQuery query = new(id1);
+        GetImagePresignedUrlGetByIdHandler handler = new(reads.Object, storage.Object);
+
+        // Act
+        var (Url, ContentType) = await handler.Handle(query, ct);
+
+        // Assert
+        Assert.Multiple(
+            () => Assert.Equal(image.ContentType, ContentType),
+            () => Assert.Equal(PresignedUrl, Url)
+        );
     }
 
     [Fact]
