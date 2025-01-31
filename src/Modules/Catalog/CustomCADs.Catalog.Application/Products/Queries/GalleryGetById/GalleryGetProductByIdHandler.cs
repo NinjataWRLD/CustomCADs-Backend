@@ -32,7 +32,7 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
         GetTimeZoneByIdQuery timeZoneQuery = new(product.CreatorId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
 
-        GetCadByCoordsIdQuery coordsQuery = new(product.CadId);
+        GetCadCoordsByIdQuery coordsQuery = new(product.CadId);
         var (CamCoords, PanCoords) = await sender.SendQueryAsync(coordsQuery, ct).ConfigureAwait(false);
 
         if (!req.AccountId.IsEmpty())
