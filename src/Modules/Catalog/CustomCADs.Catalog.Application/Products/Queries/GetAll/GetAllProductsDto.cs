@@ -4,7 +4,8 @@ public record GetAllProductsDto(
     ProductId Id,
     string Name,
     string Status,
-    DateTime UploadDate,
     string CreatorName,
+    int Views,
+    DateTime UploadDate,
     CategoryDto Category
 );
