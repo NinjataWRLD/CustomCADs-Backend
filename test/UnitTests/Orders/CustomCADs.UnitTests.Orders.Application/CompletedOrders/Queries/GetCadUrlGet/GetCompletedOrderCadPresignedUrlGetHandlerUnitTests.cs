@@ -15,6 +15,7 @@ public class GetCompletedOrderCadPresignedUrlGetHandlerUnitTests : CompletedOrde
     private readonly Mock<IRequestSender> sender = new();
 
     private const string Url = "https://presigned.url";
+    private const string ContentType = "application/json";
     private static readonly CompletedOrderId id = ValidId1;
     private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AccountId wrongBuyerId = ValidBuyerId2;
@@ -26,7 +27,7 @@ public class GetCompletedOrderCadPresignedUrlGetHandlerUnitTests : CompletedOrde
             .ReturnsAsync(order);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync(Url);
+            .ReturnsAsync((Url, ContentType));
     }
 
     [Fact]
@@ -79,7 +80,10 @@ public class GetCompletedOrderCadPresignedUrlGetHandlerUnitTests : CompletedOrde
         var result = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Equal(Url, result.PresignedUrl);
+        Assert.Multiple(
+            () => Assert.Equal(Url, result.PresignedUrl),
+            () => Assert.Equal(ContentType, result.ContentType)
+        );
     }
 
     [Fact]

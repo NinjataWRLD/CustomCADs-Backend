@@ -5,6 +5,7 @@ using CustomCADs.Catalog.Domain.Products.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Cads.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
@@ -31,6 +32,9 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
         GetTimeZoneByIdQuery timeZoneQuery = new(product.CreatorId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
 
+        GetCadCoordsByIdQuery coordsQuery = new(product.CadId);
+        var (CamCoords, PanCoords) = await sender.SendQueryAsync(coordsQuery, ct).ConfigureAwait(false);
+
         if (!req.AccountId.IsEmpty())
         {
             await raiser.RaiseDomainEventAsync(new ProductViewedDomainEvent(
@@ -39,6 +43,12 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
             )).ConfigureAwait(false);
         }
 
-        return product.ToGalleryGetProductByIdDto(username, categoryName, timeZone);
+        return product.ToGalleryGetProductByIdDto(
+            username: username,
+            categoryName: categoryName,
+            timeZone: timeZone,
+            camCoords: CamCoords,
+            panCoords: PanCoords
+        );
     }
 }

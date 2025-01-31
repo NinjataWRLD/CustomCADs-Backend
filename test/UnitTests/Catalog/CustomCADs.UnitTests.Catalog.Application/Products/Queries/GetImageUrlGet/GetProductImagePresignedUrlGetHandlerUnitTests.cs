@@ -13,6 +13,7 @@ public class GetProductImagePresignedUrlGetHandlerUnitTests : ProductsBaseUnitTe
     private readonly Mock<IRequestSender> sender = new();
     private readonly Product product = CreateProduct();
     private const string url = "presigned-url";
+    private const string contentType = "application/xml";
 
     public GetProductImagePresignedUrlGetHandlerUnitTests()
     {
@@ -20,7 +21,7 @@ public class GetProductImagePresignedUrlGetHandlerUnitTests : ProductsBaseUnitTe
             .ReturnsAsync(product);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetImagePresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync(url);
+            .ReturnsAsync((url, contentType));
     }
 
     [Fact]
@@ -64,7 +65,10 @@ public class GetProductImagePresignedUrlGetHandlerUnitTests : ProductsBaseUnitTe
         var result = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Equal(url, result.PresignedUrl);
+        Assert.Multiple(
+            () => Assert.Equal(url, result.PresignedUrl),
+            () => Assert.Equal(contentType, result.ContentType)
+        );
     }
 
     [Fact]

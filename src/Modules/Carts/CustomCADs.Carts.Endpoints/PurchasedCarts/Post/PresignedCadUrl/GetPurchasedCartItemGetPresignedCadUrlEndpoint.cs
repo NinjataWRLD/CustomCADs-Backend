@@ -25,7 +25,10 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
         );
         GetPurchasedCartItemCadPresignedUrlGetDto cad = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetPurchasedCartItemGetPresignedCadUrlResponse response = new(cad.PresignedUrl);
+        GetPurchasedCartItemGetPresignedCadUrlResponse response = new(
+            PresignedUrl: cad.PresignedUrl,
+            ContentType: cad.ContentType
+        );
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

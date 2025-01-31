@@ -43,6 +43,10 @@ resource "aws_iam_role_policy_attachment" "customcads_eb_policy_sns_access" {
   role       = aws_iam_role.customcads_eb_service_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSNSFullAccess"
 }
+resource "aws_iam_role_policy_attachment" "customcads_eb_policy_ec2_full_access" {
+  role       = aws_iam_role.customcads_eb_service_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
 resource "aws_iam_role_policy_attachment" "customcads_eb_policy_ecr_access" {
   role       = aws_iam_role.customcads_eb_instance_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"

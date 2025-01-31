@@ -10,7 +10,7 @@ public class GetShipmentWaybillEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Get("{id}/waybill");
-        Group<ShipmentGroup>();
+        Group<ShipmentsGroup>();
         Roles(Designer);
         Description(d => d
             .WithSummary("04. Waybill")

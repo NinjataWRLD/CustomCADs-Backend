@@ -2,5 +2,7 @@
 
 public sealed record GetAllGaleryProductsResponse(
     Guid Id,
-    string Name
+    string Name,
+    string Category,
+    int Views
 );

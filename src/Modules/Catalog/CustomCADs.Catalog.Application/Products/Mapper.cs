@@ -2,12 +2,13 @@
 using CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
 using CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
 using CustomCADs.Catalog.Application.Products.Queries.GetAll;
+using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Catalog.Application.Products;
 
 internal static class Mapper
 {
-    internal static GalleryGetProductByIdDto ToGalleryGetProductByIdDto(this Product product, string username, string categoryName, string timeZone)
+    internal static GalleryGetProductByIdDto ToGalleryGetProductByIdDto(this Product product, string username, string categoryName, string timeZone, CoordinatesDto camCoords, CoordinatesDto panCoords)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -18,6 +19,8 @@ internal static class Mapper
                 product.UploadDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
+            CamCoordinates: camCoords,
+            PanCoordinates: panCoords,
             Counts: product.Counts,
             Category: new(product.CategoryId, categoryName)
         );
@@ -27,6 +30,7 @@ internal static class Mapper
             Id: product.Id,
             Name: product.Name,
             Status: product.Status.ToString(),
+            Views: product.Counts.Views,
             UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
                 product.UploadDate,
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)

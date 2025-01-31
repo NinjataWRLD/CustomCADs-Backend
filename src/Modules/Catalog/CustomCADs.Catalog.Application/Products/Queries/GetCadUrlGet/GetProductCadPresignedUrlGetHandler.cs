@@ -14,8 +14,11 @@ public sealed class GetProductCadPresignedUrlGetHandler(IProductReads reads, IRe
             ?? throw ProductNotFoundException.ById(req.Id);
 
         GetCadPresignedUrlGetByIdQuery query = new(product.CadId);
-        string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        var (Url, ContentType)= await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        return new(PresignedUrl: url);
+        return new(
+            PresignedUrl: Url,
+            ContentType: ContentType
+        );
     }
 }

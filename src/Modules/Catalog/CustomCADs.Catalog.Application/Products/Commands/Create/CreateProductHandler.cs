@@ -37,8 +37,8 @@ public sealed class CreateProductHandler(IWrites<Product> productWrites, IUnitOf
         CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
 
         CreateImageCommand imageCommand = new(
-            Key: req.CadKey,
-            ContentType: req.CadContentType
+            Key: req.ImageKey,
+            ContentType: req.ImageContentType
         );
         ImageId imageId = await sender.SendCommandAsync(imageCommand, ct).ConfigureAwait(false);
 

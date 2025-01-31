@@ -23,7 +23,9 @@ internal static class Mapper
     internal static GetAllGaleryProductsResponse ToGetAllGaleryProductsResponse(this GetAllProductsDto product)
         => new(
             Id: product.Id.Value,
-            Name: product.Name
+            Name: product.Name,
+            Category: product.Category.Name,
+            Views: product.Views
         );
 
     internal static GetGalleryProductResponse ToGetGalleryProductResponse(this GalleryGetProductByIdDto product)
@@ -32,7 +34,10 @@ internal static class Mapper
             Name: product.Name,
             Description: product.Description,
             Price: product.Price,
+            CreatorName: product.CreatorName,
             UploadDate: product.UploadDate.ToString(DateFormatString),
+            CamCoordinates: product.CamCoordinates,
+            PanCoordinates: product.PanCoordinates,
             Counts: product.Counts.ToCountsDto(),
             Category: product.Category.ToCategoryDto()
         );

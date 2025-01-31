@@ -14,8 +14,11 @@ public sealed class GetProductImagePresignedUrlGetHandler(IProductReads reads, I
             ?? throw ProductNotFoundException.ById(req.Id);
 
         GetImagePresignedUrlGetByIdQuery query = new(product.ImageId);
-        string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        var (Url, ContentType) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        return new(PresignedUrl: url);
+        return new(
+            PresignedUrl: Url,
+            ContentType: ContentType
+        );
     }
 }

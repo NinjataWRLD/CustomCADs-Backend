@@ -37,12 +37,13 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     private static readonly PurchasedCartId cartId = ValidId1;
     private static readonly PurchasedCartItemId itemId = PurchasedCartItemId.New(Guid.Empty);
     private static readonly AccountId buyerId = ValidBuyerId1;
-    private const string url = "presigned-url";
+    private const string Url = "presigned-Url";
+    private const string ContentType = "presigned-Url";
 
     public GetPurchasedCartCadUrlGetHandlerUnitTests()
     {
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync(url);
+            .ReturnsAsync((Url, ContentType));
     }
 
     [Fact]
@@ -107,7 +108,10 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
         var result = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Equal(url, result.PresignedUrl);
+        Assert.Multiple(
+            () => Assert.Equal(Url, result.PresignedUrl),
+            () => Assert.Equal(ContentType, result.ContentType)
+        );
     }
 
     [Fact]

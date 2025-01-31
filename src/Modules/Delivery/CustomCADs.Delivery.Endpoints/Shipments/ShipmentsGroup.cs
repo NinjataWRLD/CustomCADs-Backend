@@ -2,9 +2,9 @@
 
 using static Constants.Roles;
 
-public class ShipmentGroup : Group
+public class ShipmentsGroup : Group
 {
-    public ShipmentGroup()
+    public ShipmentsGroup()
     {
         Configure("shipments", ep =>
         {

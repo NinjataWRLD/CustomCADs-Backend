@@ -38,10 +38,10 @@ resource "aws_cloudfront_distribution" "customcads_cdn" {
   aliases         = ["api.customcads.com"]
 
   default_cache_behavior {
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
+    allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods  = ["GET", "HEAD"]
 
-    target_origin_id = local.origin_id
+    target_origin_id       = local.origin_id
     cache_policy_id        = null
     viewer_protocol_policy = "redirect-to-https"
 

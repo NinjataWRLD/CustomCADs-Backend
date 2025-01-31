@@ -7,9 +7,9 @@ using CustomCADs.Shared.UseCases.Images.Queries;
 namespace CustomCADs.Files.Application.Images.SharedQueryHandlers;
 
 public class GetImagePresignedUrlGetByIdHandler(IImageReads reads, IStorageService storage)
-    : IQueryHandler<GetImagePresignedUrlGetByIdQuery, string>
+    : IQueryHandler<GetImagePresignedUrlGetByIdQuery, (string Url, string ContentType)>
 {
-    public async Task<string> Handle(GetImagePresignedUrlGetByIdQuery req, CancellationToken ct)
+    public async Task<(string Url, string ContentType)> Handle(GetImagePresignedUrlGetByIdQuery req, CancellationToken ct)
     {
         Image image = await reads.SingleByIdAsync(req.Id, track: false, ct).ConfigureAwait(false)
             ?? throw ImageNotFoundException.ById(req.Id);
@@ -19,6 +19,6 @@ public class GetImagePresignedUrlGetByIdHandler(IImageReads reads, IStorageServi
             contentType: image.ContentType
         ).ConfigureAwait(false);
 
-        return url;
+        return (url, image.ContentType);
     }
 }

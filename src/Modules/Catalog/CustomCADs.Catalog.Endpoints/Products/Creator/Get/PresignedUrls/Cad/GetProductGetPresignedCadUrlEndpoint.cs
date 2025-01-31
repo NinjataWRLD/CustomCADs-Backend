@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.GetCadUrlGet;
 
-namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.PresignedCadUrl;
+namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.PresignedUrls.Cad;
 
 public sealed class GetProductGetPresignedCadUrlEndpoint(IRequestSender sender)
     : Endpoint<GetProductGetPresignedCadUrlRequest, GetProductGetPresignedCadUrlResponse>
