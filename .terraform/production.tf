@@ -19,7 +19,8 @@ locals {
   delivery_username = local.delivery["Username"]
   delivery_password = local.delivery["Password"]
 
-  urls_client = local.urls["Client"]
+  urls_all       = local.urls["All"]
+  urls_preferred = local.urls["Preferred"]
 }
 
 # Production Environment
@@ -428,10 +429,16 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     value     = "enhanced"
   }
   setting {
-    name      = "URLs__Client"
+    name      = "ClientURLs__All"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.urls_client
+    value     = local.urls_all
+  }
+  setting {
+    name      = "ClientURLs__Preferred"
+    namespace = "aws:elasticbeanstalk:application:environment"
+    resource  = null
+    value     = local.urls_preferred
   }
   setting {
     name      = "UpdateLevel"
