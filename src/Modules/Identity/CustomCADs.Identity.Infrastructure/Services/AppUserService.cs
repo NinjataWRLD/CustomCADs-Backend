@@ -4,21 +4,22 @@ using CustomCADs.Identity.Application.Common.Exceptions;
 using CustomCADs.Identity.Domain;
 using CustomCADs.Identity.Domain.DomainEvents.Email;
 using CustomCADs.Identity.Domain.Entities;
+using CustomCADs.Identity.Infrastructure.Dtos;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Commands;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Identity.Infrastructure.Services;
 
 using static AccountConstants;
 
-public sealed class AppUserService(UserManager<AppUser> manager, ITokenService tokenService, IEventRaiser raiser, IRequestSender sender, IConfiguration config) : IUserService
+public sealed class AppUserService(UserManager<AppUser> manager, ITokenService tokenService, IEventRaiser raiser, IRequestSender sender, IOptions<ClientUrlSettings> settings) : IUserService
 {
-    private readonly string clientUrl = config["URLs:Client"] ?? throw new KeyNotFoundException("Client Url not provided.");
+    private readonly string clientUrl = settings.Value.Preferred;
 
     public async Task<AppUser> FindByIdAsync(Guid id)
         => await manager.FindByIdAsync(id.ToString()).ConfigureAwait(false)

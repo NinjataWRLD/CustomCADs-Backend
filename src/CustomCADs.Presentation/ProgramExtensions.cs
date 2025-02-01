@@ -7,6 +7,7 @@ using CustomCADs.Files.Application;
 using CustomCADs.Identity.Application;
 using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Infrastructure;
+using CustomCADs.Identity.Infrastructure.Dtos;
 using CustomCADs.Orders.Application;
 using CustomCADs.Presentation;
 using CustomCADs.Shared.Abstractions.Requests.Middleware;
@@ -237,12 +238,18 @@ public static class ProgramExtensions
 
     public static void AddCorsForClient(this IServiceCollection services, IConfiguration config)
     {
-        string clientUrl = config["URLs:Client"] ?? throw new KeyNotFoundException("Client Url not provided.");
+        IConfigurationSection section = config.GetSection("ClientURLs");
+        services.Configure<ClientUrlSettings>(section);
+
         services.AddCors(opt =>
         {
+            ClientUrlSettings settings = section.Get<ClientUrlSettings>() 
+                ?? throw new KeyNotFoundException("URLs not provided.");
+
             opt.AddDefaultPolicy(builder =>
             {
-                builder.WithOrigins(clientUrl)
+                string[] urls = settings.All.Split(',');
+                builder.WithOrigins(urls)
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
