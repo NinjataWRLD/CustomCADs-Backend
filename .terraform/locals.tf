@@ -9,5 +9,5 @@ locals {
   email    = local.env_vars["Email"]
   storage  = local.env_vars["Storage"]
   delivery = local.env_vars["Delivery"]
-  urls     = local.env_vars["URLs"]
+  urls     = local.env_vars["ClientURLs"]
 }
