@@ -15,6 +15,30 @@ resource "aws_acm_certificate" "customcads_certificate" {
   }
 }
 
+# Cache policy
+resource "aws_cloudfront_cache_policy" "customcads_cache_policy" {
+  name        = "CustomCADsCachePolicy"
+  comment     = "Cache policy for the CustomCADs API"
+  default_ttl = 3600
+  max_ttl     = 86400
+  min_ttl     = 0
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "all"
+    }
+    headers_config {
+      header_behavior = "whitelist"
+      headers {
+        items = ["Origin", "Access-Control-Request-Headers", "Access-Control-Request-Method"]
+      }
+    }
+    query_strings_config {
+      query_string_behavior = "all"
+    }
+  }
+}
+
 # CloudFront Distribution
 resource "aws_cloudfront_distribution" "customcads_cdn" {
   origin {
@@ -42,19 +66,8 @@ resource "aws_cloudfront_distribution" "customcads_cdn" {
     cached_methods  = ["GET", "HEAD"]
 
     target_origin_id       = local.origin_id
-    cache_policy_id        = null
+    cache_policy_id        = aws_cloudfront_cache_policy.customcads_cache_policy.id
     viewer_protocol_policy = "redirect-to-https"
-
-    min_ttl     = 0
-    default_ttl = 3600
-    max_ttl     = 86400
-
-    forwarded_values {
-      query_string = true
-      cookies {
-        forward = "all"
-      }
-    }
   }
 
   price_class = "PriceClass_100"
