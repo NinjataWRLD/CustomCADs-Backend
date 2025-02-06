@@ -8,7 +8,7 @@ public sealed class DeleteProductEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Delete("");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("09. Delete")
             .WithDescription("Delete your Product")

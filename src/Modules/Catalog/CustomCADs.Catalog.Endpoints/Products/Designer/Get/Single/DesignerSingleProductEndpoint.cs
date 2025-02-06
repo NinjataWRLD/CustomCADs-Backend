@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Designer.GetById;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Designer.Get.Single;
 

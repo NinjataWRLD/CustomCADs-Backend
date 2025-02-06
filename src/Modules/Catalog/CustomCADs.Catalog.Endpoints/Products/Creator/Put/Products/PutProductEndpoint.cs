@@ -10,7 +10,7 @@ public sealed class PutProductEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Put("");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("05. Edit")
             .WithDescription("Edit your Product")

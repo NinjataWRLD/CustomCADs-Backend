@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.GetCadUrlPut;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Shared.GetCadUrl.Put;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Creator.Put.PresignedUrl.Cad;
 
@@ -8,7 +8,7 @@ public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Post("presignedUrls/replace/cad");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("12. Change Cad")
             .WithDescription("Change your Product's Cad")

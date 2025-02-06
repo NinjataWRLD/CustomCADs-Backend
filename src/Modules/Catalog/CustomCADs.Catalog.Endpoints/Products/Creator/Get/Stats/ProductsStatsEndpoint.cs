@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Count;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Creator.Count;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.Stats;
 
@@ -8,7 +8,7 @@ public sealed class ProductsStatsEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Get("stats");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("04. Stats")
             .WithDescription("See your Products' stats")

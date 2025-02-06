@@ -8,7 +8,7 @@ public sealed class PatchProductCadEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Patch("");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("08. Set Cad Coordinates")
             .WithDescription("Set the Coordinates of your Product's Cad")

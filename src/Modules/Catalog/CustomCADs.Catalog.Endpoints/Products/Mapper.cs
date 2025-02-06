@@ -1,7 +1,9 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.CreatorGetById;
-using CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
-using CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
-using CustomCADs.Catalog.Application.Products.Queries.GetAll;
+﻿using CustomCADs.Catalog.Application.Common.Enums;
+using CustomCADs.Catalog.Application.Products.Queries.Creator.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Designer.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Gallery.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Shared.GetAll;
+using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Catalog.Endpoints.Products.Creator.Get.All;
 using CustomCADs.Catalog.Endpoints.Products.Creator.Get.Recent;
@@ -91,7 +93,7 @@ internal static class Mapper
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
-    
+
     internal static GetValidatedProductsResponse ToGetValidatedProductsDto(this GetAllProductsDto product)
     => new(
         Id: product.Id.Value,
@@ -100,7 +102,7 @@ internal static class Mapper
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
-    
+
     internal static GetReportedProductsResponse ToGetReportedProductsDto(this GetAllProductsDto product)
     => new(
         Id: product.Id.Value,
@@ -131,4 +133,36 @@ internal static class Mapper
             Id: category.Id.Value,
             Name: category.Name
         );
+
+    internal static ProductSortingType ToBase(this ProductGallerySortingType sorting)
+        => sorting switch
+        {
+            ProductGallerySortingType.UploadDate => ProductSortingType.UploadDate,
+            ProductGallerySortingType.Alphabetical => ProductSortingType.Alphabetical,
+            ProductGallerySortingType.Cost => ProductSortingType.Cost,
+            ProductGallerySortingType.Purchases => ProductSortingType.Purchases,
+            ProductGallerySortingType.Views => ProductSortingType.Views,
+            _ => throw new ArgumentException("", nameof(sorting))
+        };
+
+    internal static ProductSortingType ToBase(this ProductCreatorSortingType sorting)
+        => sorting switch
+        {
+            ProductCreatorSortingType.UploadDate => ProductSortingType.UploadDate,
+            ProductCreatorSortingType.Alphabetical => ProductSortingType.Alphabetical,
+            ProductCreatorSortingType.Status => ProductSortingType.Status,
+            ProductCreatorSortingType.Cost => ProductSortingType.Cost,
+            ProductCreatorSortingType.Purchases => ProductSortingType.Purchases,
+            ProductCreatorSortingType.Views => ProductSortingType.Views,
+            _ => throw new ArgumentException("", nameof(sorting))
+        };
+
+    internal static ProductSortingType ToBase(this ProductDesignerSortingType sorting)
+        => sorting switch
+        {
+            ProductDesignerSortingType.UploadDate => ProductSortingType.UploadDate,
+            ProductDesignerSortingType.Alphabetical => ProductSortingType.Alphabetical,
+            ProductDesignerSortingType.Cost => ProductSortingType.Cost,
+            _ => throw new ArgumentException("", nameof(sorting))
+        };
 }

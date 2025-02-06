@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.GetCadUrlGet;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Shared.GetCadUrl.Get;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.PresignedUrls.Cad;
 
@@ -8,7 +8,7 @@ public sealed class GetProductGetPresignedCadUrlEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Post("presignedUrls/download/cad");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("07. Download Cad")
             .WithDescription("Download a Product's Cad")

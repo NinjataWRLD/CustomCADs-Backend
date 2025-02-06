@@ -1,7 +1,7 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.CreatorGetById;
-using CustomCADs.Catalog.Application.Products.Queries.DesignerGetById;
-using CustomCADs.Catalog.Application.Products.Queries.GalleryGetById;
-using CustomCADs.Catalog.Application.Products.Queries.GetAll;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Creator.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Designer.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Gallery.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Shared.GetAll;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Catalog.Application.Products;

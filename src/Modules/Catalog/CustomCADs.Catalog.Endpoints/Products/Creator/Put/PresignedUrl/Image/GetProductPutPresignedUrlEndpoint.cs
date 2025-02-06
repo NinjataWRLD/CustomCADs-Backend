@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.GetImageUrlPut;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Shared.GetImageUrl.Put;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Creator.Put.PresignedUrl.Image;
 
@@ -8,7 +8,7 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Post("presignedUrls/replace/image");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("12. Change Image")
             .WithDescription("Change your Product's Image")

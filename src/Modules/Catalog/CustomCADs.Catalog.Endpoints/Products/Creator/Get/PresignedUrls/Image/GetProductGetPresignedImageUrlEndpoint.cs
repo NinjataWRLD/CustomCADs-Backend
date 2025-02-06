@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.GetImageUrlGet;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Shared.GetImageUrl.Get;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.PresignedUrls.Image;
 
@@ -8,7 +8,7 @@ public sealed class GetProductGetPresignedImageUrlEndpoint(IRequestSender sender
     public override void Configure()
     {
         Post("presignedUrls/download/image");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("11. Download Image")
             .WithDescription("Download an Product's Image")
