@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.CreatorGetById;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Creator.GetById;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.Single;
 

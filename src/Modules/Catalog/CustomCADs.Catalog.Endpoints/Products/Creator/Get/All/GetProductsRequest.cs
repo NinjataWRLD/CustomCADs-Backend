@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products.Enums;
+﻿using CustomCADs.Catalog.Application.Common.Enums;
 using CustomCADs.Shared.Core.Common.Enums;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.All;
@@ -6,7 +6,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.Creator.Get.All;
 public sealed record GetProductsRequest(
     int? CategoryId = default,
     string? Name = default,
-    ProductSortingType SortingType = ProductSortingType.UploadDate,
+    ProductCreatorSortingType SortingType = ProductCreatorSortingType.UploadDate,
     SortingDirection SortingDirection = SortingDirection.Descending,
     int Page = 1,
     int Limit = 20

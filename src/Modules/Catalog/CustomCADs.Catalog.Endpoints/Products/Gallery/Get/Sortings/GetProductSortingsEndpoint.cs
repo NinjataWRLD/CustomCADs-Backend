@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.GetSortings;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Gallery.GetSortings;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Gallery.Get.Sortings;
 
@@ -17,7 +17,7 @@ public sealed class GetProductSortingsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        GetProductSortingsQuery query = new();
+        GetProductGallerySortingsQuery query = new();
         string[] result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         await SendOkAsync(result).ConfigureAwait(false);
