@@ -11,7 +11,7 @@ public sealed class RecentProductsEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Get("recent");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("03. Recent")
             .WithDescription("See your most recent Products")

@@ -8,7 +8,7 @@ public sealed class ProductsStatsEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Get("stats");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("04. Stats")
             .WithDescription("See your Products' stats")

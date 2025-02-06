@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetSortings;
-using CustomCADs.Catalog.Domain.Products.Enums;
+﻿using CustomCADs.Catalog.Application.Common;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.GetSortings;
 

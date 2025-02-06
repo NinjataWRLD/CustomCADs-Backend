@@ -10,7 +10,7 @@ public sealed class GetProductsEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Get("");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("10. All")
             .WithDescription("See all your Product with Filter, Search, Sorting and Pagination options")

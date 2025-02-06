@@ -11,7 +11,7 @@ public sealed class PostProductEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Post("");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("02. Create")
             .WithDescription("Create a Product")

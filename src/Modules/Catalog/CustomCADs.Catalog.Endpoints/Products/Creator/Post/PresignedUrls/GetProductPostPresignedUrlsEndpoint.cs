@@ -9,7 +9,7 @@ public sealed class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Post("presignedUrls/upload");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("01. Upload Image & Cad")
             .WithDescription("Upload the Image and Cad for a Product")

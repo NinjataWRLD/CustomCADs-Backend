@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetSortings;
+﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetSortings;
 
 namespace CustomCADs.Delivery.Endpoints.Shipments.Get.Sortings;
 

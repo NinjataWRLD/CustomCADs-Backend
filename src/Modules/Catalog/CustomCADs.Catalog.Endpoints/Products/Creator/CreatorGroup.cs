@@ -2,9 +2,9 @@
 
 using static Constants.Roles;
 
-public class ProductsGroup : Group
+public class CreatorGroup : Group
 {
-    public ProductsGroup()
+    public CreatorGroup()
     {
         Configure("products/creator", ep =>
         {

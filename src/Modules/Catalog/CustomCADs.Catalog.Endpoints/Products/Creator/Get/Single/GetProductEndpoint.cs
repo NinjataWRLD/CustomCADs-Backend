@@ -8,7 +8,7 @@ public sealed class GetProductEndpoint(IRequestSender sender)
     public override void Configure()
     {
         Get("{id}");
-        Group<ProductsGroup>();
+        Group<CreatorGroup>();
         Description(d => d
             .WithSummary("06. Single")
             .WithDescription("See your Product in detail")
