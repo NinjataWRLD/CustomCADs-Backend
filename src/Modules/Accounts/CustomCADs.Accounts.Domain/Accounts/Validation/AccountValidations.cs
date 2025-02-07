@@ -57,12 +57,6 @@ public static partial class AccountValidations
             throw AccountValidationException.NotNull(property);
         }
 
-        int maxLength = EmailMaxLength, minLength = EmailMinLength;
-        if (email.Length > maxLength && email.Length < minLength)
-        {
-            throw AccountValidationException.Length(property, maxLength, minLength);
-        }
-
         if (!Regexes.Email.IsMatch(email))
         {
             throw AccountValidationException.Email();

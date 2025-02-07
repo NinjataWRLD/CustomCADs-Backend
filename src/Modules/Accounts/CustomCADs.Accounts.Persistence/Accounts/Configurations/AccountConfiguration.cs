@@ -63,7 +63,6 @@ static class UserConfigUtils
 
         builder.Property(x => x.Email)
             .IsRequired()
-            .HasMaxLength(EmailMaxLength)
             .HasColumnName("Email");
 
         builder.Property(x => x.TimeZone)
