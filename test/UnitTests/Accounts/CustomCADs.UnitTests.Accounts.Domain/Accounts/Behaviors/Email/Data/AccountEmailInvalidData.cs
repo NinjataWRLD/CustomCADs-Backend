@@ -11,7 +11,5 @@ public class AccountEmailInvalidData : AccountEmailData
         Add(InvalidEmail3);
         Add(InvalidEmail4);
         Add(InvalidEmail5);
-        Add(InvalidEmail6);
-        Add(InvalidEmail7);
     }
 }

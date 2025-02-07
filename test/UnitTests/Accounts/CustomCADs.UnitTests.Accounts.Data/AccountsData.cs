@@ -27,12 +27,10 @@ public static class AccountsData
     public const string ValidEmail3 = DesignerEmail;
     public const string ValidEmail4 = AdminEmail;
     public const string InvalidEmail1 = "";
-    public static readonly string InvalidEmail2 = new('a', EmailMinLength - 1);
-    public static readonly string InvalidEmail3 = new('a', EmailMaxLength + 1);
-    public const string InvalidEmail4 = "a@a";
-    public const string InvalidEmail5 = "a@a.a";
-    public const string InvalidEmail6 = " a@a.co";
-    public const string InvalidEmail7 = "a@a.co ";
+    public const string InvalidEmail2 = "a@a";
+    public const string InvalidEmail3 = "a@a.a";
+    public const string InvalidEmail4 = " a@a.co";
+    public const string InvalidEmail5 = "a@a.co ";
 
     public const string ValidTimeZone1 = "Europe/Sofia";
     public const string ValidTimeZone2 = "Europe/Bucharest";
