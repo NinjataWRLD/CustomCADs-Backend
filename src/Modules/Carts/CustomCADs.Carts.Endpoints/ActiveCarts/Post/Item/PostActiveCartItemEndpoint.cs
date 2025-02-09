@@ -11,7 +11,7 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Post("item");
+        Post("items");
         Group<ActiveCartsGroup>();
         Description(d => d
             .WithSummary("02. Add Item")

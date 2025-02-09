@@ -1,16 +1,15 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.SetDelivery;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.ToggleForDelivery;
 using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.SetForDelivery.Data;
 
-namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.SetForDelivery;
+namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.ToggleForDelivery;
 
 using static ActiveCartsData;
 
-public class SetActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUnitTests
+public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUnitTests
 {
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
@@ -19,7 +18,7 @@ public class SetActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUnitT
     private readonly ActiveCartItem item;
     private readonly ActiveCart cart;
 
-    public SetActiveCartItemForDeliveryHandlerUnitTests()
+    public ToggleActiveCartItemForDeliveryHandlerUnitTests()
     {
         item = CreateItemWithId(itemId);
         cart = CreateCartWithItems(
@@ -31,13 +30,12 @@ public class SetActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUnitT
             .ReturnsAsync(cart);
     }
 
-    [Theory]
-    [ClassData(typeof(SetActiveCartItemForDeliveryValidData))]
-    public async Task Handle_ShouldQueryDatabase(bool value)
+    [Fact]
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        SetActiveCartItemForDeliveryCommand command = new(buyerId, itemId, value);
-        SetActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
+        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, itemId);
+        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -46,13 +44,12 @@ public class SetActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUnitT
         reads.Verify(x => x.SingleByBuyerIdAsync(buyerId, true, ct), Times.Once);
     }
 
-    [Theory]
-    [ClassData(typeof(SetActiveCartItemForDeliveryValidData))]
-    public async Task Handle_ShouldPersistToDatabase(bool value)
+    [Fact]
+    public async Task Handle_ShouldPersistToDatabase()
     {
         // Arrange
-        SetActiveCartItemForDeliveryCommand command = new(buyerId, itemId, value);
-        SetActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
+        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, itemId);
+        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -61,16 +58,15 @@ public class SetActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUnitT
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
-    [Theory]
-    [ClassData(typeof(SetActiveCartItemForDeliveryValidData))]
-    public async Task Handle_ShouldThrowException_WhenCartNotFound(bool value)
+    [Fact]
+    public async Task Handle_ShouldThrowException_WhenCartNotFound()
     {
         // Arrange
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, true, ct))
             .ReturnsAsync(null as ActiveCart);
 
-        SetActiveCartItemForDeliveryCommand command = new(buyerId, itemId, value);
-        SetActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
+        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, itemId);
+        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<ActiveCartNotFoundException>(async () =>
@@ -80,17 +76,15 @@ public class SetActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUnitT
         });
     }
 
-    [Theory]
-    [ClassData(typeof(SetActiveCartItemForDeliveryValidData))]
-    public async Task Handle_ShouldThrowException_WhenItemNotFound(bool value)
+    [Fact]
+    public async Task Handle_ShouldThrowException_WhenItemNotFound()
     {
         // Arrange
-        SetActiveCartItemForDeliveryCommand command = new(
+        ToggleActiveCartItemForDeliveryCommand command = new(
             BuyerId: buyerId,
-            ItemId: CartItemsData.ValidId1,
-            Value: value
+            ItemId: CartItemsData.ValidId1
         );
-        SetActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
+        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<ActiveCartItemNotFoundException>(async () =>
