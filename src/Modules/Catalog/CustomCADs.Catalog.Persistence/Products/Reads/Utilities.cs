@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
+using CustomCADs.Catalog.Persistence.ShadowEntities;
 using CustomCADs.Shared.Core.Common.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
@@ -8,7 +9,7 @@ namespace CustomCADs.Catalog.Persistence.Products.Reads;
 
 public static class Utilities
 {
-    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, ProductId[]? ids, AccountId? creatorId = null, AccountId? designerId = null, CategoryId? categoryId = null, ProductStatus? productStatus = null)
+    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, ProductId[]? ids, AccountId? creatorId = null, AccountId? designerId = null, CategoryId? categoryId = null, ProductStatus? status = null)
     {
         if (ids is not null)
         {
@@ -26,9 +27,9 @@ public static class Utilities
         {
             query = query.Where(c => c.CategoryId == categoryId);
         }
-        if (productStatus is not null)
+        if (status is not null)
         {
-            query = query.Where(c => c.Status == productStatus);
+            query = query.Where(c => c.Status == status);
         }
 
         return query;
@@ -68,4 +69,15 @@ public static class Utilities
     {
         return query.Skip((page - 1) * limit).Take(limit);
     }
+
+    public static async Task<ProductId[]?> GetProductIdsByTagIdsOrDefaultAsync(this DbSet<ProductTag> set, TagId[]? tagIds, CancellationToken ct = default)
+        => tagIds is not null
+            ? await set
+                .Where(x => tagIds.Contains(x.TagId))
+                .GroupBy(x => x.ProductId)
+                .Where(x => x.Count() == tagIds.Length)
+                .Select(x => x.Key)
+                .ToArrayAsync(ct)
+                .ConfigureAwait(false)
+            : null;
 }

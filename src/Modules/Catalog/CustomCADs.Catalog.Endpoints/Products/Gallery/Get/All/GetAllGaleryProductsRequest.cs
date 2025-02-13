@@ -5,6 +5,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.Gallery.Get.All;
 
 public sealed record GetAllGaleryProductsRequest(
     int? CategoryId = null,
+    Guid[]? TagIds = null,
     string? Name = null,
     ProductGallerySortingType SortingType = ProductGallerySortingType.UploadDate,
     SortingDirection SortingDirection = SortingDirection.Descending,

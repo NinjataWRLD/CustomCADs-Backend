@@ -9,6 +9,7 @@ namespace CustomCADs.Catalog.Application.Products.Queries.Shared.GetAll;
 public sealed record GetAllProductsQuery(
     Pagination Pagination,
     CategoryId? CategoryId = null,
+    TagId[]? TagIds = null,
     AccountId? CreatorId = null,
     AccountId? DesignerId = null,
     ProductStatus? Status = null,

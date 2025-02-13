@@ -9,6 +9,7 @@ namespace CustomCADs.Catalog.Domain.Products.Reads;
 public record ProductQuery(
     Pagination Pagination,
     ProductId[]? Ids = null,
+    TagId[]? TagIds = null,
     AccountId? DesignerId = null,
     AccountId? CreatorId = null,
     CategoryId? CategoryId = null,

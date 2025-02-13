@@ -40,6 +40,12 @@ static class UserConfigUtils
                 v => AccountId.New(v)
             );
 
+        builder.Property(x => x.ViewedProductIds)
+            .HasConversion(
+                x => x.Select(x => x.Value).ToArray(),
+                x => x.Select(ProductId.New).ToList()
+            );
+
         return builder;
     }
 
@@ -83,10 +89,6 @@ static class UserConfigUtils
 
         builder.Property(x => x.ViewedProductIds)
             .IsRequired()
-            .HasConversion(
-                x => x.Select(x => x.Value).ToArray(),
-                x => x.Select(ProductId.New).ToList()
-            )
             .HasColumnName("ViewedProductIds");
 
         return builder;

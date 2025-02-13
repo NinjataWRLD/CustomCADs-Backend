@@ -18,6 +18,7 @@ public sealed class GetAllProductsHandler(IProductReads reads, IRequestSender se
             DesignerId: req.DesignerId,
             CreatorId: req.CreatorId,
             Status: req.Status,
+            TagIds: req.TagIds,
             Name: req.Name,
             Sorting: req.Sorting,
             Pagination: req.Pagination
