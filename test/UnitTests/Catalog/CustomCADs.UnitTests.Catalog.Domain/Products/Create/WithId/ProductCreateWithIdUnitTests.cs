@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
 using CustomCADs.Catalog.Domain.Products.Enums;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Catalog.Domain.Products.Create.WithId.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Create.WithId;
@@ -8,9 +9,10 @@ public class ProductCreateWithIdUnitTests : ProductsBaseUnitTests
 {
     [Theory]
     [ClassData(typeof(ProductCreateWithIdValidData))]
-    public void CreateWithId_ShouldNotThrowException_WhenProductIsValid(string name, string description, decimal price)
+    public void CreateWithId_ShouldNotThrowException_WhenProductIsValid(ProductId id, string name, string description, decimal price)
     {
-        CreateProduct(
+        CreateProductWithId(
+            id: id,
             name: name,
             description: description,
             price: price
@@ -19,9 +21,10 @@ public class ProductCreateWithIdUnitTests : ProductsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(ProductCreateWithIdValidData))]
-    public void CreateWithId_ShouldPopulateProperly_WhenProductIsValid(string name, string description, decimal price)
+    public void CreateWithId_ShouldPopulateProperly_WhenProductIsValid(ProductId id, string name, string description, decimal price)
     {
-        Product product = CreateProduct(
+        Product product = CreateProductWithId(
+            id: id,
             name: name,
             description: description,
             price: price
@@ -39,11 +42,12 @@ public class ProductCreateWithIdUnitTests : ProductsBaseUnitTests
     [ClassData(typeof(ProductCreateWithIdInvalidNameData))]
     [ClassData(typeof(ProductCreateWithIdInvalidDescriptionData))]
     [ClassData(typeof(ProductCreateWithIdInvalidPriceData))]
-    public void CreateWithId_ShouldThrowException_WhenProductIsNotValid(string name, string description, decimal price)
+    public void CreateWithId_ShouldThrowException_WhenProductIsNotValid(ProductId id, string name, string description, decimal price)
     {
         Assert.Throws<ProductValidationException>(() =>
         {
-            CreateProduct(
+            CreateProductWithId(
+                id: id,
                 name: name,
                 description: description,
                 price: price
