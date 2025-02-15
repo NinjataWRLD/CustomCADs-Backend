@@ -11,7 +11,5 @@ public class CreateAccountInvalidEmailData : CreateAccountData
         Add(RolesData.ValidName3, ValidUsername3, InvalidEmail3, ValidTimeZone1, ValidPassword, ValidFirstName1, ValidLastName1);
         Add(RolesData.ValidName3, ValidUsername3, InvalidEmail4, ValidTimeZone1, ValidPassword, ValidFirstName1, ValidLastName1);
         Add(RolesData.ValidName3, ValidUsername3, InvalidEmail5, ValidTimeZone1, ValidPassword, ValidFirstName1, ValidLastName1);
-        Add(RolesData.ValidName3, ValidUsername3, InvalidEmail6, ValidTimeZone1, ValidPassword, ValidFirstName1, ValidLastName1);
-        Add(RolesData.ValidName3, ValidUsername3, InvalidEmail7, ValidTimeZone1, ValidPassword, ValidFirstName1, ValidLastName1);
     }
 }

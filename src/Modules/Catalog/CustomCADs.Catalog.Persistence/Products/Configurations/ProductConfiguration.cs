@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Products;
+using CustomCADs.Catalog.Persistence.ShadowEntities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
@@ -14,17 +15,27 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         builder
             .SetPrimaryKey()
+            .SetNavigations()
             .SetStronglyTypedIds()
             .SetValueObjects()
             .SetValidations();
     }
 }
 
-static class CadConfigUtils
+static class ProductConfigUtils
 {
     public static EntityTypeBuilder<Product> SetPrimaryKey(this EntityTypeBuilder<Product> builder)
     {
         builder.HasKey(x => x.Id);
+
+        return builder;
+    }
+
+    public static EntityTypeBuilder<Product> SetNavigations(this EntityTypeBuilder<Product> builder)
+    {
+        builder.HasMany<ProductTag>()
+               .WithOne()
+               .HasForeignKey(pt => pt.ProductId);
 
         return builder;
     }

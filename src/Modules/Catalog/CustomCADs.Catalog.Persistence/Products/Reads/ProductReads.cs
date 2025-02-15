@@ -10,9 +10,14 @@ public sealed class ProductReads(CatalogContext context) : IProductReads
 {
     public async Task<Result<Product>> AllAsync(ProductQuery query, bool track = true, CancellationToken ct = default)
     {
+        ProductId[]? ids = await context.ProductTags
+            .GetProductIdsByTagIdsOrDefaultAsync(query.TagIds, ct)
+            .ConfigureAwait(false)
+            ?? query.Ids;
+
         IQueryable<Product> queryable = context.Products
                 .WithTracking(track)
-                .WithFilter(query.Ids, query.CreatorId, query.DesignerId, query.CategoryId, query.Status)
+                .WithFilter(ids, query.CreatorId, query.DesignerId, query.CategoryId, query.Status)
                 .WithSearch(query.Name)
                 .WithSorting(query.Sorting ?? new());
 

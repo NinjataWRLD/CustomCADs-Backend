@@ -22,6 +22,7 @@ public sealed class GetAllGaleryProductsEndpoint(IRequestSender sender)
     {
         GetAllProductsQuery query = new(
             CategoryId: CategoryId.New(req.CategoryId),
+            TagIds: TagId.New(req.TagIds),
             Status: ProductStatus.Validated,
             Name: req.Name,
             Sorting: new(req.SortingType.ToBase(), req.SortingDirection),

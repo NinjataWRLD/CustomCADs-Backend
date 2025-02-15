@@ -93,6 +93,70 @@ namespace CustomCADs.Catalog.Persistence.Migrations
 
                     b.ToTable("Products", "Catalog");
                 });
+
+            modelBuilder.Entity("CustomCADs.Catalog.Domain.Tags.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags", "Catalog");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5957f822-77a3-4a72-964d-bf7740e994a5"),
+                            Name = "Popular"
+                        },
+                        new
+                        {
+                            Id = new Guid("e67f88d5-330a-414d-b45d-32c6806725ab"),
+                            Name = "Professional"
+                        },
+                        new
+                        {
+                            Id = new Guid("6813c4b9-bcde-4f95-a1ce-8e545756c8a4"),
+                            Name = "New"
+                        });
+                });
+
+            modelBuilder.Entity("CustomCADs.Catalog.Persistence.ShadowEntities.ProductTag", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ProductId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("ProductTags", "Catalog");
+                });
+
+            modelBuilder.Entity("CustomCADs.Catalog.Persistence.ShadowEntities.ProductTag", b =>
+                {
+                    b.HasOne("CustomCADs.Catalog.Domain.Products.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CustomCADs.Catalog.Domain.Tags.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 #pragma warning restore 612, 618
         }
     }
