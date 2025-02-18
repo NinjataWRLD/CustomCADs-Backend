@@ -108,7 +108,7 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "DeploymentPolicy"
     namespace = "aws:elasticbeanstalk:command"
     resource  = null
-    value     = "AllAtOnce"
+    value     = "Immutable"
   }
   setting {
     name      = "DisableIMDSv1"

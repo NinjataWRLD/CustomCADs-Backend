@@ -53,7 +53,7 @@ public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings
         }
         catch (Exception)
         {
-            throw new($"Retrieving file: {fileName} went wrong.");
+            throw new($"Uploading file: {fileName} went wrong.");
         }
     }
 
@@ -78,7 +78,7 @@ public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings
         }
         catch (Exception)
         {
-            throw new($"Retrieving file: {fileName} went wrong.");
+            throw new($"Replacing file: {fileName} went wrong.");
         }
     }
 
