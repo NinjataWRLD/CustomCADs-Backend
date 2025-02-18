@@ -14,9 +14,9 @@ public class CadsData
     public const string ValidContentType2 = "model/gltf-binary";
     public const string InvalidContentType = "";
 
-    public const int ValidCoord1 = CoordMin + 1;
-    public const int ValidCoord2 = 0;
-    public const int ValidCoord3 = CoordMax - 1;
-    public const int InvalidCoord1 = CoordMin - 1;
-    public const int InvalidCoord2 = CoordMax + 1;
+    public const decimal ValidCoord1 = CoordMin + 1;
+    public const decimal ValidCoord2 = 0;
+    public const decimal ValidCoord3 = CoordMax - 1;
+    public const decimal InvalidCoord1 = CoordMin - 1;
+    public const decimal InvalidCoord2 = CoordMax + 1;
 }
