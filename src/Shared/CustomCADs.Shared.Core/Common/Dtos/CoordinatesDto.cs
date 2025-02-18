@@ -1,3 +1,7 @@
 ﻿namespace CustomCADs.Shared.Core.Common.Dtos;
 
-public record CoordinatesDto(int X = 0, int Y = 0, int Z = 0);
+public record CoordinatesDto(
+    decimal X = 0,
+    decimal Y = 0,
+    decimal Z = 0
+);
