@@ -15,7 +15,7 @@ public class CadValidationException : BaseException
     public static CadValidationException NotNull(string property, Exception? inner = default)
         => new(string.Format(NonNullValidation, "A", "Cad", property), inner);
 
-    public static CadValidationException Range(string property, int max, int min, Exception? inner = default)
+    public static CadValidationException Range(string property, decimal max, decimal min, Exception? inner = default)
         => new(string.Format(RangeValidation, "A", "Cad", property, min, max), inner);
 
     public static CadValidationException Custom(string message, Exception? inner = default)

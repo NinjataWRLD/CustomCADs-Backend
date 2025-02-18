@@ -59,6 +59,6 @@ public static class CadValidations
         return cad;
     }
 
-    static bool AreCoordsValid(params int[] coords)
+    static bool AreCoordsValid(params decimal[] coords)
         => coords.All(c => c > CoordMin && c < CoordMax);
 }
