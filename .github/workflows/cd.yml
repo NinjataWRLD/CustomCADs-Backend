@@ -9,7 +9,7 @@ on:
 
 jobs:
   deliver:
-    if: github.event_name == 'workflow_dispatch || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     uses: ./.github/workflows/deliver-ecr.yml
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
