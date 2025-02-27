@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Domain\CustomCADs.Accounts.Domain.csproj" />
+		<ProjectReference Include="..\..\..\Shared\IntegrationEvents\CustomCADs.Shared.IntegrationEvents.csproj" />
+		<ProjectReference Include="..\..\..\Shared\UseCases\CustomCADs.Shared.UseCases.csproj" />
+	</ItemGroup>
+
+</Project>

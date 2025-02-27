@@ -9,33 +9,33 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
 		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.11.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Scalar.AspNetCore" Version="1.2.39" />
+		<PackageReference Include="Scalar.AspNetCore" Version="2.0.18" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Modules\Accounts\CustomCADs.Accounts.Endpoints\CustomCADs.Accounts.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Accounts\CustomCADs.Accounts.Persistence\CustomCADs.Accounts.Persistence.csproj" />
-		<ProjectReference Include="..\Modules\Carts\CustomCADs.Carts.Endpoints\CustomCADs.Carts.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Carts\CustomCADs.Carts.Persistence\CustomCADs.Carts.Persistence.csproj" />
-		<ProjectReference Include="..\Modules\Catalog\CustomCADs.Catalog.Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Catalog\CustomCADs.Catalog.Persistence\CustomCADs.Catalog.Persistence.csproj" />
-		<ProjectReference Include="..\Modules\Categories\CustomCADs.Categories.Endpoints\CustomCADs.Categories.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Categories\CustomCADs.Categories.Persistence\CustomCADs.Categories.Persistence.csproj" />
-		<ProjectReference Include="..\Modules\Delivery\CustomCADs.Delivery.Endpoints\CustomCADs.Delivery.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Delivery\CustomCADs.Delivery.Persistence\CustomCADs.Delivery.Persistence.csproj" />
-		<ProjectReference Include="..\Modules\Files\CustomCADs.Files.Application\CustomCADs.Files.Application.csproj" />
-		<ProjectReference Include="..\Modules\Files\CustomCADs.Files.Persistence\CustomCADs.Files.Persistence.csproj" />
-		<ProjectReference Include="..\Modules\Identity\CustomCADs.Identity.Endpoints\CustomCADs.Identity.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Identity\CustomCADs.Identity.Infrastructure\CustomCADs.Identity.Infrastructure.csproj" />
-		<ProjectReference Include="..\Modules\Orders\CustomCADs.Orders.Endpoints\CustomCADs.Orders.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Orders\CustomCADs.Orders.Persistence\CustomCADs.Orders.Persistence.csproj" />
-		<ProjectReference Include="..\Shared\CustomCADs.Shared.Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
+		<ProjectReference Include="..\Modules\Accounts\Endpoints\CustomCADs.Accounts.Endpoints.csproj" />
+		<ProjectReference Include="..\Modules\Accounts\Persistence\CustomCADs.Accounts.Persistence.csproj" />
+		<ProjectReference Include="..\Modules\Carts\Endpoints\CustomCADs.Carts.Endpoints.csproj" />
+		<ProjectReference Include="..\Modules\Carts\Persistence\CustomCADs.Carts.Persistence.csproj" />
+		<ProjectReference Include="..\Modules\Catalog\Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
+		<ProjectReference Include="..\Modules\Catalog\Persistence\CustomCADs.Catalog.Persistence.csproj" />
+		<ProjectReference Include="..\Modules\Categories\Endpoints\CustomCADs.Categories.Endpoints.csproj" />
+		<ProjectReference Include="..\Modules\Categories\Persistence\CustomCADs.Categories.Persistence.csproj" />
+		<ProjectReference Include="..\Modules\Delivery\Endpoints\CustomCADs.Delivery.Endpoints.csproj" />
+		<ProjectReference Include="..\Modules\Delivery\Persistence\CustomCADs.Delivery.Persistence.csproj" />
+		<ProjectReference Include="..\Modules\Files\Application\CustomCADs.Files.Application.csproj" />
+		<ProjectReference Include="..\Modules\Files\Persistence\CustomCADs.Files.Persistence.csproj" />
+		<ProjectReference Include="..\Modules\Identity\Endpoints\CustomCADs.Identity.Endpoints.csproj" />
+		<ProjectReference Include="..\Modules\Identity\Infrastructure\CustomCADs.Identity.Infrastructure.csproj" />
+		<ProjectReference Include="..\Modules\Orders\Endpoints\CustomCADs.Orders.Endpoints.csproj" />
+		<ProjectReference Include="..\Modules\Orders\Persistence\CustomCADs.Orders.Persistence.csproj" />
+		<ProjectReference Include="..\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

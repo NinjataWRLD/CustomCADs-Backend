@@ -1,26 +1,34 @@
 locals {
-  jwt_issuer     = local.jwt["Issuer"]
-  jwt_audience   = local.jwt["Audience"]
-  jwt_secret_key = local.jwt["SecretKey"]
+  production_env_vars = jsondecode(data.aws_secretsmanager_secret_version.customcads_production_env_variables_version.secret_string)
 
-  payment_secret_key           = local.payment["SecretKey"]
-  payment_publishable_key      = local.payment["PublishableKey"]
-  payment_test_secret_key      = local.payment["TestSecretKey"]
-  payment_test_publishable_key = local.payment["TestPublishableKey"]
+  production_jwt            = local.production_env_vars["JwtSettings"]
+  production_jwt_issuer     = local.production_jwt["Issuer"]
+  production_jwt_audience   = local.production_jwt["Audience"]
+  production_jwt_secret_key = local.production_jwt["SecretKey"]
 
-  email_server   = local.email["Server"]
-  email_port     = local.email["Port"]
-  email_from     = local.email["From"]
-  email_password = local.email["Password"]
+  production_payment                      = local.production_env_vars["Payment"]
+  production_payment_secret_key           = local.production_payment["SecretKey"]
+  production_payment_publishable_key      = local.production_payment["PublishableKey"]
+  production_payment_test_secret_key      = local.production_payment["TestSecretKey"]
+  production_payment_test_publishable_key = local.production_payment["TestPublishableKey"]
 
-  storage_access_key = local.storage["AccessKey"]
-  storage_secret_key = local.storage["SecretKey"]
+  production_email          = local.production_env_vars["Email"]
+  production_email_server   = local.production_email["Server"]
+  production_email_port     = local.production_email["Port"]
+  production_email_from     = local.production_email["From"]
+  production_email_password = local.production_email["Password"]
 
-  delivery_username = local.delivery["Username"]
-  delivery_password = local.delivery["Password"]
+  production_storage            = local.production_env_vars["Storage"]
+  production_storage_access_key = local.production_storage["AccessKey"]
+  production_storage_secret_key = local.production_storage["SecretKey"]
 
-  urls_all       = local.urls["All"]
-  urls_preferred = local.urls["Preferred"]
+  production_delivery          = local.production_env_vars["Delivery"]
+  production_delivery_username = local.production_delivery["Username"]
+  production_delivery_password = local.production_delivery["Password"]
+
+  production_urls           = local.production_env_vars["ClientURLs"]
+  production_urls_all       = local.production_urls["All"]
+  production_urls_preferred = local.production_urls["Preferred"]
 }
 
 # Production Environment
@@ -29,7 +37,7 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
   cname_prefix        = "customcads"
   description         = "CustomCADs Production environment"
   name                = "CustomCADs-prod"
-  solution_stack_name = "64bit Amazon Linux 2023 v4.4.3 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2023 v4.4.4 running Docker"
   tier                = "WebServer"
   version_label       = "latest"
 
@@ -72,7 +80,7 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "ConnectionStrings__ApplicationConnection"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = "Host=${aws_db_instance.customcads_database.endpoint};Database=${aws_db_instance.customcads_database.db_name};Username=${local.db_username};Password=${local.db_password}"
+    value     = "Host=${aws_db_instance.customcads_production_database.endpoint};Database=${aws_db_instance.customcads_production_database.db_name};Username=${local.production_db_username};Password=${local.production_db_password}"
   }
   setting {
     name      = "DefaultSSHPort"
@@ -96,13 +104,13 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "Delivery__Password"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.delivery_password
+    value     = local.production_delivery_password
   }
   setting {
     name      = "Delivery__Username"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.delivery_username
+    value     = local.production_delivery_username
   }
   setting {
     name      = "DeploymentPolicy"
@@ -138,25 +146,25 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "Email__Server"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.email_server
+    value     = local.production_email_server
   }
   setting {
     name      = "Email__Port"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.email_port
+    value     = local.production_email_port
   }
   setting {
     name      = "Email__From"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.email_from
+    value     = local.production_email_from
   }
   setting {
     name      = "Email__Password"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.email_password
+    value     = local.production_email_password
   }
   setting {
     name      = "EnhancedHealthAuthEnabled"
@@ -210,19 +218,19 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "JwtSettings__Audience"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.jwt_audience
+    value     = local.production_jwt_audience
   }
   setting {
     name      = "JwtSettings__Issuer"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.jwt_issuer
+    value     = local.production_jwt_issuer
   }
   setting {
     name      = "JwtSettings__SecretKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.jwt_secret_key
+    value     = local.production_jwt_secret_key
   }
   setting {
     name      = "LaunchType"
@@ -270,25 +278,25 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "Payment__PublishableKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.payment_publishable_key
+    value     = local.production_payment_publishable_key
   }
   setting {
     name      = "Payment__SecretKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.payment_secret_key
+    value     = local.production_payment_secret_key
   }
   setting {
     name      = "Payment__TestPublishableKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.payment_test_publishable_key
+    value     = local.production_payment_test_publishable_key
   }
   setting {
     name      = "Payment__TestSecretKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.payment_test_secret_key
+    value     = local.production_payment_test_secret_key
   }
   setting {
     name      = "PreferredStartTime"
@@ -384,13 +392,13 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "Storage__AccessKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.storage_access_key
+    value     = local.production_storage_access_key
   }
   setting {
     name      = "Storage__BucketName"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = aws_s3_bucket.customcads_bucket.bucket
+    value     = aws_s3_bucket.customcads_production_bucket.bucket
   }
   setting {
     name      = "Storage__Region"
@@ -402,7 +410,7 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "Storage__SecretKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.storage_secret_key
+    value     = local.production_storage_secret_key
   }
   setting {
     name      = "StreamLogs"
@@ -432,13 +440,13 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     name      = "ClientURLs__All"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.urls_all
+    value     = local.production_urls_all
   }
   setting {
     name      = "ClientURLs__Preferred"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
-    value     = local.urls_preferred
+    value     = local.production_urls_preferred
   }
   setting {
     name      = "UpdateLevel"

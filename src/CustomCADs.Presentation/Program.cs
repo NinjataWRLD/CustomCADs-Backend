@@ -52,7 +52,7 @@ var app = builder.Build();
 // Stuff
 app.UseCorsForClient();
 app.UseAuthentication();
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 app.UseExceptionHandler();
 app.UseJwtPrincipal();
@@ -62,10 +62,10 @@ app.UseStaticFiles();
 app.UseEndpoints();
 app.MapApiDocumentationUi(
     apiPattern: "/openapi/{documentName}.json",
-    uiPattern: "/scalar/{documentName}"
+    uiPattern: "/scalar"
 ).MapApiDocumentationUi(
     apiPattern: "/swagger/{documentName}.json",
-    uiPattern: "/swagger/{documentName}"
+    uiPattern: "/swagger"
 );
 
 await app.RunAsync().ConfigureAwait(false);

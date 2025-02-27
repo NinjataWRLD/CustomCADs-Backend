@@ -206,9 +206,9 @@ public static class ProgramExtensions
         });
     }
 
-    public static void AddApiDocumentation(this IServiceCollection services)
+    public static void AddApiDocumentation(this IServiceCollection services, string version = "v1")
     {
-        services.AddOpenApi(cfg =>
+        services.AddOpenApi(version, cfg =>
         {
             cfg.AddDocumentTransformer((document, context, ct) =>
             {
@@ -227,7 +227,7 @@ public static class ProgramExtensions
                     Description = description,
                     Contact = new() { Name = "Ivan", Email = "ivanangelov414@gmail.com", },
                     License = new() { Name = "Apache License 2.0", Url = new("https://www.apache.org/licenses/LICENSE-2.0"), },
-                    Version = "v1"
+                    Version = version
                 };
                 document.Tags = [.. document.Tags.OrderBy(t => t.Name)];
 
@@ -243,7 +243,7 @@ public static class ProgramExtensions
 
         services.AddCors(opt =>
         {
-            ClientUrlSettings settings = section.Get<ClientUrlSettings>() 
+            ClientUrlSettings settings = section.Get<ClientUrlSettings>()
                 ?? throw new KeyNotFoundException("URLs not provided.");
 
             opt.AddDefaultPolicy(builder =>
@@ -283,7 +283,7 @@ public static class ProgramExtensions
     public static IEndpointRouteBuilder MapApiDocumentationUi(this IEndpointRouteBuilder app, [StringSyntax("Route")] string apiPattern = "/openai/{documentName}.json", [StringSyntax("Route")] string uiPattern = "/scalar/{documentName}")
     {
         app.MapOpenApi(apiPattern);
-        app.MapScalarApiReference(options =>
+        app.MapScalarApiReference(uiPattern, options =>
         {
             ScalarTheme[] themes =
             [
@@ -295,7 +295,6 @@ public static class ProgramExtensions
 
             options
                 .WithOpenApiRoutePattern(apiPattern)
-                .WithEndpointPrefix(uiPattern)
                 .WithOperationSorter(OperationSorter.Alpha)
                 .WithTitle("CustomCADs API")
                 .WithTheme(themes[Random.Shared.Next(0, themes.Length)])
