@@ -1,4 +1,4 @@
-name: Deliver to AWS ECR Action
+name: Deliver Production to AWS ECR Action
 
 on: 
   workflow_call:

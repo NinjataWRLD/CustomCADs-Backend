@@ -1,16 +1,16 @@
-name: Continuous Delivery pipeline
+name: Release Delivery pipeline
 
 on:
   workflow_dispatch:
   workflow_run:
     workflows: [Continuous Integration pipeline, Enforce Version Tag]
     types: completed
-    branches: main
+    branches: release/*
 
 jobs:
   deliver:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
-    uses: ./.github/workflows/deliver-ecr.yml
+    uses: ./.github/workflows/staging-delivery.yml
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
