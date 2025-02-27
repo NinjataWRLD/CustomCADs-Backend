@@ -29,7 +29,6 @@ internal static class Mapper
 
     internal static PurchasedCartItemResponse ToPurchasedCartItemResponse(this PurchasedCartItemDto item)
         => new(
-            Id: item.Id.Value,
             Quantity: item.Quantity,
             ForDelivery: item.ForDelivery,
             Price: item.Price,

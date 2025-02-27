@@ -17,7 +17,6 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly ActiveCartItemId itemId = ActiveCartItemId.New(Guid.Empty);
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
     private static readonly ActiveCart cart = CreateCartWithItems(
         buyerId: buyerId,

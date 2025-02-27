@@ -3,7 +3,6 @@
 namespace CustomCADs.Carts.Application.Common.Dtos;
 
 public record PurchasedCartItemDto(
-    PurchasedCartItemId Id,
     int Quantity,
     bool ForDelivery,
     decimal Price,

@@ -1,5 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Items.Create.Normal.Data;
+﻿namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Items.Create.Data;
 
+using CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Items.Create;
 using static PurchasedCartsData.CartItemsData;
 
 public class PurchasedCartItemCreateInvalidQuantityData : PurchasedCartItemCreateData

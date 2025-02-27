@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.GetItem;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.GetItem;
 
@@ -11,7 +11,6 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 {
     private readonly Mock<IActiveCartReads> reads = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly ActiveCartItemId itemId = ActiveCartItemId.New(Guid.Empty);
     private static readonly ActiveCart cart = CreateCartWithItems(
         buyerId: buyerId,
         items: [
@@ -30,7 +29,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        GetActiveCartItemByIdQuery query = new(buyerId, itemId);
+        GetActiveCartItemByIdQuery query = new(buyerId, CartItemsData.ValidProductId1);
         GetActiveCartItemByIdHandler handler = new(reads.Object);
 
         // Act
@@ -44,7 +43,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        GetActiveCartItemByIdQuery query = new(buyerId, itemId);
+        GetActiveCartItemByIdQuery query = new(buyerId, CartItemsData.ValidProductId1);
         GetActiveCartItemByIdHandler handler = new(reads.Object);
 
         // Act
@@ -65,7 +64,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCartItemNotFound()
     {
         // Arrange
-        GetActiveCartItemByIdQuery query = new(buyerId, CartItemsData.ValidId1);
+        GetActiveCartItemByIdQuery query = new(buyerId, ProductId.New());
         GetActiveCartItemByIdHandler handler = new(reads.Object);
 
         // Assert
@@ -83,7 +82,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, false, ct))
             .ReturnsAsync(null as ActiveCart);
 
-        GetActiveCartItemByIdQuery query = new(buyerId, itemId);
+        GetActiveCartItemByIdQuery query = new(buyerId, ProductId.New());
         GetActiveCartItemByIdHandler handler = new(reads.Object);
 
         // Assert

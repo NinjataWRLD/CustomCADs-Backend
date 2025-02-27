@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Remove;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Delete.Items;
 
@@ -19,7 +20,7 @@ public sealed class DeleteActiveCartItemEndpoint(IRequestSender sender)
     public override async Task HandleAsync(DeleteActiveCartItemRequest req, CancellationToken ct)
     {
         RemoveActiveCartItemCommand commnad = new(
-            ItemId: ActiveCartItemId.New(req.ItemId),
+            ProductId: ProductId.New(req.ProductId),
             BuyerId: User.GetAccountId()
         );
         await sender.SendCommandAsync(commnad, ct).ConfigureAwait(false);

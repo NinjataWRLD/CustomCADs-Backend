@@ -20,7 +20,7 @@ public static class ActiveCartItemItemConfigUtils
 {
     public static EntityTypeBuilder<ActiveCartItem> SetPrimaryKey(this EntityTypeBuilder<ActiveCartItem> builder)
     {
-        builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.ProductId);
 
         return builder;
     }
@@ -38,13 +38,6 @@ public static class ActiveCartItemItemConfigUtils
 
     public static EntityTypeBuilder<ActiveCartItem> SetStronglyTypedIds(this EntityTypeBuilder<ActiveCartItem> builder)
     {
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasConversion(
-                x => x.Value,
-                v => ActiveCartItemId.New(v)
-            );
-
         builder.Property(x => x.CartId)
             .HasConversion(
                 x => x.Value,

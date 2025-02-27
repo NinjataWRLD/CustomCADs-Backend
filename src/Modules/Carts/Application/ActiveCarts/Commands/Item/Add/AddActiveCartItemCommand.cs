@@ -8,4 +8,4 @@ public sealed record AddActiveCartItemCommand(
     double Weight,
     bool ForDelivery,
     ProductId ProductId
-) : ICommand<ActiveCartItemId>;
+) : ICommand;

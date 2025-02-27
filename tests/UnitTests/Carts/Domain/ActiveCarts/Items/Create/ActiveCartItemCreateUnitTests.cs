@@ -1,18 +1,17 @@
 ﻿using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Create.WithId.Data;
+using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Create.Data;
 
-namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Create.WithId;
+namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Create;
 
-public class ActiveCartItemCreateWithIdUnitTests : ActiveCartItemsBaseUnitTests
+public class ActiveCartItemCreateUnitTests : ActiveCartItemsBaseUnitTests
 {
     [Theory]
-    [ClassData(typeof(ActiveCartItemCreateWithIdValidData))]
-    public void Create_ShouldNotThrow_WhenCartIsValid(ActiveCartItemId id, ActiveCartId cartId, ProductId productId, double weight, bool forDelivery)
+    [ClassData(typeof(ActiveCartItemCreateValidData))]
+    public void Create_ShouldNotThrow_WhenCartIsValid(ActiveCartId cartId, ProductId productId, double weight, bool forDelivery)
     {
-        CreateItemWithId(
-            id: id,
+        CreateItem(
             cartId: cartId,
             productId: productId,
             weight: weight,
@@ -21,11 +20,10 @@ public class ActiveCartItemCreateWithIdUnitTests : ActiveCartItemsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(ActiveCartItemCreateWithIdValidData))]
-    public void Create_ShouldPopulateProperties(ActiveCartItemId id, ActiveCartId cartId, ProductId productId, double weight, bool forDelivery)
+    [ClassData(typeof(ActiveCartItemCreateValidData))]
+    public void Create_ShouldPopulateProperties(ActiveCartId cartId, ProductId productId, double weight, bool forDelivery)
     {
-        var item = CreateItemWithId(
-            id: id,
+        var item = CreateItem(
             cartId: cartId,
             productId: productId,
             weight: weight,
@@ -41,13 +39,12 @@ public class ActiveCartItemCreateWithIdUnitTests : ActiveCartItemsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(ActiveCartItemCreateWithIdInvalidWeightData))]
-    public void Create_ShouldThrow_WhenCartIsNotValid(ActiveCartItemId id, ActiveCartId cartId, ProductId productId, double weight, bool forDelivery)
+    [ClassData(typeof(ActiveCartItemCreateInvalidWeightData))]
+    public void Create_ShouldThrow_WhenCartIsNotValid(ActiveCartId cartId, ProductId productId, double weight, bool forDelivery)
     {
         Assert.Throws<ActiveCartItemValidationException>(() =>
         {
-            CreateItemWithId(
-                id: id,
+            CreateItem(
                 cartId: cartId,
                 productId: productId,
                 weight: weight,

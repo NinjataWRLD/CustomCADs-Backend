@@ -21,7 +21,6 @@ public class ActiveCartItem : BaseEntity
         ProductId = productId;
     }
 
-    public ActiveCartItemId Id { get; init; }
     public int Quantity { get; private set; }
     public double Weight { get; private set; }
     public bool ForDelivery { get; set; }
@@ -33,17 +32,10 @@ public class ActiveCartItem : BaseEntity
         => new ActiveCartItem(weight, productId, cartId, forDelivery)
             .ValidateWeight();
 
-    public static ActiveCartItem CreateWithId(ActiveCartItemId id, double weight, ProductId productId, ActiveCartId cartId, bool forDelivery)
-        => new ActiveCartItem(weight, productId, cartId, forDelivery)
-        {
-            Id = id
-        }
-        .ValidateWeight();
-
     public ActiveCartItem IncreaseQuantity(int amount)
     {
         if (!ForDelivery)
-            throw ActiveCartItemValidationException.EditQuantityOnNonDelivery(Id);
+            throw ActiveCartItemValidationException.EditQuantityOnNonDelivery(ProductId);
 
         Quantity += amount;
         this.ValidateQuantity();
@@ -54,7 +46,7 @@ public class ActiveCartItem : BaseEntity
     public ActiveCartItem DecreaseQuantity(int amount)
     {
         if (!ForDelivery)
-            throw ActiveCartItemValidationException.EditQuantityOnNonDelivery(Id);
+            throw ActiveCartItemValidationException.EditQuantityOnNonDelivery(ProductId);
 
         Quantity -= amount;
         this.ValidateQuantity();

@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.GetCadUrlGet;
 
 public sealed record GetPurchasedCartItemCadPresignedUrlGetQuery(
     PurchasedCartId Id,
-    PurchasedCartItemId ItemId,
+    ProductId ProductId,
     AccountId BuyerId
 ) : IQuery<GetPurchasedCartItemCadPresignedUrlGetDto>;
