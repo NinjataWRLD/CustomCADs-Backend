@@ -24,7 +24,6 @@ public class PurchasedCartItem : BaseEntity
         ForDelivery = forDelivery;
     }
 
-    public PurchasedCartItemId Id { get; init; }
     public int Quantity { get; private set; }
     public decimal Price { get; private set; }
     public bool ForDelivery { get; set; }
@@ -51,26 +50,4 @@ public class PurchasedCartItem : BaseEntity
         )
         .ValidateQuantity()
         .ValidatePrice();
-
-    public static PurchasedCartItem CreateWithId(
-        PurchasedCartItemId id,
-        PurchasedCartId cartId,
-        ProductId productId,
-        CadId cadId,
-        decimal price,
-        int quantity,
-        bool forDelivery
-    ) => new PurchasedCartItem(
-            cartId,
-            productId,
-            cadId,
-            price,
-            quantity,
-            forDelivery
-        )
-    {
-        Id = id
-    }
-    .ValidateQuantity()
-    .ValidatePrice();
 }

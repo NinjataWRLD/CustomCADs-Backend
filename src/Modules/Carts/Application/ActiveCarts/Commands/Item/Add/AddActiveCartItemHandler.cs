@@ -8,9 +8,9 @@ using CustomCADs.Shared.UseCases.Products.Queries;
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Add;
 
 public sealed class AddActiveCartItemHandler(IActiveCartReads reads, IUnitOfWork uow, IRequestSender sender)
-    : ICommandHandler<AddActiveCartItemCommand, ActiveCartItemId>
+    : ICommandHandler<AddActiveCartItemCommand>
 {
-    public async Task<ActiveCartItemId> Handle(AddActiveCartItemCommand req, CancellationToken ct)
+    public async Task Handle(AddActiveCartItemCommand req, CancellationToken ct)
     {
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
@@ -28,7 +28,5 @@ public sealed class AddActiveCartItemHandler(IActiveCartReads reads, IUnitOfWork
             forDelivery: req.ForDelivery
         );
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-
-        return item.Id;
     }
 }

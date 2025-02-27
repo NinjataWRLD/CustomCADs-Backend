@@ -19,8 +19,8 @@ public sealed class GetPurchasedCartItemCadPresignedUrlGetHandler(IPurchasedCart
             throw PurchasedCartAuthorizationException.ById(req.Id);
         }
 
-        PurchasedCartItem item = cart.Items.FirstOrDefault(x => x.Id == req.ItemId)
-            ?? throw PurchasedCartItemNotFoundException.ById(req.ItemId);
+        PurchasedCartItem item = cart.Items.FirstOrDefault(x => x.ProductId == req.ProductId)
+            ?? throw PurchasedCartItemNotFoundException.ById(req.ProductId);
 
         GetCadPresignedUrlGetByIdQuery query = new(item.CadId);
         var (Url, ContentType) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

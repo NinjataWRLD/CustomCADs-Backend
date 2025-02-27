@@ -12,8 +12,8 @@ public sealed class GetActiveCartItemByIdHandler(IActiveCartReads reads)
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
-        ActiveCartItem item = cart.Items.FirstOrDefault(i => i.Id == req.ItemId)
-            ?? throw ActiveCartItemNotFoundException.ById(req.ItemId);
+        ActiveCartItem item = cart.Items.FirstOrDefault(i => i.ProductId == req.ProductId)
+            ?? throw ActiveCartItemNotFoundException.ById(req.ProductId);
 
         return item.ToCartItemDto();
     }

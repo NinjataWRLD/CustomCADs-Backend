@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Quantity.Decrement;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Patch.DecrementQuantity;
 
@@ -20,7 +20,7 @@ public class DecreaeseActiveCartItemQuantityEndpoint(IRequestSender sender)
     {
         DecreaseActiveCartItemQuantityCommand command = new(
             BuyerId: User.GetAccountId(),
-            ItemId: ActiveCartItemId.New(req.ItemId),
+            ProductId: ProductId.New(req.ProductId),
             Amount: req.Amount
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

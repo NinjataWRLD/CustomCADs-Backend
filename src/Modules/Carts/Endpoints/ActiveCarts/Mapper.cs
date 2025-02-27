@@ -25,7 +25,6 @@ internal static class Mapper
 
     internal static ActiveCartItemResponse ToCartItemResponse(this ActiveCartItemDto item)
         => new(
-            Id: item.Id.Value,
             Quantity: item.Quantity,
             ForDelivery: item.ForDelivery,
             Weight: item.Weight,

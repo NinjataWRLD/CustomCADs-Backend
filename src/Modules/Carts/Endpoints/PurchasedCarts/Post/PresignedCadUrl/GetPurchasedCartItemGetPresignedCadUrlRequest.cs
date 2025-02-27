@@ -2,5 +2,5 @@
 
 public sealed record GetPurchasedCartItemGetPresignedCadUrlRequest(
     Guid Id,
-    Guid ItemId
+    Guid ProductId
 );

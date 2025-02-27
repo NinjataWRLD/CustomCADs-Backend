@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Bases.Exceptions;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
 
@@ -15,7 +16,7 @@ public class ActiveCartItemValidationException : BaseException
     public static ActiveCartItemValidationException Range<TType>(string property, TType max, TType min, Exception? inner = default) where TType : struct
         => new(string.Format(RangeValidation, "An", "Active Cart Item", property, min, max), inner);
 
-    public static ActiveCartItemValidationException EditQuantityOnNonDelivery(ActiveCartItemId id, Exception? inner = default)
+    public static ActiveCartItemValidationException EditQuantityOnNonDelivery(ProductId id, Exception? inner = default)
         => new($"Cannot edit quantity of Active Cart Item: {id} because it is not for delivery", inner);
 
     public static ActiveCartItemValidationException Custom(string message, Exception? inner = default)
