@@ -3,7 +3,7 @@ name: Release Delivery pipeline
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: [Continuous Integration pipeline, Enforce Version Tag]
+    workflows: [Continuous Integration pipeline]
     types: completed
     branches: release/*
 
