@@ -2,6 +2,7 @@
 using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.GetItem;
 
@@ -12,10 +13,12 @@ public class GetPurchasedCartItemByIdUnitTests : PurchasedCartsBaseUnitTests
     private readonly Mock<IPurchasedCartReads> reads = new();
     private static readonly PurchasedCart cart = CreateCartWithItems(
         id: id,
-        items: [CreateItem(), CreateItem(), CreateItem()]
+        items: [
+            CreateItem(productId: CartItemsData.ValidProductId1), 
+            CreateItem(productId: CartItemsData.ValidProductId2),
+        ]
     );
     private static readonly PurchasedCartId id = ValidId1;
-    private static readonly PurchasedCartItemId itemId = PurchasedCartItemId.New(Guid.Empty);
     private static readonly AccountId buyerId = ValidBuyerId1;
 
     public GetPurchasedCartItemByIdUnitTests()
@@ -28,7 +31,7 @@ public class GetPurchasedCartItemByIdUnitTests : PurchasedCartsBaseUnitTests
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        GetPurchasedCartItemByIdQuery query = new(id, itemId, buyerId);
+        GetPurchasedCartItemByIdQuery query = new(id, CartItemsData.ValidProductId1, buyerId);
         GetPurchasedCartItemByIdHandler handler = new(reads.Object);
 
         // Act
@@ -42,14 +45,14 @@ public class GetPurchasedCartItemByIdUnitTests : PurchasedCartsBaseUnitTests
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        GetPurchasedCartItemByIdQuery query = new(id, itemId, buyerId);
+        GetPurchasedCartItemByIdQuery query = new(id, CartItemsData.ValidProductId1, buyerId);
         GetPurchasedCartItemByIdHandler handler = new(reads.Object);
 
         // Act
         var item = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Equal(itemId, item.Id);
+        Assert.Equal(CartItemsData.ValidProductId1, item.ProductId);
     }
 
     [Fact]
@@ -59,7 +62,7 @@ public class GetPurchasedCartItemByIdUnitTests : PurchasedCartsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(null as PurchasedCart);
 
-        GetPurchasedCartItemByIdQuery query = new(id, itemId, buyerId);
+        GetPurchasedCartItemByIdQuery query = new(id, CartItemsData.ValidProductId1, buyerId);
         GetPurchasedCartItemByIdHandler handler = new(reads.Object);
 
         // Assert
@@ -76,7 +79,7 @@ public class GetPurchasedCartItemByIdUnitTests : PurchasedCartsBaseUnitTests
         // Arrange
         GetPurchasedCartItemByIdQuery query = new(
             Id: id,
-            ItemId: CartItemsData.ValidId2,
+            ProductId: ProductId.New(),
             BuyerId: buyerId
         );
         GetPurchasedCartItemByIdHandler handler = new(reads.Object);

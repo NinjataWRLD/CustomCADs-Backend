@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetCadUrlGet;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Post.PresignedCadUrl;
 
@@ -20,7 +21,7 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
     {
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
             Id: PurchasedCartId.New(req.Id),
-            ItemId: PurchasedCartItemId.New(req.ItemId),
+            ProductId: ProductId.New(req.ProductId),
             BuyerId: User.GetAccountId()
         );
         GetPurchasedCartItemCadPresignedUrlGetDto cad = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

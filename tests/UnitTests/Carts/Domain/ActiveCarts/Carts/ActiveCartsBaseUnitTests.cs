@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Carts;
 
@@ -19,9 +20,9 @@ public class ActiveCartsBaseUnitTests
 
         foreach (bool forDelivery in forDeliveries)
         {
-            cart.AddItemWithId(
+            cart.AddItem(
+                productId: ProductId.New(),
                 weight: CartItemsData.ValidWeight1,
-                productId: CartItemsData.ValidProductId1,
                 forDelivery: forDelivery
             );
         }

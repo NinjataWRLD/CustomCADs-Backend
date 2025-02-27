@@ -3,7 +3,7 @@ using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.Quantity.Decrease.Data;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.Quantity.Decrease;
@@ -16,13 +16,13 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly ActiveCartItemId itemId = ActiveCartItemId.New(Guid.Empty);
+    private static readonly ProductId productId = ProductId.New(Guid.Empty);
     private readonly ActiveCartItem item;
     private readonly ActiveCart cart;
 
     public DecreaseActiveCartItemQuantityHandlerUnitTests()
     {
-        item = CreateItemWithId(itemId, forDelivery: true)
+        item = CreateItem(productId: productId, forDelivery: true)
             .IncreaseQuantity(QuantityMax - 1);
 
         cart = CreateCartWithItems(
@@ -39,7 +39,7 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     public async Task Handle_ShouldQueryDatabase(int amount)
     {
         // Arrange
-        DecreaseActiveCartItemQuantityCommand command = new(buyerId, itemId, amount);
+        DecreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
         DecreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
         // Act
@@ -54,7 +54,7 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     public async Task Handle_ShouldPersistToDatabase(int amount)
     {
         // Arrange
-        DecreaseActiveCartItemQuantityCommand command = new(buyerId, itemId, amount);
+        DecreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
         DecreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
         // Act
@@ -72,7 +72,7 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, true, ct))
             .ReturnsAsync(null as ActiveCart);
 
-        DecreaseActiveCartItemQuantityCommand command = new(buyerId, itemId, amount);
+        DecreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
         DecreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
         // Assert
@@ -90,7 +90,7 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
         // Arrange
         DecreaseActiveCartItemQuantityCommand command = new(
             BuyerId: buyerId,
-            ItemId: CartItemsData.ValidId1,
+            ProductId: CartItemsData.ValidProductId1,
             Amount: amount
         );
         DecreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);

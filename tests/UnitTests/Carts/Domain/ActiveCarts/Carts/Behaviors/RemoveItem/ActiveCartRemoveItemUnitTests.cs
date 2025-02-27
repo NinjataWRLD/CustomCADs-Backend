@@ -21,6 +21,6 @@ public class ActiveCartRemoveItemUnitTests : ActiveCartsBaseUnitTests
     {
         ActiveCartItem item = cart.Items.First();
         cart.RemoveItem(item);
-        Assert.DoesNotContain(cart.Items, i => i.Id == item.Id);
+        Assert.DoesNotContain(cart.Items, i => i.ProductId == item.ProductId);
     }
 }

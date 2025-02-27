@@ -4,6 +4,7 @@ using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.GetCadUrlGet;
@@ -35,7 +36,6 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
         ]
     );
     private static readonly PurchasedCartId cartId = ValidId1;
-    private static readonly PurchasedCartItemId itemId = PurchasedCartItemId.New(Guid.Empty);
     private static readonly AccountId buyerId = ValidBuyerId1;
     private const string Url = "presigned-Url";
     private const string ContentType = "presigned-Url";
@@ -55,7 +55,7 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
             Id: cartId,
-            ItemId: itemId,
+            ProductId: CartItemsData.ValidProductId1,
             BuyerId: buyerId
         );
         GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
@@ -76,7 +76,7 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
             Id: cartId,
-            ItemId: itemId,
+            ProductId: CartItemsData.ValidProductId1,
             BuyerId: buyerId
         );
         GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
@@ -99,7 +99,7 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
             Id: cartId,
-            ItemId: itemId,
+            ProductId: CartItemsData.ValidProductId1,
             BuyerId: buyerId
         );
         GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
@@ -123,7 +123,7 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
             Id: cartId,
-            ItemId: itemId,
+            ProductId: CartItemsData.ValidProductId1,
             BuyerId: buyerId
         );
         GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);

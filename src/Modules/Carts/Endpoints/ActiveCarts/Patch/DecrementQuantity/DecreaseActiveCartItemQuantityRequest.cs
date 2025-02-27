@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Carts.Endpoints.ActiveCarts.Patch.DecrementQuantity;
 
 public record DecreaseActiveCartItemQuantityRequest(
-    Guid ItemId,
+    Guid ProductId,
     int Amount = 1
 );

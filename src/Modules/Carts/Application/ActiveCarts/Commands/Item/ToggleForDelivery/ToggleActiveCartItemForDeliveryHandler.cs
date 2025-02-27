@@ -13,8 +13,8 @@ public class ToggleActiveCartItemForDeliveryHandler(IActiveCartReads reads, IUni
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
-        ActiveCartItem item = cart.Items.SingleOrDefault(i => i.Id == req.ItemId)
-            ?? throw ActiveCartItemNotFoundException.ById(req.ItemId);
+        ActiveCartItem item = cart.Items.SingleOrDefault(i => i.ProductId == req.ProductId)
+            ?? throw ActiveCartItemNotFoundException.ById(req.ProductId);
 
         item.SetForDelivery(!item.ForDelivery);
 

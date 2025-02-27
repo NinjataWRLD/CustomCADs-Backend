@@ -1,4 +1,4 @@
-name: Continuous Integration pipeline
+name: Universal Integration pipeline
 
 on:
   push:

@@ -29,11 +29,11 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
             ForDelivery: req.ForDelivery,
             BuyerId: buyerId
         );
-        ActiveCartItemId itemId = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         GetActiveCartItemByIdQuery query = new(
             BuyerId: buyerId,
-            ItemId: itemId
+            ProductId: ProductId.New(req.ProductId)
         );
         ActiveCartItemDto item = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
