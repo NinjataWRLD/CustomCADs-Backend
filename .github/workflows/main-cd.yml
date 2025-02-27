@@ -3,7 +3,7 @@ name: Main Delivery pipeline
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: [Continuous Integration pipeline, Enforce Version Tag]
+    workflows: [Universal Integration pipeline, Enforce Semantic Versioning Tag]
     types: completed
     branches: main
 
