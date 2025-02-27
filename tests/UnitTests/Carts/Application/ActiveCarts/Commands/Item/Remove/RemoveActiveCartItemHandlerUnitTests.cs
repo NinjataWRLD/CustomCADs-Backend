@@ -2,7 +2,7 @@
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.Remove;
 
@@ -14,14 +14,10 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly ActiveCart cart = CreateCartWithItems(
         buyerId: ValidBuyerId1,
-        items: [
-            CreateItem(),
-            CreateItem(),
-            CreateItem(),
-        ]
+        items: [CreateItem(productId: productId)]
     );
-    private readonly AccountId buyerId = ValidBuyerId1;
-    private readonly ActiveCartItemId itemId = ActiveCartItemId.New(Guid.Empty);
+    private static readonly AccountId buyerId = ValidBuyerId1;
+    private static readonly ProductId productId = ProductId.New(Guid.Empty);
 
     public RemoveActiveCartItemHandlerUnitTests()
     {
@@ -35,7 +31,7 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         // Arrange
         RemoveActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            ItemId: itemId
+            ProductId: productId
         );
         RemoveActiveCartItemHandler handler = new(reads.Object, uow.Object);
 
@@ -52,7 +48,7 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         // Arrange
         RemoveActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            ItemId: itemId
+            ProductId: productId
         );
         RemoveActiveCartItemHandler handler = new(reads.Object, uow.Object);
 
@@ -69,7 +65,7 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         // Arrange
         RemoveActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            ItemId: itemId
+            ProductId: productId
         );
         RemoveActiveCartItemHandler handler = new(reads.Object, uow.Object);
         int beforeCount = cart.Items.Count;
@@ -91,7 +87,7 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
         RemoveActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            ItemId: itemId
+            ProductId: productId
         );
         RemoveActiveCartItemHandler handler = new(reads.Object, uow.Object);
 

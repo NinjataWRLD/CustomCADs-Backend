@@ -27,9 +27,6 @@ public static class PurchasedCartsData
 
     public static class CartItemsData
     {
-        public static readonly PurchasedCartItemId ValidId1 = PurchasedCartItemId.New();
-        public static readonly PurchasedCartItemId ValidId2 = PurchasedCartItemId.New();
-
         public const int ValidQuantity1 = QuantityMin + 1;
         public const int ValidQuantity2 = QuantityMax - 1;
         public const int InvalidQuantity1 = QuantityMin - 1;

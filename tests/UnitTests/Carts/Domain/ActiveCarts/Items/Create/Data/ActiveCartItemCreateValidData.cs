@@ -1,5 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Create.Normal.Data;
+﻿namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Create.Data;
 
+using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Create;
 using static ActiveCartsData.CartItemsData;
 
 public class ActiveCartItemCreateValidData : ActiveCartItemCreateData
