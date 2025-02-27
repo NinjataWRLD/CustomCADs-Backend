@@ -45,7 +45,7 @@ public class SiteService(ILocationEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Sites?.Select(c => c.ToModel())];
+        return [.. response.Sites?.Select(c => c.ToModel()) ?? []];
     }
 
     public async Task<byte[]> AllAsync(

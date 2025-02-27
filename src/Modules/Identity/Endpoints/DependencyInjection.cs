@@ -68,7 +68,7 @@ public static class DependencyInjection
                              ex: new UnauthorizedAccessException())
                         .ConfigureAwait(false);
                  },
-                 
+
                  OnForbidden = async context =>
                  {
                      await context.HttpContext.RequestServices

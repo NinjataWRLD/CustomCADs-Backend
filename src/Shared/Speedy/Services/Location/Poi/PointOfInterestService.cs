@@ -37,7 +37,7 @@ public class PointOfInterestService(ILocationEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Pois?.Select(c => c.ToModel())];
+        return [.. response.Pois?.Select(c => c.ToModel()) ?? []];
     }
 
     public async Task<byte[]> AllAsync(

@@ -19,7 +19,7 @@ public sealed class ClientGetCompletedOrderByIdHandler(ICompletedOrderReads read
 
         GetTimeZoneByIdQuery timeZoneQuery = new(order.BuyerId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
-        
+
         GetUsernameByIdQuery designerQuery = new(order.BuyerId);
         string designer = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
 

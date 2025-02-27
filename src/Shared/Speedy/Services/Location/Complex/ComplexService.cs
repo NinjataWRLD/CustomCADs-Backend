@@ -39,7 +39,7 @@ public class ComplexService(ILocationEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Complexes?.Select(c => c.ToModel())];
+        return [.. response.Complexes?.Select(c => c.ToModel()) ?? []];
     }
 
     public async Task<byte[]> AllAsync(

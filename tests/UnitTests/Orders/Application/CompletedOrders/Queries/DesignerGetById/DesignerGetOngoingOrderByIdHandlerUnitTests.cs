@@ -45,7 +45,7 @@ public class DesignerGetCompletedOrderByIdHandlerUnitTests : CompletedOrdersBase
         // Assert
         reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {
@@ -60,7 +60,7 @@ public class DesignerGetCompletedOrderByIdHandlerUnitTests : CompletedOrdersBase
         await handler.Handle(query, ct);
 
         // Assert
-        sender.Verify(x => 
+        sender.Verify(x =>
             x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>()
         , ct), Times.Once);
     }

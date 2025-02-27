@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Tags.Commands.Create;
-using CustomCADs.Catalog.Application.Tags.Queries.GetById;
+﻿using CustomCADs.Catalog.Application.Tags.Queries.GetById;
 
 namespace CustomCADs.Catalog.Endpoints.Tags.Get.Single;
 

@@ -43,7 +43,7 @@ public class OfficeService(ILocationEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Offices?.Select(c => c.ToModel())];
+        return [.. response.Offices?.Select(c => c.ToModel()) ?? []];
     }
 
     public async Task<(int Distancce, OfficeModel Office)[]> FindNeaerestAsync(
@@ -64,6 +64,6 @@ public class OfficeService(ILocationEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Offices?.Select(c => (c.Distance, c.ToModel()))];
+        return [.. response.Offices?.Select(c => (c.Distance, c.ToModel())) ?? []];
     }
 }

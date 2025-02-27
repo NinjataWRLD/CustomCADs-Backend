@@ -29,7 +29,7 @@ public class TrackService(
             Password: account.Password,
             Language: account.Language,
             ClientSystemId: account.ClientSystemId,
-            Parcels: [.. parcels?.Select(p => new TrackShipmentParcelRefDto(null, Id: p.Id, null, null))],
+            Parcels: [.. parcels?.Select(p => new TrackShipmentParcelRefDto(null, Id: p.Id, null, null)) ?? []],
             LastOperationOnly: lastOperationOnly
         ), ct).ConfigureAwait(false);
 

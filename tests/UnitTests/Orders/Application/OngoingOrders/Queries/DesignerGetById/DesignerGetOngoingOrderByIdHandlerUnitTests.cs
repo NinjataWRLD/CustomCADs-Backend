@@ -48,7 +48,7 @@ public class DesignerGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnit
         // Assert
         reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {

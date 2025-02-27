@@ -20,7 +20,7 @@ public sealed class GetPurchasedCartByIdHandler(IPurchasedCartReads reads, IRequ
 
         GetTimeZoneByIdQuery timeZoneQuery = new(cart.BuyerId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
-        
+
         GetUsernameByIdQuery buyerQuery = new(cart.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
 

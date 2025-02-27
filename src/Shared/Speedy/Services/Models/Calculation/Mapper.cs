@@ -53,7 +53,7 @@ internal static class Mapper
             TotalWeight: model.TotalWeight,
             Documents: model.Documents,
             Palletized: model.Palletized,
-            Parcels: [.. model.Parcels?.Select(p => p.ToDto())]
+            Parcels: [.. model.Parcels?.Select(p => p.ToDto()) ?? []]
         );
 
     internal static CalculationSenderDto ToDto(this CalculationSenderModel model)

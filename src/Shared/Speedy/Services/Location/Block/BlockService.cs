@@ -23,7 +23,7 @@ public class BlockService(ILocationEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Blocks?.Select(b => b.ToModel())];
+        return [.. response.Blocks?.Select(b => b.ToModel()) ?? []];
     }
 
     public async Task<byte[]> AllAsync(

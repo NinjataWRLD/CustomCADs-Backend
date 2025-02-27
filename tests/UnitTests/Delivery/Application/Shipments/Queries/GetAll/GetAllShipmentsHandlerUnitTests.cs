@@ -13,9 +13,9 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 {
     private readonly Mock<IShipmentReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
-    private static readonly Dictionary<AccountId, string> buyers = new() 
-    { 
-        [ValidBuyerId] = "NinjataBG" 
+    private static readonly Dictionary<AccountId, string> buyers = new()
+    {
+        [ValidBuyerId] = "NinjataBG"
     };
     private static readonly Shipment[] Shipments = [
         Shipment.Create(new(ValidCountry1, ValidCity1), ValidReferenceId, ValidBuyerId),
@@ -52,7 +52,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
         // Assert
         reads.Verify(x => x.AllAsync(shipmentQuery, false, ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {

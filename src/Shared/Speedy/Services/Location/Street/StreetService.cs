@@ -39,7 +39,7 @@ public class StreetService(ILocationEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Streets?.Select(c => c.ToModel())];
+        return [.. response.Streets?.Select(c => c.ToModel()) ?? []];
     }
 
     public async Task<byte[]> AllAsync(

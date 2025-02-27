@@ -27,7 +27,7 @@ static class TagConfigUtils
 
         return builder;
     }
-    
+
     public static EntityTypeBuilder<Tag> SetNavigations(this EntityTypeBuilder<Tag> builder)
     {
         builder.HasMany<ProductTag>()
@@ -36,7 +36,7 @@ static class TagConfigUtils
 
         return builder;
     }
-    
+
     public static EntityTypeBuilder<Tag> SetStronglyTypedIds(this EntityTypeBuilder<Tag> builder)
     {
         builder.Property(x => x.Id)
@@ -55,7 +55,7 @@ static class TagConfigUtils
             .IsRequired()
             .HasMaxLength(NameMaxLength)
             .HasColumnName("Name");
-        
+
         return builder;
     }
 

@@ -52,7 +52,7 @@ var app = builder.Build();
 // Stuff
 app.UseCorsForClient();
 app.UseAuthentication();
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 app.UseExceptionHandler();
 app.UseJwtPrincipal();

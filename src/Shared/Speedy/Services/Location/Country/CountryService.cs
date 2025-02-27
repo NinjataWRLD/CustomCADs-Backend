@@ -39,7 +39,7 @@ public class CountryService(ILocationEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.Countries?.Select(c => c.ToModel())];
+        return [.. response.Countries?.Select(c => c.ToModel()) ?? []];
     }
 
     public async Task<byte[]> AllAsync(

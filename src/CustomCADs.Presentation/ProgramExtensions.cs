@@ -243,7 +243,7 @@ public static class ProgramExtensions
 
         services.AddCors(opt =>
         {
-            ClientUrlSettings settings = section.Get<ClientUrlSettings>() 
+            ClientUrlSettings settings = section.Get<ClientUrlSettings>()
                 ?? throw new KeyNotFoundException("URLs not provided.");
 
             opt.AddDefaultPolicy(builder =>

@@ -37,7 +37,7 @@ public class StateService(ILocationEndpoints endpoints)
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
-        return [.. response.States?.Select(c => c.ToModel())];
+        return [.. response.States?.Select(c => c.ToModel()) ?? []];
     }
 
     public async Task<byte[]> AllAsync(

@@ -13,7 +13,7 @@ internal static class Mapper
             IncludeShippingPrice: model.IncludeShippingPrice,
             CardPaymentForbidden: model.CardPaymentForbidden,
             ProcessingType: model.ProcessingType,
-            FiscalReceiptItems: [.. model.FiscalReceiptItems?.Select(i => i.ToDto())]
+            FiscalReceiptItems: [.. model.FiscalReceiptItems?.Select(i => i.ToDto()) ?? []]
         );
 
     internal static ShipmentCodFiscalReceiptItemDto ToDto(this ShipmentCodFiscalReceiptItemModel model)
@@ -33,7 +33,7 @@ internal static class Mapper
             IncludeShippingPrice: dto.IncludeShippingPrice,
             CardPaymentForbidden: dto.CardPaymentForbidden,
             ProcessingType: dto.ProcessingType,
-            FiscalReceiptItems: [.. dto.FiscalReceiptItems?.Select(i => i.ToModel())]
+            FiscalReceiptItems: [.. dto.FiscalReceiptItems?.Select(i => i.ToModel()) ?? []]
         );
 
     internal static ShipmentCodFiscalReceiptItemModel ToModel(this ShipmentCodFiscalReceiptItemDto dto)

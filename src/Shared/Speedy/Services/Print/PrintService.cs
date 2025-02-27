@@ -41,7 +41,7 @@ public class PrintService(
             PaperSize: paperSize,
             Dpi: dpi,
             AdditionalWaybillSenderCopy: additionalWaybillSenderCopy,
-            Parcels: [.. parcels?.Select(p => new ParcelToPrintDto(new(p.Id, null, null), null))]
+            Parcels: [.. parcels?.Select(p => new ParcelToPrintDto(new(p.Id, null, null), null)) ?? []]
         ), ct).ConfigureAwait(false);
 
         response.EnsureSuccessStatusCode();
@@ -77,7 +77,7 @@ public class PrintService(
             PaperSize: paperSize,
             Dpi: dpi,
             AdditionalWaybillSenderCopy: additionalWaybillSenderCopy,
-            Parcels: [.. parcels?.Select(p => new ParcelToPrintDto(new(p.Id, null, null), null))]
+            Parcels: [.. parcels?.Select(p => new ParcelToPrintDto(new(p.Id, null, null), null)) ?? []]
         ), ct).ConfigureAwait(false);
 
         response.Error.EnsureNull();
