@@ -1,13 +1,9 @@
 locals {
-  db_credentials = jsondecode(data.aws_secretsmanager_secret_version.customcads_database_password_version.secret_string)
-  db_username    = local.db_credentials["username"]
-  db_password    = local.db_credentials["password"]
+  production_db_credentials = jsondecode(data.aws_secretsmanager_secret_version.customcads_production_database_password_version.secret_string)
+  production_db_username    = local.production_db_credentials["username"]
+  production_db_password    = local.production_db_credentials["password"]
 
-  env_vars = jsondecode(data.aws_secretsmanager_secret_version.customcads_env_variables_version.secret_string)
-  jwt      = local.env_vars["JwtSettings"]
-  payment  = local.env_vars["Payment"]
-  email    = local.env_vars["Email"]
-  storage  = local.env_vars["Storage"]
-  delivery = local.env_vars["Delivery"]
-  urls     = local.env_vars["ClientURLs"]
+  staging_db_credentials = jsondecode(data.aws_secretsmanager_secret_version.customcads_staging_database_password_version.secret_string)
+  staging_db_username    = local.staging_db_credentials["username"]
+  staging_db_password    = local.staging_db_credentials["password"]
 }
