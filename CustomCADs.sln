@@ -188,6 +188,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terraform", "terraform", "{
 		.terraform\secrets.tf = .terraform\secrets.tf
 		.terraform\security.tf = .terraform\security.tf
 		.terraform\ssl.tf = .terraform\ssl.tf
+		.terraform\staging.tf = .terraform\staging.tf
 		.terraform\storage.tf = .terraform\storage.tf
 		.terraform\subnets.tf = .terraform\subnets.tf
 		.terraform\variables.tf = .terraform\variables.tf
