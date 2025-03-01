@@ -48,6 +48,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Categories.Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Categories.Endpoints", "src\Modules\Categories\Endpoints\CustomCADs.Categories.Endpoints.csproj", "{58D3A353-7A01-46A5-A282-81CB967C8C00}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customizations", "Customizations", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Customizations.Domain", "src\Modules\Customizations\Domain\CustomCADs.Customizations.Domain.csproj", "{B710F086-57DA-2847-2554-96D66FC0C2AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Customizations.Persistence", "src\Modules\Customizations\Persistence\CustomCADs.Customizations.Persistence.csproj", "{26F61837-4580-8DCC-907F-899D52DBF071}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Customizations.Application", "src\Modules\Customizations\Application\CustomCADs.Customizations.Application.csproj", "{108B5FF5-407F-A43F-CD24-E8A87670F98F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Customizations.Endpoints", "src\Modules\Customizations\Endpoints\CustomCADs.Customizations.Endpoints.csproj", "{7D38BD0E-7DA1-F775-452F-2122A63F08C9}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Delivery", "Delivery", "{1513C1BF-03E4-4D56-8A24-56241B6939F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Delivery.Domain", "src\Modules\Delivery\Domain\CustomCADs.Delivery.Domain.csproj", "{CE75DB89-0B2A-4732-92BE-E23290B2B883}"
@@ -140,6 +150,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Catego
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Categories.Application", "tests\UnitTests\Categories\Application\CustomCADs.UnitTests.Categories.Application.csproj", "{873BC439-6D17-4212-886F-B279F9A837E1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customizations", "Customizations", "{9005C58F-BFE9-4CCB-BF7A-6F3A04A5D748}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Customizations.Data", "tests\UnitTests\Customizations\Data\CustomCADs.UnitTests.Customizations.Data.csproj", "{6A08BC44-5970-4305-8D19-9C0A990A142B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Customizations.Domain", "tests\UnitTests\Customizations\Domain\CustomCADs.UnitTests.Customizations.Domain.csproj", "{ED0DD872-6BD1-4C1F-9BA6-1A7E7648B5E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Customizations.Application", "tests\UnitTests\Customizations\Application\CustomCADs.UnitTests.Customizations.Application.csproj", "{B4EF4DC2-FCE8-4EC6-A35B-216D742136C5}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Delivery", "Delivery", "{5C999403-A004-4A59-859F-41D798500269}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Delivery.Data", "tests\UnitTests\Delivery\Data\CustomCADs.UnitTests.Delivery.Data.csproj", "{AD581FC1-396B-494E-9F2E-2E6AC0103755}"
@@ -170,8 +188,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{74AB2A
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
 		Dockerfile = Dockerfile
-		Dockerrun.aws.json = Dockerrun.aws.json
 		Dockerfile.staging = Dockerfile.staging
+		Dockerrun.aws.json = Dockerrun.aws.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terraform", "terraform", "{685B803F-F417-4640-A3DF-F84D40F62B7C}"
@@ -200,12 +218,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\build-dotnet.yml = .github\workflows\build-dotnet.yml
 		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\main-cd.yml = .github\workflows\main-cd.yml
+		.github\workflows\production-delivery.yml = .github\workflows\production-delivery.yml
+		.github\workflows\release-cd.yml = .github\workflows\release-cd.yml
+		.github\workflows\staging-delivery.yml = .github\workflows\staging-delivery.yml
 		.github\workflows\unit-test.yml = .github\workflows\unit-test.yml
 		.github\workflows\versioning.yml = .github\workflows\versioning.yml
-		.github\workflows\production-delivery.yml = .github\workflows\production-delivery.yml
-		.github\workflows\staging-delivery.yml = .github\workflows\staging-delivery.yml
-		.github\workflows\main-cd.yml = .github\workflows\main-cd.yml
-		.github\workflows\release-cd.yml = .github\workflows\release-cd.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "platform", "platform", "{EC930E23-E064-4F3F-8A2E-2E04CE84A6F1}"
@@ -297,6 +315,22 @@ Global
 		{58D3A353-7A01-46A5-A282-81CB967C8C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58D3A353-7A01-46A5-A282-81CB967C8C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58D3A353-7A01-46A5-A282-81CB967C8C00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B710F086-57DA-2847-2554-96D66FC0C2AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B710F086-57DA-2847-2554-96D66FC0C2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B710F086-57DA-2847-2554-96D66FC0C2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B710F086-57DA-2847-2554-96D66FC0C2AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26F61837-4580-8DCC-907F-899D52DBF071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F61837-4580-8DCC-907F-899D52DBF071}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26F61837-4580-8DCC-907F-899D52DBF071}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26F61837-4580-8DCC-907F-899D52DBF071}.Release|Any CPU.Build.0 = Release|Any CPU
+		{108B5FF5-407F-A43F-CD24-E8A87670F98F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{108B5FF5-407F-A43F-CD24-E8A87670F98F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{108B5FF5-407F-A43F-CD24-E8A87670F98F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{108B5FF5-407F-A43F-CD24-E8A87670F98F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D38BD0E-7DA1-F775-452F-2122A63F08C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D38BD0E-7DA1-F775-452F-2122A63F08C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D38BD0E-7DA1-F775-452F-2122A63F08C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D38BD0E-7DA1-F775-452F-2122A63F08C9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE75DB89-0B2A-4732-92BE-E23290B2B883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE75DB89-0B2A-4732-92BE-E23290B2B883}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE75DB89-0B2A-4732-92BE-E23290B2B883}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -437,6 +471,18 @@ Global
 		{873BC439-6D17-4212-886F-B279F9A837E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{873BC439-6D17-4212-886F-B279F9A837E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{873BC439-6D17-4212-886F-B279F9A837E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A08BC44-5970-4305-8D19-9C0A990A142B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A08BC44-5970-4305-8D19-9C0A990A142B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A08BC44-5970-4305-8D19-9C0A990A142B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A08BC44-5970-4305-8D19-9C0A990A142B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED0DD872-6BD1-4C1F-9BA6-1A7E7648B5E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED0DD872-6BD1-4C1F-9BA6-1A7E7648B5E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED0DD872-6BD1-4C1F-9BA6-1A7E7648B5E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED0DD872-6BD1-4C1F-9BA6-1A7E7648B5E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4EF4DC2-FCE8-4EC6-A35B-216D742136C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4EF4DC2-FCE8-4EC6-A35B-216D742136C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4EF4DC2-FCE8-4EC6-A35B-216D742136C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4EF4DC2-FCE8-4EC6-A35B-216D742136C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD581FC1-396B-494E-9F2E-2E6AC0103755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD581FC1-396B-494E-9F2E-2E6AC0103755}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD581FC1-396B-494E-9F2E-2E6AC0103755}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -500,6 +546,11 @@ Global
 		{F9136F45-8424-4AB3-81D3-C4DA132769A9} = {6C29C6F0-20DD-49E3-B9C3-FEC552BB41D8}
 		{B7F4D901-5BA4-4CDC-B1B7-38C1BA8A5E2F} = {6C29C6F0-20DD-49E3-B9C3-FEC552BB41D8}
 		{58D3A353-7A01-46A5-A282-81CB967C8C00} = {6C29C6F0-20DD-49E3-B9C3-FEC552BB41D8}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {8CF3001A-FDE9-4E6A-A642-83480DB4B117}
+		{B710F086-57DA-2847-2554-96D66FC0C2AA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{26F61837-4580-8DCC-907F-899D52DBF071} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{108B5FF5-407F-A43F-CD24-E8A87670F98F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7D38BD0E-7DA1-F775-452F-2122A63F08C9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{1513C1BF-03E4-4D56-8A24-56241B6939F1} = {8CF3001A-FDE9-4E6A-A642-83480DB4B117}
 		{CE75DB89-0B2A-4732-92BE-E23290B2B883} = {1513C1BF-03E4-4D56-8A24-56241B6939F1}
 		{4E365D30-F623-495A-8020-02D457DB6632} = {1513C1BF-03E4-4D56-8A24-56241B6939F1}
@@ -545,6 +596,10 @@ Global
 		{FB501710-ABC8-472C-ABD8-38DAB64E618A} = {141CE09E-909A-4485-BE6D-741C5E5545D6}
 		{65718856-9CE1-4954-9B58-43AF59BD5A11} = {141CE09E-909A-4485-BE6D-741C5E5545D6}
 		{873BC439-6D17-4212-886F-B279F9A837E1} = {141CE09E-909A-4485-BE6D-741C5E5545D6}
+		{9005C58F-BFE9-4CCB-BF7A-6F3A04A5D748} = {E27610CC-5AA4-4B13-9DCF-E77B340A4749}
+		{6A08BC44-5970-4305-8D19-9C0A990A142B} = {9005C58F-BFE9-4CCB-BF7A-6F3A04A5D748}
+		{ED0DD872-6BD1-4C1F-9BA6-1A7E7648B5E8} = {9005C58F-BFE9-4CCB-BF7A-6F3A04A5D748}
+		{B4EF4DC2-FCE8-4EC6-A35B-216D742136C5} = {9005C58F-BFE9-4CCB-BF7A-6F3A04A5D748}
 		{5C999403-A004-4A59-859F-41D798500269} = {E27610CC-5AA4-4B13-9DCF-E77B340A4749}
 		{AD581FC1-396B-494E-9F2E-2E6AC0103755} = {5C999403-A004-4A59-859F-41D798500269}
 		{106E5FEF-89C6-440E-A4ED-121E576C5316} = {5C999403-A004-4A59-859F-41D798500269}
