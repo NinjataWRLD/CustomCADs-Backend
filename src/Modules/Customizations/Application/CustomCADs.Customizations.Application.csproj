@@ -6,4 +6,10 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\Domain\CustomCADs.Customizations.Domain.csproj" />
+		<ProjectReference Include="..\..\..\Shared\Abstractions\CustomCADs.Shared.Abstractions.csproj" />
+		<ProjectReference Include="..\..\..\Shared\UseCases\CustomCADs.Shared.UseCases.csproj" />
+	</ItemGroup>
+
 </Project>
