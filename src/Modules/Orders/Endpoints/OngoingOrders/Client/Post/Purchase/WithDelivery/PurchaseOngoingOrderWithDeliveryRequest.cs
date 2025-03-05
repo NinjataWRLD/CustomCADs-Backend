@@ -8,6 +8,6 @@ public sealed record PurchaseOngoingOrderWithDeliveryRequest(
     ContactDto Contact,
     string PaymentMethodId,
     string ShipmentService,
-    double Weight,
-    int Count
+    int Count,
+    Guid CustomizationId
 );

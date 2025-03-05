@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Bases.Exceptions;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Orders.Application.Common.Exceptions.Completed;
@@ -24,6 +25,9 @@ public class CompletedOrderNotFoundException : BaseException
 
     public static CompletedOrderNotFoundException CadId(CadId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Cad", nameof(id), id), inner);
+    
+    public static CompletedOrderNotFoundException CustomizationId(CustomizationId id, Exception? inner = default)
+        => new(string.Format(NotFoundByProp, "Customization", nameof(id), id), inner);
 
     public static CompletedOrderNotFoundException Custom(string message, Exception? inner = default)
         => new(message, inner);

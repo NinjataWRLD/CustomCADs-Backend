@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Add;
 using CustomCADs.Carts.Application.ActiveCarts.Queries.GetItem;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Post.Item;
 
@@ -25,8 +25,8 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
 
         AddActiveCartItemCommand command = new(
             ProductId: ProductId.New(req.ProductId),
-            Weight: req.Weight,
             ForDelivery: req.ForDelivery,
+            CustomizationId: CustomizationId.New(req.CustomizationId),
             BuyerId: buyerId
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

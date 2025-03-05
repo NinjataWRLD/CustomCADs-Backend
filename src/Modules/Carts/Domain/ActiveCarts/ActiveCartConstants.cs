@@ -11,8 +11,5 @@ public static class ActiveCartConstants
     {
         public const int QuantityMax = 100;
         public const int QuantityMin = 1;
-
-        public const double WeightMax = 1000;
-        public const double WeightMin = 0.01;
     }
 }

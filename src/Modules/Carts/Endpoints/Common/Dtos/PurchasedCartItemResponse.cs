@@ -4,7 +4,8 @@ public sealed record PurchasedCartItemResponse(
     int Quantity,
     bool ForDelivery,
     decimal Price,
+    decimal Cost,
     Guid ProductId,
     Guid CartId,
-    decimal Cost
+    Guid? CustomizationId
 );

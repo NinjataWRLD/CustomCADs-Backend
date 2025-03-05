@@ -2,6 +2,7 @@
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
 
@@ -32,6 +33,20 @@ public class CreateCompletedOrderHandler(IWrites<CompletedOrder> writes, IUnitOf
         }
 
         CompletedOrder order = req.ToCompletedOrder();
+        if (req.CustomizationId is not null)
+        {
+            GetCustomizationExistsByIdQuery customizationExistsQuery = new(
+                Id: req.CustomizationId.Value
+            );
+
+            bool customizationExists = await sender.SendQueryAsync(customizationExistsQuery, ct).ConfigureAwait(false);
+            if (!customizationExists)
+            {
+                throw CompletedOrderNotFoundException.CustomizationId(req.CustomizationId.Value);
+            }
+
+            order.SetCustomizationId(req.CustomizationId.Value);
+        }
 
         await writes.AddAsync(order, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

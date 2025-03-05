@@ -3,6 +3,7 @@ using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Queries.CalculateShipment;
@@ -18,9 +19,17 @@ public class CalculateActiveCartShipmentHandler(IActiveCartReads reads, IRequest
         if (!cart.HasDelivery)
             throw ActiveCartItemDeliveryException.ById(cart.Id);
 
+        GetCustomizationsWeightByIdsQuery weightsQuery = new(
+            Ids: [.. cart.Items
+                    .Where(i => i.ForDelivery && i.CustomizationId is not null)
+                    .Select(i => i.CustomizationId!.Value)
+            ]
+        );
+        var weights = await sender.SendQueryAsync(weightsQuery, ct).ConfigureAwait(false);
+
         CalculateShipmentQuery query = new(
             ParcelCount: cart.TotalDeliveryCount,
-            TotalWeight: cart.TotalDeliveryWeight,
+            TotalWeight: weights.Sum(x => x.Value),
             Address: req.Address
         );
         CalculationDto[] calculations = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

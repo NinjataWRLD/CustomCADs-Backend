@@ -3,7 +3,7 @@
 public sealed record ActiveCartItemResponse(
     int Quantity,
     bool ForDelivery,
-    double Weight,
     Guid ProductId,
-    Guid CartId
+    Guid CartId,
+    Guid? CustomizationId
 );

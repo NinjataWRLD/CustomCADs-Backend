@@ -1,9 +1,11 @@
 ﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Item.ToggleForDelivery;
 
 public record ToggleActiveCartItemForDeliveryCommand(
     AccountId BuyerId,
-    ProductId ProductId
+    ProductId ProductId,
+    CustomizationId? CustomizationId
 ) : ICommand;

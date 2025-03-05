@@ -2,6 +2,7 @@
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Queries.CalculateShipment;
@@ -19,9 +20,12 @@ public class CalculateOngoingOrderShipmentHandler(IOngoingOrderReads reads, IReq
             throw OngoingOrderDeliveryException.ById(order.Id);
         }
 
+        GetCustomizationWeightByIdQuery customizationIdQuery = new(req.CustomizationId);
+        double weight = await sender.SendQueryAsync(customizationIdQuery, ct).ConfigureAwait(false);
+
         CalculateShipmentQuery query = new(
-            ParcelCount: req.TotalCount,
-            TotalWeight: req.TotalWeight,
+            ParcelCount: req.Count,
+            TotalWeight: weight * req.Count,
             Address: req.Address
         );
         CalculationDto[] calculations = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

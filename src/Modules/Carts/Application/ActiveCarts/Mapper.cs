@@ -37,8 +37,8 @@ internal static class Mapper
         => new(
             Quantity: item.Quantity,
             ForDelivery: item.ForDelivery,
-            Weight: item.Weight,
             ProductId: item.ProductId,
-            CartId: item.CartId
+            CartId: item.CartId,
+            CustomizationId: item.CustomizationId
         );
 }

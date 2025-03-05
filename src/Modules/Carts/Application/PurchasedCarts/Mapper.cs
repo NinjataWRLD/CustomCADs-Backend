@@ -57,7 +57,8 @@ internal static class Mapper
             Price: item.Price,
             Cost: item.Cost,
             ProductId: item.ProductId,
-            CartId: item.CartId
+            CartId: item.CartId,
+            CustomizationId: item.CustomizationId
         );
 
     internal static (decimal Price, CadId CadId, ActiveCartItem Item) ToPurchasedCartItemDto(this ActiveCartItem item, Dictionary<ProductId, decimal> prices, Dictionary<ProductId, CadId> productCads, Dictionary<CadId, CadId> itemCads)
