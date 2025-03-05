@@ -2,6 +2,7 @@
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts;
 
@@ -23,16 +24,15 @@ public class ActiveCartsBaseUnitTests
     protected static ActiveCart CreateCartWithItems(ActiveCartId? id = null, AccountId? buyerId = null, params ActiveCartItem[] items)
     {
         var cart = CreateCartWithId(id, buyerId);
-        for (int i = 0; i < items.Length; i++)
-        {
-            ActiveCartItem item = items[i];
-            cart.AddItem(item.Weight, item.ProductId, item.ForDelivery);
 
-            var cartItem = cart.Items.ElementAt(i);
-            if (cartItem.ForDelivery)
-            {
-                cartItem.IncreaseQuantity(item.Quantity - 1);
-            }
+        foreach (ActiveCartItem item in items.Where(x => !x.ForDelivery))
+        {
+            cart.AddItem(item.ProductId);
+        }
+        foreach (ActiveCartItem item in items.Where(x => x.ForDelivery))
+        {
+            var cartItem = cart.AddItem(item.ProductId, item.CustomizationId!.Value);
+            cartItem.IncreaseQuantity(item.Quantity - 1);
         }
 
         return cart;
@@ -40,13 +40,19 @@ public class ActiveCartsBaseUnitTests
 
     protected static ActiveCartItem CreateItem(
         ActiveCartId? cartId = null,
+        ProductId? productId = null
+    ) => ActiveCartItem.Create(
+            cartId: cartId ?? ValidId1,
+            productId: productId ?? CartItemsData.ValidProductId1
+        );
+
+    protected static ActiveCartItem CreateItemWithDelivery(
+        ActiveCartId? cartId = null,
         ProductId? productId = null,
-        double? weight = null,
-        bool? forDelivery = null
+        CustomizationId? customizationId = null
     ) => ActiveCartItem.Create(
             cartId: cartId ?? ValidId1,
             productId: productId ?? CartItemsData.ValidProductId1,
-            weight: weight ?? CartItemsData.ValidWeight1,
-            forDelivery: forDelivery ?? false
+            customizationId: customizationId ?? CartItemsData.ValidCustomizationId1
         );
 }

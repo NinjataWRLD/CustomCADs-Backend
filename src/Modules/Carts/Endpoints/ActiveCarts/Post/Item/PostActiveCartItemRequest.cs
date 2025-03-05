@@ -2,6 +2,6 @@
 
 public sealed record PostActiveCartItemRequest(
     Guid ProductId,
-    double Weight,
+    Guid? CustomizationId,
     bool ForDelivery
 );

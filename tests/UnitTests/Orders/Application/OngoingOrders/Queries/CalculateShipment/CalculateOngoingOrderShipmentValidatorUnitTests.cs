@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.CalculateShipment;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.UnitTests.Orders.Application.OngoingOrders.Queries.CalculateShipment.Data;
 using FluentValidation.TestHelper;
 
@@ -11,7 +12,7 @@ public class CalculateOngoingOrderShipmentValidatorUnitTests : OngoingOrdersBase
     private readonly CalculateOngoingOrderShipmentValidator validator = new();
 
     private const int Count = 4;
-    private const double Weight = 2.7;
+    private static readonly CustomizationId CustomizationId = CustomizationId.New();
     private static readonly OngoingOrderId id = ValidId1;
 
     [Theory]
@@ -21,8 +22,8 @@ public class CalculateOngoingOrderShipmentValidatorUnitTests : OngoingOrdersBase
         // Arrange
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
-            TotalCount: Count,
-            TotalWeight: Weight,
+            Count: Count,
+            CustomizationId: CustomizationId,
             Address: new(country, city)
         );
 
@@ -41,8 +42,8 @@ public class CalculateOngoingOrderShipmentValidatorUnitTests : OngoingOrdersBase
         // Arrange
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
-            TotalCount: Count,
-            TotalWeight: Weight,
+            Count: Count,
+            CustomizationId: CustomizationId,
             Address: new(country, city)
         );
 
@@ -60,8 +61,8 @@ public class CalculateOngoingOrderShipmentValidatorUnitTests : OngoingOrdersBase
         // Arrange
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
-            TotalCount: Count,
-            TotalWeight: Weight,
+            Count: Count,
+            CustomizationId: CustomizationId,
             Address: new(country, city)
         );
 
@@ -79,8 +80,8 @@ public class CalculateOngoingOrderShipmentValidatorUnitTests : OngoingOrdersBase
         // Arrange
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
-            TotalCount: Count,
-            TotalWeight: Weight,
+            Count: Count,
+            CustomizationId: CustomizationId,
             Address: new(country, city)
         );
 

@@ -3,6 +3,7 @@ using CustomCADs.Carts.Domain.ActiveCarts.Validation;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.Carts.Domain.ActiveCarts;
 
@@ -19,7 +20,6 @@ public class ActiveCart : BaseAggregateRoot
     public ActiveCartId Id { get; init; }
     public AccountId BuyerId { get; private set; }
     public bool HasDelivery => items.Any(i => i.ForDelivery);
-    public double TotalDeliveryWeight => Items.Where(i => i.ForDelivery).Sum(i => i.Weight);
     public int TotalDeliveryCount => Items.Where(i => i.ForDelivery).Count();
     public int TotalCount => Items.Count;
     public IReadOnlyCollection<ActiveCartItem> Items => items.AsReadOnly();
@@ -35,9 +35,18 @@ public class ActiveCart : BaseAggregateRoot
         }
         .ValidateItems();
 
-    public ActiveCartItem AddItem(double weight, ProductId productId, bool forDelivery)
+    public ActiveCartItem AddItem(ProductId productId)
     {
-        var item = ActiveCartItem.Create(weight, productId, Id, forDelivery);
+        var item = ActiveCartItem.Create(productId, this.Id);
+        items.Add(item);
+        this.ValidateItems();
+
+        return item;
+    }
+    
+    public ActiveCartItem AddItem(ProductId productId, CustomizationId customizationId)
+    {
+        var item = ActiveCartItem.Create(productId, this.Id, customizationId);
         items.Add(item);
         this.ValidateItems();
 

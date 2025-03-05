@@ -41,8 +41,6 @@ public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
     private static ActiveCartItem CreateActiveCartItem()
         => ActiveCartItem.Create(
             cartId: ActiveCartsData.ValidId1,
-            weight: ActiveCartsData.CartItemsData.ValidWeight1,
-            productId: ActiveCartsData.CartItemsData.ValidProductId1,
-            forDelivery: true
+            productId: ActiveCartsData.CartItemsData.ValidProductId1
         );
 }

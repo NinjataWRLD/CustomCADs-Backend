@@ -23,6 +23,7 @@ builder.Services.AddAccounts(builder.Configuration);
 builder.Services.AddCarts(builder.Configuration);
 builder.Services.AddCatalog(builder.Configuration);
 builder.Services.AddCategories(builder.Configuration);
+builder.Services.AddCustomizations(builder.Configuration);
 builder.Services.AddDelivery(builder.Configuration);
 builder.Services.AddFiles(builder.Configuration);
 builder.Services.AddIdentity(builder.Configuration);

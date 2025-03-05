@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -49,6 +50,12 @@ public static class ActiveCartItemItemConfigUtils
                 x => x.Value,
                 v => ProductId.New(v)
             );
+        
+        builder.Property(x => x.CustomizationId)
+            .HasConversion(
+                x => CustomizationId.Unwrap(x),
+                v => CustomizationId.New(v)
+            );
 
         return builder;
     }
@@ -58,11 +65,6 @@ public static class ActiveCartItemItemConfigUtils
         builder.Property(x => x.Quantity)
             .IsRequired()
             .HasColumnName("Quantity");
-
-        builder.Property(x => x.Weight)
-            .IsRequired()
-            .HasPrecision(6, 2)
-            .HasColumnName("Weight");
 
         builder.Property(x => x.ForDelivery)
             .IsRequired()
@@ -75,6 +77,10 @@ public static class ActiveCartItemItemConfigUtils
         builder.Property(x => x.CartId)
             .IsRequired()
             .HasColumnName("CartId");
+        
+        builder.Property(x => x.CustomizationId)
+            .IsRequired(false)
+            .HasColumnName("CustomizationId");
 
         return builder;
     }

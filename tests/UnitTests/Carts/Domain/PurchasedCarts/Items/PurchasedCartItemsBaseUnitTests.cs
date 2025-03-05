@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Items;
@@ -13,6 +14,7 @@ public class PurchasedCartItemsBaseUnitTests
         PurchasedCartId? cartId = null,
         ProductId? productId = null,
         CadId? cadId = null,
+        CustomizationId? customizationId = null,
         decimal? price = null,
         int? quantity = null,
         bool? forDelivery = null
@@ -22,6 +24,7 @@ public class PurchasedCartItemsBaseUnitTests
             cadId: cadId ?? ValidCadId1,
             price: price ?? ValidPrice1,
             quantity: quantity ?? ValidQuantity1,
-            forDelivery: forDelivery ?? false
+            forDelivery: forDelivery ?? false,
+            customizationId: customizationId
         );
 }

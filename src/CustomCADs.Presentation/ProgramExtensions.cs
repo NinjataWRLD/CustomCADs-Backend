@@ -2,6 +2,7 @@
 using CustomCADs.Carts.Application;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Categories.Application;
+using CustomCADs.Customizations.Application;
 using CustomCADs.Delivery.Application;
 using CustomCADs.Files.Application;
 using CustomCADs.Identity.Application;
@@ -40,6 +41,7 @@ public static class ProgramExtensions
             CartsApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
+            CustomizationsApplicationReference.Assembly,
             DeliveryApplicationReference.Assembly,
             FilesApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
@@ -151,6 +153,11 @@ public static class ProgramExtensions
         => services
             .AddCategoriesExceptionHandler()
             .AddCategoriesPersistence(config);
+    
+    public static IServiceCollection AddCustomizations(this IServiceCollection services, IConfiguration config)
+        => services
+            .AddCustomizationsExceptionHandler()
+            .AddCustomizationsPersistence(config);
 
     public static IServiceCollection AddDelivery(this IServiceCollection services, IConfiguration config)
         => services

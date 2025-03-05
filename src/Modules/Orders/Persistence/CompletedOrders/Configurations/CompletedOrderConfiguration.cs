@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Orders.Domain.CompletedOrders;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.Core.Common.TypedIds.Orders;
@@ -56,9 +57,15 @@ public static class OrderConfigUtils
             );
 
         builder.Property(x => x.ShipmentId)
-            .HasConversion<Guid?>(
-                x => x == null ? null : x.Value.Value,
+            .HasConversion(
+                x => ShipmentId.Unwrap(x),
                 v => ShipmentId.New(v)
+            );
+        
+        builder.Property(x => x.CustomizationId)
+            .HasConversion(
+                x => CustomizationId.Unwrap(x),
+                v => CustomizationId.New(v)
             );
 
         return builder;
@@ -98,13 +105,20 @@ public static class OrderConfigUtils
             .HasColumnName("BuyerId");
 
         builder.Property(x => x.DesignerId)
+            .IsRequired()
             .HasColumnName("DesignerId");
 
         builder.Property(x => x.CadId)
+            .IsRequired()
             .HasColumnName("CadId");
 
         builder.Property(x => x.ShipmentId)
+            .IsRequired(false)
             .HasColumnName("ShipmentId");
+        
+        builder.Property(x => x.CustomizationId)
+            .IsRequired(false)
+            .HasColumnName("CustomizationId");
 
         return builder;
     }

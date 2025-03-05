@@ -27,9 +27,9 @@ internal static class Mapper
         => new(
             Quantity: item.Quantity,
             ForDelivery: item.ForDelivery,
-            Weight: item.Weight,
             ProductId: item.ProductId.Value,
-            CartId: item.CartId.Value
+            CartId: item.CartId.Value,
+            CustomizationId: item.CustomizationId?.Value
         );
 
     internal static CalculateActiveCartShipmentResponse ToCalculateCartShipmentResponse(this CalculateActiveCartShipmentDto calculation)

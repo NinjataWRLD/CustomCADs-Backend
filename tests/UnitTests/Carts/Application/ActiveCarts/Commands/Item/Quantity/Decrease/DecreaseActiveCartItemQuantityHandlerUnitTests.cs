@@ -22,7 +22,7 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 
     public DecreaseActiveCartItemQuantityHandlerUnitTests()
     {
-        item = CreateItem(productId: productId, forDelivery: true)
+        item = CreateItemWithDelivery(productId: productId)
             .IncreaseQuantity(QuantityMax - 1);
 
         cart = CreateCartWithItems(

@@ -14,7 +14,7 @@ public class IncreaseActiveCartItemQuantityHandler(IActiveCartReads reads, IUnit
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
         ActiveCartItem item = cart.Items.FirstOrDefault(i => i.ProductId == req.ProductId)
-            ?? throw ActiveCartItemNotFoundException.ById(req.ProductId);
+            ?? throw ActiveCartItemNotFoundException.ByProductId(req.ProductId);
 
         item.IncreaseQuantity(req.Amount);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

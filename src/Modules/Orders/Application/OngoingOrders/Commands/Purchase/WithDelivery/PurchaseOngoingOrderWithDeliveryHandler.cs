@@ -6,6 +6,7 @@ using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery;
 
@@ -45,13 +46,16 @@ public sealed class PurchaseOngoingOrderWithDeliveryHandler(IOngoingOrderReads r
 
         string buyer = users[0], seller = users[1];
 
-        decimal price = order.Price.Value; // integrate order prices
+        decimal price = order.Price.Value * req.Count; // integrate order prices
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: price,
             description: $"{buyer} bought {order.Name} from {seller} for {price}$.",
             ct
         ).ConfigureAwait(false);
+
+        GetCustomizationWeightByIdQuery query = new(req.CustomizationId);
+        double weight = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         CreateCompletedOrderCommand command = new(
             Name: order.Name,
@@ -61,14 +65,15 @@ public sealed class PurchaseOngoingOrderWithDeliveryHandler(IOngoingOrderReads r
             OrderDate: order.OrderDate,
             BuyerId: order.BuyerId,
             DesignerId: order.DesignerId.Value,
-            CadId: order.CadId.Value
+            CadId: order.CadId.Value,
+            CustomizationId: req.CustomizationId
         );
         CompletedOrderId completedOrderId = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         await raiser.RaiseDomainEventAsync(new OngoingOrderDeliveryRequestedDomainEvent(
             Id: completedOrderId,
             ShipmentService: req.ShipmentService,
-            Weight: req.Weight,
+            Weight: weight * req.Count,
             Count: req.Count,
             Address: req.Address,
             Contact: req.Contact

@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Add;
@@ -22,11 +22,27 @@ public sealed class AddActiveCartItemHandler(IActiveCartReads reads, IUnitOfWork
         {
             throw PurchasedCartNotFoundException.BuyerId(req.BuyerId);
         }
-        ActiveCartItem item = cart.AddItem(
-            productId: req.ProductId,
-            weight: req.Weight,
-            forDelivery: req.ForDelivery
-        );
+
+        if (!req.ForDelivery)
+        {
+            cart.AddItem(req.ProductId);
+        }
+        else if (req.CustomizationId is not null)
+        {
+            GetCustomizationExistsByIdQuery customizationExistsQuery = new(
+                Id: req.CustomizationId.Value
+            );
+
+            bool customizationExists = await sender.SendQueryAsync(customizationExistsQuery, ct).ConfigureAwait(false);
+            if (!customizationExists)
+            {
+                throw ActiveCartItemNotFoundException.ByCustomizationId(req.CustomizationId.Value);
+            }
+
+            cart.AddItem(req.ProductId, req.CustomizationId.Value);
+        }
+        else throw ActiveCartItemDeliveryException.ById(cart.Id);
+
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

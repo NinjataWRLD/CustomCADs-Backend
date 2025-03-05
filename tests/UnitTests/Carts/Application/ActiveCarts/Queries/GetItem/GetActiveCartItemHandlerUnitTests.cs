@@ -14,8 +14,8 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     private static readonly ActiveCart cart = CreateCartWithItems(
         buyerId: buyerId,
         items: [
-            CreateItem(ValidId1, CartItemsData.ValidProductId1, CartItemsData.ValidWeight1, true),
-            CreateItem(ValidId2, CartItemsData.ValidProductId2, CartItemsData.ValidWeight2, false),
+            CreateItemWithDelivery(ValidId1, CartItemsData.ValidProductId1),
+            CreateItem(ValidId2, CartItemsData.ValidProductId2),
         ]
     );
 
@@ -50,10 +50,10 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         var actual = await handler.Handle(query, ct);
 
         // Assert
-        var expected = cart.Items.First();
+        var expected = cart.Items.First(x => x.ProductId == CartItemsData.ValidProductId1);
         Assert.Multiple(
             () => Assert.Equal(expected.CartId, actual.CartId),
-            () => Assert.Equal(expected.Weight, actual.Weight),
+            () => Assert.Equal(expected.CustomizationId, actual.CustomizationId),
             () => Assert.Equal(expected.Quantity, actual.Quantity),
             () => Assert.Equal(expected.ForDelivery, actual.ForDelivery),
             () => Assert.Equal(expected.ProductId, actual.ProductId)

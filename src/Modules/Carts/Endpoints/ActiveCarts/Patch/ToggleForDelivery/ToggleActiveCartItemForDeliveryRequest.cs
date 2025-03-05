@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Carts.Endpoints.ActiveCarts.Patch.ToggleForDelivery;
 
 public record ToggleActiveCartItemForDeliveryRequest(
-    Guid ProductId
+    Guid ProductId,
+    Guid? CustomizationId
 );

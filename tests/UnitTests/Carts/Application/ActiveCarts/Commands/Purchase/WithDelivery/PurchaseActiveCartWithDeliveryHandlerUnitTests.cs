@@ -9,6 +9,7 @@ using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Purchase.WithDelivery;
 
@@ -27,9 +28,9 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     private static readonly ActiveCart cart = CreateCartWithItems(
         buyerId: buyerId,
         items: [
-            CreateItem(forDelivery: true),
-            CreateItem(forDelivery: false),
-            CreateItem(forDelivery: true),
+            CreateItemWithDelivery(),
+            CreateItem(),
+            CreateItemWithDelivery(),
         ]
     );
 
@@ -37,6 +38,9 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     {
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, false, ct))
             .ReturnsAsync(cart);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsWeightByIdsQuery>(), ct))
+            .ReturnsAsync([]);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetPurchasedCartByIdQuery>(), ct))
             .ReturnsAsync(new GetPurchasedCartByIdDto(
@@ -94,6 +98,9 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         , ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetUsernameByIdQuery>()
+        , ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetCustomizationsWeightByIdsQuery>()
         , ct), Times.Once);
     }
 
@@ -183,9 +190,9 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             .ReturnsAsync(CreateCartWithItems(
                 buyerId: buyerId,
                 items: [
-                    CreateItem(forDelivery: false),
-                    CreateItem(forDelivery: false),
-                    CreateItem(forDelivery: false),
+                    CreateItem(),
+                    CreateItem(),
+                    CreateItem(),
                 ]
             ));
 

@@ -13,7 +13,7 @@ public sealed class GetActiveCartItemByIdHandler(IActiveCartReads reads)
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
         ActiveCartItem item = cart.Items.FirstOrDefault(i => i.ProductId == req.ProductId)
-            ?? throw ActiveCartItemNotFoundException.ById(req.ProductId);
+            ?? throw ActiveCartItemNotFoundException.ByProductId(req.ProductId);
 
         return item.ToCartItemDto();
     }

@@ -9,7 +9,7 @@ public class ActiveCartItemIncreaseQuantityUnitTests : ActiveCartItemsBaseUnitTe
     [ClassData(typeof(ActiveCartItemIncreaseQuantityValidData))]
     public void Increase_ShouldNotThrowException_WhenValid(int amount)
     {
-        CreateItem(forDelivery: true).IncreaseQuantity(amount);
+        CreateItemWithDelivery().IncreaseQuantity(amount);
     }
 
     [Theory]
@@ -18,7 +18,7 @@ public class ActiveCartItemIncreaseQuantityUnitTests : ActiveCartItemsBaseUnitTe
     {
         Assert.Throws<ActiveCartItemValidationException>(() =>
         {
-            CreateItem(forDelivery: true).IncreaseQuantity(amount);
+            CreateItemWithDelivery().IncreaseQuantity(amount);
         });
     }
 
@@ -28,7 +28,7 @@ public class ActiveCartItemIncreaseQuantityUnitTests : ActiveCartItemsBaseUnitTe
     {
         Assert.Throws<ActiveCartItemValidationException>(() =>
         {
-            CreateItem(forDelivery: false).IncreaseQuantity(amount);
+            CreateItem().IncreaseQuantity(amount);
         });
     }
 }

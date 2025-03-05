@@ -14,9 +14,17 @@ public class ToggleActiveCartItemForDeliveryHandler(IActiveCartReads reads, IUni
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
         ActiveCartItem item = cart.Items.SingleOrDefault(i => i.ProductId == req.ProductId)
-            ?? throw ActiveCartItemNotFoundException.ById(req.ProductId);
+            ?? throw ActiveCartItemNotFoundException.ByProductId(req.ProductId);
 
-        item.SetForDelivery(!item.ForDelivery);
+        if (item.ForDelivery)
+        {
+            item.SetNoDelivery();
+        }
+        else if (req.CustomizationId is not null)
+        {
+            item.SetForDelivery(req.CustomizationId.Value);
+        }
+        else throw ActiveCartItemDeliveryException.ById(cart.Id);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }

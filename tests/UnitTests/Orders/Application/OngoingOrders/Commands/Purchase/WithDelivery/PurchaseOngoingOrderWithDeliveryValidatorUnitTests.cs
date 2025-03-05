@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery.Data;
 using FluentValidation.TestHelper;
 
@@ -12,17 +13,18 @@ public class PurchaseOngoingOrderWithDeliveryValidatorUnitTests : OngoingOrdersB
     private readonly PurchaseOngoingOrderWithDeliveryValidator validator = new();
     private static readonly OngoingOrderId id = OngoingOrderId.New();
     private static readonly AccountId buyerId = AccountId.New();
+    private static readonly CustomizationId customizationId = CustomizationId.New();
 
     [Theory]
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryValidData))]
-    public async Task Validate_ShouldBeValid_WhenCartIsValid(string paymentMethodId, double weight, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldBeValid_WhenCartIsValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
     {
         // Arrange
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
             Address: new(country, city),
@@ -43,14 +45,14 @@ public class PurchaseOngoingOrderWithDeliveryValidatorUnitTests : OngoingOrdersB
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryInvalidCityData))]
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryInvalidPhoneData))]
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryInvalidEmailData))]
-    public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(string paymentMethodId, double weight, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
     {
         // Arrange
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
             Address: new(country, city),
@@ -66,14 +68,14 @@ public class PurchaseOngoingOrderWithDeliveryValidatorUnitTests : OngoingOrdersB
 
     [Theory]
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryInvalidPaymentMethodIdData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId, double weight, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
     {
         // Arrange
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
             Address: new(country, city),
@@ -89,14 +91,14 @@ public class PurchaseOngoingOrderWithDeliveryValidatorUnitTests : OngoingOrdersB
 
     [Theory]
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryInvalidShipmentServiceData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenShipmentServiceIsNotValid(string paymentMethodId, double weight, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenShipmentServiceIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
     {
         // Arrange
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
             Address: new(country, city),
@@ -112,14 +114,14 @@ public class PurchaseOngoingOrderWithDeliveryValidatorUnitTests : OngoingOrdersB
 
     [Theory]
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryInvalidCountryData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenCountryIsNotValid(string paymentMethodId, double weight, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenCountryIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
     {
         // Arrange
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
             Address: new(country, city),
@@ -135,14 +137,14 @@ public class PurchaseOngoingOrderWithDeliveryValidatorUnitTests : OngoingOrdersB
 
     [Theory]
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryInvalidCityData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenCityIsNotValid(string paymentMethodId, double weight, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenCityIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
     {
         // Arrange
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
             Address: new(country, city),
@@ -158,14 +160,14 @@ public class PurchaseOngoingOrderWithDeliveryValidatorUnitTests : OngoingOrdersB
 
     [Theory]
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryInvalidPhoneData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenPhoneIsNotValid(string paymentMethodId, double weight, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenPhoneIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
     {
         // Arrange
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
             Address: new(country, city),
@@ -181,14 +183,14 @@ public class PurchaseOngoingOrderWithDeliveryValidatorUnitTests : OngoingOrdersB
 
     [Theory]
     [ClassData(typeof(PurchaseOngoingOrderWithDeliveryInvalidEmailData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenEmailIsNotValid(string paymentMethodId, double weight, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenEmailIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
     {
         // Arrange
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
             Address: new(country, city),

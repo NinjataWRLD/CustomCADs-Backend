@@ -7,6 +7,7 @@ using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Purchase.WithDelivery;
 
@@ -43,9 +44,18 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
             Items: [.. cart.Items]
         )).ConfigureAwait(false);
 
+        GetCustomizationsWeightByIdsQuery weightsQuery = new(
+            Ids: [.. 
+                cart.Items
+                    .Where(x => x.ForDelivery && x.CustomizationId is not null)
+                    .Select(x => x.CustomizationId!.Value)
+            ]
+        );
+        var weights = await sender.SendQueryAsync(weightsQuery, ct).ConfigureAwait(false);
+
         await raiser.RaiseDomainEventAsync(new ActiveCartDeliveryRequestedDomainEvent(
             Id: purchasedCart.Id,
-            Weight: cart.TotalDeliveryWeight,
+            Weight: weights.Sum(x => x.Value),
             Count: cart.TotalDeliveryCount,
             ShipmentService: req.ShipmentService,
             Address: req.Address,

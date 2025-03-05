@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Validation;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Carts.Domain.PurchasedCarts.Entities;
@@ -12,6 +13,7 @@ public class PurchasedCartItem : BaseEntity
         PurchasedCartId cartId,
         ProductId productId,
         CadId cadId,
+        CustomizationId? customizationId,
         decimal price,
         int quantity,
         bool forDelivery) : this()
@@ -19,6 +21,7 @@ public class PurchasedCartItem : BaseEntity
         CartId = cartId;
         ProductId = productId;
         CadId = cadId;
+        CustomizationId = customizationId;
         Price = price;
         Quantity = quantity;
         ForDelivery = forDelivery;
@@ -28,15 +31,17 @@ public class PurchasedCartItem : BaseEntity
     public decimal Price { get; private set; }
     public bool ForDelivery { get; set; }
     public ProductId ProductId { get; }
+    public CadId CadId { get; private set; }
+    public CustomizationId? CustomizationId { get; }
     public PurchasedCartId CartId { get; }
     public PurchasedCart Cart { get; } = null!;
-    public CadId CadId { get; private set; }
     public decimal Cost => Price * Quantity;
 
     public static PurchasedCartItem Create(
         PurchasedCartId cartId,
         ProductId productId,
         CadId cadId,
+        CustomizationId? customizationId,
         decimal price,
         int quantity,
         bool forDelivery
@@ -44,6 +49,7 @@ public class PurchasedCartItem : BaseEntity
             cartId,
             productId,
             cadId,
+            customizationId,
             price,
             quantity,
             forDelivery
