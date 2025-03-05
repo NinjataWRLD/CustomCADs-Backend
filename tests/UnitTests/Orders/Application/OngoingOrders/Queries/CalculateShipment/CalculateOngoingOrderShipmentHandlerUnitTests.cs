@@ -4,7 +4,9 @@ using CustomCADs.Orders.Domain.OngoingOrders.Reads;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
 namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Queries.CalculateShipment;
@@ -17,8 +19,8 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
     private readonly Mock<IRequestSender> sender = new();
 
     private const string TimeZone = "Europe/Sofia";
-    private const double TotalWeight = 10;
-    private const int TotalCount = 3;
+    private static readonly CustomizationId CustomizationId = CustomizationId.New();
+    private const int Count = 3;
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
     private readonly OngoingOrder order = CreateOrderWithId(id, delivery: true);
@@ -47,8 +49,8 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
         // Arrange
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
-            TotalWeight: TotalWeight,
-            TotalCount: TotalCount,
+            CustomizationId: CustomizationId,
+            Count: Count,
             Address: address
         );
         CalculateOngoingOrderShipmentHandler handler = new(reads.Object, sender.Object);
@@ -66,8 +68,8 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
         // Arrange
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
-            TotalWeight: TotalWeight,
-            TotalCount: TotalCount,
+            CustomizationId: CustomizationId,
+            Count: Count,
             Address: address
         );
         CalculateOngoingOrderShipmentHandler handler = new(reads.Object, sender.Object);
@@ -76,6 +78,9 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
         await handler.Handle(query, ct);
 
         // Assert
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetCustomizationWeightByIdQuery>()
+        , ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<CalculateShipmentQuery>()
         , ct), Times.Once);
@@ -90,8 +95,8 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
         // Arrange
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
-            TotalWeight: TotalWeight,
-            TotalCount: TotalCount,
+            CustomizationId: CustomizationId,
+            Count: Count,
             Address: address
         );
         CalculateOngoingOrderShipmentHandler handler = new(reads.Object, sender.Object);
@@ -119,8 +124,8 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
 
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
-            TotalWeight: TotalWeight,
-            TotalCount: TotalCount,
+            CustomizationId: CustomizationId,
+            Count: Count,
             Address: address
         );
         CalculateOngoingOrderShipmentHandler handler = new(reads.Object, sender.Object);
@@ -142,8 +147,8 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
 
         CalculateOngoingOrderShipmentQuery query = new(
             Id: id,
-            TotalWeight: TotalWeight,
-            TotalCount: TotalCount,
+            CustomizationId: CustomizationId,
+            Count: Count,
             Address: address
         );
         CalculateOngoingOrderShipmentHandler handler = new(reads.Object, sender.Object);

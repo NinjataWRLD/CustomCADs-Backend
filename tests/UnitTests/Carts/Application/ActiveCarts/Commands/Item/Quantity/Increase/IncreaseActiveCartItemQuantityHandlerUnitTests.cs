@@ -22,7 +22,7 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 
     public IncreaseActiveCartItemQuantityHandlerUnitTests()
     {
-        item = CreateItem(productId: productId, forDelivery: true);
+        item = CreateItemWithDelivery(productId: productId);
         cart = CreateCartWithItems(
            buyerId: buyerId,
            items: [item]

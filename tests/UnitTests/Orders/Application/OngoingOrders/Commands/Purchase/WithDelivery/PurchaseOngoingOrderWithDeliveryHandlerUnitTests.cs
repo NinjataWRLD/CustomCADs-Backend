@@ -10,6 +10,7 @@ using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery;
 
@@ -68,7 +69,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -91,7 +92,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -110,6 +111,9 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetUsernameByIdQuery>()
         , ct), Times.Exactly(2));
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetCustomizationWeightByIdQuery>()
+        , ct), Times.Once);
     }
 
     [Fact]
@@ -119,7 +123,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -147,7 +151,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -180,7 +184,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -203,7 +207,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: wrongBuyerId,
@@ -230,7 +234,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -257,7 +261,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -284,7 +288,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -311,7 +315,7 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         PurchaseOngoingOrderWithDeliveryCommand command = new(
             OrderId: id,
             Count: default,
-            Weight: default,
+            CustomizationId: default,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,

@@ -3,9 +3,11 @@ using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
 using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.UnitTests.Orders.Application.CompletedOrders.Commands.Create.Data;
 
 namespace CustomCADs.UnitTests.Orders.Application.CompletedOrders.Commands.Create;
@@ -23,13 +25,16 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
             .ReturnsAsync(true);
 
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationExistsByIdQuery>(), ct))
+            .ReturnsAsync(true);
+
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadExistsByIdQuery>(), ct))
             .ReturnsAsync(true);
     }
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    public async Task Handle_ShouldPersistToDatabase(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
@@ -40,7 +45,8 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
             OrderDate: orderDate,
             BuyerId: buyerId,
             DesignerId: designerId,
-            CadId: cadId
+            CadId: cadId,
+            CustomizationId: customizationId
         );
         CreateCompletedOrderHandler handler = new(writes.Object, uow.Object, sender.Object);
 
@@ -63,7 +69,7 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderValidData))]
-    public async Task Handle_ShouldSentRequests(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    public async Task Handle_ShouldSentRequests(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
@@ -74,7 +80,8 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
             OrderDate: orderDate,
             BuyerId: buyerId,
             DesignerId: designerId,
-            CadId: cadId
+            CadId: cadId,
+            CustomizationId: customizationId
         );
         CreateCompletedOrderHandler handler = new(writes.Object, uow.Object, sender.Object);
 
@@ -91,11 +98,17 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
         sender.Verify(x => x.SendQueryAsync(
             It.Is<GetCadExistsByIdQuery>(x => x.Id == cadId)
         , ct), Times.Once);
+        if (delivery)
+        {
+            sender.Verify(x => x.SendQueryAsync(
+                It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == customizationId)
+            , ct), Times.Once);
+        }
     }
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderValidData))]
-    public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId), ct))
@@ -109,7 +122,8 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
             OrderDate: orderDate,
             BuyerId: buyerId,
             DesignerId: designerId,
-            CadId: cadId
+            CadId: cadId,
+            CustomizationId: customizationId
         );
         CreateCompletedOrderHandler handler = new(writes.Object, uow.Object, sender.Object);
 
@@ -123,7 +137,7 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderValidData))]
-    public async Task Handle_ShouldThrowException_WhenDesignerNotFound(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    public async Task Handle_ShouldThrowException_WhenDesignerNotFound(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId), ct))
@@ -137,7 +151,8 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
             OrderDate: orderDate,
             BuyerId: buyerId,
             DesignerId: designerId,
-            CadId: cadId
+            CadId: cadId,
+            CustomizationId: customizationId
         );
         CreateCompletedOrderHandler handler = new(writes.Object, uow.Object, sender.Object);
 
@@ -151,7 +166,7 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderValidData))]
-    public async Task Handle_ShouldThrowException_WhenCadNotFound(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId)
+    public async Task Handle_ShouldThrowException_WhenCadNotFound(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         sender.Setup(x => x.SendQueryAsync(It.Is<GetCadExistsByIdQuery>(x => x.Id == cadId), ct))
@@ -165,7 +180,8 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
             OrderDate: orderDate,
             BuyerId: buyerId,
             DesignerId: designerId,
-            CadId: cadId
+            CadId: cadId,
+            CustomizationId: customizationId
         );
         CreateCompletedOrderHandler handler = new(writes.Object, uow.Object, sender.Object);
 

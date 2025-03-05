@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.SetForDelivery;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
-public class ActiveCartItemSetForDeliveryData : TheoryData<bool>;
+namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.SetForDelivery;
+
+public class ActiveCartItemSetForDeliveryData : TheoryData<CustomizationId>;

@@ -2,6 +2,7 @@
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
@@ -42,5 +43,8 @@ public static class PurchasedCartsData
 
         public static readonly CadId ValidCadId1 = CadId.New();
         public static readonly CadId ValidCadId2 = CadId.New();
+
+        public static readonly CustomizationId ValidCustomizationId1 = CustomizationId.New();
+        public static readonly CustomizationId ValidCustomizationId2 = CustomizationId.New();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Orders.Domain.CompletedOrders;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.Core.Common.TypedIds.Orders;
@@ -48,4 +49,7 @@ public static class CompletedOrdersData
 
     public static readonly ShipmentId ValidShipmentId2 = ShipmentId.New();
     public static readonly ShipmentId ValidShipmentId1 = ShipmentId.New();
+
+    public static readonly CustomizationId ValidCustomizationId2 = CustomizationId.New();
+    public static readonly CustomizationId ValidCustomizationId1 = CustomizationId.New();
 }

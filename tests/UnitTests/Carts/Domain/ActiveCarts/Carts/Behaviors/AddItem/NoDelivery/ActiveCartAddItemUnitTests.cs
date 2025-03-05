@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Carts.Behaviors.AddItem.Data;
+using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Carts.Behaviors.AddItem.NoDelivery.Data;
 
-namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Carts.Behaviors.AddItem;
+namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Carts.Behaviors.AddItem.NoDelivery;
 
 using static ActiveCartsData;
 
@@ -13,30 +13,24 @@ public class ActiveCartAddItemUnitTests : ActiveCartsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(ActiveCartAddItemValidData))]
-    public void AddItem_ShouldNotThrowException_WhenCartItemIsValid(double weight, ProductId productId, bool delivery)
+    public void AddItem_ShouldNotThrowException_WhenCartItemIsValid(ProductId productId)
     {
-        cart.AddItem(weight, productId, delivery);
+        cart.AddItem(productId);
     }
 
     [Theory]
     [ClassData(typeof(ActiveCartAddItemValidData))]
-    public void AddItem_ShouldPopulateItemsProperly(double weight, ProductId productId, bool forDelivery)
+    public void AddItem_ShouldPopulateItemsProperly(ProductId productId)
     {
-        var expected = ActiveCartItem.Create(
-            weight: weight,
-            productId: productId,
-            cartId: cart.Id,
-            forDelivery: forDelivery
-        );
-        cart.AddItem(weight, productId, forDelivery);
+        var expected = ActiveCartItem.Create(productId, cart.Id);
+        cart.AddItem(productId);
 
         var actual = cart.Items.Single();
         Assert.Multiple(
             () => Assert.Equal(expected.CartId, actual.CartId),
             () => Assert.Equal(expected.Quantity, actual.Quantity),
-            () => Assert.Equal(expected.Weight, actual.Weight),
             () => Assert.Equal(expected.ProductId, actual.ProductId),
-            () => Assert.Equal(expected.ForDelivery, actual.ForDelivery)
+            () => Assert.False(actual.ForDelivery)
         );
     }
 
@@ -46,11 +40,7 @@ public class ActiveCartAddItemUnitTests : ActiveCartsBaseUnitTests
     {
         for (int i = 0; i < count; i++)
         {
-            cart.AddItem(
-                weight: CartItemsData.ValidWeight1,
-                productId: CartItemsData.ValidProductId1,
-                forDelivery: true
-            );
+            cart.AddItem(CartItemsData.ValidProductId1);
         }
 
         Assert.Equal(count, cart.Items.Count);
@@ -64,11 +54,7 @@ public class ActiveCartAddItemUnitTests : ActiveCartsBaseUnitTests
         {
             for (int i = 0; i < count; i++)
             {
-                cart.AddItem(
-                    weight: CartItemsData.ValidWeight1,
-                    productId: CartItemsData.ValidProductId1,
-                    forDelivery: true
-                );
+                cart.AddItem(CartItemsData.ValidProductId1);
             }
         });
     }

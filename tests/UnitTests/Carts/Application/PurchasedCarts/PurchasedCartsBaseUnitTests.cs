@@ -3,6 +3,7 @@ using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts;
@@ -19,7 +20,7 @@ public class PurchasedCartsBaseUnitTests
 
     protected static PurchasedCart CreateCartWithId(PurchasedCartId? id = null, AccountId? buyerId = null)
         => PurchasedCart.CreateWithId(
-            id: id ?? PurchasedCartsData.ValidId1,
+            id: id ?? ValidId1,
             buyerId: buyerId ?? ValidBuyerId1
         );
 
@@ -29,12 +30,17 @@ public class PurchasedCartsBaseUnitTests
         purchasedCart.AddItems([.. items.Select(i =>
             (Price: i.Price,
             CadId: i.CadId,
-            Item: ActiveCartItem.Create(
-                cartId: ActiveCartsData.ValidId1,
-                productId: i.ProductId,
-                forDelivery: i.ForDelivery,
-                weight: ActiveCartsData.CartItemsData.ValidWeight1
-            ))
+            Item: i.ForDelivery 
+                ? ActiveCartItem.Create(
+                    cartId: ActiveCartsData.ValidId1,
+                    productId: i.ProductId,
+                    customizationId: i.CustomizationId!.Value
+                )
+                : ActiveCartItem.Create(
+                    cartId: ActiveCartsData.ValidId1,
+                    productId: i.ProductId
+                ) 
+            )
         )]);
 
         return purchasedCart;
@@ -44,13 +50,15 @@ public class PurchasedCartsBaseUnitTests
         PurchasedCartId? cartId = null,
         ProductId? productId = null,
         CadId? cadId = null,
+        CustomizationId? customizationId = null,
         decimal? price = null,
         int? quantity = null,
         bool? forDelivery = null
     ) => PurchasedCartItem.Create(
-            cartId: cartId ?? PurchasedCartsData.ValidId1,
+            cartId: cartId ?? ValidId1,
             productId: productId ?? ValidProductId1,
             cadId: cadId ?? ValidCadId1,
+            customizationId: customizationId ?? ValidCustomizationId1,
             price: price ?? ValidPrice1,
             quantity: quantity ?? ValidQuantity1,
             forDelivery: forDelivery ?? false
