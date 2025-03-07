@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CustomCADs.Files.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Files.Persistence.Migrations
 {
     [DbContext(typeof(FilesContext))]
-    partial class FilesContextModelSnapshot : ModelSnapshot
+    [Migration("20250306005506_Added_Cad_Volume")]
+    partial class Added_Cad_Volume
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
