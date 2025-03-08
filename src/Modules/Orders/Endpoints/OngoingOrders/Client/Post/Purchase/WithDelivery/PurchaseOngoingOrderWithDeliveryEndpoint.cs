@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Client.Post.Purchase.WithDelivery;
 
@@ -21,11 +22,11 @@ public sealed class PurchaseOngoingOrderWithDeliveryEndpoint(IRequestSender send
             OrderId: OngoingOrderId.New(req.Id),
             PaymentMethodId: req.PaymentMethodId,
             ShipmentService: req.ShipmentService,
-            Weight: req.Weight,
             Count: req.Count,
             Address: req.Address,
             Contact: req.Contact,
-            BuyerId: User.GetAccountId()
+            BuyerId: User.GetAccountId(),
+            CustomizationId: CustomizationId.New(req.CustomizationId)
         );
         string message = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 

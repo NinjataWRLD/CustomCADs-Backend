@@ -2,6 +2,7 @@
 using CustomCADs.Orders.Domain.CompletedOrders.Validation;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
@@ -34,6 +35,7 @@ public class CompletedOrder : BaseAggregateRoot
     public AccountId DesignerId { get; private set; }
     public CadId CadId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
+    public CustomizationId? CustomizationId { get; private set; }
 
     public static CompletedOrder Create(
         string name,
@@ -76,6 +78,17 @@ public class CompletedOrder : BaseAggregateRoot
             throw CompletedOrderValidationException.ShipmentIdOnNonDelivery();
         }
         ShipmentId = shipmentId;
+
+        return this;
+    }
+
+    public CompletedOrder SetCustomizationId(CustomizationId customizationId)
+    {
+        if (!Delivery)
+        {
+            throw CompletedOrderValidationException.CustomizationIdOnNonDelivery();
+        }
+        CustomizationId = customizationId;
 
         return this;
     }

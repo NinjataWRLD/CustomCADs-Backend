@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.CalculateShipment;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Client.Get.CalculateShipment;
 
@@ -19,9 +20,9 @@ public class CalculateOngoingOrderShipmentEndpoint(IRequestSender sender)
     {
         CalculateOngoingOrderShipmentQuery query = new(
             Id: OngoingOrderId.New(req.Id),
-            TotalCount: req.Count,
-            TotalWeight: req.Weight,
-            Address: new(req.Country, req.City)
+            Count: req.Count,
+            Address: new(req.Country, req.City),
+            CustomizationId: CustomizationId.New(req.CustomizationId)
         );
         CalculateOngoingOrderShipmentDto[] calculations = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

@@ -8,5 +8,6 @@ public sealed record PostProductRequest(
     string ImageKey,
     string ImageContentType,
     string CadKey,
-    string CadContentType
+    string CadContentType,
+    decimal CadVolume
 );

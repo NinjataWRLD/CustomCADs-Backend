@@ -29,6 +29,7 @@ public sealed class PostProductEndpoint(IRequestSender sender)
             ImageContentType: req.ImageContentType,
             CadKey: req.CadKey,
             CadContentType: req.CadContentType,
+            CadVolume: req.CadVolume,
             CreatorId: User.GetAccountId()
         );
         ProductId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

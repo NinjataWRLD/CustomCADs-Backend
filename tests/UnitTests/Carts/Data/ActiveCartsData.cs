@@ -2,6 +2,7 @@
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.UnitTests.Carts.Data;
 
@@ -26,12 +27,10 @@ public static class ActiveCartsData
         public const int ValidQuantity2 = QuantityMax - 1;
         public const int InvalidQuantity = QuantityMax + 1;
 
-        public const double ValidWeight1 = WeightMin + 1;
-        public const double ValidWeight2 = WeightMax - 1;
-        public const double InvalidWeight1 = WeightMin - 1;
-        public const double InvalidWeight2 = WeightMax + 1;
-
         public static readonly ProductId ValidProductId1 = ProductId.New();
         public static readonly ProductId ValidProductId2 = ProductId.New();
+
+        public static readonly CustomizationId ValidCustomizationId1 = CustomizationId.New();
+        public static readonly CustomizationId ValidCustomizationId2 = CustomizationId.New();
     }
 }

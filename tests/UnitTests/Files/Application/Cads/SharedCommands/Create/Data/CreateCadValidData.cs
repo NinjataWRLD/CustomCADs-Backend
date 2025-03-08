@@ -6,7 +6,7 @@ public class CreateCadValidData : CreateCadData
 {
     public CreateCadValidData()
     {
-        Add(ValidKey1, ValidContentType1);
-        Add(ValidKey2, ValidContentType2);
+        Add(ValidKey1, ValidContentType1, ValidVolume1);
+        Add(ValidKey2, ValidContentType2, ValidVolume2);
     }
 }

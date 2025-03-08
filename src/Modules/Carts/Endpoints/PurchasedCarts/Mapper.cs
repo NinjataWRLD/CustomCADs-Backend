@@ -34,6 +34,7 @@ internal static class Mapper
             Price: item.Price,
             Cost: item.Cost,
             ProductId: item.ProductId.Value,
-            CartId: item.CartId.Value
+            CartId: item.CartId.Value,
+            CustomizationId: item.CustomizationId?.Value
         );
 }

@@ -2,6 +2,7 @@
 using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.Carts.Domain.ActiveCarts.Entities;
 
@@ -9,28 +10,39 @@ public class ActiveCartItem : BaseEntity
 {
     private ActiveCartItem() { }
     private ActiveCartItem(
-        double weight,
-        ProductId productId,
+        bool forDelivery,
         ActiveCartId cartId,
-        bool forDelivery) : this()
+        ProductId productId,
+        CustomizationId? customizationId) : this()
     {
-        CartId = cartId;
-        Quantity = 1;
-        Weight = weight;
         ForDelivery = forDelivery;
+        CartId = cartId;
         ProductId = productId;
+        CustomizationId = customizationId;
     }
 
-    public int Quantity { get; private set; }
-    public double Weight { get; private set; }
+    public int Quantity { get; private set; } = 1;
     public bool ForDelivery { get; set; }
     public ProductId ProductId { get; }
+    public CustomizationId? CustomizationId { get; private set; }
     public ActiveCartId CartId { get; }
     public ActiveCart Cart { get; } = null!;
 
-    public static ActiveCartItem Create(double weight, ProductId productId, ActiveCartId cartId, bool forDelivery)
-        => new ActiveCartItem(weight, productId, cartId, forDelivery)
-            .ValidateWeight();
+    public static ActiveCartItem Create(ProductId productId, ActiveCartId cartId)
+        => new(
+            forDelivery: false,
+            cartId: cartId,
+            productId: productId,
+            customizationId: null
+        );
+
+    public static ActiveCartItem Create(ProductId productId, ActiveCartId cartId, CustomizationId customizationId)
+        => new(
+            forDelivery: true,
+            cartId: cartId,
+            productId: productId,
+            customizationId: customizationId
+        );
 
     public ActiveCartItem IncreaseQuantity(int amount)
     {
@@ -54,9 +66,18 @@ public class ActiveCartItem : BaseEntity
         return this;
     }
 
-    public ActiveCartItem SetForDelivery(bool forDelivery)
+    public ActiveCartItem SetForDelivery(CustomizationId customizationId)
     {
-        ForDelivery = forDelivery;
+        ForDelivery = true;
+        CustomizationId = customizationId;
+
+        return this;
+    }
+
+    public ActiveCartItem SetNoDelivery()
+    {
+        ForDelivery = false;
+        CustomizationId = null;
 
         return this;
     }

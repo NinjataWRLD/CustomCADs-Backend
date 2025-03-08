@@ -4,12 +4,7 @@ namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Carts.Behaviors.RemoveIt
 
 public class ActiveCartRemoveItemsByProductIdUnitTests : ActiveCartsBaseUnitTests
 {
-    private readonly ActiveCart cart;
-
-    public ActiveCartRemoveItemsByProductIdUnitTests()
-    {
-        cart = CreateCartWithItems(true, false, true, true, false);
-    }
+    private readonly ActiveCart cart = CreateCartWithItems(3, 2);
 
     [Fact]
     public void RemoveItemsByProductId_ShouldNotThrowException_WhenCartItemFound()

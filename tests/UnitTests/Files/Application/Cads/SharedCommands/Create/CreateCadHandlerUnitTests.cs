@@ -12,12 +12,13 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateCadValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string key, string contentType)
+    public async Task Handle_ShouldPersistToDatabase(string key, string contentType, decimal volume)
     {
         // Arrange
         CreateCadCommand command = new(
             Key: key,
-            ContentType: contentType
+            ContentType: contentType,
+            Volume: volume
         );
         CreateCadHandler handler = new(writes.Object, uow.Object);
 

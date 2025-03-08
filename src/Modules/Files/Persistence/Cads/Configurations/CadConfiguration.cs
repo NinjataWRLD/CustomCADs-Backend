@@ -61,6 +61,14 @@ public static class CadConfigUtils
             .IsRequired()
             .HasColumnName("Key");
 
+        builder.Property(x => x.ContentType)
+            .IsRequired()
+            .HasColumnName("ContentType");
+
+        builder.Property(x => x.Volume)
+            .IsRequired()
+            .HasColumnName("Volume");
+
         return builder;
     }
 }

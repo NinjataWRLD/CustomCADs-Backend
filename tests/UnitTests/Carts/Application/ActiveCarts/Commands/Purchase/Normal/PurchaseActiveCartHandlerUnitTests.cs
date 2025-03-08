@@ -24,9 +24,9 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
     private static readonly ActiveCart cart = CreateCartWithItems(
         buyerId: buyerId,
         items: [
-            CreateItem(forDelivery: false),
-            CreateItem(forDelivery: false),
-            CreateItem(forDelivery: false),
+            CreateItem(),
+            CreateItem(),
+            CreateItem(),
         ]
     );
 
@@ -147,9 +147,9 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
             .ReturnsAsync(CreateCartWithItems(
                 buyerId: buyerId,
                 items: [
-                    CreateItem(forDelivery: true),
-                    CreateItem(forDelivery: false),
-                    CreateItem(forDelivery: true),
+                    CreateItemWithDelivery(),
+                    CreateItem(),
+                    CreateItemWithDelivery(),
                 ]
             ));
 

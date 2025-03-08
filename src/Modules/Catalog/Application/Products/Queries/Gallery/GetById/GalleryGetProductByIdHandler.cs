@@ -23,6 +23,9 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
             throw ProductStatusException.MustBeValidated(req.Id);
         }
 
+        GetCadVolumeByIdQuery volumeQuery = new(product.CadId);
+        decimal volume = await sender.SendQueryAsync(volumeQuery, ct).ConfigureAwait(false);
+
         GetUsernameByIdQuery usernameQuery = new(product.CreatorId);
         string username = await sender.SendQueryAsync(usernameQuery, ct).ConfigureAwait(false);
 
@@ -44,6 +47,7 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
         }
 
         return product.ToGalleryGetProductByIdDto(
+            volume: volume,
             username: username,
             categoryName: categoryName,
             timeZone: timeZone,

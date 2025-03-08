@@ -1,9 +1,7 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.ToggleForDelivery;
-using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.ToggleForDelivery;
@@ -15,16 +13,18 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly ProductId productId = ProductId.New(Guid.Empty);
-    private readonly ActiveCartItem item;
+    private static readonly ProductId productId1 = ProductId.New();
+    private static readonly ProductId productId2 = ProductId.New();
     private readonly ActiveCart cart;
 
     public ToggleActiveCartItemForDeliveryHandlerUnitTests()
     {
-        item = CreateItem(productId: productId);
         cart = CreateCartWithItems(
            buyerId: buyerId,
-           items: [item]
+           items: [
+               CreateItemWithDelivery(productId: productId1),
+               CreateItem(productId: productId2),
+           ]
        );
 
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, true, ct))
@@ -35,7 +35,7 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, productId);
+        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, productId1, null);
         ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
 
         // Act
@@ -49,7 +49,7 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
     public async Task Handle_ShouldPersistToDatabase()
     {
         // Arrange
-        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, productId);
+        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, productId1, null);
         ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
 
         // Act
@@ -66,7 +66,7 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, true, ct))
             .ReturnsAsync(null as ActiveCart);
 
-        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, productId);
+        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, productId1, null);
         ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
 
         // Assert
@@ -83,12 +83,32 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
         // Arrange
         ToggleActiveCartItemForDeliveryCommand command = new(
             BuyerId: buyerId,
-            ProductId: CartItemsData.ValidProductId1
+            ProductId: CartItemsData.ValidProductId1,
+            CustomizationId: null
         );
         ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<ActiveCartItemNotFoundException>(async () =>
+        {
+            // Act
+            await handler.Handle(command, ct);
+        });
+    }
+
+    [Fact]
+    public async Task Handle_ShouldThrowException_WhenDeliveryMismatch()
+    {
+        // Arrange
+        ToggleActiveCartItemForDeliveryCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId2,
+            CustomizationId: null
+        );
+        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object);
+
+        // Assert
+        await Assert.ThrowsAsync<ActiveCartItemDeliveryException>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

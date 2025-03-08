@@ -59,7 +59,8 @@ public sealed class PurchaseOngoingOrderHandler(IOngoingOrderReads reads, IReque
             OrderDate: order.OrderDate,
             BuyerId: order.BuyerId,
             DesignerId: order.DesignerId.Value,
-            CadId: order.CadId.Value
+            CadId: order.CadId.Value,
+            CustomizationId: null
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 

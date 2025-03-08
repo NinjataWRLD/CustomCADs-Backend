@@ -2,5 +2,6 @@
 
 public sealed record CreateCadCommand(
     string Key,
-    string ContentType
+    string ContentType,
+    decimal Volume
 ) : ICommand<CadId>;

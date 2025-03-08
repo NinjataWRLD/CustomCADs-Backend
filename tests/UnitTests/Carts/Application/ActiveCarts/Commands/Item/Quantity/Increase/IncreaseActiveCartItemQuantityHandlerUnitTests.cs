@@ -3,7 +3,6 @@ using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.Quantity.Increase.Data;
 
@@ -22,7 +21,7 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 
     public IncreaseActiveCartItemQuantityHandlerUnitTests()
     {
-        item = CreateItem(productId: productId, forDelivery: true);
+        item = CreateItemWithDelivery(productId: productId);
         cart = CreateCartWithItems(
            buyerId: buyerId,
            items: [item]

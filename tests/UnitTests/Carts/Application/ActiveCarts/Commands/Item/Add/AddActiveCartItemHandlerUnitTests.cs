@@ -4,6 +4,8 @@ using CustomCADs.Carts.Domain.Common;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Products.Queries;
 using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.Add.Data;
 
@@ -20,11 +22,14 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetProductExistsByIdQuery>(), ct))
             .ReturnsAsync(true);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationExistsByIdQuery>(), ct))
+            .ReturnsAsync(true);
     }
 
     [Theory]
     [ClassData(typeof(AddActiveCartValidData))]
-    public async Task Handle_ShouldQueryDatabase(AccountId buyerId, double weight, bool forDelivery, ProductId productId)
+    public async Task Handle_ShouldQueryDatabase(AccountId buyerId, CustomizationId? customizationId, bool forDelivery, ProductId productId)
     {
         // Arrange
         cart = CreateCart(buyerId);
@@ -33,7 +38,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
         AddActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             ForDelivery: forDelivery,
             ProductId: productId
         );
@@ -48,7 +53,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(AddActiveCartValidData))]
-    public async Task Handle_ShouldPersistToDatabase(AccountId buyerId, double weight, bool forDelivery, ProductId productId)
+    public async Task Handle_ShouldPersistToDatabase(AccountId buyerId, CustomizationId? customizationId, bool forDelivery, ProductId productId)
     {
         // Arrange
         cart = CreateCart(buyerId);
@@ -57,7 +62,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
         AddActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             ForDelivery: forDelivery,
             ProductId: productId
         );
@@ -72,7 +77,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(AddActiveCartValidData))]
-    public async Task Handle_ShouldSendRequests(AccountId buyerId, double weight, bool forDelivery, ProductId productId)
+    public async Task Handle_ShouldSendRequests(AccountId buyerId, CustomizationId? customizationId, bool forDelivery, ProductId productId)
     {
         // Arrange
         cart = CreateCart(buyerId);
@@ -81,7 +86,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
         AddActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             ForDelivery: forDelivery,
             ProductId: productId
         );
@@ -94,11 +99,17 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         sender.Verify(x => x.SendQueryAsync(
             It.Is<GetProductExistsByIdQuery>(x => x.Id == productId),
         ct), Times.Once);
+        if (forDelivery)
+        {
+            sender.Verify(x => x.SendQueryAsync(
+                It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == customizationId),
+            ct), Times.Once);
+        }
     }
 
     [Theory]
     [ClassData(typeof(AddActiveCartValidData))]
-    public async Task Handle_ShouldPopulateProperly(AccountId buyerId, double weight, bool forDelivery, ProductId productId)
+    public async Task Handle_ShouldPopulateProperly(AccountId buyerId, CustomizationId? customizationId, bool forDelivery, ProductId productId)
     {
         // Arrange
         cart = CreateCart(buyerId);
@@ -107,7 +118,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
         AddActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             ForDelivery: forDelivery,
             ProductId: productId
         );
@@ -119,7 +130,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         // Assert
         var item = cart.Items.First();
         Assert.Multiple(
-            () => Assert.Equal(weight, item.Weight),
+            () => Assert.Equal(customizationId, item.CustomizationId),
             () => Assert.Equal(forDelivery, item.ForDelivery),
             () => Assert.Equal(productId, item.ProductId)
         );
@@ -127,7 +138,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(AddActiveCartValidData))]
-    public async Task Handle_ShouldThrowException_WhenProductNotFound(AccountId buyerId, double weight, bool forDelivery, ProductId productId)
+    public async Task Handle_ShouldThrowException_WhenProductNotFound(AccountId buyerId, CustomizationId? customizationId, bool forDelivery, ProductId productId)
     {
         // Arrange
         sender.Setup(x => x.SendQueryAsync(
@@ -136,7 +147,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
         AddActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             ForDelivery: forDelivery,
             ProductId: productId
         );
@@ -152,7 +163,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(AddActiveCartValidData))]
-    public async Task Handle_ShouldThrowException_WhenCartNotFound(AccountId buyerId, double weight, bool forDelivery, ProductId productId)
+    public async Task Handle_ShouldThrowException_WhenCartNotFound(AccountId buyerId, CustomizationId? customizationId, bool forDelivery, ProductId productId)
     {
         // Arrange
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, true, ct))
@@ -160,7 +171,7 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
         AddActiveCartItemCommand command = new(
             BuyerId: buyerId,
-            Weight: weight,
+            CustomizationId: customizationId,
             ForDelivery: forDelivery,
             ProductId: productId
         );

@@ -14,7 +14,7 @@ public class GetPurchasedCartItemByIdUnitTests : PurchasedCartsBaseUnitTests
     private static readonly PurchasedCart cart = CreateCartWithItems(
         id: id,
         items: [
-            CreateItem(productId: CartItemsData.ValidProductId1), 
+            CreateItem(productId: CartItemsData.ValidProductId1),
             CreateItem(productId: CartItemsData.ValidProductId2),
         ]
     );

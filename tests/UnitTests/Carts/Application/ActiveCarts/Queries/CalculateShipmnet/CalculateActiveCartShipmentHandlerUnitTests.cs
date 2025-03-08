@@ -3,8 +3,8 @@ using CustomCADs.Carts.Domain.ActiveCarts.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.CalculateShipmnet;
@@ -21,8 +21,8 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
     private static readonly ActiveCart cart = CreateCartWithItems(
         buyerId: buyerId,
         items: [
-            CreateItem(ValidId1, CartItemsData.ValidProductId1, CartItemsData.ValidWeight1, true),
-            CreateItem(ValidId2, CartItemsData.ValidProductId2, CartItemsData.ValidWeight2, false),
+            CreateItem(ValidId1, CartItemsData.ValidProductId1),
+            CreateItemWithDelivery(ValidId2, CartItemsData.ValidProductId2),
         ]
     );
 
@@ -30,6 +30,9 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
     {
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, false, ct))
             .ReturnsAsync(cart);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsWeightByIdsQuery>(), ct))
+            .ReturnsAsync([]);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<CalculateShipmentQuery>(), ct))
             .ReturnsAsync([]);
@@ -63,6 +66,9 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
         await handler.Handle(query, ct);
 
         // Assert
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetCustomizationsWeightByIdsQuery>(),
+        ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<CalculateShipmentQuery>(),
         ct), Times.Once);

@@ -18,7 +18,7 @@ namespace CustomCADs.Carts.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Carts")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -48,6 +48,10 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("CartId");
 
+                    b.Property<Guid?>("CustomizationId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CustomizationId");
+
                     b.Property<bool>("ForDelivery")
                         .HasColumnType("boolean")
                         .HasColumnName("ForDelivery");
@@ -55,11 +59,6 @@ namespace CustomCADs.Carts.Persistence.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
                         .HasColumnName("Quantity");
-
-                    b.Property<double>("Weight")
-                        .HasPrecision(6, 2)
-                        .HasColumnType("double precision")
-                        .HasColumnName("Weight");
 
                     b.HasKey("ProductId");
 
@@ -81,6 +80,10 @@ namespace CustomCADs.Carts.Persistence.Migrations
                     b.Property<Guid>("CartId")
                         .HasColumnType("uuid")
                         .HasColumnName("CartId");
+
+                    b.Property<Guid?>("CustomizationId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CustomizationId");
 
                     b.Property<bool>("ForDelivery")
                         .HasColumnType("boolean")

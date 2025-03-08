@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items;
 
@@ -10,13 +11,19 @@ public class ActiveCartItemsBaseUnitTests
 {
     protected static ActiveCartItem CreateItem(
         ActiveCartId? cartId = null,
+        ProductId? productId = null
+    ) => ActiveCartItem.Create(
+            cartId: cartId ?? ActiveCartsData.ValidId1,
+            productId: productId ?? ValidProductId1
+        );
+
+    protected static ActiveCartItem CreateItemWithDelivery(
+        ActiveCartId? cartId = null,
         ProductId? productId = null,
-        double? weight = null,
-        bool? forDelivery = null
+        CustomizationId? customizationId = null
     ) => ActiveCartItem.Create(
             cartId: cartId ?? ActiveCartsData.ValidId1,
             productId: productId ?? ValidProductId1,
-            weight: weight ?? ValidWeight1,
-            forDelivery: forDelivery ?? false
+            customizationId: customizationId ?? ValidCustomizationId1
         );
 }

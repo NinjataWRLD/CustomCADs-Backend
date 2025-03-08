@@ -15,8 +15,8 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
     private readonly Mock<IWrites<Cad>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Cad[] cads = [
-        CreateCadWithId(id1, ValidKey1, ValidContentType1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1),
-        CreateCadWithId(id2, ValidKey2, ValidContentType2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2),
+        CreateCadWithId(id1, ValidKey1, ValidContentType1, ValidVolume1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1),
+        CreateCadWithId(id2, ValidKey2, ValidContentType2, ValidVolume2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2),
     ];
     private readonly CadId[] ids = [id1, id2];
     private readonly CadQuery query;

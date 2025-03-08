@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Files.Domain.Common.Exceptions.Cads;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Files.Domain.Cads.Validation;
 
+using static CadConstants;
 using static CadConstants.Coordinates;
 
 public static class CadValidations
@@ -33,10 +33,23 @@ public static class CadValidations
         return cad;
     }
 
+    public static Cad ValidateVolume(this Cad cad)
+    {
+        string property = "Volume";
+        decimal volume = cad.Volume;
+
+        if (volume <= VolumeMin || volume >= VolumeMax)
+        {
+            throw CadValidationException.Range(property, VolumeMax, VolumeMin);
+        }
+
+        return cad;
+    }
+
     public static Cad ValidateCamCoordinates(this Cad cad)
     {
         string property = "CamCoordinates";
-        Coordinates coords = cad.CamCoordinates;
+        var coords = cad.CamCoordinates;
 
         if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
         {
@@ -49,7 +62,7 @@ public static class CadValidations
     public static Cad ValidatePanCoordinates(this Cad cad)
     {
         string property = "PanCoordinates";
-        Coordinates coords = cad.PanCoordinates;
+        var coords = cad.PanCoordinates;
 
         if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
         {

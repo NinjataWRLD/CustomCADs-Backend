@@ -18,7 +18,7 @@ namespace CustomCADs.Orders.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Orders")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -36,6 +36,10 @@ namespace CustomCADs.Orders.Persistence.Migrations
                     b.Property<Guid>("CadId")
                         .HasColumnType("uuid")
                         .HasColumnName("CadId");
+
+                    b.Property<Guid?>("CustomizationId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CustomizationId");
 
                     b.Property<bool>("Delivery")
                         .HasColumnType("boolean")

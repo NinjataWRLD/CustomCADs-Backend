@@ -14,7 +14,7 @@ public sealed class RemoveActiveCartItemHandler(IActiveCartReads reads, IUnitOfW
             ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
 
         ActiveCartItem item = cart.Items.FirstOrDefault(i => i.ProductId == req.ProductId)
-            ?? throw ActiveCartItemNotFoundException.ById(req.ProductId);
+            ?? throw ActiveCartItemNotFoundException.ByProductId(req.ProductId);
 
         cart.RemoveItem(item);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

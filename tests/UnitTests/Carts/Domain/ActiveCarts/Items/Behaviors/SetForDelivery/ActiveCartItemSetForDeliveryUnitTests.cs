@@ -1,4 +1,5 @@
-﻿using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.SetForDelivery.Data;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
+using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.SetForDelivery.Data;
 
 namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.SetForDelivery;
 
@@ -6,17 +7,20 @@ public class ActiveCartItemSetForDeliveryUnitTests : ActiveCartItemsBaseUnitTest
 {
     [Theory]
     [ClassData(typeof(ActiveCartItemSetForDeliveryValidData))]
-    public void SetForDelivery_ShouldNotThrow(bool forDelivery)
+    public void SetForDelivery_ShouldNotThrow(CustomizationId customizationId)
     {
-        CreateItem().SetForDelivery(forDelivery);
+        CreateItem().SetForDelivery(customizationId);
     }
 
     [Theory]
     [ClassData(typeof(ActiveCartItemSetForDeliveryValidData))]
-    public void SetForDelivery_ShouldPopulateProperly(bool forDelivery)
+    public void SetForDelivery_ShouldPopulateProperly(CustomizationId customizationId)
     {
         var item = CreateItem();
-        item.SetForDelivery(forDelivery);
-        Assert.Equal(forDelivery, item.ForDelivery);
+        item.SetForDelivery(customizationId);
+        Assert.Multiple(
+            () => Assert.True(item.ForDelivery),
+            () => Assert.Equal(customizationId, item.CustomizationId)
+        );
     }
 }

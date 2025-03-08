@@ -4,7 +4,6 @@ using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.GetCadUrlGet;
@@ -18,20 +17,22 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     private readonly PurchasedCart cart = CreateCartWithItems(
         items: [
             PurchasedCartItem.Create(
-                ValidId1,
-                CartItemsData.ValidProductId1,
-                CartItemsData.ValidCadId1,
-                CartItemsData.ValidPrice1,
-                CartItemsData.ValidQuantity1,
-                true
+                cartId: ValidId1,
+                productId: CartItemsData.ValidProductId1,
+                cadId: CartItemsData.ValidCadId1,
+                customizationId: CartItemsData.ValidCustomizationId1,
+                price: CartItemsData.ValidPrice1,
+                quantity: CartItemsData.ValidQuantity1,
+                forDelivery: true
             ),
             PurchasedCartItem.Create(
-                ValidId2,
-                CartItemsData.ValidProductId2,
-                CartItemsData.ValidCadId2,
-                CartItemsData.ValidPrice2,
-                CartItemsData.ValidQuantity2,
-                false
+                cartId: ValidId2,
+                productId: CartItemsData.ValidProductId2,
+                cadId: CartItemsData.ValidCadId2,
+                customizationId: null,
+                price: CartItemsData.ValidPrice2,
+                quantity: CartItemsData.ValidQuantity2,
+                forDelivery: false
             ),
         ]
     );

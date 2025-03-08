@@ -20,18 +20,4 @@ public static class ActiveCartItemValidations
 
         return item;
     }
-
-    public static ActiveCartItem ValidateWeight(this ActiveCartItem item)
-    {
-        string property = "Weight";
-        double quantity = item.Weight;
-
-        double max = WeightMax, min = WeightMin;
-        if (quantity > max || quantity < min)
-        {
-            throw ActiveCartItemValidationException.Range(property, max, min);
-        }
-
-        return item;
-    }
 }
