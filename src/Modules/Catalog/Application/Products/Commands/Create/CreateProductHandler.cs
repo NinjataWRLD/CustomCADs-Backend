@@ -32,7 +32,8 @@ public sealed class CreateProductHandler(IWrites<Product> productWrites, IUnitOf
 
         CreateCadCommand cadCommand = new(
             Key: req.CadKey,
-            ContentType: req.CadContentType
+            ContentType: req.CadContentType,
+            Volume: req.CadVolume
         );
         CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
 

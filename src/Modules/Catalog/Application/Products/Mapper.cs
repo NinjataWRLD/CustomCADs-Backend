@@ -8,12 +8,13 @@ namespace CustomCADs.Catalog.Application.Products;
 
 internal static class Mapper
 {
-    internal static GalleryGetProductByIdDto ToGalleryGetProductByIdDto(this Product product, string username, string categoryName, string timeZone, CoordinatesDto camCoords, CoordinatesDto panCoords)
+    internal static GalleryGetProductByIdDto ToGalleryGetProductByIdDto(this Product product, decimal volume, string username, string categoryName, string timeZone, CoordinatesDto camCoords, CoordinatesDto panCoords)
         => new(
             Id: product.Id,
             Name: product.Name,
             Description: product.Description,
             Price: product.Price,
+            Volume: volume,
             CreatorName: username,
             UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
                 product.UploadDate,

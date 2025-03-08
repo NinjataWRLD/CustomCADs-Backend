@@ -20,12 +20,13 @@ public class FinishOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
 
     private const string Key = "generated-key";
     private const string ContentType = "model/gltf-binary";
+    private const decimal Volume = 15;
     private const decimal Price = ValidPrice1;
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly CadId cadId = ValidCadId1;
     private static readonly AccountId designerId = ValidDesignerId1;
     private static readonly AccountId wrongDesignerId = ValidDesignerId2;
-    private readonly (string Key, string ContentType) cad = (Key, ContentType);
+    private readonly (string Key, string ContentType, decimal Volume) cad = (Key, ContentType, Volume);
     private readonly OngoingOrder order = CreateOrder()
         .SetAcceptedStatus().SetDesignerId(designerId).SetBegunStatus();
     private readonly OngoingOrder orderWithWrongDesigner = CreateOrder()

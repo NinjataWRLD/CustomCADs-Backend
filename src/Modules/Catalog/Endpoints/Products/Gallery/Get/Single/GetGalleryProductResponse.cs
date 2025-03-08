@@ -7,6 +7,7 @@ public sealed record GetGalleryProductResponse(
     string Name,
     string Description,
     decimal Price,
+    decimal Volume,
     string UploadDate,
     string CreatorName,
     CoordinatesDto CamCoordinates,

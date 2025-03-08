@@ -132,6 +132,6 @@ internal static class Mapper
             BuyerName: order.BuyerName
         );
 
-    internal static (string Key, string ContentType) ToCadDto(this FinishOngoingOrderRequest req)
-        => (Key: req.CadKey, ContentType: req.CadContentType);
+    internal static (string Key, string ContentType, decimal Volume) ToCadDto(this FinishOngoingOrderRequest req)
+        => (Key: req.CadKey, ContentType: req.CadContentType, Volume: req.CadVolume);
 }

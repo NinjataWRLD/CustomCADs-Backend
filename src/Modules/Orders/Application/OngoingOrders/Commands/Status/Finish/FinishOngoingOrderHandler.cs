@@ -22,7 +22,8 @@ public sealed class FinishOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
 
         CreateCadCommand cadCommand = new(
             Key: req.Cad.Key,
-            ContentType: req.Cad.ContentType
+            ContentType: req.Cad.ContentType,
+            Volume: req.Cad.Volume
         );
         CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
         order.SetCadId(cadId);

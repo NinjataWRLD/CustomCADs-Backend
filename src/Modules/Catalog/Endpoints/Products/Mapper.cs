@@ -36,6 +36,7 @@ internal static class Mapper
             Name: product.Name,
             Description: product.Description,
             Price: product.Price,
+            Volume: product.Volume,
             CreatorName: product.CreatorName,
             UploadDate: product.UploadDate.ToString(DateFormatString),
             CamCoordinates: product.CamCoordinates,

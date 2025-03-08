@@ -8,6 +8,7 @@ public record GalleryGetProductByIdDto(
     string Name,
     string Description,
     decimal Price,
+    decimal Volume,
     string CreatorName,
     DateTime UploadDate,
     CoordinatesDto CamCoordinates,

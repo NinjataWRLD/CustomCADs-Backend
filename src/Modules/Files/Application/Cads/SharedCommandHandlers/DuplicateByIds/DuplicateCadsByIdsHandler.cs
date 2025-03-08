@@ -24,6 +24,7 @@ public class DuplicateCadsByIdsHandler(ICadReads reads, IWrites<Cad> writes, IUn
             Cad newCad = Cad.Create(
                 key: cad.Key,
                 contentType: cad.ContentType,
+                volume: cad.Volume,
                 camCoordinates: cad.CamCoordinates,
                 panCoordinates: cad.PanCoordinates
             );

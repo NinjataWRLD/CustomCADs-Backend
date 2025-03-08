@@ -11,12 +11,14 @@ public class Cad : BaseAggregateRoot
     private Cad(
         string key,
         string contentType,
+        decimal volume,
         Coordinates camCoordinates,
         Coordinates panCoordinates
     )
     {
         Key = key;
         ContentType = contentType;
+        Volume = volume;
         CamCoordinates = camCoordinates;
         PanCoordinates = panCoordinates;
     }
@@ -24,17 +26,20 @@ public class Cad : BaseAggregateRoot
     public CadId Id { get; set; }
     public string Key { get; private set; } = string.Empty;
     public string ContentType { get; private set; } = string.Empty;
+    public decimal Volume { get; private set; }
     public Coordinates CamCoordinates { get; private set; } = new();
     public Coordinates PanCoordinates { get; private set; } = new();
 
     public static Cad Create(
         string key,
         string contentType,
+        decimal volume,
         Coordinates camCoordinates,
         Coordinates panCoordinates
-    ) => new Cad(key, contentType, camCoordinates, panCoordinates)
+    ) => new Cad(key, contentType, volume, camCoordinates, panCoordinates)
         .ValidateKey()
         .ValidateContentType()
+        .ValidateVolume()
         .ValidateCamCoordinates()
         .ValidatePanCoordinates();
 
@@ -42,14 +47,16 @@ public class Cad : BaseAggregateRoot
         CadId id,
         string key,
         string contentType,
+        decimal volume,
         Coordinates camCoordinates,
         Coordinates panCoordinates
-    ) => new Cad(key, contentType, camCoordinates, panCoordinates)
+    ) => new Cad(key, contentType, volume, camCoordinates, panCoordinates)
     {
         Id = id
     }
     .ValidateKey()
     .ValidateContentType()
+    .ValidateVolume()
     .ValidateCamCoordinates()
     .ValidatePanCoordinates();
 
