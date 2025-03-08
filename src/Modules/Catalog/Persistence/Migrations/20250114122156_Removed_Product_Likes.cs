@@ -2,30 +2,29 @@
 
 #nullable disable
 
-namespace CustomCADs.Catalog.Persistence.Migrations
+namespace CustomCADs.Catalog.Persistence.Migrations;
+
+/// <inheritdoc />
+public partial class Removed_Product_Likes : Migration
 {
     /// <inheritdoc />
-    public partial class Removed_Product_Likes : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Likes",
-                schema: "Catalog",
-                table: "Products");
-        }
+        migrationBuilder.DropColumn(
+            name: "Likes",
+            schema: "Catalog",
+            table: "Products");
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<int>(
-                name: "Likes",
-                schema: "Catalog",
-                table: "Products",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0);
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.AddColumn<int>(
+            name: "Likes",
+            schema: "Catalog",
+            table: "Products",
+            type: "integer",
+            nullable: false,
+            defaultValue: 0);
     }
 }

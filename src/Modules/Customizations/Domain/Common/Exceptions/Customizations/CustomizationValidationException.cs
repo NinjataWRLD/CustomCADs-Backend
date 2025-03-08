@@ -17,7 +17,7 @@ public class CustomizationValidationException : BaseException
 
     public static CustomizationValidationException Min<TType>(string property, TType min, Exception? inner = default) where TType : struct
         => new(string.Format(RangeValidation, "A", "Customization", property, min), inner);
-    
+
     public static CustomizationValidationException Range<TType>(string property, TType max, TType min, Exception? inner = default) where TType : struct
         => new(string.Format(RangeValidation, "A", "Customization", property, min, max), inner);
 

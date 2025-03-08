@@ -13,7 +13,7 @@ public class CustomizationReads(CustomizationsContext context) : ICustomizationR
             .Where(x => ids.Contains(x.Id))
             .ToDictionaryAsync(x => x.Id, x => x, ct)
             .ConfigureAwait(false);
-    
+
     public async Task<Customization?> SingleByIdAsync(CustomizationId id, bool track = true, CancellationToken ct = default)
         => await context.Customizations
             .WithTracking(track)

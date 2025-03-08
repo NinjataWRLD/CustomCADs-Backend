@@ -24,7 +24,7 @@ public class ActiveCartItem : BaseEntity
     public int Quantity { get; private set; } = 1;
     public bool ForDelivery { get; set; }
     public ProductId ProductId { get; }
-    public CustomizationId? CustomizationId { get; private set;  }
+    public CustomizationId? CustomizationId { get; private set; }
     public ActiveCartId CartId { get; }
     public ActiveCart Cart { get; } = null!;
 
@@ -35,7 +35,7 @@ public class ActiveCartItem : BaseEntity
             productId: productId,
             customizationId: null
         );
-    
+
     public static ActiveCartItem Create(ProductId productId, ActiveCartId cartId, CustomizationId customizationId)
         => new(
             forDelivery: true,
@@ -43,7 +43,7 @@ public class ActiveCartItem : BaseEntity
             productId: productId,
             customizationId: customizationId
         );
-    
+
     public ActiveCartItem IncreaseQuantity(int amount)
     {
         if (!ForDelivery)

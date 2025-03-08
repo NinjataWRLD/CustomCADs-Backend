@@ -26,7 +26,7 @@ public class CompletedOrderValidationException : BaseException
 
     public static CompletedOrderValidationException ShipmentIdOnNonDelivery(Exception? inner = default)
         => new("Cannot set a ShipmentId for a Completed Order without Delivery.", inner);
-    
+
     public static CompletedOrderValidationException CustomizationIdOnNonDelivery(Exception? inner = default)
         => new("Cannot set a CustomizationId for a Completed Order without Delivery.", inner);
 

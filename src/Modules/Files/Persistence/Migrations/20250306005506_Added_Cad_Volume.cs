@@ -2,30 +2,29 @@
 
 #nullable disable
 
-namespace CustomCADs.Files.Persistence.Migrations
+namespace CustomCADs.Files.Persistence.Migrations;
+
+/// <inheritdoc />
+public partial class Added_Cad_Volume : Migration
 {
     /// <inheritdoc />
-    public partial class Added_Cad_Volume : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<decimal>(
-                name: "Volume",
-                schema: "Files",
-                table: "Cads",
-                type: "numeric",
-                nullable: false,
-                defaultValue: 0m);
-        }
+        migrationBuilder.AddColumn<decimal>(
+            name: "Volume",
+            schema: "Files",
+            table: "Cads",
+            type: "numeric",
+            nullable: false,
+            defaultValue: 0m);
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Volume",
-                schema: "Files",
-                table: "Cads");
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropColumn(
+            name: "Volume",
+            schema: "Files",
+            table: "Cads");
     }
 }

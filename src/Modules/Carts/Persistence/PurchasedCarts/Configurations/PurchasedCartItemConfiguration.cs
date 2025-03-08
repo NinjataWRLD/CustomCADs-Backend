@@ -57,7 +57,7 @@ public static class PurchasedCartItemItemConfigUtils
                 x => x.Value,
                 v => CadId.New(v)
             );
-        
+
         builder.Property(x => x.CustomizationId)
             .HasConversion(
                 x => CustomizationId.Unwrap(x),
@@ -93,7 +93,7 @@ public static class PurchasedCartItemItemConfigUtils
         builder.Property(x => x.CadId)
             .IsRequired()
             .HasColumnName("CadId");
-        
+
         builder.Property(x => x.CustomizationId)
             .IsRequired(false)
             .HasColumnName("CustomizationId");

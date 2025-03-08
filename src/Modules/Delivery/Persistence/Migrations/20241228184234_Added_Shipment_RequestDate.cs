@@ -2,30 +2,29 @@
 
 #nullable disable
 
-namespace CustomCADs.Delivery.Persistence.Migrations
+namespace CustomCADs.Delivery.Persistence.Migrations;
+
+/// <inheritdoc />
+public partial class Added_Shipment_RequestDate : Migration
 {
     /// <inheritdoc />
-    public partial class Added_Shipment_RequestDate : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<DateTime>(
-                name: "RequestDate",
-                schema: "Delivery",
-                table: "Shipments",
-                type: "timestamp with time zone",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-        }
+        migrationBuilder.AddColumn<DateTime>(
+            name: "RequestDate",
+            schema: "Delivery",
+            table: "Shipments",
+            type: "timestamp with time zone",
+            nullable: false,
+            defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "RequestDate",
-                schema: "Delivery",
-                table: "Shipments");
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropColumn(
+            name: "RequestDate",
+            schema: "Delivery",
+            table: "Shipments");
     }
 }

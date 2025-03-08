@@ -1,7 +1,4 @@
 ﻿namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery.Data;
-
-using static OngoingOrdersData;
-
 public class PurchaseOngoingOrderWithDeliveryInvalidCityData : PurchaseOngoingOrderWithDeliveryData
 {
     public PurchaseOngoingOrderWithDeliveryInvalidCityData()

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Customizations.Application.Customizations.Commands.Create;
-using CustomCADs.Customizations.Application.Customizations.Queries.GetById;
+﻿using CustomCADs.Customizations.Application.Customizations.Queries.GetById;
 
 namespace CustomCADs.Customizations.Endpoints.Customizations.Get;
 

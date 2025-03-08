@@ -153,7 +153,7 @@ public static class ProgramExtensions
         => services
             .AddCategoriesExceptionHandler()
             .AddCategoriesPersistence(config);
-    
+
     public static IServiceCollection AddCustomizations(this IServiceCollection services, IConfiguration config)
         => services
             .AddCustomizationsExceptionHandler()

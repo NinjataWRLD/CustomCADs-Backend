@@ -61,7 +61,7 @@ public static class OrderConfigUtils
                 x => ShipmentId.Unwrap(x),
                 v => ShipmentId.New(v)
             );
-        
+
         builder.Property(x => x.CustomizationId)
             .HasConversion(
                 x => CustomizationId.Unwrap(x),
@@ -115,7 +115,7 @@ public static class OrderConfigUtils
         builder.Property(x => x.ShipmentId)
             .IsRequired(false)
             .HasColumnName("ShipmentId");
-        
+
         builder.Property(x => x.CustomizationId)
             .IsRequired(false)
             .HasColumnName("CustomizationId");

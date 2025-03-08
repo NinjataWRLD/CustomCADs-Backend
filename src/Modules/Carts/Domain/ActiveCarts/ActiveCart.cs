@@ -43,7 +43,7 @@ public class ActiveCart : BaseAggregateRoot
 
         return item;
     }
-    
+
     public ActiveCartItem AddItem(ProductId productId, CustomizationId customizationId)
     {
         var item = ActiveCartItem.Create(productId, this.Id, customizationId);

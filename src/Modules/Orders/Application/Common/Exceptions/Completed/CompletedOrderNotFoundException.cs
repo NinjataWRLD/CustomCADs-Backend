@@ -25,7 +25,7 @@ public class CompletedOrderNotFoundException : BaseException
 
     public static CompletedOrderNotFoundException CadId(CadId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Cad", nameof(id), id), inner);
-    
+
     public static CompletedOrderNotFoundException CustomizationId(CustomizationId id, Exception? inner = default)
         => new(string.Format(NotFoundByProp, "Customization", nameof(id), id), inner);
 

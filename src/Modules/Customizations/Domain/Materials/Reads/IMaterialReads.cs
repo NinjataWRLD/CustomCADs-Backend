@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
-
-namespace CustomCADs.Customizations.Domain.Materials.Reads;
+﻿namespace CustomCADs.Customizations.Domain.Materials.Reads;
 
 public interface IMaterialReads
 {

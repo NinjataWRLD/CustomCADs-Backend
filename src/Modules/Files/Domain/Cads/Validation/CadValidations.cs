@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Files.Domain.Common.Exceptions.Cads;
-using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Files.Domain.Cads.Validation;
 
@@ -33,7 +32,7 @@ public static class CadValidations
 
         return cad;
     }
-    
+
     public static Cad ValidateVolume(this Cad cad)
     {
         string property = "Volume";

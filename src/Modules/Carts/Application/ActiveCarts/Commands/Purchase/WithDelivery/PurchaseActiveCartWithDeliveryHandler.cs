@@ -45,7 +45,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
         )).ConfigureAwait(false);
 
         GetCustomizationsWeightByIdsQuery weightsQuery = new(
-            Ids: [.. 
+            Ids: [..
                 cart.Items
                     .Where(x => x.ForDelivery && x.CustomizationId is not null)
                     .Select(x => x.CustomizationId!.Value)

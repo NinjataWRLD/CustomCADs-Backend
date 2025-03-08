@@ -60,11 +60,11 @@ public static class CadConfigUtils
         builder.Property(x => x.Key)
             .IsRequired()
             .HasColumnName("Key");
-        
+
         builder.Property(x => x.ContentType)
             .IsRequired()
             .HasColumnName("ContentType");
-        
+
         builder.Property(x => x.Volume)
             .IsRequired()
             .HasColumnName("Volume");

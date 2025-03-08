@@ -2,30 +2,29 @@
 
 #nullable disable
 
-namespace CustomCADs.Delivery.Persistence.Migrations
+namespace CustomCADs.Delivery.Persistence.Migrations;
+
+/// <inheritdoc />
+public partial class Persisted_Shipment_ReferenceId : Migration
 {
     /// <inheritdoc />
-    public partial class Persisted_Shipment_ReferenceId : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<string>(
-                name: "ReferenceId",
-                schema: "Delivery",
-                table: "Shipments",
-                type: "text",
-                nullable: false,
-                defaultValue: "");
-        }
+        migrationBuilder.AddColumn<string>(
+            name: "ReferenceId",
+            schema: "Delivery",
+            table: "Shipments",
+            type: "text",
+            nullable: false,
+            defaultValue: "");
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "ReferenceId",
-                schema: "Delivery",
-                table: "Shipments");
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropColumn(
+            name: "ReferenceId",
+            schema: "Delivery",
+            table: "Shipments");
     }
 }

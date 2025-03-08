@@ -13,7 +13,7 @@ public class CadsData
     public const string ValidContentType1 = "model/gltf+json";
     public const string ValidContentType2 = "model/gltf-binary";
     public const string InvalidContentType = "";
-    
+
     public const decimal ValidVolume1 = 1000;
     public const decimal ValidVolume2 = 100;
     public const decimal InvalidVolume = 0;

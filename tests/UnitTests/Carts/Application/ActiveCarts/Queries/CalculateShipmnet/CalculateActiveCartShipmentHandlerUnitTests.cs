@@ -33,7 +33,7 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsWeightByIdsQuery>(), ct))
             .ReturnsAsync([]);
-        
+
         sender.Setup(x => x.SendQueryAsync(It.IsAny<CalculateShipmentQuery>(), ct))
             .ReturnsAsync([]);
 

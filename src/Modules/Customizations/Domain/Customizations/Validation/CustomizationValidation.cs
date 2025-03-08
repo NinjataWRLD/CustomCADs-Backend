@@ -31,7 +31,7 @@ public static class CustomizationValidation
 
         return customization;
     }
-    
+
     public static Customization ValidateVolume(this Customization customization)
     {
         string property = "Volume";
@@ -44,7 +44,7 @@ public static class CustomizationValidation
 
         return customization;
     }
-    
+
     public static Customization ValidateColor(this Customization customization)
     {
         string property = "Color";

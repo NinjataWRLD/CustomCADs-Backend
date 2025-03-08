@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Customizations.Domain.Materials.Validations;
 using CustomCADs.Shared.Core.Bases.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Customizations.Domain.Materials;

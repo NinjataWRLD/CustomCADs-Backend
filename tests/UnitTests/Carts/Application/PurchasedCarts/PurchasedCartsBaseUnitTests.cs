@@ -30,7 +30,7 @@ public class PurchasedCartsBaseUnitTests
         purchasedCart.AddItems([.. items.Select(i =>
             (Price: i.Price,
             CadId: i.CadId,
-            Item: i.ForDelivery 
+            Item: i.ForDelivery
                 ? ActiveCartItem.Create(
                     cartId: ActiveCartsData.ValidId1,
                     productId: i.ProductId,
@@ -39,7 +39,7 @@ public class PurchasedCartsBaseUnitTests
                 : ActiveCartItem.Create(
                     cartId: ActiveCartsData.ValidId1,
                     productId: i.ProductId
-                ) 
+                )
             )
         )]);
 

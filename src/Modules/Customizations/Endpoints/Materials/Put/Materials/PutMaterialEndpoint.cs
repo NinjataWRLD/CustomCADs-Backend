@@ -25,7 +25,7 @@ public sealed class PutMaterialEndpoint(IRequestSender sender)
             Cost: req.Cost
         );
         await sender.SendCommandAsync(materialCommand, ct).ConfigureAwait(false);
-        
+
         ChangeMaterialTextureCommand textureCommand = new(
             Id: MaterialId.New(req.Id),
             Key: req.TextureKey,
