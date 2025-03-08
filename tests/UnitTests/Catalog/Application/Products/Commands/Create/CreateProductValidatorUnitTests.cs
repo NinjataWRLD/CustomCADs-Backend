@@ -11,6 +11,7 @@ using static ProductsData;
 public class CreateProductValidatorUnitTests
 {
     private readonly CreateProductValidator validator = new();
+    private const decimal Volume = 15;
     private readonly CategoryId categoryId = ValidCategoryId;
     private readonly AccountId creatorId = ValidCreatorId;
 
@@ -27,6 +28,7 @@ public class CreateProductValidatorUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );
@@ -53,6 +55,7 @@ public class CreateProductValidatorUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );
@@ -77,6 +80,7 @@ public class CreateProductValidatorUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );
@@ -101,6 +105,7 @@ public class CreateProductValidatorUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );
@@ -125,6 +130,7 @@ public class CreateProductValidatorUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );

@@ -1,23 +1,27 @@
-﻿using CustomCADs.UnitTests.Files.Domain.Cads.Create.Normal.Data;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Files;
+using CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Create.WithId;
 
 public class CadCreateWithIdUnitTests : CadsBaseUnitTests
 {
+    private static readonly CadId id = CadId.New();
+
     [Theory]
-    [ClassData(typeof(CadCreateWithIdValidData))]
-    public void CreateWithId_ShouldNotThrowExcepion_WhenCadIsValid(string key, string contentType, int x, int y, int z)
+    [ClassData(typeof(CadCreateValidData))]
+    public void CreateWithId_ShouldNotThrowExcepion_WhenCadIsValid(string key, string contentType, decimal volume, int x, int y, int z)
     {
-        Cad.Create(key, contentType, new(x, y, z), new(x, y, z));
+        Cad.CreateWithId(id, key, contentType, volume, new(x, y, z), new(x, y, z));
     }
 
     [Theory]
-    [ClassData(typeof(CadCreateWithIdValidData))]
-    public void CreateWithId_ShouldPopulatePropertiesProperly_WhenCadIsValid(string key, string contentType, int x, int y, int z)
+    [ClassData(typeof(CadCreateValidData))]
+    public void CreateWithId_ShouldPopulatePropertiesProperly_WhenCadIsValid(string key, string contentType, decimal volume, int x, int y, int z)
     {
-        var cad = Cad.Create(key, contentType, new(x, y, z), new(x, y, z));
+        var cad = Cad.CreateWithId(id, key, contentType, volume, new(x, y, z), new(x, y, z));
 
         Assert.Multiple(
+            () => Assert.Equal(id, cad.Id),
             () => Assert.Equal(key, cad.Key),
             () => Assert.Equal(contentType, cad.ContentType),
             () => Assert.Equal(new(x, y, z), cad.CamCoordinates),
@@ -26,14 +30,15 @@ public class CadCreateWithIdUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CadCreateWithIdInvalidKeyData))]
-    [ClassData(typeof(CadCreateWithIdInvalidContentTypeData))]
-    [ClassData(typeof(CadCreateWithIdInvalidCoordsData))]
-    public void CreateWithId_ShouldThrowException_WhenCadIsInvalid(string key, string contentType, int x, int y, int z)
+    [ClassData(typeof(CadCreateInvalidKeyData))]
+    [ClassData(typeof(CadCreateInvalidContentTypeData))]
+    [ClassData(typeof(CadCreateInvalidCoordsData))]
+    [ClassData(typeof(CadCreateInvalidVolumeData))]
+    public void CreateWithId_ShouldThrowException_WhenCadIsInvalid(string key, string contentType, decimal volume, int x, int y, int z)
     {
         Assert.Throws<CadValidationException>(() =>
         {
-            Cad.Create(key, contentType, new(x, y, z), new(x, y, z));
+            Cad.CreateWithId(id, key, contentType, volume, new(x, y, z), new(x, y, z));
         });
     }
 }

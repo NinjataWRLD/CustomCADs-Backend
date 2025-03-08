@@ -56,6 +56,7 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         await handler.Handle(query, ct);
 
         // Assert
+        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCadVolumeByIdQuery>(), ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNameByIdQuery>(), ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCadCoordsByIdQuery>(), ct), Times.Once);

@@ -21,6 +21,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
     private readonly Mock<IWrites<Product>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
+    private const decimal Volume = 15;
     private readonly CategoryId categoryId = ValidCategoryId;
     private readonly AccountId creatorId = ValidCreatorId;
     private readonly ImageId imageId = ValidImageId;
@@ -57,6 +58,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );
@@ -94,6 +96,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );
@@ -126,6 +129,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );
@@ -156,6 +160,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );
@@ -185,6 +190,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             ImageContentType: string.Empty,
             CadKey: string.Empty,
             CadContentType: string.Empty,
+            CadVolume: Volume,
             CategoryId: categoryId,
             CreatorId: creatorId
         );
