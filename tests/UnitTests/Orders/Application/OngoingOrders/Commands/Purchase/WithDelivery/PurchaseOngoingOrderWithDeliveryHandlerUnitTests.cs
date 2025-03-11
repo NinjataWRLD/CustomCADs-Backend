@@ -11,6 +11,7 @@ using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
+using Moq;
 
 namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery;
 
@@ -48,6 +49,9 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
     {
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(order);
+
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationCostByIdQuery>(), ct))
+            .ReturnsAsync(0m);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<ClientGetCompletedOrderByIdQuery>(), ct))
             .ReturnsAsync(new ClientGetCompletedOrderByIdDto(
@@ -111,6 +115,9 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetUsernameByIdQuery>()
         , ct), Times.Exactly(2));
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetCustomizationCostByIdQuery>()
+        , ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetCustomizationWeightByIdQuery>()
         , ct), Times.Once);
