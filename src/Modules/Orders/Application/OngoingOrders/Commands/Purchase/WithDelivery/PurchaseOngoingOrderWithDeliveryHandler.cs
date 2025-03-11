@@ -46,21 +46,27 @@ public sealed class PurchaseOngoingOrderWithDeliveryHandler(IOngoingOrderReads r
 
         string buyer = users[0], seller = users[1];
 
-        decimal price = order.Price.Value * req.Count; // integrate order prices
+        GetCustomizationCostByIdQuery costQuery = new(req.CustomizationId);
+        decimal cost = await sender.SendQueryAsync(costQuery, ct).ConfigureAwait(false);
+
+        decimal total =
+            order.Price.Value * req.Count
+            + cost * req.Count;
+
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
-            price: price,
-            description: $"{buyer} bought {order.Name} from {seller} for {price}$.",
+            price: total,
+            description: $"{buyer} bought {order.Name} from {seller} for {total}$.",
             ct
         ).ConfigureAwait(false);
 
-        GetCustomizationWeightByIdQuery query = new(req.CustomizationId);
-        double weight = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GetCustomizationWeightByIdQuery weightQuery = new(req.CustomizationId);
+        double weight = await sender.SendQueryAsync(weightQuery, ct).ConfigureAwait(false);
 
         CreateCompletedOrderCommand command = new(
             Name: order.Name,
             Description: order.Description,
-            Price: price,
+            Price: total,
             Delivery: true,
             OrderDate: order.OrderDate,
             BuyerId: order.BuyerId,
