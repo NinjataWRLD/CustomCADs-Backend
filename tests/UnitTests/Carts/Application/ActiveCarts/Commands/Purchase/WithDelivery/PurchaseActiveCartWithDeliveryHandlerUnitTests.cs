@@ -8,8 +8,10 @@ using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
+using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Purchase.WithDelivery;
 
@@ -17,7 +19,6 @@ using static ActiveCartsData;
 
 public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private const decimal TotalCost = 10m;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Mock<IPaymentService> payment = new();
@@ -28,9 +29,9 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     private static readonly ActiveCart cart = CreateCartWithItems(
         buyerId: buyerId,
         items: [
-            CreateItemWithDelivery(),
-            CreateItem(),
-            CreateItemWithDelivery(),
+            CreateItemWithDelivery(productId: ProductId.New()),
+            CreateItem(productId: ProductId.New()),
+            CreateItemWithDelivery(productId: ProductId.New()),
         ]
     );
 
@@ -39,18 +40,17 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, false, ct))
             .ReturnsAsync(cart);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsWeightByIdsQuery>(), ct))
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetProductPricesByIdsQuery>(), ct))
+            .ReturnsAsync([]);
+        
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsCostByIdsQuery>(), ct))
+            .ReturnsAsync([]);
+        
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsCostByIdsQuery>(), ct))
             .ReturnsAsync([]);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetPurchasedCartByIdQuery>(), ct))
-            .ReturnsAsync(new GetPurchasedCartByIdDto(
-                Id: default,
-                Total: TotalCost,
-                PurchaseDate: default,
-                BuyerName: string.Empty,
-                ShipmentId: default,
-                Items: []
-            ));
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsWeightByIdsQuery>(), ct))
+            .ReturnsAsync([]);
     }
 
     [Fact]
@@ -90,14 +90,17 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         await handler.Handle(command, ct);
 
         // Assert
-        sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<CreatePurchasedCartCommand>()
+        sender.Verify(x => x.SendQueryAsync(
+            It.IsAny<GetProductPricesByIdsQuery>()
         , ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetPurchasedCartByIdQuery>()
+            It.IsAny<GetCustomizationsCostByIdsQuery>()
         , ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetUsernameByIdQuery>()
+        , ct), Times.Once);
+        sender.Verify(x => x.SendCommandAsync(
+            It.IsAny<CreatePurchasedCartCommand>()
         , ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetCustomizationsWeightByIdsQuery>()
@@ -147,9 +150,6 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 
         // Assert
         raiser.Verify(x => x.RaiseDomainEventAsync(
-            It.IsAny<ActiveCartPurchasedDomainEvent>()
-        ), Times.Once);
-        raiser.Verify(x => x.RaiseDomainEventAsync(
             It.IsAny<ActiveCartDeliveryRequestedDomainEvent>()
         ), Times.Once);
     }
@@ -190,9 +190,9 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             .ReturnsAsync(CreateCartWithItems(
                 buyerId: buyerId,
                 items: [
-                    CreateItem(),
-                    CreateItem(),
-                    CreateItem(),
+                    CreateItem(productId: ProductId.New()),
+                    CreateItem(productId: ProductId.New()),
+                    CreateItem(productId: ProductId.New()),
                 ]
             ));
 

@@ -43,10 +43,11 @@ public sealed class PurchaseOngoingOrderHandler(IOngoingOrderReads reads, IReque
 
         string buyer = users[0], seller = users[1];
 
-        decimal price = order.Price.Value; // integrate order prices
+        decimal total = order.Price.Value;
+
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
-            price: price,
+            price: total,
             description: $"{buyer} bought {order.Name} from {seller}.",
             ct
         ).ConfigureAwait(false);
@@ -54,7 +55,7 @@ public sealed class PurchaseOngoingOrderHandler(IOngoingOrderReads reads, IReque
         CreateCompletedOrderCommand command = new(
             Name: order.Name,
             Description: order.Description,
-            Price: price,
+            Price: total,
             Delivery: false,
             OrderDate: order.OrderDate,
             BuyerId: order.BuyerId,
