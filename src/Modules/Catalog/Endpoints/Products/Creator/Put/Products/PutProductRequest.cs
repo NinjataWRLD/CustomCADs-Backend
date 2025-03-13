@@ -9,5 +9,6 @@ public sealed record PutProductRequest(
     string? ImageKey,
     string? ImageContentType,
     string? CadKey,
-    string? CadContentType
+    string? CadContentType,
+    decimal? CadVolume
 );

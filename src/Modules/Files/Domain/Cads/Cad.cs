@@ -75,6 +75,14 @@ public class Cad : BaseAggregateRoot
 
         return this;
     }
+    
+    public Cad SetVolume(decimal volume)
+    {
+        Volume = volume;
+        this.ValidateVolume();
+
+        return this;
+    }
 
     public Cad SetCamCoordinates(Coordinates coords)
     {
