@@ -78,6 +78,7 @@ public class ActiveCartItem : BaseEntity
     {
         ForDelivery = false;
         CustomizationId = null;
+        Quantity = 1;
 
         return this;
     }
