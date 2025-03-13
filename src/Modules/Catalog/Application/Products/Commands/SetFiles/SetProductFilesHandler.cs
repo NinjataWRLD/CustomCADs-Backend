@@ -40,5 +40,10 @@ public sealed class SetProductFilesHandler(IProductReads reads, IRequestSender s
             SetCadContentTypeCommand command = new(product.CadId, req.Cad.ContentType);
             await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
         }
+        if (req.Cad.Volume is not null)
+        {
+            SetCadVolumeCommand command = new(product.CadId, req.Cad.Volume.Value);
+            await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        }
     }
 }

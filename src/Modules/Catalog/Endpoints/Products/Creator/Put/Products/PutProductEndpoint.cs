@@ -31,13 +31,13 @@ public sealed class PutProductEndpoint(IRequestSender sender)
         );
         await sender.SendCommandAsync(editCommand, ct).ConfigureAwait(false);
 
-        SetProductFilesCommand keysCommand = new(
+        SetProductFilesCommand filesCommand = new(
             Id: id,
-            Cad: (req.CadKey, req.CadContentType),
+            Cad: (req.CadKey, req.CadContentType, req.CadVolume),
             Image: (req.ImageKey, req.ImageContentType),
             CreatorId: User.GetAccountId()
         );
-        await sender.SendCommandAsync(keysCommand, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(filesCommand, ct).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

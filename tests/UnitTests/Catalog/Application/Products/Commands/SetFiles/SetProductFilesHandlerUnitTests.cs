@@ -26,7 +26,7 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
         // Arrange
         SetProductFilesCommand command = new(
             Id: ValidId,
-            Cad: (null, null),
+            Cad: (null, null, null),
             Image: (null, null),
             CreatorId: ValidCreatorId
         );
@@ -43,7 +43,8 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
     public async Task Handle_ShouldSendRequests()
     {
         // Arrange
-        (string? Key, string? ContentType) cad = new("a", "b"), image = new("c", "d");
+        (string? Key, string? ContentType, decimal? Volume) cad = new("a", "b", 0);
+        (string? Key, string? ContentType) image = new("c", "d");
 
         SetProductFilesCommand command = new(
             Id: ValidId,
@@ -86,7 +87,7 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
         // Arrange
         SetProductFilesCommand command = new(
             Id: ValidId,
-            Cad: (null, null),
+            Cad: (null, null, null),
             Image: (null, null),
             CreatorId: ValidDesignerId
         );
@@ -109,7 +110,7 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 
         SetProductFilesCommand command = new(
             Id: ValidId,
-            Cad: (null, null),
+            Cad: (null, null, null),
             Image: (null, null),
             CreatorId: ValidCreatorId
         );
