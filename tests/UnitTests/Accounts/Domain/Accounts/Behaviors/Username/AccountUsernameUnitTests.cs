@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Common.Exceptions.Accounts;
+﻿using CustomCADs.Accounts.Domain.Accounts.Exceptions;
 using CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Username.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Username;

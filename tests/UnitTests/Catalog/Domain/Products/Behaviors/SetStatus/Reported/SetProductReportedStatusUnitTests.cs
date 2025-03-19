@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+﻿using CustomCADs.Catalog.Domain.Products.Exceptions;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetStatus.Reported;
 

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
+﻿using CustomCADs.Carts.Domain.Repositories.Reads;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.Count.Carts;
 

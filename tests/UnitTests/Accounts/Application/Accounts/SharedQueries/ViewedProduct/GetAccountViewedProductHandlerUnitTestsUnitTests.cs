@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.ViewedProduct;
-using CustomCADs.Accounts.Domain.Accounts.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;

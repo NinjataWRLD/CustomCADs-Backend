@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
 using CustomCADs.Carts.Application.PurchasedCarts.Commands.Create;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
-using CustomCADs.Carts.Domain.ActiveCarts.Reads;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -79,7 +79,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 
                     total += x.Value;
                     var item = items[x.Key];
-                    
+
                     if (item.ForDelivery && item.CustomizationId is not null)
                         total += costs[item.CustomizationId.Value];
 

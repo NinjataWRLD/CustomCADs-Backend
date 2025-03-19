@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.CartItems;
+﻿using CustomCADs.Carts.Domain.PurchasedCarts.Exceptions.CartItems;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;

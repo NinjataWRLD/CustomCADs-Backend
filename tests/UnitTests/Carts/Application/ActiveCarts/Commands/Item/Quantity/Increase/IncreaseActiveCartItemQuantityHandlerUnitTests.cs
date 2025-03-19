@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Item.Quantity.Increment;
 using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Carts.Domain.ActiveCarts.Reads;
-using CustomCADs.Carts.Domain.Common;
+using CustomCADs.Carts.Domain.Repositories;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.Quantity.Increase.Data;

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.OngoingOrders;
+﻿using CustomCADs.Orders.Domain.OngoingOrders.Exceptions;
 using CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetName.Data;
 
 namespace CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetName;

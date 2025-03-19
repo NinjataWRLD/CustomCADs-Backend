@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions.Completed;
 using CustomCADs.Orders.Application.CompletedOrders.DomainEventHandlers;
-using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Orders.Domain.CompletedOrders.Reads;
 using CustomCADs.Orders.Domain.OngoingOrders.Events;
+using CustomCADs.Orders.Domain.Repositories;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Application.Common.Exceptions;
-using CustomCADs.Delivery.Domain.Common.Exceptions.Shipments;
+using CustomCADs.Delivery.Domain.Shipments.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CustomCADs.Delivery.Endpoints.Common;

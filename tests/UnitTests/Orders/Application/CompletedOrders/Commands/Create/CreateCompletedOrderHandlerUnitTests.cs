@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions.Completed;
 using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
-using CustomCADs.Orders.Domain.Common;
+using CustomCADs.Orders.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;

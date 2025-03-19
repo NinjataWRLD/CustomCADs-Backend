@@ -1,5 +1,5 @@
-﻿using CustomCADs.Accounts.Domain.Roles;
-using CustomCADs.Accounts.Domain.Roles.Reads;
+﻿using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Accounts.Domain.Roles;
 using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Accounts.Persistence.Roles.Reads;

@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
-using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
-using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.CartItems;
-using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.Carts;
+using CustomCADs.Carts.Domain.ActiveCarts.Exceptions.CartItems;
+using CustomCADs.Carts.Domain.ActiveCarts.Exceptions.Carts;
+using CustomCADs.Carts.Domain.PurchasedCarts.Exceptions.CartItems;
+using CustomCADs.Carts.Domain.PurchasedCarts.Exceptions.Carts;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CustomCADs.Carts.Endpoints.Common;

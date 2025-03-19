@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts;
-using CustomCADs.Carts.Domain.ActiveCarts.Reads;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Edit;
-using CustomCADs.Accounts.Domain.Common;
-using CustomCADs.Accounts.Domain.Roles.DomainEvents;
-using CustomCADs.Accounts.Domain.Roles.Reads;
+using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Roles;
 using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Edit.Data;

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Categories.Domain.Common.Exceptions.Categories;
+﻿using CustomCADs.Categories.Domain.Categories.Exceptions;
 using CustomCADs.UnitTests.Categories.Domain.Categories.Behaviors.Name.Data;
 
 namespace CustomCADs.UnitTests.Categories.Domain.Categories.Behaviors.Name;

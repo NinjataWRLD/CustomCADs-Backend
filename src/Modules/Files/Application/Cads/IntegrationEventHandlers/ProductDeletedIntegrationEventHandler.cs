@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Files.Application.Common.Exceptions;
-using CustomCADs.Files.Domain.Cads.Reads;
-using CustomCADs.Files.Domain.Common;
+using CustomCADs.Files.Domain.Repositories;
+using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.IntegrationEvents.Files;
 

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.CompletedOrder;
+﻿using CustomCADs.Orders.Domain.CompletedOrders.Exceptions;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.UnitTests.Orders.Domain.CompletedOrders.Behaviors.SetShipmentId.Data;
 

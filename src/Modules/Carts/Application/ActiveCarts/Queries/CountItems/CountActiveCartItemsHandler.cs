@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Reads;
+﻿using CustomCADs.Carts.Domain.Repositories.Reads;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Queries.CountItems;
 

@@ -1,12 +1,12 @@
-﻿using CustomCADs.Catalog.Domain.Common;
-using CustomCADs.Catalog.Domain.Products.Reads;
-using CustomCADs.Catalog.Domain.Products.Writes;
-using CustomCADs.Catalog.Domain.Tags.Reads;
+﻿using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
+using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Catalog.Persistence;
 using CustomCADs.Catalog.Persistence.Common;
 using CustomCADs.Catalog.Persistence.Products.Reads;
 using CustomCADs.Catalog.Persistence.Products.Writes;
 using CustomCADs.Catalog.Persistence.Tags.Reads;
+using CustomCADs.Catalog.Persistence.Tags.Writes;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
@@ -53,8 +53,8 @@ public static class DependencyInjection
 
     private static IServiceCollection AddWrites(this IServiceCollection services)
     {
-        services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
         services.AddScoped<IProductWrites, ProductWrites>();
+        services.AddScoped<ITagWrites, TagWrites>();
 
         return services;
     }

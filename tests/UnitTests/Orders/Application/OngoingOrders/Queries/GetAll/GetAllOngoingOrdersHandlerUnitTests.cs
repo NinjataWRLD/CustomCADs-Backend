@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.GetAll;
-using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;

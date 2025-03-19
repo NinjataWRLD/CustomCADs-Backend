@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Application.Cads.SharedCommandHandlers.Create;
-using CustomCADs.Files.Domain.Common;
+using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.Create.Data;
 

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.SetStatus;
-using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 

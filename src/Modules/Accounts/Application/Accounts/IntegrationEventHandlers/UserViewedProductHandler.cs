@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Common.Exceptions;
-using CustomCADs.Accounts.Domain.Accounts.Reads;
-using CustomCADs.Accounts.Domain.Common;
+using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.IntegrationEvents.Catalog;
 
 namespace CustomCADs.Accounts.Application.Accounts.IntegrationEventHandlers;

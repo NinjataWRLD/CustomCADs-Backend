@@ -1,5 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Catalog.Domain.Tags.Reads;
+﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
+using CustomCADs.Catalog.Domain.Tags;
 using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Catalog.Persistence.Tags.Reads;

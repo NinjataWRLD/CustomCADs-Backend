@@ -1,5 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Tags;
-using CustomCADs.Catalog.Domain.Tags;
+﻿using CustomCADs.Catalog.Domain.Tags;
+using CustomCADs.Catalog.Domain.Tags.Exceptions;
 using CustomCADs.UnitTests.Catalog.Domain.Tags.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Create.Normal;

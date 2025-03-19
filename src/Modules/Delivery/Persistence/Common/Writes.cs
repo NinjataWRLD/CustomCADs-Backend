@@ -1,4 +1,4 @@
-﻿using CustomCADs.Delivery.Domain.Common;
+﻿using CustomCADs.Delivery.Domain.Repositories;
 using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Delivery.Persistence.Common;

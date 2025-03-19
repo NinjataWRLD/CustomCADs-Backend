@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Common;
+﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Shared.Core.Common.Exceptions;
 
 namespace CustomCADs.Accounts.Persistence.Common;

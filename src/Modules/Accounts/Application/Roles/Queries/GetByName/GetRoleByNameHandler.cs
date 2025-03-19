@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Common.Exceptions;
-using CustomCADs.Accounts.Domain.Roles.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
 
 namespace CustomCADs.Accounts.Application.Roles.Queries.GetByName;

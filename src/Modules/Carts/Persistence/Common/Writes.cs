@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Domain.Common;
+﻿using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Carts.Persistence.Common;

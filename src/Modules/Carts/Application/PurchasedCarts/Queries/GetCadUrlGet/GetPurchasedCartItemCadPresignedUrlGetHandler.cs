@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
-using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 

@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Create;
-using CustomCADs.Catalog.Domain.Common;
 using CustomCADs.Catalog.Domain.Products.Enums;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
@@ -18,7 +19,7 @@ using static ProductsData;
 
 public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly Mock<IWrites<Product>> writes = new();
+    private readonly Mock<IProductWrites> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
     private const decimal Volume = 15;

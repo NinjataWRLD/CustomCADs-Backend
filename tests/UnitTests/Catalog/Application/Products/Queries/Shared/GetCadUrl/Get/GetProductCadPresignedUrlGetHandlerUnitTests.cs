@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Shared.GetCadUrl.Get;
-using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 

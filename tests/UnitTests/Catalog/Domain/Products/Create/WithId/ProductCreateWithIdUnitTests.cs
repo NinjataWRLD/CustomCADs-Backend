@@ -1,5 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
-using CustomCADs.Catalog.Domain.Products.Enums;
+﻿using CustomCADs.Catalog.Domain.Products.Enums;
+using CustomCADs.Catalog.Domain.Products.Exceptions;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Catalog.Domain.Products.Create.WithId.Data;
 

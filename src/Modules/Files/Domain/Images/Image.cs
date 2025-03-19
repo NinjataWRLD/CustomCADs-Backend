@@ -1,5 +1,4 @@
-﻿using CustomCADs.Files.Domain.Images.Validation;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Files.Domain.Images;
 

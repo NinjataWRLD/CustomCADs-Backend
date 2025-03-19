@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Customizations.Application.Common.Exceptions;
-using CustomCADs.Customizations.Domain.Materials.Reads;
+using CustomCADs.Customizations.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Images.Queries;
 

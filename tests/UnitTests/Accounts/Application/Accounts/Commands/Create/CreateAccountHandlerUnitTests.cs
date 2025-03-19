@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Create;
-using CustomCADs.Accounts.Domain.Common;
+using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;

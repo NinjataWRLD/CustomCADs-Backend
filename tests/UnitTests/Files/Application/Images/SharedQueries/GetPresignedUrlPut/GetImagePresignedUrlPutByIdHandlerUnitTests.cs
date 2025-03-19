@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Application.Images.SharedQueryHandlers;
-using CustomCADs.Files.Domain.Images.Reads;
+using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.UseCases.Images.Queries;
 using CustomCADs.UnitTests.Files.Application.Images.SharedQueries.GetPresignedUrlPut.Data;

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.CountItems;
-using CustomCADs.Carts.Domain.ActiveCarts.Reads;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.CountItems;

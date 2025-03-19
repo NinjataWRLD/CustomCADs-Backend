@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Creator.Count;
 

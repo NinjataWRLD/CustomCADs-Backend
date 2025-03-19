@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Categories.Domain.Categories;
-using CustomCADs.Categories.Domain.Categories.Reads;
+using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Persistence;
 

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
 using CustomCADs.Files.Application.Common.Exceptions;
-using CustomCADs.Files.Domain.Common.Exceptions.Cads;
-using CustomCADs.Files.Domain.Common.Exceptions.Images;
+using CustomCADs.Files.Domain.Cads.Exceptions;
+using CustomCADs.Files.Domain.Images.Exceptions;
 using CustomCADs.Shared.Abstractions.Payment.Exceptions;
 using CustomCADs.Shared.API;
 using CustomCADs.Shared.Core.Common.Exceptions;

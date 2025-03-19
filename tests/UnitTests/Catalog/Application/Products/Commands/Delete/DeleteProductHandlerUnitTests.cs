@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Delete;
-using CustomCADs.Catalog.Domain.Common;
-using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
+using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Files;
 
@@ -11,7 +12,7 @@ using static ProductsData;
 public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly Mock<IProductReads> reads = new();
-    private readonly Mock<IWrites<Product>> writes = new();
+    private readonly Mock<IProductWrites> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IEventRaiser> raiser = new();
     private readonly Product product = CreateProduct();

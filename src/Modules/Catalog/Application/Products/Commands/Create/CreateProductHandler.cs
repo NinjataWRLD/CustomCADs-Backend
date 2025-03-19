@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -11,7 +12,7 @@ namespace CustomCADs.Catalog.Application.Products.Commands.Create;
 
 using static Constants.Roles;
 
-public sealed class CreateProductHandler(IWrites<Product> productWrites, IUnitOfWork uow, IRequestSender sender)
+public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<CreateProductCommand, ProductId>
 {
     public async Task<ProductId> Handle(CreateProductCommand req, CancellationToken ct)

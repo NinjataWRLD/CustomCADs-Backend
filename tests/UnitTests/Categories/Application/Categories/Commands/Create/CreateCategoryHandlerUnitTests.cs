@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Create;
-using CustomCADs.Categories.Domain.Categories.DomainEvents;
-using CustomCADs.Categories.Domain.Common;
+using CustomCADs.Categories.Domain.Categories.Events;
+using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Create.Data;
 

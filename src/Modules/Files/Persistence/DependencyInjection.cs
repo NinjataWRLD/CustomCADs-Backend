@@ -1,6 +1,5 @@
-﻿using CustomCADs.Files.Domain.Cads.Reads;
-using CustomCADs.Files.Domain.Common;
-using CustomCADs.Files.Domain.Images.Reads;
+﻿using CustomCADs.Files.Domain.Repositories;
+using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Files.Persistence;
 using CustomCADs.Files.Persistence.Cads.Reads;
 using CustomCADs.Files.Persistence.Common;

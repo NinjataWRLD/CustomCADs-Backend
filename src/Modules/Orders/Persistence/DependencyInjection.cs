@@ -1,6 +1,5 @@
-﻿using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Orders.Domain.CompletedOrders.Reads;
-using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+﻿using CustomCADs.Orders.Domain.Repositories;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Orders.Persistence;
 using CustomCADs.Orders.Persistence.Common;
 using CustomCADs.Orders.Persistence.CompletedOrders.Reads;

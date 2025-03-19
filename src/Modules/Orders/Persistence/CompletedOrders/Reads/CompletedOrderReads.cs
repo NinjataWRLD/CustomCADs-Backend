@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.CompletedOrders;
-using CustomCADs.Orders.Domain.CompletedOrders.Reads;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Orders;

@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Customizations.Application.Common.Exceptions;
-using CustomCADs.Customizations.Domain.Common.Exceptions.Customizations;
-using CustomCADs.Customizations.Domain.Common.Exceptions.Materials;
+using CustomCADs.Customizations.Domain.Customizations.Exceptions;
+using CustomCADs.Customizations.Domain.Materials.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CustomCADs.Customizations.Endpoints.Common;

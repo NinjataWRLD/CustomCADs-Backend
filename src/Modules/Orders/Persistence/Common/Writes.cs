@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common;
+﻿using CustomCADs.Orders.Domain.Repositories;
 using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Orders.Persistence.Common;

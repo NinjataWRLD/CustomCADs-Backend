@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.IntegrationEventHandlers;
-using CustomCADs.Accounts.Domain.Accounts.Reads;
-using CustomCADs.Accounts.Domain.Common;
+using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.IntegrationEvents.Catalog;

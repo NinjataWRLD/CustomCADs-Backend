@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetByUsername;
-using CustomCADs.Accounts.Domain.Accounts.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.GetByUsername.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.GetByUsername;

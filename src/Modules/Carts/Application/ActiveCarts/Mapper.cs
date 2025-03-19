@@ -43,11 +43,11 @@ internal static class Mapper
         );
 
     internal static ActiveCartItem ToCartItem(this ActiveCartItemDto item)
-        => item.CustomizationId is null 
+        => item.CustomizationId is null
         ? ActiveCartItem.Create(
             productId: item.ProductId,
             cartId: item.CartId
-        ).IncreaseQuantity(item.Quantity) 
+        ).IncreaseQuantity(item.Quantity)
         : ActiveCartItem.Create(
             productId: item.ProductId,
             cartId: item.CartId,

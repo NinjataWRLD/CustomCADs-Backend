@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.CalculateShipment;
-using CustomCADs.Carts.Domain.ActiveCarts.Reads;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;

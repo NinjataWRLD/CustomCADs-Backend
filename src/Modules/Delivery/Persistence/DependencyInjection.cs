@@ -1,5 +1,5 @@
-﻿using CustomCADs.Delivery.Domain.Common;
-using CustomCADs.Delivery.Domain.Shipments.Reads;
+﻿using CustomCADs.Delivery.Domain.Repositories;
+using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Delivery.Persistence;
 using CustomCADs.Delivery.Persistence.Common;
 using CustomCADs.Delivery.Persistence.Shipments.Reads;

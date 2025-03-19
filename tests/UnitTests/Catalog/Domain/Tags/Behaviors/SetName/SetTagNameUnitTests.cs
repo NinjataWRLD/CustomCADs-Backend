@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Tags;
+﻿using CustomCADs.Catalog.Domain.Tags.Exceptions;
 using CustomCADs.UnitTests.Catalog.Domain.Tags.Behaviors.SetName.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Behaviors.SetName;

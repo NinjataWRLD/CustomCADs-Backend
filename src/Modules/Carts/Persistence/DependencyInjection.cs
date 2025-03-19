@@ -1,6 +1,5 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Reads;
-using CustomCADs.Carts.Domain.Common;
-using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
+﻿using CustomCADs.Carts.Domain.Repositories;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Carts.Persistence;
 using CustomCADs.Carts.Persistence.ActiveCarts.Reads;
 using CustomCADs.Carts.Persistence.Common;

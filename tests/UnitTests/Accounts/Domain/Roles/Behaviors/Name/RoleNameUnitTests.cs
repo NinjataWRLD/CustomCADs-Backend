@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Common.Exceptions.Roles;
+﻿using CustomCADs.Accounts.Domain.Roles.Exceptions;
 using CustomCADs.UnitTests.Accounts.Domain.Roles.Behaviors.Name.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Behaviors.Name;

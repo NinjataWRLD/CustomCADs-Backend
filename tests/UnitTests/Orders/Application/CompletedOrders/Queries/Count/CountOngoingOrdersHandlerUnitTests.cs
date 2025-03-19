@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Application.CompletedOrders.Queries.Count;
-using CustomCADs.Orders.Domain.CompletedOrders.Reads;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Orders.Application.CompletedOrders.Queries.Count;

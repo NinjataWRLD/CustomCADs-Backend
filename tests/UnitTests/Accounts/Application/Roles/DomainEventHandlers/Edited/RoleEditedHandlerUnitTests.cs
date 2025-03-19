@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Common.Caching;
 using CustomCADs.Accounts.Application.Roles.DomainEventHandlers;
-using CustomCADs.Accounts.Domain.Roles.DomainEvents;
+using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.UnitTests.Accounts.Application.Roles.DomainEventHandlers.Edited.Data;
 

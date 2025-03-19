@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Customizations.Application.Common.Exceptions;
-using CustomCADs.Customizations.Domain.Common;
-using CustomCADs.Customizations.Domain.Customizations.Reads;
+using CustomCADs.Customizations.Domain.Repositories;
+using CustomCADs.Customizations.Domain.Repositories.Reads;
 
 namespace CustomCADs.Customizations.Application.Customizations.Commands.Edit;
 

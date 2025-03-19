@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Commands.Create;
-using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Catalog.Domain.Tags;
 using CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Create.Data;
 
@@ -7,7 +8,7 @@ namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Create;
 
 public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 {
-    private readonly Mock<IWrites<Tag>> writes = new();
+    private readonly Mock<ITagWrites> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
 
     [Theory]

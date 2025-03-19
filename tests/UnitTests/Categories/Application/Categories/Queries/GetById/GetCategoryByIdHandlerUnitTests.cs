@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.Queries.GetById;
 using CustomCADs.Categories.Application.Common.Caching;
-using CustomCADs.Categories.Domain.Categories.Reads;
+using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.UnitTests.Categories.Application.Categories.Queries.GetById.Data;

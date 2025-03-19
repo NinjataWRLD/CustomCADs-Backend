@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
+﻿using CustomCADs.Carts.Domain.ActiveCarts.Exceptions.CartItems;
 using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.DecreaseQuantity.Data;
 
 namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.DecreaseQuantity;

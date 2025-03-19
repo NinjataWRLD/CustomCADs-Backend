@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Orders.Domain.OngoingOrders;
 using CustomCADs.Orders.Domain.OngoingOrders.Enums;
-using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Orders;

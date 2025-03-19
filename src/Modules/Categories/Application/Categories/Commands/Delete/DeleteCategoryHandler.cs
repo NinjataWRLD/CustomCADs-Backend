@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Categories.Application.Common.Exceptions;
-using CustomCADs.Categories.Domain.Categories.DomainEvents;
-using CustomCADs.Categories.Domain.Categories.Reads;
-using CustomCADs.Categories.Domain.Common;
+using CustomCADs.Categories.Domain.Categories.Events;
+using CustomCADs.Categories.Domain.Repositories;
+using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Delete;

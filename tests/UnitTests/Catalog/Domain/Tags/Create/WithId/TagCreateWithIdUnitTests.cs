@@ -1,5 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Tags;
-using CustomCADs.Catalog.Domain.Tags;
+﻿using CustomCADs.Catalog.Domain.Tags;
+using CustomCADs.Catalog.Domain.Tags.Exceptions;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Catalog.Domain.Tags.Create.WithId.Data;
 

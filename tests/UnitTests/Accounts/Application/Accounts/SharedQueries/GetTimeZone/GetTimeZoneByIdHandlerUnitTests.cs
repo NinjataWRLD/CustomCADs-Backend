@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.TimeZone;
-using CustomCADs.Accounts.Domain.Accounts.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetTimeZone.Data;

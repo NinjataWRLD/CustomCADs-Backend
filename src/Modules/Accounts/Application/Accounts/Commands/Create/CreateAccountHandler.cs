@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Common;
+﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 

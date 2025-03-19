@@ -1,8 +1,7 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Purchase.WithDelivery;
 using CustomCADs.Carts.Application.PurchasedCarts.Commands.Create;
-using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetById;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
-using CustomCADs.Carts.Domain.ActiveCarts.Reads;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -42,10 +41,10 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetProductPricesByIdsQuery>(), ct))
             .ReturnsAsync([]);
-        
+
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsCostByIdsQuery>(), ct))
             .ReturnsAsync([]);
-        
+
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsCostByIdsQuery>(), ct))
             .ReturnsAsync([]);
 

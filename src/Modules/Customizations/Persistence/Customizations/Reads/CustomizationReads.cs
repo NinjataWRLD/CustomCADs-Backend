@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Customizations.Domain.Customizations;
-using CustomCADs.Customizations.Domain.Customizations.Reads;
+using CustomCADs.Customizations.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Persistence;
 

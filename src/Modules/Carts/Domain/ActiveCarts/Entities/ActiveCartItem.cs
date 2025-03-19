@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Validation;
-using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
+﻿using CustomCADs.Carts.Domain.ActiveCarts.Exceptions.CartItems;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;

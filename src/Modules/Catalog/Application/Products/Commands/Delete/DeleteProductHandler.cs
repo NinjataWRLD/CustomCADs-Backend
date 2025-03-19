@@ -1,12 +1,13 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Common;
-using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
+using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.IntegrationEvents.Files;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Delete;
 
-public sealed class DeleteProductHandler(IProductReads reads, IWrites<Product> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class DeleteProductHandler(IProductReads reads, IProductWrites writes, IUnitOfWork uow, IEventRaiser raiser)
     : ICommandHandler<DeleteProductCommand>
 {
     public async Task Handle(DeleteProductCommand req, CancellationToken ct)

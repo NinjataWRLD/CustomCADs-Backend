@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
 using CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Accept;
-using CustomCADs.Orders.Domain.Common;
 using CustomCADs.Orders.Domain.OngoingOrders.Enums;
-using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Orders.Domain.Repositories;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;

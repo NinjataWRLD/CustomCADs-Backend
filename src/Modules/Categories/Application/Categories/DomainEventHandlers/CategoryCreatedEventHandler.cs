@@ -1,4 +1,4 @@
-﻿using CustomCADs.Categories.Domain.Categories.DomainEvents;
+﻿using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Shared.Abstractions.Cache;
 
 namespace CustomCADs.Categories.Application.Categories.DomainEventHandlers;
