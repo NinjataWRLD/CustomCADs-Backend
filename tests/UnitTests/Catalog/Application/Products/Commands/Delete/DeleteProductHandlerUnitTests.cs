@@ -3,7 +3,7 @@ using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Files;
+using CustomCADs.Shared.ApplicationEvents.Files;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Delete;
 
@@ -63,7 +63,7 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        raiser.Verify(x => x.RaiseIntegrationEventAsync(It.IsAny<ProductDeletedIntegrationEvent>()), Times.Once);
+        raiser.Verify(x => x.RaiseApplicationEventAsync(It.IsAny<ProductDeletedApplicationEvent>()), Times.Once);
     }
 
     [Fact]

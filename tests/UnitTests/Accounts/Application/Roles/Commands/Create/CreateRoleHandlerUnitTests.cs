@@ -2,7 +2,7 @@
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Account.Roles;
+using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Create;
@@ -49,8 +49,8 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
         raiser.Verify(x => x.RaiseDomainEventAsync(
             It.Is<RoleCreatedDomainEvent>(x => x.Role.Name == name && x.Role.Description == description)
         ), Times.Once);
-        raiser.Verify(x => x.RaiseIntegrationEventAsync(
-            It.Is<RoleCreatedIntegrationEvent>(x => x.Name == name && x.Description == description)
+        raiser.Verify(x => x.RaiseApplicationEventAsync(
+            It.Is<RoleCreatedApplicationEvent>(x => x.Name == name && x.Description == description)
         ), Times.Once);
     }
 }

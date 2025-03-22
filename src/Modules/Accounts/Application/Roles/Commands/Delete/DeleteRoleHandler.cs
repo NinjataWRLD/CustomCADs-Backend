@@ -3,7 +3,7 @@ using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Account.Roles;
+using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Delete;
 
@@ -23,7 +23,7 @@ public sealed class DeleteRoleHandler(IRoleReads reads, IWrites<Role> writes, IU
             Name: role.Name
         )).ConfigureAwait(false);
 
-        await raiser.RaiseIntegrationEventAsync(new RoleDeletedIntegrationEvent(
+        await raiser.RaiseApplicationEventAsync(new RoleDeletedApplicationEvent(
             Name: role.Name
         )).ConfigureAwait(false);
     }

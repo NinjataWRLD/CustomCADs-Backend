@@ -3,7 +3,7 @@ using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Files;
+using CustomCADs.Shared.ApplicationEvents.Files;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Delete;
 
@@ -23,7 +23,7 @@ public sealed class DeleteProductHandler(IProductReads reads, IProductWrites wri
         writes.Remove(product);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseIntegrationEventAsync(new ProductDeletedIntegrationEvent(
+        await raiser.RaiseApplicationEventAsync(new ProductDeletedApplicationEvent(
             Id: product.Id,
             ImageId: product.ImageId,
             CadId: product.CadId

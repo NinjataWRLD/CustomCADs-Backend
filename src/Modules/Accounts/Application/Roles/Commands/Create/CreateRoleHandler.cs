@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Account.Roles;
+using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Create;
 
@@ -19,7 +19,7 @@ public sealed class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow, IEv
             Role: role
         )).ConfigureAwait(false);
 
-        await raiser.RaiseIntegrationEventAsync(new RoleCreatedIntegrationEvent(
+        await raiser.RaiseApplicationEventAsync(new RoleCreatedApplicationEvent(
             Name: req.Dto.Name,
             Description: req.Dto.Description
         )).ConfigureAwait(false);

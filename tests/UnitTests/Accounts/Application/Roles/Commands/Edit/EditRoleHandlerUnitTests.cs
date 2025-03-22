@@ -3,7 +3,7 @@ using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Account.Roles;
+using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Edit.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Edit;
@@ -67,8 +67,8 @@ public class EditRoleHandlerUnitTests : RolesBaseUnitTests
         raiser.Verify(x => x.RaiseDomainEventAsync(
             It.Is<RoleEditedDomainEvent>(x => x.Role.Name == name && x.Role.Description == description)
         ), Times.Once);
-        raiser.Verify(x => x.RaiseIntegrationEventAsync(
-            It.Is<RoleEditedIntegrationEvent>(x => x.Name == name && x.Description == description)
+        raiser.Verify(x => x.RaiseApplicationEventAsync(
+            It.Is<RoleEditedApplicationEvent>(x => x.Name == name && x.Description == description)
         ), Times.Once);
     }
 

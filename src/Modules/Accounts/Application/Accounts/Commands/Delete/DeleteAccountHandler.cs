@@ -2,7 +2,7 @@
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
+using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.Delete;
 
@@ -17,7 +17,7 @@ public sealed class DeleteAccountHandler(IAccountReads reads, IWrites<Account> w
         writes.Remove(account);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseIntegrationEventAsync(new AccountDeletedIntegrationEvent(
+        await raiser.RaiseApplicationEventAsync(new AccountDeletedApplicationEvent(
             req.Username
         )).ConfigureAwait(false);
     }

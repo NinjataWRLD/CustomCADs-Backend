@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Create;
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
+using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Create;
@@ -68,8 +68,8 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
         AccountId id = await handler.Handle(command, CancellationToken.None);
 
         // Assert
-        raiser.Verify(x => x.RaiseIntegrationEventAsync(
-            It.Is<AccountCreatedIntegrationEvent>(x =>
+        raiser.Verify(x => x.RaiseApplicationEventAsync(
+            It.Is<AccountCreatedApplicationEvent>(x =>
                 x.Id == id
                 && x.Username == username
                 && x.Email == email

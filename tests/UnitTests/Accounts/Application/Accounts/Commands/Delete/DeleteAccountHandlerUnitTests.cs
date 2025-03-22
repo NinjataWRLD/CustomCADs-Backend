@@ -2,7 +2,7 @@
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
+using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete;
@@ -66,8 +66,8 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        raiser.Verify(x => x.RaiseIntegrationEventAsync(
-            It.Is<AccountDeletedIntegrationEvent>(x => x.Username == username)
+        raiser.Verify(x => x.RaiseApplicationEventAsync(
+            It.Is<AccountDeletedApplicationEvent>(x => x.Username == username)
         ), Times.Once);
     }
 
