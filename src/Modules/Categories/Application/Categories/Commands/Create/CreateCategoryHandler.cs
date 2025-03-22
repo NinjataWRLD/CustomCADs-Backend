@@ -1,5 +1,5 @@
-﻿using CustomCADs.Categories.Domain.Categories.DomainEvents;
-using CustomCADs.Categories.Domain.Common;
+﻿using CustomCADs.Categories.Domain.Categories.Events;
+using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Create;

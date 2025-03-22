@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Accounts.Application.Common.Exceptions;
-using CustomCADs.Accounts.Domain.Common;
-using CustomCADs.Accounts.Domain.Roles.DomainEvents;
-using CustomCADs.Accounts.Domain.Roles.Reads;
+using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Account.Roles;
+using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Edit;
 
@@ -26,7 +26,7 @@ public sealed class EditRoleHandler(IRoleReads reads, IUnitOfWork uow, IEventRai
             Role: role
         )).ConfigureAwait(false);
 
-        await raiser.RaiseIntegrationEventAsync(new RoleEditedIntegrationEvent(
+        await raiser.RaiseApplicationEventAsync(new RoleEditedApplicationEvent(
             Name: role.Name,
             Description: role.Description
         )).ConfigureAwait(false);

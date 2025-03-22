@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Application.Cads.SharedQueryHandlers;
-using CustomCADs.Files.Domain.Cads.Reads;
+using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.SharedQueries.GetVolume;

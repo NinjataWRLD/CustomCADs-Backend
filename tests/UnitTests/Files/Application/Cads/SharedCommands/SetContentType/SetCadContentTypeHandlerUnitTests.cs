@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetContentType;
-using CustomCADs.Files.Domain.Cads.Reads;
-using CustomCADs.Files.Domain.Common;
+using CustomCADs.Files.Domain.Repositories;
+using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetContentType.Data;
 

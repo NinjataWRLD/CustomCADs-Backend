@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.RemoveTag;
-using CustomCADs.Catalog.Domain.Common;
-using CustomCADs.Catalog.Domain.Products.Writes;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.RemoveTag;

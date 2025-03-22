@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.CompletedOrder;
+﻿using CustomCADs.Orders.Domain.CompletedOrders.Exceptions;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Orders.Domain.CompletedOrders.Create.WithId.Data;
 

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Common.Exceptions;
-using CustomCADs.Accounts.Domain.Accounts.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.ViewedProduct;

@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
+using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Catalog.Domain.Tags.Reads;
 
 namespace CustomCADs.Catalog.Application.Tags.Commands.Delete;
 
-public class DeleteTagHandler(ITagReads reads, IWrites<Tag> writes, IUnitOfWork uow)
+public class DeleteTagHandler(ITagReads reads, ITagWrites writes, IUnitOfWork uow)
     : ICommandHandler<DeleteTagCommand>
 {
     public async Task Handle(DeleteTagCommand req, CancellationToken ct)

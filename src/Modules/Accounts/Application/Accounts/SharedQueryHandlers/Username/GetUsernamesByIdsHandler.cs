@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts.Reads;
+﻿using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 

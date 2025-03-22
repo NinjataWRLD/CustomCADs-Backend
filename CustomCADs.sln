@@ -106,7 +106,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.Core", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.Infrastructure", "src\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj", "{E3CABE8C-7CA8-419B-ACEA-BA489E509C76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.IntegrationEvents", "src\Shared\IntegrationEvents\CustomCADs.Shared.IntegrationEvents.csproj", "{9B3A4627-A02A-47E0-AFBF-042A4F30E20F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.ApplicationEvents", "src\Shared\ApplicationEvents\CustomCADs.Shared.ApplicationEvents.csproj", "{9B3A4627-A02A-47E0-AFBF-042A4F30E20F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.Persistence", "src\Shared\Persistence\CustomCADs.Shared.Persistence.csproj", "{A4145A0C-3EAA-48A9-8BEF-318D1579ED58}"
 EndProject

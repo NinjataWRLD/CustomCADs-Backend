@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Customizations.Application.Common.Exceptions;
-using CustomCADs.Customizations.Domain.Customizations.Reads;
-using CustomCADs.Customizations.Domain.Materials.Reads;
+using CustomCADs.Customizations.Domain.Repositories.Reads;
 
 namespace CustomCADs.Customizations.Application.Customizations.Queries.GetById;
 

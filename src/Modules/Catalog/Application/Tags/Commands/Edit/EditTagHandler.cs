@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Catalog.Domain.Tags.Reads;
 
 namespace CustomCADs.Catalog.Application.Tags.Commands.Edit;
 

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Common.Exceptions.Roles;
+﻿using CustomCADs.Accounts.Domain.Roles.Exceptions;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Accounts.Domain.Roles.Create.WithId.Data;
 

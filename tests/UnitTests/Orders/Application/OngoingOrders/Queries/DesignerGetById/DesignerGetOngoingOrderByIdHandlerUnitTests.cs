@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.DesignerGetById;
-using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.SharedCommands.Create;
-using CustomCADs.Delivery.Domain.Common;
+using CustomCADs.Delivery.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;

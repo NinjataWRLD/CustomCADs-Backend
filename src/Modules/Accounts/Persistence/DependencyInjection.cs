@@ -1,14 +1,14 @@
-﻿using CustomCADs.Accounts.Domain.Accounts.Reads;
-using CustomCADs.Accounts.Domain.Common;
-using CustomCADs.Accounts.Domain.Roles.Reads;
+﻿using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Accounts.Persistence;
-using CustomCADs.Accounts.Persistence.Accounts.Reads;
-using CustomCADs.Accounts.Persistence.Common;
-using CustomCADs.Accounts.Persistence.Roles.Reads;
+using CustomCADs.Accounts.Persistence.Repositories;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using AccountReads = CustomCADs.Accounts.Persistence.Repositories.Accounts.Reads;
+using RoleReads = CustomCADs.Accounts.Persistence.Repositories.Roles.Reads;
 
 public static class DependencyInjection
 {

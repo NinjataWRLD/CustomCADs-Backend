@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Queries.GetById;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Catalog.Domain.Tags.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Queries.GetById;

@@ -1,4 +1,5 @@
-﻿using CustomCADs.UnitTests.Files.Domain.Images.Create.Normal.Data;
+﻿using CustomCADs.Files.Domain.Images.Exceptions;
+using CustomCADs.UnitTests.Files.Domain.Images.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Create.Normal;
 

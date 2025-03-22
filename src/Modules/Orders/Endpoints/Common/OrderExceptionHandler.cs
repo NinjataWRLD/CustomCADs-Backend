@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Orders.Application.Common.Exceptions.Completed;
 using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
-using CustomCADs.Orders.Domain.Common.Exceptions.CompletedOrder;
-using CustomCADs.Orders.Domain.Common.Exceptions.OngoingOrders;
+using CustomCADs.Orders.Domain.CompletedOrders.Exceptions;
+using CustomCADs.Orders.Domain.OngoingOrders.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CustomCADs.Orders.Endpoints.Common;

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
+﻿using CustomCADs.Delivery.Domain.Shipments.Exceptions;
+using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Delivery.Domain.Shipments.Create.Normal.Data;
 

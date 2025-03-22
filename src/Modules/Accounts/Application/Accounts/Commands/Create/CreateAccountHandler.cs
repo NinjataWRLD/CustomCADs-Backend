@@ -1,6 +1,6 @@
-﻿using CustomCADs.Accounts.Domain.Common;
+﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Account.Accounts;
+using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.Create;
 
@@ -21,7 +21,7 @@ public sealed class CreateAccountHandler(IWrites<Account> writes, IUnitOfWork uo
         await writes.AddAsync(account, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseIntegrationEventAsync(new AccountCreatedIntegrationEvent(
+        await raiser.RaiseApplicationEventAsync(new AccountCreatedApplicationEvent(
             Id: account.Id,
             Role: account.RoleName,
             Username: account.Username,

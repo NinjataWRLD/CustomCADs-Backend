@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.DomainEventHandlers;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
-using CustomCADs.Carts.Domain.Common;
-using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
+using CustomCADs.Carts.Domain.Repositories;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;

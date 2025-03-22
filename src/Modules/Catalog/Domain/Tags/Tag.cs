@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Tags.Validations;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Catalog.Domain.Tags;
 

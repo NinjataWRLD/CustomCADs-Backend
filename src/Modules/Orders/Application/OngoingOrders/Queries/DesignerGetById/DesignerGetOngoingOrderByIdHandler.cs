@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.OngoingOrders.Enums;
-using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 

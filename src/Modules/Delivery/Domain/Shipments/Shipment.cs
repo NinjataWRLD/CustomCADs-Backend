@@ -1,5 +1,4 @@
-﻿using CustomCADs.Delivery.Domain.Shipments.Validations;
-using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
+﻿using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;

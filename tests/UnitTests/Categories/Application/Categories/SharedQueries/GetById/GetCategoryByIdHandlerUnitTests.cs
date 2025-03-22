@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Categories.Application.Categories.SharedQueryHandlers;
-using CustomCADs.Categories.Domain.Categories.Reads;
+using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 using CustomCADs.UnitTests.Categories.Application.Categories.SharedQueries.GetById.Data;

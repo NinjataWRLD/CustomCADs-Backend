@@ -1,6 +1,4 @@
-﻿using CustomCADs.Files.Domain.Cads.Validation;
-using CustomCADs.Files.Domain.Images.Validation;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.Files.Domain.Cads;
@@ -75,7 +73,7 @@ public class Cad : BaseAggregateRoot
 
         return this;
     }
-    
+
     public Cad SetVolume(decimal volume)
     {
         Volume = volume;

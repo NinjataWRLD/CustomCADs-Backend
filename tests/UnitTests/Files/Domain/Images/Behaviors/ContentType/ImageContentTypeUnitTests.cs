@@ -1,4 +1,5 @@
-﻿using CustomCADs.UnitTests.Files.Domain.Images.Behaviors.ContentType.Data;
+﻿using CustomCADs.Files.Domain.Images.Exceptions;
+using CustomCADs.UnitTests.Files.Domain.Images.Behaviors.ContentType.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Behaviors.ContentType;
 

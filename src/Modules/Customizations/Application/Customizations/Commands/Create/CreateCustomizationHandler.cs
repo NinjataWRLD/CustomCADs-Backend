@@ -1,4 +1,4 @@
-﻿using CustomCADs.Customizations.Domain.Common;
+﻿using CustomCADs.Customizations.Domain.Repositories;
 
 namespace CustomCADs.Customizations.Application.Customizations.Commands.Create;
 

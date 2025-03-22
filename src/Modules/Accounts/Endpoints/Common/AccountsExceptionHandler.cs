@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Common.Exceptions;
-using CustomCADs.Accounts.Domain.Common.Exceptions.Accounts;
-using CustomCADs.Accounts.Domain.Common.Exceptions.Roles;
+using CustomCADs.Accounts.Domain.Accounts.Exceptions;
+using CustomCADs.Accounts.Domain.Roles.Exceptions;
 using CustomCADs.Shared.API;
 using Microsoft.AspNetCore.Diagnostics;
 

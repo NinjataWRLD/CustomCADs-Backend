@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+using CustomCADs.Catalog.Domain.Products.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CustomCADs.Catalog.Endpoints.Common;

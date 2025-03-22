@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Delete;
-using CustomCADs.Accounts.Domain.Common;
-using CustomCADs.Accounts.Domain.Roles.DomainEvents;
-using CustomCADs.Accounts.Domain.Roles.Reads;
+using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.IntegrationEvents.Account.Roles;
+using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Delete.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Delete;
@@ -71,8 +71,8 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
         raiser.Verify(x => x.RaiseDomainEventAsync(
             It.Is<RoleDeletedDomainEvent>(x => x.Name == name)
         ));
-        raiser.Verify(x => x.RaiseIntegrationEventAsync(
-            It.Is<RoleDeletedIntegrationEvent>(x => x.Name == name)
+        raiser.Verify(x => x.RaiseApplicationEventAsync(
+            It.Is<RoleDeletedApplicationEvent>(x => x.Name == name)
         ), Times.Once);
     }
 

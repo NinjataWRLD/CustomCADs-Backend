@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Commands.Edit;
-using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Catalog.Domain.Tags.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Edit.Data;
 

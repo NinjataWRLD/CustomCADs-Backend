@@ -1,4 +1,4 @@
-﻿using CustomCADs.Customizations.Domain.Common;
+﻿using CustomCADs.Customizations.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Images.Commands;

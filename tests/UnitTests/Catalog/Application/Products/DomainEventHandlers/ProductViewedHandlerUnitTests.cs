@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Catalog.Application.Products.DomainEventHandlers;
-using CustomCADs.Catalog.Domain.Common;
-using CustomCADs.Catalog.Domain.Products.DomainEvents;
-using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Catalog.Domain.Products.Events;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.IntegrationEvents.Catalog;
+using CustomCADs.Shared.ApplicationEvents.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.DomainEventHandlers;
@@ -80,8 +80,8 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
         await handler.Handle(de);
 
         // Assert
-        raiser.Verify(x => x.RaiseIntegrationEventAsync(
-            It.IsAny<UserViewedProductIntegrationEvent>()
+        raiser.Verify(x => x.RaiseApplicationEventAsync(
+            It.IsAny<UserViewedProductApplicationEvent>()
         ), Times.Once);
     }
 

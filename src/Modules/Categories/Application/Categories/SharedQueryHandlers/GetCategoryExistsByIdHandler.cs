@@ -1,4 +1,4 @@
-﻿using CustomCADs.Categories.Domain.Categories.Reads;
+﻿using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Categories.Application.Categories.SharedQueryHandlers;

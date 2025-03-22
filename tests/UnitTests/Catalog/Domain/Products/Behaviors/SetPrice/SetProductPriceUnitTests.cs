@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+﻿using CustomCADs.Catalog.Domain.Products.Exceptions;
 using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetPrice.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetPrice;

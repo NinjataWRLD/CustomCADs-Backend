@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.Common.Dtos;
 using CustomCADs.Carts.Application.PurchasedCarts.Commands.Create;
-using CustomCADs.Carts.Domain.Common;
+using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;

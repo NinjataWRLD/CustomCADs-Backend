@@ -1,6 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
-using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Domain.Products.Validation;
+﻿using CustomCADs.Catalog.Domain.Products.Enums;
+using CustomCADs.Catalog.Domain.Products.Exceptions;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Categories.Application.Common.Exceptions;
-using CustomCADs.Categories.Domain.Common.Exceptions.Categories;
+using CustomCADs.Categories.Domain.Categories.Exceptions;
 using CustomCADs.Shared.API;
 using Microsoft.AspNetCore.Diagnostics;
 

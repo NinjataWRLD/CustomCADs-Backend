@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Edit;
-using CustomCADs.Categories.Domain.Categories.DomainEvents;
-using CustomCADs.Categories.Domain.Categories.Reads;
-using CustomCADs.Categories.Domain.Common;
+using CustomCADs.Categories.Domain.Categories.Events;
+using CustomCADs.Categories.Domain.Repositories;
+using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Edit.Data;

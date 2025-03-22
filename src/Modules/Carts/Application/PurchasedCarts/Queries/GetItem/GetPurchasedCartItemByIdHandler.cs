@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
-using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.GetItem;
 

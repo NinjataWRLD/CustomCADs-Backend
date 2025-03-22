@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Commands.Delete;
-using CustomCADs.Catalog.Domain.Common;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
+using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Catalog.Domain.Tags.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Delete;
@@ -9,7 +10,7 @@ namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Delete;
 public class DeleteTagHandlerUnitTests : TagsBaseUnitTests
 {
     private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<IWrites<Tag>> writes = new();
+    private readonly Mock<ITagWrites> writes = new();
     private readonly Mock<ITagReads> reads = new();
 
     private static readonly TagId id = new();

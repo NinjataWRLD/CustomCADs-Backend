@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.CompletedOrders.Reads;
+﻿using CustomCADs.Orders.Domain.Repositories.Reads;
 
 namespace CustomCADs.Orders.Application.CompletedOrders.Queries.Count;
 

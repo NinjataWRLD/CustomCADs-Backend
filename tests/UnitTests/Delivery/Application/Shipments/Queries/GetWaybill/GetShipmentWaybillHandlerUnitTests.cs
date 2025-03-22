@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetWaybill;
-using CustomCADs.Delivery.Domain.Shipments.Reads;
+using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Delivery;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Queries.GetWaybill;

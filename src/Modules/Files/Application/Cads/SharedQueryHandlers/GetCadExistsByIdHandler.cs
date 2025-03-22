@@ -1,4 +1,4 @@
-﻿using CustomCADs.Files.Domain.Cads.Reads;
+﻿using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Queries;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 

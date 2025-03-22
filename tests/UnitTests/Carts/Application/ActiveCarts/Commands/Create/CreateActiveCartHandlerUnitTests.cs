@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Create;
-using CustomCADs.Carts.Domain.ActiveCarts.Reads;
-using CustomCADs.Carts.Domain.Common;
+using CustomCADs.Carts.Domain.Repositories;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;

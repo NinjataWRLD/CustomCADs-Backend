@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.CompletedOrder;
-using CustomCADs.Orders.Domain.CompletedOrders.Validation;
+﻿using CustomCADs.Orders.Domain.CompletedOrders.Exceptions;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Application.Common.Exceptions;
-using CustomCADs.Delivery.Domain.Shipments.Reads;
+using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 

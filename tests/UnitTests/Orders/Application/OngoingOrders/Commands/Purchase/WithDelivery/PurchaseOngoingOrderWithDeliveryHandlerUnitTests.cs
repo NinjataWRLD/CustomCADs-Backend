@@ -3,7 +3,7 @@ using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
 using CustomCADs.Orders.Application.CompletedOrders.Queries.ClientGetById;
 using CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery;
 using CustomCADs.Orders.Domain.OngoingOrders.Events;
-using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -11,7 +11,6 @@ using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
-using Moq;
 
 namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.Purchase.WithDelivery;
 

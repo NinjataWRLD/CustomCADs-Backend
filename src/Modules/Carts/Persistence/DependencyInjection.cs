@@ -1,15 +1,15 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Reads;
-using CustomCADs.Carts.Domain.Common;
-using CustomCADs.Carts.Domain.PurchasedCarts.Reads;
+﻿using CustomCADs.Carts.Domain.Repositories;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Carts.Persistence;
-using CustomCADs.Carts.Persistence.ActiveCarts.Reads;
-using CustomCADs.Carts.Persistence.Common;
-using CustomCADs.Carts.Persistence.PurchasedCarts.Reads;
+using CustomCADs.Carts.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using ActiveCartReads = CustomCADs.Carts.Persistence.Repositories.ActiveCarts.Reads;
+using PurchasedCartReads = CustomCADs.Carts.Persistence.Repositories.PurchasedCarts.Reads;
 
 public static class DependencyInjection
 {

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
-using CustomCADs.Delivery.Domain.Shipments.Reads;
+using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;

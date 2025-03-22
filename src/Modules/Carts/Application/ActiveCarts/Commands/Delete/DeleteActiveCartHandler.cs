@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.ActiveCarts.Reads;
-using CustomCADs.Carts.Domain.Common;
+using CustomCADs.Carts.Domain.Repositories;
+using CustomCADs.Carts.Domain.Repositories.Reads;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Delete;
 

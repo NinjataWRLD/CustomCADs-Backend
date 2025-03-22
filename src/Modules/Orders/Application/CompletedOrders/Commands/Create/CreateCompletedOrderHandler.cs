@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common;
+﻿using CustomCADs.Orders.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Queries;

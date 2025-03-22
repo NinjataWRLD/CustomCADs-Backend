@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Common;
-using CustomCADs.Catalog.Domain.Products.DomainEvents;
-using CustomCADs.Catalog.Domain.Products.Reads;
+using CustomCADs.Catalog.Domain.Products.Events;
+using CustomCADs.Catalog.Domain.Repositories;
+using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.IntegrationEvents.Catalog;
+using CustomCADs.Shared.ApplicationEvents.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.DomainEventHandlers;
@@ -23,7 +23,7 @@ public class ProductViewedHandler(IProductReads reads, IUnitOfWork uow, IRequest
         product.AddToViewCount();
         await uow.SaveChangesAsync().ConfigureAwait(false);
 
-        await raiser.RaiseIntegrationEventAsync(new UserViewedProductIntegrationEvent(
+        await raiser.RaiseApplicationEventAsync(new UserViewedProductApplicationEvent(
             Id: de.Id,
             AccountId: de.AccountId
         )).ConfigureAwait(false);

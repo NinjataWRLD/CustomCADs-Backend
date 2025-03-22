@@ -1,5 +1,5 @@
-﻿using CustomCADs.Orders.Domain.Common;
-using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+﻿using CustomCADs.Orders.Domain.Repositories;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Remove;
 

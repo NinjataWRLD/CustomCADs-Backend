@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Orders.Domain.OngoingOrders.Enums;
-using CustomCADs.Orders.Domain.OngoingOrders.Reads;
+using CustomCADs.Orders.Domain.Repositories.Reads;
 
 namespace CustomCADs.Orders.Application.OngoingOrders.Queries.Count;
 
