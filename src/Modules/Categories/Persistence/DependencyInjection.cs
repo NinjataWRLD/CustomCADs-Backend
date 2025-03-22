@@ -1,12 +1,14 @@
 ﻿using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Categories.Persistence;
-using CustomCADs.Categories.Persistence.Categories.Reads;
-using CustomCADs.Categories.Persistence.Common;
+using CustomCADs.Categories.Persistence.Repositories;
+using CustomCADs.Categories.Persistence.Repositories.Categories;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using CategoryReads = CustomCADs.Categories.Persistence.Repositories.Categories.Reads;
 
 public static class DependencyInjection
 {

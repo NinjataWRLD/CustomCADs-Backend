@@ -2,15 +2,16 @@
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Catalog.Persistence;
-using CustomCADs.Catalog.Persistence.Common;
-using CustomCADs.Catalog.Persistence.Products.Reads;
-using CustomCADs.Catalog.Persistence.Products.Writes;
-using CustomCADs.Catalog.Persistence.Tags.Reads;
-using CustomCADs.Catalog.Persistence.Tags.Writes;
+using CustomCADs.Catalog.Persistence.Repositories;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using ProductReads = CustomCADs.Catalog.Persistence.Repositories.Products.Reads;
+using ProductWrites = CustomCADs.Catalog.Persistence.Repositories.Products.Writes;
+using TagReads = CustomCADs.Catalog.Persistence.Repositories.Tags.Reads;
+using TagWrites = CustomCADs.Catalog.Persistence.Repositories.Tags.Writes;
 
 public static class DependencyInjection
 {

@@ -1,14 +1,15 @@
 ﻿using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Files.Persistence;
-using CustomCADs.Files.Persistence.Cads.Reads;
-using CustomCADs.Files.Persistence.Common;
-using CustomCADs.Files.Persistence.Images.Reads;
+using CustomCADs.Files.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using CadReads = CustomCADs.Files.Persistence.Repositories.Cads.Reads;
+using ImageReads = CustomCADs.Files.Persistence.Repositories.Images.Reads;
 
 public static class DependencyInjection
 {

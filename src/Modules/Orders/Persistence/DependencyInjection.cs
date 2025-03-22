@@ -1,14 +1,15 @@
 ﻿using CustomCADs.Orders.Domain.Repositories;
 using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Orders.Persistence;
-using CustomCADs.Orders.Persistence.Common;
-using CustomCADs.Orders.Persistence.CompletedOrders.Reads;
-using CustomCADs.Orders.Persistence.OngoingOrders.Reads;
+using CustomCADs.Orders.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using CompletedOrderReads = CustomCADs.Orders.Persistence.Repositories.CompletedOrders.Reads;
+using OngoingOrderReads = CustomCADs.Orders.Persistence.Repositories.OngoingOrders.Reads;
 
 public static class DependencyInjection
 {

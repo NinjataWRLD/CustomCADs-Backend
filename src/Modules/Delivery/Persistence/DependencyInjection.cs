@@ -1,13 +1,15 @@
 ﻿using CustomCADs.Delivery.Domain.Repositories;
 using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Delivery.Persistence;
-using CustomCADs.Delivery.Persistence.Common;
-using CustomCADs.Delivery.Persistence.Shipments.Reads;
+using CustomCADs.Delivery.Persistence.Repositories;
+using CustomCADs.Delivery.Persistence.Repositories.Shipments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using ShipmentReads = CustomCADs.Delivery.Persistence.Repositories.Shipments.Reads;
 
 public static class DependencyInjection
 {
