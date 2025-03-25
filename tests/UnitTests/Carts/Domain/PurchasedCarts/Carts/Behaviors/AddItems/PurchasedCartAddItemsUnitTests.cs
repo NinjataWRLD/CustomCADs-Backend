@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Carts.Domain.PurchasedCarts.Exceptions.Carts;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Behaviors.AddItems.Data;
 
@@ -30,7 +30,7 @@ public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
             ]);
         }
 
-        Assert.Throws<PurchasedCartValidationException>(() =>
+        Assert.Throws<CustomValidationException<PurchasedCart>>(() =>
         {
             purchasedCart.AddItems([
                 (price, itemCadId, CreateActiveCartItem())

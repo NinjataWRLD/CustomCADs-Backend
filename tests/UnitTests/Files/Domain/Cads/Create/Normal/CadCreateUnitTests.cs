@@ -1,4 +1,5 @@
-﻿using CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+using CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Create.Normal;
 
@@ -32,7 +33,7 @@ public class CadCreateUnitTests : CadsBaseUnitTests
     [ClassData(typeof(CadCreateInvalidVolumeData))]
     public void Create_ShouldThrowException_WhenKeyIsInvalid(string key, string contentType, decimal volume, int x, int y, int z)
     {
-        Assert.Throws<CadValidationException>(() =>
+        Assert.Throws<CustomValidationException<Cad>>(() =>
         {
             Cad.Create(key, contentType, volume, new(x, y, z), new(x, y, z));
         });

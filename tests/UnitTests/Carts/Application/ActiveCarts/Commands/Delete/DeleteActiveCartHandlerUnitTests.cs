@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Delete;
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Delete;
@@ -61,7 +62,7 @@ public class DeleteActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
         DeleteActiveCartHandler handler = new(reads.Object, writes.Object, uow.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ActiveCartNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCart>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

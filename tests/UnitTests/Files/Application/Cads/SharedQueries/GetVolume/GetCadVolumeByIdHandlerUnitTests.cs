@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Files.Application.Cads.SharedQueryHandlers;
 using CustomCADs.Files.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.SharedQueries.GetVolume;
@@ -54,7 +55,7 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
         GetCadVolumeByIdHandler handler = new(reads.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CadNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

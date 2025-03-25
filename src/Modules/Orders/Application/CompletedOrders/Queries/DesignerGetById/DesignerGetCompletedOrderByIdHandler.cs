@@ -10,12 +10,10 @@ public sealed class DesignerGetCompletedOrderByIdHandler(ICompletedOrderReads re
     public async Task<DesignerGetCompletedOrderByIdDto> Handle(DesignerGetCompletedOrderByIdQuery req, CancellationToken ct)
     {
         CompletedOrder order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CompletedOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<CompletedOrder>.ById(req.Id);
 
         if (order.DesignerId != req.DesignerId)
-        {
-            throw CompletedOrderAuthorizationException.NotAssociated(order.Id, "view");
-        }
+            throw CustomAuthorizationException<CompletedOrder>.ById(order.Id);
 
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);

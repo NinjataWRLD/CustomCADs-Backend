@@ -1,6 +1,4 @@
-﻿using CustomCADs.Orders.Domain.CompletedOrders.Exceptions;
-
-namespace CustomCADs.Orders.Domain.CompletedOrders;
+﻿namespace CustomCADs.Orders.Domain.CompletedOrders;
 
 using static CompletedOrderConstants;
 
@@ -13,13 +11,13 @@ public static class CompletedOrderValidations
 
         if (string.IsNullOrEmpty(name))
         {
-            throw CompletedOrderValidationException.NotNull(property);
+            throw CustomValidationException<CompletedOrder>.NotNull(property);
         }
 
         int maxLength = NameMaxLength, minLength = NameMinLength;
         if (name.Length > maxLength || name.Length < minLength)
         {
-            throw CompletedOrderValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<CompletedOrder>.Length(property, minLength, maxLength);
         }
 
         return order;
@@ -32,13 +30,13 @@ public static class CompletedOrderValidations
 
         if (string.IsNullOrEmpty(description))
         {
-            throw CompletedOrderValidationException.NotNull(property);
+            throw CustomValidationException<CompletedOrder>.NotNull(property);
         }
 
         int maxLength = DescriptionMaxLength, minLength = DescriptionMinLength;
         if (description.Length > maxLength || description.Length < minLength)
         {
-            throw CompletedOrderValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<CompletedOrder>.Length(property, minLength, maxLength);
         }
 
         return order;
@@ -52,7 +50,7 @@ public static class CompletedOrderValidations
         decimal max = PriceMax, min = PriceMin;
         if (price > max || price < min)
         {
-            throw CompletedOrderValidationException.Range(property, max, min);
+            throw CustomValidationException<CompletedOrder>.Range(property, min, max);
         }
 
         return order;
@@ -62,7 +60,7 @@ public static class CompletedOrderValidations
     {
         if (order.OrderDate > order.PurchaseDate)
         {
-            throw CompletedOrderValidationException.OrderDateAfterPurchaseDate(order.OrderDate, order.PurchaseDate);
+            throw CustomValidationException<CompletedOrder>.Custom($"Order Date ({order.OrderDate}) cannot be after Purchase Date ({order.PurchaseDate}).");
         }
 
         return order;

@@ -9,12 +9,10 @@ public sealed class DeleteOngoingOrderHandler(IOngoingOrderReads reads, IWrites<
     public async Task Handle(DeleteOngoingOrderCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (order.BuyerId != req.BuyerId)
-        {
-            throw OngoingOrderAuthorizationException.ByOrderId(req.Id);
-        }
+            throw CustomAuthorizationException<OngoingOrder>.ById(req.Id);
 
         writes.Remove(order);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

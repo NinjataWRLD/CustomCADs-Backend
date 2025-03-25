@@ -1,20 +1,21 @@
-﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.ActiveCarts.Entities;
+﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Item.ToggleForDelivery;
 
-public class ToggleActiveCartItemForDeliveryHandler(IActiveCartReads reads, IUnitOfWork uow)
+public class ToggleActiveCartItemForDeliveryHandler(IActiveCartReads reads, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<ToggleActiveCartItemForDeliveryCommand>
 {
     public async Task Handle(ToggleActiveCartItemForDeliveryCommand req, CancellationToken ct)
     {
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false)
-            ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
+            ?? throw CustomNotFoundException<ActiveCart>.ById(req.BuyerId);
 
         ActiveCartItem item = cart.Items.SingleOrDefault(i => i.ProductId == req.ProductId)
-            ?? throw ActiveCartItemNotFoundException.ByProductId(req.ProductId);
+            ?? throw CustomNotFoundException<ActiveCartItem>.ById(req.ProductId);
 
         if (item.ForDelivery)
         {
@@ -22,9 +23,17 @@ public class ToggleActiveCartItemForDeliveryHandler(IActiveCartReads reads, IUni
         }
         else if (req.CustomizationId is not null)
         {
+            GetCustomizationExistsByIdQuery customizationExistsQuery = new(
+                Id: req.CustomizationId.Value
+            );
+
+            bool customizationExists = await sender.SendQueryAsync(customizationExistsQuery, ct).ConfigureAwait(false);
+            if (!customizationExists)
+                throw CustomNotFoundException<ActiveCartItem>.ById(req.CustomizationId.Value, "Customization");
+
             item.SetForDelivery(req.CustomizationId.Value);
         }
-        else throw ActiveCartItemDeliveryException.ById(cart.Id);
+        else throw CustomException.Delivery<ActiveCartItem>(markedForDelivery: true);
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }

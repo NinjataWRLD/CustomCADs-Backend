@@ -2,7 +2,6 @@
 using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Delivery.Persistence;
 using CustomCADs.Delivery.Persistence.Repositories;
-using CustomCADs.Delivery.Persistence.Repositories.Shipments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

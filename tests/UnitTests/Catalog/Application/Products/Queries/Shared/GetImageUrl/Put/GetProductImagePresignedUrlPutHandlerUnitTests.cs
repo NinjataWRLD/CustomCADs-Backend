@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Shared.GetImageUrl.Put;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Shared.GetImageUrl.Put;
@@ -97,7 +98,7 @@ public class GetProductImagePresignedUrlPutHandlerUnitTests : ProductsBaseUnitTe
         GetProductImagePresignedUrlPutHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductAuthorizationException>(async () =>
+        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);
@@ -120,7 +121,7 @@ public class GetProductImagePresignedUrlPutHandlerUnitTests : ProductsBaseUnitTe
         GetProductImagePresignedUrlPutHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

@@ -2,6 +2,7 @@
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.UseCases.Cads.Queries;
@@ -130,7 +131,7 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
         GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<PurchasedCartNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

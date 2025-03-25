@@ -1,5 +1,4 @@
-﻿using CustomCADs.Files.Application.Common.Exceptions;
-using CustomCADs.Files.Domain.Repositories;
+﻿using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.ApplicationEvents.Files;
@@ -11,7 +10,7 @@ public class ProductDeletedHandler(IImageReads reads, IWrites<Image> writes, IUn
     public async Task Handle(ProductDeletedApplicationEvent ae)
     {
         Image image = await reads.SingleByIdAsync(ae.ImageId, track: true).ConfigureAwait(false)
-            ?? throw ImageNotFoundException.ById(ae.ImageId);
+            ?? throw CustomNotFoundException<Image>.ById(ae.ImageId);
 
         await storage.DeleteFileAsync(image.Key).ConfigureAwait(false);
 

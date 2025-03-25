@@ -1,5 +1,7 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.GetItem;
+using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
@@ -68,7 +70,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         GetActiveCartItemByIdHandler handler = new(reads.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ActiveCartItemNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);
@@ -86,7 +88,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         GetActiveCartItemByIdHandler handler = new(reads.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ActiveCartNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCart>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Repositories;
+﻿using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Events;
@@ -13,11 +12,11 @@ public sealed class DeleteProductHandler(IProductReads reads, IProductWrites wri
     public async Task Handle(DeleteProductCommand req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw ProductNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Product>.ById(req.Id);
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductAuthorizationException.ByProductId(req.Id);
+            throw CustomAuthorizationException<Product>.ById(req.Id);
         }
 
         writes.Remove(product);

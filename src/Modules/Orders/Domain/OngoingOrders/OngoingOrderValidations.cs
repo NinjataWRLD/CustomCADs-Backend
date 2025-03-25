@@ -1,6 +1,4 @@
-﻿using CustomCADs.Orders.Domain.OngoingOrders.Exceptions;
-
-namespace CustomCADs.Orders.Domain.OngoingOrders;
+﻿namespace CustomCADs.Orders.Domain.OngoingOrders;
 
 using static OngoingOrderConstants;
 
@@ -13,13 +11,13 @@ public static class OngoingOrderValidations
 
         if (string.IsNullOrEmpty(name))
         {
-            throw OngoingOrderValidationException.NotNull(property);
+            throw CustomValidationException<OngoingOrder>.NotNull(property);
         }
 
         int maxLength = NameMaxLength, minLength = NameMinLength;
         if (name.Length > maxLength || name.Length < minLength)
         {
-            throw OngoingOrderValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<OngoingOrder>.Length(property, minLength, maxLength);
         }
 
         return order;
@@ -32,13 +30,13 @@ public static class OngoingOrderValidations
 
         if (string.IsNullOrEmpty(description))
         {
-            throw OngoingOrderValidationException.NotNull(property);
+            throw CustomValidationException<OngoingOrder>.NotNull(property);
         }
 
         int maxLength = DescriptionMaxLength, minLength = DescriptionMinLength;
         if (description.Length > maxLength || description.Length < minLength)
         {
-            throw OngoingOrderValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<OngoingOrder>.Length(property, minLength, maxLength);
         }
 
         return order;
@@ -52,7 +50,7 @@ public static class OngoingOrderValidations
         decimal max = PriceMax, min = PriceMin;
         if (price > max || price < min)
         {
-            throw OngoingOrderValidationException.Range(property, max, min);
+            throw CustomValidationException<OngoingOrder>.Range(property, max, min);
         }
 
         return order;

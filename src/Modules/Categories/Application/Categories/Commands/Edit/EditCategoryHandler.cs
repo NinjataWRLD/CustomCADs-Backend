@@ -1,5 +1,4 @@
-﻿using CustomCADs.Categories.Application.Common.Exceptions;
-using CustomCADs.Categories.Domain.Categories.Events;
+﻿using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
@@ -12,7 +11,7 @@ public sealed class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow, I
     public async Task Handle(EditCategoryCommand req, CancellationToken ct)
     {
         Category category = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw CategoryNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Category>.ById(req.Id);
 
         category.SetName(req.Dto.Name);
         category.SetDescription(req.Dto.Description);

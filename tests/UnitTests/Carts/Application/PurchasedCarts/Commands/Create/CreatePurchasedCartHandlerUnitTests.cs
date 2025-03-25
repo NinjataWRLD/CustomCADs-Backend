@@ -2,6 +2,7 @@
 using CustomCADs.Carts.Application.PurchasedCarts.Commands.Create;
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -96,7 +97,7 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
         CreatePurchasedCartHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<PurchasedCartNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

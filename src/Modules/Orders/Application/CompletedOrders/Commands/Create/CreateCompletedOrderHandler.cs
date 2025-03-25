@@ -14,23 +14,17 @@ public class CreateCompletedOrderHandler(IWrites<CompletedOrder> writes, IUnitOf
         GetAccountExistsByIdQuery buyerQuery = new(req.BuyerId);
         bool buyerExists = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
         if (!buyerExists)
-        {
-            throw CompletedOrderNotFoundException.BuyerId(req.BuyerId);
-        }
+            throw CustomNotFoundException<CompletedOrder>.ById(req.BuyerId, "User");
 
         GetAccountExistsByIdQuery designerQuery = new(req.DesignerId);
         bool designerExists = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
         if (!designerExists)
-        {
-            throw CompletedOrderNotFoundException.DesignerId(req.DesignerId);
-        }
+            throw CustomNotFoundException<CompletedOrder>.ById(req.BuyerId, "User");
 
         GetCadExistsByIdQuery cadQuery = new(req.CadId);
         bool cadExists = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
         if (!cadExists)
-        {
-            throw CompletedOrderNotFoundException.CadId(req.CadId);
-        }
+            throw CustomNotFoundException<CompletedOrder>.ById(req.CadId, "Cad");
 
         CompletedOrder order = req.ToCompletedOrder();
         if (req.CustomizationId is not null)
@@ -41,9 +35,7 @@ public class CreateCompletedOrderHandler(IWrites<CompletedOrder> writes, IUnitOf
 
             bool customizationExists = await sender.SendQueryAsync(customizationExistsQuery, ct).ConfigureAwait(false);
             if (!customizationExists)
-            {
-                throw CompletedOrderNotFoundException.CustomizationId(req.CustomizationId.Value);
-            }
+                throw CustomNotFoundException<CompletedOrder>.ById(req.CustomizationId.Value, "Customization");
 
             order.SetCustomizationId(req.CustomizationId.Value);
         }

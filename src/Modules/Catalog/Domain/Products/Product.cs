@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Domain.Products.Exceptions;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
@@ -143,7 +142,7 @@ public class Product : BaseAggregateRoot
 
         if (Status is not (ProductStatus.Validated or ProductStatus.Reported))
         {
-            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
+            throw CustomValidationException<Product>.Status(newStatus, Status);
         }
         Status = newStatus;
 
@@ -156,7 +155,7 @@ public class Product : BaseAggregateRoot
 
         if (Status is not ProductStatus.Unchecked)
         {
-            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
+            throw CustomValidationException<Product>.Status(newStatus, Status);
         }
         Status = newStatus;
 
@@ -169,7 +168,7 @@ public class Product : BaseAggregateRoot
 
         if (Status is not (ProductStatus.Unchecked or ProductStatus.Validated))
         {
-            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
+            throw CustomValidationException<Product>.Status(newStatus, Status);
         }
         Status = newStatus;
 
@@ -182,7 +181,7 @@ public class Product : BaseAggregateRoot
 
         if (Status is not ProductStatus.Reported)
         {
-            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
+            throw CustomValidationException<Product>.Status(newStatus, Status);
         }
         Status = newStatus;
 

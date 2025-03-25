@@ -1,5 +1,4 @@
-﻿using CustomCADs.Categories.Application.Common.Exceptions;
-using CustomCADs.Categories.Domain.Categories.Events;
+﻿using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
@@ -12,7 +11,7 @@ public sealed class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category
     public async Task Handle(DeleteCategoryCommand req, CancellationToken ct)
     {
         Category category = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw CategoryNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Category>.ById(req.Id);
 
         writes.Remove(category);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Application.Common.Exceptions;
+﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -14,10 +14,10 @@ public class CalculateActiveCartShipmentHandler(IActiveCartReads reads, IRequest
     public async Task<CalculateActiveCartShipmentDto[]> Handle(CalculateActiveCartShipmentQuery req, CancellationToken ct)
     {
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
+            ?? throw CustomNotFoundException<ActiveCart>.ById(req.BuyerId);
 
         if (!cart.HasDelivery)
-            throw ActiveCartItemDeliveryException.ById(cart.Id);
+            throw CustomException.Delivery<ActiveCartItem>(markedForDelivery: false);
 
         GetCustomizationsWeightByIdsQuery weightsQuery = new(
             Ids: [.. cart.Items

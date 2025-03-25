@@ -9,14 +9,12 @@ public sealed class BeginOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfWo
     public async Task Handle(BeginOngoingOrderCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (req.DesignerId != order.DesignerId)
-        {
-            throw OngoingOrderAuthorizationException.NotAssociated(order.Id, "begin");
-        }
-        order.SetBegunStatus();
+            throw CustomAuthorizationException<OngoingOrder>.ById(req.Id);
 
+        order.SetBegunStatus();
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

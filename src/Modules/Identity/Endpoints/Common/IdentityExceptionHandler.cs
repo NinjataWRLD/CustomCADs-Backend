@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Identity.Application.Common.Exceptions;
-using CustomCADs.Identity.Domain.Common.Exceptions.Users;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CustomCADs.Identity.Endpoints.Common;
@@ -11,7 +10,7 @@ public class IdentityExceptionHandler(IProblemDetailsService service) : IExcepti
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
         => ex switch
         {
-            UserValidationException or UserPasswordException
+            UserPasswordException
                 => await service.BadRequestResponseAsync(context, ex).ConfigureAwait(false),
 
             UserNotFoundException or RoleNotFoundException

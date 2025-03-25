@@ -3,6 +3,7 @@ using CustomCADs.Catalog.Domain.Products.Events;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Queries;
@@ -124,7 +125,7 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductStatusException>(async () =>
+        await Assert.ThrowsAsync<CustomStatusException<Product>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);
@@ -142,7 +143,7 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

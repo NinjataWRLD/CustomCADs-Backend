@@ -1,6 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Roles.Exceptions;
-
-namespace CustomCADs.Accounts.Domain.Roles;
+﻿namespace CustomCADs.Accounts.Domain.Roles;
 
 using static RoleConstants;
 
@@ -13,13 +11,13 @@ public static class RoleValidations
 
         if (string.IsNullOrEmpty(name))
         {
-            throw RoleValidationException.NotNull(property);
+            throw CustomValidationException<Role>.NotNull(property);
         }
 
         int maxLength = NameMaxLength, minLength = NameMinLength;
         if (name.Length > maxLength || name.Length < minLength)
         {
-            throw RoleValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<Role>.Length(property, minLength, maxLength);
         }
 
         return role;
@@ -32,13 +30,13 @@ public static class RoleValidations
 
         if (string.IsNullOrEmpty(description))
         {
-            throw RoleValidationException.NotNull(property);
+            throw CustomValidationException<Role>.NotNull(property);
         }
 
         int maxLength = DescriptionMaxLength, minLength = DescriptionMinLength;
         if (description.Length > maxLength || description.Length < minLength)
         {
-            throw RoleValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<Role>.Length(property, minLength, maxLength);
         }
 
         return role;

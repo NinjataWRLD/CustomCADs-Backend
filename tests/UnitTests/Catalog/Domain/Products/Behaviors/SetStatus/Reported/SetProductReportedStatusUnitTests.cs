@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetStatus.Reported;
 
@@ -17,8 +17,8 @@ public class SetProductReportedStatusUnitTests : ProductsBaseUnitTests
     public void SetReportedStatus_ShouldThrowException_WhenStatusIsNotValid()
     {
         Assert.Multiple(
-            () => Assert.Throws<ProductValidationException>(() => CreateProduct().SetReportedStatus().SetReportedStatus()),
-            () => Assert.Throws<ProductValidationException>(() => CreateProduct().SetReportedStatus().SetRemovedStatus().SetReportedStatus())
+            () => Assert.Throws<CustomValidationException<Product>>(() => CreateProduct().SetReportedStatus().SetReportedStatus()),
+            () => Assert.Throws<CustomValidationException<Product>>(() => CreateProduct().SetReportedStatus().SetRemovedStatus().SetReportedStatus())
         );
     }
 }

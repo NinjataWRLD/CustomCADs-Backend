@@ -10,12 +10,10 @@ public sealed class ClientGetCompletedOrderByIdHandler(ICompletedOrderReads read
     public async Task<ClientGetCompletedOrderByIdDto> Handle(ClientGetCompletedOrderByIdQuery req, CancellationToken ct)
     {
         CompletedOrder order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CompletedOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<CompletedOrder>.ById(req.Id);
 
         if (order.BuyerId != req.BuyerId)
-        {
-            throw CompletedOrderAuthorizationException.ByOrderId(req.Id);
-        }
+            throw CustomAuthorizationException<CompletedOrder>.Custom($"Cannot access another Buyer's Completed Order: {order.Id}.");
 
         GetTimeZoneByIdQuery timeZoneQuery = new(order.BuyerId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);

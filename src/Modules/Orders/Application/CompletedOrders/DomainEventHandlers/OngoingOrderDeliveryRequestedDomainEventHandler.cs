@@ -12,7 +12,7 @@ public class OngoingOrderDeliveryRequestedDomainEventHandler(ICompletedOrderRead
     public async Task Handle(OngoingOrderDeliveryRequestedDomainEvent de)
     {
         CompletedOrder order = await reads.SingleByIdAsync(de.Id, track: false).ConfigureAwait(false)
-            ?? throw CompletedOrderNotFoundException.ById(de.Id);
+            ?? throw CustomNotFoundException<CompletedOrder>.ById(de.Id);
 
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery).ConfigureAwait(false);

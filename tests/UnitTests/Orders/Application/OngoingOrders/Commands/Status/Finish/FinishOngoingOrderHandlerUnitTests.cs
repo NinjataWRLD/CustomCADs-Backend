@@ -1,9 +1,9 @@
-﻿using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
-using CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Finish;
+﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Status.Finish;
 using CustomCADs.Orders.Domain.OngoingOrders.Enums;
 using CustomCADs.Orders.Domain.Repositories;
 using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Commands;
@@ -118,7 +118,7 @@ public class FinishOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         FinishOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderAuthorizationException>(async () =>
+        await Assert.ThrowsAsync<CustomAuthorizationException<OngoingOrder>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -141,7 +141,7 @@ public class FinishOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         FinishOngoingOrderHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<OngoingOrder>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

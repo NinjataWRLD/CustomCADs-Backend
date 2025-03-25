@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.Username;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetUsername.Data;
@@ -57,7 +58,7 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
         GetUsernameByIdHandler handler = new(reads.Object);
 
         // Assert
-        await Assert.ThrowsAsync<AccountNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

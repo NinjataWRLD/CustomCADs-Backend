@@ -12,12 +12,12 @@ public sealed class FinishOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
     public async Task Handle(FinishOngoingOrderCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (req.DesignerId != order.DesignerId)
-        {
-            throw OngoingOrderAuthorizationException.NotAssociated(order.Id, "finish");
-        }
+            throw CustomAuthorizationException<OngoingOrder>.ById(req.Id);
+
+        order.SetPrice(req.Price);
         order.SetFinishedStatus();
 
         CreateCadCommand cadCommand = new(
@@ -28,7 +28,6 @@ public sealed class FinishOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
         CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
         order.SetCadId(cadId);
 
-        order.SetPrice(req.Price);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Delivery.Domain.Shipments.Exceptions;
-
-namespace CustomCADs.Delivery.Domain.Shipments;
+﻿namespace CustomCADs.Delivery.Domain.Shipments;
 
 public static class ShipmentValidations
 {
@@ -11,7 +9,7 @@ public static class ShipmentValidations
 
         if (string.IsNullOrEmpty(country))
         {
-            throw ShipmentValidationException.NotNull(property);
+            throw CustomValidationException<Shipment>.NotNull(property);
         }
 
         return shipment;
@@ -24,7 +22,7 @@ public static class ShipmentValidations
 
         if (string.IsNullOrEmpty(city))
         {
-            throw ShipmentValidationException.NotNull(property);
+            throw CustomValidationException<Shipment>.NotNull(property);
         }
 
         return shipment;

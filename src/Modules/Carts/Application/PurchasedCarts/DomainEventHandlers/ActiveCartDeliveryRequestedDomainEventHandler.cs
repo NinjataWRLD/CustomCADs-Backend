@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.ActiveCarts.Events;
+﻿using CustomCADs.Carts.Domain.ActiveCarts.Events;
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -14,7 +13,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandler(IPurchasedCartReads r
     public async Task Handle(ActiveCartDeliveryRequestedDomainEvent de)
     {
         PurchasedCart cart = await reads.SingleByIdAsync(de.Id, track: false).ConfigureAwait(false)
-            ?? throw PurchasedCartNotFoundException.ById(de.Id);
+            ?? throw CustomNotFoundException<PurchasedCart>.ById(de.Id);
 
         GetUsernameByIdQuery buyerQuery = new(cart.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery).ConfigureAwait(false);

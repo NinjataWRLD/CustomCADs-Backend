@@ -3,6 +3,7 @@ using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.ApplicationEvents.Files;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.ApplicationEventHandlers;
 
@@ -89,7 +90,7 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
         ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ImageNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
         {
             // Act
             await handler.Handle(ie);

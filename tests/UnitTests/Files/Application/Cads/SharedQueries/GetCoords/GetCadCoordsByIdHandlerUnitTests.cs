@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Files.Application.Cads.SharedQueryHandlers;
 using CustomCADs.Files.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
@@ -63,7 +64,7 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
         GetCadCoordsByIdHandler handler = new(reads.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CadNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

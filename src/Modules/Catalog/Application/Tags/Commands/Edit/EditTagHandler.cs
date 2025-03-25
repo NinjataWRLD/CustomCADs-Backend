@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Repositories;
+﻿using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Tags;
 
@@ -11,7 +10,7 @@ public class EditTagHandler(ITagReads reads, IUnitOfWork uow)
     public async Task Handle(EditTagCommand req, CancellationToken ct)
     {
         Tag tag = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw TagNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Tag>.ById(req.Id);
 
         tag.SetName(req.Name);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

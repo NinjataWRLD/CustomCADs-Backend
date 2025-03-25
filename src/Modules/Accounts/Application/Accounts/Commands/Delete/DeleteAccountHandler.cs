@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Application.Common.Exceptions;
-using CustomCADs.Accounts.Domain.Repositories;
+﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
@@ -12,7 +11,7 @@ public sealed class DeleteAccountHandler(IAccountReads reads, IWrites<Account> w
     public async Task Handle(DeleteAccountCommand req, CancellationToken ct)
     {
         Account account = await reads.SingleByUsernameAsync(req.Username, ct: ct).ConfigureAwait(false)
-            ?? throw AccountNotFoundException.ByUsername(req.Username);
+            ?? throw CustomNotFoundException<Account>.ByProp(nameof(req.Username), req.Username);
 
         writes.Remove(account);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

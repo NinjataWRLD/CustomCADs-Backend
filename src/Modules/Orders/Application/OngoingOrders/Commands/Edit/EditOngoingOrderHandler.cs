@@ -9,12 +9,10 @@ public sealed class EditOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfWor
     public async Task Handle(EditOngoingOrderCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (order.BuyerId != req.BuyerId)
-        {
-            throw OngoingOrderAuthorizationException.ByOrderId(req.Id);
-        }
+            throw CustomAuthorizationException<OngoingOrder>.ById(req.Id);
 
         order
             .SetName(req.Name)

@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.SharedQueryHandlers.TimeZone;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.SharedQueries.GetTimeZone.Data;
@@ -60,7 +61,7 @@ public class GetTimeZoneByIdHandlerUnitTests : AccountsBaseUnitTests
         GetTimeZoneByIdHandler handler = new(reads.Object);
 
         // Assert
-        await Assert.ThrowsAsync<AccountNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

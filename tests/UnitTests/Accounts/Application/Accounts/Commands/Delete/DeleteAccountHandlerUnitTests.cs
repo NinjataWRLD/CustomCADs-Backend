@@ -3,6 +3,7 @@ using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Delete;
@@ -82,7 +83,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         DeleteAccountHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<AccountNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

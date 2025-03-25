@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Repositories.Reads;
+﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
@@ -11,11 +10,11 @@ public sealed class GetProductImagePresignedUrlPutHandler(IProductReads reads, I
     public async Task<GetProductImagePresignedUrlPutDto> Handle(GetProductImagePresignedUrlPutQuery req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw ProductNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Product>.ById(req.Id);
 
         if (product.CreatorId != req.CreatorId)
         {
-            throw ProductAuthorizationException.ByProductId(req.Id);
+            throw CustomAuthorizationException<Product>.ById(req.Id);
         }
 
         GetImagePresignedUrlPutByIdQuery query = new(

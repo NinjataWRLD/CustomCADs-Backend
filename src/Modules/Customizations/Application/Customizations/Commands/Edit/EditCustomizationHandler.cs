@@ -1,5 +1,4 @@
-﻿using CustomCADs.Customizations.Application.Common.Exceptions;
-using CustomCADs.Customizations.Domain.Repositories;
+﻿using CustomCADs.Customizations.Domain.Repositories;
 using CustomCADs.Customizations.Domain.Repositories.Reads;
 
 namespace CustomCADs.Customizations.Application.Customizations.Commands.Edit;
@@ -10,7 +9,7 @@ public class EditCustomizationHandler(ICustomizationReads reads, IUnitOfWork uow
     public async Task Handle(EditCustomizationCommand req, CancellationToken ct)
     {
         Customization customization = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw CustomizationNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Customization>.ById(req.Id);
 
         customization.SetScale(req.Scale);
         customization.SetInfill(req.Infill);

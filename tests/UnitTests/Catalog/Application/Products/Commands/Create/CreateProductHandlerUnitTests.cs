@@ -3,6 +3,7 @@ using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
@@ -168,7 +169,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
         CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -198,7 +199,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
         CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

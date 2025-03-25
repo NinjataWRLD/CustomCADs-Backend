@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Domain.ActiveCarts.Entities;
+﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 
@@ -11,10 +10,10 @@ public sealed class RemoveActiveCartItemHandler(IActiveCartReads reads, IUnitOfW
     public async Task Handle(RemoveActiveCartItemCommand req, CancellationToken ct)
     {
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, ct: ct).ConfigureAwait(false)
-            ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
+            ?? throw CustomNotFoundException<ActiveCart>.ById(req.BuyerId);
 
         ActiveCartItem item = cart.Items.FirstOrDefault(i => i.ProductId == req.ProductId)
-            ?? throw ActiveCartItemNotFoundException.ByProductId(req.ProductId);
+            ?? throw CustomNotFoundException<ActiveCartItem>.ById(req.ProductId);
 
         cart.RemoveItem(item);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

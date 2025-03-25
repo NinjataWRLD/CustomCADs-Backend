@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Files.Application.Images.SharedCommandHandlers.SetContentType;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Commands;
 using CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType.Data;
 
@@ -75,7 +76,7 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
         SetImageContentTypeHandler handler = new(reads.Object, uow.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ImageNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

@@ -2,6 +2,7 @@
 using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Queries.GetTrack;
 
@@ -72,7 +73,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
         GetShipmentTrackHandler handler = new(reads.Object, delivery.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ShipmentNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

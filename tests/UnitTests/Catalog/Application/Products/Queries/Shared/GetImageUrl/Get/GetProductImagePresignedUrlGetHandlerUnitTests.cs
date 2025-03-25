@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Shared.GetImageUrl.Get;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Shared.GetImageUrl.Get;
@@ -82,7 +83,7 @@ public class GetProductImagePresignedUrlGetHandlerUnitTests : ProductsBaseUnitTe
         GetProductImagePresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

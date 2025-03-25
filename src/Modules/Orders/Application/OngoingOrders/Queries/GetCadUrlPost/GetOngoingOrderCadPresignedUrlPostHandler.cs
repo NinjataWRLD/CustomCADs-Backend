@@ -10,12 +10,10 @@ public class GetOngoingOrderCadPresignedUrlPostHandler(IOngoingOrderReads reads,
     public async Task<GetOngoingOrderCadPresignedUrlPostDto> Handle(GetOngoingOrderCadPresignedUrlPostQuery req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (order.DesignerId != req.DesignerId)
-        {
-            throw OngoingOrderDesignerException.ById(req.Id);
-        }
+            throw CustomAuthorizationException<OngoingOrder>.ById(order.Id);
 
         GetCadPresignedUrlPostByIdQuery cadQuery = new(
             Name: order.Name,

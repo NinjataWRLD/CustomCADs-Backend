@@ -19,15 +19,8 @@ builder.Services.AddDeliveryService(builder.Configuration);
 builder.Services.AddStorageService(builder.Configuration);
 
 // Modules
-builder.Services.AddAccounts(builder.Configuration);
-builder.Services.AddCarts(builder.Configuration);
-builder.Services.AddCatalog(builder.Configuration);
-builder.Services.AddCategories(builder.Configuration);
-builder.Services.AddCustomizations(builder.Configuration);
-builder.Services.AddDelivery(builder.Configuration);
-builder.Services.AddFiles(builder.Configuration);
+builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddIdentity(builder.Configuration);
-builder.Services.AddOrders(builder.Configuration);
 builder.Services.AddGlobalExceptionHandler();
 
 // Database Updater

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Categories.Domain.Repositories;
-using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Common.Exceptions.Persistence;
 
 namespace CustomCADs.Categories.Persistence.Repositories;
 

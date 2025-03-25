@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
-using CustomCADs.Carts.Domain.PurchasedCarts.Exceptions.Carts;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
@@ -57,7 +56,7 @@ public class PurchasedCart : BaseAggregateRoot
     {
         if (!HasDelivery)
         {
-            throw PurchasedCartValidationException.ShipmentIdOnCartWithNoDelivery();
+            throw CustomValidationException<PurchasedCart>.Custom("Cannot set ShipmentId on a Purchased Cart with no requested Delivery");
         }
         ShipmentId = shipmentId;
 

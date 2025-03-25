@@ -10,7 +10,7 @@ public sealed class ReportOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
     public async Task Handle(ReportOngoingOrderCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (order.OrderStatus is OngoingOrderStatus.Pending)
         {
@@ -18,7 +18,7 @@ public sealed class ReportOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
         }
         else if (order.DesignerId != req.DesignerId)
         {
-            throw OngoingOrderAuthorizationException.ByOrderId(req.Id);
+            throw CustomAuthorizationException<OngoingOrder>.ById(req.Id);
         }
 
         order.SetReportedStatus();

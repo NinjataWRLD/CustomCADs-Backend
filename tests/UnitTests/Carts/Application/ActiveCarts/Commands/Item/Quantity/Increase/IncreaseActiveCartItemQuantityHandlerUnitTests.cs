@@ -2,6 +2,7 @@
 using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Item.Quantity.Increase.Data;
@@ -73,7 +74,7 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
         IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ActiveCartNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCart>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -93,7 +94,7 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
         IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ActiveCartItemNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

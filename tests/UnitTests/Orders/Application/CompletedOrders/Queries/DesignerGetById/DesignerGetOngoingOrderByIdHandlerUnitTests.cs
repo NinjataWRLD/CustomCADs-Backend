@@ -1,7 +1,7 @@
-﻿using CustomCADs.Orders.Application.Common.Exceptions.Completed;
-using CustomCADs.Orders.Application.CompletedOrders.Queries.DesignerGetById;
+﻿using CustomCADs.Orders.Application.CompletedOrders.Queries.DesignerGetById;
 using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
@@ -99,7 +99,7 @@ public class DesignerGetCompletedOrderByIdHandlerUnitTests : CompletedOrdersBase
         DesignerGetCompletedOrderByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CompletedOrderAuthorizationException>(async () =>
+        await Assert.ThrowsAsync<CustomAuthorizationException<CompletedOrder>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);
@@ -120,7 +120,7 @@ public class DesignerGetCompletedOrderByIdHandlerUnitTests : CompletedOrdersBase
         DesignerGetCompletedOrderByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CompletedOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<CompletedOrder>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

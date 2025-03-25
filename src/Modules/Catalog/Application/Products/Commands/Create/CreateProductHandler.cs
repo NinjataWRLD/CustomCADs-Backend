@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Repositories;
+﻿using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
@@ -20,16 +19,12 @@ public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWo
         GetCategoryExistsByIdQuery categoryQuery = new(req.CategoryId);
         bool categoryExists = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
         if (!categoryExists)
-        {
-            throw ProductNotFoundException.CategoryId(req.CategoryId);
-        }
+            throw CustomNotFoundException<Product>.ById(req.CategoryId, "Category");
 
         GetAccountExistsByIdQuery creatorQuery = new(req.CreatorId);
         bool creatorExists = await sender.SendQueryAsync(creatorQuery, ct).ConfigureAwait(false);
         if (!creatorExists)
-        {
-            throw ProductNotFoundException.CreatorId(req.CreatorId);
-        }
+            throw CustomNotFoundException<Product>.ById(req.CreatorId, "User");
 
         CreateCadCommand cadCommand = new(
             Key: req.CadKey,

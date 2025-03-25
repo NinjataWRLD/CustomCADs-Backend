@@ -1,6 +1,4 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Exceptions.CartItems;
-
-namespace CustomCADs.Carts.Domain.ActiveCarts.Entities;
+﻿namespace CustomCADs.Carts.Domain.ActiveCarts.Entities;
 
 using static ActiveCartConstants.ActiveCartItems;
 
@@ -14,7 +12,7 @@ public static class ActiveCartItemValidations
         int max = QuantityMax, min = QuantityMin;
         if (quantity > max || quantity < min)
         {
-            throw ActiveCartItemValidationException.Range(property, max, min);
+            throw CustomValidationException<ActiveCartItem>.Range(property, max, min);
         }
 
         return item;

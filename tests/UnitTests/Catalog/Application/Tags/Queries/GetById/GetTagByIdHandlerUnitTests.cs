@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Queries.GetById;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Tags;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Queries.GetById;
@@ -43,7 +44,7 @@ public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
         GetTagByIdHandler handler = new(reads.Object);
 
         // Assert
-        await Assert.ThrowsAsync<TagNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

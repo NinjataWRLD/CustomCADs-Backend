@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Products.Events;
+﻿using CustomCADs.Catalog.Domain.Products.Events;
 using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
@@ -14,7 +13,7 @@ public class ProductViewedHandler(IProductReads reads, IUnitOfWork uow, IRequest
     public async Task Handle(ProductViewedDomainEvent de)
     {
         Product product = await reads.SingleByIdAsync(de.Id).ConfigureAwait(false)
-            ?? throw ProductNotFoundException.ById(de.Id);
+            ?? throw CustomNotFoundException<Product>.ById(de.Id);
 
         GetAccountViewedProductQuery userAlreadyViewedQuery = new(de.AccountId, de.Id);
         bool userAlreadyViewed = await sender.SendQueryAsync(userAlreadyViewedQuery).ConfigureAwait(false);

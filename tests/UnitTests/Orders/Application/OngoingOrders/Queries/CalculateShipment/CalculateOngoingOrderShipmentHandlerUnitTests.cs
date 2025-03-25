@@ -1,9 +1,9 @@
-﻿using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
-using CustomCADs.Orders.Application.OngoingOrders.Queries.CalculateShipment;
+﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.CalculateShipment;
 using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
@@ -131,7 +131,7 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
         CalculateOngoingOrderShipmentHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderDeliveryException>(async () =>
+        await Assert.ThrowsAsync<CustomException>(async () =>
         {
             // Act
             await handler.Handle(query, ct);
@@ -154,7 +154,7 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
         CalculateOngoingOrderShipmentHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<OngoingOrder>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.OngoingOrders.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetPrice.Data;
 
 namespace CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetPrice;
@@ -25,7 +25,7 @@ public class OngoingOrderSetPriceUnitTests : OngoingOrdersBaseUnitTests
     [ClassData(typeof(OngoingOrderSetPriceInvalidData))]
     public void SetPrice_ShouldThrowException_WhenPriceInvalid(decimal price)
     {
-        Assert.Throws<OngoingOrderValidationException>(() =>
+        Assert.Throws<CustomValidationException<OngoingOrder>>(() =>
         {
             CreateOrder().SetPrice(price);
         });

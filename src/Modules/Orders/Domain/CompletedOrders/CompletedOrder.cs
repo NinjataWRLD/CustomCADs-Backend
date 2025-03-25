@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.CompletedOrders.Exceptions;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
@@ -74,7 +73,7 @@ public class CompletedOrder : BaseAggregateRoot
     {
         if (!Delivery)
         {
-            throw CompletedOrderValidationException.ShipmentIdOnNonDelivery();
+            throw CustomValidationException<CompletedOrder>.Custom("Cannot set a ShipmentId on a Completed Order not for Delivery.");
         }
         ShipmentId = shipmentId;
 
@@ -85,7 +84,7 @@ public class CompletedOrder : BaseAggregateRoot
     {
         if (!Delivery)
         {
-            throw CompletedOrderValidationException.CustomizationIdOnNonDelivery();
+            throw CustomValidationException<CompletedOrder>.Custom("Cannot set a CustomizationId on a Completed Order not for Delivery.");
         }
         CustomizationId = customizationId;
 

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Application.Common.Exceptions;
-using CustomCADs.Accounts.Domain.Repositories;
+﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
@@ -13,7 +12,7 @@ public sealed class EditRoleHandler(IRoleReads reads, IUnitOfWork uow, IEventRai
     public async Task Handle(EditRoleCommand req, CancellationToken ct)
     {
         Role role = await reads.SingleByNameAsync(req.Name, ct: ct).ConfigureAwait(false)
-            ?? throw RoleNotFoundException.ByName(req.Name);
+            ?? throw CustomNotFoundException<Role>.ByProp(nameof(req.Name), req.Name);
 
         role
             .SetName(req.Dto.Name)

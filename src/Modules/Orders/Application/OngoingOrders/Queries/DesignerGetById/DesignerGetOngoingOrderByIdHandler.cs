@@ -11,13 +11,11 @@ public sealed class DesignerGetOngoingOrderByIdHandler(IOngoingOrderReads reads,
     public async Task<DesignerGetOngoingOrderByIdDto> Handle(DesignerGetOngoingOrderByIdQuery req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (order.OrderStatus is not OngoingOrderStatus.Pending
             && order.DesignerId != req.DesignerId)
-        {
-            throw OngoingOrderAuthorizationException.NotAssociated(order.Id, "view");
-        }
+            throw CustomAuthorizationException<OngoingOrder>.ById(req.Id);
 
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);

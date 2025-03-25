@@ -5,6 +5,7 @@ using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.ApplicationEvents.Catalog;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.DomainEventHandlers;
@@ -110,7 +111,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
         ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
         {
             // Act 
             await handler.Handle(de);

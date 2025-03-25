@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Application.Common.Exceptions;
-using CustomCADs.Accounts.Domain.Repositories.Reads;
+﻿using CustomCADs.Accounts.Domain.Repositories.Reads;
 
 namespace CustomCADs.Accounts.Application.Accounts.Queries.GetByUsername;
 
@@ -9,7 +8,7 @@ public sealed class GetAccountByUsernameHandler(IAccountReads reads)
     public async Task<GetAccountByUsernameDto> Handle(GetAccountByUsernameQuery req, CancellationToken ct)
     {
         Account account = await reads.SingleByUsernameAsync(req.Username, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw AccountNotFoundException.ByUsername(req.Username);
+            ?? throw CustomNotFoundException<Account>.ByProp(nameof(req.Username), req.Username);
 
         return account.ToGetAccountByUsernameDto();
     }

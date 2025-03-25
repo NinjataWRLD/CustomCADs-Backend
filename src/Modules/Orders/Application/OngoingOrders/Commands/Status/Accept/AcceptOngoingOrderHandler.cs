@@ -11,14 +11,12 @@ public sealed class AcceptOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
     public async Task Handle(AcceptOngoingOrderCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         GetAccountExistsByIdQuery designerQuery = new(req.DesignerId);
         bool designerExists = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
         if (!designerExists)
-        {
-            throw OngoingOrderNotFoundException.DesignerId(req.DesignerId);
-        }
+            throw CustomNotFoundException<OngoingOrder>.ById(req.DesignerId, "User");
 
         order.SetAcceptedStatus();
         order.SetDesignerId(req.DesignerId);

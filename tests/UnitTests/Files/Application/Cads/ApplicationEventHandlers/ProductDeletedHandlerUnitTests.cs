@@ -3,6 +3,7 @@ using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.ApplicationEvents.Files;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.ApplicationEventHandlers;
 
@@ -89,7 +90,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
         ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CadNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
         {
             // Act
             await handler.Handle(ie);

@@ -4,6 +4,7 @@ using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Delete.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Delete;
@@ -87,7 +88,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
         DeleteRoleHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<RoleNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Role>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

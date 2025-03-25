@@ -3,6 +3,7 @@ using CustomCADs.Carts.Domain.ActiveCarts.Events;
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
@@ -98,7 +99,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
         ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<PurchasedCartNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
         {
             // Act
             await handler.Handle(de);

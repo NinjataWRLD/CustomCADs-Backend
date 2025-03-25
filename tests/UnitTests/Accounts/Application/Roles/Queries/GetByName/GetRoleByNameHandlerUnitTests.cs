@@ -2,6 +2,7 @@
 using CustomCADs.Accounts.Application.Roles.Queries.GetByName;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.UnitTests.Accounts.Application.Roles.Queries.GetByName.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Queries.GetByName;
@@ -96,7 +97,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
         GetRoleByNameHandler handler = new(reads.Object, cache.Object);
 
         // Assert
-        await Assert.ThrowsAsync<RoleNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Role>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

@@ -1,5 +1,5 @@
-﻿using CustomCADs.Carts.Application.Common.Exceptions;
-using CustomCADs.Carts.Application.PurchasedCarts.Commands.Create;
+﻿using CustomCADs.Carts.Application.PurchasedCarts.Commands.Create;
+using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
@@ -17,14 +17,14 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
     public async Task<string> Handle(PurchaseActiveCartWithDeliveryCommand req, CancellationToken ct)
     {
         ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw ActiveCartNotFoundException.ByBuyerId(req.BuyerId);
+            ?? throw CustomNotFoundException<ActiveCart>.ById(req.BuyerId);
         var items = cart.Items.ToDictionary(x => x.ProductId, x => x);
 
         int count = cart.TotalCount;
         if (count is 0) return "";
 
         if (!cart.HasDelivery)
-            throw ActiveCartItemDeliveryException.ById(cart.Id);
+            throw CustomException.Delivery<ActiveCartItem>(markedForDelivery: false);
 
         GetProductPricesByIdsQuery pricesQuery = new(
             Ids: [.. cart.Items.Select(i => i.ProductId)]

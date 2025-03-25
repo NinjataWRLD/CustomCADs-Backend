@@ -1,5 +1,4 @@
-﻿using CustomCADs.Customizations.Application.Common.Exceptions;
-using CustomCADs.Customizations.Domain.Repositories;
+﻿using CustomCADs.Customizations.Domain.Repositories;
 using CustomCADs.Customizations.Domain.Repositories.Reads;
 
 namespace CustomCADs.Customizations.Application.Materials.Commands.Edit;
@@ -10,7 +9,7 @@ public class EditMaterialHandler(IMaterialReads reads, IUnitOfWork uow)
     public async Task Handle(EditMaterialCommand req, CancellationToken ct)
     {
         Material material = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw MaterialNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Material>.ById(req.Id);
 
         material.SetName(req.Name);
         material.SetDensity(req.Density);

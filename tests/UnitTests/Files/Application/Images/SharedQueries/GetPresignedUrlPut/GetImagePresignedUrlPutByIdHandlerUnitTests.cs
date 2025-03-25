@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Files.Application.Images.SharedQueryHandlers;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Storage;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Queries;
 using CustomCADs.UnitTests.Files.Application.Images.SharedQueries.GetPresignedUrlPut.Data;
 
@@ -74,7 +75,7 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
         GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ImageNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.CompletedOrders.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Orders.Domain.CompletedOrders.Create.WithId.Data;
 
@@ -36,7 +36,7 @@ public class CompletedOrderCreateWithIdUnitTests : CompletedOrdersBaseUnitTests
     [ClassData(typeof(CompletedOrderCreateWithIdInvalidOrderDateData))]
     public void CreateWithId_ShouldThrowException_WhenOrderIsInvalid(CompletedOrderId id, string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId)
     {
-        Assert.Throws<CompletedOrderValidationException>(() =>
+        Assert.Throws<CustomValidationException<CompletedOrder>>(() =>
         {
             CreateOrderWithId(id, name, description, price, delivery, orderDate, buyerId);
         });

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Products.Enums;
+﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.Events;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
@@ -16,11 +15,11 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
     public async Task<GalleryGetProductByIdDto> Handle(GalleryGetProductByIdQuery req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw ProductNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Product>.ById(req.Id);
 
         if (product.Status is not ProductStatus.Validated)
         {
-            throw ProductStatusException.MustBeValidated(req.Id);
+            throw CustomStatusException<Product>.ById(req.Id);
         }
 
         GetCadVolumeByIdQuery volumeQuery = new(product.CadId);

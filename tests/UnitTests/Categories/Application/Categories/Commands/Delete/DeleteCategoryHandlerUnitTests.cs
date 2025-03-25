@@ -3,6 +3,7 @@ using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Delete.Data;
 
@@ -88,7 +89,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
         DeleteCategoryHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CategoryNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

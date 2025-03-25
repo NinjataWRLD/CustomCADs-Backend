@@ -1,9 +1,9 @@
-﻿using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
-using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
+﻿using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
 using CustomCADs.Orders.Application.OngoingOrders.Commands.Purchase.Normal;
 using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
@@ -122,7 +122,7 @@ public class PurchaseOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         PurchaseOngoingOrderHandler handler = new(reads.Object, sender.Object, payment.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderAuthorizationException>(async () =>
+        await Assert.ThrowsAsync<CustomAuthorizationException<OngoingOrder>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -140,7 +140,7 @@ public class PurchaseOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         PurchaseOngoingOrderHandler handler = new(reads.Object, sender.Object, payment.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderStatusException>(async () =>
+        await Assert.ThrowsAsync<CustomStatusException<OngoingOrder>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -158,7 +158,7 @@ public class PurchaseOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         PurchaseOngoingOrderHandler handler = new(reads.Object, sender.Object, payment.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderDeliveryException>(async () =>
+        await Assert.ThrowsAsync<CustomException>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -176,7 +176,7 @@ public class PurchaseOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         PurchaseOngoingOrderHandler handler = new(reads.Object, sender.Object, payment.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderPriceException>(async () =>
+        await Assert.ThrowsAsync<CustomException>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -194,7 +194,7 @@ public class PurchaseOngoingOrderHandlerUnitTests : OngoingOrdersBaseUnitTests
         PurchaseOngoingOrderHandler handler = new(reads.Object, sender.Object, payment.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<OngoingOrder>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

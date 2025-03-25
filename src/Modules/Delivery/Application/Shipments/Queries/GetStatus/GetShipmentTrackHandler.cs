@@ -1,5 +1,4 @@
-﻿using CustomCADs.Delivery.Application.Common.Exceptions;
-using CustomCADs.Delivery.Domain.Repositories.Reads;
+﻿using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 
@@ -11,7 +10,7 @@ public class GetShipmentTrackHandler(IShipmentReads reads, IDeliveryService deli
     public async Task<Dictionary<DateTime, GetShipmentTrackDto>> Handle(GetShipmentTrackQuery req, CancellationToken ct)
     {
         Shipment shipment = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw ShipmentNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Shipment>.ById(req.Id);
 
         ShipmentStatusDto[] statuses = await delivery.TrackAsync(
             shipment.ReferenceId,

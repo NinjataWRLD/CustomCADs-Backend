@@ -16,25 +16,25 @@ public sealed class PurchaseOngoingOrderWithDeliveryHandler(IOngoingOrderReads r
     public async Task<string> Handle(PurchaseOngoingOrderWithDeliveryCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.OrderId, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.OrderId);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.OrderId);
 
         if (order.BuyerId != req.BuyerId)
-            throw OngoingOrderAuthorizationException.ByOrderId(order.Id);
+            throw CustomAuthorizationException<OngoingOrder>.ById(order.Id);
 
         if (order.OrderStatus is not OngoingOrderStatus.Finished)
-            throw OngoingOrderStatusException.NotFinished(order.Id);
+            throw CustomStatusException<OngoingOrder>.ById(order.Id, nameof(OngoingOrderStatus.Finished));
 
         if (!order.Delivery)
-            throw OngoingOrderDeliveryException.ById(order.Id);
+            throw CustomException.Delivery<OngoingOrder>(order.Delivery);
 
         if (order.DesignerId is null)
-            throw OngoingOrderDesignerException.ById(order.Id);
+            throw CustomException.NullProp<OngoingOrder>(nameof(order.DesignerId));
 
         if (order.CadId is null)
-            throw OngoingOrderCadException.ById(order.Id);
+            throw CustomException.NullProp<OngoingOrder>(nameof(order.CadId));
 
         if (order.Price is null)
-            throw OngoingOrderPriceException.ById(order.Id);
+            throw CustomException.NullProp<OngoingOrder>(nameof(order.Price));
 
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId),
             sellerQuery = new(order.DesignerId.Value);

@@ -10,12 +10,10 @@ public sealed class ClientGetOngoingOrderByIdHandler(IOngoingOrderReads reads, I
     public async Task<ClientGetOngoingOrderByIdDto> Handle(ClientGetOngoingOrderByIdQuery req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (order.BuyerId != req.BuyerId)
-        {
-            throw OngoingOrderAuthorizationException.ByOrderId(req.Id);
-        }
+            throw CustomAuthorizationException<OngoingOrder>.ById(req.Id);
 
         GetTimeZoneByIdQuery timeZoneQuery = new(Id: order.BuyerId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);

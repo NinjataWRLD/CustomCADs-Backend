@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Repositories.Reads;
+﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Tags;
 
 namespace CustomCADs.Catalog.Application.Tags.Queries.GetById;
@@ -10,7 +9,7 @@ public class GetTagByIdHandler(ITagReads reads)
     public async Task<GetTagByIdDto> Handle(GetTagByIdQuery req, CancellationToken ct)
     {
         Tag tag = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw TagNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Tag>.ById(req.Id);
 
         return tag.ToGetTagByIdDto();
     }

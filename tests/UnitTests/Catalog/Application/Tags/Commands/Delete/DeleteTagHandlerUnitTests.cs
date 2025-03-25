@@ -3,6 +3,7 @@ using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Catalog.Domain.Tags;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Delete;
@@ -62,7 +63,7 @@ public class DeleteTagHandlerUnitTests : TagsBaseUnitTests
         DeleteTagHandler handler = new(reads.Object, writes.Object, uow.Object);
 
         // Assert
-        await Assert.ThrowsAsync<TagNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(async () =>
         {
             // Act  
             await handler.Handle(command, ct);

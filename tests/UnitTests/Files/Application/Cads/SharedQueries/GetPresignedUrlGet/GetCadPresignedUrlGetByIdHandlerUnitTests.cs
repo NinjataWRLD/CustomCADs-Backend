@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Files.Application.Cads.SharedQueryHandlers;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Storage;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.SharedQueries.GetPresignedUrlGet;
@@ -80,7 +81,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
         GetCadPresignedUrlGetByIdHandler handler = new(reads.Object, storage.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CadNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

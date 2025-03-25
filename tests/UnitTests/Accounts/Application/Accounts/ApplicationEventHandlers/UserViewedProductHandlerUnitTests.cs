@@ -2,6 +2,7 @@
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.ApplicationEvents.Catalog;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
@@ -75,7 +76,7 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
         UserViewedProductHandler handler = new(reads.Object, uow.Object);
 
         // Assert
-        await Assert.ThrowsAsync<AccountNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
         {
             // Act
             await handler.Handle(ie);

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Role.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Role;
@@ -31,7 +31,7 @@ public class AccountRoleUnitTests : AccountsBaseUnitTests
     {
         var account = CreateAccount();
 
-        Assert.Throws<AccountValidationException>(() =>
+        Assert.Throws<CustomValidationException<Account>>(() =>
         {
             account.SetRole(role);
         });

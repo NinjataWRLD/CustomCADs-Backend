@@ -13,12 +13,10 @@ public class CalculateOngoingOrderShipmentHandler(IOngoingOrderReads reads, IReq
     public async Task<CalculateOngoingOrderShipmentDto[]> Handle(CalculateOngoingOrderShipmentQuery req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (!order.Delivery)
-        {
-            throw OngoingOrderDeliveryException.ById(order.Id);
-        }
+            throw new CustomException("The Ongoing Order is not marked for delivery");
 
         GetCustomizationWeightByIdQuery customizationIdQuery = new(req.CustomizationId);
         double weight = await sender.SendQueryAsync(customizationIdQuery, ct).ConfigureAwait(false);

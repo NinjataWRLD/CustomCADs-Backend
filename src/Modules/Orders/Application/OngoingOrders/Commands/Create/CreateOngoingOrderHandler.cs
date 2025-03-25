@@ -12,9 +12,7 @@ public sealed class CreateOngoingOrderHandler(IWrites<OngoingOrder> writes, IUni
         GetAccountExistsByIdQuery buyerQuery = new(req.BuyerId);
         bool buyerExists = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
         if (!buyerExists)
-        {
-            throw OngoingOrderNotFoundException.BuyerId(req.BuyerId);
-        }
+            throw CustomNotFoundException<OngoingOrder>.ById(req.BuyerId, "User");
 
         OngoingOrder order = req.ToOngoingOrder();
 

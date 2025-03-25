@@ -9,7 +9,7 @@ public class SetOngoingOrderDeliveryHandler(IOngoingOrderReads reads, IUnitOfWor
     public async Task Handle(SetOngoingOrderDeliveryCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         order.SetDelivery(req.Value);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

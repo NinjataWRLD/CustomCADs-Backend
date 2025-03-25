@@ -1,7 +1,7 @@
-﻿using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
-using CustomCADs.Orders.Application.OngoingOrders.Commands.SetDelivery;
+﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.SetDelivery;
 using CustomCADs.Orders.Domain.Repositories;
 using CustomCADs.Orders.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.SetDelivery;
@@ -93,7 +93,7 @@ public class SetOngoingOrderDeliveryHandlerUnitTests : OngoingOrdersBaseUnitTest
         SetOngoingOrderDeliveryHandler handler = new(reads.Object, uow.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<OngoingOrder>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

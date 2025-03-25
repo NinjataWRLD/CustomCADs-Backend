@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.SharedQueryHandlers;
 using CustomCADs.Categories.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 using CustomCADs.UnitTests.Categories.Application.Categories.SharedQueries.GetById.Data;
@@ -51,7 +52,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
         GetCategoryNameByIdHandler handler = new(reads.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CategoryNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

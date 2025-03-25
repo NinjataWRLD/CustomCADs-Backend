@@ -1,5 +1,4 @@
-﻿using CustomCADs.Categories.Application.Common.Exceptions;
-using CustomCADs.Categories.Domain.Repositories.Reads;
+﻿using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
 
 namespace CustomCADs.Categories.Application.Categories.Queries.GetById;
@@ -14,7 +13,7 @@ public sealed class GetCategoryByIdHandler(ICategoryReads reads, ICacheService c
         if (category is null)
         {
             category = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-                ?? throw CategoryNotFoundException.ById(req.Id);
+                ?? throw CustomNotFoundException<Category>.ById(req.Id);
 
             await cache.SetCategoryAsync(category.Id, category).ConfigureAwait(false);
         }

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts;
-using CustomCADs.Carts.Application.Common.Exceptions;
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
@@ -20,9 +19,8 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
         bool buyerExists = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         if (!buyerExists)
-        {
-            throw PurchasedCartNotFoundException.BuyerId(req.BuyerId);
-        }
+            throw CustomNotFoundException<PurchasedCart>.ById(req.BuyerId, "User");
+
         var cart = PurchasedCart.Create(req.BuyerId);
 
         ProductId[] productIds = [.. req.Items.Select(i => i.ProductId)];

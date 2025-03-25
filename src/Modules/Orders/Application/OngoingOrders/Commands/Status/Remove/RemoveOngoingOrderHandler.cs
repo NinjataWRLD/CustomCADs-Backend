@@ -9,7 +9,7 @@ public sealed class RemoveOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
     public async Task Handle(RemoveOngoingOrderCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         order.SetRemovedStatus();
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

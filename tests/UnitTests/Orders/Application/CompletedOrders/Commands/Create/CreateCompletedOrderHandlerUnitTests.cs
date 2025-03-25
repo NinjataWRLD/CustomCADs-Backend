@@ -1,7 +1,7 @@
-﻿using CustomCADs.Orders.Application.Common.Exceptions.Completed;
-using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
+﻿using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
 using CustomCADs.Orders.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
@@ -128,7 +128,7 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
         CreateCompletedOrderHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CompletedOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<CompletedOrder>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -157,7 +157,7 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
         CreateCompletedOrderHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CompletedOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<CompletedOrder>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -186,7 +186,7 @@ public class CreateCompletedOrderHandlerUnitTests : CompletedOrdersBaseUnitTests
         CreateCompletedOrderHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CompletedOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<CompletedOrder>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

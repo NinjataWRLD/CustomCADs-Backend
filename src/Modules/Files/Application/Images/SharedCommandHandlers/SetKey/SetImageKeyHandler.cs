@@ -1,5 +1,4 @@
-﻿using CustomCADs.Files.Application.Common.Exceptions;
-using CustomCADs.Files.Domain.Repositories;
+﻿using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Commands;
 using CustomCADs.Shared.UseCases.Images.Commands;
@@ -12,7 +11,7 @@ public sealed class SetImageKeyHandler(IImageReads reads, IUnitOfWork uow)
     public async Task Handle(SetImageKeyCommand req, CancellationToken ct = default)
     {
         Image image = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw ImageNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Image>.ById(req.Id);
 
         image.SetKey(req.Key);
 

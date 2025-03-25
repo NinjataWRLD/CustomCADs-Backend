@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Repositories.Reads;
+﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
@@ -11,7 +10,7 @@ public sealed class GetProductCadPresignedUrlGetHandler(IProductReads reads, IRe
     public async Task<GetProductCadPresignedUrlGetDto> Handle(GetProductCadPresignedUrlGetQuery req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw ProductNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Product>.ById(req.Id);
 
         GetCadPresignedUrlGetByIdQuery query = new(product.CadId);
         var (Url, ContentType) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

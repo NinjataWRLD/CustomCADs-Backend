@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products.Exceptions;
-
-namespace CustomCADs.Catalog.Domain.Products;
+﻿namespace CustomCADs.Catalog.Domain.Products;
 
 using static ProductConstants;
 
@@ -13,13 +11,13 @@ public static class ProductValidations
 
         if (string.IsNullOrEmpty(name))
         {
-            throw ProductValidationException.NotNull(property);
+            throw CustomValidationException<Product>.NotNull(property);
         }
 
         int maxLength = NameMaxLength, minLength = NameMinLength;
         if (name.Length > maxLength || name.Length < minLength)
         {
-            throw ProductValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<Product>.Length(property, minLength, maxLength);
         }
 
         return product;
@@ -32,13 +30,13 @@ public static class ProductValidations
 
         if (string.IsNullOrEmpty(description))
         {
-            throw ProductValidationException.NotNull(property);
+            throw CustomValidationException<Product>.NotNull(property);
         }
 
         int maxLength = DescriptionMaxLength, minLength = DescriptionMinLength;
         if (description.Length > maxLength || description.Length < minLength)
         {
-            throw ProductValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<Product>.Length(property, minLength, maxLength);
         }
 
         return product;
@@ -52,7 +50,7 @@ public static class ProductValidations
         decimal max = PriceMax, min = PriceMin;
         if (amount > max || amount < min)
         {
-            throw ProductValidationException.Range(property, max, min);
+            throw CustomValidationException<Product>.Range(property, min, max);
         }
 
         return product;

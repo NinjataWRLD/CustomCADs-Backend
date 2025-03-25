@@ -4,6 +4,7 @@ using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Files;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Delete;
 
@@ -74,7 +75,7 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
         DeleteProductHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductAuthorizationException>(async () =>
+        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -92,7 +93,7 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
         DeleteProductHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

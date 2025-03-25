@@ -1,10 +1,10 @@
-﻿using CustomCADs.Orders.Application.Common.Exceptions.Completed;
-using CustomCADs.Orders.Application.CompletedOrders.DomainEventHandlers;
+﻿using CustomCADs.Orders.Application.CompletedOrders.DomainEventHandlers;
 using CustomCADs.Orders.Domain.OngoingOrders.Events;
 using CustomCADs.Orders.Domain.Repositories;
 using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
@@ -126,7 +126,7 @@ public class OngoingOrderDeliveryRequestedDomainEventHandlerUnitTests : Complete
         OngoingOrderDeliveryRequestedDomainEventHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CompletedOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<CompletedOrder>>(async () =>
         {
             // Act
             await handler.Handle(de);

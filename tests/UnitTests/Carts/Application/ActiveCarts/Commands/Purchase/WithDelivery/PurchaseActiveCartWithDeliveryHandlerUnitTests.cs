@@ -6,6 +6,7 @@ using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -205,7 +206,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ActiveCartItemDeliveryException>(async () =>
+        await Assert.ThrowsAsync<CustomException>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -229,7 +230,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ActiveCartNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCart>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

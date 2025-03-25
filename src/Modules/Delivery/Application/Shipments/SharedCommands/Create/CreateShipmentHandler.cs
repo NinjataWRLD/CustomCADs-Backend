@@ -1,5 +1,4 @@
-﻿using CustomCADs.Delivery.Application.Common.Exceptions;
-using CustomCADs.Delivery.Domain.Repositories;
+﻿using CustomCADs.Delivery.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -30,9 +29,7 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
         GetAccountExistsByIdQuery creatorQuery = new(req.BuyerId);
         bool creatorExists = await sender.SendQueryAsync(creatorQuery, ct).ConfigureAwait(false);
         if (!creatorExists)
-        {
-            throw ShipmentNotFoundException.BuyerId(req.BuyerId);
-        }
+            throw CustomNotFoundException<Shipment>.ById(req.BuyerId, "User");
 
         var shipment = Shipment.Create(
             address: new(req.Address.Country, req.Address.City),

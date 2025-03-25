@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Catalog.Domain.Repositories.Reads;
+﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
@@ -12,7 +11,7 @@ public sealed class DesignerGetProductByIdHandler(IProductReads reads, IRequestS
     public async Task<DesignerGetProductByIdDto> Handle(DesignerGetProductByIdQuery req, CancellationToken ct)
     {
         Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw ProductNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Product>.ById(req.Id);
 
         GetUsernameByIdQuery usernameQuery = new(product.CreatorId);
         string username = await sender.SendQueryAsync(usernameQuery, ct).ConfigureAwait(false);

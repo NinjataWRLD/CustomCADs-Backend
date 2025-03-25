@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Files.Application.Cads.SharedCommandHandlers.SetKey;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.UnitTests.Files.Application.Cads.SharedCommands.SetKey.Data;
 
@@ -74,7 +75,7 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
         SetCadKeyHandler handler = new(reads.Object, uow.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CadNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

@@ -2,6 +2,7 @@
 using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Edit;
@@ -104,7 +105,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
         EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductAuthorizationException>(async () =>
+        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -129,7 +130,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
         EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -154,7 +155,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
         EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ProductNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

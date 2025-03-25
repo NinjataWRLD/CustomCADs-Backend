@@ -3,6 +3,7 @@ using CustomCADs.Carts.Application.PurchasedCarts.Commands.Create;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -131,7 +132,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
         PurchaseActiveCartHandler handler = new(reads.Object, sender.Object, payment.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ActiveCartItemDeliveryException>(async () =>
+        await Assert.ThrowsAsync<CustomException>(async () =>
         {
             // Act
             await handler.Handle(command, ct);
@@ -149,7 +150,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
         PurchaseActiveCartHandler handler = new(reads.Object, sender.Object, payment.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ActiveCartNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCart>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

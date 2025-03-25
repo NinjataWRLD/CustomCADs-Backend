@@ -1,5 +1,4 @@
-﻿using CustomCADs.Files.Application.Common.Exceptions;
-using CustomCADs.Files.Domain.Repositories.Reads;
+﻿using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Queries;
 using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.UseCases.Images.Queries;
@@ -12,7 +11,7 @@ public class GetImagePresignedUrlGetByIdHandler(IImageReads reads, IStorageServi
     public async Task<(string Url, string ContentType)> Handle(GetImagePresignedUrlGetByIdQuery req, CancellationToken ct)
     {
         Image image = await reads.SingleByIdAsync(req.Id, track: false, ct).ConfigureAwait(false)
-            ?? throw ImageNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<Image>.ById(req.Id);
 
         string url = await storage.GetPresignedGetUrlAsync(
             key: image.Key,

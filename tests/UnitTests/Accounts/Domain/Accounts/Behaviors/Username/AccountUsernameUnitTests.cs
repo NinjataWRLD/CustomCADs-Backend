@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Username.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Username;
@@ -31,7 +31,7 @@ public class AccountUsernameUnitTests : AccountsBaseUnitTests
     {
         var account = CreateAccount();
 
-        Assert.Throws<AccountValidationException>(() =>
+        Assert.Throws<CustomValidationException<Account>>(() =>
         {
             account.SetUsername(username);
         });

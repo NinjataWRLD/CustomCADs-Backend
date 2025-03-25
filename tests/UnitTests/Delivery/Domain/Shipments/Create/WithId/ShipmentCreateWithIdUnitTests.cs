@@ -1,5 +1,5 @@
-﻿using CustomCADs.Delivery.Domain.Shipments.Exceptions;
-using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
+﻿using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Delivery.Domain.Shipments.Create.Normal.Data;
 
@@ -34,7 +34,7 @@ public class ShipmentCreateWithIdUnitTests : ShipmentsBaseUnitTests
     [ClassData(typeof(ShipmentCreateWithIdInvalidCityData))]
     public void CreateWithId_ShouldThrowException_WhenShipmentIsInvalid(string country, string city, string referenceId, AccountId buyerId)
     {
-        Assert.Throws<ShipmentValidationException>(() =>
+        Assert.Throws<CustomValidationException<Shipment>>(() =>
         {
             Shipment.Create(new(country, city), referenceId, buyerId);
         });

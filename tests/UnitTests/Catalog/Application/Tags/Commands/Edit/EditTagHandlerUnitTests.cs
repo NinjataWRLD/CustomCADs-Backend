@@ -2,6 +2,7 @@
 using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Tags;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Edit.Data;
 
@@ -65,7 +66,7 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
         EditTagHandler handler = new(reads.Object, uow.Object);
 
         // Assert
-        await Assert.ThrowsAsync<TagNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(async () =>
         {
             // Act  
             await handler.Handle(command, ct);

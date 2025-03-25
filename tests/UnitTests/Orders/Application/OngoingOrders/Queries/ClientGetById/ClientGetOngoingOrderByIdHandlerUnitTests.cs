@@ -1,7 +1,7 @@
-﻿using CustomCADs.Orders.Application.Common.Exceptions.Ongoing;
-using CustomCADs.Orders.Application.OngoingOrders.Queries.ClientGetById;
+﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.ClientGetById;
 using CustomCADs.Orders.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
@@ -121,7 +121,7 @@ public class ClientGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnitTe
         ClientGetOngoingOrderByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderAuthorizationException>(async () =>
+        await Assert.ThrowsAsync<CustomAuthorizationException<OngoingOrder>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);
@@ -142,7 +142,7 @@ public class ClientGetOngoingOrderByIdHandlerUnitTests : OngoingOrdersBaseUnitTe
         ClientGetOngoingOrderByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<OngoingOrderNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<OngoingOrder>>(async () =>
         {
             // Act
             await handler.Handle(query, ct);

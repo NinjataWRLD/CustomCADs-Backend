@@ -3,6 +3,7 @@ using CustomCADs.Delivery.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 using CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Create.Data;
@@ -122,7 +123,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
         CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<ShipmentNotFoundException>(async () =>
+        await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

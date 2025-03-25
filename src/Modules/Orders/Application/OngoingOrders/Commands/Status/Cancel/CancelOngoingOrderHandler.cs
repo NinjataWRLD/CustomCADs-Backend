@@ -9,12 +9,10 @@ public sealed class CancelOngoingOrderHandler(IOngoingOrderReads reads, IUnitOfW
     public async Task Handle(CancelOngoingOrderCommand req, CancellationToken ct)
     {
         OngoingOrder order = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw OngoingOrderNotFoundException.ById(req.Id);
+            ?? throw CustomNotFoundException<OngoingOrder>.ById(req.Id);
 
         if (req.DesignerId != order.DesignerId)
-        {
-            throw OngoingOrderAuthorizationException.NotAssociated(order.Id, "cancel");
-        }
+            throw CustomAuthorizationException<OngoingOrder>.ById(req.Id);
 
         order.SetPendingStatus();
         order.EraseDesignerId();
