@@ -23,7 +23,7 @@ public sealed class DesignerSingleProductEndpoint(IRequestSender sender)
         );
         DesignerGetProductByIdDto product = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        DesignerSingleProductResponse response = product.ToDesignerSingleProductResponse();
+        DesignerSingleProductResponse response = product.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

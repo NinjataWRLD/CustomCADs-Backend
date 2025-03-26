@@ -14,7 +14,7 @@ public sealed class CreateOngoingOrderHandler(IWrites<OngoingOrder> writes, IUni
         if (!buyerExists)
             throw CustomNotFoundException<OngoingOrder>.ById(req.BuyerId, "User");
 
-        OngoingOrder order = req.ToOngoingOrder();
+        OngoingOrder order = req.ToEntity();
 
         await writes.AddAsync(order, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

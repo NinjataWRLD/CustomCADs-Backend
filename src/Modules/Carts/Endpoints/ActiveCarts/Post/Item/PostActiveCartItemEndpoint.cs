@@ -37,7 +37,7 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
         );
         ActiveCartItemDto item = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        ActiveCartItemResponse response = item.ToCartItemResponse();
+        ActiveCartItemResponse response = item.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

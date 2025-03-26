@@ -23,7 +23,7 @@ public sealed class DesignerGetOngoingOrderEndpoint(IRequestSender sender)
         );
         DesignerGetOngoingOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = order.ToDesignerGetOrderResponse();
+        var response = order.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

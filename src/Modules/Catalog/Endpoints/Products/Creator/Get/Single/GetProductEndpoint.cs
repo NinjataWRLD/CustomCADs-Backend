@@ -23,7 +23,7 @@ public sealed class GetProductEndpoint(IRequestSender sender)
         );
         CreatorGetProductByIdDto product = await sender.SendQueryAsync(getProductQuery, ct).ConfigureAwait(false);
 
-        GetProductResponse response = product.ToGetProductResponse();
+        GetProductResponse response = product.ToGetResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

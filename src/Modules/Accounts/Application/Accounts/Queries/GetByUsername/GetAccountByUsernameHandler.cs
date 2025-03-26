@@ -10,6 +10,6 @@ public sealed class GetAccountByUsernameHandler(IAccountReads reads)
         Account account = await reads.SingleByUsernameAsync(req.Username, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<Account>.ByProp(nameof(req.Username), req.Username);
 
-        return account.ToGetAccountByUsernameDto();
+        return account.ToGetByUsernameDto();
     }
 }

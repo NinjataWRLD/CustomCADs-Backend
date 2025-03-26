@@ -14,8 +14,8 @@ public class GetCadCoordsByIdHandler(ICadReads reads)
             ?? throw CustomNotFoundException<Cad>.ById(req.Id);
 
         return (
-            Cam: cad.CamCoordinates.ToCoordinatesDto(),
-            Pan: cad.PanCoordinates.ToCoordinatesDto()
+            Cam: cad.CamCoordinates.ToDto(),
+            Pan: cad.PanCoordinates.ToDto()
         );
     }
 }

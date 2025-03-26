@@ -30,7 +30,7 @@ public sealed class RecentProductsEndpoint(IRequestSender sender)
         );
         Result<GetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        RecentProductsResponse[] response = [.. result.Items.Select(p => p.ToRecentProductsResponse())];
+        RecentProductsResponse[] response = [.. result.Items.Select(p => p.ToRecentResponse())];
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

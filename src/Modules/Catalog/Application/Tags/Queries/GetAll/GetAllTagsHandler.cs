@@ -10,6 +10,6 @@ public class GetAllTagsHandler(ITagReads reads)
     {
         Tag[] tags = await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
 
-        return [.. tags.Select(x => x.ToGetAllTagsDto())];
+        return [.. tags.Select(x => x.ToGetAllDto())];
     }
 }

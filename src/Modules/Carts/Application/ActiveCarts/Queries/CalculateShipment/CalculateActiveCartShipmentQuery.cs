@@ -6,4 +6,4 @@ namespace CustomCADs.Carts.Application.ActiveCarts.Queries.CalculateShipment;
 public record CalculateActiveCartShipmentQuery(
     AccountId BuyerId,
     AddressDto Address
-) : IQuery<CalculateActiveCartShipmentDto[]>;
+) : IQuery<CalculateShipmentDto[]>;

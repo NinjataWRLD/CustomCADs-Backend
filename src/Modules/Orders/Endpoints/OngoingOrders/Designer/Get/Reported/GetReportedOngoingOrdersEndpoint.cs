@@ -31,7 +31,7 @@ public sealed class GetReportedOngoingOrdersEndpoint(IRequestSender sender)
 
         Result<GetReportedOngoingOrdersResponse> response = new(
             Count: orders.Count,
-            Items: [.. orders.Items.Select(o => o.ToGetReportedOrdersDto())]
+            Items: [.. orders.Items.Select(o => o.ToReportedResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

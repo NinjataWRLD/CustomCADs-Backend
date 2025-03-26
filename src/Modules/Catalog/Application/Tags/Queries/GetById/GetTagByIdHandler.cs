@@ -11,6 +11,6 @@ public class GetTagByIdHandler(ITagReads reads)
         Tag tag = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<Tag>.ById(req.Id);
 
-        return tag.ToGetTagByIdDto();
+        return tag.ToGetByIdDto();
     }
 }

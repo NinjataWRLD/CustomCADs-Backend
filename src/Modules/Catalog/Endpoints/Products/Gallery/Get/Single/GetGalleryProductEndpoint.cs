@@ -23,7 +23,7 @@ public sealed class GetGalleryProductEndpoint(IRequestSender sender)
         );
         GalleryGetProductByIdDto product = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetGalleryProductResponse response = product.ToGetGalleryProductResponse();
+        GetGalleryProductResponse response = product.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

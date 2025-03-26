@@ -32,7 +32,7 @@ public sealed class GetValidatedProductsEndpoint(IRequestSender sender)
 
         Result<GetValidatedProductsResponse> response = new(
             Count: result.Count,
-            Items: [.. result.Items.Select(p => p.ToGetValidatedProductsDto())]
+            Items: [.. result.Items.Select(p => p.ToGetValidatedDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

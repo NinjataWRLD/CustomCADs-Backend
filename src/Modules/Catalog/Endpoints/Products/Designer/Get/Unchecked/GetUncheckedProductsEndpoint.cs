@@ -31,7 +31,7 @@ public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
 
         Result<GetUncheckedProductsResponse> response = new(
             Count: result.Count,
-            Items: [.. result.Items.Select(p => p.ToGetUncheckedProductsDto())]
+            Items: [.. result.Items.Select(p => p.ToGetUncheckedDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

@@ -32,10 +32,14 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
         Dictionary<CadId, CadId> itemCads = await sender.SendCommandAsync(cadsCommand, ct).ConfigureAwait(false);
 
         cart.AddItems(
-            [.. req.Items.Select(item => item
-                .ToCartItem()
-                .ToPurchasedCartItemDto(req.Prices, productCads, itemCads)
-            )]
+            [.. req.Items.Select(item => 
+            {
+                decimal price = req.Prices[item.ProductId];
+                CadId productCadId = productCads[item.ProductId];
+                CadId itemCadId = itemCads[productCadId];
+
+                return (price, itemCadId, item.ToEntity());
+            })]
         );
 
         await writes.AddAsync(cart, ct).ConfigureAwait(false);

@@ -23,7 +23,7 @@ public sealed class GetCompletedOrderEndpoint(IRequestSender sender)
         );
         ClientGetCompletedOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = order.ToGetCompletedOrderResponse();
+        var response = order.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

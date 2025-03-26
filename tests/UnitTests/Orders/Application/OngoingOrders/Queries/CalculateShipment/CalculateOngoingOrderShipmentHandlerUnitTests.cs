@@ -24,9 +24,10 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
     private static readonly OngoingOrderId id = ValidId1;
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
     private readonly OngoingOrder order = CreateOrderWithId(id, delivery: true);
-    private readonly CalculationDto calculation = new(
+    private readonly CalculateShipmentDto calculation = new(
+        Total: 0,
+        Currency: string.Empty,
         Service: string.Empty,
-        Price: new(default, default, default, string.Empty),
         PickupDate: default,
         DeliveryDeadline: default
     );
@@ -108,8 +109,8 @@ public class CalculateOngoingOrderShipmentHandlerUnitTests : OngoingOrdersBaseUn
         Assert.Multiple(
             () => Assert.Single(calculations),
             () => Assert.Equal(calculation.Service, calculations.First().Service),
-            () => Assert.Equal(calculation.Price.Currency, calculations.First().Currency),
-            () => Assert.Equal(calculation.Price.Total, calculations.First().Total),
+            () => Assert.Equal(calculation.Currency, calculations.First().Currency),
+            () => Assert.Equal(calculation.Total, calculations.First().Total),
             () => Assert.Equal(calculation.PickupDate, calculations.First().PickupDate),
             () => Assert.Equal(calculation.DeliveryDeadline, calculations.First().DeliveryDeadline)
         );

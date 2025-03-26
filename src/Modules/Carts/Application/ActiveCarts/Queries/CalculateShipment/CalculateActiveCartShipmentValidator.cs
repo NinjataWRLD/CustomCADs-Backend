@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
+using CustomCADs.Shared.Core.Common.Dtos;
 using FluentValidation;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Queries.CalculateShipment;
 
 using static Constants.FluentMessages;
 
-public class CalculateActiveCartShipmentValidator : QueryValidator<CalculateActiveCartShipmentQuery, CalculateActiveCartShipmentDto[]>
+public class CalculateActiveCartShipmentValidator : QueryValidator<CalculateActiveCartShipmentQuery, CalculateShipmentDto[]>
 {
     public CalculateActiveCartShipmentValidator()
     {

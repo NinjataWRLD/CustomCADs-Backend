@@ -25,6 +25,6 @@ public sealed class ClientGetOngoingOrderByIdHandler(IOngoingOrderReads reads, I
             designer = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
         }
 
-        return order.ToGetOrderByIdDto(timeZone, designer);
+        return order.ToClientGetByIdDto(timeZone, designer);
     }
 }

@@ -29,7 +29,7 @@ public sealed class GetCompletedOrdersEndpoint(IRequestSender sender)
 
         Result<GetCompletedOrdersResponse> response = new(
             Count: result.Count,
-            Items: [.. result.Items.Select(o => o.ToGetCompletedOrdersResponse())]
+            Items: [.. result.Items.Select(o => o.ToClientResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

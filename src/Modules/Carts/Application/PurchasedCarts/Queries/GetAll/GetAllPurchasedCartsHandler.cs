@@ -25,7 +25,7 @@ public sealed class GetAllPurchasedCartsHandler(IPurchasedCartReads reads, IRequ
 
         return new(
             result.Count,
-            [.. result.Items.Select(c => c.ToGetAllCartsItem(timeZones[c.BuyerId]))]
+            [.. result.Items.Select(c => c.ToGetAllDto(timeZones[c.BuyerId]))]
         );
     }
 }

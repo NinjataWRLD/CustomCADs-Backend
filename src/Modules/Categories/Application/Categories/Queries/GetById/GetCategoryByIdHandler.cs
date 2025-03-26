@@ -18,6 +18,6 @@ public sealed class GetCategoryByIdHandler(ICategoryReads reads, ICacheService c
             await cache.SetCategoryAsync(category.Id, category).ConfigureAwait(false);
         }
 
-        return category.ToCategoryReadDto();
+        return category.ToDto();
     }
 }

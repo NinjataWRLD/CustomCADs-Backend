@@ -30,7 +30,7 @@ public sealed class DesignerGetCompletedOrdersEndpoint(IRequestSender sender)
 
         Result<DesignerGetCompletedOrdersResponse> response = new(
             Count: result.Count,
-            Items: [.. result.Items.Select(o => o.ToDesignerGetCompletedOrdersResponse())]
+            Items: [.. result.Items.Select(o => o.ToDesignerResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

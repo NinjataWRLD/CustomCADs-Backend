@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products.ValueObjects;
+﻿using CustomCADs.Catalog.Endpoints.Common.Dtos;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Creator.GetById;
 
@@ -9,7 +9,7 @@ public record CreatorGetProductByIdDto(
     decimal Price,
     string Status,
     DateTime UploadDate,
-    Counts Counts,
+    CountsDto Counts,
     string CreatorName,
     CategoryDto Category
 );

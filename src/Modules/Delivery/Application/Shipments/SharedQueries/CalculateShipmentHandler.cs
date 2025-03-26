@@ -1,13 +1,14 @@
 ﻿using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
 namespace CustomCADs.Delivery.Application.Shipments.SharedQueries;
 
 public class CalculateShipmentHandler(IDeliveryService delivery)
-    : IQueryHandler<CalculateShipmentQuery, CalculationDto[]>
+    : IQueryHandler<CalculateShipmentQuery, CalculateShipmentDto[]>
 {
-    public async Task<CalculationDto[]> Handle(CalculateShipmentQuery req, CancellationToken ct)
+    public async Task<CalculateShipmentDto[]> Handle(CalculateShipmentQuery req, CancellationToken ct)
     {
         CalculationDto[] calculations = await delivery.CalculateAsync(new(
             ParcelCount: req.ParcelCount,
@@ -16,6 +17,6 @@ public class CalculateShipmentHandler(IDeliveryService delivery)
             City: req.Address.City
         ), ct).ConfigureAwait(false);
 
-        return calculations;
+        return [.. calculations.Select(x => x.ToDto(req.TimeZone))];
     }
 }

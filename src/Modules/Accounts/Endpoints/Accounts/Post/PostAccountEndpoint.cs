@@ -33,7 +33,7 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
         GetAccountByUsernameQuery getByIdQuery = new(req.Username);
         GetAccountByUsernameDto newAccount = await sender.SendQueryAsync(getByIdQuery, ct).ConfigureAwait(false);
 
-        AccountResponse response = newAccount.ToUserResponse();
+        AccountResponse response = newAccount.ToResponse();
         await SendCreatedAtAsync<GetAccountEndpoint>(new { req.Username }, response).ConfigureAwait(false);
     }
 }

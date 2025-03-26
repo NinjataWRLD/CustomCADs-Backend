@@ -31,7 +31,7 @@ public sealed class GetAcceptedOngoingOrdersEndpoint(IRequestSender sender)
 
         Result<GetAcceptedOngoingOrdersResponse> response = new(
             Count: orders.Count,
-            Items: [.. orders.Items.Select(o => o.ToGetAcceptedOrdersDto())]
+            Items: [.. orders.Items.Select(o => o.ToAcceptedResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

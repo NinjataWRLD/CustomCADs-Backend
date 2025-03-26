@@ -21,7 +21,7 @@ public sealed class GetCategoriesEndpoint(IRequestSender sender)
         GetAllCategoriesQuery query = new();
         IEnumerable<CategoryReadDto> categories = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        CategoryResponse[] response = [.. categories.Select(c => c.ToCategoryResponse())];
+        CategoryResponse[] response = [.. categories.Select(c => c.ToResponse())];
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

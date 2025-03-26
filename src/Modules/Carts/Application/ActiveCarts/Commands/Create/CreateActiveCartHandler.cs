@@ -19,7 +19,7 @@ public sealed class CreateActiveCartHandler(IActiveCartReads reads, IWrites<Acti
         if (!buyerExists)
             throw CustomNotFoundException<ActiveCart>.ById(req.BuyerId, "User");
 
-        ActiveCart cart = req.ToCart();
+        var cart = ActiveCart.Create(req.BuyerId);
 
         await writes.AddAsync(cart, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

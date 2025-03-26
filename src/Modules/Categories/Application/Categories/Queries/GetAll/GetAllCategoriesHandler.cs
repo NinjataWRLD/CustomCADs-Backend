@@ -16,6 +16,6 @@ public sealed class GetAllCategoriesHandler(ICategoryReads reads, ICacheService 
             await cache.SetCategoriesArrayAsync(categories).ConfigureAwait(false);
         }
 
-        return categories.Select(c => c.ToCategoryReadDto());
+        return categories.Select(c => c.ToDto());
     }
 }

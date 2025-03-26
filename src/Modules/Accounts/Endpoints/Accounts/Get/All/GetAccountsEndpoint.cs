@@ -27,7 +27,7 @@ public sealed class GetAccountsEndpoint(IRequestSender sender)
 
         Result<AccountResponse> response = new(
             result.Count,
-            [.. result.Items.Select(a => a.ToUserResponse())]
+            [.. result.Items.Select(a => a.ToResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

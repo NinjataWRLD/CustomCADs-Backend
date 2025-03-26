@@ -22,7 +22,7 @@ public sealed class GetActiveCartEndpoint(IRequestSender sender)
         );
         GetActiveCartDto cart = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetActiveCartResponse response = cart.ToGetCartResponse();
+        GetActiveCartResponse response = cart.ToGetResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

@@ -31,7 +31,7 @@ public sealed class GetFinishedOngoingOrdersEndpoint(IRequestSender sender)
 
         Result<GetFinishedOngoingOrdersResponse> response = new(
             Count: orders.Count,
-            Items: [.. orders.Items.Select(o => o.ToGetFinishedOrdersDto())]
+            Items: [.. orders.Items.Select(o => o.ToFinishedResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

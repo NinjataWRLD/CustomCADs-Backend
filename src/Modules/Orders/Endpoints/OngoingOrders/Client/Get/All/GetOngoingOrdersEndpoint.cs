@@ -30,7 +30,7 @@ public sealed class GetOngoingOrdersEndpoint(IRequestSender sender)
 
         Result<GetOngoingOrdersResponse> response = new(
             Count: result.Count,
-            Items: result.Items.Select(o => o.ToGetOrdersDto()).ToArray()
+            Items: result.Items.Select(o => o.ToGetResponse()).ToArray()
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

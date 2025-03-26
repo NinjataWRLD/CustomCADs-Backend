@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.Delivery.Endpoints.Common.Dtos;
 
-public record AddressDto(
+public record AddressResponse(
     string City,
     string Country
 );

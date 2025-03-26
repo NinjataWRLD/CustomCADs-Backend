@@ -39,7 +39,7 @@ public sealed class GetAllProductsHandler(IProductReads reads, IRequestSender se
 
         return new(
             Count: result.Count,
-            Items: result.Items.Select(p => p.ToGetAllProductsItem(
+            Items: result.Items.Select(p => p.ToGetAllDto(
                 username: users[p.CreatorId],
                 categoryName: categories[p.CategoryId],
                 timeZone: timeZones[p.CreatorId]

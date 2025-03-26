@@ -21,6 +21,6 @@ public sealed class ClientGetCompletedOrderByIdHandler(ICompletedOrderReads read
         GetUsernameByIdQuery designerQuery = new(order.BuyerId);
         string designer = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
 
-        return order.ToGetOrderByIdDto(timeZone, designer);
+        return order.ToClientGetByIdDto(timeZone, designer);
     }
 }

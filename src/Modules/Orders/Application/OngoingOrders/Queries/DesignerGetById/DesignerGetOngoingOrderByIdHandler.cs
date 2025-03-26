@@ -20,6 +20,6 @@ public sealed class DesignerGetOngoingOrderByIdHandler(IOngoingOrderReads reads,
         GetUsernameByIdQuery buyerQuery = new(order.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
 
-        return order.ToDesignerGetOrderByIdDto(buyer);
+        return order.ToDesignerGetByIdDto(buyer);
     }
 }

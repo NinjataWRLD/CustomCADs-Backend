@@ -27,6 +27,6 @@ public sealed class CreatorGetProductByIdHandler(IProductReads reads, IRequestSe
         GetTimeZoneByIdQuery timeZoneQuery = new(product.CreatorId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
 
-        return product.ToGetProductByIdDto(username, categoryName, timeZone);
+        return product.ToCreatorGetByIdDto(username, categoryName, timeZone);
     }
 }

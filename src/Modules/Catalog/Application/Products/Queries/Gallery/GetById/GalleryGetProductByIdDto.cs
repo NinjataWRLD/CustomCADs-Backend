@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products.ValueObjects;
+﻿using CustomCADs.Catalog.Endpoints.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Gallery.GetById;
@@ -13,6 +13,6 @@ public record GalleryGetProductByIdDto(
     DateTime UploadDate,
     CoordinatesDto CamCoordinates,
     CoordinatesDto PanCoordinates,
-    Counts Counts,
+    CountsDto Counts,
     CategoryDto Category
 );

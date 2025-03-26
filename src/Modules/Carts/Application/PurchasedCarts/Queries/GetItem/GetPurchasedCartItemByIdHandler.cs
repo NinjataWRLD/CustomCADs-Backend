@@ -14,6 +14,6 @@ public sealed class GetPurchasedCartItemByIdHandler(IPurchasedCartReads reads)
         PurchasedCartItem item = cart.Items.FirstOrDefault(i => i.ProductId == req.ProductId)
             ?? throw CustomNotFoundException<PurchasedCartItem>.ById(req.ProductId);
 
-        return item.ToCartItemDto();
+        return item.ToDto();
     }
 }

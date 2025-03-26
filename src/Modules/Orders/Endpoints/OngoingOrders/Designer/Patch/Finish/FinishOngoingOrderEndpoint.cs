@@ -20,7 +20,7 @@ public sealed class FinishOngoingOrderEndpoint(IRequestSender sender)
         FinishOngoingOrderCommand command = new(
             Id: OngoingOrderId.New(req.Id),
             Price: req.Price,
-            Cad: req.ToCadDto(),
+            Cad: req.ToTuple(),
             DesignerId: User.GetAccountId()
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);

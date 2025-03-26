@@ -27,7 +27,7 @@ public sealed class GetPurchasedCartsEndpoint(IRequestSender sender)
 
         Result<GetPurchasedCartsResponse> response = new(
             Count: carts.Count,
-            Items: [.. carts.Items.Select(c => c.ToGetPurchasedCartsDto())]
+            Items: [.. carts.Items.Select(c => c.ToResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

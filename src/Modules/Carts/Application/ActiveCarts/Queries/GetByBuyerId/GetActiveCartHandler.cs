@@ -15,6 +15,6 @@ public sealed class GetActiveCartHandler(IActiveCartReads reads, IRequestSender 
         GetUsernameByIdQuery buyerQuery = new(cart.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
 
-        return cart.ToGetCartByIdDto(buyer);
+        return cart.ToDto(buyer);
     }
 }

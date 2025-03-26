@@ -9,7 +9,7 @@ using static Constants;
 
 internal static class Mapper
 {
-    internal static GetPurchasedCartsResponse ToGetPurchasedCartsDto(this GetAllPurchasedCartsDto cart)
+    internal static GetPurchasedCartsResponse ToResponse(this GetAllPurchasedCartsDto cart)
         => new(
             Id: cart.Id.Value,
             Total: cart.Total,
@@ -17,17 +17,17 @@ internal static class Mapper
             ItemsCount: cart.ItemsCount
         );
 
-    internal static GetPurchasedCartResponse ToGetPurchasedCartResponse(this GetPurchasedCartByIdDto cart)
+    internal static GetPurchasedCartResponse ToResponse(this GetPurchasedCartByIdDto cart)
         => new(
             Id: cart.Id.Value,
             Total: cart.Total,
             PurchaseDate: cart.PurchaseDate.ToString(DateFormatString),
             BuyerName: cart.BuyerName,
             ShipmentId: cart.ShipmentId?.Value,
-            Items: [.. cart.Items.Select(o => o.ToPurchasedCartItemResponse())]
+            Items: [.. cart.Items.Select(o => o.ToResponse())]
         );
 
-    internal static PurchasedCartItemResponse ToPurchasedCartItemResponse(this PurchasedCartItemDto item)
+    internal static PurchasedCartItemResponse ToResponse(this PurchasedCartItemDto item)
         => new(
             Quantity: item.Quantity,
             ForDelivery: item.ForDelivery,

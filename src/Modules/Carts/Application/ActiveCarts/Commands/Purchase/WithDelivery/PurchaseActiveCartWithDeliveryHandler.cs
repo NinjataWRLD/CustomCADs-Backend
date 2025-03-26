@@ -70,7 +70,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 
         CreatePurchasedCartCommand purchasedCartCommand = new(
             BuyerId: req.BuyerId,
-            Items: [.. cart.Items.Select(x => x.ToCartItemDto())],
+            Items: [.. cart.Items.Select(x => x.ToDto())],
             Prices: prices.ToDictionary(
                 x => x.Key,
                 x =>

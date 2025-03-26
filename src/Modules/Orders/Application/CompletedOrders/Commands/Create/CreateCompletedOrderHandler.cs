@@ -26,7 +26,7 @@ public class CreateCompletedOrderHandler(IWrites<CompletedOrder> writes, IUnitOf
         if (!cadExists)
             throw CustomNotFoundException<CompletedOrder>.ById(req.CadId, "Cad");
 
-        CompletedOrder order = req.ToCompletedOrder();
+        CompletedOrder order = req.ToEntity();
         if (req.CustomizationId is not null)
         {
             GetCustomizationExistsByIdQuery customizationExistsQuery = new(

@@ -45,7 +45,7 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
             )).ConfigureAwait(false);
         }
 
-        return product.ToGalleryGetProductByIdDto(
+        return product.ToGalleryGetByIdDto(
             volume: volume,
             username: username,
             categoryName: categoryName,

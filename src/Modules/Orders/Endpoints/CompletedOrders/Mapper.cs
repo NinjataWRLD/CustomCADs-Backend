@@ -12,7 +12,7 @@ using static Constants;
 
 internal static class Mapper
 {
-    internal static GetCompletedOrdersResponse ToGetCompletedOrdersResponse(this GetAllCompletedOrdersDto order)
+    internal static GetCompletedOrdersResponse ToClientResponse(this GetAllCompletedOrdersDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -21,7 +21,7 @@ internal static class Mapper
             Delivery: order.Delivery
         );
 
-    internal static GetCompletedOrderResponse ToGetCompletedOrderResponse(this ClientGetCompletedOrderByIdDto order)
+    internal static GetCompletedOrderResponse ToResponse(this ClientGetCompletedOrderByIdDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -33,7 +33,17 @@ internal static class Mapper
             ShipmentId: order.ShipmentId?.Value
         );
 
-    internal static DesignerGetCompletedOrderResponse ToDesignerGetOrderResponse(this DesignerGetCompletedOrderByIdDto order)
+    internal static DesignerGetCompletedOrdersResponse ToDesignerResponse(this GetAllCompletedOrdersDto order)
+        => new(
+            Id: order.Id.Value,
+            Name: order.Name,
+            BuyerName: order.BuyerName,
+            OrderDate: order.OrderDate.ToString(DateFormatString),
+            PurchaseDate: order.PurchaseDate.ToString(DateFormatString),
+            Delivery: order.Delivery
+        );
+
+    internal static DesignerGetCompletedOrderResponse ToResponse(this DesignerGetCompletedOrderByIdDto order)
         => new(
             Id: order.Id.Value,
             Name: order.Name,
@@ -43,15 +53,5 @@ internal static class Mapper
             Delivery: order.Delivery,
             BuyerName: order.BuyerName,
             ShipmentId: order.ShipmentId?.Value
-        );
-
-    internal static DesignerGetCompletedOrdersResponse ToDesignerGetCompletedOrdersResponse(this GetAllCompletedOrdersDto order)
-        => new(
-            Id: order.Id.Value,
-            Name: order.Name,
-            BuyerName: order.BuyerName,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
-            PurchaseDate: order.PurchaseDate.ToString(DateFormatString),
-            Delivery: order.Delivery
         );
 }

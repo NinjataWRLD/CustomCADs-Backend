@@ -25,7 +25,7 @@ public sealed class GetOngoingOrderPostPresignedUrlEndpoint(IRequestSender sende
         );
         GetOngoingOrderCadPresignedUrlPostDto dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = dto.ToGetOngoingOrderPostPresignedUrlResponse();
+        var response = dto.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

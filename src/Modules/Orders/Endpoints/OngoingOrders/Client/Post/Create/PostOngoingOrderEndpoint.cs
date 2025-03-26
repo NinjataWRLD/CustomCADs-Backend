@@ -33,7 +33,7 @@ public sealed class PostOngoingOrderEndpoint(IRequestSender sender)
         );
         ClientGetOngoingOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        PostOngoingOrderResponse response = order.ToPostOrderResponse();
+        PostOngoingOrderResponse response = order.ToPostResponse();
         await SendCreatedAtAsync<GetOngoingOrderEndpoint>(
             routeValues: new { Id = id.Value },
             responseBody: response

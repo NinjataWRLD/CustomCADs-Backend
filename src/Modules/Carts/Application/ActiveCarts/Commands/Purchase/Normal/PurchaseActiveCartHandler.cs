@@ -41,7 +41,7 @@ public sealed class PurchaseActiveCartHandler(IActiveCartReads reads, IRequestSe
 
         CreatePurchasedCartCommand purchasedCartCommand = new(
             BuyerId: req.BuyerId,
-            Items: [.. cart.Items.Select(x => x.ToCartItemDto())],
+            Items: [.. cart.Items.Select(x => x.ToDto())],
             Prices: prices
         );
         await sender.SendCommandAsync(purchasedCartCommand, ct).ConfigureAwait(false);

@@ -21,7 +21,7 @@ public sealed class GetAllAccountsHandler(IAccountReads reads)
 
         return new(
             Count: result.Count,
-            Items: [.. result.Items.Select(a => a.ToGetAllAccountsItem())]
+            Items: [.. result.Items.Select(a => a.ToGetAllDto())]
         );
     }
 }

@@ -2,31 +2,15 @@
 using CustomCADs.Catalog.Application.Products.Queries.Designer.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.Gallery.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.Shared.GetAll;
+using CustomCADs.Catalog.Domain.Products.ValueObjects;
+using CustomCADs.Catalog.Endpoints.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Catalog.Application.Products;
 
 internal static class Mapper
 {
-    internal static GalleryGetProductByIdDto ToGalleryGetProductByIdDto(this Product product, decimal volume, string username, string categoryName, string timeZone, CoordinatesDto camCoords, CoordinatesDto panCoords)
-        => new(
-            Id: product.Id,
-            Name: product.Name,
-            Description: product.Description,
-            Price: product.Price,
-            Volume: volume,
-            CreatorName: username,
-            UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
-                product.UploadDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
-            CamCoordinates: camCoords,
-            PanCoordinates: panCoords,
-            Counts: product.Counts,
-            Category: new(product.CategoryId, categoryName)
-        );
-
-    internal static GetAllProductsDto ToGetAllProductsItem(this Product product, string username, string categoryName, string timeZone)
+    internal static GetAllProductsDto ToGetAllDto(this Product product, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -40,7 +24,25 @@ internal static class Mapper
             CreatorName: username
         );
 
-    internal static CreatorGetProductByIdDto ToGetProductByIdDto(this Product product, string username, string categoryName, string timeZone)
+    internal static GalleryGetProductByIdDto ToGalleryGetByIdDto(this Product product, decimal volume, string username, string categoryName, string timeZone, CoordinatesDto camCoords, CoordinatesDto panCoords)
+        => new(
+            Id: product.Id,
+            Name: product.Name,
+            Description: product.Description,
+            Price: product.Price,
+            Volume: volume,
+            CreatorName: username,
+            UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
+                product.UploadDate,
+                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            ),
+            CamCoordinates: camCoords,
+            PanCoordinates: panCoords,
+            Counts: product.Counts.ToDto(),
+            Category: new(product.CategoryId, categoryName)
+        );
+
+    internal static CreatorGetProductByIdDto ToCreatorGetByIdDto(this Product product, string username, string categoryName, string timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -51,12 +53,12 @@ internal static class Mapper
                 TimeZoneInfo.FindSystemTimeZoneById(timeZone)
             ),
             Status: product.Status.ToString(),
-            Counts: product.Counts,
+            Counts: product.Counts.ToDto(),
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
 
-    internal static DesignerGetProductByIdDto ToDesignerGetProductByIdDto(this Product product, string username, string categoryName)
+    internal static DesignerGetProductByIdDto ToDesignerGetByIdDto(this Product product, string username, string categoryName)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -64,5 +66,11 @@ internal static class Mapper
             Price: product.Price,
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
+        );
+
+    internal static CountsDto ToDto(this Counts counts)
+        => new(
+            Purchases: counts.Purchases,
+            Views: counts.Views
         );
 }

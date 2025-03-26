@@ -42,7 +42,7 @@ public sealed class GetAllOngoingOrdersHandler(IOngoingOrderReads reads, IReques
 
         return new(
             result.Count,
-            result.Items.Select(o => o.ToGetAllOrdersItem(
+            result.Items.Select(o => o.ToGetAllDto(
                 buyerUsername: buyers[o.BuyerId],
                 designerUsername: o.DesignerId is null ? null : designers[o.DesignerId.Value],
                 timeZone: timeZones[o.BuyerId]

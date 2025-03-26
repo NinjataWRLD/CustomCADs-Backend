@@ -30,7 +30,7 @@ public sealed class GetProductsEndpoint(IRequestSender sender)
 
         Result<GetProductsResponse> response = new(
             Count: result.Count,
-            Items: [.. result.Items.Select(p => p.ToGetProductsDto())]
+            Items: [.. result.Items.Select(p => p.ToCreatorGetAllResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

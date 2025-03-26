@@ -6,13 +6,13 @@ namespace CustomCADs.Catalog.Application.Tags;
 
 internal static class Mapper
 {
-    internal static GetTagByIdDto ToGetTagByIdDto(this Tag tag)
+    internal static GetAllTagsDto ToGetAllDto(this Tag tag)
         => new(
             Id: tag.Id,
             Name: tag.Name
         );
 
-    internal static GetAllTagsDto ToGetAllTagsDto(this Tag tag)
+    internal static GetTagByIdDto ToGetByIdDto(this Tag tag)
         => new(
             Id: tag.Id,
             Name: tag.Name

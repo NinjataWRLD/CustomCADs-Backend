@@ -19,6 +19,6 @@ public sealed class GetRoleByNameHandler(IRoleReads reads, ICacheService cache)
             await cache.SetRoleAsync(role.Name, role).ConfigureAwait(false);
         }
 
-        return role.ToRoleReadDto();
+        return role.ToDto();
     }
 }

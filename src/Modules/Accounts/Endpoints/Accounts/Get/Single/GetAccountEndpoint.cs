@@ -20,7 +20,7 @@ public sealed class GetAccountEndpoint(IRequestSender sender)
         GetAccountByUsernameQuery query = new(req.Username);
         GetAccountByUsernameDto account = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        AccountResponse response = account.ToUserResponse();
+        AccountResponse response = account.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

@@ -23,7 +23,7 @@ public sealed class GetCategoryEndpoint(IRequestSender sender)
         );
         CategoryReadDto category = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        CategoryResponse response = category.ToCategoryResponse();
+        CategoryResponse response = category.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

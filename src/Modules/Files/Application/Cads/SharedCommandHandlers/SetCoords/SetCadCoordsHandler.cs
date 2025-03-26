@@ -14,10 +14,10 @@ public sealed class SetCadCoordsHandler(ICadReads reads, IUnitOfWork uow)
             ?? throw CustomNotFoundException<Cad>.ById(req.Id);
 
         if (req.CamCoordinates is not null)
-            cad.SetCamCoordinates(req.CamCoordinates.ToCoordinates());
+            cad.SetCamCoordinates(req.CamCoordinates.ToValueObject());
 
         if (req.PanCoordinates is not null)
-            cad.SetPanCoordinates(req.PanCoordinates.ToCoordinates());
+            cad.SetPanCoordinates(req.PanCoordinates.ToValueObject());
 
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }

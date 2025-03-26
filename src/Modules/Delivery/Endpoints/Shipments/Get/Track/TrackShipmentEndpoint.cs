@@ -23,7 +23,7 @@ public class TrackShipmentEndpoint(IRequestSender sender)
         );
         Dictionary<DateTime, GetShipmentTrackDto> tracks = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = tracks.ToTrackShipmentResponse();
+        var response = tracks.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

@@ -38,7 +38,7 @@ public sealed class GetAllCompletedOrdersHandler(ICompletedOrderReads reads, IRe
 
         return new(
             result.Count,
-            result.Items.Select(o => o.ToGetAllOrdersItem(
+            result.Items.Select(o => o.ToGetAllDto(
                 buyerUsername: buyers[o.BuyerId],
                 designerUsername: designers[o.DesignerId],
                 timeZone: timeZones[o.BuyerId]

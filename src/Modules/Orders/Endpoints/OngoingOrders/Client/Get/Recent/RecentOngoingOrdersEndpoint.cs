@@ -28,7 +28,7 @@ public sealed class RecentOngoingOrdersEndpoint(IRequestSender sender)
         Result<GetAllOngoingOrdersDto> orders = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         RecentOngoingOrdersResponse[] response =
-            [.. orders.Items.Select(o => o.ToRecentOrdersResponse())];
+            [.. orders.Items.Select(o => o.ToRecentResponse())];
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

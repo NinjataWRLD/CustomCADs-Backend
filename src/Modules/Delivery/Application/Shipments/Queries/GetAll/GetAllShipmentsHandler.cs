@@ -24,7 +24,7 @@ public class GetAllShipmentsHandler(IShipmentReads reads, IRequestSender sender)
 
         return new(
             Count: result.Count,
-            Items: [.. result.Items.Select(i => i.ToGetAllShipmentsDto(buyers[i.BuyerId]))]
+            Items: [.. result.Items.Select(i => i.ToGetAllDto(buyers[i.BuyerId]))]
         );
     }
 }

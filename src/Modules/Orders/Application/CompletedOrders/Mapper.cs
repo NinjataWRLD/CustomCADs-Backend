@@ -7,7 +7,7 @@ namespace CustomCADs.Orders.Application.CompletedOrders;
 
 internal static class Mapper
 {
-    internal static GetAllCompletedOrdersDto ToGetAllOrdersItem(this CompletedOrder order, string buyerUsername, string? designerUsername, string timeZone)
+    internal static GetAllCompletedOrdersDto ToGetAllDto(this CompletedOrder order, string buyerUsername, string? designerUsername, string timeZone)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -24,7 +24,7 @@ internal static class Mapper
             DesignerName: designerUsername
         );
 
-    internal static ClientGetCompletedOrderByIdDto ToGetOrderByIdDto(this CompletedOrder order, string timeZone, string designer)
+    internal static ClientGetCompletedOrderByIdDto ToClientGetByIdDto(this CompletedOrder order, string timeZone, string designer)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -42,7 +42,7 @@ internal static class Mapper
             ShipmentId: order.ShipmentId
         );
 
-    internal static DesignerGetCompletedOrderByIdDto ToDesignerGetOrderByIdDto(this CompletedOrder order, string buyer)
+    internal static DesignerGetCompletedOrderByIdDto ToDesignerGetByIdDto(this CompletedOrder order, string buyer)
         => new(
             Id: order.Id,
             Name: order.Name,
@@ -54,7 +54,7 @@ internal static class Mapper
             ShipmentId: order.ShipmentId
         );
 
-    internal static CompletedOrder ToCompletedOrder(this CreateCompletedOrderCommand order)
+    internal static CompletedOrder ToEntity(this CreateCompletedOrderCommand order)
         => CompletedOrder.Create(
             name: order.Name,
             description: order.Description,

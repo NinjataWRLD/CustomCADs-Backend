@@ -24,7 +24,7 @@ public sealed class GetPurchasedCartEndpoint(IRequestSender sender)
         );
         GetPurchasedCartByIdDto cart = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetPurchasedCartResponse response = cart.ToGetPurchasedCartResponse();
+        GetPurchasedCartResponse response = cart.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

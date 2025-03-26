@@ -8,4 +8,4 @@ public record CalculateOngoingOrderShipmentQuery(
     int Count,
     AddressDto Address,
     CustomizationId CustomizationId
-) : IQuery<CalculateOngoingOrderShipmentDto[]>;
+) : IQuery<CalculateShipmentDto[]>;

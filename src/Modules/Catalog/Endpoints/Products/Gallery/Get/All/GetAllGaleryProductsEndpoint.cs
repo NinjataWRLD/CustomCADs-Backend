@@ -32,7 +32,7 @@ public sealed class GetAllGaleryProductsEndpoint(IRequestSender sender)
 
         Result<GetAllGaleryProductsResponse> response = new(
             Count: result.Count,
-            Items: [.. result.Items.Select(i => i.ToGetAllGaleryProductsResponse())]
+            Items: [.. result.Items.Select(i => i.ToGalleryGetAllResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

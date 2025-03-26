@@ -32,7 +32,7 @@ public sealed class GetReportedProductsEndpoint(IRequestSender sender)
 
         Result<GetReportedProductsResponse> response = new(
             Count: result.Count,
-            Items: [.. result.Items.Select(p => p.ToGetReportedProductsDto())]
+            Items: [.. result.Items.Select(p => p.ToGetReportedDto())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

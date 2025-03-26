@@ -29,7 +29,7 @@ public sealed class PostActiveCartEndpoint(IRequestSender sender)
         );
         GetActiveCartDto cart = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = cart.ToPostCartResponse();
+        var response = cart.ToPostResponse();
         await SendCreatedAtAsync<GetActiveCartEndpoint>(
             routeValues: new { buyerId = User.GetAccountId() },
             responseBody: response

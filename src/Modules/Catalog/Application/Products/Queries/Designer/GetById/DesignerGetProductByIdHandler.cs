@@ -19,6 +19,6 @@ public sealed class DesignerGetProductByIdHandler(IProductReads reads, IRequestS
         GetCategoryNameByIdQuery categoryQuery = new(product.CategoryId);
         string category = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
 
-        return product.ToDesignerGetProductByIdDto(username, category);
+        return product.ToDesignerGetByIdDto(username, category);
     }
 }

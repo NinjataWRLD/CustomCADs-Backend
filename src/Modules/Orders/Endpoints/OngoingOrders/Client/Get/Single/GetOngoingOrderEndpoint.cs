@@ -23,7 +23,7 @@ public sealed class GetOngoingOrderEndpoint(IRequestSender sender)
         );
         ClientGetOngoingOrderByIdDto order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetOngoingOrderResponse response = order.ToGetOrderResponse();
+        GetOngoingOrderResponse response = order.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }
