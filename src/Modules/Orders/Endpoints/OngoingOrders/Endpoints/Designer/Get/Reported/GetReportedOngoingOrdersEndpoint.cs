@@ -13,7 +13,7 @@ public sealed class GetReportedOngoingOrdersEndpoint(IRequestSender sender)
         Get("reported");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("12. All Reported")
+            .WithSummary("All Reported")
             .WithDescription("See all Reported Orders with Filter, Search, Sort and Options options")
         );
     }

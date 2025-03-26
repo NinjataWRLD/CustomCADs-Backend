@@ -14,7 +14,7 @@ public sealed class GetAllGaleryProductsEndpoint(IRequestSender sender)
         Get("");
         Group<GalleryGroup>();
         Description(d => d
-            .WithSummary("01. All")
+            .WithSummary("All")
             .WithDescription("See all the Validated Products with Filter, Search, Sort and Pagination options")
         );
     }

@@ -11,7 +11,7 @@ public sealed class DesignerSingleProductEndpoint(IRequestSender sender)
         Get("{id}");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("02. Single Unchecked")
+            .WithSummary("Single Unchecked")
             .WithDescription("See an Unchecked Product")
         );
     }

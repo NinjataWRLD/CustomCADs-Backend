@@ -12,7 +12,7 @@ public sealed class PurchasedCartsStatsEndpoint(IRequestSender sender)
         Get("stats");
         Group<PurchasedCartsGroup>();
         Description(d => d
-            .WithSummary("01. Stats")
+            .WithSummary("Stats")
             .WithDescription("See your Carts' Stats")
         );
     }

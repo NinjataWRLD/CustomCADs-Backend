@@ -13,7 +13,7 @@ public sealed class GetProductsEndpoint(IRequestSender sender)
         Get("");
         Group<CreatorGroup>();
         Description(d => d
-            .WithSummary("10. All")
+            .WithSummary("All")
             .WithDescription("See all your Product with Filter, Search, Sorting and Pagination options")
         );
     }

@@ -12,7 +12,7 @@ public class GetCustomizationEndpoint(IRequestSender sender)
         Get("{id}");
         Group<CustomizationsGroup>();
         Description(d => d
-            .WithSummary("02. Get")
+            .WithSummary("Single")
             .WithDescription("Get a Customization")
         );
     }

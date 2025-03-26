@@ -11,7 +11,7 @@ public class DeleteCustomizationEndpoint(IRequestSender sender)
         Delete("");
         Group<CustomizationsGroup>();
         Description(d => d
-            .WithSummary("03. Delete")
+            .WithSummary("Delete")
             .WithDescription("Delete your Customization")
         );
     }

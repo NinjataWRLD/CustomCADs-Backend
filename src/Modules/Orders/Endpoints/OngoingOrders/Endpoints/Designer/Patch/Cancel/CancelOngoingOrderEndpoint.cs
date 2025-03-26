@@ -11,7 +11,7 @@ public sealed class CancelOngoingOrderEndpoint(IRequestSender sender)
         Patch("cancel");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("07. Cancel")
+            .WithSummary("Cancel")
             .WithDescription("Set an Order's Status to back Pending by specifying its Id")
         );
     }

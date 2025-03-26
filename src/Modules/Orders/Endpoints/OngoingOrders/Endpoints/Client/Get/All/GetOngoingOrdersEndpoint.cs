@@ -12,7 +12,7 @@ public sealed class GetOngoingOrdersEndpoint(IRequestSender sender)
         Get("");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("07. All")
+            .WithSummary("All")
             .WithDescription("See all your Orders with Filter, Search, Sorting and Pagination options")
         );
     }

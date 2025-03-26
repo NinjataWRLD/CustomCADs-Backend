@@ -13,7 +13,7 @@ public sealed class GetFinishedOngoingOrdersEndpoint(IRequestSender sender)
         Get("finished");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("10. All Finished")
+            .WithSummary("All Finished")
             .WithDescription("See all Finished Orders with Filter, Search, Sort and Options options")
         );
     }

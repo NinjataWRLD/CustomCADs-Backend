@@ -13,7 +13,7 @@ public sealed class GetRolesEndpoint(IRequestSender sender)
         Get("");
         Group<RolesGroup>();
         Description(d => d
-            .WithSummary("1. All")
+            .WithSummary("All")
             .WithDescription("See all Roles")
         );
     }

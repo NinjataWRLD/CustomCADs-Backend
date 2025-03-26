@@ -11,7 +11,7 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
         Post("presignedUrls/replace/image");
         Group<CreatorGroup>();
         Description(d => d
-            .WithSummary("12. Change Image")
+            .WithSummary("Change Image")
             .WithDescription("Change your Product's Image")
         );
     }

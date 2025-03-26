@@ -274,7 +274,7 @@ public static class ProgramExtensions
 
             options
                 .WithOpenApiRoutePattern(apiPattern)
-                .WithOperationSorter(OperationSorter.Alpha)
+                .WithOperationSorter(OperationSorter.Method)
                 .WithTitle("CustomCADs API")
                 .WithTheme(themes[Random.Shared.Next(0, themes.Length)])
                 .WithFavicon("/favicon.ico")

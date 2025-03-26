@@ -11,7 +11,7 @@ public sealed class DeleteOngoingOrderEndpoint(IRequestSender sender)
         Delete("");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("08. Delete")
+            .WithSummary("Delete")
             .WithDescription("Delete your Order")
         );
     }

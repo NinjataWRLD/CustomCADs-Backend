@@ -13,7 +13,7 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
         Post("presignedUrls/download/cad");
         Group<PurchasedCartsGroup>();
         Description(d => d
-            .WithSummary("03. Download Cad")
+            .WithSummary("Download Cad")
             .WithDescription("Download your Cart Item's Cad")
         );
     }

@@ -9,7 +9,7 @@ public sealed class AuthenticationEndpoint
         Group<IdentityGroup>();
         Description(d => d
             .WithName(IdentityNames.Authentication)
-            .WithSummary("01. AuthN")
+            .WithSummary("AuthN")
             .WithDescription("See if you're logged in")
         );
     }

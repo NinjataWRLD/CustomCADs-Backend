@@ -11,7 +11,7 @@ public sealed class GetMaterialPostPresignedUrlEndpoint(IRequestSender sender)
         Post("presignedUrls/upload");
         Group<MaterialsGroup>();
         Description(d => d
-            .WithSummary("12. Upload Texture")
+            .WithSummary("Upload Texture")
             .WithDescription("Upload your Material's Texture")
         );
     }

@@ -11,7 +11,7 @@ public sealed class GetProductGetPresignedUrlsEndpoint(IRequestSender sender)
         Post("presignedUrls/download/cad");
         Group<GalleryGroup>();
         Description(d => d
-            .WithSummary("01. Download Cad")
+            .WithSummary("Download Cad")
             .WithDescription("Download the Cad for a Product")
         );
     }

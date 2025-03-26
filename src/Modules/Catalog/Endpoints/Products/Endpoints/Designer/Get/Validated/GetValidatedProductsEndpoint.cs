@@ -14,7 +14,7 @@ public sealed class GetValidatedProductsEndpoint(IRequestSender sender)
         Get("validated");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("01. All Validated")
+            .WithSummary("All Validated")
             .WithDescription("See all Validated Products with Search, Sorting and Pagination options")
         );
     }

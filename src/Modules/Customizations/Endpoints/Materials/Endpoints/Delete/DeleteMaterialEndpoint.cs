@@ -11,7 +11,7 @@ public sealed class DeleteMaterialEndpoint(IRequestSender sender)
         Delete("");
         Group<MaterialsGroup>();
         Description(d => d
-            .WithSummary("5. Delete")
+            .WithSummary("Delete")
             .WithDescription("Delete a Material")
         );
     }

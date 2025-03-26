@@ -11,7 +11,7 @@ public sealed class ReportOngoingOrderEndpoint(IRequestSender sender)
         Patch("report");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("11. Report")
+            .WithSummary("Report")
             .WithDescription("Set an Order's Status to Reported by specifying its Id")
         );
     }

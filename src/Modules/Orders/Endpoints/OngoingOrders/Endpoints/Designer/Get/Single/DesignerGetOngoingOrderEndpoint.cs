@@ -11,7 +11,7 @@ public sealed class DesignerGetOngoingOrderEndpoint(IRequestSender sender)
         Get("{id}");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("02. Single")
+            .WithSummary("Single")
             .WithDescription("See an Accepted by You or a Pending Order")
         );
     }

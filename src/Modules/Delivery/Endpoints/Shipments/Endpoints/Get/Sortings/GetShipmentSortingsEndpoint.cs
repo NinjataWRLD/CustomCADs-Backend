@@ -11,7 +11,7 @@ public sealed class GetShipmentSortingsEndpoint(IRequestSender sender)
         Get("sortings");
         Group<ShipmentsGroup>();
         Description(d => d
-            .WithSummary("05. Sortings")
+            .WithSummary("Sortings")
             .WithDescription("See all Shipment Sorting types")
         );
     }

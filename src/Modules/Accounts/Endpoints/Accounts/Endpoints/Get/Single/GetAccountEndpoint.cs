@@ -11,7 +11,7 @@ public sealed class GetAccountEndpoint(IRequestSender sender)
         Get("{username}");
         Group<AccountsGroup>();
         Description(d => d
-            .WithSummary("3. Single")
+            .WithSummary("Single")
             .WithDescription("See an Account in detail")
         );
     }

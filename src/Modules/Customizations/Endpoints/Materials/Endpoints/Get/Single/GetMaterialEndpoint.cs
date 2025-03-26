@@ -14,7 +14,7 @@ public sealed class GetMaterialEndpoint(IRequestSender sender)
         AllowAnonymous();
         Group<MaterialsGroup>();
         Description(d => d
-            .WithSummary("2. Single")
+            .WithSummary("Single")
             .WithDescription("See a Material")
         );
     }

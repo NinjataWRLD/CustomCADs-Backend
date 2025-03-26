@@ -11,7 +11,7 @@ public class EditCustomizationEndpoint(IRequestSender sender)
         Put("");
         Group<CustomizationsGroup>();
         Description(d => d
-            .WithSummary("03. Edit")
+            .WithSummary("Edit")
             .WithDescription("Edit your Customization")
         );
     }

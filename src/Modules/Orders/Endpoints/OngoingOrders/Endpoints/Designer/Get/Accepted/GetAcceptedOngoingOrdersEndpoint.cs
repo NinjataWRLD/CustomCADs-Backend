@@ -13,7 +13,7 @@ public sealed class GetAcceptedOngoingOrdersEndpoint(IRequestSender sender)
         Get("accepted");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("04. All Accepted")
+            .WithSummary("All Accepted")
             .WithDescription("See all Accepted Orders with Filter, Search, Sort and Pagination options")
         );
     }

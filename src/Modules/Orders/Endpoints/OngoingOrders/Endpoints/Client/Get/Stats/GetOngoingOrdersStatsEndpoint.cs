@@ -11,7 +11,7 @@ public sealed class GetOngoingOrdersStatsEndpoint(IRequestSender sender)
         Get("stats");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("03. Stats")
+            .WithSummary("Stats")
             .WithDescription("See your Ongoing Orders' stats")
         );
     }

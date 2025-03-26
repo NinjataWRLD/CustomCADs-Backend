@@ -14,7 +14,7 @@ public class RemoveProductTagEndpoint(IRequestSender sender)
         Group<GalleryGroup>();
         Roles(Admin);
         Description(d => d
-            .WithSummary("01. Remove Tag")
+            .WithSummary("Remove Tag")
             .WithDescription("Removes a Tag from a Product")
         );
     }

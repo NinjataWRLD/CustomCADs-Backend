@@ -14,7 +14,7 @@ public class AddProductTagEndpoint(IRequestSender sender)
         Group<GalleryGroup>();
         Roles(Admin);
         Description(d => d
-            .WithSummary("01. Add Tag")
+            .WithSummary("Add Tag")
             .WithDescription("Adds a Tag to a Product")
         );
     }

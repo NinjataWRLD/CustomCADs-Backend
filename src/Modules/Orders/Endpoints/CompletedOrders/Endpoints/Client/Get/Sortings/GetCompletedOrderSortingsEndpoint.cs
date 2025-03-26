@@ -11,7 +11,7 @@ public sealed class GetCompletedOrderSortingsEndpoint(IRequestSender sender)
         Get("sortings");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("05. Sortings")
+            .WithSummary("Sortings")
             .WithDescription("See all Completed Order Sorting types")
         );
     }

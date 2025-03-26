@@ -14,7 +14,7 @@ public sealed class RecentOngoingOrdersEndpoint(IRequestSender sender)
         Get("recent");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("04. Recent")
+            .WithSummary("Recent")
             .WithDescription("See your most recent Orders")
         );
     }

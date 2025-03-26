@@ -11,7 +11,7 @@ public sealed class GetCompletedOrderGetPresignedCadUrlEndpoint(IRequestSender s
         Post("presignedUrls/download/cad");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("12. Download Cad")
+            .WithSummary("Download Cad")
             .WithDescription("Download the Cad for your Completed Order")
         );
     }

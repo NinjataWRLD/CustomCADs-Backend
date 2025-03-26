@@ -12,7 +12,7 @@ public sealed class DesignerGetCompletedOrdersEndpoint(IRequestSender sender)
         Get("completed");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("06. All")
+            .WithSummary("All")
             .WithDescription("See all Completed Orders with Filter, Search, Sort and Options options")
         );
     }

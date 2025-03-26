@@ -12,7 +12,7 @@ public sealed class GetCategoryEndpoint(IRequestSender sender)
         AllowAnonymous();
         Group<CategoriesGroup>();
         Description(d => d
-            .WithSummary("2. Single")
+            .WithSummary("Single")
             .WithDescription("See a Category")
         );
     }

@@ -14,7 +14,7 @@ public class CreateCustomizationEndpoint(IRequestSender sender)
         Post("");
         Group<CustomizationsGroup>();
         Description(d => d
-            .WithSummary("01. Create")
+            .WithSummary("Create")
             .WithDescription("Create a Customization")
         );
     }

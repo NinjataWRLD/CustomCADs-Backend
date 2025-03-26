@@ -11,7 +11,7 @@ public sealed class FinishOngoingOrderEndpoint(IRequestSender sender)
         Patch("finish");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("09. Finish")
+            .WithSummary("Finish")
             .WithDescription("Set an Order's Status to Finished by specifying its Id and Cad")
         );
     }

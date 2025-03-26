@@ -13,7 +13,7 @@ public class ToggleActiveCartItemForDeliveryEndpoint(IRequestSender sender)
         Patch("delivery");
         Group<ActiveCartsGroup>();
         Description(d => d
-            .WithSummary("06. Toggle ForDelivery")
+            .WithSummary("Toggle ForDelivery")
             .WithDescription("Turn on/off the Cart Item's planned Delivery")
         );
     }

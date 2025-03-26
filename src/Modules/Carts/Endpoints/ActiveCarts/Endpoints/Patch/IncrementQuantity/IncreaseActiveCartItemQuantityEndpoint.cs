@@ -12,7 +12,7 @@ public class IncreaseActiveCartItemQuantityEndpoint(IRequestSender sender)
         Patch("increase");
         Group<ActiveCartsGroup>();
         Description(d => d
-            .WithSummary("04. Increase")
+            .WithSummary("Increase")
             .WithDescription("Increase the Cart Item's quantity")
         );
     }

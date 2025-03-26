@@ -11,7 +11,7 @@ public sealed class GetOngoingOrderPostPresignedUrlEndpoint(IRequestSender sende
         Post("presignedUrls/upload/cad");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("09. Upload")
+            .WithSummary("Upload")
             .WithDescription("Upload a Cad for an Ongoing Order")
         );
     }

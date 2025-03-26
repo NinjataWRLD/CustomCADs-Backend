@@ -13,7 +13,7 @@ public sealed class GetBegunOngoingOrdersEndpoint(IRequestSender sender)
         Get("begun");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("06. All Begun")
+            .WithSummary("All Begun")
             .WithDescription("See all Begun Orders with Filter, Search, Sort and Options options")
         );
     }

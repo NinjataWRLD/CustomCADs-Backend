@@ -12,7 +12,7 @@ public class GetShipmentsEndpoint(IRequestSender sender)
         Get("");
         Group<ShipmentsGroup>();
         Description(d => d
-            .WithSummary("01. All")
+            .WithSummary("All")
             .WithDescription("See all your Shipments with Filter, Search, Sorting and Pagination options")
         );
     }

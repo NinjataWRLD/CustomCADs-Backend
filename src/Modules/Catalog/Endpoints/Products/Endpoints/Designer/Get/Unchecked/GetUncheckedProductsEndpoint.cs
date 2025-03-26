@@ -14,7 +14,7 @@ public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
         Get("unchecked");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("01. All Unchecked")
+            .WithSummary("All Unchecked")
             .WithDescription("See all Unchecked Products with Search, Sorting and Pagination options")
         );
     }

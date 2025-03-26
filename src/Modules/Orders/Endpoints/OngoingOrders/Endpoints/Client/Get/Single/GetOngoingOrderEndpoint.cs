@@ -11,7 +11,7 @@ public sealed class GetOngoingOrderEndpoint(IRequestSender sender)
         Get("{id}");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("05. Single")
+            .WithSummary("Single")
             .WithDescription("See your Order")
         );
     }

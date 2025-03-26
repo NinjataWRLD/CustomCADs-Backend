@@ -12,7 +12,7 @@ public sealed class GetPurchasedCartsEndpoint(IRequestSender sender)
         Get("");
         Group<PurchasedCartsGroup>();
         Description(d => d
-            .WithSummary("04. All")
+            .WithSummary("All")
             .WithDescription("See all your Carts with Sorting and Pagination options")
         );
     }

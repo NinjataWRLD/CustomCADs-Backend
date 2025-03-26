@@ -9,7 +9,7 @@ public sealed class ForgotPasswordEndpoint(IUserService service)
         Group<IdentityGroup>();
         Description(d => d
             .WithName(IdentityNames.ForgotPassword)
-            .WithSummary("04. Reset Password Email")
+            .WithSummary("Reset Password Email")
             .WithDescription("Receive an Email with a link to reset your Password")
         );
     }

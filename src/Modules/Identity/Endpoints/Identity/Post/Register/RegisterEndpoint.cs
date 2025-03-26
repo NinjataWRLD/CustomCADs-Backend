@@ -11,7 +11,7 @@ public sealed class RegisterEndpoint(IUserService service, LinkGenerator links)
         Group<IdentityGroup>();
         Description(d => d
             .WithName(IdentityNames.Register)
-            .WithSummary("01. Register")
+            .WithSummary("Register")
             .WithDescription("Register an Account")
         );
     }

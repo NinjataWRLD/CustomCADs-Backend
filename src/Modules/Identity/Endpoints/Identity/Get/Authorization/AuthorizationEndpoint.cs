@@ -9,7 +9,7 @@ public sealed class AuthorizationEndpoint
         Group<IdentityGroup>();
         Description(d => d
             .WithName(IdentityNames.Authorization)
-            .WithSummary("02. AuthZ")
+            .WithSummary("AuthZ")
             .WithDescription("See what Role you're logged in with")
         );
     }

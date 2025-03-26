@@ -14,7 +14,7 @@ public sealed class RecentProductsEndpoint(IRequestSender sender)
         Get("recent");
         Group<CreatorGroup>();
         Description(d => d
-            .WithSummary("03. Recent")
+            .WithSummary("Recent")
             .WithDescription("See your most recent Products")
         );
     }

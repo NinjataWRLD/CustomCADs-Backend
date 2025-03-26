@@ -11,7 +11,7 @@ public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
         Post("presignedUrls/replace/cad");
         Group<CreatorGroup>();
         Description(d => d
-            .WithSummary("12. Change Cad")
+            .WithSummary("Change Cad")
             .WithDescription("Change your Product's Cad")
         );
     }

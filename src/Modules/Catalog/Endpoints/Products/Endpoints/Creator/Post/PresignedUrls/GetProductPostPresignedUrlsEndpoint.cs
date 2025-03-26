@@ -12,7 +12,7 @@ public sealed class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
         Post("presignedUrls/upload");
         Group<CreatorGroup>();
         Description(d => d
-            .WithSummary("01. Upload Image & Cad")
+            .WithSummary("Upload Image & Cad")
             .WithDescription("Upload the Image and Cad for a Product")
         );
     }

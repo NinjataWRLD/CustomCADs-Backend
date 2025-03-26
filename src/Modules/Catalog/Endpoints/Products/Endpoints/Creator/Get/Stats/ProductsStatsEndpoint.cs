@@ -11,7 +11,7 @@ public sealed class ProductsStatsEndpoint(IRequestSender sender)
         Get("stats");
         Group<CreatorGroup>();
         Description(d => d
-            .WithSummary("04. Stats")
+            .WithSummary("Stats")
             .WithDescription("See your Products' stats")
         );
     }

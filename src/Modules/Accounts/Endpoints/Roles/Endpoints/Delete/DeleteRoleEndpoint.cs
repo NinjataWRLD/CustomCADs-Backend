@@ -11,7 +11,7 @@ public sealed class DeleteRoleEndpoint(IRequestSender sender)
         Delete("");
         Group<RolesGroup>();
         Description(d => d
-            .WithSummary("4. Delete")
+            .WithSummary("Delete")
             .WithDescription("Delete a Role")
         );
     }

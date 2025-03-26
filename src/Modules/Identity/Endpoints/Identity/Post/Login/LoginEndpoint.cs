@@ -10,7 +10,7 @@ public sealed class LoginEndpoint(IUserService userService)
         AllowAnonymous();
         Description(d => d
             .WithName(IdentityNames.Login)
-            .WithSummary("01. Login")
+            .WithSummary("Login")
             .WithDescription("Log in to your account")
         );
     }

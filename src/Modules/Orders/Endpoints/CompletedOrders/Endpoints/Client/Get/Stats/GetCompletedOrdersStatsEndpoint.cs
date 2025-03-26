@@ -11,7 +11,7 @@ public sealed class GetCompletedOrdersStatsEndpoint(IRequestSender sender)
         Get("stats");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("03. Stats")
+            .WithSummary("Stats")
             .WithDescription("See your Completed Orders' stats")
         );
     }

@@ -12,7 +12,7 @@ public sealed class ValidateProductEndpoint(IRequestSender sender)
         Patch("validate");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("03. Validate")
+            .WithSummary("Validate")
             .WithDescription("Set a Product's Status to Validated")
         );
     }

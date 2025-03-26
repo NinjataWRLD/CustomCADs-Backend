@@ -12,7 +12,7 @@ public sealed class GetMaterialPutPresignedUrlEndpoint(IRequestSender sender)
         Group<MaterialsGroup>();
         AllowAnonymous();
         Description(d => d
-            .WithSummary("12. Download Texture")
+            .WithSummary("Download Texture")
             .WithDescription("Download your Material's Texture")
         );
     }

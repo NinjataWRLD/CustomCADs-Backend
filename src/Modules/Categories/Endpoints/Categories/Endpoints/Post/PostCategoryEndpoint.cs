@@ -12,7 +12,7 @@ public sealed class PostCategoryEndpoint(IRequestSender sender)
         Post("");
         Group<CategoriesGroup>();
         Description(d => d
-            .WithSummary("3. Create")
+            .WithSummary("Create")
             .WithDescription("Add a Category")
         );
     }

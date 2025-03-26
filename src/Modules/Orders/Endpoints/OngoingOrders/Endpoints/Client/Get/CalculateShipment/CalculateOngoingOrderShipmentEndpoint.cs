@@ -13,7 +13,7 @@ public class CalculateOngoingOrderShipmentEndpoint(IRequestSender sender)
         Get("calculate/{id}");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("10. Calculate Shipment")
+            .WithSummary("Calculate Shipment")
             .WithDescription("Calculate the estimted price for the delivery of the Shipment")
         );
     }

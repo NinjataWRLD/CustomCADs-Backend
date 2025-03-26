@@ -14,7 +14,7 @@ public class GetShipmentWaybillEndpoint(IRequestSender sender)
         Group<ShipmentsGroup>();
         Roles(Designer);
         Description(d => d
-            .WithSummary("04. Waybill")
+            .WithSummary("Waybill")
             .WithDescription("Download this Shipment's waybill")
         );
     }

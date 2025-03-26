@@ -15,7 +15,7 @@ public sealed class PostMaterialEndpoint(IRequestSender sender)
         Post("");
         Group<MaterialsGroup>();
         Description(d => d
-            .WithSummary("3. Create")
+            .WithSummary("Create")
             .WithDescription("Add a Material")
         );
     }

@@ -11,7 +11,7 @@ public sealed class PutOngoingOrderEndpoint(IRequestSender sender)
         Put("");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("06. Edit")
+            .WithSummary("Edit")
             .WithDescription("Edit your Order")
         );
     }

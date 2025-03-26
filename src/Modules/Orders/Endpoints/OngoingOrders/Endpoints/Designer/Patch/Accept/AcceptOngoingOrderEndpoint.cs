@@ -11,7 +11,7 @@ public sealed class AcceptOngoingOrderEndpoint(IRequestSender sender)
         Patch("accept");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("03. Accept")
+            .WithSummary("Accept")
             .WithDescription("Set an Order's Status to Accepted by specifying its Id")
         );
     }

@@ -15,7 +15,7 @@ public sealed class PostRoleEndpoint(IRequestSender sender)
         Post("");
         Group<RolesGroup>();
         Description(d => d
-            .WithSummary("2. Create")
+            .WithSummary("Create")
             .WithDescription("Create a Role")
         );
     }

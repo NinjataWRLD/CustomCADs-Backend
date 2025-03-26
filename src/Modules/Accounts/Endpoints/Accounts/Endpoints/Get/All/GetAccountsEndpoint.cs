@@ -12,7 +12,7 @@ public sealed class GetAccountsEndpoint(IRequestSender sender)
         Get("");
         Group<AccountsGroup>();
         Description(d => d
-            .WithSummary("1. All")
+            .WithSummary("All")
             .WithDescription("See all Accounts with Search, Sort and Pagination options")
         );
     }

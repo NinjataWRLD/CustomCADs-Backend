@@ -12,7 +12,7 @@ public sealed class ReportProductEndpoint(IRequestSender sender)
         Patch("report");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("04. Report")
+            .WithSummary("Report")
             .WithDescription("Set a Product's Status to Reported")
         );
     }

@@ -9,7 +9,7 @@ public sealed class LogoutEndpoint(IUserService service)
         Group<IdentityGroup>();
         Description(d => d
             .WithName(IdentityNames.Logout)
-            .WithSummary("03. Log out")
+            .WithSummary("Log out")
             .WithDescription("Log out of your account")
         );
     }

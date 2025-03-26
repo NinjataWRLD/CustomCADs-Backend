@@ -14,7 +14,7 @@ public sealed class GetReportedProductsEndpoint(IRequestSender sender)
         Get("reported");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("01. All Reported")
+            .WithSummary("All Reported")
             .WithDescription("See all Reported Products with Search, Sorting and Pagination options")
         );
     }

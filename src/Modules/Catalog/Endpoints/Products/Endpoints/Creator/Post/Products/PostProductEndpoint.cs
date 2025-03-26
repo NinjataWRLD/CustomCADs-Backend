@@ -14,7 +14,7 @@ public sealed class PostProductEndpoint(IRequestSender sender)
         Post("");
         Group<CreatorGroup>();
         Description(d => d
-            .WithSummary("02. Create")
+            .WithSummary("Create")
             .WithDescription("Create a Product")
         );
     }

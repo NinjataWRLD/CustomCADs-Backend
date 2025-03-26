@@ -11,7 +11,7 @@ public sealed class RetryConfirmEmailEndpoint(IUserService service, LinkGenerato
         Group<IdentityGroup>();
         Description(d => d
             .WithName(IdentityNames.RetryConfirmEmail)
-            .WithSummary("02. Retry Send Email")
+            .WithSummary("Retry Send Email")
             .WithDescription("Receive another verification email")
         );
     }

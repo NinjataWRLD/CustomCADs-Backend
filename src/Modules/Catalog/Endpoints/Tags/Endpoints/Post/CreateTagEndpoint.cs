@@ -12,7 +12,7 @@ public class CreateTagEndpoint(IRequestSender sender)
         Post("");
         Group<TagGroup>();
         Description(d => d
-            .WithSummary("01. Create")
+            .WithSummary("Create")
             .WithDescription("Create Tag")
         );
     }

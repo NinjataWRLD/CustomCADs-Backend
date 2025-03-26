@@ -13,7 +13,7 @@ public sealed class PostActiveCartEndpoint(IRequestSender sender)
         Post("");
         Group<ActiveCartsGroup>();
         Description(d => d
-            .WithSummary("01. Create")
+            .WithSummary("Create")
             .WithDescription("Create a Cart")
         );
     }

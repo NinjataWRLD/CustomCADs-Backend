@@ -11,7 +11,7 @@ public sealed class BeginOngoingOrderEndpoint(IRequestSender sender)
         Patch("begin");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("05. Begin")
+            .WithSummary("Begin")
             .WithDescription("Set an Order's Status to Begun by specifying its Id")
         );
     }

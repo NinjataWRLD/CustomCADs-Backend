@@ -11,7 +11,7 @@ public class EditTagEndpoint(IRequestSender sender)
         Put("");
         Group<TagGroup>();
         Description(d => d
-            .WithSummary("04. Edit")
+            .WithSummary("Edit")
             .WithDescription("Edit Tag")
         );
     }

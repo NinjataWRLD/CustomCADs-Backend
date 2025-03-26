@@ -11,7 +11,7 @@ public sealed class PurchaseOngoingOrderEndpoint(IRequestSender sender)
         Post("purchase");
         Group<ClientGroup>();
         Description(d => d
-            .WithSummary("09. Purchase")
+            .WithSummary("Purchase")
             .WithDescription("Purchase the Order")
         );
     }

@@ -11,7 +11,7 @@ public sealed class GetMaterialPutPresignedUrlEndpoint(IRequestSender sender)
         Post("presignedUrls/replace");
         Group<MaterialsGroup>();
         Description(d => d
-            .WithSummary("12. Change Texture")
+            .WithSummary("Change Texture")
             .WithDescription("Change your Material's Texture")
         );
     }

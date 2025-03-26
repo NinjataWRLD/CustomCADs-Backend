@@ -9,7 +9,7 @@ public sealed class ConfirmEmailEndpoint(IUserService userService, ITokenService
         Group<IdentityGroup>();
         Description(d => d
             .WithName(IdentityNames.ConfirmEmail)
-            .WithSummary("03. Confirm Email")
+            .WithSummary("Confirm Email")
             .WithDescription("Confirm the verification email")
         );
     }

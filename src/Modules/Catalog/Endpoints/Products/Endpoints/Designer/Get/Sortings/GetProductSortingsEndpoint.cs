@@ -11,7 +11,7 @@ public sealed class GetProductSortingsEndpoint(IRequestSender sender)
         Get("sortings");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("05. Sortings")
+            .WithSummary("Sortings")
             .WithDescription("See all Product Sorting types")
         );
     }

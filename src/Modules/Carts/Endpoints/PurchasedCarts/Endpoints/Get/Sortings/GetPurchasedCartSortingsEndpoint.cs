@@ -11,7 +11,7 @@ public sealed class GetPurchasedCartSortingsEndpoint(IRequestSender sender)
         Get("sortings");
         Group<PurchasedCartsGroup>();
         Description(d => d
-            .WithSummary("05. Sortings")
+            .WithSummary("Sortings")
             .WithDescription("See all Purchased Cart Sorting types")
         );
     }

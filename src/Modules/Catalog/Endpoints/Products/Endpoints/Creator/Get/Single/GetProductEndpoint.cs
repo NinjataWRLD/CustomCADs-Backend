@@ -11,7 +11,7 @@ public sealed class GetProductEndpoint(IRequestSender sender)
         Get("{id}");
         Group<CreatorGroup>();
         Description(d => d
-            .WithSummary("06. Single")
+            .WithSummary("Single")
             .WithDescription("See your Product in detail")
         );
     }

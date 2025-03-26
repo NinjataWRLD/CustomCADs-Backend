@@ -13,7 +13,7 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
         Post("");
         Group<AccountsGroup>();
         Description(d => d
-            .WithSummary("2. Create")
+            .WithSummary("Create")
             .WithDescription("Create an Account")
         );
     }

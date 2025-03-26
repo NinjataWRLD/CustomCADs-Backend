@@ -12,7 +12,7 @@ public class GetTagByIdEndpoint(IRequestSender sender)
         Group<TagGroup>();
         AllowAnonymous();
         Description(d => d
-            .WithSummary("02. Single")
+            .WithSummary("Single")
             .WithDescription("Get Tag")
         );
     }

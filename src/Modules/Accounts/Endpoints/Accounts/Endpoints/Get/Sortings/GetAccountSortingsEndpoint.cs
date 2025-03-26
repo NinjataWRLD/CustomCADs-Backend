@@ -10,7 +10,7 @@ public sealed class GetAccountSortingsEndpoint(IRequestSender sender)
         Get("sortings");
         Group<AccountsGroup>();
         Description(d => d
-            .WithSummary("05. Sortings")
+            .WithSummary("Sortings")
             .WithDescription("See all Account Sorting types")
         );
     }

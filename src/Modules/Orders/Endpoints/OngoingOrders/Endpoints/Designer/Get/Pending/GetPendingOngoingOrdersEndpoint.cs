@@ -13,7 +13,7 @@ public sealed class GetPendingOngoingOrdersEndpoint(IRequestSender sender)
         Get("pending");
         Group<DesignerGroup>();
         Description(d => d
-            .WithSummary("01. All Pending")
+            .WithSummary("All Pending")
             .WithDescription("See all Pending Orders with Filter, Search, Sort and Options options")
         );
     }

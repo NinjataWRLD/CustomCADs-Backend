@@ -12,7 +12,7 @@ public sealed class PutMaterialEndpoint(IRequestSender sender)
         Put("");
         Group<MaterialsGroup>();
         Description(d => d
-            .WithSummary("4. Edit")
+            .WithSummary("Edit")
             .WithDescription("Edit a Material")
         );
     }

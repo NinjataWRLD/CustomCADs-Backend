@@ -9,7 +9,7 @@ public sealed class RefreshTokenEndpoint(IUserService userService)
         Group<IdentityGroup>();
         Description(d => d
             .WithName(IdentityNames.Refresh)
-            .WithSummary("02. Refresh")
+            .WithSummary("Refresh")
             .WithDescription("Refresh your login")
         );
     }
