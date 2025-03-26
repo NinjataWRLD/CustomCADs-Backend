@@ -1,4 +1,5 @@
-﻿global using CustomCADs.Customizations.Application.Common.Dtos;
+﻿global using CustomCADs.Customizations.Application.Customizations.Dtos;
+global using CustomCADs.Customizations.Application.Materials.Dtos;
 global using CustomCADs.Customizations.Domain.Customizations;
 global using CustomCADs.Customizations.Domain.Materials;
 global using CustomCADs.Shared.Abstractions.Requests.Commands;

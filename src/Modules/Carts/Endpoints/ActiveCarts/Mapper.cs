@@ -1,7 +1,9 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
-using CustomCADs.Carts.Endpoints.ActiveCarts.Get.CalculateShipment;
-using CustomCADs.Carts.Endpoints.ActiveCarts.Get.Single;
-using CustomCADs.Carts.Endpoints.ActiveCarts.Post.Cart;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Dtos;
+using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetByBuyerId;
+using CustomCADs.Carts.Endpoints.ActiveCarts.Dtos;
+using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Get.CalculateShipment;
+using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Get.Single;
+using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Post.Cart;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts;

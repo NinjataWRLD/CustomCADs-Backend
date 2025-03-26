@@ -1,7 +1,7 @@
-﻿using CustomCADs.Orders.Application.CompletedOrders.Commands.Create;
-using CustomCADs.Orders.Application.CompletedOrders.Queries.ClientGetById;
-using CustomCADs.Orders.Application.CompletedOrders.Queries.DesignerGetById;
-using CustomCADs.Orders.Application.CompletedOrders.Queries.GetAll;
+﻿using CustomCADs.Orders.Application.CompletedOrders.Commands.Internal.Create;
+using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.ClientGetById;
+using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.DesignerGetById;
+using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.GetAll;
 
 namespace CustomCADs.Orders.Application.CompletedOrders;
 

@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Customizations.Endpoints.Customizations;
+﻿using CustomCADs.Customizations.Application.Customizations.Dtos;
+
+namespace CustomCADs.Customizations.Endpoints.Customizations;
 
 internal static class Mapper
 {

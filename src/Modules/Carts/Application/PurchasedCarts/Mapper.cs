@@ -1,5 +1,6 @@
-﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetAll;
-using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetById;
+﻿using CustomCADs.Carts.Application.PurchasedCarts.Dtos;
+using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetAll;
+using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetById;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts;

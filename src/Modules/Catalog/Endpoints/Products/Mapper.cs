@@ -1,19 +1,20 @@
-﻿using CustomCADs.Catalog.Application.Common.Enums;
-using CustomCADs.Catalog.Application.Products.Queries.Creator.GetById;
-using CustomCADs.Catalog.Application.Products.Queries.Designer.GetById;
-using CustomCADs.Catalog.Application.Products.Queries.Gallery.GetById;
-using CustomCADs.Catalog.Application.Products.Queries.Shared.GetAll;
+﻿using CustomCADs.Catalog.Application.Products.Enums;
+using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Internal.Designer.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetAll;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Endpoints.Products.Creator.Get.All;
-using CustomCADs.Catalog.Endpoints.Products.Creator.Get.Recent;
-using CustomCADs.Catalog.Endpoints.Products.Creator.Get.Single;
-using CustomCADs.Catalog.Endpoints.Products.Creator.Post.Products;
-using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Reported;
-using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Single;
-using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Unchecked;
-using CustomCADs.Catalog.Endpoints.Products.Designer.Get.Validated;
-using CustomCADs.Catalog.Endpoints.Products.Gallery.Get.All;
-using CustomCADs.Catalog.Endpoints.Products.Gallery.Get.Single;
+using CustomCADs.Catalog.Endpoints.Products.Dtos;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.All;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Recent;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Single;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Post.Products;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Get.Reported;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Get.Single;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Get.Unchecked;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Get.Validated;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Get.All;
+using CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Get.Single;
 
 namespace CustomCADs.Catalog.Endpoints.Products;
 

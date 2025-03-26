@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
 using CustomCADs.Delivery.Application.Shipments.Queries.GetStatus;
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
-using CustomCADs.Delivery.Endpoints.Shipments.Get.Shipment;
-using CustomCADs.Delivery.Endpoints.Shipments.Get.Track;
+using CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Get.Shipment;
+using CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Get.Track;
 
 namespace CustomCADs.Delivery.Endpoints.Shipments;
 

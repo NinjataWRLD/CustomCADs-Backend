@@ -1,7 +1,7 @@
-﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Create;
-using CustomCADs.Orders.Application.OngoingOrders.Queries.ClientGetById;
-using CustomCADs.Orders.Application.OngoingOrders.Queries.DesignerGetById;
-using CustomCADs.Orders.Application.OngoingOrders.Queries.GetAll;
+﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Internal.Create;
+using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.ClientGetById;
+using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.DesignerGetById;
+using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.GetAll;
 
 namespace CustomCADs.Orders.Application.OngoingOrders;
 

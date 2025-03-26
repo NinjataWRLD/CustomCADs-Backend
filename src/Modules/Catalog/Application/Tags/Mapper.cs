@@ -1,5 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Tags.Queries.GetAll;
-using CustomCADs.Catalog.Application.Tags.Queries.GetById;
+﻿using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetAll;
+using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetById;
 using CustomCADs.Catalog.Domain.Tags;
 
 namespace CustomCADs.Catalog.Application.Tags;

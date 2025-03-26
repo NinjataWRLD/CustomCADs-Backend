@@ -1,10 +1,10 @@
-﻿using CustomCADs.Orders.Application.CompletedOrders.Queries.ClientGetById;
-using CustomCADs.Orders.Application.CompletedOrders.Queries.DesignerGetById;
-using CustomCADs.Orders.Application.CompletedOrders.Queries.GetAll;
-using CustomCADs.Orders.Endpoints.CompletedOrders.Client.Get.All;
-using CustomCADs.Orders.Endpoints.CompletedOrders.Client.Get.Single;
-using CustomCADs.Orders.Endpoints.CompletedOrders.Designer.Get.All;
-using CustomCADs.Orders.Endpoints.CompletedOrders.Designer.Get.Single;
+﻿using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.ClientGetById;
+using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.DesignerGetById;
+using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.GetAll;
+using CustomCADs.Orders.Endpoints.CompletedOrders.Endpoints.Client.Get.All;
+using CustomCADs.Orders.Endpoints.CompletedOrders.Endpoints.Client.Get.Single;
+using CustomCADs.Orders.Endpoints.CompletedOrders.Endpoints.Designer.Get.All;
+using CustomCADs.Orders.Endpoints.CompletedOrders.Endpoints.Designer.Get.Single;
 
 namespace CustomCADs.Orders.Endpoints.CompletedOrders;
 

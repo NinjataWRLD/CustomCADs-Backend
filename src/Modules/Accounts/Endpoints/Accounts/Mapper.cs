@@ -1,5 +1,6 @@
-﻿using CustomCADs.Accounts.Application.Accounts.Queries.GetAll;
-using CustomCADs.Accounts.Application.Accounts.Queries.GetByUsername;
+﻿using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetAll;
+using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetByUsername;
+using CustomCADs.Accounts.Endpoints.Accounts.Dtos;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts;
 

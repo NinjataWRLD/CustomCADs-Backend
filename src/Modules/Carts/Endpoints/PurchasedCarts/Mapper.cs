@@ -1,7 +1,9 @@
-﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetAll;
-using CustomCADs.Carts.Application.PurchasedCarts.Queries.GetById;
-using CustomCADs.Carts.Endpoints.PurchasedCarts.Get.All;
-using CustomCADs.Carts.Endpoints.PurchasedCarts.Get.Single;
+﻿using CustomCADs.Carts.Application.PurchasedCarts.Dtos;
+using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetAll;
+using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetById;
+using CustomCADs.Carts.Endpoints.PurchasedCarts.Dtos;
+using CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Get.All;
+using CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Get.Single;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts;
 
