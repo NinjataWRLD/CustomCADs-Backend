@@ -1,4 +1,5 @@
-﻿using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.CartItems;
+﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
@@ -54,7 +55,7 @@ public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
     [ClassData(typeof(PurchasedCartItemCreateInvalidPriceData))]
     public void Create_ShouldThrow_WhenCartIsNotValid(PurchasedCartId cartId, ProductId productId, CadId cadId, CustomizationId? customizationId, decimal price, int quantity, bool forDelivery)
     {
-        Assert.Throws<PurchasedCartItemValidationException>(() =>
+        Assert.Throws<CustomValidationException<PurchasedCartItem>>(() =>
         {
             CreateItem(
                 cartId: cartId,

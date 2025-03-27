@@ -1,39 +1,18 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Create;
-using CustomCADs.Carts.Application.ActiveCarts.Queries.CalculateShipment;
-using CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetByBuyerId;
 using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 
 namespace CustomCADs.Carts.Application.ActiveCarts;
 
 internal static class Mapper
 {
-    internal static GetActiveCartDto ToGetCartByIdDto(this ActiveCart cart, string buyer)
+    internal static GetActiveCartDto ToDto(this ActiveCart cart, string buyer)
         => new(
             Id: cart.Id,
             BuyerName: buyer,
-            Items: [.. cart.Items.Select(i => i.ToCartItemDto())]
+            Items: [.. cart.Items.Select(i => i.ToDto())]
         );
 
-    internal static CalculateActiveCartShipmentDto ToCalculateCartShipmentDto(this CalculationDto calculation, string timeZone)
-        => new(
-            Total: calculation.Price.Total,
-            Currency: calculation.Price.Currency,
-            PickupDate: DateOnly.FromDateTime(TimeZoneInfo.ConvertTime(
-                calculation.PickupDate.ToDateTime(new TimeOnly(9, 0)),
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            )),
-            DeliveryDeadline: TimeZoneInfo.ConvertTime(
-                calculation.DeliveryDeadline,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
-            Service: calculation.Service
-        );
-
-    internal static ActiveCart ToCart(this CreateActiveCartCommand command)
-        => ActiveCart.Create(command.BuyerId);
-
-    internal static ActiveCartItemDto ToCartItemDto(this ActiveCartItem item)
+    internal static ActiveCartItemDto ToDto(this ActiveCartItem item)
         => new(
             Quantity: item.Quantity,
             ForDelivery: item.ForDelivery,
@@ -42,12 +21,12 @@ internal static class Mapper
             CustomizationId: item.CustomizationId
         );
 
-    internal static ActiveCartItem ToCartItem(this ActiveCartItemDto item)
-        => item.CustomizationId is null 
+    internal static ActiveCartItem ToEntity(this ActiveCartItemDto item)
+        => item.CustomizationId is null
         ? ActiveCartItem.Create(
             productId: item.ProductId,
             cartId: item.CartId
-        ).IncreaseQuantity(item.Quantity) 
+        ).IncreaseQuantity(item.Quantity)
         : ActiveCartItem.Create(
             productId: item.ProductId,
             cartId: item.CartId,

@@ -1,8 +1,8 @@
-﻿using CustomCADs.Catalog.Application.Tags.Queries.GetAll;
-using CustomCADs.Catalog.Application.Tags.Queries.GetById;
-using CustomCADs.Catalog.Endpoints.Tags.Get.All;
-using CustomCADs.Catalog.Endpoints.Tags.Get.Single;
-using CustomCADs.Catalog.Endpoints.Tags.Post;
+﻿using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetAll;
+using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetById;
+using CustomCADs.Catalog.Endpoints.Tags.Endpoints.Get.All;
+using CustomCADs.Catalog.Endpoints.Tags.Endpoints.Get.Single;
+using CustomCADs.Catalog.Endpoints.Tags.Endpoints.Post;
 
 namespace CustomCADs.Catalog.Endpoints.Tags;
 

@@ -1,4 +1,5 @@
-﻿using CustomCADs.UnitTests.Files.Domain.Images.Behaviors.Key.Data;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+using CustomCADs.UnitTests.Files.Domain.Images.Behaviors.Key.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Behaviors.Key;
 
@@ -30,7 +31,7 @@ public class ImageKeyUnitTests : ImagesBaseUnitTests
     {
         var image = CreateImage();
 
-        Assert.Throws<ImageValidationException>(() =>
+        Assert.Throws<CustomValidationException<Image>>(() =>
         {
             image.SetKey(key);
         });

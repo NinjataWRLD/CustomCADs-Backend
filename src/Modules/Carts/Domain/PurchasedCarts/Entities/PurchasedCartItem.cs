@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.PurchasedCarts.Validation;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;

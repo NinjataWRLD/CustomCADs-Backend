@@ -9,6 +9,6 @@ public sealed class WolverineEventRaiser(IMessageBus bus) : IEventRaiser
     public async Task RaiseDomainEventAsync<TEvent>(TEvent @event) where TEvent : BaseDomainEvent
         => await bus.PublishAsync(@event).ConfigureAwait(false);
 
-    public async Task RaiseIntegrationEventAsync<TEvent>(TEvent @event) where TEvent : BaseIntegrationEvent
+    public async Task RaiseApplicationEventAsync<TEvent>(TEvent @event) where TEvent : BaseApplicationEvent
         => await bus.PublishAsync(@event).ConfigureAwait(false);
 }

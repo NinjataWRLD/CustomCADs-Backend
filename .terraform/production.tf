@@ -1,7 +1,7 @@
 locals {
   production_env_vars = jsondecode(data.aws_secretsmanager_secret_version.customcads_production_env_variables_version.secret_string)
 
-  production_jwt            = local.production_env_vars["JwtSettings"]
+  production_jwt            = local.production_env_vars["JwtOptions"]
   production_jwt_issuer     = local.production_jwt["Issuer"]
   production_jwt_audience   = local.production_jwt["Audience"]
   production_jwt_secret_key = local.production_jwt["SecretKey"]
@@ -215,19 +215,19 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     value     = "t3.micro, t3.small"
   }
   setting {
-    name      = "JwtSettings__Audience"
+    name      = "JwtOptions__Audience"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.production_jwt_audience
   }
   setting {
-    name      = "JwtSettings__Issuer"
+    name      = "JwtOptions__Issuer"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.production_jwt_issuer
   }
   setting {
-    name      = "JwtSettings__SecretKey"
+    name      = "JwtOptions__SecretKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.production_jwt_secret_key

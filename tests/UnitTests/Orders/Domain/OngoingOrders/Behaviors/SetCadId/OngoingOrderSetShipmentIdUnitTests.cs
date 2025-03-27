@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.OngoingOrders;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetCadId.Data;
 
@@ -29,7 +29,7 @@ public class OngoingOrderSetShipmentIdUnitTests : OngoingOrdersBaseUnitTests
     [ClassData(typeof(OngoingOrderSetCadIdValidData))]
     public void SetDesignerId_ShouldThrowException_WhenOrderInvalid(CadId cadId)
     {
-        Assert.Throws<OngoingOrderValidationException>(() =>
+        Assert.Throws<CustomValidationException<OngoingOrder>>(() =>
         {
             CreateOrder().SetCadId(cadId);
         });

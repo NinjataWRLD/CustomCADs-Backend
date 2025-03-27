@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Common.Exceptions.Accounts;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Accounts.Domain.Accounts.Create.WithId.Data;
 
@@ -38,7 +38,7 @@ public class AccountCreateWithIdUnitTests : AccountsBaseUnitTests
     [ClassData(typeof(AccountCreateWithIdInvalidLastNameData))]
     public void CreateWithId_ShouldThrowException_WhenAccountIsInvalid(AccountId id, string role, string username, string email, string timeZone, string? firstName, string? lastName)
     {
-        Assert.Throws<AccountValidationException>(() =>
+        Assert.Throws<CustomValidationException<Account>>(() =>
         {
             CreateAccountWithId(id, role, username, email, timeZone, firstName, lastName);
         });

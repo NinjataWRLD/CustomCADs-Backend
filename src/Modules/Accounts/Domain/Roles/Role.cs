@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Roles.Validation;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Accounts.Domain.Roles;
 

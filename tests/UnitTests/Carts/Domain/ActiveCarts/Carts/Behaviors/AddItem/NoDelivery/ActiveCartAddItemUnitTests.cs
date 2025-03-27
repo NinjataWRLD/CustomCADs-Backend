@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.Carts;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Carts.Behaviors.AddItem.NoDelivery.Data;
 
@@ -50,7 +50,7 @@ public class ActiveCartAddItemUnitTests : ActiveCartsBaseUnitTests
     [ClassData(typeof(ActiveCartAddItemInvalidCountData))]
     public void AddItem_ShouldThrowException_WhenCountOfItemsIsInvalid(int count)
     {
-        Assert.Throws<ActiveCartValidationException>(() =>
+        Assert.Throws<CustomValidationException<ActiveCart>>(() =>
         {
             for (int i = 0; i < count; i++)
             {

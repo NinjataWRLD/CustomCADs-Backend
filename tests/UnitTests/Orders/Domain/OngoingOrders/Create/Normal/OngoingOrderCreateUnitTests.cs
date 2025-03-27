@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.OngoingOrders;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Create.Normal.Data;
 
@@ -32,7 +32,7 @@ public class OngoingOrderCreateUnitTests : OngoingOrdersBaseUnitTests
     [ClassData(typeof(OngoingOrderCreateInvalidDescriptionData))]
     public void Create_ShouldThrowException_WhenOrderIsInvalid(string name, string description, bool delivery, AccountId buyerId)
     {
-        Assert.Throws<OngoingOrderValidationException>(() =>
+        Assert.Throws<CustomValidationException<OngoingOrder>>(() =>
         {
             CreateOrder(name, description, delivery, buyerId);
         });

@@ -134,50 +134,22 @@ public static class ProgramExtensions
         return services;
     }
 
-    public static IServiceCollection AddAccounts(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration config)
         => services
-            .AddAccountsExceptionHandler()
-            .AddAccountsPersistence(config);
-
-    public static IServiceCollection AddCarts(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddCartsExceptionHandler()
-            .AddCartsPersistence(config);
-
-    public static IServiceCollection AddCatalog(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddCatalogExceptionHandler()
-            .AddCatalogPersistence(config);
-
-    public static IServiceCollection AddCategories(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddCategoriesExceptionHandler()
-            .AddCategoriesPersistence(config);
-
-    public static IServiceCollection AddCustomizations(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddCustomizationsExceptionHandler()
-            .AddCustomizationsPersistence(config);
-
-    public static IServiceCollection AddDelivery(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddDeliveryExceptionHandler()
-            .AddDeliveryPersistence(config);
-
-    public static IServiceCollection AddFiles(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddFilesPersistence(config);
+            .AddAccountsPersistence(config)
+            .AddCartsPersistence(config)
+            .AddCatalogPersistence(config)
+            .AddCategoriesPersistence(config)
+            .AddCustomizationsPersistence(config)
+            .AddDeliveryPersistence(config)
+            .AddFilesPersistence(config)
+            .AddIdentityInfrastructure(config)
+            .AddOrdersPersistence(config);
 
     public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration config)
         => services
             .AddIdentityExceptionHandler()
-            .AddIdentityInfrastructure(config)
             .AddIdentityConfigs();
-
-    public static IServiceCollection AddOrders(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddOrdersExceptionHandler()
-            .AddOrdersPersistence(config);
 
     public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
         => services.AddExceptionHandler<GlobalExceptionHandler>();
@@ -302,7 +274,7 @@ public static class ProgramExtensions
 
             options
                 .WithOpenApiRoutePattern(apiPattern)
-                .WithOperationSorter(OperationSorter.Alpha)
+                .WithOperationSorter(OperationSorter.Method)
                 .WithTitle("CustomCADs API")
                 .WithTheme(themes[Random.Shared.Next(0, themes.Length)])
                 .WithFavicon("/favicon.ico")

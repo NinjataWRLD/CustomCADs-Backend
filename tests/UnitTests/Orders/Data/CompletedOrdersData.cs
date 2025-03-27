@@ -33,10 +33,10 @@ public static class CompletedOrdersData
     public static readonly decimal InvalidPrice1 = PriceMin - 1;
     public static readonly decimal InvalidPrice2 = PriceMax + 1;
 
-    public static readonly DateTime ValidOrderDate1 = DateTime.UtcNow.AddSeconds(-1);
-    public static readonly DateTime ValidOrderDate2 = DateTime.UtcNow.AddMinutes(-1);
-    public static readonly DateTime InvalidOrderDate1 = DateTime.UtcNow.AddSeconds(1);
-    public static readonly DateTime InvalidOrderDate2 = DateTime.UtcNow.AddMinutes(1);
+    public static readonly DateTimeOffset ValidOrderedAt1 = DateTimeOffset.UtcNow.AddSeconds(-1);
+    public static readonly DateTimeOffset ValidOrderedAt2 = DateTimeOffset.UtcNow.AddMinutes(-1);
+    public static readonly DateTimeOffset InvalidOrderedAt1 = DateTimeOffset.UtcNow.AddSeconds(1);
+    public static readonly DateTimeOffset InvalidOrderedAt2 = DateTimeOffset.UtcNow.AddMinutes(1);
 
     public static readonly AccountId ValidBuyerId1 = AccountId.New();
     public static readonly AccountId ValidBuyerId2 = AccountId.New();

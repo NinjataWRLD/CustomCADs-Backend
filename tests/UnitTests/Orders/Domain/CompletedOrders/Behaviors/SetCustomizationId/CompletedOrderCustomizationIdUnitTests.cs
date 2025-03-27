@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.CompletedOrder;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.UnitTests.Orders.Domain.CompletedOrders.Behaviors.SetCustomizationId.Data;
 
@@ -26,7 +26,7 @@ public class CompletedOrderCustomizationIdUnitTests : CompletedOrdersBaseUnitTes
     [ClassData(typeof(CompletedOrderSetCustomizationIdValidData))]
     public void SetCustomizationId_ShouldThrowException_WhenOrderDoesNotHasDelivery(CustomizationId customizationId)
     {
-        Assert.Throws<CompletedOrderValidationException>(() =>
+        Assert.Throws<CustomValidationException<CompletedOrder>>(() =>
         {
             CreateOrder(delivery: false).SetCustomizationId(customizationId);
         });

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetName.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetName;
@@ -25,7 +25,7 @@ public class SetProductNameUnitTests : ProductsBaseUnitTests
     [ClassData(typeof(SetProductNameInvalidData))]
     public void SetName_ShouldThrowException_WhenNameIsNotValid(string name)
     {
-        Assert.Throws<ProductValidationException>(() =>
+        Assert.Throws<CustomValidationException<Product>>(() =>
         {
             CreateProduct().SetName(name);
         });

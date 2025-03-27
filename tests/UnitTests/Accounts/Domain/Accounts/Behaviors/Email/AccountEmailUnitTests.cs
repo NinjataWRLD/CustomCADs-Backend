@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Common.Exceptions.Accounts;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Email.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Email;
@@ -31,7 +31,7 @@ public class AccountEmailUnitTests : AccountsBaseUnitTests
     {
         var account = CreateAccount();
 
-        Assert.Throws<AccountValidationException>(() =>
+        Assert.Throws<CustomValidationException<Account>>(() =>
         {
             account.SetEmail(email);
         });

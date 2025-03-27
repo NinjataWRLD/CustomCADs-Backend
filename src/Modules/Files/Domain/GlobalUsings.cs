@@ -1,1 +1,2 @@
-﻿global using CustomCADs.Shared.Core.Common.TypedIds.Files;
+﻿global using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+global using CustomCADs.Shared.Core.Common.TypedIds.Files;

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Categories.Domain.Common.Exceptions.Categories;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Categories.Domain.Categories.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Categories.Domain.Categories.Create.Normal;
@@ -30,7 +30,7 @@ public class CategoryCreateUnitTests : CategoriesBaseUnitTests
     [ClassData(typeof(CategoryCreateWithIdInvalidDescriptionData))]
     public void Create_ShouldThrowException_WhenCategoryIsInvalid(string name, string description)
     {
-        Assert.Throws<CategoryValidationException>(() =>
+        Assert.Throws<CustomValidationException<Category>>(() =>
         {
             CreateCategory(name, description);
         });

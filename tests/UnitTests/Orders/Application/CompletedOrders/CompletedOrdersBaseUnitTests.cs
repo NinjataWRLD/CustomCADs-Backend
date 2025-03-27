@@ -12,7 +12,7 @@ public class CompletedOrdersBaseUnitTests
         string? description = null,
         decimal? price = null,
         bool? delivery = null,
-        DateTime? orderDate = null,
+        DateTime? orderedAt = null,
         AccountId? buyerId = null,
         AccountId? designerId = null,
         CadId? cadId = null
@@ -22,7 +22,7 @@ public class CompletedOrdersBaseUnitTests
             description: description ?? ValidDescription1,
             price: price ?? ValidPrice1,
             delivery: delivery ?? false,
-            orderDate: orderDate ?? DateTime.UtcNow.AddDays(-1),
+            orderedAt: orderedAt ?? DateTime.UtcNow.AddDays(-1),
             buyerId: buyerId ?? ValidBuyerId1,
             designerId: designerId ?? ValidDesignerId1,
             cadId: cadId ?? ValidCadId1
@@ -34,7 +34,7 @@ public class CompletedOrdersBaseUnitTests
         string? description = null,
         decimal? price = null,
         bool? delivery = null,
-        DateTime? orderDate = null,
+        DateTime? orderedAt = null,
         AccountId? buyerId = null,
         AccountId? designerId = null,
         CadId? cadId = null
@@ -44,7 +44,7 @@ public class CompletedOrdersBaseUnitTests
             description: description ?? ValidDescription1,
             price: price ?? ValidPrice1,
             delivery: delivery ?? false,
-            orderDate: orderDate ?? DateTime.UtcNow.AddDays(-1),
+            orderedAt: orderedAt ?? DateTime.UtcNow.AddDays(-1),
             buyerId: buyerId ?? ValidBuyerId1,
             designerId: designerId ?? ValidDesignerId1,
             cadId: cadId ?? ValidCadId1

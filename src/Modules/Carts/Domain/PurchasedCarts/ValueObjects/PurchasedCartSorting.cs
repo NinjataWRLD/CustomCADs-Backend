@@ -4,6 +4,6 @@ using CustomCADs.Shared.Core.Common.Enums;
 namespace CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
 
 public record PurchasedCartSorting(
-    PurchasedCartSortingType Type = PurchasedCartSortingType.PurchaseDate,
+    PurchasedCartSortingType Type = PurchasedCartSortingType.PurchasedAt,
     SortingDirection Direction = SortingDirection.Descending
 );

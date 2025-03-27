@@ -1,11 +1,8 @@
-﻿using CustomCADs.Catalog.Application.Common.Exceptions;
-using CustomCADs.Files.Application.Common.Exceptions;
-using CustomCADs.Files.Domain.Common.Exceptions.Cads;
-using CustomCADs.Files.Domain.Common.Exceptions.Images;
-using CustomCADs.Shared.Abstractions.Payment.Exceptions;
+﻿using CustomCADs.Shared.Abstractions.Payment.Exceptions;
 using CustomCADs.Shared.API;
-using CustomCADs.Shared.Core.Common.Exceptions;
-using FluentValidation;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+using CustomCADs.Shared.Core.Common.Exceptions.Persistence;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CustomCADs.Presentation;
@@ -17,10 +14,7 @@ public class GlobalExceptionHandler(IProblemDetailsService service) : IException
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
         => ex switch
         {
-            CadValidationException or ImageValidationException
-                => await service.BadRequestResponseAsync(context, ex).ConfigureAwait(false),
-
-            ValidationException
+            _ when ex is FluentValidation.ValidationException || ex.IsType(typeof(CustomValidationException<>))
                 => await service.BadRequestResponseAsync(context, ex, "Validation Error").ConfigureAwait(false),
 
             PaymentFailedException
@@ -29,11 +23,11 @@ public class GlobalExceptionHandler(IProblemDetailsService service) : IException
             DatabaseException
                 => await service.BadRequestResponseAsync(context, ex, "Database Error").ConfigureAwait(false),
 
-            ProductAuthorizationException
-                => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
+            _ when ex.IsType(typeof(CustomNotFoundException<>))
+                 => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),
 
-            CadNotFoundException or ImageNotFoundException
-                => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),
+            _ when ex.IsType(typeof(CustomAuthorizationException<>))
+                 => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
 
             DatabaseConflictException
                 => await service.CusotmResponseAsync(context, ex, Status409Conflict, "Database Conflict").ConfigureAwait(false),

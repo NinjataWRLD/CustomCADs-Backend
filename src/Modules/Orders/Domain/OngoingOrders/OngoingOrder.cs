@@ -1,6 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.OngoingOrders;
-using CustomCADs.Orders.Domain.OngoingOrders.Enums;
-using CustomCADs.Orders.Domain.OngoingOrders.Validation;
+﻿using CustomCADs.Orders.Domain.OngoingOrders.Enums;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
@@ -14,7 +12,7 @@ public class OngoingOrder : BaseAggregateRoot
     {
         Name = name;
         Description = description;
-        OrderDate = DateTime.UtcNow;
+        OrderedAt = DateTimeOffset.UtcNow;
         OrderStatus = OngoingOrderStatus.Pending;
         BuyerId = buyerId;
         Delivery = delivery;
@@ -25,7 +23,7 @@ public class OngoingOrder : BaseAggregateRoot
     public string Description { get; private set; } = string.Empty;
     public decimal? Price { get; private set; }
     public bool Delivery { get; private set; }
-    public DateTime OrderDate { get; }
+    public DateTimeOffset OrderedAt { get; }
     public OngoingOrderStatus OrderStatus { get; private set; }
     public AccountId BuyerId { get; private set; }
     public AccountId? DesignerId { get; private set; }
@@ -85,7 +83,7 @@ public class OngoingOrder : BaseAggregateRoot
     {
         if (DesignerId is null)
         {
-            throw OngoingOrderValidationException.CadIdOnOrderWithoutDesignerId(Id);
+            throw CustomValidationException<OngoingOrder>.Custom($"Cannot set a CadId on an Ongoing Order with no DesignerId");
         }
         CadId = cadId;
 
@@ -110,7 +108,7 @@ public class OngoingOrder : BaseAggregateRoot
 
         if (OrderStatus is not (OngoingOrderStatus.Accepted or OngoingOrderStatus.Begun or OngoingOrderStatus.Reported))
         {
-            throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
+            throw CustomValidationException<OngoingOrder>.Status(newStatus, OrderStatus);
         }
 
         OrderStatus = newStatus;
@@ -123,7 +121,7 @@ public class OngoingOrder : BaseAggregateRoot
 
         if (OrderStatus is not OngoingOrderStatus.Pending)
         {
-            throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
+            throw CustomValidationException<OngoingOrder>.Status(newStatus, OrderStatus);
         }
 
         OrderStatus = newStatus;
@@ -136,7 +134,7 @@ public class OngoingOrder : BaseAggregateRoot
 
         if (OrderStatus is not OngoingOrderStatus.Accepted)
         {
-            throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
+            throw CustomValidationException<OngoingOrder>.Status(newStatus, OrderStatus);
         }
 
         OrderStatus = newStatus;
@@ -149,7 +147,7 @@ public class OngoingOrder : BaseAggregateRoot
 
         if (OrderStatus is not (OngoingOrderStatus.Accepted or OngoingOrderStatus.Begun))
         {
-            throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
+            throw CustomValidationException<OngoingOrder>.Status(newStatus, OrderStatus);
         }
 
         OrderStatus = newStatus;
@@ -162,7 +160,7 @@ public class OngoingOrder : BaseAggregateRoot
 
         if (OrderStatus is not (OngoingOrderStatus.Pending or OngoingOrderStatus.Accepted or OngoingOrderStatus.Begun or OngoingOrderStatus.Finished))
         {
-            throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
+            throw CustomValidationException<OngoingOrder>.Status(newStatus, OrderStatus);
         }
 
         OrderStatus = newStatus;
@@ -175,7 +173,7 @@ public class OngoingOrder : BaseAggregateRoot
 
         if (OrderStatus is not OngoingOrderStatus.Reported)
         {
-            throw OngoingOrderValidationException.InvalidStatus(Id, OrderStatus, newStatus);
+            throw CustomValidationException<OngoingOrder>.Status(newStatus, OrderStatus);
         }
 
         OrderStatus = newStatus;

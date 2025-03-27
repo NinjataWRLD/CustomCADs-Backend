@@ -1,14 +1,14 @@
-﻿using CustomCADs.Customizations.Domain.Common;
-using CustomCADs.Customizations.Domain.Customizations.Reads;
-using CustomCADs.Customizations.Domain.Materials.Reads;
+﻿using CustomCADs.Customizations.Domain.Repositories;
+using CustomCADs.Customizations.Domain.Repositories.Reads;
 using CustomCADs.Customizations.Persistence;
-using CustomCADs.Customizations.Persistence.Common;
-using CustomCADs.Customizations.Persistence.Customizations.Reads;
-using CustomCADs.Customizations.Persistence.Materials.Reads;
+using CustomCADs.Customizations.Persistence.Repositories;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using CustomizationReads = CustomCADs.Customizations.Persistence.Repositories.Customizations.Reads;
+using MaterialReads = CustomCADs.Customizations.Persistence.Repositories.Materials.Reads;
 
 public static class DependencyInjection
 {

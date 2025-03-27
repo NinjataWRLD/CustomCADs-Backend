@@ -75,9 +75,9 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("Status");
 
-                    b.Property<DateTime>("UploadDate")
+                    b.Property<DateTime>("UploadedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UploadDate");
+                        .HasColumnName("UploadedAt");
 
                     b.ComplexProperty<Dictionary<string, object>>("Counts", "CustomCADs.Catalog.Domain.Products.Product.Counts#Counts", b1 =>
                         {

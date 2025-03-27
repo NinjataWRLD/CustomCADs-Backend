@@ -1,4 +1,5 @@
-﻿using CustomCADs.UnitTests.Files.Domain.Images.Create.Normal.Data;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+using CustomCADs.UnitTests.Files.Domain.Images.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Create.Normal;
 
@@ -27,7 +28,7 @@ public class ImageCreateUnitTests : ImagesBaseUnitTests
     [ClassData(typeof(ImageCreateWithIdInvalidKeyData))]
     public void Create_ShouldThrowException_WhenKeyIsInvalid(string key, string contentType)
     {
-        Assert.Throws<ImageValidationException>(() =>
+        Assert.Throws<CustomValidationException<Image>>(() =>
         {
             Image.Create(key, contentType);
         });
@@ -37,7 +38,7 @@ public class ImageCreateUnitTests : ImagesBaseUnitTests
     [ClassData(typeof(ImageCreateWithIdInvalidContentTypeData))]
     public void Create_ShouldThrowException_WhenContentTypeIsInvalid(string key, string contentType)
     {
-        Assert.Throws<ImageValidationException>(() =>
+        Assert.Throws<CustomValidationException<Image>>(() =>
         {
             Image.Create(key, contentType);
         });

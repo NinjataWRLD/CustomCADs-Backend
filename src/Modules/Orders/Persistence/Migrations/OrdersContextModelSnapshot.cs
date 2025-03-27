@@ -61,18 +61,18 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime>("OrderDate")
+                    b.Property<DateTimeOffset>("OrderedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("OrderDate");
+                        .HasColumnName("OrderedAt");
 
                     b.Property<decimal>("Price")
                         .HasPrecision(19, 2)
                         .HasColumnType("numeric(19,2)")
                         .HasColumnName("Price");
 
-                    b.Property<DateTime>("PurchaseDate")
+                    b.Property<DateTimeOffset>("PurchasedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("PurchaseDate");
+                        .HasColumnName("PurchasedAt");
 
                     b.Property<Guid?>("ShipmentId")
                         .HasColumnType("uuid")
@@ -117,14 +117,14 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("OrderDate");
-
                     b.Property<string>("OrderStatus")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("OrderStatus");
+
+                    b.Property<DateTimeOffset>("OrderedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("OrderedAt");
 
                     b.Property<decimal?>("Price")
                         .HasPrecision(19, 2)

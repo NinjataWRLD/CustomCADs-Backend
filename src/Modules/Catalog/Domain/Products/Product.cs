@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
-using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Domain.Products.Validation;
+﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
@@ -26,7 +24,7 @@ public class Product : BaseAggregateRoot
         Description = description;
         Price = price;
         Status = ProductStatus.Unchecked;
-        UploadDate = DateTime.UtcNow;
+        UploadedAt = DateTimeOffset.UtcNow;
         CreatorId = creatorId;
         CategoryId = categoryId;
         ImageId = imageId;
@@ -39,7 +37,7 @@ public class Product : BaseAggregateRoot
     public decimal Price { get; private set; }
     public Counts Counts { get; private set; } = new();
     public ProductStatus Status { get; private set; }
-    public DateTime UploadDate { get; }
+    public DateTimeOffset UploadedAt { get; }
     public CategoryId CategoryId { get; private set; }
     public ImageId ImageId { get; private set; }
     public CadId CadId { get; private set; }
@@ -144,7 +142,7 @@ public class Product : BaseAggregateRoot
 
         if (Status is not (ProductStatus.Validated or ProductStatus.Reported))
         {
-            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
+            throw CustomValidationException<Product>.Status(newStatus, Status);
         }
         Status = newStatus;
 
@@ -157,7 +155,7 @@ public class Product : BaseAggregateRoot
 
         if (Status is not ProductStatus.Unchecked)
         {
-            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
+            throw CustomValidationException<Product>.Status(newStatus, Status);
         }
         Status = newStatus;
 
@@ -170,7 +168,7 @@ public class Product : BaseAggregateRoot
 
         if (Status is not (ProductStatus.Unchecked or ProductStatus.Validated))
         {
-            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
+            throw CustomValidationException<Product>.Status(newStatus, Status);
         }
         Status = newStatus;
 
@@ -183,7 +181,7 @@ public class Product : BaseAggregateRoot
 
         if (Status is not ProductStatus.Reported)
         {
-            throw ProductValidationException.InvalidStatus(Id, Status, newStatus);
+            throw CustomValidationException<Product>.Status(newStatus, Status);
         }
         Status = newStatus;
 

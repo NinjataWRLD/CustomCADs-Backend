@@ -1,4 +1,4 @@
-﻿using CustomCADs.Carts.Domain.Common.Exceptions.PurchasedCarts.Carts;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Behaviors.ShipmentId.Data;
@@ -25,7 +25,7 @@ public class PurchasedCartSetShipmentIdUnitTests : PurchasedCartsBaseUnitTests
     [ClassData(typeof(PurchasedCartSetShipmentIdValidData))]
     public void SetShipmentId_ShouldThrowException_WhenNotDelivery(Dictionary<ProductId, decimal> prices, Dictionary<ProductId, CadId> productCads, Dictionary<CadId, CadId> itemCads)
     {
-        Assert.Throws<PurchasedCartValidationException>(() =>
+        Assert.Throws<CustomValidationException<PurchasedCart>>(() =>
         {
             CreateCartWithItems(
                 cart: CreateCartWithItems(2, 0),

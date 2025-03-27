@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.ValueObjects;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+using CustomCADs.Shared.Core.Common.ValueObjects;
 using CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.CamCoordinates.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.PanCoordinates;
@@ -31,7 +32,7 @@ public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
     {
         var cad = CreateCad();
 
-        Assert.Throws<CadValidationException>(() =>
+        Assert.Throws<CustomValidationException<Cad>>(() =>
         {
             cad.SetPanCoordinates(coordinates);
         });

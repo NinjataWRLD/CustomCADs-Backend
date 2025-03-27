@@ -2,7 +2,7 @@
 
 public enum OngoingOrderSortingType
 {
-    OrderDate = 1,
+    OrderedAt = 1,
     Alphabetical,
     OrderStatus,
     Delivery,

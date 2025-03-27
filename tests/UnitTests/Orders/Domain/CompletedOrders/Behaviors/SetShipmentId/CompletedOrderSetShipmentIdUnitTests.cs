@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.CompletedOrder;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.UnitTests.Orders.Domain.CompletedOrders.Behaviors.SetShipmentId.Data;
 
@@ -26,7 +26,7 @@ public class CompletedOrderSetShipmentIdUnitTests : CompletedOrdersBaseUnitTests
     [ClassData(typeof(CompletedOrderSetShipmentIdValidData))]
     public void SetShipmentId_ShouldThrowException_WhenOrderDoesNotHasDelivery(ShipmentId shipmentId)
     {
-        Assert.Throws<CompletedOrderValidationException>(() =>
+        Assert.Throws<CustomValidationException<CompletedOrder>>(() =>
         {
             CreateOrder(delivery: false).SetShipmentId(shipmentId);
         });

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetStatus.Removed;
 
@@ -14,9 +14,9 @@ public class SetProductRemovedStatusUnitTests : ProductsBaseUnitTests
     public void SetRemovedStatus_ShouldThrowException_WhenStatusIsNotValid()
     {
         Assert.Multiple(
-            () => Assert.Throws<ProductValidationException>(() => CreateProduct().SetRemovedStatus()),
-            () => Assert.Throws<ProductValidationException>(() => CreateProduct().SetValidatedStatus().SetRemovedStatus()),
-            () => Assert.Throws<ProductValidationException>(() => CreateProduct().SetReportedStatus().SetRemovedStatus().SetRemovedStatus())
+            () => Assert.Throws<CustomValidationException<Product>>(() => CreateProduct().SetRemovedStatus()),
+            () => Assert.Throws<CustomValidationException<Product>>(() => CreateProduct().SetValidatedStatus().SetRemovedStatus()),
+            () => Assert.Throws<CustomValidationException<Product>>(() => CreateProduct().SetReportedStatus().SetRemovedStatus().SetRemovedStatus())
         );
     }
 }

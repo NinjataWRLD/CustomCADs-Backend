@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Tags;
+﻿using CustomCADs.Catalog.Domain.Tags;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Catalog.Domain.Tags.Behaviors.SetName.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Behaviors.SetName;
@@ -25,7 +26,7 @@ public class SetTagNameUnitTests : TagsBaseUnitTests
     [ClassData(typeof(SetTagNameInvalidData))]
     public void SetName_ShouldThrowException_WhenNameIsNotValid(string name)
     {
-        Assert.Throws<TagValidationException>(() =>
+        Assert.Throws<CustomValidationException<Tag>>(() =>
         {
             CreateTag().SetName(name);
         });

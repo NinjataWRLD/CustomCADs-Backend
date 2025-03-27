@@ -4,6 +4,6 @@ using CustomCADs.Shared.Core.Common.Enums;
 namespace CustomCADs.Orders.Domain.OngoingOrders.ValueObjects;
 
 public record OngoingOrderSorting(
-    OngoingOrderSortingType Type = OngoingOrderSortingType.OrderDate,
+    OngoingOrderSortingType Type = OngoingOrderSortingType.OrderedAt,
     SortingDirection Direction = SortingDirection.Descending
 );

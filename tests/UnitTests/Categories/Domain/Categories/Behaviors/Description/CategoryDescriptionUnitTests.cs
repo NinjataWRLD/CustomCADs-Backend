@@ -1,4 +1,4 @@
-﻿using CustomCADs.Categories.Domain.Common.Exceptions.Categories;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Categories.Domain.Categories.Behaviors.Description.Data;
 
 namespace CustomCADs.UnitTests.Categories.Domain.Categories.Behaviors.Description;
@@ -31,7 +31,7 @@ public class CategoryDescriptionUnitTests : CategoriesBaseUnitTests
     {
         var category = CreateCategory();
 
-        Assert.Throws<CategoryValidationException>(() =>
+        Assert.Throws<CustomValidationException<Category>>(() =>
         {
             category.SetDescription(description);
         });

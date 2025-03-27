@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Delivery.Domain.Shipments.Create.Normal.Data;
 
@@ -24,7 +25,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
             () => Assert.Equal(address, shipment.Address),
             () => Assert.Equal(referenceId, shipment.ReferenceId),
             () => Assert.Equal(buyerId, shipment.BuyerId),
-            () => Assert.True(DateTime.UtcNow - shipment.RequestDate < TimeSpan.FromSeconds(1))
+            () => Assert.True(DateTimeOffset.UtcNow - shipment.RequestedAt < TimeSpan.FromSeconds(1))
         );
     }
 
@@ -32,7 +33,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
     [ClassData(typeof(ShipmentCreateWithIdInvalidCountryData))]
     public void Create_ShouldThrowException_WhenCountryIsInvalid(string country, string city, string referenceId, AccountId buyerId)
     {
-        Assert.Throws<ShipmentValidationException>(() =>
+        Assert.Throws<CustomValidationException<Shipment>>(() =>
         {
             Shipment.Create(new(country, city), referenceId, buyerId);
         });
@@ -42,7 +43,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
     [ClassData(typeof(ShipmentCreateWithIdInvalidCityData))]
     public void Create_ShouldThrowException_WhenCityIsInvalid(string country, string city, string referenceId, AccountId buyerId)
     {
-        Assert.Throws<ShipmentValidationException>(() =>
+        Assert.Throws<CustomValidationException<Shipment>>(() =>
         {
             Shipment.Create(new(country, city), referenceId, buyerId);
         });

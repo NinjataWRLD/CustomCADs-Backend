@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Common.Exceptions.Products;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetStatus.Unchecked;
 
@@ -17,8 +17,8 @@ public class SetProductUncheckedStatusUnitTests : ProductsBaseUnitTests
     public void SetUncheckedStatus_ShouldThrowException_WhenStatusIsNotValid()
     {
         Assert.Multiple(
-            () => Assert.Throws<ProductValidationException>(() => CreateProduct().SetUncheckedStatus()),
-            () => Assert.Throws<ProductValidationException>(() => CreateProduct().SetReportedStatus().SetRemovedStatus().SetUncheckedStatus())
+            () => Assert.Throws<CustomValidationException<Product>>(() => CreateProduct().SetUncheckedStatus()),
+            () => Assert.Throws<CustomValidationException<Product>>(() => CreateProduct().SetReportedStatus().SetRemovedStatus().SetUncheckedStatus())
         );
     }
 }

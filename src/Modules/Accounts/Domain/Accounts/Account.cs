@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts.Validation;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Accounts.Domain.Accounts;

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.Common.Exceptions.OngoingOrders;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetStatus.Removed;
 
@@ -19,8 +19,8 @@ public class SetOngoingOrderReportedStatusUnitTests : OngoingOrdersBaseUnitTests
     public void SetReportedStatus_ShouldThrowException_WhenStatusIsNotValid()
     {
         Assert.Multiple(
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetReportedStatus().SetReportedStatus()),
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetReportedStatus().SetRemovedStatus().SetReportedStatus())
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetReportedStatus().SetReportedStatus()),
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetReportedStatus().SetRemovedStatus().SetReportedStatus())
         );
     }
 }

@@ -44,7 +44,7 @@ public static class DependencyInjection
         services.AddScoped<IUserService, AppUserService>();
         services.AddScoped<IRoleService, AppRoleService>();
 
-        services.Configure<JwtSettings>(config.GetSection("JwtSettings"));
+        services.Configure<JwtSettings>(config.GetSection("JwtOptions"));
         services.AddScoped<ITokenService, AppTokenService>();
 
         return services;

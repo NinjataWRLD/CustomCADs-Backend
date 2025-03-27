@@ -1,4 +1,5 @@
-﻿using CustomCADs.Carts.Domain.Common.Exceptions.ActiveCarts.CartItems;
+﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.DecreaseQuantity.Data;
 
 namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Items.Behaviors.DecreaseQuantity;
@@ -18,7 +19,7 @@ public class ActiveCartItemDecreaseQuantityUnitTests : ActiveCartItemsBaseUnitTe
     [ClassData(typeof(ActiveCartItemDecreaseQuantityValidData))]
     public void Decrease_ShouldThrowException_WhenInvalidAmount(int amount)
     {
-        Assert.Throws<ActiveCartItemValidationException>(() =>
+        Assert.Throws<CustomValidationException<ActiveCartItem>>(() =>
         {
             CreateItemWithDelivery()
                 .IncreaseQuantity(amount - 1)
@@ -30,7 +31,7 @@ public class ActiveCartItemDecreaseQuantityUnitTests : ActiveCartItemsBaseUnitTe
     [ClassData(typeof(ActiveCartItemDecreaseQuantityValidData))]
     public void Decrease_ShouldThrowException_WhenNotForDelivery(int amount)
     {
-        Assert.Throws<ActiveCartItemValidationException>(() =>
+        Assert.Throws<CustomValidationException<ActiveCartItem>>(() =>
         {
             CreateItem()
                 .IncreaseQuantity(amount)
