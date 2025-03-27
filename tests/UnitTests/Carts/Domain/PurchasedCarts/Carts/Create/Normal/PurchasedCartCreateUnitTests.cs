@@ -21,7 +21,7 @@ public class PurchasedCartCreateUnitTests : PurchasedCartsBaseUnitTests
         Assert.Multiple(
             () => Assert.Equal(buyerId, cart.BuyerId),
             () => Assert.Empty(cart.Items),
-            () => Assert.True(DateTime.UtcNow - cart.PurchaseDate < TimeSpan.FromSeconds(1))
+            () => Assert.True(DateTimeOffset.UtcNow - cart.PurchasedAt < TimeSpan.FromSeconds(1))
         );
     }
 }

@@ -2,6 +2,7 @@
 using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.ClientGetById;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.DesignerGetById;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.GetAll;
+using CustomCADs.Shared.Core.Extensions;
 
 namespace CustomCADs.Orders.Application.OngoingOrders;
 
@@ -11,10 +12,7 @@ internal static class Mapper
         => new(
             Id: order.Id,
             Name: order.Name,
-            OrderDate: TimeZoneInfo.ConvertTimeFromUtc(
-                order.OrderDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
+            OrderedAt: order.OrderedAt.ToUserLocalTime(timeZone),
             Delivery: order.Delivery,
             OrderStatus: order.OrderStatus,
             BuyerName: buyerUsername,
@@ -26,10 +24,7 @@ internal static class Mapper
             Id: order.Id,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: TimeZoneInfo.ConvertTimeFromUtc(
-                order.OrderDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
+            OrderedAt: order.OrderedAt.ToUserLocalTime(timeZone),
             Delivery: order.Delivery,
             OrderStatus: order.OrderStatus,
             DesignerName: designer
@@ -40,7 +35,7 @@ internal static class Mapper
             Id: order.Id,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: order.OrderDate,
+            OrderedAt: order.OrderedAt,
             Delivery: order.Delivery,
             OrderStatus: order.OrderStatus,
             BuyerName: buyer

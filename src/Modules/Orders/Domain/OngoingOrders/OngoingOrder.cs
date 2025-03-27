@@ -12,7 +12,7 @@ public class OngoingOrder : BaseAggregateRoot
     {
         Name = name;
         Description = description;
-        OrderDate = DateTime.UtcNow;
+        OrderedAt = DateTimeOffset.UtcNow;
         OrderStatus = OngoingOrderStatus.Pending;
         BuyerId = buyerId;
         Delivery = delivery;
@@ -23,7 +23,7 @@ public class OngoingOrder : BaseAggregateRoot
     public string Description { get; private set; } = string.Empty;
     public decimal? Price { get; private set; }
     public bool Delivery { get; private set; }
-    public DateTime OrderDate { get; }
+    public DateTimeOffset OrderedAt { get; }
     public OngoingOrderStatus OrderStatus { get; private set; }
     public AccountId BuyerId { get; private set; }
     public AccountId? DesignerId { get; private set; }

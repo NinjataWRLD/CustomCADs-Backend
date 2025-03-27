@@ -3,7 +3,7 @@
 public sealed record GetCompletedOrdersResponse(
     Guid Id,
     string Name,
-    string OrderDate,
-    string PurchaseDate,
+    string OrderedAt,
+    string PurchasedAt,
     bool Delivery
 );

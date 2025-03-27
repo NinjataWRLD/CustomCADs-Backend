@@ -6,6 +6,6 @@ public record GetAllProductsDto(
     string Status,
     string CreatorName,
     int Views,
-    DateTime UploadDate,
+    DateTimeOffset UploadedAt,
     CategoryDto Category
 );

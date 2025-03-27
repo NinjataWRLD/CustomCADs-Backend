@@ -3,6 +3,6 @@
 public sealed record GetPurchasedCartsResponse(
     Guid Id,
     decimal Total,
-    string PurchaseDate,
+    string PurchasedAt,
     int ItemsCount
 );

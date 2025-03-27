@@ -7,7 +7,7 @@ public sealed record GetOngoingOrdersRequest(
     bool? Delivery = null,
     OngoingOrderStatus? OrderStatus = null,
     string? Name = null,
-    OngoingOrderSortingType SortingType = OngoingOrderSortingType.OrderDate,
+    OngoingOrderSortingType SortingType = OngoingOrderSortingType.OrderedAt,
     SortingDirection SortingDirection = SortingDirection.Descending,
     int Page = 1,
     int Limit = 20

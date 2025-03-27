@@ -4,7 +4,7 @@ public sealed record PostOngoingOrderResponse(
     Guid Id,
     string Name,
     string Description,
-    string OrderDate,
+    string OrderedAt,
     string OrderStatus,
     bool Delivery
 );

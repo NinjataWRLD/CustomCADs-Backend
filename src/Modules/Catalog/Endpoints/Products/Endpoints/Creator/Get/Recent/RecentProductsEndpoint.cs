@@ -24,7 +24,7 @@ public sealed class RecentProductsEndpoint(IRequestSender sender)
         GetAllProductsQuery query = new(
             CreatorId: User.GetAccountId(),
             Sorting: new(
-                ProductCreatorSortingType.UploadDate.ToBase(),
+                ProductCreatorSortingType.UploadedAt.ToBase(),
                 SortingDirection.Descending
             ),
             Pagination: new(Limit: req.Limit)

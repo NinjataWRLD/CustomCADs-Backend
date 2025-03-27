@@ -38,7 +38,7 @@ internal static class Mapper
             Price: product.Price,
             Volume: product.Volume,
             CreatorName: product.CreatorName,
-            UploadDate: product.UploadDate.ToString(DateFormatString),
+            UploadedAt: product.UploadedAt.ToString(DateFormatString),
             CamCoordinates: product.CamCoordinates,
             PanCoordinates: product.PanCoordinates,
             Counts: product.Counts,
@@ -50,7 +50,7 @@ internal static class Mapper
         Id: product.Id.Value,
         Name: product.Name,
         Status: product.Status,
-        UploadDate: product.UploadDate.ToString(DateFormatString),
+        UploadedAt: product.UploadedAt.ToString(DateFormatString),
         Category: product.Category.ToResponse()
     );
 
@@ -58,7 +58,7 @@ internal static class Mapper
         => new(
             Id: product.Id.Value,
             Name: product.Name,
-            UploadDate: product.UploadDate.ToString(DateFormatString),
+            UploadedAt: product.UploadedAt.ToString(DateFormatString),
             CreatorName: product.CreatorName,
             Category: product.Category.ToResponse()
         );
@@ -69,7 +69,7 @@ internal static class Mapper
             Name: product.Name,
             Price: product.Price,
             Description: product.Description,
-            UploadDate: product.UploadDate.ToString(DateFormatString),
+            UploadedAt: product.UploadedAt.ToString(DateFormatString),
             Counts: product.Counts,
             Category: product.Category.ToResponse()
         );
@@ -81,7 +81,7 @@ internal static class Mapper
             Description: product.Description,
             Price: product.Price,
             Status: product.Status,
-            UploadDate: product.UploadDate.ToString(DateFormatString),
+            UploadedAt: product.UploadedAt.ToString(DateFormatString),
             CreatorName: product.CreatorName,
             Category: product.Category.ToResponse()
         );
@@ -90,7 +90,7 @@ internal static class Mapper
     => new(
         Id: product.Id.Value,
         Name: product.Name,
-        UploadDate: product.UploadDate.ToString(DateFormatString),
+        UploadedAt: product.UploadedAt.ToString(DateFormatString),
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
@@ -99,7 +99,7 @@ internal static class Mapper
     => new(
         Id: product.Id.Value,
         Name: product.Name,
-        UploadDate: product.UploadDate.ToString(DateFormatString),
+        UploadedAt: product.UploadedAt.ToString(DateFormatString),
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
@@ -108,7 +108,7 @@ internal static class Mapper
     => new(
         Id: product.Id.Value,
         Name: product.Name,
-        UploadDate: product.UploadDate.ToString(DateFormatString),
+        UploadedAt: product.UploadedAt.ToString(DateFormatString),
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
@@ -132,7 +132,7 @@ internal static class Mapper
     internal static ProductSortingType ToBase(this ProductGallerySortingType sorting)
         => sorting switch
         {
-            ProductGallerySortingType.UploadDate => ProductSortingType.UploadDate,
+            ProductGallerySortingType.UploadedAt => ProductSortingType.UploadedAt,
             ProductGallerySortingType.Alphabetical => ProductSortingType.Alphabetical,
             ProductGallerySortingType.Cost => ProductSortingType.Cost,
             ProductGallerySortingType.Purchases => ProductSortingType.Purchases,
@@ -143,7 +143,7 @@ internal static class Mapper
     internal static ProductSortingType ToBase(this ProductCreatorSortingType sorting)
         => sorting switch
         {
-            ProductCreatorSortingType.UploadDate => ProductSortingType.UploadDate,
+            ProductCreatorSortingType.UploadedAt => ProductSortingType.UploadedAt,
             ProductCreatorSortingType.Alphabetical => ProductSortingType.Alphabetical,
             ProductCreatorSortingType.Status => ProductSortingType.Status,
             ProductCreatorSortingType.Cost => ProductSortingType.Cost,
@@ -155,7 +155,7 @@ internal static class Mapper
     internal static ProductSortingType ToBase(this ProductDesignerSortingType sorting)
         => sorting switch
         {
-            ProductDesignerSortingType.UploadDate => ProductSortingType.UploadDate,
+            ProductDesignerSortingType.UploadedAt => ProductSortingType.UploadedAt,
             ProductDesignerSortingType.Alphabetical => ProductSortingType.Alphabetical,
             ProductDesignerSortingType.Cost => ProductSortingType.Cost,
             _ => throw new ArgumentException("", nameof(sorting))

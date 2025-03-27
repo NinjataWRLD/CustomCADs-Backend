@@ -22,8 +22,8 @@ public static class Utilities
     {
         return sorting switch
         {
-            { Type: ShipmentSortingType.RequestDate, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.RequestDate),
-            { Type: ShipmentSortingType.RequestDate, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.RequestDate),
+            { Type: ShipmentSortingType.RequestedAt, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.RequestedAt),
+            { Type: ShipmentSortingType.RequestedAt, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.RequestedAt),
             { Type: ShipmentSortingType.Country, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.Address.Country),
             { Type: ShipmentSortingType.Country, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.Address.Country),
             { Type: ShipmentSortingType.City, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.Address.City),

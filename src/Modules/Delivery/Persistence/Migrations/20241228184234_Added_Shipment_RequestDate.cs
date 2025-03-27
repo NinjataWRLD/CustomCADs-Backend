@@ -11,7 +11,7 @@ public partial class Added_Shipment_RequestDate : Migration
     protected override void Up(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.AddColumn<DateTime>(
-            name: "RequestDate",
+            name: "RequestedAt",
             schema: "Delivery",
             table: "Shipments",
             type: "timestamp with time zone",
@@ -23,7 +23,7 @@ public partial class Added_Shipment_RequestDate : Migration
     protected override void Down(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.DropColumn(
-            name: "RequestDate",
+            name: "RequestedAt",
             schema: "Delivery",
             table: "Shipments");
     }

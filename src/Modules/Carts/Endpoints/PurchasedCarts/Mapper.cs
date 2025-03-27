@@ -15,7 +15,7 @@ internal static class Mapper
         => new(
             Id: cart.Id.Value,
             Total: cart.Total,
-            PurchaseDate: cart.PurchaseDate.ToString(DateFormatString),
+            PurchasedAt: cart.PurchasedAt.ToString(DateFormatString),
             ItemsCount: cart.ItemsCount
         );
 
@@ -23,7 +23,7 @@ internal static class Mapper
         => new(
             Id: cart.Id.Value,
             Total: cart.Total,
-            PurchaseDate: cart.PurchaseDate.ToString(DateFormatString),
+            PurchasedAt: cart.PurchasedAt.ToString(DateFormatString),
             BuyerName: cart.BuyerName,
             ShipmentId: cart.ShipmentId?.Value,
             Items: [.. cart.Items.Select(o => o.ToResponse())]

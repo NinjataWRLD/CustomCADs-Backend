@@ -6,7 +6,7 @@ namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetById;
 public record GetPurchasedCartByIdDto(
     PurchasedCartId Id,
     decimal Total,
-    DateTime PurchaseDate,
+    DateTimeOffset PurchasedAt,
     string BuyerName,
     ShipmentId? ShipmentId,
     ICollection<PurchasedCartItemDto> Items

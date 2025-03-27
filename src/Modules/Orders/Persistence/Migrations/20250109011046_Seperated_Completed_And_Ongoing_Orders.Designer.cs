@@ -60,13 +60,13 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime>("OrderDate")
+                    b.Property<DateTime>("OrderedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("OrderDate");
+                        .HasColumnName("OrderedAt");
 
-                    b.Property<DateTime>("PurchaseDate")
+                    b.Property<DateTime>("PurchasedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("PurchaseDate");
+                        .HasColumnName("PurchasedAt");
 
                     b.Property<Guid?>("ShipmentId")
                         .HasColumnType("uuid")
@@ -111,9 +111,9 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime>("OrderDate")
+                    b.Property<DateTime>("OrderedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("OrderDate");
+                        .HasColumnName("OrderedAt");
 
                     b.Property<string>("OrderStatus")
                         .IsRequired()

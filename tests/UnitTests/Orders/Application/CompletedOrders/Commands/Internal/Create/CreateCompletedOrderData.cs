@@ -4,4 +4,4 @@ using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Orders.Application.CompletedOrders.Commands.Internal.Create;
 
-public class CreateCompletedOrderData : TheoryData<string, string, decimal, bool, DateTime, AccountId, AccountId, CadId, CustomizationId?>;
+public class CreateCompletedOrderData : TheoryData<string, string, decimal, bool, DateTimeOffset, AccountId, AccountId, CadId, CustomizationId?>;

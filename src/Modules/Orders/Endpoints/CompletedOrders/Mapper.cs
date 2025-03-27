@@ -16,8 +16,8 @@ internal static class Mapper
         => new(
             Id: order.Id.Value,
             Name: order.Name,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
-            PurchaseDate: order.PurchaseDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
+            PurchasedAt: order.PurchasedAt.ToString(DateFormatString),
             Delivery: order.Delivery
         );
 
@@ -26,8 +26,8 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
-            PurchaseDate: order.PurchaseDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
+            PurchasedAt: order.PurchasedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             DesignerName: order.DesignerName,
             ShipmentId: order.ShipmentId?.Value
@@ -38,8 +38,8 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             BuyerName: order.BuyerName,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
-            PurchaseDate: order.PurchaseDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
+            PurchasedAt: order.PurchasedAt.ToString(DateFormatString),
             Delivery: order.Delivery
         );
 
@@ -48,8 +48,8 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
-            PurchaseDate: order.PurchaseDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
+            PurchasedAt: order.PurchasedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             BuyerName: order.BuyerName,
             ShipmentId: order.ShipmentId?.Value

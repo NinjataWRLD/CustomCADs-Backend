@@ -4,8 +4,8 @@ public sealed record DesignerGetCompletedOrderResponse(
     Guid Id,
     string Name,
     string Description,
-    string OrderDate,
-    string PurchaseDate,
+    string OrderedAt,
+    string PurchasedAt,
     bool Delivery,
     string BuyerName,
     Guid? ShipmentId

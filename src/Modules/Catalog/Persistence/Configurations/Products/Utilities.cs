@@ -109,9 +109,9 @@ static class Utilities
                 s => Enum.Parse<ProductStatus>(s)
             ).HasColumnName(nameof(Product.Status));
 
-        builder.Property(x => x.UploadDate)
+        builder.Property(x => x.UploadedAt)
             .IsRequired()
-            .HasColumnName(nameof(Product.UploadDate));
+            .HasColumnName(nameof(Product.UploadedAt));
 
         builder.Property(x => x.CategoryId)
             .IsRequired()

@@ -2,6 +2,6 @@
 
 public enum PurchasedCartSortingType
 {
-    PurchaseDate = 1,
+    PurchasedAt = 1,
     Total,
 }

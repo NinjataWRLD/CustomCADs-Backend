@@ -27,7 +27,7 @@ internal static class Mapper
         => new(
             Id: order.Id.Value,
             Name: order.Name,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             OrderStatus: order.OrderStatus.ToString()
         );
@@ -36,7 +36,7 @@ internal static class Mapper
         => new(
             Id: order.Id.Value,
             Name: order.Name,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             DesignerName: order.DesignerName
         );
 
@@ -45,7 +45,7 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             OrderStatus: order.OrderStatus.ToString()
         );
@@ -64,7 +64,7 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             OrderStatus: order.OrderStatus.ToString(),
             DesignerName: order.DesignerName
@@ -75,7 +75,7 @@ internal static class Mapper
             Id: order.Id.Value,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             Status: order.OrderStatus.ToString(),
             BuyerName: order.BuyerName
@@ -85,7 +85,7 @@ internal static class Mapper
         => new(
             Id: order.Id.Value,
             Name: order.Name,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             BuyerName: order.BuyerName
         );
@@ -94,7 +94,7 @@ internal static class Mapper
         => new(
             Id: order.Id.Value,
             Name: order.Name,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             BuyerName: order.BuyerName
         );
@@ -103,7 +103,7 @@ internal static class Mapper
         => new(
             Id: order.Id.Value,
             Name: order.Name,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             BuyerName: order.BuyerName
         );
@@ -112,7 +112,7 @@ internal static class Mapper
         => new(
             Id: order.Id.Value,
             Name: order.Name,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             BuyerName: order.BuyerName
         );
@@ -121,7 +121,7 @@ internal static class Mapper
         => new(
             Id: order.Id.Value,
             Name: order.Name,
-            OrderDate: order.OrderDate.ToString(DateFormatString),
+            OrderedAt: order.OrderedAt.ToString(DateFormatString),
             Delivery: order.Delivery,
             BuyerName: order.BuyerName
         );

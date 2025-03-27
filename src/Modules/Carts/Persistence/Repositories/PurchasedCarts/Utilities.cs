@@ -22,8 +22,8 @@ public static class Utilities
     {
         return sorting switch
         {
-            { Type: PurchasedCartSortingType.PurchaseDate, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.PurchaseDate),
-            { Type: PurchasedCartSortingType.PurchaseDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.PurchaseDate),
+            { Type: PurchasedCartSortingType.PurchasedAt, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.PurchasedAt),
+            { Type: PurchasedCartSortingType.PurchasedAt, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.PurchasedAt),
             { Type: PurchasedCartSortingType.Total, Direction: SortingDirection.Ascending } => query.OrderByDescending(c => c.TotalCost),
             { Type: PurchasedCartSortingType.Total, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.TotalCost),
             _ => query,

@@ -10,7 +10,7 @@ public record GalleryGetProductByIdDto(
     decimal Price,
     decimal Volume,
     string CreatorName,
-    DateTime UploadDate,
+    DateTimeOffset UploadedAt,
     CoordinatesDto CamCoordinates,
     CoordinatesDto PanCoordinates,
     CountsDto Counts,

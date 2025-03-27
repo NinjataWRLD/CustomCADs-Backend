@@ -19,7 +19,7 @@ namespace CustomCADs.Catalog.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Catalog")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -72,9 +72,9 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("Status");
 
-                    b.Property<DateTime>("UploadDate")
+                    b.Property<DateTimeOffset>("UploadedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UploadDate");
+                        .HasColumnName("UploadedAt");
 
                     b.ComplexProperty<Dictionary<string, object>>("Counts", "CustomCADs.Catalog.Domain.Products.Product.Counts#Counts", b1 =>
                         {

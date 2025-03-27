@@ -9,7 +9,7 @@ public record CreateCompletedOrderCommand(
     string Description,
     decimal Price,
     bool Delivery,
-    DateTime OrderDate,
+    DateTimeOffset OrderedAt,
     AccountId BuyerId,
     AccountId DesignerId,
     CadId CadId,

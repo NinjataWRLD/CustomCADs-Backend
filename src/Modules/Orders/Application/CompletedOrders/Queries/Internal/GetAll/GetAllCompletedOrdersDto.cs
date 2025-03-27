@@ -4,8 +4,8 @@ public record GetAllCompletedOrdersDto(
     CompletedOrderId Id,
     string Name,
     bool Delivery,
-    DateTime OrderDate,
-    DateTime PurchaseDate,
+    DateTimeOffset OrderedAt,
+    DateTimeOffset PurchasedAt,
     string BuyerName,
     string? DesignerName
 );

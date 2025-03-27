@@ -2,8 +2,8 @@
 
 public enum CompletedOrderSortingType
 {
-    OrderDate = 1,
-    PurchaseDate,
+    OrderedAt = 1,
+    PurchasedAt,
     Alphabetical,
     Delivery,
 }

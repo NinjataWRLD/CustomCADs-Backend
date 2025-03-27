@@ -56,11 +56,11 @@ public static class CompletedOrderValidations
         return order;
     }
 
-    public static CompletedOrder ValidateOrderDate(this CompletedOrder order)
+    public static CompletedOrder ValidateOrderedAt(this CompletedOrder order)
     {
-        if (order.OrderDate > order.PurchaseDate)
+        if (order.OrderedAt > order.PurchasedAt)
         {
-            throw CustomValidationException<CompletedOrder>.Custom($"Order Date ({order.OrderDate}) cannot be after Purchase Date ({order.PurchaseDate}).");
+            throw CustomValidationException<CompletedOrder>.Custom($"Order Date ({order.OrderedAt}) cannot be after Purchase Date ({order.PurchasedAt}).");
         }
 
         return order;

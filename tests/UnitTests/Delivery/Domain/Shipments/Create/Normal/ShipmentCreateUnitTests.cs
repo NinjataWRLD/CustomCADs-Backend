@@ -25,7 +25,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
             () => Assert.Equal(address, shipment.Address),
             () => Assert.Equal(referenceId, shipment.ReferenceId),
             () => Assert.Equal(buyerId, shipment.BuyerId),
-            () => Assert.True(DateTime.UtcNow - shipment.RequestDate < TimeSpan.FromSeconds(1))
+            () => Assert.True(DateTimeOffset.UtcNow - shipment.RequestedAt < TimeSpan.FromSeconds(1))
         );
     }
 

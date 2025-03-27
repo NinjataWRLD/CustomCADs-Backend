@@ -2,7 +2,7 @@
 
 public enum ProductSortingType
 {
-    UploadDate = 1,
+    UploadedAt = 1,
     Alphabetical,
     Status,
     Cost,

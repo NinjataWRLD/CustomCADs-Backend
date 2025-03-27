@@ -2,6 +2,7 @@
 using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.ClientGetById;
 using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.DesignerGetById;
 using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.GetAll;
+using CustomCADs.Shared.Core.Extensions;
 
 namespace CustomCADs.Orders.Application.CompletedOrders;
 
@@ -11,14 +12,8 @@ internal static class Mapper
         => new(
             Id: order.Id,
             Name: order.Name,
-            OrderDate: TimeZoneInfo.ConvertTimeFromUtc(
-                order.OrderDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
-            PurchaseDate: TimeZoneInfo.ConvertTimeFromUtc(
-                order.PurchaseDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
+            OrderedAt: order.OrderedAt.ToUserLocalTime(timeZone),
+            PurchasedAt: order.PurchasedAt.ToUserLocalTime(timeZone),
             Delivery: order.Delivery,
             BuyerName: buyerUsername,
             DesignerName: designerUsername
@@ -29,14 +24,8 @@ internal static class Mapper
             Id: order.Id,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: TimeZoneInfo.ConvertTimeFromUtc(
-                order.OrderDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
-            PurchaseDate: TimeZoneInfo.ConvertTimeFromUtc(
-                order.PurchaseDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
+            OrderedAt: order.OrderedAt.ToUserLocalTime(timeZone),
+            PurchasedAt: order.PurchasedAt.ToUserLocalTime(timeZone),
             Delivery: order.Delivery,
             DesignerName: designer,
             ShipmentId: order.ShipmentId
@@ -47,8 +36,8 @@ internal static class Mapper
             Id: order.Id,
             Name: order.Name,
             Description: order.Description,
-            OrderDate: order.OrderDate,
-            PurchaseDate: order.PurchaseDate,
+            OrderedAt: order.OrderedAt,
+            PurchasedAt: order.PurchasedAt,
             Delivery: order.Delivery,
             BuyerName: buyer,
             ShipmentId: order.ShipmentId
@@ -60,7 +49,7 @@ internal static class Mapper
             description: order.Description,
             price: order.Price,
             delivery: order.Delivery,
-            orderDate: order.OrderDate,
+            orderedAt: order.OrderedAt,
             buyerId: order.BuyerId,
             designerId: order.DesignerId,
             cadId: order.CadId

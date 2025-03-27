@@ -2,6 +2,7 @@
 using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetAll;
 using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetById;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
+using CustomCADs.Shared.Core.Extensions;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts;
 
@@ -11,10 +12,7 @@ internal static class Mapper
         => new(
             Id: cart.Id,
             Total: cart.TotalCost,
-            PurchaseDate: TimeZoneInfo.ConvertTimeFromUtc(
-                cart.PurchaseDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
+            PurchasedAt: cart.PurchasedAt.ToUserLocalTime(timeZone),
             ItemsCount: cart.Items.Count
         );
 
@@ -22,10 +20,7 @@ internal static class Mapper
         => new(
             Id: cart.Id,
             Total: cart.TotalCost,
-            PurchaseDate: TimeZoneInfo.ConvertTimeFromUtc(
-                cart.PurchaseDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
+            PurchasedAt: cart.PurchasedAt.ToUserLocalTime(timeZone),
             BuyerName: buyer,
             ShipmentId: cart.ShipmentId,
             Items: [.. cart.Items.Select(i => i.ToDto())]

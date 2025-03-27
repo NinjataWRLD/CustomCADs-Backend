@@ -9,7 +9,7 @@ public sealed record GetGalleryProductResponse(
     string Description,
     decimal Price,
     decimal Volume,
-    string UploadDate,
+    string UploadedAt,
     string CreatorName,
     CoordinatesDto CamCoordinates,
     CoordinatesDto PanCoordinates,

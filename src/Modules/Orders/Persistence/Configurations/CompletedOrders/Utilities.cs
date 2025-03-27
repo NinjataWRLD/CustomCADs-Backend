@@ -83,13 +83,13 @@ public static class Utilities
             .IsRequired()
             .HasColumnName(nameof(CompletedOrder.Delivery));
 
-        builder.Property(x => x.OrderDate)
+        builder.Property(x => x.OrderedAt)
             .IsRequired()
-            .HasColumnName(nameof(CompletedOrder.OrderDate));
+            .HasColumnName(nameof(CompletedOrder.OrderedAt));
 
-        builder.Property(x => x.PurchaseDate)
+        builder.Property(x => x.PurchasedAt)
             .IsRequired()
-            .HasColumnName(nameof(CompletedOrder.PurchaseDate));
+            .HasColumnName(nameof(CompletedOrder.PurchasedAt));
 
         builder.Property(x => x.BuyerId)
             .IsRequired()

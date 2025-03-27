@@ -23,7 +23,7 @@ public sealed class RecentOngoingOrdersEndpoint(IRequestSender sender)
     {
         GetAllOngoingOrdersQuery query = new(
             BuyerId: User.GetAccountId(),
-            Sorting: new(OngoingOrderSortingType.OrderDate, SortingDirection.Descending),
+            Sorting: new(OngoingOrderSortingType.OrderedAt, SortingDirection.Descending),
             Pagination: new(Limit: req.Limit)
         );
         Result<GetAllOngoingOrdersDto> orders = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);

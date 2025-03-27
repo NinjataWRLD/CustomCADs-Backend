@@ -11,7 +11,7 @@ public partial class Erased_CartItem_PurchaseDate : Migration
     protected override void Up(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.DropColumn(
-            name: "PurchaseDate",
+            name: "PurchasedAt",
             schema: "Carts",
             table: "CartItems");
     }
@@ -20,7 +20,7 @@ public partial class Erased_CartItem_PurchaseDate : Migration
     protected override void Down(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.AddColumn<DateTime>(
-            name: "PurchaseDate",
+            name: "PurchasedAt",
             schema: "Carts",
             table: "CartItems",
             type: "timestamp with time zone",

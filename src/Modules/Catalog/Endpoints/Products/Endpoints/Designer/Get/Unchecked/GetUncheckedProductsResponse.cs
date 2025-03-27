@@ -5,7 +5,7 @@ namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Get.Unchecked
 public sealed record GetUncheckedProductsResponse(
     Guid Id,
     string Name,
-    string UploadDate,
+    string UploadedAt,
     string CreatorName,
     CategoryResponse Category
 );

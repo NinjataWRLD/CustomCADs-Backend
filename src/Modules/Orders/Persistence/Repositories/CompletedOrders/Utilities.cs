@@ -40,10 +40,10 @@ public static class Utilities
     {
         return sorting switch
         {
-            { Type: CompletedOrderSortingType.OrderDate, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.OrderDate),
-            { Type: CompletedOrderSortingType.OrderDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.OrderDate),
-            { Type: CompletedOrderSortingType.PurchaseDate, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.PurchaseDate),
-            { Type: CompletedOrderSortingType.PurchaseDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.PurchaseDate),
+            { Type: CompletedOrderSortingType.OrderedAt, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.OrderedAt),
+            { Type: CompletedOrderSortingType.OrderedAt, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.OrderedAt),
+            { Type: CompletedOrderSortingType.PurchasedAt, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.PurchasedAt),
+            { Type: CompletedOrderSortingType.PurchasedAt, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.PurchasedAt),
             { Type: CompletedOrderSortingType.Alphabetical, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.Name),
             { Type: CompletedOrderSortingType.Alphabetical, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Name),
             { Type: CompletedOrderSortingType.Delivery, Direction: SortingDirection.Ascending } => query.OrderBy(m => m.Delivery),

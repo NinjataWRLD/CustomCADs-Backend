@@ -3,6 +3,6 @@
 public sealed record RecentOngoingOrdersResponse(
     Guid Id,
     string Name,
-    string OrderDate,
+    string OrderedAt,
     string? DesignerName
 );

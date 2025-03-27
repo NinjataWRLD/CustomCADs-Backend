@@ -8,7 +8,7 @@ public record ClientGetCompletedOrderByIdDto(
     string Description,
     bool Delivery,
     string DesignerName,
-    DateTime OrderDate,
-    DateTime PurchaseDate,
+    DateTimeOffset OrderedAt,
+    DateTimeOffset PurchasedAt,
     ShipmentId? ShipmentId
 );

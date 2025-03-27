@@ -24,7 +24,7 @@ public class Product : BaseAggregateRoot
         Description = description;
         Price = price;
         Status = ProductStatus.Unchecked;
-        UploadDate = DateTime.UtcNow;
+        UploadedAt = DateTimeOffset.UtcNow;
         CreatorId = creatorId;
         CategoryId = categoryId;
         ImageId = imageId;
@@ -37,7 +37,7 @@ public class Product : BaseAggregateRoot
     public decimal Price { get; private set; }
     public Counts Counts { get; private set; } = new();
     public ProductStatus Status { get; private set; }
-    public DateTime UploadDate { get; }
+    public DateTimeOffset UploadedAt { get; }
     public CategoryId CategoryId { get; private set; }
     public ImageId ImageId { get; private set; }
     public CadId CadId { get; private set; }

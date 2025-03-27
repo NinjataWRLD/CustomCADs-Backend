@@ -15,11 +15,11 @@ public class PurchasedCart : BaseAggregateRoot
     private PurchasedCart(AccountId buyerId) : this()
     {
         BuyerId = buyerId;
-        PurchaseDate = DateTime.UtcNow;
+        PurchasedAt = DateTimeOffset.UtcNow;
     }
 
     public PurchasedCartId Id { get; init; }
-    public DateTime PurchaseDate { get; }
+    public DateTimeOffset PurchasedAt { get; }
     public AccountId BuyerId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
     public decimal TotalCost => items.Sum(i => i.Cost);

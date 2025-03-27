@@ -57,7 +57,7 @@ public sealed class PurchaseOngoingOrderHandler(IOngoingOrderReads reads, IReque
             Description: order.Description,
             Price: total,
             Delivery: false,
-            OrderDate: order.OrderDate,
+            OrderedAt: order.OrderedAt,
             BuyerId: order.BuyerId,
             DesignerId: order.DesignerId.Value,
             CadId: order.CadId.Value,

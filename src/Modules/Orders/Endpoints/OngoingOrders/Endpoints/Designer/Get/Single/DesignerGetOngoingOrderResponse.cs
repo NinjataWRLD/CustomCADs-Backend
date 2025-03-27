@@ -4,7 +4,7 @@ public sealed record DesignerGetOngoingOrderResponse(
     Guid Id,
     string Name,
     string Description,
-    string OrderDate,
+    string OrderedAt,
     string Status,
     bool Delivery,
     string BuyerName

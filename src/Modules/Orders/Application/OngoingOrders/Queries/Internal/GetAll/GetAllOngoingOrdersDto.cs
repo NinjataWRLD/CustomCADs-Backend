@@ -7,7 +7,7 @@ public record GetAllOngoingOrdersDto(
     string Name,
     bool Delivery,
     OngoingOrderStatus OrderStatus,
-    DateTime OrderDate,
+    DateTimeOffset OrderedAt,
     string BuyerName,
     string? DesignerName
 );

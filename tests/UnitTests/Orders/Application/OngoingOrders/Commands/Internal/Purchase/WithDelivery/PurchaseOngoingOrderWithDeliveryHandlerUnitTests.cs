@@ -58,8 +58,8 @@ public class PurchaseOngoingOrderWithDeliveryHandlerUnitTests : OngoingOrdersBas
                 Name: string.Empty,
                 Description: string.Empty,
                 Delivery: default,
-                OrderDate: default,
-                PurchaseDate: default,
+                OrderedAt: default,
+                PurchasedAt: default,
                 DesignerName: string.Empty,
                 ShipmentId: default
             ));

@@ -6,6 +6,6 @@ public sealed record RecentProductsResponse(
     Guid Id,
     string Name,
     string Status,
-    string UploadDate,
+    string UploadedAt,
     CategoryResponse Category
 );

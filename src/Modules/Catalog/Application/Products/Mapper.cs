@@ -5,6 +5,7 @@ using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetAll;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Catalog.Endpoints.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Extensions;
 
 namespace CustomCADs.Catalog.Application.Products;
 
@@ -16,10 +17,7 @@ internal static class Mapper
             Name: product.Name,
             Status: product.Status.ToString(),
             Views: product.Counts.Views,
-            UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
-                product.UploadDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
+            UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
@@ -32,10 +30,7 @@ internal static class Mapper
             Price: product.Price,
             Volume: volume,
             CreatorName: username,
-            UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
-                product.UploadDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
+            UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
             CamCoordinates: camCoords,
             PanCoordinates: panCoords,
             Counts: product.Counts.ToDto(),
@@ -48,10 +43,7 @@ internal static class Mapper
             Name: product.Name,
             Description: product.Description,
             Price: product.Price,
-            UploadDate: TimeZoneInfo.ConvertTimeFromUtc(
-                product.UploadDate,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
-            ),
+            UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
             Status: product.Status.ToString(),
             Counts: product.Counts.ToDto(),
             Category: new(product.CategoryId, categoryName),

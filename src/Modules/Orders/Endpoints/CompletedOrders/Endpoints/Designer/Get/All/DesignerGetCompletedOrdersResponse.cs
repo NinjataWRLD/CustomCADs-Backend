@@ -3,8 +3,8 @@
 public sealed record DesignerGetCompletedOrdersResponse(
     Guid Id,
     string Name,
-    string OrderDate,
-    string PurchaseDate,
+    string OrderedAt,
+    string PurchasedAt,
     string BuyerName,
     bool Delivery
 );

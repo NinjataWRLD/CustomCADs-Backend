@@ -8,7 +8,7 @@ public record CreatorGetProductByIdDto(
     string Description,
     decimal Price,
     string Status,
-    DateTime UploadDate,
+    DateTimeOffset UploadedAt,
     CountsDto Counts,
     string CreatorName,
     CategoryDto Category

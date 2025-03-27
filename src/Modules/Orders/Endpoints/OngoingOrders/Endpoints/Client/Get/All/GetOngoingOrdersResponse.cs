@@ -3,7 +3,7 @@
 public sealed record GetOngoingOrdersResponse(
     Guid Id,
     string Name,
-    string OrderDate,
+    string OrderedAt,
     string OrderStatus,
     bool Delivery
 );

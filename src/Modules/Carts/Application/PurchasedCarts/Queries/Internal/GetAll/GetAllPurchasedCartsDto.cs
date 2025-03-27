@@ -3,6 +3,6 @@
 public record GetAllPurchasedCartsDto(
     PurchasedCartId Id,
     decimal Total,
-    DateTime PurchaseDate,
+    DateTimeOffset PurchasedAt,
     int ItemsCount
 );

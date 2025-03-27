@@ -9,5 +9,5 @@ public record DesignerGetOngoingOrderByIdDto(
     bool Delivery,
     string BuyerName,
     OngoingOrderStatus OrderStatus,
-    DateTime OrderDate
+    DateTimeOffset OrderedAt
 );
