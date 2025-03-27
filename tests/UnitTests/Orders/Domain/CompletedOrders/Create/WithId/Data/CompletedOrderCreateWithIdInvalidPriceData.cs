@@ -6,7 +6,7 @@ public class CompletedOrderCreateWithIdInvalidPriceData : CompletedOrderCreateWi
 {
     public CompletedOrderCreateWithIdInvalidPriceData()
     {
-        Add(ValidId1, ValidName1, ValidDescription1, InvalidPrice1, true, ValidOrderDate1, ValidBuyerId1);
-        Add(ValidId2, ValidName2, ValidDescription2, InvalidPrice2, false, ValidOrderDate2, ValidBuyerId2);
+        Add(ValidId1, ValidName1, ValidDescription1, InvalidPrice1, true, ValidOrderedAt1, ValidBuyerId1);
+        Add(ValidId2, ValidName2, ValidDescription2, InvalidPrice2, false, ValidOrderedAt2, ValidBuyerId2);
     }
 }

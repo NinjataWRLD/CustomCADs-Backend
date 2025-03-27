@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Domain.Products.Exceptions;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Catalog.Domain.Products.Create.WithId.Data;
 
@@ -44,7 +44,7 @@ public class ProductCreateWithIdUnitTests : ProductsBaseUnitTests
     [ClassData(typeof(ProductCreateWithIdInvalidPriceData))]
     public void CreateWithId_ShouldThrowException_WhenProductIsNotValid(ProductId id, string name, string description, decimal price)
     {
-        Assert.Throws<ProductValidationException>(() =>
+        Assert.Throws<CustomValidationException<Product>>(() =>
         {
             CreateProductWithId(
                 id: id,

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.OngoingOrders.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetName.Data;
 
 namespace CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetName;
@@ -25,7 +25,7 @@ public class OngoingOrderSetNameUnitTests : OngoingOrdersBaseUnitTests
     [ClassData(typeof(OngoingOrderSetNameInvalidData))]
     public void SetName_ShouldThrowException_WhenNameInvalid(string name)
     {
-        Assert.Throws<OngoingOrderValidationException>(() =>
+        Assert.Throws<CustomValidationException<OngoingOrder>>(() =>
         {
             CreateOrder().SetName(name);
         });

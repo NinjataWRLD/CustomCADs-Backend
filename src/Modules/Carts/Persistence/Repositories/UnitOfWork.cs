@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.Repositories;
-using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Common.Exceptions.Persistence;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using Microsoft.EntityFrameworkCore;
 

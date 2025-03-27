@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.OngoingOrders.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetDescription.Data;
 
 namespace CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetDescription;
@@ -25,7 +25,7 @@ public class OngoingOrderSetDescriptionUnitTests : OngoingOrdersBaseUnitTests
     [ClassData(typeof(OngoingOrderSetDescriptionInvalidData))]
     public void SetDescription_ShouldThrowException_WhenDescriptionInvalid(string description)
     {
-        Assert.Throws<OngoingOrderValidationException>(() =>
+        Assert.Throws<CustomValidationException<OngoingOrder>>(() =>
         {
             CreateOrder().SetDescription(description);
         });

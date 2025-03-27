@@ -49,8 +49,8 @@ public static class Utilities
     {
         return sorting switch
         {
-            { Type: ProductSortingType.UploadDate, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.UploadDate),
-            { Type: ProductSortingType.UploadDate, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.UploadDate),
+            { Type: ProductSortingType.UploadedAt, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.UploadedAt),
+            { Type: ProductSortingType.UploadedAt, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.UploadedAt),
             { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.Name),
             { Type: ProductSortingType.Alphabetical, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Name),
             { Type: ProductSortingType.Status, Direction: SortingDirection.Ascending } => query.OrderBy(m => (int)m.Status),

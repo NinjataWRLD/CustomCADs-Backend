@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Roles.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Accounts.Domain.Roles.Behaviors.Name.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Behaviors.Name;
@@ -31,7 +31,7 @@ public class RoleNameUnitTests : RolesBaseUnitTests
     {
         var role = CreateRole();
 
-        Assert.Throws<RoleValidationException>(() =>
+        Assert.Throws<CustomValidationException<Role>>(() =>
         {
             role.SetName(name);
         });

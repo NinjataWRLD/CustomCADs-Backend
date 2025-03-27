@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Customizations.Application.Materials;
+﻿using CustomCADs.Customizations.Application.Materials.Dtos;
+
+namespace CustomCADs.Customizations.Application.Materials;
 
 internal static class Mapper
 {

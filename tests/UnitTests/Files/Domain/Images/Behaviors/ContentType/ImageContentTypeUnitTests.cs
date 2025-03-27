@@ -1,4 +1,4 @@
-﻿using CustomCADs.Files.Domain.Images.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Files.Domain.Images.Behaviors.ContentType.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Behaviors.ContentType;
@@ -31,7 +31,7 @@ public class ImageContentTypeUnitTests : ImagesBaseUnitTests
     {
         var image = CreateImage();
 
-        Assert.Throws<ImageValidationException>(() =>
+        Assert.Throws<CustomValidationException<Image>>(() =>
         {
             image.SetContentType(contentType);
         });

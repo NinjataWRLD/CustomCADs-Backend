@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Products.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetPrice.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetPrice;
@@ -25,7 +25,7 @@ public class SetProductPriceUnitTests : ProductsBaseUnitTests
     [ClassData(typeof(SetProductPriceInvalidData))]
     public void SetPrice_ShouldThrowException_WhenPriceIsNotValid(decimal price)
     {
-        Assert.Throws<ProductValidationException>(() =>
+        Assert.Throws<CustomValidationException<Product>>(() =>
         {
             CreateProduct().SetPrice(price);
         });

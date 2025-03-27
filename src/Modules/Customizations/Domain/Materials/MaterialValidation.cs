@@ -1,6 +1,4 @@
-﻿using CustomCADs.Customizations.Domain.Materials.Exceptions;
-
-namespace CustomCADs.Customizations.Domain.Materials;
+﻿namespace CustomCADs.Customizations.Domain.Materials;
 
 using static MaterialConstants;
 
@@ -13,12 +11,12 @@ public static class MaterialValidation
 
         if (string.IsNullOrEmpty(name))
         {
-            throw MaterialValidationException.NotNull(property);
+            throw CustomValidationException<Material>.NotNull(property);
         }
 
         if (name.Length < NameMinLength || name.Length > NameMaxLength)
         {
-            throw MaterialValidationException.Length(property, NameMinLength, NameMaxLength);
+            throw CustomValidationException<Material>.Length(property, NameMinLength, NameMaxLength);
         }
 
         return material;
@@ -31,7 +29,7 @@ public static class MaterialValidation
 
         if (denisty < DensityMin || denisty > DensityMax)
         {
-            throw MaterialValidationException.Range(property, DensityMin, DensityMax);
+            throw CustomValidationException<Material>.Range(property, DensityMin, DensityMax);
         }
 
         return material;
@@ -44,7 +42,7 @@ public static class MaterialValidation
 
         if (cost < CostMin || cost > CostMax)
         {
-            throw MaterialValidationException.Range(property, CostMin, CostMax);
+            throw CustomValidationException<Material>.Range(property, DensityMin, DensityMax);
         }
 
         return material;

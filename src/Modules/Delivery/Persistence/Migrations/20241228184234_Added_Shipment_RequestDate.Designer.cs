@@ -43,9 +43,9 @@ namespace CustomCADs.Delivery.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ReferenceId");
 
-                    b.Property<DateTime>("RequestDate")
+                    b.Property<DateTime>("RequestedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("RequestDate");
+                        .HasColumnName("RequestedAt");
 
                     b.ComplexProperty<Dictionary<string, object>>("Address", "CustomCADs.Delivery.Domain.Shipments.Shipment.Address#Address", b1 =>
                         {

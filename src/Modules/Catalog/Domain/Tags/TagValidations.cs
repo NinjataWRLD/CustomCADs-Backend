@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Tags.Exceptions;
-
-namespace CustomCADs.Catalog.Domain.Tags;
+﻿namespace CustomCADs.Catalog.Domain.Tags;
 
 using static TagConstants;
 
@@ -13,13 +11,13 @@ public static class TagValidations
 
         if (string.IsNullOrEmpty(name))
         {
-            throw TagValidationException.NotNull(property);
+            throw CustomValidationException<Tag>.NotNull(property);
         }
 
         int maxLength = NameMaxLength, minLength = NameMinLength;
         if (name.Length > maxLength || name.Length < minLength)
         {
-            throw TagValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<Tag>.Length(property, minLength, maxLength);
         }
 
         return tag;

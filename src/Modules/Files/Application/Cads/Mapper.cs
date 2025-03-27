@@ -7,15 +7,15 @@ internal static class Mapper
 {
     internal static (string Key, string ContentType, CoordinatesDto CamCoordinates, CoordinatesDto PanCoordinates) ToTuple(this Cad cad)
         => (
-            cad.Key,
-            cad.ContentType,
-            CamCoordinates: cad.CamCoordinates.ToCoordinatesDto(),
-            PanCoordinates: cad.PanCoordinates.ToCoordinatesDto()
+            Key: cad.Key,
+            ContentType: cad.ContentType,
+            CamCoordinates: cad.CamCoordinates.ToDto(),
+            PanCoordinates: cad.PanCoordinates.ToDto()
         );
 
-    internal static Coordinates ToCoordinates(this CoordinatesDto coordinates)
+    internal static Coordinates ToValueObject(this CoordinatesDto coordinates)
         => new(coordinates.X, coordinates.Y, coordinates.Z);
 
-    internal static CoordinatesDto ToCoordinatesDto(this Coordinates coordinates)
+    internal static CoordinatesDto ToDto(this Coordinates coordinates)
         => new(coordinates.X, coordinates.Y, coordinates.Z);
 }

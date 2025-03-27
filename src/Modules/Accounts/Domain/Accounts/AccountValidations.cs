@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts.Exceptions;
-using CustomCADs.Accounts.Domain.Roles;
+﻿using CustomCADs.Accounts.Domain.Roles;
 using CustomCADs.Shared.Core;
 
 namespace CustomCADs.Accounts.Domain.Accounts;
@@ -16,13 +15,13 @@ public static partial class AccountValidations
 
         if (string.IsNullOrEmpty(role))
         {
-            throw AccountValidationException.NotNull(property);
+            throw CustomValidationException<Account>.NotNull(property);
         }
 
         int maxLength = RoleConstants.NameMaxLength, minLength = RoleConstants.NameMinLength;
         if (role.Length > maxLength || role.Length < minLength)
         {
-            throw AccountValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<Account>.Length(property, minLength, maxLength);
         }
 
         return account;
@@ -35,13 +34,13 @@ public static partial class AccountValidations
 
         if (string.IsNullOrEmpty(username))
         {
-            throw AccountValidationException.NotNull(property);
+            throw CustomValidationException<Account>.NotNull(property);
         }
 
         int maxLength = NameMaxLength, minLength = NameMinLength;
         if (username.Length > maxLength || username.Length < minLength)
         {
-            throw AccountValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<Account>.Length(property, minLength, maxLength);
         }
 
         return account;
@@ -54,12 +53,12 @@ public static partial class AccountValidations
 
         if (string.IsNullOrEmpty(email))
         {
-            throw AccountValidationException.NotNull(property);
+            throw CustomValidationException<Account>.NotNull(property);
         }
 
         if (!Regexes.Email.IsMatch(email))
         {
-            throw AccountValidationException.Email();
+            throw CustomValidationException<Account>.Custom("An Account must have a proper email.");
         }
 
         return account;
@@ -72,7 +71,7 @@ public static partial class AccountValidations
 
         if (string.IsNullOrEmpty(timeZone))
         {
-            throw AccountValidationException.NotNull(property);
+            throw CustomValidationException<Account>.NotNull(property);
         }
 
         return account;
@@ -91,7 +90,7 @@ public static partial class AccountValidations
         int maxLength = NameMaxLength, minLength = NameMinLength;
         if (firstName.Length > maxLength || firstName.Length < minLength)
         {
-            throw AccountValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<Account>.Length(property, minLength, maxLength);
         }
 
         return account;
@@ -110,7 +109,7 @@ public static partial class AccountValidations
         int maxLength = NameMaxLength, minLength = NameMinLength;
         if (lastName.Length > maxLength || lastName.Length < minLength)
         {
-            throw AccountValidationException.Length(property, maxLength, minLength);
+            throw CustomValidationException<Account>.Length(property, minLength, maxLength);
         }
 
         return account;

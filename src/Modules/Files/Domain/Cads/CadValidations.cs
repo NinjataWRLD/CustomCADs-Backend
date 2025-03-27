@@ -1,6 +1,4 @@
-﻿using CustomCADs.Files.Domain.Cads.Exceptions;
-
-namespace CustomCADs.Files.Domain.Cads;
+﻿namespace CustomCADs.Files.Domain.Cads;
 
 using static CadConstants;
 using static CadConstants.Coordinates;
@@ -14,7 +12,7 @@ public static class CadValidations
 
         if (string.IsNullOrEmpty(key))
         {
-            throw CadValidationException.NotNull(property);
+            throw CustomValidationException<Cad>.NotNull(property);
         }
 
         return cad;
@@ -27,7 +25,7 @@ public static class CadValidations
 
         if (string.IsNullOrEmpty(contentType))
         {
-            throw CadValidationException.NotNull(property);
+            throw CustomValidationException<Cad>.NotNull(property);
         }
 
         return cad;
@@ -40,7 +38,7 @@ public static class CadValidations
 
         if (volume <= VolumeMin || volume >= VolumeMax)
         {
-            throw CadValidationException.Range(property, VolumeMax, VolumeMin);
+            throw CustomValidationException<Cad>.Range(property, VolumeMin, VolumeMax);
         }
 
         return cad;
@@ -53,7 +51,7 @@ public static class CadValidations
 
         if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
         {
-            throw CadValidationException.Range(property, CoordMax, CoordMin);
+            throw CustomValidationException<Cad>.Range(property, VolumeMin, VolumeMax);
         }
 
         return cad;
@@ -66,7 +64,7 @@ public static class CadValidations
 
         if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
         {
-            throw CadValidationException.Range(property, CoordMax, CoordMin);
+            throw CustomValidationException<Cad>.Range(property, VolumeMin, VolumeMax);
         }
 
         return cad;

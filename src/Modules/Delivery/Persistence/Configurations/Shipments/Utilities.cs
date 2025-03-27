@@ -56,9 +56,9 @@ public static class Utilities
             .IsRequired()
             .HasColumnName(nameof(Shipment.ReferenceId));
 
-        builder.Property(x => x.RequestDate)
+        builder.Property(x => x.RequestedAt)
             .IsRequired()
-            .HasColumnName(nameof(Shipment.RequestDate));
+            .HasColumnName(nameof(Shipment.RequestedAt));
 
         builder.Property(x => x.BuyerId)
             .IsRequired()

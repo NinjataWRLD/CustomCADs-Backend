@@ -1,5 +1,4 @@
-﻿using CustomCADs.Orders.Domain.CompletedOrders.Exceptions;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
@@ -10,14 +9,14 @@ namespace CustomCADs.Orders.Domain.CompletedOrders;
 public class CompletedOrder : BaseAggregateRoot
 {
     private CompletedOrder() { }
-    private CompletedOrder(string name, string description, decimal price, bool delivery, DateTime orderDate, AccountId buyerId, AccountId designerId, CadId cadId) : this()
+    private CompletedOrder(string name, string description, decimal price, bool delivery, DateTimeOffset orderedAt, AccountId buyerId, AccountId designerId, CadId cadId) : this()
     {
         Name = name;
         Description = description;
         Price = price;
         Delivery = delivery;
-        PurchaseDate = DateTime.UtcNow;
-        OrderDate = orderDate;
+        PurchasedAt = DateTimeOffset.UtcNow;
+        OrderedAt = orderedAt;
         BuyerId = buyerId;
         DesignerId = designerId;
         CadId = cadId;
@@ -28,8 +27,8 @@ public class CompletedOrder : BaseAggregateRoot
     public string Description { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
     public bool Delivery { get; private set; }
-    public DateTime OrderDate { get; }
-    public DateTime PurchaseDate { get; }
+    public DateTimeOffset OrderedAt { get; }
+    public DateTimeOffset PurchasedAt { get; }
     public AccountId BuyerId { get; private set; }
     public AccountId DesignerId { get; private set; }
     public CadId CadId { get; private set; }
@@ -41,15 +40,15 @@ public class CompletedOrder : BaseAggregateRoot
         string description,
         decimal price,
         bool delivery,
-        DateTime orderDate,
+        DateTimeOffset orderedAt,
         AccountId buyerId,
         AccountId designerId,
         CadId cadId
-    ) => new CompletedOrder(name, description, price, delivery, orderDate, buyerId, designerId, cadId)
+    ) => new CompletedOrder(name, description, price, delivery, orderedAt, buyerId, designerId, cadId)
             .ValidateName()
             .ValidateDescription()
             .ValidatePrice()
-            .ValidateOrderDate();
+            .ValidateOrderedAt();
 
     public static CompletedOrder CreateWithId(
         CompletedOrderId id,
@@ -57,24 +56,24 @@ public class CompletedOrder : BaseAggregateRoot
         string description,
         decimal price,
         bool delivery,
-        DateTime orderDate,
+        DateTimeOffset orderedAt,
         AccountId buyerId,
         AccountId designerId,
         CadId cadId
-    ) => new CompletedOrder(name, description, price, delivery, orderDate, buyerId, designerId, cadId)
+    ) => new CompletedOrder(name, description, price, delivery, orderedAt, buyerId, designerId, cadId)
     {
         Id = id
     }
     .ValidateName()
     .ValidateDescription()
     .ValidatePrice()
-    .ValidateOrderDate();
+    .ValidateOrderedAt();
 
     public CompletedOrder SetShipmentId(ShipmentId shipmentId)
     {
         if (!Delivery)
         {
-            throw CompletedOrderValidationException.ShipmentIdOnNonDelivery();
+            throw CustomValidationException<CompletedOrder>.Custom("Cannot set a ShipmentId on a Completed Order not for Delivery.");
         }
         ShipmentId = shipmentId;
 
@@ -85,7 +84,7 @@ public class CompletedOrder : BaseAggregateRoot
     {
         if (!Delivery)
         {
-            throw CompletedOrderValidationException.CustomizationIdOnNonDelivery();
+            throw CustomValidationException<CompletedOrder>.Custom("Cannot set a CustomizationId on a Completed Order not for Delivery.");
         }
         CustomizationId = customizationId;
 

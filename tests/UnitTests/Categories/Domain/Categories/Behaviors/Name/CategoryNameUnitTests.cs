@@ -1,4 +1,4 @@
-﻿using CustomCADs.Categories.Domain.Categories.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.UnitTests.Categories.Domain.Categories.Behaviors.Name.Data;
 
 namespace CustomCADs.UnitTests.Categories.Domain.Categories.Behaviors.Name;
@@ -31,7 +31,7 @@ public class CategoryNameUnitTests : CategoriesBaseUnitTests
     {
         var category = CreateCategory();
 
-        Assert.Throws<CategoryValidationException>(() =>
+        Assert.Throws<CustomValidationException<Category>>(() =>
         {
             category.SetName(name);
         });

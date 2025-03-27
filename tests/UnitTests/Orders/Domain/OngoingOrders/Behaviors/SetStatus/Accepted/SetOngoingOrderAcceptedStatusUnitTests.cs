@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.OngoingOrders.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetStatus.Accepted;
 
@@ -14,11 +14,11 @@ public class SetOngoingOrderAcceptedStatusUnitTests : OngoingOrdersBaseUnitTests
     public void SetAcceptedStatus_ShouldThrowException_WhenStatusIsNotValid()
     {
         Assert.Multiple(
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetAcceptedStatus().SetAcceptedStatus()),
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetAcceptedStatus().SetBegunStatus().SetAcceptedStatus()),
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetAcceptedStatus().SetFinishedStatus().SetAcceptedStatus()),
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetReportedStatus().SetAcceptedStatus()),
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetReportedStatus().SetRemovedStatus().SetAcceptedStatus())
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetAcceptedStatus().SetAcceptedStatus()),
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetAcceptedStatus().SetBegunStatus().SetAcceptedStatus()),
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetAcceptedStatus().SetFinishedStatus().SetAcceptedStatus()),
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetReportedStatus().SetAcceptedStatus()),
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetReportedStatus().SetRemovedStatus().SetAcceptedStatus())
         );
     }
 }

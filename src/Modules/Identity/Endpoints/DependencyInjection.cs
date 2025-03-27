@@ -35,7 +35,7 @@ public static class DependencyInjection
     {
         builder.AddJwtBearer(opt =>
          {
-             string? secretKey = config["JwtSettings:SecretKey"];
+             string? secretKey = config["JwtOptions:SecretKey"];
              ArgumentNullException.ThrowIfNull(secretKey, nameof(secretKey));
 
              opt.TokenValidationParameters = new()
@@ -44,8 +44,8 @@ public static class DependencyInjection
                  ValidateIssuer = true,
                  ValidateLifetime = true,
                  ValidateIssuerSigningKey = true,
-                 ValidIssuer = config["JwtSettings:Issuer"],
-                 ValidAudience = config["JwtSettings:Audience"],
+                 ValidIssuer = config["JwtOptions:Issuer"],
+                 ValidAudience = config["JwtOptions:Audience"],
                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
              };
 

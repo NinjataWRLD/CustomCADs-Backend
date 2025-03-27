@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
-using CustomCADs.Carts.Domain.PurchasedCarts.Exceptions.Carts;
 
 namespace CustomCADs.Carts.Domain.PurchasedCarts;
 
@@ -15,7 +14,7 @@ public static class PurchasedCartValidations
         int max = ItemsCountMax, min = ItemsCountMin;
         if (items.Count() > max || items.Count() < min)
         {
-            throw PurchasedCartValidationException.Range(property, max, min);
+            throw CustomValidationException<PurchasedCart>.Range(property, min, max);
         }
 
         return cart;

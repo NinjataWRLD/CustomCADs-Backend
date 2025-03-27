@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Catalog.Domain.Tags.Exceptions;
+using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Catalog.Domain.Tags.Create.WithId.Data;
 
@@ -27,7 +27,7 @@ public class TagCreateWithIdUnitTests : TagsBaseUnitTests
     [ClassData(typeof(TagCreateWithIdInvalidNameData))]
     public void CreateWithId_ShouldThrowException_WhenProductIsNotValid(TagId id, string name)
     {
-        Assert.Throws<TagValidationException>(() =>
+        Assert.Throws<CustomValidationException<Tag>>(() =>
         {
             CreateTagWithId(id, name);
         });

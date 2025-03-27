@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Exceptions.CartItems;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
@@ -46,7 +45,7 @@ public class ActiveCartItem : BaseEntity
     public ActiveCartItem IncreaseQuantity(int amount)
     {
         if (!ForDelivery)
-            throw ActiveCartItemValidationException.EditQuantityOnNonDelivery(ProductId);
+            throw CustomValidationException<ActiveCartItem>.Custom("Cannot increase quantity of an Active Cart Item not for delivery");
 
         Quantity += amount;
         this.ValidateQuantity();
@@ -57,7 +56,7 @@ public class ActiveCartItem : BaseEntity
     public ActiveCartItem DecreaseQuantity(int amount)
     {
         if (!ForDelivery)
-            throw ActiveCartItemValidationException.EditQuantityOnNonDelivery(ProductId);
+            throw CustomValidationException<ActiveCartItem>.Custom("Cannot decrease quantity of an Active Cart Item not for delivery");
 
         Quantity -= amount;
         this.ValidateQuantity();

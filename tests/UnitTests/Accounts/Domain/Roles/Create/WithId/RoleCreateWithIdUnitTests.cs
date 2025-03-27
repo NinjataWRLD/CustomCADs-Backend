@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Roles.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Accounts.Domain.Roles.Create.WithId.Data;
 
@@ -31,7 +31,7 @@ public class RoleCreateWithIdUnitTests : RolesBaseUnitTests
     [ClassData(typeof(RoleCreateWithIdInvalidWithIdDescriptionData))]
     public void CreateWithId_ShouldThrowException_WhenCategoryIsInvalid(RoleId id, string name, string description)
     {
-        Assert.Throws<RoleValidationException>(() =>
+        Assert.Throws<CustomValidationException<Role>>(() =>
         {
             CreateRoleWithId(id, name, description);
         });

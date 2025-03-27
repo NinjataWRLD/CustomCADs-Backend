@@ -36,9 +36,9 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("BuyerId");
 
-                    b.Property<DateTime>("PurchaseDate")
+                    b.Property<DateTime>("PurchasedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("PurchaseDate");
+                        .HasColumnName("PurchasedAt");
 
                     b.Property<Guid?>("ShipmentId")
                         .HasColumnType("uuid")
@@ -81,9 +81,9 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("ProductId");
 
-                    b.Property<DateTime>("PurchaseDate")
+                    b.Property<DateTime>("PurchasedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("PurchaseDate");
+                        .HasColumnName("PurchasedAt");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")

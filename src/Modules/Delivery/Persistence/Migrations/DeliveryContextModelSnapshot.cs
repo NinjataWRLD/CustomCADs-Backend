@@ -19,7 +19,7 @@ namespace CustomCADs.Delivery.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Delivery")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -40,9 +40,9 @@ namespace CustomCADs.Delivery.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ReferenceId");
 
-                    b.Property<DateTime>("RequestDate")
+                    b.Property<DateTimeOffset>("RequestedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("RequestDate");
+                        .HasColumnName("RequestedAt");
 
                     b.ComplexProperty<Dictionary<string, object>>("Address", "CustomCADs.Delivery.Domain.Shipments.Shipment.Address#Address", b1 =>
                         {

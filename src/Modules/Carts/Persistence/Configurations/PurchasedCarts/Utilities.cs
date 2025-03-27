@@ -53,9 +53,9 @@ public static class Utilities
 
     public static EntityTypeBuilder<PurchasedCart> SetValidations(this EntityTypeBuilder<PurchasedCart> builder)
     {
-        builder.Property(x => x.PurchaseDate)
+        builder.Property(x => x.PurchasedAt)
             .IsRequired()
-            .HasColumnName(nameof(PurchasedCart.PurchaseDate));
+            .HasColumnName(nameof(PurchasedCart.PurchasedAt));
 
         builder.Property(x => x.BuyerId)
             .IsRequired()

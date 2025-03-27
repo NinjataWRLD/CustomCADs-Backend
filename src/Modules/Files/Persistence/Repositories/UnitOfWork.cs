@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Repositories;
-using CustomCADs.Shared.Core.Common.Exceptions;
+using CustomCADs.Shared.Core.Common.Exceptions.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Files.Persistence.Repositories;

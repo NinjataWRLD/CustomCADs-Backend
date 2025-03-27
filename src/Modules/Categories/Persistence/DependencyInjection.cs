@@ -2,7 +2,6 @@
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Categories.Persistence;
 using CustomCADs.Categories.Persistence.Repositories;
-using CustomCADs.Categories.Persistence.Repositories.Categories;
 using Microsoft.Extensions.Configuration;
 
 #pragma warning disable IDE0130

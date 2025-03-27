@@ -1,7 +1,7 @@
 locals {
   staging_env_vars = jsondecode(data.aws_secretsmanager_secret_version.customcads_staging_env_variables_version.secret_string)
 
-  staging_jwt            = local.staging_env_vars["JwtSettings"]
+  staging_jwt            = local.staging_env_vars["JwtOptions"]
   staging_jwt_issuer     = local.staging_jwt["Issuer"]
   staging_jwt_audience   = local.staging_jwt["Audience"]
   staging_jwt_secret_key = local.staging_jwt["SecretKey"]
@@ -215,19 +215,19 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_staging" {
     value     = "t3.micro, t3.small"
   }
   setting {
-    name      = "JwtSettings__Audience"
+    name      = "JwtOptions__Audience"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.staging_jwt_audience
   }
   setting {
-    name      = "JwtSettings__Issuer"
+    name      = "JwtOptions__Issuer"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.staging_jwt_issuer
   }
   setting {
-    name      = "JwtSettings__SecretKey"
+    name      = "JwtOptions__SecretKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.staging_jwt_secret_key

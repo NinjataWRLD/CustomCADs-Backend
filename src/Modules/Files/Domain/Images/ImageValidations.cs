@@ -1,6 +1,4 @@
-﻿using CustomCADs.Files.Domain.Images.Exceptions;
-
-namespace CustomCADs.Files.Domain.Images;
+﻿namespace CustomCADs.Files.Domain.Images;
 
 public static class ImageValidations
 {
@@ -11,7 +9,7 @@ public static class ImageValidations
 
         if (string.IsNullOrEmpty(key))
         {
-            throw ImageValidationException.NotNull(property);
+            throw CustomValidationException<Image>.NotNull(property);
         }
 
         return image;
@@ -24,7 +22,7 @@ public static class ImageValidations
 
         if (string.IsNullOrEmpty(contentType))
         {
-            throw ImageValidationException.NotNull(property);
+            throw CustomValidationException<Image>.NotNull(property);
         }
 
         return image;

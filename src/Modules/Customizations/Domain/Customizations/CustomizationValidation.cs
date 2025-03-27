@@ -1,5 +1,4 @@
-﻿using CustomCADs.Customizations.Domain.Customizations.Exceptions;
-using CustomCADs.Customizations.Domain.Customizations.Validation;
+﻿using CustomCADs.Customizations.Domain.Customizations.Validation;
 
 namespace CustomCADs.Customizations.Domain.Customizations;
 
@@ -14,7 +13,7 @@ public static class CustomizationValidation
 
         if (scale < ScaleMin || scale > ScaleMax)
         {
-            throw CustomizationValidationException.Range(property, ScaleMin, ScaleMax);
+            throw CustomValidationException<Customization>.Range(property, ScaleMin, ScaleMax);
         }
 
         return customization;
@@ -27,7 +26,7 @@ public static class CustomizationValidation
 
         if (infill < InfillMin || infill > InfillMax)
         {
-            throw CustomizationValidationException.Range(property, InfillMin, InfillMax);
+            throw CustomValidationException<Customization>.Range(property, ScaleMin, ScaleMax);
         }
 
         return customization;
@@ -40,7 +39,7 @@ public static class CustomizationValidation
 
         if (volume < VolumeMin)
         {
-            throw CustomizationValidationException.Min(property, VolumeMin);
+            throw CustomValidationException<Customization>.Range(property, ScaleMin, ScaleMax);
         }
 
         return customization;
@@ -53,12 +52,12 @@ public static class CustomizationValidation
 
         if (string.IsNullOrEmpty(color))
         {
-            throw CustomizationValidationException.NotNull(property);
+            throw CustomValidationException<Customization>.NotNull(property);
         }
 
         if (!Color.IsMatch(color))
         {
-            throw CustomizationValidationException.Color();
+            throw CustomValidationException<Customization>.Custom("A Customization must have a proper color.");
         }
 
         return customization;

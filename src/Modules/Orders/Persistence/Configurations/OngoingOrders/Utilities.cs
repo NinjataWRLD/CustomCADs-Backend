@@ -69,9 +69,9 @@ public static class Utilities
             .IsRequired()
             .HasColumnName(nameof(OngoingOrder.Delivery));
 
-        builder.Property(x => x.OrderDate)
+        builder.Property(x => x.OrderedAt)
             .IsRequired()
-            .HasColumnName(nameof(OngoingOrder.OrderDate));
+            .HasColumnName(nameof(OngoingOrder.OrderedAt));
 
         builder.Property(x => x.OrderStatus)
             .IsRequired()

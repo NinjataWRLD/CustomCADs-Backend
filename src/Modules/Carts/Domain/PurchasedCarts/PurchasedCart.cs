@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
-using CustomCADs.Carts.Domain.PurchasedCarts.Exceptions.Carts;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
@@ -16,11 +15,11 @@ public class PurchasedCart : BaseAggregateRoot
     private PurchasedCart(AccountId buyerId) : this()
     {
         BuyerId = buyerId;
-        PurchaseDate = DateTime.UtcNow;
+        PurchasedAt = DateTimeOffset.UtcNow;
     }
 
     public PurchasedCartId Id { get; init; }
-    public DateTime PurchaseDate { get; }
+    public DateTimeOffset PurchasedAt { get; }
     public AccountId BuyerId { get; private set; }
     public ShipmentId? ShipmentId { get; private set; }
     public decimal TotalCost => items.Sum(i => i.Cost);
@@ -57,7 +56,7 @@ public class PurchasedCart : BaseAggregateRoot
     {
         if (!HasDelivery)
         {
-            throw PurchasedCartValidationException.ShipmentIdOnCartWithNoDelivery();
+            throw CustomValidationException<PurchasedCart>.Custom("Cannot set ShipmentId on a Purchased Cart with no requested Delivery");
         }
         ShipmentId = shipmentId;
 

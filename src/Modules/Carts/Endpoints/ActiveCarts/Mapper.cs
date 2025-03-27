@@ -1,8 +1,10 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.CalculateShipment;
-using CustomCADs.Carts.Application.ActiveCarts.Queries.GetByBuyerId;
-using CustomCADs.Carts.Endpoints.ActiveCarts.Get.CalculateShipment;
-using CustomCADs.Carts.Endpoints.ActiveCarts.Get.Single;
-using CustomCADs.Carts.Endpoints.ActiveCarts.Post.Cart;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Dtos;
+using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetByBuyerId;
+using CustomCADs.Carts.Endpoints.ActiveCarts.Dtos;
+using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Get.CalculateShipment;
+using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Get.Single;
+using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Post.Cart;
+using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts;
 
@@ -10,20 +12,20 @@ using static Constants;
 
 internal static class Mapper
 {
-    internal static GetActiveCartResponse ToGetCartResponse(this GetActiveCartDto cart)
+    internal static GetActiveCartResponse ToGetResponse(this GetActiveCartDto cart)
         => new(
             Id: cart.Id.Value,
             BuyerName: cart.BuyerName,
-            Items: [.. cart.Items.Select(o => o.ToCartItemResponse())]
+            Items: [.. cart.Items.Select(o => o.ToResponse())]
         );
 
-    internal static PostActiveCartResponse ToPostCartResponse(this GetActiveCartDto cart)
+    internal static PostActiveCartResponse ToPostResponse(this GetActiveCartDto cart)
         => new(
             Id: cart.Id.Value,
             BuyerName: cart.BuyerName
         );
 
-    internal static ActiveCartItemResponse ToCartItemResponse(this ActiveCartItemDto item)
+    internal static ActiveCartItemResponse ToResponse(this ActiveCartItemDto item)
         => new(
             Quantity: item.Quantity,
             ForDelivery: item.ForDelivery,
@@ -32,7 +34,7 @@ internal static class Mapper
             CustomizationId: item.CustomizationId?.Value
         );
 
-    internal static CalculateActiveCartShipmentResponse ToCalculateCartShipmentResponse(this CalculateActiveCartShipmentDto calculation)
+    internal static CalculateActiveCartShipmentResponse ToResponse(this CalculateShipmentDto calculation)
         => new(
             Service: calculation.Service,
             Total: calculation.Total,

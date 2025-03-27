@@ -1,4 +1,4 @@
-﻿using CustomCADs.Orders.Domain.OngoingOrders.Exceptions;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Orders.Domain.OngoingOrders.Behaviors.SetStatus.Pending;
 
@@ -18,9 +18,9 @@ public class SetOngoingOrderPendingStatusUnitTests : OngoingOrdersBaseUnitTests
     public void SetPendingStatus_ShouldThrowException_WhenStatusIsNotValid()
     {
         Assert.Multiple(
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetPendingStatus()),
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetAcceptedStatus().SetFinishedStatus().SetPendingStatus()),
-            () => Assert.Throws<OngoingOrderValidationException>(() => CreateOrder().SetReportedStatus().SetRemovedStatus().SetPendingStatus())
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetPendingStatus()),
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetAcceptedStatus().SetFinishedStatus().SetPendingStatus()),
+            () => Assert.Throws<CustomValidationException<OngoingOrder>>(() => CreateOrder().SetReportedStatus().SetRemovedStatus().SetPendingStatus())
         );
     }
 }
