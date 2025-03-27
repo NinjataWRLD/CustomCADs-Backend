@@ -1,9 +1,10 @@
-﻿namespace CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Create;
-
-using CustomCADs.Delivery.Application.Shipments.Commands.Shared.Create;
+﻿using CustomCADs.Delivery.Application.Shipments.Commands.Shared.Create;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
-using CustomCADs.UnitTests.Delivery.Application.Shipments.SharedCommands.Create.Data;
+using CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create.Data;
 using FluentValidation.TestHelper;
+
+namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create;
+
 using static ShipmentsData;
 
 public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests

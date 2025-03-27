@@ -1,6 +1,4 @@
-﻿using CustomCADs.UnitTests.Orders.Application.OngoingOrders.Queries.Internal.CalculateShipment;
-
-namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Queries.Internal.CalculateShipment.Data;
+﻿namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Queries.Internal.CalculateShipment.Data;
 
 public class CalculateOngoingOrderShipmentInvalidCountryData : CalculateOngoingOrderShipmentData
 {

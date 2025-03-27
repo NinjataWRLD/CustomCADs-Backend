@@ -1,6 +1,4 @@
-﻿using CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Shared.GetImageUrl.Put;
-
-namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Shared.GetImageUrl.Put.Data;
+﻿namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Shared.GetImageUrl.Put.Data;
 
 public class GetProductImagePresignedUrlPutValidData : GetProductImagePresignedUrlPutData
 {

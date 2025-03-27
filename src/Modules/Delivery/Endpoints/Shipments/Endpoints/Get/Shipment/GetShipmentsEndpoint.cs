@@ -1,5 +1,4 @@
-﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
-using CustomCADs.Delivery.Endpoints.Shipments.Endpoints;
+﻿using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetAll;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Get.Shipment;

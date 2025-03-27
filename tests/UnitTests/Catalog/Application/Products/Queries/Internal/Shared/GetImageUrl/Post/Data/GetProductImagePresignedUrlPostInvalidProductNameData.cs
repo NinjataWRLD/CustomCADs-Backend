@@ -1,6 +1,4 @@
-﻿using CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Shared.GetImageUrl.Post;
-
-namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Shared.GetImageUrl.Post.Data;
+﻿namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Shared.GetImageUrl.Post.Data;
 
 public class GetProductImagePresignedUrlPostInvalidProductNameData : GetProductImagePresignedUrlPostData
 {

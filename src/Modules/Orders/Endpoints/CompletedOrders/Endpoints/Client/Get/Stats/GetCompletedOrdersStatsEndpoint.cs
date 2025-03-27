@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.Count;
-using CustomCADs.Orders.Endpoints.CompletedOrders.Endpoints.Client;
 
 namespace CustomCADs.Orders.Endpoints.CompletedOrders.Endpoints.Client.Get.Stats;
 

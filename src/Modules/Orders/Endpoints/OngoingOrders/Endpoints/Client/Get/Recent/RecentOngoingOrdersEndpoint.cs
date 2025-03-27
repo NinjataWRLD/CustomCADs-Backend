@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.GetAll;
 using CustomCADs.Orders.Domain.OngoingOrders.Enums;
-using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.Enums;
 

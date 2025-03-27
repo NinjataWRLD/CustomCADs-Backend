@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Application.PurchasedCarts.Dtos;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetById;
 

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetSortings;
-using CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Get.Sortings;
 

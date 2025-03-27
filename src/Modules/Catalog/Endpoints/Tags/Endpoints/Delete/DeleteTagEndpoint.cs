@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Commands.Internal.Delete;
-using CustomCADs.Catalog.Endpoints.Tags.Endpoints;
 
 namespace CustomCADs.Catalog.Endpoints.Tags.Endpoints.Delete;
 

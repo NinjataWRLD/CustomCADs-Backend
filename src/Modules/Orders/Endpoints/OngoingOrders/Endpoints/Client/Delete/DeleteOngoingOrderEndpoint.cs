@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Internal.Delete;
-using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client.Delete;
 

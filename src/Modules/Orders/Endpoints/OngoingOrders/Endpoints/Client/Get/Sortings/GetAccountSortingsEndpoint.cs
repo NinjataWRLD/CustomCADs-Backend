@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.GetSortings;
-using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client.Get.Sortings;
 

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Delete;
-using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Delete.Cart;
 

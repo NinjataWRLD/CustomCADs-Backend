@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.AddTag;
-using CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Patch.AddTag;
 

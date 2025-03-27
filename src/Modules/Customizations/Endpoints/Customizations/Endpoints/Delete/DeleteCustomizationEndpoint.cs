@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Customizations.Application.Customizations.Commands.Internal.Delete;
-using CustomCADs.Customizations.Endpoints.Customizations.Endpoints;
 
 namespace CustomCADs.Customizations.Endpoints.Customizations.Endpoints.Delete;
 

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Customizations.Application.Customizations.Dtos;
-using CustomCADs.Customizations.Application.Customizations.Queries.Internal.GetById;
-using CustomCADs.Customizations.Endpoints.Customizations.Endpoints;
+﻿using CustomCADs.Customizations.Application.Customizations.Queries.Internal.GetById;
 
 namespace CustomCADs.Customizations.Endpoints.Customizations.Endpoints.Get;
 

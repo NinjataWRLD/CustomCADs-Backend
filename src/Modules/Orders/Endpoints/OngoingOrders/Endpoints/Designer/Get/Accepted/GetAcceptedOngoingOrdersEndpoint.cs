@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.GetAll;
 using CustomCADs.Orders.Domain.OngoingOrders.Enums;
-using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Designer;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Designer.Get.Accepted;

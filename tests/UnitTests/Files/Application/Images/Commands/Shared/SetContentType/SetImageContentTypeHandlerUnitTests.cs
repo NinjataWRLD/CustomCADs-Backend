@@ -3,9 +3,9 @@ using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Commands;
-using CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType.Data;
+using CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetContentType.Data;
 
-namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType;
+namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetContentType;
 
 public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 {

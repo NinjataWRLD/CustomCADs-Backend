@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Endpoints.Common.Dtos;
-using CustomCADs.Shared.Core.Common.Dtos;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetById;
 

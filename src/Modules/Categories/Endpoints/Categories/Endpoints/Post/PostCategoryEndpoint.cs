@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Internal.Create;
-using CustomCADs.Categories.Endpoints.Categories.Endpoints;
 using CustomCADs.Categories.Endpoints.Categories.Endpoints.Get.Single;
 
 namespace CustomCADs.Categories.Endpoints.Categories.Endpoints.Post;

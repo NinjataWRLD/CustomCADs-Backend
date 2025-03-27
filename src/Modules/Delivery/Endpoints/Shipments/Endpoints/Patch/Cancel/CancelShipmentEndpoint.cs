@@ -1,5 +1,4 @@
-﻿using CustomCADs.Delivery.Endpoints.Shipments.Endpoints;
-using CustomCADs.Shared.UseCases.Shipments.Commands;
+﻿using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Patch.Cancel;
 

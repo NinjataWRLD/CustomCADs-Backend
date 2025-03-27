@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Delivery.Application.Shipments.Queries.GetStatus;
+﻿namespace CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetStatus;
 
 public record GetShipmentTrackDto(
     string Message,

@@ -1,9 +1,9 @@
-﻿using CustomCADs.Categories.Application.Categories.Queries.GetAll;
+﻿using CustomCADs.Categories.Application.Categories.Queries.Internal.GetAll;
 using CustomCADs.Categories.Application.Common.Caching;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
 
-namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.GetAll;
+namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Internal.GetAll;
 
 using static CachingKeys;
 using static CategoriesData;

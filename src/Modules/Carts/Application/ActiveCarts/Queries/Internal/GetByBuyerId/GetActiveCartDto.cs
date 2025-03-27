@@ -1,6 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Dtos;
-
-namespace CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetByBuyerId;
+﻿namespace CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetByBuyerId;
 
 public record GetActiveCartDto(
     ActiveCartId Id,

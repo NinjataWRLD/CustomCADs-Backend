@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Internal.Purchase.WithDelivery;
-using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client.Post.Purchase.WithDelivery;

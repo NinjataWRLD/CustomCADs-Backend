@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Internal.Purchase.Normal;
-using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client.Post.Purchase.Normal;
 

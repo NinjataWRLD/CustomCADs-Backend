@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Internal.Edit;
-using CustomCADs.Categories.Endpoints.Categories.Endpoints;
 
 namespace CustomCADs.Categories.Endpoints.Categories.Endpoints.Put;
 

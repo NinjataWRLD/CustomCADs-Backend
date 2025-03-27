@@ -2,7 +2,7 @@
 using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 
-namespace CustomCADs.Delivery.Application.Shipments.Queries.GetStatus;
+namespace CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetStatus;
 
 public class GetShipmentTrackHandler(IShipmentReads reads, IDeliveryService delivery)
     : IQueryHandler<GetShipmentTrackQuery, Dictionary<DateTime, GetShipmentTrackDto>>

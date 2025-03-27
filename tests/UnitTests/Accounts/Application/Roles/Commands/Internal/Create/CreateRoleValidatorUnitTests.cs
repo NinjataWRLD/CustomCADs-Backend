@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
-using CustomCADs.Accounts.Application.Roles.Dtos;
 using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Create.Data;
 using FluentValidation.TestHelper;
 

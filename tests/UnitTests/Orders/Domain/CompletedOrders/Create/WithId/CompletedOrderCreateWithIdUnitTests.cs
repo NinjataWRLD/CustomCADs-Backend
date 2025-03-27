@@ -8,14 +8,14 @@ public class CompletedOrderCreateWithIdUnitTests : CompletedOrdersBaseUnitTests
 {
     [Theory]
     [ClassData(typeof(CompletedOrderCreateWithIdValidData))]
-    public void CreateWithId_ShouldNotThrowException_WhenOrderIsValid(CompletedOrderId id, string name, string description, decimal price, bool delivery, DateTime orderedAt, AccountId buyerId)
+    public void CreateWithId_ShouldNotThrowException_WhenOrderIsValid(CompletedOrderId id, string name, string description, decimal price, bool delivery, DateTimeOffset orderedAt, AccountId buyerId)
     {
         CreateOrderWithId(id, name, description, price, delivery, orderedAt, buyerId);
     }
 
     [Theory]
     [ClassData(typeof(CompletedOrderCreateWithIdValidData))]
-    public void CreateWithId_ShouldPopulateProperties(CompletedOrderId id, string name, string description, decimal price, bool delivery, DateTime orderedAt, AccountId buyerId)
+    public void CreateWithId_ShouldPopulateProperties(CompletedOrderId id, string name, string description, decimal price, bool delivery, DateTimeOffset orderedAt, AccountId buyerId)
     {
         var order = CreateOrderWithId(id, name, description, price, delivery, orderedAt, buyerId);
 
@@ -34,7 +34,7 @@ public class CompletedOrderCreateWithIdUnitTests : CompletedOrdersBaseUnitTests
     [ClassData(typeof(CompletedOrderCreateWithIdInvalidDescriptionData))]
     [ClassData(typeof(CompletedOrderCreateWithIdInvalidPriceData))]
     [ClassData(typeof(CompletedOrderCreateWithIdInvalidOrderedAtData))]
-    public void CreateWithId_ShouldThrowException_WhenOrderIsInvalid(CompletedOrderId id, string name, string description, decimal price, bool delivery, DateTime orderedAt, AccountId buyerId)
+    public void CreateWithId_ShouldThrowException_WhenOrderIsInvalid(CompletedOrderId id, string name, string description, decimal price, bool delivery, DateTimeOffset orderedAt, AccountId buyerId)
     {
         Assert.Throws<CustomValidationException<CompletedOrder>>(() =>
         {

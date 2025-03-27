@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.CalculateShipment;
 using CustomCADs.Orders.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;

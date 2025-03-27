@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Files.Application.Images.Commands.Shared.SetContentType;
 using CustomCADs.Shared.UseCases.Images.Commands;
-using CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType.Data;
+using CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetContentType.Data;
 using FluentValidation.TestHelper;
 
-namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetContentType;
+namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetContentType;
 
 public class SetImageContentTypeValidatorUnitTests : ImagesBaseUnitTests
 {

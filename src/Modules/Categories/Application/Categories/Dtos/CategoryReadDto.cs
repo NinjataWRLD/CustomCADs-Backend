@@ -1,3 +1,3 @@
-﻿namespace CustomCADs.Categories.Application.Common.Dtos;
+﻿namespace CustomCADs.Categories.Application.Categories.Dtos;
 
 public record CategoryReadDto(CategoryId Id, string Name, string Description);

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.GetAll;
-using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client.Get.All;

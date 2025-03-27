@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Delete;
-using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Delete;
 

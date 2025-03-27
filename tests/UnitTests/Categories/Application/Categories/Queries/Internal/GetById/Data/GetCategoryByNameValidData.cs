@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.GetById.Data;
+﻿namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Internal.GetById.Data;
 
 using static CategoriesData;
 

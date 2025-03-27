@@ -1,4 +1,4 @@
-﻿using CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
+﻿using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetAll;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Core.Common.Dtos;
 

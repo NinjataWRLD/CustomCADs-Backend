@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Customizations.Endpoints.Common.Dtos;
+﻿namespace CustomCADs.Customizations.Endpoints.Customizations.Dtos;
 
 public record CustomizationResponse(
     Guid Id,

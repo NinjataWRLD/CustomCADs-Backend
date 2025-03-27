@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetByBuyerId;
-using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Get.Single;
 

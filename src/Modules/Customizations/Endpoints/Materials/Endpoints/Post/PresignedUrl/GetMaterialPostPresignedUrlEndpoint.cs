@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Post;
-using CustomCADs.Customizations.Endpoints.Materials.Endpoints;
 
 namespace CustomCADs.Customizations.Endpoints.Materials.Endpoints.Post.PresignedUrl;
 

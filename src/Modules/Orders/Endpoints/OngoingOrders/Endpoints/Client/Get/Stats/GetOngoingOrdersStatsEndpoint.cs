@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.Count;
-using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client.Get.Stats;
 

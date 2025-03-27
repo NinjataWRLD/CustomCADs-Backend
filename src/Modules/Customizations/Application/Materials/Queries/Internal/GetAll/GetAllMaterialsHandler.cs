@@ -1,5 +1,4 @@
-﻿using CustomCADs.Customizations.Application.Materials.Dtos;
-using CustomCADs.Customizations.Domain.Repositories.Reads;
+﻿using CustomCADs.Customizations.Domain.Repositories.Reads;
 
 namespace CustomCADs.Customizations.Application.Materials.Queries.Internal.GetAll;
 

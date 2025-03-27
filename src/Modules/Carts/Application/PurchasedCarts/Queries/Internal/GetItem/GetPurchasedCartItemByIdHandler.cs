@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Application.PurchasedCarts.Dtos;
-using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
+﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetItem;

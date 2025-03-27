@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Files.Application.Images.Commands.Shared.SetKey;
 using CustomCADs.Shared.UseCases.Images.Commands;
-using CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetKey.Data;
+using CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetKey.Data;
 using FluentValidation.TestHelper;
 
-namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.SetKey;
+namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetKey;
 
 public class SetImageKeyValidatorUnitTests : ImagesBaseUnitTests
 {

@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Create;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetById;
-using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator;
 using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Single;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Customizations.Application.Customizations.Dtos;
-using CustomCADs.Customizations.Domain.Repositories.Reads;
+﻿using CustomCADs.Customizations.Domain.Repositories.Reads;
 
 namespace CustomCADs.Customizations.Application.Customizations.Queries.Internal.GetById;
 

@@ -1,12 +1,12 @@
-﻿using CustomCADs.Categories.Application.Categories.Queries.GetById;
+﻿using CustomCADs.Categories.Application.Categories.Queries.Internal.GetById;
 using CustomCADs.Categories.Application.Common.Caching;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.UnitTests.Categories.Application.Categories.Queries.GetById.Data;
+using CustomCADs.UnitTests.Categories.Application.Categories.Queries.Internal.GetById.Data;
 
-namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.GetById;
+namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Internal.GetById;
 
 using static CachingKeys;
 using static CategoriesData;

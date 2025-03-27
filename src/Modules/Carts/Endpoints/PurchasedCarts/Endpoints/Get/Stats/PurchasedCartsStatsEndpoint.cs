@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.Count.Carts;
 using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.Count.Items;
-using CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Get.Stats;
 

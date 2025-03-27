@@ -15,7 +15,7 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderValidData))]
-    public async Task Validate_ShouldBeValid_WhenOrderIsValid(string name, string description, decimal price, bool delivery, DateTime orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
+    public async Task Validate_ShouldBeValid_WhenOrderIsValid(string name, string description, decimal price, bool delivery, DateTimeOffset orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
@@ -41,7 +41,7 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
     [ClassData(typeof(CreateCompletedOrderInvalidNameData))]
     [ClassData(typeof(CreateCompletedOrderInvalidDescriptionData))]
     [ClassData(typeof(CreateCompletedOrderInvalidPriceData))]
-    public async Task Validate_ShouldBeInvalid_WhenOrderIsNotValid(string name, string description, decimal price, bool delivery, DateTime orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
+    public async Task Validate_ShouldBeInvalid_WhenOrderIsNotValid(string name, string description, decimal price, bool delivery, DateTimeOffset orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
@@ -65,7 +65,7 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderInvalidNameData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description, decimal price, bool delivery, DateTime orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
+    public async Task Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description, decimal price, bool delivery, DateTimeOffset orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
@@ -89,7 +89,7 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderInvalidDescriptionData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description, decimal price, bool delivery, DateTime orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
+    public async Task Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description, decimal price, bool delivery, DateTimeOffset orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(
@@ -113,7 +113,7 @@ public class CreateCompletedOrderValidatorUnitTests : CompletedOrdersBaseUnitTes
 
     [Theory]
     [ClassData(typeof(CreateCompletedOrderInvalidPriceData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenPriceIsNotValid(string name, string description, decimal price, bool delivery, DateTime orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
+    public async Task Validate_ShouldReturnProperErrors_WhenPriceIsNotValid(string name, string description, decimal price, bool delivery, DateTimeOffset orderedAt, AccountId buyerId, AccountId designerId, CadId cadId, CustomizationId? customizationId)
     {
         // Arrange
         CreateCompletedOrderCommand command = new(

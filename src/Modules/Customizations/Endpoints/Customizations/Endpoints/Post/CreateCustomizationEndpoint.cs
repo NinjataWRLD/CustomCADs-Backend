@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Customizations.Application.Customizations.Commands.Internal.Create;
-using CustomCADs.Customizations.Application.Customizations.Dtos;
 using CustomCADs.Customizations.Application.Customizations.Queries.Internal.GetById;
-using CustomCADs.Customizations.Endpoints.Customizations.Endpoints;
 using CustomCADs.Customizations.Endpoints.Customizations.Endpoints.Get;
 
 namespace CustomCADs.Customizations.Endpoints.Customizations.Endpoints.Post;

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
-using CustomCADs.Accounts.Application.Roles.Dtos;
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;

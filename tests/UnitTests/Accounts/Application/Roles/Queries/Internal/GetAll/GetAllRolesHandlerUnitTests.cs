@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Accounts.Application.Common.Caching;
-using CustomCADs.Accounts.Application.Roles.Dtos;
 using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetAll;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;

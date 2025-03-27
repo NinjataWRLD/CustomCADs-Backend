@@ -1,7 +1,5 @@
-﻿using CustomCADs.Customizations.Application.Materials.Dtos;
-using CustomCADs.Customizations.Application.Materials.Queries.Internal.GetById;
+﻿using CustomCADs.Customizations.Application.Materials.Queries.Internal.GetById;
 using CustomCADs.Customizations.Endpoints.Materials.Dtos;
-using CustomCADs.Customizations.Endpoints.Materials.Endpoints;
 
 namespace CustomCADs.Customizations.Endpoints.Materials.Endpoints.Get.Single;
 

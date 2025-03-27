@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
-namespace CustomCADs.Delivery.Application.Shipments.Queries.GetAll;
+namespace CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetAll;
 
 public class GetAllShipmentsHandler(IShipmentReads reads, IRequestSender sender)
     : IQueryHandler<GetAllShipmentsQuery, Result<GetAllShipmentsDto>>

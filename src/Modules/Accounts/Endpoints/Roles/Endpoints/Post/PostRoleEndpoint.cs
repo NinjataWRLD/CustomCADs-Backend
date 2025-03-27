@@ -1,8 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
-using CustomCADs.Accounts.Application.Roles.Dtos;
 using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetByName;
-using CustomCADs.Accounts.Endpoints.Roles.Dtos;
-using CustomCADs.Accounts.Endpoints.Roles.Endpoints;
 using CustomCADs.Accounts.Endpoints.Roles.Endpoints.Get.Single;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Endpoints.Post;

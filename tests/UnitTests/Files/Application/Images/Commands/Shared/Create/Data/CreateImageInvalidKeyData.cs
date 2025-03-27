@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.UnitTests.Files.Application.Images.SharedCommands.Create.Data;
+﻿namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create.Data;
 
 using static ImagesData;
 

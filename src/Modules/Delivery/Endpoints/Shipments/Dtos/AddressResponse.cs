@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Delivery.Endpoints.Common.Dtos;
+﻿namespace CustomCADs.Delivery.Endpoints.Shipments.Dtos;
 
 public record AddressResponse(
     string City,

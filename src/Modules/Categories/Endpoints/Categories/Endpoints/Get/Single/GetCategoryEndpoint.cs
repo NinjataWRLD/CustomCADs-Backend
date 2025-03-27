@@ -1,5 +1,4 @@
-﻿using CustomCADs.Categories.Application.Categories.Queries.GetById;
-using CustomCADs.Categories.Endpoints.Categories.Endpoints;
+﻿using CustomCADs.Categories.Application.Categories.Queries.Internal.GetById;
 
 namespace CustomCADs.Categories.Endpoints.Categories.Endpoints.Get.Single;
 

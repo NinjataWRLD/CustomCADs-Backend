@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
-using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Get.CalculateShipment;

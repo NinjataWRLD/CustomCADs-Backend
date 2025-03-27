@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Enums;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetAll;
-using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.Enums;
 

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Orders.Application.CompletedOrders.Queries.Internal.GetAll;
-using CustomCADs.Orders.Endpoints.CompletedOrders.Endpoints.Client;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Orders.Endpoints.CompletedOrders.Endpoints.Client.Get.All;

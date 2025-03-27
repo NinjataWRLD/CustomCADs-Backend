@@ -1,6 +1,4 @@
-﻿using CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.Internal.Purchase.WithDelivery;
-
-namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.Internal.Purchase.WithDelivery.Data;
+﻿namespace CustomCADs.UnitTests.Orders.Application.OngoingOrders.Commands.Internal.Purchase.WithDelivery.Data;
 
 public class PurchaseOngoingOrderWithDeliveryInvalidEmailData : PurchaseOngoingOrderWithDeliveryData
 {

@@ -1,6 +1,4 @@
-﻿using CustomCADs.Customizations.Application.Customizations.Dtos;
-
-namespace CustomCADs.Customizations.Application.Customizations;
+﻿namespace CustomCADs.Customizations.Application.Customizations;
 
 internal static class Mapper
 {

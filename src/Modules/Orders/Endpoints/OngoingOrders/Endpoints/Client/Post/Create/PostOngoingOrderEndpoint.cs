@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Orders.Application.OngoingOrders.Commands.Internal.Create;
 using CustomCADs.Orders.Application.OngoingOrders.Queries.Internal.ClientGetById;
-using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client;
 using CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client.Get.Single;
 
 namespace CustomCADs.Orders.Endpoints.OngoingOrders.Endpoints.Client.Post.Create;

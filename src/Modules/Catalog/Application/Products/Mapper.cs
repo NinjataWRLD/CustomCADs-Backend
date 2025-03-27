@@ -3,7 +3,6 @@ using CustomCADs.Catalog.Application.Products.Queries.Internal.Designer.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetById;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetAll;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
-using CustomCADs.Catalog.Endpoints.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Extensions;
 

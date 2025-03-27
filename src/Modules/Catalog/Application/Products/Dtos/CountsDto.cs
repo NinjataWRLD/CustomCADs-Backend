@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Catalog.Endpoints.Common.Dtos;
+﻿namespace CustomCADs.Catalog.Application.Products.Dtos;
 
 public sealed record CountsDto(
     int Purchases,

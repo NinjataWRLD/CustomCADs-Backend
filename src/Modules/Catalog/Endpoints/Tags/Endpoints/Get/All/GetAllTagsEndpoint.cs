@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetAll;
-using CustomCADs.Catalog.Endpoints.Tags.Endpoints;
 
 namespace CustomCADs.Catalog.Endpoints.Tags.Endpoints.Get.All;
 

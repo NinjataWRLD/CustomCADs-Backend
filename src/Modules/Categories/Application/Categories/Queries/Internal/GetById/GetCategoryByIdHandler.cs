@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
 
-namespace CustomCADs.Categories.Application.Categories.Queries.GetById;
+namespace CustomCADs.Categories.Application.Categories.Queries.Internal.GetById;
 
 public sealed class GetCategoryByIdHandler(ICategoryReads reads, ICacheService cache)
     : IQueryHandler<GetCategoryByIdQuery, CategoryReadDto>
