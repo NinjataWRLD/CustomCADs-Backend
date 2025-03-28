@@ -7,7 +7,6 @@ on:
 
 jobs:
   deliver:
-    if: github.event_name == 'workflow_dispatch'
     uses: ./.github/workflows/production-delivery.yml
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
