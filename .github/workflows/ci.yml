@@ -6,7 +6,6 @@ on:
       - feature/*
       - release/*
       - hotfix/*
-      - main
     tags-ignore: 
       - 'v*.*.*'
 
