@@ -2,6 +2,10 @@ name: Universal Integration pipeline
 
 on:
   push:
+    branches: 
+      - feature/*
+      - release/*
+      - hotfix/*
     tags-ignore: 
       - 'v*.*.*'
 
