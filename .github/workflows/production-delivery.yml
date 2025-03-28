@@ -43,7 +43,7 @@ jobs:
           ECR_REPOSITORY: ninjatabg/customcads
           VERSION: ${{ env.VERSION }}
         run: |
-          docker build -t $ECR_REPOSITORY:latest -t $ECR_REPOSITORY:$VERSION .
+          docker build -f Dockerfile -t $ECR_REPOSITORY:latest -t $ECR_REPOSITORY:$VERSION .
 
           docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
           docker tag $ECR_REPOSITORY:$VERSION $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION

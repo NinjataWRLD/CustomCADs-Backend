@@ -38,7 +38,5 @@ jobs:
           ECR_REPOSITORY: ninjatabg/customcads
         run: |
           docker build -f Dockerfile.staging -t $ECR_REPOSITORY:latest .
-
           docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
-
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
