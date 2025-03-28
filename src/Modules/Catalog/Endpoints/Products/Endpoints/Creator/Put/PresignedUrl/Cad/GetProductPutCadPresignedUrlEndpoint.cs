@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetCadUrl.Put;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Put;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Put.PresignedUrl.Cad;
 
@@ -17,7 +17,7 @@ public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductPutCadPresignedUrlRequest req, CancellationToken ct)
     {
-        GetProductCadPresignedUrlPutQuery presignedUrlQuery = new(
+        CreatorGetProductCadPresignedUrlPutQuery presignedUrlQuery = new(
             Id: ProductId.New(req.Id),
             ContentType: req.ContentType,
             FileName: req.FileName,

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetAll;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Designer.GetAll;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
@@ -20,7 +20,7 @@ public sealed class GetReportedProductsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetReportedProductsRequest req, CancellationToken ct)
     {
-        GetAllProductsQuery query = new(
+        DesignerGetAllProductsQuery query = new(
             DesignerId: User.GetAccountId(),
             Status: ProductStatus.Reported,
             CategoryId: CategoryId.New(req.CategoryId),

@@ -1,10 +1,11 @@
 ﻿using CustomCADs.Catalog.Application.Products.Enums;
+using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetAll;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Internal.Designer.GetAll;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Designer.GetById;
+using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetAll;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetById;
-using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetAll;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Endpoints.Products.Dtos;
 using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.All;
 using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Recent;
 using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Single;
@@ -22,7 +23,7 @@ using static Constants;
 
 internal static class Mapper
 {
-    internal static GetAllGaleryProductsResponse ToGalleryGetAllResponse(this GetAllProductsDto product)
+    internal static GetAllGaleryProductsResponse ToResponse(this GalleryGetAllProductsDto product)
         => new(
             Id: product.Id.Value,
             Name: product.Name,
@@ -45,7 +46,15 @@ internal static class Mapper
             Category: product.Category.ToResponse()
         );
 
-    internal static RecentProductsResponse ToRecentResponse(this GetAllProductsDto product)
+    internal static GetProductsResponse ToResponse(this CreatorGetAllProductsDto product)
+        => new(
+            Id: product.Id.Value,
+            Name: product.Name,
+            UploadedAt: product.UploadedAt.ToString(DateFormatString),
+            Category: product.Category.ToResponse()
+        );
+
+    internal static RecentProductsResponse ToRecentResponse(this CreatorGetAllProductsDto product)
     => new(
         Id: product.Id.Value,
         Name: product.Name,
@@ -53,15 +62,6 @@ internal static class Mapper
         UploadedAt: product.UploadedAt.ToString(DateFormatString),
         Category: product.Category.ToResponse()
     );
-
-    internal static GetProductsResponse ToCreatorGetAllResponse(this GetAllProductsDto product)
-        => new(
-            Id: product.Id.Value,
-            Name: product.Name,
-            UploadedAt: product.UploadedAt.ToString(DateFormatString),
-            CreatorName: product.CreatorName,
-            Category: product.Category.ToResponse()
-        );
 
     internal static GetProductResponse ToGetResponse(this CreatorGetProductByIdDto product)
         => new(
@@ -86,7 +86,7 @@ internal static class Mapper
             Category: product.Category.ToResponse()
         );
 
-    internal static GetUncheckedProductsResponse ToGetUncheckedDto(this GetAllProductsDto product)
+    internal static GetUncheckedProductsResponse ToGetUncheckedDto(this DesignerGetAllProductsDto product)
     => new(
         Id: product.Id.Value,
         Name: product.Name,
@@ -95,7 +95,7 @@ internal static class Mapper
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
 
-    internal static GetValidatedProductsResponse ToGetValidatedDto(this GetAllProductsDto product)
+    internal static GetValidatedProductsResponse ToGetValidatedDto(this DesignerGetAllProductsDto product)
     => new(
         Id: product.Id.Value,
         Name: product.Name,
@@ -104,7 +104,7 @@ internal static class Mapper
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
 
-    internal static GetReportedProductsResponse ToGetReportedDto(this GetAllProductsDto product)
+    internal static GetReportedProductsResponse ToGetReportedDto(this DesignerGetAllProductsDto product)
     => new(
         Id: product.Id.Value,
         Name: product.Name,

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetAll;
-using CustomCADs.Catalog.Domain.Products.Enums;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetAll;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
@@ -20,19 +19,19 @@ public sealed class GetAllGaleryProductsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetAllGaleryProductsRequest req, CancellationToken ct)
     {
-        GetAllProductsQuery query = new(
+        GalleryGetAllProductsQuery query = new(
+            BuyerId: User.GetAccountId(),
             CategoryId: CategoryId.New(req.CategoryId),
             TagIds: TagId.New(req.TagIds),
-            Status: ProductStatus.Validated,
             Name: req.Name,
             Sorting: new(req.SortingType.ToBase(), req.SortingDirection),
             Pagination: new(req.Page, req.Limit)
         );
-        Result<GetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GalleryGetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         Result<GetAllGaleryProductsResponse> response = new(
             Count: result.Count,
-            Items: [.. result.Items.Select(i => i.ToGalleryGetAllResponse())]
+            Items: [.. result.Items.Select(i => i.ToResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

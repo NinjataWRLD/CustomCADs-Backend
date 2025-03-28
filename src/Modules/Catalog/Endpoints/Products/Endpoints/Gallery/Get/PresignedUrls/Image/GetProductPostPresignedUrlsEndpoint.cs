@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetImageUrl.Get;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetUrlGet.Image;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Get.PresignedUrls.Image;
 
@@ -17,7 +17,7 @@ public sealed class GetProductGetPresignedUrlsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductGetPresignedUrlsRequest req, CancellationToken ct)
     {
-        GetProductImagePresignedUrlGetQuery query = new(
+        GalleryGetProductImagePresignedUrlGetQuery query = new(
             Id: ProductId.New(req.Id)
         );
         var dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
