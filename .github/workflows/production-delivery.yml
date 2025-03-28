@@ -23,7 +23,7 @@ jobs:
             fetch-depth: 0 
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.aws-access-key-id }}
           aws-secret-access-key: ${{ secrets.aws-secret-access-key }}
@@ -43,10 +43,31 @@ jobs:
           ECR_REPOSITORY: ninjatabg/customcads
           VERSION: ${{ env.VERSION }}
         run: |
-          docker build -t $ECR_REPOSITORY:latest -t $ECR_REPOSITORY:$VERSION .
-
-          docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker build -f Dockerfile -t $ECR_REPOSITORY:$VERSION .
           docker tag $ECR_REPOSITORY:$VERSION $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION
-
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Update Dockerrun.aws.json
+        env:
+          VERSION: ${{ env.VERSION }}
+        run: |
+          sed -i "s/:latest/:$VERSION/" Dockerrun.aws.json
+          echo "Updated Dockerrun.aws.json with image version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Deploy ZIP as Application Version to EB
+        env:
+          AWS_REGION: ${{ secrets.aws-region }}
+          S3_BUCKET: customcads-versions
+          S3_KEY: ${{ env.VERSION }}.zip
+          VERSION: ${{ env.VERSION }}
+        run: |
+          zip -r deploy.zip Dockerrun.aws.json .platform/
+          aws s3 cp deploy.zip s3://$S3_BUCKET/$S3_KEY --region $AWS_REGION
+          echo "Uploaded deploy.zip to S3 bucket: $S3_BUCKET with key: $S3_KEY"
+
+          aws elasticbeanstalk create-application-version \
+            --application-name CustomCADs \
+            --version-label $VERSION \
+            --source-bundle S3Bucket="$S3_BUCKET",S3Key="$S3_KEY"

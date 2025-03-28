@@ -14,18 +14,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check for version tag
+      - name: Obtain Git Version tag
         run: |
-            if git tag --points-at ${{ github.event.pull_request.head.sha }} | grep -E -q "v[0-9]+\.[0-9]+\.[0-9]+"; then
-                echo "Version tag exists."
+          VERSION=$(git tag --points-at=${{ github.event.pull_request.head.sha }} || echo "")
+          if [ -z "$VERSION" ]; then
+              echo "Error: No tags found at this commit."
+              exit 1
+          else 
+              echo "VERSION=$VERSION" >> $GITHUB_ENV
+          fi
+
+      - name: Ensure correctly formatted Version tag
+        env:
+          VERSION: ${{ env.VERSION }}
+        run: |
+            if [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                echo "Version tag exists: $VERSION"
             else
-                echo "Error: No version tag found. Please tag the commit with a version number."
-                echo "Available tags at HEAD:"
-                git tag --points-at HEAD
-                echo "All tags in repo:"
-                git tag
-                echo "Current commit:"
-                git rev-parse HEAD
+                echo "Error: Invalid version tag. Please tag the commit with a version number following the format 'vX.Y.Z'."
                 exit 1
             fi
             
