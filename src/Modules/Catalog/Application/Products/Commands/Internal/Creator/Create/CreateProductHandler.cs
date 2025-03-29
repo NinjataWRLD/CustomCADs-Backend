@@ -9,7 +9,7 @@ using CustomCADs.Shared.UseCases.Images.Commands;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.Create;
 
-using static Constants.Roles;
+using static Constants;
 
 public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWork uow, IRequestSender sender)
     : ICommandHandler<CreateProductCommand, ProductId>
@@ -49,13 +49,22 @@ public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWo
             cadId: cadId
         );
 
+        await productWrites.AddAsync(product, ct).ConfigureAwait(false);
+        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
         GetUserRoleByIdQuery roleQuery = new(req.CreatorId);
         string role = await sender.SendQueryAsync(roleQuery, ct).ConfigureAwait(false);
 
-        if (role is Designer)
+        if (role is Roles.Designer)
+        {
             product.SetValidatedStatus();
+            await productWrites.AddTagAsync(product.Id, Tags.ProfessionalId, ct).ConfigureAwait(false);
+        }
 
-        await productWrites.AddAsync(product, ct).ConfigureAwait(false);
+        // Add STL check
+        await productWrites.AddTagAsync(product.Id, Tags.PrintableId, ct).ConfigureAwait(false);
+
+        await productWrites.AddTagAsync(product.Id, Tags.NewId, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return product.Id;
