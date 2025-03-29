@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 #nullable disable
 
@@ -7,11 +8,38 @@
 namespace CustomCADs.Catalog.Persistence.Migrations;
 
 /// <inheritdoc />
-public partial class Added_Tags : Migration
+public partial class Initial_Migration : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
     {
+        migrationBuilder.EnsureSchema(
+            name: "Catalog");
+
+        migrationBuilder.CreateTable(
+            name: "Products",
+            schema: "Catalog",
+            columns: table => new
+            {
+                Id = table.Column<Guid>(type: "uuid", nullable: false),
+                Name = table.Column<string>(type: "character varying(18)", maxLength: 18, nullable: false),
+                Description = table.Column<string>(type: "character varying(750)", maxLength: 750, nullable: false),
+                Price = table.Column<decimal>(type: "numeric(19,2)", precision: 19, scale: 2, nullable: false),
+                Status = table.Column<string>(type: "text", nullable: false),
+                UploadedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                CategoryId = table.Column<int>(type: "integer", nullable: false),
+                ImageId = table.Column<Guid>(type: "uuid", nullable: false),
+                CadId = table.Column<Guid>(type: "uuid", nullable: false),
+                CreatorId = table.Column<Guid>(type: "uuid", nullable: false),
+                DesignerId = table.Column<Guid>(type: "uuid", nullable: true),
+                Purchases = table.Column<int>(type: "integer", nullable: false),
+                Views = table.Column<int>(type: "integer", nullable: false)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_Products", x => x.Id);
+            });
+
         migrationBuilder.CreateTable(
             name: "Tags",
             schema: "Catalog",
@@ -75,6 +103,10 @@ public partial class Added_Tags : Migration
     {
         migrationBuilder.DropTable(
             name: "ProductTags",
+            schema: "Catalog");
+
+        migrationBuilder.DropTable(
+            name: "Products",
             schema: "Catalog");
 
         migrationBuilder.DropTable(

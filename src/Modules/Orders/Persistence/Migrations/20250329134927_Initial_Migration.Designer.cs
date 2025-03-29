@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Orders.Persistence.Migrations
 {
     [DbContext(typeof(OrdersContext))]
-    [Migration("20250302144603_Added_CustomizationId")]
-    partial class Added_CustomizationId
+    [Migration("20250329134927_Initial_Migration")]
+    partial class Initial_Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime>("OrderedAt")
+                    b.Property<DateTimeOffset>("OrderedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("OrderedAt");
 
@@ -73,7 +73,7 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("numeric(19,2)")
                         .HasColumnName("Price");
 
-                    b.Property<DateTime>("PurchasedAt")
+                    b.Property<DateTimeOffset>("PurchasedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("PurchasedAt");
 
@@ -120,14 +120,14 @@ namespace CustomCADs.Orders.Persistence.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime>("OrderedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("OrderedAt");
-
                     b.Property<string>("OrderStatus")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("OrderStatus");
+
+                    b.Property<DateTimeOffset>("OrderedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("OrderedAt");
 
                     b.Property<decimal?>("Price")
                         .HasPrecision(19, 2)

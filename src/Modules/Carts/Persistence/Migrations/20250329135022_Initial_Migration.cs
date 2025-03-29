@@ -5,18 +5,13 @@
 namespace CustomCADs.Carts.Persistence.Migrations;
 
 /// <inheritdoc />
-public partial class Split_Carts_Into_Active_And_Purchased : Migration
+public partial class Initial_Migration : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
     {
-        migrationBuilder.DropTable(
-            name: "CartItems",
-            schema: "Carts");
-
-        migrationBuilder.DropTable(
-            name: "Carts",
-            schema: "Carts");
+        migrationBuilder.EnsureSchema(
+            name: "Carts");
 
         migrationBuilder.CreateTable(
             name: "ActiveCarts",
@@ -37,7 +32,7 @@ public partial class Split_Carts_Into_Active_And_Purchased : Migration
             columns: table => new
             {
                 Id = table.Column<Guid>(type: "uuid", nullable: false),
-                PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                PurchasedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                 BuyerId = table.Column<Guid>(type: "uuid", nullable: false),
                 ShipmentId = table.Column<Guid>(type: "uuid", nullable: true)
             },
@@ -51,16 +46,15 @@ public partial class Split_Carts_Into_Active_And_Purchased : Migration
             schema: "Carts",
             columns: table => new
             {
-                Id = table.Column<Guid>(type: "uuid", nullable: false),
-                Quantity = table.Column<int>(type: "integer", nullable: false),
-                Weight = table.Column<double>(type: "double precision", precision: 6, scale: 2, nullable: false),
-                Delivery = table.Column<bool>(type: "boolean", nullable: false),
                 ProductId = table.Column<Guid>(type: "uuid", nullable: false),
+                Quantity = table.Column<int>(type: "integer", nullable: false),
+                ForDelivery = table.Column<bool>(type: "boolean", nullable: false),
+                CustomizationId = table.Column<Guid>(type: "uuid", nullable: true),
                 CartId = table.Column<Guid>(type: "uuid", nullable: false)
             },
             constraints: table =>
             {
-                table.PrimaryKey("PK_ActiveCartItems", x => x.Id);
+                table.PrimaryKey("PK_ActiveCartItems", x => x.ProductId);
                 table.ForeignKey(
                     name: "FK_ActiveCartItems_ActiveCarts_CartId",
                     column: x => x.CartId,
@@ -75,17 +69,17 @@ public partial class Split_Carts_Into_Active_And_Purchased : Migration
             schema: "Carts",
             columns: table => new
             {
-                Id = table.Column<Guid>(type: "uuid", nullable: false),
+                ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                 Quantity = table.Column<int>(type: "integer", nullable: false),
                 Price = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
-                Delivery = table.Column<bool>(type: "boolean", nullable: false),
-                ProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                CartId = table.Column<Guid>(type: "uuid", nullable: false),
-                CadId = table.Column<Guid>(type: "uuid", nullable: false)
+                ForDelivery = table.Column<bool>(type: "boolean", nullable: false),
+                CadId = table.Column<Guid>(type: "uuid", nullable: false),
+                CustomizationId = table.Column<Guid>(type: "uuid", nullable: true),
+                CartId = table.Column<Guid>(type: "uuid", nullable: false)
             },
             constraints: table =>
             {
-                table.PrimaryKey("PK_PurchasedCartItems", x => x.Id);
+                table.PrimaryKey("PK_PurchasedCartItems", x => x.ProductId);
                 table.ForeignKey(
                     name: "FK_PurchasedCartItems_PurchasedCarts_CartId",
                     column: x => x.CartId,
@@ -126,53 +120,5 @@ public partial class Split_Carts_Into_Active_And_Purchased : Migration
         migrationBuilder.DropTable(
             name: "PurchasedCarts",
             schema: "Carts");
-
-        migrationBuilder.CreateTable(
-            name: "Carts",
-            schema: "Carts",
-            columns: table => new
-            {
-                Id = table.Column<Guid>(type: "uuid", nullable: false),
-                BuyerId = table.Column<Guid>(type: "uuid", nullable: false),
-                PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                ShipmentId = table.Column<Guid>(type: "uuid", nullable: true),
-                Status = table.Column<string>(type: "text", nullable: false)
-            },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_Carts", x => x.Id);
-            });
-
-        migrationBuilder.CreateTable(
-            name: "CartItems",
-            schema: "Carts",
-            columns: table => new
-            {
-                Id = table.Column<Guid>(type: "uuid", nullable: false),
-                CartId = table.Column<Guid>(type: "uuid", nullable: false),
-                CadId = table.Column<Guid>(type: "uuid", nullable: true),
-                Delivery = table.Column<bool>(type: "boolean", nullable: false),
-                Price = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
-                ProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                Quantity = table.Column<int>(type: "integer", nullable: false),
-                Weight = table.Column<double>(type: "double precision", precision: 6, scale: 2, nullable: false)
-            },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_CartItems", x => x.Id);
-                table.ForeignKey(
-                    name: "FK_CartItems_Carts_CartId",
-                    column: x => x.CartId,
-                    principalSchema: "Carts",
-                    principalTable: "Carts",
-                    principalColumn: "Id",
-                    onDelete: ReferentialAction.Cascade);
-            });
-
-        migrationBuilder.CreateIndex(
-            name: "IX_CartItems_CartId",
-            schema: "Carts",
-            table: "CartItems",
-            column: "CartId");
     }
 }

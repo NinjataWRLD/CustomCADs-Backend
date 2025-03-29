@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Catalog.Persistence.Migrations
 {
     [DbContext(typeof(CatalogContext))]
-    [Migration("20241218110057_Extracted_Image_Away")]
-    partial class Extracted_Image_Away
+    [Migration("20250329133308_Initial_Migration")]
+    partial class Initial_Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace CustomCADs.Catalog.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Catalog")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -51,7 +51,7 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         .HasColumnType("character varying(750)")
                         .HasColumnName("Description");
 
-                    b.Property<Guid>("DesignerId")
+                    b.Property<Guid?>("DesignerId")
                         .HasColumnType("uuid")
                         .HasColumnName("DesignerId");
 
@@ -75,17 +75,13 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("Status");
 
-                    b.Property<DateTime>("UploadedAt")
+                    b.Property<DateTimeOffset>("UploadedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UploadedAt");
 
                     b.ComplexProperty<Dictionary<string, object>>("Counts", "CustomCADs.Catalog.Domain.Products.Product.Counts#Counts", b1 =>
                         {
                             b1.IsRequired();
-
-                            b1.Property<int>("Likes")
-                                .HasColumnType("integer")
-                                .HasColumnName("Likes");
 
                             b1.Property<int>("Purchases")
                                 .HasColumnType("integer")
@@ -99,6 +95,70 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products", "Catalog");
+                });
+
+            modelBuilder.Entity("CustomCADs.Catalog.Domain.Tags.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags", "Catalog");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5957f822-77a3-4a72-964d-bf7740e994a5"),
+                            Name = "Popular"
+                        },
+                        new
+                        {
+                            Id = new Guid("e67f88d5-330a-414d-b45d-32c6806725ab"),
+                            Name = "Professional"
+                        },
+                        new
+                        {
+                            Id = new Guid("6813c4b9-bcde-4f95-a1ce-8e545756c8a4"),
+                            Name = "New"
+                        });
+                });
+
+            modelBuilder.Entity("CustomCADs.Catalog.Persistence.ShadowEntities.ProductTag", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ProductId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("ProductTags", "Catalog");
+                });
+
+            modelBuilder.Entity("CustomCADs.Catalog.Persistence.ShadowEntities.ProductTag", b =>
+                {
+                    b.HasOne("CustomCADs.Catalog.Domain.Products.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CustomCADs.Catalog.Domain.Tags.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
