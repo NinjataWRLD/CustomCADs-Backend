@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Carts.Persistence.Migrations
 {
     [DbContext(typeof(CartsContext))]
-    [Migration("20250106002707_Renamed_Delivery_To_ForDelivery")]
-    partial class Renamed_Delivery_To_ForDelivery
+    [Migration("20250329135022_Initial_Migration")]
+    partial class Initial_Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace CustomCADs.Carts.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Carts")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -43,32 +43,27 @@ namespace CustomCADs.Carts.Persistence.Migrations
 
             modelBuilder.Entity("CustomCADs.Carts.Domain.ActiveCarts.Entities.ActiveCartItem", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("ProductId");
 
                     b.Property<Guid>("CartId")
                         .HasColumnType("uuid")
                         .HasColumnName("CartId");
 
+                    b.Property<Guid?>("CustomizationId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CustomizationId");
+
                     b.Property<bool>("ForDelivery")
                         .HasColumnType("boolean")
                         .HasColumnName("ForDelivery");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("ProductId");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
                         .HasColumnName("Quantity");
 
-                    b.Property<double>("Weight")
-                        .HasPrecision(6, 2)
-                        .HasColumnType("double precision")
-                        .HasColumnName("Weight");
-
-                    b.HasKey("Id");
+                    b.HasKey("ProductId");
 
                     b.HasIndex("CartId");
 
@@ -77,9 +72,9 @@ namespace CustomCADs.Carts.Persistence.Migrations
 
             modelBuilder.Entity("CustomCADs.Carts.Domain.PurchasedCarts.Entities.PurchasedCartItem", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("ProductId");
 
                     b.Property<Guid>("CadId")
                         .HasColumnType("uuid")
@@ -88,6 +83,10 @@ namespace CustomCADs.Carts.Persistence.Migrations
                     b.Property<Guid>("CartId")
                         .HasColumnType("uuid")
                         .HasColumnName("CartId");
+
+                    b.Property<Guid?>("CustomizationId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CustomizationId");
 
                     b.Property<bool>("ForDelivery")
                         .HasColumnType("boolean")
@@ -98,15 +97,11 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("numeric(10,2)")
                         .HasColumnName("Price");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("ProductId");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
                         .HasColumnName("Quantity");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProductId");
 
                     b.HasIndex("CartId");
 
@@ -123,7 +118,7 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("BuyerId");
 
-                    b.Property<DateTime>("PurchasedAt")
+                    b.Property<DateTimeOffset>("PurchasedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("PurchasedAt");
 

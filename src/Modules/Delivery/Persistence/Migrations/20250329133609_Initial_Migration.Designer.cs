@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Delivery.Persistence.Migrations
 {
     [DbContext(typeof(DeliveryContext))]
-    [Migration("20241210011842_Initial_Migration")]
+    [Migration("20250329133609_Initial_Migration")]
     partial class Initial_Migration
     {
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace CustomCADs.Delivery.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Delivery")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -33,15 +33,19 @@ namespace CustomCADs.Delivery.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ClientId")
+                    b.Property<Guid>("BuyerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("ClientId");
+                        .HasColumnName("BuyerId");
 
-                    b.Property<string>("ShipmentStatus")
+                    b.Property<string>("ReferenceId")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("Status");
+                        .HasColumnName("ReferenceId");
+
+                    b.Property<DateTimeOffset>("RequestedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("RequestedAt");
 
                     b.ComplexProperty<Dictionary<string, object>>("Address", "CustomCADs.Delivery.Domain.Shipments.Shipment.Address#Address", b1 =>
                         {
@@ -56,11 +60,6 @@ namespace CustomCADs.Delivery.Persistence.Migrations
                                 .IsRequired()
                                 .HasColumnType("text")
                                 .HasColumnName("Country");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasColumnType("text")
-                                .HasColumnName("Street");
                         });
 
                     b.HasKey("Id");

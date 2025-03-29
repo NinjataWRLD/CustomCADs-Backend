@@ -19,11 +19,11 @@ public partial class Initial_Migration : Migration
             columns: table => new
             {
                 Id = table.Column<Guid>(type: "uuid", nullable: false),
-                Status = table.Column<string>(type: "text", nullable: false),
-                ClientId = table.Column<Guid>(type: "uuid", nullable: false),
+                ReferenceId = table.Column<string>(type: "text", nullable: false),
+                RequestedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                BuyerId = table.Column<Guid>(type: "uuid", nullable: false),
                 City = table.Column<string>(type: "text", nullable: false),
-                Country = table.Column<string>(type: "text", nullable: false),
-                Street = table.Column<string>(type: "text", nullable: false)
+                Country = table.Column<string>(type: "text", nullable: false)
             },
             constraints: table =>
             {

@@ -5,14 +5,13 @@
 namespace CustomCADs.Orders.Persistence.Migrations;
 
 /// <inheritdoc />
-public partial class Seperated_Completed_And_Ongoing_Orders : Migration
+public partial class Initial_Migration : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
     {
-        migrationBuilder.DropTable(
-            name: "Orders",
-            schema: "Orders");
+        migrationBuilder.EnsureSchema(
+            name: "Orders");
 
         migrationBuilder.CreateTable(
             name: "CompletedOrders",
@@ -22,13 +21,15 @@ public partial class Seperated_Completed_And_Ongoing_Orders : Migration
                 Id = table.Column<Guid>(type: "uuid", nullable: false),
                 Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                 Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                Price = table.Column<decimal>(type: "numeric(19,2)", precision: 19, scale: 2, nullable: false),
                 Delivery = table.Column<bool>(type: "boolean", nullable: false),
-                OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                OrderedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                PurchasedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                 BuyerId = table.Column<Guid>(type: "uuid", nullable: false),
                 DesignerId = table.Column<Guid>(type: "uuid", nullable: false),
                 CadId = table.Column<Guid>(type: "uuid", nullable: false),
-                ShipmentId = table.Column<Guid>(type: "uuid", nullable: true)
+                ShipmentId = table.Column<Guid>(type: "uuid", nullable: true),
+                CustomizationId = table.Column<Guid>(type: "uuid", nullable: true)
             },
             constraints: table =>
             {
@@ -43,8 +44,9 @@ public partial class Seperated_Completed_And_Ongoing_Orders : Migration
                 Id = table.Column<Guid>(type: "uuid", nullable: false),
                 Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                 Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                Price = table.Column<decimal>(type: "numeric(19,2)", precision: 19, scale: 2, nullable: true),
                 Delivery = table.Column<bool>(type: "boolean", nullable: false),
-                OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                OrderedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                 OrderStatus = table.Column<string>(type: "text", nullable: false),
                 BuyerId = table.Column<Guid>(type: "uuid", nullable: false),
                 DesignerId = table.Column<Guid>(type: "uuid", nullable: true),
@@ -66,26 +68,5 @@ public partial class Seperated_Completed_And_Ongoing_Orders : Migration
         migrationBuilder.DropTable(
             name: "OngoingOrders",
             schema: "Orders");
-
-        migrationBuilder.CreateTable(
-            name: "Orders",
-            schema: "Orders",
-            columns: table => new
-            {
-                Id = table.Column<Guid>(type: "uuid", nullable: false),
-                BuyerId = table.Column<Guid>(type: "uuid", nullable: false),
-                CadId = table.Column<Guid>(type: "uuid", nullable: true),
-                Delivery = table.Column<bool>(type: "boolean", nullable: false),
-                Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                DesignerId = table.Column<Guid>(type: "uuid", nullable: true),
-                Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                OrderStatus = table.Column<string>(type: "text", nullable: false),
-                ShipmentId = table.Column<Guid>(type: "uuid", nullable: true)
-            },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_Orders", x => x.Id);
-            });
     }
 }
