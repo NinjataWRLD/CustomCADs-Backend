@@ -44,7 +44,8 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
                     ProductId: item.ProductId,
                     ForDelivery: item.ForDelivery,
                     CustomizationId: item.CustomizationId,
-                    Quantity: item.Quantity
+                    Quantity: item.Quantity,
+                    AddedAt: item.AddedAt
                 );
             })]
         );

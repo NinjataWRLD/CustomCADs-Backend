@@ -30,7 +30,7 @@ public class PurchasedCartsBaseUnitTests
             CadId productCadId = productCads[item.ProductId];
             CadId itemCadId = itemCads[productCadId];
 
-            return (price, itemCadId, item.ProductId, item.ForDelivery, item.CustomizationId, item.Quantity);
+            return (price, itemCadId, item.ProductId, item.ForDelivery, item.CustomizationId, item.Quantity, item.AddedAt);
         })]);
 
         return purchasedCart;

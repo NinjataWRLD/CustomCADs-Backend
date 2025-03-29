@@ -31,6 +31,7 @@ internal static class Mapper
             ForDelivery: item.ForDelivery,
             Price: item.Price,
             Cost: item.Cost,
+            AddedAt: item.AddedAt,
             ProductId: item.ProductId,
             CartId: item.CartId,
             CustomizationId: item.CustomizationId

@@ -53,6 +53,10 @@ public static class Utilities
             .IsRequired()
             .HasColumnName(nameof(ActiveCartItem.ForDelivery));
 
+        builder.Property(x => x.AddedAt)
+            .IsRequired()
+            .HasColumnName(nameof(ActiveCartItem.AddedAt));
+
         builder.Property(x => x.ProductId)
             .IsRequired()
             .HasColumnName(nameof(ActiveCartItem.ProductId));

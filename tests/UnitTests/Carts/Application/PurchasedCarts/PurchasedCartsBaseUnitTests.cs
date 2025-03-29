@@ -30,7 +30,8 @@ public class PurchasedCartsBaseUnitTests
                 ProductId: i.ProductId,
                 ForDelivery: i.ForDelivery,
                 CustomizationId: i.CustomizationId,
-                Quantity: i.Quantity
+                Quantity: i.Quantity,
+                AddedAt: i.AddedAt
             )
         )]);
 
@@ -52,6 +53,7 @@ public class PurchasedCartsBaseUnitTests
             customizationId: customizationId ?? ValidCustomizationId1,
             price: price ?? ValidPrice1,
             quantity: quantity ?? ValidQuantity1,
-            forDelivery: forDelivery ?? false
+            forDelivery: forDelivery ?? false,
+                addedAt: DateTimeOffset.UtcNow
         );
 }

@@ -12,6 +12,7 @@ internal static class Mapper
             Quantity: item.Quantity,
             ForDelivery: item.ForDelivery,
             BuyerName: item.BuyerName,
+            AddedAt: item.AddedAt.ToString(DateFormatString),
             ProductId: item.ProductId.Value,
             CustomizationId: item.CustomizationId?.Value
         );

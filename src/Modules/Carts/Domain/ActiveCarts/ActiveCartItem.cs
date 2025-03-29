@@ -17,13 +17,15 @@ public class ActiveCartItem : BaseAggregateRoot
         ProductId = productId;
         BuyerId = buyerId;
         ForDelivery = forDelivery;
+        AddedAt = DateTimeOffset.UtcNow;
         CustomizationId = customizationId;
     }
 
     public AccountId BuyerId { get; }
     public ProductId ProductId { get; }
     public int Quantity { get; private set; } = 1;
-    public bool ForDelivery { get; set; }
+    public bool ForDelivery { get; private set; }
+    public DateTimeOffset AddedAt { get; private set; }
     public CustomizationId? CustomizationId { get; private set; }
 
     public static ActiveCartItem Create(ProductId productId, AccountId buyerId)

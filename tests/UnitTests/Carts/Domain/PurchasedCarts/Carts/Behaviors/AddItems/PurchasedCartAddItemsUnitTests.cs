@@ -14,7 +14,7 @@ public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
     public void AddItems_ShouldNotThrow_WhenItemsCountIsValid(decimal price, CadId itemCadId)
     {
         CreateCartWithId().AddItems([
-            (price, itemCadId, ProductId.New(), false, null, 1)
+            (price, itemCadId, ProductId.New(), false, null, 1, DateTimeOffset.UtcNow)
         ]);
     }
 
@@ -26,14 +26,14 @@ public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
         for (int i = 0; i < ItemsCountMax; i++)
         {
             purchasedCart.AddItems([
-                (price, itemCadId, ProductId.New(), false, null, 1)
+                (price, itemCadId, ProductId.New(), false, null, 1, DateTimeOffset.UtcNow)
             ]);
         }
 
         Assert.Throws<CustomValidationException<PurchasedCart>>(() =>
         {
             purchasedCart.AddItems([
-                (price, itemCadId, ProductId.New(), false, null, 1)
+                (price, itemCadId, ProductId.New(), false, null, 1, DateTimeOffset.UtcNow)
             ]);
         });
     }

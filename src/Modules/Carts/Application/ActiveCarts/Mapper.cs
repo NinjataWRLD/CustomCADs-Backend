@@ -7,6 +7,7 @@ internal static class Mapper
             Quantity: item.Quantity,
             ForDelivery: item.ForDelivery,
             BuyerName: buyer,
+            AddedAt: item.AddedAt,
             BuyerId: item.BuyerId,
             ProductId: item.ProductId,
             CustomizationId: item.CustomizationId

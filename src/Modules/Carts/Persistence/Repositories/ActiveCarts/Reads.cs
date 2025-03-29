@@ -13,6 +13,7 @@ public sealed class Reads(CartsContext context) : IActiveCartReads
         => await context.ActiveCartItems
             .WithTracking(track)
             .Where(p => p.BuyerId == buyerId)
+            .OrderByDescending(p => p.AddedAt)
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
     
