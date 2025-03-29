@@ -164,6 +164,7 @@ public static class ProgramExtensions
             provider.UpdateCartsContextAsync(),
             provider.UpdateCatalogContextAsync(),
             provider.UpdateCategoriesContextAsync(),
+            provider.UpdateCustomizationsContextAsync(),
             provider.UpdateDeliveryContextAsync(),
             provider.UpdateFilesContextAsync(),
             provider.UpdateIdentityContextAsync(),
