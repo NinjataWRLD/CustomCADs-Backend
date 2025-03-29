@@ -2,13 +2,10 @@
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
-namespace CustomCADs.Carts.Application.ActiveCarts.Dtos;
+namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.ToggleForDelivery;
 
-public record ActiveCartItemDto(
-    int Quantity,
-    bool ForDelivery,
-    string BuyerName,
+public record ToggleActiveCartItemForDeliveryCommand(
     AccountId BuyerId,
     ProductId ProductId,
     CustomizationId? CustomizationId
-);
+) : ICommand;
