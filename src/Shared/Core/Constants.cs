@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Files;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using System.Text.RegularExpressions;
 
 namespace CustomCADs.Shared.Core;
@@ -42,6 +43,17 @@ public static partial class Constants
         public const string PhoneError = "Invalid Phone";
     }
 
+    public static class Tags
+    {
+        public static readonly TagId NewId = TagId.New("6813c4b9-bcde-4f95-a1ce-8e545756c8a4");
+        public static readonly TagId ProfessionalId = TagId.New("e67f88d5-330a-414d-b45d-32c6806725ab");
+        public static readonly TagId PrintableId = TagId.New("38deab9b-8791-4147-9958-64e9f7ec6d78");
+
+        public const string New = "New";
+        public const string Professional = "Professional";
+        public const string Printable = "Printable";
+    }
+    
     public static class Textures
     {
         public static readonly ImageId PLA = ImageId.New(Guid.Parse("9a35cbea-806c-4561-ae71-bb21824f2432"));
