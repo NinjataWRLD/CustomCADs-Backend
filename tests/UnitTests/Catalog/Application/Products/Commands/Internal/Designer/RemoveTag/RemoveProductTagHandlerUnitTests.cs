@@ -26,7 +26,7 @@ public class RemoveProductTagHandlerUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        writes.Verify(x => x.RemoveTag(id, tagId), Times.Once);
+        writes.Verify(x => x.RemoveTagAsync(id, tagId), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 }

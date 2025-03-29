@@ -8,6 +8,7 @@ namespace CustomCADs.Catalog.Domain.Repositories.Reads;
 public interface IProductReads
 {
     Task<Result<Product>> AllAsync(ProductQuery query, bool track = true, CancellationToken ct = default);
+    Task<ProductId[]> AllAsync(DateTimeOffset? before, DateTimeOffset? after, CancellationToken ct = default);
     Task<Product?> SingleByIdAsync(ProductId id, bool track = true, CancellationToken ct = default);
     Task<bool> ExistsByIdAsync(ProductId id, CancellationToken ct = default);
     Task<Dictionary<ProductStatus, int>> CountByStatusAsync(AccountId creatorId, CancellationToken ct = default);

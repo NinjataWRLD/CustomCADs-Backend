@@ -8,7 +8,7 @@ public class RemoveProductTagHandler(IProductWrites writes, IUnitOfWork uow)
 {
     public async Task Handle(RemoveProductTagCommand req, CancellationToken ct)
     {
-        writes.RemoveTag(req.Id, req.TagId);
+        await writes.RemoveTagAsync(req.Id, req.TagId).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
     }
 }

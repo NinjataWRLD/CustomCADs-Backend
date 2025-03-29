@@ -15,10 +15,14 @@ public class Writes(CatalogContext context) : IProductWrites
         await context.ProductTags.AddAsync(entity, ct).ConfigureAwait(false);
     }
 
-    public void RemoveTag(ProductId id, TagId tagId)
+    public async Task RemoveTagAsync(ProductId id, TagId tagId)
     {
-        var entity = ProductTag.Create(id, tagId);
-        context.ProductTags.Remove(entity);
+        ProductTag? productTag = await context.ProductTags
+            .FirstOrDefaultAsync(x => x.ProductId == id && x.TagId == tagId)
+            .ConfigureAwait(false);
+
+        if (productTag is not null)
+            context.ProductTags.Remove(productTag);
     }
 
     public void Remove(Product product)
