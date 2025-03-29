@@ -9,7 +9,16 @@ namespace CustomCADs.Catalog.Persistence.Repositories.Products;
 
 public static class Utilities
 {
-    public static IQueryable<Product> WithFilter(this IQueryable<Product> query, ProductId[]? ids, AccountId? creatorId = null, AccountId? designerId = null, CategoryId? categoryId = null, ProductStatus? status = null)
+    public static IQueryable<Product> WithFilter(
+        this IQueryable<Product> query,
+        ProductId[]? ids = null,
+        AccountId? creatorId = null,
+        AccountId? designerId = null,
+        CategoryId? categoryId = null,
+        ProductStatus? status = null,
+        DateTimeOffset? before = null,
+        DateTimeOffset? after = null
+    )
     {
         if (ids is not null)
         {
@@ -30,6 +39,14 @@ public static class Utilities
         if (status is not null)
         {
             query = query.Where(c => c.Status == status);
+        }
+        if (before is not null)
+        {
+            query = query.Where(c => c.UploadedAt <= before);
+        }
+        if (after is not null)
+        {
+            query = query.Where(c => c.UploadedAt >= after);
         }
 
         return query;

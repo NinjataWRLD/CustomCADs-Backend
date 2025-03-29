@@ -12,6 +12,23 @@ static class Utilities
         return builder;
     }
 
+    public static EntityTypeBuilder<ProductTag> SetForeignKeys(this EntityTypeBuilder<ProductTag> builder)
+    {
+        builder
+            .HasOne(x => x.Product)
+            .WithMany()
+            .HasForeignKey(x => x.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasOne(x => x.Tag)
+            .WithMany()
+            .HasForeignKey(x => x.TagId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        return builder;
+    }
+
     public static EntityTypeBuilder<ProductTag> SetStronglyTypedIds(this EntityTypeBuilder<ProductTag> builder)
     {
         builder.Property(pt => pt.ProductId)

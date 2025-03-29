@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetAll;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Designer.GetAll;
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
@@ -20,7 +20,8 @@ public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetUncheckedProductsRequest req, CancellationToken ct)
     {
-        GetAllProductsQuery query = new(
+        DesignerGetAllProductsQuery query = new(
+            DesignerId: User.GetAccountId(),
             Status: ProductStatus.Unchecked,
             CategoryId: CategoryId.New(req.CategoryId),
             Name: req.Name,

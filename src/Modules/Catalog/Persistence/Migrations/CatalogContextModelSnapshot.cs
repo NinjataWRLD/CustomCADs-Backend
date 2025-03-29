@@ -113,8 +113,8 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5957f822-77a3-4a72-964d-bf7740e994a5"),
-                            Name = "Popular"
+                            Id = new Guid("6813c4b9-bcde-4f95-a1ce-8e545756c8a4"),
+                            Name = "New"
                         },
                         new
                         {
@@ -123,8 +123,8 @@ namespace CustomCADs.Catalog.Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6813c4b9-bcde-4f95-a1ce-8e545756c8a4"),
-                            Name = "New"
+                            Id = new Guid("38deab9b-8791-4147-9958-64e9f7ec6d78"),
+                            Name = "Printable"
                         });
                 });
 
@@ -145,17 +145,21 @@ namespace CustomCADs.Catalog.Persistence.Migrations
 
             modelBuilder.Entity("CustomCADs.Catalog.Persistence.ShadowEntities.ProductTag", b =>
                 {
-                    b.HasOne("CustomCADs.Catalog.Domain.Products.Product", null)
+                    b.HasOne("CustomCADs.Catalog.Domain.Products.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CustomCADs.Catalog.Domain.Tags.Tag", null)
+                    b.HasOne("CustomCADs.Catalog.Domain.Tags.Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Tag");
                 });
 #pragma warning restore 612, 618
         }
