@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
+﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
@@ -15,9 +14,6 @@ public class PurchasedCartsBaseUnitTests
 {
     protected static readonly CancellationToken ct = CancellationToken.None;
 
-    protected static PurchasedCart CreateCart(AccountId? buyerId = null)
-        => PurchasedCart.Create(buyerId ?? ValidBuyerId1);
-
     protected static PurchasedCart CreateCartWithId(PurchasedCartId? id = null, AccountId? buyerId = null)
         => PurchasedCart.CreateWithId(
             id: id ?? ValidId1,
@@ -28,18 +24,13 @@ public class PurchasedCartsBaseUnitTests
     {
         var purchasedCart = CreateCartWithId(id, buyerId);
         purchasedCart.AddItems([.. items.Select(i =>
-            (Price: i.Price,
-            CadId: i.CadId,
-            Item: i.ForDelivery
-                ? ActiveCartItem.Create(
-                    cartId: ActiveCartsData.ValidId1,
-                    productId: i.ProductId,
-                    customizationId: i.CustomizationId!.Value
-                )
-                : ActiveCartItem.Create(
-                    cartId: ActiveCartsData.ValidId1,
-                    productId: i.ProductId
-                )
+            (
+                Price: i.Price,
+                CadId: i.CadId,
+                ProductId: i.ProductId,
+                ForDelivery: i.ForDelivery,
+                CustomizationId: i.CustomizationId,
+                Quantity: i.Quantity
             )
         )]);
 

@@ -19,19 +19,18 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
     private readonly Mock<IRequestSender> sender = new();
     private readonly Mock<IPaymentService> payment = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly ActiveCart cart = CreateCartWithItems(
-        buyerId: buyerId,
-        items: [
-            CreateItem(productId: ProductId.New()),
-            CreateItem(productId: ProductId.New()),
-            CreateItem(productId: ProductId.New()),
-        ]
-    );
 
     public PurchaseActiveCartHandlerUnitTests()
     {
-        reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, false, ct))
-            .ReturnsAsync(cart);
+        reads.Setup(x => x.ExistsAsync(buyerId, ct))
+            .ReturnsAsync(true);
+
+        reads.Setup(x => x.AllAsync(buyerId, false, ct))
+            .ReturnsAsync([
+                CreateItem(productId: ProductId.New()),
+                CreateItem(productId: ProductId.New()),
+                CreateItem(productId: ProductId.New()),
+            ]);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetProductPricesByIdsQuery>(), ct))
             .ReturnsAsync([]);
@@ -48,7 +47,8 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        reads.Verify(x => x.SingleByBuyerIdAsync(buyerId, false, ct), Times.Once);
+        reads.Verify(x => x.ExistsAsync(buyerId, ct), Times.Once);
+        reads.Verify(x => x.AllAsync(buyerId, false, ct), Times.Once);
     }
 
     [Fact]
@@ -118,39 +118,18 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCartForDelivery()
     {
         // Arrange
-        reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, false, ct))
-            .ReturnsAsync(CreateCartWithItems(
-                buyerId: buyerId,
-                items: [
-                    CreateItemWithDelivery(),
-                    CreateItem(),
-                    CreateItemWithDelivery(),
-                ]
-            ));
+        reads.Setup(x => x.AllAsync(buyerId, false, ct))
+            .ReturnsAsync([
+                CreateItemWithDelivery(),
+                CreateItem(),
+                CreateItemWithDelivery(),
+            ]);
 
         PurchaseActiveCartCommand command = new(string.Empty, buyerId);
         PurchaseActiveCartHandler handler = new(reads.Object, sender.Object, payment.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
-
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenCartNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByBuyerIdAsync(buyerId, false, ct))
-            .ReturnsAsync(null as ActiveCart);
-
-        PurchaseActiveCartCommand command = new(string.Empty, buyerId);
-        PurchaseActiveCartHandler handler = new(reads.Object, sender.Object, payment.Object);
-
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCart>>(async () =>
         {
             // Act
             await handler.Handle(command, ct);

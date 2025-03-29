@@ -1,5 +1,5 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Behaviors.AddItems.Data;
 
@@ -14,7 +14,7 @@ public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
     public void AddItems_ShouldNotThrow_WhenItemsCountIsValid(decimal price, CadId itemCadId)
     {
         CreateCartWithId().AddItems([
-            (price, itemCadId, CreateActiveCartItem())
+            (price, itemCadId, ProductId.New(), false, null, 1)
         ]);
     }
 
@@ -26,21 +26,15 @@ public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
         for (int i = 0; i < ItemsCountMax; i++)
         {
             purchasedCart.AddItems([
-                (price, itemCadId, CreateActiveCartItem())
+                (price, itemCadId, ProductId.New(), false, null, 1)
             ]);
         }
 
         Assert.Throws<CustomValidationException<PurchasedCart>>(() =>
         {
             purchasedCart.AddItems([
-                (price, itemCadId, CreateActiveCartItem())
+                (price, itemCadId, ProductId.New(), false, null, 1)
             ]);
         });
     }
-
-    private static ActiveCartItem CreateActiveCartItem()
-        => ActiveCartItem.Create(
-            cartId: ActiveCartsData.ValidId1,
-            productId: ActiveCartsData.CartItemsData.ValidProductId1
-        );
 }
