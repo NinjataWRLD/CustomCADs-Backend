@@ -24,7 +24,8 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
                 customizationId: CartItemsData.ValidCustomizationId1,
                 price: CartItemsData.ValidPrice1,
                 quantity: CartItemsData.ValidQuantity1,
-                forDelivery: true
+                forDelivery: true,
+                addedAt: DateTimeOffset.UtcNow
             ),
             PurchasedCartItem.Create(
                 cartId: ValidId2,
@@ -33,7 +34,8 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
                 customizationId: null,
                 price: CartItemsData.ValidPrice2,
                 quantity: CartItemsData.ValidQuantity2,
-                forDelivery: false
+                forDelivery: false,
+                addedAt: DateTimeOffset.UtcNow
             ),
         ]
     );

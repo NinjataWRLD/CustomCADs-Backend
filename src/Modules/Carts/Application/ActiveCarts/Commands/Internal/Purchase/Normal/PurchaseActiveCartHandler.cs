@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
-using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -14,34 +13,33 @@ public sealed class PurchaseActiveCartHandler(IActiveCartReads reads, IRequestSe
 {
     public async Task<string> Handle(PurchaseActiveCartCommand req, CancellationToken ct)
     {
-        ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<ActiveCart>.ById(req.BuyerId);
+        bool hasItems = await reads.ExistsAsync(req.BuyerId, ct: ct).ConfigureAwait(false);
+        if (!hasItems) return "";
 
-        int count = cart.TotalCount;
-        if (count is 0) return "";
+        ActiveCartItem[] items = await reads.AllAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false);
 
-        if (cart.HasDelivery)
+        if (items.Any(x => x.ForDelivery))
             throw CustomException.Delivery<ActiveCartItem>(markedForDelivery: true);
 
         GetProductPricesByIdsQuery pricesQuery = new(
-            Ids: [.. cart.Items.Select(i => i.ProductId)]
+            Ids: [.. items.Select(i => i.ProductId)]
         );
         Dictionary<ProductId, decimal> prices = await sender.SendQueryAsync(pricesQuery, ct).ConfigureAwait(false);
         decimal totalCost = prices.Sum(p => p.Value);
 
-        GetUsernameByIdQuery buyerQuery = new(cart.BuyerId);
+        GetUsernameByIdQuery buyerQuery = new(req.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
 
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: totalCost,
-            description: $"{buyer} bought {count} products for a total of {totalCost}$.",
+            description: $"{buyer} bought {items.Length} products for a total of {totalCost}$.",
             ct
         ).ConfigureAwait(false);
 
         CreatePurchasedCartCommand purchasedCartCommand = new(
             BuyerId: req.BuyerId,
-            Items: [.. cart.Items.Select(x => x.ToDto())],
+            Items: [.. items.Select(x => x.ToDto(buyer))],
             Prices: prices
         );
         await sender.SendCommandAsync(purchasedCartCommand, ct).ConfigureAwait(false);

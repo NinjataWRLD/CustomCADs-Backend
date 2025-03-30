@@ -38,7 +38,15 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
                 CadId productCadId = productCads[item.ProductId];
                 CadId itemCadId = itemCads[productCadId];
 
-                return (price, itemCadId, item.ToEntity());
+                return (
+                    Price: price,
+                    CadId: itemCadId,
+                    ProductId: item.ProductId,
+                    ForDelivery: item.ForDelivery,
+                    CustomizationId: item.CustomizationId,
+                    Quantity: item.Quantity,
+                    AddedAt: item.AddedAt
+                );
             })]
         );
 

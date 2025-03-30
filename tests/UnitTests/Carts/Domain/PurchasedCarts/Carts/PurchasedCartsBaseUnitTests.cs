@@ -16,20 +16,21 @@ public class PurchasedCartsBaseUnitTests
         => PurchasedCart.CreateWithId(id ?? ValidId1, buyerId ?? ValidBuyerId1);
 
     protected static PurchasedCart CreateCartWithItems(
-        ActiveCart cart,
+        AccountId buyerId,
+        ActiveCartItem[] items,
         Dictionary<ProductId, decimal> prices,
         Dictionary<ProductId, CadId> productCads,
         Dictionary<CadId, CadId> itemCads
     )
     {
-        var purchasedCart = CreateCart(cart.BuyerId);
+        var purchasedCart = CreateCart(buyerId);
 
-        purchasedCart.AddItems([.. cart.Items.Select(item => {
+        purchasedCart.AddItems([.. items.Select(item => {
             decimal price = prices[item.ProductId];
             CadId productCadId = productCads[item.ProductId];
             CadId itemCadId = itemCads[productCadId];
 
-            return (price, itemCadId, item);
+            return (price, itemCadId, item.ProductId, item.ForDelivery, item.CustomizationId, item.Quantity, item.AddedAt);
         })]);
 
         return purchasedCart;

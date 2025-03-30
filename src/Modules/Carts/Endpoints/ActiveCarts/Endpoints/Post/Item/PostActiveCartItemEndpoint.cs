@@ -1,5 +1,5 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Item.Add;
-using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetItem;
+﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Add;
+using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetSingle;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
@@ -11,7 +11,7 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
 {
     public override void Configure()
     {
-        Post("items");
+        Post("");
         Group<ActiveCartsGroup>();
         Description(d => d
             .WithSummary("Add Item")
@@ -31,7 +31,7 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
         );
         await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
-        GetActiveCartItemByIdQuery query = new(
+        GetActiveCartItemQuery query = new(
             BuyerId: buyerId,
             ProductId: ProductId.New(req.ProductId)
         );

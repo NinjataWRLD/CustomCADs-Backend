@@ -1,7 +1,8 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
+﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
@@ -24,7 +25,7 @@ public class PurchasedCart : BaseAggregateRoot
     public ShipmentId? ShipmentId { get; private set; }
     public decimal TotalCost => items.Sum(i => i.Cost);
     public bool HasDelivery => items.Any(i => i.ForDelivery);
-    public IReadOnlyCollection<PurchasedCartItem> Items => items.AsReadOnly();
+    public IReadOnlyCollection<PurchasedCartItem> Items => [.. items.OrderByDescending(x => x.AddedAt)];
 
     public static PurchasedCart Create(AccountId buyerId)
         => new(buyerId);
@@ -36,16 +37,27 @@ public class PurchasedCart : BaseAggregateRoot
         }
         .ValidateItems();
 
-    public PurchasedCartItem[] AddItems((decimal Price, CadId CadId, ActiveCartItem Item)[] items)
+    public PurchasedCartItem[] AddItems(
+        (
+            decimal Price, 
+            CadId CadId, 
+            ProductId ProductId, 
+            bool ForDelivery,   
+            CustomizationId? CustomizationId, 
+            int Quantity,
+            DateTimeOffset AddedAt
+        )[] items
+    )
     {
         this.items.AddRange([.. items.Select(i => PurchasedCartItem.Create(
             cartId: this.Id,
-            productId: i.Item.ProductId,
+            productId: i.ProductId,
             cadId: i.CadId,
-            customizationId: i.Item.CustomizationId,
+            customizationId: i.CustomizationId,
             price: i.Price,
-            quantity: i.Item.Quantity,
-            forDelivery: i.Item.ForDelivery
+            quantity: i.Quantity,
+            forDelivery: i.ForDelivery,
+            addedAt: i.AddedAt
         ))]);
         this.ValidateItems();
 

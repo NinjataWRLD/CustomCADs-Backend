@@ -17,7 +17,8 @@ public class PurchasedCartItemsBaseUnitTests
         CustomizationId? customizationId = null,
         decimal? price = null,
         int? quantity = null,
-        bool? forDelivery = null
+        bool? forDelivery = null,
+        DateTimeOffset? addedAt = null
     ) => PurchasedCartItem.Create(
             cartId: cartId ?? PurchasedCartsData.ValidId1,
             productId: productId ?? ValidProductId1,
@@ -25,6 +26,7 @@ public class PurchasedCartItemsBaseUnitTests
             price: price ?? ValidPrice1,
             quantity: quantity ?? ValidQuantity1,
             forDelivery: forDelivery ?? false,
-            customizationId: customizationId
+            customizationId: customizationId,
+            addedAt: addedAt ?? DateTimeOffset.UtcNow
         );
 }

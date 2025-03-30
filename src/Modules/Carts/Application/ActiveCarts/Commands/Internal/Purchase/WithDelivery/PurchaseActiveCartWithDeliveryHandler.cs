@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
-using CustomCADs.Carts.Domain.ActiveCarts.Entities;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
@@ -16,33 +15,29 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 {
     public async Task<string> Handle(PurchaseActiveCartWithDeliveryCommand req, CancellationToken ct)
     {
-        ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<ActiveCart>.ById(req.BuyerId);
-        var items = cart.Items.ToDictionary(x => x.ProductId, x => x);
+        bool hasItems = await reads.ExistsAsync(req.BuyerId, ct).ConfigureAwait(false);
+        if (!hasItems) return "";
 
-        int count = cart.TotalCount;
-        if (count is 0) return "";
-
-        if (!cart.HasDelivery)
+        ActiveCartItem[] items = await reads.AllAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false);
+        if (!items.Any(x => x.ForDelivery))
             throw CustomException.Delivery<ActiveCartItem>(markedForDelivery: false);
 
         GetProductPricesByIdsQuery pricesQuery = new(
-            Ids: [.. cart.Items.Select(i => i.ProductId)]
+            Ids: [.. items.Select(i => i.ProductId)]
         );
         var prices = await sender.SendQueryAsync(pricesQuery, ct).ConfigureAwait(false);
         prices = prices.ToDictionary(
             x => x.Key,
             x =>
             {
-                var item = items[x.Key];
+                var item = items.First(i => i.ProductId == x.Key);
                 return item.ForDelivery ? x.Value * item.Quantity : x.Value;
             }
         );
 
         GetCustomizationsCostByIdsQuery costsQuery = new(
             Ids: [..
-                cart.Items
-                    .Where(x => x.ForDelivery && x.CustomizationId is not null)
+                items.Where(x => x.ForDelivery && x.CustomizationId is not null)
                     .Select(x => x.CustomizationId!.Value)
             ]
         );
@@ -51,39 +46,36 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
             x => x.Key,
             x =>
             {
-                var item = cart.Items.First(i => i.CustomizationId == x.Key);
-                return item.ForDelivery ? x.Value * item.Quantity : x.Value;
+                var item = items.First(i => i.CustomizationId == x.Key);
+                return x.Value * item.Quantity;
             }
         );
 
         decimal totalCost = prices.Sum(p => p.Value) + costs.Sum(c => c.Value);
 
-        GetUsernameByIdQuery buyerQuery = new(cart.BuyerId);
+        GetUsernameByIdQuery buyerQuery = new(req.BuyerId);
         string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
 
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: totalCost,
-            description: $"{buyer} bought {count} products for a total of {totalCost}$.",
+            description: $"{buyer} bought {items.Length} products for a total of {totalCost}$.",
             ct
         ).ConfigureAwait(false);
 
         CreatePurchasedCartCommand purchasedCartCommand = new(
             BuyerId: req.BuyerId,
-            Items: [.. cart.Items.Select(x => x.ToDto())],
+            Items: [.. items.Select(x => x.ToDto(buyer))],
             Prices: prices.ToDictionary(
                 x => x.Key,
                 x =>
                 {
-                    decimal total = 0m;
+                    decimal price = x.Value;
+                    var item = items.First(i => i.ProductId == x.Key);
 
-                    total += x.Value;
-                    var item = items[x.Key];
-
-                    if (item.ForDelivery && item.CustomizationId is not null)
-                        total += costs[item.CustomizationId.Value];
-
-                    return total;
+                    return item.ForDelivery && item.CustomizationId is not null
+                        ? price + costs[item.CustomizationId.Value]
+                        : price;
                 }
             )
         );
@@ -91,7 +83,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 
         GetCustomizationsWeightByIdsQuery weightsQuery = new(
             Ids: [..
-                cart.Items
+                items
                     .Where(x => x.ForDelivery && x.CustomizationId is not null)
                     .Select(x => x.CustomizationId!.Value)
             ]
@@ -101,7 +93,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
         await raiser.RaiseDomainEventAsync(new ActiveCartDeliveryRequestedDomainEvent(
             Id: purchasedCartId,
             Weight: weights.Sum(x => x.Value),
-            Count: cart.TotalDeliveryCount,
+            Count: items.Count(x => x.ForDelivery),
             ShipmentService: req.ShipmentService,
             Address: req.Address,
             Contact: req.Contact

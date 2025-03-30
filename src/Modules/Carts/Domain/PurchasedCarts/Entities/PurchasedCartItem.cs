@@ -15,7 +15,9 @@ public class PurchasedCartItem : BaseEntity
         CustomizationId? customizationId,
         decimal price,
         int quantity,
-        bool forDelivery) : this()
+        bool forDelivery,
+        DateTimeOffset addedAt
+    ) : this()
     {
         CartId = cartId;
         ProductId = productId;
@@ -24,11 +26,13 @@ public class PurchasedCartItem : BaseEntity
         Price = price;
         Quantity = quantity;
         ForDelivery = forDelivery;
+        AddedAt = addedAt;
     }
 
     public int Quantity { get; private set; }
     public decimal Price { get; private set; }
-    public bool ForDelivery { get; set; }
+    public bool ForDelivery { get; private set; }
+    public DateTimeOffset AddedAt { get; private set; }
     public ProductId ProductId { get; }
     public CadId CadId { get; private set; }
     public CustomizationId? CustomizationId { get; }
@@ -43,7 +47,8 @@ public class PurchasedCartItem : BaseEntity
         CustomizationId? customizationId,
         decimal price,
         int quantity,
-        bool forDelivery
+        bool forDelivery,
+        DateTimeOffset addedAt
     ) => new PurchasedCartItem(
             cartId,
             productId,
@@ -51,7 +56,8 @@ public class PurchasedCartItem : BaseEntity
             customizationId,
             price,
             quantity,
-            forDelivery
+            forDelivery,
+            addedAt
         )
         .ValidateQuantity()
         .ValidatePrice();

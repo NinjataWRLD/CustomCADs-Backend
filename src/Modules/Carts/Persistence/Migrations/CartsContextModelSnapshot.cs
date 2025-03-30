@@ -23,30 +23,19 @@ namespace CustomCADs.Carts.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CustomCADs.Carts.Domain.ActiveCarts.ActiveCart", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BuyerId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("BuyerId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ActiveCarts", "Carts");
-                });
-
-            modelBuilder.Entity("CustomCADs.Carts.Domain.ActiveCarts.Entities.ActiveCartItem", b =>
+            modelBuilder.Entity("CustomCADs.Carts.Domain.ActiveCarts.ActiveCartItem", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid")
                         .HasColumnName("ProductId");
 
-                    b.Property<Guid>("CartId")
+                    b.Property<Guid>("BuyerId")
                         .HasColumnType("uuid")
-                        .HasColumnName("CartId");
+                        .HasColumnName("BuyerId");
+
+                    b.Property<DateTimeOffset>("AddedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("AddedAt");
 
                     b.Property<Guid?>("CustomizationId")
                         .HasColumnType("uuid")
@@ -60,9 +49,7 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("Quantity");
 
-                    b.HasKey("ProductId");
-
-                    b.HasIndex("CartId");
+                    b.HasKey("ProductId", "BuyerId");
 
                     b.ToTable("ActiveCartItems", "Carts");
                 });
@@ -72,6 +59,10 @@ namespace CustomCADs.Carts.Persistence.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid")
                         .HasColumnName("ProductId");
+
+                    b.Property<DateTimeOffset>("AddedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("AddedAt");
 
                     b.Property<Guid>("CadId")
                         .HasColumnType("uuid")
@@ -128,17 +119,6 @@ namespace CustomCADs.Carts.Persistence.Migrations
                     b.ToTable("PurchasedCarts", "Carts");
                 });
 
-            modelBuilder.Entity("CustomCADs.Carts.Domain.ActiveCarts.Entities.ActiveCartItem", b =>
-                {
-                    b.HasOne("CustomCADs.Carts.Domain.ActiveCarts.ActiveCart", "Cart")
-                        .WithMany("Items")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-                });
-
             modelBuilder.Entity("CustomCADs.Carts.Domain.PurchasedCarts.Entities.PurchasedCartItem", b =>
                 {
                     b.HasOne("CustomCADs.Carts.Domain.PurchasedCarts.PurchasedCart", "Cart")
@@ -148,11 +128,6 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Cart");
-                });
-
-            modelBuilder.Entity("CustomCADs.Carts.Domain.ActiveCarts.ActiveCart", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("CustomCADs.Carts.Domain.PurchasedCarts.PurchasedCart", b =>
