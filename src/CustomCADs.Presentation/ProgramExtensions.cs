@@ -3,6 +3,7 @@ using CustomCADs.Carts.Application;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Categories.Application;
 using CustomCADs.Customizations.Application;
+using CustomCADs.Customs.Application;
 using CustomCADs.Delivery.Application;
 using CustomCADs.Files.Application;
 using CustomCADs.Identity.Application;
@@ -42,6 +43,7 @@ public static class ProgramExtensions
             CatalogApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
             CustomizationsApplicationReference.Assembly,
+            CustomsApplicationReference.Assembly,
             DeliveryApplicationReference.Assembly,
             FilesApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
@@ -63,6 +65,7 @@ public static class ProgramExtensions
             CartsApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
+            CustomsApplicationReference.Assembly,
             IdentityApplicationReference.Assembly,
             OrdersApplicationReference.Assembly,
         ]);
