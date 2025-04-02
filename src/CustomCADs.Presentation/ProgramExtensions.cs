@@ -1,4 +1,4 @@
-﻿using CustomCADs.Accounts.Application;
+using CustomCADs.Accounts.Application;
 using CustomCADs.Carts.Application;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Categories.Application;
@@ -141,6 +141,7 @@ public static class ProgramExtensions
             .AddCatalogPersistence(config)
             .AddCategoriesPersistence(config)
             .AddCustomizationsPersistence(config)
+            .AddCustomsPersistence(config)
             .AddDeliveryPersistence(config)
             .AddFilesPersistence(config)
             .AddIdentityInfrastructure(config)
@@ -165,6 +166,7 @@ public static class ProgramExtensions
             provider.UpdateCatalogContextAsync(),
             provider.UpdateCategoriesContextAsync(),
             provider.UpdateCustomizationsContextAsync(),
+            provider.UpdateCustomsContextAsync(),
             provider.UpdateDeliveryContextAsync(),
             provider.UpdateFilesContextAsync(),
             provider.UpdateIdentityContextAsync(),
