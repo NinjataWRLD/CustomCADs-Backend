@@ -82,7 +82,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
                 x.CadId == cadId
             )
         , ct), Times.Once);
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Exactly(2));
     }
 
     [Theory]
