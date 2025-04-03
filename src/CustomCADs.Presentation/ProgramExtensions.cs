@@ -1,4 +1,4 @@
-using CustomCADs.Accounts.Application;
+﻿using CustomCADs.Accounts.Application;
 using CustomCADs.Carts.Application;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Categories.Application;
@@ -10,7 +10,6 @@ using CustomCADs.Identity.Application;
 using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Infrastructure;
 using CustomCADs.Identity.Infrastructure.Dtos;
-using CustomCADs.Orders.Application;
 using CustomCADs.Presentation;
 using CustomCADs.Shared.Abstractions.Requests.Middleware;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -46,7 +45,6 @@ public static class ProgramExtensions
             CustomsApplicationReference.Assembly,
             DeliveryApplicationReference.Assembly,
             FilesApplicationReference.Assembly,
-            OrdersApplicationReference.Assembly,
         ];
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
@@ -67,7 +65,6 @@ public static class ProgramExtensions
             CategoriesApplicationReference.Assembly,
             CustomsApplicationReference.Assembly,
             IdentityApplicationReference.Assembly,
-            OrdersApplicationReference.Assembly,
         ]);
 
         return services;
@@ -147,8 +144,7 @@ public static class ProgramExtensions
             .AddCustomsPersistence(config)
             .AddDeliveryPersistence(config)
             .AddFilesPersistence(config)
-            .AddIdentityInfrastructure(config)
-            .AddOrdersPersistence(config);
+            .AddIdentityInfrastructure(config);
 
     public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration config)
         => services
@@ -173,7 +169,6 @@ public static class ProgramExtensions
             provider.UpdateDeliveryContextAsync(),
             provider.UpdateFilesContextAsync(),
             provider.UpdateIdentityContextAsync(),
-            provider.UpdateOrdersContextAsync(),
         ]).ConfigureAwait(false);
     }
 
