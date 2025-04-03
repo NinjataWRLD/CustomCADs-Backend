@@ -34,6 +34,12 @@ public class CustomValidationException<TEntity> : BaseException
         => new($"A/An {typeof(TEntity).Name}'s {property} must be more than {min} and less than {max}.", inner);
 
     public static CustomValidationException<TEntity> Status<TStatus>(
+        TStatus status,
+        Exception? inner = default
+    ) where TStatus : Enum
+        => new($"Cannot edit this data on an {typeof(TEntity).Name} with status: {status}.", inner);
+
+    public static CustomValidationException<TEntity> Status<TStatus>(
         TStatus newStatus,
         TStatus oldStatus,
         Exception? inner = default

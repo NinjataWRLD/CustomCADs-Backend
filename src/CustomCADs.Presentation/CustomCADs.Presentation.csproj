@@ -29,14 +29,14 @@
 		<ProjectReference Include="..\Modules\Categories\Persistence\CustomCADs.Categories.Persistence.csproj" />
 		<ProjectReference Include="..\Modules\Customizations\Endpoints\CustomCADs.Customizations.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Customizations\Persistence\CustomCADs.Customizations.Persistence.csproj" />
+		<ProjectReference Include="..\Modules\Customs\Endpoints\CustomCADs.Customs.Endpoints.csproj" />
+		<ProjectReference Include="..\Modules\Customs\Persistence\CustomCADs.Customs.Persistence.csproj" />
 		<ProjectReference Include="..\Modules\Delivery\Endpoints\CustomCADs.Delivery.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Delivery\Persistence\CustomCADs.Delivery.Persistence.csproj" />
 		<ProjectReference Include="..\Modules\Files\Application\CustomCADs.Files.Application.csproj" />
 		<ProjectReference Include="..\Modules\Files\Persistence\CustomCADs.Files.Persistence.csproj" />
 		<ProjectReference Include="..\Modules\Identity\Endpoints\CustomCADs.Identity.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Identity\Infrastructure\CustomCADs.Identity.Infrastructure.csproj" />
-		<ProjectReference Include="..\Modules\Orders\Endpoints\CustomCADs.Orders.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Orders\Persistence\CustomCADs.Orders.Persistence.csproj" />
 		<ProjectReference Include="..\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
 	</ItemGroup>
 

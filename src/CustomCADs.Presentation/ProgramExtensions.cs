@@ -3,13 +3,13 @@ using CustomCADs.Carts.Application;
 using CustomCADs.Catalog.Application;
 using CustomCADs.Categories.Application;
 using CustomCADs.Customizations.Application;
+using CustomCADs.Customs.Application;
 using CustomCADs.Delivery.Application;
 using CustomCADs.Files.Application;
 using CustomCADs.Identity.Application;
 using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Infrastructure;
 using CustomCADs.Identity.Infrastructure.Dtos;
-using CustomCADs.Orders.Application;
 using CustomCADs.Presentation;
 using CustomCADs.Shared.Abstractions.Requests.Middleware;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -42,9 +42,9 @@ public static class ProgramExtensions
             CatalogApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
             CustomizationsApplicationReference.Assembly,
+            CustomsApplicationReference.Assembly,
             DeliveryApplicationReference.Assembly,
             FilesApplicationReference.Assembly,
-            OrdersApplicationReference.Assembly,
         ];
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
@@ -63,8 +63,8 @@ public static class ProgramExtensions
             CartsApplicationReference.Assembly,
             CatalogApplicationReference.Assembly,
             CategoriesApplicationReference.Assembly,
+            CustomsApplicationReference.Assembly,
             IdentityApplicationReference.Assembly,
-            OrdersApplicationReference.Assembly,
         ]);
 
         return services;
@@ -141,10 +141,10 @@ public static class ProgramExtensions
             .AddCatalogPersistence(config)
             .AddCategoriesPersistence(config)
             .AddCustomizationsPersistence(config)
+            .AddCustomsPersistence(config)
             .AddDeliveryPersistence(config)
             .AddFilesPersistence(config)
-            .AddIdentityInfrastructure(config)
-            .AddOrdersPersistence(config);
+            .AddIdentityInfrastructure(config);
 
     public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration config)
         => services
@@ -165,10 +165,10 @@ public static class ProgramExtensions
             provider.UpdateCatalogContextAsync(),
             provider.UpdateCategoriesContextAsync(),
             provider.UpdateCustomizationsContextAsync(),
+            provider.UpdateCustomsContextAsync(),
             provider.UpdateDeliveryContextAsync(),
             provider.UpdateFilesContextAsync(),
             provider.UpdateIdentityContextAsync(),
-            provider.UpdateOrdersContextAsync(),
         ]).ConfigureAwait(false);
     }
 
