@@ -10,7 +10,7 @@ public class DeleteTagEndpoint(IRequestSender sender)
         Delete("");
         Group<TagGroup>();
         Description(d => d
-            .WithSummary("05. Delete")
+            .WithSummary("Delete")
             .WithDescription("Delete Tag")
         );
     }
