@@ -51,8 +51,8 @@ static class Utilities
             );
 
         builder.Property(x => x.DesignerId)
-            .HasConversion<Guid?>(
-                x => x == null ? null : x.Value.Value,
+            .HasConversion(
+                x => AccountId.Unwrap(x),
                 v => AccountId.New(v)
             );
 

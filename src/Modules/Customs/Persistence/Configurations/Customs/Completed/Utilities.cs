@@ -26,14 +26,14 @@ public static class Utilities
             );
 
         builder.Property(x => x.ShipmentId)
-            .HasConversion<Guid?>(
-                x => x == null ? null : x.Value.Value,
+            .HasConversion(
+                x => ShipmentId.Unwrap(x),
                 v => ShipmentId.New(v)
             );
         
         builder.Property(x => x.CustomizationId)
-            .HasConversion<Guid?>(
-                x => x == null ? null : x.Value.Value,
+            .HasConversion(
+                x => CustomizationId.Unwrap(x),
                 v => CustomizationId.New(v)
             );
 
