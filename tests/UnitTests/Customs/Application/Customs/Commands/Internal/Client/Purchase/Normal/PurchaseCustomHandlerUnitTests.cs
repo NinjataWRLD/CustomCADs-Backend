@@ -143,7 +143,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
             await handler.Handle(command, ct);
         });
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenNotFinished()
     {

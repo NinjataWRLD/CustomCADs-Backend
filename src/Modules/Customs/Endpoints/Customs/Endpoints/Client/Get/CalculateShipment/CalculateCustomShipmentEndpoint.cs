@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Client.CalculateShipment;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
-using CustomCADs.Shared.Core.Common.TypedIds.Customs;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Client.Get.CalculateShipment;
 

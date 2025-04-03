@@ -16,7 +16,7 @@ public sealed class Reads(CartsContext context) : IActiveCartReads
             .OrderByDescending(p => p.AddedAt)
             .ToArrayAsync(ct)
             .ConfigureAwait(false);
-    
+
     public async Task<ActiveCartItem[]> AllAsync(ProductId productId, bool track = true, CancellationToken ct = default)
         => await context.ActiveCartItems
             .WithTracking(track)
@@ -29,7 +29,7 @@ public sealed class Reads(CartsContext context) : IActiveCartReads
             .WithTracking(track)
             .FirstOrDefaultAsync(c => c.BuyerId == buyerId && c.ProductId == productId, ct)
             .ConfigureAwait(false);
-    
+
     public async Task<bool> ExistsAsync(AccountId buyerId, CancellationToken ct = default)
         => await context.ActiveCartItems
             .WithTracking(false)

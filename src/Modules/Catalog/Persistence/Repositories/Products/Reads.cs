@@ -29,7 +29,7 @@ public sealed class Reads(CatalogContext context) : IProductReads
 
         return new(count, products);
     }
-    
+
     public async Task<ProductId[]> AllAsync(DateTimeOffset? before, DateTimeOffset? after, CancellationToken ct = default)
         => await context.Products
             .WithTracking(false)

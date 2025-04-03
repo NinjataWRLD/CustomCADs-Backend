@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Endpoints.Products.Dtos;
-
-namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Recent;
+﻿namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Recent;
 
 public sealed record RecentProductsResponse(
     Guid Id,

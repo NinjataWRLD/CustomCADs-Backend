@@ -53,7 +53,7 @@ public static partial class Constants
         public const string Professional = "Professional";
         public const string Printable = "Printable";
     }
-    
+
     public static class Textures
     {
         public static readonly ImageId PLA = ImageId.New(Guid.Parse("9a35cbea-806c-4561-ae71-bb21824f2432"));

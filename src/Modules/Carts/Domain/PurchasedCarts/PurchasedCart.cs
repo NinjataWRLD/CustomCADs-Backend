@@ -39,11 +39,11 @@ public class PurchasedCart : BaseAggregateRoot
 
     public PurchasedCartItem[] AddItems(
         (
-            decimal Price, 
-            CadId CadId, 
-            ProductId ProductId, 
-            bool ForDelivery,   
-            CustomizationId? CustomizationId, 
+            decimal Price,
+            CadId CadId,
+            ProductId ProductId,
+            bool ForDelivery,
+            CustomizationId? CustomizationId,
             int Quantity,
             DateTimeOffset AddedAt
         )[] items

@@ -21,7 +21,7 @@ internal static class Mapper
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
-    
+
     internal static GalleryGetProductByIdDto ToGalleryGetByIdDto(this Product product, decimal volume, string username, string categoryName, string timeZone, CoordinatesDto camCoords, CoordinatesDto panCoords)
         => new(
             Id: product.Id,

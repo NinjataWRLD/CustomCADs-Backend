@@ -17,7 +17,7 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     private readonly Mock<IUnitOfWork> uow = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly ProductId productId = ProductId.New(Guid.Empty);
-    
+
     public DecreaseActiveCartItemQuantityHandlerUnitTests()
     {
         var item = CreateItemWithDelivery(productId: productId).IncreaseQuantity(QuantityMax - 1);

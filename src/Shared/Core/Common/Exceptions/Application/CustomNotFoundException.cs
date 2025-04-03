@@ -11,7 +11,7 @@ public class CustomNotFoundException<TEntity> : BaseException where TEntity : cl
         Exception? inner = default
     ) where TId : struct
         => new($"The {typeof(TEntity).Name} with Id: {id} does not exist.", inner);
-    
+
     public static CustomNotFoundException<TEntity> ById(
         object id,
         Exception? inner = default

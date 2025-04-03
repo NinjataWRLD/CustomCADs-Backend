@@ -1,6 +1,4 @@
-﻿using CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
-
-namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post.Data;
+﻿namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post.Data;
 
 public class GetProductCadPresignedUrlPostInvalidProductNameData : GetProductCadPresignedUrlPostData
 {

@@ -30,7 +30,7 @@ public static class Utilities
                 x => ShipmentId.Unwrap(x),
                 v => ShipmentId.New(v)
             );
-        
+
         builder.Property(x => x.CustomizationId)
             .HasConversion(
                 x => CustomizationId.Unwrap(x),
@@ -54,7 +54,7 @@ public static class Utilities
     {
         builder.Property(x => x.ShipmentId)
             .HasColumnName(nameof(CompletedCustom.ShipmentId));
-        
+
         builder.Property(x => x.CustomizationId)
             .HasColumnName(nameof(CompletedCustom.CustomizationId));
 

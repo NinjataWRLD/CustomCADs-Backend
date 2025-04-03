@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
-using CustomCADs.Shared.Core.Common.TypedIds.Customs;
 using FluentValidation;
 
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Client.Create;

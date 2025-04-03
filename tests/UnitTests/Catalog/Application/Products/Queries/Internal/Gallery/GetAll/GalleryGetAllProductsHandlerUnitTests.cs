@@ -82,7 +82,7 @@ public class GalleryGalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTest
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct), Times.Once);
     }
-    
+
     [Fact]
     public async Task Handle_ShouldNotSendTimeZoneRequest_WhenBuyerIdIsEmpty()
     {

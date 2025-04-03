@@ -6,7 +6,7 @@ namespace CustomCADs.Customs.Domain.Customs.Entities;
 public class FinishedCustom : BaseEntity
 {
     private FinishedCustom() { }
-    private FinishedCustom(CustomId customId, decimal price, CadId cadId) 
+    private FinishedCustom(CustomId customId, decimal price, CadId cadId)
     {
         CustomId = customId;
         Price = price;

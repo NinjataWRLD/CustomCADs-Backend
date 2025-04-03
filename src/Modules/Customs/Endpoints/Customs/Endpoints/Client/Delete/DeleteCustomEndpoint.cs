@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Client.Delete;
-using CustomCADs.Shared.Core.Common.TypedIds.Customs;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Client.Delete;
 

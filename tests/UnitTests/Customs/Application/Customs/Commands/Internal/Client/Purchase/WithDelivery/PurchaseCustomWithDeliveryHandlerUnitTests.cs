@@ -67,7 +67,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -90,7 +90,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -121,7 +121,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -149,7 +149,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -182,7 +182,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         string actual = await handler.Handle(command, ct);
@@ -205,7 +205,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
@@ -233,7 +233,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
@@ -242,7 +242,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             await handler.Handle(command, ct);
         });
     }
-    
+
     [Fact]
     public async Task Handle_ShouldThrowException_WhenNotFinished()
     {
@@ -262,7 +262,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
@@ -289,7 +289,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
@@ -316,7 +316,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object,  sender.Object, payment.Object, raiser.Object);
+        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

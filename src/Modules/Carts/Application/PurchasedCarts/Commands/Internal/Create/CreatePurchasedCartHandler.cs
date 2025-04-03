@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts;
-using CustomCADs.Carts.Domain.Repositories;
+﻿using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;

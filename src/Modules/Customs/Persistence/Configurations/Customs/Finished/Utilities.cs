@@ -32,7 +32,7 @@ public static class Utilities
 
         return builder;
     }
-    
+
     public static EntityTypeBuilder<FinishedCustom> SetNavigations(this EntityTypeBuilder<FinishedCustom> builder)
     {
         builder
@@ -49,7 +49,7 @@ public static class Utilities
             .IsRequired()
             .HasPrecision(19, 2)
             .HasColumnName(nameof(FinishedCustom.Price));
-        
+
         builder.Property(x => x.FinishedAt)
             .IsRequired()
             .HasColumnName(nameof(FinishedCustom.FinishedAt));
