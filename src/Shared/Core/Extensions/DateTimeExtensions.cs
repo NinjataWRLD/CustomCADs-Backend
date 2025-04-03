@@ -2,6 +2,8 @@
 
 public static class DateTimeExtensions
 {
-    public static DateTimeOffset ToUserLocalTime(this DateTimeOffset dateTimeOffset, string timeZone)
-        => TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTimeOffset, timeZone);
+    public static DateTimeOffset ToUserLocalTime(this DateTimeOffset dateTimeOffset, string? timeZone)
+        => timeZone is null
+            ? dateTimeOffset.ToUniversalTime()
+            : TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTimeOffset, timeZone);
 }

@@ -14,7 +14,8 @@ public class PurchasedCartSetShipmentIdUnitTests : PurchasedCartsBaseUnitTests
     public void SetShipmentId_ShouldNotThrowException_WhenIsDelivery(Dictionary<ProductId, decimal> prices, Dictionary<ProductId, CadId> productCads, Dictionary<CadId, CadId> itemCads)
     {
         CreateCartWithItems(
-            cart: CreateCartWithItems(1, 1),
+            buyerId: ValidBuyerId1,
+            items: CreateItems(1, 1),
             prices: prices,
             productCads: productCads,
             itemCads: itemCads
@@ -28,7 +29,8 @@ public class PurchasedCartSetShipmentIdUnitTests : PurchasedCartsBaseUnitTests
         Assert.Throws<CustomValidationException<PurchasedCart>>(() =>
         {
             CreateCartWithItems(
-                cart: CreateCartWithItems(2, 0),
+                buyerId: ValidBuyerId1,
+                items: CreateItems(2, 0),
                 prices: prices,
                 productCads: productCads,
                 itemCads: itemCads
@@ -36,20 +38,21 @@ public class PurchasedCartSetShipmentIdUnitTests : PurchasedCartsBaseUnitTests
         });
     }
 
-    private static ActiveCart CreateCartWithItems(int noDeliveryCount, int forDeliveryCount)
+    private static ActiveCartItem[] CreateItems(int noDeliveryCount, int forDeliveryCount)
     {
-        ActiveCart cart = ActiveCart.Create(ValidBuyerId1);
+        List<ActiveCartItem> items = [];
+
         for (int i = 0; i < noDeliveryCount; i++)
         {
-            cart.AddItem(CartItemsData.ValidProductId1);
-            cart.AddItem(CartItemsData.ValidProductId2);
+            items.Add(ActiveCartItem.Create(CartItemsData.ValidProductId1, ValidBuyerId1));
+            items.Add(ActiveCartItem.Create(CartItemsData.ValidProductId2, ValidBuyerId1));
         }
         for (int i = 0; i < forDeliveryCount; i++)
         {
-            cart.AddItem(CartItemsData.ValidProductId1, CartItemsData.ValidCustomizationId1);
-            cart.AddItem(CartItemsData.ValidProductId2, CartItemsData.ValidCustomizationId1);
+            items.Add(ActiveCartItem.Create(CartItemsData.ValidProductId1, ValidBuyerId1, CartItemsData.ValidCustomizationId1));
+            items.Add(ActiveCartItem.Create(CartItemsData.ValidProductId2, ValidBuyerId1, CartItemsData.ValidCustomizationId1));
         }
 
-        return cart;
+        return [.. items];
     }
 }

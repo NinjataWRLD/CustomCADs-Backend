@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetImageUrl.Get;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Get;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.PresignedUrls.Image;
 
@@ -10,17 +10,18 @@ public sealed class GetProductGetPresignedImageUrlEndpoint(IRequestSender sender
         Post("presignedUrls/download/image");
         Group<CreatorGroup>();
         Description(d => d
-            .WithSummary("11. Download Image")
+            .WithSummary("Download Image")
             .WithDescription("Download an Product's Image")
         );
     }
 
     public override async Task HandleAsync(GetProductGetPresignedImageUrlRequest req, CancellationToken ct)
     {
-        GetProductImagePresignedUrlGetQuery query = new(
-            Id: ProductId.New(req.Id)
+        CreatorGetProductImagePresignedUrlGetQuery query = new(
+            Id: ProductId.New(req.Id),
+            CreatorId: User.GetAccountId()
         );
-        GetProductImagePresignedUrlGetDto imageDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        CreatorGetProductImagePresignedUrlGetDto imageDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         GetProductGetPresignedImageUrlResponse response = new(imageDto.PresignedUrl);
         await SendOkAsync(response).ConfigureAwait(false);

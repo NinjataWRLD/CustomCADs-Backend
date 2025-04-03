@@ -6,7 +6,7 @@ resource "aws_security_group" "customcads_db_security_group" {
 
   ingress = [
     {
-      description      = "Allow SQL Server access from VPC"
+      description      = "Allow PostgreSQL access from VPC"
       protocol         = "tcp"
       cidr_blocks      = [aws_vpc.customcads_vpc.cidr_block]
       to_port          = 5432

@@ -9,6 +9,7 @@ public class Configurations : IEntityTypeConfiguration<ProductTag>
     {
         builder
             .SetPrimaryKey()
+            .SetForeignKeys()
             .SetStronglyTypedIds();
     }
 }

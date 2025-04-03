@@ -8,6 +8,7 @@ public record PurchasedCartItemDto(
     bool ForDelivery,
     decimal Price,
     decimal Cost,
+    DateTimeOffset AddedAt,
     ProductId ProductId,
     PurchasedCartId CartId,
     CustomizationId? CustomizationId

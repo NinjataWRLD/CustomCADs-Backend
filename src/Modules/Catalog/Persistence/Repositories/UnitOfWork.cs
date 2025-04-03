@@ -20,4 +20,12 @@ public class UnitOfWork(CatalogContext context) : IUnitOfWork
             throw DatabaseException.Custom(ex.Message);
         }
     }
+
+    public async Task ClearProductTagsAsync(ProductId[] ids, string tag, CancellationToken ct = default)
+        => await context.ProductTags
+            .Include(x => x.Tag)
+            .Where(x => ids.Contains(x.ProductId))
+            .Where(x => x.Tag.Name == tag)
+            .ExecuteDeleteAsync(ct)
+            .ConfigureAwait(false);
 }

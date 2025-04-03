@@ -18,7 +18,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Accounts")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -144,7 +144,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Can buy Products from the Gallery as Cart Items; Can make Orders to our Designers and contact them; Can download purchased CADs and track requested Shipments.",
+                            Description = "Can buy Products from the Gallery as Cart Items; Can request Customs from our Designers and contact them; Can download purchased CADs and track requested Shipments.",
                             Name = "Client"
                         },
                         new
@@ -156,13 +156,13 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            Description = "Can accept and work on Clients' Orders; Can validate or report Contributors' Products; Can do everything a Contributor can do.",
+                            Description = "Can accept and work on Clients' Customs; Can validate or report Contributors' Products; Can do everything a Contributor can do.",
                             Name = "Designer"
                         },
                         new
                         {
                             Id = 4,
-                            Description = "Can access all non-sensitive info from all resources; Can ban reported resources - Orders, Products, Users, ...; Can modify Categories and Roles.",
+                            Description = "Can access all non-sensitive info from all resources; Can ban reported resources - Customs, Products, Users, ...; Can modify Categories and Roles.",
                             Name = "Administrator"
                         });
                 });

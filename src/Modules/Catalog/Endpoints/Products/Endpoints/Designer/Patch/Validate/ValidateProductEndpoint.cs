@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.SetStatus;
+﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Designer.SetStatus;
 using CustomCADs.Catalog.Domain.Products.Enums;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Patch.Validate;

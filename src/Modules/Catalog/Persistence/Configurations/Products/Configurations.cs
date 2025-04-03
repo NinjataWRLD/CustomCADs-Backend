@@ -9,7 +9,6 @@ public class Configurations : IEntityTypeConfiguration<Product>
     {
         builder
             .SetPrimaryKey()
-            .SetNavigations()
             .SetStronglyTypedIds()
             .SetValueObjects()
             .SetValidations();

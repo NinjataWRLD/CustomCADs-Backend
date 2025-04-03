@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetAll;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetAll;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
@@ -19,18 +19,18 @@ public sealed class GetProductsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductsRequest req, CancellationToken ct)
     {
-        GetAllProductsQuery query = new(
+        CreatorGetAllProductsQuery query = new(
             CreatorId: User.GetAccountId(),
             CategoryId: CategoryId.New(req.CategoryId),
             Name: req.Name,
             Sorting: new(req.SortingType.ToBase(), req.SortingDirection),
             Pagination: new(req.Page, req.Limit)
         );
-        Result<GetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<CreatorGetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         Result<GetProductsResponse> response = new(
             Count: result.Count,
-            Items: [.. result.Items.Select(p => p.ToCreatorGetAllResponse())]
+            Items: [.. result.Items.Select(p => p.ToResponse())]
         );
         await SendOkAsync(response).ConfigureAwait(false);
     }

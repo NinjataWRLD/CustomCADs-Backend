@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Endpoints.Products.Dtos;
-
-namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Get.Single;
+﻿namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Get.Single;
 
 public sealed record DesignerSingleProductResponse(
     Guid Id,

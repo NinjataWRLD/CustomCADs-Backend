@@ -33,6 +33,7 @@ internal static class Mapper
             ForDelivery: item.ForDelivery,
             Price: item.Price,
             Cost: item.Cost,
+            AddedAt: item.AddedAt.ToString(DateFormatString),
             ProductId: item.ProductId.Value,
             CartId: item.CartId.Value,
             CustomizationId: item.CustomizationId?.Value

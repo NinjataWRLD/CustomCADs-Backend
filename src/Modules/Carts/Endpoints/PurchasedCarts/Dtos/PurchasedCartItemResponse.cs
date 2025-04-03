@@ -5,6 +5,7 @@ public sealed record PurchasedCartItemResponse(
     bool ForDelivery,
     decimal Price,
     decimal Cost,
+    string AddedAt,
     Guid ProductId,
     Guid CartId,
     Guid? CustomizationId

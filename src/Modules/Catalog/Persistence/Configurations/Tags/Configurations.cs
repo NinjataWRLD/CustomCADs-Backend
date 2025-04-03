@@ -9,7 +9,6 @@ public class Configurations : IEntityTypeConfiguration<Tag>
     {
         builder
             .SetPrimaryKey()
-            .SetNavigations()
             .SetStronglyTypedIds()
             .SetValidations()
             .SetSeeding();

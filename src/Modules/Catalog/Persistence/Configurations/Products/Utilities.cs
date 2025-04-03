@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Catalog.Domain.Products;
-using CustomCADs.Catalog.Persistence.ShadowEntities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
@@ -14,15 +13,6 @@ static class Utilities
     public static EntityTypeBuilder<Product> SetPrimaryKey(this EntityTypeBuilder<Product> builder)
     {
         builder.HasKey(x => x.Id);
-
-        return builder;
-    }
-
-    public static EntityTypeBuilder<Product> SetNavigations(this EntityTypeBuilder<Product> builder)
-    {
-        builder.HasMany<ProductTag>()
-               .WithOne()
-               .HasForeignKey(pt => pt.ProductId);
 
         return builder;
     }
@@ -61,8 +51,8 @@ static class Utilities
             );
 
         builder.Property(x => x.DesignerId)
-            .HasConversion<Guid?>(
-                x => x == null ? null : x.Value.Value,
+            .HasConversion(
+                x => AccountId.Unwrap(x),
                 v => AccountId.New(v)
             );
 

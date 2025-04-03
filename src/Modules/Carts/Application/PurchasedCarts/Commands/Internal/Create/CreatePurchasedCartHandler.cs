@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Application.ActiveCarts;
-using CustomCADs.Carts.Domain.Repositories;
+﻿using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
@@ -38,7 +37,15 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
                 CadId productCadId = productCads[item.ProductId];
                 CadId itemCadId = itemCads[productCadId];
 
-                return (price, itemCadId, item.ToEntity());
+                return (
+                    Price: price,
+                    CadId: itemCadId,
+                    ProductId: item.ProductId,
+                    ForDelivery: item.ForDelivery,
+                    CustomizationId: item.CustomizationId,
+                    Quantity: item.Quantity,
+                    AddedAt: item.AddedAt
+                );
             })]
         );
 

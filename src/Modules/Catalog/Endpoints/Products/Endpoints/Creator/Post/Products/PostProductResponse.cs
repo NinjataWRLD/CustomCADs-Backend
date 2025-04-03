@@ -1,6 +1,4 @@
-﻿using CustomCADs.Catalog.Endpoints.Products.Dtos;
-
-namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Post.Products;
+﻿namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Post.Products;
 
 public sealed record PostProductResponse(
     Guid Id,

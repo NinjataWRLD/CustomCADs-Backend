@@ -1,4 +1,4 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetCadUrl.Get;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Get;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.PresignedUrls.Cad;
 
@@ -17,10 +17,11 @@ public sealed class GetProductGetPresignedCadUrlEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductGetPresignedCadUrlRequest req, CancellationToken ct)
     {
-        GetProductCadPresignedUrlGetQuery query = new(
-            Id: ProductId.New(req.Id)
+        CreatorGetProductCadPresignedUrlGetQuery query = new(
+            Id: ProductId.New(req.Id),
+            CreatorId: User.GetAccountId()
         );
-        GetProductCadPresignedUrlGetDto cadDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        CreatorGetProductCadPresignedUrlGetDto cadDto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
         GetProductGetPresignedCadUrlResponse response = new(cadDto.PresignedUrl);
         await SendOkAsync(response).ConfigureAwait(false);

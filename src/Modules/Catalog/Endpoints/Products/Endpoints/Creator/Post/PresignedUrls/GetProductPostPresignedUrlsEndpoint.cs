@@ -1,5 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetCadUrl.Post;
-using CustomCADs.Catalog.Application.Products.Queries.Internal.Shared.GetImageUrl.Post;
+﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
+using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Post;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Post.PresignedUrls;
 
@@ -18,14 +18,14 @@ public sealed class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductPostPresignedUrlsRequest req, CancellationToken ct)
     {
-        GetProductImagePresignedUrlPostQuery imageQuery = new(
+        CreatorGetProductImagePresignedUrlPostQuery imageQuery = new(
             ProductName: req.ProductName,
             ContentType: req.ImageContentType,
             FileName: req.ImageFileName
         );
         var imageDto = await sender.SendQueryAsync(imageQuery, ct).ConfigureAwait(false);
 
-        GetProductCadPresignedUrlPostQuery cadQuery = new(
+        CreatorGetProductCadPresignedUrlPostQuery cadQuery = new(
             ProductName: req.ProductName,
             ContentType: req.CadContentType,
             FileName: req.CadFileName

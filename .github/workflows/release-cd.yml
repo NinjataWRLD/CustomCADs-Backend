@@ -6,7 +6,11 @@ on:
     branches: release/*
 
 jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
   deliver:
+    needs: ci
     uses: ./.github/workflows/staging-delivery.yml
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}

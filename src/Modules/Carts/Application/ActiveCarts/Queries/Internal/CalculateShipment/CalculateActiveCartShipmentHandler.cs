@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.ActiveCarts.Entities;
-using CustomCADs.Carts.Domain.Repositories.Reads;
+﻿using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -13,25 +12,24 @@ public class CalculateActiveCartShipmentHandler(IActiveCartReads reads, IRequest
 {
     public async Task<CalculateShipmentDto[]> Handle(CalculateActiveCartShipmentQuery req, CancellationToken ct)
     {
-        ActiveCart cart = await reads.SingleByBuyerIdAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<ActiveCart>.ById(req.BuyerId);
+        ActiveCartItem[] items = await reads.AllAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false);
 
-        if (!cart.HasDelivery)
+        if (!items.Any(x => x.ForDelivery))
             throw CustomException.Delivery<ActiveCartItem>(markedForDelivery: false);
 
         GetCustomizationsWeightByIdsQuery weightsQuery = new(
-            Ids: [.. cart.Items
+            Ids: [.. items
                     .Where(i => i.ForDelivery && i.CustomizationId is not null)
                     .Select(i => i.CustomizationId!.Value)
             ]
         );
         var weights = await sender.SendQueryAsync(weightsQuery, ct).ConfigureAwait(false);
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(cart.BuyerId);
+        GetTimeZoneByIdQuery timeZoneQuery = new(req.BuyerId);
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
 
         CalculateShipmentQuery query = new(
-            ParcelCount: cart.TotalDeliveryCount,
+            ParcelCount: items.Count(x => x.ForDelivery),
             TotalWeight: weights.Sum(x => x.Value),
             TimeZone: timeZone,
             Address: req.Address
