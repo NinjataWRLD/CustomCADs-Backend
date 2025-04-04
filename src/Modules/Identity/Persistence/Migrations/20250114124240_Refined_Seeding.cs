@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace CustomCADs.Identity.Infrastructure.Migrations;
+namespace CustomCADs.Identity.Persistence.Migrations;
 
 /// <inheritdoc />
 public partial class Refined_Seeding : Migration

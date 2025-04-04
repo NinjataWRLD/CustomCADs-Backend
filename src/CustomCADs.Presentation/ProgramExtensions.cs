@@ -9,7 +9,7 @@ using CustomCADs.Files.Application;
 using CustomCADs.Identity.Application;
 using CustomCADs.Identity.Application.Common.Dtos;
 using CustomCADs.Identity.Domain.Entities;
-using CustomCADs.Identity.Infrastructure;
+using CustomCADs.Identity.Persistence;
 using CustomCADs.Presentation;
 using CustomCADs.Shared.Abstractions.Requests.Middleware;
 using CustomCADs.Shared.Abstractions.Requests.Sender;

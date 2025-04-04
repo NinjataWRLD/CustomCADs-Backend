@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Identity.Infrastructure;
+namespace CustomCADs.Identity.Persistence;
 
 public class IdentityContext(DbContextOptions<IdentityContext> opt) : IdentityDbContext<AppUser, AppRole, Guid>(opt)
 {
@@ -10,6 +10,6 @@ public class IdentityContext(DbContextOptions<IdentityContext> opt) : IdentityDb
     {
         base.OnModelCreating(builder);
         builder.HasDefaultSchema("Identity");
-        builder.ApplyConfigurationsFromAssembly(IdentityInfrastructureReference.Assembly);
+        builder.ApplyConfigurationsFromAssembly(IdentityPersistenceReference.Assembly);
     }
 }

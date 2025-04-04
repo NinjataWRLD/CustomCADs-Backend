@@ -29,11 +29,14 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
         );
         AccountId accountId = await sender.SendCommandAsync(command).ConfigureAwait(false);
 
-        await repository.AddAsync(
+        bool success = await repository.AddAsync(
             role: dto.Role,
             user: new(dto.Username, dto.Email, accountId),
             password: dto.Password
         ).ConfigureAwait(false);
+
+        if (!success)
+            throw UserCreationException.ByUsername(dto.Username);
     }
 
     public async Task SendVerificationEmailAsync(string username, Func<string, string> getUri)
@@ -93,7 +96,9 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
         AppUser? user = await repository.GetByEmailAsync(email).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByEmail(email);
 
-        await repository.ResetPasswordAsync(user, token, newPassword).ConfigureAwait(false);
+        bool succeess = await repository.ResetPasswordAsync(user, token, newPassword).ConfigureAwait(false);
+        if (!succeess)
+            throw UserPasswordException.ResetFailure(user.UserName ?? string.Empty);
     }
 
     public async Task<AccessTokenDto> RefreshAsync(string? rt)

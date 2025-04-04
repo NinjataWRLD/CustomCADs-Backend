@@ -1,10 +1,9 @@
-﻿using CustomCADs.Identity.Application.Common.Exceptions;
-using CustomCADs.Identity.Domain.Entities;
+﻿using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Identity.Infrastructure.Repositories;
+namespace CustomCADs.Identity.Persistence.Repositories;
 
 public class AppUserRepository(IdentityContext context, UserManager<AppUser> manager) : IUserRepository
 {
@@ -29,19 +28,11 @@ public class AppUserRepository(IdentityContext context, UserManager<AppUser> man
     public async Task<bool> GetIsLockedOutAsync(AppUser user)
         => await manager.IsLockedOutAsync(user).ConfigureAwait(false);
 
-    public async Task AddAsync(string role, AppUser user, string password)
+    public async Task<bool> AddAsync(string role, AppUser user, string password)
     {
-        var result = await manager.CreateAsync(user, password).ConfigureAwait(false);
-        if (!result.Succeeded)
-        {
-            throw UserCreationException.ByUsername(user.UserName ?? string.Empty);
-        }
-
-        IdentityResult roleResult = await manager.AddToRoleAsync(user, role).ConfigureAwait(false);
-        if (!roleResult.Succeeded)
-        {
-            throw UserCreationException.WithRole(user.UserName ?? string.Empty, role);
-        }
+        var userResult = await manager.CreateAsync(user, password).ConfigureAwait(false);
+        var roleResult = await manager.AddToRoleAsync(user, role).ConfigureAwait(false);
+        return userResult.Succeeded && roleResult.Succeeded;
     }
     
     public async Task<string> GenerateEmailConfirmationTokenAsync(AppUser user)
@@ -56,13 +47,10 @@ public class AppUserRepository(IdentityContext context, UserManager<AppUser> man
     public async Task<string> GeneratePasswordResetTokenAsync(AppUser user)
         => await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
 
-    public async Task ResetPasswordAsync(AppUser user, string token, string newPassword)
+    public async Task<bool> ResetPasswordAsync(AppUser user, string token, string newPassword)
     {
         var result = await manager.ResetPasswordAsync(user, token, newPassword).ConfigureAwait(false);
-        if (!result.Succeeded)
-        {
-            throw UserPasswordException.ResetFailure(user.UserName ?? string.Empty);
-        }
+        return !result.Succeeded;
     }
 
     public async Task<bool> CheckPasswordAsync(AppUser user, string password)

@@ -2,7 +2,7 @@
 using CustomCADs.Identity.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Identity.Infrastructure.Repositories;
+namespace CustomCADs.Identity.Persistence.Repositories;
 
 public class AppRoleRepoistory(IdentityContext context) : IRoleRepository
 {

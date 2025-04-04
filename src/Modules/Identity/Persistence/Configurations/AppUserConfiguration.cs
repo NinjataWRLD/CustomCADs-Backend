@@ -4,7 +4,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CustomCADs.Identity.Infrastructure.Configurations;
+namespace CustomCADs.Identity.Persistence.Configurations;
 
 using static Constants.Users;
 

@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Identity.Domain.Repositories;
-using CustomCADs.Identity.Infrastructure;
-using CustomCADs.Identity.Infrastructure.Repositories;
+using CustomCADs.Identity.Persistence;
+using CustomCADs.Identity.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

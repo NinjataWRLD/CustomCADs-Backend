@@ -10,11 +10,11 @@ public interface IUserRepository
     Task<AppUser?> GetByRefreshTokenAsync(string token);
     Task<string> GetRoleAsync(AppUser user);
     Task<bool> GetIsLockedOutAsync(AppUser user);
-    Task AddAsync(string role, AppUser user, string password);
+    Task<bool> AddAsync(string role, AppUser user, string password);
     Task<string> GenerateEmailConfirmationTokenAsync(AppUser user);
     Task<bool> ConfirmEmailAsync(AppUser user, string token);
     Task<string> GeneratePasswordResetTokenAsync(AppUser user);
-    Task ResetPasswordAsync(AppUser user, string token, string newPassword);
+    Task<bool> ResetPasswordAsync(AppUser user, string token, string newPassword);
     Task<bool> CheckPasswordAsync(AppUser user, string password);
     void Remove(AppUser user);
     Task SaveChangesAsync();

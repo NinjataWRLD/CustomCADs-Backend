@@ -92,7 +92,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Identity.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Identity.Application", "src\Modules\Identity\Application\CustomCADs.Identity.Application.csproj", "{5580B332-229C-4C4A-88BF-506E5A7653FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Identity.Infrastructure", "src\Modules\Identity\Infrastructure\CustomCADs.Identity.Infrastructure.csproj", "{9CBDDB42-343E-4DE4-AB4D-450FEC9458E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Identity.Persistence", "src\Modules\Identity\Persistence\CustomCADs.Identity.Persistence.csproj", "{9CBDDB42-343E-4DE4-AB4D-450FEC9458E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Identity.Endpoints", "src\Modules\Identity\Endpoints\CustomCADs.Identity.Endpoints.csproj", "{63B548BD-A6B8-467C-B823-A1E8FB87DBA0}"
 EndProject
