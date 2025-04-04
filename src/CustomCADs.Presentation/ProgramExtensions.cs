@@ -7,9 +7,9 @@ using CustomCADs.Customs.Application;
 using CustomCADs.Delivery.Application;
 using CustomCADs.Files.Application;
 using CustomCADs.Identity.Application;
+using CustomCADs.Identity.Application.Common.Dtos;
 using CustomCADs.Identity.Domain.Entities;
 using CustomCADs.Identity.Infrastructure;
-using CustomCADs.Identity.Infrastructure.Dtos;
 using CustomCADs.Presentation;
 using CustomCADs.Shared.Abstractions.Requests.Middleware;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -144,7 +144,7 @@ public static class ProgramExtensions
             .AddCustomsPersistence(config)
             .AddDeliveryPersistence(config)
             .AddFilesPersistence(config)
-            .AddIdentityInfrastructure(config);
+            .AddIdentityPersistence(config);
 
     public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration config)
         => services

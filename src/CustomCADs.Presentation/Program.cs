@@ -8,6 +8,7 @@ builder.Services.AddAuthN().AddJwt(builder.Configuration);
 builder.Services.AddAuthZ([Client, Contributor, Designer, Admin]);
 
 // Use Cases
+builder.Services.AddIdentityApplication(builder.Configuration);
 builder.Services.AddUseCases();
 builder.Services.AddCacheService();
 builder.Services.AddRaiserService();

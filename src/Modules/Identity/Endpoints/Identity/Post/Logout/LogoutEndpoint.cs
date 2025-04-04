@@ -16,7 +16,10 @@ public sealed class LogoutEndpoint(IUserService service)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await service.RevokeRefreshTokenAsync(User.GetName()).ConfigureAwait(false);
+        await service.LogoutAsync(
+            username: User.GetName()
+        ).ConfigureAwait(false);
+
         HttpContext.DeleteAllCookies();
     }
 }

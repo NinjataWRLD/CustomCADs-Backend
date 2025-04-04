@@ -18,22 +18,26 @@ public sealed class RegisterEndpoint(IUserService service, LinkGenerator links)
 
     public override async Task HandleAsync(RegisterRequest req, CancellationToken ct)
     {
-        CreateUserDto dto = new(
-            Role: req.Role,
-            Username: req.Username,
-            Email: req.Email,
-            TimeZone: req.TimeZone,
-            Password: req.Password,
-            FirstName: req.FirstName,
-            LastName: req.LastName
-        );
-        await service.CreateAsync(dto).ConfigureAwait(false);
+        await service.RegisterAsync(
+            dto: new(
+                Role: req.Role,
+                Username: req.Username,
+                Email: req.Email,
+                Password: req.Password
+            ),
+            timeZone: req.TimeZone,
+            firstName: req.FirstName,
+            lastName: req.LastName
+        ).ConfigureAwait(false);
 
-        string token = await service.GenerateEmailConfirmationTokenAsync(req.Username).ConfigureAwait(false);
-        string uri = links.GetUriByName(HttpContext, IdentityNames.ConfirmEmail, new { username = req.Username, token })
-            ?? throw new InvalidOperationException("Unable to generate confirmation link.");
-
-        await service.SendVerificationEmailAsync(req.Username, uri).ConfigureAwait(false);
+        await service.SendVerificationEmailAsync(
+            username: req.Username,
+            getUri: ect => links.GetUriByName(
+                httpContext: HttpContext,
+                endpointName: IdentityNames.ConfirmEmail,
+                values: new { username = req.Username, token = ect }
+            ) ?? throw new InvalidOperationException("Unable to generate confirmation link.")
+        ).ConfigureAwait(false);
 
         await SendOkAsync("Welcome!").ConfigureAwait(false);
     }

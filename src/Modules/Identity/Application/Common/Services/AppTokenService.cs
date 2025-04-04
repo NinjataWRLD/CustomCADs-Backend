@@ -1,7 +1,5 @@
-﻿using CustomCADs.Identity.Application.Common.Contracts;
-using CustomCADs.Identity.Application.Common.Dtos;
+﻿using CustomCADs.Identity.Application.Common.Dtos;
 using CustomCADs.Identity.Domain;
-using CustomCADs.Identity.Infrastructure.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -10,7 +8,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CustomCADs.Identity.Infrastructure.Services;
+namespace CustomCADs.Identity.Application.Common.Services;
 
 using static AccountConstants;
 

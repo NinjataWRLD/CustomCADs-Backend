@@ -16,10 +16,11 @@ public sealed class ResetPasswordEndpoint(IUserService service)
 
     public override async Task HandleAsync(ResetPasswordRequest req, CancellationToken ct)
     {
-        AppUser user = await service.FindByEmailAsync(req.Email).ConfigureAwait(false);
-
-        string encodedToken = req.Token.Replace(' ', '+');
-        await service.ResetPasswordAsync(user, encodedToken, req.NewPassword).ConfigureAwait(false);
+        await service.ResetPasswordAsync(
+            email: req.Email,
+            token: req.Token.Replace(' ', '+'),
+            newPassword: req.NewPassword
+        ).ConfigureAwait(false);
 
         await SendOkAsync("Done!").ConfigureAwait(false);
     }

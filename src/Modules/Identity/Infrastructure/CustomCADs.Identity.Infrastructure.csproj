@@ -12,7 +12,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Application\CustomCADs.Identity.Application.csproj" />
-		<ProjectReference Include="..\..\..\Shared\UseCases\CustomCADs.Shared.UseCases.csproj" />
 	</ItemGroup>
 
 </Project>

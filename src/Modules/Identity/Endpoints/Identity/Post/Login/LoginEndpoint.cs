@@ -22,7 +22,7 @@ public sealed class LoginEndpoint(IUserService userService)
             Password: req.Password,
             LongerExpireTime: req.RememberMe ?? false
         );
-        LoginDto dto = await userService.LoginAsync(command).ConfigureAwait(false);
+        TokensDto dto = await userService.LoginAsync(command).ConfigureAwait(false);
 
         HttpContext.SaveAccessTokenCookie(dto.AccessToken.Value, dto.AccessToken.EndDate);
         HttpContext.SaveRefreshTokenCookie(dto.RefreshToken.Value, dto.RefreshToken.EndDate);

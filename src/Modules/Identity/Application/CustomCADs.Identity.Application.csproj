@@ -15,6 +15,7 @@
 		<ProjectReference Include="..\Domain\CustomCADs.Identity.Domain.csproj" />
 		<ProjectReference Include="..\..\..\Shared\Abstractions\CustomCADs.Shared.Abstractions.csproj" />
 		<ProjectReference Include="..\..\..\Shared\ApplicationEvents\CustomCADs.Shared.ApplicationEvents.csproj" />
+		<ProjectReference Include="..\..\..\Shared\UseCases\CustomCADs.Shared.UseCases.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Identity.Infrastructure.Dtos;
+﻿namespace CustomCADs.Identity.Application.Common.Dtos;
 
 public record ClientUrlSettings(string All, string Preferred)
 {

@@ -1,7 +1,6 @@
-﻿using CustomCADs.Identity.Application.Common.Contracts;
+﻿using CustomCADs.Identity.Domain.Repositories;
 using CustomCADs.Identity.Infrastructure;
-using CustomCADs.Identity.Infrastructure.Dtos;
-using CustomCADs.Identity.Infrastructure.Services;
+using CustomCADs.Identity.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -18,10 +17,10 @@ public static class DependencyInjection
         return provider;
     }
 
-    public static IServiceCollection AddIdentityInfrastructure(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddIdentityPersistence(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)
-            .AddServices(config);
+            .AddRepositories();
 
 
     private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
@@ -39,13 +38,10 @@ public static class DependencyInjection
     }
 
 
-    private static IServiceCollection AddServices(this IServiceCollection services, IConfiguration config)
+    private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IUserService, AppUserService>();
-        services.AddScoped<IRoleService, AppRoleService>();
-
-        services.Configure<JwtSettings>(config.GetSection("JwtOptions"));
-        services.AddScoped<ITokenService, AppTokenService>();
+        services.AddScoped<IUserRepository, AppUserRepository>();
+        services.AddScoped<IRoleRepository, AppRoleRepoistory>();
 
         return services;
     }
