@@ -1,6 +1,6 @@
-﻿using CustomCADs.Identity.Domain.Repositories;
+﻿using CustomCADs.Identity.Domain.Managers;
 using CustomCADs.Identity.Persistence;
-using CustomCADs.Identity.Persistence.Repositories;
+using CustomCADs.Identity.Persistence.Managers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -20,7 +20,7 @@ public static class DependencyInjection
     public static IServiceCollection AddIdentityPersistence(this IServiceCollection services, IConfiguration config)
         => services
             .AddContext(config)
-            .AddRepositories();
+            .AddManagers();
 
 
     private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
@@ -38,10 +38,10 @@ public static class DependencyInjection
     }
 
 
-    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    private static IServiceCollection AddManagers(this IServiceCollection services)
     {
-        services.AddScoped<IUserRepository, AppUserRepository>();
-        services.AddScoped<IRoleRepository, AppRoleRepoistory>();
+        services.AddScoped<IUserManager, AppUserManager>();
+        services.AddScoped<IRoleManager, AppRoleManager>();
 
         return services;
     }

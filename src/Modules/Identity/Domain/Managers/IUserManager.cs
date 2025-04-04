@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Identity.Domain.Entities;
 
-namespace CustomCADs.Identity.Domain.Repositories;
+namespace CustomCADs.Identity.Domain.Managers;
 
-public interface IUserRepository
+public interface IUserManager
 {
     Task<AppUser?> GetByIdAsync(Guid id);
     Task<AppUser?> GetByUsernameAsync(string username);
@@ -16,6 +16,6 @@ public interface IUserRepository
     Task<string> GeneratePasswordResetTokenAsync(AppUser user);
     Task<bool> ResetPasswordAsync(AppUser user, string token, string newPassword);
     Task<bool> CheckPasswordAsync(AppUser user, string password);
-    void Remove(AppUser user);
-    Task SaveChangesAsync();
+    Task UpdateAsync(AppUser user);
+    Task DeleteAsync(AppUser user);
 }

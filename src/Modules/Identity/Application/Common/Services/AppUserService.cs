@@ -2,7 +2,7 @@
 using CustomCADs.Identity.Application.Common.Exceptions;
 using CustomCADs.Identity.Domain;
 using CustomCADs.Identity.Domain.DomainEvents.Email;
-using CustomCADs.Identity.Domain.Repositories;
+using CustomCADs.Identity.Domain.Managers;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
@@ -13,7 +13,7 @@ namespace CustomCADs.Identity.Application.Common.Services;
 
 using static AccountConstants;
 
-public sealed class AppUserService(IUserRepository repository, ITokenService tokenService, IEventRaiser raiser, IRequestSender sender, IOptions<ClientUrlSettings> settings) : IUserService
+public sealed class AppUserService(IUserManager manager, ITokenService tokenService, IEventRaiser raiser, IRequestSender sender, IOptions<ClientUrlSettings> settings) : IUserService
 {
     private readonly string clientUrl = settings.Value.Preferred;
 
@@ -29,7 +29,7 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
         );
         AccountId accountId = await sender.SendCommandAsync(command).ConfigureAwait(false);
 
-        bool success = await repository.AddAsync(
+        bool success = await manager.AddAsync(
             role: dto.Role,
             user: new(dto.Username, dto.Email, accountId),
             password: dto.Password
@@ -41,10 +41,10 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
 
     public async Task SendVerificationEmailAsync(string username, Func<string, string> getUri)
     {
-        AppUser user = await repository.GetByUsernameAsync(username).ConfigureAwait(false)
+        AppUser user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
 
-        string token = await repository.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+        string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
         await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
             Email: user.Email ?? string.Empty,
             Endpoint: getUri(token)
@@ -53,13 +53,13 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
 
     public async Task<TokensDto> ConfirmEmailAsync(string username, string token)
     {
-        AppUser? user = await repository.GetByUsernameAsync(username).ConfigureAwait(false)
+        AppUser? user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
 
         if (user.EmailConfirmed)
             throw UserRegisterException.AlreadyConfirmed(user.UserName ?? string.Empty);
 
-        bool success = await repository.ConfirmEmailAsync(user, token).ConfigureAwait(false);
+        bool success = await manager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
         if (!success)
             throw UserRegisterException.EmailToken(user.UserName ?? string.Empty);
 
@@ -68,7 +68,7 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
 
     public async Task<TokensDto> LoginAsync(LoginCommand req)
     {
-        AppUser user = await repository.GetByUsernameAsync(req.Username).ConfigureAwait(false)
+        AppUser user = await manager.GetByUsernameAsync(req.Username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(req.Username);
 
         EnsureEmailConfirmed(user);
@@ -80,10 +80,10 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
 
     public async Task SendResetPasswordEmailAsync(string email)
     {
-        AppUser user = await repository.GetByEmailAsync(email).ConfigureAwait(false)
+        AppUser user = await manager.GetByEmailAsync(email).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByEmail(email);
 
-        string token = await repository.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
+        string token = await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
 
         await raiser.RaiseDomainEventAsync(new PasswordResetRequestedDomainEvent(
             Email: email,
@@ -93,10 +93,10 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
 
     public async Task ResetPasswordAsync(string email, string token, string newPassword)
     {
-        AppUser? user = await repository.GetByEmailAsync(email).ConfigureAwait(false)
+        AppUser? user = await manager.GetByEmailAsync(email).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByEmail(email);
 
-        bool succeess = await repository.ResetPasswordAsync(user, token, newPassword).ConfigureAwait(false);
+        bool succeess = await manager.ResetPasswordAsync(user, token, newPassword).ConfigureAwait(false);
         if (!succeess)
             throw UserPasswordException.ResetFailure(user.UserName ?? string.Empty);
     }
@@ -108,7 +108,7 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
             throw UserRefreshTokenException.Missing();
         }
 
-        AppUser user = await repository.GetByRefreshTokenAsync(rt).ConfigureAwait(false)
+        AppUser user = await manager.GetByRefreshTokenAsync(rt).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByRefreshToken(rt);
 
         if (user.RefreshTokenEndDate < DateTime.UtcNow)
@@ -119,27 +119,27 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
         return tokenService.GenerateAccessToken(
             user.AccountId,
             user.UserName ?? string.Empty,
-            role: await repository.GetRoleAsync(user).ConfigureAwait(false)
+            role: await manager.GetRoleAsync(user).ConfigureAwait(false)
         );
     }
 
     public async Task LogoutAsync(string username)
     {
-        AppUser user = await repository.GetByUsernameAsync(username).ConfigureAwait(false)
+        AppUser user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
 
         user.RefreshToken = null;
         user.RefreshTokenEndDate = null;
 
-        await repository.SaveChangesAsync().ConfigureAwait(false);
+        await manager.UpdateAsync(user).ConfigureAwait(false);
     }
 
     private async Task<TokensDto> IssueTokens(string username, bool rememberMe)
     {
-        AppUser user = await repository.GetByUsernameAsync(username).ConfigureAwait(false)
+        AppUser user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
 
-        string role = await repository.GetRoleAsync(user).ConfigureAwait(false);
+        string role = await manager.GetRoleAsync(user).ConfigureAwait(false);
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, username, role);
         RefreshTokenDto rt = await UpdateRefreshTokenAsync(user.Id, longerSession: rememberMe).ConfigureAwait(false);
 
@@ -153,7 +153,7 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
 
     private async Task<RefreshTokenDto> UpdateRefreshTokenAsync(Guid id, bool longerSession)
     {
-        AppUser user = await repository.GetByIdAsync(id).ConfigureAwait(false)
+        AppUser user = await manager.GetByIdAsync(id).ConfigureAwait(false)
             ?? throw UserNotFoundException.ById(id);
 
         int days = longerSession ? LongerRtDurationInDays : RtDurationInDays;
@@ -163,7 +163,7 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
         user.RefreshToken = rtValue;
         user.RefreshTokenEndDate = rtEndDate;
 
-        await repository.SaveChangesAsync().ConfigureAwait(false);
+        await manager.UpdateAsync(user).ConfigureAwait(false);
         return new(rtValue, rtEndDate);
     }
 
@@ -177,7 +177,7 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
 
     private async Task EnsureNotLockedOutAsync(AppUser user)
     {
-        bool isLockedOut = await repository.GetIsLockedOutAsync(user).ConfigureAwait(false);
+        bool isLockedOut = await manager.GetIsLockedOutAsync(user).ConfigureAwait(false);
         if (isLockedOut && user.LockoutEnd.HasValue)
         {
             TimeSpan timeLeft = user.LockoutEnd.Value.Subtract(DateTimeOffset.UtcNow);
@@ -188,7 +188,7 @@ public sealed class AppUserService(IUserRepository repository, ITokenService tok
 
     private async Task EnsureValidPasswordAsync(AppUser user, string password)
     {
-        if (!await repository.CheckPasswordAsync(user, password).ConfigureAwait(false))
+        if (!await manager.CheckPasswordAsync(user, password).ConfigureAwait(false))
         {
             throw UserLoginException.ByUsername(user.UserName ?? string.Empty);
         }

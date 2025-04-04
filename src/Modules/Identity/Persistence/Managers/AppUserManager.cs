@@ -1,23 +1,23 @@
 ﻿using CustomCADs.Identity.Domain.Entities;
-using CustomCADs.Identity.Domain.Repositories;
+using CustomCADs.Identity.Domain.Managers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomCADs.Identity.Persistence.Repositories;
+namespace CustomCADs.Identity.Persistence.Managers;
 
-public class AppUserRepository(IdentityContext context, UserManager<AppUser> manager) : IUserRepository
+public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 {
     public async Task<AppUser?> GetByIdAsync(Guid id)
-        => await context.Users.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
+        => await manager.Users.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
 
     public async Task<AppUser?> GetByUsernameAsync(string username)
-        => await context.Users.FirstOrDefaultAsync(x => x.UserName == username).ConfigureAwait(false);
+        => await manager.Users.FirstOrDefaultAsync(x => x.UserName == username).ConfigureAwait(false);
 
     public async Task<AppUser?> GetByEmailAsync(string email)
-        => await context.Users.FirstOrDefaultAsync(u => u.Email == email).ConfigureAwait(false);
+        => await manager.Users.FirstOrDefaultAsync(u => u.Email == email).ConfigureAwait(false);
 
     public async Task<AppUser?> GetByRefreshTokenAsync(string token)
-        => await context.Users.FirstOrDefaultAsync(u => u.RefreshToken == token).ConfigureAwait(false);
+        => await manager.Users.FirstOrDefaultAsync(u => u.RefreshToken == token).ConfigureAwait(false);
 
     public async Task<string> GetRoleAsync(AppUser user)
     {
@@ -34,7 +34,7 @@ public class AppUserRepository(IdentityContext context, UserManager<AppUser> man
         var roleResult = await manager.AddToRoleAsync(user, role).ConfigureAwait(false);
         return userResult.Succeeded && roleResult.Succeeded;
     }
-    
+
     public async Task<string> GenerateEmailConfirmationTokenAsync(AppUser user)
         => await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
 
@@ -50,7 +50,7 @@ public class AppUserRepository(IdentityContext context, UserManager<AppUser> man
     public async Task<bool> ResetPasswordAsync(AppUser user, string token, string newPassword)
     {
         var result = await manager.ResetPasswordAsync(user, token, newPassword).ConfigureAwait(false);
-        return !result.Succeeded;
+        return result.Succeeded;
     }
 
     public async Task<bool> CheckPasswordAsync(AppUser user, string password)
@@ -65,9 +65,9 @@ public class AppUserRepository(IdentityContext context, UserManager<AppUser> man
         return success;
     }
 
-    public void Remove(AppUser user)
-        => context.Users.Remove(user);
+    public async Task UpdateAsync(AppUser user)
+        => await manager.UpdateAsync(user).ConfigureAwait(false);
 
-    public async Task SaveChangesAsync()
-        => await context.SaveChangesAsync().ConfigureAwait(false);
+    public async Task DeleteAsync(AppUser user)
+        => await manager.DeleteAsync(user).ConfigureAwait(false);
 }
