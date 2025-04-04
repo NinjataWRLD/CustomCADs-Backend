@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Catalog.Persistence.Migrations
 {
     [DbContext(typeof(CatalogContext))]
-    [Migration("20250329123122_Refactored_Tags_Seeding")]
-    partial class Refactored_Tags_Seeding
+    [Migration("20250404141855_Initial_Migration")]
+    partial class Initial_Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

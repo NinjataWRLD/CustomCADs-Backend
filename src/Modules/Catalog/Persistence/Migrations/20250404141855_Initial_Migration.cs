@@ -85,7 +85,7 @@ public partial class Initial_Migration : Migration
             columns: new[] { "Id", "Name" },
             values: new object[,]
             {
-                { new Guid("5957f822-77a3-4a72-964d-bf7740e994a5"), "Popular" },
+                { new Guid("38deab9b-8791-4147-9958-64e9f7ec6d78"), "Printable" },
                 { new Guid("6813c4b9-bcde-4f95-a1ce-8e545756c8a4"), "New" },
                 { new Guid("e67f88d5-330a-414d-b45d-32c6806725ab"), "Professional" }
             });
