@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Routing;
+﻿using CustomCADs.Identity.Application.Users.Commands.Internal.VerificationEmail;
+using Microsoft.AspNetCore.Routing;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Get.RetryVerifyEmail;
 
-public sealed class RetryConfirmEmailEndpoint(IUserService service, LinkGenerator links)
+public sealed class RetryConfirmEmailEndpoint(IRequestSender sender, LinkGenerator links)
     : Endpoint<RetryConfirmEmailRequest>
 {
     public override void Configure()
@@ -18,14 +19,14 @@ public sealed class RetryConfirmEmailEndpoint(IUserService service, LinkGenerato
 
     public override async Task HandleAsync(RetryConfirmEmailRequest req, CancellationToken ct)
     {
-        await service.SendVerificationEmailAsync(
-            username: req.Username,
-            getUri: ect => links.GetUriByName(
+        await sender.SendCommandAsync(command: new VerificationEmailCommand(
+            Username: req.Username,
+            GetUri: ect => links.GetUriByName(
                 httpContext: HttpContext,
                 endpointName: IdentityNames.ConfirmEmail,
                 values: new { username = req.Username, token = ect }
             ) ?? throw new InvalidOperationException("Unable to generate confirmation link.")
-        ).ConfigureAwait(false);
+        ), ct).ConfigureAwait(false);
 
         await SendOkAsync("Check your email.").ConfigureAwait(false);
     }

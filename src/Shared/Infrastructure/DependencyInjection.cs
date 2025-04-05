@@ -7,14 +7,15 @@ using CustomCADs.Shared.Abstractions.Email;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Storage;
+using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Infrastructure.Cache;
 using CustomCADs.Shared.Infrastructure.Delivery;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Events;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
+using CustomCADs.Shared.Infrastructure.Tokens;
 using Microsoft.Extensions.Options;
-using Stripe;
 using System.Reflection;
 using Wolverine;
 
@@ -34,6 +35,11 @@ public static class DependencyInjection
     {
         services.AddScoped<IEmailService, FluentEmailService>();
     }
+    
+    public static void AddTokensService(this IServiceCollection services)
+    {
+        services.AddScoped<ITokenService, TokenService>();
+    }
 
     public static void AddEventRaiser(this IServiceCollection services, params Assembly[] assemblies)
     {
@@ -49,7 +55,7 @@ public static class DependencyInjection
 
     public static void AddPaymentService(this IServiceCollection services)
     {
-        services.AddScoped<PaymentIntentService>();
+        services.AddScoped<Stripe.PaymentIntentService>();
         services.AddScoped<IPaymentService, StripeService>();
     }
 

@@ -1,6 +1,9 @@
-﻿namespace CustomCADs.Identity.Endpoints.Identity.Get.VerifyEmail;
+﻿using CustomCADs.Identity.Application.Users.Commands.Internal.VerifyEmail;
+using CustomCADs.Identity.Application.Users.Dtos;
 
-public sealed class ConfirmEmailEndpoint(IUserService service)
+namespace CustomCADs.Identity.Endpoints.Identity.Get.VerifyEmail;
+
+public sealed class ConfirmEmailEndpoint(IRequestSender sender)
     : Endpoint<ConfirmEmailRequest>
 {
     public override void Configure()
@@ -16,15 +19,15 @@ public sealed class ConfirmEmailEndpoint(IUserService service)
 
     public override async Task HandleAsync(ConfirmEmailRequest req, CancellationToken ct)
     {
-        TokensDto tokens = await service.ConfirmEmailAsync(
-            username: req.Username,
-            token: req.Token.Replace(' ', '+')
-        ).ConfigureAwait(false);
+        TokensDto tokens = await sender.SendCommandAsync(command: new VerifyUserEmailCommand(
+            Username: req.Username,
+            Token: req.Token.Replace(' ', '+')
+        ), ct).ConfigureAwait(false);
 
-        HttpContext.SaveAccessTokenCookie(tokens.AccessToken.Value, tokens.AccessToken.EndDate);
-        HttpContext.SaveRefreshTokenCookie(tokens.RefreshToken.Value, tokens.RefreshToken.EndDate);
-        HttpContext.SaveRoleCookie(tokens.Role, tokens.RefreshToken.EndDate);
-        HttpContext.SaveUsernameCookie(req.Username, tokens.RefreshToken.EndDate);
+        HttpContext.SaveAccessTokenCookie(tokens.AccessToken.Value, tokens.AccessToken.ExpiresAt);
+        HttpContext.SaveRefreshTokenCookie(tokens.RefreshToken.Value, tokens.RefreshToken.ExpiresAt);
+        HttpContext.SaveRoleCookie(tokens.Role, tokens.RefreshToken.ExpiresAt);
+        HttpContext.SaveUsernameCookie(req.Username, tokens.RefreshToken.ExpiresAt);
 
         await SendOkAsync("Welcome!").ConfigureAwait(false);
     }

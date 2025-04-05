@@ -1,6 +1,8 @@
-﻿namespace CustomCADs.Identity.Endpoints.Identity.Post.ResetPassword;
+﻿using CustomCADs.Identity.Application.Users.Commands.Internal.ResetPassword;
 
-public sealed class ResetPasswordEndpoint(IUserService service)
+namespace CustomCADs.Identity.Endpoints.Identity.Post.ResetPassword;
+
+public sealed class ResetPasswordEndpoint(IRequestSender sender)
     : Endpoint<ResetPasswordRequest>
 {
     public override void Configure()
@@ -16,11 +18,11 @@ public sealed class ResetPasswordEndpoint(IUserService service)
 
     public override async Task HandleAsync(ResetPasswordRequest req, CancellationToken ct)
     {
-        await service.ResetPasswordAsync(
-            email: req.Email,
-            token: req.Token.Replace(' ', '+'),
-            newPassword: req.NewPassword
-        ).ConfigureAwait(false);
+        await sender.SendCommandAsync(command: new ResetUserPasswordCommand(
+            Email: req.Email,
+            Token: req.Token.Replace(' ', '+'),
+            NewPassword: req.NewPassword
+        ), ct).ConfigureAwait(false);
 
         await SendOkAsync("Done!").ConfigureAwait(false);
     }

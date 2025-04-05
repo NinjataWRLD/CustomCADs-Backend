@@ -8,7 +8,6 @@ builder.Services.AddAuthN().AddJwt(builder.Configuration);
 builder.Services.AddAuthZ([Client, Contributor, Designer, Admin]);
 
 // Use Cases
-builder.Services.AddIdentityApplication(builder.Configuration);
 builder.Services.AddUseCases();
 builder.Services.AddCacheService();
 builder.Services.AddRaiserService();
@@ -16,13 +15,14 @@ builder.Services.AddBackgroundJobs();
 
 // External Services 
 builder.Services.AddEmailService(builder.Configuration);
+builder.Services.AddTokensService(builder.Configuration);
 builder.Services.AddPaymentService(builder.Configuration);
 builder.Services.AddDeliveryService(builder.Configuration);
 builder.Services.AddStorageService(builder.Configuration);
 
 // Modules
 builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddIdentity(builder.Configuration);
+builder.Services.AddIdentity();
 builder.Services.AddGlobalExceptionHandler();
 
 // Database Updater

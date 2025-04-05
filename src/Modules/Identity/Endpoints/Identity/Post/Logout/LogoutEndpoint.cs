@@ -1,6 +1,8 @@
-﻿namespace CustomCADs.Identity.Endpoints.Identity.Post.Logout;
+﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Logout;
 
-public sealed class LogoutEndpoint(IUserService service)
+namespace CustomCADs.Identity.Endpoints.Identity.Post.Logout;
+
+public sealed class LogoutEndpoint(IRequestSender sender)
     : EndpointWithoutRequest<string>
 {
     public override void Configure()
@@ -16,9 +18,9 @@ public sealed class LogoutEndpoint(IUserService service)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await service.LogoutAsync(
-            username: User.GetName()
-        ).ConfigureAwait(false);
+        await sender.SendCommandAsync(command: new LogoutUserCommand(
+            Username: User.GetName()
+        ), ct).ConfigureAwait(false);
 
         HttpContext.DeleteAllCookies();
     }

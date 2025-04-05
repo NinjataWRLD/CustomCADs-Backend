@@ -7,7 +7,7 @@ using CustomCADs.Customs.Application;
 using CustomCADs.Delivery.Application;
 using CustomCADs.Files.Application;
 using CustomCADs.Identity.Application;
-using CustomCADs.Identity.Application.Common.Dtos;
+using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Persistence;
 using CustomCADs.Identity.Persistence.ShadowEntities;
 using CustomCADs.Presentation;
@@ -17,6 +17,7 @@ using CustomCADs.Shared.Infrastructure.Delivery;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
+using CustomCADs.Shared.Infrastructure.Tokens;
 using FastEndpoints;
 using FluentValidation;
 using MediatR;
@@ -45,6 +46,7 @@ public static class ProgramExtensions
             CustomsApplicationReference.Assembly,
             DeliveryApplicationReference.Assembly,
             FilesApplicationReference.Assembly,
+            IdentityApplicationReference.Assembly,
         ];
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
@@ -74,6 +76,14 @@ public static class ProgramExtensions
     {
         services.Configure<EmailSettings>(config.GetSection("Email"));
         services.AddEmailService();
+
+        return services;
+    }
+    
+    public static IServiceCollection AddTokensService(this IServiceCollection services, IConfiguration config)
+    {
+        services.Configure<JwtSettings>(config.GetSection("JwtOptions"));
+        services.AddTokensService();
 
         return services;
     }
@@ -113,7 +123,7 @@ public static class ProgramExtensions
         });
     }
 
-    private static IServiceCollection AddIdentityConfigs(this IServiceCollection services)
+    public static IServiceCollection AddIdentity(this IServiceCollection services)
     {
         services.AddIdentity<AppUser, AppRole>(options =>
         {
@@ -145,11 +155,6 @@ public static class ProgramExtensions
             .AddDeliveryPersistence(config)
             .AddFilesPersistence(config)
             .AddIdentityPersistence(config);
-
-    public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddIdentityExceptionHandler()
-            .AddIdentityConfigs();
 
     public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
         => services.AddExceptionHandler<GlobalExceptionHandler>();

@@ -7,11 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.2" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.6.0" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Domain\CustomCADs.Identity.Domain.csproj" />
 		<ProjectReference Include="..\..\..\Shared\Abstractions\CustomCADs.Shared.Abstractions.csproj" />
 		<ProjectReference Include="..\..\..\Shared\ApplicationEvents\CustomCADs.Shared.ApplicationEvents.csproj" />

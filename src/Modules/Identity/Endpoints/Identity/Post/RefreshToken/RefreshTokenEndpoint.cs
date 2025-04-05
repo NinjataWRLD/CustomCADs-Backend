@@ -1,6 +1,9 @@
-﻿namespace CustomCADs.Identity.Endpoints.Identity.Post.RefreshToken;
+﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Refresh;
+using CustomCADs.Shared.Abstractions.Tokens;
 
-public sealed class RefreshTokenEndpoint(IUserService userService)
+namespace CustomCADs.Identity.Endpoints.Identity.Post.RefreshToken;
+
+public sealed class RefreshTokenEndpoint(IRequestSender sender)
     : EndpointWithoutRequest
 {
     public override void Configure()
@@ -16,11 +19,11 @@ public sealed class RefreshTokenEndpoint(IUserService userService)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        AccessTokenDto jwt = await userService.RefreshAsync(
-            rt: HttpContext.GetRefreshTokenCookie()
-        ).ConfigureAwait(false);
+        AccessTokenDto jwt = await sender.SendCommandAsync(command: new RefreshUserCommand(
+            Token: HttpContext.GetRefreshTokenCookie()
+        ), ct).ConfigureAwait(false);
 
-        HttpContext.SaveAccessTokenCookie(jwt.Value, jwt.EndDate);
+        HttpContext.SaveAccessTokenCookie(jwt.Value, jwt.ExpiresAt);
         await SendOkAsync("The JSON Web Token has been renewed.").ConfigureAwait(false);
     }
 }
