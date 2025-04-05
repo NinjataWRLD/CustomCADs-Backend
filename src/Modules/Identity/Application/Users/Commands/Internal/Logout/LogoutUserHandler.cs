@@ -11,7 +11,7 @@ public class LogoutUserHandler(IUserManager manager)
         User user = await manager.GetByUsernameAsync(req.Username).ConfigureAwait(false)
             ?? throw CustomNotFoundException<User>.ByProp(nameof(User.Username), req.Username);
 
-        user.RefreshToken = null;
-        await manager.UpdateAsync(user).ConfigureAwait(false);
+        user.EraseRefreshToken();
+        await manager.UpdateAsync(user.Id, user).ConfigureAwait(false);
     }
 }

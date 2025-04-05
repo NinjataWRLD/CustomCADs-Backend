@@ -21,7 +21,7 @@ public class RefreshUserHandler(IUserManager manager, ITokenService service)
         return service.GenerateAccessToken(
             accountId: user.AccountId,
             username: user.Username,
-            role: await manager.GetRoleAsync(user.Username).ConfigureAwait(false)
+            role: user.Role
         );
     }
 }

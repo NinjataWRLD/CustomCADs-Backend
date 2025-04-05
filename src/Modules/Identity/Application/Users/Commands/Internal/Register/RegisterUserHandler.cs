@@ -22,7 +22,7 @@ public class RegisterUserHandler(IUserManager manager, IRequestSender sender)
         AccountId accountId = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
 
         bool success = await manager.AddAsync(
-            user: new(
+            user: User.Create(
                 role: req.Role,
                 username: req.Username,
                 email: new(req.Email, IsVerified: false),

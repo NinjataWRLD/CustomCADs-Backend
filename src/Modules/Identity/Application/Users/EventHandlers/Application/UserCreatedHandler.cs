@@ -8,7 +8,7 @@ public class UserCreatedHandler(IUserManager manager)
     public async Task Handle(AccountCreatedApplicationEvent ae)
     {
         await manager.AddAsync(
-            user: new(
+            user: User.Create(
                 role: ae.Role,
                 username: ae.Username,
                 email: new(ae.Email),

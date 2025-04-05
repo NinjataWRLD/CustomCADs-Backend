@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Identity.Application.Users.Dtos;
-using CustomCADs.Identity.Domain.DomainEvents.Email;
 using CustomCADs.Identity.Domain.Managers;
+using CustomCADs.Identity.Domain.Users.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using Microsoft.Extensions.Options;

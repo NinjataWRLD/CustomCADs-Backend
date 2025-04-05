@@ -31,7 +31,7 @@ internal static class UserTokenExtensions
 
     }
 
-    private static async Task<RefreshTokenDto> UpdateRefreshTokenAsync(this IUserManager manager, Guid id, string token, bool longerSession)
+    private static async Task<RefreshTokenDto> UpdateRefreshTokenAsync(this IUserManager manager, UserId id, string token, bool longerSession)
     {
         User user = await manager.GetByIdAsync(id).ConfigureAwait(false)
             ?? throw CustomNotFoundException<User>.ById(id);
@@ -39,8 +39,8 @@ internal static class UserTokenExtensions
         int days = longerSession ? LongerRtDurationInDays : RtDurationInDays;
         DateTimeOffset expiresAt = DateTimeOffset.UtcNow.AddDays(days);
 
-        user.RefreshToken = new(token, expiresAt);
-        await manager.UpdateAsync(user).ConfigureAwait(false);
+        user.SetRefreshToken(token, expiresAt);
+        await manager.UpdateAsync(user.Id, user).ConfigureAwait(false);
 
         return new(token, expiresAt);
     }

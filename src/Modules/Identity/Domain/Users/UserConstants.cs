@@ -1,6 +1,6 @@
-﻿namespace CustomCADs.Identity.Domain;
+﻿namespace CustomCADs.Identity.Domain.Users;
 
-public static class IdentityConstants
+public static class UserConstants
 {
     public const int UsernameMaxLength = 62;
     public const int UsernameMinLength = 2;

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Identity.Domain.DomainEvents.Email;
+﻿using CustomCADs.Identity.Domain.Users.Events;
 using CustomCADs.Shared.Abstractions.Email;
 
 namespace CustomCADs.Identity.Application.Users.EventHandlers.Domain;

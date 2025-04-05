@@ -4,23 +4,38 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CustomCADs.Identity.Persistence.Configurations;
+namespace CustomCADs.Identity.Persistence.Configurations.AppUsers;
 
 using static Constants.Users;
 
-public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
+public static class Utilities
 {
-    public void Configure(EntityTypeBuilder<AppUser> builder)
+    public static EntityTypeBuilder<AppUser> SetStronglyTypedIds(this EntityTypeBuilder<AppUser> builder)
     {
         builder.Property(u => u.AccountId)
             .HasConversion(
                 x => x.Value,
                 v => AccountId.New(v)
             );
+
+        return builder;
+    }
+
+    public static EntityTypeBuilder<AppUser> SetValidations(this EntityTypeBuilder<AppUser> builder)
+    {
+        builder.Property(u => u.AccountId)
+            .IsRequired()
+            .HasColumnName(nameof(AppUser.AccountId));
         
         builder.Property(u => u.RefrehToken)
-            .HasColumnType("jsonb");
+            .HasColumnType("jsonb")
+            .HasColumnName(nameof(AppUser.RefrehToken));
 
+        return builder;
+    }
+
+    public static EntityTypeBuilder<AppUser> SetSeeding(this EntityTypeBuilder<AppUser> builder)
+    {
         builder.HasData([
             CreateAppUser(
                 id: new(ClientUserId),
@@ -59,6 +74,8 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
                 secStamp: "YIA26UZDSN2V2U5PVDEK4F3EJS3P5D3X"
             ),
         ]);
+
+        return builder;
     }
 
     private static AppUser CreateAppUser(Guid id, string username, string email, string passHash, Guid accountId, string concStamp, string secStamp)
