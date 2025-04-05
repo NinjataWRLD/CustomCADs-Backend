@@ -1,6 +1,9 @@
-﻿namespace CustomCADs.Identity.Endpoints.Identity.Get.VerifyEmail;
+﻿using CustomCADs.Identity.Application.Users.Commands.Internal.VerifyEmail;
+using CustomCADs.Identity.Application.Users.Dtos;
 
-public sealed class ConfirmEmailEndpoint(IUserService userService, ITokenService tokenService)
+namespace CustomCADs.Identity.Endpoints.Identity.Get.VerifyEmail;
+
+public sealed class ConfirmEmailEndpoint(IRequestSender sender)
     : Endpoint<ConfirmEmailRequest>
 {
     public override void Configure()
@@ -16,19 +19,15 @@ public sealed class ConfirmEmailEndpoint(IUserService userService, ITokenService
 
     public override async Task HandleAsync(ConfirmEmailRequest req, CancellationToken ct)
     {
-        AppUser user = await userService.FindByNameAsync(req.Username).ConfigureAwait(false);
+        TokensDto tokens = await sender.SendCommandAsync(command: new VerifyUserEmailCommand(
+            Username: req.Username,
+            Token: req.Token.Replace(' ', '+')
+        ), ct).ConfigureAwait(false);
 
-        string decodedEct = req.Token.Replace(' ', '+');
-        await userService.ConfirmEmailAsync(user, decodedEct).ConfigureAwait(false);
-
-        string role = await userService.GetRoleAsync(user).ConfigureAwait(false);
-        AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, req.Username, role);
-        RefreshTokenDto rt = await userService.UpdateRefreshTokenAsync(user.Id, longerSession: false).ConfigureAwait(false);
-
-        HttpContext.SaveAccessTokenCookie(jwt.Value, jwt.EndDate);
-        HttpContext.SaveRefreshTokenCookie(rt.Value, rt.EndDate);
-        HttpContext.SaveRoleCookie(role, rt.EndDate);
-        HttpContext.SaveUsernameCookie(req.Username, rt.EndDate);
+        HttpContext.SaveAccessTokenCookie(tokens.AccessToken.Value, tokens.AccessToken.ExpiresAt);
+        HttpContext.SaveRefreshTokenCookie(tokens.RefreshToken.Value, tokens.RefreshToken.ExpiresAt);
+        HttpContext.SaveRoleCookie(tokens.Role, tokens.RefreshToken.ExpiresAt);
+        HttpContext.SaveUsernameCookie(req.Username, tokens.RefreshToken.ExpiresAt);
 
         await SendOkAsync("Welcome!").ConfigureAwait(false);
     }

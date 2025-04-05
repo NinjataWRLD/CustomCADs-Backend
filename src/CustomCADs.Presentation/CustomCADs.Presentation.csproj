@@ -36,7 +36,7 @@
 		<ProjectReference Include="..\Modules\Files\Application\CustomCADs.Files.Application.csproj" />
 		<ProjectReference Include="..\Modules\Files\Persistence\CustomCADs.Files.Persistence.csproj" />
 		<ProjectReference Include="..\Modules\Identity\Endpoints\CustomCADs.Identity.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Identity\Infrastructure\CustomCADs.Identity.Infrastructure.csproj" />
+		<ProjectReference Include="..\Modules\Identity\Persistence\CustomCADs.Identity.Persistence.csproj" />
 		<ProjectReference Include="..\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
 	</ItemGroup>
 

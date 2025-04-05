@@ -103,4 +103,11 @@ public static partial class Constants
         public const string DesignerEmail = "boriskolev2006@gmail.com";
         public const string AdminEmail = "ivanangelov414@gmail.com";
     }
+
+    public static class Tokens
+    {
+        public const int JwtDurationInMinutes = 15;
+        public const int RtDurationInDays = 7;
+        public const int LongerRtDurationInDays = 15;
+    }
 }

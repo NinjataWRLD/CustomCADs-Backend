@@ -1,10 +1,10 @@
-﻿using CustomCADs.Identity.Domain;
+﻿using CustomCADs.Identity.Domain.Users;
 using CustomCADs.Shared.Core;
 using FluentValidation;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Register;
 
-using static AccountConstants;
+using static UserConstants;
 using static Constants;
 using static Constants.FluentMessages;
 using static Constants.Roles;

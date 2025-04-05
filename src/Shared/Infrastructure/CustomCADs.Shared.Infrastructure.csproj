@@ -13,6 +13,7 @@
 		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="9.0.2" />
 		<PackageReference Include="Stripe.net" Version="47.4.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.6.0" />
 		<PackageReference Include="WolverineFx" Version="3.9.1" />
 	</ItemGroup>
 

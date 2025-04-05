@@ -1,6 +1,9 @@
-﻿namespace CustomCADs.Identity.Endpoints.Identity.Post.Login;
+﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Login;
+using CustomCADs.Identity.Application.Users.Dtos;
 
-public sealed class LoginEndpoint(IUserService userService)
+namespace CustomCADs.Identity.Endpoints.Identity.Post.Login;
+
+public sealed class LoginEndpoint(IRequestSender sender)
     : Endpoint<LoginRequest>
 {
     public override void Configure()
@@ -17,17 +20,16 @@ public sealed class LoginEndpoint(IUserService userService)
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
     {
-        LoginCommand command = new(
+        TokensDto tokens = await sender.SendCommandAsync(command: new LoginUserCommand(
             Username: req.Username,
             Password: req.Password,
             LongerExpireTime: req.RememberMe ?? false
-        );
-        LoginDto dto = await userService.LoginAsync(command).ConfigureAwait(false);
+        ), ct).ConfigureAwait(false);
 
-        HttpContext.SaveAccessTokenCookie(dto.AccessToken.Value, dto.AccessToken.EndDate);
-        HttpContext.SaveRefreshTokenCookie(dto.RefreshToken.Value, dto.RefreshToken.EndDate);
-        HttpContext.SaveRoleCookie(dto.Role, dto.RefreshToken.EndDate);
-        HttpContext.SaveUsernameCookie(req.Username, dto.RefreshToken.EndDate);
+        HttpContext.SaveAccessTokenCookie(tokens.AccessToken.Value, tokens.AccessToken.ExpiresAt);
+        HttpContext.SaveRefreshTokenCookie(tokens.RefreshToken.Value, tokens.RefreshToken.ExpiresAt);
+        HttpContext.SaveRoleCookie(tokens.Role, tokens.RefreshToken.ExpiresAt);
+        HttpContext.SaveUsernameCookie(req.Username, tokens.RefreshToken.ExpiresAt);
 
         await SendOkAsync("Welcome back!").ConfigureAwait(false);
     }

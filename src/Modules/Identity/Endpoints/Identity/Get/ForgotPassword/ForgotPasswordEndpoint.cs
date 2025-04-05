@@ -1,6 +1,8 @@
-﻿namespace CustomCADs.Identity.Endpoints.Identity.Get.ForgotPassword;
+﻿using CustomCADs.Identity.Application.Users.Commands.Internal.ResetPasswordEmail;
 
-public sealed class ForgotPasswordEndpoint(IUserService service)
+namespace CustomCADs.Identity.Endpoints.Identity.Get.ForgotPassword;
+
+public sealed class ForgotPasswordEndpoint(IRequestSender sender)
     : Endpoint<ForgotPasswordRequest>
 {
     public override void Configure()
@@ -16,7 +18,9 @@ public sealed class ForgotPasswordEndpoint(IUserService service)
 
     public override async Task HandleAsync(ForgotPasswordRequest req, CancellationToken ct)
     {
-        await service.SendResetPasswordEmailAsync(req.Email).ConfigureAwait(false);
+        await sender.SendCommandAsync(command: new ResetPasswordEmailCommand(
+            Email: req.Email
+        ), ct).ConfigureAwait(false);
 
         await SendOkAsync("Check your email!").ConfigureAwait(false);
     }

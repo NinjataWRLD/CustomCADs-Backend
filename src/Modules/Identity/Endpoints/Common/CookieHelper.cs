@@ -10,16 +10,16 @@ public static class CookieHelper
     public static string? GetRefreshTokenCookie(this HttpContext context)
         => context.Request.Cookies.FirstOrDefault(c => c.Key == RefreshTokenCookie).Value;
 
-    public static void SaveAccessTokenCookie(this HttpContext context, string jwt, DateTime expire)
+    public static void SaveAccessTokenCookie(this HttpContext context, string jwt, DateTimeOffset expire)
         => context.Response.Cookies.Append(AccessTokenCookie, jwt, HttpOnlyCookieOptions(expire));
 
-    public static void SaveRefreshTokenCookie(this HttpContext context, string rt, DateTime expire)
+    public static void SaveRefreshTokenCookie(this HttpContext context, string rt, DateTimeOffset expire)
         => context.Response.Cookies.Append(RefreshTokenCookie, rt, HttpOnlyCookieOptions(expire));
 
-    public static void SaveUsernameCookie(this HttpContext context, string username, DateTime expire)
+    public static void SaveUsernameCookie(this HttpContext context, string username, DateTimeOffset expire)
         => context.Response.Cookies.Append(UsernameCookie, username, CookieOptions(expire));
 
-    public static void SaveRoleCookie(this HttpContext context, string role, DateTime expire)
+    public static void SaveRoleCookie(this HttpContext context, string role, DateTimeOffset expire)
         => context.Response.Cookies.Append(RoleCookie, role, CookieOptions(expire));
 
     public static void DeleteAllCookies(this HttpContext context)
@@ -37,7 +37,7 @@ public static class CookieHelper
         }
     }
 
-    private static CookieOptions CookieOptions(DateTime expire)
+    private static CookieOptions CookieOptions(DateTimeOffset expire)
         => new()
         {
             Secure = true,
@@ -45,7 +45,7 @@ public static class CookieHelper
             SameSite = SameSiteMode.None,
         };
 
-    private static CookieOptions HttpOnlyCookieOptions(DateTime expire)
+    private static CookieOptions HttpOnlyCookieOptions(DateTimeOffset expire)
         => new()
         {
             HttpOnly = true,
