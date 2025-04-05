@@ -11,9 +11,9 @@ using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Identity.Application.Common.Services;
 
-using static AccountConstants;
+using static IdentityConstants;
 
-public sealed class AppUserService(IUserManager manager, ITokenService tokenService, IEventRaiser raiser, IRequestSender sender, IOptions<ClientUrlSettings> settings) : IUserService
+public sealed class UserService(IUserManager manager, ITokenService tokenService, IEventRaiser raiser, IRequestSender sender, IOptions<ClientUrlSettings> settings) : IUserService
 {
     private readonly string clientUrl = settings.Value.Preferred;
 
@@ -30,8 +30,12 @@ public sealed class AppUserService(IUserManager manager, ITokenService tokenServ
         AccountId accountId = await sender.SendCommandAsync(command).ConfigureAwait(false);
 
         bool success = await manager.AddAsync(
-            role: dto.Role,
-            user: new(dto.Username, dto.Email, accountId),
+            user: new(
+                role: dto.Role,
+                username: dto.Username,
+                email: new(dto.Email, IsVerified: false),
+                accountId: accountId
+            ),
             password: dto.Password
         ).ConfigureAwait(false);
 
@@ -41,34 +45,34 @@ public sealed class AppUserService(IUserManager manager, ITokenService tokenServ
 
     public async Task SendVerificationEmailAsync(string username, Func<string, string> getUri)
     {
-        AppUser user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
+        User user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
 
         string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
         await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
-            Email: user.Email ?? string.Empty,
+            Email: user.Email.Value,
             Endpoint: getUri(token)
         )).ConfigureAwait(false);
     }
 
     public async Task<TokensDto> ConfirmEmailAsync(string username, string token)
     {
-        AppUser? user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
+        User? user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
 
-        if (user.EmailConfirmed)
-            throw UserRegisterException.AlreadyConfirmed(user.UserName ?? string.Empty);
+        if (user.Email.IsVerified)
+            throw UserRegisterException.AlreadyConfirmed(user.Username);
 
         bool success = await manager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
         if (!success)
-            throw UserRegisterException.EmailToken(user.UserName ?? string.Empty);
+            throw UserRegisterException.EmailToken(user.Username);
 
         return await IssueTokens(username, false).ConfigureAwait(false);
     }
 
     public async Task<TokensDto> LoginAsync(LoginCommand req)
     {
-        AppUser user = await manager.GetByUsernameAsync(req.Username).ConfigureAwait(false)
+        User user = await manager.GetByUsernameAsync(req.Username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(req.Username);
 
         EnsureEmailConfirmed(user);
@@ -80,7 +84,7 @@ public sealed class AppUserService(IUserManager manager, ITokenService tokenServ
 
     public async Task SendResetPasswordEmailAsync(string email)
     {
-        AppUser user = await manager.GetByEmailAsync(email).ConfigureAwait(false)
+        User user = await manager.GetByEmailAsync(email).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByEmail(email);
 
         string token = await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
@@ -93,12 +97,12 @@ public sealed class AppUserService(IUserManager manager, ITokenService tokenServ
 
     public async Task ResetPasswordAsync(string email, string token, string newPassword)
     {
-        AppUser? user = await manager.GetByEmailAsync(email).ConfigureAwait(false)
+        User? user = await manager.GetByEmailAsync(email).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByEmail(email);
 
         bool succeess = await manager.ResetPasswordAsync(user, token, newPassword).ConfigureAwait(false);
         if (!succeess)
-            throw UserPasswordException.ResetFailure(user.UserName ?? string.Empty);
+            throw UserPasswordException.ResetFailure(user.Username);
     }
 
     public async Task<AccessTokenDto> RefreshAsync(string? rt)
@@ -108,38 +112,36 @@ public sealed class AppUserService(IUserManager manager, ITokenService tokenServ
             throw UserRefreshTokenException.Missing();
         }
 
-        AppUser user = await manager.GetByRefreshTokenAsync(rt).ConfigureAwait(false)
+        User user = await manager.GetByRefreshTokenAsync(rt).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByRefreshToken(rt);
 
-        if (user.RefreshTokenEndDate < DateTime.UtcNow)
+        if (user.RefreshToken?.ExpiresAt < DateTime.UtcNow)
         {
             throw UserRefreshTokenException.Expired();
         }
 
         return tokenService.GenerateAccessToken(
             user.AccountId,
-            user.UserName ?? string.Empty,
-            role: await manager.GetRoleAsync(user).ConfigureAwait(false)
+            user.Username,
+            role: await manager.GetRoleAsync(user.Username).ConfigureAwait(false)
         );
     }
 
     public async Task LogoutAsync(string username)
     {
-        AppUser user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
+        User user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
 
         user.RefreshToken = null;
-        user.RefreshTokenEndDate = null;
-
         await manager.UpdateAsync(user).ConfigureAwait(false);
     }
 
     private async Task<TokensDto> IssueTokens(string username, bool rememberMe)
     {
-        AppUser user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
+        User user = await manager.GetByUsernameAsync(username).ConfigureAwait(false)
             ?? throw UserNotFoundException.ByUsername(username);
 
-        string role = await manager.GetRoleAsync(user).ConfigureAwait(false);
+        string role = await manager.GetRoleAsync(username).ConfigureAwait(false);
         AccessTokenDto jwt = tokenService.GenerateAccessToken(user.AccountId, username, role);
         RefreshTokenDto rt = await UpdateRefreshTokenAsync(user.Id, longerSession: rememberMe).ConfigureAwait(false);
 
@@ -153,44 +155,43 @@ public sealed class AppUserService(IUserManager manager, ITokenService tokenServ
 
     private async Task<RefreshTokenDto> UpdateRefreshTokenAsync(Guid id, bool longerSession)
     {
-        AppUser user = await manager.GetByIdAsync(id).ConfigureAwait(false)
+        User user = await manager.GetByIdAsync(id).ConfigureAwait(false)
             ?? throw UserNotFoundException.ById(id);
 
         int days = longerSession ? LongerRtDurationInDays : RtDurationInDays;
         DateTime rtEndDate = DateTime.UtcNow.AddDays(days);
         string rtValue = tokenService.GenerateRefreshToken();
 
-        user.RefreshToken = rtValue;
-        user.RefreshTokenEndDate = rtEndDate;
-
+        user.RefreshToken = new(rtValue, rtEndDate);
         await manager.UpdateAsync(user).ConfigureAwait(false);
+
         return new(rtValue, rtEndDate);
     }
 
-    private static void EnsureEmailConfirmed(AppUser user)
+    private static void EnsureEmailConfirmed(User user)
     {
-        if (!user.EmailConfirmed)
+        if (!user.Email.IsVerified)
         {
-            throw UserLoginException.NotConfirmed(user.UserName ?? string.Empty);
+            throw UserLoginException.NotConfirmed(user.Username);
         }
     }
 
-    private async Task EnsureNotLockedOutAsync(AppUser user)
+    private async Task EnsureNotLockedOutAsync(User user)
     {
-        bool isLockedOut = await manager.GetIsLockedOutAsync(user).ConfigureAwait(false);
-        if (isLockedOut && user.LockoutEnd.HasValue)
+        DateTimeOffset? lockoutEnd = await manager.GetIsLockedOutAsync(user.Username).ConfigureAwait(false);
+        if (lockoutEnd.HasValue)
         {
-            TimeSpan timeLeft = user.LockoutEnd.Value.Subtract(DateTimeOffset.UtcNow);
+            TimeSpan timeLeft = lockoutEnd.Value.Subtract(DateTimeOffset.UtcNow);
             int seconds = Convert.ToInt32(timeLeft.TotalSeconds);
-            throw UserLockedOutException.ByUsername(user.UserName ?? string.Empty, seconds);
+            throw UserLockedOutException.ByUsername(user.Username, seconds);
         }
     }
 
-    private async Task EnsureValidPasswordAsync(AppUser user, string password)
+    private async Task EnsureValidPasswordAsync(User user, string password)
     {
         if (!await manager.CheckPasswordAsync(user, password).ConfigureAwait(false))
         {
-            throw UserLoginException.ByUsername(user.UserName ?? string.Empty);
+            throw UserLoginException.ByUsername(user.Username);
         }
     }
 

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Identity.Domain.Entities;
+﻿using CustomCADs.Identity.Persistence.ShadowEntities;
 using CustomCADs.Shared.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

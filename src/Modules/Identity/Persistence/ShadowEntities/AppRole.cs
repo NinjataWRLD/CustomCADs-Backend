@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CustomCADs.Identity.Domain.Entities;
+namespace CustomCADs.Identity.Persistence.ShadowEntities;
 
 public class AppRole(string name) : IdentityRole<Guid>(name);

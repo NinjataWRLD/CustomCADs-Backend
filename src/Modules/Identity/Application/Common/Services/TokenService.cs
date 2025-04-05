@@ -10,9 +10,9 @@ using System.Text;
 
 namespace CustomCADs.Identity.Application.Common.Services;
 
-using static AccountConstants;
+using static IdentityConstants;
 
-public sealed class AppTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
+public sealed class TokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
 {
     private const string Algorithm = SecurityAlgorithms.HmacSha256;
     private readonly JwtSettings jwtSettings = jwtOptions.Value;

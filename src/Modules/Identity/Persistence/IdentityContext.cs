@@ -1,4 +1,4 @@
-﻿using CustomCADs.Identity.Domain.Entities;
+﻿using CustomCADs.Identity.Persistence.ShadowEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

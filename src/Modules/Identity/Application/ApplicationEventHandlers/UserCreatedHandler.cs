@@ -7,7 +7,14 @@ public class UserCreatedHandler(IUserManager manager)
 {
     public async Task Handle(AccountCreatedApplicationEvent ae)
     {
-        AppUser user = new(ae.Username, ae.Email, ae.Id);
-        await manager.AddAsync(ae.Role, user, ae.Password).ConfigureAwait(false);
+        await manager.AddAsync(
+            user: new(
+                role: ae.Role,
+                username: ae.Username,
+                email: new(ae.Email),
+                accountId: ae.Id
+            ),
+            password: ae.Password
+        ).ConfigureAwait(false);
     }
 }

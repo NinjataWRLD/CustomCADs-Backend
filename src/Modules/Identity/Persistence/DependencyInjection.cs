@@ -3,6 +3,7 @@ using CustomCADs.Identity.Persistence;
 using CustomCADs.Identity.Persistence.Managers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
@@ -29,7 +30,9 @@ public static class DependencyInjection
             ?? throw new KeyNotFoundException("Could not find connection string 'ApplicationConnection'.");
 
         services.AddDbContext<IdentityContext>(options =>
-            options.UseNpgsql(connectionString, opt =>
+            options.UseNpgsql(
+                dataSource: new NpgsqlDataSourceBuilder(connectionString).EnableDynamicJson().Build(), 
+                npgsqlOptionsAction: opt =>
                 opt.MigrationsHistoryTable("__EFMigrationsHistory", "Identity")
             )
         );

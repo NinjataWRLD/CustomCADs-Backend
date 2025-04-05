@@ -1,5 +1,6 @@
-﻿using CustomCADs.Identity.Domain.Entities;
-using CustomCADs.Identity.Domain.Managers;
+﻿using CustomCADs.Identity.Domain.Managers;
+using CustomCADs.Identity.Domain.Users;
+using CustomCADs.Identity.Persistence.ShadowEntities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,67 +8,122 @@ namespace CustomCADs.Identity.Persistence.Managers;
 
 public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 {
-    public async Task<AppUser?> GetByIdAsync(Guid id)
-        => await manager.Users.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
-
-    public async Task<AppUser?> GetByUsernameAsync(string username)
-        => await manager.Users.FirstOrDefaultAsync(x => x.UserName == username).ConfigureAwait(false);
-
-    public async Task<AppUser?> GetByEmailAsync(string email)
-        => await manager.Users.FirstOrDefaultAsync(u => u.Email == email).ConfigureAwait(false);
-
-    public async Task<AppUser?> GetByRefreshTokenAsync(string token)
-        => await manager.Users.FirstOrDefaultAsync(u => u.RefreshToken == token).ConfigureAwait(false);
-
-    public async Task<string> GetRoleAsync(AppUser user)
+    public async Task<User?> GetByIdAsync(Guid id)
     {
-        string[] roles = [.. await manager.GetRolesAsync(user).ConfigureAwait(false)];
+        AppUser? appUser = await manager.Users.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
+        return appUser?.ToUser();
+    }
+
+    public async Task<User?> GetByUsernameAsync(string username)
+    {
+        AppUser? appUser = await manager.Users.FirstOrDefaultAsync(x => x.UserName == username).ConfigureAwait(false);
+        return appUser?.ToUser();
+    }
+
+    public async Task<User?> GetByEmailAsync(string email)
+    {
+        AppUser? appUser = await manager.Users.FirstOrDefaultAsync(x => x.Email == email).ConfigureAwait(false);
+        return appUser?.ToUser();
+    }
+
+    public async Task<User?> GetByRefreshTokenAsync(string token)
+    {
+        AppUser? appUser = await manager.Users.FirstOrDefaultAsync(x => x.RefrehToken != null && x.RefrehToken.Value == token).ConfigureAwait(false);
+        return appUser?.ToUser();
+    }
+
+    public async Task<string> GetRoleAsync(string username)
+    {
+        AppUser? appUser = await manager.FindByNameAsync(username).ConfigureAwait(false);
+        if (appUser is null) return string.Empty;
+
+        string[] roles = [.. await manager.GetRolesAsync(appUser).ConfigureAwait(false)];
         return roles.Single();
     }
 
-    public async Task<bool> GetIsLockedOutAsync(AppUser user)
-        => await manager.IsLockedOutAsync(user).ConfigureAwait(false);
-
-    public async Task<bool> AddAsync(string role, AppUser user, string password)
+    public async Task<DateTimeOffset?> GetIsLockedOutAsync(string username)
     {
-        var userResult = await manager.CreateAsync(user, password).ConfigureAwait(false);
-        var roleResult = await manager.AddToRoleAsync(user, role).ConfigureAwait(false);
-        return userResult.Succeeded && roleResult.Succeeded;
+        AppUser? appUser = await manager.FindByNameAsync(username).ConfigureAwait(false);
+        if (appUser is null) return null;
+
+        bool isLockedOut = await manager.IsLockedOutAsync(appUser).ConfigureAwait(false);
+        if (!isLockedOut) return null;
+
+        return appUser.LockoutEnd;
     }
 
-    public async Task<string> GenerateEmailConfirmationTokenAsync(AppUser user)
-        => await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-
-    public async Task<bool> ConfirmEmailAsync(AppUser user, string token)
+    public async Task<bool> AddAsync(User user, string password)
     {
-        var result = await manager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
+        AppUser appUser = user.ToAppUser();
+        await manager.CreateAsync(appUser, password).ConfigureAwait(false);
+
+        var result = await manager.AddToRoleAsync(appUser, user.Role).ConfigureAwait(false);
         return result.Succeeded;
     }
 
-    public async Task<string> GeneratePasswordResetTokenAsync(AppUser user)
-        => await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
-
-    public async Task<bool> ResetPasswordAsync(AppUser user, string token, string newPassword)
+    public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
     {
-        var result = await manager.ResetPasswordAsync(user, token, newPassword).ConfigureAwait(false);
+        AppUser? appUser = await manager.FindByIdAsync(user.Id.ToString()).ConfigureAwait(false);
+        if (appUser is null) return string.Empty;
+
+        return await manager.GenerateEmailConfirmationTokenAsync(appUser).ConfigureAwait(false);
+    }
+
+    public async Task<bool> ConfirmEmailAsync(User user, string token)
+    {
+        AppUser? appUser = await manager.FindByIdAsync(user.Id.ToString()).ConfigureAwait(false);
+        if (appUser is null) return false;
+
+        var result = await manager.ConfirmEmailAsync(appUser, token).ConfigureAwait(false);
         return result.Succeeded;
     }
 
-    public async Task<bool> CheckPasswordAsync(AppUser user, string password)
+    public async Task<string> GeneratePasswordResetTokenAsync(User user)
     {
-        bool success = await manager.CheckPasswordAsync(user, password).ConfigureAwait(false);
+        AppUser? appUser = await manager.FindByIdAsync(user.Id.ToString()).ConfigureAwait(false);
+        if (appUser is null) return string.Empty;
 
+        return await manager.GeneratePasswordResetTokenAsync(appUser).ConfigureAwait(false);
+    }
+
+    public async Task<bool> ResetPasswordAsync(User user, string token, string newPassword)
+    {
+        AppUser? appUser = await manager.FindByIdAsync(user.Id.ToString()).ConfigureAwait(false);
+        if (appUser is null) return false;
+
+        var result = await manager.ResetPasswordAsync(appUser, token, newPassword).ConfigureAwait(false);
+        return result.Succeeded;
+    }
+
+    public async Task<bool> CheckPasswordAsync(User user, string password)
+    {
+        AppUser? appUser = await manager.FindByIdAsync(user.Id.ToString()).ConfigureAwait(false);
+        if (appUser is null) return false;
+
+        bool success = await manager.CheckPasswordAsync(appUser, password).ConfigureAwait(false);
         if (success)
-            await manager.ResetAccessFailedCountAsync(user).ConfigureAwait(false);
+            await manager.ResetAccessFailedCountAsync(appUser).ConfigureAwait(false);
         else
-            await manager.AccessFailedAsync(user).ConfigureAwait(false);
+            await manager.AccessFailedAsync(appUser).ConfigureAwait(false);
 
         return success;
     }
 
-    public async Task UpdateAsync(AppUser user)
-        => await manager.UpdateAsync(user).ConfigureAwait(false);
+    public async Task UpdateAsync(User user)
+    {
+        AppUser? appUser = await manager.FindByIdAsync(user.Id.ToString()).ConfigureAwait(false);
+        if (appUser is null) return;
 
-    public async Task DeleteAsync(AppUser user)
-        => await manager.DeleteAsync(user).ConfigureAwait(false);
+        appUser.RefrehToken = user.RefreshToken;
+
+        await manager.UpdateAsync(appUser).ConfigureAwait(false);
+    }
+
+    public async Task DeleteAsync(string username)
+    {
+        AppUser? appUser = await manager.FindByNameAsync(username).ConfigureAwait(false);
+        if (appUser is null) return;
+
+        await manager.DeleteAsync(appUser).ConfigureAwait(false);
+    }
 }

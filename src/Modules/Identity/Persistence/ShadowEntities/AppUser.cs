@@ -1,7 +1,8 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+﻿using CustomCADs.Identity.Domain.Users.ValueObjects;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using Microsoft.AspNetCore.Identity;
 
-namespace CustomCADs.Identity.Domain.Entities;
+namespace CustomCADs.Identity.Persistence.ShadowEntities;
 
 public class AppUser : IdentityUser<Guid>
 {
@@ -15,6 +16,5 @@ public class AppUser : IdentityUser<Guid>
     }
 
     public AccountId AccountId { get; set; }
-    public string? RefreshToken { get; set; }
-    public DateTime? RefreshTokenEndDate { get; set; }
+    public RefreshToken? RefrehToken {  get; set; }
 }

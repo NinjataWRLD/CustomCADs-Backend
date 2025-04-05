@@ -1,6 +1,5 @@
 ﻿global using CustomCADs.Identity.Application.Common.Contracts;
 global using CustomCADs.Identity.Application.Common.Dtos;
-global using CustomCADs.Identity.Domain.Entities;
 global using CustomCADs.Identity.Endpoints.Common;
 global using CustomCADs.Shared.API;
 global using FastEndpoints;

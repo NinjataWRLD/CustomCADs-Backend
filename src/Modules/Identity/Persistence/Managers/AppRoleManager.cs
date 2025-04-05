@@ -1,5 +1,5 @@
-﻿using CustomCADs.Identity.Domain.Entities;
-using CustomCADs.Identity.Domain.Managers;
+﻿using CustomCADs.Identity.Domain.Managers;
+using CustomCADs.Identity.Persistence.ShadowEntities;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Identity.Persistence.Managers;

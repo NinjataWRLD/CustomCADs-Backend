@@ -13,10 +13,10 @@ public static class DependencyInjection
 
     private static IServiceCollection AddServices(this IServiceCollection services, IConfiguration config)
     {
-        services.AddScoped<IUserService, AppUserService>();
+        services.AddScoped<IUserService, UserService>();
 
         services.Configure<JwtSettings>(config.GetSection("JwtOptions"));
-        services.AddScoped<ITokenService, AppTokenService>();
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }

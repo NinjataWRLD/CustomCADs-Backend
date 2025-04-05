@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Register;
 
-using static AccountConstants;
+using static IdentityConstants;
 using static Constants;
 using static Constants.FluentMessages;
 using static Constants.Roles;

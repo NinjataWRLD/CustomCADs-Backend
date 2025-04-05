@@ -1,4 +1,4 @@
-﻿using CustomCADs.Identity.Domain.Entities;
+﻿using CustomCADs.Identity.Persistence.ShadowEntities;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +17,9 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
                 x => x.Value,
                 v => AccountId.New(v)
             );
+        
+        builder.Property(u => u.RefrehToken)
+            .HasColumnType("jsonb");
 
         builder.HasData([
             CreateAppUser(
