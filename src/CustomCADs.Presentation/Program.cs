@@ -1,3 +1,4 @@
+using Oakton;
 using static CustomCADs.Shared.Core.Constants.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,7 @@ builder.Services.AddAuthN().AddJwt(builder.Configuration);
 builder.Services.AddAuthZ([Client, Contributor, Designer, Admin]);
 
 // Use Cases
-builder.Services.AddUseCases();
+builder.Services.AddUseCases(builder.Environment);
 builder.Services.AddCacheService();
 builder.Services.AddBackgroundJobs();
 
@@ -32,7 +33,7 @@ if (args.Contains("--migrate"))
 else if (args.Contains("--migrate-only"))
 {
     await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
-    return;
+    return 0;
 }
 
 // API
@@ -63,4 +64,4 @@ app.MapApiDocumentationUi(
     uiPattern: "/swagger"
 );
 
-await app.RunAsync().ConfigureAwait(false);
+return await app.RunOaktonCommands(args).ConfigureAwait(false);

@@ -30,19 +30,23 @@ public static class ProgramExtensions
 {
     private const string AuthScheme = JwtBearerDefaults.AuthenticationScheme;
 
-    public static IServiceCollection AddUseCases(this IServiceCollection services)
+    public static IServiceCollection AddUseCases(this IServiceCollection services, IWebHostEnvironment env)
     {
-        services.AddMessagingServices([
-            AccountApplicationReference.Assembly,
-            CartsApplicationReference.Assembly,
-            CatalogApplicationReference.Assembly,
-            CategoriesApplicationReference.Assembly,
-            CustomizationsApplicationReference.Assembly,
-            CustomsApplicationReference.Assembly,
-            DeliveryApplicationReference.Assembly,
-            FilesApplicationReference.Assembly,
-            IdentityApplicationReference.Assembly,
-        ]);
+        services.AddMessagingServices(
+            isDev: env.IsDevelopment(),
+            entry: typeof(ProgramExtensions).Assembly,
+            assemblies: [
+                AccountApplicationReference.Assembly,
+                CartsApplicationReference.Assembly,
+                CatalogApplicationReference.Assembly,
+                CategoriesApplicationReference.Assembly,
+                CustomizationsApplicationReference.Assembly,
+                CustomsApplicationReference.Assembly,
+                DeliveryApplicationReference.Assembly,
+                FilesApplicationReference.Assembly,
+                IdentityApplicationReference.Assembly,
+            ]
+        );
 
         return services;
     }
@@ -54,7 +58,7 @@ public static class ProgramExtensions
 
         return services;
     }
-    
+
     public static IServiceCollection AddTokensService(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<JwtSettings>(config.GetSection("JwtOptions"));
