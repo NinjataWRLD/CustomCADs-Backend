@@ -4,26 +4,16 @@ using FluentValidation;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Register;
 
-using static UserConstants;
 using static Constants;
 using static Constants.FluentMessages;
-using static Constants.Roles;
+using static UserConstants;
 
 public class RegisterRequestValidator : Validator<RegisterRequest>
 {
     public RegisterRequestValidator()
     {
-        string[] roles = [Client, Contributor];
-
         RuleFor(r => r.Role)
-            .Custom((role, ctx) =>
-            {
-                bool isValidRole = roles.Contains(role);
-                if (!isValidRole)
-                {
-                    ctx.AddFailure($"You must choose a role from: [{Client}, {Contributor}].");
-                }
-            });
+            .Must(r => r is Roles.Customer or Roles.Contributor);
 
         RuleFor(r => r.Username)
             .NotEmpty().WithMessage(RequiredError)

@@ -8,7 +8,7 @@ public class ActiveCartsGroup : Group
     {
         Configure("carts/active", ep =>
         {
-            ep.Roles(Client);
+            ep.Roles(Customer);
             ep.Description(d => d.WithTags("03. Active Cart"));
         });
     }

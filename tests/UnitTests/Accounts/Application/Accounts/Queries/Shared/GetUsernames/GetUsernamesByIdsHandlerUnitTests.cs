@@ -13,7 +13,7 @@ using static Constants.Users;
 public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
 {
     private readonly Mock<IAccountReads> reads = new();
-    private static readonly string[] usernames = [ClientUsername, ContributorUsername, DesignerUsername, AdminUsername];
+    private static readonly string[] usernames = [CustomerUsername, ContributorUsername, DesignerUsername, AdminUsername];
 
     [Theory]
     [ClassData(typeof(GetUsernamesByIdsValidData))]
@@ -25,7 +25,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
             Items: [
-                CreateAccountWithId(AccountId.New(), Client),
+                CreateAccountWithId(AccountId.New(), Customer),
                 CreateAccountWithId(AccountId.New(), Contributor),
                 CreateAccountWithId(AccountId.New(), Designer),
                 CreateAccountWithId(AccountId.New(), Admin),
@@ -52,7 +52,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
         reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
             Count: ids.Length,
             Items: [
-                CreateAccountWithId(AccountId.New(), Client, username: usernames[0]),
+                CreateAccountWithId(AccountId.New(), Customer, username: usernames[0]),
                 CreateAccountWithId(AccountId.New(), Contributor, username: usernames[1]),
                 CreateAccountWithId(AccountId.New(), Designer, username: usernames[2]),
                 CreateAccountWithId(AccountId.New(), Admin, username: usernames[3]),

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Client.GetCadUrlGet;
+﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetCadUrlGet;
 using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;

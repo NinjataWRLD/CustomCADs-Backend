@@ -1,5 +1,4 @@
-﻿using CustomCADs.Accounts.Domain.Accounts;
-using CustomCADs.Accounts.Domain.Roles;
+﻿using CustomCADs.Accounts.Domain.Roles;
 using CustomCADs.Shared.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,18 +12,6 @@ static class Utilities
     public static EntityTypeBuilder<Role> SetPrimaryKey(this EntityTypeBuilder<Role> builder)
     {
         builder.HasKey(x => x.Id);
-
-        return builder;
-    }
-
-    public static EntityTypeBuilder<Role> SetForeignKeys(this EntityTypeBuilder<Role> builder)
-    {
-        builder
-            .HasMany<Account>()
-            .WithOne()
-            .HasPrincipalKey(x => x.Name)
-            .HasForeignKey(x => x.RoleName)
-            .OnDelete(DeleteBehavior.Restrict);
 
         return builder;
     }
@@ -58,7 +45,7 @@ static class Utilities
     public static EntityTypeBuilder<Role> SetSeeding(this EntityTypeBuilder<Role> builder)
     {
         Role[] roles = [
-            Role.CreateWithId(RoleId.New(1), Client, ClientDescription),
+            Role.CreateWithId(RoleId.New(1), Customer, CustomerDescription),
             Role.CreateWithId(RoleId.New(2), Contributor, ContributorDescription),
             Role.CreateWithId(RoleId.New(3), Designer, DesignerDescription),
             Role.CreateWithId(RoleId.New(4), Admin, AdminDescription),

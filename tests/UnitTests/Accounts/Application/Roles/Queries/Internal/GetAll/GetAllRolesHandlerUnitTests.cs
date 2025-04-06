@@ -14,7 +14,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     private readonly Mock<IRoleReads> reads = new();
     private readonly Mock<ICacheService> cache = new();
     private readonly Role[] roles = [
-        Role.CreateWithId(RoleId.New(), Client, ClientDescription),
+        Role.CreateWithId(RoleId.New(), Customer, CustomerDescription),
         Role.CreateWithId(RoleId.New(), Contributor, ContributorDescription),
         Role.CreateWithId(RoleId.New(), Designer, DesignerDescription),
         Role.CreateWithId(RoleId.New(), Admin, AdminDescription),

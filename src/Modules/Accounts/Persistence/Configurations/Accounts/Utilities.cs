@@ -85,7 +85,7 @@ static class Utilities
     {
         const string TimeZone = "Europe/Sofia";
         builder.HasData([
-            Account.CreateWithId(AccountId.New(ClientAccountId), Client, ClientUsername, ClientEmail, TimeZone),
+            Account.CreateWithId(AccountId.New(CustomerAccountId), Customer, CustomerUsername, CustomerEmail, TimeZone),
             Account.CreateWithId(AccountId.New(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail, TimeZone),
             Account.CreateWithId(AccountId.New(DesignerAccountId), Designer, DesignerUsername, DesignerEmail, TimeZone),
             Account.CreateWithId(AccountId.New(AdminAccountId), Admin, AdminUsername, AdminEmail, TimeZone),

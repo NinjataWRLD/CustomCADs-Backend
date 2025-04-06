@@ -9,12 +9,12 @@ using static Constants.Users;
 
 public static class AccountsData
 {
-    public static readonly AccountId ValidId1 = AccountId.New(ClientAccountId);
+    public static readonly AccountId ValidId1 = AccountId.New(CustomerAccountId);
     public static readonly AccountId ValidId2 = AccountId.New(ContributorAccountId);
     public static readonly AccountId ValidId3 = AccountId.New(DesignerAccountId);
     public static readonly AccountId ValidId4 = AccountId.New(AdminAccountId);
 
-    public const string ValidUsername1 = ClientUsername;
+    public const string ValidUsername1 = CustomerUsername;
     public const string ValidUsername2 = ContributorUsername;
     public const string ValidUsername3 = DesignerUsername;
     public const string ValidUsername4 = AdminUsername;
@@ -22,7 +22,7 @@ public static class AccountsData
     public static readonly string InvalidUsername2 = new('a', NameMinLength - 1);
     public static readonly string InvalidUsername3 = new('a', NameMaxLength + 1);
 
-    public const string ValidEmail1 = ClientEmail;
+    public const string ValidEmail1 = CustomerEmail;
     public const string ValidEmail2 = ContributorEmail;
     public const string ValidEmail3 = DesignerEmail;
     public const string ValidEmail4 = AdminEmail;

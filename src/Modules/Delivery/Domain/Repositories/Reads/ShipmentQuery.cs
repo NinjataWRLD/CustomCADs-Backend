@@ -6,6 +6,6 @@ namespace CustomCADs.Delivery.Domain.Repositories.Reads;
 
 public record ShipmentQuery(
     Pagination Pagination,
-    AccountId? ClientId = null,
+    AccountId? CustomerId = null,
     ShipmentSorting? Sorting = null
 );

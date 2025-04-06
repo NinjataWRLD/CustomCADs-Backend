@@ -19,7 +19,7 @@ public class GetShipmentsEndpoint(IRequestSender sender)
     public override async Task HandleAsync(GetShipmentsRequest req, CancellationToken ct)
     {
         GetAllShipmentsQuery query = new(
-            ClientId: User.GetAccountId(),
+            CustomerId: User.GetAccountId(),
             Sorting: new(req.SortingType, req.SortingDirection),
             Pagination: new(req.Page, req.Limit)
         );

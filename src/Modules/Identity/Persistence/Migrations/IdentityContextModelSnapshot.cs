@@ -55,8 +55,8 @@ namespace CustomCADs.Identity.Persistence.Migrations
                         {
                             Id = new Guid("762ddec2-25c9-4183-9891-72a19d84a839"),
                             ConcurrencyStamp = "51da1b9f-803c-4bd3-9a00-da7ac259ce32",
-                            Name = "Client",
-                            NormalizedName = "CLIENT"
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
                         },
                         new
                         {
@@ -91,7 +91,8 @@ namespace CustomCADs.Identity.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<Guid>("AccountId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("AccountId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -128,7 +129,8 @@ namespace CustomCADs.Identity.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<RefreshToken>("RefrehToken")
-                        .HasColumnType("jsonb");
+                        .HasColumnType("jsonb")
+                        .HasColumnName("RefrehToken");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");

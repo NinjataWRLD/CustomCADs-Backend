@@ -41,7 +41,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
         // Arrange
         GetAllShipmentsQuery query = new(
             Pagination: new(),
-            ClientId: null,
+            CustomerId: null,
             Sorting: null
         );
         GetAllShipmentsHandler handler = new(reads.Object, sender.Object);
@@ -59,7 +59,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
         // Arrange
         GetAllShipmentsQuery query = new(
             Pagination: new(),
-            ClientId: null,
+            CustomerId: null,
             Sorting: null
         );
         GetAllShipmentsHandler handler = new(reads.Object, sender.Object);
@@ -77,7 +77,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
         // Assert
         GetAllShipmentsQuery query = new(
             Pagination: new(),
-            ClientId: null,
+            CustomerId: null,
             Sorting: null
         );
         GetAllShipmentsHandler handler = new(reads.Object, sender.Object);

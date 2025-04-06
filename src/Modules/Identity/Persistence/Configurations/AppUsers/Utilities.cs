@@ -38,10 +38,10 @@ public static class Utilities
     {
         builder.HasData([
             CreateAppUser(
-                id: new(ClientUserId),
-                accountId: new(ClientAccountId),
-                username: ClientUsername,
-                email: ClientEmail,
+                id: new(CustomerUserId),
+                accountId: new(CustomerAccountId),
+                username: CustomerUsername,
+                email: CustomerEmail,
                 passHash: "AQAAAAIAAYagAAAAEJFCGOTxNAgjhqU5lrA63WEtv924ujxXHt0x1R70qlS8dV9Pzz4II8GOgjVOaRzuDQ==",
                 concStamp: "0c5bbfb2-d132-407b-9b1b-e1e640ccc14e",
                 secStamp: "3A6TFN6VVZNRZEG22J777XJTPQY7342B"

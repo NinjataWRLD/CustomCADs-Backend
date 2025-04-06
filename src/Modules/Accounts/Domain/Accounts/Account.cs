@@ -104,11 +104,4 @@ public class Account : BaseAggregateRoot
         this.ValidateLastName();
         return this;
     }
-
-    public Account SetRole(string role)
-    {
-        RoleName = role;
-        this.ValidateRole();
-        return this;
-    }
 }

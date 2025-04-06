@@ -1,5 +1,5 @@
-﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Client.Create;
-using CustomCADs.Customs.Application.Customs.Queries.Internal.Client.GetById;
+﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Create;
+using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
 using CustomCADs.Shared.Core.Extensions;
@@ -18,7 +18,7 @@ internal static class Mapper
             BuyerName: buyerName,
             DesignerName: designerName
         );
-    internal static ClientGetCustomByIdDto ToClientGetByIdDto(this Custom custom, string timeZone, string? designer)
+    internal static CustomerGetCustomByIdDto ToCustomerGetByIdDto(this Custom custom, string timeZone, string? designer)
         => new(
             Id: custom.Id,
             Name: custom.Name,

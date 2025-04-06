@@ -6,6 +6,6 @@ namespace CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetAll;
 
 public sealed record GetAllShipmentsQuery(
     Pagination Pagination,
-    AccountId? ClientId = null,
+    AccountId? CustomerId = null,
     ShipmentSorting? Sorting = null
 ) : IQuery<Result<GetAllShipmentsDto>>;

@@ -1,11 +1,12 @@
-﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Client.GetById;
+﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetCadUrlPost;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Client.Get.CalculateShipment;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Client.Get.Recent;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Client.Get.Single;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Client.Post.Create;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Get.All;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Get.CalculateShipment;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Get.Recent;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Get.Single;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Post.Create;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Get.Single;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Patch.Finish;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Post;
@@ -14,12 +15,12 @@ using CustomCADs.Shared.Core.Common.Dtos;
 namespace CustomCADs.Customs.Endpoints.Customs;
 
 using static Constants;
-using ClientGetCustomsRespose = Endpoints.Client.Get.All.GetCustomsResponse;
+using CustomerGetCustomsRespose = GetCustomsResponse;
 using DesignerGetCustomsRespose = Endpoints.Designer.Get.All.GetCustomsResponse;
 
 internal static class Mapper
 {
-    internal static ClientGetCustomsRespose ToGetResponse(this GetAllCustomsDto custom)
+    internal static CustomerGetCustomsRespose ToGetResponse(this GetAllCustomsDto custom)
         => new(
             Id: custom.Id.Value,
             Name: custom.Name,
@@ -36,7 +37,7 @@ internal static class Mapper
             DesignerName: custom.DesignerName
         );
 
-    internal static PostCustomResponse ToPostResponse(this ClientGetCustomByIdDto custom)
+    internal static PostCustomResponse ToPostResponse(this CustomerGetCustomByIdDto custom)
         => new(
             Id: custom.Id.Value,
             Name: custom.Name,
@@ -55,7 +56,7 @@ internal static class Mapper
             DeliveryDeadline: calculation.DeliveryDeadline.ToString(SpeedyDateFormatString)
         );
 
-    internal static GetCustomResponse ToResponse(this ClientGetCustomByIdDto custom)
+    internal static GetCustomResponse ToResponse(this CustomerGetCustomByIdDto custom)
         => new(
             Id: custom.Id.Value,
             Name: custom.Name,

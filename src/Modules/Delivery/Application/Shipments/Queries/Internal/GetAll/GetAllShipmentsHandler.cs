@@ -12,7 +12,7 @@ public class GetAllShipmentsHandler(IShipmentReads reads, IRequestSender sender)
     public async Task<Result<GetAllShipmentsDto>> Handle(GetAllShipmentsQuery req, CancellationToken ct)
     {
         ShipmentQuery query = new(
-            ClientId: req.ClientId,
+            CustomerId: req.CustomerId,
             Sorting: req.Sorting,
             Pagination: req.Pagination
         );
