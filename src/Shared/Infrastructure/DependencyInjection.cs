@@ -6,6 +6,7 @@ using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Email;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Infrastructure.Cache;
@@ -13,11 +14,15 @@ using CustomCADs.Shared.Infrastructure.Delivery;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Events;
 using CustomCADs.Shared.Infrastructure.Payment;
+using CustomCADs.Shared.Infrastructure.Requests;
 using CustomCADs.Shared.Infrastructure.Storage;
 using CustomCADs.Shared.Infrastructure.Tokens;
+using FluentValidation;
+using JasperFx.CodeGeneration;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using Wolverine;
+using Wolverine.FluentValidation;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
@@ -35,21 +40,25 @@ public static class DependencyInjection
     {
         services.AddScoped<IEmailService, FluentEmailService>();
     }
-    
+
     public static void AddTokensService(this IServiceCollection services)
     {
         services.AddScoped<ITokenService, TokenService>();
     }
 
-    public static void AddEventRaiser(this IServiceCollection services, params Assembly[] assemblies)
+    public static void AddMessagingServices(this IServiceCollection services, params Assembly[] assemblies)
     {
+        services.AddValidatorsFromAssemblies(assemblies);
+
         services.AddWolverine(cfg =>
         {
             foreach (Assembly assembly in assemblies)
-            {
                 cfg.Discovery.IncludeAssembly(assembly);
-            }
+
+            cfg.UseFluentValidation();
         });
+
+        services.AddScoped<IRequestSender, WolverineRequestSender>();
         services.AddScoped<IEventRaiser, WolverineEventRaiser>();
     }
 
