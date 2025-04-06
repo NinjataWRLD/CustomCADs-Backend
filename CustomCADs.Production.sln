@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{74636A63-AB16-4950-BF0D-966FBFF79B83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Presentation", "src\CustomCADs.Presentation\CustomCADs.Presentation.csproj", "{6D78955B-643A-41AE-AD5C-4873E04C8FB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Presentation", "src\Presentation\CustomCADs.Presentation.csproj", "{6D78955B-643A-41AE-AD5C-4873E04C8FB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{8CF3001A-FDE9-4E6A-A642-83480DB4B117}"
 EndProject

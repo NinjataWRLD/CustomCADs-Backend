@@ -14,6 +14,7 @@ RUN dotnet build -c $BUILD_CONFIGURATION
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
+RUN dotnet run --no-build --project src/Presentation/CustomCADs.Presentation.csproj -- codegen write
 RUN dotnet publish -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
