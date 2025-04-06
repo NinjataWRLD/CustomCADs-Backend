@@ -11,21 +11,16 @@ using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Persistence;
 using CustomCADs.Identity.Persistence.ShadowEntities;
 using CustomCADs.Presentation;
-using CustomCADs.Shared.Abstractions.Requests.Middleware;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Delivery;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Storage;
 using CustomCADs.Shared.Infrastructure.Tokens;
 using FastEndpoints;
-using FluentValidation;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Text.Json.Serialization;
 
 #pragma warning disable IDE0130
@@ -35,39 +30,23 @@ public static class ProgramExtensions
 {
     private const string AuthScheme = JwtBearerDefaults.AuthenticationScheme;
 
-    public static IServiceCollection AddUseCases(this IServiceCollection services)
+    public static IServiceCollection AddUseCases(this IServiceCollection services, IWebHostEnvironment env)
     {
-        Assembly[] assemblies = [
-            AccountApplicationReference.Assembly,
-            CartsApplicationReference.Assembly,
-            CatalogApplicationReference.Assembly,
-            CategoriesApplicationReference.Assembly,
-            CustomizationsApplicationReference.Assembly,
-            CustomsApplicationReference.Assembly,
-            DeliveryApplicationReference.Assembly,
-            FilesApplicationReference.Assembly,
-            IdentityApplicationReference.Assembly,
-        ];
-
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
-        services.AddValidatorsFromAssemblies(assemblies);
-
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
-        services.AddScoped<IRequestSender, RequestSender>();
-
-        return services;
-    }
-
-    public static IServiceCollection AddRaiserService(this IServiceCollection services)
-    {
-        services.AddEventRaiser([
-            AccountApplicationReference.Assembly,
-            CartsApplicationReference.Assembly,
-            CatalogApplicationReference.Assembly,
-            CategoriesApplicationReference.Assembly,
-            CustomsApplicationReference.Assembly,
-            IdentityApplicationReference.Assembly,
-        ]);
+        services.AddMessagingServices(
+            isDev: env.IsDevelopment(),
+            entry: typeof(ProgramExtensions).Assembly,
+            assemblies: [
+                AccountApplicationReference.Assembly,
+                CartsApplicationReference.Assembly,
+                CatalogApplicationReference.Assembly,
+                CategoriesApplicationReference.Assembly,
+                CustomizationsApplicationReference.Assembly,
+                CustomsApplicationReference.Assembly,
+                DeliveryApplicationReference.Assembly,
+                FilesApplicationReference.Assembly,
+                IdentityApplicationReference.Assembly,
+            ]
+        );
 
         return services;
     }
@@ -79,7 +58,7 @@ public static class ProgramExtensions
 
         return services;
     }
-    
+
     public static IServiceCollection AddTokensService(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<JwtSettings>(config.GetSection("JwtOptions"));

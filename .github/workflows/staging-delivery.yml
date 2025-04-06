@@ -22,6 +22,12 @@ jobs:
         with:
             fetch-depth: 0 
 
+      - name: Write codegen files
+        run: |
+          dotnet restore CustomCADs.Staging
+          dotnet build CustomCADs.Staging
+          dotnet run --no-build --project ./src/CustomCADs.Presentation/CustomCADs.Presentation.csproj -- codegen write
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
