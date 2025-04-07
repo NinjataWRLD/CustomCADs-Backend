@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Put;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Put.Data;
 using FluentValidation.TestHelper;
 
@@ -12,13 +13,12 @@ public class GetProductImagePresignedUrlPutValidatorUnitTests : ProductsBaseUnit
 
     [Theory]
     [ClassData(typeof(GetProductImagePresignedUrlPutValidData))]
-    public async Task Validate_ShouldBeValid_WhenCartIsValid(string contentType, string fileName)
+    public async Task Validate_ShouldBeValid_WhenCartIsValid(UploadFileRequest file)
     {
         // Arrange
         CreatorGetProductImagePresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewImage: file,
             CreatorId: ValidCreatorId
         );
 
@@ -32,13 +32,12 @@ public class GetProductImagePresignedUrlPutValidatorUnitTests : ProductsBaseUnit
     [Theory]
     [ClassData(typeof(GetProductImagePresignedUrlPutInvalidContentTypeData))]
     [ClassData(typeof(GetProductImagePresignedUrlPutInvalidFileNameData))]
-    public async Task Validate_ShouldBeInvalid_WhenCommandIsNotValid(string contentType, string fileName)
+    public async Task Validate_ShouldBeInvalid_WhenCommandIsNotValid(UploadFileRequest file)
     {
         // Arrange
         CreatorGetProductImagePresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewImage: file,
             CreatorId: ValidCreatorId
         );
 
@@ -52,13 +51,12 @@ public class GetProductImagePresignedUrlPutValidatorUnitTests : ProductsBaseUnit
 
     [Theory]
     [ClassData(typeof(GetProductImagePresignedUrlPutInvalidContentTypeData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string contentType, string fileName)
+    public async Task Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(UploadFileRequest file)
     {
         // Arrange
         CreatorGetProductImagePresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewImage: file,
             CreatorId: ValidCreatorId
         );
 
@@ -66,18 +64,17 @@ public class GetProductImagePresignedUrlPutValidatorUnitTests : ProductsBaseUnit
         var result = await validator.TestValidateAsync(query, cancellationToken: ct);
 
         // Assert
-        result.ShouldHaveValidationErrorFor(x => x.ContentType);
+        result.ShouldHaveValidationErrorFor(x => x.NewImage.ContentType);
     }
 
     [Theory]
     [ClassData(typeof(GetProductImagePresignedUrlPutInvalidFileNameData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenFileNameIsNotValid(string contentType, string fileName)
+    public async Task Validate_ShouldReturnProperErrors_WhenFileNameIsNotValid(UploadFileRequest file)
     {
         // Arrange
         CreatorGetProductImagePresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewImage: file,
             CreatorId: ValidCreatorId
         );
 
@@ -85,6 +82,6 @@ public class GetProductImagePresignedUrlPutValidatorUnitTests : ProductsBaseUnit
         var result = await validator.TestValidateAsync(query, cancellationToken: ct);
 
         // Assert
-        result.ShouldHaveValidationErrorFor(x => x.FileName);
+        result.ShouldHaveValidationErrorFor(x => x.NewImage.FileName);
     }
 }

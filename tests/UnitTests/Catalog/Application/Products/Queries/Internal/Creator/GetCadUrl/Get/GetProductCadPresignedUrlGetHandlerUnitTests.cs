@@ -1,8 +1,11 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Get;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Queries;
+using System;
+using System.Net.Mime;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Get;
 
@@ -22,7 +25,7 @@ public class GetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseUnitTest
             .ReturnsAsync(product);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync((url, contentType));
+            .ReturnsAsync(new DownloadFileResponse(url, contentType));
     }
 
     [Fact]

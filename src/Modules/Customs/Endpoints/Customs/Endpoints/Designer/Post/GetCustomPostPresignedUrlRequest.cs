@@ -1,7 +1,8 @@
-﻿namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Post;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
+
+namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Post;
 
 public sealed record GetCustomPostPresignedUrlRequest(
     Guid Id,
-    string ContentType,
-    string FileName
+    UploadFileRequest Cad
 );

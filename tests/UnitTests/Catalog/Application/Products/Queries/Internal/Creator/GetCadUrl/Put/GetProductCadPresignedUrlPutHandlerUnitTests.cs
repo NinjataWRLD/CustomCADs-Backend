@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Put;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
@@ -13,9 +14,8 @@ public class GetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseUnitTest
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Product product = CreateProduct();
+    private static readonly UploadFileRequest file = new("content-type", "file-name");
     private const string url = "presigned-url";
-    private const string contentType = "content-type";
-    private const string fileName = "file-name";
 
     public GetProductCadPresignedUrlPutHandlerUnitTests()
     {
@@ -32,8 +32,7 @@ public class GetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseUnitTest
         // Arrange
         CreatorGetProductCadPresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewCad: file,
             CreatorId: ValidCreatorId
         );
         CreatorGetProductCadPresignedUrlPutHandler handler = new(reads.Object, sender.Object);
@@ -51,8 +50,7 @@ public class GetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseUnitTest
         // Arrange
         CreatorGetProductCadPresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewCad: file,
             CreatorId: ValidCreatorId
         );
         CreatorGetProductCadPresignedUrlPutHandler handler = new(reads.Object, sender.Object);
@@ -72,8 +70,7 @@ public class GetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseUnitTest
         // Arrange
         CreatorGetProductCadPresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewCad: file,
             CreatorId: ValidCreatorId
         );
         CreatorGetProductCadPresignedUrlPutHandler handler = new(reads.Object, sender.Object);
@@ -91,8 +88,7 @@ public class GetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseUnitTest
         // Arrange
         CreatorGetProductCadPresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewCad: file,
             CreatorId: ValidDesignerId
         );
         CreatorGetProductCadPresignedUrlPutHandler handler = new(reads.Object, sender.Object);
@@ -114,8 +110,7 @@ public class GetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseUnitTest
 
         CreatorGetProductCadPresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewCad: file,
             CreatorId: ValidCreatorId
         );
         CreatorGetProductCadPresignedUrlPutHandler handler = new(reads.Object, sender.Object);

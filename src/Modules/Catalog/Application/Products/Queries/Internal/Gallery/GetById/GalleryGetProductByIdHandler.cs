@@ -35,7 +35,7 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
         string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
 
         GetCadCoordsByIdQuery coordsQuery = new(product.CadId);
-        var (CamCoords, PanCoords) = await sender.SendQueryAsync(coordsQuery, ct).ConfigureAwait(false);
+        var coords = await sender.SendQueryAsync(coordsQuery, ct).ConfigureAwait(false);
 
         if (!req.AccountId.IsEmpty())
         {
@@ -50,8 +50,8 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
             username: username,
             categoryName: categoryName,
             timeZone: timeZone,
-            camCoords: CamCoords,
-            panCoords: PanCoords
+            camCoords: coords.Cam,
+            panCoords: coords.Pan
         );
     }
 }

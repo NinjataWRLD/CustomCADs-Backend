@@ -1,7 +1,8 @@
-﻿namespace CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Post;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
+
+namespace CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Post;
 
 public sealed record GetMaterialTexturePresignedUrlPostQuery(
     string MaterialName,
-    string ContentType,
-    string FileName
-) : IQuery<GetMaterialTexturePresignedUrlPostDto>;
+    UploadFileRequest Image
+) : IQuery<UploadFileResponse>;

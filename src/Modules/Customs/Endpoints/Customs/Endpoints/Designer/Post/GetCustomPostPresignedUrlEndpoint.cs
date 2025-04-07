@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetCadUrlPost;
+using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Post;
 
 public sealed class GetCustomPostPresignedUrlEndpoint(IRequestSender sender)
-    : Endpoint<GetCustomPostPresignedUrlRequest, GetCustomPostPresignedUrlResponse>
+    : Endpoint<GetCustomPostPresignedUrlRequest, UploadFileResponse>
 {
     public override void Configure()
     {
@@ -19,13 +20,11 @@ public sealed class GetCustomPostPresignedUrlEndpoint(IRequestSender sender)
     {
         GetCustomCadPresignedUrlPostQuery query = new(
             Id: CustomId.New(req.Id),
-            ContentType: req.ContentType,
-            FileName: req.FileName,
+            Cad: req.Cad,
             DesignerId: User.GetAccountId()
         );
-        var dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        UploadFileResponse response = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        var response = dto.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

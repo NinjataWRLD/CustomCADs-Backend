@@ -1,15 +1,16 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Post.PresignedCadUrl;
 
 public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSender sender)
-    : Endpoint<GetPurchasedCartItemGetPresignedCadUrlRequest, GetPurchasedCartItemGetPresignedCadUrlResponse>
+    : Endpoint<GetPurchasedCartItemGetPresignedCadUrlRequest, DownloadFileResponse>
 {
     public override void Configure()
     {
-        Post("presignedUrls/download/cad");
+        Post("presignedUrls/download/response");
         Group<PurchasedCartsGroup>();
         Description(d => d
             .WithSummary("Download Cad")
@@ -24,12 +25,8 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
             ProductId: ProductId.New(req.ProductId),
             BuyerId: User.GetAccountId()
         );
-        GetPurchasedCartItemCadPresignedUrlGetDto cad = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        DownloadFileResponse response = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 
-        GetPurchasedCartItemGetPresignedCadUrlResponse response = new(
-            PresignedUrl: cad.PresignedUrl,
-            ContentType: cad.ContentType
-        );
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

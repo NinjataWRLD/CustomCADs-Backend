@@ -19,8 +19,7 @@ public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
     {
         CreatorGetProductCadPresignedUrlPutQuery presignedUrlQuery = new(
             Id: ProductId.New(req.Id),
-            ContentType: req.ContentType,
-            FileName: req.FileName,
+            NewCad: req.File,
             CreatorId: User.GetAccountId()
         );
         var cadDto = await sender.SendQueryAsync(presignedUrlQuery, ct).ConfigureAwait(false);

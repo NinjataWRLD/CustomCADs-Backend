@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetUrlGet.Cad;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
@@ -13,8 +14,7 @@ public class GetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseUnitTest
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Product product = CreateProduct().SetValidatedStatus();
-    private const string url = "presigned-url";
-    private const string contentType = "application/json";
+    private static readonly DownloadFileResponse cad = new("presigned-url", "application/png");
 
     public GetProductCadPresignedUrlGetHandlerUnitTests()
     {
@@ -22,7 +22,7 @@ public class GetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseUnitTest
             .ReturnsAsync(product);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync((url, contentType));
+            .ReturnsAsync(cad);
     }
 
     [Fact]
@@ -66,10 +66,7 @@ public class GetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseUnitTest
         var result = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Multiple(
-            () => Assert.Equal(url, result.PresignedUrl),
-            () => Assert.Equal(contentType, result.ContentType)
-        );
+        Assert.Equal(cad, result);
     }
 
     [Fact]

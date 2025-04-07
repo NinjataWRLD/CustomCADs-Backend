@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Put;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
@@ -13,9 +14,8 @@ public class GetProductImagePresignedUrlPutHandlerUnitTests : ProductsBaseUnitTe
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Product product = CreateProduct();
+    private static readonly UploadFileRequest file = new("content-type", "file-name");
     private const string url = "presigned-url";
-    private const string contentType = "content-type";
-    private const string fileName = "file-name";
 
     public GetProductImagePresignedUrlPutHandlerUnitTests()
     {
@@ -32,8 +32,7 @@ public class GetProductImagePresignedUrlPutHandlerUnitTests : ProductsBaseUnitTe
         // Arrange
         CreatorGetProductImagePresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewImage: file,
             CreatorId: ValidCreatorId
         );
         CreatorGetProductImagePresignedUrlPutHandler handler = new(reads.Object, sender.Object);
@@ -51,8 +50,7 @@ public class GetProductImagePresignedUrlPutHandlerUnitTests : ProductsBaseUnitTe
         // Arrange
         CreatorGetProductImagePresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewImage: file,
             CreatorId: ValidCreatorId
         );
         CreatorGetProductImagePresignedUrlPutHandler handler = new(reads.Object, sender.Object);
@@ -72,8 +70,7 @@ public class GetProductImagePresignedUrlPutHandlerUnitTests : ProductsBaseUnitTe
         // Arrange
         CreatorGetProductImagePresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewImage: file,
             CreatorId: ValidCreatorId
         );
         CreatorGetProductImagePresignedUrlPutHandler handler = new(reads.Object, sender.Object);
@@ -91,8 +88,7 @@ public class GetProductImagePresignedUrlPutHandlerUnitTests : ProductsBaseUnitTe
         // Arrange
         CreatorGetProductImagePresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewImage: file,
             CreatorId: ValidDesignerId
         );
         CreatorGetProductImagePresignedUrlPutHandler handler = new(reads.Object, sender.Object);
@@ -114,8 +110,7 @@ public class GetProductImagePresignedUrlPutHandlerUnitTests : ProductsBaseUnitTe
 
         CreatorGetProductImagePresignedUrlPutQuery query = new(
             Id: ValidId,
-            ContentType: contentType,
-            FileName: fileName,
+            NewImage: file,
             CreatorId: ValidCreatorId
         );
         CreatorGetProductImagePresignedUrlPutHandler handler = new(reads.Object, sender.Object);

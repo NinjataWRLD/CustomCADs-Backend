@@ -4,7 +4,7 @@ public class GetProductCadPresignedUrlPostInvalidProductNameData : GetProductCad
 {
     public GetProductCadPresignedUrlPostInvalidProductNameData()
     {
-        Add(null!, "model/gltf-binary", "Hand.glb");
-        Add(string.Empty, "model/gltf+json", "Chair.gltf");
+        Add(null!, new("model/gltf-binary", "Hand.glb"));
+        Add(string.Empty, new("model/gltf+json", "Chair.gltf"));
     }
 }

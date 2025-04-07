@@ -1,13 +1,14 @@
 ﻿using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetCadUrlGet;
 
 public sealed class GetCustomCadPresignedUrlGetHandler(ICustomReads reads, IRequestSender sender)
-    : IQueryHandler<GetCustomCadPresignedUrlGetQuery, GetCustomCadPresignedUrlGetDto>
+    : IQueryHandler<GetCustomCadPresignedUrlGetQuery, DownloadFileResponse>
 {
-    public async Task<GetCustomCadPresignedUrlGetDto> Handle(GetCustomCadPresignedUrlGetQuery req, CancellationToken ct)
+    public async Task<DownloadFileResponse> Handle(GetCustomCadPresignedUrlGetQuery req, CancellationToken ct)
     {
         Custom custom = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<Custom>.ById(req.Id);
@@ -19,11 +20,6 @@ public sealed class GetCustomCadPresignedUrlGetHandler(ICustomReads reads, IRequ
             throw CustomStatusException<Custom>.Custom($"Custom is not completed: {custom.Id}.");
 
         GetCadPresignedUrlGetByIdQuery query = new(custom.FinishedCustom!.CadId);
-        var (Url, ContetType) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        return new(
-            PresignedUrl: Url,
-            ContentType: ContetType
-        );
+        return await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
     }
 }

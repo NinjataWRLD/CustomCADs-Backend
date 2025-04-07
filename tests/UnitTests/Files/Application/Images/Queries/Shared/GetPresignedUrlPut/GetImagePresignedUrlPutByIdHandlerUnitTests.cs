@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Files.Application.Images.Queries.Shared;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Storage;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Queries;
 using CustomCADs.UnitTests.Files.Application.Images.Queries.Shared.GetPresignedUrlPut.Data;
@@ -20,13 +21,12 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
-    public async Task Handle_ShouldQueryDatabase(string newContentType, string newFileName)
+    public async Task Handle_ShouldQueryDatabase(UploadFileRequest newFile)
     {
         // Assert
         GetImagePresignedUrlPutByIdQuery query = new(
             id1,
-            NewContentType: newContentType,
-            NewFileName: newFileName
+            newFile
         );
         GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
@@ -39,13 +39,12 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
-    public async Task Handle_ShouldCallStorage_WhenImageFound(string newContentType, string newFileName)
+    public async Task Handle_ShouldCallStorage_WhenImageFound(UploadFileRequest newFile)
     {
         // Assert
         GetImagePresignedUrlPutByIdQuery query = new(
             id1,
-            NewContentType: newContentType,
-            NewFileName: newFileName
+            newFile
         );
         GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
@@ -55,22 +54,20 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
         // Assert
         storage.Verify(x => x.GetPresignedPutUrlAsync(
             image.Key,
-            newContentType,
-            newFileName
+            newFile
         ), Times.Once);
     }
 
     [Theory]
     [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
-    public async Task Handle_ShouldThrowException_WhenImageNotFound(string newContentType, string newFileName)
+    public async Task Handle_ShouldThrowException_WhenImageNotFound(UploadFileRequest newFile)
     {
         // Assert
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct)).ReturnsAsync(null as Image);
 
         GetImagePresignedUrlPutByIdQuery query = new(
             id1,
-            NewContentType: newContentType,
-            NewFileName: newFileName
+            newFile
         );
         GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 

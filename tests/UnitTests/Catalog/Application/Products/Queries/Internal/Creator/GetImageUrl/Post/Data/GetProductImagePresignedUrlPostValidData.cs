@@ -7,7 +7,7 @@ public class GetProductImagePresignedUrlPostValidData : GetProductImagePresigned
 {
     public GetProductImagePresignedUrlPostValidData()
     {
-        Add(ValidName1, "image/jpeg", "Hand.jpg");
-        Add(ValidName2, "image/png", "Chair.png");
+        Add(ValidName1, new("cad/jpeg", "Hand.jpg"));
+        Add(ValidName2, new("cad/png", "Chair.png"));
     }
 }

@@ -1,10 +1,10 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetCadUrlPost;
 
 public record GetCustomCadPresignedUrlPostQuery(
     CustomId Id,
-    string ContentType,
-    string FileName,
+    UploadFileRequest Cad,
     AccountId DesignerId
-) : IQuery<GetCustomCadPresignedUrlPostDto>;
+) : IQuery<UploadFileResponse>;

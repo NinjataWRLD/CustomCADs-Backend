@@ -1,21 +1,19 @@
 ﻿using CustomCADs.Shared.Abstractions.Requests.Queries;
 using CustomCADs.Shared.Abstractions.Storage;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Files.Application.Cads.Queries.Shared;
 
 public class GetCadPresignedUrlPostByIdHandler(IStorageService storage)
-    : IQueryHandler<GetCadPresignedUrlPostByIdQuery, (string Key, string Url)>
+    : IQueryHandler<GetCadPresignedUrlPostByIdQuery, UploadFileResponse>
 {
-    public async Task<(string Key, string Url)> Handle(GetCadPresignedUrlPostByIdQuery req, CancellationToken ct)
+    public async Task<UploadFileResponse> Handle(GetCadPresignedUrlPostByIdQuery req, CancellationToken ct)
     {
-        var (Key, Url) = await storage.GetPresignedPostUrlAsync(
+        return await storage.GetPresignedPostUrlAsync(
             folderPath: "cads",
             name: req.Name,
-            contentType: req.ContentType,
-            fileName: req.FileName
+            file: req.File
         ).ConfigureAwait(false);
-
-        return (Key, Url);
     }
 }

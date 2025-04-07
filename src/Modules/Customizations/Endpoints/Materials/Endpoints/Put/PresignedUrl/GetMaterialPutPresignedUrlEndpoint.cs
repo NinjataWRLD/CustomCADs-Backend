@@ -19,8 +19,7 @@ public sealed class GetMaterialPutPresignedUrlEndpoint(IRequestSender sender)
     {
         GetMaterialTexturePresignedUrlPutQuery presignedUrlQuery = new(
             Id: MaterialId.New(req.Id),
-            ContentType: req.ContentType,
-            FileName: req.FileName
+            NewImage: req.File
         );
         var imageDto = await sender.SendQueryAsync(presignedUrlQuery, ct).ConfigureAwait(false);
 

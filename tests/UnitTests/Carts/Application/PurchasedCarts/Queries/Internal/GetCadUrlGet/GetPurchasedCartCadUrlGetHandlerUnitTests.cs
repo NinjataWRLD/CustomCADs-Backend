@@ -2,6 +2,7 @@
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
@@ -47,7 +48,7 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     public GetPurchasedCartCadUrlGetHandlerUnitTests()
     {
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync((Url, ContentType));
+            .ReturnsAsync(new DownloadFileResponse(Url, ContentType));
     }
 
     [Fact]

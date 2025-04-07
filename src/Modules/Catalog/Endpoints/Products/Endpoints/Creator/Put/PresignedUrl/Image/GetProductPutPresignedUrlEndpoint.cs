@@ -19,8 +19,7 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
     {
         CreatorGetProductImagePresignedUrlPutQuery presignedUrlQuery = new(
             Id: ProductId.New(req.Id),
-            ContentType: req.ContentType,
-            FileName: req.FileName,
+            NewImage: req.File,
             CreatorId: User.GetAccountId()
         );
         var imageDto = await sender.SendQueryAsync(presignedUrlQuery, ct).ConfigureAwait(false);

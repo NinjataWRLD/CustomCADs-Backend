@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Get;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
@@ -13,8 +14,7 @@ public class GetProductImagePresignedUrlGetHandlerUnitTests : ProductsBaseUnitTe
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Product product = CreateProduct(creatorId: ValidDesignerId);
-    private const string url = "presigned-url";
-    private const string contentType = "application/xml";
+    private static readonly DownloadFileResponse image = new("presigned-url", "application/png");
 
     public GetProductImagePresignedUrlGetHandlerUnitTests()
     {
@@ -22,7 +22,7 @@ public class GetProductImagePresignedUrlGetHandlerUnitTests : ProductsBaseUnitTe
             .ReturnsAsync(product);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetImagePresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync((url, contentType));
+            .ReturnsAsync(image);
     }
 
     [Fact]
@@ -66,10 +66,7 @@ public class GetProductImagePresignedUrlGetHandlerUnitTests : ProductsBaseUnitTe
         var result = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Multiple(
-            () => Assert.Equal(url, result.PresignedUrl),
-            () => Assert.Equal(contentType, result.ContentType)
-        );
+        Assert.Equal(image, result);
     }
 
     [Fact]

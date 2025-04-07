@@ -4,7 +4,7 @@ public class GetProductImagePresignedUrlPutValidData : GetProductImagePresignedU
 {
     public GetProductImagePresignedUrlPutValidData()
     {
-        Add("image/jpeg", "Hand.jpg");
-        Add("image/png", "Chair.png");
+        Add(new("cad/jpeg", "Hand.jpg"));
+        Add(new("cad/png", "Chair.png"));
     }
 }

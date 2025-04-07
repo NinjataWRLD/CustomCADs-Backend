@@ -19,8 +19,7 @@ public sealed class CreatorGetProductCadPresignedUrlPutHandler(IProductReads rea
 
         GetCadPresignedUrlPutByIdQuery query = new(
             Id: product.CadId,
-            NewContentType: req.ContentType,
-            NewFileName: req.FileName
+            NewFile: req.NewCad
         );
         string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

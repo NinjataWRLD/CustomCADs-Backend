@@ -1,20 +1,18 @@
 ﻿using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Post;
 
 public sealed class GetMaterialTexturePresignedUrlPostHandler(IRequestSender sender)
-    : IQueryHandler<GetMaterialTexturePresignedUrlPostQuery, GetMaterialTexturePresignedUrlPostDto>
+    : IQueryHandler<GetMaterialTexturePresignedUrlPostQuery, UploadFileResponse>
 {
-    public async Task<GetMaterialTexturePresignedUrlPostDto> Handle(GetMaterialTexturePresignedUrlPostQuery req, CancellationToken ct)
+    public async Task<UploadFileResponse> Handle(GetMaterialTexturePresignedUrlPostQuery req, CancellationToken ct)
     {
         GetImagePresignedUrlPostByIdQuery query = new(
             Name: req.MaterialName,
-            ContentType: req.ContentType,
-            FileName: req.FileName
+            File: req.Image
         );
-        (string Key, string Url) = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        return new(GeneratedKey: Key, PresignedUrl: Url);
+        return await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
     }
 }

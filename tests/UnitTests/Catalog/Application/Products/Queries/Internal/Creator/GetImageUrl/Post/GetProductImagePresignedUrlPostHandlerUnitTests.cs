@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Post;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Post;
@@ -9,16 +10,14 @@ using static ProductsData;
 public class GetProductImagePresignedUrlPostHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly Mock<IRequestSender> sender = new();
-    private const string key = "generated-key";
-    private const string url = "presigned-url";
     private const string productName = "product-name";
-    private const string contentType = "content-type";
-    private const string fileName = "file-name";
+    private static readonly UploadFileRequest req = new("content-type", "file-name");
+    private static readonly UploadFileResponse res = new("generated-key", "presigned-url");
 
     public GetProductImagePresignedUrlPostHandlerUnitTests()
     {
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetImagePresignedUrlPostByIdQuery>(), ct))
-            .ReturnsAsync((key, url));
+            .ReturnsAsync(res);
     }
 
     [Fact]
@@ -27,8 +26,7 @@ public class GetProductImagePresignedUrlPostHandlerUnitTests : ProductsBaseUnitT
         // Arrange
         CreatorGetProductImagePresignedUrlPostQuery query = new(
             ProductName: productName,
-            ContentType: contentType,
-            FileName: fileName
+            Image: req
         );
         CreatorGetProductImagePresignedUrlPostHandler handler = new(sender.Object);
 
@@ -47,8 +45,7 @@ public class GetProductImagePresignedUrlPostHandlerUnitTests : ProductsBaseUnitT
         // Arrange
         CreatorGetProductImagePresignedUrlPostQuery query = new(
             ProductName: productName,
-            ContentType: contentType,
-            FileName: fileName
+            Image: req
         );
         CreatorGetProductImagePresignedUrlPostHandler handler = new(sender.Object);
 
@@ -56,9 +53,6 @@ public class GetProductImagePresignedUrlPostHandlerUnitTests : ProductsBaseUnitT
         var result = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Multiple(
-            () => Assert.Equal(key, result.GeneratedKey),
-            () => Assert.Equal(url, result.PresignedUrl)
-        );
+        Assert.Equal(res, result);
     }
 }

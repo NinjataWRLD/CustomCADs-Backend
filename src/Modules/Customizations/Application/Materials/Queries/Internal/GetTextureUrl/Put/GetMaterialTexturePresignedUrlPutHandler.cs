@@ -14,8 +14,7 @@ public sealed class GetMaterialTexturePresignedUrlPutHandler(IMaterialReads read
 
         GetImagePresignedUrlPutByIdQuery query = new(
             Id: material.TextureId,
-            NewContentType: req.ContentType,
-            NewFileName: req.FileName
+            NewFile: req.NewImage
         );
         string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

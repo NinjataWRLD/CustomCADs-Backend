@@ -19,8 +19,7 @@ public sealed class CreatorGetProductImagePresignedUrlPutHandler(IProductReads r
 
         GetImagePresignedUrlPutByIdQuery query = new(
             Id: product.ImageId,
-            NewContentType: req.ContentType,
-            NewFileName: req.FileName
+            NewFile: req.NewImage
         );
         string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
 

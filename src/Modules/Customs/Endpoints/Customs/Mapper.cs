@@ -87,12 +87,6 @@ internal static class Mapper
             BuyerName: custom.BuyerName
         );
 
-    internal static GetCustomPostPresignedUrlResponse ToResponse(this GetCustomCadPresignedUrlPostDto dto)
-        => new(
-            CadKey: dto.GeneratedKey,
-            CadUrl: dto.PresignedUrl
-        );
-
     internal static (string Key, string ContentType, decimal Volume) ToTuple(this FinishCustomRequest req)
         => (Key: req.CadKey, ContentType: req.CadContentType, Volume: req.CadVolume);
 }

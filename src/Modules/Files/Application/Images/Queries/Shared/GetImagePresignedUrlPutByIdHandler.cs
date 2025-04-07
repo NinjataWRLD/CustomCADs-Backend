@@ -15,8 +15,7 @@ public class GetImagePresignedUrlPutByIdHandler(IImageReads reads, IStorageServi
 
         string url = await storage.GetPresignedPutUrlAsync(
             key: image.Key,
-            contentType: req.NewContentType,
-            fileName: req.NewFileName
+            file: req.NewFile
         ).ConfigureAwait(false);
 
         return url;
