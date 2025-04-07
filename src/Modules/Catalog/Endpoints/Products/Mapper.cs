@@ -27,6 +27,7 @@ internal static class Mapper
         => new(
             Id: product.Id.Value,
             Name: product.Name,
+            Tags: product.Tags,
             Category: product.Category.Name,
             Views: product.Views
         );
@@ -38,6 +39,7 @@ internal static class Mapper
             Description: product.Description,
             Price: product.Price,
             Volume: product.Volume,
+            Tags: product.Tags,
             CreatorName: product.CreatorName,
             UploadedAt: product.UploadedAt.ToString(DateFormatString),
             CamCoordinates: product.CamCoordinates,

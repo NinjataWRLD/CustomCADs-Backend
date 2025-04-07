@@ -24,6 +24,8 @@ public sealed class GalleryGetAllProductsHandler(IProductReads reads, IRequestSe
         );
         Result<Product> result = await reads.AllAsync(productQuery, track: false, ct: ct).ConfigureAwait(false);
 
+        Dictionary<ProductId, string[]> tags = await reads.TagsByIdsAsync([.. result.Items.Select(p => p.Id)], ct).ConfigureAwait(false);
+
         AccountId[] userIds = [.. result.Items.Select(p => p.CreatorId).Distinct()];
         Dictionary<AccountId, string> users = await sender
             .SendQueryAsync(new GetUsernamesByIdsQuery(userIds), ct).ConfigureAwait(false);
@@ -42,6 +44,7 @@ public sealed class GalleryGetAllProductsHandler(IProductReads reads, IRequestSe
             Items: [.. result.Items.Select(p => p.ToGalleryGetAllDto(
                 username: users[p.CreatorId],
                 categoryName: categories[p.CategoryId],
+                tags: tags[p.Id],
                 timeZone: timeZone
             ))]
         );

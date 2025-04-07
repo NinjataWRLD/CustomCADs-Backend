@@ -12,17 +12,18 @@ namespace CustomCADs.Catalog.Application.Products;
 
 internal static class Mapper
 {
-    internal static GalleryGetAllProductsDto ToGalleryGetAllDto(this Product product, string username, string categoryName, string? timeZone)
+    internal static GalleryGetAllProductsDto ToGalleryGetAllDto(this Product product, string username, string categoryName, string[] tags, string? timeZone)
         => new(
             Id: product.Id,
             Name: product.Name,
             Views: product.Counts.Views,
+            Tags: tags,
             UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
 
-    internal static GalleryGetProductByIdDto ToGalleryGetByIdDto(this Product product, decimal volume, string username, string categoryName, string timeZone, CoordinatesDto camCoords, CoordinatesDto panCoords)
+    internal static GalleryGetProductByIdDto ToGalleryGetByIdDto(this Product product, decimal volume, string username, string categoryName, string[] tags, string timeZone, CoordinatesDto camCoords, CoordinatesDto panCoords)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -30,6 +31,7 @@ internal static class Mapper
             Price: product.Price,
             Volume: volume,
             CreatorName: username,
+            Tags: tags,
             UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
             CamCoordinates: camCoords,
             PanCoordinates: panCoords,

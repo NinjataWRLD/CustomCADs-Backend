@@ -61,8 +61,8 @@ public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWo
             await productWrites.AddTagAsync(product.Id, Tags.ProfessionalId, ct).ConfigureAwait(false);
         }
 
-        // Add STL check
-        await productWrites.AddTagAsync(product.Id, Tags.PrintableId, ct).ConfigureAwait(false);
+        if (req.CadContentType == "model/stl")
+            await productWrites.AddTagAsync(product.Id, Tags.PrintableId, ct).ConfigureAwait(false);
 
         await productWrites.AddTagAsync(product.Id, Tags.NewId, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

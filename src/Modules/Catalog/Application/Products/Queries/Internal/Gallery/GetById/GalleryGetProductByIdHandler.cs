@@ -21,6 +21,7 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
         {
             throw CustomStatusException<Product>.ById(req.Id);
         }
+        string[] tags = await reads.TagsByIdAsync(req.Id, ct).ConfigureAwait(false);
 
         GetCadVolumeByIdQuery volumeQuery = new(product.CadId);
         decimal volume = await sender.SendQueryAsync(volumeQuery, ct).ConfigureAwait(false);
@@ -49,6 +50,7 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
             volume: volume,
             username: username,
             categoryName: categoryName,
+            tags: tags,
             timeZone: timeZone,
             camCoords: coords.Cam,
             panCoords: coords.Pan

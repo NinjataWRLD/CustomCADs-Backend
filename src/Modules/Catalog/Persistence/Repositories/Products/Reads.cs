@@ -44,6 +44,20 @@ public sealed class Reads(CatalogContext context) : IProductReads
             .FirstOrDefaultAsync(p => p.Id == id, ct)
             .ConfigureAwait(false);
 
+    public async Task<string[]> TagsByIdAsync(ProductId id, CancellationToken ct = default)
+        => await context.ProductTags
+            .Where(p => p.ProductId == id)
+            .Select(p => p.Tag.Name)
+            .ToArrayAsync(ct)
+            .ConfigureAwait(false);
+
+    public async Task<Dictionary<ProductId, string[]>> TagsByIdsAsync(ProductId[] ids, CancellationToken ct = default)
+        => await context.ProductTags
+            .GroupBy(x => x.ProductId)
+            .Select(x => new { Id = x.Key, Tags = x.Select(x => x.Tag.Name).ToArray() })
+            .ToDictionaryAsync(x => x.Id, x => x.Tags, ct)
+            .ConfigureAwait(false);
+
     public async Task<bool> ExistsByIdAsync(ProductId id, CancellationToken ct = default)
         => await context.Products
             .WithTracking(false)
