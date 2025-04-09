@@ -18,9 +18,7 @@ public sealed class EditProductHandler(IProductReads reads, IUnitOfWork uow, IRe
             throw CustomAuthorizationException<Product>.ById(req.Id);
         }
 
-        GetCategoryExistsByIdQuery categoryQuery = new(req.CategoryId);
-        bool categoryExists = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
-        if (!categoryExists)
+        if (!await sender.SendQueryAsync(new GetCategoryExistsByIdQuery(req.CategoryId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<Product>.ById(req.CategoryId, "Category");
 
         product

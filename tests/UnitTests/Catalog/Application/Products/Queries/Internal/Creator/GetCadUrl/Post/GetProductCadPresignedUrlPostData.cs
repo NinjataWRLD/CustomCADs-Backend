@@ -1,3 +1,5 @@
-﻿namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
 
-public class GetProductCadPresignedUrlPostData : TheoryData<string, string, string>;
+namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
+
+public class GetProductCadPresignedUrlPostData : TheoryData<string, UploadFileRequest>;

@@ -9,10 +9,10 @@ public class CreatorGetProductCadPresignedUrlPutValidator : QueryValidator<Creat
 {
     public CreatorGetProductCadPresignedUrlPutValidator()
     {
-        RuleFor(x => x.ContentType)
+        RuleFor(x => x.NewCad.ContentType)
             .NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(x => x.FileName)
+        RuleFor(x => x.NewCad.FileName)
             .NotEmpty().WithMessage(RequiredError);
     }
 }

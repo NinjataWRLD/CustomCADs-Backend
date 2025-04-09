@@ -17,10 +17,12 @@ public class DeleteCustomizationEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteCustomizationRequest req, CancellationToken ct)
     {
-        DeleteCustomizationCommand command = new(
-            Id: CustomizationId.New(req.Id)
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new DeleteCustomizationCommand(
+                Id: CustomizationId.New(req.Id)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

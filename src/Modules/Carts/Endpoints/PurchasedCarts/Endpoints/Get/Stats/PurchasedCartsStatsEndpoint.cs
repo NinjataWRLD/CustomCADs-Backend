@@ -18,15 +18,19 @@ public sealed class PurchasedCartsStatsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        CountPurchasedCartsQuery cartQuery = new(
-            BuyerId: User.GetAccountId()
-        );
-        int totalCartCount = await sender.SendQueryAsync(cartQuery, ct).ConfigureAwait(false);
+        int totalCartCount = await sender.SendQueryAsync(
+            new CountPurchasedCartsQuery(
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+    ).ConfigureAwait(false);
 
-        CountPurchasedCartItemsQuery itemsQuery = new(
-            BuyerId: User.GetAccountId()
-        );
-        var counts = await sender.SendQueryAsync(itemsQuery, ct).ConfigureAwait(false);
+        var counts = await sender.SendQueryAsync(
+            new CountPurchasedCartItemsQuery(
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         PurchasedCartsStatsResponse response = new(
             Total: totalCartCount,

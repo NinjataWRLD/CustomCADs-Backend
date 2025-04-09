@@ -5,6 +5,7 @@ public record GalleryGetAllProductsDto(
     string Name,
     string CreatorName,
     int Views,
+    string[] Tags,
     DateTimeOffset UploadedAt,
     CategoryDto Category
 );

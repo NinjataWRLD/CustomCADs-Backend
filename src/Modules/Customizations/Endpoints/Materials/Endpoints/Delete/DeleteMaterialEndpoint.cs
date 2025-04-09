@@ -17,10 +17,12 @@ public sealed class DeleteMaterialEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteMaterialRequest req, CancellationToken ct)
     {
-        DeleteMaterialCommand command = new(
-            Id: MaterialId.New(req.Id)
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new DeleteMaterialCommand(
+                Id: MaterialId.New(req.Id)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

@@ -17,8 +17,10 @@ public sealed class GetProductSortingsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        GetProductCreatorSortingsQuery query = new();
-        string[] result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        string[] result = await sender.SendQueryAsync(
+            new GetProductCreatorSortingsQuery(),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(result).ConfigureAwait(false);
     }

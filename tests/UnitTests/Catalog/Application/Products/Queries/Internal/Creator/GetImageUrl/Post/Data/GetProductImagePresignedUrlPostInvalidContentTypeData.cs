@@ -7,7 +7,7 @@ public class GetProductImagePresignedUrlPostInvalidContentTypeData : GetProductI
 {
     public GetProductImagePresignedUrlPostInvalidContentTypeData()
     {
-        Add(ValidName1, null!, "Hand.jpg");
-        Add(ValidName2, string.Empty, "Chair.png");
+        Add(ValidName1, new(null!, "Hand.jpg"));
+        Add(ValidName2, new(string.Empty, "Chair.png"));
     }
 }

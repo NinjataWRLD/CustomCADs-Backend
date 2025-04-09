@@ -3,7 +3,7 @@
 public sealed record GetValidatedProductsResponse(
     Guid Id,
     string Name,
-    string UploadedAt,
+    DateTimeOffset UploadedAt,
     string CreatorName,
     CategoryResponse Category
 );

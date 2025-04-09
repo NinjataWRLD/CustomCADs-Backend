@@ -25,22 +25,22 @@ public sealed class DesignerGetAllProductsHandler(IProductReads reads, IRequestS
         Result<Product> result = await reads.AllAsync(productQuery, track: false, ct: ct).ConfigureAwait(false);
 
         AccountId[] userIds = [.. result.Items.Select(p => p.CreatorId).Distinct()];
-        Dictionary<AccountId, string> users = await sender
-            .SendQueryAsync(new GetUsernamesByIdsQuery(userIds), ct).ConfigureAwait(false);
+        Dictionary<AccountId, string> users = await sender.SendQueryAsync(
+            new GetUsernamesByIdsQuery(userIds),
+            ct
+        ).ConfigureAwait(false);
 
         CategoryId[] categoryIds = [.. result.Items.Select(p => p.CategoryId).Distinct()];
-        Dictionary<CategoryId, string> categories = await sender
-            .SendQueryAsync(new GetCategoryNamesByIdsQuery(categoryIds), ct).ConfigureAwait(false);
-
-        GetTimeZoneByIdQuery timeZoneQuery = new(req.DesignerId);
-        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        Dictionary<CategoryId, string> categories = await sender.SendQueryAsync(
+            new GetCategoryNamesByIdsQuery(categoryIds),
+            ct
+        ).ConfigureAwait(false);
 
         return new(
             Count: result.Count,
             Items: [.. result.Items.Select(p => p.ToDesignerGetAllDto(
                 username: users[p.CreatorId],
-                categoryName: categories[p.CategoryId],
-                timeZone: timeZone
+                categoryName: categories[p.CategoryId]
             ))]
         );
     }

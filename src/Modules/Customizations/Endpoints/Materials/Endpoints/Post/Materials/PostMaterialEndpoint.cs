@@ -20,17 +20,21 @@ public sealed class PostMaterialEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PostMaterialRequest req, CancellationToken ct)
     {
-        CreateMaterialCommand command = new(
-            Name: req.Name,
-            Density: req.Density,
-            Cost: req.Cost,
-            TextureKey: req.TextureKey,
-            TextureContentType: req.TextureContentType
-        );
-        MaterialId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        MaterialId id = await sender.SendCommandAsync(
+            new CreateMaterialCommand(
+                Name: req.Name,
+                Density: req.Density,
+                Cost: req.Cost,
+                TextureKey: req.TextureKey,
+                TextureContentType: req.TextureContentType
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        GetMaterialByIdQuery query = new(id);
-        MaterialDto material = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        MaterialDto material = await sender.SendQueryAsync(
+            new GetMaterialByIdQuery(id),
+            ct
+        ).ConfigureAwait(false);
 
         MaterialResponse response = material.ToResponse();
         await SendCreatedAtAsync<GetMaterialEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);

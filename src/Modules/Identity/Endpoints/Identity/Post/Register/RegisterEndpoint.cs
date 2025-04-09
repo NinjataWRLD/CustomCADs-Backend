@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Routing;
+﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Register;
+using CustomCADs.Identity.Application.Users.Commands.Internal.VerificationEmail;
+using Microsoft.AspNetCore.Routing;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Register;
 
-public sealed class RegisterEndpoint(IUserService service, LinkGenerator links)
+public sealed class RegisterEndpoint(IRequestSender sender, LinkGenerator links)
     : Endpoint<RegisterRequest>
 {
     public override void Configure()
@@ -18,22 +20,29 @@ public sealed class RegisterEndpoint(IUserService service, LinkGenerator links)
 
     public override async Task HandleAsync(RegisterRequest req, CancellationToken ct)
     {
-        CreateUserDto dto = new(
-            Role: req.Role,
-            Username: req.Username,
-            Email: req.Email,
-            TimeZone: req.TimeZone,
-            Password: req.Password,
-            FirstName: req.FirstName,
-            LastName: req.LastName
-        );
-        await service.CreateAsync(dto).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new RegisterUserCommand(
+                Role: req.Role,
+                Username: req.Username,
+                Email: req.Email,
+                Password: req.Password,
+                FirstName: req.FirstName,
+                LastName: req.LastName
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        string token = await service.GenerateEmailConfirmationTokenAsync(req.Username).ConfigureAwait(false);
-        string uri = links.GetUriByName(HttpContext, IdentityNames.ConfirmEmail, new { username = req.Username, token })
-            ?? throw new InvalidOperationException("Unable to generate confirmation link.");
-
-        await service.SendVerificationEmailAsync(req.Username, uri).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new VerificationEmailCommand(
+                Username: req.Username,
+                GetUri: ect => links.GetUriByName(
+                    httpContext: HttpContext,
+                    endpointName: IdentityNames.ConfirmEmail,
+                    values: new { username = req.Username, token = ect }
+                ) ?? throw new InvalidOperationException("Unable to generate confirmation link.")
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync("Welcome!").ConfigureAwait(false);
     }

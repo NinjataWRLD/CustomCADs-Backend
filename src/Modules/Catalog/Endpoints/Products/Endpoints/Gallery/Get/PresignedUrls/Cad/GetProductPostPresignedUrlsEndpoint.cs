@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetUrlGet.Cad;
+using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Get.PresignedUrls.Cad;
 
 public sealed class GetProductGetPresignedUrlsEndpoint(IRequestSender sender)
-    : Endpoint<GetProductGetPresignedUrlsRequest, GetProductGetPresignedUrlsResponse>
+    : Endpoint<GetProductGetPresignedUrlsRequest, DownloadFileResponse>
 {
     public override void Configure()
     {
@@ -17,15 +18,13 @@ public sealed class GetProductGetPresignedUrlsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductGetPresignedUrlsRequest req, CancellationToken ct)
     {
-        GalleryGetProductCadPresignedUrlGetQuery query = new(
-            Id: ProductId.New(req.Id)
-        );
-        var dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        DownloadFileResponse response = await sender.SendQueryAsync(
+            new GalleryGetProductCadPresignedUrlGetQuery(
+                Id: ProductId.New(req.Id)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        GetProductGetPresignedUrlsResponse response = new(
-            PresignedUrl: dto.PresignedUrl,
-            ContentType: dto.ContentType
-        );
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post.Data;
 using FluentValidation.TestHelper;
 
@@ -12,13 +13,12 @@ public class GetProductCadPresignedUrlPostValidatorUnitTests : ProductsBaseUnitT
 
     [Theory]
     [ClassData(typeof(GetProductCadPresignedUrlPostValidData))]
-    public async Task Validate_ShouldBeValid_WhenCartIsValid(string name, string contentType, string fileName)
+    public async Task Validate_ShouldBeValid_WhenCartIsValid(string name, UploadFileRequest file)
     {
         // Arrange
         CreatorGetProductCadPresignedUrlPostQuery query = new(
             ProductName: name,
-            ContentType: contentType,
-            FileName: fileName
+            Cad: file
         );
 
         // Act
@@ -31,13 +31,12 @@ public class GetProductCadPresignedUrlPostValidatorUnitTests : ProductsBaseUnitT
     [Theory]
     [ClassData(typeof(GetProductCadPresignedUrlPostInvalidContentTypeData))]
     [ClassData(typeof(GetProductCadPresignedUrlPostInvalidFileNameData))]
-    public async Task Validate_ShouldBeInvalid_WhenCommandIsNotValid(string name, string contentType, string fileName)
+    public async Task Validate_ShouldBeInvalid_WhenCommandIsNotValid(string name, UploadFileRequest file)
     {
         // Arrange
         CreatorGetProductCadPresignedUrlPostQuery query = new(
             ProductName: name,
-            ContentType: contentType,
-            FileName: fileName
+            Cad: file
         );
 
         // Act
@@ -49,13 +48,12 @@ public class GetProductCadPresignedUrlPostValidatorUnitTests : ProductsBaseUnitT
 
     [Theory]
     [ClassData(typeof(GetProductCadPresignedUrlPostInvalidProductNameData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenProductNameIsNotValid(string name, string contentType, string fileName)
+    public async Task Validate_ShouldReturnProperErrors_WhenProductNameIsNotValid(string name, UploadFileRequest file)
     {
         // Arrange
         CreatorGetProductCadPresignedUrlPostQuery query = new(
             ProductName: name,
-            ContentType: contentType,
-            FileName: fileName
+            Cad: file
         );
 
         // Act
@@ -67,37 +65,35 @@ public class GetProductCadPresignedUrlPostValidatorUnitTests : ProductsBaseUnitT
 
     [Theory]
     [ClassData(typeof(GetProductCadPresignedUrlPostInvalidContentTypeData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string name, string contentType, string fileName)
+    public async Task Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string name, UploadFileRequest file)
     {
         // Arrange
         CreatorGetProductCadPresignedUrlPostQuery query = new(
             ProductName: name,
-            ContentType: contentType,
-            FileName: fileName
+            Cad: file
         );
 
         // Act
         var result = await validator.TestValidateAsync(query, cancellationToken: ct);
 
         // Assert
-        result.ShouldHaveValidationErrorFor(x => x.ContentType);
+        result.ShouldHaveValidationErrorFor(x => x.Cad.ContentType);
     }
 
     [Theory]
     [ClassData(typeof(GetProductCadPresignedUrlPostInvalidFileNameData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenFileNameIsNotValid(string name, string contentType, string fileName)
+    public async Task Validate_ShouldReturnProperErrors_WhenFileNameIsNotValid(string name, UploadFileRequest file)
     {
         // Arrange
         CreatorGetProductCadPresignedUrlPostQuery query = new(
             ProductName: name,
-            ContentType: contentType,
-            FileName: fileName
+            Cad: file
         );
 
         // Act
         var result = await validator.TestValidateAsync(query, cancellationToken: ct);
 
         // Assert
-        result.ShouldHaveValidationErrorFor(x => x.FileName);
+        result.ShouldHaveValidationErrorFor(x => x.Cad.FileName);
     }
 }

@@ -12,7 +12,8 @@ public class CreateAccountValidator : CommandValidator<CreateAccountCommand, Acc
     public CreateAccountValidator()
     {
         RuleFor(r => r.Role)
-            .NotEmpty().WithMessage(RequiredError);
+            .NotEmpty().WithMessage(RequiredError)
+            .Must(r => r is Roles.Customer or Roles.Contributor or Roles.Designer or Roles.Admin);
 
         RuleFor(r => r.Username)
             .NotEmpty().WithMessage(RequiredError)
@@ -25,9 +26,6 @@ public class CreateAccountValidator : CommandValidator<CreateAccountCommand, Acc
         RuleFor(r => r.Email)
             .NotEmpty().WithMessage(RequiredError)
             .Matches(Regexes.Email).WithMessage(EmailError);
-
-        RuleFor(r => r.TimeZone)
-            .NotEmpty().WithMessage(RequiredError);
 
         RuleFor(r => r.FirstName)
             .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);

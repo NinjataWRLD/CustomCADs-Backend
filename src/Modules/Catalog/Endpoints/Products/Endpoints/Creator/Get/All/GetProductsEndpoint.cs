@@ -19,14 +19,16 @@ public sealed class GetProductsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductsRequest req, CancellationToken ct)
     {
-        CreatorGetAllProductsQuery query = new(
-            CreatorId: User.GetAccountId(),
-            CategoryId: CategoryId.New(req.CategoryId),
-            Name: req.Name,
-            Sorting: new(req.SortingType.ToBase(), req.SortingDirection),
-            Pagination: new(req.Page, req.Limit)
-        );
-        Result<CreatorGetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<CreatorGetAllProductsDto> result = await sender.SendQueryAsync(
+            new CreatorGetAllProductsQuery(
+                CreatorId: User.GetAccountId(),
+                CategoryId: CategoryId.New(req.CategoryId),
+                Name: req.Name,
+                Sorting: new(req.SortingType.ToBase(), req.SortingDirection),
+                Pagination: new(req.Page, req.Limit)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         Result<GetProductsResponse> response = new(
             Count: result.Count,

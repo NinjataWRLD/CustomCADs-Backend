@@ -4,7 +4,6 @@ public sealed record CreateAccountCommand(
     string Role,
     string Username,
     string Email,
-    string TimeZone,
     string Password,
     string? FirstName,
     string? LastName

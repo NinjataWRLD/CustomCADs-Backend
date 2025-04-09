@@ -5,7 +5,7 @@ public sealed record PostProductResponse(
     string Name,
     string Description,
     string CreatorName,
-    string UploadedAt,
+    DateTimeOffset UploadedAt,
     decimal Price,
     string Status,
     CategoryResponse Category

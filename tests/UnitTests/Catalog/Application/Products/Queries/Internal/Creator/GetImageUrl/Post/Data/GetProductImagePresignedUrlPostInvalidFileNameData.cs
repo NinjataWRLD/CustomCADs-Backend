@@ -7,7 +7,7 @@ public class GetProductImagePresignedUrlPostInvalidFileNameData : GetProductImag
 {
     public GetProductImagePresignedUrlPostInvalidFileNameData()
     {
-        Add(ValidName1, "image/jpeg", null!);
-        Add(ValidName2, "image/png", string.Empty);
+        Add(ValidName1, new("cad/jpeg", null!));
+        Add(ValidName2, new("cad/png", string.Empty));
     }
 }

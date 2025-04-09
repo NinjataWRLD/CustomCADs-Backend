@@ -17,15 +17,17 @@ public class EditCustomizationEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(EditCustomizationRequest req, CancellationToken ct)
     {
-        EditCustomizationCommand command = new(
-            Id: CustomizationId.New(req.Id),
-            Scale: req.Scale,
-            Infill: req.Infill,
-            Volume: req.Volume,
-            Color: req.Color,
-            MaterialId: MaterialId.New(req.MaterialId)
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new EditCustomizationCommand(
+                Id: CustomizationId.New(req.Id),
+                Scale: req.Scale,
+                Infill: req.Infill,
+                Volume: req.Volume,
+                Color: req.Color,
+                MaterialId: MaterialId.New(req.MaterialId)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

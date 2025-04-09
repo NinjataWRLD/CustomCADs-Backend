@@ -1,6 +1,7 @@
-﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Client.GetCadUrlGet;
+﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetCadUrlGet;
 using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Cads.Queries;
@@ -13,9 +14,7 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 {
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
-
-    private const string Url = "https://presigned.url";
-    private const string ContentType = "application/json";
+    private static readonly DownloadFileResponse cad = new("presigned-url", "application/png");
     private static readonly CustomId id = ValidId1;
     private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AccountId wrongBuyerId = ValidBuyerId2;
@@ -32,7 +31,7 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
             .ReturnsAsync(custom);
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync((Url, ContentType));
+            .ReturnsAsync(cad);
     }
 
     [Fact]
@@ -85,10 +84,7 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
         var result = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Multiple(
-            () => Assert.Equal(Url, result.PresignedUrl),
-            () => Assert.Equal(ContentType, result.ContentType)
-        );
+        Assert.Equal(cad, result);
     }
 
     [Fact]

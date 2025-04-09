@@ -8,7 +8,7 @@ public class ShipmentsGroup : Group
     {
         Configure("shipments", ep =>
         {
-            ep.Roles(Client);
+            ep.Roles(Customer);
             ep.Description(d => d.WithTags("06. Shipments"));
         });
     }

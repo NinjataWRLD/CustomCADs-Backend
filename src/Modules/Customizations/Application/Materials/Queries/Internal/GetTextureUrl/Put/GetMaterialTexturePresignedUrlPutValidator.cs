@@ -9,10 +9,10 @@ public class GetMaterialTexturePresignedUrlPutValidator : QueryValidator<GetMate
 {
     public GetMaterialTexturePresignedUrlPutValidator()
     {
-        RuleFor(x => x.ContentType)
+        RuleFor(x => x.NewImage.ContentType)
             .NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(x => x.FileName)
+        RuleFor(x => x.NewImage.FileName)
             .NotEmpty().WithMessage(RequiredError);
     }
 }

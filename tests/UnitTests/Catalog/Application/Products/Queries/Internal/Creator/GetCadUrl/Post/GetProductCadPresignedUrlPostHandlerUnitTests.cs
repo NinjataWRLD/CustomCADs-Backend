@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
@@ -9,16 +10,14 @@ using static ProductsData;
 public class GetProductCadPresignedUrlPostHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly Mock<IRequestSender> sender = new();
-    private const string key = "generated-key";
-    private const string url = "presigned-url";
-    private const string productName = "product-name";
-    private const string contentType = "content-type";
-    private const string fileName = "file-name";
+    private const string name = "product-name";
+    private static readonly UploadFileRequest req = new("content-type", "file-name");
+    private static readonly UploadFileResponse res = new("generated-key", "presigned-url");
 
     public GetProductCadPresignedUrlPostHandlerUnitTests()
     {
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlPostByIdQuery>(), ct))
-            .ReturnsAsync((key, url));
+            .ReturnsAsync(res);
     }
 
     [Fact]
@@ -26,9 +25,8 @@ public class GetProductCadPresignedUrlPostHandlerUnitTests : ProductsBaseUnitTes
     {
         // Arrange
         CreatorGetProductCadPresignedUrlPostQuery query = new(
-            ProductName: productName,
-            ContentType: contentType,
-            FileName: fileName
+            ProductName: name,
+            Cad: req
         );
         CreatorGetProductCadPresignedUrlPostHandler handler = new(sender.Object);
 
@@ -46,9 +44,8 @@ public class GetProductCadPresignedUrlPostHandlerUnitTests : ProductsBaseUnitTes
     {
         // Arrange
         CreatorGetProductCadPresignedUrlPostQuery query = new(
-            ProductName: productName,
-            ContentType: contentType,
-            FileName: fileName
+            ProductName: name,
+            Cad: req
         );
         CreatorGetProductCadPresignedUrlPostHandler handler = new(sender.Object);
 
@@ -56,9 +53,6 @@ public class GetProductCadPresignedUrlPostHandlerUnitTests : ProductsBaseUnitTes
         var result = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Multiple(
-            () => Assert.Equal(key, result.GeneratedKey),
-            () => Assert.Equal(url, result.PresignedUrl)
-        );
+        Assert.Equal(res, result);
     }
 }

@@ -18,10 +18,12 @@ public class GetTagByIdEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetTagByIdRequest req, CancellationToken ct)
     {
-        GetTagByIdQuery query = new(
-            Id: TagId.New(req.Id)
-        );
-        GetTagByIdDto tag = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GetTagByIdDto tag = await sender.SendQueryAsync(
+            new GetTagByIdQuery(
+                Id: TagId.New(req.Id)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         GetTagByIdResponse response = tag.ToGetTagByIdResponse();
         await SendOkAsync(response).ConfigureAwait(false);

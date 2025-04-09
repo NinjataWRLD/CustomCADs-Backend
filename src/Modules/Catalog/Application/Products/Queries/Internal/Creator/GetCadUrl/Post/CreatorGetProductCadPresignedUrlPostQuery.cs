@@ -1,7 +1,8 @@
-﻿namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
+
+namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
 
 public sealed record CreatorGetProductCadPresignedUrlPostQuery(
     string ProductName,
-    string ContentType,
-    string FileName
-) : IQuery<CreatorGetProductCadPresignedUrlPostDto>;
+    UploadFileRequest Cad
+) : IQuery<UploadFileResponse>;

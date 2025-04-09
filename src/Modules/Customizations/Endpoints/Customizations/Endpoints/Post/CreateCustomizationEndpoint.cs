@@ -19,17 +19,20 @@ public class CreateCustomizationEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CreateCustomizationRequest req, CancellationToken ct)
     {
-        CreateCustomizationCommand command = new(
-            Scale: req.Scale,
-            Infill: req.Infill,
-            Volume: req.Volume,
-            Color: req.Color,
-            MaterialId: MaterialId.New(req.MaterialId)
-        );
-        CustomizationId customizationId = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        CustomizationId customizationId = await sender.SendCommandAsync(
+            new CreateCustomizationCommand(
+                Scale: req.Scale,
+                Infill: req.Infill,
+                Volume: req.Volume,
+                Color: req.Color,
+                MaterialId: MaterialId.New(req.MaterialId)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        GetCustomizationByIdQuery query = new(customizationId);
-        CustomizationDto customization = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        CustomizationDto customization = await sender.SendQueryAsync(
+            new GetCustomizationByIdQuery(customizationId)
+        , ct).ConfigureAwait(false);
 
         CustomizationResponse response = customization.ToResponse();
         await SendCreatedAtAsync<GetCustomizationEndpoint>(new { id = customizationId.Value }, response).ConfigureAwait(false);

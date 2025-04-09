@@ -5,7 +5,6 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.GetAll;
 
-using static AccountsData;
 using static Constants;
 using static Constants.Users;
 
@@ -15,10 +14,10 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 
     private readonly Mock<IAccountReads> reads = new();
     private readonly Account[] accounts = [
-        Account.CreateWithId(AccountId.New(), Roles.Client, ClientUsername, ClientEmail, ValidTimeZone1),
-        Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail, ValidTimeZone2),
-        Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail, ValidTimeZone1),
-        Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail, ValidTimeZone2),
+        Account.CreateWithId(AccountId.New(), Roles.Customer, CustomerUsername, CustomerEmail),
+        Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail),
+        Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail),
+        Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail),
     ];
     private readonly AccountQuery accountQuery = new(GetPagination());
 

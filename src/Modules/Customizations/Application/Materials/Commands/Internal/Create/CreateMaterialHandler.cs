@@ -10,11 +10,13 @@ public class CreateMaterialHandler(IWrites<Material> writes, IUnitOfWork uow, IR
 {
     public async Task<MaterialId> Handle(CreateMaterialCommand req, CancellationToken ct)
     {
-        CreateImageCommand command = new(
-            Key: req.TextureKey,
-            ContentType: req.TextureContentType
-        );
-        ImageId textureId = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        ImageId textureId = await sender.SendCommandAsync(
+            new CreateImageCommand(
+                Key: req.TextureKey,
+                ContentType: req.TextureContentType
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         var material = Material.Create(
             name: req.Name,

@@ -15,12 +15,11 @@ public sealed class GetPurchasedCartByIdHandler(IPurchasedCartReads reads, IRequ
         if (cart.BuyerId != req.BuyerId)
             throw CustomAuthorizationException<PurchasedCart>.ById(req.Id);
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(cart.BuyerId);
-        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        string buyer = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(cart.BuyerId),
+            ct
+        ).ConfigureAwait(false);
 
-        GetUsernameByIdQuery buyerQuery = new(cart.BuyerId);
-        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
-
-        return cart.ToGetByIdDto(timeZone, buyer);
+        return cart.ToGetByIdDto(buyer);
     }
 }

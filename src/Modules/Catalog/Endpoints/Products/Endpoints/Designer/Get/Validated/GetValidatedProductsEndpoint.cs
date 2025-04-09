@@ -20,15 +20,17 @@ public sealed class GetValidatedProductsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetValidatedProductsRequest req, CancellationToken ct)
     {
-        DesignerGetAllProductsQuery query = new(
-            DesignerId: User.GetAccountId(),
-            Status: ProductStatus.Validated,
-            CategoryId: CategoryId.New(req.CategoryId),
-            Name: req.Name,
-            Sorting: new(req.SortingType.ToBase(), req.SortingDirection),
-            Pagination: new(req.Page, req.Limit)
-        );
-        var result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        var result = await sender.SendQueryAsync(
+            new DesignerGetAllProductsQuery(
+                DesignerId: User.GetAccountId(),
+                Status: ProductStatus.Validated,
+                CategoryId: CategoryId.New(req.CategoryId),
+                Name: req.Name,
+                Sorting: new(req.SortingType.ToBase(), req.SortingDirection),
+                Pagination: new(req.Page, req.Limit)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         Result<GetValidatedProductsResponse> response = new(
             Count: result.Count,

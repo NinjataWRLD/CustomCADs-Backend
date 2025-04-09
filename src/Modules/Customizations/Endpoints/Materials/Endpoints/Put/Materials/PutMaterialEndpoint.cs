@@ -18,20 +18,24 @@ public sealed class PutMaterialEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PutMaterialRequest req, CancellationToken ct)
     {
-        EditMaterialCommand materialCommand = new(
-            Id: MaterialId.New(req.Id),
-            Name: req.Name,
-            Density: req.Density,
-            Cost: req.Cost
-        );
-        await sender.SendCommandAsync(materialCommand, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new EditMaterialCommand(
+                Id: MaterialId.New(req.Id),
+                Name: req.Name,
+                Density: req.Density,
+                Cost: req.Cost
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        ChangeMaterialTextureCommand textureCommand = new(
-            Id: MaterialId.New(req.Id),
-            Key: req.TextureKey,
-            ContentType: req.TextureContentType
-        );
-        await sender.SendCommandAsync(textureCommand, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new ChangeMaterialTextureCommand(
+                Id: MaterialId.New(req.Id),
+                Key: req.TextureKey,
+                ContentType: req.TextureContentType
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

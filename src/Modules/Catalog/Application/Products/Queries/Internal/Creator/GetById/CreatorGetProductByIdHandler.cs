@@ -18,15 +18,16 @@ public sealed class CreatorGetProductByIdHandler(IProductReads reads, IRequestSe
             throw CustomAuthorizationException<Product>.ById(req.Id);
         }
 
-        GetUsernameByIdQuery usernameQuery = new(product.CreatorId);
-        string username = await sender.SendQueryAsync(usernameQuery, ct).ConfigureAwait(false);
+        string username = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(product.CreatorId),
+            ct
+        ).ConfigureAwait(false);
 
-        GetCategoryNameByIdQuery categoryQuery = new(product.CategoryId);
-        string categoryName = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
+        string categoryName = await sender.SendQueryAsync(
+            new GetCategoryNameByIdQuery(product.CategoryId),
+            ct
+        ).ConfigureAwait(false);
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(product.CreatorId);
-        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
-
-        return product.ToCreatorGetByIdDto(username, categoryName, timeZone);
+        return product.ToCreatorGetByIdDto(username, categoryName);
     }
 }

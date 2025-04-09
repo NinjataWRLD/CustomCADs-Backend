@@ -17,6 +17,6 @@ public class CalculateShipmentHandler(IDeliveryService delivery)
             City: req.Address.City
         ), ct).ConfigureAwait(false);
 
-        return [.. calculations.Select(x => x.ToDto(req.TimeZone))];
+        return [.. calculations.Select(x => x.ToDto())];
     }
 }

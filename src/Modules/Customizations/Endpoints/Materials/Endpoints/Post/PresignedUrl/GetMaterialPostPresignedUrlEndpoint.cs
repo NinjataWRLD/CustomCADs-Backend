@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Post;
+using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Customizations.Endpoints.Materials.Endpoints.Post.PresignedUrl;
 
 public sealed class GetMaterialPostPresignedUrlEndpoint(IRequestSender sender)
-    : Endpoint<GetMaterialPostPresignedUrlRequest, GetMaterialPostPresignedUrlResponse>
+    : Endpoint<GetMaterialPostPresignedUrlRequest, UploadFileResponse>
 {
     public override void Configure()
     {
@@ -17,14 +18,14 @@ public sealed class GetMaterialPostPresignedUrlEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetMaterialPostPresignedUrlRequest req, CancellationToken ct)
     {
-        GetMaterialTexturePresignedUrlPostQuery presignedUrlQuery = new(
-            MaterialName: req.MaterialName,
-            ContentType: req.ContentType,
-            FileName: req.FileName
-        );
-        var imageDto = await sender.SendQueryAsync(presignedUrlQuery, ct).ConfigureAwait(false);
+        UploadFileResponse response = await sender.SendQueryAsync(
+            new GetMaterialTexturePresignedUrlPostQuery(
+                MaterialName: req.MaterialName,
+                Image: req.Image
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        GetMaterialPostPresignedUrlResponse response = new(imageDto.PresignedUrl);
         await SendOkAsync(response).ConfigureAwait(false);
     }
 }

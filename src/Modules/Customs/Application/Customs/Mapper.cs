@@ -1,29 +1,28 @@
-﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Client.Create;
-using CustomCADs.Customs.Application.Customs.Queries.Internal.Client.GetById;
+﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Create;
+using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
-using CustomCADs.Shared.Core.Extensions;
 
 namespace CustomCADs.Customs.Application.Customs;
 
 internal static class Mapper
 {
-    internal static GetAllCustomsDto ToGetAllDto(this Custom custom, string buyerName, string? designerName, string timeZone)
+    internal static GetAllCustomsDto ToGetAllDto(this Custom custom, string buyerName, string? designerName)
         => new(
             Id: custom.Id,
             Name: custom.Name,
             ForDelivery: custom.ForDelivery,
             CustomStatus: custom.CustomStatus,
-            OrderedAt: custom.OrderedAt.ToUserLocalTime(timeZone),
+            OrderedAt: custom.OrderedAt,
             BuyerName: buyerName,
             DesignerName: designerName
         );
-    internal static ClientGetCustomByIdDto ToClientGetByIdDto(this Custom custom, string timeZone, string? designer)
+    internal static CustomerGetCustomByIdDto ToCustomerGetByIdDto(this Custom custom, string? designer)
         => new(
             Id: custom.Id,
             Name: custom.Name,
             Description: custom.Description,
-            OrderedAt: custom.OrderedAt.ToUserLocalTime(timeZone),
+            OrderedAt: custom.OrderedAt,
             ForDelivery: custom.ForDelivery,
             CustomStatus: custom.CustomStatus,
             DesignerName: designer

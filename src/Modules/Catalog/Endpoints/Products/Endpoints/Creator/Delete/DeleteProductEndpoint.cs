@@ -17,11 +17,13 @@ public sealed class DeleteProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteProductRequest req, CancellationToken ct)
     {
-        DeleteProductCommand command = new(
-            Id: ProductId.New(req.Id),
-            CreatorId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new DeleteProductCommand(
+                Id: ProductId.New(req.Id),
+                CreatorId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

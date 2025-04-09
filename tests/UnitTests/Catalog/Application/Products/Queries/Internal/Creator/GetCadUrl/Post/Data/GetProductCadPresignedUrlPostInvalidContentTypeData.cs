@@ -7,7 +7,7 @@ public class GetProductCadPresignedUrlPostInvalidContentTypeData : GetProductCad
 {
     public GetProductCadPresignedUrlPostInvalidContentTypeData()
     {
-        Add(ValidName1, null!, "Hand.glb");
-        Add(ValidName2, string.Empty, "Chair.gltf");
+        Add(ValidName1, new(null!, "Hand.glb"));
+        Add(ValidName2, new(string.Empty, "Chair.gltf"));
     }
 }

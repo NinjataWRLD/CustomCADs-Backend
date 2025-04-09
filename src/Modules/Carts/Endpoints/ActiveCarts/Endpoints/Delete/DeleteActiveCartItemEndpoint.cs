@@ -18,11 +18,13 @@ public sealed class DeleteActiveCartItemEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteActiveCartItemRequest req, CancellationToken ct)
     {
-        RemoveActiveCartItemCommand commnad = new(
-            ProductId: ProductId.New(req.ProductId),
-            BuyerId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(commnad, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new RemoveActiveCartItemCommand(
+                ProductId: ProductId.New(req.ProductId),
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

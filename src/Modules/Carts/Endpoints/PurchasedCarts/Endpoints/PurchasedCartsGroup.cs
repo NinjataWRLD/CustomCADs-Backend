@@ -8,7 +8,7 @@ public class PurchasedCartsGroup : Group
     {
         Configure("carts/purchased", ep =>
         {
-            ep.Roles(Client);
+            ep.Roles(Customer);
             ep.Description(d => d.WithTags("05. Purchased Carts"));
         });
     }

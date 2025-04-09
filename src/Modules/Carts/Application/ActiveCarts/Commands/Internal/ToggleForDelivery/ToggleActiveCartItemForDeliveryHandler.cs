@@ -19,12 +19,8 @@ public class ToggleActiveCartItemForDeliveryHandler(IActiveCartReads reads, IUni
         }
         else if (req.CustomizationId is not null)
         {
-            GetCustomizationExistsByIdQuery customizationExistsQuery = new(
-                Id: req.CustomizationId.Value
-            );
-
-            bool customizationExists = await sender.SendQueryAsync(customizationExistsQuery, ct).ConfigureAwait(false);
-            if (!customizationExists)
+            var id = req.CustomizationId.Value;
+            if (!await sender.SendQueryAsync(new GetCustomizationExistsByIdQuery(id), ct).ConfigureAwait(false))
                 throw CustomNotFoundException<ActiveCartItem>.ById(req.CustomizationId.Value, "Customization");
 
             item.SetForDelivery(req.CustomizationId.Value);

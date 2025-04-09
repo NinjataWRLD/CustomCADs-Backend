@@ -4,7 +4,7 @@ public class GetProductCadPresignedUrlPutValidData : GetProductCadPresignedUrlPu
 {
     public GetProductCadPresignedUrlPutValidData()
     {
-        Add("model/gltf-binary", "Hand.glb");
-        Add("model/gltf+json", "Chair.gltf");
+        Add(new("model/gltf-binary", "Hand.glb"));
+        Add(new("model/gltf+json", "Chair.gltf"));
     }
 }

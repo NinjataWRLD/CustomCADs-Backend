@@ -13,17 +13,15 @@ public static class Mapper
             BuyerName: buyer
         );
 
-    public static CalculateShipmentDto ToDto(this CalculationDto calculation, string timeZone)
+    public static CalculateShipmentDto ToDto(this CalculationDto calculation)
         => new(
             Total: calculation.Price.Total,
             Currency: calculation.Price.Currency,
-            PickupDate: DateOnly.FromDateTime(TimeZoneInfo.ConvertTime(
-                calculation.PickupDate.ToDateTime(new TimeOnly(9, 0)),
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            PickupDate: DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeToUtc(
+                calculation.PickupDate.ToDateTime(new TimeOnly(9, 0))
             )),
-            DeliveryDeadline: TimeZoneInfo.ConvertTime(
-                calculation.DeliveryDeadline,
-                TimeZoneInfo.FindSystemTimeZoneById(timeZone)
+            DeliveryDeadline: TimeZoneInfo.ConvertTimeToUtc(
+                calculation.DeliveryDeadline
             ),
             Service: calculation.Service
         );

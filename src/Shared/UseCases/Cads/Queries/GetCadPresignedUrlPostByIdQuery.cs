@@ -1,7 +1,8 @@
-﻿namespace CustomCADs.Shared.UseCases.Cads.Queries;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
+
+namespace CustomCADs.Shared.UseCases.Cads.Queries;
 
 public record GetCadPresignedUrlPostByIdQuery(
     string Name,
-    string ContentType,
-    string FileName
-) : IQuery<(string, string)>;
+    UploadFileRequest File
+) : IQuery<UploadFileResponse>;

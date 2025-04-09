@@ -12,14 +12,13 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateAccountValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string timeZone, string? firstName, string? lastName)
+    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string? firstName, string? lastName)
     {
         // Arrange
         CreateAccountCommand command = new(
             Role: role,
             Username: username,
             Email: email,
-            TimeZone: timeZone,
             FirstName: firstName,
             LastName: lastName
         );
@@ -34,7 +33,6 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
                 x.RoleName == role
                 && x.Username == username
                 && x.Email == email
-                && x.TimeZone == timeZone
                 && x.FirstName == firstName
                 && x.LastName == lastName
             ),

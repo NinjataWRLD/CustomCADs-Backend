@@ -11,8 +11,10 @@ public sealed class GetActiveCartItemsHandler(IActiveCartReads reads, IRequestSe
     {
         ActiveCartItem[] items = await reads.AllAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false);
 
-        GetUsernameByIdQuery buyerQuery = new(req.BuyerId);
-        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
+        string buyer = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(req.BuyerId),
+            ct
+        ).ConfigureAwait(false);
 
         return [.. items.Select(x => x.ToDto(buyer))];
     }

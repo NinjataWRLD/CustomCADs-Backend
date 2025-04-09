@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.SetCoords;
+using System.ComponentModel;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Patch;
 
@@ -17,18 +18,23 @@ public sealed class PatchProductCadEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PatchProductCadRequest req, CancellationToken ct)
     {
-        SetProductCoordsCommand command = new(
-            Id: ProductId.New(req.Id),
-            CreatorId: User.GetAccountId()
-        );
-
-        command = req.Type switch
-        {
-            CoordinateType.Cam => command with { CamCoordinates = req.Coordinates },
-            CoordinateType.Pan => command with { PanCoordinates = req.Coordinates },
-            _ => command,
-        };
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            req.Type switch
+            {
+                CoordinateType.Cam => new SetProductCoordsCommand(
+                    Id: ProductId.New(req.Id),
+                    CreatorId: User.GetAccountId(),
+                    CamCoordinates: req.Coordinates
+                ),
+                CoordinateType.Pan => new SetProductCoordsCommand(
+                    Id: ProductId.New(req.Id),
+                    CreatorId: User.GetAccountId(),
+                    PanCoordinates: req.Coordinates
+                ),
+                _ => throw new InvalidEnumArgumentException("Coordinate Type must be Cam or Pan"),
+            },
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

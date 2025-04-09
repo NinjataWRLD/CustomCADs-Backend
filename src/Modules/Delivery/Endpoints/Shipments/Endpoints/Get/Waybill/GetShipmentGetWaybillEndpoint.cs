@@ -19,11 +19,13 @@ public class GetShipmentWaybillEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetShipmentWaybillRequest req, CancellationToken ct)
     {
-        GetShipmentWaybillQuery query = new(
-            Id: ShipmentId.New(req.Id),
-            DesignerId: User.GetAccountId()
-        );
-        byte[] bytes = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        byte[] bytes = await sender.SendQueryAsync(
+            new GetShipmentWaybillQuery(
+                Id: ShipmentId.New(req.Id),
+                DesignerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendBytesAsync(bytes, "waybill.pdf", "application/pdf").ConfigureAwait(false);
     }

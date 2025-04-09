@@ -14,21 +14,22 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
 {
     public async Task<PurchasedCartId> Handle(CreatePurchasedCartCommand req, CancellationToken ct)
     {
-        GetAccountExistsByIdQuery query = new(req.BuyerId);
-        bool buyerExists = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        if (!buyerExists)
+        if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.BuyerId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<PurchasedCart>.ById(req.BuyerId, "User");
 
         var cart = PurchasedCart.Create(req.BuyerId);
 
         ProductId[] productIds = [.. req.Items.Select(i => i.ProductId)];
 
-        GetProductCadIdsByIdsQuery cadsQuery = new(productIds);
-        Dictionary<ProductId, CadId> productCads = await sender.SendQueryAsync(cadsQuery, ct).ConfigureAwait(false);
+        Dictionary<ProductId, CadId> productCads = await sender.SendQueryAsync(
+            new GetProductCadIdsByIdsQuery(productIds),
+            ct
+        ).ConfigureAwait(false);
 
-        DuplicateCadsByIdsCommand cadsCommand = new([.. productCads.Select(c => c.Value)]);
-        Dictionary<CadId, CadId> itemCads = await sender.SendCommandAsync(cadsCommand, ct).ConfigureAwait(false);
+        Dictionary<CadId, CadId> itemCads = await sender.SendCommandAsync(
+            new DuplicateCadsByIdsCommand([.. productCads.Select(c => c.Value)]),
+            ct
+        ).ConfigureAwait(false);
 
         cart.AddItems(
             [.. req.Items.Select(item =>
@@ -52,8 +53,10 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
         await writes.AddAsync(cart, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        AddProductPurchaseCommand purchasesCommand = new(productIds);
-        await sender.SendCommandAsync(purchasesCommand, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new AddProductPurchaseCommand(productIds),
+            ct
+        ).ConfigureAwait(false);
 
         return cart.Id;
     }

@@ -39,7 +39,6 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
   name                = "CustomCADs-prod"
   solution_stack_name = "64bit Amazon Linux 2023 v4.5.0 running Docker"
   tier                = "WebServer"
-  version_label       = "latest"
 
   setting {
     name      = "Automatically Terminate Unhealthy Instances"

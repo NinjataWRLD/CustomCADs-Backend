@@ -8,7 +8,6 @@ public class Configurations : IEntityTypeConfiguration<Role>
     {
         builder
             .SetPrimaryKey()
-            .SetForeignKeys()
             .SetStronglyTypedIds()
             .SetValidations()
             .SetSeeding();

@@ -18,12 +18,14 @@ public class DecreaeseActiveCartItemQuantityEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DecreaseActiveCartItemQuantityRequest req, CancellationToken ct)
     {
-        DecreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: User.GetAccountId(),
-            ProductId: ProductId.New(req.ProductId),
-            Amount: req.Amount
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new DecreaseActiveCartItemQuantityCommand(
+                BuyerId: User.GetAccountId(),
+                ProductId: ProductId.New(req.ProductId),
+                Amount: req.Amount
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

@@ -17,12 +17,13 @@ public sealed class CreatorGetProductImagePresignedUrlPutHandler(IProductReads r
             throw CustomAuthorizationException<Product>.ById(req.Id);
         }
 
-        GetImagePresignedUrlPutByIdQuery query = new(
-            Id: product.ImageId,
-            NewContentType: req.ContentType,
-            NewFileName: req.FileName
-        );
-        string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        string url = await sender.SendQueryAsync(
+            new GetImagePresignedUrlPutByIdQuery(
+                Id: product.ImageId,
+                NewFile: req.NewImage
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         return new(PresignedUrl: url);
     }

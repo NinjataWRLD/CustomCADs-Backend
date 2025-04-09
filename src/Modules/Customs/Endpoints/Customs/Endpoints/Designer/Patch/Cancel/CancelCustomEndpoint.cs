@@ -17,11 +17,13 @@ public sealed class CancelCustomEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancelCustomRequest req, CancellationToken ct)
     {
-        CancelCustomCommand command = new(
-            Id: CustomId.New(req.Id),
-            DesignerId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new CancelCustomCommand(
+                Id: CustomId.New(req.Id),
+                DesignerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

@@ -28,24 +28,21 @@ public sealed class GetAllCustomsHandler(ICustomReads reads, IRequestSender send
             .Select(o => o.AcceptedCustom!.DesignerId)
         ];
 
-        GetUsernamesByIdsQuery designerUsernamesQuery = new(designerIds);
-        Dictionary<AccountId, string> designers = await sender
-            .SendQueryAsync(designerUsernamesQuery, ct).ConfigureAwait(false);
+        Dictionary<AccountId, string> designers = await sender.SendQueryAsync(
+            new GetUsernamesByIdsQuery(designerIds),
+            ct
+        ).ConfigureAwait(false);
 
-        GetUsernamesByIdsQuery buyerUsernamesQuery = new(buyerIds);
-        Dictionary<AccountId, string> buyers = await sender
-            .SendQueryAsync(buyerUsernamesQuery, ct).ConfigureAwait(false);
-
-        GetTimeZonesByIdsQuery timeZonesQuery = new(buyerIds);
-        Dictionary<AccountId, string> timeZones = await sender
-            .SendQueryAsync(timeZonesQuery, ct).ConfigureAwait(false);
+        Dictionary<AccountId, string> buyers = await sender.SendQueryAsync(
+            new GetUsernamesByIdsQuery(buyerIds),
+            ct
+        ).ConfigureAwait(false);
 
         return new(
             Count: result.Count,
             Items: [.. result.Items.Select(o => o.ToGetAllDto(
                 buyerName: buyers[o.BuyerId],
-                designerName: o.AcceptedCustom is null ? null : designers[o.AcceptedCustom.DesignerId],
-                timeZone: timeZones[o.BuyerId]
+                designerName: o.AcceptedCustom is null ? null : designers[o.AcceptedCustom.DesignerId]
             ))]
         );
     }

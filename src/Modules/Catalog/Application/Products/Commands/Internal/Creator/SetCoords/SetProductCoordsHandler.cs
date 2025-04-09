@@ -17,11 +17,13 @@ public sealed class SetProductCoordsHandler(IProductReads reads, IRequestSender 
             throw CustomAuthorizationException<Product>.ById(req.Id);
         }
 
-        SetCadCoordsCommand command = new(
-            Id: product.CadId,
-            CamCoordinates: req.CamCoordinates,
-            PanCoordinates: req.PanCoordinates
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new SetCadCoordsCommand(
+                Id: product.CadId,
+                CamCoordinates: req.CamCoordinates,
+                PanCoordinates: req.PanCoordinates
+            ),
+            ct
+        ).ConfigureAwait(false);
     }
 }

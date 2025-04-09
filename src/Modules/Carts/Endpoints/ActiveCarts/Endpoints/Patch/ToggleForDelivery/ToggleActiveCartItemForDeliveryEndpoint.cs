@@ -19,12 +19,14 @@ public class ToggleActiveCartItemForDeliveryEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(ToggleActiveCartItemForDeliveryRequest req, CancellationToken ct)
     {
-        ToggleActiveCartItemForDeliveryCommand command = new(
-            BuyerId: User.GetAccountId(),
-            ProductId: ProductId.New(req.ProductId),
-            CustomizationId: CustomizationId.New(req.CustomizationId)
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new ToggleActiveCartItemForDeliveryCommand(
+                BuyerId: User.GetAccountId(),
+                ProductId: ProductId.New(req.ProductId),
+                CustomizationId: CustomizationId.New(req.CustomizationId)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

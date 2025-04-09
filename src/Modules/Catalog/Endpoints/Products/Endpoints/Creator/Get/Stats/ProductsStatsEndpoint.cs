@@ -17,10 +17,12 @@ public sealed class ProductsStatsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        ProductsCountQuery query = new(
-            CreatorId: User.GetAccountId()
-        );
-        ProductsCountDto counts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        ProductsCountDto counts = await sender.SendQueryAsync(
+            new ProductsCountQuery(
+                CreatorId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         ProductsStatsResponse response = new(
             UncheckedCount: counts.Unchecked,

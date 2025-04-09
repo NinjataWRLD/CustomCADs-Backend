@@ -5,5 +5,5 @@ public record CalculateShipmentDto(
     string Currency,
     string Service,
     DateOnly PickupDate,
-    DateTime DeliveryDeadline
+    DateTimeOffset DeliveryDeadline
 );

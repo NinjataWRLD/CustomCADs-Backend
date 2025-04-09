@@ -4,7 +4,7 @@ public class GetProductCadPresignedUrlPutInvalidFileNameData : GetProductCadPres
 {
     public GetProductCadPresignedUrlPutInvalidFileNameData()
     {
-        Add("model/gltf-binary", null!);
-        Add("model/gltf+json", string.Empty);
+        Add(new("model/gltf-binary", null!));
+        Add(new("model/gltf+json", string.Empty));
     }
 }

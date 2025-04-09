@@ -18,11 +18,13 @@ public sealed class GetPurchasedCartEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetPurchasedCartRequest req, CancellationToken ct)
     {
-        GetPurchasedCartByIdQuery query = new(
-            Id: PurchasedCartId.New(req.Id),
-            BuyerId: User.GetAccountId()
-        );
-        GetPurchasedCartByIdDto cart = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GetPurchasedCartByIdDto cart = await sender.SendQueryAsync(
+            new GetPurchasedCartByIdQuery(
+                Id: PurchasedCartId.New(req.Id),
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         GetPurchasedCartResponse response = cart.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);

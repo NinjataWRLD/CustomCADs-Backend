@@ -17,8 +17,10 @@ public sealed class GetRolesEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        GetAllRolesQuery query = new();
-        IEnumerable<RoleReadDto> roles = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        IEnumerable<RoleReadDto> roles = await sender.SendQueryAsync(
+            new GetAllRolesQuery(),
+            ct
+        ).ConfigureAwait(false);
 
         RoleResponse[] response = [.. roles.Select(r => r.ToResponse())];
         await SendOkAsync(response).ConfigureAwait(false);

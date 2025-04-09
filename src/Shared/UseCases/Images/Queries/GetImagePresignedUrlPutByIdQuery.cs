@@ -1,7 +1,8 @@
-﻿namespace CustomCADs.Shared.UseCases.Images.Queries;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
+
+namespace CustomCADs.Shared.UseCases.Images.Queries;
 
 public record GetImagePresignedUrlPutByIdQuery(
     ImageId Id,
-    string NewContentType,
-    string NewFileName
+    UploadFileRequest NewFile
 ) : IQuery<string>;

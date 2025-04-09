@@ -12,15 +12,16 @@ public class GetAllShipmentsHandler(IShipmentReads reads, IRequestSender sender)
     public async Task<Result<GetAllShipmentsDto>> Handle(GetAllShipmentsQuery req, CancellationToken ct)
     {
         ShipmentQuery query = new(
-            ClientId: req.ClientId,
+            CustomerId: req.CustomerId,
             Sorting: req.Sorting,
             Pagination: req.Pagination
         );
         Result<Shipment> result = await reads.AllAsync(query, track: false, ct: ct).ConfigureAwait(false);
 
-        AccountId[] buyerIds = [.. result.Items.Select(i => i.BuyerId)];
-        Dictionary<AccountId, string> buyers = await sender
-            .SendQueryAsync(new GetUsernamesByIdsQuery(buyerIds), ct).ConfigureAwait(false);
+        Dictionary<AccountId, string> buyers = await sender.SendQueryAsync(
+            new GetUsernamesByIdsQuery([.. result.Items.Select(i => i.BuyerId)]),
+            ct
+        ).ConfigureAwait(false);
 
         return new(
             Count: result.Count,

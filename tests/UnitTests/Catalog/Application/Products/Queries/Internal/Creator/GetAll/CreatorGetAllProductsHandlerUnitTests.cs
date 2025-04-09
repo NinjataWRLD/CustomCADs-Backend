@@ -2,7 +2,6 @@
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetAll;
@@ -32,9 +31,6 @@ public class CreatorGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct))
             .ReturnsAsync(products.ToDictionary(x => x.CategoryId, x => "Cateogry123"));
-
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
-            .ReturnsAsync("TimeZone123");
     }
 
     [Fact]
@@ -75,7 +71,6 @@ public class CreatorGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct), Times.Once);
     }
 
     [Fact]

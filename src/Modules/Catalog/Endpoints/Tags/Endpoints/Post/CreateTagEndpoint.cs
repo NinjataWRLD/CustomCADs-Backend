@@ -18,13 +18,17 @@ public class CreateTagEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CreateTagRequest req, CancellationToken ct)
     {
-        CreateTagCommand command = new(
-            Name: req.Name
-        );
-        TagId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        TagId id = await sender.SendCommandAsync(
+            new CreateTagCommand(
+                Name: req.Name
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        GetTagByIdQuery query = new(Id: id);
-        GetTagByIdDto tag = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GetTagByIdDto tag = await sender.SendQueryAsync(
+            new GetTagByIdQuery(id),
+            ct
+        ).ConfigureAwait(false);
 
         CreateTagResponse response = tag.ToCreateTagResponse();
         await SendOkAsync(response).ConfigureAwait(false);

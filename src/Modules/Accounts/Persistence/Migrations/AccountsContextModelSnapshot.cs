@@ -46,13 +46,8 @@ namespace CustomCADs.Accounts.Persistence.Migrations
 
                     b.Property<string>("RoleName")
                         .IsRequired()
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("RoleName");
-
-                    b.Property<string>("TimeZone")
-                        .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("TimeZone");
+                        .HasColumnName("RoleName");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -70,8 +65,6 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("RoleName");
-
                     b.HasIndex("Username")
                         .IsUnique();
 
@@ -82,8 +75,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         {
                             Id = new Guid("2da61b05-1a27-4af9-9df2-be4f1f4e835f"),
                             Email = "ivanzlatinov006@gmail.com",
-                            RoleName = "Client",
-                            TimeZone = "Europe/Sofia",
+                            RoleName = "Customer",
                             Username = "For7a7a",
                             ViewedProductIds = new Guid[0]
                         },
@@ -92,7 +84,6 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             Id = new Guid("6d963818-23dc-4e9a-aaa8-b4c77252bc97"),
                             Email = "PDMatsaliev20@codingburgas.bg",
                             RoleName = "Contributor",
-                            TimeZone = "Europe/Sofia",
                             Username = "PDMatsaliev20",
                             ViewedProductIds = new Guid[0]
                         },
@@ -101,7 +92,6 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             Id = new Guid("0fb3212f-7d51-4586-8fc2-0f333ec9fbc1"),
                             Email = "boriskolev2006@gmail.com",
                             RoleName = "Designer",
-                            TimeZone = "Europe/Sofia",
                             Username = "Oracle3000",
                             ViewedProductIds = new Guid[0]
                         },
@@ -110,7 +100,6 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             Id = new Guid("e995039c-a535-4f20-8288-7aadcb71b252"),
                             Email = "ivanangelov414@gmail.com",
                             RoleName = "Administrator",
-                            TimeZone = "Europe/Sofia",
                             Username = "NinjataBG",
                             ViewedProductIds = new Guid[0]
                         });
@@ -145,7 +134,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         {
                             Id = 1,
                             Description = "Can buy Products from the Gallery as Cart Items; Can request Customs from our Designers and contact them; Can download purchased CADs and track requested Shipments.",
-                            Name = "Client"
+                            Name = "Customer"
                         },
                         new
                         {
@@ -156,7 +145,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            Description = "Can accept and work on Clients' Customs; Can validate or report Contributors' Products; Can do everything a Contributor can do.",
+                            Description = "Can accept and work on Customers' Customs; Can validate or report Contributors' Products; Can do everything a Contributor can do.",
                             Name = "Designer"
                         },
                         new
@@ -165,16 +154,6 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             Description = "Can access all non-sensitive info from all resources; Can ban reported resources - Customs, Products, Users, ...; Can modify Categories and Roles.",
                             Name = "Administrator"
                         });
-                });
-
-            modelBuilder.Entity("CustomCADs.Accounts.Domain.Accounts.Account", b =>
-                {
-                    b.HasOne("CustomCADs.Accounts.Domain.Roles.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleName")
-                        .HasPrincipalKey("Name")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

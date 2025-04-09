@@ -4,7 +4,7 @@ public class GetProductCadPresignedUrlPutInvalidContentTypeData : GetProductCadP
 {
     public GetProductCadPresignedUrlPutInvalidContentTypeData()
     {
-        Add(null!, "Hand.glb");
-        Add(string.Empty, "Chair.gltf");
+        Add(new(null!, "Hand.glb"));
+        Add(new(string.Empty, "Chair.gltf"));
     }
 }

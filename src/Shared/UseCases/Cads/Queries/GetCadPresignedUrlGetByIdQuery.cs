@@ -1,5 +1,7 @@
-﻿namespace CustomCADs.Shared.UseCases.Cads.Queries;
+﻿using CustomCADs.Shared.Core.Common.Dtos;
+
+namespace CustomCADs.Shared.UseCases.Cads.Queries;
 
 public record GetCadPresignedUrlGetByIdQuery(
     CadId Id
-) : IQuery<(string PresignedUrl, string ContentType)>;
+) : IQuery<DownloadFileResponse>;

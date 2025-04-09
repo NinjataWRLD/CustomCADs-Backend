@@ -15,15 +15,11 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Product product = CreateProduct();
-    private const string TimeZone = "Europe/Sofia";
 
     public CreatorGetProductByIdHandlerUnitTests()
     {
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
-
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
-            .ReturnsAsync(TimeZone);
     }
 
     [Fact]

@@ -3,7 +3,7 @@
 public sealed record GetPurchasedCartResponse(
     Guid Id,
     decimal Total,
-    string PurchasedAt,
+    DateTimeOffset PurchasedAt,
     string BuyerName,
     Guid? ShipmentId,
     ICollection<PurchasedCartItemResponse> Items

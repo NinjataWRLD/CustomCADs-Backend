@@ -15,8 +15,7 @@ public class GetCadPresignedUrlPutByIdHandler(ICadReads reads, IStorageService s
 
         string url = await storage.GetPresignedPutUrlAsync(
             key: cad.Key,
-            contentType: req.NewContentType,
-            fileName: req.NewFileName
+            file: req.NewFile
         ).ConfigureAwait(false);
 
         return url;

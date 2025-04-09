@@ -23,9 +23,6 @@ public class CreateAccountValidator : CommandValidator<CreateAccountCommand, Acc
             .NotEmpty().WithMessage(RequiredError)
             .Matches(Regexes.Email).WithMessage(EmailError);
 
-        RuleFor(r => r.TimeZone)
-            .NotEmpty().WithMessage(RequiredError);
-
         RuleFor(r => r.FirstName)
             .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
