@@ -4,7 +4,7 @@ public sealed record PostCustomResponse(
     Guid Id,
     string Name,
     string Description,
-    string OrderedAt,
+    DateTimeOffset OrderedAt,
     string Status,
     bool ForDelivery
 );

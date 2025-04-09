@@ -3,7 +3,6 @@ using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
@@ -32,9 +31,6 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<CalculateShipmentQuery>(), ct))
             .ReturnsAsync([]);
-
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
-            .ReturnsAsync(TimeZone);
     }
 
     [Fact]
@@ -67,9 +63,6 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
         ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<CalculateShipmentQuery>(),
-        ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetTimeZoneByIdQuery>(),
         ct), Times.Once);
     }
 }

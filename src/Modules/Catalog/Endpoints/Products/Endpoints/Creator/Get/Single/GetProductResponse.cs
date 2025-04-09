@@ -5,7 +5,7 @@ public sealed record GetProductResponse(
     string Name,
     string Description,
     decimal Price,
-    string UploadedAt,
+    DateTimeOffset UploadedAt,
     CountsDto Counts,
     CategoryResponse Category
 );

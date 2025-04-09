@@ -3,7 +3,7 @@
 public sealed record ActiveCartItemResponse(
     int Quantity,
     bool ForDelivery,
-    string AddedAt,
+    DateTimeOffset AddedAt,
     Guid ProductId,
     Guid? CustomizationId
 );

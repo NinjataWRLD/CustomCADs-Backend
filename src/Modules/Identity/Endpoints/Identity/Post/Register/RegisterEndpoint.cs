@@ -26,7 +26,6 @@ public sealed class RegisterEndpoint(IRequestSender sender, LinkGenerator links)
                 Username: req.Username,
                 Email: req.Email,
                 Password: req.Password,
-                TimeZone: req.TimeZone,
                 FirstName: req.FirstName,
                 LastName: req.LastName
             ),

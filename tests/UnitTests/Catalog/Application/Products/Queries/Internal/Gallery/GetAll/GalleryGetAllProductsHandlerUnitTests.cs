@@ -36,9 +36,6 @@ public class GalleryGalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTest
 
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct))
             .ReturnsAsync(products.ToDictionary(x => x.CategoryId, x => "Cateogry123"));
-
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
-            .ReturnsAsync("TimeZone123");
     }
 
     [Fact]
@@ -80,7 +77,6 @@ public class GalleryGalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTest
         // Assert
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct), Times.Once);
     }
 
     [Fact]
@@ -100,7 +96,8 @@ public class GalleryGalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTest
         await handler.Handle(query, ct);
 
         // Assert
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct), Times.Never);
+        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct), Times.Never);
+        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct), Times.Never);
     }
 
     [Fact]

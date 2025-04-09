@@ -5,7 +5,6 @@ public record RegisterUserCommand(
     string Username,
     string Email,
     string Password,
-    string TimeZone,
     string? FirstName,
     string? LastName
 ) : ICommand;

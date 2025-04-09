@@ -20,21 +20,11 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PostAccountRequest req, CancellationToken ct)
     {
-        CreateAccountCommand command = new(
-            Role: req.Role,
-            Username: req.Username,
-            Email: req.Email,
-            TimeZone: req.TimeZone,
-            Password: req.Password,
-            FirstName: req.FirstName,
-            LastName: req.LastName
-        );
         await sender.SendCommandAsync(
             new CreateAccountCommand(
                 Role: req.Role,
                 Username: req.Username,
                 Email: req.Email,
-                TimeZone: req.TimeZone,
                 Password: req.Password,
                 FirstName: req.FirstName,
                 LastName: req.LastName

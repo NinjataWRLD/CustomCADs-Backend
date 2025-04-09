@@ -6,24 +6,23 @@ using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetAll;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetById;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Extensions;
 
 namespace CustomCADs.Catalog.Application.Products;
 
 internal static class Mapper
 {
-    internal static GalleryGetAllProductsDto ToGalleryGetAllDto(this Product product, string username, string categoryName, string[] tags, string? timeZone)
+    internal static GalleryGetAllProductsDto ToGalleryGetAllDto(this Product product, string username, string categoryName, string[] tags)
         => new(
             Id: product.Id,
             Name: product.Name,
             Views: product.Counts.Views,
             Tags: tags,
-            UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
+            UploadedAt: product.UploadedAt,
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
 
-    internal static GalleryGetProductByIdDto ToGalleryGetByIdDto(this Product product, decimal volume, string username, string categoryName, string[] tags, string timeZone, CoordinatesDto camCoords, CoordinatesDto panCoords)
+    internal static GalleryGetProductByIdDto ToGalleryGetByIdDto(this Product product, decimal volume, string username, string categoryName, string[] tags, CoordinatesDto camCoords, CoordinatesDto panCoords)
         => new(
             Id: product.Id,
             Name: product.Name,
@@ -32,41 +31,41 @@ internal static class Mapper
             Volume: volume,
             CreatorName: username,
             Tags: tags,
-            UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
+            UploadedAt: product.UploadedAt,
             CamCoordinates: camCoords,
             PanCoordinates: panCoords,
             Counts: product.Counts.ToDto(),
             Category: new(product.CategoryId, categoryName)
         );
 
-    internal static CreatorGetAllProductsDto ToCreatorGetAllDto(this Product product, string categoryName, string timeZone)
+    internal static CreatorGetAllProductsDto ToCreatorGetAllDto(this Product product, string categoryName)
         => new(
             Id: product.Id,
             Name: product.Name,
             Status: product.Status.ToString(),
             Views: product.Counts.Views,
-            UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
+            UploadedAt: product.UploadedAt,
             Category: new(product.CategoryId, categoryName)
         );
 
-    internal static CreatorGetProductByIdDto ToCreatorGetByIdDto(this Product product, string username, string categoryName, string timeZone)
+    internal static CreatorGetProductByIdDto ToCreatorGetByIdDto(this Product product, string username, string categoryName)
         => new(
             Id: product.Id,
             Name: product.Name,
             Description: product.Description,
             Price: product.Price,
-            UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
+            UploadedAt: product.UploadedAt,
             Status: product.Status.ToString(),
             Counts: product.Counts.ToDto(),
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );
 
-    internal static DesignerGetAllProductsDto ToDesignerGetAllDto(this Product product, string username, string categoryName, string timeZone)
+    internal static DesignerGetAllProductsDto ToDesignerGetAllDto(this Product product, string username, string categoryName)
         => new(
             Id: product.Id,
             Name: product.Name,
-            UploadedAt: product.UploadedAt.ToUserLocalTime(timeZone),
+            UploadedAt: product.UploadedAt,
             Category: new(product.CategoryId, categoryName),
             CreatorName: username
         );

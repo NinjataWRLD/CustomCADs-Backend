@@ -6,7 +6,7 @@ using CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Get.Track;
 
 namespace CustomCADs.Delivery.Endpoints.Shipments;
 
-using static Constants;
+using static Constants.DateTimes;
 
 public static class Mapper
 {

@@ -16,7 +16,6 @@ public class RegisterUserHandler(IUserManager manager, IRequestSender sender)
                 Role: req.Role,
                 Username: req.Username,
                 Email: req.Email,
-                TimeZone: req.TimeZone,
                 FirstName: req.FirstName,
                 LastName: req.LastName
             ),

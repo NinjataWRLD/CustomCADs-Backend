@@ -15,11 +15,6 @@ public sealed class CustomerGetCustomByIdHandler(ICustomReads reads, IRequestSen
         if (custom.BuyerId != req.BuyerId)
             throw CustomAuthorizationException<Custom>.ById(req.Id);
 
-        string timeZone = await sender.SendQueryAsync(
-            new GetTimeZoneByIdQuery(Id: custom.BuyerId),
-            ct
-        ).ConfigureAwait(false);
-
         string? designer = null;
         if (custom.AcceptedCustom is not null)
         {
@@ -29,6 +24,6 @@ public sealed class CustomerGetCustomByIdHandler(ICustomReads reads, IRequestSen
             ).ConfigureAwait(false);
         }
 
-        return custom.ToCustomerGetByIdDto(timeZone, designer);
+        return custom.ToCustomerGetByIdDto(designer);
     }
 }

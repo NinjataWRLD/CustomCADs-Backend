@@ -13,7 +13,6 @@ public sealed class CreateAccountHandler(IWrites<Account> writes, IUnitOfWork uo
             role: req.Role,
             username: req.Username,
             email: req.Email,
-            timeZone: req.TimeZone,
             firstName: req.FirstName,
             lastName: req.LastName
         );

@@ -32,10 +32,6 @@ public static class AccountsData
     public const string InvalidEmail4 = " a@a.co";
     public const string InvalidEmail5 = "a@a.co ";
 
-    public const string ValidTimeZone1 = "Europe/Sofia";
-    public const string ValidTimeZone2 = "Europe/Bucharest";
-    public const string InvalidTimeZone = "";
-
     public const string ValidPassword = "password123";
 
     public const string? ValidFirstName1 = "John";

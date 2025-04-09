@@ -38,11 +38,6 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
             ct
         ).ConfigureAwait(false);
 
-        string timeZone = await sender.SendQueryAsync(
-            new GetTimeZoneByIdQuery(product.CreatorId),
-            ct
-        ).ConfigureAwait(false);
-
         var coords = await sender.SendQueryAsync(
             new GetCadCoordsByIdQuery(product.CadId),
             ct
@@ -61,7 +56,6 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
             username: username,
             categoryName: categoryName,
             tags: tags,
-            timeZone: timeZone,
             camCoords: coords.Cam,
             panCoords: coords.Pan
         );

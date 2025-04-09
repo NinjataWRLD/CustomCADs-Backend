@@ -19,8 +19,6 @@ using CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Get.Single;
 
 namespace CustomCADs.Catalog.Endpoints.Products;
 
-using static Constants;
-
 internal static class Mapper
 {
     internal static GetAllGaleryProductsResponse ToResponse(this GalleryGetAllProductsDto product)
@@ -41,7 +39,7 @@ internal static class Mapper
             Volume: product.Volume,
             Tags: product.Tags,
             CreatorName: product.CreatorName,
-            UploadedAt: product.UploadedAt.ToString(DateFormatString),
+            UploadedAt: product.UploadedAt,
             CamCoordinates: product.CamCoordinates,
             PanCoordinates: product.PanCoordinates,
             Counts: product.Counts,
@@ -52,18 +50,18 @@ internal static class Mapper
         => new(
             Id: product.Id.Value,
             Name: product.Name,
-            UploadedAt: product.UploadedAt.ToString(DateFormatString),
+            UploadedAt: product.UploadedAt,
             Category: product.Category.ToResponse()
         );
 
     internal static RecentProductsResponse ToRecentResponse(this CreatorGetAllProductsDto product)
-    => new(
-        Id: product.Id.Value,
-        Name: product.Name,
-        Status: product.Status,
-        UploadedAt: product.UploadedAt.ToString(DateFormatString),
-        Category: product.Category.ToResponse()
-    );
+        => new(
+            Id: product.Id.Value,
+            Name: product.Name,
+            Status: product.Status,
+            UploadedAt: product.UploadedAt,
+            Category: product.Category.ToResponse()
+        );
 
     internal static GetProductResponse ToGetResponse(this CreatorGetProductByIdDto product)
         => new(
@@ -71,7 +69,7 @@ internal static class Mapper
             Name: product.Name,
             Price: product.Price,
             Description: product.Description,
-            UploadedAt: product.UploadedAt.ToString(DateFormatString),
+            UploadedAt: product.UploadedAt,
             Counts: product.Counts,
             Category: product.Category.ToResponse()
         );
@@ -83,7 +81,7 @@ internal static class Mapper
             Description: product.Description,
             Price: product.Price,
             Status: product.Status,
-            UploadedAt: product.UploadedAt.ToString(DateFormatString),
+            UploadedAt: product.UploadedAt,
             CreatorName: product.CreatorName,
             Category: product.Category.ToResponse()
         );
@@ -92,7 +90,7 @@ internal static class Mapper
     => new(
         Id: product.Id.Value,
         Name: product.Name,
-        UploadedAt: product.UploadedAt.ToString(DateFormatString),
+        UploadedAt: product.UploadedAt,
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
@@ -101,7 +99,7 @@ internal static class Mapper
     => new(
         Id: product.Id.Value,
         Name: product.Name,
-        UploadedAt: product.UploadedAt.ToString(DateFormatString),
+        UploadedAt: product.UploadedAt,
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );
@@ -110,7 +108,7 @@ internal static class Mapper
     => new(
         Id: product.Id.Value,
         Name: product.Name,
-        UploadedAt: product.UploadedAt.ToString(DateFormatString),
+        UploadedAt: product.UploadedAt,
         CreatorName: product.CreatorName,
         Category: new(product.Category.Id.Value, product.Category.Name)
     );

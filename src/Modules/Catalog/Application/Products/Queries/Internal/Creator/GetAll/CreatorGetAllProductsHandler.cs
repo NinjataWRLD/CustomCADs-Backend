@@ -2,7 +2,6 @@
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetAll;
@@ -28,16 +27,10 @@ public sealed class CreatorGetAllProductsHandler(IProductReads reads, IRequestSe
             ct
         ).ConfigureAwait(false);
 
-        string timeZone = await sender.SendQueryAsync(
-            new GetTimeZoneByIdQuery(req.CreatorId),
-            ct
-        ).ConfigureAwait(false);
-
         return new(
             Count: result.Count,
             Items: [.. result.Items.Select(p => p.ToCreatorGetAllDto(
-                categoryName: categories[p.CategoryId],
-                timeZone: timeZone
+                categoryName: categories[p.CategoryId]
             ))]
         );
     }

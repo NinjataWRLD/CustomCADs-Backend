@@ -25,9 +25,6 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(cart);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
-            .ReturnsAsync("Europe/Sofia");
-
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
             .ReturnsAsync(Buyer);
     }
@@ -57,9 +54,6 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
         await handler.Handle(query, ct);
 
         // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetTimeZoneByIdQuery>(),
-        ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetUsernameByIdQuery>(),
         ct), Times.Once);

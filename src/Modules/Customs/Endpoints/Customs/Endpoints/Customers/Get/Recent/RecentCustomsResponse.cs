@@ -3,6 +3,6 @@
 public sealed record RecentCustomsResponse(
     Guid Id,
     string Name,
-    string OrderedAt,
+    DateTimeOffset OrderedAt,
     string? DesignerName
 );

@@ -9,12 +9,11 @@ public sealed class CreateAccountHandler(IWrites<Account> writes, IUnitOfWork uo
     public async Task<AccountId> Handle(CreateAccountCommand req, CancellationToken ct)
     {
         var account = Account.Create(
-            req.Role,
-            req.Username,
-            req.Email,
-            req.TimeZone,
-            req.FirstName,
-            req.LastName
+            role: req.Role,
+            username: req.Username,
+            email: req.Email,
+            firstName: req.FirstName,
+            lastName: req.LastName
         );
 
         await writes.AddAsync(account, ct).ConfigureAwait(false);

@@ -38,20 +38,12 @@ public sealed class GalleryGetAllProductsHandler(IProductReads reads, IRequestSe
             ct
         ).ConfigureAwait(false);
 
-        string? timeZone = req.BuyerId.IsEmpty()
-            ? await sender.SendQueryAsync(
-                new GetTimeZoneByIdQuery(req.BuyerId),
-                ct
-            ).ConfigureAwait(false)
-            : null;
-
         return new(
             Count: result.Count,
             Items: [.. result.Items.Select(p => p.ToGalleryGetAllDto(
                 username: users[p.CreatorId],
                 categoryName: categories[p.CategoryId],
-                tags: tags[p.Id],
-                timeZone: timeZone
+                tags: tags[p.Id]
             ))]
         );
     }

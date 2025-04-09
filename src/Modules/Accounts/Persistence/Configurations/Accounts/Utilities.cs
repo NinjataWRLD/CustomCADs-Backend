@@ -58,10 +58,6 @@ static class Utilities
             .IsRequired()
             .HasColumnName(nameof(Account.Email));
 
-        builder.Property(x => x.TimeZone)
-            .IsRequired()
-            .HasColumnName(nameof(Account.TimeZone));
-
         builder.Property(x => x.FirstName)
             .HasMaxLength(NameMaxLength)
             .HasColumnName(nameof(Account.FirstName));
@@ -83,12 +79,11 @@ static class Utilities
 
     public static EntityTypeBuilder<Account> SetSeeding(this EntityTypeBuilder<Account> builder)
     {
-        const string TimeZone = "Europe/Sofia";
         builder.HasData([
-            Account.CreateWithId(AccountId.New(CustomerAccountId), Customer, CustomerUsername, CustomerEmail, TimeZone),
-            Account.CreateWithId(AccountId.New(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail, TimeZone),
-            Account.CreateWithId(AccountId.New(DesignerAccountId), Designer, DesignerUsername, DesignerEmail, TimeZone),
-            Account.CreateWithId(AccountId.New(AdminAccountId), Admin, AdminUsername, AdminEmail, TimeZone),
+            Account.CreateWithId(AccountId.New(CustomerAccountId), Customer, CustomerUsername, CustomerEmail),
+            Account.CreateWithId(AccountId.New(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail),
+            Account.CreateWithId(AccountId.New(DesignerAccountId), Designer, DesignerUsername, DesignerEmail),
+            Account.CreateWithId(AccountId.New(AdminAccountId), Admin, AdminUsername, AdminEmail),
         ]);
 
         return builder;

@@ -1,10 +1,7 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetAll;
 using CustomCADs.Carts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.Internal.GetAll;
 
@@ -13,7 +10,6 @@ using static PurchasedCartsData;
 public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
 {
     private readonly Mock<IPurchasedCartReads> reads = new();
-    private readonly Mock<IRequestSender> sender = new();
     private readonly PurchasedCart[] carts = [
         CreateCartWithId(id: ValidId1),
         CreateCartWithId(id: ValidId2),
@@ -31,12 +27,6 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
                 carts.Length,
                 carts
             ));
-
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZonesByIdsQuery>(), ct))
-            .ReturnsAsync(new Dictionary<AccountId, string>()
-            {
-                [ValidBuyerId1] = "Europe/Sofia"
-            });
     }
 
     [Fact]
@@ -44,7 +34,7 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
     {
         // Arrange
         GetAllPurchasedCartsQuery query = new(this.query.Pagination);
-        GetAllPurchasedCartsHandler handler = new(reads.Object, sender.Object);
+        GetAllPurchasedCartsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -54,27 +44,11 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
     }
 
     [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        GetAllPurchasedCartsQuery query = new(this.query.Pagination);
-        GetAllPurchasedCartsHandler handler = new(reads.Object, sender.Object);
-
-        // Act
-        await handler.Handle(query, ct);
-
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetTimeZonesByIdsQuery>(),
-        ct), Times.Once);
-    }
-
-    [Fact]
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
         GetAllPurchasedCartsQuery query = new(this.query.Pagination);
-        GetAllPurchasedCartsHandler handler = new(reads.Object, sender.Object);
+        GetAllPurchasedCartsHandler handler = new(reads.Object);
 
         // Act
         var result = await handler.Handle(query, ct);

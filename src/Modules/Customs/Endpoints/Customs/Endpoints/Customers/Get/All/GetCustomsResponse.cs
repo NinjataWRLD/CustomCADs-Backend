@@ -3,7 +3,7 @@
 public sealed record GetCustomsResponse(
     Guid Id,
     string Name,
-    string OrderedAt,
+    DateTimeOffset OrderedAt,
     string Status,
     bool ForDelivery
 );

@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
@@ -28,16 +27,10 @@ public class CalculateActiveCartShipmentHandler(IActiveCartReads reads, IRequest
             ct
         ).ConfigureAwait(false);
 
-        string timeZone = await sender.SendQueryAsync(
-            new GetTimeZoneByIdQuery(req.BuyerId),
-            ct
-        ).ConfigureAwait(false);
-
         CalculateShipmentDto[] calculations = await sender.SendQueryAsync(
             new CalculateShipmentQuery(
                 ParcelCount: items.Count(x => x.ForDelivery),
                 TotalWeight: weights.Sum(x => x.Value),
-                TimeZone: timeZone,
                 Address: req.Address
             ),
             ct

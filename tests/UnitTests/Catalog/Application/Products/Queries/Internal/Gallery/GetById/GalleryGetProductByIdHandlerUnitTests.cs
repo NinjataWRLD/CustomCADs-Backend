@@ -19,7 +19,6 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     private readonly Mock<IRequestSender> sender = new();
     private readonly Mock<IEventRaiser> raiser = new();
     private readonly Product product = CreateProduct();
-    private const string TimeZone = "Europe/Sofia";
 
     public GalleryGetProductByIdHandlerUnitTests()
     {
@@ -27,9 +26,6 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
-
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetTimeZoneByIdQuery>(), ct))
-            .ReturnsAsync(TimeZone);
     }
 
     [Fact]

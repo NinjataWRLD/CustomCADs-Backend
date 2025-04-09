@@ -1,25 +1,24 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetAll;
 using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetById;
 using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
-using CustomCADs.Shared.Core.Extensions;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts;
 
 internal static class Mapper
 {
-    internal static GetAllPurchasedCartsDto ToGetAllDto(this PurchasedCart cart, string timeZone)
+    internal static GetAllPurchasedCartsDto ToGetAllDto(this PurchasedCart cart)
         => new(
             Id: cart.Id,
             Total: cart.TotalCost,
-            PurchasedAt: cart.PurchasedAt.ToUserLocalTime(timeZone),
+            PurchasedAt: cart.PurchasedAt,
             ItemsCount: cart.Items.Count
         );
 
-    internal static GetPurchasedCartByIdDto ToGetByIdDto(this PurchasedCart cart, string timeZone, string buyer)
+    internal static GetPurchasedCartByIdDto ToGetByIdDto(this PurchasedCart cart, string buyer)
         => new(
             Id: cart.Id,
             Total: cart.TotalCost,
-            PurchasedAt: cart.PurchasedAt.ToUserLocalTime(timeZone),
+            PurchasedAt: cart.PurchasedAt,
             BuyerName: buyer,
             ShipmentId: cart.ShipmentId,
             Items: [.. cart.Items.Select(i => i.ToDto())]

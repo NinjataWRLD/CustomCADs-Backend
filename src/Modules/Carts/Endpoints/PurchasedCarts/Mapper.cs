@@ -5,15 +5,13 @@ using CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Get.Single;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts;
 
-using static Constants;
-
 internal static class Mapper
 {
     internal static GetPurchasedCartsResponse ToResponse(this GetAllPurchasedCartsDto cart)
         => new(
             Id: cart.Id.Value,
             Total: cart.Total,
-            PurchasedAt: cart.PurchasedAt.ToString(DateFormatString),
+            PurchasedAt: cart.PurchasedAt,
             ItemsCount: cart.ItemsCount
         );
 
@@ -21,7 +19,7 @@ internal static class Mapper
         => new(
             Id: cart.Id.Value,
             Total: cart.Total,
-            PurchasedAt: cart.PurchasedAt.ToString(DateFormatString),
+            PurchasedAt: cart.PurchasedAt,
             BuyerName: cart.BuyerName,
             ShipmentId: cart.ShipmentId?.Value,
             Items: [.. cart.Items.Select(o => o.ToResponse())]
@@ -33,7 +31,7 @@ internal static class Mapper
             ForDelivery: item.ForDelivery,
             Price: item.Price,
             Cost: item.Cost,
-            AddedAt: item.AddedAt.ToString(DateFormatString),
+            AddedAt: item.AddedAt,
             ProductId: item.ProductId.Value,
             CartId: item.CartId.Value,
             CustomizationId: item.CustomizationId?.Value

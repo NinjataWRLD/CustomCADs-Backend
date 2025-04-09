@@ -13,17 +13,15 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IEventRaiser> raiser = new();
 
-
     [Theory]
     [ClassData(typeof(CreateAccountValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string timeZone, string password, string? firstName, string? lastName)
+    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string password, string? firstName, string? lastName)
     {
         // Arrange
         CreateAccountCommand command = new(
             Role: role,
             Username: username,
             Email: email,
-            TimeZone: timeZone,
             Password: password,
             FirstName: firstName,
             LastName: lastName
@@ -39,7 +37,6 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
                 x.RoleName == role
                 && x.Username == username
                 && x.Email == email
-                && x.TimeZone == timeZone
                 && x.FirstName == firstName
                 && x.LastName == lastName
             ),
@@ -50,14 +47,13 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateAccountValidData))]
-    public async Task Handle_ShouldRaiseEvents(string role, string username, string email, string timeZone, string password, string? firstName, string? lastName)
+    public async Task Handle_ShouldRaiseEvents(string role, string username, string email, string password, string? firstName, string? lastName)
     {
         // Arrange
         CreateAccountCommand command = new(
             Role: role,
             Username: username,
             Email: email,
-            TimeZone: timeZone,
             Password: password,
             FirstName: firstName,
             LastName: lastName
