@@ -2,11 +2,11 @@
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetCadUrlPost;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Get.All;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Get.CalculateShipment;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Get.Recent;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Get.Single;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customs.Post.Create;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.All;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.CalculateShipment;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Recent;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Single;
+using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Post.Create;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Get.Single;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Patch.Finish;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Post;
