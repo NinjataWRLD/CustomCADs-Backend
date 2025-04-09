@@ -20,25 +20,29 @@ public sealed class PostProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PostProductRequest req, CancellationToken ct)
     {
-        CreateProductCommand command = new(
-            Name: req.Name,
-            Description: req.Description,
-            CategoryId: CategoryId.New(req.CategoryId),
-            Price: req.Price,
-            ImageKey: req.ImageKey,
-            ImageContentType: req.ImageContentType,
-            CadKey: req.CadKey,
-            CadContentType: req.CadContentType,
-            CadVolume: req.CadVolume,
-            CreatorId: User.GetAccountId()
-        );
-        ProductId id = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        ProductId id = await sender.SendCommandAsync(
+            new CreateProductCommand(
+                Name: req.Name,
+                Description: req.Description,
+                CategoryId: CategoryId.New(req.CategoryId),
+                Price: req.Price,
+                ImageKey: req.ImageKey,
+                ImageContentType: req.ImageContentType,
+                CadKey: req.CadKey,
+                CadContentType: req.CadContentType,
+                CadVolume: req.CadVolume,
+                CreatorId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        CreatorGetProductByIdQuery query = new(
-            Id: id,
-            CreatorId: User.GetAccountId()
-        );
-        CreatorGetProductByIdDto dto = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        CreatorGetProductByIdDto dto = await sender.SendQueryAsync(
+            new CreatorGetProductByIdQuery(
+                Id: id,
+                CreatorId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         PostProductResponse response = dto.ToPostResponse();
         await SendCreatedAtAsync<GetProductEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);

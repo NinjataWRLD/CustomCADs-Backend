@@ -23,11 +23,15 @@ public sealed class CreatorGetAllProductsHandler(IProductReads reads, IRequestSe
         Result<Product> result = await reads.AllAsync(productQuery, track: false, ct: ct).ConfigureAwait(false);
 
         CategoryId[] categoryIds = [.. result.Items.Select(p => p.CategoryId).Distinct()];
-        Dictionary<CategoryId, string> categories = await sender
-            .SendQueryAsync(new GetCategoryNamesByIdsQuery(categoryIds), ct).ConfigureAwait(false);
+        Dictionary<CategoryId, string> categories = await sender.SendQueryAsync(
+            new GetCategoryNamesByIdsQuery(categoryIds),
+            ct
+        ).ConfigureAwait(false);
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(req.CreatorId);
-        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        string timeZone = await sender.SendQueryAsync(
+            new GetTimeZoneByIdQuery(req.CreatorId),
+            ct
+        ).ConfigureAwait(false);
 
         return new(
             Count: result.Count,

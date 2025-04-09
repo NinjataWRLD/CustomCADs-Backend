@@ -14,13 +14,17 @@ public class SetMaterialTextureHandler(IMaterialReads reads, IRequestSender send
 
         if (req.Key is not null)
         {
-            SetImageKeyCommand keyCommand = new(material.TextureId, req.Key);
-            await sender.SendCommandAsync(keyCommand, ct).ConfigureAwait(false);
+            await sender.SendCommandAsync(
+                new SetImageKeyCommand(material.TextureId, req.Key),
+                ct
+            ).ConfigureAwait(false);
         }
         if (req.ContentType is not null)
         {
-            SetImageContentTypeCommand contentTypeCommand = new(material.TextureId, req.ContentType);
-            await sender.SendCommandAsync(contentTypeCommand, ct).ConfigureAwait(false);
+            await sender.SendCommandAsync(
+                new SetImageContentTypeCommand(material.TextureId, req.ContentType),
+                ct
+            ).ConfigureAwait(false);
         }
     }
 }

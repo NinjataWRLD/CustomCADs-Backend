@@ -18,8 +18,10 @@ public sealed class GetCategoriesEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        GetAllCategoriesQuery query = new();
-        IEnumerable<CategoryReadDto> categories = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        IEnumerable<CategoryReadDto> categories = await sender.SendQueryAsync(
+            new GetAllCategoriesQuery(),
+            ct
+        ).ConfigureAwait(false);
 
         CategoryResponse[] response = [.. categories.Select(c => c.ToResponse())];
         await SendOkAsync(response).ConfigureAwait(false);

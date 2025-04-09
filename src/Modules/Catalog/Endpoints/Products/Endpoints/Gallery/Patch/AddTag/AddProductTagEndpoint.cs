@@ -20,10 +20,12 @@ public class AddProductTagEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(AddProductTagRequest req, CancellationToken ct)
     {
-        AddProductTagCommand command = new(
-            Id: ProductId.New(req.Id),
-            TagId: TagId.New(req.TagId)
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new AddProductTagCommand(
+                Id: ProductId.New(req.Id),
+                TagId: TagId.New(req.TagId)
+            ),
+            ct
+        ).ConfigureAwait(false);
     }
 }

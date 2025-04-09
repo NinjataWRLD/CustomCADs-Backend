@@ -20,10 +20,12 @@ public class RemoveProductTagEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(RemoveProductTagRequest req, CancellationToken ct)
     {
-        RemoveProductTagCommand command = new(
-            Id: ProductId.New(req.Id),
-            TagId: TagId.New(req.TagId)
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new RemoveProductTagCommand(
+                Id: ProductId.New(req.Id),
+                TagId: TagId.New(req.TagId)
+            ),
+            ct
+        ).ConfigureAwait(false);
     }
 }

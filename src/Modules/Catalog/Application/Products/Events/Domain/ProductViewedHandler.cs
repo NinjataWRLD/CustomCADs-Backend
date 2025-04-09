@@ -15,8 +15,9 @@ public class ProductViewedHandler(IProductReads reads, IUnitOfWork uow, IRequest
         Product product = await reads.SingleByIdAsync(de.Id).ConfigureAwait(false)
             ?? throw CustomNotFoundException<Product>.ById(de.Id);
 
-        GetAccountViewedProductQuery userAlreadyViewedQuery = new(de.AccountId, de.Id);
-        bool userAlreadyViewed = await sender.SendQueryAsync(userAlreadyViewedQuery).ConfigureAwait(false);
+        bool userAlreadyViewed = await sender.SendQueryAsync(
+            new GetAccountViewedProductQuery(de.AccountId, de.Id)
+        ).ConfigureAwait(false);
         if (userAlreadyViewed) return;
 
         product.AddToViewCount();

@@ -20,29 +20,39 @@ public sealed class SetProductFilesHandler(IProductReads reads, IRequestSender s
 
         if (req.Image.Key is not null)
         {
-            SetImageKeyCommand command = new(product.ImageId, req.Image.Key);
-            await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+            await sender.SendCommandAsync(
+                new SetImageKeyCommand(product.ImageId, req.Image.Key),
+                ct
+            ).ConfigureAwait(false);
         }
         if (req.Image.ContentType is not null)
         {
-            SetImageContentTypeCommand command = new(product.ImageId, req.Image.ContentType);
-            await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+            await sender.SendCommandAsync(
+                new SetImageContentTypeCommand(product.ImageId, req.Image.ContentType),
+                ct
+            ).ConfigureAwait(false);
         }
 
         if (req.Cad.Key is not null)
         {
-            SetCadKeyCommand command = new(product.CadId, req.Cad.Key);
-            await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+            await sender.SendCommandAsync(
+                new SetCadKeyCommand(product.CadId, req.Cad.Key),
+                ct
+            ).ConfigureAwait(false);
         }
         if (req.Cad.ContentType is not null)
         {
-            SetCadContentTypeCommand command = new(product.CadId, req.Cad.ContentType);
-            await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+            await sender.SendCommandAsync(
+                new SetCadContentTypeCommand(product.CadId, req.Cad.ContentType),
+                ct
+            ).ConfigureAwait(false);
         }
         if (req.Cad.Volume is not null)
         {
-            SetCadVolumeCommand command = new(product.CadId, req.Cad.Volume.Value);
-            await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+            await sender.SendCommandAsync(
+                new SetCadVolumeCommand(product.CadId, req.Cad.Volume.Value),
+                ct
+            ).ConfigureAwait(false);
         }
     }
 }

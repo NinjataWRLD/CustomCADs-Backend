@@ -20,11 +20,14 @@ public sealed class LoginEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
     {
-        TokensDto tokens = await sender.SendCommandAsync(command: new LoginUserCommand(
-            Username: req.Username,
-            Password: req.Password,
-            LongerExpireTime: req.RememberMe ?? false
-        ), ct).ConfigureAwait(false);
+        TokensDto tokens = await sender.SendCommandAsync(
+            new LoginUserCommand(
+                Username: req.Username,
+                Password: req.Password,
+                LongerExpireTime: req.RememberMe ?? false
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         HttpContext.SaveAccessTokenCookie(tokens.AccessToken.Value, tokens.AccessToken.ExpiresAt);
         HttpContext.SaveRefreshTokenCookie(tokens.RefreshToken.Value, tokens.RefreshToken.ExpiresAt);

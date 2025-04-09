@@ -18,12 +18,14 @@ public sealed class GetPurchasedCartsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetPurchasedCartsRequest req, CancellationToken ct)
     {
-        GetAllPurchasedCartsQuery query = new(
-            BuyerId: User.GetAccountId(),
-            Sorting: new(req.SortingType, req.SortingDirection),
-            Pagination: new(req.Page, req.Limit)
-        );
-        Result<GetAllPurchasedCartsDto> carts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllPurchasedCartsDto> carts = await sender.SendQueryAsync(
+            new GetAllPurchasedCartsQuery(
+                BuyerId: User.GetAccountId(),
+                Sorting: new(req.SortingType, req.SortingDirection),
+                Pagination: new(req.Page, req.Limit)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         Result<GetPurchasedCartsResponse> response = new(
             Count: carts.Count,

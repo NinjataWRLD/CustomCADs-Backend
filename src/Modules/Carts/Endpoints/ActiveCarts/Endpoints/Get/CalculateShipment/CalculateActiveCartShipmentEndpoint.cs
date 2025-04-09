@@ -18,11 +18,13 @@ public class CalculateActiveCartShipmentEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CalculateActiveCartShipmentRequest req, CancellationToken ct)
     {
-        CalculateActiveCartShipmentQuery query = new(
-            BuyerId: User.GetAccountId(),
-            Address: new(req.Country, req.City)
-        );
-        CalculateShipmentDto[] calculations = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        CalculateShipmentDto[] calculations = await sender.SendQueryAsync(
+            new CalculateActiveCartShipmentQuery(
+                BuyerId: User.GetAccountId(),
+                Address: new(req.Country, req.City)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         ICollection<CalculateActiveCartShipmentResponse> response =
             [.. calculations.Select(c => c.ToResponse())];

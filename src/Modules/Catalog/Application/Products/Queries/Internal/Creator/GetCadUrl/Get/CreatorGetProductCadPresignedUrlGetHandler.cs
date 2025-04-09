@@ -16,7 +16,9 @@ public sealed class CreatorGetProductCadPresignedUrlGetHandler(IProductReads rea
         if (product.CreatorId != req.CreatorId)
             throw CustomAuthorizationException<Product>.ById(product.Id);
 
-        GetCadPresignedUrlGetByIdQuery query = new(product.CadId);
-        return await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        return await sender.SendQueryAsync(
+            new GetCadPresignedUrlGetByIdQuery(product.CadId),
+            ct
+        ).ConfigureAwait(false);
     }
 }

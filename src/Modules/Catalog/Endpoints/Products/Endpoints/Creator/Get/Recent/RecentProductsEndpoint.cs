@@ -20,15 +20,17 @@ public sealed class RecentProductsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(RecentProductsRequest req, CancellationToken ct)
     {
-        CreatorGetAllProductsQuery query = new(
-            CreatorId: User.GetAccountId(),
-            Sorting: new(
-                ProductCreatorSortingType.UploadedAt.ToBase(),
-                SortingDirection.Descending
+        Result<CreatorGetAllProductsDto> result = await sender.SendQueryAsync(
+            new CreatorGetAllProductsQuery(
+                CreatorId: User.GetAccountId(),
+                Sorting: new(
+                    ProductCreatorSortingType.UploadedAt.ToBase(),
+                    SortingDirection.Descending
+                ),
+                Pagination: new(Limit: req.Limit)
             ),
-            Pagination: new(Limit: req.Limit)
-        );
-        Result<CreatorGetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+            ct
+        ).ConfigureAwait(false);
 
         RecentProductsResponse[] response = [.. result.Items.Select(p => p.ToRecentResponse())];
         await SendOkAsync(response).ConfigureAwait(false);

@@ -17,11 +17,13 @@ public sealed class PurchaseActiveCartEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PurchaseActiveCartRequest req, CancellationToken ct)
     {
-        PurchaseActiveCartCommand command = new(
-            PaymentMethodId: req.PaymentMethodId,
-            BuyerId: User.GetAccountId()
-        );
-        string message = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        string message = await sender.SendCommandAsync(
+            new PurchaseActiveCartCommand(
+                PaymentMethodId: req.PaymentMethodId,
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(message).ConfigureAwait(false);
     }

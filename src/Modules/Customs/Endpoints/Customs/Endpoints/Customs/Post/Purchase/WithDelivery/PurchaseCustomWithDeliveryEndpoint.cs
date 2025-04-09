@@ -19,17 +19,19 @@ public sealed class PurchaseCustomWithDeliveryEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PurchasCustomWithDeliveryRequest req, CancellationToken ct)
     {
-        PurchaseCustomWithDeliveryCommand command = new(
-            Id: CustomId.New(req.Id),
-            PaymentMethodId: req.PaymentMethodId,
-            ShipmentService: req.ShipmentService,
-            Count: req.Count,
-            Address: req.Address,
-            Contact: req.Contact,
-            BuyerId: User.GetAccountId(),
-            CustomizationId: CustomizationId.New(req.CustomizationId)
-        );
-        string message = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        string message = await sender.SendCommandAsync(
+            new PurchaseCustomWithDeliveryCommand(
+                Id: CustomId.New(req.Id),
+                PaymentMethodId: req.PaymentMethodId,
+                ShipmentService: req.ShipmentService,
+                Count: req.Count,
+                Address: req.Address,
+                Contact: req.Contact,
+                BuyerId: User.GetAccountId(),
+                CustomizationId: CustomizationId.New(req.CustomizationId)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(message).ConfigureAwait(false);
     }

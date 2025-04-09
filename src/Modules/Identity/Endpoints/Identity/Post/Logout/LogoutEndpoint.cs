@@ -18,9 +18,12 @@ public sealed class LogoutEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await sender.SendCommandAsync(command: new LogoutUserCommand(
-            Username: User.GetName()
-        ), ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new LogoutUserCommand(
+                Username: User.GetName()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         HttpContext.DeleteAllCookies();
     }

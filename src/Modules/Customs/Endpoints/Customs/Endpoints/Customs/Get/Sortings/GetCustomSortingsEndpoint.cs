@@ -18,8 +18,10 @@ public sealed class GetCustomSortingsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        GetCustomSortingsQuery query = new();
-        string[] result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        string[] result = await sender.SendQueryAsync(
+            new GetCustomSortingsQuery(),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(result).ConfigureAwait(false);
     }

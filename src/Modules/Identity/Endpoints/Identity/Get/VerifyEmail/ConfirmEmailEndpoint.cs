@@ -19,10 +19,13 @@ public sealed class ConfirmEmailEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(ConfirmEmailRequest req, CancellationToken ct)
     {
-        TokensDto tokens = await sender.SendCommandAsync(command: new VerifyUserEmailCommand(
-            Username: req.Username,
-            Token: req.Token.Replace(' ', '+')
-        ), ct).ConfigureAwait(false);
+        TokensDto tokens = await sender.SendCommandAsync(
+            new VerifyUserEmailCommand(
+                Username: req.Username,
+                Token: req.Token.Replace(' ', '+')
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         HttpContext.SaveAccessTokenCookie(tokens.AccessToken.Value, tokens.AccessToken.ExpiresAt);
         HttpContext.SaveRefreshTokenCookie(tokens.RefreshToken.Value, tokens.RefreshToken.ExpiresAt);

@@ -18,10 +18,12 @@ public sealed class GetCustomsStatsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        CountCustomsQuery query = new(
-            BuyerId: User.GetAccountId()
-        );
-        var counts = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        var counts = await sender.SendQueryAsync(
+            new CountCustomsQuery(
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         GetCustomsStatsResponse response = new(
             PendingCount: counts.Pending,

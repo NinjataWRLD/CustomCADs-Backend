@@ -17,12 +17,14 @@ public sealed class FinishCustomHandler(ICustomReads reads, IUnitOfWork uow, IRe
         if (custom.AcceptedCustom?.DesignerId != req.DesignerId)
             throw CustomAuthorizationException<Custom>.ById(req.Id);
 
-        CreateCadCommand cadCommand = new(
-            Key: req.Cad.Key,
-            ContentType: req.Cad.ContentType,
-            Volume: req.Cad.Volume
-        );
-        CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
+        CadId cadId = await sender.SendCommandAsync(
+            new CreateCadCommand(
+                Key: req.Cad.Key,
+                ContentType: req.Cad.ContentType,
+                Volume: req.Cad.Volume
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         custom.Finish(cadId, req.Price);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

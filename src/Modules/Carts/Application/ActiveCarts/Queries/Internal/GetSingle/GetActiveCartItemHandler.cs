@@ -12,8 +12,10 @@ public sealed class GetActiveCartItemHandler(IActiveCartReads reads, IRequestSen
         ActiveCartItem item = await reads.SingleAsync(req.BuyerId, req.ProductId, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<ActiveCartItem>.ById(new { req.BuyerId, req.ProductId });
 
-        GetUsernameByIdQuery buyerQuery = new(req.BuyerId);
-        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
+        string buyer = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(req.BuyerId),
+            ct
+        ).ConfigureAwait(false);
 
         return item.ToDto(buyer);
     }

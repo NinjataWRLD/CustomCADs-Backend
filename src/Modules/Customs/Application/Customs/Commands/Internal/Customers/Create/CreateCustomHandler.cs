@@ -9,9 +9,7 @@ public sealed class CreateCustomHandler(IWrites<Custom> writes, IUnitOfWork uow,
 {
     public async Task<CustomId> Handle(CreateCustomCommand req, CancellationToken ct)
     {
-        GetAccountExistsByIdQuery buyerQuery = new(req.BuyerId);
-        bool buyerExists = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
-        if (!buyerExists)
+        if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.BuyerId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<Custom>.ById(req.BuyerId, "User");
 
         Custom order = req.ToEntity();

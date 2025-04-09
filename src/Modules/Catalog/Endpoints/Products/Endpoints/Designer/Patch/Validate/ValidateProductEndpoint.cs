@@ -18,12 +18,14 @@ public sealed class ValidateProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(ValidateProductRequest req, CancellationToken ct)
     {
-        SetProductStatusCommand command = new(
-            Id: ProductId.New(req.Id),
-            Status: ProductStatus.Validated,
-            DesignerId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new SetProductStatusCommand(
+                Id: ProductId.New(req.Id),
+                Status: ProductStatus.Validated,
+                DesignerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

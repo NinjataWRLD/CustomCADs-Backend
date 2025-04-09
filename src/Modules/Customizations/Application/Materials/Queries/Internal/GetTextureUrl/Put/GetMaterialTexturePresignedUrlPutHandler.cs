@@ -12,11 +12,13 @@ public sealed class GetMaterialTexturePresignedUrlPutHandler(IMaterialReads read
         Material material = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<Material>.ById(req.Id);
 
-        GetImagePresignedUrlPutByIdQuery query = new(
-            Id: material.TextureId,
-            NewFile: req.NewImage
-        );
-        string url = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        string url = await sender.SendQueryAsync(
+            new GetImagePresignedUrlPutByIdQuery(
+                Id: material.TextureId,
+                NewFile: req.NewImage
+            ), 
+            ct
+        ).ConfigureAwait(false);
 
         return new(PresignedUrl: url);
     }

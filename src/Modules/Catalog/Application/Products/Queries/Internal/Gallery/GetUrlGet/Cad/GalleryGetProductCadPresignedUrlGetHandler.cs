@@ -17,7 +17,9 @@ public sealed class GalleryGetProductCadPresignedUrlGetHandler(IProductReads rea
         if (product.Status is not ProductStatus.Validated)
             throw CustomStatusException<Product>.ById(product.Id);
 
-        GetCadPresignedUrlGetByIdQuery query = new(product.CadId);
-        return await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        return await sender.SendQueryAsync(
+            new GetCadPresignedUrlGetByIdQuery(product.CadId),
+            ct
+        ).ConfigureAwait(false);
     }
 }

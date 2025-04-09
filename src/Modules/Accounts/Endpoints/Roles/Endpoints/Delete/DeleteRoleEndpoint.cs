@@ -17,8 +17,10 @@ public sealed class DeleteRoleEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteRoleRequest req, CancellationToken ct)
     {
-        DeleteRoleCommand command = new(req.Name);
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new DeleteRoleCommand(req.Name),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

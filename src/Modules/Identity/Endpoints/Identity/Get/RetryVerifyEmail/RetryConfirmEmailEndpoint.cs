@@ -19,14 +19,17 @@ public sealed class RetryConfirmEmailEndpoint(IRequestSender sender, LinkGenerat
 
     public override async Task HandleAsync(RetryConfirmEmailRequest req, CancellationToken ct)
     {
-        await sender.SendCommandAsync(command: new VerificationEmailCommand(
-            Username: req.Username,
-            GetUri: ect => links.GetUriByName(
-                httpContext: HttpContext,
-                endpointName: IdentityNames.ConfirmEmail,
-                values: new { username = req.Username, token = ect }
-            ) ?? throw new InvalidOperationException("Unable to generate confirmation link.")
-        ), ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new VerificationEmailCommand(
+                Username: req.Username,
+                GetUri: ect => links.GetUriByName(
+                    httpContext: HttpContext,
+                    endpointName: IdentityNames.ConfirmEmail,
+                    values: new { username = req.Username, token = ect }
+                ) ?? throw new InvalidOperationException("Unable to generate confirmation link.")
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync("Check your email.").ConfigureAwait(false);
     }

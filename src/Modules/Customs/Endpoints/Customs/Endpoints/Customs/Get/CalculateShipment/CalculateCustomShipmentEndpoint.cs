@@ -20,13 +20,15 @@ public class CalculateCustomShipmentEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CalculateCustomShipmentRequest req, CancellationToken ct)
     {
-        CalculateCustomShipmentQuery query = new(
-            Id: CustomId.New(req.Id),
-            Count: req.Count,
-            Address: new(req.Country, req.City),
-            CustomizationId: CustomizationId.New(req.CustomizationId)
-        );
-        CalculateShipmentDto[] calculations = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        CalculateShipmentDto[] calculations = await sender.SendQueryAsync(
+            new CalculateCustomShipmentQuery(
+                Id: CustomId.New(req.Id),
+                Count: req.Count,
+                Address: new(req.Country, req.City),
+                CustomizationId: CustomizationId.New(req.CustomizationId)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         ICollection<CalculateCustomShipmentResponse> response =
             [.. calculations.Select(c => c.ToResponse())];

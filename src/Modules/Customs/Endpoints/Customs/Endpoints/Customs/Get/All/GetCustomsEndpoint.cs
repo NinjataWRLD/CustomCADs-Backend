@@ -19,15 +19,17 @@ public sealed class GetCustomsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetCustomsRequest req, CancellationToken ct)
     {
-        GetAllCustomsQuery query = new(
-            ForDelivery: req.ForDelivery,
-            CustomStatus: req.Status,
-            BuyerId: User.GetAccountId(),
-            Name: req.Name,
-            Sorting: new(req.SortingType, req.SortingDirection),
-            Pagination: new(req.Page, req.Limit)
-        );
-        var result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllCustomsDto> result = await sender.SendQueryAsync(
+            new GetAllCustomsQuery(
+                ForDelivery: req.ForDelivery,
+                CustomStatus: req.Status,
+                BuyerId: User.GetAccountId(),
+                Name: req.Name,
+                Sorting: new(req.SortingType, req.SortingDirection),
+                Pagination: new(req.Page, req.Limit)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         Result<GetCustomsResponse> response = new(
             Count: result.Count,

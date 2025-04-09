@@ -18,12 +18,14 @@ public sealed class GetCustomPostPresignedUrlEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetCustomPostPresignedUrlRequest req, CancellationToken ct)
     {
-        GetCustomCadPresignedUrlPostQuery query = new(
-            Id: CustomId.New(req.Id),
-            Cad: req.Cad,
-            DesignerId: User.GetAccountId()
-        );
-        UploadFileResponse response = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        UploadFileResponse response = await sender.SendQueryAsync(
+            new GetCustomCadPresignedUrlPostQuery(
+                Id: CustomId.New(req.Id),
+                Cad: req.Cad,
+                DesignerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(response).ConfigureAwait(false);
     }

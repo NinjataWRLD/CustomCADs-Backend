@@ -17,8 +17,10 @@ public sealed class DeleteAccountEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteAccountRequest req, CancellationToken ct)
     {
-        DeleteAccountCommand command = new(req.Username);
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new DeleteAccountCommand(req.Username),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

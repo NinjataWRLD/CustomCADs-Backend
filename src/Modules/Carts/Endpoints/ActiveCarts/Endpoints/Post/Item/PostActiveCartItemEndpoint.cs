@@ -23,19 +23,23 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
     {
         AccountId buyerId = User.GetAccountId();
 
-        AddActiveCartItemCommand command = new(
-            ProductId: ProductId.New(req.ProductId),
-            ForDelivery: req.ForDelivery,
-            CustomizationId: CustomizationId.New(req.CustomizationId),
-            BuyerId: buyerId
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new AddActiveCartItemCommand(
+                ProductId: ProductId.New(req.ProductId),
+                ForDelivery: req.ForDelivery,
+                CustomizationId: CustomizationId.New(req.CustomizationId),
+                BuyerId: buyerId
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        GetActiveCartItemQuery query = new(
-            BuyerId: buyerId,
-            ProductId: ProductId.New(req.ProductId)
-        );
-        ActiveCartItemDto item = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        ActiveCartItemDto item = await sender.SendQueryAsync(
+            new GetActiveCartItemQuery(
+                BuyerId: buyerId,
+                ProductId: ProductId.New(req.ProductId)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         ActiveCartItemResponse response = item.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);

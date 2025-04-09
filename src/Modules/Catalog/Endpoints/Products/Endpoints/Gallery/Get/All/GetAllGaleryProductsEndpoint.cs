@@ -19,15 +19,17 @@ public sealed class GetAllGaleryProductsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetAllGaleryProductsRequest req, CancellationToken ct)
     {
-        GalleryGetAllProductsQuery query = new(
-            BuyerId: User.GetAccountId(),
-            CategoryId: CategoryId.New(req.CategoryId),
-            TagIds: TagId.New(req.TagIds),
-            Name: req.Name,
-            Sorting: new(req.SortingType.ToBase(), req.SortingDirection),
-            Pagination: new(req.Page, req.Limit)
-        );
-        Result<GalleryGetAllProductsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GalleryGetAllProductsDto> result = await sender.SendQueryAsync(
+            new GalleryGetAllProductsQuery(
+                BuyerId: User.GetAccountId(),
+                CategoryId: CategoryId.New(req.CategoryId),
+                TagIds: TagId.New(req.TagIds),
+                Name: req.Name,
+                Sorting: new(req.SortingType.ToBase(), req.SortingDirection),
+                Pagination: new(req.Page, req.Limit)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         Result<GetAllGaleryProductsResponse> response = new(
             Count: result.Count,

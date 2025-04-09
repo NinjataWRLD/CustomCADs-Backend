@@ -3,7 +3,6 @@ using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.Normal;
 
@@ -27,12 +26,9 @@ public sealed class PurchaseCustomHandler(ICustomReads reads, IUnitOfWork uow, I
         if (custom.FinishedCustom is null)
             throw CustomException.NullProp<Custom>(nameof(custom.FinishedCustom));
 
-        GetUsernameByIdQuery buyerQuery = new(custom.BuyerId),
-            sellerQuery = new(custom.AcceptedCustom.DesignerId);
-
         string[] users = await Task.WhenAll(
-            sender.SendQueryAsync(buyerQuery, ct),
-            sender.SendQueryAsync(sellerQuery, ct)
+            sender.SendQueryAsync(new GetUsernameByIdQuery(custom.BuyerId), ct),
+            sender.SendQueryAsync(new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId), ct)
         ).ConfigureAwait(false);
 
         string buyer = users[0], seller = users[1];
@@ -44,11 +40,6 @@ public sealed class PurchaseCustomHandler(ICustomReads reads, IUnitOfWork uow, I
             description: $"{buyer} bought {custom.Name} from {seller}.",
             ct
         ).ConfigureAwait(false);
-
-        GetCadExistsByIdQuery cadQuery = new(custom.FinishedCustom.CadId);
-        bool cadExists = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
-        if (!cadExists)
-            throw CustomNotFoundException<Custom>.ById(custom.FinishedCustom.CadId, "Cad");
 
         custom.Complete(customizationId: null);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);

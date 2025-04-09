@@ -26,9 +26,7 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
         );
         ShipmentDto reference = await delivery.ShipAsync(request, ct).ConfigureAwait(false);
 
-        GetAccountExistsByIdQuery creatorQuery = new(req.BuyerId);
-        bool creatorExists = await sender.SendQueryAsync(creatorQuery, ct).ConfigureAwait(false);
-        if (!creatorExists)
+        if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.BuyerId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<Shipment>.ById(req.BuyerId, "User");
 
         var shipment = Shipment.Create(

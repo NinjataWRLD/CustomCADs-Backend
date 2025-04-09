@@ -10,10 +10,7 @@ public sealed class AddActiveCartItemHandler(IWrites<ActiveCartItem> writes, IUn
 {
     public async Task Handle(AddActiveCartItemCommand req, CancellationToken ct)
     {
-        GetProductExistsByIdQuery query = new(req.ProductId);
-        bool productExists = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
-
-        if (!productExists)
+        if (!await sender.SendQueryAsync(new GetProductExistsByIdQuery(req.ProductId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<ActiveCartItem>.ById(req.BuyerId, "User");
 
         ActiveCartItem item;
@@ -23,12 +20,8 @@ public sealed class AddActiveCartItemHandler(IWrites<ActiveCartItem> writes, IUn
         }
         else if (req.CustomizationId is not null)
         {
-            GetCustomizationExistsByIdQuery customizationExistsQuery = new(
-                Id: req.CustomizationId.Value
-            );
-
-            bool customizationExists = await sender.SendQueryAsync(customizationExistsQuery, ct).ConfigureAwait(false);
-            if (!customizationExists)
+            var id = req.CustomizationId.Value;
+            if (!await sender.SendQueryAsync(new GetCustomizationExistsByIdQuery(id), ct).ConfigureAwait(false))
                 throw CustomNotFoundException<ActiveCartItem>.ById(req.CustomizationId.Value, "Customization");
 
             item = ActiveCartItem.Create(req.ProductId, req.BuyerId, req.CustomizationId.Value);

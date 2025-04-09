@@ -17,8 +17,10 @@ public sealed class DesignerGetCustomByIdHandler(ICustomReads reads, IRequestSen
             && custom.AcceptedCustom?.DesignerId != req.DesignerId)
             throw CustomAuthorizationException<Custom>.ById(req.Id);
 
-        GetUsernameByIdQuery buyerQuery = new(custom.BuyerId);
-        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
+        string buyer = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(custom.BuyerId),
+            ct
+        ).ConfigureAwait(false);
 
         return custom.ToDesignerGetByIdDto(buyer);
     }

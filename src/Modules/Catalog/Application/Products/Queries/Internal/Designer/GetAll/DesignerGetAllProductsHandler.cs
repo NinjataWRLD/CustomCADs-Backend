@@ -32,8 +32,10 @@ public sealed class DesignerGetAllProductsHandler(IProductReads reads, IRequestS
         Dictionary<CategoryId, string> categories = await sender
             .SendQueryAsync(new GetCategoryNamesByIdsQuery(categoryIds), ct).ConfigureAwait(false);
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(req.DesignerId);
-        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        string timeZone = await sender.SendQueryAsync(
+            new GetTimeZoneByIdQuery(req.DesignerId),
+            ct
+        ).ConfigureAwait(false);
 
         return new(
             Count: result.Count,

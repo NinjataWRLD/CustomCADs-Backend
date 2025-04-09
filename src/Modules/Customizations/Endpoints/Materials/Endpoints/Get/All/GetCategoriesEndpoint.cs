@@ -19,8 +19,10 @@ public sealed class GetCategoriesEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        GetAllMaterialsQuery query = new();
-        IEnumerable<MaterialDto> categories = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        IEnumerable<MaterialDto> categories = await sender.SendQueryAsync(
+            new GetAllMaterialsQuery(),
+            ct
+        ).ConfigureAwait(false);
 
         MaterialResponse[] response = [.. categories.Select(c => c.ToResponse())];
         await SendOkAsync(response).ConfigureAwait(false);

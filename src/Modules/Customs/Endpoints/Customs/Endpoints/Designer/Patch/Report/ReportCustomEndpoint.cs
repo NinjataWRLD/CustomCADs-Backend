@@ -17,11 +17,13 @@ public sealed class ReportCustomEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(ReportCustomRequest req, CancellationToken ct)
     {
-        ReportCustomCommand command = new(
-            Id: CustomId.New(req.Id),
-            DesignerId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new ReportCustomCommand(
+                Id: CustomId.New(req.Id),
+                DesignerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

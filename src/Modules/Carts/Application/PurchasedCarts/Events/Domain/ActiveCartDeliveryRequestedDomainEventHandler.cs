@@ -15,19 +15,21 @@ public class ActiveCartDeliveryRequestedDomainEventHandler(IPurchasedCartReads r
         PurchasedCart cart = await reads.SingleByIdAsync(de.Id, track: false).ConfigureAwait(false)
             ?? throw CustomNotFoundException<PurchasedCart>.ById(de.Id);
 
-        GetUsernameByIdQuery buyerQuery = new(cart.BuyerId);
-        string buyer = await sender.SendQueryAsync(buyerQuery).ConfigureAwait(false);
+        string buyer = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(cart.BuyerId)
+        ).ConfigureAwait(false);
         double weight = de.Weight;
         int count = de.Count;
 
-        CreateShipmentCommand command = new(
-            Info: new(count, weight, buyer),
-            Service: de.ShipmentService,
-            Address: de.Address,
-            Contact: de.Contact,
-            BuyerId: cart.BuyerId
-        );
-        ShipmentId shipmentId = await sender.SendCommandAsync(command).ConfigureAwait(false);
+        ShipmentId shipmentId = await sender.SendCommandAsync(
+            new CreateShipmentCommand(
+                Info: new(count, weight, buyer),
+                Service: de.ShipmentService,
+                Address: de.Address,
+                Contact: de.Contact,
+                BuyerId: cart.BuyerId
+            )
+        ).ConfigureAwait(false);
         cart.SetShipmentId(shipmentId);
 
         await uow.SaveChangesAsync().ConfigureAwait(false);

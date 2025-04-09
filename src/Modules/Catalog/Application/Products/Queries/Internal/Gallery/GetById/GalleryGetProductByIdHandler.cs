@@ -23,20 +23,30 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
         }
         string[] tags = await reads.TagsByIdAsync(req.Id, ct).ConfigureAwait(false);
 
-        GetCadVolumeByIdQuery volumeQuery = new(product.CadId);
-        decimal volume = await sender.SendQueryAsync(volumeQuery, ct).ConfigureAwait(false);
+        decimal volume = await sender.SendQueryAsync(
+            new GetCadVolumeByIdQuery(product.CadId),
+            ct
+        ).ConfigureAwait(false);
 
-        GetUsernameByIdQuery usernameQuery = new(product.CreatorId);
-        string username = await sender.SendQueryAsync(usernameQuery, ct).ConfigureAwait(false);
+        string username = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(product.CreatorId),
+            ct
+        ).ConfigureAwait(false);
 
-        GetCategoryNameByIdQuery categoryQuery = new(product.CategoryId);
-        string categoryName = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
+        string categoryName = await sender.SendQueryAsync(
+            new GetCategoryNameByIdQuery(product.CategoryId),
+            ct
+        ).ConfigureAwait(false);
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(product.CreatorId);
-        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        string timeZone = await sender.SendQueryAsync(
+            new GetTimeZoneByIdQuery(product.CreatorId),
+            ct
+        ).ConfigureAwait(false);
 
-        GetCadCoordsByIdQuery coordsQuery = new(product.CadId);
-        var coords = await sender.SendQueryAsync(coordsQuery, ct).ConfigureAwait(false);
+        var coords = await sender.SendQueryAsync(
+            new GetCadCoordsByIdQuery(product.CadId),
+            ct
+        ).ConfigureAwait(false);
 
         if (!req.AccountId.IsEmpty())
         {

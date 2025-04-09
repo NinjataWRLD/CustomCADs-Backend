@@ -17,10 +17,12 @@ public sealed class GetActiveCartItemsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        GetActiveCartItemsQuery query = new(
-            BuyerId: User.GetAccountId()
-        );
-        ActiveCartItemDto[] cart = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        ActiveCartItemDto[] cart = await sender.SendQueryAsync(
+            new GetActiveCartItemsQuery(
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         ICollection<ActiveCartItemResponse> response = [.. cart.Select(x => x.ToResponse())];
         await SendOkAsync(response).ConfigureAwait(false);

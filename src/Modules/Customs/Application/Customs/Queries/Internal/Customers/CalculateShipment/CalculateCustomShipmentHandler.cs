@@ -18,19 +18,25 @@ public class CalculateCustomShipmentHandler(ICustomReads reads, IRequestSender s
         if (!custom.ForDelivery)
             throw new CustomException("The Custom is not marked for delivery");
 
-        GetCustomizationWeightByIdQuery customizationIdQuery = new(req.CustomizationId);
-        double weight = await sender.SendQueryAsync(customizationIdQuery, ct).ConfigureAwait(false);
+        double weight = await sender.SendQueryAsync(
+            new GetCustomizationWeightByIdQuery(req.CustomizationId),
+            ct
+        ).ConfigureAwait(false);
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(custom.BuyerId);
-        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        string timeZone = await sender.SendQueryAsync(
+            new GetTimeZoneByIdQuery(custom.BuyerId),
+            ct
+        ).ConfigureAwait(false);
 
-        CalculateShipmentQuery query = new(
-            ParcelCount: req.Count,
-            TotalWeight: weight * req.Count,
-            TimeZone: timeZone,
-            Address: req.Address
-        );
-        CalculateShipmentDto[] calculations = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        CalculateShipmentDto[] calculations = await sender.SendQueryAsync(
+            new CalculateShipmentQuery(
+                ParcelCount: req.Count,
+                TotalWeight: weight * req.Count,
+                TimeZone: timeZone,
+                Address: req.Address
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         return calculations;
     }

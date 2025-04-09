@@ -19,12 +19,14 @@ public sealed class GetAccountsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetAccountsRequest req, CancellationToken ct)
     {
-        GetAllAccountsQuery query = new(
-            Username: req.Name,
-            Sorting: new(req.SortingType, req.SortingDirection),
-            Pagination: new(req.Page, req.Limit)
-        );
-        Result<GetAllAccountsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllAccountsDto> result = await sender.SendQueryAsync(
+            new GetAllAccountsQuery(
+                Username: req.Name,
+                Sorting: new(req.SortingType, req.SortingDirection),
+                Pagination: new(req.Page, req.Limit)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         Result<AccountResponse> response = new(
             result.Count,

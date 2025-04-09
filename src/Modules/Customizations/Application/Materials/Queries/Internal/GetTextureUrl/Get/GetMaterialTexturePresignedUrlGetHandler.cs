@@ -13,7 +13,9 @@ public sealed class GetMaterialTexturePresignedUrlGetHandler(IMaterialReads read
         Material material = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<Material>.ById(req.Id);
 
-        GetImagePresignedUrlGetByIdQuery query = new(material.TextureId);
-        return await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        return await sender.SendQueryAsync(
+            new GetImagePresignedUrlGetByIdQuery(material.TextureId),
+            ct
+        ).ConfigureAwait(false);
     }
 }

@@ -18,11 +18,13 @@ public sealed class GetCustomGetPresignedCadUrlEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetCustomGetPresignedCadUrlRequest req, CancellationToken ct)
     {
-        GetCustomCadPresignedUrlGetQuery query = new(
-            Id: CustomId.New(req.Id),
-            BuyerId: User.GetAccountId()
-        );
-        DownloadFileResponse response = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        DownloadFileResponse response = await sender.SendQueryAsync(
+            new GetCustomCadPresignedUrlGetQuery(
+                Id: CustomId.New(req.Id),
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(response).ConfigureAwait(false);
     }

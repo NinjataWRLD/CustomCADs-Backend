@@ -19,17 +19,21 @@ public sealed class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductPostPresignedUrlsRequest req, CancellationToken ct)
     {
-        CreatorGetProductImagePresignedUrlPostQuery imageQuery = new(
-            ProductName: req.ProductName,
-            Image: req.Image
-        );
-        UploadFileResponse image = await sender.SendQueryAsync(imageQuery, ct).ConfigureAwait(false);
+        UploadFileResponse image = await sender.SendQueryAsync(
+            new CreatorGetProductImagePresignedUrlPostQuery(
+                ProductName: req.ProductName,
+                Image: req.Image
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        CreatorGetProductCadPresignedUrlPostQuery cadQuery = new(
-            ProductName: req.ProductName,
-            Cad: req.Cad
-        );
-        UploadFileResponse cad = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
+        UploadFileResponse cad = await sender.SendQueryAsync(
+            new CreatorGetProductCadPresignedUrlPostQuery(
+                ProductName: req.ProductName,
+                Cad: req.Cad
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         GetProductPostPresignedUrlsResponse response = new(
             Image: image,

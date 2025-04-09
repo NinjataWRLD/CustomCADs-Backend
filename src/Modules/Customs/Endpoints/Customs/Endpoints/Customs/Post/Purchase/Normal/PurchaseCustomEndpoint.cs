@@ -18,12 +18,14 @@ public sealed class PurchaseCustomEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PurchaseCustomRequest req, CancellationToken ct)
     {
-        PurchaseCustomCommand command = new(
-            Id: CustomId.New(req.Id),
-            PaymentMethodId: req.PaymentMethodId,
-            BuyerId: User.GetAccountId()
-        );
-        string message = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        string message = await sender.SendCommandAsync(
+            new PurchaseCustomCommand(
+                Id: CustomId.New(req.Id),
+                PaymentMethodId: req.PaymentMethodId,
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(message).ConfigureAwait(false);
     }

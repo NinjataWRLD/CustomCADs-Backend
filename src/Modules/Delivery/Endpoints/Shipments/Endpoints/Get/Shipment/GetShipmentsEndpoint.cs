@@ -18,12 +18,14 @@ public class GetShipmentsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetShipmentsRequest req, CancellationToken ct)
     {
-        GetAllShipmentsQuery query = new(
-            CustomerId: User.GetAccountId(),
-            Sorting: new(req.SortingType, req.SortingDirection),
-            Pagination: new(req.Page, req.Limit)
-        );
-        Result<GetAllShipmentsDto> result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        Result<GetAllShipmentsDto> result = await sender.SendQueryAsync(
+            new GetAllShipmentsQuery(
+                CustomerId: User.GetAccountId(),
+                Sorting: new(req.SortingType, req.SortingDirection),
+                Pagination: new(req.Page, req.Limit)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         Result<GetShipmentsResponse> response = new(
             Count: result.Count,

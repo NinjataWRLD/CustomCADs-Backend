@@ -17,11 +17,13 @@ public class EditTagEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(EditTagRequest req, CancellationToken ct)
     {
-        EditTagCommand command = new(
-            Id: TagId.New(req.Id),
-            Name: req.Name
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new EditTagCommand(
+                Id: TagId.New(req.Id),
+                Name: req.Name
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

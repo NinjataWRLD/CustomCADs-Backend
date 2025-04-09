@@ -17,10 +17,12 @@ public class DeleteTagEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteTagRequest req, CancellationToken ct)
     {
-        DeleteTagCommand command = new(
-            Id: TagId.New(req.Id)
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new DeleteTagCommand(
+                Id: TagId.New(req.Id)
+            ), 
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

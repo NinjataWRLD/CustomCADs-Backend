@@ -18,9 +18,12 @@ public sealed class ForgotPasswordEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(ForgotPasswordRequest req, CancellationToken ct)
     {
-        await sender.SendCommandAsync(command: new ResetPasswordEmailCommand(
-            Email: req.Email
-        ), ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new ResetPasswordEmailCommand(
+                Email: req.Email
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync("Check your email!").ConfigureAwait(false);
     }

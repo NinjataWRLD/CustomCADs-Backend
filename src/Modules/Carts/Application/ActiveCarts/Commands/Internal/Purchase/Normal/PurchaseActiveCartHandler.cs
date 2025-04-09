@@ -21,14 +21,18 @@ public sealed class PurchaseActiveCartHandler(IActiveCartReads reads, IRequestSe
         if (items.Any(x => x.ForDelivery))
             throw CustomException.Delivery<ActiveCartItem>(markedForDelivery: true);
 
-        GetProductPricesByIdsQuery pricesQuery = new(
-            Ids: [.. items.Select(i => i.ProductId)]
-        );
-        Dictionary<ProductId, decimal> prices = await sender.SendQueryAsync(pricesQuery, ct).ConfigureAwait(false);
+        Dictionary<ProductId, decimal> prices = await sender.SendQueryAsync(
+            new GetProductPricesByIdsQuery(
+                Ids: [.. items.Select(i => i.ProductId)]
+            ),
+            ct
+        ).ConfigureAwait(false);
         decimal totalCost = prices.Sum(p => p.Value);
 
-        GetUsernameByIdQuery buyerQuery = new(req.BuyerId);
-        string buyer = await sender.SendQueryAsync(buyerQuery, ct).ConfigureAwait(false);
+        string buyer = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(req.BuyerId), 
+            ct
+        ).ConfigureAwait(false);
 
         string message = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
@@ -37,12 +41,14 @@ public sealed class PurchaseActiveCartHandler(IActiveCartReads reads, IRequestSe
             ct
         ).ConfigureAwait(false);
 
-        CreatePurchasedCartCommand purchasedCartCommand = new(
-            BuyerId: req.BuyerId,
-            Items: [.. items.Select(x => x.ToDto(buyer))],
-            Prices: prices
-        );
-        await sender.SendCommandAsync(purchasedCartCommand, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new CreatePurchasedCartCommand(
+                BuyerId: req.BuyerId,
+                Items: [.. items.Select(x => x.ToDto(buyer))],
+                Prices: prices
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         return message;
     }

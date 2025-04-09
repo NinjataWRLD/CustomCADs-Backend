@@ -18,11 +18,13 @@ public sealed class DeleteCustomEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DeleteCustomRequest req, CancellationToken ct)
     {
-        DeleteCustomCommand command = new(
-            Id: CustomId.New(req.Id),
-            BuyerId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new DeleteCustomCommand(
+                Id: CustomId.New(req.Id),
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

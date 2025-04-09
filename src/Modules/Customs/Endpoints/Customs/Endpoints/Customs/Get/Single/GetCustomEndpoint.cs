@@ -18,11 +18,13 @@ public sealed class GetCustomEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetCustomRequest req, CancellationToken ct)
     {
-        ClientGetCustomByIdQuery query = new(
-            Id: CustomId.New(req.Id),
-            BuyerId: User.GetAccountId()
-        );
-        var order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        var order = await sender.SendQueryAsync(
+            new ClientGetCustomByIdQuery(
+                Id: CustomId.New(req.Id),
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         GetCustomResponse response = order.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);

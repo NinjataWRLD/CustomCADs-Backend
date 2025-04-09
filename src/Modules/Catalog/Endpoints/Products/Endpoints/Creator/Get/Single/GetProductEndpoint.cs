@@ -17,11 +17,13 @@ public sealed class GetProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductRequest req, CancellationToken ct)
     {
-        CreatorGetProductByIdQuery getProductQuery = new(
-            Id: ProductId.New(req.Id),
-            CreatorId: User.GetAccountId()
-        );
-        CreatorGetProductByIdDto product = await sender.SendQueryAsync(getProductQuery, ct).ConfigureAwait(false);
+        CreatorGetProductByIdDto product = await sender.SendQueryAsync(
+            new CreatorGetProductByIdQuery(
+                Id: ProductId.New(req.Id),
+                CreatorId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         GetProductResponse response = product.ToGetResponse();
         await SendOkAsync(response).ConfigureAwait(false);

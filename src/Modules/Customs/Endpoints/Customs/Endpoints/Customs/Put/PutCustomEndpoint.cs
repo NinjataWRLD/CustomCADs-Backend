@@ -18,13 +18,15 @@ public sealed class PutCustomEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PutCustomRequest req, CancellationToken ct)
     {
-        EditCustomCommand command = new(
-            Id: CustomId.New(req.Id),
-            Name: req.Name,
-            Description: req.Description,
-            BuyerId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new EditCustomCommand(
+                Id: CustomId.New(req.Id),
+                Name: req.Name,
+                Description: req.Description,
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

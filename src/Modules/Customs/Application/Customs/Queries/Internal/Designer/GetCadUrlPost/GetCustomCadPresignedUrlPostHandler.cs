@@ -16,10 +16,12 @@ public class GetCustomCadPresignedUrlPostHandler(ICustomReads reads, IRequestSen
         if (custom.AcceptedCustom?.DesignerId != req.DesignerId)
             throw CustomAuthorizationException<Custom>.ById(custom.Id);
 
-        GetCadPresignedUrlPostByIdQuery cadQuery = new(
-            Name: custom.Name,
-            File: req.Cad
-        );
-        return await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
+        return await sender.SendQueryAsync(
+            new GetCadPresignedUrlPostByIdQuery(
+                Name: custom.Name,
+                File: req.Cad
+            ),
+            ct
+        ).ConfigureAwait(false);
     }
 }

@@ -17,11 +17,13 @@ public sealed class AcceptCustomEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(AcceptCustomRequest req, CancellationToken ct)
     {
-        AcceptCustomCommand command = new(
-            Id: CustomId.New(req.Id),
-            DesignerId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new AcceptCustomCommand(
+                Id: CustomId.New(req.Id),
+                DesignerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

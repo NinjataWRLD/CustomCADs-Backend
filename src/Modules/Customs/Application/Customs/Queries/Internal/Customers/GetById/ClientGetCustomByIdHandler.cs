@@ -15,14 +15,18 @@ public sealed class ClientGetCustomByIdHandler(ICustomReads reads, IRequestSende
         if (custom.BuyerId != req.BuyerId)
             throw CustomAuthorizationException<Custom>.ById(req.Id);
 
-        GetTimeZoneByIdQuery timeZoneQuery = new(Id: custom.BuyerId);
-        string timeZone = await sender.SendQueryAsync(timeZoneQuery, ct).ConfigureAwait(false);
+        string timeZone = await sender.SendQueryAsync(
+            new GetTimeZoneByIdQuery(Id: custom.BuyerId),
+            ct
+        ).ConfigureAwait(false);
 
         string? designer = null;
         if (custom.AcceptedCustom is not null)
         {
-            GetUsernameByIdQuery designerQuery = new(custom.AcceptedCustom.DesignerId);
-            designer = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
+            designer = await sender.SendQueryAsync(
+                new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId),
+                ct
+            ).ConfigureAwait(false);
         }
 
         return custom.ToCustomerGetByIdDto(timeZone, designer);

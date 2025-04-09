@@ -17,12 +17,14 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetProductPutPresignedUrlRequest req, CancellationToken ct)
     {
-        CreatorGetProductImagePresignedUrlPutQuery presignedUrlQuery = new(
-            Id: ProductId.New(req.Id),
-            NewImage: req.File,
-            CreatorId: User.GetAccountId()
-        );
-        var imageDto = await sender.SendQueryAsync(presignedUrlQuery, ct).ConfigureAwait(false);
+        var imageDto = await sender.SendQueryAsync(
+            new CreatorGetProductImagePresignedUrlPutQuery(
+                Id: ProductId.New(req.Id),
+                NewImage: req.File,
+                CreatorId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         GetProductPutPresignedUrlResponse response = new(imageDto.PresignedUrl);
         await SendOkAsync(response).ConfigureAwait(false);

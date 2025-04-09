@@ -21,23 +21,26 @@ public sealed class PutProductEndpoint(IRequestSender sender)
     {
         var id = ProductId.New(req.Id);
 
-        EditProductCommand editCommand = new(
-            Id: id,
-            Name: req.Name,
-            Description: req.Description,
-            CategoryId: CategoryId.New(req.CategoryId),
-            Price: req.Price,
-            CreatorId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(editCommand, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(new EditProductCommand(
+                Id: id,
+                Name: req.Name,
+                Description: req.Description,
+                CategoryId: CategoryId.New(req.CategoryId),
+                Price: req.Price,
+                CreatorId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        SetProductFilesCommand filesCommand = new(
-            Id: id,
-            Cad: (req.CadKey, req.CadContentType, req.CadVolume),
-            Image: (req.ImageKey, req.ImageContentType),
-            CreatorId: User.GetAccountId()
-        );
-        await sender.SendCommandAsync(filesCommand, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new SetProductFilesCommand(
+                Id: id,
+                Cad: (req.CadKey, req.CadContentType, req.CadVolume),
+                Image: (req.ImageKey, req.ImageContentType),
+                CreatorId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendNoContentAsync().ConfigureAwait(false);
     }

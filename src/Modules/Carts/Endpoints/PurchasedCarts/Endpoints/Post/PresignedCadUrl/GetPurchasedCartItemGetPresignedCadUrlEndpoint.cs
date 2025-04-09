@@ -20,12 +20,14 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
 
     public override async Task HandleAsync(GetPurchasedCartItemGetPresignedCadUrlRequest req, CancellationToken ct)
     {
-        GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: PurchasedCartId.New(req.Id),
-            ProductId: ProductId.New(req.ProductId),
-            BuyerId: User.GetAccountId()
-        );
-        DownloadFileResponse response = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        DownloadFileResponse response = await sender.SendQueryAsync(
+            new GetPurchasedCartItemCadPresignedUrlGetQuery(
+                Id: PurchasedCartId.New(req.Id),
+                ProductId: ProductId.New(req.ProductId),
+                BuyerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(response).ConfigureAwait(false);
     }

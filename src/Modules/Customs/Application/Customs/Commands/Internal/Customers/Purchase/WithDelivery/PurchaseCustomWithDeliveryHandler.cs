@@ -5,7 +5,6 @@ using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Cads.Queries;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.WithDelivery;
@@ -30,12 +29,9 @@ public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitO
         if (custom.FinishedCustom is null)
             throw CustomException.NullProp<Custom>(nameof(custom.FinishedCustom.CadId));
 
-        GetUsernameByIdQuery buyerQuery = new(custom.BuyerId),
-            sellerQuery = new(custom.AcceptedCustom.DesignerId);
-
         string[] users = await Task.WhenAll(
-            sender.SendQueryAsync(buyerQuery, ct),
-            sender.SendQueryAsync(sellerQuery, ct)
+            sender.SendQueryAsync(new GetUsernameByIdQuery(custom.BuyerId), ct),
+            sender.SendQueryAsync(new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId), ct)
         ).ConfigureAwait(false);
         string buyer = users[0], seller = users[1];
 
@@ -50,20 +46,12 @@ public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitO
             ct
         ).ConfigureAwait(false);
 
-        GetCustomizationWeightByIdQuery weightQuery = new(req.CustomizationId);
-        double weight = await sender.SendQueryAsync(weightQuery, ct).ConfigureAwait(false);
+        double weight = await sender.SendQueryAsync(
+            new GetCustomizationWeightByIdQuery(req.CustomizationId),
+            ct
+        ).ConfigureAwait(false);
 
-        GetCadExistsByIdQuery cadQuery = new(custom.FinishedCustom.CadId);
-        bool cadExists = await sender.SendQueryAsync(cadQuery, ct).ConfigureAwait(false);
-        if (!cadExists)
-            throw CustomNotFoundException<Custom>.ById(custom.FinishedCustom.CadId, "Cad");
-
-        GetCustomizationExistsByIdQuery customizationExistsQuery = new(
-            Id: req.CustomizationId
-        );
-
-        bool customizationExists = await sender.SendQueryAsync(customizationExistsQuery, ct).ConfigureAwait(false);
-        if (!customizationExists)
+        if (!await sender.SendQueryAsync(new GetCustomizationExistsByIdQuery(req.CustomizationId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<Custom>.ById(req.CustomizationId.Value, "Customization");
 
         custom.Complete(customizationId: req.CustomizationId);

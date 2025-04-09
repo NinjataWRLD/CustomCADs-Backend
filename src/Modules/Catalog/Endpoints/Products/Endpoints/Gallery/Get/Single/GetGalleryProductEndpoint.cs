@@ -17,11 +17,13 @@ public sealed class GetGalleryProductEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetGalleryProductRequest req, CancellationToken ct)
     {
-        GalleryGetProductByIdQuery query = new(
-            Id: ProductId.New(req.Id),
-            AccountId: User.GetAccountId()
-        );
-        GalleryGetProductByIdDto product = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GalleryGetProductByIdDto product = await sender.SendQueryAsync(
+            new GalleryGetProductByIdQuery(
+                Id: ProductId.New(req.Id),
+                AccountId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         GetGalleryProductResponse response = product.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);

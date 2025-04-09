@@ -29,10 +29,22 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
             FirstName: req.FirstName,
             LastName: req.LastName
         );
-        await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        await sender.SendCommandAsync(
+            new CreateAccountCommand(
+                Role: req.Role,
+                Username: req.Username,
+                Email: req.Email,
+                TimeZone: req.TimeZone,
+                Password: req.Password,
+                FirstName: req.FirstName,
+                LastName: req.LastName
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        GetAccountByUsernameQuery getByIdQuery = new(req.Username);
-        GetAccountByUsernameDto newAccount = await sender.SendQueryAsync(getByIdQuery, ct).ConfigureAwait(false);
+        var newAccount = await sender.SendQueryAsync(
+            new GetAccountByUsernameQuery(req.Username)
+        , ct).ConfigureAwait(false);
 
         AccountResponse response = newAccount.ToResponse();
         await SendCreatedAtAsync<GetAccountEndpoint>(new { req.Username }, response).ConfigureAwait(false);

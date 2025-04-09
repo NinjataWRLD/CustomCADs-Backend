@@ -20,9 +20,7 @@ public sealed class SetProductStatusHandler(IProductReads reads, IUnitOfWork uow
             throw CustomAuthorizationException<Product>.Custom($"A Designer has already checked this Product: {req.Id}.");
         }
 
-        GetAccountExistsByIdQuery designerQuery = new(req.DesignerId);
-        bool designerExists = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
-        if (!designerExists)
+        if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.DesignerId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<Product>.ById(req.DesignerId, "User");
 
         product.SetDesignerId(req.DesignerId);

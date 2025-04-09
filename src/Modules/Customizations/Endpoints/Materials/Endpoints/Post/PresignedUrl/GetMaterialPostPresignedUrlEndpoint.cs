@@ -18,11 +18,13 @@ public sealed class GetMaterialPostPresignedUrlEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetMaterialPostPresignedUrlRequest req, CancellationToken ct)
     {
-        GetMaterialTexturePresignedUrlPostQuery presignedUrlQuery = new(
-            MaterialName: req.MaterialName,
-            Image: req.Image
-        );
-        UploadFileResponse response = await sender.SendQueryAsync(presignedUrlQuery, ct).ConfigureAwait(false);
+        UploadFileResponse response = await sender.SendQueryAsync(
+            new GetMaterialTexturePresignedUrlPostQuery(
+                MaterialName: req.MaterialName,
+                Image: req.Image
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(response).ConfigureAwait(false);
     }

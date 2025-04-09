@@ -19,10 +19,12 @@ public sealed class GetMaterialEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(GetMaterialRequest req, CancellationToken ct)
     {
-        GetMaterialByIdQuery query = new(
-            Id: MaterialId.New(req.Id)
-        );
-        MaterialDto category = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        MaterialDto category = await sender.SendQueryAsync(
+            new GetMaterialByIdQuery(
+                Id: MaterialId.New(req.Id)
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         MaterialResponse response = category.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);

@@ -18,8 +18,10 @@ public class GetAllTagsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        GetAllTagsQuery query = new();
-        GetAllTagsDto[] tags = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        GetAllTagsDto[] tags = await sender.SendQueryAsync(
+            new GetAllTagsQuery(),
+            ct
+        ).ConfigureAwait(false);
 
         GetAllTagsResponse[] response = [.. tags.Select(x => x.ToGetAllTagsResponse())];
         await SendOkAsync(response).ConfigureAwait(false);

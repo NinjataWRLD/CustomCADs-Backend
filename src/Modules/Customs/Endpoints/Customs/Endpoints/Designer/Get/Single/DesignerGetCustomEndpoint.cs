@@ -17,11 +17,13 @@ public sealed class DesignerGetCustomEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(DesignerGetCustomRequest req, CancellationToken ct)
     {
-        DesignerGetCustomByIdQuery query = new(
-            Id: CustomId.New(req.Id),
-            DesignerId: User.GetAccountId()
-        );
-        var order = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        var order = await sender.SendQueryAsync(
+            new DesignerGetCustomByIdQuery(
+                Id: CustomId.New(req.Id),
+                DesignerId: User.GetAccountId()
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         var response = order.ToResponse();
         await SendOkAsync(response).ConfigureAwait(false);

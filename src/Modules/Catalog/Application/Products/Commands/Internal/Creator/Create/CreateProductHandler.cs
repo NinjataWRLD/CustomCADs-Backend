@@ -16,28 +16,28 @@ public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWo
 {
     public async Task<ProductId> Handle(CreateProductCommand req, CancellationToken ct)
     {
-        GetCategoryExistsByIdQuery categoryQuery = new(req.CategoryId);
-        bool categoryExists = await sender.SendQueryAsync(categoryQuery, ct).ConfigureAwait(false);
-        if (!categoryExists)
+        if (!await sender.SendQueryAsync(new GetCategoryExistsByIdQuery(req.CategoryId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<Product>.ById(req.CategoryId, "Category");
 
-        GetAccountExistsByIdQuery creatorQuery = new(req.CreatorId);
-        bool creatorExists = await sender.SendQueryAsync(creatorQuery, ct).ConfigureAwait(false);
-        if (!creatorExists)
+        if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.CreatorId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<Product>.ById(req.CreatorId, "User");
 
-        CreateCadCommand cadCommand = new(
-            Key: req.CadKey,
-            ContentType: req.CadContentType,
-            Volume: req.CadVolume
-        );
-        CadId cadId = await sender.SendCommandAsync(cadCommand, ct).ConfigureAwait(false);
+        CadId cadId = await sender.SendCommandAsync(
+            new CreateCadCommand(
+                Key: req.CadKey,
+                ContentType: req.CadContentType,
+                Volume: req.CadVolume
+            ),
+            ct
+        ).ConfigureAwait(false);
 
-        CreateImageCommand imageCommand = new(
-            Key: req.ImageKey,
-            ContentType: req.ImageContentType
-        );
-        ImageId imageId = await sender.SendCommandAsync(imageCommand, ct).ConfigureAwait(false);
+        ImageId imageId = await sender.SendCommandAsync(
+            new CreateImageCommand(
+                Key: req.ImageKey,
+                ContentType: req.ImageContentType
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         var product = Product.Create(
             name: req.Name,
@@ -52,8 +52,10 @@ public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWo
         await productWrites.AddAsync(product, ct).ConfigureAwait(false);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        GetUserRoleByIdQuery roleQuery = new(req.CreatorId);
-        string role = await sender.SendQueryAsync(roleQuery, ct).ConfigureAwait(false);
+        string role = await sender.SendQueryAsync(
+            new GetUserRoleByIdQuery(req.CreatorId),
+            ct
+        ).ConfigureAwait(false);
 
         if (role is Roles.Designer)
         {

@@ -13,9 +13,7 @@ public sealed class AcceptCustomHandler(ICustomReads reads, IUnitOfWork uow, IRe
         Custom custom = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<Custom>.ById(req.Id);
 
-        GetAccountExistsByIdQuery designerQuery = new(req.DesignerId);
-        bool designerExists = await sender.SendQueryAsync(designerQuery, ct).ConfigureAwait(false);
-        if (!designerExists)
+        if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.DesignerId), ct).ConfigureAwait(false))
             throw CustomNotFoundException<Custom>.ById(req.DesignerId, "User");
 
         custom.Accept(req.DesignerId);

@@ -19,7 +19,9 @@ public sealed class GetCustomCadPresignedUrlGetHandler(ICustomReads reads, IRequ
         if (custom.CompletedCustom is null)
             throw CustomStatusException<Custom>.Custom($"Custom is not completed: {custom.Id}.");
 
-        GetCadPresignedUrlGetByIdQuery query = new(custom.FinishedCustom!.CadId);
-        return await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        return await sender.SendQueryAsync(
+            new GetCadPresignedUrlGetByIdQuery(custom.FinishedCustom!.CadId),
+            ct
+        ).ConfigureAwait(false);
     }
 }

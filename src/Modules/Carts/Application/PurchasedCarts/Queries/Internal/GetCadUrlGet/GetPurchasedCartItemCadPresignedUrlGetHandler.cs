@@ -20,7 +20,9 @@ public sealed class GetPurchasedCartItemCadPresignedUrlGetHandler(IPurchasedCart
         PurchasedCartItem item = cart.Items.FirstOrDefault(x => x.ProductId == req.ProductId)
             ?? throw CustomNotFoundException<PurchasedCartItem>.ById(req.ProductId);
 
-        GetCadPresignedUrlGetByIdQuery query = new(item.CadId);
-        return await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        return await sender.SendQueryAsync(
+            new GetCadPresignedUrlGetByIdQuery(item.CadId),
+            ct
+        ).ConfigureAwait(false);
     }
 }

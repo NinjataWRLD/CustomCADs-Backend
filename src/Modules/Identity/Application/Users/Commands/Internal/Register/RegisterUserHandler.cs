@@ -11,15 +11,17 @@ public class RegisterUserHandler(IUserManager manager, IRequestSender sender)
 {
     public async Task Handle(RegisterUserCommand req, CancellationToken ct)
     {
-        CreateAccountCommand command = new(
-            Role: req.Role,
-            Username: req.Username,
-            Email: req.Email,
-            TimeZone: req.TimeZone,
-            FirstName: req.FirstName,
-            LastName: req.LastName
-        );
-        AccountId accountId = await sender.SendCommandAsync(command, ct).ConfigureAwait(false);
+        AccountId accountId = await sender.SendCommandAsync(
+            new CreateAccountCommand(
+                Role: req.Role,
+                Username: req.Username,
+                Email: req.Email,
+                TimeZone: req.TimeZone,
+                FirstName: req.FirstName,
+                LastName: req.LastName
+            ),
+            ct
+        ).ConfigureAwait(false);
 
         bool success = await manager.AddAsync(
             user: User.Create(

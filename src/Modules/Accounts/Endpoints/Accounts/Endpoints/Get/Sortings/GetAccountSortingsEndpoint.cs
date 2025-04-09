@@ -17,8 +17,10 @@ public sealed class GetAccountSortingsEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        GetAccountSortingsQuery query = new();
-        string[] result = await sender.SendQueryAsync(query, ct).ConfigureAwait(false);
+        string[] result = await sender.SendQueryAsync(
+            new GetAccountSortingsQuery(),
+            ct
+        ).ConfigureAwait(false);
 
         await SendOkAsync(result).ConfigureAwait(false);
     }
