@@ -29,6 +29,9 @@ locals {
   production_urls           = local.production_env_vars["ClientURLs"]
   production_urls_all       = local.production_urls["All"]
   production_urls_preferred = local.production_urls["Preferred"]
+
+  production_cookie        = local.production_env_vars["Cookie"]
+  production_cookie_domain = local.production_urls["Domain"]
 }
 
 # Production Environment
@@ -446,6 +449,12 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.production_urls_preferred
+  }
+  setting {
+    name      = "Cookie__Domain"
+    namespace = "aws:elasticbeanstalk:application:environment"
+    resource  = null
+    value     = local.production_cookie_domain
   }
   setting {
     name      = "UpdateLevel"

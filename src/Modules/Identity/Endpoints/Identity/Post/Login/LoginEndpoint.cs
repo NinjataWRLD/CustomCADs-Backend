@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Login;
 using CustomCADs.Identity.Application.Users.Dtos;
+using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Login;
 
-public sealed class LoginEndpoint(IRequestSender sender)
+public sealed class LoginEndpoint(IRequestSender sender, IOptions<CookieSettings> settings)
     : Endpoint<LoginRequest>
 {
     public override void Configure()
@@ -29,11 +30,11 @@ public sealed class LoginEndpoint(IRequestSender sender)
             ct
         ).ConfigureAwait(false);
 
-        HttpContext.SaveAccessTokenCookie(tokens.AccessToken.Value, tokens.AccessToken.ExpiresAt);
-        HttpContext.SaveRefreshTokenCookie(tokens.RefreshToken.Value, tokens.RefreshToken.ExpiresAt);
-        HttpContext.SaveRoleCookie(tokens.Role, tokens.RefreshToken.ExpiresAt);
-        HttpContext.SaveUsernameCookie(req.Username, tokens.RefreshToken.ExpiresAt);
-
+        HttpContext.SaveAllCookies(
+            domain: settings.Value.Domain,
+            username: req.Username,
+            tokens: tokens
+        );
         await SendOkAsync("Welcome back!").ConfigureAwait(false);
     }
 }

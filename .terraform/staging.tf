@@ -29,6 +29,9 @@ locals {
   staging_urls           = local.staging_env_vars["ClientURLs"]
   staging_urls_all       = local.staging_urls["All"]
   staging_urls_preferred = local.staging_urls["Preferred"]
+
+  staging_cookie        = local.staging_env_vars["Cookie"]
+  staging_cookie_domain = local.staging_urls["Domain"]
 }
 
 # Staging Environment
@@ -447,6 +450,12 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_staging" {
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.staging_urls_preferred
+  }
+  setting {
+    name      = "Cookie__Domain"
+    namespace = "aws:elasticbeanstalk:application:environment"
+    resource  = null
+    value     = local.staging_cookie_domain
   }
   setting {
     name      = "UpdateLevel"
