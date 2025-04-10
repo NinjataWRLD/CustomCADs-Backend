@@ -202,6 +202,8 @@ public static class ProgramExtensions
 
     public static void AddCorsForClient(this IServiceCollection services, IConfiguration config)
     {
+        services.Configure<CookieSettings>(config.GetSection("Cookie"));
+
         IConfigurationSection section = config.GetSection("ClientURLs");
         services.Configure<ClientUrlSettings>(section);
 

@@ -1,9 +1,11 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Refresh;
+using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Shared.Abstractions.Tokens;
+using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.RefreshToken;
 
-public sealed class RefreshTokenEndpoint(IRequestSender sender)
+public sealed class RefreshTokenEndpoint(IRequestSender sender, IOptions<CookieSettings> settings)
     : EndpointWithoutRequest
 {
     public override void Configure()
@@ -26,7 +28,7 @@ public sealed class RefreshTokenEndpoint(IRequestSender sender)
             ct
         ).ConfigureAwait(false);
 
-        HttpContext.SaveAccessTokenCookie(jwt.Value, jwt.ExpiresAt);
+        HttpContext.SaveAccessTokenCookie(jwt, settings.Value.Domain);
         await SendOkAsync("The JSON Web Token has been renewed.").ConfigureAwait(false);
     }
 }
