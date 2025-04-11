@@ -31,7 +31,7 @@ locals {
   production_urls_preferred = local.production_urls["Preferred"]
 
   production_cookie        = local.production_env_vars["Cookie"]
-  production_cookie_domain = local.production_urls["Domain"]
+  production_cookie_domain = local.production_cookie["Domain"]
 }
 
 # Production Environment
