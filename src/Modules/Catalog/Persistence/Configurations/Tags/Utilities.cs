@@ -44,6 +44,7 @@ static class Utilities
             Tag.CreateWithId(NewId, New),
             Tag.CreateWithId(ProfessionalId, Professional),
             Tag.CreateWithId(PrintableId, Printable),
+            Tag.CreateWithId(PopularId, Popular),
         ]);
 
         return builder;
