@@ -38,19 +38,14 @@ public static class CookieHelper
         context.SaveUsernameCookie(username, tokens.RefreshToken.ExpiresAt, domain);
     }
 
-    public static void DeleteAllCookies(this HttpContext context)
+    public static void DeleteAllCookies(this HttpContext context, string? domain)
     {
-        string[] cookies = [
-            AccessTokenCookie,
-            RefreshTokenCookie,
-            RoleCookie,
-            UsernameCookie,
-        ];
+        DateTimeOffset expiresAt = DateTimeOffset.UnixEpoch;
 
-        foreach (string cookie in cookies)
-        {
-            context.Response.Cookies.Delete(cookie);
-        }
+        context.Response.Cookies.Append(AccessTokenCookie, string.Empty, HttpOnlyCookieOptions(expiresAt, domain));
+        context.Response.Cookies.Append(RefreshTokenCookie, string.Empty, HttpOnlyCookieOptions(expiresAt, domain));
+        context.Response.Cookies.Append(RoleCookie, string.Empty, CookieOptions(expiresAt, domain));
+        context.Response.Cookies.Append(UsernameCookie, string.Empty, CookieOptions(expiresAt, domain));
     }
 
     private static CookieOptions CookieOptions(DateTimeOffset expire, string? domain)
