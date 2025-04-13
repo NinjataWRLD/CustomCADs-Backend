@@ -3,7 +3,7 @@
 namespace CustomCADs.Identity.Application.Users.Dtos;
 
 public record TokensDto(
-    AccessTokenDto AccessToken,
-    RefreshTokenDto RefreshToken,
+    TokenDto AccessToken,
+    TokenDto RefreshToken,
     string Role
 );

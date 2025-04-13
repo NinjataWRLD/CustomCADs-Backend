@@ -4,6 +4,6 @@ namespace CustomCADs.Shared.Abstractions.Tokens;
 
 public interface ITokenService
 {
-    string GenerateRefreshToken();
-    AccessTokenDto GenerateAccessToken(AccountId accountId, string username, string role);
+    TokenDto GenerateRefreshToken(bool longerSession = false);
+    TokenDto GenerateAccessToken(AccountId accountId, string username, string role);
 }
