@@ -28,6 +28,7 @@ public sealed class RefreshTokenEndpoint(IRequestSender sender, IOptions<CookieS
         ).ConfigureAwait(false);
 
         HttpContext.SaveAccessTokenCookie(tokens.AccessToken, settings.Value.Domain);
+        HttpContext.SaveCsrfTokenCookie(tokens.CsrfToken, settings.Value.Domain);
         await SendOkAsync("The JSON Web Token has been renewed.").ConfigureAwait(false);
     }
 }

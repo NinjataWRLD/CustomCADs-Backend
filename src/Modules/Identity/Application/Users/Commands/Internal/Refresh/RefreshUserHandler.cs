@@ -26,6 +26,7 @@ public class RefreshUserHandler(IUserManager manager, ITokenService service)
                 role: user.Role
             ),
             RefreshToken: service.GenerateRefreshToken(longerSession: false),
+            CsrfToken: service.GenerateCsrfToken(),
             Role: user.Role
         );
     }

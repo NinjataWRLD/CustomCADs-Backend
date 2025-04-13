@@ -49,4 +49,15 @@ public sealed class TokenService(IOptions<JwtSettings> jwtOptions) : ITokenServi
             ExpiresAt: DateTimeOffset.UtcNow.AddDays(longerSession ? LongerRtDurationInDays : RtDurationInDays)
         );
     }
+
+    public TokenDto GenerateCsrfToken()
+    {
+        byte[] randomNumber = new byte[32];
+        RandomNumberGenerator.Fill(randomNumber);
+
+        return new(
+            Value: Convert.ToBase64String(randomNumber),
+            ExpiresAt: DateTime.UtcNow.AddMinutes(JwtDurationInMinutes)
+        );
+    }
 }

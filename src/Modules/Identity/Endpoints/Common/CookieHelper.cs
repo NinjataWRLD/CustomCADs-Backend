@@ -7,6 +7,7 @@ public static class CookieHelper
 {
     private const string AccessTokenCookie = "jwt";
     private const string RefreshTokenCookie = "rt";
+    private const string CsrfTokenCookie = "csrf";
     private const string RoleCookie = "role";
     private const string UsernameCookie = "username";
 
@@ -18,6 +19,9 @@ public static class CookieHelper
 
     public static void SaveRefreshTokenCookie(this HttpContext context, TokenDto rt, string? domain)
         => context.Response.Cookies.Append(RefreshTokenCookie, rt.Value, CookieOptions(rt.ExpiresAt, httpOnly: true, domain: domain));
+
+    public static void SaveCsrfTokenCookie(this HttpContext context, TokenDto csrf, string? domain)
+        => context.Response.Cookies.Append(CsrfTokenCookie, csrf.Value, CookieOptions(csrf.ExpiresAt, domain: domain));
 
     public static void SaveUsernameCookie(this HttpContext context, string username, DateTimeOffset expire, string? domain)
         => context.Response.Cookies.Append(UsernameCookie, username, CookieOptions(expire, domain: domain));
@@ -33,6 +37,7 @@ public static class CookieHelper
     )
     {
         context.SaveAccessTokenCookie(tokens.AccessToken, domain);
+        context.SaveCsrfTokenCookie(tokens.CsrfToken, domain);
         context.SaveRefreshTokenCookie(tokens.RefreshToken, domain);
         context.SaveRoleCookie(tokens.Role, tokens.RefreshToken.ExpiresAt, domain);
         context.SaveUsernameCookie(username, tokens.RefreshToken.ExpiresAt, domain);
@@ -51,6 +56,7 @@ public static class CookieHelper
 
         DeleteCookie(AccessTokenCookie, httpOnly: true, domain: domain);
         DeleteCookie(RefreshTokenCookie, httpOnly: true, domain: domain);
+        DeleteCookie(CsrfTokenCookie, domain: domain);
         DeleteCookie(RoleCookie, domain: domain);
         DeleteCookie(UsernameCookie, domain: domain);
     }

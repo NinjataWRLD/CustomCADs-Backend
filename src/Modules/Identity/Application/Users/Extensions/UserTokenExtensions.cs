@@ -22,7 +22,8 @@ internal static class UserTokenExtensions
             RefreshToken: await manager.UpdateRefreshTokenAsync(
                 id: user.Id,
                 token: tokens.GenerateRefreshToken(longerSession)
-            ).ConfigureAwait(false)
+            ).ConfigureAwait(false),
+            CsrfToken: tokens.GenerateCsrfToken()
         );
 
     }
