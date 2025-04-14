@@ -52,6 +52,7 @@ app.UseAuthorization();
 
 app.UseExceptionHandler();
 app.UseJwtPrincipal();
+app.UseCsrfProtection();
 app.UseStaticFiles();
 
 // API & Documentation

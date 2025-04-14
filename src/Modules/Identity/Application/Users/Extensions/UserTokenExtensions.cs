@@ -1,12 +1,9 @@
 ﻿using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Domain.Managers;
 using CustomCADs.Shared.Abstractions.Tokens;
-using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.Identity.Application.Users.Extensions;
-
-using static Constants.Tokens;
 
 internal static class UserTokenExtensions
 {
@@ -24,24 +21,21 @@ internal static class UserTokenExtensions
             ),
             RefreshToken: await manager.UpdateRefreshTokenAsync(
                 id: user.Id,
-                token: tokens.GenerateRefreshToken(),
-                longerSession: longerSession
-            ).ConfigureAwait(false)
+                token: tokens.GenerateRefreshToken(longerSession)
+            ).ConfigureAwait(false),
+            CsrfToken: tokens.GenerateCsrfToken()
         );
 
     }
 
-    private static async Task<RefreshTokenDto> UpdateRefreshTokenAsync(this IUserManager manager, UserId id, string token, bool longerSession)
+    private static async Task<TokenDto> UpdateRefreshTokenAsync(this IUserManager manager, UserId id, TokenDto token)
     {
         User user = await manager.GetByIdAsync(id).ConfigureAwait(false)
             ?? throw CustomNotFoundException<User>.ById(id);
 
-        int days = longerSession ? LongerRtDurationInDays : RtDurationInDays;
-        DateTimeOffset expiresAt = DateTimeOffset.UtcNow.AddDays(days);
-
-        user.SetRefreshToken(token, expiresAt);
+        user.SetRefreshToken(token.Value, token.ExpiresAt);
         await manager.UpdateAsync(user.Id, user).ConfigureAwait(false);
 
-        return new(token, expiresAt);
+        return token;
     }
 }

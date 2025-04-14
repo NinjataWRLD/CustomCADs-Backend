@@ -3,6 +3,7 @@ using CustomCADs.Catalog.Domain.Products.Events;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -26,6 +27,10 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
+
+        CoordinatesDto coords = new(0, 0, 0);
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadCoordsByIdQuery>(), ct))
+            .ReturnsAsync(new GetCadCoordsByIdDto(coords, coords));
     }
 
     [Fact]

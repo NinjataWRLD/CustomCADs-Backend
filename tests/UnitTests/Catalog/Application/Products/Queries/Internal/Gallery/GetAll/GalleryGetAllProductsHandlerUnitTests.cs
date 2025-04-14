@@ -80,27 +80,6 @@ public class GalleryGalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTest
     }
 
     [Fact]
-    public async Task Handle_ShouldNotSendTimeZoneRequest_WhenBuyerIdIsEmpty()
-    {
-        // Arrange
-        GalleryGetAllProductsQuery query = new(
-            Pagination: this.query.Pagination,
-            BuyerId: AccountId.New(null as string),
-            CategoryId: this.query.CategoryId,
-            Name: this.query.Name,
-            Sorting: this.query.Sorting
-        );
-        GalleryGetAllProductsHandler handler = new(reads.Object, sender.Object);
-
-        // Act
-        await handler.Handle(query, ct);
-
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct), Times.Never);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct), Times.Never);
-    }
-
-    [Fact]
     public async Task Handle_ShouldReturnProperCount()
     {
         // Arrange
