@@ -17,7 +17,7 @@ public sealed class TokenService(IOptions<JwtSettings> jwtOptions) : ITokenServi
     private const string Algorithm = SecurityAlgorithms.HmacSha256;
     private readonly JwtSettings jwtSettings = jwtOptions.Value;
 
-    public AccessTokenDto GenerateAccessToken(AccountId accountId, string username, string role)
+    public TokenDto GenerateAccessToken(AccountId accountId, string username, string role)
     {
         List<Claim> claims =
         [
@@ -39,12 +39,25 @@ public sealed class TokenService(IOptions<JwtSettings> jwtOptions) : ITokenServi
         return new(jwt, token.ValidTo);
     }
 
-    public string GenerateRefreshToken()
+    public TokenDto GenerateRefreshToken(bool longerSession = false)
     {
         byte[] randomNumber = new byte[32];
         RandomNumberGenerator.Fill(randomNumber);
 
-        string refreshToken = Base64UrlEncoder.Encode(randomNumber);
-        return refreshToken;
+        return new(
+            Value: Base64UrlEncoder.Encode(randomNumber),
+            ExpiresAt: DateTimeOffset.UtcNow.AddDays(longerSession ? LongerRtDurationInDays : RtDurationInDays)
+        );
+    }
+
+    public TokenDto GenerateCsrfToken()
+    {
+        byte[] randomNumber = new byte[32];
+        RandomNumberGenerator.Fill(randomNumber);
+
+        return new(
+            Value: Convert.ToBase64String(randomNumber),
+            ExpiresAt: DateTime.UtcNow.AddMinutes(JwtDurationInMinutes)
+        );
     }
 }
