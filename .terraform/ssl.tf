@@ -30,7 +30,12 @@ resource "aws_cloudfront_cache_policy" "customcads_cache_policy" {
     headers_config {
       header_behavior = "whitelist"
       headers {
-        items = ["Origin", "Access-Control-Request-Headers", "Access-Control-Request-Method"]
+        items = [
+          "Origin",
+          "Csrf-Token",
+          "Access-Control-Request-Headers",
+          "Access-Control-Request-Method"
+        ]
       }
     }
     query_strings_config {
