@@ -8,7 +8,13 @@ using static ActiveCartsData;
 
 public class ProductDeletedIntegrationEventHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+    private readonly ProductDeletedHandler handler;
     private readonly Mock<IUnitOfWork> uow = new();
+
+    public ProductDeletedIntegrationEventHandlerUnitTests()
+    {
+        handler = new(uow.Object);
+    }
 
     [Fact]
     public async Task Handle_ShouldBulkDelete_WhenThresholdReached()
@@ -19,7 +25,6 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ActiveCartsBaseUni
             ImageId: default,
             CadId: default
         );
-        ProductDeletedHandler handler = new(uow.Object);
 
         // Act
         await handler.Handle(ie);

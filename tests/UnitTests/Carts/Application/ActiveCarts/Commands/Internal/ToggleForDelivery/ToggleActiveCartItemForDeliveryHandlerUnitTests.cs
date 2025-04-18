@@ -12,6 +12,7 @@ using static ActiveCartsData;
 
 public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+    private readonly ToggleActiveCartItemForDeliveryHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
@@ -21,6 +22,8 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
 
     public ToggleActiveCartItemForDeliveryHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, sender.Object);
+
         reads.Setup(x => x.SingleAsync(buyerId, productId1, true, ct))
             .ReturnsAsync(CreateItemWithDelivery(buyerId, productId1));
 
@@ -32,8 +35,11 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, productId1, null);
-        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object);
+        ToggleActiveCartItemForDeliveryCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId1,
+            CustomizationId: null
+        );
 
         // Act
         await handler.Handle(command, ct);
@@ -46,8 +52,11 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
     public async Task Handle_ShouldPersistToDatabase()
     {
         // Arrange
-        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, productId1, null);
-        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object);
+        ToggleActiveCartItemForDeliveryCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId1,
+            CustomizationId: null
+        );
 
         // Act
         await handler.Handle(command, ct);
@@ -63,8 +72,11 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
         reads.Setup(x => x.SingleAsync(buyerId, productId1, true, ct))
             .ReturnsAsync(null as ActiveCartItem);
 
-        ToggleActiveCartItemForDeliveryCommand command = new(buyerId, productId1, null);
-        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object);
+        ToggleActiveCartItemForDeliveryCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId1,
+            CustomizationId: null
+        );
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
@@ -83,7 +95,6 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
             ProductId: ValidProductId1,
             CustomizationId: null
         );
-        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
@@ -102,7 +113,6 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
             ProductId: productId2,
             CustomizationId: null
         );
-        ToggleActiveCartItemForDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>

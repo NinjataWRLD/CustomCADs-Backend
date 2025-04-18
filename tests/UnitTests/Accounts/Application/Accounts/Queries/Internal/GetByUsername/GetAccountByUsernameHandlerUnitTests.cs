@@ -7,10 +7,12 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.Ge
 
 public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
 {
+    private readonly GetAccountByUsernameHandler handler;
     private readonly Mock<IAccountReads> reads = new();
 
     public GetAccountByUsernameHandlerUnitTests()
     {
+        handler = new(reads.Object);
         reads.Setup(x => x.SingleByUsernameAsync(It.IsAny<string>(), false, ct)).ReturnsAsync(CreateAccount());
     }
 
@@ -20,7 +22,6 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         GetAccountByUsernameQuery query = new(username);
-        GetAccountByUsernameHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -35,11 +36,9 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.SingleByUsernameAsync(username, false, ct)).ReturnsAsync(null as Account);
-
         GetAccountByUsernameQuery query = new(username);
-        GetAccountByUsernameHandler handler = new(reads.Object);
 
-        // Assert
+        // Assert 
         await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
         {
             // Act

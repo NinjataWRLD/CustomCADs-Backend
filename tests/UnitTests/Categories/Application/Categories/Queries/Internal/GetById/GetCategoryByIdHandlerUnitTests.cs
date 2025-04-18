@@ -13,11 +13,14 @@ using static CategoriesData;
 
 public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 {
+    private readonly GetCategoryByIdHandler handler;
     private readonly Mock<ICategoryReads> reads = new();
     private readonly Mock<ICacheService> cache = new();
 
     public GetCategoryByIdHandlerUnitTests()
     {
+        handler = new(reads.Object, cache.Object);
+
         reads.Setup(v => v.SingleByIdAsync(ValidId1, false, ct)).ReturnsAsync(CreateCategory(ValidId1, ValidName1, ValidDescription1));
         reads.Setup(v => v.SingleByIdAsync(ValidId2, false, ct)).ReturnsAsync(CreateCategory(ValidId2, ValidName2, ValidDescription2));
         reads.Setup(v => v.SingleByIdAsync(ValidId3, false, ct)).ReturnsAsync(CreateCategory(ValidId3, ValidName3, ValidDescription3));
@@ -33,7 +36,6 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         GetCategoryByIdQuery query = new(id);
-        GetCategoryByIdHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -50,7 +52,6 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
         cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{id}")).ReturnsAsync(null as Category);
 
         GetCategoryByIdQuery query = new(id);
-        GetCategoryByIdHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -65,9 +66,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{id}")).ReturnsAsync(null as Category);
-
         GetCategoryByIdQuery query = new(id);
-        GetCategoryByIdHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -87,9 +86,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
         // Arrange
         cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{id}")).ReturnsAsync(null as Category);
         reads.Setup(v => v.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Category);
-
         GetCategoryByIdQuery query = new(id);
-        GetCategoryByIdHandler handler = new(reads.Object, cache.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>

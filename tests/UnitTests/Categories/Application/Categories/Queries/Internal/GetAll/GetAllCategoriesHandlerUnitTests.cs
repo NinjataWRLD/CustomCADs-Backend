@@ -10,8 +10,10 @@ using static CategoriesData;
 
 public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
 {
+    private readonly GetAllCategoriesHandler handler;
     private readonly Mock<ICategoryReads> reads = new();
     private readonly Mock<ICacheService> cache = new();
+
     private readonly Category[] categories = [
         Category.CreateWithId(ValidId1, ValidName1, ValidDescription1),
         Category.CreateWithId(ValidId2, ValidName2, ValidDescription2),
@@ -20,6 +22,8 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
 
     public GetAllCategoriesHandlerUnitTests()
     {
+        handler = new(reads.Object, cache.Object);
+
         cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(categories);
         reads.Setup(v => v.AllAsync(false, ct)).ReturnsAsync(categories);
     }
@@ -29,7 +33,6 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Assert
         GetAllCategoriesQuery query = new();
-        GetAllCategoriesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -43,9 +46,7 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Assert
         cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(null as Category[]);
-
         GetAllCategoriesQuery query = new();
-        GetAllCategoriesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -59,7 +60,6 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Assert
         GetAllCategoriesQuery query = new();
-        GetAllCategoriesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         IEnumerable<CategoryReadDto> categories = await handler.Handle(query, ct);
@@ -79,7 +79,6 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
         // Assert
         cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(null as Category[]);
         GetAllCategoriesQuery query = new();
-        GetAllCategoriesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         IEnumerable<CategoryReadDto> categories = await handler.Handle(query, ct);

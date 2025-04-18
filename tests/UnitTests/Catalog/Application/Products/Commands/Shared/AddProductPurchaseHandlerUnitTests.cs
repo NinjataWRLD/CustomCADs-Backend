@@ -11,6 +11,7 @@ using static ProductsData;
 
 public class AddProductPurchaseHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly AddProductPurchaseHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly ProductId[] ids = [ValidId, ValidId, ValidId];
@@ -23,6 +24,8 @@ public class AddProductPurchaseHandlerUnitTests : ProductsBaseUnitTests
 
     public AddProductPurchaseHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object);
+
         query = new(
             Ids: ids,
             Pagination: new(Limit: ids.Length)
@@ -40,7 +43,6 @@ public class AddProductPurchaseHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         AddProductPurchaseCommand command = new(ids);
-        AddProductPurchaseHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -54,7 +56,6 @@ public class AddProductPurchaseHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         AddProductPurchaseCommand command = new(ids);
-        AddProductPurchaseHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -68,7 +69,6 @@ public class AddProductPurchaseHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         AddProductPurchaseCommand command = new(ids);
-        AddProductPurchaseHandler handler = new(reads.Object, uow.Object);
 
         // Act
         int[] oldPurchases = [.. products.Select(x => x.Counts.Purchases)];

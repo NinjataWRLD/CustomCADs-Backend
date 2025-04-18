@@ -15,13 +15,18 @@ using static ActiveCartsData;
 
 public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+    private readonly PurchaseActiveCartHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Mock<IPaymentService> payment = new();
+
+    private static readonly string paymentMethodId = string.Empty;
     private static readonly AccountId buyerId = ValidBuyerId1;
 
     public PurchaseActiveCartHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object, payment.Object);
+
         reads.Setup(x => x.ExistsAsync(buyerId, ct))
             .ReturnsAsync(true);
 
@@ -40,8 +45,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        PurchaseActiveCartCommand command = new(string.Empty, buyerId);
-        PurchaseActiveCartHandler handler = new(reads.Object, sender.Object, payment.Object);
+        PurchaseActiveCartCommand command = new(paymentMethodId, buyerId);
 
         // Act
         await handler.Handle(command, ct);
@@ -55,8 +59,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
     public async Task Handle_ShouldSendRequests()
     {
         // Arrange
-        PurchaseActiveCartCommand command = new(string.Empty, buyerId);
-        PurchaseActiveCartHandler handler = new(reads.Object, sender.Object, payment.Object);
+        PurchaseActiveCartCommand command = new(paymentMethodId, buyerId);
 
         // Act
         await handler.Handle(command, ct);
@@ -77,8 +80,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
     public async Task Handle_ShouldCallPayment()
     {
         // Arrange
-        PurchaseActiveCartCommand command = new(string.Empty, buyerId);
-        PurchaseActiveCartHandler handler = new(reads.Object, sender.Object, payment.Object);
+        PurchaseActiveCartCommand command = new(paymentMethodId, buyerId);
 
         // Act
         await handler.Handle(command, ct);
@@ -104,8 +106,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
             ct
         )).ReturnsAsync(expected);
 
-        PurchaseActiveCartCommand command = new(string.Empty, buyerId);
-        PurchaseActiveCartHandler handler = new(reads.Object, sender.Object, payment.Object);
+        PurchaseActiveCartCommand command = new(paymentMethodId, buyerId);
 
         // Act
         string actual = await handler.Handle(command, ct);
@@ -125,8 +126,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
                 CreateItemWithDelivery(),
             ]);
 
-        PurchaseActiveCartCommand command = new(string.Empty, buyerId);
-        PurchaseActiveCartHandler handler = new(reads.Object, sender.Object, payment.Object);
+        PurchaseActiveCartCommand command = new(paymentMethodId, buyerId);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>

@@ -14,6 +14,7 @@ using static CustomsData;
 
 public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUnitTests
 {
+    private readonly CustomDeliveryRequestedDomainEventHandler handler;
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
 
@@ -28,6 +29,8 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
 
     public CustomDeliveryRequestedDomainEventHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         custom.Accept(ValidDesignerId1);
         custom.Begin();
         custom.Finish(ValidCadId1, ValidPrice1);
@@ -55,7 +58,6 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
             Address: address,
             Contact: contact
         );
-        CustomDeliveryRequestedDomainEventHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(de);
@@ -76,7 +78,6 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
             Address: address,
             Contact: contact
         );
-        CustomDeliveryRequestedDomainEventHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(de);
@@ -102,7 +103,6 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
             Address: address,
             Contact: contact
         );
-        CustomDeliveryRequestedDomainEventHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(de);
@@ -126,7 +126,6 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
             Address: address,
             Contact: contact
         );
-        CustomDeliveryRequestedDomainEventHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

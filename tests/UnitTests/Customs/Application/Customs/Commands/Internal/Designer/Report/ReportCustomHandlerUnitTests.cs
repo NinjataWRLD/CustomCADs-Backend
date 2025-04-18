@@ -11,6 +11,7 @@ using static CustomsData;
 
 public class ReportCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+    private readonly ReportCustomHandler handler;
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
 
@@ -21,6 +22,8 @@ public class ReportCustomHandlerUnitTests : CustomsBaseUnitTests
 
     public ReportCustomHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object);
+
         custom.Accept(designerId);
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
             .ReturnsAsync(custom);
@@ -34,7 +37,6 @@ public class ReportCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        ReportCustomHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -51,7 +53,6 @@ public class ReportCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        ReportCustomHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -68,7 +69,6 @@ public class ReportCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        ReportCustomHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -88,7 +88,6 @@ public class ReportCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: wrongDesignerId
         );
-        ReportCustomHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
@@ -109,7 +108,6 @@ public class ReportCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        ReportCustomHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

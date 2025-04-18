@@ -11,10 +11,13 @@ using static CategoriesData;
 
 public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 {
+    private readonly GetCategoryNameByIdHandler handler;
     private readonly Mock<ICategoryReads> reads = new();
 
     public GetCategoryByIdHandlerUnitTests()
     {
+        handler = new(reads.Object);
+
         reads.Setup(v => v.SingleByIdAsync(ValidId1, false, ct))
             .ReturnsAsync(CreateCategory());
 
@@ -29,9 +32,8 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     [ClassData(typeof(GetCategoryByIdValidData))]
     public async Task Handle_ShouldQueryDatabase(CategoryId id)
     {
-        // Assert
+        // Arrange
         GetCategoryNameByIdQuery query = new(id);
-        GetCategoryNameByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -44,12 +46,9 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     [ClassData(typeof(GetCategoryByIdValidData))]
     public async Task Handle_ShouldThrowException_WhenDatabaseMiss(CategoryId id)
     {
-        // Assert
+        // Arrange
         reads.Setup(v => v.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Category);
-
-        // Assert
         GetCategoryNameByIdQuery query = new(id);
-        GetCategoryNameByIdHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>

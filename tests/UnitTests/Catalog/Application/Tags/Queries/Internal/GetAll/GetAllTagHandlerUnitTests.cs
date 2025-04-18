@@ -8,7 +8,9 @@ using static TagsData;
 
 public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
 {
+    private readonly GetAllTagsHandler handler;
     private readonly Mock<ITagReads> reads = new();
+
     private readonly Tag[] tags = [
         Tag.CreateWithId(ValidId, ValidName1),
         Tag.CreateWithId(ValidId, ValidName2)
@@ -16,6 +18,8 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
 
     public GetAllTagHandlerUnitTests()
     {
+        handler = new(reads.Object);
+
         reads.Setup(v => v.AllAsync(false, ct)).ReturnsAsync(tags);
     }
 
@@ -24,7 +28,6 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
     {
         // Assert
         GetAllTagsQuery query = new();
-        GetAllTagsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -38,7 +41,6 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
     {
         // Assert
         GetAllTagsQuery query = new();
-        GetAllTagsHandler handler = new(reads.Object);
 
         // Act
         GetAllTagsDto[] tags = await handler.Handle(query, ct);

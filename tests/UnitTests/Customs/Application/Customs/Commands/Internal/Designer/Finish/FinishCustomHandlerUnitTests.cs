@@ -14,6 +14,7 @@ using static CustomsData;
 
 public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+    private readonly FinishCustomHandler handler;
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
@@ -31,6 +32,8 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 
     public FinishCustomHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, sender.Object);
+
         custom.Accept(designerId);
         custom.Begin();
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
@@ -51,7 +54,6 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
             Price: Price,
             DesignerId: designerId
         );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -70,7 +72,6 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
             Price: Price,
             DesignerId: designerId
         );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -89,7 +90,6 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
             Price: Price,
             DesignerId: designerId
         );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -116,7 +116,6 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
             Price: Price,
             DesignerId: designerId
         );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
@@ -139,7 +138,6 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
             Price: Price,
             DesignerId: designerId
         );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

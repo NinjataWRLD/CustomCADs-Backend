@@ -9,7 +9,13 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetU
 
 public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
 {
+    private readonly GetUserRoleByIdHandler handler;
     private readonly Mock<IAccountReads> reads = new();
+
+    public GetUserRoleByIdHandlerUnitTests()
+    {
+        handler = new(reads.Object);
+    }
 
     [Theory]
     [ClassData(typeof(GetUserRoleByIdValidData))]
@@ -17,9 +23,7 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount());
-
         GetUserRoleByIdQuery query = new(id);
-        GetUserRoleByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -33,17 +37,14 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
     public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
     {
         // Arrange
-        const string role = RolesData.ValidName1;
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount(role: role));
-
+        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount(role: RolesData.ValidName1));
         GetUserRoleByIdQuery query = new(id);
-        GetUserRoleByIdHandler handler = new(reads.Object);
 
         // Act
         string actualRole = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Equal(role, actualRole);
+        Assert.Equal(RolesData.ValidName1, actualRole);
     }
 
     [Theory]
@@ -52,9 +53,7 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Account);
-
         GetUserRoleByIdQuery query = new(id);
-        GetUserRoleByIdHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>

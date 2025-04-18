@@ -14,6 +14,7 @@ using static CustomsData;
 
 public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+    private readonly PurchaseCustomHandler handler;
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
@@ -28,6 +29,8 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 
     public PurchaseCustomHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+
         custom.Accept(ValidDesignerId1);
         custom.Begin();
         custom.Finish(ValidCadId1, ValidPrice1);
@@ -44,7 +47,6 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-        PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -58,7 +60,6 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-        PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -74,7 +75,6 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-        PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -99,9 +99,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
             It.IsAny<string>(),
             ct
         )).ReturnsAsync(expected);
-
         PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-        PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Act
         string actual = await handler.Handle(command, ct);
@@ -115,7 +113,6 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         PurchaseCustomCommand command = new(id, string.Empty, wrongBuyerId);
-        PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
@@ -132,9 +129,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         var custom = CreateCustom(buyerId: buyerId);
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(custom);
-
         PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-        PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
@@ -152,9 +147,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         custom.Accept(ValidDesignerId1);
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(custom);
-
         PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-        PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
@@ -171,9 +164,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         var custom = CreateCustom(buyerId: buyerId, forDelivery: true);
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(custom);
-
         PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-        PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
@@ -189,9 +180,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(null as Custom);
-
         PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-        PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

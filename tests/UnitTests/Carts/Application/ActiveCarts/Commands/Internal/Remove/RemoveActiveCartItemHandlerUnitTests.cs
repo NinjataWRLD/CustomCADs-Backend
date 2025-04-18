@@ -11,6 +11,7 @@ using static ActiveCartsData;
 
 public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+    private readonly RemoveActiveCartItemHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IWrites<ActiveCartItem>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
@@ -20,6 +21,8 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
     public RemoveActiveCartItemHandlerUnitTests()
     {
+        handler = new(reads.Object, writes.Object, uow.Object);
+
         reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
             .ReturnsAsync(item);
     }
@@ -32,7 +35,6 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
             BuyerId: buyerId,
             ProductId: productId
         );
-        RemoveActiveCartItemHandler handler = new(reads.Object, writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -49,7 +51,6 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
             BuyerId: buyerId,
             ProductId: productId
         );
-        RemoveActiveCartItemHandler handler = new(reads.Object, writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -69,7 +70,6 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
             BuyerId: buyerId,
             ProductId: productId
         );
-        RemoveActiveCartItemHandler handler = new(reads.Object, writes.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>

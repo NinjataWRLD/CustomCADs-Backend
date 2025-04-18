@@ -10,14 +10,18 @@ using static ProductsData;
 
 public class CreatorGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly CreatorGetAllProductsHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private readonly Product[] products = [];
     private readonly ProductQuery query;
     private readonly Result<Product> result;
 
     public CreatorGetAllProductsHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         query = new(
             Pagination: new(1, products.Length)
         );
@@ -44,7 +48,6 @@ public class CreatorGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
             Name: this.query.Name,
             Sorting: this.query.Sorting
         );
-        CreatorGetAllProductsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -64,7 +67,6 @@ public class CreatorGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
             Name: this.query.Name,
             Sorting: this.query.Sorting
         );
-        CreatorGetAllProductsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -84,7 +86,6 @@ public class CreatorGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
             Name: this.query.Name,
             Sorting: this.query.Sorting
         );
-        CreatorGetAllProductsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         var result = await handler.Handle(query, ct);

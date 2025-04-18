@@ -9,12 +9,16 @@ using static ShipmentsData;
 
 public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 {
+    private readonly GetShipmentWaybillHandler handler;
     private readonly Mock<IShipmentReads> reads = new();
     private readonly Mock<IDeliveryService> delivery = new();
+
     private static readonly byte[] Bytes = [1, 2, 3, 4, 5, 6];
 
     public GetShipmentWaybillHandlerUnitTests()
     {
+        handler = new(reads.Object, delivery.Object);
+
         reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateShipment());
         delivery.Setup(x => x.PrintAsync(ValidReferenceId, ct)).ReturnsAsync(Bytes);
     }
@@ -24,7 +28,6 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     {
         // Arrange
         GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
-        GetShipmentWaybillHandler handler = new(reads.Object, delivery.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -38,7 +41,6 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     {
         // Arrange
         GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
-        GetShipmentWaybillHandler handler = new(reads.Object, delivery.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -52,7 +54,6 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     {
         // Arrange
         GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
-        GetShipmentWaybillHandler handler = new(reads.Object, delivery.Object);
 
         // Act
         byte[] bytes = await handler.Handle(query, ct);
@@ -67,7 +68,6 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Shipment);
         GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
-        GetShipmentWaybillHandler handler = new(reads.Object, delivery.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>
@@ -82,7 +82,6 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     {
         // Arrange
         GetShipmentWaybillQuery query = new(id, ValidBuyerId);
-        GetShipmentWaybillHandler handler = new(reads.Object, delivery.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Shipment>>(async () =>

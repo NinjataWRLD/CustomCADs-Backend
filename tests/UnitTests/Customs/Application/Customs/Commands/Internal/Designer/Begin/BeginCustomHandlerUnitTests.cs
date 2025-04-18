@@ -11,6 +11,7 @@ using static CustomsData;
 
 public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+    private readonly BeginCustomHandler handler;
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
 
@@ -21,6 +22,8 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
 
     public BeginCustomHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object);
+
         custom.Accept(designerId);
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
             .ReturnsAsync(custom);
@@ -34,7 +37,6 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        BeginCustomHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -51,7 +53,6 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        BeginCustomHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -68,7 +69,6 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        BeginCustomHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -93,7 +93,6 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        BeginCustomHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
@@ -114,7 +113,6 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        BeginCustomHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

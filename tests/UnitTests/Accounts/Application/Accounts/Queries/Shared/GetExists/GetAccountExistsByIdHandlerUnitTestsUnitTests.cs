@@ -8,7 +8,13 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetE
 
 public class GetAccountExistsByIdHandlerUnitTestsUnitTests : AccountsBaseUnitTests
 {
+    private readonly GetAccountExistsByIdHandler handler;
     private readonly Mock<IAccountReads> reads = new();
+
+    public GetAccountExistsByIdHandlerUnitTestsUnitTests()
+    {
+        handler = new(reads.Object);
+    }
 
     [Theory]
     [ClassData(typeof(GetAccountExistsByIdValidData))]
@@ -16,9 +22,7 @@ public class GetAccountExistsByIdHandlerUnitTestsUnitTests : AccountsBaseUnitTes
     {
         // Arrange
         reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
-
         GetAccountExistsByIdQuery query = new(id);
-        GetAccountExistsByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -33,9 +37,7 @@ public class GetAccountExistsByIdHandlerUnitTestsUnitTests : AccountsBaseUnitTes
     {
         // Arrange
         reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
-
         GetAccountExistsByIdQuery query = new(id);
-        GetAccountExistsByIdHandler handler = new(reads.Object);
 
         // Act
         bool exists = await handler.Handle(query, ct);
@@ -50,9 +52,7 @@ public class GetAccountExistsByIdHandlerUnitTestsUnitTests : AccountsBaseUnitTes
     {
         // Arrange
         reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);
-
         GetAccountExistsByIdQuery query = new(id);
-        GetAccountExistsByIdHandler handler = new(reads.Object);
 
         // Act
         bool exists = await handler.Handle(query, ct);

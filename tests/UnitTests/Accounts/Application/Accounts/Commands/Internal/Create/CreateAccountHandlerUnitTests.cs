@@ -9,9 +9,15 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.C
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
+    private readonly CreateAccountHandler handler;
     private readonly Mock<IWrites<Account>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IEventRaiser> raiser = new();
+
+    public CreateAccountHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object, raiser.Object);
+    }
 
     [Theory]
     [ClassData(typeof(CreateAccountValidData))]
@@ -26,7 +32,6 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
             FirstName: firstName,
             LastName: lastName
         );
-        CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -58,7 +63,6 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
             FirstName: firstName,
             LastName: lastName
         );
-        CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
         // Act
         AccountId id = await handler.Handle(command, CancellationToken.None);

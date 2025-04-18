@@ -11,12 +11,15 @@ using static ProductsData;
 
 public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly DesignerGetProductByIdHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private readonly Product product = CreateProduct();
 
     public DesignerGetProductByIdHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
     }
@@ -26,7 +29,6 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
-        DesignerGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -40,7 +42,6 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
-        DesignerGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -55,7 +56,6 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
-        DesignerGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         var result = await handler.Handle(query, ct);
@@ -76,9 +76,7 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(null as Product);
-
         DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
-        DesignerGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>

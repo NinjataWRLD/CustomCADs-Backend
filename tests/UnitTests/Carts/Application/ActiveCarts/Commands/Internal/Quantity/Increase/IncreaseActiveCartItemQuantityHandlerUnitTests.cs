@@ -12,6 +12,7 @@ using static ActiveCartsData;
 
 public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+    private readonly IncreaseActiveCartItemQuantityHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
@@ -19,6 +20,8 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 
     public IncreaseActiveCartItemQuantityHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object);
+
         reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
             .ReturnsAsync(CreateItemWithDelivery(productId: productId));
     }
@@ -28,8 +31,11 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     public async Task Handle_ShouldQueryDatabase(int amount)
     {
         // Arrange
-        IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-        IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+        IncreaseActiveCartItemQuantityCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId,
+            Amount: amount
+        );
 
         // Act
         await handler.Handle(command, ct);
@@ -43,8 +49,11 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     public async Task Handle_ShouldPersistToDatabase(int amount)
     {
         // Arrange
-        IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-        IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+        IncreaseActiveCartItemQuantityCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId,
+            Amount: amount
+        );
 
         // Act
         await handler.Handle(command, ct);
@@ -61,8 +70,11 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
         reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
             .ReturnsAsync(null as ActiveCartItem);
 
-        IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-        IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+        IncreaseActiveCartItemQuantityCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId,
+            Amount: amount
+        );
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
@@ -82,7 +94,6 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
             ProductId: ValidProductId1,
             Amount: amount
         );
-        IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>

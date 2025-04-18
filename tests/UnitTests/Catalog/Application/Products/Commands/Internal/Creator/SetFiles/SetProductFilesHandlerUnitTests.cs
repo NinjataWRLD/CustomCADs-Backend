@@ -11,12 +11,15 @@ using static ProductsData;
 
 public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly SetProductFilesHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Product product = CreateProduct();
 
     public SetProductFilesHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
     }
@@ -31,7 +34,6 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
             Image: (null, null),
             CreatorId: ValidCreatorId
         );
-        SetProductFilesHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -53,7 +55,6 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
             Image: image,
             CreatorId: ValidCreatorId
         );
-        SetProductFilesHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -92,7 +93,6 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
             Image: (null, null),
             CreatorId: ValidDesignerId
         );
-        SetProductFilesHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
@@ -115,7 +115,6 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
             Image: (null, null),
             CreatorId: ValidCreatorId
         );
-        SetProductFilesHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>

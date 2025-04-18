@@ -12,6 +12,7 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 {
     private const int count = 30;
 
+    private readonly GetAllAccountsHandler handler;
     private readonly Mock<IAccountReads> reads = new();
     private readonly Account[] accounts = [
         Account.CreateWithId(AccountId.New(), Roles.Customer, CustomerUsername, CustomerEmail),
@@ -23,6 +24,8 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 
     public GetAllAccountsHandlerUnitTests()
     {
+        handler = new(reads.Object);
+
         reads.Setup(x => x.AllAsync(accountQuery, false, ct))
             .ReturnsAsync(new Result<Account>(count, accounts));
     }
@@ -32,7 +35,6 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         GetAllAccountsQuery query = new(GetPagination());
-        GetAllAccountsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -46,7 +48,6 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         GetAllAccountsQuery query = new(GetPagination());
-        GetAllAccountsHandler handler = new(reads.Object);
 
         // Act
         Result<GetAllAccountsDto> accounts = await handler.Handle(query, ct);

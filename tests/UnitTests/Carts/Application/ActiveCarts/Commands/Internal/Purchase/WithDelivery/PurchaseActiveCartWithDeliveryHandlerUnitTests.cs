@@ -19,16 +19,22 @@ using static ActiveCartsData;
 
 public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+    private readonly PurchaseActiveCartWithDeliveryHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Mock<IPaymentService> payment = new();
     private readonly Mock<IEventRaiser> raiser = new();
+
+    private static readonly string paymentMethodId = string.Empty;
+    private static readonly string shipmentService = string.Empty;
     private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
     private static readonly ContactDto contact = new(null, null);
 
     public PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
+
         reads.Setup(x => x.ExistsAsync(buyerId, ct))
             .ReturnsAsync(true);
 
@@ -57,13 +63,12 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
-            PaymentMethodId: string.Empty,
-            ShipmentService: string.Empty,
+            PaymentMethodId: paymentMethodId,
+            ShipmentService: shipmentService,
             BuyerId: buyerId,
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -78,13 +83,12 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
-            PaymentMethodId: string.Empty,
-            ShipmentService: string.Empty,
+            PaymentMethodId: paymentMethodId,
+            ShipmentService: shipmentService,
             BuyerId: buyerId,
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -118,7 +122,6 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -137,13 +140,12 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
-            PaymentMethodId: string.Empty,
-            ShipmentService: string.Empty,
+            PaymentMethodId: paymentMethodId,
+            ShipmentService: shipmentService,
             BuyerId: buyerId,
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -167,13 +169,12 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         )).ReturnsAsync(expected);
 
         PurchaseActiveCartWithDeliveryCommand command = new(
-            PaymentMethodId: string.Empty,
-            ShipmentService: string.Empty,
+            PaymentMethodId: paymentMethodId,
+            ShipmentService: shipmentService,
             BuyerId: buyerId,
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         string actual = await handler.Handle(command, ct);
@@ -194,13 +195,12 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             ]);
 
         PurchaseActiveCartWithDeliveryCommand command = new(
-            PaymentMethodId: string.Empty,
-            ShipmentService: string.Empty,
+            PaymentMethodId: paymentMethodId,
+            ShipmentService: shipmentService,
             BuyerId: buyerId,
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>

@@ -10,12 +10,15 @@ namespace CustomCADs.UnitTests.Files.Application.Images.Queries.Shared.GetPresig
 
 public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
 {
+    private readonly GetImagePresignedUrlPutByIdHandler handler;
     private readonly Mock<IImageReads> reads = new();
     private readonly Mock<IStorageService> storage = new();
+
     private static readonly Image image = CreateImage();
 
     public GetImagePresignedUrlPutByIdHandlerUnitTests()
     {
+        handler = new(reads.Object, storage.Object);
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct)).ReturnsAsync(image);
     }
 
@@ -28,7 +31,6 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
             id1,
             newFile
         );
-        GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -46,7 +48,6 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
             id1,
             newFile
         );
-        GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -69,7 +70,6 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
             id1,
             newFile
         );
-        GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>

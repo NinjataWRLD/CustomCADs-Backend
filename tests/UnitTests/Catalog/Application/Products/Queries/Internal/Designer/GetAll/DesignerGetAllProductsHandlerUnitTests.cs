@@ -12,8 +12,10 @@ using static ProductsData;
 
 public class DesignerGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly DesignerGetAllProductsHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private readonly Product[] products = [];
     private readonly ProductQuery query;
     private readonly Result<Product> result;
@@ -21,6 +23,8 @@ public class DesignerGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 
     public DesignerGetAllProductsHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         query = new(
             Pagination: new(1, products.Length)
         );
@@ -51,7 +55,6 @@ public class DesignerGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
             Name: this.query.Name,
             Sorting: this.query.Sorting
         );
-        DesignerGetAllProductsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -72,7 +75,6 @@ public class DesignerGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
             Name: this.query.Name,
             Sorting: this.query.Sorting
         );
-        DesignerGetAllProductsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -94,7 +96,6 @@ public class DesignerGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
             Name: this.query.Name,
             Sorting: this.query.Sorting
         );
-        DesignerGetAllProductsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         var result = await handler.Handle(query, ct);

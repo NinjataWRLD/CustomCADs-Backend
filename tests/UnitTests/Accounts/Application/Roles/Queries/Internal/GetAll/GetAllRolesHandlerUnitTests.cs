@@ -11,6 +11,7 @@ using static Constants.Roles;
 
 public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 {
+    private readonly GetAllRolesHandler handler;
     private readonly Mock<IRoleReads> reads = new();
     private readonly Mock<ICacheService> cache = new();
     private readonly Role[] roles = [
@@ -22,6 +23,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 
     public GetAllRolesHandlerUnitTests()
     {
+        handler = new(reads.Object, cache.Object);
         cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(roles);
         reads.Setup(x => x.AllAsync(false, ct)).ReturnsAsync(roles);
     }
@@ -31,7 +33,6 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     {
         // Assert
         GetAllRolesQuery query = new();
-        GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -45,9 +46,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     {
         // Assert
         cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(null as Role[]);
-
         GetAllRolesQuery query = new();
-        GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -61,7 +60,6 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     {
         // Assert
         GetAllRolesQuery query = new();
-        GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         IEnumerable<RoleReadDto> roles = await handler.Handle(query, ct);
@@ -80,9 +78,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     {
         // Assert
         cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(null as Role[]);
-
         GetAllRolesQuery query = new();
-        GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
         // Act
         IEnumerable<RoleReadDto> roles = await handler.Handle(query, ct);

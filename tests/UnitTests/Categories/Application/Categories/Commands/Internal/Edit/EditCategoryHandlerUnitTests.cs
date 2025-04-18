@@ -13,13 +13,16 @@ using static CategoriesData;
 
 public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 {
-    private readonly Mock<IEventRaiser> raiser = new();
-    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly EditCategoryHandler handler;
     private readonly Mock<ICategoryReads> reads = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IEventRaiser> raiser = new();
+
     private readonly Category category = CreateCategory();
 
     public EditCategoryHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, raiser.Object);
         reads.Setup(v => v.SingleByIdAsync(ValidId1, true, ct))
             .ReturnsAsync(category);
     }
@@ -30,7 +33,6 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         EditCategoryCommand command = new(ValidId1, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -45,7 +47,6 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         EditCategoryCommand command = new(ValidId1, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -60,7 +61,6 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         EditCategoryCommand command = new(ValidId1, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -79,7 +79,6 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         EditCategoryCommand command = new(ValidId1, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -95,11 +94,8 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCategoryDoesNotExists(string name, string description)
     {
         // Arrange
-        CategoryId id = ValidId1;
-        reads.Setup(v => v.SingleByIdAsync(id, true, ct)).ReturnsAsync(null as Category);
-
-        EditCategoryCommand command = new(id, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
+        reads.Setup(v => v.SingleByIdAsync(ValidId1, true, ct)).ReturnsAsync(null as Category);
+        EditCategoryCommand command = new(ValidId1, new(name, description));
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>

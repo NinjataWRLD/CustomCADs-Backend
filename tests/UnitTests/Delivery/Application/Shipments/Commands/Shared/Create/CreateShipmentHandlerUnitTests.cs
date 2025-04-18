@@ -14,14 +14,18 @@ using static ShipmentsData;
 
 public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 {
+    private readonly CreateShipmentHandler handler;
     private readonly Mock<IWrites<Shipment>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IDeliveryService> delivery = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private static readonly ShipmentDto shipmentDto = new(ValidReferenceId, default!, default, default, default);
 
     public CreateShipmentHandlerUnitTests()
     {
+        handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
+
         delivery.Setup(x => x.ShipAsync(It.IsAny<ShipRequestDto>(), ct))
             .ReturnsAsync(shipmentDto);
 
@@ -41,7 +45,6 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
-        CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -65,7 +68,6 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
-        CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -86,7 +88,6 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
-        CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -120,7 +121,6 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
-        CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>

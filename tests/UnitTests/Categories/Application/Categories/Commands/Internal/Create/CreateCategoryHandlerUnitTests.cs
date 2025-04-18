@@ -8,18 +8,22 @@ namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Intern
 
 public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 {
-    private readonly Mock<IEventRaiser> raiser = new();
-    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly CreateCategoryHandler handler;
     private readonly Mock<IWrites<Category>> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IEventRaiser> raiser = new();
+
+    public CreateCategoryHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object, raiser.Object);
+    }
 
     [Theory]
     [ClassData(typeof(CreateCategoryValidData))]
     public async Task Handler_ShouldPersistToDatabase(string name, string description)
     {
         // Arrange
-        CategoryWriteDto dto = new(name, description);
-        CreateCategoryCommand command = new(dto);
-        CreateCategoryHandler handler = new(writes.Object, uow.Object, raiser.Object);
+        CreateCategoryCommand command = new(Dto: new(name, description));
 
         // Act
         await handler.Handle(command, ct);
@@ -37,9 +41,7 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
     public async Task Handler_ShouldRaiseEvents(string name, string description)
     {
         // Arrange
-        CategoryWriteDto dto = new(name, description);
-        CreateCategoryCommand command = new(dto);
-        CreateCategoryHandler handler = new(writes.Object, uow.Object, raiser.Object);
+        CreateCategoryCommand command = new(Dto: new(name, description));
 
         // Act
         await handler.Handle(command, ct);

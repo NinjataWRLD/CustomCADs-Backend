@@ -11,16 +11,22 @@ using static CategoriesData;
 
 public class CategoryCreatedHandlerUnitTests : CategoriesBaseUnitTests
 {
+    private readonly CategoryCreatedEventHandler handler;
     private readonly Mock<ICacheService> cache = new();
+
+    public CategoryCreatedHandlerUnitTests()
+    {
+        handler = new(cache.Object);
+    }
 
     [Theory]
     [ClassData(typeof(CategoryCreatedValidData))]
     public async Task Handle_ShouldUpdateCache(string name, string description)
     {
         // Arrange
-        Category category = CreateCategory(ValidId1, name, description);
-        CategoryCreatedDomainEvent de = new(category);
-        CategoryCreatedEventHandler handler = new(cache.Object);
+        CategoryCreatedDomainEvent de = new(
+            Category: CreateCategory(ValidId1, name, description)
+        );
 
         // Act
         await handler.Handle(de);

@@ -7,12 +7,13 @@ using static ProductsData;
 
 public class GetProductDesignerSortingsHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly GetProductDesignerSortingsHandler handler = new();
+
     [Fact]
     public async Task Handle_ShouldReturnResult()
     {
         // Arrange
         GetProductDesignerSortingsQuery query = new();
-        GetProductDesignerSortingsHandler handler = new();
 
         // Act
         string[] sortings = await handler.Handle(query, ct);

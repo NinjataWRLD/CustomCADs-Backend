@@ -13,6 +13,7 @@ using static CustomsData;
 
 public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+    private readonly AcceptCustomHandler handler;
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
@@ -23,6 +24,8 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
 
     public AcceptCustomHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, sender.Object);
+
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
             .ReturnsAsync(custom);
 
@@ -38,7 +41,6 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -55,7 +57,6 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -72,7 +73,6 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -89,7 +89,6 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -112,7 +111,6 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
@@ -133,7 +131,6 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             DesignerId: designerId
         );
-        AcceptCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

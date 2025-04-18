@@ -5,12 +5,13 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.Ge
 
 public class GetAccountSortingsHandlerUnitTests : AccountsBaseUnitTests
 {
+    private readonly GetAccountSortingsHandler handler = new();
+
     [Fact]
     public async Task Handle_ShouldReturnResult()
     {
         // Arrange
         GetAccountSortingsQuery query = new();
-        GetAccountSortingsHandler handler = new();
 
         // Act
         string[] sortings = await handler.Handle(query, ct);

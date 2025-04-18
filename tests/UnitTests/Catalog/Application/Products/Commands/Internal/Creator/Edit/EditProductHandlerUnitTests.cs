@@ -11,13 +11,17 @@ using static ProductsData;
 
 public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly EditProductHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private readonly Product product = CreateProduct();
 
     public EditProductHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, sender.Object);
+
         reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(product);
 
@@ -37,7 +41,6 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: ValidCategoryId,
             CreatorId: ValidCreatorId
         );
-        EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -58,7 +61,6 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: ValidCategoryId,
             CreatorId: ValidCreatorId
         );
-        EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -79,7 +81,6 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: ValidCategoryId,
             CreatorId: ValidCreatorId
         );
-        EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -102,7 +103,6 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: ValidCategoryId,
             CreatorId: ValidDesignerId
         );
-        EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
@@ -127,7 +127,6 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: ValidCategoryId,
             CreatorId: ValidCreatorId
         );
-        EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
@@ -152,7 +151,6 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: ValidCategoryId,
             CreatorId: ValidDesignerId
         );
-        EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>

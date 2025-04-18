@@ -7,11 +7,14 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetVolume;
 
 public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
 {
+    private readonly GetCadVolumeByIdHandler handler;
     private readonly Mock<ICadReads> reads = new();
+
     private static readonly Cad cad = CreateCad();
 
     public GetCadVolumeByIdHandlerUnitTests()
     {
+        handler = new(reads.Object);
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
             .ReturnsAsync(cad);
     }
@@ -21,7 +24,6 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
     {
         // Assert
         GetCadVolumeByIdQuery query = new(id1);
-        GetCadVolumeByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -35,7 +37,6 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
     {
         // Assert
         GetCadVolumeByIdQuery query = new(id1);
-        GetCadVolumeByIdHandler handler = new(reads.Object);
 
         // Act
         decimal volume = await handler.Handle(query, ct);
@@ -50,9 +51,7 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
         // Assert
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
             .ReturnsAsync(null as Cad);
-
         GetCadVolumeByIdQuery query = new(id1);
-        GetCadVolumeByIdHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>

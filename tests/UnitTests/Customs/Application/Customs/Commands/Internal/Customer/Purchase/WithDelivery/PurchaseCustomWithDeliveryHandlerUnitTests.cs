@@ -18,6 +18,7 @@ using static CustomsData;
 
 public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 {
+    private readonly PurchaseCustomWithDeliveryHandler handler;
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
@@ -36,6 +37,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
     public PurchaseCustomWithDeliveryHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
+
         custom.Accept(ValidDesignerId1);
         custom.Begin();
         custom.Finish(ValidCadId1, ValidPrice1);
@@ -67,7 +70,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -90,7 +92,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -121,7 +122,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -149,7 +149,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -182,7 +181,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         string actual = await handler.Handle(command, ct);
@@ -205,7 +203,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
@@ -233,7 +230,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
@@ -262,7 +258,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
@@ -289,7 +284,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>
@@ -316,7 +310,6 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
             Address: address,
             Contact: contact
         );
-        PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

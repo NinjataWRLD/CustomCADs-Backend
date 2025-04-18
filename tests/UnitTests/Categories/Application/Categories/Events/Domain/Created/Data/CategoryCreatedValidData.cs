@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Categories.Application.Categories.Events.Domain.Created.Data;
 
-using CustomCADs.UnitTests.Categories.Application.Categories.Events.Domain.Created;
 using static CategoriesData;
 
 public class CategoryCreatedValidData : CategoryCreatedData

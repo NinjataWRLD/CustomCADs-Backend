@@ -2,7 +2,6 @@
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
@@ -10,16 +9,19 @@ namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Gal
 
 using static ProductsData;
 
-public class GalleryGalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
+public class GalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly GalleryGetAllProductsHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Product[] products = [];
     private readonly ProductQuery query;
     private readonly Result<Product> result;
 
-    public GalleryGalleryGetAllProductsHandlerUnitTests()
+    public GalleryGetAllProductsHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         query = new(
             Pagination: new(1, products.Length)
         );
@@ -49,7 +51,6 @@ public class GalleryGalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTest
             Name: this.query.Name,
             Sorting: this.query.Sorting
         );
-        GalleryGetAllProductsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -69,7 +70,6 @@ public class GalleryGalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTest
             Name: this.query.Name,
             Sorting: this.query.Sorting
         );
-        GalleryGetAllProductsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -90,7 +90,6 @@ public class GalleryGalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTest
             Name: this.query.Name,
             Sorting: this.query.Sorting
         );
-        GalleryGetAllProductsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         var result = await handler.Handle(query, ct);

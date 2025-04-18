@@ -10,13 +10,17 @@ using static ActiveCartsData;
 
 public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private const string Buyer = "For7a7a";
+    private readonly GetActiveCartItemsHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+
+    private const string Buyer = "For7a7a";
     private static readonly AccountId buyerId = ValidBuyerId1;
 
     public GetActiveCartHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         reads.Setup(x => x.AllAsync(buyerId, false, ct))
             .ReturnsAsync([]);
 
@@ -29,7 +33,6 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         // Arrange
         GetActiveCartItemsQuery query = new(buyerId);
-        GetActiveCartItemsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -43,7 +46,6 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         // Arrange
         GetActiveCartItemsQuery query = new(buyerId);
-        GetActiveCartItemsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);

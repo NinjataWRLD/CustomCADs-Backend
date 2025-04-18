@@ -11,8 +11,10 @@ using static ShipmentsData;
 
 public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 {
+    private readonly GetAllShipmentsHandler handler;
     private readonly Mock<IShipmentReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private static readonly Dictionary<AccountId, string> buyers = new()
     {
         [ValidBuyerId] = "NinjataBG"
@@ -27,6 +29,8 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 
     public GetAllShipmentsHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         Result<Shipment> result = new(Shipments.Length, Shipments);
         reads.Setup(x => x.AllAsync(It.IsAny<ShipmentQuery>(), false, ct))
             .ReturnsAsync(result);
@@ -44,7 +48,6 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
             CustomerId: null,
             Sorting: null
         );
-        GetAllShipmentsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -62,7 +65,6 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
             CustomerId: null,
             Sorting: null
         );
-        GetAllShipmentsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -80,7 +82,6 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
             CustomerId: null,
             Sorting: null
         );
-        GetAllShipmentsHandler handler = new(reads.Object, sender.Object);
 
         // Act
         Result<GetAllShipmentsDto> result = await handler.Handle(query, ct);

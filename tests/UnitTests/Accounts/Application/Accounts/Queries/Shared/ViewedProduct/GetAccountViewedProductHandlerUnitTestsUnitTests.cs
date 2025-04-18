@@ -10,6 +10,7 @@ using static AccountsData;
 
 public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnitTests
 {
+    private readonly GetAccountViewedProductHandler handler;
     private readonly Mock<IAccountReads> reads = new();
     private static readonly AccountId id = ValidId1;
     private static readonly ProductId productId = ProductId.New();
@@ -17,6 +18,7 @@ public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnit
 
     public GetAccountViewedProductHandlerUnitTestsUnitTests()
     {
+        handler = new(reads.Object);
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(account);
     }
@@ -26,7 +28,6 @@ public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnit
     {
         // Arrange
         GetAccountViewedProductQuery query = new(id, productId);
-        GetAccountViewedProductHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -42,9 +43,7 @@ public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnit
     {
         // Arrange
         if (expected) account.AddViewedProduct(productId);
-
         GetAccountViewedProductQuery query = new(id, productId);
-        GetAccountViewedProductHandler handler = new(reads.Object);
 
         // Act
         bool actual = await handler.Handle(query, ct);

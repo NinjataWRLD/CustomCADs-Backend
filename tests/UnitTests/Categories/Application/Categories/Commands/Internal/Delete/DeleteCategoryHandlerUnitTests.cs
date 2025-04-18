@@ -13,6 +13,7 @@ using static CategoriesData;
 
 public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 {
+    private readonly DeleteCategoryHandler handler;
     private readonly Mock<IEventRaiser> raiser = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IWrites<Category>> writes = new();
@@ -20,6 +21,8 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 
     public DeleteCategoryHandlerUnitTests()
     {
+        handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
+
         reads.Setup(v => v.SingleByIdAsync(ValidId1, true, ct))
             .ReturnsAsync(CreateCategory(ValidId1, ValidName1, ValidDescription1));
 
@@ -36,7 +39,6 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         DeleteCategoryCommand command = new(id);
-        DeleteCategoryHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -51,7 +53,6 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         DeleteCategoryCommand command = new(id);
-        DeleteCategoryHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -67,7 +68,6 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         DeleteCategoryCommand command = new(id);
-        DeleteCategoryHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -84,9 +84,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         reads.Setup(v => v.SingleByIdAsync(id, true, ct)).ReturnsAsync(null as Category);
-
         DeleteCategoryCommand command = new(id);
-        DeleteCategoryHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>

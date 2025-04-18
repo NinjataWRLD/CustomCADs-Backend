@@ -9,18 +9,23 @@ using static ProductsData;
 
 public class AddProductTagHandlerUnitTests
 {
+    private readonly AddProductTagHandler handler;
     private readonly Mock<IProductWrites> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
 
     private readonly static ProductId id = ValidId;
     private readonly static TagId tagId = TagId.New();
 
+    public AddProductTagHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object);
+    }
+
     [Fact]
     public async Task Handle_ShouldPersistToDatabase()
     {
         // Arrange
         AddProductTagCommand command = new(id, tagId);
-        AddProductTagHandler handler = new(writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);

@@ -12,6 +12,7 @@ using static PurchasedCartsData;
 
 public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
 {
+    private readonly GetPurchasedCartByIdHandler handler;
     private readonly Mock<IPurchasedCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
 
@@ -22,6 +23,8 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
 
     public GetPurchasedCartByIdUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(cart);
 
@@ -34,7 +37,6 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
     {
         // Arrange
         GetPurchasedCartByIdQuery query = new(id, buyerId);
-        GetPurchasedCartByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -48,7 +50,6 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
     {
         // Arrange
         GetPurchasedCartByIdQuery query = new(id, buyerId);
-        GetPurchasedCartByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -64,7 +65,6 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
     {
         // Arrange
         GetPurchasedCartByIdQuery query = new(id, buyerId);
-        GetPurchasedCartByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         var cart = await handler.Handle(query, ct);
@@ -79,9 +79,7 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(null as PurchasedCart);
-
         GetPurchasedCartByIdQuery query = new(id, buyerId);
-        GetPurchasedCartByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>

@@ -8,8 +8,14 @@ namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Create
 
 public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 {
+    private readonly CreateTagHandler handler;
     private readonly Mock<ITagWrites> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
+
+    public CreateTagHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object);
+    }
 
     [Theory]
     [ClassData(typeof(CreateTagValidData))]
@@ -17,7 +23,6 @@ public class CreateTagHandlerUnitTests : TagsBaseUnitTests
     {
         // Arrange
         CreateTagCommand command = new(name);
-        CreateTagHandler handler = new(writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);

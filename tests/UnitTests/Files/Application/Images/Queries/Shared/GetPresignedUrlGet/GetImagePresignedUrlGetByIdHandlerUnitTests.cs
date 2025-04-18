@@ -8,13 +8,17 @@ namespace CustomCADs.UnitTests.Files.Application.Images.Queries.Shared.GetPresig
 
 public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 {
+    private readonly GetImagePresignedUrlGetByIdHandler handler;
     private readonly Mock<IImageReads> reads = new();
     private readonly Mock<IStorageService> storage = new();
+
     private static readonly Image image = CreateImage();
     private const string PresignedUrl = "PresignedUrl";
 
     public GetImagePresignedUrlGetByIdHandlerUnitTests()
     {
+        handler = new(reads.Object, storage.Object);
+
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
             .ReturnsAsync(image);
 
@@ -27,7 +31,6 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     {
         // Assert
         GetImagePresignedUrlGetByIdQuery query = new(id1);
-        GetImagePresignedUrlGetByIdHandler handler = new(reads.Object, storage.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -41,7 +44,6 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     {
         // Assert
         GetImagePresignedUrlGetByIdQuery query = new(id1);
-        GetImagePresignedUrlGetByIdHandler handler = new(reads.Object, storage.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -58,7 +60,6 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     {
         // Assert
         GetImagePresignedUrlGetByIdQuery query = new(id1);
-        GetImagePresignedUrlGetByIdHandler handler = new(reads.Object, storage.Object);
 
         // Act
         var (Url, ContentType) = await handler.Handle(query, ct);
@@ -76,9 +77,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
         // Assert
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
             .ReturnsAsync(null as Image);
-
         GetImagePresignedUrlGetByIdQuery query = new(id1);
-        GetImagePresignedUrlGetByIdHandler handler = new(reads.Object, storage.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>

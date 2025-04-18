@@ -12,12 +12,16 @@ using static ProductsData;
 
 public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly CreatorGetProductByIdHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private readonly Product product = CreateProduct();
 
     public CreatorGetProductByIdHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
     }
@@ -27,7 +31,6 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         CreatorGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        CreatorGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -41,7 +44,6 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         CreatorGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        CreatorGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -56,7 +58,6 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         CreatorGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        CreatorGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
         // Act
         var result = await handler.Handle(query, ct);
@@ -77,9 +78,7 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(CreateProduct(creatorId: AccountId.New()));
-
         CreatorGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        CreatorGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
@@ -95,9 +94,7 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(null as Product);
-
         CreatorGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        CreatorGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>

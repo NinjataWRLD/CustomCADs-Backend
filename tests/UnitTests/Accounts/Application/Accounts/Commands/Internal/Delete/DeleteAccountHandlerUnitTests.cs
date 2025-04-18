@@ -10,10 +10,16 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.D
 
 public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 {
+    private readonly DeleteAccountHandler handler;
     private readonly Mock<IEventRaiser> raiser = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IWrites<Account>> writes = new();
     private readonly Mock<IAccountReads> reads = new();
+
+    public DeleteAccountHandlerUnitTests()
+    {
+        handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
+    }
 
     [Theory]
     [ClassData(typeof(DeleteAccountValidData))]
@@ -22,9 +28,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         // Arrange
         Account account = CreateAccount(username: username);
         reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(account);
-
         DeleteAccountCommand command = new(username);
-        DeleteAccountHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -40,9 +44,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         // Arrange
         Account account = CreateAccount(username: username);
         reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(account);
-
         DeleteAccountCommand command = new(username);
-        DeleteAccountHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -59,9 +61,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         // Arrange
         Account account = CreateAccount(username: username);
         reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(account);
-
         DeleteAccountCommand command = new(username);
-        DeleteAccountHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -78,9 +78,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(null as Account);
-
         DeleteAccountCommand command = new(username);
-        DeleteAccountHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>

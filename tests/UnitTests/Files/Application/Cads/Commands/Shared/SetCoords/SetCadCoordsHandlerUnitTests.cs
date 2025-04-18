@@ -10,12 +10,15 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetCoords;
 
 public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 {
+    private readonly SetCadCoordsHandler handler;
     private readonly Mock<ICadReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
+
     private readonly Cad cad = CreateCad();
 
     public SetCadCoordsHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object);
         reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
             .ReturnsAsync(cad);
     }
@@ -30,7 +33,6 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
             CamCoordinates: new(x1, y1, z1),
             PanCoordinates: new(x2, y2, z2)
         );
-        SetCadCoordsHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -49,7 +51,6 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
             CamCoordinates: new(x1, y1, z1),
             PanCoordinates: new(x2, y2, z2)
         );
-        SetCadCoordsHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -71,7 +72,6 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
             CamCoordinates: camCoords,
             PanCoordinates: panCoords
         );
-        SetCadCoordsHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -103,7 +103,6 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
             CamCoordinates: camCoords,
             PanCoordinates: panCoords
         );
-        SetCadCoordsHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>

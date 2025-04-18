@@ -10,11 +10,15 @@ using static TagsData;
 
 public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
 {
+    private readonly GetTagByIdHandler handler;
     private readonly Mock<ITagReads> reads = new();
+
     private readonly static TagId id = ValidId;
 
     public GetTagByIdHandlerUnitTests()
     {
+        handler = new(reads.Object);
+
         reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(CreateTag(ValidId));
     }
@@ -24,7 +28,6 @@ public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
     {
         // Arrange
         GetTagByIdQuery query = new(id);
-        GetTagByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -41,7 +44,6 @@ public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
             .ReturnsAsync(null as Tag);
 
         GetTagByIdQuery query = new(id);
-        GetTagByIdHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(async () =>

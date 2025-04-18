@@ -9,12 +9,14 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetContent
 
 public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 {
+    private readonly SetCadContentTypeHandler handler;
     private readonly Mock<ICadReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Cad cad = CreateCad();
 
     public SetCadContentTypeHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object);
         reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
             .ReturnsAsync(cad);
     }
@@ -25,7 +27,6 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
     {
         // Arrange
         SetCadContentTypeCommand command = new(id1, contentType);
-        SetCadContentTypeHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -40,7 +41,6 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
     {
         // Arrange
         SetCadContentTypeCommand command = new(id1, contentType);
-        SetCadContentTypeHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -55,7 +55,6 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
     {
         // Arrange
         SetCadContentTypeCommand command = new(id1, contentType);
-        SetCadContentTypeHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -71,9 +70,7 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
             .ReturnsAsync(null as Cad);
-
         SetCadContentTypeCommand command = new(id1, contentType);
-        SetCadContentTypeHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>

@@ -7,8 +7,14 @@ namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create;
 
 public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 {
+    private readonly CreateImageHandler handler;
     private readonly Mock<IWrites<Image>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
+
+    public CreateImageHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object);
+    }
 
     [Theory]
     [ClassData(typeof(CreateImageValidData))]
@@ -19,7 +25,6 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
             Key: key,
             ContentType: contentType
         );
-        CreateImageHandler handler = new(writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);

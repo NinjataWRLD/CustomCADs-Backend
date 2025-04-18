@@ -20,9 +20,11 @@ using static ProductsData;
 
 public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly CreateProductHandler handler;
     private readonly Mock<IProductWrites> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private const decimal Volume = 15;
     private readonly CategoryId categoryId = ValidCategoryId;
     private readonly AccountId creatorId = ValidCreatorId;
@@ -31,6 +33,8 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 
     public CreateProductHandlerUnitTests()
     {
+        handler = new(writes.Object, uow.Object, sender.Object);
+
         sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateCadCommand>(), ct))
             .ReturnsAsync(cadId);
 
@@ -64,7 +68,6 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: categoryId,
             CreatorId: creatorId
         );
-        CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -102,7 +105,6 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: categoryId,
             CreatorId: creatorId
         );
-        CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -135,7 +137,6 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: categoryId,
             CreatorId: creatorId
         );
-        CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -166,7 +167,6 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: categoryId,
             CreatorId: creatorId
         );
-        CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
@@ -196,7 +196,6 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
             CategoryId: categoryId,
             CreatorId: creatorId
         );
-        CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>

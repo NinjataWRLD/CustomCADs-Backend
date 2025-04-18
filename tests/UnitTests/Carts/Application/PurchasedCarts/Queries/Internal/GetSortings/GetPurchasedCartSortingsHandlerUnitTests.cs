@@ -5,12 +5,13 @@ namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.Internal
 
 public class GetPurchasedCartSortingsHandlerUnitTests : PurchasedCartsBaseUnitTests
 {
+    private readonly GetPurchasedCartSortingsHandler handler = new();
+
     [Fact]
     public async Task Handle_ShouldReturnResult()
     {
         // Arrange
         GetPurchasedCartSortingsQuery query = new();
-        GetPurchasedCartSortingsHandler handler = new();
 
         // Act
         string[] sortings = await handler.Handle(query, ct);

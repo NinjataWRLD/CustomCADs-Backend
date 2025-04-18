@@ -12,8 +12,10 @@ using static CustomsData;
 
 public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 {
+    private readonly GetCustomCadPresignedUrlGetHandler handler;
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private static readonly DownloadFileResponse cad = new("presigned-url", "application/png");
     private static readonly CustomId id = ValidId1;
     private static readonly AccountId buyerId = ValidBuyerId1;
@@ -22,6 +24,8 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 
     public GetCustomCadPresignedUrlGetHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         custom.Accept(ValidDesignerId1);
         custom.Begin();
         custom.Finish(ValidCadId1, ValidPrice1);
@@ -42,7 +46,6 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             BuyerId: buyerId
         );
-        GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -59,7 +62,6 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             BuyerId: buyerId
         );
-        GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -78,7 +80,6 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             BuyerId: buyerId
         );
-        GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Act
         var result = await handler.Handle(query, ct);
@@ -95,7 +96,6 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             BuyerId: wrongBuyerId
         );
-        GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
@@ -116,7 +116,6 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
             Id: id,
             BuyerId: buyerId
         );
-        GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

@@ -11,12 +11,15 @@ using static ActiveCartsData;
 
 public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+    private readonly GetActiveCartItemHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
 
     public GetActiveCartItemHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         reads.Setup(x => x.SingleAsync(buyerId, ValidProductId1, false, ct))
             .ReturnsAsync(CreateItemWithDelivery(ValidBuyerId1, ValidProductId1));
 
@@ -29,7 +32,6 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         // Arrange
         GetActiveCartItemQuery query = new(buyerId, ValidProductId1);
-        GetActiveCartItemHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -43,7 +45,6 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         // Arrange
         GetActiveCartItemQuery query = new(buyerId, ProductId.New());
-        GetActiveCartItemHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
@@ -58,7 +59,6 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         // Arrange
         GetActiveCartItemQuery query = new(buyerId, ProductId.New());
-        GetActiveCartItemHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>

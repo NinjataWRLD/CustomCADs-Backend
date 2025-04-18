@@ -8,12 +8,16 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetCoords;
 
 public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
 {
+    private readonly GetCadCoordsByIdHandler handler;
     private readonly Mock<ICadReads> reads = new();
+
     private static readonly CadId id = CadId.New();
     private static readonly Cad cad = CreateCad();
 
     public GetCadCoordsByIdHandlerUnitTests()
     {
+        handler = new(reads.Object);
+
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(cad);
     }
@@ -23,7 +27,6 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
     {
         // Arrange
         GetCadCoordsByIdQuery query = new(id);
-        GetCadCoordsByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -37,7 +40,6 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
     {
         // Arrange
         GetCadCoordsByIdQuery query = new(id);
-        GetCadCoordsByIdHandler handler = new(reads.Object);
 
         // Act
         var (Cam, Pan) = await handler.Handle(query, ct);
@@ -59,9 +61,7 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(null as Cad);
-
         GetCadCoordsByIdQuery query = new(id);
-        GetCadCoordsByIdHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>

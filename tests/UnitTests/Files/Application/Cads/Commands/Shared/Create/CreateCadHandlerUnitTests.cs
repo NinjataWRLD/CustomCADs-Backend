@@ -7,8 +7,14 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.Create;
 
 public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 {
+    private readonly CreateCadHandler handler;
     private readonly Mock<IWrites<Cad>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
+
+    public CreateCadHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object);
+    }
 
     [Theory]
     [ClassData(typeof(CreateCadValidData))]
@@ -20,7 +26,6 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
             ContentType: contentType,
             Volume: volume
         );
-        CreateCadHandler handler = new(writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);

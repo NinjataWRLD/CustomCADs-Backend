@@ -12,14 +12,17 @@ using static ActiveCartsData;
 
 public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private const string TimeZone = "Europe/Sofia";
+    private readonly CalculateActiveCartShipmentHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
 
     public CalculateActiveCartShipmentHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         reads.Setup(x => x.AllAsync(buyerId, false, ct))
             .ReturnsAsync([
                 CreateItem(ValidBuyerId1, ValidProductId1),

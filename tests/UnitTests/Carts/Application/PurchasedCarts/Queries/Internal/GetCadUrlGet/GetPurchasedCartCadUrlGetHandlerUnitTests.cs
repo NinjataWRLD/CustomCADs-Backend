@@ -16,6 +16,8 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 {
     private readonly Mock<IPurchasedCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
+    private readonly GetPurchasedCartItemCadPresignedUrlGetHandler handler;
+
     private readonly PurchasedCart cart = CreateCartWithItems(
         items: [
             PurchasedCartItem.Create(
@@ -47,6 +49,8 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 
     public GetPurchasedCartCadUrlGetHandlerUnitTests()
     {
+        handler = new(reads.Object, sender.Object);
+
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
             .ReturnsAsync(new DownloadFileResponse(Url, ContentType));
     }
@@ -63,7 +67,6 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
             ProductId: CartItemsData.ValidProductId1,
             BuyerId: buyerId
         );
-        GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -84,7 +87,6 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
             ProductId: CartItemsData.ValidProductId1,
             BuyerId: buyerId
         );
-        GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -107,7 +109,6 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
             ProductId: CartItemsData.ValidProductId1,
             BuyerId: buyerId
         );
-        GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Act
         var result = await handler.Handle(query, ct);
@@ -131,7 +132,6 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
             ProductId: CartItemsData.ValidProductId1,
             BuyerId: buyerId
         );
-        GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>

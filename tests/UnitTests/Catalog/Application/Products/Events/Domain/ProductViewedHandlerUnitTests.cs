@@ -14,14 +14,18 @@ using static ProductsData;
 
 public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly ProductViewedHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Mock<IEventRaiser> raiser = new();
+
     private readonly Product product = CreateProduct();
 
     public ProductViewedHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
+
         reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(product);
     }
@@ -31,7 +35,6 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
 
         // Act
         await handler.Handle(de);
@@ -45,7 +48,6 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
 
         // Act
         await handler.Handle(de);
@@ -59,7 +61,6 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
 
         // Act
         await handler.Handle(de);
@@ -75,7 +76,6 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
 
         // Act
         await handler.Handle(de);
@@ -91,7 +91,6 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
 
         // Act 
         await handler.Handle(de);
@@ -108,7 +107,6 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
             .ReturnsAsync(null as Product);
 
         ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>

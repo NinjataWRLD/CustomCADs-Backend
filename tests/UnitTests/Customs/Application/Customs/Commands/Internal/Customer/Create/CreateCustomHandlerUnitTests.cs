@@ -12,12 +12,15 @@ using static CustomsData;
 
 public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+    private readonly CreateCustomHandler handler;
     private readonly Mock<IWrites<Custom>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
 
     public CreateCustomHandlerUnitTests()
     {
+        handler = new(writes.Object, uow.Object, sender.Object);
+
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
             .ReturnsAsync(true);
     }
@@ -33,7 +36,6 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
             ForDelivery: fordelivery,
             BuyerId: buyerId
         );
-        CreateCustomHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -60,7 +62,6 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
             ForDelivery: fordelivery,
             BuyerId: buyerId
         );
-        CreateCustomHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -86,7 +87,6 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
             ForDelivery: fordelivery,
             BuyerId: buyerId
         );
-        CreateCustomHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>

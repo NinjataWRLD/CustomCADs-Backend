@@ -10,6 +10,7 @@ namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Edit;
 
 public class EditTagHandlerUnitTests : TagsBaseUnitTests
 {
+    private readonly EditTagHandler handler;
     private readonly Mock<ITagReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
 
@@ -18,6 +19,8 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
 
     public EditTagHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object);
+
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
             .ReturnsAsync(tag);
     }
@@ -28,7 +31,6 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
     {
         // Arrange
         EditTagCommand command = new(id, name);
-        EditTagHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -43,7 +45,6 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
     {
         // Arrange
         EditTagCommand command = new(id, name);
-        EditTagHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -61,9 +62,7 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
             .ReturnsAsync(null as Tag);
-
         EditTagCommand command = new(id, name);
-        EditTagHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(async () =>

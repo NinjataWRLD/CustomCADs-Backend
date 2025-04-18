@@ -14,6 +14,7 @@ namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Commands.Interna
 
 public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 {
+    private readonly CreatePurchasedCartHandler handler;
     private readonly Mock<IWrites<PurchasedCart>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
@@ -24,6 +25,8 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 
     public CreatePurchasedCartHandlerUnitTests()
     {
+        handler = new(writes.Object, uow.Object, sender.Object);
+
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
             .ReturnsAsync(true);
 
@@ -43,7 +46,6 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
             Items: items,
             Prices: prices
         );
-        CreatePurchasedCartHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -62,7 +64,6 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
             Items: items,
             Prices: prices
         );
-        CreatePurchasedCartHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -94,7 +95,6 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
             Items: items,
             Prices: prices
         );
-        CreatePurchasedCartHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>

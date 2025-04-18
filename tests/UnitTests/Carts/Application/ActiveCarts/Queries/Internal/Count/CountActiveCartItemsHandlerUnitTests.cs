@@ -8,12 +8,16 @@ using static ActiveCartsData;
 
 public class CountActiveCartItemsHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private const int Count = 5;
+    private readonly CountActiveCartItemsHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
+
+    private const int Count = 5;
     private static readonly AccountId buyerId = ValidBuyerId1;
 
     public CountActiveCartItemsHandlerUnitTests()
     {
+        handler = new(reads.Object);
+
         reads.Setup(x => x.CountAsync(buyerId, ct))
             .ReturnsAsync(Count);
     }
@@ -23,7 +27,6 @@ public class CountActiveCartItemsHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         // Arrange
         CountActiveCartItemsQuery query = new(buyerId);
-        CountActiveCartItemsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -37,7 +40,6 @@ public class CountActiveCartItemsHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         // Arrange
         CountActiveCartItemsQuery query = new(buyerId);
-        CountActiveCartItemsHandler handler = new(reads.Object);
 
         // Act
         int count = await handler.Handle(query, ct);

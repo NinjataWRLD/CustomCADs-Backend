@@ -9,14 +9,17 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Events.Application;
 
 public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 {
+    private readonly ProductDeletedHandler handler;
     private readonly Mock<ICadReads> reads = new();
     private readonly Mock<IWrites<Cad>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IStorageService> storage = new();
+
     private static readonly Cad cad = CreateCad();
 
     public ProductDeletedHandlerUnitTests()
     {
+        handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
         reads.Setup(x => x.SingleByIdAsync(id1, true, ct)).ReturnsAsync(cad);
     }
 
@@ -29,7 +32,6 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
             CadId: id1,
             ImageId: default
         );
-        ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Act
         await handler.Handle(ie);
@@ -47,7 +49,6 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
             CadId: id1,
             ImageId: default
         );
-        ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Act
         await handler.Handle(ie);
@@ -66,7 +67,6 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
             CadId: id1,
             ImageId: default
         );
-        ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Act
         await handler.Handle(ie);
@@ -87,7 +87,6 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
             CadId: id1,
             ImageId: default
         );
-        ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>

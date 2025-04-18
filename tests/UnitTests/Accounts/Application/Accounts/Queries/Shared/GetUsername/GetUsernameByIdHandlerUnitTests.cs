@@ -11,7 +11,13 @@ using static AccountsData;
 
 public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
 {
+    private readonly GetUsernameByIdHandler handler;
     private readonly Mock<IAccountReads> reads = new();
+
+    public GetUsernameByIdHandlerUnitTests()
+    {
+        handler = new(reads.Object);
+    }
 
     [Theory]
     [ClassData(typeof(GetUsernameByIdValidData))]
@@ -19,9 +25,7 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount());
-
         GetUsernameByIdQuery query = new(id);
-        GetUsernameByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -36,9 +40,7 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount(username: ValidUsername1));
-
         GetUsernameByIdQuery query = new(id);
-        GetUsernameByIdHandler handler = new(reads.Object);
 
         // Act
         string actualUsername = await handler.Handle(query, ct);
@@ -53,9 +55,7 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Account);
-
         GetUsernameByIdQuery query = new(id);
-        GetUsernameByIdHandler handler = new(reads.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>

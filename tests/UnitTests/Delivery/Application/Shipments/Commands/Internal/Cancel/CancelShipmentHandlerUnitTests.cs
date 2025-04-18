@@ -9,12 +9,16 @@ using static ShipmentsData;
 
 public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 {
+    private readonly CancelShipmentHandler handler;
     private readonly Mock<IShipmentReads> reads = new();
     private readonly Mock<IDeliveryService> delivery = new();
-    private const string comment = "Cancelling due to unpredicted travelling abroad";
+
+    private const string Comment = "Cancelling due to unpredicted travelling abroad";
 
     public CancelShipmentHandlerUnitTests()
     {
+        handler = new(reads.Object, delivery.Object);
+
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(CreateShipment(referenceId: ValidReferenceId));
     }
@@ -23,11 +27,7 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        CancelShipmentCommand command = new(
-            Id: id,
-            Comment: comment
-        );
-        CancelShipmentHandler handler = new(reads.Object, delivery.Object);
+        CancelShipmentCommand command = new(id, Comment);
 
         // Act
         await handler.Handle(command, ct);
@@ -40,16 +40,12 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
     {
         // Arrange
-        CancelShipmentCommand command = new(
-            Id: id,
-            Comment: comment
-        );
-        CancelShipmentHandler handler = new(reads.Object, delivery.Object);
+        CancelShipmentCommand command = new(id, Comment);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        delivery.Verify(x => x.CancelAsync(ValidReferenceId, comment, ct), Times.Once);
+        delivery.Verify(x => x.CancelAsync(ValidReferenceId, Comment, ct), Times.Once);
     }
 }

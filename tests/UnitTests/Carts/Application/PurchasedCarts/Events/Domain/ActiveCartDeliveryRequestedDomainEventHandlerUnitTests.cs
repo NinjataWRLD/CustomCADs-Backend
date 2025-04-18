@@ -14,6 +14,7 @@ using static PurchasedCartsData;
 
 public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedCartsBaseUnitTests
 {
+    private readonly ActiveCartDeliveryRequestedDomainEventHandler handler;
     private readonly Mock<IPurchasedCartReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
@@ -24,6 +25,8 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
 
     public ActiveCartDeliveryRequestedDomainEventHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, sender.Object);
+
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(cart);
 
@@ -46,7 +49,6 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
             Address: new(string.Empty, string.Empty),
             Contact: new(default, default)
         );
-        ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(de);
@@ -67,7 +69,6 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
             Address: new(string.Empty, string.Empty),
             Contact: new(default, default)
         );
-        ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(de);
@@ -96,7 +97,6 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
             Address: new(string.Empty, string.Empty),
             Contact: new(default, default)
         );
-        ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>

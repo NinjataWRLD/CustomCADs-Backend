@@ -7,8 +7,8 @@ public class CreateRoleInvalidNameData : CreateRoleData
 {
     public CreateRoleInvalidNameData()
     {
-        Add(InvalidName1, ValidDescription1);
-        Add(InvalidName2, ValidDescription2);
-        Add(InvalidName3, ValidDescription3);
+        Add(new(InvalidName1, ValidDescription1));
+        Add(new(InvalidName2, ValidDescription2));
+        Add(new(InvalidName3, ValidDescription3));
     }
 }

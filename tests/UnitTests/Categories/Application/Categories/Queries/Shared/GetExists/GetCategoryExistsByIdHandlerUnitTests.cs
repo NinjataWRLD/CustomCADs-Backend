@@ -9,17 +9,22 @@ using static CategoriesData;
 
 public class GetCategoryExistsByIdHandlerUnitTests : CategoriesBaseUnitTests
 {
+    private readonly GetCategoryExistsByIdHandler handler;
     private readonly Mock<ICategoryReads> reads = new();
+
     private static readonly CategoryId id = ValidId1;
+
+    public GetCategoryExistsByIdHandlerUnitTests()
+    {
+        handler = new(reads.Object);
+    }
 
     [Fact]
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
         reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
-
         GetCategoryExistsByIdQuery query = new(id);
-        GetCategoryExistsByIdHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -33,9 +38,7 @@ public class GetCategoryExistsByIdHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
-
         GetCategoryExistsByIdQuery query = new(id);
-        GetCategoryExistsByIdHandler handler = new(reads.Object);
 
         // Act
         bool exists = await handler.Handle(query, ct);
@@ -49,9 +52,7 @@ public class GetCategoryExistsByIdHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);
-
         GetCategoryExistsByIdQuery query = new(id);
-        GetCategoryExistsByIdHandler handler = new(reads.Object);
 
         // Act
         bool exists = await handler.Handle(query, ct);

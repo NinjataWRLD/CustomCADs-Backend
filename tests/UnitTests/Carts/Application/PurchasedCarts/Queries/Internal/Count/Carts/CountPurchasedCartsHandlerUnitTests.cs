@@ -9,7 +9,9 @@ using static PurchasedCartsData;
 
 public class CountPurchasedCartsHandlerUnitTests : PurchasedCartsBaseUnitTests
 {
+    private readonly CountPurchasedCartsHandler handler;
     private readonly Mock<IPurchasedCartReads> reads = new();
+
     private readonly Dictionary<AccountId, int> counts = new()
     {
         [ValidBuyerId1] = 1,
@@ -18,6 +20,8 @@ public class CountPurchasedCartsHandlerUnitTests : PurchasedCartsBaseUnitTests
 
     public CountPurchasedCartsHandlerUnitTests()
     {
+        handler = new(reads.Object);
+
         reads.Setup(x => x.CountAsync(ValidBuyerId1, ct))
             .ReturnsAsync(counts[ValidBuyerId1]);
 
@@ -31,7 +35,6 @@ public class CountPurchasedCartsHandlerUnitTests : PurchasedCartsBaseUnitTests
     {
         // Arrange
         CountPurchasedCartsQuery query = new(buyerId);
-        CountPurchasedCartsHandler handler = new(reads.Object);
 
         // Act
         await handler.Handle(query, ct);
@@ -46,7 +49,6 @@ public class CountPurchasedCartsHandlerUnitTests : PurchasedCartsBaseUnitTests
     {
         // Arrange
         CountPurchasedCartsQuery query = new(buyerId);
-        CountPurchasedCartsHandler handler = new(reads.Object);
 
         // Act
         int count = await handler.Handle(query, ct);

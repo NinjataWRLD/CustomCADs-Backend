@@ -12,14 +12,18 @@ using static ProductsData;
 
 public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 {
+    private readonly SetProductStatusHandler handler;
     private readonly Mock<IProductReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Product product = CreateProduct();
     private readonly Mock<IRequestSender> sender = new();
+
+    private readonly Product product = CreateProduct();
     private const ProductStatus status = ProductStatus.Validated;
 
     public SetProductStatusHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object, sender.Object);
+
         reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(product);
 
@@ -32,7 +36,6 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -46,7 +49,6 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -60,7 +62,6 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -76,9 +77,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
     {
         // Arrange
         product.SetDesignerId(ValidDesignerId);
-
         SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
@@ -94,9 +93,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
         // Arrange
         sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId), ct))
             .ReturnsAsync(false);
-
         SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
@@ -112,9 +109,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(null as Product);
-
         SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>

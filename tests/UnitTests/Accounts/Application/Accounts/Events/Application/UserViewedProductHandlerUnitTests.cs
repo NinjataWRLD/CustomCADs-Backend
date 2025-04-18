@@ -10,6 +10,7 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Events.Application;
 
 public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
 {
+    private readonly UserViewedProductHandler handler;
     private readonly Mock<IAccountReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
 
@@ -19,6 +20,7 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
 
     public UserViewedProductHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object);
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
             .ReturnsAsync(account);
     }
@@ -28,7 +30,6 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         UserViewedProductApplicationEvent ie = new(id, productId);
-        UserViewedProductHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(ie);
@@ -42,7 +43,6 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         UserViewedProductApplicationEvent ie = new(id, productId);
-        UserViewedProductHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(ie);
@@ -56,7 +56,6 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
     {
         // Arrange
         UserViewedProductApplicationEvent ie = new(id, productId);
-        UserViewedProductHandler handler = new(reads.Object, uow.Object);
 
         // Act
         await handler.Handle(ie);
@@ -71,9 +70,7 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
             .ReturnsAsync(null as Account);
-
         UserViewedProductApplicationEvent ie = new(id, productId);
-        UserViewedProductHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>

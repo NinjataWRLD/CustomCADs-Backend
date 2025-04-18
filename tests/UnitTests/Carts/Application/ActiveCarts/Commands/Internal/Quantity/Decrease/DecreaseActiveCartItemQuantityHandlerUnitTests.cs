@@ -5,6 +5,7 @@ using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Quantity.Decrease.Data;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Quantity.Decrease;
 
@@ -13,6 +14,7 @@ using static ActiveCartsData;
 
 public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+    private readonly DecreaseActiveCartItemQuantityHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
@@ -20,6 +22,8 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 
     public DecreaseActiveCartItemQuantityHandlerUnitTests()
     {
+        handler = new(reads.Object, uow.Object);
+
         var item = CreateItemWithDelivery(productId: productId).IncreaseQuantity(QuantityMax - 1);
 
         reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
@@ -31,8 +35,11 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     public async Task Handle_ShouldQueryDatabase(int amount)
     {
         // Arrange
-        DecreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-        DecreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+        DecreaseActiveCartItemQuantityCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId,
+            Amount: amount
+        );
 
         // Act
         await handler.Handle(command, ct);
@@ -46,8 +53,11 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     public async Task Handle_ShouldPersistToDatabase(int amount)
     {
         // Arrange
-        DecreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-        DecreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+        DecreaseActiveCartItemQuantityCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId,
+            Amount: amount
+        );
 
         // Act
         await handler.Handle(command, ct);
@@ -64,8 +74,11 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
         reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
             .ReturnsAsync(null as ActiveCartItem);
 
-        DecreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-        DecreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+        DecreaseActiveCartItemQuantityCommand command = new(
+            BuyerId: buyerId,
+            ProductId: productId,
+            Amount: amount
+        );
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
@@ -85,7 +98,6 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
             ProductId: ValidProductId1,
             Amount: amount
         );
-        DecreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>

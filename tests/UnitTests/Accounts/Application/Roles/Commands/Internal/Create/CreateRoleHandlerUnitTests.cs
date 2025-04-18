@@ -9,25 +9,29 @@ namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Crea
 
 public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 {
+    private readonly CreateRoleHandler handler;
     private readonly Mock<IEventRaiser> raiser = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IWrites<Role>> writes = new();
 
+    public CreateRoleHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object, raiser.Object);
+    }
+
     [Theory]
     [ClassData(typeof(CreateRoleValidData))]
-    public async Task Handler_ShouldPersistToDatabase(string name, string description)
+    public async Task Handler_ShouldPersistToDatabase(RoleWriteDto dto)
     {
         // Arrange
-        RoleWriteDto dto = new(name, description);
         CreateRoleCommand command = new(dto);
-        CreateRoleHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
         writes.Verify(x => x.AddAsync(
-            It.Is<Role>(x => x.Name == name && x.Description == description),
+            It.Is<Role>(x => x.Name == dto.Name && x.Description == dto.Description),
             ct
         ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
@@ -35,22 +39,20 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateRoleValidData))]
-    public async Task Handler_ShouldRaiseEvents(string name, string description)
+    public async Task Handler_ShouldRaiseEvents(RoleWriteDto dto)
     {
         // Arrange
-        RoleWriteDto dto = new(name, description);
         CreateRoleCommand command = new(dto);
-        CreateRoleHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
         raiser.Verify(x => x.RaiseDomainEventAsync(
-            It.Is<RoleCreatedDomainEvent>(x => x.Role.Name == name && x.Role.Description == description)
+            It.Is<RoleCreatedDomainEvent>(x => x.Role.Name == dto.Name && x.Role.Description == dto.Description)
         ), Times.Once);
         raiser.Verify(x => x.RaiseApplicationEventAsync(
-            It.Is<RoleCreatedApplicationEvent>(x => x.Name == name && x.Description == description)
+            It.Is<RoleCreatedApplicationEvent>(x => x.Name == dto.Name && x.Description == dto.Description)
         ), Times.Once);
     }
 }

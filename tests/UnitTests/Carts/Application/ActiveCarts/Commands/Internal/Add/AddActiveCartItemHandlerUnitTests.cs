@@ -13,12 +13,15 @@ namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.A
 
 public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+    private readonly AddActiveCartItemHandler handler;
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IWrites<ActiveCartItem>> writes = new();
     private readonly Mock<IRequestSender> sender = new();
 
     public AddActiveCartItemHandlerUnitTests()
     {
+        handler = new(writes.Object, uow.Object, sender.Object);
+
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetProductExistsByIdQuery>(), ct))
             .ReturnsAsync(true);
 
@@ -37,7 +40,6 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
             ForDelivery: forDelivery,
             ProductId: productId
         );
-        AddActiveCartItemHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -57,7 +59,6 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
             ForDelivery: forDelivery,
             ProductId: productId
         );
-        AddActiveCartItemHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -89,7 +90,6 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
             ForDelivery: forDelivery,
             ProductId: productId
         );
-        AddActiveCartItemHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
