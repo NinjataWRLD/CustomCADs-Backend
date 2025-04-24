@@ -35,20 +35,30 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
     {
         handler = new(writes.Object, uow.Object, sender.Object);
 
-        sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateCadCommand>(), ct))
-            .ReturnsAsync(cadId);
+        sender.Setup(x => x.SendCommandAsync(
+            It.IsAny<CreateCadCommand>(),
+            ct
+        )).ReturnsAsync(cadId);
 
-        sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateImageCommand>(), ct))
-            .ReturnsAsync(imageId);
+        sender.Setup(x => x.SendCommandAsync(
+            It.IsAny<CreateImageCommand>(),
+            ct
+        )).ReturnsAsync(imageId);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUserRoleByIdQuery>(), ct))
-            .ReturnsAsync(Contributor);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUserRoleByIdQuery>(x => x.Id == creatorId),
+            ct
+        )).ReturnsAsync(Contributor);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == categoryId),
+            ct
+        )).ReturnsAsync(true);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == creatorId),
+            ct
+        )).ReturnsAsync(true);
     }
 
     [Theory]
@@ -83,8 +93,9 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
                 x.CategoryId == categoryId &&
                 x.ImageId == imageId &&
                 x.CadId == cadId
-            )
-        , ct), Times.Once);
+            ),
+            ct
+        ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Exactly(2));
     }
 
@@ -110,11 +121,26 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct), Times.Once);
-        sender.Verify(x => x.SendCommandAsync(It.IsAny<CreateCadCommand>(), ct), Times.Once);
-        sender.Verify(x => x.SendCommandAsync(It.IsAny<CreateImageCommand>(), ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUserRoleByIdQuery>(), ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == categoryId),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == creatorId),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendCommandAsync(
+            It.IsAny<CreateCadCommand>(),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendCommandAsync(
+            It.IsAny<CreateImageCommand>(),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetUserRoleByIdQuery>(x => x.Id == creatorId),
+            ct
+        ), Times.Once);
     }
 
     [Theory]
@@ -122,8 +148,10 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
     public async Task Handler_ShouldSetStatusProperlty(string name, string description, decimal price)
     {
         // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUserRoleByIdQuery>(), ct))
-            .ReturnsAsync(Designer);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUserRoleByIdQuery>(x => x.Id == creatorId),
+            ct
+        )).ReturnsAsync(Designer);
 
         CreateProductCommand command = new(
             Name: name,
@@ -143,8 +171,9 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 
         // Assert
         writes.Verify(x => x.AddAsync(
-            It.Is<Product>(x => x.Status == ProductStatus.Validated)
-        , ct), Times.Once);
+            It.Is<Product>(x => x.Status == ProductStatus.Validated),
+            ct
+        ), Times.Once);
     }
 
     [Theory]
@@ -152,8 +181,10 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
     public async Task Handler_ShouldThrowException_WhenCategoryNotFound(string name, string description, decimal price)
     {
         // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
-            .ReturnsAsync(false);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == categoryId),
+            ct
+        )).ReturnsAsync(false);
 
         CreateProductCommand command = new(
             Name: name,
@@ -181,8 +212,10 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
     public async Task Handler_ShouldThrowException_WhenAccountNotFound(string name, string description, decimal price)
     {
         // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-            .ReturnsAsync(false);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == creatorId),
+            ct
+        )).ReturnsAsync(false);
 
         CreateProductCommand command = new(
             Name: name,

@@ -26,11 +26,15 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     {
         handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
-        delivery.Setup(x => x.ShipAsync(It.IsAny<ShipRequestDto>(), ct))
-            .ReturnsAsync(shipmentDto);
+        delivery.Setup(x => x.ShipAsync(
+            It.IsAny<ShipRequestDto>(),
+            ct
+        )).ReturnsAsync(shipmentDto);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+            ct
+        )).ReturnsAsync(true);
     }
 
     [Theory]
@@ -52,7 +56,8 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
         // Assert
         writes.Verify(x => x.AddAsync(
             It.Is<Shipment>(x => x.Address.Country == country && x.Address.City == city),
-        ct), Times.Once);
+            ct
+        ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
@@ -73,7 +78,10 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        sender.Verify(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId), ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+            ct
+        ), Times.Once);
     }
 
     [Theory]
@@ -103,7 +111,9 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
                 && x.Service == service
                 && x.ParcelCount == count
                 && x.TotalWeight == weight
-        ), ct), Times.Once);
+            ),
+            ct
+        ), Times.Once);
     }
 
     [Theory]
@@ -111,8 +121,10 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenDesignerNotFound(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
     {
         // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId), ct))
-            .ReturnsAsync(false);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+            ct
+        )).ReturnsAsync(false);
 
         CreateShipmentCommand command = new(
             Service: service,

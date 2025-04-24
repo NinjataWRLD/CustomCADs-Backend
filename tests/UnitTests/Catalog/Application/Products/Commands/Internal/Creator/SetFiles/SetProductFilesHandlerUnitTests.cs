@@ -62,24 +62,24 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
         // Assert
         Assert.Multiple(
             () => sender.Verify(x => x.SendCommandAsync(
-                It.Is<SetCadKeyCommand>(x =>
-                    x.Key == cad.Key
-            ), ct), Times.Once),
+                It.Is<SetCadKeyCommand>(x => x.Key == cad.Key),
+                ct
+            ), Times.Once),
 
             () => sender.Verify(x => x.SendCommandAsync(
-                It.Is<SetCadContentTypeCommand>(x =>
-                    x.ContentType == cad.ContentType
-            ), ct), Times.Once),
+                It.Is<SetCadContentTypeCommand>(x => x.ContentType == cad.ContentType),
+                ct
+            ), Times.Once),
 
             () => sender.Verify(x => x.SendCommandAsync(
-                It.Is<SetImageKeyCommand>(x =>
-                    x.Key == image.Key
-            ), ct), Times.Once),
+                It.Is<SetImageKeyCommand>(x => x.Key == image.Key),
+                ct
+            ), Times.Once),
 
             () => sender.Verify(x => x.SendCommandAsync(
-                It.Is<SetImageContentTypeCommand>(x =>
-                    x.ContentType == image.ContentType
-            ), ct), Times.Once)
+                It.Is<SetImageContentTypeCommand>(x => x.ContentType == image.ContentType),
+                ct
+            ), Times.Once)
         );
     }
 

@@ -29,8 +29,10 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(id, true, ct))
             .ReturnsAsync(custom);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId),
+            ct
+        )).ReturnsAsync(true);
     }
 
     [Fact]
@@ -78,7 +80,10 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        sender.Verify(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId), ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId),
+            ct
+        ), Times.Once);
     }
 
     [Fact]
@@ -104,8 +109,10 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenDesignerNotFound()
     {
         // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId), ct))
-            .ReturnsAsync(false);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId),
+            ct
+        )).ReturnsAsync(false);
 
         AcceptCustomCommand command = new(
             Id: id,

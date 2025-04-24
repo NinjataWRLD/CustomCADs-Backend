@@ -20,8 +20,10 @@ public class CreatorGetProductCadPresignedUrlPostHandlerUnitTests : ProductsBase
     {
         handler = new(sender.Object);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlPostByIdQuery>(), ct))
-            .ReturnsAsync(res);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCadPresignedUrlPostByIdQuery>(x => x.Name == Name && x.File == req),
+            ct
+        )).ReturnsAsync(res);
     }
 
     [Fact]
@@ -38,8 +40,9 @@ public class CreatorGetProductCadPresignedUrlPostHandlerUnitTests : ProductsBase
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCadPresignedUrlPostByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetCadPresignedUrlPostByIdQuery>(x => x.Name == Name && x.File == req),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

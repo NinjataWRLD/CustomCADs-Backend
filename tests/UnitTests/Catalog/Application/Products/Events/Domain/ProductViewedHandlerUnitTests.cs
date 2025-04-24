@@ -67,8 +67,9 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetAccountViewedProductQuery>()
-        , ct), Times.Once);
+            It.Is<GetAccountViewedProductQuery>(x => x.Id == ValidCreatorId && x.ProductId == ValidId),
+            ct
+        ), Times.Once);
     }
 
     [Fact]
@@ -82,7 +83,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 
         // Assert
         raiser.Verify(x => x.RaiseApplicationEventAsync(
-            It.IsAny<UserViewedProductApplicationEvent>()
+            It.Is<UserViewedProductApplicationEvent>(x => x.Id == ValidId && x.AccountId == ValidCreatorId)
         ), Times.Once);
     }
 

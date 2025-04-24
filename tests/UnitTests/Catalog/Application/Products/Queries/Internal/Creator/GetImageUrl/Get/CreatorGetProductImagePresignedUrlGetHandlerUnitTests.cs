@@ -24,8 +24,10 @@ public class CreatorGetProductImagePresignedUrlGetHandlerUnitTests : ProductsBas
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetImagePresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync(image);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetImagePresignedUrlGetByIdQuery>(x => x.Id == product.ImageId),
+            ct
+        )).ReturnsAsync(image);
     }
 
     [Fact]
@@ -52,8 +54,9 @@ public class CreatorGetProductImagePresignedUrlGetHandlerUnitTests : ProductsBas
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetImagePresignedUrlGetByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetImagePresignedUrlGetByIdQuery>(x => x.Id == product.ImageId),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

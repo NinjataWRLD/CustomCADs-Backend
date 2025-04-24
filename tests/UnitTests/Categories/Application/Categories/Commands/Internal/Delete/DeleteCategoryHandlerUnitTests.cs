@@ -58,7 +58,9 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        writes.Verify(v => v.Remove(It.Is<Category>(x => x.Id == id)), Times.Once());
+        writes.Verify(v => v.Remove(
+            It.Is<Category>(x => x.Id == id)
+        ), Times.Once());
         uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
     }
 

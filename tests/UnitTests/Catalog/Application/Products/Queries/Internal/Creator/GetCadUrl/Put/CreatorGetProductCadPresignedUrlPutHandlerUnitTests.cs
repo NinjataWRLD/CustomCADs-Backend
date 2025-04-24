@@ -26,8 +26,10 @@ public class CreatorGetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseU
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlPutByIdQuery>(), ct))
-            .ReturnsAsync(url);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCadPresignedUrlPutByIdQuery>(x => x.Id == product.CadId && x.NewFile == file),
+            ct
+        )).ReturnsAsync(url);
     }
 
     [Fact]
@@ -62,8 +64,9 @@ public class CreatorGetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseU
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCadPresignedUrlPutByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetCadPresignedUrlPutByIdQuery>(x => x.Id == product.CadId && x.NewFile == file),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

@@ -52,7 +52,9 @@ public class SetProductCoordsHandlerUnitTests : ProductsBaseUnitTests
             It.Is<SetCadCoordsCommand>(x =>
                 x.CamCoordinates == cam
                 && x.PanCoordinates == pan
-        ), ct), Times.Once);
+            ),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

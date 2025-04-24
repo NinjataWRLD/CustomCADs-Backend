@@ -34,8 +34,10 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(custom);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync(cad);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetCadPresignedUrlGetByIdQuery>(),
+            ct
+        )).ReturnsAsync(cad);
     }
 
     [Fact]
@@ -68,8 +70,9 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCadPresignedUrlGetByIdQuery>()
-        , ct), Times.Once);
+            It.IsAny<GetCadPresignedUrlGetByIdQuery>(),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

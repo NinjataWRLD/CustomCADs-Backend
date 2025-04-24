@@ -22,11 +22,15 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         handler = new(writes.Object, uow.Object, sender.Object);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetProductExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetProductExistsByIdQuery>(),
+            ct
+        )).ReturnsAsync(true);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetCustomizationExistsByIdQuery>(),
+            ct
+        )).ReturnsAsync(true);
     }
 
     [Theory]
@@ -66,12 +70,14 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         // Assert
         sender.Verify(x => x.SendQueryAsync(
             It.Is<GetProductExistsByIdQuery>(x => x.Id == productId),
-        ct), Times.Once);
+            ct
+        ), Times.Once);
         if (forDelivery)
         {
             sender.Verify(x => x.SendQueryAsync(
                 It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == customizationId),
-            ct), Times.Once);
+                ct
+            ), Times.Once);
         }
     }
 
@@ -81,8 +87,9 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
     {
         // Arrange
         sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetProductExistsByIdQuery>(x => x.Id == productId), ct)
-        ).ReturnsAsync(false);
+            It.Is<GetProductExistsByIdQuery>(x => x.Id == productId),
+            ct
+        )).ReturnsAsync(false);
 
         AddActiveCartItemCommand command = new(
             BuyerId: buyerId,

@@ -32,11 +32,9 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 
         // Assert
         writes.Verify(x => x.AddAsync(
-            It.Is<Cad>(x =>
-                x.Key == key
-                && x.ContentType == contentType
-            ),
-        ct), Times.Once);
+            It.Is<Cad>(x => x.Key == key && x.ContentType == contentType),
+            ct
+        ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 }

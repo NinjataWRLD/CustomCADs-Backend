@@ -31,11 +31,9 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 
         // Assert
         writes.Verify(x => x.AddAsync(
-            It.Is<Image>(x =>
-                x.Key == key
-                && x.ContentType == contentType
-            ),
-        ct), Times.Once);
+            It.Is<Image>(x => x.Key == key && x.ContentType == contentType),
+            ct
+        ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 }

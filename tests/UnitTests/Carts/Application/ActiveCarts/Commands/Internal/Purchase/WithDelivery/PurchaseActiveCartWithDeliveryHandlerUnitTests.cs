@@ -45,17 +45,20 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
                 CreateItemWithDelivery(productId: ProductId.New()),
             ]);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetProductPricesByIdsQuery>(), ct))
-            .ReturnsAsync([]);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetProductPricesByIdsQuery>(),
+            ct
+        )).ReturnsAsync([]);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsCostByIdsQuery>(), ct))
-            .ReturnsAsync([]);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetCustomizationsCostByIdsQuery>(),
+            ct
+        )).ReturnsAsync([]);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsCostByIdsQuery>(), ct))
-            .ReturnsAsync([]);
-
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsWeightByIdsQuery>(), ct))
-            .ReturnsAsync([]);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetCustomizationsWeightByIdsQuery>(),
+            ct
+        )).ReturnsAsync([]);
     }
 
     [Fact]
@@ -95,20 +98,25 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetProductPricesByIdsQuery>()
-        , ct), Times.Once);
+            It.IsAny<GetProductPricesByIdsQuery>(),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCustomizationsCostByIdsQuery>()
-        , ct), Times.Once);
+            It.IsAny<GetCustomizationsCostByIdsQuery>(),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<CreatePurchasedCartCommand>()
-        , ct), Times.Once);
+            It.IsAny<CreatePurchasedCartCommand>(),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCustomizationsWeightByIdsQuery>()
-        , ct), Times.Once);
+            It.IsAny<GetCustomizationsWeightByIdsQuery>(),
+            ct
+        ), Times.Once);
     }
 
     [Fact]
@@ -128,7 +136,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 
         // Assert
         payment.Verify(x => x.InitializePayment(
-            It.IsAny<string>(),
+            It.Is<string>(x => x == paymentMethodId),
             It.IsAny<decimal>(),
             It.IsAny<string>(),
             ct
@@ -162,7 +170,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         // Arrange
         const string expected = "Payment Status Message";
         payment.Setup(x => x.InitializePayment(
-            It.IsAny<string>(),
+            It.Is<string>(x => x == paymentMethodId),
             It.IsAny<decimal>(),
             It.IsAny<string>(),
             ct

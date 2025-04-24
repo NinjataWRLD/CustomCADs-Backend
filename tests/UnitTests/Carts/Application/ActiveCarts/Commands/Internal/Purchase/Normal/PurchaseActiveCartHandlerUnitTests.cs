@@ -37,8 +37,10 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
                 CreateItem(productId: ProductId.New()),
             ]);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetProductPricesByIdsQuery>(), ct))
-            .ReturnsAsync([]);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetProductPricesByIdsQuery>(),
+            ct
+        )).ReturnsAsync([]);
     }
 
     [Fact]
@@ -66,14 +68,17 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetProductPricesByIdsQuery>()
-        , ct), Times.Once);
+            It.IsAny<GetProductPricesByIdsQuery>(),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<CreatePurchasedCartCommand>()
-        , ct), Times.Once);
+            It.Is<CreatePurchasedCartCommand>(x => x.BuyerId == buyerId),
+            ct
+        ), Times.Once);
     }
 
     [Fact]
@@ -87,7 +92,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 
         // Assert
         payment.Verify(x => x.InitializePayment(
-            It.IsAny<string>(),
+            It.Is<string>(x => x == paymentMethodId),
             It.IsAny<decimal>(),
             It.IsAny<string>(),
             ct
@@ -100,7 +105,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
         // Arrange
         const string expected = "Payment Status Message";
         payment.Setup(x => x.InitializePayment(
-            It.IsAny<string>(),
+            It.Is<string>(x => x == paymentMethodId),
             It.IsAny<decimal>(),
             It.IsAny<string>(),
             ct

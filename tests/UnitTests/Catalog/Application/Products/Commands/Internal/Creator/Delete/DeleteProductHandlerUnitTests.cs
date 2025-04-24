@@ -65,7 +65,9 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        raiser.Verify(x => x.RaiseApplicationEventAsync(It.IsAny<ProductDeletedApplicationEvent>()), Times.Once);
+        raiser.Verify(x => x.RaiseApplicationEventAsync(
+            It.IsAny<ProductDeletedApplicationEvent>()
+        ), Times.Once);
     }
 
     [Fact]

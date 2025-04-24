@@ -27,8 +27,10 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(product);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
+            ct
+        )).ReturnsAsync(true);
     }
 
     [Fact]
@@ -68,8 +70,9 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId)
-        , ct), Times.Once);
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
+            ct
+        ), Times.Once);
     }
 
     [Fact]
@@ -91,8 +94,10 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenDesignerNotFound()
     {
         // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId), ct))
-            .ReturnsAsync(false);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
+            ct
+        )).ReturnsAsync(false);
         SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
 
         // Assert

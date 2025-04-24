@@ -14,12 +14,12 @@ public class CustomsBaseUnitTests
             buyerId: buyerId ?? ValidBuyerId1
         );
 
-    public static Custom CreateCustomWithId(CustomId? id = null, string? name = null, string? description = null, bool? delivery = null, AccountId? buyerId = null)
+    public static Custom CreateCustomWithId(CustomId? id = null, string? name = null, string? description = null, bool? forDelivery = null, AccountId? buyerId = null)
         => Custom.CreateWithId(
             id: id ?? ValidId1,
             name: name ?? ValidName1,
             description: description ?? ValidDescription1,
-            delivery: delivery ?? false,
+            delivery: forDelivery ?? false,
             buyerId: buyerId ?? ValidBuyerId1
         );
 }

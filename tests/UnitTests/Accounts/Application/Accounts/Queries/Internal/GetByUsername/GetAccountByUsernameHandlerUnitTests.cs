@@ -13,7 +13,11 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
     public GetAccountByUsernameHandlerUnitTests()
     {
         handler = new(reads.Object);
-        reads.Setup(x => x.SingleByUsernameAsync(It.IsAny<string>(), false, ct)).ReturnsAsync(CreateAccount());
+        reads.Setup(x => x.SingleByUsernameAsync(
+            It.IsAny<string>(),
+            false,
+            ct
+        )).ReturnsAsync(CreateAccount());
     }
 
     [Theory]

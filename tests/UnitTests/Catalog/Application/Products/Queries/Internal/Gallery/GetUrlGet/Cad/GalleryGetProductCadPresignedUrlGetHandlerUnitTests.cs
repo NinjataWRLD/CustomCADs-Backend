@@ -25,8 +25,10 @@ public class GalleryGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
         reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(product);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync(cad);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCadPresignedUrlGetByIdQuery>(x => x.Id == product.CadId),
+            ct
+        )).ReturnsAsync(cad);
     }
 
     [Fact]
@@ -53,8 +55,9 @@ public class GalleryGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCadPresignedUrlGetByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetCadPresignedUrlGetByIdQuery>(x => x.Id == product.CadId),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

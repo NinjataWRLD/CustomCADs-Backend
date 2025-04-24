@@ -25,7 +25,7 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
     private static readonly ShipmentId shipmentId = ValidShipmentId2;
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
     private static readonly ContactDto contact = new("0123456789", null);
-    private readonly Custom custom = CreateCustomWithId(id, delivery: true);
+    private readonly Custom custom = CreateCustomWithId(id, forDelivery: true);
 
     public CustomDeliveryRequestedDomainEventHandlerUnitTests()
     {
@@ -39,11 +39,15 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
         reads.Setup(x => x.SingleByIdAsync(ValidId1, false, ct))
             .ReturnsAsync(custom);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
-            .ReturnsAsync("NinjataBG");
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUsernameByIdQuery>(x => x.Id == custom.BuyerId),
+            ct
+        )).ReturnsAsync("NinjataBG");
 
-        sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateShipmentCommand>(), ct))
-            .ReturnsAsync(shipmentId);
+        sender.Setup(x => x.SendCommandAsync(
+            It.Is<CreateShipmentCommand>(x => x.BuyerId == custom.BuyerId),
+            ct
+        )).ReturnsAsync(shipmentId);
     }
 
     [Fact]
@@ -84,11 +88,13 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetUsernameByIdQuery>(x => x.Id == custom.BuyerId),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<CreateShipmentCommand>()
-        , ct), Times.Once);
+            It.Is<CreateShipmentCommand>(x => x.BuyerId == custom.BuyerId),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

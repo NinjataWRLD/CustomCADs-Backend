@@ -30,7 +30,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     private static readonly AccountId wrongBuyerId = ValidBuyerId2;
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
     private static readonly ContactDto contact = new(null, null);
-    private readonly Custom custom = CreateCustom(
+    private readonly Custom custom = CreateCustomWithId(
+        id: id,
         buyerId: buyerId,
         forDelivery: true
     );
@@ -46,14 +47,20 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(custom);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationCostByIdQuery>(), ct))
-            .ReturnsAsync(0m);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCustomizationCostByIdQuery>(x => x.Id == ValidCustomizationId1),
+            ct
+        )).ReturnsAsync(0m);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCadExistsByIdQuery>(x => x.Id == ValidCadId1),
+            ct
+        )).ReturnsAsync(true);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == ValidCustomizationId1),
+            ct
+        )).ReturnsAsync(true);
     }
 
     [Fact]
@@ -62,8 +69,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -84,8 +91,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -98,13 +105,13 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>()
+            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId || x.Id == ValidDesignerId1)
         , ct), Times.Exactly(2));
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCustomizationCostByIdQuery>()
+            It.Is<GetCustomizationCostByIdQuery>(x => x.Id == ValidCustomizationId1)
         , ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCustomizationWeightByIdQuery>()
+            It.Is<GetCustomizationWeightByIdQuery>(x => x.Id == ValidCustomizationId1)
         , ct), Times.Once);
     }
 
@@ -114,8 +121,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -128,9 +135,9 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         payment.Verify(x => x.InitializePayment(
-            It.IsAny<string>(),
-            It.IsAny<decimal>(),
-            It.IsAny<string>(),
+            It.Is<string>(x => string.IsNullOrEmpty(x)),
+            It.Is<decimal>(x => x == ValidPrice1),
+            It.Is<string>(x => x.Contains(custom.Name)),
             ct
         ), Times.Once);
     }
@@ -141,8 +148,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -155,7 +162,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         raiser.Verify(x => x.RaiseDomainEventAsync(
-            It.IsAny<CustomDeliveryRequestedDomainEvent>()
+            It.Is<CustomDeliveryRequestedDomainEvent>(x => x.Id == custom.Id)
         ), Times.Once);
     }
 
@@ -165,16 +172,16 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         // Arrange
         const string expected = "Payment Status Message";
         payment.Setup(x => x.InitializePayment(
-            It.IsAny<string>(),
-            It.IsAny<decimal>(),
-            It.IsAny<string>(),
+            It.Is<string>(x => string.IsNullOrEmpty(x)),
+            It.Is<decimal>(x => x == ValidPrice1),
+            It.Is<string>(x => x.Contains(custom.Name)),
             ct
         )).ReturnsAsync(expected);
 
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -195,8 +202,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: wrongBuyerId,
@@ -222,8 +229,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -250,8 +257,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -276,8 +283,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,
@@ -302,8 +309,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
-            Count: default,
-            CustomizationId: default,
+            Count: 1,
+            CustomizationId: ValidCustomizationId1,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
             BuyerId: buyerId,

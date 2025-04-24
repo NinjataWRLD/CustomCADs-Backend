@@ -28,8 +28,10 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(cart);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
-            .ReturnsAsync(Buyer);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId),
+            ct
+        )).ReturnsAsync(Buyer);
     }
 
     [Fact]
@@ -56,7 +58,7 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>(),
+            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId),
         ct), Times.Once);
     }
 

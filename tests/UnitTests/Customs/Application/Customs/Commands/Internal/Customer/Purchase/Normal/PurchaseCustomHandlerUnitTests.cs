@@ -38,8 +38,10 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(custom);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCadExistsByIdQuery>(x => x.Id == ValidCadId1),
+            ct
+        )).ReturnsAsync(true);
     }
 
     [Fact]
@@ -66,8 +68,9 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>()
-        , ct), Times.Exactly(2));
+            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId || x.Id == ValidDesignerId1),
+            ct
+        ), Times.Exactly(2));
     }
 
     [Fact]
@@ -81,9 +84,9 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         payment.Verify(x => x.InitializePayment(
-            It.IsAny<string>(),
-            It.IsAny<decimal>(),
-            It.IsAny<string>(),
+            It.Is<string>(x => string.IsNullOrEmpty(x)),
+            It.Is<decimal>(x => x == ValidPrice1),
+            It.Is<string>(x => x.Contains(custom.Name)),
             ct
         ), Times.Once);
     }
@@ -94,9 +97,9 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         // Arrange
         const string expected = "Payment Status Message";
         payment.Setup(x => x.InitializePayment(
-            It.IsAny<string>(),
-            It.IsAny<decimal>(),
-            It.IsAny<string>(),
+            It.Is<string>(x => string.IsNullOrEmpty(x)),
+            It.Is<decimal>(x => x == ValidPrice1),
+            It.Is<string>(x => x.Contains(custom.Name)),
             ct
         )).ReturnsAsync(expected);
         PurchaseCustomCommand command = new(id, string.Empty, buyerId);

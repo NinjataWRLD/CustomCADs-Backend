@@ -24,8 +24,10 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
         reads.Setup(x => x.AllAsync(buyerId, false, ct))
             .ReturnsAsync([]);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
-            .ReturnsAsync(Buyer);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId),
+            ct
+        )).ReturnsAsync(Buyer);
     }
 
     [Fact]
@@ -52,7 +54,8 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId),
+            ct
+        ), Times.Once);
     }
 }

@@ -30,11 +30,15 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
         reads.Setup(x => x.SingleByIdAsync(id, false, ct))
             .ReturnsAsync(cart);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
-            .ReturnsAsync("NinjataBG");
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUsernameByIdQuery>(x => x.Id == cart.BuyerId),
+            ct
+        )).ReturnsAsync("NinjataBG");
 
-        sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateShipmentCommand>(), ct))
-            .ReturnsAsync(ValidShipmentId1);
+        sender.Setup(x => x.SendCommandAsync(
+            It.Is<CreateShipmentCommand>(x => x.BuyerId == cart.BuyerId),
+            ct
+        )).ReturnsAsync(ValidShipmentId1);
     }
 
     [Fact]
@@ -75,11 +79,13 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>(),
-        ct), Times.Once);
+            It.Is<GetUsernameByIdQuery>(x => x.Id == cart.BuyerId),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<CreateShipmentCommand>(),
-        ct), Times.Once);
+            It.Is<CreateShipmentCommand>(x => x.BuyerId == cart.BuyerId),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

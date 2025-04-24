@@ -21,8 +21,10 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         handler = new(writes.Object, uow.Object, sender.Object);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetAccountExistsByIdQuery>(),
+            ct
+        )).ReturnsAsync(true);
     }
 
     [Theory]
@@ -43,11 +45,13 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
         // Assert
         writes.Verify(x => x.AddAsync(
             It.Is<Custom>(x =>
-            x.Name == name &&
-            x.Description == description &&
-            x.ForDelivery == fordelivery &&
-            x.BuyerId == buyerId
-        ), ct), Times.Once);
+                x.Name == name &&
+                x.Description == description &&
+                x.ForDelivery == fordelivery &&
+                x.BuyerId == buyerId
+            ),
+            ct
+        ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
@@ -68,8 +72,9 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId)
-        , ct), Times.Once);
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
+            ct
+        ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 
@@ -78,8 +83,10 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, bool fordelivery, AccountId buyerId)
     {
         // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId), ct))
-            .ReturnsAsync(false);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
+            ct
+        )).ReturnsAsync(false);
 
         CreateCustomCommand command = new(
             Name: name,

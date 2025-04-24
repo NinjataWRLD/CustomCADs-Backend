@@ -40,8 +40,13 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
             .ReturnsAsync(custom);
 
         sender.Setup(x => x.SendCommandAsync(
-            It.IsAny<CreateCadCommand>()
-        , ct)).ReturnsAsync(cadId);
+            It.Is<CreateCadCommand>(x =>
+                x.ContentType == cad.ContentType
+                && x.Key == x.Key
+                && x.Volume == cad.Volume
+            ),
+            ct
+        )).ReturnsAsync(cadId);
     }
 
     [Fact]

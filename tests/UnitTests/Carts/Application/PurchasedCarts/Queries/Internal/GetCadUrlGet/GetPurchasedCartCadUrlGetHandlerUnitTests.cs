@@ -51,8 +51,10 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     {
         handler = new(reads.Object, sender.Object);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync(new DownloadFileResponse(Url, ContentType));
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCadPresignedUrlGetByIdQuery>(x => cart.Items.Any(i => i.CadId == x.Id)),
+            ct
+        )).ReturnsAsync(new DownloadFileResponse(Url, ContentType));
     }
 
     [Fact]
@@ -93,8 +95,9 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCadPresignedUrlGetByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetCadPresignedUrlGetByIdQuery>(x => cart.Items.Any(i => i.CadId == x.Id)),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

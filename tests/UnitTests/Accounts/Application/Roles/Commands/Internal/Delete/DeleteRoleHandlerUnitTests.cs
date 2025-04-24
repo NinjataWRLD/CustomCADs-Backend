@@ -54,7 +54,9 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        writes.Verify(x => x.Remove(It.Is<Role>(x => x.Name == name)), Times.Once);
+        writes.Verify(x => x.Remove(
+            It.Is<Role>(x => x.Name == name)
+        ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 

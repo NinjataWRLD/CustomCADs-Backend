@@ -20,8 +20,10 @@ public class CreatorGetProductImagePresignedUrlPostHandlerUnitTests : ProductsBa
     {
         handler = new(sender.Object);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetImagePresignedUrlPostByIdQuery>(), ct))
-            .ReturnsAsync(res);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetImagePresignedUrlPostByIdQuery>(x => x.Name == ProductName && x.File == req),
+            ct
+        )).ReturnsAsync(res);
     }
 
     [Fact]
@@ -38,8 +40,9 @@ public class CreatorGetProductImagePresignedUrlPostHandlerUnitTests : ProductsBa
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetImagePresignedUrlPostByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetImagePresignedUrlPostByIdQuery>(x => x.Name == ProductName && x.File == req),
+            ct
+        ), Times.Once);
     }
 
     [Fact]

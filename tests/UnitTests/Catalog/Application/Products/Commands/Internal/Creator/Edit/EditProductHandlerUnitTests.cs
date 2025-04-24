@@ -25,8 +25,10 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
         reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(product);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == ValidCategoryId),
+            ct
+        )).ReturnsAsync(true);
     }
 
     [Fact]
@@ -87,8 +89,9 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == ValidCategoryId)
-        , ct), Times.Once);
+            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == ValidCategoryId),
+            ct
+        ), Times.Once);
     }
 
     [Fact]
@@ -116,8 +119,10 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
     public async Task Handler_ShouldThrowException_WhenCategoryNotFound()
     {
         // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
-            .ReturnsAsync(false);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == ValidCategoryId),
+            ct
+        )).ReturnsAsync(false);
 
         EditProductCommand command = new(
             Id: ValidId,

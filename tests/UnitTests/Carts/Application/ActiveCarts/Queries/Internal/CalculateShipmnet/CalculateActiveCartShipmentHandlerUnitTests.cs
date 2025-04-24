@@ -29,11 +29,15 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
                 CreateItemWithDelivery(ValidBuyerId2, ValidProductId2),
             ]);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCustomizationsWeightByIdsQuery>(), ct))
-            .ReturnsAsync([]);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetCustomizationsWeightByIdsQuery>(),
+            ct
+        )).ReturnsAsync([]);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<CalculateShipmentQuery>(), ct))
-            .ReturnsAsync([]);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<CalculateShipmentQuery>(),
+            ct
+        )).ReturnsAsync([]);
     }
 
     [Fact]
@@ -63,9 +67,11 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
         // Assert
         sender.Verify(x => x.SendQueryAsync(
             It.IsAny<GetCustomizationsWeightByIdsQuery>(),
-        ct), Times.Once);
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<CalculateShipmentQuery>(),
-        ct), Times.Once);
+            It.Is<CalculateShipmentQuery>(x => x.Address == address),
+            ct
+        ), Times.Once);
     }
 }

@@ -30,14 +30,21 @@ public class GalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
             Items: products
         );
 
-        reads.Setup(x => x.AllAsync(It.IsAny<ProductQuery>(), false, ct))
-            .ReturnsAsync(result);
+        reads.Setup(x => x.AllAsync(
+            It.IsAny<ProductQuery>(),
+            false,
+            ct
+        )).ReturnsAsync(result);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct))
-            .ReturnsAsync(products.ToDictionary(x => x.CreatorId, x => "Username123"));
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUsernamesByIdsQuery>(x => x.Ids == products.Select(x => x.CreatorId)),
+            ct
+        )).ReturnsAsync(products.ToDictionary(x => x.CreatorId, x => "Username123"));
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct))
-            .ReturnsAsync(products.ToDictionary(x => x.CategoryId, x => "Cateogry123"));
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCategoryNamesByIdsQuery>(x => x.Ids == products.Select(x => x.CategoryId)),
+            ct
+        )).ReturnsAsync(products.ToDictionary(x => x.CategoryId, x => "Cateogry123"));
     }
 
     [Fact]
@@ -56,7 +63,11 @@ public class GalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
         await handler.Handle(query, ct);
 
         // Assert
-        reads.Verify(x => x.AllAsync(It.IsAny<ProductQuery>(), false, ct), Times.Once);
+        reads.Verify(x => x.AllAsync(
+            It.IsAny<ProductQuery>(),
+            false,
+            ct
+        ), Times.Once);
     }
 
     [Fact]
@@ -75,8 +86,14 @@ public class GalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
         await handler.Handle(query, ct);
 
         // Assert
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetUsernamesByIdsQuery>(x => x.Ids == products.Select(x => x.CreatorId)),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetCategoryNamesByIdsQuery>(x => x.Ids == products.Select(x => x.CategoryId)),
+            ct
+        ), Times.Once);
     }
 
     [Fact]
