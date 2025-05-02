@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
+using CustomCADs.Customs.Endpoints.Customs.Dtos;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.All;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.CalculateShipment;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Recent;
@@ -8,6 +9,7 @@ using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Single;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Post.Create;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Get.Single;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Patch.Finish;
+using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Customs.Endpoints.Customs;
@@ -87,4 +89,10 @@ internal static class Mapper
 
     internal static (string Key, string ContentType, decimal Volume) ToTuple(this FinishCustomRequest req)
         => (Key: req.CadKey, ContentType: req.CadContentType, Volume: req.CadVolume);
+
+    internal static PaymentResponse ToResponse(this PaymentDto payment)
+        => new(
+            ClientSecret: payment.ClientSecret,
+            Message: payment.Message
+        );
 }

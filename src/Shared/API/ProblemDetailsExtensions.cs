@@ -24,6 +24,28 @@ public static class ProblemDetailsExtensions
         }).ConfigureAwait(false);
     }
 
+    public static async Task<bool> PaymentFailedResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, string? clientSecret, string message = "Payment Failure")
+    {
+        context.Response.StatusCode = Status400BadRequest;
+
+        return await service.TryWriteAsync(new()
+        {
+            HttpContext = context,
+            Exception = ex,
+            ProblemDetails = new()
+            {
+                Type = ex.GetType().Name,
+                Title = message,
+                Detail = ex.Message,
+                Extensions = new Dictionary<string, object?>()
+                {
+                    ["clientSecret"] = clientSecret,
+                },
+                Status = Status400BadRequest,
+            },
+        }).ConfigureAwait(false);
+    }
+
     public static async Task<bool> UnauthorizedResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, string message = "Inappropriately Unauthenticated")
     {
         context.Response.StatusCode = Status401Unauthorized;

@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.WithDelivery;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers;
+using CustomCADs.Customs.Endpoints.Customs.Dtos;
+using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Post.Purchase.WithDelivery;
 
 public sealed class PurchaseCustomWithDeliveryEndpoint(IRequestSender sender)
-    : Endpoint<PurchasCustomWithDeliveryRequest, string>
+    : Endpoint<PurchasCustomWithDeliveryRequest, PaymentResponse>
 {
     public override void Configure()
     {
@@ -19,7 +20,7 @@ public sealed class PurchaseCustomWithDeliveryEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PurchasCustomWithDeliveryRequest req, CancellationToken ct)
     {
-        string message = await sender.SendCommandAsync(
+        PaymentDto dto = await sender.SendCommandAsync(
             new PurchaseCustomWithDeliveryCommand(
                 Id: CustomId.New(req.Id),
                 PaymentMethodId: req.PaymentMethodId,
@@ -33,6 +34,7 @@ public sealed class PurchaseCustomWithDeliveryEndpoint(IRequestSender sender)
             ct
         ).ConfigureAwait(false);
 
-        await SendOkAsync(message).ConfigureAwait(false);
+        PaymentResponse response = dto.ToResponse();
+        await SendOkAsync(response).ConfigureAwait(false);
     }
 }

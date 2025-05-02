@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.Dtos;
+﻿using CustomCADs.Shared.Abstractions.Payment;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;
@@ -9,4 +10,4 @@ public sealed record PurchaseActiveCartWithDeliveryCommand(
     AddressDto Address,
     ContactDto Contact,
     AccountId BuyerId
-) : ICommand<string>;
+) : ICommand<PaymentDto>;

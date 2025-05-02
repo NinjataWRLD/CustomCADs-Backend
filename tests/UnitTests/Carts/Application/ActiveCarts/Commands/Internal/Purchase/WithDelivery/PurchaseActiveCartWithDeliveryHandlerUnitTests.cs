@@ -158,7 +158,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        const string expected = "Payment Status Message";
+        PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
         payment.Setup(x => x.InitializePayment(
             It.IsAny<string>(),
             It.IsAny<decimal>(),
@@ -176,7 +176,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
-        string actual = await handler.Handle(command, ct);
+        PaymentDto actual = await handler.Handle(command, ct);
 
         // Assert
         Assert.Equal(expected, actual);

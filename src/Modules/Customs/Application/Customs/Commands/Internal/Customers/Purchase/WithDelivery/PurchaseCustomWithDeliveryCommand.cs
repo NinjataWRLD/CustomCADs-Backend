@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.Dtos;
+﻿using CustomCADs.Shared.Abstractions.Payment;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 
@@ -13,4 +14,4 @@ public sealed record PurchaseCustomWithDeliveryCommand(
     ContactDto Contact,
     CustomizationId CustomizationId,
     AccountId BuyerId
-) : ICommand<string>;
+) : ICommand<PaymentDto>;

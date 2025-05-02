@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
+﻿using CustomCADs.Shared.Abstractions.Payment;
+using CustomCADs.Shared.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;
@@ -6,7 +7,7 @@ namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.Wi
 using static Constants;
 using static Constants.FluentMessages;
 
-public class PurchaseActiveCartWithDeliveryValidator : CommandValidator<PurchaseActiveCartWithDeliveryCommand, string>
+public class PurchaseActiveCartWithDeliveryValidator : CommandValidator<PurchaseActiveCartWithDeliveryCommand, PaymentDto>
 {
     public PurchaseActiveCartWithDeliveryValidator()
     {

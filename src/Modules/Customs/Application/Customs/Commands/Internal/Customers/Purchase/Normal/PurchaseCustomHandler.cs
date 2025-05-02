@@ -7,9 +7,9 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.Normal;
 
 public sealed class PurchaseCustomHandler(ICustomReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment)
-    : ICommandHandler<PurchaseCustomCommand, string>
+    : ICommandHandler<PurchaseCustomCommand, PaymentDto>
 {
-    public async Task<string> Handle(PurchaseCustomCommand req, CancellationToken ct)
+    public async Task<PaymentDto> Handle(PurchaseCustomCommand req, CancellationToken ct)
     {
         Custom custom = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<Custom>.ById(req.Id);
@@ -34,7 +34,7 @@ public sealed class PurchaseCustomHandler(ICustomReads reads, IUnitOfWork uow, I
         string buyer = users[0], seller = users[1];
         decimal total = custom.FinishedCustom.Price;
 
-        string message = await payment.InitializePayment(
+        PaymentDto response = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: total,
             description: $"{buyer} bought {custom.Name} from {seller}.",
@@ -44,6 +44,6 @@ public sealed class PurchaseCustomHandler(ICustomReads reads, IUnitOfWork uow, I
         custom.Complete(customizationId: null);
         await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        return message;
+        return response;
     }
 }

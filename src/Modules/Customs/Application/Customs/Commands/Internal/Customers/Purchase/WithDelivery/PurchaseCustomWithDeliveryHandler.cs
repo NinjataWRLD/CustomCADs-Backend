@@ -10,9 +10,9 @@ using CustomCADs.Shared.UseCases.Customizations.Queries;
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.WithDelivery;
 
 public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment, IEventRaiser raiser)
-    : ICommandHandler<PurchaseCustomWithDeliveryCommand, string>
+    : ICommandHandler<PurchaseCustomWithDeliveryCommand, PaymentDto>
 {
-    public async Task<string> Handle(PurchaseCustomWithDeliveryCommand req, CancellationToken ct)
+    public async Task<PaymentDto> Handle(PurchaseCustomWithDeliveryCommand req, CancellationToken ct)
     {
         Custom custom = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<Custom>.ById(req.Id);
@@ -39,7 +39,7 @@ public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitO
         decimal cost = await sender.SendQueryAsync(costQuery, ct).ConfigureAwait(false);
         decimal total = req.Count * (custom.FinishedCustom.Price + cost);
 
-        string message = await payment.InitializePayment(
+        PaymentDto response = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: total,
             description: $"{buyer} bought {custom.Name} from {seller} for {total}$.",
@@ -66,6 +66,6 @@ public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitO
             Contact: req.Contact
         )).ConfigureAwait(false);
 
-        return message;
+        return response;
     }
 }

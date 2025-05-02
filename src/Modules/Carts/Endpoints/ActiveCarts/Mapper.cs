@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Get.CalculateShipment;
+using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts;
@@ -23,5 +24,11 @@ internal static class Mapper
             Currency: calculation.Currency,
             PickupDate: calculation.PickupDate.ToString(SpeedyDateFormatString),
             DeliveryDeadline: calculation.DeliveryDeadline.ToString(SpeedyDateFormatString)
+        );
+
+    internal static PaymentResponse ToResponse(this PaymentDto payment)
+        => new(
+            ClientSecret: payment.ClientSecret,
+            Message: payment.Message
         );
 }
