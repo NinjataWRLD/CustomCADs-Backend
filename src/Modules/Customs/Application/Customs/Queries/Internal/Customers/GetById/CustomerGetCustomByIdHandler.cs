@@ -15,15 +15,24 @@ public sealed class CustomerGetCustomByIdHandler(ICustomReads reads, IRequestSen
         if (custom.BuyerId != req.BuyerId)
             throw CustomAuthorizationException<Custom>.ById(req.Id);
 
-        string? designer = null;
-        if (custom.AcceptedCustom is not null)
+        if (custom.AcceptedCustom is null)
         {
-            designer = await sender.SendQueryAsync(
-                new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId),
-                ct
-            ).ConfigureAwait(false);
+            return custom.ToCustomerGetByIdDto(
+                accepted: null,
+                finished: null,
+                completed: null
+            );
         }
 
-        return custom.ToCustomerGetByIdDto(designer);
+        string designer = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId),
+            ct
+        ).ConfigureAwait(false);
+        
+        return custom.ToCustomerGetByIdDto(
+            accepted: custom.AcceptedCustom.ToDto(designer),
+            finished: custom.FinishedCustom?.ToDto(),
+            completed: custom.CompletedCustom?.ToDto()
+        );
     }
 }
