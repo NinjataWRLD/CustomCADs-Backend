@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
+using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
@@ -11,7 +12,7 @@ using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;
 
-public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads, IRequestSender sender, IPaymentService payment, IEventRaiser raiser)
+public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment, IEventRaiser raiser)
     : ICommandHandler<PurchaseActiveCartWithDeliveryCommand, PaymentDto>
 {
     public async Task<PaymentDto> Handle(PurchaseActiveCartWithDeliveryCommand req, CancellationToken ct)
@@ -109,6 +110,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
             Contact: req.Contact
         )).ConfigureAwait(false);
 
+        await uow.BulkDeleteItemsByBuyerIdAsync(req.BuyerId, ct).ConfigureAwait(false);
         return response;
     }
 }
