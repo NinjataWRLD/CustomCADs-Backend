@@ -56,7 +56,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
         GetShipmentTrackHandler handler = new(reads.Object, delivery.Object);
 
         // Act
-        Dictionary<DateTime, GetShipmentTrackDto> tracks = await handler.Handle(query, ct);
+        Dictionary<DateTimeOffset, GetShipmentTrackDto> tracks = await handler.Handle(query, ct);
 
         // Assert
         Assert.Equal(tracks, Statuses.ToDictionary(x => x.DateTime, x => new GetShipmentTrackDto(x.Message, x.Place)));
@@ -83,7 +83,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
     private static ShipmentStatusDto[] CreateShipmentStatusDtos(int count, string message)
         => [..
             Enumerable.Range(1, count).Select(i => new ShipmentStatusDto(
-                DateTime: DateTime.UtcNow.AddSeconds(i),
+                DateTime: DateTimeOffset.UtcNow.AddSeconds(i),
                 Place: null,
                 Message: message + i
             ))
