@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Speedy.API.Dtos.CalculationContent;
+﻿using CustomCADs.Shared.Speedy.API;
+using CustomCADs.Shared.Speedy.API.Dtos.CalculationContent;
 using CustomCADs.Shared.Speedy.API.Dtos.CalculationRecipient;
 using CustomCADs.Shared.Speedy.API.Dtos.CalculationResult;
 using CustomCADs.Shared.Speedy.API.Dtos.CalculationSender;
@@ -58,12 +59,12 @@ internal static class Mapper
             PickupGeoPUDOId: model.PickupGeoPUDOId
         );
 
-    internal static (string Service, ShipmentAdditionalServicesModel? AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, DateTime DeliveryDeadline) ToModel(this CalculationResultDto dto, CourierServiceModel[] services)
+    internal static (string Service, ShipmentAdditionalServicesModel? AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, DateTimeOffset DeliveryDeadline) ToModel(this CalculationResultDto dto, CourierServiceModel[] services)
         => (
             Service: services.Single(s => s.Id == dto.ServiceId).NameEn,
             AdditionalServices: dto.AdditionalServices?.ToModel(),
             Price: dto.Price.ToModel(),
-            PickupDate: DateOnly.Parse(dto.PickupDate),
-            DeliveryDeadline: DateTime.Parse(dto.DeliveryDeadline)
+            PickupDate: dto.PickupDate.ParseDate(),
+            DeliveryDeadline: dto.DeliveryDeadline.ParseDateTime()
         );
 }

@@ -4,6 +4,6 @@ public record CalculateActiveCartShipmentResponse(
     string Service,
     double Total,
     string Currency,
-    string PickupDate,
-    string DeliveryDeadline
+    DateOnly PickupDate,
+    DateTimeOffset DeliveryDeadline
 );

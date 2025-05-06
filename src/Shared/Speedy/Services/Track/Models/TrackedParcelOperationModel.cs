@@ -1,7 +1,7 @@
 ﻿namespace CustomCADs.Shared.Speedy.Services.Track.Models;
 
 public record TrackedParcelOperationModel(
-    DateTime DateTime,
+    DateTimeOffset DateTime,
     int OperationCode,
     string Description,
     string? Place,

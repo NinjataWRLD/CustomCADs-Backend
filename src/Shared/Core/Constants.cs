@@ -6,12 +6,6 @@ namespace CustomCADs.Shared.Core;
 
 public static partial class Constants
 {
-    public static class DateTimes
-    {
-        public const string SpeedyDateFormatString = "dd.MM.yyyy 'г.'";
-        public const string SpeedyDateTimeFormatString = "dd.MM.yyyy 'г.' HH:mm:ss";
-    }
-
     public partial class Regexes
     {
         public static Regex Email => EmailRegex();

@@ -4,5 +4,5 @@ public record CalculationDto(
     string Service,
     ShipmentPriceDto Price,
     DateOnly PickupDate,
-    DateTime DeliveryDeadline
+    DateTimeOffset DeliveryDeadline
 );

@@ -6,8 +6,6 @@ using CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Get.Track;
 
 namespace CustomCADs.Delivery.Endpoints.Shipments;
 
-using static Constants.DateTimes;
-
 public static class Mapper
 {
     public static GetShipmentsResponse ToResponse(this GetAllShipmentsDto shipment)
@@ -17,9 +15,9 @@ public static class Mapper
             BuyerName: shipment.BuyerName
         );
 
-    public static Dictionary<string, TrackShipmentResponse> ToResponse(this Dictionary<DateTime, GetShipmentTrackDto> tracks)
+    public static Dictionary<DateTimeOffset, TrackShipmentResponse> ToResponse(this Dictionary<DateTimeOffset, GetShipmentTrackDto> tracks)
         => tracks.ToDictionary(
-            x => x.Key.ToString(SpeedyDateTimeFormatString),
+            x => x.Key,
             x => new TrackShipmentResponse(x.Value.Message, x.Value.Place)
         );
 

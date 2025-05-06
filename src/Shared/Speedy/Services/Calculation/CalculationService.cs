@@ -22,7 +22,7 @@ public class CalculationService(
     public const string PickupCountry = "Bulgaria";
     public const string PickupSite = "Burgas";
 
-    public async Task<(string Service, ShipmentAdditionalServicesModel? AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, DateTime DeliveryDeadline)[]> CalculateAsync(
+    public async Task<(string Service, ShipmentAdditionalServicesModel? AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, DateTimeOffset DeliveryDeadline)[]> CalculateAsync(
         AccountModel account,
         int parcelCount,
         Payer payer,

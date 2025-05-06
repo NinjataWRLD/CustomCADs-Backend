@@ -25,7 +25,7 @@ public class CalculateCustomShipmentHandler(ICustomReads reads, IRequestSender s
         CalculateShipmentDto[] calculations = await sender.SendQueryAsync(
             new CalculateShipmentQuery(
                 ParcelCount: req.Count,
-                TotalWeight: weight * req.Count,
+                TotalWeight: (weight * req.Count) / 1000,
                 Address: req.Address
             ),
             ct

@@ -14,7 +14,6 @@ using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Customs.Endpoints.Customs;
 
-using static Constants.DateTimes;
 using CustomerGetCustomsRespose = Endpoints.Customers.Get.All.GetCustomsResponse;
 using DesignerGetCustomsRespose = Endpoints.Designer.Get.All.GetCustomsResponse;
 
@@ -52,8 +51,8 @@ internal static class Mapper
             Service: calculation.Service,
             Total: calculation.Total,
             Currency: calculation.Currency,
-            PickupDate: calculation.PickupDate.ToString(SpeedyDateFormatString),
-            DeliveryDeadline: calculation.DeliveryDeadline.ToString(SpeedyDateFormatString)
+            PickupDate: calculation.PickupDate,
+            DeliveryDeadline: calculation.DeliveryDeadline
         );
 
     internal static GetCustomResponse ToResponse(this CustomerGetCustomByIdDto custom)
@@ -63,7 +62,7 @@ internal static class Mapper
             Description: custom.Description,
             OrderedAt: custom.OrderedAt,
             ForDelivery: custom.ForDelivery,
-            Status: custom.CustomStatus.ToString(), 
+            Status: custom.CustomStatus.ToString(),
             AcceptedCustom: custom.AcceptedCustom?.ToResponse(),
             FinishedCustom: custom.FinishedCustom?.ToResponse(),
             CompletedCustom: custom.CompletedCustom?.ToResponse()

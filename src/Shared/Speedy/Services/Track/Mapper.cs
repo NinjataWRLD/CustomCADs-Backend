@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Speedy.API.Dtos.TrackedParcel;
+﻿using CustomCADs.Shared.Speedy.API;
+using CustomCADs.Shared.Speedy.API.Dtos.TrackedParcel;
 using CustomCADs.Shared.Speedy.API.Dtos.TrackedParcel.TrackedParcelOperation;
 using CustomCADs.Shared.Speedy.Services.Track.Models;
 
@@ -23,7 +24,7 @@ internal static class Mapper
 
     internal static TrackedParcelOperationModel ToModel(this TrackedParcelOperationDto dto)
         => new(
-            DateTime: DateTime.Parse(dto.DateTime),
+            DateTime: dto.DateTime.ParseDateTime(),
             OperationCode: dto.OperationCode,
             Description: dto.Description,
             Place: dto.Place,
