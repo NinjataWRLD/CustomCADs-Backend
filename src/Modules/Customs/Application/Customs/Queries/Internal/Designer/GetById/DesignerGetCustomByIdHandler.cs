@@ -2,6 +2,7 @@
 using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
+using System.ComponentModel.Design;
 
 namespace CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 
@@ -22,6 +23,26 @@ public sealed class DesignerGetCustomByIdHandler(ICustomReads reads, IRequestSen
             ct
         ).ConfigureAwait(false);
 
-        return custom.ToDesignerGetByIdDto(buyer);
+        if (custom.AcceptedCustom is null)
+        {
+            return custom.ToDesignerGetByIdDto(
+                buyer: buyer,
+                accepted: null,
+                finished: null,
+                completed: null
+            );
+        }
+
+        string designer = await sender.SendQueryAsync(
+            new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId),
+            ct
+        ).ConfigureAwait(false);
+
+        return custom.ToDesignerGetByIdDto(
+            buyer: buyer,
+            accepted: custom.AcceptedCustom.ToDto(designer),
+            finished: custom.FinishedCustom?.ToDto(),
+            completed: custom.CompletedCustom?.ToDto()
+        );
     }
 }

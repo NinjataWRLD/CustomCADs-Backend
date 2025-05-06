@@ -11,7 +11,7 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
 {
     public string PublicKey => settings.Value.TestPublishableKey;
 
-    public async Task<string> InitializePayment(string paymentMethodId, decimal price, string description, CancellationToken ct = default)
+    public async Task<PaymentDto> InitializePayment(string paymentMethodId, decimal price, string description, CancellationToken ct = default)
     {
         StripeConfiguration.ApiKey = settings.Value.TestSecretKey;
 
@@ -29,25 +29,29 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
             }
         }, cancellationToken: ct).ConfigureAwait(false);
 
-        string message = GetMessageFromStatus(paymentIntent.Status);
-        switch (message)
+        PaymentDto response = new(
+            ClientSecret: paymentIntent.ClientSecret,
+            Message: GetMessageFromStatus(paymentIntent.Status)
+        );
+
+        switch (response.Message)
         {
             case FailedPayment:
                 string retry = await RetryCaptureAsync(paymentIntent.Id, ct).ConfigureAwait(false);
 
                 return retry == SuccessfulPayment
-                    ? SuccessfulPayment
+                    ? response with { Message = SuccessfulPayment }
                     : throw PaymentFailedException.WithClientSecret(paymentIntent.ClientSecret, retry);
 
             case ProcessingPayment:
                 await WaitForProcessingToResolve(paymentIntent.Id, ct).ConfigureAwait(false);
-                return message;
+                return response;
 
             case SuccessfulPayment:
-                return message;
+                return response;
 
             default:
-                throw PaymentFailedException.General(message);
+                throw PaymentFailedException.General(response.Message);
         }
     }
 

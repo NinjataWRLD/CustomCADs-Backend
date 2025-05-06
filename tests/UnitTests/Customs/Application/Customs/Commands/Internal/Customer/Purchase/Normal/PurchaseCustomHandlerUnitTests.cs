@@ -92,7 +92,8 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        const string expected = "Payment Status Message";
+
+        PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
         payment.Setup(x => x.InitializePayment(
             It.IsAny<string>(),
             It.IsAny<decimal>(),
@@ -104,7 +105,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
         // Act
-        string actual = await handler.Handle(command, ct);
+        PaymentDto actual = await handler.Handle(command, ct);
 
         // Assert
         Assert.Equal(expected, actual);

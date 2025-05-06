@@ -12,7 +12,7 @@ public static class Utilities
 {
     public static EntityTypeBuilder<PurchasedCartItem> SetPrimaryKey(this EntityTypeBuilder<PurchasedCartItem> builder)
     {
-        builder.HasKey(x => x.ProductId);
+        builder.HasKey(x => new { x.ProductId, x.CartId });
 
         return builder;
     }

@@ -17,8 +17,8 @@ public class GlobalExceptionHandler(IProblemDetailsService service) : IException
             _ when ex is FluentValidation.ValidationException || ex.IsType(typeof(CustomValidationException<>))
                 => await service.BadRequestResponseAsync(context, ex, "Validation Error").ConfigureAwait(false),
 
-            PaymentFailedException
-                => await service.BadRequestResponseAsync(context, ex, "Payment Failure").ConfigureAwait(false),
+            PaymentFailedException pfex
+                => await service.PaymentFailedResponseAsync(context, ex, pfex.ClientSecret).ConfigureAwait(false),
 
             DatabaseException
                 => await service.BadRequestResponseAsync(context, ex, "Database Error").ConfigureAwait(false),

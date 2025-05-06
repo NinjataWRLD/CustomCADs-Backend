@@ -17,12 +17,8 @@ public static class Mapper
         => new(
             Total: calculation.Price.Total,
             Currency: calculation.Price.Currency,
-            PickupDate: DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeToUtc(
-                calculation.PickupDate.ToDateTime(new TimeOnly(9, 0))
-            )),
-            DeliveryDeadline: TimeZoneInfo.ConvertTimeToUtc(
-                calculation.DeliveryDeadline
-            ),
+            PickupDate: calculation.PickupDate,
+            DeliveryDeadline: calculation.DeliveryDeadline,
             Service: calculation.Service
         );
 }

@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.Normal;
+using CustomCADs.Shared.Abstractions.Payment;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Post.Purchase;
 
 public sealed class PurchaseActiveCartEndpoint(IRequestSender sender)
-    : Endpoint<PurchaseActiveCartRequest, string>
+    : Endpoint<PurchaseActiveCartRequest, PaymentResponse>
 {
     public override void Configure()
     {
@@ -17,7 +18,7 @@ public sealed class PurchaseActiveCartEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(PurchaseActiveCartRequest req, CancellationToken ct)
     {
-        string message = await sender.SendCommandAsync(
+        PaymentDto dto = await sender.SendCommandAsync(
             new PurchaseActiveCartCommand(
                 PaymentMethodId: req.PaymentMethodId,
                 BuyerId: User.GetAccountId()
@@ -25,6 +26,7 @@ public sealed class PurchaseActiveCartEndpoint(IRequestSender sender)
             ct
         ).ConfigureAwait(false);
 
-        await SendOkAsync(message).ConfigureAwait(false);
+        PaymentResponse response = dto.ToResponse();
+        await SendOkAsync(response).ConfigureAwait(false);
     }
 }

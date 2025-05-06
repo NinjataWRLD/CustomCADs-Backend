@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
+using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
@@ -11,13 +12,13 @@ using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;
 
-public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads, IRequestSender sender, IPaymentService payment, IEventRaiser raiser)
-    : ICommandHandler<PurchaseActiveCartWithDeliveryCommand, string>
+public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment, IEventRaiser raiser)
+    : ICommandHandler<PurchaseActiveCartWithDeliveryCommand, PaymentDto>
 {
-    public async Task<string> Handle(PurchaseActiveCartWithDeliveryCommand req, CancellationToken ct)
+    public async Task<PaymentDto> Handle(PurchaseActiveCartWithDeliveryCommand req, CancellationToken ct)
     {
-        bool hasItems = await reads.ExistsAsync(req.BuyerId, ct).ConfigureAwait(false);
-        if (!hasItems) return "";
+        if (!await reads.ExistsAsync(req.BuyerId, ct).ConfigureAwait(false))
+            throw new CustomException("Cart without Items cannot be purchased.");
 
         ActiveCartItem[] items = await reads.AllAsync(req.BuyerId, track: false, ct: ct).ConfigureAwait(false);
         if (!items.Any(x => x.ForDelivery))
@@ -66,7 +67,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
             ct
         ).ConfigureAwait(false);
 
-        string message = await payment.InitializePayment(
+        PaymentDto response = await payment.InitializePayment(
             paymentMethodId: req.PaymentMethodId,
             price: totalCost,
             description: $"{buyer} bought {items.Length} products for a total of {totalCost}$.",
@@ -109,6 +110,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
             Contact: req.Contact
         )).ConfigureAwait(false);
 
-        return message;
+        await uow.BulkDeleteItemsByBuyerIdAsync(req.BuyerId, ct).ConfigureAwait(false);
+        return response;
     }
 }

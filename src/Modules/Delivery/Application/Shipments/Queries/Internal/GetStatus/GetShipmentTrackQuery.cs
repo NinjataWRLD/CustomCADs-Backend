@@ -2,4 +2,4 @@
 
 public record GetShipmentTrackQuery(
     ShipmentId Id
-) : IQuery<Dictionary<DateTime, GetShipmentTrackDto>>;
+) : IQuery<Dictionary<DateTimeOffset, GetShipmentTrackDto>>;

@@ -4,7 +4,10 @@ namespace CustomCADs.Shared.Abstractions.Payment.Exceptions;
 
 public class PaymentFailedException : BaseException
 {
-    private PaymentFailedException(string message, string? clientSecret, Exception? inner) : base(message, inner) { }
+    private PaymentFailedException(string message, string? clientSecret, Exception? inner) : base(message, inner)
+    {
+        ClientSecret = clientSecret;
+    }
 
     public string? ClientSecret { get; }
 

@@ -56,7 +56,7 @@ public static class Utilities
     {
         if (!string.IsNullOrWhiteSpace(name))
         {
-            query = query.Where(c => c.Name.Contains(name));
+            query = query.Where(c => c.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         return query;

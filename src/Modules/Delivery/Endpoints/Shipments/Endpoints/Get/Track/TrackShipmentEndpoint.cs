@@ -3,7 +3,7 @@
 namespace CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Get.Track;
 
 public class TrackShipmentEndpoint(IRequestSender sender)
-    : Endpoint<TrackShipmentRequest, Dictionary<string, TrackShipmentResponse>>
+    : Endpoint<TrackShipmentRequest, Dictionary<DateTimeOffset, TrackShipmentResponse>>
 {
     public override void Configure()
     {
@@ -17,7 +17,7 @@ public class TrackShipmentEndpoint(IRequestSender sender)
 
     public override async Task HandleAsync(TrackShipmentRequest req, CancellationToken ct)
     {
-        Dictionary<DateTime, GetShipmentTrackDto> tracks = await sender.SendQueryAsync(
+        var tracks = await sender.SendQueryAsync(
             new GetShipmentTrackQuery(
                 Id: ShipmentId.New(req.Id)
             ),

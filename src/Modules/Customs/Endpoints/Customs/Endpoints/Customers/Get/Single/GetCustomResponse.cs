@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Single;
+﻿using CustomCADs.Customs.Endpoints.Customs.Dtos;
+
+namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Single;
 
 public sealed record GetCustomResponse(
     Guid Id,
@@ -7,5 +9,7 @@ public sealed record GetCustomResponse(
     DateTimeOffset OrderedAt,
     string Status,
     bool ForDelivery,
-    string? DesignerName
+    AcceptedCustomResponse? AcceptedCustom,
+    FinishedCustomResponse? FinishedCustom,
+    CompletedCustomResponse? CompletedCustom
 );

@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;
 using CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
+using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
@@ -20,6 +21,7 @@ using static ActiveCartsData;
 public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : ActiveCartsBaseUnitTests
 {
     private readonly Mock<IActiveCartReads> reads = new();
+    private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
     private readonly Mock<IPaymentService> payment = new();
     private readonly Mock<IEventRaiser> raiser = new();
@@ -63,7 +65,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
+        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -84,7 +86,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
+        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -118,7 +120,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
+        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -143,7 +145,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
+        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
         await handler.Handle(command, ct);
@@ -158,7 +160,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        const string expected = "Payment Status Message";
+        PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
         payment.Setup(x => x.InitializePayment(
             It.IsAny<string>(),
             It.IsAny<decimal>(),
@@ -173,10 +175,10 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
+        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
-        string actual = await handler.Handle(command, ct);
+        PaymentDto actual = await handler.Handle(command, ct);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -200,7 +202,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             Address: address,
             Contact: contact
         );
-        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
+        PurchaseActiveCartWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Assert
         await Assert.ThrowsAsync<CustomException>(async () =>

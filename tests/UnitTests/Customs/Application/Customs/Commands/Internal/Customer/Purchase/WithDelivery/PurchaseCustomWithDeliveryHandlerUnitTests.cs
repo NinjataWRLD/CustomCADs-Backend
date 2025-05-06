@@ -164,13 +164,14 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        const string expected = "Payment Status Message";
+        PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
         payment.Setup(x => x.InitializePayment(
             It.IsAny<string>(),
             It.IsAny<decimal>(),
             It.IsAny<string>(),
             ct
         )).ReturnsAsync(expected);
+
 
         PurchaseCustomWithDeliveryCommand command = new(
             Id: id,
@@ -185,7 +186,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         PurchaseCustomWithDeliveryHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
         // Act
-        string actual = await handler.Handle(command, ct);
+        PaymentDto actual = await handler.Handle(command, ct);
 
         // Assert
         Assert.Equal(expected, actual);
