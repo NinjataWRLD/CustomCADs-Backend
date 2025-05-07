@@ -29,8 +29,7 @@ public sealed class SpeedyService(
         var response = await calculationService.CalculateAsync(
             account: account,
             payer: payer,
-            parcelCount: req.ParcelCount,
-            totalWeight: req.TotalWeight,
+            weights: req.Weights,
             country: req.Country,
             site: req.City,
             ct: ct
@@ -48,7 +47,6 @@ public sealed class SpeedyService(
             DeliveryDeadline: c.DeliveryDeadline
         ))];
     }
-
 
     public async Task<ShipmentDto> ShipAsync(
         ShipRequestDto req,

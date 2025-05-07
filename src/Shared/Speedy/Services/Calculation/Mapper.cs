@@ -4,6 +4,7 @@ using CustomCADs.Shared.Speedy.API.Dtos.CalculationRecipient;
 using CustomCADs.Shared.Speedy.API.Dtos.CalculationResult;
 using CustomCADs.Shared.Speedy.API.Dtos.CalculationSender;
 using CustomCADs.Shared.Speedy.API.Dtos.CalculationService;
+using CustomCADs.Shared.Speedy.API.Dtos.ShipmentContent.ShipmentParcel;
 using CustomCADs.Shared.Speedy.Services.Models.Calculation;
 using CustomCADs.Shared.Speedy.Services.Models.Calculation.Recipient;
 using CustomCADs.Shared.Speedy.Services.Models.Shipment.Content;
@@ -66,5 +67,18 @@ internal static class Mapper
             Price: dto.Price.ToModel(),
             PickupDate: dto.PickupDate.ParseDate(),
             DeliveryDeadline: dto.DeliveryDeadline.ParseDateTime()
+        );
+
+    internal static ShipmentParcelDto ToParcelDto(this double weight)
+        => new(
+            Weight: weight,
+            Id: null,
+            SeqNo: null,
+            PackageUniqueNumber: null,
+            Ref1: null,
+            Ref2: null,
+            Size: null,
+            PickupExternalCarrierParcelNumber: null,
+            DeliveryExternalCarrierParcelNumber: null
         );
 }

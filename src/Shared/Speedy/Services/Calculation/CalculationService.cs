@@ -24,9 +24,8 @@ public class CalculationService(
 
     public async Task<(string Service, ShipmentAdditionalServicesModel? AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, DateTimeOffset DeliveryDeadline)[]> CalculateAsync(
         AccountModel account,
-        int parcelCount,
         Payer payer,
-        double totalWeight,
+        double[] weights,
         string country,
         string site,
         CancellationToken ct = default)
@@ -71,9 +70,9 @@ public class CalculationService(
                 DeferredDays: null
             ),
             Content: new(
-                ParcelsCount: parcelCount,
-                TotalWeight: totalWeight,
-                Parcels: null,
+                ParcelsCount: null,
+                TotalWeight: null,
+                Parcels: [.. weights.Select(weight => weight.ToParcelDto())],
                 Palletized: null,
                 Documents: null
             ),
