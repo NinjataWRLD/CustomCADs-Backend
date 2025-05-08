@@ -17,7 +17,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(PurchaseCustomWithDeliveryValidData))]
-    public async Task Validate_ShouldBeValid_WhenCartIsValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldBeValid_WhenCartIsValid(string paymentMethodId, int count, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
@@ -27,7 +27,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
             CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -45,7 +45,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
     [ClassData(typeof(PurchaseCustomWithDeliveryInvalidCityData))]
     [ClassData(typeof(PurchaseCustomWithDeliveryInvalidPhoneData))]
     [ClassData(typeof(PurchaseCustomWithDeliveryInvalidEmailData))]
-    public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
@@ -55,7 +55,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
             CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -68,7 +68,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(PurchaseCustomWithDeliveryInvalidPaymentMethodIdData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
@@ -78,7 +78,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
             CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -91,7 +91,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(PurchaseCustomWithDeliveryInvalidShipmentServiceData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenShipmentServiceIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenShipmentServiceIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
@@ -101,7 +101,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
             CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -114,7 +114,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(PurchaseCustomWithDeliveryInvalidCountryData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenCountryIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenCountryIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
@@ -124,7 +124,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
             CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -137,7 +137,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(PurchaseCustomWithDeliveryInvalidCityData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenCityIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenCityIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
@@ -147,7 +147,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
             CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -160,7 +160,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(PurchaseCustomWithDeliveryInvalidPhoneData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenPhoneIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenPhoneIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
@@ -170,7 +170,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
             CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -183,7 +183,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(PurchaseCustomWithDeliveryInvalidEmailData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenEmailIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenEmailIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
@@ -193,7 +193,7 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
             CustomizationId: customizationId,
             Count: count,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 

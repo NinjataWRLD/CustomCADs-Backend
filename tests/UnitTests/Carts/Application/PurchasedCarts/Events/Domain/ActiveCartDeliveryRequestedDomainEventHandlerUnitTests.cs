@@ -43,7 +43,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
             ShipmentService: string.Empty,
             Weight: default,
             Count: default,
-            Address: new(string.Empty, string.Empty),
+            Address: new(string.Empty, string.Empty, string.Empty),
             Contact: new(default, default)
         );
         ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
@@ -64,7 +64,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
             ShipmentService: string.Empty,
             Weight: default,
             Count: default,
-            Address: new(string.Empty, string.Empty),
+            Address: new(string.Empty, string.Empty, string.Empty),
             Contact: new(default, default)
         );
         ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
@@ -93,7 +93,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
             ShipmentService: string.Empty,
             Weight: default,
             Count: default,
-            Address: new(string.Empty, string.Empty),
+            Address: new(string.Empty, string.Empty, string.Empty),
             Contact: new(default, default)
         );
         ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);

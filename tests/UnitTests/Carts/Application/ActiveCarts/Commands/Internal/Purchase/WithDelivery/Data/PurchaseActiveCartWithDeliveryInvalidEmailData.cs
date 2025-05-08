@@ -7,9 +7,9 @@ public class PurchaseActiveCartWithDeliveryInvalidEmailData : PurchaseActiveCart
 {
     public PurchaseActiveCartWithDeliveryInvalidEmailData()
     {
-        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", null, "@gmail.com");
-        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", null, "customcads_gmail.com");
-        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", null, "customcads@");
-        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", null, "customcads@gmail_com");
+        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", "Flora", null, "@gmail.com");
+        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", "Flora", null, "customcads_gmail.com");
+        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", "Flora", null, "customcads@");
+        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", "Flora", null, "customcads@gmail_com");
     }
 }

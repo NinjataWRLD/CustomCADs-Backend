@@ -27,7 +27,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     private static readonly CustomId id = ValidId1;
     private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AccountId wrongBuyerId = ValidBuyerId2;
-    private static readonly AddressDto address = new("Bulgaria", "Burgas");
+    private static readonly AddressDto address = new("Bulgaria", "Burgas", "Slivnitsa");
     private static readonly ContactDto contact = new(null, null);
     private readonly Custom custom = CreateCustom(
         buyerId: buyerId,

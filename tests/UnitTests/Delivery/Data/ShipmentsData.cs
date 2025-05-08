@@ -16,6 +16,10 @@ public static class ShipmentsData
     public const string ValidCity1 = "Sofia";
     public const string ValidCity2 = "Bucharest";
     public const string InvalidCity = "";
+    
+    public const string ValidStreet1 = "Flora";
+    public const string ValidStreet2 = "Brailles";
+    public const string InvalidStreet = "";
 
     public const string? ValidPhone1 = "+1234567890";
     public const string? ValidPhone2 = null;

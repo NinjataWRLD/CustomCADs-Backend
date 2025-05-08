@@ -32,7 +32,8 @@ public class ShipmentService(
     public const string PhoneNumber2 = "0885440400";
     public const string Email = "customcads2023@gmail.com";
     public const string PickupCountry = "Bulgaria";
-    public const string PickupSite = "Burgas";
+    public const string PickupSite = "Sofia";
+    public const string PickupStreet = "Flora";
 
     public async Task<WrittenShipmentModel> CreateShipmentAsync(
         AccountModel account,
@@ -43,6 +44,7 @@ public class ShipmentService(
         double totalWeight,
         string country,
         string site,
+        string street,
         string name,
         string service,
         string? email,
@@ -55,8 +57,11 @@ public class ShipmentService(
         long dropoffSiteId = await locationService.GetSiteId(account, dropoffCountryId, site, ct).ConfigureAwait(false);
         long pickupSiteId = await locationService.GetSiteId(account, pickupCountryId, PickupSite, ct).ConfigureAwait(false);
 
-        int dropoffOfficeId = await locationService.GetOfficeId(account, dropoffCountryId, dropoffSiteId, ct).ConfigureAwait(false);
-        int pickupOfficeId = await locationService.GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);
+        long dropoffStreetId = await locationService.GetStreetId(account, dropoffSiteId, street, ct).ConfigureAwait(false);
+        long pickupStreetId = await locationService.GetStreetId(account, pickupSiteId, PickupStreet, ct).ConfigureAwait(false);
+
+        var dropoffOffice = await locationService.GetOfficeId(account, dropoffCountryId, dropoffSiteId, dropoffStreetId, ct).ConfigureAwait(false);
+        var pickupOffice = await locationService.GetOfficeId(account, pickupCountryId, pickupSiteId, pickupStreetId, ct).ConfigureAwait(false);
 
         int serviceId = await servicesService.GetServiceId(account, service, ct).ConfigureAwait(false);
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
@@ -69,7 +74,7 @@ public class ShipmentService(
             ShipmentNote: null,
             Sender: new(
                 ClientId: clientId,
-                DropoffOfficeId: dropoffOfficeId,
+                DropoffOfficeId: dropoffOffice.OfficeId,
                 ContactName: name,
                 Email: Email,
                 Phone1: new(PhoneNumber1, null),
@@ -82,7 +87,7 @@ public class ShipmentService(
             ),
             Recipient: new(
                 ClientId: clientId,
-                PickupOfficeId: pickupOfficeId,
+                PickupOfficeId: pickupOffice.OfficeId,
                 Phone1: phoneNumber is not null ? new(phoneNumber, null) : null,
                 Email: email,
                 Phone2: null,

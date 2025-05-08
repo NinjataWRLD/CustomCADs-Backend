@@ -21,6 +21,7 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
             Service: req.Service,
             Country: req.Address.Country,
             City: req.Address.City,
+            Street: req.Address.Street,
             Phone: req.Contact.Phone,
             Email: req.Contact.Email
         );

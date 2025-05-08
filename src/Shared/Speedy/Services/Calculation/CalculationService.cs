@@ -20,15 +20,16 @@ public class CalculationService(
     public const string PhoneNumber2 = "0885440400";
     public const string Email = "customcads2023@gmail.com";
     public const string PickupCountry = "Bulgaria";
-    public const string PickupSite = "Burgas";
+    public const string PickupSite = "Sofia";
+    public const string PickupStreet = "Flora";
 
     public async Task<(string Service, ShipmentAdditionalServicesModel? AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, DateTimeOffset DeliveryDeadline)[]> CalculateAsync(
         AccountModel account,
-        int parcelCount,
         Payer payer,
-        double totalWeight,
+        double[] weights,
         string country,
         string site,
+        string street,
         CancellationToken ct = default)
     {
         int dropoffCountryId = await locationService.GetCountryId(account, country, ct).ConfigureAwait(false);
@@ -37,8 +38,11 @@ public class CalculationService(
         long dropoffSiteId = await locationService.GetSiteId(account, dropoffCountryId, site, ct).ConfigureAwait(false);
         long pickupSiteId = await locationService.GetSiteId(account, pickupCountryId, PickupSite, ct).ConfigureAwait(false);
 
-        int dropoffOfficeId = await locationService.GetOfficeId(account, dropoffCountryId, dropoffSiteId, ct).ConfigureAwait(false);
-        int pickupOfficeId = await locationService.GetOfficeId(account, pickupCountryId, pickupSiteId, ct).ConfigureAwait(false);
+        long dropoffStreetId = await locationService.GetStreetId(account, dropoffSiteId, street, ct).ConfigureAwait(false);
+        long pickupStreetId = await locationService.GetStreetId(account, pickupSiteId, PickupStreet, ct).ConfigureAwait(false);
+
+        var dropoffOffice = await locationService.GetOfficeId(account, dropoffCountryId, dropoffSiteId, dropoffStreetId, ct).ConfigureAwait(false);
+        var pickupOffice = await locationService.GetOfficeId(account, pickupCountryId, pickupSiteId, pickupStreetId, ct).ConfigureAwait(false);
 
         long clientId = await clientService.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
         var services = await servicesService.Services(account, null, ct).ConfigureAwait(false);
@@ -50,14 +54,14 @@ public class CalculationService(
             ClientSystemId: account.ClientSystemId,
             Sender: new(
                 ClientId: clientId,
-                DropoffOfficeId: dropoffOfficeId,
+                DropoffOfficeId: dropoffOffice.OfficeId,
                 DropoffGeoPUDOId: null, // forbidden
                 AddressLocation: null, // forbidden
                 PrivatePerson: null // forbidden
             ),
             Recipient: new(
                 ClientId: clientId,
-                PickupOfficeId: pickupOfficeId,
+                PickupOfficeId: pickupOffice.OfficeId,
                 PrivatePerson: null, // forbidden
                 AddressLocation: null, // forbidden
                 PickupGeoPUDOId: null // forbidden
@@ -71,9 +75,9 @@ public class CalculationService(
                 DeferredDays: null
             ),
             Content: new(
-                ParcelsCount: parcelCount,
-                TotalWeight: totalWeight,
-                Parcels: null,
+                ParcelsCount: null,
+                TotalWeight: null,
+                Parcels: [.. weights.Select(weight => weight.ToParcelDto())],
                 Palletized: null,
                 Documents: null
             ),
