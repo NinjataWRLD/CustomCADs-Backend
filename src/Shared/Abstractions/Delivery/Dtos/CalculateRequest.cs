@@ -3,5 +3,6 @@
 public record CalculateRequest(
     double[] Weights,
     string Country,
-    string City
+    string City,
+    string Street
 );

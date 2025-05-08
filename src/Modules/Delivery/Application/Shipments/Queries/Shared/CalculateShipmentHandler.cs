@@ -13,7 +13,8 @@ public class CalculateShipmentHandler(IDeliveryService delivery)
         CalculationDto[] calculations = await delivery.CalculateAsync(new(
             Weights: req.Weights,
             Country: req.Address.Country,
-            City: req.Address.City
+            City: req.Address.City,
+            Street: req.Address.Street
         ), ct).ConfigureAwait(false);
 
         return [.. calculations.Select(x => x.ToDto())];

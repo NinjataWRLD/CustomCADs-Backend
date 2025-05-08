@@ -13,13 +13,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentValidData))]
-    public void Validator_ShouldBeValid_WhenShipmentIsValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeValid_WhenShipmentIsValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -40,13 +40,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
     [ClassData(typeof(CreateShipmentInvalidCityData))]
     [ClassData(typeof(CreateShipmentInvalidPhoneData))]
     [ClassData(typeof(CreateShipmentInvalidEmailData))]
-    public void Validator_ShouldBeInvalid_WhenShipmentIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeInvalid_WhenShipmentIsNotValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -60,13 +60,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentInvalidServiceData))]
-    public void Validator_ShouldBeInvalid_WhenServiceIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeInvalid_WhenServiceIsNotValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -80,13 +80,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentInvalidCountData))]
-    public void Validator_ShouldBeInvalid_WhenCountIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeInvalid_WhenCountIsNotValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -100,13 +100,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentInvalidWeightData))]
-    public void Validator_ShouldBeInvalid_WhenWeightIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeInvalid_WhenWeightIsNotValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -120,13 +120,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentInvalidRecipientData))]
-    public void Validator_ShouldBeInvalid_WhenRecipientIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeInvalid_WhenRecipientIsNotValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -140,13 +140,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentInvalidCountryData))]
-    public void Validator_ShouldBeInvalid_WhenCountryIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeInvalid_WhenCountryIsNotValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -160,13 +160,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentInvalidCityData))]
-    public void Validator_ShouldBeInvalid_WhenCityIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeInvalid_WhenCityIsNotValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -180,13 +180,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentInvalidPhoneData))]
-    public void Validator_ShouldBeInvalid_WhenPhoneIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeInvalid_WhenPhoneIsNotValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -200,13 +200,13 @@ public class CreateShipmentValidatorUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentInvalidEmailData))]
-    public void Validator_ShouldBeInvalid_WhenEmailIsNotValid(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public void Validator_ShouldBeInvalid_WhenEmailIsNotValid(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );

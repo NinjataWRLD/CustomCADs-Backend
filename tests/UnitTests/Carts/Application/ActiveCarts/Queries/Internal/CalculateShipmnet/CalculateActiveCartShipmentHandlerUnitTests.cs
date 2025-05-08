@@ -16,7 +16,7 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly AddressDto address = new("Bulgaria", "Burgas");
+    private static readonly AddressDto address = new("Bulgaria", "Burgas", "Slivnitsa");
 
     public CalculateActiveCartShipmentHandlerUnitTests()
     {

@@ -6,6 +6,6 @@ public class CreateShipmentInvalidEmailData : CreateShipmentData
 {
     public CreateShipmentInvalidEmailData()
     {
-        Add(ValidService1, ValidCount1, ValidWeight1, ValidRecipient1, ValidCountry1, ValidCity1, ValidPhone1, InvalidEmail);
+        Add(ValidService1, ValidCount1, ValidWeight1, ValidRecipient1, ValidCountry1, ValidCity1, ValidStreet1, ValidPhone1, InvalidEmail);
     }
 }

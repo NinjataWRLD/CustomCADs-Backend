@@ -7,7 +7,7 @@ public class PurchaseActiveCartWithDeliveryValidData : PurchaseActiveCartWithDel
 {
     public PurchaseActiveCartWithDeliveryValidData()
     {
-        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", null, "customcads@gmail.com");
-        Add("payment-method-id-2", ValidBuyerId2, "shipment-service-2", "Romania", "Bucharest", "+359359359359", null);
+        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", "Slivnitsa", null, "customcads@gmail.com");
+        Add("payment-method-id-2", ValidBuyerId2, "shipment-service-2", "Romania", "Bucharest", "Brailles", "+359359359359", null);
     }
 }

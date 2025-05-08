@@ -22,7 +22,7 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
     private const int Count = 3;
     private static readonly CustomId id = ValidId1;
     private static readonly ShipmentId shipmentId = ValidShipmentId2;
-    private static readonly AddressDto address = new("Bulgaria", "Burgas");
+    private static readonly AddressDto address = new("Bulgaria", "Burgas", "Slivnitsa");
     private static readonly ContactDto contact = new("0123456789", null);
     private readonly Custom custom = CreateCustomWithId(id, delivery: true);
 

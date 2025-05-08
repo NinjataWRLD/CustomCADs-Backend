@@ -32,6 +32,7 @@ public sealed class SpeedyService(
             weights: req.Weights,
             country: req.Country,
             site: req.City,
+            street: req.Street,
             ct: ct
         ).ConfigureAwait(false);
 
@@ -62,6 +63,7 @@ public sealed class SpeedyService(
             totalWeight: req.TotalWeight,
             country: req.Country,
             site: req.City,
+            street: req.Street,
             name: req.Name,
             service: req.Service,
             email: req.Email,

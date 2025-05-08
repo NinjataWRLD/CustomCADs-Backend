@@ -31,13 +31,13 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public async Task Handle_ShouldPersistToDatabase(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -55,13 +55,13 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentValidData))]
-    public async Task Handle_ShouldSendRequests(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public async Task Handle_ShouldSendRequests(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -76,13 +76,13 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentValidData))]
-    public async Task Handle_ShouldCallDelivery(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public async Task Handle_ShouldCallDelivery(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );
@@ -107,7 +107,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateShipmentValidData))]
-    public async Task Handle_ShouldThrowException_WhenDesignerNotFound(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+    public async Task Handle_ShouldThrowException_WhenDesignerNotFound(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId), ct))
@@ -116,7 +116,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
         CreateShipmentCommand command = new(
             Service: service,
             Info: new(count, weight, recipient),
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email),
             BuyerId: ValidBuyerId
         );

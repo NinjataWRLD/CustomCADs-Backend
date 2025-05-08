@@ -26,7 +26,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     private readonly Mock<IPaymentService> payment = new();
     private readonly Mock<IEventRaiser> raiser = new();
     private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly AddressDto address = new("Bulgaria", "Burgas");
+    private static readonly AddressDto address = new("Bulgaria", "Burgas", "Slivnitsa");
     private static readonly ContactDto contact = new(null, null);
 
     public PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests()

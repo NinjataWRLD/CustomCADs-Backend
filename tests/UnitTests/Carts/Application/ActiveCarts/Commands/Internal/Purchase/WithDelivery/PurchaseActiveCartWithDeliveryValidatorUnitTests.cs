@@ -11,14 +11,14 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
 
     [Theory]
     [ClassData(typeof(PurchaseActiveCartWithDeliveryValidData))]
-    public async Task Validate_ShouldBeValid_WhenCartIsValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldBeValid_WhenCartIsValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -36,14 +36,14 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
     [ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidCityData))]
     [ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidPhoneData))]
     [ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidEmailData))]
-    public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -56,14 +56,14 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
 
     [Theory]
     [ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidPaymentMethodIdData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -76,14 +76,14 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
 
     [Theory]
     [ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidShipmentServiceData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenShipmentServiceIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenShipmentServiceIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -96,14 +96,14 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
 
     [Theory]
     [ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidCountryData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenCountryIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenCountryIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -116,14 +116,14 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
 
     [Theory]
     [ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidCityData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenCityIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenCityIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -136,14 +136,14 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
 
     [Theory]
     [ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidPhoneData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenPhoneIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenPhoneIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 
@@ -156,14 +156,14 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
 
     [Theory]
     [ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidEmailData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenEmailIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string? phone, string? email)
+    public async Task Validate_ShouldReturnProperErrors_WhenEmailIsNotValid(string paymentMethodId, AccountId buyerId, string shipmentService, string country, string city, string street, string? phone, string? email)
     {
         // Arrange
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             BuyerId: buyerId,
             ShipmentService: shipmentService,
-            Address: new(country, city),
+            Address: new(country, city, street),
             Contact: new(phone, email)
         );
 

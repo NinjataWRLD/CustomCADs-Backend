@@ -7,7 +7,7 @@ public class CalculateActiveCartShipmentInvalidCountryData : CalculateActiveCart
 {
     public CalculateActiveCartShipmentInvalidCountryData()
     {
-        Add(ValidBuyerId1, new(null!, "Sofia"));
-        Add(ValidBuyerId2, new(string.Empty, "Bucharest"));
+        Add(ValidBuyerId1, new(null!, "Sofia", "Flora"));
+        Add(ValidBuyerId2, new(string.Empty, "Bucharest", "Brailles"));
     }
 }
