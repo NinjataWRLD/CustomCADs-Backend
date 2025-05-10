@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Files.Domain.Images.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Create.WithId;
+
+using Data;
 
 public class ImageCreateWithIdUnitTests : ImagesBaseUnitTests
 {

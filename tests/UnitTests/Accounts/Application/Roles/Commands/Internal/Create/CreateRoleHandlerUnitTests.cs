@@ -3,9 +3,10 @@ using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
-using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Create;
+
+using Data;
 
 public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 {

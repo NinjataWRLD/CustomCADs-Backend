@@ -4,9 +4,10 @@ using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Delete.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Delete;
+
+using Data;
 
 public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 {

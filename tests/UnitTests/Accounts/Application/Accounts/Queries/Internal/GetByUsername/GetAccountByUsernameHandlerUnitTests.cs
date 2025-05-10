@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetByUsername;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.GetByUsername.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.GetByUsername;
+
+using Data;
 
 public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
 {

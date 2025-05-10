@@ -2,9 +2,9 @@
 
 using static CategoriesData;
 
-public class CategoryCreateInvalidNameData : CategoryCreateWithIdData
+public class CategoryCreateWithIdInvalidNameData : CategoryCreateWithIdData
 {
-    public CategoryCreateInvalidNameData()
+    public CategoryCreateWithIdInvalidNameData()
     {
         Add(InvalidName1, ValidDescription1);
         Add(InvalidName2, ValidDescription2);

@@ -2,12 +2,11 @@
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create.Data;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create;
 
+using Data;
 using static CustomsData;
 
 public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests

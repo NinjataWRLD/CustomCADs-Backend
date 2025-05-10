@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Categories.Domain.Categories.Behaviors.Description.Data;
 
 namespace CustomCADs.UnitTests.Categories.Domain.Categories.Behaviors.Description;
+
+using Data;
 
 public class CategoryDescriptionUnitTests : CategoriesBaseUnitTests
 {

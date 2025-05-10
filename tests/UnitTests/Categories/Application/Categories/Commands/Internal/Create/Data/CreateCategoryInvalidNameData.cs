@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Create.Data;
 
-using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Create;
 using static CategoriesData;
 
 public class CreateCategoryInvalidNameData : CreateCategoryData

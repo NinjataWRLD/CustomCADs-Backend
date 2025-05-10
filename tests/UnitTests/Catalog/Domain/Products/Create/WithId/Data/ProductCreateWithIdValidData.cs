@@ -6,7 +6,7 @@ public class ProductCreateWithIdValidData : ProductCreateWithIdData
 {
     public ProductCreateWithIdValidData()
     {
-        Add(ValidId, ValidName1, ValidDescription1, ValidPrice1);
-        Add(ValidId, ValidName2, ValidDescription2, ValidPrice2);
+        Add(ValidName1, ValidDescription1, ValidPrice1);
+        Add(ValidName2, ValidDescription2, ValidPrice2);
     }
 }

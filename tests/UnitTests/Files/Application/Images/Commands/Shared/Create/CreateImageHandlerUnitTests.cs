@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Files.Application.Images.Commands.Shared.Create;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Shared.UseCases.Images.Commands;
-using CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create;
+
+using Data;
 
 public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 {

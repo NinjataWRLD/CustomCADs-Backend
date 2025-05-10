@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Customs.Domain.Customs.Create.WithId.Data;
 
-using CustomCADs.UnitTests.Customs.Domain.Customs.Create.WithId;
 using static CustomsData;
 
 public class CustomCreateWitIdInvalidDescriptionData : CustomCreateWithIdData

@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Create.Data;
 
-using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Create;
 using static RolesData;
 
 public class CreateRoleInvalidDescriptionData : CreateRoleData

@@ -4,9 +4,10 @@ using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetCoords.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetCoords;
+
+using Data;
 
 public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 {

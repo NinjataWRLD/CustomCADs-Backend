@@ -5,10 +5,10 @@ using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Delete.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Delete;
 
+using Data;
 using static RolesData;
 
 public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests

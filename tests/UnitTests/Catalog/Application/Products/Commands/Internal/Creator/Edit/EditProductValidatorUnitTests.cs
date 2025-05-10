@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.Edit;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Edit.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Edit;
 
+using Data;
 using static ProductsData;
 
 public class EditProductValidatorUnitTests

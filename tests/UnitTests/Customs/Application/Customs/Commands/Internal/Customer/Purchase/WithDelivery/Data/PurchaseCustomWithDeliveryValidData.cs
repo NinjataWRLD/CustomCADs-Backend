@@ -1,6 +1,4 @@
-﻿using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.WithDelivery;
-
-namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.WithDelivery.Data;
+﻿namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.WithDelivery.Data;
 
 public class PurchaseCustomWithDeliveryValidData : PurchaseCustomWithDeliveryData
 {

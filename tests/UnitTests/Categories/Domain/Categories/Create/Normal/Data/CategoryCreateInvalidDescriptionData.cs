@@ -1,8 +1,8 @@
-﻿namespace CustomCADs.UnitTests.Categories.Domain.Categories.Create.WithId.Data;
+﻿namespace CustomCADs.UnitTests.Categories.Domain.Categories.Create.Normal.Data;
 
 using static CategoriesData;
 
-public class CategoryCreateInvalidDescriptionData : CategoryCreateWithIdData
+public class CategoryCreateInvalidDescriptionData : CategoryCreateData
 {
     public CategoryCreateInvalidDescriptionData()
     {

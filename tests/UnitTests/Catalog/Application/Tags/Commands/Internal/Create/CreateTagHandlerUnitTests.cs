@@ -2,9 +2,10 @@
 using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Create.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Create;
+
+using Data;
 
 public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 {

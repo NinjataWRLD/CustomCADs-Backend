@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Username.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Username;
+
+using Data;
 
 public class AccountUsernameUnitTests : AccountsBaseUnitTests
 {

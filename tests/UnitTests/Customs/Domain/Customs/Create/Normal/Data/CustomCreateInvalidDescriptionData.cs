@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Customs.Domain.Customs.Create.Normal.Data;
 
-using CustomCADs.UnitTests.Customs.Domain.Customs.Create.Normal;
 using static CustomsData;
 
 public class CustomCreateInvalidDescriptionData : CustomCreateData

@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Shared;
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Shared.UseCases.Accounts.Commands;
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Shared.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Shared.Create;
+
+using Data;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {

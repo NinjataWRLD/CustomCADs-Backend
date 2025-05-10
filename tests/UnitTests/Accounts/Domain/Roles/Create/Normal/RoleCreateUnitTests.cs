@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Accounts.Domain.Roles.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Create.Normal;
+
+using Data;
 
 public class RoleCreateUnitTests : RolesBaseUnitTests
 {

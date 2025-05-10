@@ -6,7 +6,7 @@ public class AddActiveCartValidData : AddActiveCartData
 {
     public AddActiveCartValidData()
     {
-        Add(ValidBuyerId, ValidCustomizationId, true, ValidProductId);
-        Add(ValidBuyerId, null, false, ValidProductId);
+        Add(ValidCustomizationId);
+        Add(null);
     }
 }

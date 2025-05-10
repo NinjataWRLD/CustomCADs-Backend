@@ -1,13 +1,14 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.ValueObjects;
-using CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.CamCoordinates.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.PanCoordinates;
+
+using Data;
 
 public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
 {
     [Theory]
-    [ClassData(typeof(CadCamCoordinatesValidData))]
+    [ClassData(typeof(CadPanCoordinatesValidData))]
     public void SetPanCoordinates_ShouldNotThrowException_WhenCoordinatesAreValid(Coordinates coordinates)
     {
         var cad = CreateCad();
@@ -16,7 +17,7 @@ public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CadCamCoordinatesValidData))]
+    [ClassData(typeof(CadPanCoordinatesValidData))]
     public void SetPanCoordinates_ShouldPopulateProperly_WhenCoordinatesAreValid(Coordinates coordinates)
     {
         var cad = CreateCad();
@@ -27,7 +28,7 @@ public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CadCamCoordinatesInvalidData))]
+    [ClassData(typeof(CadPanCoordinatesInvalidData))]
     public void SetPanCoordinates_ShouldThrowException_WhenCoordinatesIsInvalid(Coordinates coordinates)
     {
         var cad = CreateCad();

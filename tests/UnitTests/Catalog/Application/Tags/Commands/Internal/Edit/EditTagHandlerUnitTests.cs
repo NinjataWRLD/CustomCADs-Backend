@@ -4,9 +4,10 @@ using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Tags;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Edit.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Edit;
+
+using Data;
 
 public class EditTagHandlerUnitTests : TagsBaseUnitTests
 {

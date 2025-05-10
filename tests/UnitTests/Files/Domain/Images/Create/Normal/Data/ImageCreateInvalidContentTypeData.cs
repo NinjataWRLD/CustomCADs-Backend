@@ -1,11 +1,10 @@
 ﻿namespace CustomCADs.UnitTests.Files.Domain.Images.Create.Normal.Data;
 
-using CustomCADs.UnitTests.Files.Domain.Images.Create.Normal;
 using static ImagesData;
 
-public class ImageCreateWithIdInvalidContentTypeData : ImageCreateData
+public class ImageCreateInvalidContentTypeData : ImageCreateData
 {
-    public ImageCreateWithIdInvalidContentTypeData()
+    public ImageCreateInvalidContentTypeData()
     {
         Add(ValidKey1, InvalidContentType);
         Add(ValidKey2, InvalidContentType);

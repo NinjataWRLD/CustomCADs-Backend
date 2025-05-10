@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Put;
 using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Put.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Put;
 
+using Data;
 using static ProductsData;
 
 public class GetProductCadPresignedUrlPutValidatorUnitTests : ProductsBaseUnitTests

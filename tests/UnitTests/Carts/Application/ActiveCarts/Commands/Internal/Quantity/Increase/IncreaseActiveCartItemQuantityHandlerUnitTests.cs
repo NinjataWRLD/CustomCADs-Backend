@@ -3,10 +3,10 @@ using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Quantity.Increase.Data;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Quantity.Increase;
 
+using Data;
 using static ActiveCartsData;
 
 public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUnitTests

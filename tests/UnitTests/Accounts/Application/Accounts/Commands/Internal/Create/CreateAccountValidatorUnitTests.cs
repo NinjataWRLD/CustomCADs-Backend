@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Internal.Create;
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Create.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Create;
+
+using Data;
 
 public class CreateAccountValidatorUnitTests : AccountsBaseUnitTests
 {

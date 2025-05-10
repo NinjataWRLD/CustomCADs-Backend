@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Delete.Data;
 
-using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Delete;
 using static RolesData;
 
 public class DeleteRoleValidData : DeleteRoleData

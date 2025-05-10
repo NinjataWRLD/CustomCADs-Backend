@@ -1,11 +1,10 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Post;
 using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Post.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Post;
 
-using static ProductsData;
+using Data;
 
 public class CreatorGetProductImagePresignedUrlPostValidatorUnitTests : ProductsBaseUnitTests
 {

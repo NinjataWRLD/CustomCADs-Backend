@@ -3,9 +3,10 @@ using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetContentType.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetContentType;
+
+using Data;
 
 public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 {

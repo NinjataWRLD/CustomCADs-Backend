@@ -11,10 +11,10 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 using CustomCADs.Shared.UseCases.Images.Commands;
-using CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create;
 
+using Data;
 using static Constants.Roles;
 using static ProductsData;
 

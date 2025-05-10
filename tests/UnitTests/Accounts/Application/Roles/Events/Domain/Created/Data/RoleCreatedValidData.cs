@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Created.Data;
 
-using CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Created;
 using static RolesData;
 
 public class RoleCreatedValidData : RoleCreatedData

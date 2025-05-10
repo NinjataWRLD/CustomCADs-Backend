@@ -2,9 +2,9 @@
 
 using static ImagesData;
 
-public class ImageCreateInvalidKeyData : ImageCreateWithIdData
+public class ImageCreateWithIdInvalidKeyData : ImageCreateWithIdData
 {
-    public ImageCreateInvalidKeyData()
+    public ImageCreateWithIdInvalidKeyData()
     {
         Add(InvalidKey, ValidContentType1);
         Add(InvalidKey, ValidContentType2);

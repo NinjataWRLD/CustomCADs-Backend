@@ -1,11 +1,10 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Edit;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit;
 
-using static CustomsData;
+using Data;
 
 public class EditCustomValidatorUnitTests : CustomsBaseUnitTests
 {

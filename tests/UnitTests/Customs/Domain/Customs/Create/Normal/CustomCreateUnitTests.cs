@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Customs.Domain.Customs.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Customs.Domain.Customs.Create.Normal;
 
+using Data;
 using static CustomsData;
 
 public class CustomCreateUnitTests : CustomsBaseUnitTests

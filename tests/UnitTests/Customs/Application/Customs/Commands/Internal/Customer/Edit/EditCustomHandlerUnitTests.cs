@@ -2,11 +2,10 @@
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit.Data;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit;
 
-using static CustomsData;
+using Data;
 
 public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 {

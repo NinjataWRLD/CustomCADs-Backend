@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Create;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create;
 
+using Data;
 using static CustomsData;
 
 public class CreateCustomValidatorUnitTests : CustomsBaseUnitTests

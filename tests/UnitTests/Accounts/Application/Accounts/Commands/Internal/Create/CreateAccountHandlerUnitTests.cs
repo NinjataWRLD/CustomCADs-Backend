@@ -3,9 +3,10 @@ using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Create;
+
+using Data;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {

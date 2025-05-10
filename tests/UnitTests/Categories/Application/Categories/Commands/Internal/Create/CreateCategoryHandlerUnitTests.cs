@@ -2,9 +2,10 @@
 using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Create.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Create;
+
+using Data;
 
 public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 {

@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Create.Normal.Data;
 
-using CustomCADs.UnitTests.Accounts.Domain.Roles.Create.Normal;
 using static RolesData;
 
 public class RoleCreateInvalidNameData : RoleCreateData

@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit.Data;
 
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit;
 using static CustomsData;
 
 public class EditCustomInvalidDescriptionData : EditCustomData

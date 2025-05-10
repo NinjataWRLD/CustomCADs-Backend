@@ -1,19 +1,20 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Categories.Domain.Categories.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Categories.Domain.Categories.Create.Normal;
+
+using Data;
 
 public class CategoryCreateUnitTests : CategoriesBaseUnitTests
 {
     [Theory]
-    [ClassData(typeof(CategoryCreateWithIdValidData))]
+    [ClassData(typeof(CategoryCreatedValidData))]
     public void Create_ShouldNotThrowException_WhenCategoryIsValid(string name, string description)
     {
         CreateCategory(name, description);
     }
 
     [Theory]
-    [ClassData(typeof(CategoryCreateWithIdValidData))]
+    [ClassData(typeof(CategoryCreatedValidData))]
     public void Create_ShouldPopulatePropertiesProperly_WhenCategoryIsValid(string name, string description)
     {
         var category = CreateCategory(name, description);
@@ -26,8 +27,8 @@ public class CategoryCreateUnitTests : CategoriesBaseUnitTests
     }
 
     [Theory]
-    [ClassData(typeof(CategoryCreateWithIdInvalidNameData))]
-    [ClassData(typeof(CategoryCreateWithIdInvalidDescriptionData))]
+    [ClassData(typeof(CategoryCreateInvalidNameData))]
+    [ClassData(typeof(CategoryCreateInvalidDescriptionData))]
     public void Create_ShouldThrowException_WhenCategoryIsInvalid(string name, string description)
     {
         Assert.Throws<CustomValidationException<Category>>(() =>

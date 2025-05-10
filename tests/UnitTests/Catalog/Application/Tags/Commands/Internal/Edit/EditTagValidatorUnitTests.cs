@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Commands.Internal.Edit;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Edit.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Edit;
+
+using Data;
 
 public class EditTagValidatorUnitTestss : TagsBaseUnitTests
 {

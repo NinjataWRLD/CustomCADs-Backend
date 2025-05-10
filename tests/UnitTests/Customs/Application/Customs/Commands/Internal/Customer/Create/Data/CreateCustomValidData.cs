@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create.Data;
 
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create;
 using static CustomsData;
 
 public class CreateCustomValidData : CreateCustomData

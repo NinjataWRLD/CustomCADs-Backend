@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.ContentType.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.ContentType;
+
+using Data;
 
 public class CadContentTypeUnitTests : CadsBaseUnitTests
 {

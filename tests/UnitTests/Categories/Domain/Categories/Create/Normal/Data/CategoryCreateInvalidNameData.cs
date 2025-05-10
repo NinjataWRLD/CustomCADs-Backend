@@ -1,11 +1,10 @@
 ﻿namespace CustomCADs.UnitTests.Categories.Domain.Categories.Create.Normal.Data;
 
-using CustomCADs.UnitTests.Categories.Domain.Categories.Create.Normal;
 using static CategoriesData;
 
-public class CategoryCreateWithIdInvalidNameData : CategoryCreateData
+public class CategoryCreateInvalidNameData : CategoryCreateData
 {
-    public CategoryCreateWithIdInvalidNameData()
+    public CategoryCreateInvalidNameData()
     {
         Add(InvalidName1, ValidDescription1);
         Add(InvalidName2, ValidDescription2);

@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetPrice.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetPrice;
+
+using Data;
 
 public class SetProductPriceUnitTests : ProductsBaseUnitTests
 {

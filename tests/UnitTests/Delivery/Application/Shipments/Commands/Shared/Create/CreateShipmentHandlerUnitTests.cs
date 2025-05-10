@@ -6,10 +6,10 @@ using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
-using CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create.Data;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create;
 
+using Data;
 using static ShipmentsData;
 
 public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests

@@ -1,8 +1,8 @@
-﻿namespace CustomCADs.UnitTests.Files.Domain.Images.Create.WithId.Data;
+﻿namespace CustomCADs.UnitTests.Files.Domain.Images.Create.Normal.Data;
 
 using static ImagesData;
 
-public class ImageCreateValidData : ImageCreateWithIdData
+public class ImageCreateValidData : ImageCreateData
 {
     public ImageCreateValidData()
     {

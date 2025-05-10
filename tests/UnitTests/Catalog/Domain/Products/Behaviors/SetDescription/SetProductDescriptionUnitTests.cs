@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetDescription.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetDescription;
+
+using Data;
 
 public class SetProductDescriptionUnitTests : ProductsBaseUnitTests
 {

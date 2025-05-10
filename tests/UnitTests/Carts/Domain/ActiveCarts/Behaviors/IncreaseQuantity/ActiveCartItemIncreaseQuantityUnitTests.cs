@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Behaviors.IncreaseQuantity.Data;
 
 namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Behaviors.IncreaseQuantity;
+
+using Data;
 
 public class ActiveCartItemIncreaseQuantityUnitTests : ActiveCartItemsBaseUnitTests
 {

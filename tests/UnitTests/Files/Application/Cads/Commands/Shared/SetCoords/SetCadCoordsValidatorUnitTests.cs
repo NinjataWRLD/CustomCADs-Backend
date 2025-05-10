@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Files.Application.Cads.Commands.Shared.SetCoords;
 using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetCoords.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetCoords;
+
+using Data;
 
 public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
 {

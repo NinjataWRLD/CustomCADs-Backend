@@ -1,11 +1,10 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.Normal;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.Normal.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.Normal;
 
-using static CustomsData;
+using Data;
 
 public class PurchaseCustomValidatorUnitTests : CustomsBaseUnitTests
 {

@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Deleted.Data;
 
-using CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Deleted;
 using static RolesData;
 
 public class RoleDeletedValidData : RoleDeletedData

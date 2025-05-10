@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create.Data;
 
-using CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create;
 using static ProductsData;
 
 public class CreateProductInvalidPriceData : CreateProductData

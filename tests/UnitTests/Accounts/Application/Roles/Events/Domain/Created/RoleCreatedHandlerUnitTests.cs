@@ -2,10 +2,10 @@
 using CustomCADs.Accounts.Application.Roles.Events.Domain;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Created.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Created;
 
+using Data;
 using static CachingKeys;
 
 public class RoleCreatedHandlerUnitTests : RolesBaseUnitTests

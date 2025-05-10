@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Shared.Create.Data;
 
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Shared.Create;
 using static AccountsData;
 
 public class CreateAccountInvalidLastNameData : CreateAccountData

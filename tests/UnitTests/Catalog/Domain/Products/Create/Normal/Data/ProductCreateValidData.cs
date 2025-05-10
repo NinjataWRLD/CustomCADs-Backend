@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Catalog.Domain.Products.Create.Normal.Data;
 
-using CustomCADs.UnitTests.Catalog.Domain.Products.Create.Normal;
 using static ProductsData;
 
 public class ProductCreateValidData : ProductCreateData

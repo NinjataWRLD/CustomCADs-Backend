@@ -4,11 +4,10 @@ using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit;
 
+using Data;
 using static CategoriesData;
 
 public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests

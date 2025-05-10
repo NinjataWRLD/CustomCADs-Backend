@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.GetByUsername.Data;
 
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.GetByUsername;
 using static AccountsData;
 
 public class GetAccountByUsernameValidData : GetAccountByUsernameData

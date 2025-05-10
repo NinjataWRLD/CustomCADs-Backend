@@ -2,10 +2,10 @@
 using CustomCADs.Categories.Application.Common.Caching;
 using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.UnitTests.Categories.Application.Categories.Events.Domain.Created.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Events.Domain.Created;
 
+using Data;
 using static CachingKeys;
 using static CategoriesData;
 
