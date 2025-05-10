@@ -1,27 +1,23 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Create.WithId.Data;
+﻿namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Create.WithId;
 
-namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Create.WithId;
+using static PurchasedCartsData;
 
 public class PurchasedCartCreateWithIdUnitTests : PurchasedCartsBaseUnitTests
 {
-    [Theory]
-    [ClassData(typeof(PurchasedCartCreateWithIdValidData))]
-    public void CreateWithId_ShouldNotThrowException(PurchasedCartId id, AccountId buyerId)
+    [Fact]
+    public void CreateWithId_ShouldNotThrowException()
     {
-        CreateCartWithId(id, buyerId);
+        CreateCartWithId(ValidId, ValidBuyerId);
     }
 
-    [Theory]
-    [ClassData(typeof(PurchasedCartCreateWithIdValidData))]
-    public void CreateWithId_ShouldPopulatePropertiesProperly(PurchasedCartId id, AccountId buyerId)
+    [Fact]
+    public void CreateWithId_ShouldPopulatePropertiesProperly()
     {
-        var cart = CreateCartWithId(id, buyerId);
+        var cart = CreateCartWithId(ValidId, ValidBuyerId);
 
         Assert.Multiple(
-            () => Assert.Equal(id, cart.Id),
-            () => Assert.Equal(buyerId, cart.BuyerId),
+            () => Assert.Equal(ValidId, cart.Id),
+            () => Assert.Equal(ValidBuyerId, cart.BuyerId),
             () => Assert.Empty(cart.Items),
             () => Assert.True(DateTimeOffset.UtcNow - cart.PurchasedAt < TimeSpan.FromSeconds(1))
         );

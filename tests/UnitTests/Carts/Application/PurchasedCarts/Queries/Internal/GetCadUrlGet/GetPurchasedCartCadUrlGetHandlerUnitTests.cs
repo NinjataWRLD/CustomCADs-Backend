@@ -4,8 +4,6 @@ using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
@@ -21,19 +19,19 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     private readonly PurchasedCart cart = CreateCartWithItems(
         items: [
             PurchasedCartItem.Create(
-                cartId: ValidId1,
-                productId: CartItemsData.ValidProductId1,
-                cadId: CartItemsData.ValidCadId1,
-                customizationId: CartItemsData.ValidCustomizationId1,
+                cartId: ValidId,
+                productId: CartItemsData.ValidProductId,
+                cadId: CartItemsData.ValidCadId,
+                customizationId: CartItemsData.ValidCustomizationId,
                 price: CartItemsData.ValidPrice1,
                 quantity: CartItemsData.ValidQuantity1,
                 forDelivery: true,
                 addedAt: DateTimeOffset.UtcNow
             ),
             PurchasedCartItem.Create(
-                cartId: ValidId2,
-                productId: CartItemsData.ValidProductId2,
-                cadId: CartItemsData.ValidCadId2,
+                cartId: ValidId,
+                productId: CartItemsData.ValidProductId,
+                cadId: CartItemsData.ValidCadId,
                 customizationId: null,
                 price: CartItemsData.ValidPrice2,
                 quantity: CartItemsData.ValidQuantity2,
@@ -42,8 +40,6 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
             ),
         ]
     );
-    private static readonly PurchasedCartId cartId = ValidId1;
-    private static readonly AccountId buyerId = ValidBuyerId1;
     private const string Url = "presigned-Url";
     private const string ContentType = "presigned-Url";
 
@@ -61,33 +57,33 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(cartId, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(cart);
 
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: cartId,
-            ProductId: CartItemsData.ValidProductId1,
-            BuyerId: buyerId
+            Id: ValidId,
+            ProductId: CartItemsData.ValidProductId,
+            BuyerId: ValidBuyerId
         );
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        reads.Verify(x => x.SingleByIdAsync(cartId, false, ct), Times.Once);
+        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
     }
 
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(cartId, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(cart);
 
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: cartId,
-            ProductId: CartItemsData.ValidProductId1,
-            BuyerId: buyerId
+            Id: ValidId,
+            ProductId: CartItemsData.ValidProductId,
+            BuyerId: ValidBuyerId
         );
 
         // Act
@@ -104,13 +100,13 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(cartId, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(cart);
 
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: cartId,
-            ProductId: CartItemsData.ValidProductId1,
-            BuyerId: buyerId
+            Id: ValidId,
+            ProductId: CartItemsData.ValidProductId,
+            BuyerId: ValidBuyerId
         );
 
         // Act
@@ -127,13 +123,13 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     public async Task Handle_ShouldThrowException_WhenPurchasedCartNotFound()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(cartId, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(null as PurchasedCart);
 
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: cartId,
-            ProductId: CartItemsData.ValidProductId1,
-            BuyerId: buyerId
+            Id: ValidId,
+            ProductId: CartItemsData.ValidProductId,
+            BuyerId: ValidBuyerId
         );
 
         // Assert

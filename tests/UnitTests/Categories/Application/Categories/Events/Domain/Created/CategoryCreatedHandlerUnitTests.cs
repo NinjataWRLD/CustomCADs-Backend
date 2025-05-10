@@ -25,7 +25,7 @@ public class CategoryCreatedHandlerUnitTests : CategoriesBaseUnitTests
     {
         // Arrange
         CategoryCreatedDomainEvent de = new(
-            Category: CreateCategory(ValidId1, name, description)
+            Category: CreateCategory(ValidId, name, description)
         );
 
         // Act

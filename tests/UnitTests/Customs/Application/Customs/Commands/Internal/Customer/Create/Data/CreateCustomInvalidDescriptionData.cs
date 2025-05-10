@@ -7,7 +7,7 @@ public class CreateCustomInvalidDescriptionData : CreateCustomData
 {
     public CreateCustomInvalidDescriptionData()
     {
-        Add(ValidName1, InvalidDescription1, false, ValidBuyerId1);
-        Add(ValidName2, InvalidDescription2, true, ValidBuyerId2);
+        Add(ValidName1, InvalidDescription1, false);
+        Add(ValidName2, InvalidDescription2, true);
     }
 }

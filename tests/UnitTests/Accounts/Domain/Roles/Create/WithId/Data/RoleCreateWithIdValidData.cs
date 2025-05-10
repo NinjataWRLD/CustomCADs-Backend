@@ -6,9 +6,9 @@ public class RoleCreateWithIdValidData : RoleCreateWithIdData
 {
     public RoleCreateWithIdValidData()
     {
-        Add(ValidId1, ValidName1, ValidDescription1);
-        Add(ValidId2, ValidName2, ValidDescription2);
-        Add(ValidId3, ValidName3, ValidDescription3);
-        Add(ValidId4, ValidName4, ValidDescription4);
+        Add(ValidId, ValidName1, ValidDescription1);
+        Add(ValidId, ValidName2, ValidDescription2);
+        Add(ValidId, ValidName3, ValidDescription3);
+        Add(ValidId, ValidName4, ValidDescription4);
     }
 }

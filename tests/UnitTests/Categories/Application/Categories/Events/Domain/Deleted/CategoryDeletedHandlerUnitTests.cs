@@ -22,7 +22,7 @@ public class CategoryDeletedHandlerUnitTests : CategoriesBaseUnitTests
     public async Task Handle_ShouldUpdateCache()
     {
         // Arrange
-        CategoryDeletedDomainEvent de = new(ValidId1);
+        CategoryDeletedDomainEvent de = new(ValidId);
 
         // Act
         await handler.Handle(de);

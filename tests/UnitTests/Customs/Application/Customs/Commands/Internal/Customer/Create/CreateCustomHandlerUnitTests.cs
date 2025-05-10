@@ -29,14 +29,14 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateCustomValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string name, string description, bool fordelivery, AccountId buyerId)
+    public async Task Handle_ShouldPersistToDatabase(string name, string description, bool fordelivery)
     {
         // Arrange
         CreateCustomCommand command = new(
             Name: name,
             Description: description,
             ForDelivery: fordelivery,
-            BuyerId: buyerId
+            BuyerId: ValidBuyerId
         );
 
         // Act
@@ -48,7 +48,7 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
                 x.Name == name &&
                 x.Description == description &&
                 x.ForDelivery == fordelivery &&
-                x.BuyerId == buyerId
+                x.BuyerId == ValidBuyerId
             ),
             ct
         ), Times.Once);
@@ -57,14 +57,14 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateCustomValidData))]
-    public async Task Handle_ShouldSendRequests(string name, string description, bool fordelivery, AccountId buyerId)
+    public async Task Handle_ShouldSendRequests(string name, string description, bool fordelivery)
     {
         // Arrange
         CreateCustomCommand command = new(
             Name: name,
             Description: description,
             ForDelivery: fordelivery,
-            BuyerId: buyerId
+            BuyerId: ValidBuyerId
         );
 
         // Act
@@ -72,7 +72,7 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
             ct
         ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
@@ -80,11 +80,11 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 
     [Theory]
     [ClassData(typeof(CreateCustomValidData))]
-    public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, bool fordelivery, AccountId buyerId)
+    public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, bool fordelivery)
     {
         // Arrange
         sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
             ct
         )).ReturnsAsync(false);
 
@@ -92,7 +92,7 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
             Name: name,
             Description: description,
             ForDelivery: fordelivery,
-            BuyerId: buyerId
+            BuyerId: ValidBuyerId
         );
 
         // Assert

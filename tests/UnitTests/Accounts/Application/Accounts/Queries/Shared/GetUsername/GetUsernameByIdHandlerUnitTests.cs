@@ -1,9 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.Shared.Username;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetUsername.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetUsername;
 
@@ -19,28 +17,26 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
         handler = new(reads.Object);
     }
 
-    [Theory]
-    [ClassData(typeof(GetUsernameByIdValidData))]
-    public async Task Handle_ShouldQueryDatabase(AccountId id)
+    [Fact]
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount());
-        GetUsernameByIdQuery query = new(id);
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateAccount());
+        GetUsernameByIdQuery query = new(ValidId);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
     }
 
-    [Theory]
-    [ClassData(typeof(GetUsernameByIdValidData))]
-    public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
+    [Fact]
+    public async Task Handle_ShouldReturnProperly_WhenAccountFound()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount(username: ValidUsername1));
-        GetUsernameByIdQuery query = new(id);
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateAccount(username: ValidUsername1));
+        GetUsernameByIdQuery query = new(ValidId);
 
         // Act
         string actualUsername = await handler.Handle(query, ct);
@@ -49,13 +45,12 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
         Assert.Equal(ValidUsername1, actualUsername);
     }
 
-    [Theory]
-    [ClassData(typeof(GetUsernameByIdValidData))]
-    public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(AccountId id)
+    [Fact]
+    public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Account);
-        GetUsernameByIdQuery query = new(id);
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Account);
+        GetUsernameByIdQuery query = new(ValidId);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>

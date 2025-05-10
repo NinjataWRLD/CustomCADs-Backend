@@ -6,7 +6,7 @@ namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Cre
 
 using static ProductsData;
 
-public class ProductsCountHandlerUnitTests
+public class ProductsCountHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly ProductsCountHandler handler;
     private readonly Mock<IProductReads> reads = new();

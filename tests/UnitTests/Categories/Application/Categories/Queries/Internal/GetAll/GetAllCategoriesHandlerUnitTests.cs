@@ -2,6 +2,7 @@
 using CustomCADs.Categories.Application.Common.Caching;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Internal.GetAll;
 
@@ -15,9 +16,9 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
     private readonly Mock<ICacheService> cache = new();
 
     private readonly Category[] categories = [
-        Category.CreateWithId(ValidId1, ValidName1, ValidDescription1),
-        Category.CreateWithId(ValidId2, ValidName2, ValidDescription2),
-        Category.CreateWithId(ValidId3, ValidName3, ValidDescription3)
+        Category.CreateWithId(CategoryId.New(1), ValidName1, ValidDescription1),
+        Category.CreateWithId(CategoryId.New(2), ValidName2, ValidDescription2),
+        Category.CreateWithId(CategoryId.New(3), ValidName3, ValidDescription3)
     ];
 
     public GetAllCategoriesHandlerUnitTests()

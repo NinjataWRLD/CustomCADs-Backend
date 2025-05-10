@@ -3,7 +3,6 @@ using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.UseCases.Categories.Queries;
-using CustomCADs.UnitTests.Categories.Application.Categories.Queries.Shared.GetById.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Shared.GetById;
 
@@ -18,37 +17,29 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
     {
         handler = new(reads.Object);
 
-        reads.Setup(v => v.SingleByIdAsync(ValidId1, false, ct))
-            .ReturnsAsync(CreateCategory());
-
-        reads.Setup(v => v.SingleByIdAsync(ValidId2, false, ct))
-            .ReturnsAsync(CreateCategory());
-
-        reads.Setup(v => v.SingleByIdAsync(ValidId3, false, ct))
+        reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(CreateCategory());
     }
 
-    [Theory]
-    [ClassData(typeof(GetCategoryByIdValidData))]
-    public async Task Handle_ShouldQueryDatabase(CategoryId id)
+    [Fact]
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        GetCategoryNameByIdQuery query = new(id);
+        GetCategoryNameByIdQuery query = new(ValidId);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        reads.Verify(v => v.SingleByIdAsync(id, false, ct), Times.Once());
+        reads.Verify(v => v.SingleByIdAsync(ValidId, false, ct), Times.Once());
     }
 
-    [Theory]
-    [ClassData(typeof(GetCategoryByIdValidData))]
-    public async Task Handle_ShouldThrowException_WhenDatabaseMiss(CategoryId id)
+    [Fact]
+    public async Task Handle_ShouldThrowException_WhenDatabaseMiss()
     {
         // Arrange
-        reads.Setup(v => v.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Category);
-        GetCategoryNameByIdQuery query = new(id);
+        reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Category);
+        GetCategoryNameByIdQuery query = new(ValidId);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>

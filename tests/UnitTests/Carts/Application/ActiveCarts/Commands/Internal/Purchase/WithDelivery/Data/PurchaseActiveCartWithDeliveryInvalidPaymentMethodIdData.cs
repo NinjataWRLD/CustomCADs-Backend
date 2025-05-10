@@ -7,7 +7,7 @@ public class PurchaseActiveCartWithDeliveryInvalidPaymentMethodIdData : Purchase
 {
     public PurchaseActiveCartWithDeliveryInvalidPaymentMethodIdData()
     {
-        Add(string.Empty, ValidBuyerId1, "shipment-service-1", "Bulgaria", "Sofia", null, "customcads@gmail.com");
-        Add(null!, ValidBuyerId2, "shipment-service-2", "Romania", "Bucharest", "+359359359359", null);
+        Add(string.Empty, ValidBuyerId, "shipment-service-1", "Bulgaria", "Sofia", null, "customcads@gmail.com");
+        Add(null!, ValidBuyerId, "shipment-service-2", "Romania", "Bucharest", "+359359359359", null);
     }
 }

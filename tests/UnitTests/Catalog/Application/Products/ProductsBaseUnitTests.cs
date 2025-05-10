@@ -9,6 +9,8 @@ using static ProductsData;
 
 public class ProductsBaseUnitTests
 {
+    public static readonly CancellationToken ct = CancellationToken.None;
+
     protected static Product CreateProduct(
         string? name = null,
         string? description = null,

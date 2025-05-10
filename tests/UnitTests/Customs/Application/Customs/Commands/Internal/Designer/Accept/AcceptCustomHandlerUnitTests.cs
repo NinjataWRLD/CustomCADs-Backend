@@ -4,7 +4,6 @@ using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Designer.Accept;
@@ -18,19 +17,17 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
 
-    private static readonly CustomId id = ValidId1;
-    private static readonly AccountId designerId = ValidDesignerId1;
     private readonly Custom custom = CreateCustom();
 
     public AcceptCustomHandlerUnitTests()
     {
         handler = new(reads.Object, uow.Object, sender.Object);
 
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(custom);
 
         sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId),
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
             ct
         )).ReturnsAsync(true);
     }
@@ -40,15 +37,15 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         AcceptCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+        reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
     }
 
     [Fact]
@@ -56,8 +53,8 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         AcceptCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Act
@@ -72,8 +69,8 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         AcceptCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Act
@@ -81,7 +78,7 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId),
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
             ct
         ), Times.Once);
     }
@@ -91,8 +88,8 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         AcceptCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Act
@@ -100,7 +97,7 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         Assert.Multiple(
-            () => Assert.Equal(designerId, custom.AcceptedCustom?.DesignerId),
+            () => Assert.Equal(ValidDesignerId, custom.AcceptedCustom?.DesignerId),
             () => Assert.Equal(CustomStatus.Accepted, custom.CustomStatus)
         );
     }
@@ -110,13 +107,13 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetAccountExistsByIdQuery>(x => x.Id == designerId),
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
             ct
         )).ReturnsAsync(false);
 
         AcceptCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Assert
@@ -131,12 +128,12 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCustomNotFound()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(null as Custom);
 
         AcceptCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Assert

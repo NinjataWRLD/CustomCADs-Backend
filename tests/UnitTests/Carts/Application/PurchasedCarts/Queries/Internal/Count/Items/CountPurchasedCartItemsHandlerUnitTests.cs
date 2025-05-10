@@ -1,8 +1,6 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.Count.Items;
 using CustomCADs.Carts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.Internal.Count.Items.Data;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.Internal.Count.Items;
 
@@ -13,48 +11,42 @@ public class CountPurchasedCartItemsHandlerUnitTests : PurchasedCartsBaseUnitTes
     private readonly CountPurchasedCartItemsHandler handler;
     private readonly Mock<IPurchasedCartReads> reads = new();
 
-    private readonly Dictionary<AccountId, Dictionary<PurchasedCartId, int>> counts = new()
-    {
-        [ValidBuyerId1] = new() { [ValidId1] = 1, [ValidId2] = 2 },
-        [ValidBuyerId2] = new() { [ValidId1] = 2, [ValidId2] = 1 },
-    };
+    private static readonly Dictionary<PurchasedCartId, int> count = new() { [ValidId] = 4 };
 
     public CountPurchasedCartItemsHandlerUnitTests()
     {
         handler = new(reads.Object);
 
-        reads.Setup(x => x.CountItemsAsync(ValidBuyerId1, ct))
-            .ReturnsAsync(counts[ValidBuyerId1]);
+        reads.Setup(x => x.CountItemsAsync(ValidBuyerId, ct))
+            .ReturnsAsync(count);
 
-        reads.Setup(x => x.CountItemsAsync(ValidBuyerId2, ct))
-            .ReturnsAsync(counts[ValidBuyerId2]);
+        reads.Setup(x => x.CountItemsAsync(ValidBuyerId, ct))
+            .ReturnsAsync(count);
     }
 
-    [Theory]
-    [ClassData(typeof(CountPurchasedCartItemsValidData))]
-    public async Task Handle_ShouldQueryDatabase(AccountId buyerId)
+    [Fact]
+    public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        CountPurchasedCartItemsQuery query = new(buyerId);
+        CountPurchasedCartItemsQuery query = new(ValidBuyerId);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        reads.Verify(x => x.CountItemsAsync(buyerId, ct), Times.Once);
+        reads.Verify(x => x.CountItemsAsync(ValidBuyerId, ct), Times.Once);
     }
 
-    [Theory]
-    [ClassData(typeof(CountPurchasedCartItemsValidData))]
-    public async Task Handle_ShouldReturnProperly(AccountId buyerId)
+    [Fact]
+    public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        CountPurchasedCartItemsQuery query = new(buyerId);
+        CountPurchasedCartItemsQuery query = new(ValidBuyerId);
 
         // Act
         var result = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Equal(counts[buyerId], result);
+        Assert.Equal(count, result);
     }
 }

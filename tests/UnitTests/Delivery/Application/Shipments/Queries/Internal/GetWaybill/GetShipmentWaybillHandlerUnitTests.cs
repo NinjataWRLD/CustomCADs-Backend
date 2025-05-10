@@ -1,10 +1,13 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetWaybill;
 using CustomCADs.Delivery.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Queries.Internal.GetWaybill;
 
+using static Constants.Users;
 using static ShipmentsData;
 
 public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
@@ -13,21 +16,22 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     private readonly Mock<IShipmentReads> reads = new();
     private readonly Mock<IDeliveryService> delivery = new();
 
-    private static readonly byte[] Bytes = [1, 2, 3, 4, 5, 6];
+    private static readonly byte[] bytes = [1, 2, 3, 4, 5, 6];
+    public static readonly AccountId headDesignerId = AccountId.New(DesignerAccountId);
 
     public GetShipmentWaybillHandlerUnitTests()
     {
         handler = new(reads.Object, delivery.Object);
 
         reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateShipment());
-        delivery.Setup(x => x.PrintAsync(ValidReferenceId, ct)).ReturnsAsync(Bytes);
+        delivery.Setup(x => x.PrintAsync(ValidReferenceId, ct)).ReturnsAsync(bytes);
     }
 
     [Fact]
     public async Task Handle_ShouldQueryDatbase()
     {
         // Arrange
-        GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
+        GetShipmentWaybillQuery query = new(id, headDesignerId);
 
         // Act
         await handler.Handle(query, ct);
@@ -40,7 +44,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
     {
         // Arrange
-        GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
+        GetShipmentWaybillQuery query = new(id, headDesignerId);
 
         // Act
         await handler.Handle(query, ct);
@@ -53,13 +57,13 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     public async Task Handle_ShouldReturnProperly_WhenShipmentFound()
     {
         // Arrange
-        GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
+        GetShipmentWaybillQuery query = new(id, headDesignerId);
 
         // Act
         byte[] bytes = await handler.Handle(query, ct);
 
         // Assert
-        Assert.Equal(bytes, Bytes);
+        Assert.Equal(bytes, GetShipmentWaybillHandlerUnitTests.bytes);
     }
 
     [Fact]
@@ -67,7 +71,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
     {
         // Arrange
         reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Shipment);
-        GetShipmentWaybillQuery query = new(id, ValidHeadDesignerId);
+        GetShipmentWaybillQuery query = new(id, headDesignerId);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>

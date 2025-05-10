@@ -15,17 +15,15 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
     private readonly Mock<ICustomReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
 
-    private static readonly CustomId id = ValidId1;
-    private static readonly AccountId designerId = ValidDesignerId1;
-    private static readonly AccountId wrongDesignerId = ValidDesignerId2;
+    private static readonly AccountId designerId = AccountId.New();
     private readonly Custom custom = CreateCustom();
 
     public BeginCustomHandlerUnitTests()
     {
         handler = new(reads.Object, uow.Object);
 
-        custom.Accept(designerId);
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+        custom.Accept(ValidDesignerId);
+        reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(custom);
     }
 
@@ -34,15 +32,15 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         BeginCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+        reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
     }
 
     [Fact]
@@ -50,8 +48,8 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         BeginCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Act
@@ -66,8 +64,8 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         BeginCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Act
@@ -75,7 +73,7 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         Assert.Multiple(
-            () => Assert.Equal(designerId, custom.AcceptedCustom?.DesignerId),
+            () => Assert.Equal(ValidDesignerId, custom.AcceptedCustom?.DesignerId),
             () => Assert.Equal(CustomStatus.Begun, custom.CustomStatus)
         );
     }
@@ -85,13 +83,13 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         var custom = CreateCustom();
-        custom.Accept(wrongDesignerId);
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+        custom.Accept(designerId);
+        reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(custom);
 
         BeginCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Assert
@@ -106,12 +104,12 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCustomNotFound()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(null as Custom);
 
         BeginCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
+            Id: ValidId,
+            DesignerId: ValidDesignerId
         );
 
         // Assert

@@ -7,7 +7,6 @@ using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
@@ -27,7 +26,6 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 
     private static readonly string paymentMethodId = string.Empty;
     private static readonly string shipmentService = string.Empty;
-    private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
     private static readonly ContactDto contact = new(null, null);
 
@@ -35,10 +33,10 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     {
         handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
-        reads.Setup(x => x.ExistsAsync(buyerId, ct))
+        reads.Setup(x => x.ExistsAsync(ValidBuyerId, ct))
             .ReturnsAsync(true);
 
-        reads.Setup(x => x.AllAsync(buyerId, false, ct))
+        reads.Setup(x => x.AllAsync(ValidBuyerId, false, ct))
             .ReturnsAsync([
                 CreateItemWithDelivery(productId: ProductId.New()),
                 CreateItem(productId: ProductId.New()),
@@ -68,7 +66,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             ShipmentService: shipmentService,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -77,8 +75,8 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         await handler.Handle(command, ct);
 
         // Assert
-        reads.Verify(x => x.ExistsAsync(buyerId, ct), Times.Once);
-        reads.Verify(x => x.AllAsync(buyerId, false, ct), Times.Once);
+        reads.Verify(x => x.ExistsAsync(ValidBuyerId, ct), Times.Once);
+        reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once);
     }
 
     [Fact]
@@ -88,7 +86,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             ShipmentService: shipmentService,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -106,7 +104,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
             ct
         ), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId),
+            It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
             ct
         ), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
@@ -126,7 +124,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -150,7 +148,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             ShipmentService: shipmentService,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -179,7 +177,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             ShipmentService: shipmentService,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -195,7 +193,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
     public async Task Handle_ShouldThrowException_WhenCartForDelivery()
     {
         // Arrange
-        reads.Setup(x => x.AllAsync(buyerId, false, ct))
+        reads.Setup(x => x.AllAsync(ValidBuyerId, false, ct))
             .ReturnsAsync([
                 CreateItem(productId: ProductId.New()),
                 CreateItem(productId: ProductId.New()),
@@ -205,7 +203,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
         PurchaseActiveCartWithDeliveryCommand command = new(
             PaymentMethodId: paymentMethodId,
             ShipmentService: shipmentService,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );

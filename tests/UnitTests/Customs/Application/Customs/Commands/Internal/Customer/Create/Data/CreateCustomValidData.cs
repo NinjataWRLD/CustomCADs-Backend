@@ -7,7 +7,7 @@ public class CreateCustomValidData : CreateCustomData
 {
     public CreateCustomValidData()
     {
-        Add(ValidName1, ValidDescription1, false, ValidBuyerId1);
-        Add(ValidName2, ValidDescription2, true, ValidBuyerId2);
+        Add(ValidName1, ValidDescription1, false);
+        Add(ValidName2, ValidDescription2, true);
     }
 }

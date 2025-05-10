@@ -13,8 +13,8 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
     private readonly Mock<IPurchasedCartReads> reads = new();
 
     private readonly PurchasedCart[] carts = [
-        CreateCartWithId(id: ValidId1),
-        CreateCartWithId(id: ValidId2),
+        CreateCartWithId(id: ValidId),
+        CreateCartWithId(id: ValidId),
     ];
     private readonly PurchasedCartQuery query;
 

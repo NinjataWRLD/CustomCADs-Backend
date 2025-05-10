@@ -7,7 +7,7 @@ public class PurchaseActiveCartInvalidPaymentMethodIdData : PurchaseActiveCartDa
 {
     public PurchaseActiveCartInvalidPaymentMethodIdData()
     {
-        Add(string.Empty, ValidBuyerId1);
-        Add(null!, ValidBuyerId2);
+        Add(string.Empty, ValidBuyerId);
+        Add(null!, ValidBuyerId);
     }
 }

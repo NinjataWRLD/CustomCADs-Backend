@@ -1,42 +1,43 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.UnitTests.Customs.Domain.Customs.Create.WithId.Data;
 
 namespace CustomCADs.UnitTests.Customs.Domain.Customs.Create.WithId;
+
+using static CustomsData;
 
 public class CustomCreateWitIdUnitTests : CustomsBaseUnitTests
 {
     [Theory]
     [ClassData(typeof(CustomCreateWitIdValidData))]
-    public void CreateWithId_ShouldNotThrowException_WhenCustomIsValid(CustomId id, string name, string description, bool delivery, AccountId buyerId)
+    public void CreateWithId_ShouldNotThrowException_WhenCustomIsValid(string name, string description, bool delivery)
     {
-        CreateCustomWithId(id, name, description, delivery, buyerId);
+        CreateCustomWithId(ValidId, name, description, delivery, ValidBuyerId);
     }
 
     [Theory]
     [ClassData(typeof(CustomCreateWitIdValidData))]
-    public void CreateWithId_ShouldPopulateProperties(CustomId id, string name, string description, bool forDelivery, AccountId buyerId)
+    public void CreateWithId_ShouldPopulateProperties(string name, string description, bool forDelivery)
     {
-        var order = CreateCustomWithId(id, name, description, forDelivery, buyerId);
+        var order = CreateCustomWithId(ValidId, name, description, forDelivery, ValidBuyerId);
 
         Assert.Multiple(
-            () => Assert.Equal(id, order.Id),
+            () => Assert.Equal(ValidId, order.Id),
             () => Assert.Equal(name, order.Name),
             () => Assert.Equal(description, order.Description),
             () => Assert.Equal(forDelivery, order.ForDelivery),
-            () => Assert.Equal(buyerId, order.BuyerId)
+            () => Assert.Equal(ValidBuyerId, order.BuyerId)
         );
     }
 
     [Theory]
     [ClassData(typeof(CustomCreateWitIdInvalidNameData))]
     [ClassData(typeof(CustomCreateWitIdInvalidDescriptionData))]
-    public void CreateWithId_ShouldThrowException_WhenCustomIsInvalid(CustomId id, string name, string description, bool delivery, AccountId buyerId)
+    public void CreateWithId_ShouldThrowException_WhenCustomIsInvalid(string name, string description, bool delivery)
     {
-        Assert.Throws<CustomValidationException<Custom>>(() =>
+        Assert.Throws<CustomValidationException<Custom>>((Action)(() =>
         {
-            CreateCustomWithId(id, name, description, delivery, buyerId);
-            CreateCustom(name, description, delivery, buyerId);
-        });
+            CustomsBaseUnitTests.CreateCustomWithId(CustomsData.ValidId, name, description, (bool?)delivery, ValidBuyerId);
+            CreateCustom(name, description, delivery, ValidBuyerId);
+        }));
     }
 }

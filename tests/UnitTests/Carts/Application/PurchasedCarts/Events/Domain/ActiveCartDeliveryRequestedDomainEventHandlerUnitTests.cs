@@ -4,7 +4,6 @@ using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 
@@ -18,16 +17,16 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
     private readonly Mock<IPurchasedCartReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
+
     private readonly PurchasedCart cart = CreateCartWithItems(
         items: [CreateItem(forDelivery: true)]
     );
-    private readonly PurchasedCartId id = ValidId1;
 
     public ActiveCartDeliveryRequestedDomainEventHandlerUnitTests()
     {
         handler = new(reads.Object, uow.Object, sender.Object);
 
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(cart);
 
         sender.Setup(x => x.SendQueryAsync(
@@ -38,7 +37,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
         sender.Setup(x => x.SendCommandAsync(
             It.Is<CreateShipmentCommand>(x => x.BuyerId == cart.BuyerId),
             ct
-        )).ReturnsAsync(ValidShipmentId1);
+        )).ReturnsAsync(ValidShipmentId);
     }
 
     [Fact]
@@ -46,7 +45,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
     {
         // Arrange
         ActiveCartDeliveryRequestedDomainEvent de = new(
-            Id: id,
+            Id: ValidId,
             ShipmentService: string.Empty,
             Weight: default,
             Count: default,
@@ -58,7 +57,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
         await handler.Handle(de);
 
         // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
     }
 
     [Fact]
@@ -66,7 +65,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
     {
         // Arrange
         ActiveCartDeliveryRequestedDomainEvent de = new(
-            Id: id,
+            Id: ValidId,
             ShipmentService: string.Empty,
             Weight: default,
             Count: default,
@@ -92,11 +91,11 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
     public async Task Handle_ShouldThrowException_WhenCartNotFound()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(null as PurchasedCart);
 
         ActiveCartDeliveryRequestedDomainEvent de = new(
-            Id: id,
+            Id: ValidId,
             ShipmentService: string.Empty,
             Weight: default,
             Count: default,

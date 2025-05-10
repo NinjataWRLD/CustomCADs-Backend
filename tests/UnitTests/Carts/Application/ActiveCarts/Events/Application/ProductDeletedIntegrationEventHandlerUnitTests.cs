@@ -21,7 +21,7 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ActiveCartsBaseUni
     {
         // Arrange
         ProductDeletedApplicationEvent ie = new(
-            Id: ValidProductId1,
+            Id: ValidProductId,
             ImageId: default,
             CadId: default
         );
@@ -30,6 +30,6 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ActiveCartsBaseUni
         await handler.Handle(ie);
 
         // Assert
-        uow.Verify(x => x.BulkDeleteItemsByProductIdAsync(ValidProductId1, ct), Times.Once);
+        uow.Verify(x => x.BulkDeleteItemsByProductIdAsync(ValidProductId, ct), Times.Once);
     }
 }

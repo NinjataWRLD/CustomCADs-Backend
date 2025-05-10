@@ -27,7 +27,6 @@ public static class ProductsData
     public const decimal InvalidPrice1 = PriceMin - 1;
     public const decimal InvalidPrice2 = PriceMax + 1;
 
-    public static readonly CancellationToken ct = CancellationToken.None;
     public static readonly ProductId ValidId = ProductId.New();
     public static readonly AccountId ValidCreatorId = AccountId.New();
     public static readonly AccountId ValidDesignerId = AccountId.New();

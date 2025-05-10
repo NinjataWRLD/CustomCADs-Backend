@@ -4,8 +4,6 @@ using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Delete.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Delete;
 
@@ -23,70 +21,60 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
     {
         handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
-        reads.Setup(v => v.SingleByIdAsync(ValidId1, true, ct))
-            .ReturnsAsync(CreateCategory(ValidId1, ValidName1, ValidDescription1));
-
-        reads.Setup(v => v.SingleByIdAsync(ValidId2, true, ct))
-            .ReturnsAsync(CreateCategory(ValidId2, ValidName2, ValidDescription2));
-
-        reads.Setup(v => v.SingleByIdAsync(ValidId3, true, ct))
-            .ReturnsAsync(CreateCategory(ValidId3, ValidName3, ValidDescription3));
+        reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct))
+            .ReturnsAsync(CreateCategory(ValidId, ValidName1, ValidDescription1));
     }
 
-    [Theory]
-    [ClassData(typeof(DeleteCategoryValidData))]
-    public async Task Handler_ShouldQueryDatabase(CategoryId id)
+    [Fact]
+    public async Task Handler_ShouldQueryDatabase()
     {
         // Arrange
-        DeleteCategoryCommand command = new(id);
+        DeleteCategoryCommand command = new(ValidId);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        reads.Verify(v => v.SingleByIdAsync(id, true, ct), Times.Once());
+        reads.Verify(v => v.SingleByIdAsync(ValidId, true, ct), Times.Once());
     }
 
-    [Theory]
-    [ClassData(typeof(DeleteCategoryValidData))]
-    public async Task Handler_ShouldPersistToDatabase_WhenCategoryFound(CategoryId id)
+    [Fact]
+    public async Task Handler_ShouldPersistToDatabase_WhenCategoryFound()
     {
         // Arrange
-        DeleteCategoryCommand command = new(id);
+        DeleteCategoryCommand command = new(ValidId);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
         writes.Verify(v => v.Remove(
-            It.Is<Category>(x => x.Id == id)
+            It.Is<Category>(x => x.Id == ValidId)
         ), Times.Once());
         uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
     }
 
-    [Theory]
-    [ClassData(typeof(DeleteCategoryValidData))]
-    public async Task Handler_ShouldRaiseEvents(CategoryId id)
+    [Fact]
+    public async Task Handler_ShouldRaiseEvents()
     {
         // Arrange
-        DeleteCategoryCommand command = new(id);
+        DeleteCategoryCommand command = new(ValidId);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
         raiser.Verify(v => v.RaiseDomainEventAsync(
-            It.Is<CategoryDeletedDomainEvent>(x => x.Id == id)
+            It.Is<CategoryDeletedDomainEvent>(x => x.Id == ValidId)
         ), Times.Once());
     }
 
-    [Theory]
-    [ClassData(typeof(DeleteCategoryValidData))]
-    public async Task Handle_ShouldThrowException_WhenCategoryNotFound(CategoryId id)
+    [Fact]
+    public async Task Handle_ShouldThrowException_WhenCategoryNotFound()
     {
         // Arrange
-        reads.Setup(v => v.SingleByIdAsync(id, true, ct)).ReturnsAsync(null as Category);
-        DeleteCategoryCommand command = new(id);
+        reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Category);
+        DeleteCategoryCommand command = new(ValidId);
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>

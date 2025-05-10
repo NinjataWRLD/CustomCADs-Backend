@@ -2,7 +2,6 @@
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
@@ -16,17 +15,16 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IRequestSender> sender = new();
 
-    private static readonly AccountId buyerId = ValidBuyerId1;
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
 
     public CalculateActiveCartShipmentHandlerUnitTests()
     {
         handler = new(reads.Object, sender.Object);
 
-        reads.Setup(x => x.AllAsync(buyerId, false, ct))
+        reads.Setup(x => x.AllAsync(ValidBuyerId, false, ct))
             .ReturnsAsync([
-                CreateItem(ValidBuyerId1, ValidProductId1),
-                CreateItemWithDelivery(ValidBuyerId2, ValidProductId2),
+                CreateItem(ValidBuyerId, ValidProductId),
+                CreateItemWithDelivery(ValidBuyerId, ValidProductId),
             ]);
 
         sender.Setup(x => x.SendQueryAsync(
@@ -44,22 +42,20 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        CalculateActiveCartShipmentQuery query = new(buyerId, address);
-        CalculateActiveCartShipmentHandler handler = new(reads.Object, sender.Object);
+        CalculateActiveCartShipmentQuery query = new(ValidBuyerId, address);
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        reads.Verify(x => x.AllAsync(buyerId, false, ct), Times.Once);
+        reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once);
     }
 
     [Fact]
     public async Task Handle_ShouldSendRequests()
     {
         // Arrange
-        CalculateActiveCartShipmentQuery query = new(buyerId, address);
-        CalculateActiveCartShipmentHandler handler = new(reads.Object, sender.Object);
+        CalculateActiveCartShipmentQuery query = new(ValidBuyerId, address);
 
         // Act
         await handler.Handle(query, ct);

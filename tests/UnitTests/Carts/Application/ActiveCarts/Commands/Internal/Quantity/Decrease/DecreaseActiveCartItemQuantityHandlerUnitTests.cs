@@ -2,10 +2,8 @@
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Quantity.Decrease.Data;
-using Microsoft.AspNetCore.Authentication;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Quantity.Decrease;
 
@@ -17,16 +15,14 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     private readonly DecreaseActiveCartItemQuantityHandler handler;
     private readonly Mock<IActiveCartReads> reads = new();
     private readonly Mock<IUnitOfWork> uow = new();
-    private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly ProductId productId = ProductId.New(Guid.Empty);
 
     public DecreaseActiveCartItemQuantityHandlerUnitTests()
     {
         handler = new(reads.Object, uow.Object);
 
-        var item = CreateItemWithDelivery(productId: productId).IncreaseQuantity(QuantityMax - 1);
+        var item = CreateItemWithDelivery(productId: ValidProductId).IncreaseQuantity(QuantityMax - 1);
 
-        reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
+        reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
             .ReturnsAsync(item);
     }
 
@@ -36,8 +32,8 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     {
         // Arrange
         DecreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: buyerId,
-            ProductId: productId,
+            BuyerId: ValidBuyerId,
+            ProductId: ValidProductId,
             Amount: amount
         );
 
@@ -45,7 +41,7 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
         await handler.Handle(command, ct);
 
         // Assert
-        reads.Verify(x => x.SingleAsync(buyerId, productId, true, ct), Times.Once);
+        reads.Verify(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct), Times.Once);
     }
 
     [Theory]
@@ -54,8 +50,8 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     {
         // Arrange
         DecreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: buyerId,
-            ProductId: productId,
+            BuyerId: ValidBuyerId,
+            ProductId: ValidProductId,
             Amount: amount
         );
 
@@ -71,12 +67,12 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     public async Task Handle_ShouldThrowException_WhenCartNotFound(int amount)
     {
         // Arrange
-        reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
+        reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
             .ReturnsAsync(null as ActiveCartItem);
 
         DecreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: buyerId,
-            ProductId: productId,
+            BuyerId: ValidBuyerId,
+            ProductId: ValidProductId,
             Amount: amount
         );
 
@@ -94,8 +90,8 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
     {
         // Arrange
         DecreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: buyerId,
-            ProductId: ValidProductId1,
+            BuyerId: ValidBuyerId,
+            ProductId: ProductId.New(),
             Amount: amount
         );
 

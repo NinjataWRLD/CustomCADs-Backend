@@ -10,10 +10,10 @@ using static PurchasedCartsData;
 public class PurchasedCartsBaseUnitTests
 {
     protected static PurchasedCart CreateCart(AccountId? buyerId = null)
-        => PurchasedCart.Create(buyerId ?? ValidBuyerId1);
+        => PurchasedCart.Create(buyerId ?? ValidBuyerId);
 
     protected static PurchasedCart CreateCartWithId(PurchasedCartId? id = null, AccountId? buyerId = null)
-        => PurchasedCart.CreateWithId(id ?? ValidId1, buyerId ?? ValidBuyerId1);
+        => PurchasedCart.CreateWithId(id ?? ValidId, buyerId ?? ValidBuyerId);
 
     protected static PurchasedCart CreateCartWithItems(
         AccountId buyerId,

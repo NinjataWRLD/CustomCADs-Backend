@@ -25,14 +25,12 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     private readonly Mock<IPaymentService> payment = new();
     private readonly Mock<IEventRaiser> raiser = new();
 
-    private static readonly CustomId id = ValidId1;
-    private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly AccountId wrongBuyerId = ValidBuyerId2;
+    private static readonly AccountId buyerId = AccountId.New();
     private static readonly AddressDto address = new("Bulgaria", "Burgas");
     private static readonly ContactDto contact = new(null, null);
     private readonly Custom custom = CreateCustomWithId(
-        id: id,
-        buyerId: buyerId,
+        id: ValidId,
+        buyerId: ValidBuyerId,
         forDelivery: true
     );
 
@@ -40,25 +38,25 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     {
         handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
 
-        custom.Accept(ValidDesignerId1);
+        custom.Accept(ValidDesignerId);
         custom.Begin();
-        custom.Finish(ValidCadId1, ValidPrice1);
+        custom.Finish(ValidCadId, ValidPrice1);
 
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(custom);
 
         sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetCustomizationCostByIdQuery>(x => x.Id == ValidCustomizationId1),
+            It.Is<GetCustomizationCostByIdQuery>(x => x.Id == ValidCustomizationId),
             ct
         )).ReturnsAsync(0m);
 
         sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetCadExistsByIdQuery>(x => x.Id == ValidCadId1),
+            It.Is<GetCadExistsByIdQuery>(x => x.Id == ValidCadId),
             ct
         )).ReturnsAsync(true);
 
         sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == ValidCustomizationId1),
+            It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == ValidCustomizationId),
             ct
         )).ReturnsAsync(true);
     }
@@ -68,12 +66,12 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -82,7 +80,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         await handler.Handle(command, ct);
 
         // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
     }
 
     [Fact]
@@ -90,12 +88,12 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -105,13 +103,13 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetUsernameByIdQuery>(x => x.Id == buyerId || x.Id == ValidDesignerId1)
+            It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId || x.Id == ValidDesignerId)
         , ct), Times.Exactly(2));
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetCustomizationCostByIdQuery>(x => x.Id == ValidCustomizationId1)
+            It.Is<GetCustomizationCostByIdQuery>(x => x.Id == ValidCustomizationId)
         , ct), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetCustomizationWeightByIdQuery>(x => x.Id == ValidCustomizationId1)
+            It.Is<GetCustomizationWeightByIdQuery>(x => x.Id == ValidCustomizationId)
         , ct), Times.Once);
     }
 
@@ -120,12 +118,12 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -147,12 +145,12 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -179,12 +177,12 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
         )).ReturnsAsync(expected);
 
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -201,12 +199,12 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: wrongBuyerId,
+            BuyerId: buyerId,
             Address: address,
             Contact: contact
         );
@@ -223,17 +221,17 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenNotAccepted()
     {
         // Arrange
-        var custom = CreateCustom(buyerId: buyerId, forDelivery: true);
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+        var custom = CreateCustom(buyerId: ValidBuyerId, forDelivery: true);
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(custom);
 
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -250,18 +248,18 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenNotFinished()
     {
         // Arrange
-        var custom = CreateCustom(buyerId: buyerId, forDelivery: true);
-        custom.Accept(ValidDesignerId1);
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+        var custom = CreateCustom(buyerId: ValidBuyerId, forDelivery: true);
+        custom.Accept(ValidDesignerId);
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(custom);
 
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -278,16 +276,16 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenNoForDelivery()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
-            .ReturnsAsync(CreateCustom(buyerId: buyerId, forDelivery: false));
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+            .ReturnsAsync(CreateCustom(buyerId: ValidBuyerId, forDelivery: false));
 
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );
@@ -304,16 +302,16 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCustomNotFound()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(null as Custom);
 
         PurchaseCustomWithDeliveryCommand command = new(
-            Id: id,
+            Id: ValidId,
             Count: 1,
-            CustomizationId: ValidCustomizationId1,
+            CustomizationId: ValidCustomizationId,
             PaymentMethodId: string.Empty,
             ShipmentService: string.Empty,
-            BuyerId: buyerId,
+            BuyerId: ValidBuyerId,
             Address: address,
             Contact: contact
         );

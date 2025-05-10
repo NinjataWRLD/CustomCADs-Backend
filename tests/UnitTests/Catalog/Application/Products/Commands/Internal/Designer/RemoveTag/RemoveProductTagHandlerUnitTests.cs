@@ -7,7 +7,7 @@ namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.De
 
 using static ProductsData;
 
-public class RemoveProductTagHandlerUnitTests
+public class RemoveProductTagHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly RemoveProductTagHandler handler;
     private readonly Mock<IProductWrites> writes = new();

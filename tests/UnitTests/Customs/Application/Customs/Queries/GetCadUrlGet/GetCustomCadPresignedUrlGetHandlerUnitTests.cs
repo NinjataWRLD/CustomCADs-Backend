@@ -17,21 +17,19 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
     private readonly Mock<IRequestSender> sender = new();
 
     private static readonly DownloadFileResponse cad = new("presigned-url", "application/png");
-    private static readonly CustomId id = ValidId1;
-    private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly AccountId wrongBuyerId = ValidBuyerId2;
-    private readonly Custom custom = CreateCustomWithId(id);
+    private static readonly AccountId buyerId = AccountId.New();
+    private readonly Custom custom = CreateCustomWithId(ValidId);
 
     public GetCustomCadPresignedUrlGetHandlerUnitTests()
     {
         handler = new(reads.Object, sender.Object);
 
-        custom.Accept(ValidDesignerId1);
+        custom.Accept(ValidDesignerId);
         custom.Begin();
-        custom.Finish(ValidCadId1, ValidPrice1);
-        custom.Complete(ValidCustomizationId1);
+        custom.Finish(ValidCadId, ValidPrice1);
+        custom.Complete(ValidCustomizationId);
 
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(custom);
 
         sender.Setup(x => x.SendQueryAsync(
@@ -45,15 +43,15 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         GetCustomCadPresignedUrlGetQuery query = new(
-            Id: id,
-            BuyerId: buyerId
+            Id: ValidId,
+            BuyerId: ValidBuyerId
         );
 
         // Act
         await handler.Handle(query, ct);
 
         // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
     }
 
     [Fact]
@@ -61,8 +59,8 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         GetCustomCadPresignedUrlGetQuery query = new(
-            Id: id,
-            BuyerId: buyerId
+            Id: ValidId,
+            BuyerId: ValidBuyerId
         );
 
         // Act
@@ -80,8 +78,8 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         GetCustomCadPresignedUrlGetQuery query = new(
-            Id: id,
-            BuyerId: buyerId
+            Id: ValidId,
+            BuyerId: ValidBuyerId
         );
 
         // Act
@@ -96,8 +94,8 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
     {
         // Arrange
         GetCustomCadPresignedUrlGetQuery query = new(
-            Id: id,
-            BuyerId: wrongBuyerId
+            Id: ValidId,
+            BuyerId: buyerId
         );
 
         // Assert
@@ -112,12 +110,12 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCustomNotFound()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
             .ReturnsAsync(null as Custom);
 
         GetCustomCadPresignedUrlGetQuery query = new(
-            Id: id,
-            BuyerId: buyerId
+            Id: ValidId,
+            BuyerId: ValidBuyerId
         );
 
         // Assert

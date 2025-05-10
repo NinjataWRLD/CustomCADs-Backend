@@ -7,7 +7,7 @@ namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.De
 
 using static ProductsData;
 
-public class AddProductTagHandlerUnitTests
+public class AddProductTagHandlerUnitTests : ProductsBaseUnitTests
 {
     private readonly AddProductTagHandler handler;
     private readonly Mock<IProductWrites> writes = new();

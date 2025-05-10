@@ -24,7 +24,7 @@ public class CategoryEditedHandlerUnitTests : CategoriesBaseUnitTests
     public async Task Handle_ShouldUpdateCache(string name, string description)
     {
         // Arrange
-        Category category = CreateCategory(ValidId1, name, description);
+        Category category = CreateCategory(ValidId, name, description);
         CategoryEditedDomainEvent de = new(category.Id, category);
 
         // Act

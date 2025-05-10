@@ -23,7 +23,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     public EditCategoryHandlerUnitTests()
     {
         handler = new(reads.Object, uow.Object, raiser.Object);
-        reads.Setup(v => v.SingleByIdAsync(ValidId1, true, ct))
+        reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct))
             .ReturnsAsync(category);
     }
 
@@ -32,13 +32,13 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     public async Task Handler_ShouldQueryDatabase(string name, string description)
     {
         // Arrange
-        EditCategoryCommand command = new(ValidId1, new(name, description));
+        EditCategoryCommand command = new(ValidId, new(name, description));
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        reads.Verify(v => v.SingleByIdAsync(ValidId1, true, ct), Times.Once());
+        reads.Verify(v => v.SingleByIdAsync(ValidId, true, ct), Times.Once());
     }
 
     [Theory]
@@ -46,7 +46,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     public async Task Handler_ShouldPersistToDatabase(string name, string description)
     {
         // Arrange
-        EditCategoryCommand command = new(ValidId1, new(name, description));
+        EditCategoryCommand command = new(ValidId, new(name, description));
 
         // Act
         await handler.Handle(command, ct);
@@ -60,7 +60,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     public async Task Handler_ShouldModifyCategory_WhenCategoryFound(string name, string description)
     {
         // Arrange
-        EditCategoryCommand command = new(ValidId1, new(name, description));
+        EditCategoryCommand command = new(ValidId, new(name, description));
 
         // Act
         await handler.Handle(command, ct);
@@ -78,7 +78,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     public async Task Handler_ShouldRaiseEvents_WhenCategoryFound(string name, string description)
     {
         // Arrange
-        EditCategoryCommand command = new(ValidId1, new(name, description));
+        EditCategoryCommand command = new(ValidId, new(name, description));
 
         // Act
         await handler.Handle(command, ct);
@@ -94,8 +94,8 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
     public async Task Handle_ShouldThrowException_WhenCategoryDoesNotExists(string name, string description)
     {
         // Arrange
-        reads.Setup(v => v.SingleByIdAsync(ValidId1, true, ct)).ReturnsAsync(null as Category);
-        EditCategoryCommand command = new(ValidId1, new(name, description));
+        reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Category);
+        EditCategoryCommand command = new(ValidId, new(name, description));
 
         // Assert
         await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>
