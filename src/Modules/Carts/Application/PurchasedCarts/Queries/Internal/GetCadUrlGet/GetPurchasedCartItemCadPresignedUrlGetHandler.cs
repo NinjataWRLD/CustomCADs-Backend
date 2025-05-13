@@ -7,9 +7,9 @@ using CustomCADs.Shared.UseCases.Cads.Queries;
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
 
 public sealed class GetPurchasedCartItemCadPresignedUrlGetHandler(IPurchasedCartReads reads, IRequestSender sender)
-    : IQueryHandler<GetPurchasedCartItemCadPresignedUrlGetQuery, DownloadFileResponse>
+    : IQueryHandler<GetPurchasedCartItemCadPresignedUrlGetQuery, GetPurchasedCartItemCadPresignedUrlGetDto>
 {
-    public async Task<DownloadFileResponse> Handle(GetPurchasedCartItemCadPresignedUrlGetQuery req, CancellationToken ct)
+    public async Task<GetPurchasedCartItemCadPresignedUrlGetDto> Handle(GetPurchasedCartItemCadPresignedUrlGetQuery req, CancellationToken ct)
     {
         PurchasedCart cart = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
             ?? throw CustomNotFoundException<PurchasedCart>.ById(req.Id);
@@ -20,9 +20,21 @@ public sealed class GetPurchasedCartItemCadPresignedUrlGetHandler(IPurchasedCart
         PurchasedCartItem item = cart.Items.FirstOrDefault(x => x.ProductId == req.ProductId)
             ?? throw CustomNotFoundException<PurchasedCartItem>.ById(req.ProductId);
 
-        return await sender.SendQueryAsync(
+        var url = await sender.SendQueryAsync(
             new GetCadPresignedUrlGetByIdQuery(item.CadId),
             ct
         ).ConfigureAwait(false);
+
+        var coords = await sender.SendQueryAsync(
+            new GetCadCoordsByIdQuery(item.CadId),
+            ct
+        ).ConfigureAwait(false);
+
+        return new(
+            PresignedUrl: url.PresignedUrl,
+            ContentType: url.ContentType,
+            CamCoordinates: coords.Cam,
+            PanCoordinates: coords.Pan
+        );
     }
 }
