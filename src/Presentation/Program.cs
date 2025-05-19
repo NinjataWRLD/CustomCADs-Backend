@@ -28,12 +28,12 @@ builder.Services.AddGlobalExceptionHandler();
 // Database Updater
 if (args.Contains("--migrate"))
 {
-    await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
+	await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
 }
 else if (args.Contains("--migrate-only"))
 {
-    await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
-    return 0;
+	await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
+	return 0;
 }
 
 // API
@@ -58,11 +58,11 @@ app.UseStaticFiles();
 // API & Documentation
 app.UseEndpoints();
 app.MapApiDocumentationUi(
-    apiPattern: "/openapi/{documentName}.json",
-    uiPattern: "/scalar"
+	apiPattern: "/openapi/{documentName}.json",
+	uiPattern: "/scalar"
 ).MapApiDocumentationUi(
-    apiPattern: "/swagger/{documentName}.json",
-    uiPattern: "/swagger"
+	apiPattern: "/swagger/{documentName}.json",
+	uiPattern: "/swagger"
 );
 
 return await app.RunOaktonCommands(args).ConfigureAwait(false);

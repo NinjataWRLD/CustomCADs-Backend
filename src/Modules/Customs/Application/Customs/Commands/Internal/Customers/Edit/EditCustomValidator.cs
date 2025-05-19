@@ -8,14 +8,14 @@ using static CustomConstants;
 
 public class EditCustomValidator : CommandValidator<EditCustomCommand>
 {
-    public EditCustomValidator()
-    {
-        RuleFor(o => o.Name)
-            .NotEmpty().WithMessage(RequiredError)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
+	public EditCustomValidator()
+	{
+		RuleFor(o => o.Name)
+			.NotEmpty().WithMessage(RequiredError)
+			.Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
-        RuleFor(o => o.Description)
-            .NotEmpty().WithMessage(RequiredError)
-            .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
-    }
+		RuleFor(o => o.Description)
+			.NotEmpty().WithMessage(RequiredError)
+			.Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
+	}
 }

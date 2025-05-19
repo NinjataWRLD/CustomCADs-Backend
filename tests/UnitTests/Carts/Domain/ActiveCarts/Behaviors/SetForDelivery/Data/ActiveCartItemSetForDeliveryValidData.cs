@@ -4,9 +4,9 @@ using static ActiveCartsData;
 
 public class ActiveCartItemSetForDeliveryValidData : ActiveCartItemSetForDeliveryData
 {
-    public ActiveCartItemSetForDeliveryValidData()
-    {
-        Add(ValidCustomizationId1);
-        Add(ValidCustomizationId2);
-    }
+	public ActiveCartItemSetForDeliveryValidData()
+	{
+		Add(ValidCustomizationId1);
+		Add(ValidCustomizationId2);
+	}
 }

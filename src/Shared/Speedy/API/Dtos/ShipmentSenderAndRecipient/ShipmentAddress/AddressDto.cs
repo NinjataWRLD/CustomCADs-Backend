@@ -1,34 +1,34 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Dtos.ShipmentSenderAndRecipient.ShipmentAddress;
 
 public record AddressDto(
-    string FullAddressString,
-    string SiteAddressString,
-    string LocalAddressString,
+	string FullAddressString,
+	string SiteAddressString,
+	string LocalAddressString,
 
-    // Copied from ShipmentAddressDto
-    int? CountryId,
-    string? PostCode,
+	// Copied from ShipmentAddressDto
+	int? CountryId,
+	string? PostCode,
 
-    long? SiteId,
-    string? SiteType,
-    string? SiteName,
+	long? SiteId,
+	string? SiteType,
+	string? SiteName,
 
-    long? ComplexId,
-    string? ComplexType,
-    string? ComplexName,
+	long? ComplexId,
+	string? ComplexType,
+	string? ComplexName,
 
-    long? StreetId,
-    string? StreetType,
-    string? StreetName,
+	long? StreetId,
+	string? StreetType,
+	string? StreetName,
 
-    string? StreetNo,
-    string? BlockNo,
-    string? EntranceNo,
-    string? FloorNo,
-    string? ApartmentNo,
+	string? StreetNo,
+	string? BlockNo,
+	string? EntranceNo,
+	string? FloorNo,
+	string? ApartmentNo,
 
-    long? PoiId,
-    string? AddressNote,
-    double? X,
-    double? Y
+	long? PoiId,
+	string? AddressNote,
+	double? X,
+	double? Y
 );

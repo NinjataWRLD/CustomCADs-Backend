@@ -4,9 +4,9 @@ namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Cus
 
 public class PurchaseCustomInvalidPaymentMethodIdData : PurchaseCustomData
 {
-    public PurchaseCustomInvalidPaymentMethodIdData()
-    {
-        Add(string.Empty);
-        Add(null!);
-    }
+	public PurchaseCustomInvalidPaymentMethodIdData()
+	{
+		Add(string.Empty);
+		Add(null!);
+	}
 }

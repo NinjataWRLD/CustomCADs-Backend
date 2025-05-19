@@ -4,9 +4,9 @@ using static ProductsData;
 
 public class SetProductDescriptionInvalidData : SetProductDescriptionData
 {
-    public SetProductDescriptionInvalidData()
-    {
-        Add(InvalidDescription1);
-        Add(InvalidDescription2);
-    }
+	public SetProductDescriptionInvalidData()
+	{
+		Add(InvalidDescription1);
+		Add(InvalidDescription2);
+	}
 }

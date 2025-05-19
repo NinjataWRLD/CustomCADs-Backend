@@ -3,6 +3,6 @@
 using Dtos.Shipment.Secondary;
 
 public record SecondaryShipmentResponse(
-    SecondaryShipmentDto[] Shipments,
-    ErrorDto? Error
+	SecondaryShipmentDto[] Shipments,
+	ErrorDto? Error
 );

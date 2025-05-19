@@ -2,6 +2,6 @@
 
 public enum Dpi
 {
-    dpi203,
-    dpi300,
+	dpi203,
+	dpi300,
 }

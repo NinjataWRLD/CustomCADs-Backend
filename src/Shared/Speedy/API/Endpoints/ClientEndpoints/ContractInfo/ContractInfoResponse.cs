@@ -4,9 +4,9 @@ using Dtos.CodAdditionalServiceContractInfo;
 using Dtos.SpecialDeliveryRequirements;
 
 public record ContractInfoResponse(
-    long Id,
-    bool AdministrativeFeeAllowed,
-    SpecialDeliveryRequirementsDto? SpecialDeliveryRequirements,
-    CodAdditionalServiceContractInfoDto? Cod,
-    ErrorDto? Error
+	long Id,
+	bool AdministrativeFeeAllowed,
+	SpecialDeliveryRequirementsDto? SpecialDeliveryRequirements,
+	CodAdditionalServiceContractInfoDto? Cod,
+	ErrorDto? Error
 );

@@ -5,9 +5,9 @@ using static ProductsData;
 
 public class GetProductCadPresignedUrlPostInvalidContentTypeData : GetProductCadPresignedUrlPostData
 {
-    public GetProductCadPresignedUrlPostInvalidContentTypeData()
-    {
-        Add(ValidName1, new(null!, "Hand.glb"));
-        Add(ValidName2, new(string.Empty, "Chair.gltf"));
-    }
+	public GetProductCadPresignedUrlPostInvalidContentTypeData()
+	{
+		Add(ValidName1, new(null!, "Hand.glb"));
+		Add(ValidName2, new(string.Empty, "Chair.gltf"));
+	}
 }

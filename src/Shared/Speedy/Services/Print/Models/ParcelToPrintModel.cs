@@ -3,6 +3,6 @@
 namespace CustomCADs.Shared.Speedy.Services.Print.Models;
 
 public record ParcelToPrintModel(
-    ShipmentParcelRefModel Parcel,
-    ParcelToPrintAdditionalBarcodeModel? AdditionalBarcode
+	ShipmentParcelRefModel Parcel,
+	ParcelToPrintAdditionalBarcodeModel? AdditionalBarcode
 );

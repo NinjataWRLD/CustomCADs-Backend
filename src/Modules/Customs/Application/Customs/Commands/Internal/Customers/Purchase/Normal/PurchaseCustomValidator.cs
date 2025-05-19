@@ -8,9 +8,9 @@ using static Constants.FluentMessages;
 
 public class PurchaseCustomValidator : CommandValidator<PurchaseCustomCommand, PaymentDto>
 {
-    public PurchaseCustomValidator()
-    {
-        RuleFor(x => x.PaymentMethodId)
-            .NotEmpty().WithMessage(RequiredError);
-    }
+	public PurchaseCustomValidator()
+	{
+		RuleFor(x => x.PaymentMethodId)
+			.NotEmpty().WithMessage(RequiredError);
+	}
 }

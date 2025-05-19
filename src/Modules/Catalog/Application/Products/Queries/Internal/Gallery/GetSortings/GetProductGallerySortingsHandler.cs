@@ -3,10 +3,10 @@
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetSortings;
 
 public class GetProductGallerySortingsHandler
-    : IQueryHandler<GetProductGallerySortingsQuery, string[]>
+	: IQueryHandler<GetProductGallerySortingsQuery, string[]>
 {
-    public Task<string[]> Handle(GetProductGallerySortingsQuery req, CancellationToken ct)
-        => Task.FromResult(
-                Enum.GetNames<ProductGallerySortingType>()
-            );
+	public Task<string[]> Handle(GetProductGallerySortingsQuery req, CancellationToken ct)
+		=> Task.FromResult(
+				Enum.GetNames<ProductGallerySortingType>()
+			);
 }

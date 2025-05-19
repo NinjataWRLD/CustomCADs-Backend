@@ -29,81 +29,83 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static void AddCacheService(this IServiceCollection services)
-    {
-        services.AddMemoryCache();
-        services.AddScoped(typeof(ICacheService<>), typeof(MemoryCacheService<>));
-        services.AddScoped<ICacheService, MemoryCacheService>();
-    }
+	public static void AddCacheService(this IServiceCollection services)
+	{
+		services.AddMemoryCache();
+		services.AddScoped(typeof(ICacheService<>), typeof(MemoryCacheService<>));
+		services.AddScoped<ICacheService, MemoryCacheService>();
+	}
 
-    public static void AddEmailService(this IServiceCollection services)
-    {
-        services.AddScoped<IEmailService, FluentEmailService>();
-    }
+	public static void AddEmailService(this IServiceCollection services)
+	{
+		services.AddScoped<IEmailService, FluentEmailService>();
+	}
 
-    public static void AddTokensService(this IServiceCollection services)
-    {
-        services.AddScoped<ITokenService, TokenService>();
-    }
+	public static void AddTokensService(this IServiceCollection services)
+	{
+		services.AddScoped<ITokenService, TokenService>();
+	}
 
-    public static void AddMessagingServices(this IServiceCollection services, bool isDev, Assembly entry, params Assembly[] assemblies)
-    {
-        services.AddValidatorsFromAssemblies(assemblies);
+	public static void AddMessagingServices(this IServiceCollection services, bool isDev, Assembly entry, params Assembly[] assemblies)
+	{
+		services.AddValidatorsFromAssemblies(assemblies);
 
-        services.AddWolverine(cfg =>
-        {
-            foreach (Assembly assembly in assemblies)
-                cfg.Discovery.IncludeAssembly(assembly);
+		services.AddWolverine(cfg =>
+		{
+			foreach (Assembly assembly in assemblies)
+			{
+				cfg.Discovery.IncludeAssembly(assembly);
+			}
 
-            if (!isDev)
-            {
-                cfg.CodeGeneration.ApplicationAssembly = entry;
-                cfg.CodeGeneration.TypeLoadMode = TypeLoadMode.Static;
-            }
+			if (!isDev)
+			{
+				cfg.CodeGeneration.ApplicationAssembly = entry;
+				cfg.CodeGeneration.TypeLoadMode = TypeLoadMode.Static;
+			}
 
-            cfg.UseFluentValidation();
-        });
+			cfg.UseFluentValidation();
+		});
 
-        services.AddScoped<IRequestSender, WolverineRequestSender>();
-        services.AddScoped<IEventRaiser, WolverineEventRaiser>();
-    }
+		services.AddScoped<IRequestSender, WolverineRequestSender>();
+		services.AddScoped<IEventRaiser, WolverineEventRaiser>();
+	}
 
-    public static void AddPaymentService(this IServiceCollection services)
-    {
-        services.AddScoped<Stripe.PaymentIntentService>();
-        services.AddScoped<IPaymentService, StripeService>();
-    }
+	public static void AddPaymentService(this IServiceCollection services)
+	{
+		services.AddScoped<Stripe.PaymentIntentService>();
+		services.AddScoped<IPaymentService, StripeService>();
+	}
 
-    public static void AddStorageService(this IServiceCollection services)
-    {
-        services.AddSingleton<IAmazonS3>(sp =>
-        {
-            var settings = sp.GetRequiredService<IOptions<StorageSettings>>().Value;
+	public static void AddStorageService(this IServiceCollection services)
+	{
+		services.AddSingleton<IAmazonS3>(sp =>
+		{
+			var settings = sp.GetRequiredService<IOptions<StorageSettings>>().Value;
 
-            AmazonS3Config config = new()
-            {
-                RegionEndpoint = RegionEndpoint.GetBySystemName(settings.Region),
-            };
+			AmazonS3Config config = new()
+			{
+				RegionEndpoint = RegionEndpoint.GetBySystemName(settings.Region),
+			};
 
-            BasicAWSCredentials credentials = new(settings.AccessKey, settings.SecretKey);
-            return new AmazonS3Client(credentials, config);
-        });
-        services.AddScoped<IStorageService, AmazonS3Service>();
-    }
+			BasicAWSCredentials credentials = new(settings.AccessKey, settings.SecretKey);
+			return new AmazonS3Client(credentials, config);
+		});
+		services.AddScoped<IStorageService, AmazonS3Service>();
+	}
 
-    public static void AddDeliveryService(this IServiceCollection services)
-    {
-        services.AddDeliveryShipmentService();
-        services.AddDeliveryPrintService();
-        services.AddDeliveryTrackService();
-        services.AddDeliveryPickupService();
-        services.AddDeliveryLocationService();
-        services.AddDeliveryCalculationService();
-        services.AddDeliveryClientService();
-        services.AddDeliveryValidationService();
-        services.AddDeliveryServicesService();
-        services.AddDeliveryPaymentService();
+	public static void AddDeliveryService(this IServiceCollection services)
+	{
+		services.AddDeliveryShipmentService();
+		services.AddDeliveryPrintService();
+		services.AddDeliveryTrackService();
+		services.AddDeliveryPickupService();
+		services.AddDeliveryLocationService();
+		services.AddDeliveryCalculationService();
+		services.AddDeliveryClientService();
+		services.AddDeliveryValidationService();
+		services.AddDeliveryServicesService();
+		services.AddDeliveryPaymentService();
 
-        services.AddScoped<IDeliveryService, SpeedyService>();
-    }
+		services.AddScoped<IDeliveryService, SpeedyService>();
+	}
 }

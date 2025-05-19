@@ -7,13 +7,13 @@ using Dtos.CalculationService;
 using Dtos.ShipmentPayment;
 
 public record CalculationRequest(
-    string UserName,
-    string Password,
-    CalculationRecipientDto Recipient,
-    CalculationServiceDto Service,
-    CalculationContentDto Content,
-    ShipmentPaymentDto Payment,
-    CalculationSenderDto? Sender,
-    string? Language,
-    long? ClientSystemId
+	string UserName,
+	string Password,
+	CalculationRecipientDto Recipient,
+	CalculationServiceDto Service,
+	CalculationContentDto Content,
+	ShipmentPaymentDto Payment,
+	CalculationSenderDto? Sender,
+	string? Language,
+	long? ClientSystemId
 );

@@ -9,10 +9,10 @@ using static TagConstants;
 
 public class CreateTagValidator : CommandValidator<CreateTagCommand, TagId>
 {
-    public CreateTagValidator()
-    {
-        RuleFor(x => x.Name)
-            .NotNull().WithMessage(RequiredError)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
-    }
+	public CreateTagValidator()
+	{
+		RuleFor(x => x.Name)
+			.NotNull().WithMessage(RequiredError)
+			.Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
+	}
 }

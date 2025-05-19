@@ -8,9 +8,9 @@ using static Constants.FluentMessages;
 
 public class SetImageContentTypeValidator : CommandValidator<SetImageContentTypeCommand>
 {
-    public SetImageContentTypeValidator()
-    {
-        RuleFor(x => x.ContentType)
-            .NotEmpty().WithMessage(RequiredError);
-    }
+	public SetImageContentTypeValidator()
+	{
+		RuleFor(x => x.ContentType)
+			.NotEmpty().WithMessage(RequiredError);
+	}
 }

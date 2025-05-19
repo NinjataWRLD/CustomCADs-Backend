@@ -8,14 +8,14 @@ using static RoleConstants;
 
 public class CreateRoleValidator : CommandValidator<CreateRoleCommand, RoleId>
 {
-    public CreateRoleValidator()
-    {
-        RuleFor(r => r.Dto.Name)
-            .NotEmpty().WithMessage(RequiredError)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
+	public CreateRoleValidator()
+	{
+		RuleFor(r => r.Dto.Name)
+			.NotEmpty().WithMessage(RequiredError)
+			.Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
-        RuleFor(r => r.Dto.Description)
-            .NotEmpty().WithMessage(RequiredError)
-            .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
-    }
+		RuleFor(r => r.Dto.Description)
+			.NotEmpty().WithMessage(RequiredError)
+			.Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
+	}
 }

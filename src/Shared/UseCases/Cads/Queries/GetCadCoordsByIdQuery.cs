@@ -3,10 +3,10 @@
 namespace CustomCADs.Shared.UseCases.Cads.Queries;
 
 public record GetCadCoordsByIdQuery(
-    CadId Id
+	CadId Id
 ) : IQuery<GetCadCoordsByIdDto>;
 
 public record GetCadCoordsByIdDto(
-    CoordinatesDto Cam,
-    CoordinatesDto Pan
+	CoordinatesDto Cam,
+	CoordinatesDto Pan
 );

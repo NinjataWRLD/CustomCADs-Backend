@@ -6,13 +6,13 @@ namespace CustomCADs.Catalog.Persistence;
 
 public class CatalogContext(DbContextOptions<CatalogContext> opts) : DbContext(opts)
 {
-    public required DbSet<Product> Products { get; set; }
-    public required DbSet<Tag> Tags { get; set; }
-    public required DbSet<ProductTag> ProductTags { get; set; }
+	public required DbSet<Product> Products { get; set; }
+	public required DbSet<Tag> Tags { get; set; }
+	public required DbSet<ProductTag> ProductTags { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        builder.HasDefaultSchema("Catalog");
-        builder.ApplyConfigurationsFromAssembly(CatalogPersistenceReference.Assembly);
-    }
+	protected override void OnModelCreating(ModelBuilder builder)
+	{
+		builder.HasDefaultSchema("Catalog");
+		builder.ApplyConfigurationsFromAssembly(CatalogPersistenceReference.Assembly);
+	}
 }

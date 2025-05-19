@@ -7,62 +7,62 @@ namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create;
 
 public class CreateImageValidatorUnitTests : ImagesBaseUnitTests
 {
-    private readonly CreateImageValidator validator = new();
+	private readonly CreateImageValidator validator = new();
 
-    [Theory]
-    [ClassData(typeof(CreateImageValidData))]
-    public void Validate_ShouldBeValid_WhenImageIsValid(string key, string contentType)
-    {
-        // Arrange
-        CreateImageCommand command = new(key, contentType);
+	[Theory]
+	[ClassData(typeof(CreateImageValidData))]
+	public void Validate_ShouldBeValid_WhenImageIsValid(string key, string contentType)
+	{
+		// Arrange
+		CreateImageCommand command = new(key, contentType);
 
-        // Act
-        var result = validator.TestValidate(command);
+		// Act
+		var result = validator.TestValidate(command);
 
-        // Assert
-        Assert.True(result.IsValid);
-    }
+		// Assert
+		Assert.True(result.IsValid);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateImageInvalidKeyData))]
-    [ClassData(typeof(CreateImageInvalidContentTypeData))]
-    public void Validate_ShouldBeInvalid_WhenImageIsNotValid(string key, string contentType)
-    {
-        // Arrange
-        CreateImageCommand command = new(key, contentType);
+	[Theory]
+	[ClassData(typeof(CreateImageInvalidKeyData))]
+	[ClassData(typeof(CreateImageInvalidContentTypeData))]
+	public void Validate_ShouldBeInvalid_WhenImageIsNotValid(string key, string contentType)
+	{
+		// Arrange
+		CreateImageCommand command = new(key, contentType);
 
-        // Act
-        var result = validator.TestValidate(command);
+		// Act
+		var result = validator.TestValidate(command);
 
-        // Assert
-        Assert.False(result.IsValid);
-    }
+		// Assert
+		Assert.False(result.IsValid);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateImageInvalidKeyData))]
-    public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key, string contentType)
-    {
-        // Arrange
-        CreateImageCommand command = new(key, contentType);
+	[Theory]
+	[ClassData(typeof(CreateImageInvalidKeyData))]
+	public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key, string contentType)
+	{
+		// Arrange
+		CreateImageCommand command = new(key, contentType);
 
-        // Act
-        var result = validator.TestValidate(new(command));
+		// Act
+		var result = validator.TestValidate(new(command));
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.Key);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.Key);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateImageInvalidContentTypeData))]
-    public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string key, string contentType)
-    {
-        // Arrange
-        CreateImageCommand command = new(key, contentType);
+	[Theory]
+	[ClassData(typeof(CreateImageInvalidContentTypeData))]
+	public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string key, string contentType)
+	{
+		// Arrange
+		CreateImageCommand command = new(key, contentType);
 
-        // Act
-        var result = validator.TestValidate(new(command));
+		// Act
+		var result = validator.TestValidate(new(command));
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.ContentType);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.ContentType);
+	}
 }

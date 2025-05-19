@@ -5,9 +5,9 @@ using static ProductsData;
 
 public class GetProductCadPresignedUrlPostInvalidFileNameData : GetProductCadPresignedUrlPostData
 {
-    public GetProductCadPresignedUrlPostInvalidFileNameData()
-    {
-        Add(ValidName1, new("model/gltf-binary", null!));
-        Add(ValidName2, new("model/gltf+json", string.Empty));
-    }
+	public GetProductCadPresignedUrlPostInvalidFileNameData()
+	{
+		Add(ValidName1, new("model/gltf-binary", null!));
+		Add(ValidName2, new("model/gltf+json", string.Empty));
+	}
 }

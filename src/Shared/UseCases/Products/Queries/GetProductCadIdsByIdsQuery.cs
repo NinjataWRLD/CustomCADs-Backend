@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Shared.UseCases.Products.Queries;
 
 public record GetProductCadIdsByIdsQuery(
-    ProductId[] Ids
+	ProductId[] Ids
 ) : IQuery<Dictionary<ProductId, CadId>>;

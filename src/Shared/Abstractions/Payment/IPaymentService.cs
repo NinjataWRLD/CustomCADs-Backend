@@ -2,6 +2,6 @@
 
 public interface IPaymentService
 {
-    string PublicKey { get; }
-    Task<PaymentDto> InitializePayment(string paymentMethodId, decimal price, string description, CancellationToken ct = default);
+	string PublicKey { get; }
+	Task<PaymentDto> InitializePayment(string paymentMethodId, decimal price, string description, CancellationToken ct = default);
 }

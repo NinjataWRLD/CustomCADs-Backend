@@ -3,6 +3,6 @@
 using Dtos.Client;
 
 public record GetContractClientsResponse(
-    ClientDto[]? Clients,
-    ErrorDto? Error
+	ClientDto[]? Clients,
+	ErrorDto? Error
 );

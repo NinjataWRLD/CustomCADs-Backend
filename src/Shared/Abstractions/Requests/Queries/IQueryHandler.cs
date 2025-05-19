@@ -2,5 +2,5 @@
 
 public interface IQueryHandler<in TQuery, TResponse>
 {
-    Task<TResponse> Handle(TQuery req, CancellationToken ct = default);
+	Task<TResponse> Handle(TQuery req, CancellationToken ct = default);
 }

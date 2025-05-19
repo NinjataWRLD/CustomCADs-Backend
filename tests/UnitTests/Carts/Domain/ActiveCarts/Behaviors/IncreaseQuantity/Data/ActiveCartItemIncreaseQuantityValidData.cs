@@ -2,11 +2,11 @@
 
 public class ActiveCartItemIncreaseQuantityValidData : ActiveCartItemIncreaseQuantityData
 {
-    public ActiveCartItemIncreaseQuantityValidData()
-    {
-        Add(1);
-        Add(3);
-        Add(5);
-        Add(10);
-    }
+	public ActiveCartItemIncreaseQuantityValidData()
+	{
+		Add(1);
+		Add(3);
+		Add(5);
+		Add(10);
+	}
 }

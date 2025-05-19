@@ -4,9 +4,9 @@ using static ImagesData;
 
 public class ImageCreateInvalidKeyData : ImageCreateWithIdData
 {
-    public ImageCreateInvalidKeyData()
-    {
-        Add(InvalidKey, ValidContentType1);
-        Add(InvalidKey, ValidContentType2);
-    }
+	public ImageCreateInvalidKeyData()
+	{
+		Add(InvalidKey, ValidContentType1);
+		Add(InvalidKey, ValidContentType2);
+	}
 }

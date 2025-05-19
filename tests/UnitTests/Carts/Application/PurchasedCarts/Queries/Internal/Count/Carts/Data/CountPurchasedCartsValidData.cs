@@ -5,9 +5,9 @@ using static PurchasedCartsData;
 
 public class CountPurchasedCartsValidData : CountPurchasedCartsData
 {
-    public CountPurchasedCartsValidData()
-    {
-        Add(ValidBuyerId1);
-        Add(ValidBuyerId2);
-    }
+	public CountPurchasedCartsValidData()
+	{
+		Add(ValidBuyerId1);
+		Add(ValidBuyerId2);
+	}
 }

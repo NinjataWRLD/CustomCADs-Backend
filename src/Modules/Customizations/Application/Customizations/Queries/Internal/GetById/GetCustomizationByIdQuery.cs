@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Customizations.Application.Customizations.Queries.Internal.GetById;
 
 public record GetCustomizationByIdQuery(
-    CustomizationId Id
+	CustomizationId Id
 ) : IQuery<CustomizationDto>;

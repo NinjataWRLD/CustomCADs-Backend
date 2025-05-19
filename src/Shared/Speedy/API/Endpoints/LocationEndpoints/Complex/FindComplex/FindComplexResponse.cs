@@ -3,6 +3,6 @@
 using Dtos.Complex;
 
 public record FindComplexResponse(
-    ComplexDto[]? Complexes,
-    ErrorDto? Error
+	ComplexDto[]? Complexes,
+	ErrorDto? Error
 );

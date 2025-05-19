@@ -5,10 +5,10 @@ using ShipmentPrice;
 using ShipmentService.ShipmentAdditionalServices;
 
 public record CalculationResultDto(
-    int ServiceId,
-    ShipmentAdditionalServicesDto? AdditionalServices,
-    ShipmentPriceDto Price,
-    string PickupDate,
-    string DeliveryDeadline,
-    ErrorDto? Error
+	int ServiceId,
+	ShipmentAdditionalServicesDto? AdditionalServices,
+	ShipmentPriceDto Price,
+	string PickupDate,
+	string DeliveryDeadline,
+	ErrorDto? Error
 );

@@ -3,7 +3,7 @@
 using Dtos.ParcelToPrint;
 
 public record ExtendedPrintResponse(
-    byte[] Data,
-    LabelInfoDto[] PrintLabelsInfo,
-    ErrorDto? Error
+	byte[] Data,
+	LabelInfoDto[] PrintLabelsInfo,
+	ErrorDto? Error
 );

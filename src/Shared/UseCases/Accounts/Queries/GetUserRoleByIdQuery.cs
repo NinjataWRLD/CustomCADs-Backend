@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Shared.UseCases.Accounts.Queries;
 
 public sealed record GetUserRoleByIdQuery(
-    AccountId Id
+	AccountId Id
 ) : IQuery<string>;

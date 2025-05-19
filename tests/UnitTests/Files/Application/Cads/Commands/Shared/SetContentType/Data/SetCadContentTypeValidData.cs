@@ -5,9 +5,9 @@ using static CadsData;
 
 public class SetCadContentTypeValidData : SetCadContentTypeData
 {
-    public SetCadContentTypeValidData()
-    {
-        Add(ValidContentType1);
-        Add(ValidContentType2);
-    }
+	public SetCadContentTypeValidData()
+	{
+		Add(ValidContentType1);
+		Add(ValidContentType2);
+	}
 }

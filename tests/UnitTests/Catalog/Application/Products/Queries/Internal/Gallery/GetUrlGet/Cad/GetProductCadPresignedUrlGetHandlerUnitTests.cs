@@ -11,96 +11,96 @@ using static ProductsData;
 
 public class GetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly Mock<IProductReads> reads = new();
-    private readonly Mock<IRequestSender> sender = new();
-    private readonly Product product = CreateProduct().SetValidatedStatus();
-    private static readonly DownloadFileResponse cad = new("presigned-url", "application/png");
+	private readonly Mock<IProductReads> reads = new();
+	private readonly Mock<IRequestSender> sender = new();
+	private readonly Product product = CreateProduct().SetValidatedStatus();
+	private static readonly DownloadFileResponse cad = new("presigned-url", "application/png");
 
-    public GetProductCadPresignedUrlGetHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(product);
+	public GetProductCadPresignedUrlGetHandlerUnitTests()
+	{
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(product);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-            .ReturnsAsync(cad);
-    }
+		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
+			.ReturnsAsync(cad);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
-        GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
+		GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
-        GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
+		GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCadPresignedUrlGetByIdQuery>()
-        , ct), Times.Once);
-    }
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.IsAny<GetCadPresignedUrlGetByIdQuery>()
+		, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
-        GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
+		GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
-        // Act
-        var result = await handler.Handle(query, ct);
+		// Act
+		var result = await handler.Handle(query, ct);
 
-        // Assert
-        Assert.Equal(cad, result);
-    }
+		// Assert
+		Assert.Equal(cad, result);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenProductNotValidated()
-    {
-        // Arrange
-        product.SetUncheckedStatus();
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenProductNotValidated()
+	{
+		// Arrange
+		product.SetUncheckedStatus();
 
-        GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
-        GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
+		GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
+		GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomStatusException<Product>>(async () =>
-        {
-            // Act
-            await handler.Handle(query, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomStatusException<Product>>(async () =>
+		{
+			// Act
+			await handler.Handle(query, ct);
+		});
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenProductNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(null as Product);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenProductNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(null as Product);
 
-        GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
-        GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
+		GalleryGetProductCadPresignedUrlGetQuery query = new(ValidId);
+		GalleryGetProductCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
-            // Act
-            await handler.Handle(query, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
+		{
+			// Act
+			await handler.Handle(query, ct);
+		});
+	}
 }

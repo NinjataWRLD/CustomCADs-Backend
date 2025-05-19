@@ -3,27 +3,27 @@
 namespace CustomCADs.Catalog.Endpoints.Tags.Endpoints.Get.All;
 
 public class GetAllTagsEndpoint(IRequestSender sender)
-    : EndpointWithoutRequest<GetAllTagsResponse[]>
+	: EndpointWithoutRequest<GetAllTagsResponse[]>
 {
-    public override void Configure()
-    {
-        Get("");
-        Group<TagGroup>();
-        AllowAnonymous();
-        Description(d => d
-            .WithSummary("All")
-            .WithDescription("Get Tags")
-        );
-    }
+	public override void Configure()
+	{
+		Get("");
+		Group<TagGroup>();
+		AllowAnonymous();
+		Description(d => d
+			.WithSummary("All")
+			.WithDescription("Get Tags")
+		);
+	}
 
-    public override async Task HandleAsync(CancellationToken ct)
-    {
-        GetAllTagsDto[] tags = await sender.SendQueryAsync(
-            new GetAllTagsQuery(),
-            ct
-        ).ConfigureAwait(false);
+	public override async Task HandleAsync(CancellationToken ct)
+	{
+		GetAllTagsDto[] tags = await sender.SendQueryAsync(
+			new GetAllTagsQuery(),
+			ct
+		).ConfigureAwait(false);
 
-        GetAllTagsResponse[] response = [.. tags.Select(x => x.ToGetAllTagsResponse())];
-        await SendOkAsync(response).ConfigureAwait(false);
-    }
+		GetAllTagsResponse[] response = [.. tags.Select(x => x.ToGetAllTagsResponse())];
+		await SendOkAsync(response).ConfigureAwait(false);
+	}
 }

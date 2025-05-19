@@ -9,68 +9,68 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.C
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly Mock<IWrites<Account>> writes = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<IEventRaiser> raiser = new();
+	private readonly Mock<IWrites<Account>> writes = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<IEventRaiser> raiser = new();
 
-    [Theory]
-    [ClassData(typeof(CreateAccountValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string password, string? firstName, string? lastName)
-    {
-        // Arrange
-        CreateAccountCommand command = new(
-            Role: role,
-            Username: username,
-            Email: email,
-            Password: password,
-            FirstName: firstName,
-            LastName: lastName
-        );
-        CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
+	[Theory]
+	[ClassData(typeof(CreateAccountValidData))]
+	public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string password, string? firstName, string? lastName)
+	{
+		// Arrange
+		CreateAccountCommand command = new(
+			Role: role,
+			Username: username,
+			Email: email,
+			Password: password,
+			FirstName: firstName,
+			LastName: lastName
+		);
+		CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        writes.Verify(x => x.AddAsync(
-            It.Is<Account>(x =>
-                x.RoleName == role
-                && x.Username == username
-                && x.Email == email
-                && x.FirstName == firstName
-                && x.LastName == lastName
-            ),
-            ct
-        ), Times.Once);
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Assert
+		writes.Verify(x => x.AddAsync(
+			It.Is<Account>(x =>
+				x.RoleName == role
+				&& x.Username == username
+				&& x.Email == email
+				&& x.FirstName == firstName
+				&& x.LastName == lastName
+			),
+			ct
+		), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateAccountValidData))]
-    public async Task Handle_ShouldRaiseEvents(string role, string username, string email, string password, string? firstName, string? lastName)
-    {
-        // Arrange
-        CreateAccountCommand command = new(
-            Role: role,
-            Username: username,
-            Email: email,
-            Password: password,
-            FirstName: firstName,
-            LastName: lastName
-        );
-        CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
+	[Theory]
+	[ClassData(typeof(CreateAccountValidData))]
+	public async Task Handle_ShouldRaiseEvents(string role, string username, string email, string password, string? firstName, string? lastName)
+	{
+		// Arrange
+		CreateAccountCommand command = new(
+			Role: role,
+			Username: username,
+			Email: email,
+			Password: password,
+			FirstName: firstName,
+			LastName: lastName
+		);
+		CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
-        // Act
-        AccountId id = await handler.Handle(command, CancellationToken.None);
+		// Act
+		AccountId id = await handler.Handle(command, CancellationToken.None);
 
-        // Assert
-        raiser.Verify(x => x.RaiseApplicationEventAsync(
-            It.Is<AccountCreatedApplicationEvent>(x =>
-                x.Id == id
-                && x.Username == username
-                && x.Email == email
-                && x.Password == password
-            )
-        ), Times.Once);
-    }
+		// Assert
+		raiser.Verify(x => x.RaiseApplicationEventAsync(
+			It.Is<AccountCreatedApplicationEvent>(x =>
+				x.Id == id
+				&& x.Username == username
+				&& x.Email == email
+				&& x.Password == password
+			)
+		), Times.Once);
+	}
 }

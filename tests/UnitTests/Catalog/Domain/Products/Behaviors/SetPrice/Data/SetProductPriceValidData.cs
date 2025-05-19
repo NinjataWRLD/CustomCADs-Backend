@@ -4,9 +4,9 @@ using static ProductsData;
 
 public class SetProductPriceValidData : SetProductPriceData
 {
-    public SetProductPriceValidData()
-    {
-        Add(ValidPrice1);
-        Add(ValidPrice2);
-    }
+	public SetProductPriceValidData()
+	{
+		Add(ValidPrice1);
+		Add(ValidPrice2);
+	}
 }

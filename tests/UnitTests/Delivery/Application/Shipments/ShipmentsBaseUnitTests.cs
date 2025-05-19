@@ -7,9 +7,9 @@ using static ShipmentsData;
 
 public class ShipmentsBaseUnitTests
 {
-    protected static readonly ShipmentId id = ShipmentId.New();
-    protected static readonly CancellationToken ct = CancellationToken.None;
+	protected static readonly ShipmentId id = ShipmentId.New();
+	protected static readonly CancellationToken ct = CancellationToken.None;
 
-    protected static Shipment CreateShipment(string country = ValidCountry1, string city = ValidCity1, string referenceId = ValidReferenceId, AccountId? buyerId = null)
-        => Shipment.Create(new(country, city), referenceId, buyerId ?? ValidBuyerId);
+	protected static Shipment CreateShipment(string country = ValidCountry1, string city = ValidCity1, string referenceId = ValidReferenceId, AccountId? buyerId = null)
+		=> Shipment.Create(new(country, city), referenceId, buyerId ?? ValidBuyerId);
 }

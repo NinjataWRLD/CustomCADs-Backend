@@ -3,15 +3,15 @@
 using ShipmentSenderAndRecipient.ShipmentAddress;
 
 public record SenderDto(
-    int DropoffOfficeId,
-    string DropoffGeoPUDOId,
+	int DropoffOfficeId,
+	string DropoffGeoPUDOId,
 
-    // Copied from Client
-    long ClientId,
-    string ClientName,
-    string ObjectName,
-    string ContactName,
-    AddressDto Address,
-    string Email,
-    bool PrivatePerson
+	// Copied from Client
+	long ClientId,
+	string ClientName,
+	string ObjectName,
+	string ContactName,
+	AddressDto Address,
+	string Email,
+	bool PrivatePerson
 );

@@ -4,10 +4,10 @@ using static CategoriesData;
 
 public class CategoryCreateInvalidData : CategoryDescriptionData
 {
-    public CategoryCreateInvalidData()
-    {
-        Add(InvalidDescription1);
-        Add(InvalidDescription2);
-        Add(InvalidDescription3);
-    }
+	public CategoryCreateInvalidData()
+	{
+		Add(InvalidDescription1);
+		Add(InvalidDescription2);
+		Add(InvalidDescription3);
+	}
 }

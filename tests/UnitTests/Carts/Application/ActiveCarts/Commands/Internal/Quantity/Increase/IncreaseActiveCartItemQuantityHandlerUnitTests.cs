@@ -12,83 +12,83 @@ using static ActiveCartsData;
 
 public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private readonly Mock<IActiveCartReads> reads = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private static readonly AccountId buyerId = ValidBuyerId1;
-    private static readonly ProductId productId = ProductId.New(Guid.Empty);
+	private readonly Mock<IActiveCartReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private static readonly AccountId buyerId = ValidBuyerId1;
+	private static readonly ProductId productId = ProductId.New(Guid.Empty);
 
-    public IncreaseActiveCartItemQuantityHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
-            .ReturnsAsync(CreateItemWithDelivery(productId: productId));
-    }
+	public IncreaseActiveCartItemQuantityHandlerUnitTests()
+	{
+		reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
+			.ReturnsAsync(CreateItemWithDelivery(productId: productId));
+	}
 
-    [Theory]
-    [ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
-    public async Task Handle_ShouldQueryDatabase(int amount)
-    {
-        // Arrange
-        IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-        IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+	[Theory]
+	[ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
+	public async Task Handle_ShouldQueryDatabase(int amount)
+	{
+		// Arrange
+		IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
+		IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleAsync(buyerId, productId, true, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleAsync(buyerId, productId, true, ct), Times.Once);
+	}
 
-    [Theory]
-    [ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
-    public async Task Handle_ShouldPersistToDatabase(int amount)
-    {
-        // Arrange
-        IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-        IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+	[Theory]
+	[ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
+	public async Task Handle_ShouldPersistToDatabase(int amount)
+	{
+		// Arrange
+		IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
+		IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Assert
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-    [Theory]
-    [ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
-    public async Task Handle_ShouldThrowException_WhenCartNotFound(int amount)
-    {
-        // Arrange
-        reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
-            .ReturnsAsync(null as ActiveCartItem);
+	[Theory]
+	[ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
+	public async Task Handle_ShouldThrowException_WhenCartNotFound(int amount)
+	{
+		// Arrange
+		reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
+			.ReturnsAsync(null as ActiveCartItem);
 
-        IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-        IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+		IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
+		IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
+		{
+			// Act
+			await handler.Handle(command, ct);
+		});
+	}
 
-    [Theory]
-    [ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
-    public async Task Handle_ShouldThrowException_WhenItemNotFound(int amount)
-    {
-        // Arrange
-        IncreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: buyerId,
-            ProductId: ValidProductId1,
-            Amount: amount
-        );
-        IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+	[Theory]
+	[ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
+	public async Task Handle_ShouldThrowException_WhenItemNotFound(int amount)
+	{
+		// Arrange
+		IncreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: buyerId,
+			ProductId: ValidProductId1,
+			Amount: amount
+		);
+		IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
+		{
+			// Act
+			await handler.Handle(command, ct);
+		});
+	}
 }

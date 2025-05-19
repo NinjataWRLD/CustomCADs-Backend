@@ -2,9 +2,9 @@
 
 public class GetProductCadPresignedUrlPutInvalidContentTypeData : GetProductCadPresignedUrlPutData
 {
-    public GetProductCadPresignedUrlPutInvalidContentTypeData()
-    {
-        Add(new(null!, "Hand.glb"));
-        Add(new(string.Empty, "Chair.gltf"));
-    }
+	public GetProductCadPresignedUrlPutInvalidContentTypeData()
+	{
+		Add(new(null!, "Hand.glb"));
+		Add(new(string.Empty, "Chair.gltf"));
+	}
 }

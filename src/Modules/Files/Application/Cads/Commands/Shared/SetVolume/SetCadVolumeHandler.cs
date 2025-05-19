@@ -6,15 +6,15 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 namespace CustomCADs.Files.Application.Cads.Commands.Shared.SetVolume;
 
 public sealed class SetCadVolumeHandler(ICadReads reads, IUnitOfWork uow)
-    : ICommandHandler<SetCadVolumeCommand>
+	: ICommandHandler<SetCadVolumeCommand>
 {
-    public async Task Handle(SetCadVolumeCommand req, CancellationToken ct = default)
-    {
-        Cad cad = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<Cad>.ById(req.Id);
+	public async Task Handle(SetCadVolumeCommand req, CancellationToken ct = default)
+	{
+		Cad cad = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Cad>.ById(req.Id);
 
-        cad.SetVolume(req.Volume);
+		cad.SetVolume(req.Volume);
 
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-    }
+		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+	}
 }

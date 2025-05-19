@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 namespace CustomCADs.Delivery.Domain.Repositories.Reads;
 
 public record ShipmentQuery(
-    Pagination Pagination,
-    AccountId? CustomerId = null,
-    ShipmentSorting? Sorting = null
+	Pagination Pagination,
+	AccountId? CustomerId = null,
+	ShipmentSorting? Sorting = null
 );

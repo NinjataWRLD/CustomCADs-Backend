@@ -9,13 +9,13 @@ using static Constants.FluentMessages;
 
 public class CreateImageValidator : CommandValidator<CreateImageCommand, ImageId>
 {
-    public CreateImageValidator()
-    {
-        RuleFor(r => r.Key)
-            .NotEmpty().WithMessage(RequiredError);
+	public CreateImageValidator()
+	{
+		RuleFor(r => r.Key)
+			.NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(r => r.ContentType)
-            .NotEmpty().WithMessage(RequiredError);
+		RuleFor(r => r.ContentType)
+			.NotEmpty().WithMessage(RequiredError);
 
-    }
+	}
 }

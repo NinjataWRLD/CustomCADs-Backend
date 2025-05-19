@@ -14,95 +14,95 @@ using static PurchasedCartsData;
 
 public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedCartsBaseUnitTests
 {
-    private readonly Mock<IPurchasedCartReads> reads = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<IRequestSender> sender = new();
-    private readonly PurchasedCart cart = CreateCartWithItems(
-        items: [CreateItem(forDelivery: true)]
-    );
-    private readonly PurchasedCartId id = ValidId1;
+	private readonly Mock<IPurchasedCartReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<IRequestSender> sender = new();
+	private readonly PurchasedCart cart = CreateCartWithItems(
+		items: [CreateItem(forDelivery: true)]
+	);
+	private readonly PurchasedCartId id = ValidId1;
 
-    public ActiveCartDeliveryRequestedDomainEventHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
-            .ReturnsAsync(cart);
+	public ActiveCartDeliveryRequestedDomainEventHandlerUnitTests()
+	{
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+			.ReturnsAsync(cart);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
-            .ReturnsAsync("NinjataBG");
+		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
+			.ReturnsAsync("NinjataBG");
 
-        sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateShipmentCommand>(), ct))
-            .ReturnsAsync(ValidShipmentId1);
-    }
+		sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateShipmentCommand>(), ct))
+			.ReturnsAsync(ValidShipmentId1);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        ActiveCartDeliveryRequestedDomainEvent de = new(
-            Id: id,
-            ShipmentService: string.Empty,
-            Weight: default,
-            Count: default,
-            Address: new(string.Empty, string.Empty),
-            Contact: new(default, default)
-        );
-        ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		ActiveCartDeliveryRequestedDomainEvent de = new(
+			Id: id,
+			ShipmentService: string.Empty,
+			Weight: default,
+			Count: default,
+			Address: new(string.Empty, string.Empty),
+			Contact: new(default, default)
+		);
+		ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
 
-        // Act
-        await handler.Handle(de);
+		// Act
+		await handler.Handle(de);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        ActiveCartDeliveryRequestedDomainEvent de = new(
-            Id: id,
-            ShipmentService: string.Empty,
-            Weight: default,
-            Count: default,
-            Address: new(string.Empty, string.Empty),
-            Contact: new(default, default)
-        );
-        ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		ActiveCartDeliveryRequestedDomainEvent de = new(
+			Id: id,
+			ShipmentService: string.Empty,
+			Weight: default,
+			Count: default,
+			Address: new(string.Empty, string.Empty),
+			Contact: new(default, default)
+		);
+		ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
 
-        // Act
-        await handler.Handle(de);
+		// Act
+		await handler.Handle(de);
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>(),
-        ct), Times.Once);
-        sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<CreateShipmentCommand>(),
-        ct), Times.Once);
-    }
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.IsAny<GetUsernameByIdQuery>(),
+		ct), Times.Once);
+		sender.Verify(x => x.SendCommandAsync(
+			It.IsAny<CreateShipmentCommand>(),
+		ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenCartNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
-            .ReturnsAsync(null as PurchasedCart);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCartNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+			.ReturnsAsync(null as PurchasedCart);
 
-        ActiveCartDeliveryRequestedDomainEvent de = new(
-            Id: id,
-            ShipmentService: string.Empty,
-            Weight: default,
-            Count: default,
-            Address: new(string.Empty, string.Empty),
-            Contact: new(default, default)
-        );
-        ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
+		ActiveCartDeliveryRequestedDomainEvent de = new(
+			Id: id,
+			ShipmentService: string.Empty,
+			Weight: default,
+			Count: default,
+			Address: new(string.Empty, string.Empty),
+			Contact: new(default, default)
+		);
+		ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
-        {
-            // Act
-            await handler.Handle(de);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
+		{
+			// Act
+			await handler.Handle(de);
+		});
+	}
 }

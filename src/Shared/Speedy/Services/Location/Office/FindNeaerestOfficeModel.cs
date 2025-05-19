@@ -4,9 +4,9 @@ using CustomCADs.Shared.Speedy.Services.Models;
 namespace CustomCADs.Shared.Speedy.Services.Location.Office;
 
 public record FindNeaerestOfficeModel(
-    ShipmentAddressModel Address,
-    int? Distance,
-    int? Limit,
-    OfficeType? OfficeType,
-    OfficeFeature[]? OfficeFeatures
+	ShipmentAddressModel Address,
+	int? Distance,
+	int? Limit,
+	OfficeType? OfficeType,
+	OfficeFeature[]? OfficeFeatures
 );

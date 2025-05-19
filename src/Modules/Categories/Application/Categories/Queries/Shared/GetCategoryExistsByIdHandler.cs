@@ -4,10 +4,10 @@ using CustomCADs.Shared.UseCases.Categories.Queries;
 namespace CustomCADs.Categories.Application.Categories.Queries.Shared;
 
 public class GetCategoryExistsByIdHandler(ICategoryReads reads)
-    : IQueryHandler<GetCategoryExistsByIdQuery, bool>
+	: IQueryHandler<GetCategoryExistsByIdQuery, bool>
 {
-    public async Task<bool> Handle(GetCategoryExistsByIdQuery req, CancellationToken ct)
-    {
-        return await reads.ExistsByIdAsync(req.Id, ct).ConfigureAwait(false);
-    }
+	public async Task<bool> Handle(GetCategoryExistsByIdQuery req, CancellationToken ct)
+	{
+		return await reads.ExistsByIdAsync(req.Id, ct).ConfigureAwait(false);
+	}
 }

@@ -4,9 +4,9 @@ using static ProductsData;
 
 public class ProductCreateWithIdInvalidNameData : ProductCreateWithIdData
 {
-    public ProductCreateWithIdInvalidNameData()
-    {
-        Add(ValidId, InvalidName1, ValidDescription1, ValidPrice1);
-        Add(ValidId, InvalidName2, ValidDescription2, ValidPrice2);
-    }
+	public ProductCreateWithIdInvalidNameData()
+	{
+		Add(ValidId, InvalidName1, ValidDescription1, ValidPrice1);
+		Add(ValidId, InvalidName2, ValidDescription2, ValidPrice2);
+	}
 }

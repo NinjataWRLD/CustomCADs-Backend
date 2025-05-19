@@ -2,5 +2,5 @@
 
 public record ClientUrlSettings(string All, string Preferred)
 {
-    public ClientUrlSettings() : this("", "") { }
+	public ClientUrlSettings() : this("", "") { }
 }

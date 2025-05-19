@@ -3,6 +3,6 @@
 using Dtos.CourierService;
 
 public record ServicesResponse(
-    CourierServiceDto[] Services,
-    ErrorDto? Error
+	CourierServiceDto[] Services,
+	ErrorDto? Error
 );

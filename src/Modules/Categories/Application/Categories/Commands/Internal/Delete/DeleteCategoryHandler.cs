@@ -6,18 +6,18 @@ using CustomCADs.Shared.Abstractions.Events;
 namespace CustomCADs.Categories.Application.Categories.Commands.Internal.Delete;
 
 public sealed class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category> writes, IUnitOfWork uow, IEventRaiser raiser)
-    : ICommandHandler<DeleteCategoryCommand>
+	: ICommandHandler<DeleteCategoryCommand>
 {
-    public async Task Handle(DeleteCategoryCommand req, CancellationToken ct)
-    {
-        Category category = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<Category>.ById(req.Id);
+	public async Task Handle(DeleteCategoryCommand req, CancellationToken ct)
+	{
+		Category category = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Category>.ById(req.Id);
 
-        writes.Remove(category);
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+		writes.Remove(category);
+		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseDomainEventAsync(new CategoryDeletedDomainEvent(
-            Id: req.Id
-        )).ConfigureAwait(false);
-    }
+		await raiser.RaiseDomainEventAsync(new CategoryDeletedDomainEvent(
+			Id: req.Id
+		)).ConfigureAwait(false);
+	}
 }

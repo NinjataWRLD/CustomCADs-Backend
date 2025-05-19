@@ -8,9 +8,9 @@ using static Constants.FluentMessages;
 
 public class SetImageKeyValidator : CommandValidator<SetImageKeyCommand>
 {
-    public SetImageKeyValidator()
-    {
-        RuleFor(x => x.Key)
-            .NotEmpty().WithMessage(RequiredError);
-    }
+	public SetImageKeyValidator()
+	{
+		RuleFor(x => x.Key)
+			.NotEmpty().WithMessage(RequiredError);
+	}
 }

@@ -7,13 +7,13 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 namespace CustomCADs.Catalog.Domain.Repositories.Reads;
 
 public record ProductQuery(
-    Pagination Pagination,
-    ProductId[]? Ids = null,
-    TagId[]? TagIds = null,
-    AccountId? DesignerId = null,
-    AccountId? CreatorId = null,
-    CategoryId? CategoryId = null,
-    ProductStatus? Status = null,
-    string? Name = null,
-    ProductSorting? Sorting = null
+	Pagination Pagination,
+	ProductId[]? Ids = null,
+	TagId[]? TagIds = null,
+	AccountId? DesignerId = null,
+	AccountId? CreatorId = null,
+	CategoryId? CategoryId = null,
+	ProductStatus? Status = null,
+	string? Name = null,
+	ProductSorting? Sorting = null
 );
