@@ -70,6 +70,10 @@ static class Utilities
             .IsRequired()
             .HasColumnName(nameof(Account.RoleName));
 
+        builder.Property(x => x.CreatedAt)
+            .IsRequired()
+            .HasColumnName(nameof(Account.CreatedAt));
+
         builder.Property(x => x.ViewedProductIds)
             .IsRequired()
             .HasColumnName(nameof(Account.ViewedProductIds));
@@ -80,10 +84,10 @@ static class Utilities
     public static EntityTypeBuilder<Account> SetSeeding(this EntityTypeBuilder<Account> builder)
     {
         builder.HasData([
-            Account.CreateWithId(AccountId.New(CustomerAccountId), Customer, CustomerUsername, CustomerEmail),
-            Account.CreateWithId(AccountId.New(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail),
-            Account.CreateWithId(AccountId.New(DesignerAccountId), Designer, DesignerUsername, DesignerEmail),
-            Account.CreateWithId(AccountId.New(AdminAccountId), Admin, AdminUsername, AdminEmail),
+            Account.CreateWithId(AccountId.New(CustomerAccountId), Customer, CustomerUsername, CustomerEmail, new DateTimeOffset(2025, 05, 10, 19, 23, 12, 123, TimeSpan.FromHours(3))),
+            Account.CreateWithId(AccountId.New(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail, new DateTimeOffset(2025, 05, 13, 17, 42, 57, 456, TimeSpan.FromHours(3))),
+            Account.CreateWithId(AccountId.New(DesignerAccountId), Designer, DesignerUsername, DesignerEmail, new DateTimeOffset(2025, 01, 09, 13, 15, 28, 789, TimeSpan.FromHours(3))),
+            Account.CreateWithId(AccountId.New(AdminAccountId), Admin, AdminUsername, AdminEmail, new DateTimeOffset(2024, 03, 17, 02, 45, 13, 000, TimeSpan.FromHours(3))),
         ]);
 
         return builder;

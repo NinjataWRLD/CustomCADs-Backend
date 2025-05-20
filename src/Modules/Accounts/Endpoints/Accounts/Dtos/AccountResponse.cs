@@ -5,5 +5,6 @@ public sealed record AccountResponse(
     string Email,
     string Role,
     string? FirstName,
-    string? LastName
+    string? LastName,
+    DateTimeOffset CreatedAt
 );
