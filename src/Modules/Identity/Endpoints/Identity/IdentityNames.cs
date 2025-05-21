@@ -14,4 +14,6 @@ public static class IdentityNames
 
     public const string Authentication = "Authentication";
     public const string Authorization = "Authorization";
+    public const string MyAccount = "My Account";
+    public const string DownloadInfo = "Download Info";
 }
