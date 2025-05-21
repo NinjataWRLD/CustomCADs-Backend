@@ -11,6 +11,8 @@ public static class IdentityNames
     public const string ForgotPassword = "Forgot Password";
     public const string ResetPassword = "Reset Password";
     public const string Logout = "Logout";
+    public const string ChangeUsername = "Change Username";
+    public const string DeleteAccount = "Delete Account";
 
     public const string Authentication = "Authentication";
     public const string Authorization = "Authorization";

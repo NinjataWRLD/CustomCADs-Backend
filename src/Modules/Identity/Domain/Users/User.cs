@@ -28,13 +28,19 @@ public class User
             .ValidateEmail();
 
     public static User Create(UserId id, string role, string username, Email email, RefreshToken? refreshToken, AccountId accountId)
-        => new User(role, username, email, accountId) 
+        => new User(role, username, email, accountId)
         {
             Id = id,
             RefreshToken = refreshToken,
         }
         .ValidateUsername()
         .ValidateEmail();
+
+    public void SetUsername(string username)
+    {
+        Username = username;
+        this.ValidateUsername();
+    }
 
     public void SetRefreshToken(string token, DateTimeOffset expiresAt)
     {
