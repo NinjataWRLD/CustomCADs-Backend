@@ -9,79 +9,79 @@ using static ProductsData;
 
 public class GetProductCadPresignedUrlPutValidatorUnitTests : ProductsBaseUnitTests
 {
-    private readonly CreatorGetProductCadPresignedUrlPutValidator validator = new();
+	private readonly CreatorGetProductCadPresignedUrlPutValidator validator = new();
 
-    [Theory]
-    [ClassData(typeof(GetProductCadPresignedUrlPutValidData))]
-    public async Task Validate_ShouldBeValid_WhenCartIsValid(UploadFileRequest file)
-    {
-        // Arrange
-        CreatorGetProductCadPresignedUrlPutQuery query = new(
-            Id: ValidId,
-            NewCad: file,
-            CreatorId: ValidCreatorId
-        );
+	[Theory]
+	[ClassData(typeof(GetProductCadPresignedUrlPutValidData))]
+	public async Task Validate_ShouldBeValid_WhenCartIsValid(UploadFileRequest file)
+	{
+		// Arrange
+		CreatorGetProductCadPresignedUrlPutQuery query = new(
+			Id: ValidId,
+			NewCad: file,
+			CreatorId: ValidCreatorId
+		);
 
-        // Act
-        var result = await validator.TestValidateAsync(query, cancellationToken: ct);
+		// Act
+		var result = await validator.TestValidateAsync(query, cancellationToken: ct);
 
-        // Assert
-        Assert.True(result.IsValid);
-    }
+		// Assert
+		Assert.True(result.IsValid);
+	}
 
-    [Theory]
-    [ClassData(typeof(GetProductCadPresignedUrlPutInvalidContentTypeData))]
-    [ClassData(typeof(GetProductCadPresignedUrlPutInvalidFileNameData))]
-    public async Task Validate_ShouldBeInvalid_WhenCommandIsNotValid(UploadFileRequest file)
-    {
-        // Arrange
-        CreatorGetProductCadPresignedUrlPutQuery query = new(
-            Id: ValidId,
-            NewCad: file,
-            CreatorId: ValidCreatorId
-        );
+	[Theory]
+	[ClassData(typeof(GetProductCadPresignedUrlPutInvalidContentTypeData))]
+	[ClassData(typeof(GetProductCadPresignedUrlPutInvalidFileNameData))]
+	public async Task Validate_ShouldBeInvalid_WhenCommandIsNotValid(UploadFileRequest file)
+	{
+		// Arrange
+		CreatorGetProductCadPresignedUrlPutQuery query = new(
+			Id: ValidId,
+			NewCad: file,
+			CreatorId: ValidCreatorId
+		);
 
 
-        // Act
-        var result = await validator.TestValidateAsync(query, cancellationToken: ct);
+		// Act
+		var result = await validator.TestValidateAsync(query, cancellationToken: ct);
 
-        // Assert
-        Assert.False(result.IsValid);
-    }
+		// Assert
+		Assert.False(result.IsValid);
+	}
 
-    [Theory]
-    [ClassData(typeof(GetProductCadPresignedUrlPutInvalidContentTypeData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(UploadFileRequest file)
-    {
-        // Arrange
-        CreatorGetProductCadPresignedUrlPutQuery query = new(
-            Id: ValidId,
-            NewCad: file,
-            CreatorId: ValidCreatorId
-        );
+	[Theory]
+	[ClassData(typeof(GetProductCadPresignedUrlPutInvalidContentTypeData))]
+	public async Task Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(UploadFileRequest file)
+	{
+		// Arrange
+		CreatorGetProductCadPresignedUrlPutQuery query = new(
+			Id: ValidId,
+			NewCad: file,
+			CreatorId: ValidCreatorId
+		);
 
-        // Act
-        var result = await validator.TestValidateAsync(query, cancellationToken: ct);
+		// Act
+		var result = await validator.TestValidateAsync(query, cancellationToken: ct);
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.NewCad.ContentType);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.NewCad.ContentType);
+	}
 
-    [Theory]
-    [ClassData(typeof(GetProductCadPresignedUrlPutInvalidFileNameData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenFileNameIsNotValid(UploadFileRequest file)
-    {
-        // Arrange
-        CreatorGetProductCadPresignedUrlPutQuery query = new(
-            Id: ValidId,
-            NewCad: file,
-            CreatorId: ValidCreatorId
-        );
+	[Theory]
+	[ClassData(typeof(GetProductCadPresignedUrlPutInvalidFileNameData))]
+	public async Task Validate_ShouldReturnProperErrors_WhenFileNameIsNotValid(UploadFileRequest file)
+	{
+		// Arrange
+		CreatorGetProductCadPresignedUrlPutQuery query = new(
+			Id: ValidId,
+			NewCad: file,
+			CreatorId: ValidCreatorId
+		);
 
-        // Act
-        var result = await validator.TestValidateAsync(query, cancellationToken: ct);
+		// Act
+		var result = await validator.TestValidateAsync(query, cancellationToken: ct);
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.NewCad.FileName);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.NewCad.FileName);
+	}
 }

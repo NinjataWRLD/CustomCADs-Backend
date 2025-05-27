@@ -2,10 +2,10 @@
 
 public enum CustomStatus
 {
-    Pending,
-    Accepted,
-    Begun,
-    Finished,
-    Completed,
-    Reported,
+	Pending,
+	Accepted,
+	Begun,
+	Finished,
+	Completed,
+	Reported,
 }

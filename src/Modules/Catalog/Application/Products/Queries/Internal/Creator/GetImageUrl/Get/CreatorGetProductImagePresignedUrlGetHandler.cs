@@ -6,19 +6,21 @@ using CustomCADs.Shared.UseCases.Images.Queries;
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Get;
 
 public sealed class CreatorGetProductImagePresignedUrlGetHandler(IProductReads reads, IRequestSender sender)
-    : IQueryHandler<CreatorGetProductImagePresignedUrlGetQuery, DownloadFileResponse>
+	: IQueryHandler<CreatorGetProductImagePresignedUrlGetQuery, DownloadFileResponse>
 {
-    public async Task<DownloadFileResponse> Handle(CreatorGetProductImagePresignedUrlGetQuery req, CancellationToken ct)
-    {
-        Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<Product>.ById(req.Id);
+	public async Task<DownloadFileResponse> Handle(CreatorGetProductImagePresignedUrlGetQuery req, CancellationToken ct)
+	{
+		Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Product>.ById(req.Id);
 
-        if (product.CreatorId != req.CreatorId)
-            throw CustomAuthorizationException<Product>.ById(req.CreatorId);
+		if (product.CreatorId != req.CreatorId)
+		{
+			throw CustomAuthorizationException<Product>.ById(req.CreatorId);
+		}
 
-        return await sender.SendQueryAsync(
-            new GetImagePresignedUrlGetByIdQuery(product.ImageId),
-            ct
-        ).ConfigureAwait(false);
-    }
+		return await sender.SendQueryAsync(
+			new GetImagePresignedUrlGetByIdQuery(product.ImageId),
+			ct
+		).ConfigureAwait(false);
+	}
 }

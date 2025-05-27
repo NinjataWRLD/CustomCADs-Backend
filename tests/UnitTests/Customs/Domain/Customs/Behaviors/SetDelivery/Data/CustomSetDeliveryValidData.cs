@@ -2,9 +2,9 @@
 
 public class CustomSetDeliveryValidData : CustomSetNameData
 {
-    public CustomSetDeliveryValidData()
-    {
-        Add(true);
-        Add(false);
-    }
+	public CustomSetDeliveryValidData()
+	{
+		Add(true);
+		Add(false);
+	}
 }

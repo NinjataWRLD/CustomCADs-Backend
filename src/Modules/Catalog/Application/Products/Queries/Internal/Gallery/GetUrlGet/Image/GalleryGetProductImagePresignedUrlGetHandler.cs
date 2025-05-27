@@ -7,19 +7,21 @@ using CustomCADs.Shared.UseCases.Images.Queries;
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetUrlGet.Image;
 
 public sealed class GalleryGetProductImagePresignedUrlGetHandler(IProductReads reads, IRequestSender sender)
-    : IQueryHandler<GalleryGetProductImagePresignedUrlGetQuery, DownloadFileResponse>
+	: IQueryHandler<GalleryGetProductImagePresignedUrlGetQuery, DownloadFileResponse>
 {
-    public async Task<DownloadFileResponse> Handle(GalleryGetProductImagePresignedUrlGetQuery req, CancellationToken ct)
-    {
-        Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<Product>.ById(req.Id);
+	public async Task<DownloadFileResponse> Handle(GalleryGetProductImagePresignedUrlGetQuery req, CancellationToken ct)
+	{
+		Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Product>.ById(req.Id);
 
-        if (product.Status is not ProductStatus.Validated)
-            throw CustomStatusException<Product>.ById(product.Id);
+		if (product.Status is not ProductStatus.Validated)
+		{
+			throw CustomStatusException<Product>.ById(product.Id);
+		}
 
-        return await sender.SendQueryAsync(
-            new GetImagePresignedUrlGetByIdQuery(product.ImageId),
-            ct
-        ).ConfigureAwait(false);
-    }
+		return await sender.SendQueryAsync(
+			new GetImagePresignedUrlGetByIdQuery(product.ImageId),
+			ct
+		).ConfigureAwait(false);
+	}
 }

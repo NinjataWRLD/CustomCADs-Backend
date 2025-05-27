@@ -7,33 +7,33 @@ namespace CustomCADs.Carts.Persistence.Migrations;
 /// <inheritdoc />
 public partial class Fixed_PurchasedCartItems_PK : Migration
 {
-    /// <inheritdoc />
-    protected override void Up(MigrationBuilder migrationBuilder)
-    {
-        migrationBuilder.DropPrimaryKey(
-            name: "PK_PurchasedCartItems",
-            schema: "Carts",
-            table: "PurchasedCartItems");
+	/// <inheritdoc />
+	protected override void Up(MigrationBuilder migrationBuilder)
+	{
+		migrationBuilder.DropPrimaryKey(
+			name: "PK_PurchasedCartItems",
+			schema: "Carts",
+			table: "PurchasedCartItems");
 
-        migrationBuilder.AddPrimaryKey(
-            name: "PK_PurchasedCartItems",
-            schema: "Carts",
-            table: "PurchasedCartItems",
-            columns: new[] { "ProductId", "CartId" });
-    }
+		migrationBuilder.AddPrimaryKey(
+			name: "PK_PurchasedCartItems",
+			schema: "Carts",
+			table: "PurchasedCartItems",
+			columns: ["ProductId", "CartId"]);
+	}
 
-    /// <inheritdoc />
-    protected override void Down(MigrationBuilder migrationBuilder)
-    {
-        migrationBuilder.DropPrimaryKey(
-            name: "PK_PurchasedCartItems",
-            schema: "Carts",
-            table: "PurchasedCartItems");
+	/// <inheritdoc />
+	protected override void Down(MigrationBuilder migrationBuilder)
+	{
+		migrationBuilder.DropPrimaryKey(
+			name: "PK_PurchasedCartItems",
+			schema: "Carts",
+			table: "PurchasedCartItems");
 
-        migrationBuilder.AddPrimaryKey(
-            name: "PK_PurchasedCartItems",
-            schema: "Carts",
-            table: "PurchasedCartItems",
-            column: "ProductId");
-    }
+		migrationBuilder.AddPrimaryKey(
+			name: "PK_PurchasedCartItems",
+			schema: "Carts",
+			table: "PurchasedCartItems",
+			column: "ProductId");
+	}
 }

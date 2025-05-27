@@ -2,8 +2,8 @@
 
 public enum AccountSortingType
 {
-    CreationDate = 1,
-    Username,
-    Email,
-    Role,
+	CreationDate = 1,
+	Username,
+	Email,
+	Role,
 }

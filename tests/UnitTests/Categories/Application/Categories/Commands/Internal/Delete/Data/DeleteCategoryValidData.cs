@@ -5,10 +5,10 @@ using static CategoriesData;
 
 public class DeleteCategoryValidData : DeleteCategoryData
 {
-    public DeleteCategoryValidData()
-    {
-        Add(ValidId1);
-        Add(ValidId2);
-        Add(ValidId3);
-    }
+	public DeleteCategoryValidData()
+	{
+		Add(ValidId1);
+		Add(ValidId2);
+		Add(ValidId3);
+	}
 }

@@ -5,9 +5,9 @@ using static ActiveCartsData;
 
 public class PurchaseActiveCartWithDeliveryInvalidCountryData : PurchaseActiveCartWithDeliveryData
 {
-    public PurchaseActiveCartWithDeliveryInvalidCountryData()
-    {
-        Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", string.Empty, "Sofia", null, "customcads@gmail.com");
-        Add("payment-method-id-2", ValidBuyerId2, "shipment-service-2", null!, "Bucharest", "+359359359359", null);
-    }
+	public PurchaseActiveCartWithDeliveryInvalidCountryData()
+	{
+		Add("payment-method-id-1", ValidBuyerId1, "shipment-service-1", string.Empty, "Sofia", null, "customcads@gmail.com");
+		Add("payment-method-id-2", ValidBuyerId2, "shipment-service-2", null!, "Bucharest", "+359359359359", null);
+	}
 }

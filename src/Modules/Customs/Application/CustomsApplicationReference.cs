@@ -4,5 +4,5 @@ namespace CustomCADs.Customs.Application;
 
 public class CustomsApplicationReference
 {
-    public static Assembly Assembly => typeof(CustomsApplicationReference).Assembly;
+	public static Assembly Assembly => typeof(CustomsApplicationReference).Assembly;
 }

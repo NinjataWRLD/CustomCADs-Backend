@@ -8,14 +8,14 @@ using static Constants.FluentMessages;
 
 public class EditCategoryValidator : CommandValidator<EditCategoryCommand>
 {
-    public EditCategoryValidator()
-    {
-        RuleFor(x => x.Dto.Name)
-            .NotEmpty().WithMessage(RequiredError)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
+	public EditCategoryValidator()
+	{
+		RuleFor(x => x.Dto.Name)
+			.NotEmpty().WithMessage(RequiredError)
+			.Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
-        RuleFor(x => x.Dto.Description)
-            .NotEmpty().WithMessage(RequiredError)
-            .Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
-    }
+		RuleFor(x => x.Dto.Description)
+			.NotEmpty().WithMessage(RequiredError)
+			.Length(DescriptionMinLength, DescriptionMaxLength).WithMessage(LengthError);
+	}
 }

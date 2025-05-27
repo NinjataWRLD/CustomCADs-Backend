@@ -3,5 +3,5 @@
 namespace CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.Count;
 
 public sealed record CountActiveCartItemsQuery(
-    AccountId BuyerId
+	AccountId BuyerId
 ) : IQuery<int>;

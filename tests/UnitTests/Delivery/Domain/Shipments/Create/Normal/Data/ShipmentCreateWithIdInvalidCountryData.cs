@@ -5,8 +5,8 @@ using static ShipmentsData;
 
 public class ShipmentCreateWithIdInvalidCountryData : ShipmentCreateData
 {
-    public ShipmentCreateWithIdInvalidCountryData()
-    {
-        Add(InvalidCountry, ValidCity1, ValidReferenceId, ValidBuyerId);
-    }
+	public ShipmentCreateWithIdInvalidCountryData()
+	{
+		Add(InvalidCountry, ValidCity1, ValidReferenceId, ValidBuyerId);
+	}
 }

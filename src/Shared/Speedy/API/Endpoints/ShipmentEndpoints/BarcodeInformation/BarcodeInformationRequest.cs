@@ -3,9 +3,9 @@
 using Dtos.ShipmentParcels;
 
 public record BarcodeInformationRequest(
-    string UserName,
-    string Password,
-    ShipmentParcelRefDto Parcel,
-    string? Language,
-    long? ClientSystemId
+	string UserName,
+	string Password,
+	ShipmentParcelRefDto Parcel,
+	string? Language,
+	long? ClientSystemId
 );

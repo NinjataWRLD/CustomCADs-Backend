@@ -3,6 +3,6 @@
 using Dtos.Site;
 
 public record GetSiteResponse(
-    SiteDto? Site,
-    ErrorDto? Error
+	SiteDto? Site,
+	ErrorDto? Error
 );

@@ -6,7 +6,7 @@ namespace CustomCADs.Identity.Persistence.Configurations.AppRoles;
 
 public class Configurations : IEntityTypeConfiguration<AppRole>
 {
-    public void Configure(EntityTypeBuilder<AppRole> builder)
-        => builder
-            .SetSeeding();
+	public void Configure(EntityTypeBuilder<AppRole> builder)
+		=> builder
+			.SetSeeding();
 }

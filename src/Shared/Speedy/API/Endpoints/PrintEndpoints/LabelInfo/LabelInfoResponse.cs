@@ -3,6 +3,6 @@
 using Dtos.ParcelToPrint;
 
 public record LabelInfoResponse(
-    LabelInfoDto[] PrintLabelsInfo,
-    ErrorDto? Error
+	LabelInfoDto[] PrintLabelsInfo,
+	ErrorDto? Error
 );

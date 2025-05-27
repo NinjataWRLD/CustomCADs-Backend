@@ -5,9 +5,9 @@ using static ActiveCartsData;
 
 public class PurchaseActiveCartValidData : PurchaseActiveCartData
 {
-    public PurchaseActiveCartValidData()
-    {
-        Add("payment-method-id-1", ValidBuyerId1);
-        Add("payment-method-id-2", ValidBuyerId2);
-    }
+	public PurchaseActiveCartValidData()
+	{
+		Add("payment-method-id-1", ValidBuyerId1);
+		Add("payment-method-id-2", ValidBuyerId2);
+	}
 }

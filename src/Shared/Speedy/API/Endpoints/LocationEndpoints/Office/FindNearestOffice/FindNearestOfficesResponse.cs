@@ -3,8 +3,8 @@
 using Dtos.SpecialDeliveryRequirements;
 
 public record FindNearestOfficesResponse(
-    OfficeResultDto[]? Offices,
-    double? X,
-    double? Y,
-    ErrorDto? Error
+	OfficeResultDto[]? Offices,
+	double? X,
+	double? Y,
+	ErrorDto? Error
 );

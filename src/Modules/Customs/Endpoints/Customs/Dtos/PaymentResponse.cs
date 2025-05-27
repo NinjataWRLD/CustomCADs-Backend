@@ -1,6 +1,6 @@
 namespace CustomCADs.Customs.Endpoints.Customs.Dtos;
 
 public record PaymentResponse(
-    string ClientSecret,
-    string Message
+	string ClientSecret,
+	string Message
 );

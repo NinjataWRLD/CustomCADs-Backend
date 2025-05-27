@@ -2,11 +2,11 @@
 
 public class ActiveCartItemDecreaseQuantityValidData : ActiveCartItemDecreaseQuantityData
 {
-    public ActiveCartItemDecreaseQuantityValidData()
-    {
-        Add(1);
-        Add(3);
-        Add(5);
-        Add(10);
-    }
+	public ActiveCartItemDecreaseQuantityValidData()
+	{
+		Add(1);
+		Add(3);
+		Add(5);
+		Add(10);
+	}
 }

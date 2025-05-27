@@ -6,18 +6,20 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Designer.Accept;
 
 public sealed class AcceptCustomHandler(ICustomReads reads, IUnitOfWork uow, IRequestSender sender)
-    : ICommandHandler<AcceptCustomCommand>
+	: ICommandHandler<AcceptCustomCommand>
 {
-    public async Task Handle(AcceptCustomCommand req, CancellationToken ct)
-    {
-        Custom custom = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<Custom>.ById(req.Id);
+	public async Task Handle(AcceptCustomCommand req, CancellationToken ct)
+	{
+		Custom custom = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Custom>.ById(req.Id);
 
-        if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.DesignerId), ct).ConfigureAwait(false))
-            throw CustomNotFoundException<Custom>.ById(req.DesignerId, "User");
+		if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.DesignerId), ct).ConfigureAwait(false))
+		{
+			throw CustomNotFoundException<Custom>.ById(req.DesignerId, "User");
+		}
 
-        custom.Accept(req.DesignerId);
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-    }
+		custom.Accept(req.DesignerId);
+		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+	}
 }
 

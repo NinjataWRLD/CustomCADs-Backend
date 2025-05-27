@@ -4,6 +4,6 @@ namespace CustomCADs.Shared.Abstractions.Events;
 
 public interface IEventRaiser
 {
-    public Task RaiseDomainEventAsync<TEvent>(TEvent @event) where TEvent : BaseDomainEvent;
-    public Task RaiseApplicationEventAsync<TEvent>(TEvent @event) where TEvent : BaseApplicationEvent;
+	public Task RaiseDomainEventAsync<TEvent>(TEvent @event) where TEvent : BaseDomainEvent;
+	public Task RaiseApplicationEventAsync<TEvent>(TEvent @event) where TEvent : BaseApplicationEvent;
 }

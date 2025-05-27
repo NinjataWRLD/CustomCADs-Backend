@@ -2,12 +2,12 @@
 
 public class IdentityGroup : Group
 {
-    public IdentityGroup()
-    {
-        Configure("identity", ep =>
-        {
-            ep.AllowAnonymous();
-            ep.Description(opt => opt.WithTags("01. Identity"));
-        });
-    }
+	public IdentityGroup()
+	{
+		Configure("identity", ep =>
+		{
+			ep.AllowAnonymous();
+			ep.Description(opt => opt.WithTags("01. Identity"));
+		});
+	}
 }

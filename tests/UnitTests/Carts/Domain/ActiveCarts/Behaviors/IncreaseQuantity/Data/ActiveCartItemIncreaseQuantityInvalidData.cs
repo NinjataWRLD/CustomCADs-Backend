@@ -4,8 +4,8 @@ using static ActiveCartsData;
 
 public class ActiveCartItemIncreaseQuantityInvalidData : ActiveCartItemIncreaseQuantityData
 {
-    public ActiveCartItemIncreaseQuantityInvalidData()
-    {
-        Add(InvalidQuantity);
-    }
+	public ActiveCartItemIncreaseQuantityInvalidData()
+	{
+		Add(InvalidQuantity);
+	}
 }

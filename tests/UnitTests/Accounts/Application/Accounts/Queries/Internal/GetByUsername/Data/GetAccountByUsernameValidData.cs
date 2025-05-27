@@ -5,11 +5,11 @@ using static AccountsData;
 
 public class GetAccountByUsernameValidData : GetAccountByUsernameData
 {
-    public GetAccountByUsernameValidData()
-    {
-        Add(ValidUsername1);
-        Add(ValidUsername2);
-        Add(ValidUsername3);
-        Add(ValidUsername4);
-    }
+	public GetAccountByUsernameValidData()
+	{
+		Add(ValidUsername1);
+		Add(ValidUsername2);
+		Add(ValidUsername3);
+		Add(ValidUsername4);
+	}
 }

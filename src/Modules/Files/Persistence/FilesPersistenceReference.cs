@@ -4,5 +4,5 @@ namespace CustomCADs.Files.Persistence;
 
 public class FilesPersistenceReference
 {
-    public static Assembly Assembly => typeof(FilesPersistenceReference).Assembly;
+	public static Assembly Assembly => typeof(FilesPersistenceReference).Assembly;
 }

@@ -2,7 +2,7 @@
 
 public enum Allowance
 {
-    FORBIDDEN,
-    ALLOWED,
-    REQUIRED,
+	FORBIDDEN,
+	ALLOWED,
+	REQUIRED,
 }

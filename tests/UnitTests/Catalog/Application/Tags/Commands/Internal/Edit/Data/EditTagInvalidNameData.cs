@@ -5,10 +5,10 @@ using static TagsData;
 
 public class EditTagInvalidNameData : EditTagData
 {
-    public EditTagInvalidNameData()
-    {
-        Add(InvalidName1);
-        Add(InvalidName2);
-        Add(InvalidName3);
-    }
+	public EditTagInvalidNameData()
+	{
+		Add(InvalidName1);
+		Add(InvalidName2);
+		Add(InvalidName3);
+	}
 }

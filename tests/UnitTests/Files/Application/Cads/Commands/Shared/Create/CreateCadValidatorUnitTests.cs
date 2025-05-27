@@ -7,77 +7,77 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.Create;
 
 public class CreateCadValidatorUnitTests : CadsBaseUnitTests
 {
-    private readonly CreateCadValidator validator = new();
+	private readonly CreateCadValidator validator = new();
 
-    [Theory]
-    [ClassData(typeof(CreateCadValidData))]
-    public void Validate_ShouldBeValid_WhenCadIsValid(string key, string contentType, decimal volume)
-    {
-        // Arrange
-        CreateCadCommand command = new(key, contentType, volume);
+	[Theory]
+	[ClassData(typeof(CreateCadValidData))]
+	public void Validate_ShouldBeValid_WhenCadIsValid(string key, string contentType, decimal volume)
+	{
+		// Arrange
+		CreateCadCommand command = new(key, contentType, volume);
 
-        // Act
-        var result = validator.TestValidate(command);
+		// Act
+		var result = validator.TestValidate(command);
 
-        // Assert
-        Assert.True(result.IsValid);
-    }
+		// Assert
+		Assert.True(result.IsValid);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateCadInvalidKeyData))]
-    [ClassData(typeof(CreateCadInvalidContentTypeData))]
-    [ClassData(typeof(CreateCadInvalidVolumeData))]
-    public void Validate_ShouldBeInvalid_WhenCadIsNotValid(string key, string contentType, decimal volume)
-    {
-        // Arrange
-        CreateCadCommand command = new(key, contentType, volume);
+	[Theory]
+	[ClassData(typeof(CreateCadInvalidKeyData))]
+	[ClassData(typeof(CreateCadInvalidContentTypeData))]
+	[ClassData(typeof(CreateCadInvalidVolumeData))]
+	public void Validate_ShouldBeInvalid_WhenCadIsNotValid(string key, string contentType, decimal volume)
+	{
+		// Arrange
+		CreateCadCommand command = new(key, contentType, volume);
 
-        // Act
-        var result = validator.TestValidate(command);
+		// Act
+		var result = validator.TestValidate(command);
 
-        // Assert
-        Assert.False(result.IsValid);
-    }
+		// Assert
+		Assert.False(result.IsValid);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateCadInvalidKeyData))]
-    public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key, string contentType, decimal volume)
-    {
-        // Arrange
-        CreateCadCommand command = new(key, contentType, volume);
+	[Theory]
+	[ClassData(typeof(CreateCadInvalidKeyData))]
+	public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key, string contentType, decimal volume)
+	{
+		// Arrange
+		CreateCadCommand command = new(key, contentType, volume);
 
-        // Act
-        var result = validator.TestValidate(new(command));
+		// Act
+		var result = validator.TestValidate(new(command));
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.Key);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.Key);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateCadInvalidContentTypeData))]
-    public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string key, string contentType, decimal volume)
-    {
-        // Arrange
-        CreateCadCommand command = new(key, contentType, volume);
+	[Theory]
+	[ClassData(typeof(CreateCadInvalidContentTypeData))]
+	public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string key, string contentType, decimal volume)
+	{
+		// Arrange
+		CreateCadCommand command = new(key, contentType, volume);
 
-        // Act
-        var result = validator.TestValidate(new(command));
+		// Act
+		var result = validator.TestValidate(new(command));
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.ContentType);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.ContentType);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateCadInvalidVolumeData))]
-    public void Validate_ShouldReturnProperErrors_WhenVolumeIsNotValid(string key, string contentType, decimal volume)
-    {
-        // Arrange
-        CreateCadCommand command = new(key, contentType, volume);
+	[Theory]
+	[ClassData(typeof(CreateCadInvalidVolumeData))]
+	public void Validate_ShouldReturnProperErrors_WhenVolumeIsNotValid(string key, string contentType, decimal volume)
+	{
+		// Arrange
+		CreateCadCommand command = new(key, contentType, volume);
 
-        // Act
-        var result = validator.TestValidate(new(command));
+		// Act
+		var result = validator.TestValidate(new(command));
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.Volume);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.Volume);
+	}
 }

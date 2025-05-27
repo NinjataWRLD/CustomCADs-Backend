@@ -4,9 +4,9 @@ using static ImagesData;
 
 public class ImageKeyValidData : ImageKeyData
 {
-    public ImageKeyValidData()
-    {
-        Add(ValidKey1);
-        Add(ValidKey2);
-    }
+	public ImageKeyValidData()
+	{
+		Add(ValidKey1);
+		Add(ValidKey2);
+	}
 }

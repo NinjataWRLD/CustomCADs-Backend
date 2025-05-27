@@ -3,6 +3,6 @@
 using Dtos.PickupOrder;
 
 public record PickupResponse(
-    PickupOrderDto[] Orders,
-    ErrorDto? Error
+	PickupOrderDto[] Orders,
+	ErrorDto? Error
 );

@@ -9,55 +9,55 @@ namespace CustomCADs.Customs.Persistence.Configurations.Customs.Finished;
 
 public static class Utilities
 {
-    public static EntityTypeBuilder<FinishedCustom> SetPrimaryKey(this EntityTypeBuilder<FinishedCustom> builder)
-    {
-        builder.HasKey(x => x.CustomId);
+	public static EntityTypeBuilder<FinishedCustom> SetPrimaryKey(this EntityTypeBuilder<FinishedCustom> builder)
+	{
+		builder.HasKey(x => x.CustomId);
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public static EntityTypeBuilder<FinishedCustom> SetStronglyTypedIds(this EntityTypeBuilder<FinishedCustom> builder)
-    {
-        builder.Property(x => x.CustomId)
-            .HasConversion(
-                x => x.Value,
-                v => CustomId.New(v)
-            );
+	public static EntityTypeBuilder<FinishedCustom> SetStronglyTypedIds(this EntityTypeBuilder<FinishedCustom> builder)
+	{
+		builder.Property(x => x.CustomId)
+			.HasConversion(
+				x => x.Value,
+				v => CustomId.New(v)
+			);
 
-        builder.Property(x => x.CadId)
-            .HasConversion(
-                x => x.Value,
-                v => CadId.New(v)
-            );
+		builder.Property(x => x.CadId)
+			.HasConversion(
+				x => x.Value,
+				v => CadId.New(v)
+			);
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public static EntityTypeBuilder<FinishedCustom> SetNavigations(this EntityTypeBuilder<FinishedCustom> builder)
-    {
-        builder
-            .HasOne<Custom>()
-            .WithOne(x => x.FinishedCustom)
-            .HasForeignKey<FinishedCustom>(x => x.CustomId);
+	public static EntityTypeBuilder<FinishedCustom> SetNavigations(this EntityTypeBuilder<FinishedCustom> builder)
+	{
+		builder
+			.HasOne<Custom>()
+			.WithOne(x => x.FinishedCustom)
+			.HasForeignKey<FinishedCustom>(x => x.CustomId);
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public static EntityTypeBuilder<FinishedCustom> SetValidations(this EntityTypeBuilder<FinishedCustom> builder)
-    {
-        builder.Property(x => x.Price)
-            .IsRequired()
-            .HasPrecision(19, 2)
-            .HasColumnName(nameof(FinishedCustom.Price));
+	public static EntityTypeBuilder<FinishedCustom> SetValidations(this EntityTypeBuilder<FinishedCustom> builder)
+	{
+		builder.Property(x => x.Price)
+			.IsRequired()
+			.HasPrecision(19, 2)
+			.HasColumnName(nameof(FinishedCustom.Price));
 
-        builder.Property(x => x.FinishedAt)
-            .IsRequired()
-            .HasColumnName(nameof(FinishedCustom.FinishedAt));
+		builder.Property(x => x.FinishedAt)
+			.IsRequired()
+			.HasColumnName(nameof(FinishedCustom.FinishedAt));
 
-        builder.Property(x => x.CadId)
-            .IsRequired()
-            .HasColumnName(nameof(FinishedCustom.CadId));
+		builder.Property(x => x.CadId)
+			.IsRequired()
+			.HasColumnName(nameof(FinishedCustom.CadId));
 
-        return builder;
-    }
+		return builder;
+	}
 }

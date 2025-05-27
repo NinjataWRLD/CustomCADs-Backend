@@ -2,7 +2,7 @@
 
 public enum Payer
 {
-    SENDER,
-    RECIPIENT,
-    THIRD_PARTY,
+	SENDER,
+	RECIPIENT,
+	THIRD_PARTY,
 }

@@ -5,9 +5,9 @@ using static ActiveCartsData;
 
 public class CalculateActiveCartShipmentInvalidCountryData : CalculateActiveCartShipmentData
 {
-    public CalculateActiveCartShipmentInvalidCountryData()
-    {
-        Add(ValidBuyerId1, new(null!, "Sofia"));
-        Add(ValidBuyerId2, new(string.Empty, "Bucharest"));
-    }
+	public CalculateActiveCartShipmentInvalidCountryData()
+	{
+		Add(ValidBuyerId1, new(null!, "Sofia"));
+		Add(ValidBuyerId2, new(string.Empty, "Bucharest"));
+	}
 }

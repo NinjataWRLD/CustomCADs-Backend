@@ -8,15 +8,15 @@ using static Constants.FluentMessages;
 
 public class GetMaterialTexturePresignedUrlPostValidator : QueryValidator<GetMaterialTexturePresignedUrlPostQuery, UploadFileResponse>
 {
-    public GetMaterialTexturePresignedUrlPostValidator()
-    {
-        RuleFor(x => x.MaterialName)
-            .NotEmpty().WithMessage(RequiredError);
+	public GetMaterialTexturePresignedUrlPostValidator()
+	{
+		RuleFor(x => x.MaterialName)
+			.NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(x => x.Image.ContentType)
-            .NotEmpty().WithMessage(RequiredError);
+		RuleFor(x => x.Image.ContentType)
+			.NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(x => x.Image.FileName)
-            .NotEmpty().WithMessage(RequiredError);
-    }
+		RuleFor(x => x.Image.FileName)
+			.NotEmpty().WithMessage(RequiredError);
+	}
 }

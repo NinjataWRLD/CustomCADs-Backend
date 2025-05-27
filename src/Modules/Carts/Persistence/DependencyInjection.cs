@@ -13,54 +13,54 @@ using PurchasedCartReads = CustomCADs.Carts.Persistence.Repositories.PurchasedCa
 
 public static class DependencyInjection
 {
-    public static async Task<IServiceProvider> UpdateCartsContextAsync(this IServiceProvider provider)
-    {
-        CartsContext context = provider.GetRequiredService<CartsContext>();
-        await context.Database.MigrateAsync().ConfigureAwait(false);
+	public static async Task<IServiceProvider> UpdateCartsContextAsync(this IServiceProvider provider)
+	{
+		CartsContext context = provider.GetRequiredService<CartsContext>();
+		await context.Database.MigrateAsync().ConfigureAwait(false);
 
-        return provider;
-    }
+		return provider;
+	}
 
-    public static IServiceCollection AddCartsPersistence(this IServiceCollection services, IConfiguration config)
-        => services
-            .AddContext(config)
-            .AddReads()
-            .AddWrites()
-            .AddUnitOfWork();
+	public static IServiceCollection AddCartsPersistence(this IServiceCollection services, IConfiguration config)
+		=> services
+			.AddContext(config)
+			.AddReads()
+			.AddWrites()
+			.AddUnitOfWork();
 
-    private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
-    {
-        string connectionString = config.GetConnectionString("ApplicationConnection")
-            ?? throw new KeyNotFoundException("Could not find connection string 'ApplicationConnection'.");
+	private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
+	{
+		string connectionString = config.GetConnectionString("ApplicationConnection")
+			?? throw new KeyNotFoundException("Could not find connection string 'ApplicationConnection'.");
 
-        services.AddDbContext<CartsContext>(options =>
-            options.UseNpgsql(connectionString, opt
-                => opt.MigrationsHistoryTable("__EFMigrationsHistory", "Carts")
-            )
-        );
+		services.AddDbContext<CartsContext>(options =>
+			options.UseNpgsql(connectionString, opt
+				=> opt.MigrationsHistoryTable("__EFMigrationsHistory", "Carts")
+			)
+		);
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddReads(this IServiceCollection services)
-    {
-        services.AddScoped<IActiveCartReads, ActiveCartReads>();
-        services.AddScoped<IPurchasedCartReads, PurchasedCartReads>();
+	public static IServiceCollection AddReads(this IServiceCollection services)
+	{
+		services.AddScoped<IActiveCartReads, ActiveCartReads>();
+		services.AddScoped<IPurchasedCartReads, PurchasedCartReads>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddWrites(this IServiceCollection services)
-    {
-        services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
+	public static IServiceCollection AddWrites(this IServiceCollection services)
+	{
+		services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
-    {
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+	public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
+	{
+		services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        return services;
-    }
+		return services;
+	}
 }

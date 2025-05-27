@@ -5,26 +5,26 @@ using CustomCADs.Shared.UseCases.Cads.Queries;
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Put;
 
 public sealed class CreatorGetProductCadPresignedUrlPutHandler(IProductReads reads, IRequestSender sender)
-    : IQueryHandler<CreatorGetProductCadPresignedUrlPutQuery, CreatorGetProductCadPresignedUrlPutDto>
+	: IQueryHandler<CreatorGetProductCadPresignedUrlPutQuery, CreatorGetProductCadPresignedUrlPutDto>
 {
-    public async Task<CreatorGetProductCadPresignedUrlPutDto> Handle(CreatorGetProductCadPresignedUrlPutQuery req, CancellationToken ct)
-    {
-        Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<Product>.ById(req.Id);
+	public async Task<CreatorGetProductCadPresignedUrlPutDto> Handle(CreatorGetProductCadPresignedUrlPutQuery req, CancellationToken ct)
+	{
+		Product product = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Product>.ById(req.Id);
 
-        if (product.CreatorId != req.CreatorId)
-        {
-            throw CustomAuthorizationException<Product>.ById(req.Id);
-        }
+		if (product.CreatorId != req.CreatorId)
+		{
+			throw CustomAuthorizationException<Product>.ById(req.Id);
+		}
 
-        string url = await sender.SendQueryAsync(
-            new GetCadPresignedUrlPutByIdQuery(
-                Id: product.CadId,
-                NewFile: req.NewCad
-            ),
-            ct
-        ).ConfigureAwait(false);
+		string url = await sender.SendQueryAsync(
+			new GetCadPresignedUrlPutByIdQuery(
+				Id: product.CadId,
+				NewFile: req.NewCad
+			),
+			ct
+		).ConfigureAwait(false);
 
-        return new(PresignedUrl: url);
-    }
+		return new(PresignedUrl: url);
+	}
 }

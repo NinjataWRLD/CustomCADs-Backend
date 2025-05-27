@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Shared.UseCases.Customizations.Queries;
 
 public record GetCustomizationCostByIdQuery(
-    CustomizationId Id
+	CustomizationId Id
 ) : IQuery<decimal>;

@@ -10,72 +10,72 @@ namespace CustomCADs.UnitTests.Files.Application.Images.Queries.Shared.GetPresig
 
 public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
 {
-    private readonly Mock<IImageReads> reads = new();
-    private readonly Mock<IStorageService> storage = new();
-    private static readonly Image image = CreateImage();
+	private readonly Mock<IImageReads> reads = new();
+	private readonly Mock<IStorageService> storage = new();
+	private static readonly Image image = CreateImage();
 
-    public GetImagePresignedUrlPutByIdHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(id1, false, ct)).ReturnsAsync(image);
-    }
+	public GetImagePresignedUrlPutByIdHandlerUnitTests()
+	{
+		reads.Setup(x => x.SingleByIdAsync(id1, false, ct)).ReturnsAsync(image);
+	}
 
-    [Theory]
-    [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
-    public async Task Handle_ShouldQueryDatabase(UploadFileRequest newFile)
-    {
-        // Assert
-        GetImagePresignedUrlPutByIdQuery query = new(
-            id1,
-            newFile
-        );
-        GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
+	[Theory]
+	[ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
+	public async Task Handle_ShouldQueryDatabase(UploadFileRequest newFile)
+	{
+		// Assert
+		GetImagePresignedUrlPutByIdQuery query = new(
+			id1,
+			newFile
+		);
+		GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id1, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(id1, false, ct), Times.Once);
+	}
 
-    [Theory]
-    [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
-    public async Task Handle_ShouldCallStorage_WhenImageFound(UploadFileRequest newFile)
-    {
-        // Assert
-        GetImagePresignedUrlPutByIdQuery query = new(
-            id1,
-            newFile
-        );
-        GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
+	[Theory]
+	[ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
+	public async Task Handle_ShouldCallStorage_WhenImageFound(UploadFileRequest newFile)
+	{
+		// Assert
+		GetImagePresignedUrlPutByIdQuery query = new(
+			id1,
+			newFile
+		);
+		GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        storage.Verify(x => x.GetPresignedPutUrlAsync(
-            image.Key,
-            newFile
-        ), Times.Once);
-    }
+		// Assert
+		storage.Verify(x => x.GetPresignedPutUrlAsync(
+			image.Key,
+			newFile
+		), Times.Once);
+	}
 
-    [Theory]
-    [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
-    public async Task Handle_ShouldThrowException_WhenImageNotFound(UploadFileRequest newFile)
-    {
-        // Assert
-        reads.Setup(x => x.SingleByIdAsync(id1, false, ct)).ReturnsAsync(null as Image);
+	[Theory]
+	[ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
+	public async Task Handle_ShouldThrowException_WhenImageNotFound(UploadFileRequest newFile)
+	{
+		// Assert
+		reads.Setup(x => x.SingleByIdAsync(id1, false, ct)).ReturnsAsync(null as Image);
 
-        GetImagePresignedUrlPutByIdQuery query = new(
-            id1,
-            newFile
-        );
-        GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
+		GetImagePresignedUrlPutByIdQuery query = new(
+			id1,
+			newFile
+		);
+		GetImagePresignedUrlPutByIdHandler handler = new(reads.Object, storage.Object);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
-        {
-            // Act
-            await handler.Handle(query, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
+		{
+			// Act
+			await handler.Handle(query, ct);
+		});
+	}
 }

@@ -6,10 +6,10 @@ namespace CustomCADs.Files.Persistence.Configurations.Cads;
 
 public class Configurations : IEntityTypeConfiguration<Cad>
 {
-    public void Configure(EntityTypeBuilder<Cad> builder)
-        => builder
-            .SetPrimaryKey()
-            .SetStronglyTypedIds()
-            .SetValueObjects()
-            .SetValidaitons();
+	public void Configure(EntityTypeBuilder<Cad> builder)
+		=> builder
+			.SetPrimaryKey()
+			.SetStronglyTypedIds()
+			.SetValueObjects()
+			.SetValidaitons();
 }

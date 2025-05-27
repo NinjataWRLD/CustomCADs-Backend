@@ -4,9 +4,9 @@ using static TagsData;
 
 public class SetTagNameInvalidData : SetTagNameData
 {
-    public SetTagNameInvalidData()
-    {
-        Add(InvalidName1);
-        Add(InvalidName2);
-    }
+	public SetTagNameInvalidData()
+	{
+		Add(InvalidName1);
+		Add(InvalidName2);
+	}
 }
