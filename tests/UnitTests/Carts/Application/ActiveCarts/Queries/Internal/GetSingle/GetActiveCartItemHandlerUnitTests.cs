@@ -47,11 +47,10 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         GetActiveCartItemQuery query = new(newBuyerId, ProductId.New());
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 
     [Fact]
@@ -61,10 +60,9 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
         GetActiveCartItemQuery query = new(newBuyerId, ProductId.New());
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

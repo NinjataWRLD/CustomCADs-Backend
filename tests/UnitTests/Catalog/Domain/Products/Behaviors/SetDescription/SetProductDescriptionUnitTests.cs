@@ -26,9 +26,8 @@ public class SetProductDescriptionUnitTests : ProductsBaseUnitTests
     [ClassData(typeof(SetProductDescriptionInvalidData))]
     public void SetDescription_ShouldThrowException_WhenDescriptionIsNotValid(string description)
     {
-        Assert.Throws<CustomValidationException<Product>>(() =>
-        {
-            CreateProduct().SetDescription(description);
-        });
+        Assert.Throws<CustomValidationException<Product>>(
+            () => CreateProduct().SetDescription(description)
+        );
     }
 }

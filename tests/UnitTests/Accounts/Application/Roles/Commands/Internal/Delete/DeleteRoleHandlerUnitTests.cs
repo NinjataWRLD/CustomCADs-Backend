@@ -88,10 +88,9 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
         DeleteRoleCommand command = new(role);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Role>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Role>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

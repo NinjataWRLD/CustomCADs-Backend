@@ -77,10 +77,9 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
         DeleteCategoryCommand command = new(ValidId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

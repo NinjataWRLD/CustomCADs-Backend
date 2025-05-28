@@ -17,19 +17,17 @@ public class ActiveCartItemIncreaseQuantityUnitTests : ActiveCartItemsBaseUnitTe
     [ClassData(typeof(ActiveCartItemIncreaseQuantityInvalidData))]
     public void Increase_ShouldThrowException_WhenInvalidAmount(int amount)
     {
-        Assert.Throws<CustomValidationException<ActiveCartItem>>(() =>
-        {
-            CreateItemWithDelivery().IncreaseQuantity(amount);
-        });
+        Assert.Throws<CustomValidationException<ActiveCartItem>>(
+            () => CreateItemWithDelivery().IncreaseQuantity(amount)
+        );
     }
 
     [Theory]
     [ClassData(typeof(ActiveCartItemIncreaseQuantityValidData))]
     public void Increase_ShouldThrowException_WhenNotForDelivery(int amount)
     {
-        Assert.Throws<CustomValidationException<ActiveCartItem>>(() =>
-        {
-            CreateItem().IncreaseQuantity(amount);
-        });
+        Assert.Throws<CustomValidationException<ActiveCartItem>>(
+            () => CreateItem().IncreaseQuantity(amount)
+        );
     }
 }

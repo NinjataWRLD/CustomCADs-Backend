@@ -75,10 +75,9 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
         SetImageKeyCommand command = new(id1, key);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

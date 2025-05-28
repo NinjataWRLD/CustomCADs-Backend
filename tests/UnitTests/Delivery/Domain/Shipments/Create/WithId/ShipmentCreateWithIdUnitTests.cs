@@ -35,9 +35,8 @@ public class ShipmentCreateWithIdUnitTests : ShipmentsBaseUnitTests
     [ClassData(typeof(ShipmentCreateWithIdInvalidCityData))]
     public void CreateWithId_ShouldThrowException_WhenShipmentIsInvalid(string country, string city, string referenceId)
     {
-        Assert.Throws<CustomValidationException<Shipment>>(() =>
-        {
-            Shipment.Create(new(country, city), referenceId, ValidBuyerId);
-        });
+        Assert.Throws<CustomValidationException<Shipment>>(
+            () => Shipment.Create(new(country, city), referenceId, ValidBuyerId)
+        );
     }
 }

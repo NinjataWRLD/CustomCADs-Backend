@@ -31,9 +31,8 @@ public class CategoryCreateWithIdUnitTests : CategoriesBaseUnitTests
     [ClassData(typeof(CategoryCreateWithIdInvalidDescriptionData))]
     public void CreateWithId_ShouldThrowException_WhenCategoryIsInvalid(string name, string description)
     {
-        Assert.Throws<CustomValidationException<Category>>(() =>
-        {
-            CreateCategory(name, description);
-        });
+        Assert.Throws<CustomValidationException<Category>>(
+            () => CreateCategory(name, description)
+        );
     }
 }

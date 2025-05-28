@@ -26,9 +26,8 @@ public class CustomSetNameUnitTests : CustomsBaseUnitTests
     [ClassData(typeof(CustomSetNameInvalidData))]
     public void SetName_ShouldThrowException_WhenNameInvalid(string name)
     {
-        Assert.Throws<CustomValidationException<Custom>>(() =>
-        {
-            CreateCustom().SetName(name);
-        });
+        Assert.Throws<CustomValidationException<Custom>>(
+            () => CreateCustom().SetName(name)
+        );
     }
 }

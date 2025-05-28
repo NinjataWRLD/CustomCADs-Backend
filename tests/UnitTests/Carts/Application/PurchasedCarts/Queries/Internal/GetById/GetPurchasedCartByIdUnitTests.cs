@@ -80,10 +80,9 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
         GetPurchasedCartByIdQuery query = new(ValidId, ValidBuyerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

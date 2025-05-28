@@ -89,10 +89,9 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
             // Act
-            await handler.Handle(ie);
-        });
+            async () => await handler.Handle(ie)
+        );
     }
 }

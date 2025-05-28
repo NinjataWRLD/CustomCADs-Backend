@@ -27,9 +27,8 @@ public class TagCreateUnitTests : TagsBaseUnitTests
     [ClassData(typeof(TagCreateInvalidNameData))]
     public void Create_ShouldThrowException_WhenProductIsNotValid(string name)
     {
-        Assert.Throws<CustomValidationException<Tag>>(() =>
-        {
-            CreateTag(name);
-        });
+        Assert.Throws<CustomValidationException<Tag>>(
+            () => CreateTag(name)
+        );
     }
 }

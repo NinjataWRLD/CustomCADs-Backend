@@ -110,10 +110,9 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
         ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
             // Act 
-            await handler.Handle(de);
-        });
+            async () => await handler.Handle(de)
+        );
     }
 }

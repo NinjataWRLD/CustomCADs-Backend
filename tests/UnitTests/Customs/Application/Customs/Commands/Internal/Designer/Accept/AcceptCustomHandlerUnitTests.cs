@@ -117,11 +117,10 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 
     [Fact]
@@ -137,10 +136,9 @@ public class AcceptCustomHandlerUnitTests : CustomsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

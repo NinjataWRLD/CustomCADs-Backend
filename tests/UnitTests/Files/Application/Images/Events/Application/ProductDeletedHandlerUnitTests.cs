@@ -89,10 +89,9 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(
             // Act
-            await handler.Handle(ie);
-        });
+            async () => await handler.Handle(ie)
+        );
     }
 }

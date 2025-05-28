@@ -30,11 +30,10 @@ public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
             ]);
         }
 
-        Assert.Throws<CustomValidationException<PurchasedCart>>(() =>
-        {
-            purchasedCart.AddItems([
+        Assert.Throws<CustomValidationException<PurchasedCart>>(
+            () => purchasedCart.AddItems([
                 (price, ValidCadId, ProductId.New(), false, null, 1, DateTimeOffset.UtcNow)
-            ]);
-        });
+            ])
+        );
     }
 }

@@ -43,11 +43,10 @@ public class GetAccountByUsernameHandlerUnitTests : AccountsBaseUnitTests
         reads.Setup(x => x.SingleByUsernameAsync(username, false, ct)).ReturnsAsync(null as Account);
         GetAccountByUsernameQuery query = new(username);
 
-        // Assert 
-        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
-        {
+        // Assert
+        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

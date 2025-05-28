@@ -26,9 +26,8 @@ public class CustomSetDescriptionUnitTests : CustomsBaseUnitTests
     [ClassData(typeof(CustomSetDescriptionInvalidData))]
     public void SetDescription_ShouldThrowException_WhenDescriptionInvalid(string description)
     {
-        Assert.Throws<CustomValidationException<Custom>>(() =>
-        {
-            CreateCustom().SetDescription(description);
-        });
+        Assert.Throws<CustomValidationException<Custom>>(
+            () => CreateCustom().SetDescription(description)
+        );
     }
 }

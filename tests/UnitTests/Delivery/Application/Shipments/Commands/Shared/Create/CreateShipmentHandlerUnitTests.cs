@@ -135,10 +135,9 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

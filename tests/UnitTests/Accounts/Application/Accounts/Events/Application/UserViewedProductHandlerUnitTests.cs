@@ -73,10 +73,9 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
         UserViewedProductApplicationEvent ie = new(id, productId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(
             // Act
-            await handler.Handle(ie);
-        });
+            async () => await handler.Handle(ie)
+        );
     }
 }

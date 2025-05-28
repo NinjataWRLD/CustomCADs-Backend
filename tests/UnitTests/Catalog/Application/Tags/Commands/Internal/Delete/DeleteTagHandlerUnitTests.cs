@@ -62,10 +62,9 @@ public class DeleteTagHandlerUnitTests : TagsBaseUnitTests
         DeleteTagCommand command = new(id);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(
             // Act  
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

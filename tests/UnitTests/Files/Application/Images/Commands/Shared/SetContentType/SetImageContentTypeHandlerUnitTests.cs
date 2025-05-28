@@ -74,10 +74,9 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
         SetImageContentTypeCommand command = new(id1, contentType);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Image>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

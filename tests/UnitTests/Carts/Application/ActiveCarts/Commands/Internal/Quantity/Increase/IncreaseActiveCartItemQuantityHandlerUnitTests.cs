@@ -74,11 +74,10 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 
     [Theory]
@@ -93,10 +92,9 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

@@ -19,23 +19,21 @@ public class ActiveCartItemDecreaseQuantityUnitTests : ActiveCartItemsBaseUnitTe
     [ClassData(typeof(ActiveCartItemDecreaseQuantityValidData))]
     public void Decrease_ShouldThrowException_WhenInvalidAmount(int amount)
     {
-        Assert.Throws<CustomValidationException<ActiveCartItem>>(() =>
-        {
-            CreateItemWithDelivery()
+        Assert.Throws<CustomValidationException<ActiveCartItem>>(
+            () => CreateItemWithDelivery()
                 .IncreaseQuantity(amount - 1)
-                .DecreaseQuantity(amount);
-        });
+                .DecreaseQuantity(amount)
+        );
     }
 
     [Theory]
     [ClassData(typeof(ActiveCartItemDecreaseQuantityValidData))]
     public void Decrease_ShouldThrowException_WhenNotForDelivery(int amount)
     {
-        Assert.Throws<CustomValidationException<ActiveCartItem>>(() =>
-        {
-            CreateItem()
+        Assert.Throws<CustomValidationException<ActiveCartItem>>(
+            () => CreateItem()
                 .IncreaseQuantity(amount)
-                .DecreaseQuantity(amount);
-        });
+                .DecreaseQuantity(amount)
+        );
     }
 }

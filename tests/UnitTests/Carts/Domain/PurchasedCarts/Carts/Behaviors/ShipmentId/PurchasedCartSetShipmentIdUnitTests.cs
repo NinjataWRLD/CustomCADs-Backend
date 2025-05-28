@@ -46,16 +46,15 @@ public class PurchasedCartSetShipmentIdUnitTests : PurchasedCartsBaseUnitTests
     [Fact]
     public void SetShipmentId_ShouldThrowException_WhenNotDelivery()
     {
-        Assert.Throws<CustomValidationException<PurchasedCart>>(() =>
-        {
-            CreateCartWithItems(
+        Assert.Throws<CustomValidationException<PurchasedCart>>(
+            () => CreateCartWithItems(
                 buyerId: ValidBuyerId,
                 items: CreateItems(2, 0),
                 prices: prices,
                 productCads: productCads,
                 itemCads: itemCads
-            ).SetShipmentId(ValidShipmentId);
-        });
+            ).SetShipmentId(ValidShipmentId)
+        );
     }
 
     private static ActiveCartItem[] CreateItems(int noDeliveryCount, int forDeliveryCount)

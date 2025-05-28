@@ -82,10 +82,9 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
         DeleteAccountCommand command = new(username);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

@@ -74,10 +74,9 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
         SetCadContentTypeCommand command = new(id1, contentType);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

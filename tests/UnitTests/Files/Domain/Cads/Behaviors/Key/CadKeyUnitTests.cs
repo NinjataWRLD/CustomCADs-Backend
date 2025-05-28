@@ -32,9 +32,8 @@ public class CadKeyUnitTests : CadsBaseUnitTests
     {
         var cad = CreateCad();
 
-        Assert.Throws<CustomValidationException<Cad>>(() =>
-        {
-            cad.SetKey(key);
-        });
+        Assert.Throws<CustomValidationException<Cad>>(
+            () => cad.SetKey(key)
+        );
     }
 }

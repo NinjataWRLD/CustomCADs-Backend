@@ -32,9 +32,8 @@ public class ImageContentTypeUnitTests : ImagesBaseUnitTests
     {
         var image = CreateImage();
 
-        Assert.Throws<CustomValidationException<Image>>(() =>
-        {
-            image.SetContentType(contentType);
-        });
+        Assert.Throws<CustomValidationException<Image>>(
+            () => image.SetContentType(contentType)
+        );
     }
 }

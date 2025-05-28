@@ -33,9 +33,8 @@ public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
     {
         var cad = CreateCad();
 
-        Assert.Throws<CustomValidationException<Cad>>(() =>
-        {
-            cad.SetPanCoordinates(coordinates);
-        });
+        Assert.Throws<CustomValidationException<Cad>>(
+            () => cad.SetPanCoordinates(coordinates)
+        );
     }
 }

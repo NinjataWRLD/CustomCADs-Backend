@@ -36,9 +36,8 @@ public class AccountCreateUnitTests : AccountsBaseUnitTests
     [ClassData(typeof(AccountCreateInvalidLastNameData))]
     public void Create_ShouldThrowException_WhenAccountIsInvalid(string role, string username, string email, string? firstName, string? lastName)
     {
-        Assert.Throws<CustomValidationException<Account>>(() =>
-        {
-            CreateAccount(role, username, email, firstName, lastName);
-        });
+        Assert.Throws<CustomValidationException<Account>>(
+            () => CreateAccount(role, username, email, firstName, lastName)
+        );
     }
 }

@@ -42,11 +42,10 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
         GetCategoryNameByIdQuery query = new(ValidId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
 
     }
 }

@@ -97,10 +97,9 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
         EditCategoryCommand command = new(ValidId, new(name, description));
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

@@ -34,19 +34,17 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
     [ClassData(typeof(ShipmentCreateInvalidCountryData))]
     public void Create_ShouldThrowException_WhenCountryIsInvalid(string country, string city, string referenceId)
     {
-        Assert.Throws<CustomValidationException<Shipment>>(() =>
-        {
-            Shipment.Create(new(country, city), referenceId, ValidBuyerId);
-        });
+        Assert.Throws<CustomValidationException<Shipment>>(
+            () => Shipment.Create(new(country, city), referenceId, ValidBuyerId)
+        );
     }
 
     [Theory]
     [ClassData(typeof(ShipmentCreateInvalidCityData))]
     public void Create_ShouldThrowException_WhenCityIsInvalid(string country, string city, string referenceId)
     {
-        Assert.Throws<CustomValidationException<Shipment>>(() =>
-        {
-            Shipment.Create(new(country, city), referenceId, ValidBuyerId);
-        });
+        Assert.Throws<CustomValidationException<Shipment>>(
+            () => Shipment.Create(new(country, city), referenceId, ValidBuyerId)
+        );
     }
 }

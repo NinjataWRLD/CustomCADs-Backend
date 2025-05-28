@@ -70,11 +70,10 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
         GetShipmentTrackQuery query = new(id);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 
     private static ShipmentStatusDto[] CreateShipmentStatusDtos(int count, string message)

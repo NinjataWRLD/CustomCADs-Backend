@@ -32,9 +32,8 @@ public class AccountLastNameUnitTests : AccountsBaseUnitTests
     {
         var account = CreateAccount();
 
-        Assert.Throws<CustomValidationException<Account>>(() =>
-        {
-            account.SetLastName(lastName);
-        });
+        Assert.Throws<CustomValidationException<Account>>(
+            () => account.SetLastName(lastName)
+        );
     }
 }

@@ -33,9 +33,8 @@ public class CadCamCoordinatesUnitTests : CadsBaseUnitTests
     {
         var cad = CreateCad();
 
-        Assert.Throws<CustomValidationException<Cad>>(() =>
-        {
-            cad.SetCamCoordinates(coordinates);
-        });
+        Assert.Throws<CustomValidationException<Cad>>(
+            () => cad.SetCamCoordinates(coordinates)
+        );
     }
 }

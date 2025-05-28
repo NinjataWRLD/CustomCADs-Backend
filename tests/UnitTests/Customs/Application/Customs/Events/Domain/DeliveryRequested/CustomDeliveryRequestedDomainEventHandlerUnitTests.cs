@@ -132,10 +132,9 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
             // Act
-            await handler.Handle(de);
-        });
+            async () => await handler.Handle(de)
+        );
     }
 }

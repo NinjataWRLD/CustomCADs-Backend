@@ -46,10 +46,9 @@ public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
         GetTagByIdQuery query = new(id);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

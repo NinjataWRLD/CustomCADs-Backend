@@ -45,14 +45,13 @@ public class ProductCreateWithIdUnitTests : ProductsBaseUnitTests
     [ClassData(typeof(ProductCreateWithIdInvalidPriceData))]
     public void CreateWithId_ShouldThrowException_WhenProductIsNotValid(string name, string description, decimal price)
     {
-        Assert.Throws<CustomValidationException<Product>>(() =>
-        {
-            CreateProductWithId(
+        Assert.Throws<CustomValidationException<Product>>(
+            () => CreateProductWithId(
                 id: ValidId,
                 name: name,
                 description: description,
                 price: price
-            );
-        });
+            )
+        );
     }
 }

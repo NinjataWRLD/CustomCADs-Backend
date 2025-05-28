@@ -80,10 +80,9 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
         GetCadPresignedUrlGetByIdQuery query = new(id1);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

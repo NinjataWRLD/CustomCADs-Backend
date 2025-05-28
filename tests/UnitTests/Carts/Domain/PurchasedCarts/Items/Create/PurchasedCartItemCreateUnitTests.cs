@@ -57,9 +57,8 @@ public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
     [ClassData(typeof(PurchasedCartItemCreateInvalidPriceData))]
     public void Create_ShouldThrow_WhenCartIsNotValid(decimal price, int quantity, bool forDelivery)
     {
-        Assert.Throws<CustomValidationException<PurchasedCartItem>>(() =>
-        {
-            CreateItem(
+        Assert.Throws<CustomValidationException<PurchasedCartItem>>(
+            () => CreateItem(
                 cartId: PurchasedCartsData.ValidId,
                 productId: ValidProductId,
                 cadId: ValidCadId,
@@ -67,7 +66,7 @@ public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
                 price: price,
                 quantity: quantity,
                 forDelivery: forDelivery
-            );
-        });
+            )
+        );
     }
 }

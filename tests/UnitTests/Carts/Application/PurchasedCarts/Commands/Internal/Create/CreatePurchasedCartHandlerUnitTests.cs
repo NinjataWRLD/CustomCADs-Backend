@@ -116,10 +116,9 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

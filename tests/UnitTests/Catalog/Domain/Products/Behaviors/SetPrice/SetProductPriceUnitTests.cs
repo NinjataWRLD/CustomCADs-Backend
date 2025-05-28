@@ -26,9 +26,8 @@ public class SetProductPriceUnitTests : ProductsBaseUnitTests
     [ClassData(typeof(SetProductPriceInvalidData))]
     public void SetPrice_ShouldThrowException_WhenPriceIsNotValid(decimal price)
     {
-        Assert.Throws<CustomValidationException<Product>>(() =>
-        {
-            CreateProduct().SetPrice(price);
-        });
+        Assert.Throws<CustomValidationException<Product>>(
+            () => CreateProduct().SetPrice(price)
+        );
     }
 }

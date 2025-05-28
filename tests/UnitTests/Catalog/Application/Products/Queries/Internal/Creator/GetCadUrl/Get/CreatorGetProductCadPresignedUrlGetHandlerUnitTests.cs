@@ -84,11 +84,10 @@ public class CreatorGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
         CreatorGetProductCadPresignedUrlGetQuery query = new(ValidId, ValidCreatorId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 
     [Fact]
@@ -101,10 +100,9 @@ public class CreatorGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
         CreatorGetProductCadPresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

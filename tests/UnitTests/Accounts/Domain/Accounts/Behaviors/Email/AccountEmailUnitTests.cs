@@ -32,9 +32,8 @@ public class AccountEmailUnitTests : AccountsBaseUnitTests
     {
         var account = CreateAccount();
 
-        Assert.Throws<CustomValidationException<Account>>(() =>
-        {
-            account.SetEmail(email);
-        });
+        Assert.Throws<CustomValidationException<Account>>(
+            () => account.SetEmail(email)
+        );
     }
 }

@@ -64,10 +64,9 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
         GetCadCoordsByIdQuery query = new(id);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

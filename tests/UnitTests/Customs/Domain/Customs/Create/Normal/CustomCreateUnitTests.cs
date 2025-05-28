@@ -33,9 +33,8 @@ public class CustomCreateUnitTests : CustomsBaseUnitTests
     [ClassData(typeof(CustomCreateInvalidDescriptionData))]
     public void Create_ShouldThrowException_WhenCustomIsInvalid(string name, string description, bool delivery)
     {
-        Assert.Throws<CustomValidationException<Custom>>(() =>
-        {
-            CreateCustom(name, description, delivery, ValidBuyerId);
-        });
+        Assert.Throws<CustomValidationException<Custom>>(
+            () => CreateCustom(name, description, delivery, ValidBuyerId)
+        );
     }
 }

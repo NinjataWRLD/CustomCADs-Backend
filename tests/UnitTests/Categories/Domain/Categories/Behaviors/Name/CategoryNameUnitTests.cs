@@ -32,9 +32,8 @@ public class CategoryNameUnitTests : CategoriesBaseUnitTests
     {
         var category = CreateCategory();
 
-        Assert.Throws<CustomValidationException<Category>>(() =>
-        {
-            category.SetName(name);
-        });
+        Assert.Throws<CustomValidationException<Category>>(
+            () => category.SetName(name)
+        );
     }
 }

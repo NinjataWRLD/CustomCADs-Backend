@@ -32,9 +32,8 @@ public class RoleCreateWithIdUnitTests : RolesBaseUnitTests
     [ClassData(typeof(RoleCreateWithIdInvalidWithIdDescriptionData))]
     public void CreateWithId_ShouldThrowException_WhenCategoryIsInvalid(string name, string description)
     {
-        Assert.Throws<CustomValidationException<Role>>(() =>
-        {
-            CreateRoleWithId(ValidId, name, description);
-        });
+        Assert.Throws<CustomValidationException<Role>>(
+            () => CreateRoleWithId(ValidId, name, description)
+        );
     }
 }

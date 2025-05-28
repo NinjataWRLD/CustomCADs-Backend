@@ -85,10 +85,9 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
         DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

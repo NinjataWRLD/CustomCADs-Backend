@@ -30,9 +30,8 @@ public class ImageCreateWithIdUnitTests : ImagesBaseUnitTests
     [ClassData(typeof(ImageCreateWithIdInvalidContentTypeData))]
     public void CreateWithId_ShouldThrowException_WhenImageIsInvalid(string key, string contentType)
     {
-        Assert.Throws<CustomValidationException<Image>>(() =>
-        {
-            Image.Create(key, contentType);
-        });
+        Assert.Throws<CustomValidationException<Image>>(
+            () => Image.Create(key, contentType)
+        );
     }
 }

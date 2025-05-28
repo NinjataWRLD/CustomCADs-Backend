@@ -200,11 +200,10 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 
     [Theory]
@@ -231,10 +230,9 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

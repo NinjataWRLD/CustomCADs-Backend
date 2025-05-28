@@ -132,10 +132,9 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
         PurchaseActiveCartCommand command = new(paymentMethodId, ValidBuyerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomException>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomException>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

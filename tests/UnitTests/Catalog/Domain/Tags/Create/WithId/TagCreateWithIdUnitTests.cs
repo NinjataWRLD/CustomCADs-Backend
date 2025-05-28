@@ -28,9 +28,8 @@ public class TagCreateWithIdUnitTests : TagsBaseUnitTests
     [ClassData(typeof(TagCreateWithIdInvalidNameData))]
     public void CreateWithId_ShouldThrowException_WhenProductIsNotValid(string name)
     {
-        Assert.Throws<CustomValidationException<Tag>>(() =>
-        {
-            CreateTagWithId(ValidId, name);
-        });
+        Assert.Throws<CustomValidationException<Tag>>(
+            () => CreateTagWithId(ValidId, name)
+        );
     }
 }

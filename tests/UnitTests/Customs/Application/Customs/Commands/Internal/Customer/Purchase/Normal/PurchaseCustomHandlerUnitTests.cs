@@ -116,11 +116,10 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         PurchaseCustomCommand command = new(ValidId, string.Empty, buyerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 
     [Fact]
@@ -133,11 +132,10 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomException>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomException>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 
     [Fact]
@@ -151,11 +149,10 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomException>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomException>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 
     [Fact]
@@ -168,11 +165,10 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomException>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomException>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 
     [Fact]
@@ -184,10 +180,9 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
         PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

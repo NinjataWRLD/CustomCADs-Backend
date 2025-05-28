@@ -53,10 +53,9 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
         GetUserRoleByIdQuery query = new(ValidId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

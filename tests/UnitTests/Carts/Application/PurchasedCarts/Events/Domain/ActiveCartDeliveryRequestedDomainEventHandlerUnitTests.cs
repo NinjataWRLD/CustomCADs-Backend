@@ -104,10 +104,9 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(
             // Act
-            await handler.Handle(de);
-        });
+            async () => await handler.Handle(de)
+        );
     }
 }

@@ -77,11 +77,10 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
         DeleteProductCommand command = new(ValidId, ValidDesignerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 
     [Fact]
@@ -93,10 +92,9 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
         DeleteProductCommand command = new(ValidId, ValidCreatorId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

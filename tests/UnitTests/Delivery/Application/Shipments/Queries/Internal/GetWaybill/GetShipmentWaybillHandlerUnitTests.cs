@@ -74,11 +74,10 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
         GetShipmentWaybillQuery query = new(id, headDesignerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 
     [Fact]
@@ -88,10 +87,9 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
         GetShipmentWaybillQuery query = new(id, ValidBuyerId);
 
         // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Shipment>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomAuthorizationException<Shipment>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

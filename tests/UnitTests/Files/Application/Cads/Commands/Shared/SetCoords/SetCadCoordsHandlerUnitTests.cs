@@ -106,10 +106,9 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

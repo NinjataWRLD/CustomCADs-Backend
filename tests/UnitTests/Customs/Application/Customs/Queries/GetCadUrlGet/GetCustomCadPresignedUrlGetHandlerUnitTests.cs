@@ -99,11 +99,10 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 
     [Fact]
@@ -119,10 +118,9 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
         );
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

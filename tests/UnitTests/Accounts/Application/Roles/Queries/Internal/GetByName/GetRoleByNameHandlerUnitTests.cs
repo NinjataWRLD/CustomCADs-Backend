@@ -93,10 +93,9 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
         GetRoleByNameQuery query = new(name);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Role>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Role>>(
             // Act
-            await handler.Handle(query, ct);
-        });
+            async () => await handler.Handle(query, ct)
+        );
     }
 }

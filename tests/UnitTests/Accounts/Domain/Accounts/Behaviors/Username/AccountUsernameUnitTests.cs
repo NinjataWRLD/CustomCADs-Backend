@@ -32,9 +32,8 @@ public class AccountUsernameUnitTests : AccountsBaseUnitTests
     {
         var account = CreateAccount();
 
-        Assert.Throws<CustomValidationException<Account>>(() =>
-        {
-            account.SetUsername(username);
-        });
+        Assert.Throws<CustomValidationException<Account>>(
+            () => account.SetUsername(username)
+        );
     }
 }

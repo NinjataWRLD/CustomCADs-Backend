@@ -29,19 +29,17 @@ public class ImageCreateUnitTests : ImagesBaseUnitTests
     [ClassData(typeof(ImageCreateInvalidKeyData))]
     public void Create_ShouldThrowException_WhenKeyIsInvalid(string key, string contentType)
     {
-        Assert.Throws<CustomValidationException<Image>>(() =>
-        {
-            Image.Create(key, contentType);
-        });
+        Assert.Throws<CustomValidationException<Image>>(
+            () => Image.Create(key, contentType)
+        );
     }
 
     [Theory]
     [ClassData(typeof(ImageCreateInvalidContentTypeData))]
     public void Create_ShouldThrowException_WhenContentTypeIsInvalid(string key, string contentType)
     {
-        Assert.Throws<CustomValidationException<Image>>(() =>
-        {
-            Image.Create(key, contentType);
-        });
+        Assert.Throws<CustomValidationException<Image>>(
+            () => Image.Create(key, contentType)
+        );
     }
 }

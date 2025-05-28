@@ -32,9 +32,8 @@ public class RoleNameUnitTests : RolesBaseUnitTests
     {
         var role = CreateRole();
 
-        Assert.Throws<CustomValidationException<Role>>(() =>
-        {
-            role.SetName(name);
-        });
+        Assert.Throws<CustomValidationException<Role>>(
+            () => role.SetName(name)
+        );
     }
 }

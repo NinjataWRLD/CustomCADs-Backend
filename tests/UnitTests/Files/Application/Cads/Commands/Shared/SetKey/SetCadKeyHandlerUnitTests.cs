@@ -74,10 +74,9 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
         SetCadKeyCommand command = new(id1, key);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

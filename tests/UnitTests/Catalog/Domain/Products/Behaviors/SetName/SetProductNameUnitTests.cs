@@ -26,9 +26,8 @@ public class SetProductNameUnitTests : ProductsBaseUnitTests
     [ClassData(typeof(SetProductNameInvalidData))]
     public void SetName_ShouldThrowException_WhenNameIsNotValid(string name)
     {
-        Assert.Throws<CustomValidationException<Product>>(() =>
-        {
-            CreateProduct().SetName(name);
-        });
+        Assert.Throws<CustomValidationException<Product>>(
+            () => CreateProduct().SetName(name)
+        );
     }
 }
