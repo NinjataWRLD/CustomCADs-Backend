@@ -26,7 +26,7 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldQueryDatabase()
     {
-        // Assert
+        // Arrange
         GetAllTagsQuery query = new();
 
         // Act
@@ -39,7 +39,7 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldReturnResult()
     {
-        // Assert
+        // Arrange
         GetAllTagsQuery query = new();
 
         // Act

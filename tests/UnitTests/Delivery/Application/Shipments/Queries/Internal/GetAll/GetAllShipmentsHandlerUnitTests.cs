@@ -83,7 +83,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldReturnResult()
     {
-        // Assert
+        // Arrange
         GetAllShipmentsQuery query = new(
             Pagination: new(),
             CustomerId: null,

@@ -96,7 +96,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
         // Act 
         await handler.Handle(de);
 
-        //Assert
+        // Assert
         Assert.Equal(1, product.Counts.Views);
     }
 

@@ -31,7 +31,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldCallCache_OnCacheHit()
     {
-        // Assert
+        // Arrange
         GetAllRolesQuery query = new();
 
         // Act
@@ -44,7 +44,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldQueryDatabase_OnCacheMiss()
     {
-        // Assert
+        // Arrange
         cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(null as Role[]);
         GetAllRolesQuery query = new();
 
@@ -58,7 +58,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldReturnResult_OnCacheHit()
     {
-        // Assert
+        // Arrange
         GetAllRolesQuery query = new();
 
         // Act
@@ -76,7 +76,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldReturnResult_OnCacheMiss()
     {
-        // Assert
+        // Arrange
         cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(null as Role[]);
         GetAllRolesQuery query = new();
 

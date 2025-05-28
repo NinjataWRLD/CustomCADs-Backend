@@ -29,7 +29,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldQueryDatabase()
     {
-        // Assert
+        // Arrange
         GetCadPresignedUrlGetByIdQuery query = new(id1);
 
         // Act
@@ -42,7 +42,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldCallStorage()
     {
-        // Assert
+        // Arrange
         GetCadPresignedUrlGetByIdQuery query = new(id1);
 
         // Act
@@ -58,7 +58,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldReturnProperly()
     {
-        // Assert
+        // Arrange
         GetCadPresignedUrlGetByIdQuery query = new(id1);
 
         // Act
@@ -74,7 +74,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldThrowException_WhenCadNotFound()
     {
-        // Assert
+        // Arrange
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
             .ReturnsAsync(null as Cad);
         GetCadPresignedUrlGetByIdQuery query = new(id1);

@@ -22,7 +22,7 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldQueryDatabase()
     {
-        // Assert
+        // Arrange
         GetCadVolumeByIdQuery query = new(id1);
 
         // Act
@@ -35,7 +35,7 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldReturnProperly()
     {
-        // Assert
+        // Arrange
         GetCadVolumeByIdQuery query = new(id1);
 
         // Act
@@ -48,7 +48,7 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
     [Fact]
     public async Task Handle_ShouldThrowException_WhenCadNotFound()
     {
-        // Assert
+        // Arrange
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
             .ReturnsAsync(null as Cad);
         GetCadVolumeByIdQuery query = new(id1);

@@ -27,7 +27,7 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
     [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
     public async Task Handle_ShouldQueryDatabase(UploadFileRequest newFile)
     {
-        // Assert
+        // Arrange
         GetImagePresignedUrlPutByIdQuery query = new(
             id1,
             newFile
@@ -44,7 +44,7 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
     [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
     public async Task Handle_ShouldCallStorage_WhenImageFound(UploadFileRequest newFile)
     {
-        // Assert
+        // Arrange
         GetImagePresignedUrlPutByIdQuery query = new(
             id1,
             newFile
@@ -64,7 +64,7 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
     [ClassData(typeof(GetImagePresignedUrlPutByIdValidData))]
     public async Task Handle_ShouldThrowException_WhenImageNotFound(UploadFileRequest newFile)
     {
-        // Assert
+        // Arrange
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct)).ReturnsAsync(null as Image);
 
         GetImagePresignedUrlPutByIdQuery query = new(

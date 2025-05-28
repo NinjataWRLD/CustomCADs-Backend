@@ -32,7 +32,7 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldCallCache_OnCacheHit()
     {
-        // Assert
+        // Arrange
         GetAllCategoriesQuery query = new();
 
         // Act
@@ -45,7 +45,7 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldQueryDatabase_OnCacheMiss()
     {
-        // Assert
+        // Arrange
         cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(null as Category[]);
         GetAllCategoriesQuery query = new();
 
@@ -59,7 +59,7 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldReturnResult_OnCacheHit()
     {
-        // Assert
+        // Arrange
         GetAllCategoriesQuery query = new();
 
         // Act
@@ -77,7 +77,7 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldReturnResult_OnCacheMiss()
     {
-        // Assert
+        // Arrange
         cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(null as Category[]);
         GetAllCategoriesQuery query = new();
 

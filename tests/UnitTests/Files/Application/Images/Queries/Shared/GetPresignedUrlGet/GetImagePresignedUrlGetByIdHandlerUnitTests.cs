@@ -29,7 +29,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldQueryDatabase()
     {
-        // Assert
+        // Arrange
         GetImagePresignedUrlGetByIdQuery query = new(id1);
 
         // Act
@@ -42,7 +42,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldCallStorage()
     {
-        // Assert
+        // Arrange
         GetImagePresignedUrlGetByIdQuery query = new(id1);
 
         // Act
@@ -58,7 +58,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldReturnProperly()
     {
-        // Assert
+        // Arrange
         GetImagePresignedUrlGetByIdQuery query = new(id1);
 
         // Act
@@ -74,7 +74,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
     [Fact]
     public async Task Handle_ShouldThrowException_WhenImageNotFound()
     {
-        // Assert
+        // Arrange
         reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
             .ReturnsAsync(null as Image);
         GetImagePresignedUrlGetByIdQuery query = new(id1);
