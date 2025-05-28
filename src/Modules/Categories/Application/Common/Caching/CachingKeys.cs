@@ -2,5 +2,5 @@
 
 public static class CachingKeys
 {
-    public const string CategoryKey = "categories";
+	public const string CategoryKey = "categories";
 }

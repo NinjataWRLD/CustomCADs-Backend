@@ -3,28 +3,28 @@
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Patch.Accept;
 
 public sealed class AcceptCustomEndpoint(IRequestSender sender)
-    : Endpoint<AcceptCustomRequest>
+	: Endpoint<AcceptCustomRequest>
 {
-    public override void Configure()
-    {
-        Patch("accept");
-        Group<DesignerGroup>();
-        Description(d => d
-            .WithSummary("Accept")
-            .WithDescription("Set an Custom's Status to Accepted")
-        );
-    }
+	public override void Configure()
+	{
+		Patch("accept");
+		Group<DesignerGroup>();
+		Description(d => d
+			.WithSummary("Accept")
+			.WithDescription("Set an Custom's Status to Accepted")
+		);
+	}
 
-    public override async Task HandleAsync(AcceptCustomRequest req, CancellationToken ct)
-    {
-        await sender.SendCommandAsync(
-            new AcceptCustomCommand(
-                Id: CustomId.New(req.Id),
-                DesignerId: User.GetAccountId()
-            ),
-            ct
-        ).ConfigureAwait(false);
+	public override async Task HandleAsync(AcceptCustomRequest req, CancellationToken ct)
+	{
+		await sender.SendCommandAsync(
+			new AcceptCustomCommand(
+				Id: CustomId.New(req.Id),
+				DesignerId: User.GetAccountId()
+			),
+			ct
+		).ConfigureAwait(false);
 
-        await SendNoContentAsync().ConfigureAwait(false);
-    }
+		await SendNoContentAsync().ConfigureAwait(false);
+	}
 }

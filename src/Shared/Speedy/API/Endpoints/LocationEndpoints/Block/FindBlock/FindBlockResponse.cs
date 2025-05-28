@@ -3,6 +3,6 @@
 using Dtos.Block;
 
 public record FindBlockResponse(
-    BlockDto[]? Blocks,
-    ErrorDto? Error
+	BlockDto[]? Blocks,
+	ErrorDto? Error
 );

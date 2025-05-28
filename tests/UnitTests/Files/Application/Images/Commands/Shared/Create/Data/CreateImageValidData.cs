@@ -4,9 +4,9 @@ using static ImagesData;
 
 public class CreateImageValidData : CreateImageData
 {
-    public CreateImageValidData()
-    {
-        Add(ValidKey1, ValidContentType1);
-        Add(ValidKey2, ValidContentType2);
-    }
+	public CreateImageValidData()
+	{
+		Add(ValidKey1, ValidContentType1);
+		Add(ValidKey2, ValidContentType2);
+	}
 }

@@ -3,6 +3,6 @@
 using Dtos.Payout;
 
 public record PayoutResponse(
-    PayoutDto[] Payouts,
-    ErrorDto? Error
+	PayoutDto[] Payouts,
+	ErrorDto? Error
 );

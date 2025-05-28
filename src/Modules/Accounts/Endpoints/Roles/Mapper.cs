@@ -2,6 +2,6 @@
 
 internal static class Mapper
 {
-    internal static RoleResponse ToResponse(this RoleReadDto role)
-        => new(role.Name, role.Description);
+	internal static RoleResponse ToResponse(this RoleReadDto role)
+		=> new(role.Name, role.Description);
 }

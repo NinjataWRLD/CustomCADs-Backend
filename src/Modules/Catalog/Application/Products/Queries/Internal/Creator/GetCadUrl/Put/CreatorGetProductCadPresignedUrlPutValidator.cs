@@ -7,12 +7,12 @@ using static Constants.FluentMessages;
 
 public class CreatorGetProductCadPresignedUrlPutValidator : QueryValidator<CreatorGetProductCadPresignedUrlPutQuery, CreatorGetProductCadPresignedUrlPutDto>
 {
-    public CreatorGetProductCadPresignedUrlPutValidator()
-    {
-        RuleFor(x => x.NewCad.ContentType)
-            .NotEmpty().WithMessage(RequiredError);
+	public CreatorGetProductCadPresignedUrlPutValidator()
+	{
+		RuleFor(x => x.NewCad.ContentType)
+			.NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(x => x.NewCad.FileName)
-            .NotEmpty().WithMessage(RequiredError);
-    }
+		RuleFor(x => x.NewCad.FileName)
+			.NotEmpty().WithMessage(RequiredError);
+	}
 }

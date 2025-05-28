@@ -3,6 +3,6 @@
 namespace CustomCADs.Identity.Domain.Users.Events;
 
 public record EmailVerificationRequestedDomainEvent(
-    string Email,
-    string Endpoint
+	string Email,
+	string Endpoint
 ) : BaseDomainEvent;

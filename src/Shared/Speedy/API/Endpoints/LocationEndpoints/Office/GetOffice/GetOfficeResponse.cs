@@ -3,6 +3,6 @@
 using Dtos.Office;
 
 public record GetOfficeResponse(
-    OfficeDto? Office,
-    ErrorDto? Error
+	OfficeDto? Office,
+	ErrorDto? Error
 );

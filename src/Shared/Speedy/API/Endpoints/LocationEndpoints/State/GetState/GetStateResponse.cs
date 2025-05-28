@@ -3,6 +3,6 @@
 using Dtos.State;
 
 public record GetStateResponse(
-    StateDto? State,
-    ErrorDto? Error
+	StateDto? State,
+	ErrorDto? Error
 );

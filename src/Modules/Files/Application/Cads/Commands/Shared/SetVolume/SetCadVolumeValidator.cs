@@ -9,10 +9,10 @@ using static Constants.FluentMessages;
 
 public class SetCadVolumeValidator : CommandValidator<SetCadVolumeCommand>
 {
-    public SetCadVolumeValidator()
-    {
-        RuleFor(x => x.Volume)
-            .NotEmpty().WithMessage(RequiredError)
-            .ExclusiveBetween(VolumeMin, VolumeMax).WithMessage(RangeError);
-    }
+	public SetCadVolumeValidator()
+	{
+		RuleFor(x => x.Volume)
+			.NotEmpty().WithMessage(RequiredError)
+			.ExclusiveBetween(VolumeMin, VolumeMax).WithMessage(RangeError);
+	}
 }

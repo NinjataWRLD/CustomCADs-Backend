@@ -3,6 +3,6 @@
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Designer.Cancel;
 
 public sealed record CancelCustomCommand(
-    CustomId Id,
-    AccountId DesignerId
+	CustomId Id,
+	AccountId DesignerId
 ) : ICommand;

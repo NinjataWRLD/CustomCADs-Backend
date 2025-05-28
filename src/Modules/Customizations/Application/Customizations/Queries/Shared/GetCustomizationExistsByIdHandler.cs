@@ -4,10 +4,10 @@ using CustomCADs.Shared.UseCases.Customizations.Queries;
 namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared;
 
 public class GetCustomizationExistsByIdHandler(ICustomizationReads reads)
-    : IQueryHandler<GetCustomizationExistsByIdQuery, bool>
+	: IQueryHandler<GetCustomizationExistsByIdQuery, bool>
 {
-    public async Task<bool> Handle(GetCustomizationExistsByIdQuery req, CancellationToken ct)
-    {
-        return await reads.ExistsByIdAsync(req.Id, ct).ConfigureAwait(false);
-    }
+	public async Task<bool> Handle(GetCustomizationExistsByIdQuery req, CancellationToken ct)
+	{
+		return await reads.ExistsByIdAsync(req.Id, ct).ConfigureAwait(false);
+	}
 }

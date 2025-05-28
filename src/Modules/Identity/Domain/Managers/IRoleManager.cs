@@ -2,6 +2,6 @@
 
 public interface IRoleManager
 {
-    Task CreateAsync(string name);
-    Task<bool> DeleteAsync(string name);
+	Task CreateAsync(string name);
+	Task<bool> DeleteAsync(string name);
 }

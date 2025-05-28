@@ -3,12 +3,12 @@
 namespace CustomCADs.Customizations.Application.Materials.Queries.Internal.GetAll;
 
 public class GetAllMaterialsHandler(IMaterialReads reads)
-    : IQueryHandler<GetAllMaterialsQuery, ICollection<MaterialDto>>
+	: IQueryHandler<GetAllMaterialsQuery, ICollection<MaterialDto>>
 {
-    public async Task<ICollection<MaterialDto>> Handle(GetAllMaterialsQuery req, CancellationToken ct)
-    {
-        ICollection<Material> material = await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
+	public async Task<ICollection<MaterialDto>> Handle(GetAllMaterialsQuery req, CancellationToken ct)
+	{
+		ICollection<Material> material = await reads.AllAsync(track: false, ct: ct).ConfigureAwait(false);
 
-        return [.. material.Select(x => x.ToDto())];
-    }
+		return [.. material.Select(x => x.ToDto())];
+	}
 }

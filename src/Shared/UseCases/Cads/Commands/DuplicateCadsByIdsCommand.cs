@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Shared.UseCases.Cads.Commands;
 
 public record DuplicateCadsByIdsCommand(
-    CadId[] Ids
+	CadId[] Ids
 ) : ICommand<Dictionary<CadId, CadId>>;

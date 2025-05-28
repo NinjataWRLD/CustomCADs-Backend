@@ -4,9 +4,9 @@ using static CadsData;
 
 public class CadKeyValidData : CadKeyData
 {
-    public CadKeyValidData()
-    {
-        Add(ValidKey1);
-        Add(ValidKey2);
-    }
+	public CadKeyValidData()
+	{
+		Add(ValidKey1);
+		Add(ValidKey2);
+	}
 }

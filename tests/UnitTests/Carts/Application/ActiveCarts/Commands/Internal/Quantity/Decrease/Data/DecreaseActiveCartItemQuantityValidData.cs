@@ -4,9 +4,9 @@ using static ActiveCartsData;
 
 public class DecreaseActiveCartItemQuantityValidData : DecreaseActiveCartItemQuantityData
 {
-    public DecreaseActiveCartItemQuantityValidData()
-    {
-        Add(ValidQuantity1);
-        Add(ValidQuantity2);
-    }
+	public DecreaseActiveCartItemQuantityValidData()
+	{
+		Add(ValidQuantity1);
+		Add(ValidQuantity2);
+	}
 }

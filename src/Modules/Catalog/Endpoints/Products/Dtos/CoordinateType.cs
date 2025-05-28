@@ -2,6 +2,6 @@
 
 public enum CoordinateType
 {
-    Cam = 1,
-    Pan
+	Cam = 1,
+	Pan
 }

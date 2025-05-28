@@ -3,10 +3,10 @@
 using Dtos.ShipmentParcels;
 
 public record TrackRequest(
-    string UserName,
-    string Password,
-    TrackShipmentParcelRefDto[] Parcels,
-    string? Language,
-    long? ClientSystemId,
-    bool? LastOperationOnly
+	string UserName,
+	string Password,
+	TrackShipmentParcelRefDto[] Parcels,
+	string? Language,
+	long? ClientSystemId,
+	bool? LastOperationOnly
 );

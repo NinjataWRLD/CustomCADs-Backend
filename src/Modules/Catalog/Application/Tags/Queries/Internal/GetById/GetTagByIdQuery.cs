@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Catalog.Application.Tags.Queries.Internal.GetById;
 
 public record GetTagByIdQuery(
-    TagId Id
+	TagId Id
 ) : IQuery<GetTagByIdDto>;

@@ -11,25 +11,25 @@ namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalSe
 
 internal static class Mapper
 {
-    internal static ShipmentAdditionalServicesDto ToDto(this ShipmentAdditionalServicesModel model)
-        => new(
-            Cod: model.Cod?.ToDto(),
-            Obdp: model.Obdp?.ToDto(),
-            DeclaredValue: model.DeclaredValue?.ToDto(),
-            Returns: model.Returns?.ToDto(),
-            FixedTimeDelivery: model.FixedTimeDelivery,
-            SpecialDeliveryId: model.SpecialDeliveryId,
-            DeliveryToFloor: model.DeliveryToFloor
-        );
+	internal static ShipmentAdditionalServicesDto ToDto(this ShipmentAdditionalServicesModel model)
+		=> new(
+			Cod: model.Cod?.ToDto(),
+			Obdp: model.Obdp?.ToDto(),
+			DeclaredValue: model.DeclaredValue?.ToDto(),
+			Returns: model.Returns?.ToDto(),
+			FixedTimeDelivery: model.FixedTimeDelivery,
+			SpecialDeliveryId: model.SpecialDeliveryId,
+			DeliveryToFloor: model.DeliveryToFloor
+		);
 
-    internal static ShipmentAdditionalServicesModel ToModel(this ShipmentAdditionalServicesDto dto)
-        => new(
-            Cod: dto.Cod?.ToModel(),
-            Obdp: dto.Obdp?.ToModel(),
-            DeclaredValue: dto.DeclaredValue?.ToModel(),
-            Returns: dto.Returns?.ToModel(),
-            FixedTimeDelivery: dto.FixedTimeDelivery,
-            SpecialDeliveryId: dto.SpecialDeliveryId,
-            DeliveryToFloor: dto.DeliveryToFloor
-        );
+	internal static ShipmentAdditionalServicesModel ToModel(this ShipmentAdditionalServicesDto dto)
+		=> new(
+			Cod: dto.Cod?.ToModel(),
+			Obdp: dto.Obdp?.ToModel(),
+			DeclaredValue: dto.DeclaredValue?.ToModel(),
+			Returns: dto.Returns?.ToModel(),
+			FixedTimeDelivery: dto.FixedTimeDelivery,
+			SpecialDeliveryId: dto.SpecialDeliveryId,
+			DeliveryToFloor: dto.DeliveryToFloor
+		);
 }

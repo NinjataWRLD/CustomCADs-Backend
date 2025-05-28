@@ -5,9 +5,9 @@ using static CustomsData;
 
 public class CustomCreateValidData : CustomCreateData
 {
-    public CustomCreateValidData()
-    {
-        Add(ValidName1, ValidDescription1, true, ValidBuyerId1);
-        Add(ValidName2, ValidDescription2, false, ValidBuyerId2);
-    }
+	public CustomCreateValidData()
+	{
+		Add(ValidName1, ValidDescription1, true, ValidBuyerId1);
+		Add(ValidName2, ValidDescription2, false, ValidBuyerId2);
+	}
 }

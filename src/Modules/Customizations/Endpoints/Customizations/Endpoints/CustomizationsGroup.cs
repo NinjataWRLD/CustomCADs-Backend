@@ -2,12 +2,12 @@
 
 public class CustomizationsGroup : Group
 {
-    public CustomizationsGroup()
-    {
-        Configure("customizations", ep =>
-        {
-            ep.AllowAnonymous();
-            ep.Description(opt => opt.WithTags("04. Customizations"));
-        });
-    }
+	public CustomizationsGroup()
+	{
+		Configure("customizations", ep =>
+		{
+			ep.AllowAnonymous();
+			ep.Description(opt => opt.WithTags("04. Customizations"));
+		});
+	}
 }

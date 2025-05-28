@@ -3,6 +3,6 @@
 using ShipmentParcels;
 
 public record ParcelToPrintDto(
-    ShipmentParcelRefDto Parcel,
-    ParcelToPrintAdditionalBarcodeDto? AdditionalBarcode
+	ShipmentParcelRefDto Parcel,
+	ParcelToPrintAdditionalBarcodeDto? AdditionalBarcode
 );

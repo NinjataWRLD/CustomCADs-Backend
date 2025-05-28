@@ -1,10 +1,10 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Dtos.ShipmentParcels;
 
 public record ParcelHandoverDto(
-    string DateTime,
+	string DateTime,
 
-    // Copied from ShipmentParcelRefDto
-    string? Id,
-    string? ExternalCarrierParcelNumber,
-    string? FullBarcode
+	// Copied from ShipmentParcelRefDto
+	string? Id,
+	string? ExternalCarrierParcelNumber,
+	string? FullBarcode
 );

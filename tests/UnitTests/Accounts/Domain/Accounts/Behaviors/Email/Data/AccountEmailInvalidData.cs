@@ -4,12 +4,12 @@ using static AccountsData;
 
 public class AccountEmailInvalidData : AccountEmailData
 {
-    public AccountEmailInvalidData()
-    {
-        Add(InvalidEmail1);
-        Add(InvalidEmail2);
-        Add(InvalidEmail3);
-        Add(InvalidEmail4);
-        Add(InvalidEmail5);
-    }
+	public AccountEmailInvalidData()
+	{
+		Add(InvalidEmail1);
+		Add(InvalidEmail2);
+		Add(InvalidEmail3);
+		Add(InvalidEmail4);
+		Add(InvalidEmail5);
+	}
 }

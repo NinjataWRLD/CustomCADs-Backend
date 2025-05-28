@@ -3,6 +3,6 @@
 using Dtos.Complex;
 
 public record GetComplexResponse(
-    ComplexDto? Complex,
-    ErrorDto? Error
+	ComplexDto? Complex,
+	ErrorDto? Error
 );

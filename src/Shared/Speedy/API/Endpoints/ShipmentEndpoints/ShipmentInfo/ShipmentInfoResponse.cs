@@ -3,6 +3,6 @@
 using Dtos.Shipment;
 
 public record ShipmentInfoResponse(
-    ShipmentDto[] Shipments,
-    ErrorDto? Error
+	ShipmentDto[] Shipments,
+	ErrorDto? Error
 );

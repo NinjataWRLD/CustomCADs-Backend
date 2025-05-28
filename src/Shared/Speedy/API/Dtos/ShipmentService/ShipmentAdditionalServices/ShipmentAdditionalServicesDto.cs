@@ -6,11 +6,11 @@ using ShipmentObpd;
 using ShipmentReturnAdditionalServices;
 
 public record ShipmentAdditionalServicesDto(
-    ShipmentCodAdditionalServiceDto? Cod,
-    ShipmentObpdDto? Obdp,
-    ShipmentDeclaredValueAdditionalServiceDto? DeclaredValue,
-    int? FixedTimeDelivery,
-    ShipmentReturnAdditionalServicesDto? Returns,
-    int? SpecialDeliveryId,
-    int? DeliveryToFloor
+	ShipmentCodAdditionalServiceDto? Cod,
+	ShipmentObpdDto? Obdp,
+	ShipmentDeclaredValueAdditionalServiceDto? DeclaredValue,
+	int? FixedTimeDelivery,
+	ShipmentReturnAdditionalServicesDto? Returns,
+	int? SpecialDeliveryId,
+	int? DeliveryToFloor
 );

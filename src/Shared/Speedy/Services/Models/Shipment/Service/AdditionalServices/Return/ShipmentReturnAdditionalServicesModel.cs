@@ -8,11 +8,11 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServic
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices.Return;
 
 public record ShipmentReturnAdditionalServicesModel(
-    long? SendBackClientId,
-    ShipmentRodAdditionalServiceModel? Rod,
-    ShipmentReturnReceiptAdditionalServiceModel? ReturnReceipt,
-    ShipmentElectronicReturnReceiptAdditionalServiceModel? ElectronicReturnReceipt,
-    ShipmentSwapAdditionalServiceModel? Swap,
-    ShipmentRopAdditionalServiceModel? Rop,
-    ShipmentReturnVoucherAdditionalServiceModel? ReturnVoucher
+	long? SendBackClientId,
+	ShipmentRodAdditionalServiceModel? Rod,
+	ShipmentReturnReceiptAdditionalServiceModel? ReturnReceipt,
+	ShipmentElectronicReturnReceiptAdditionalServiceModel? ElectronicReturnReceipt,
+	ShipmentSwapAdditionalServiceModel? Swap,
+	ShipmentRopAdditionalServiceModel? Rop,
+	ShipmentReturnVoucherAdditionalServiceModel? ReturnVoucher
 );

@@ -3,6 +3,6 @@
 using Dtos.ShipmentParcels;
 
 public record AddParcelResponse(
-    CreatedShipmentParcelDto Parcel,
-    ErrorDto? Error
+	CreatedShipmentParcelDto Parcel,
+	ErrorDto? Error
 );

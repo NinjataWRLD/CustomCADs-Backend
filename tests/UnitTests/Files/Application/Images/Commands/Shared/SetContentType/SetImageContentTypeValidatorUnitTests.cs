@@ -7,33 +7,33 @@ namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetConte
 
 public class SetImageContentTypeValidatorUnitTests : ImagesBaseUnitTests
 {
-    private readonly SetImageContentTypeValidator validator = new();
+	private readonly SetImageContentTypeValidator validator = new();
 
-    [Theory]
-    [ClassData(typeof(SetImageContentTypeValidData))]
-    public void Validate_ShouldBeValid_WhenContentTypeIsValid(string contentType)
-    {
-        // Arrange
-        SetImageContentTypeCommand command = new(id1, contentType);
+	[Theory]
+	[ClassData(typeof(SetImageContentTypeValidData))]
+	public void Validate_ShouldBeValid_WhenContentTypeIsValid(string contentType)
+	{
+		// Arrange
+		SetImageContentTypeCommand command = new(id1, contentType);
 
-        // Act
-        var result = validator.TestValidate(command);
+		// Act
+		var result = validator.TestValidate(command);
 
-        // Assert
-        Assert.True(result.IsValid);
-    }
+		// Assert
+		Assert.True(result.IsValid);
+	}
 
-    [Theory]
-    [ClassData(typeof(SetImageContentTypeInvalidData))]
-    public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string contentType)
-    {
-        // Arrange
-        SetImageContentTypeCommand command = new(id1, contentType);
+	[Theory]
+	[ClassData(typeof(SetImageContentTypeInvalidData))]
+	public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string contentType)
+	{
+		// Arrange
+		SetImageContentTypeCommand command = new(id1, contentType);
 
-        // Act
-        var result = validator.TestValidate(new(command));
+		// Act
+		var result = validator.TestValidate(new(command));
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.ContentType);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.ContentType);
+	}
 }

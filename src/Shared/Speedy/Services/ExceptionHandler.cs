@@ -2,47 +2,50 @@
 
 public static class ExceptionHandler
 {
-    public static void EnsureNull(this ErrorDto? error)
-    {
-        if (error is null) return;
+	public static void EnsureNull(this ErrorDto? error)
+	{
+		if (error is null)
+		{
+			return;
+		}
 
-        throw error.Code switch
-        {
-            100 => new SpeedyInvalidClientDataException(error.Message),
-            120 => new SpeedyInvalidAddressException(error.Message),
-            160 => new SpeedyInvalidDropOffOfficeException(error.Message),
-            180 => new SpeedyInvalidPickupOfficeException(error.Message),
-            300 => new SpeedyInvalidThirdPartyException(error.Message),
-            400 => new SpeedyInvalidCourierServiceException(error.Message),
-            410 => new SpeedyInvalidCodAdditionalServiceException(error.Message),
-            415 => new SpeedyInvalidDeclaredValueAdditionalServiceException(error.Message),
-            420 => new SpeedyInvalidObpdAdditionalServiceException(error.Message),
-            425 => new SpeedyInvalidDeliveryToFloorAdditionalServiceException(error.Message),
-            430 => new SpeedyInvalidSpecialDeliveryAdditionalServiceException(error.Message),
-            435 => new SpeedyInvalidRodAdditionalServiceException(error.Message),
-            440 => new SpeedyInvalidReturnReceiptAdditionalServiceException(error.Message),
-            445 => new SpeedyInvalidSwapAdditionalServiceException(error.Message),
-            450 => new SpeedyInvalidRopAdditionalServiceException(error.Message),
-            455 => new SpeedyInvalidReturnVoucherAdditionalServiceException(error.Message),
-            460 => new SpeedyInvalidFixedTimeDeliveryAdditionalServiceException(error.Message),
-            500 => new SpeedyInvalidPickupDateException(error.Message),
-            510 => new SpeedyInvalidDeferredDaysException(error.Message),
-            515 => new SpeedyInvalidDiscountCardException(error.Message),
-            520 => new SpeedyInvalidSaturdayDeliveryFlagException(error.Message),
-            600 => new SpeedyInvalidShipmentContentsException(error.Message),
-            605 => new SpeedyInvalidShipmentPackageException(error.Message),
-            610 => new SpeedyInvalidDocumentsFlagException(error.Message),
-            615 => new SpeedyInvalidPalletizedFlagException(error.Message),
-            620 => new SpeedyInvalidWeightException(error.Message),
-            630 => new SpeedyInvalidParcelsException(error.Message),
-            700 => new SpeedyInvalidCourierServicePaymentException(error.Message),
-            710 => new SpeedyInvalidPackingsPaymentException(error.Message),
-            800 => new SpeedyInvalidRef1Exception(error.Message),
-            805 => new SpeedyInvalidRef2Exception(error.Message),
-            810 => new SpeedyInvalidShipmentNoteException(error.Message),
-            _ => new SpeedyGeneralException(error.Message),
-        };
-    }
+		throw error.Code switch
+		{
+			100 => new SpeedyInvalidClientDataException(error.Message),
+			120 => new SpeedyInvalidAddressException(error.Message),
+			160 => new SpeedyInvalidDropOffOfficeException(error.Message),
+			180 => new SpeedyInvalidPickupOfficeException(error.Message),
+			300 => new SpeedyInvalidThirdPartyException(error.Message),
+			400 => new SpeedyInvalidCourierServiceException(error.Message),
+			410 => new SpeedyInvalidCodAdditionalServiceException(error.Message),
+			415 => new SpeedyInvalidDeclaredValueAdditionalServiceException(error.Message),
+			420 => new SpeedyInvalidObpdAdditionalServiceException(error.Message),
+			425 => new SpeedyInvalidDeliveryToFloorAdditionalServiceException(error.Message),
+			430 => new SpeedyInvalidSpecialDeliveryAdditionalServiceException(error.Message),
+			435 => new SpeedyInvalidRodAdditionalServiceException(error.Message),
+			440 => new SpeedyInvalidReturnReceiptAdditionalServiceException(error.Message),
+			445 => new SpeedyInvalidSwapAdditionalServiceException(error.Message),
+			450 => new SpeedyInvalidRopAdditionalServiceException(error.Message),
+			455 => new SpeedyInvalidReturnVoucherAdditionalServiceException(error.Message),
+			460 => new SpeedyInvalidFixedTimeDeliveryAdditionalServiceException(error.Message),
+			500 => new SpeedyInvalidPickupDateException(error.Message),
+			510 => new SpeedyInvalidDeferredDaysException(error.Message),
+			515 => new SpeedyInvalidDiscountCardException(error.Message),
+			520 => new SpeedyInvalidSaturdayDeliveryFlagException(error.Message),
+			600 => new SpeedyInvalidShipmentContentsException(error.Message),
+			605 => new SpeedyInvalidShipmentPackageException(error.Message),
+			610 => new SpeedyInvalidDocumentsFlagException(error.Message),
+			615 => new SpeedyInvalidPalletizedFlagException(error.Message),
+			620 => new SpeedyInvalidWeightException(error.Message),
+			630 => new SpeedyInvalidParcelsException(error.Message),
+			700 => new SpeedyInvalidCourierServicePaymentException(error.Message),
+			710 => new SpeedyInvalidPackingsPaymentException(error.Message),
+			800 => new SpeedyInvalidRef1Exception(error.Message),
+			805 => new SpeedyInvalidRef2Exception(error.Message),
+			810 => new SpeedyInvalidShipmentNoteException(error.Message),
+			_ => new SpeedyGeneralException(error.Message),
+		};
+	}
 }
 
 /// <summary>

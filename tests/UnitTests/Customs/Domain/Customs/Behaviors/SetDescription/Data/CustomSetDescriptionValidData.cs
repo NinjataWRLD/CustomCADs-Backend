@@ -4,9 +4,9 @@ using static CustomsData;
 
 public class CustomSetDescriptionValidData : CustomSetDescriptionData
 {
-    public CustomSetDescriptionValidData()
-    {
-        Add(ValidDescription1);
-        Add(ValidDescription2);
-    }
+	public CustomSetDescriptionValidData()
+	{
+		Add(ValidDescription1);
+		Add(ValidDescription2);
+	}
 }

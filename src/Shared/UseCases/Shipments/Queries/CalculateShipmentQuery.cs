@@ -3,6 +3,6 @@
 namespace CustomCADs.Shared.UseCases.Shipments.Queries;
 
 public record CalculateShipmentQuery(
-    double[] Weights,
-    AddressDto Address
+	double[] Weights,
+	AddressDto Address
 ) : IQuery<CalculateShipmentDto[]>;

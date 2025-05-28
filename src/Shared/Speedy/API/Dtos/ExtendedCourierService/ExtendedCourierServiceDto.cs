@@ -3,14 +3,14 @@
 using CourierService;
 
 public record ExtendedCourierServiceDto(
-    string Deadline,
+	string Deadline,
 
-    // Copied from CourierServiceDto
-    int Id,
-    string Name,
-    string NameEn,
-    CargoType CargoType,
-    bool RequireParcelWeight,
-    bool RequireParcelSize,
-    AdditionalCourierServicesDto AdditionalServices
+	// Copied from CourierServiceDto
+	int Id,
+	string Name,
+	string NameEn,
+	CargoType CargoType,
+	bool RequireParcelWeight,
+	bool RequireParcelSize,
+	AdditionalCourierServicesDto AdditionalServices
 );

@@ -5,9 +5,9 @@ using static CustomsData;
 
 public class EditCustomInvalidDescriptionData : EditCustomData
 {
-    public EditCustomInvalidDescriptionData()
-    {
-        Add(ValidName1, InvalidDescription1);
-        Add(ValidName2, InvalidDescription2);
-    }
+	public EditCustomInvalidDescriptionData()
+	{
+		Add(ValidName1, InvalidDescription1);
+		Add(ValidName2, InvalidDescription2);
+	}
 }

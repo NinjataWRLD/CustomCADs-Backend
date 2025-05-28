@@ -2,6 +2,6 @@
 
 public enum OfficeType
 {
-    OFFICE,
-    APT,
+	OFFICE,
+	APT,
 }

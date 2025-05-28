@@ -11,57 +11,57 @@ using static AccountsData;
 
 public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly Mock<IAccountReads> reads = new();
+	private readonly Mock<IAccountReads> reads = new();
 
-    [Theory]
-    [ClassData(typeof(GetUsernameByIdValidData))]
-    public async Task Handle_ShouldQueryDatabase(AccountId id)
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount());
+	[Theory]
+	[ClassData(typeof(GetUsernameByIdValidData))]
+	public async Task Handle_ShouldQueryDatabase(AccountId id)
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount());
 
-        GetUsernameByIdQuery query = new(id);
-        GetUsernameByIdHandler handler = new(reads.Object);
+		GetUsernameByIdQuery query = new(id);
+		GetUsernameByIdHandler handler = new(reads.Object);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+	}
 
-    [Theory]
-    [ClassData(typeof(GetUsernameByIdValidData))]
-    public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount(username: ValidUsername1));
+	[Theory]
+	[ClassData(typeof(GetUsernameByIdValidData))]
+	public async Task Handle_ShouldReturnProperly_WhenAccountFound(AccountId id)
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateAccount(username: ValidUsername1));
 
-        GetUsernameByIdQuery query = new(id);
-        GetUsernameByIdHandler handler = new(reads.Object);
+		GetUsernameByIdQuery query = new(id);
+		GetUsernameByIdHandler handler = new(reads.Object);
 
-        // Act
-        string actualUsername = await handler.Handle(query, ct);
+		// Act
+		string actualUsername = await handler.Handle(query, ct);
 
-        // Assert
-        Assert.Equal(ValidUsername1, actualUsername);
-    }
+		// Assert
+		Assert.Equal(ValidUsername1, actualUsername);
+	}
 
-    [Theory]
-    [ClassData(typeof(GetUsernameByIdValidData))]
-    public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(AccountId id)
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Account);
+	[Theory]
+	[ClassData(typeof(GetUsernameByIdValidData))]
+	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(AccountId id)
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Account);
 
-        GetUsernameByIdQuery query = new(id);
-        GetUsernameByIdHandler handler = new(reads.Object);
+		GetUsernameByIdQuery query = new(id);
+		GetUsernameByIdHandler handler = new(reads.Object);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
-        {
-            // Act
-            await handler.Handle(query, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Account>>(async () =>
+		{
+			// Act
+			await handler.Handle(query, ct);
+		});
+	}
 }

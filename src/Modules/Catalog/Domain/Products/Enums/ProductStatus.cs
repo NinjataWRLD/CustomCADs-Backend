@@ -2,8 +2,8 @@
 
 public enum ProductStatus
 {
-    Unchecked,
-    Validated,
-    Reported,
-    Removed,
+	Unchecked,
+	Validated,
+	Reported,
+	Removed,
 }

@@ -3,6 +3,6 @@
 namespace CustomCADs.Categories.Domain.Categories.Events;
 
 public record CategoryEditedDomainEvent(
-    CategoryId Id,
-    Category Category
+	CategoryId Id,
+	Category Category
 ) : BaseDomainEvent;

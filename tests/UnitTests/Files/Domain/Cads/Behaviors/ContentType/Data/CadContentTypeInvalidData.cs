@@ -4,8 +4,8 @@ using static CadsData;
 
 public class CadContentTypeInvalidData : CadContentTypeData
 {
-    public CadContentTypeInvalidData()
-    {
-        Add(InvalidContentType);
-    }
+	public CadContentTypeInvalidData()
+	{
+		Add(InvalidContentType);
+	}
 }

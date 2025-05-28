@@ -4,5 +4,5 @@ namespace CustomCADs.Catalog.Application;
 
 public class CatalogApplicationReference
 {
-    public static Assembly Assembly => typeof(CatalogApplicationReference).Assembly;
+	public static Assembly Assembly => typeof(CatalogApplicationReference).Assembly;
 }

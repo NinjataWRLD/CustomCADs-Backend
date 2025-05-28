@@ -4,8 +4,8 @@ using static ImagesData;
 
 public class ImageContentTypeInvalidData : ImageContentTypeData
 {
-    public ImageContentTypeInvalidData()
-    {
-        Add(InvalidContentType);
-    }
+	public ImageContentTypeInvalidData()
+	{
+		Add(InvalidContentType);
+	}
 }
