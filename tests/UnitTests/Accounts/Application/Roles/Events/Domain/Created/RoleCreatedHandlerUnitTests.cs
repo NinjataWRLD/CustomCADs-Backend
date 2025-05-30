@@ -2,24 +2,28 @@
 using CustomCADs.Accounts.Application.Roles.Events.Domain;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Created.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Created;
 
+using Data;
 using static CachingKeys;
 
 public class RoleCreatedHandlerUnitTests : RolesBaseUnitTests
 {
+	private readonly RoleCreatedEventHandler handler;
 	private readonly Mock<ICacheService> cache = new();
+
+	public RoleCreatedHandlerUnitTests()
+	{
+		handler = new(cache.Object);
+	}
 
 	[Theory]
 	[ClassData(typeof(RoleCreatedValidData))]
-	public async Task Handle_ShouldUpdateCache(string name, string description)
+	public async Task Handle_ShouldUpdateCache(Role role)
 	{
 		// Arrange
-		Role role = CreateRole(name, description);
 		RoleCreatedDomainEvent de = new(role);
-		RoleCreatedEventHandler handler = new(cache.Object);
 
 		// Act
 		await handler.Handle(de);

@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetName.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetName;
+
+using Data;
 
 public class SetProductNameUnitTests : ProductsBaseUnitTests
 {
@@ -25,9 +26,8 @@ public class SetProductNameUnitTests : ProductsBaseUnitTests
 	[ClassData(typeof(SetProductNameInvalidData))]
 	public void SetName_ShouldThrowException_WhenNameIsNotValid(string name)
 	{
-		Assert.Throws<CustomValidationException<Product>>(() =>
-		{
-			CreateProduct().SetName(name);
-		});
+		Assert.Throws<CustomValidationException<Product>>(
+			() => CreateProduct().SetName(name)
+		);
 	}
 }

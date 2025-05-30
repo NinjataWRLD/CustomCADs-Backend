@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit.Data;
 
-using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit;
 using static CategoriesData;
 
 public class EditCategoryValidData : EditCategoryData

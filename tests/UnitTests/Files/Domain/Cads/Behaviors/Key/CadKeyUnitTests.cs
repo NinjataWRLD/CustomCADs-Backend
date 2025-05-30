@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.Key.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.Key;
+
+using Data;
 
 public class CadKeyUnitTests : CadsBaseUnitTests
 {
@@ -31,9 +32,8 @@ public class CadKeyUnitTests : CadsBaseUnitTests
 	{
 		var cad = CreateCad();
 
-		Assert.Throws<CustomValidationException<Cad>>(() =>
-		{
-			cad.SetKey(key);
-		});
+		Assert.Throws<CustomValidationException<Cad>>(
+			() => cad.SetKey(key)
+		);
 	}
 }

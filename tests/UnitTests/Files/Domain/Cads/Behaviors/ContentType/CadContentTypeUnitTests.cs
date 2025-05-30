@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.ContentType.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.ContentType;
+
+using Data;
 
 public class CadContentTypeUnitTests : CadsBaseUnitTests
 {
@@ -31,9 +32,8 @@ public class CadContentTypeUnitTests : CadsBaseUnitTests
 	{
 		var cad = CreateCad();
 
-		Assert.Throws<CustomValidationException<Cad>>(() =>
-		{
-			cad.SetContentType(contentType);
-		});
+		Assert.Throws<CustomValidationException<Cad>>(
+			() => cad.SetContentType(contentType)
+		);
 	}
 }

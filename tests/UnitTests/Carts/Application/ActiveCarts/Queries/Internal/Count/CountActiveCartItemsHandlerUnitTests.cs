@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.Count;
 using CustomCADs.Carts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.Count;
 
@@ -8,13 +7,16 @@ using static ActiveCartsData;
 
 public class CountActiveCartItemsHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-	private const int Count = 5;
+	private readonly CountActiveCartItemsHandler handler;
 	private readonly Mock<IActiveCartReads> reads = new();
-	private static readonly AccountId buyerId = ValidBuyerId1;
+
+	private const int Count = 5;
 
 	public CountActiveCartItemsHandlerUnitTests()
 	{
-		reads.Setup(x => x.CountAsync(buyerId, ct))
+		handler = new(reads.Object);
+
+		reads.Setup(x => x.CountAsync(ValidBuyerId, ct))
 			.ReturnsAsync(Count);
 	}
 
@@ -22,22 +24,20 @@ public class CountActiveCartItemsHandlerUnitTests : ActiveCartsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		CountActiveCartItemsQuery query = new(buyerId);
-		CountActiveCartItemsHandler handler = new(reads.Object);
+		CountActiveCartItemsQuery query = new(ValidBuyerId);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.CountAsync(buyerId, ct), Times.Once);
+		reads.Verify(x => x.CountAsync(ValidBuyerId, ct), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldReturnProperly()
 	{
 		// Arrange
-		CountActiveCartItemsQuery query = new(buyerId);
-		CountActiveCartItemsHandler handler = new(reads.Object);
+		CountActiveCartItemsQuery query = new(ValidBuyerId);
 
 		// Act
 		int count = await handler.Handle(query, ct);

@@ -12,94 +12,112 @@ using static ProductsData;
 
 public class DesignerGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 {
-	private readonly Mock<IProductReads> reads = new();
-	private readonly Mock<IRequestSender> sender = new();
-	private readonly Product[] products = [];
-	private readonly ProductQuery query;
-	private readonly Result<Product> result;
-	private readonly ProductStatus Status = ProductStatus.Unchecked;
+    private readonly DesignerGetAllProductsHandler handler;
+    private readonly Mock<IProductReads> reads = new();
+    private readonly Mock<IRequestSender> sender = new();
 
-	public DesignerGetAllProductsHandlerUnitTests()
-	{
-		query = new(
-			Pagination: new(1, products.Length)
-		);
-		result = new(
-			Count: products.Length,
-			Items: products
-		);
+    private readonly Product[] products = [];
+    private readonly ProductQuery query;
+    private readonly Result<Product> result;
+    private readonly ProductStatus Status = ProductStatus.Unchecked;
 
-		reads.Setup(x => x.AllAsync(It.IsAny<ProductQuery>(), false, ct))
-			.ReturnsAsync(result);
+    public DesignerGetAllProductsHandlerUnitTests()
+    {
+        handler = new(reads.Object, sender.Object);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct))
-			.ReturnsAsync(products.ToDictionary(x => x.CreatorId, x => "Username123"));
+        query = new(
+            Pagination: new(1, products.Length)
+        );
+        result = new(
+            Count: products.Length,
+            Items: products
+        );
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct))
-			.ReturnsAsync(products.ToDictionary(x => x.CategoryId, x => "Cateogry123"));
-	}
+        reads.Setup(x => x.AllAsync(
+            It.IsAny<ProductQuery>(),
+            false,
+            ct
+        )).ReturnsAsync(result);
 
-	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
-	{
-		// Arrange
-		DesignerGetAllProductsQuery query = new(
-			Pagination: this.query.Pagination,
-			DesignerId: ValidDesignerId,
-			CategoryId: this.query.CategoryId,
-			Status: Status,
-			Name: this.query.Name,
-			Sorting: this.query.Sorting
-		);
-		DesignerGetAllProductsHandler handler = new(reads.Object, sender.Object);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUsernamesByIdsQuery>(x => x.Ids == products.Select(x => x.CreatorId)),
+            ct
+        )).ReturnsAsync(products.ToDictionary(x => x.CreatorId, x => "Username123"));
 
-		// Act
-		await handler.Handle(query, ct);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCategoryNamesByIdsQuery>(x => x.Ids == products.Select(x => x.CategoryId)),
+            ct
+        )).ReturnsAsync(products.ToDictionary(x => x.CategoryId, x => "Cateogry123"));
+    }
 
-		// Assert
-		reads.Verify(x => x.AllAsync(It.IsAny<ProductQuery>(), false, ct), Times.Once);
-	}
+    [Fact]
+    public async Task Handle_ShouldQueryDatabase()
+    {
+        // Arrange
+        DesignerGetAllProductsQuery query = new(
+            Pagination: this.query.Pagination,
+            DesignerId: ValidDesignerId,
+            CategoryId: this.query.CategoryId,
+            Status: Status,
+            Name: this.query.Name,
+            Sorting: this.query.Sorting
+        );
 
-	[Fact]
-	public async Task Handle_ShouldSendRequests()
-	{
-		// Arrange
-		DesignerGetAllProductsQuery query = new(
-			Pagination: this.query.Pagination,
-			DesignerId: ValidDesignerId,
-			CategoryId: this.query.CategoryId,
-			Status: Status,
-			Name: this.query.Name,
-			Sorting: this.query.Sorting
-		);
-		DesignerGetAllProductsHandler handler = new(reads.Object, sender.Object);
+        // Act
+        await handler.Handle(query, ct);
 
-		// Act
-		await handler.Handle(query, ct);
+        // Assert
+        reads.Verify(x => x.AllAsync(
+            It.IsAny<ProductQuery>(),
+            false,
+            ct
+        ), Times.Once);
+    }
 
-		// Assert
-		sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct), Times.Once);
-		sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNamesByIdsQuery>(), ct), Times.Once);
-	}
+    [Fact]
+    public async Task Handle_ShouldSendRequests()
+    {
+        // Arrange
+        DesignerGetAllProductsQuery query = new(
+            Pagination: this.query.Pagination,
+            DesignerId: ValidDesignerId,
+            CategoryId: this.query.CategoryId,
+            Status: Status,
+            Name: this.query.Name,
+            Sorting: this.query.Sorting
+        );
 
-	[Fact]
-	public async Task Handle_ShouldReturnProperCount()
-	{
-		// Arrange
-		DesignerGetAllProductsQuery query = new(
-			Pagination: this.query.Pagination,
-			DesignerId: ValidDesignerId,
-			CategoryId: this.query.CategoryId,
-			Status: Status,
-			Name: this.query.Name,
-			Sorting: this.query.Sorting
-		);
-		DesignerGetAllProductsHandler handler = new(reads.Object, sender.Object);
+        // Act
+        await handler.Handle(query, ct);
 
-		// Act
-		var result = await handler.Handle(query, ct);
+        // Assert
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetUsernamesByIdsQuery>(x => x.Ids == products.Select(x => x.CreatorId)),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetCategoryNamesByIdsQuery>(x => x.Ids == products.Select(x => x.CategoryId)),
+            ct
+        ), Times.Once);
+    }
 
-		// Assert
-		Assert.Equal(result.Count, products.Length);
-	}
+    [Fact]
+    public async Task Handle_ShouldReturnProperCount()
+    {
+        // Arrange
+        DesignerGetAllProductsQuery query = new(
+            Pagination: this.query.Pagination,
+            DesignerId: ValidDesignerId,
+            CategoryId: this.query.CategoryId,
+            Status: Status,
+            Name: this.query.Name,
+            Sorting: this.query.Sorting
+        );
+
+        // Act
+        var result = await handler.Handle(query, ct);
+
+        // Assert
+        Assert.Equal(result.Count, products.Length);
+    }
 }

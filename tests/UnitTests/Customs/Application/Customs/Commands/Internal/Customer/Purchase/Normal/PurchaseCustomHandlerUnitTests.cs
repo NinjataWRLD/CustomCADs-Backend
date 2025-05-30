@@ -14,76 +14,77 @@ using static CustomsData;
 
 public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+	private readonly PurchaseCustomHandler handler;
 	private readonly Mock<ICustomReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRequestSender> sender = new();
 	private readonly Mock<IPaymentService> payment = new();
 
-	private static readonly CustomId id = ValidId1;
-	private static readonly AccountId buyerId = ValidBuyerId1;
-	private static readonly AccountId wrongBuyerId = ValidBuyerId2;
+	private static readonly AccountId buyerId = AccountId.New();
 	private readonly Custom custom = CreateCustom(
-		buyerId: buyerId
+		buyerId: ValidBuyerId
 	);
 
 	public PurchaseCustomHandlerUnitTests()
 	{
-		custom.Accept(ValidDesignerId1);
-		custom.Begin();
-		custom.Finish(ValidCadId1, ValidPrice1);
+		handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		custom.Accept(ValidDesignerId);
+		custom.Begin();
+		custom.Finish(ValidCadId, ValidPrice1);
+
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadExistsByIdQuery>(), ct))
-			.ReturnsAsync(true);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetCadExistsByIdQuery>(x => x.Id == ValidCadId),
+			ct
+		)).ReturnsAsync(true);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-		PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldSendRequests()
 	{
 		// Arrange
-		PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-		PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		sender.Verify(x => x.SendQueryAsync(
-			It.IsAny<GetUsernameByIdQuery>()
-		, ct), Times.Exactly(2));
+			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId || x.Id == ValidDesignerId),
+			ct
+		), Times.Exactly(2));
 	}
 
 	[Fact]
 	public async Task Handle_ShouldCallPayment()
 	{
 		// Arrange
-		PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-		PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		payment.Verify(x => x.InitializePayment(
-			It.IsAny<string>(),
-			It.IsAny<decimal>(),
-			It.IsAny<string>(),
+			It.Is<string>(x => string.IsNullOrEmpty(x)),
+			It.Is<decimal>(x => x == ValidPrice1),
+			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
 		), Times.Once);
 	}
@@ -92,17 +93,14 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 	public async Task Handle_ShouldReturnProperly()
 	{
 		// Arrange
-
 		PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
 		payment.Setup(x => x.InitializePayment(
-			It.IsAny<string>(),
-			It.IsAny<decimal>(),
-			It.IsAny<string>(),
+			It.Is<string>(x => string.IsNullOrEmpty(x)),
+			It.Is<decimal>(x => x == ValidPrice1),
+			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
 		)).ReturnsAsync(expected);
-
-		PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-		PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
 		// Act
 		PaymentDto actual = await handler.Handle(command, ct);
@@ -115,90 +113,76 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
 	{
 		// Arrange
-		PurchaseCustomCommand command = new(id, string.Empty, wrongBuyerId);
-		PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		PurchaseCustomCommand command = new(ValidId, string.Empty, buyerId);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenNotAccepted()
 	{
 		// Arrange
-		var custom = CreateCustom(buyerId: buyerId);
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		var custom = CreateCustom(buyerId: ValidBuyerId);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
-
-		PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-		PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomException>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomException>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenNotFinished()
 	{
 		// Arrange
-		var custom = CreateCustom(buyerId: buyerId);
-		custom.Accept(ValidDesignerId1);
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		var custom = CreateCustom(buyerId: ValidBuyerId);
+		custom.Accept(ValidDesignerId);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
-
-		PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-		PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomException>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomException>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenForDelivery()
 	{
 		// Arrange
-		var custom = CreateCustom(buyerId: buyerId, forDelivery: true);
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		var custom = CreateCustom(buyerId: ValidBuyerId, forDelivery: true);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
-
-		PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-		PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomException>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomException>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenCustomNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(null as Custom);
-
-		PurchaseCustomCommand command = new(id, string.Empty, buyerId);
-		PurchaseCustomHandler handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

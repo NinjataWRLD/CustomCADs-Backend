@@ -9,6 +9,7 @@ using static CustomsData;
 
 public class DeleteCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+	private readonly DeleteCustomHandler handler;
 	private readonly Mock<ICustomReads> reads = new();
 	private readonly Mock<IWrites<Custom>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
@@ -19,6 +20,8 @@ public class DeleteCustomHandlerUnitTests : CustomsBaseUnitTests
 
 	public DeleteCustomHandlerUnitTests()
 	{
+		handler = new(reads.Object, writes.Object, uow.Object);
+
 		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(custom);
 	}
@@ -31,7 +34,6 @@ public class DeleteCustomHandlerUnitTests : CustomsBaseUnitTests
 			Id: id,
 			BuyerId: buyerId
 		);
-		DeleteCustomHandler handler = new(reads.Object, writes.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -48,7 +50,6 @@ public class DeleteCustomHandlerUnitTests : CustomsBaseUnitTests
 			Id: id,
 			BuyerId: buyerId
 		);
-		DeleteCustomHandler handler = new(reads.Object, writes.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);

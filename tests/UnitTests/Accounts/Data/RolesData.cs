@@ -9,11 +9,6 @@ using static RoleConstants;
 
 public static class RolesData
 {
-	public static readonly RoleId ValidId1 = RoleId.New();
-	public static readonly RoleId ValidId2 = RoleId.New();
-	public static readonly RoleId ValidId3 = RoleId.New();
-	public static readonly RoleId ValidId4 = RoleId.New();
-
 	public const string ValidName1 = Customer;
 	public const string ValidName2 = Contributor;
 	public const string ValidName3 = Designer;
@@ -29,4 +24,6 @@ public static class RolesData
 	public const string InvalidDescription1 = "";
 	public static readonly string InvalidDescription2 = new('a', DescriptionMinLength - 1);
 	public static readonly string InvalidDescription3 = new('a', DescriptionMaxLength + 1);
+
+	public static readonly RoleId ValidId = RoleId.New();
 }

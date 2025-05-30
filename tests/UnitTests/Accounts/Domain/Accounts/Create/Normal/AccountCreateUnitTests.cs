@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Accounts.Domain.Accounts.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Create.Normal;
+
+using Data;
 
 public class AccountCreateUnitTests : AccountsBaseUnitTests
 {
@@ -35,9 +36,8 @@ public class AccountCreateUnitTests : AccountsBaseUnitTests
 	[ClassData(typeof(AccountCreateInvalidLastNameData))]
 	public void Create_ShouldThrowException_WhenAccountIsInvalid(string role, string username, string email, string? firstName, string? lastName)
 	{
-		Assert.Throws<CustomValidationException<Account>>(() =>
-		{
-			CreateAccount(role, username, email, firstName, lastName);
-		});
+		Assert.Throws<CustomValidationException<Account>>(
+			() => CreateAccount(role, username, email, firstName, lastName)
+		);
 	}
 }

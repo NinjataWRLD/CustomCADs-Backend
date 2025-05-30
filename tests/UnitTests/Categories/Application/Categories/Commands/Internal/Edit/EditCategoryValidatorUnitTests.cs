@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Internal.Edit;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit;
+
+using Data;
 
 public class EditCategoryValidatorUnitTests : CategoriesBaseUnitTests
 {

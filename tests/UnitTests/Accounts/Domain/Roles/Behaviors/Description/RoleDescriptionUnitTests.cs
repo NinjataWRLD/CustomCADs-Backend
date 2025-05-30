@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Accounts.Domain.Roles.Behaviors.Description.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Behaviors.Description;
+
+using Data;
 
 public class RoleDescriptionUnitTests : RolesBaseUnitTests
 {
@@ -31,9 +32,8 @@ public class RoleDescriptionUnitTests : RolesBaseUnitTests
 	{
 		var role = CreateRole();
 
-		Assert.Throws<CustomValidationException<Role>>(() =>
-		{
-			role.SetDescription(description);
-		});
+		Assert.Throws<CustomValidationException<Role>>(
+			() => role.SetDescription(description)
+		);
 	}
 }

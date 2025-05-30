@@ -2,14 +2,14 @@
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit.Data;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit;
 
-using static CustomsData;
+using Data;
 
 public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+	private readonly EditCustomHandler handler;
 	private readonly Mock<ICustomReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 
@@ -19,6 +19,8 @@ public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 
 	public EditCustomHandlerUnitTests()
 	{
+		handler = new(reads.Object, uow.Object);
+
 		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(custom);
 	}
@@ -34,7 +36,6 @@ public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 			Description: description,
 			BuyerId: buyerId
 		);
-		EditCustomHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -54,7 +55,6 @@ public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 			Description: description,
 			BuyerId: buyerId
 		);
-		EditCustomHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);

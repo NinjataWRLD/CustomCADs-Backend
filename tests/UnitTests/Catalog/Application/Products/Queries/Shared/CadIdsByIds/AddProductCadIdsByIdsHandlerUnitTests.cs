@@ -10,7 +10,9 @@ using static ProductsData;
 
 public class GetProductCadIdsByIdsHandlerUnitTests : ProductsBaseUnitTests
 {
+	private readonly GetProductCadIdsByIdsHandler handler;
 	private readonly Mock<IProductReads> reads = new();
+
 	private readonly ProductId[] ids = [ValidId, ValidId, ValidId];
 	private readonly ProductQuery query;
 	private readonly Result<Product> result;
@@ -21,6 +23,8 @@ public class GetProductCadIdsByIdsHandlerUnitTests : ProductsBaseUnitTests
 
 	public GetProductCadIdsByIdsHandlerUnitTests()
 	{
+		handler = new(reads.Object);
+
 		query = new(
 			Ids: ids,
 			Pagination: new(Limit: ids.Length)
@@ -38,7 +42,6 @@ public class GetProductCadIdsByIdsHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		GetProductCadIdsByIdsQuery query = new(ids);
-		GetProductCadIdsByIdsHandler handler = new(reads.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -52,7 +55,6 @@ public class GetProductCadIdsByIdsHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		GetProductCadIdsByIdsQuery query = new(ids);
-		GetProductCadIdsByIdsHandler handler = new(reads.Object);
 
 		// Act
 		var result = await handler.Handle(query, ct);

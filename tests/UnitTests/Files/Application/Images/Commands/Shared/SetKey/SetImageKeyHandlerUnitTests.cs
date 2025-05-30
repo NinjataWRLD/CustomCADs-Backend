@@ -3,18 +3,22 @@ using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Commands;
-using CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetKey.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetKey;
 
+using Data;
+
 public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 {
+	private readonly SetImageKeyHandler handler;
 	private readonly Mock<IImageReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Image image = CreateImage();
 
 	public SetImageKeyHandlerUnitTests()
 	{
+		handler = new(reads.Object, uow.Object);
+
 		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
 			.ReturnsAsync(image);
 	}
@@ -25,7 +29,6 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 	{
 		// Arrange
 		SetImageKeyCommand command = new(id1, key);
-		SetImageKeyHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -40,7 +43,6 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 	{
 		// Arrange
 		SetImageKeyCommand command = new(id1, key);
-		SetImageKeyHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -55,7 +57,6 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 	{
 		// Arrange
 		SetImageKeyCommand command = new(id1, key);
-		SetImageKeyHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -71,15 +72,12 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
 			.ReturnsAsync(null as Image);
-
 		SetImageKeyCommand command = new(id1, key);
-		SetImageKeyHandler handler = new(reads.Object, uow.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

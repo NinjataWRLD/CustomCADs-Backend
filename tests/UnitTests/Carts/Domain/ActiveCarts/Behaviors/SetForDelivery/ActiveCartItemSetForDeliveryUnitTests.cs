@@ -1,26 +1,23 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
-using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Behaviors.SetForDelivery.Data;
+﻿namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Behaviors.SetForDelivery;
 
-namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Behaviors.SetForDelivery;
+using static ActiveCartsData;
 
 public class ActiveCartItemSetForDeliveryUnitTests : ActiveCartItemsBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(ActiveCartItemSetForDeliveryValidData))]
-	public void SetForDelivery_ShouldNotThrow(CustomizationId customizationId)
+	[Fact]
+	public void SetForDelivery_ShouldNotThrow()
 	{
-		CreateItem().SetForDelivery(customizationId);
+		CreateItem().SetForDelivery(ValidCustomizationId);
 	}
 
-	[Theory]
-	[ClassData(typeof(ActiveCartItemSetForDeliveryValidData))]
-	public void SetForDelivery_ShouldPopulateProperly(CustomizationId customizationId)
+	[Fact]
+	public void SetForDelivery_ShouldPopulateProperly()
 	{
 		var item = CreateItem();
-		item.SetForDelivery(customizationId);
+		item.SetForDelivery(ValidCustomizationId);
 		Assert.Multiple(
 			() => Assert.True(item.ForDelivery),
-			() => Assert.Equal(customizationId, item.CustomizationId)
+			() => Assert.Equal(ValidCustomizationId, item.CustomizationId)
 		);
 	}
 }

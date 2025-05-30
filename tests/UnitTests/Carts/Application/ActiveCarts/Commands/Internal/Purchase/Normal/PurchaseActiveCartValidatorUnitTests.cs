@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.Normal;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Purchase.Normal.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Purchase.Normal;
+
+using Data;
+using static ActiveCartsData;
 
 public class PurchaseActiveCartValidatorUnitTests : ActiveCartsBaseUnitTests
 {
@@ -11,12 +12,12 @@ public class PurchaseActiveCartValidatorUnitTests : ActiveCartsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(PurchaseActiveCartValidData))]
-	public async Task Validate_ShouldBeValid_WhenCartIsValid(string paymentMethodId, AccountId buyerId)
+	public async Task Validate_ShouldBeValid_WhenCartIsValid(string paymentMethodId)
 	{
 		// Arrange
 		PurchaseActiveCartCommand command = new(
 			PaymentMethodId: paymentMethodId,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
 
 		// Act
@@ -28,12 +29,12 @@ public class PurchaseActiveCartValidatorUnitTests : ActiveCartsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(PurchaseActiveCartInvalidPaymentMethodIdData))]
-	public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(string paymentMethodId, AccountId buyerId)
+	public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(string paymentMethodId)
 	{
 		// Arrange
 		PurchaseActiveCartCommand command = new(
 			PaymentMethodId: paymentMethodId,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
 
 		// Act
@@ -45,12 +46,12 @@ public class PurchaseActiveCartValidatorUnitTests : ActiveCartsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(PurchaseActiveCartInvalidPaymentMethodIdData))]
-	public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId, AccountId buyerId)
+	public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId)
 	{
 		// Arrange
 		PurchaseActiveCartCommand command = new(
 			PaymentMethodId: paymentMethodId,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
 
 		// Act

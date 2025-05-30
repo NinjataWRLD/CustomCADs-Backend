@@ -3,15 +3,22 @@ using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Create;
 
+using Data;
+
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
+	private readonly CreateAccountHandler handler;
 	private readonly Mock<IWrites<Account>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IEventRaiser> raiser = new();
+
+	public CreateAccountHandlerUnitTests()
+	{
+		handler = new(writes.Object, uow.Object, raiser.Object);
+	}
 
 	[Theory]
 	[ClassData(typeof(CreateAccountValidData))]
@@ -26,7 +33,6 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 			FirstName: firstName,
 			LastName: lastName
 		);
-		CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -58,7 +64,6 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 			FirstName: firstName,
 			LastName: lastName
 		);
-		CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
 
 		// Act
 		AccountId id = await handler.Handle(command, CancellationToken.None);

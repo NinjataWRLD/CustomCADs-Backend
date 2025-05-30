@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetDescription.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetDescription;
+
+using Data;
 
 public class SetProductDescriptionUnitTests : ProductsBaseUnitTests
 {
@@ -25,9 +26,8 @@ public class SetProductDescriptionUnitTests : ProductsBaseUnitTests
 	[ClassData(typeof(SetProductDescriptionInvalidData))]
 	public void SetDescription_ShouldThrowException_WhenDescriptionIsNotValid(string description)
 	{
-		Assert.Throws<CustomValidationException<Product>>(() =>
-		{
-			CreateProduct().SetDescription(description);
-		});
+		Assert.Throws<CustomValidationException<Product>>(
+			() => CreateProduct().SetDescription(description)
+		);
 	}
 }

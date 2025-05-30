@@ -9,17 +9,21 @@ using static ProductsData;
 
 public class GetProductExistsByIdHandlerUnitTests : ProductsBaseUnitTests
 {
+	private readonly GetProductExistsByIdHandler handler;
 	private readonly Mock<IProductReads> reads = new();
 	private static readonly ProductId id = new();
+
+	public GetProductExistsByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object);
+	}
 
 	[Fact]
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
-
 		GetProductExistsByIdQuery query = new(id);
-		GetProductExistsByIdHandler handler = new(reads.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -33,9 +37,7 @@ public class GetProductExistsByIdHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
-
 		GetProductExistsByIdQuery query = new(id);
-		GetProductExistsByIdHandler handler = new(reads.Object);
 
 		// Act
 		bool exists = await handler.Handle(query, ct);
@@ -49,9 +51,7 @@ public class GetProductExistsByIdHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);
-
 		GetProductExistsByIdQuery query = new(id);
-		GetProductExistsByIdHandler handler = new(reads.Object);
 
 		// Act
 		bool exists = await handler.Handle(query, ct);

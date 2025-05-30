@@ -3,18 +3,22 @@ using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetKey.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetKey;
 
+using Data;
+
 public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
 {
+	private readonly SetCadKeyHandler handler;
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Cad cad = CreateCad();
 
 	public SetCadKeyValidatorUnitTests()
 	{
+		handler = new(reads.Object, uow.Object);
+
 		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
 			.ReturnsAsync(cad);
 	}
@@ -25,7 +29,6 @@ public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
 	{
 		// Arrange
 		SetCadKeyCommand command = new(id1, key);
-		SetCadKeyHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -40,7 +43,6 @@ public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
 	{
 		// Arrange
 		SetCadKeyCommand command = new(id1, key);
-		SetCadKeyHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -55,7 +57,6 @@ public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
 	{
 		// Arrange
 		SetCadKeyCommand command = new(id1, key);
-		SetCadKeyHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -71,15 +72,12 @@ public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
 			.ReturnsAsync(null as Cad);
-
 		SetCadKeyCommand command = new(id1, key);
-		SetCadKeyHandler handler = new(reads.Object, uow.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

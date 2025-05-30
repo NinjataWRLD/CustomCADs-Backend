@@ -5,14 +5,15 @@ using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Delete.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Delete;
 
+using Data;
 using static RolesData;
 
 public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 {
+	private readonly DeleteRoleHandler handler;
 	private readonly Mock<IEventRaiser> raiser = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IWrites<Role>> writes = new();
@@ -20,6 +21,8 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 
 	public DeleteRoleHandlerUnitTests()
 	{
+		handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
+
 		reads.Setup(x => x.SingleByNameAsync(ValidName1, true, ct)).ReturnsAsync(CreateRole(ValidName1, ValidDescription1));
 		reads.Setup(x => x.SingleByNameAsync(ValidName2, true, ct)).ReturnsAsync(CreateRole(ValidName2, ValidDescription2));
 		reads.Setup(x => x.SingleByNameAsync(ValidName3, true, ct)).ReturnsAsync(CreateRole(ValidName3, ValidDescription3));
@@ -32,7 +35,6 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	{
 		// Arrange
 		DeleteRoleCommand command = new(name);
-		DeleteRoleHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -47,13 +49,14 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	{
 		// Arrange
 		DeleteRoleCommand command = new(name);
-		DeleteRoleHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.Remove(It.Is<Role>(x => x.Name == name)), Times.Once);
+		writes.Verify(x => x.Remove(
+			It.Is<Role>(x => x.Name == name)
+		), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
@@ -63,7 +66,6 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	{
 		// Arrange
 		DeleteRoleCommand command = new(name);
-		DeleteRoleHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -83,15 +85,12 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByNameAsync(role, true, ct)).ReturnsAsync(null as Role);
-
 		DeleteRoleCommand command = new(role);
-		DeleteRoleHandler handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Role>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Role>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

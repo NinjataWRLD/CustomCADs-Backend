@@ -16,8 +16,8 @@ public class PurchasedCartsBaseUnitTests
 
 	protected static PurchasedCart CreateCartWithId(PurchasedCartId? id = null, AccountId? buyerId = null)
 		=> PurchasedCart.CreateWithId(
-			id: id ?? ValidId1,
-			buyerId: buyerId ?? ValidBuyerId1
+			id: id ?? ValidId,
+			buyerId: buyerId ?? ValidBuyerId
 		);
 
 	protected static PurchasedCart CreateCartWithItems(PurchasedCartId? id = null, AccountId? buyerId = null, params PurchasedCartItem[] items)
@@ -47,10 +47,10 @@ public class PurchasedCartsBaseUnitTests
 		int? quantity = null,
 		bool? forDelivery = null
 	) => PurchasedCartItem.Create(
-			cartId: cartId ?? ValidId1,
-			productId: productId ?? ValidProductId1,
-			cadId: cadId ?? ValidCadId1,
-			customizationId: customizationId ?? ValidCustomizationId1,
+			cartId: cartId ?? ValidId,
+			productId: productId ?? ValidProductId,
+			cadId: cadId ?? ValidCadId,
+			customizationId: customizationId ?? ValidCustomizationId,
 			price: price ?? ValidPrice1,
 			quantity: quantity ?? ValidQuantity1,
 			forDelivery: forDelivery ?? false,

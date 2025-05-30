@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
-using CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Create.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Create;
+
+using Data;
 
 public class CreateRoleValidatorUnitTests : RolesBaseUnitTests
 {
@@ -10,10 +11,9 @@ public class CreateRoleValidatorUnitTests : RolesBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CreateRoleValidData))]
-	public void Validate_ShouldBeValid_WhenRoleIsValid(string name, string description)
+	public void Validate_ShouldBeValid_WhenRoleIsValid(RoleWriteDto role)
 	{
 		// Arrange
-		RoleWriteDto role = new(name, description);
 		CreateRoleCommand command = new(role);
 
 		// Act
@@ -26,10 +26,9 @@ public class CreateRoleValidatorUnitTests : RolesBaseUnitTests
 	[Theory]
 	[ClassData(typeof(CreateRoleInvalidNameData))]
 	[ClassData(typeof(CreateRoleInvalidDescriptionData))]
-	public void Validate_ShouldBeInvalid_WhenRoleIsNotValid(string name, string description)
+	public void Validate_ShouldBeInvalid_WhenRoleIsNotValid(RoleWriteDto role)
 	{
 		// Arrange
-		RoleWriteDto role = new(name, description);
 		CreateRoleCommand command = new(role);
 
 		// Act
@@ -41,10 +40,9 @@ public class CreateRoleValidatorUnitTests : RolesBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CreateRoleInvalidNameData))]
-	public void Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description)
+	public void Validate_ShouldReturnProperErrors_WhenNameIsNotValid(RoleWriteDto role)
 	{
 		// Arrange
-		RoleWriteDto role = new(name, description);
 		CreateRoleCommand command = new(role);
 
 		// Act
@@ -56,10 +54,9 @@ public class CreateRoleValidatorUnitTests : RolesBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CreateRoleInvalidDescriptionData))]
-	public void Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description)
+	public void Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(RoleWriteDto role)
 	{
 		// Arrange
-		RoleWriteDto role = new(name, description);
 		CreateRoleCommand command = new(role);
 
 		// Act

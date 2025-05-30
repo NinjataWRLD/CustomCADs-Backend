@@ -4,21 +4,23 @@ using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Items.Create.Data;
 
 namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Items.Create;
+
+using Data;
+using static PurchasedCartsData.CartItemsData;
 
 public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
 {
 	[Theory]
 	[ClassData(typeof(PurchasedCartItemCreateValidData))]
-	public void Create_ShouldNotThrow_WhenCartIsValid(PurchasedCartId cartId, ProductId productId, CadId cadId, CustomizationId? customizationId, decimal price, int quantity, bool forDelivery)
+	public void Create_ShouldNotThrow_WhenCartIsValid(decimal price, int quantity, bool forDelivery)
 	{
 		CreateItem(
-			cartId: cartId,
-			productId: productId,
-			cadId: cadId,
-			customizationId: customizationId,
+			cartId: PurchasedCartsData.ValidId,
+			productId: ValidProductId,
+			cadId: ValidCadId,
+			customizationId: ValidCustomizationId,
 			price: price,
 			quantity: quantity,
 			forDelivery: forDelivery
@@ -27,23 +29,23 @@ public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(PurchasedCartItemCreateValidData))]
-	public void Create_ShouldPopulateProperties(PurchasedCartId cartId, ProductId productId, CadId cadId, CustomizationId? customizationId, decimal price, int quantity, bool forDelivery)
+	public void Create_ShouldPopulateProperties(decimal price, int quantity, bool forDelivery)
 	{
 		var item = CreateItem(
-			cartId: cartId,
-			productId: productId,
-			cadId: cadId,
-			customizationId: customizationId,
+			cartId: PurchasedCartsData.ValidId,
+			productId: ValidProductId,
+			cadId: ValidCadId,
+			customizationId: ValidCustomizationId,
 			price: price,
 			quantity: quantity,
 			forDelivery: forDelivery
 		);
 
 		Assert.Multiple(
-			() => Assert.Equal(cartId, item.CartId),
-			() => Assert.Equal(productId, item.ProductId),
-			() => Assert.Equal(cadId, item.CadId),
-			() => Assert.Equal(customizationId, item.CustomizationId),
+			() => Assert.Equal(PurchasedCartsData.ValidId, item.CartId),
+			() => Assert.Equal(ValidProductId, item.ProductId),
+			() => Assert.Equal(ValidCadId, item.CadId),
+			() => Assert.Equal(ValidCustomizationId, item.CustomizationId),
 			() => Assert.Equal(price, item.Price),
 			() => Assert.Equal(quantity, item.Quantity),
 			() => Assert.Equal(forDelivery, item.ForDelivery)
@@ -53,19 +55,18 @@ public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
 	[Theory]
 	[ClassData(typeof(PurchasedCartItemCreateInvalidQuantityData))]
 	[ClassData(typeof(PurchasedCartItemCreateInvalidPriceData))]
-	public void Create_ShouldThrow_WhenCartIsNotValid(PurchasedCartId cartId, ProductId productId, CadId cadId, CustomizationId? customizationId, decimal price, int quantity, bool forDelivery)
+	public void Create_ShouldThrow_WhenCartIsNotValid(decimal price, int quantity, bool forDelivery)
 	{
-		Assert.Throws<CustomValidationException<PurchasedCartItem>>(() =>
-		{
-			CreateItem(
-				cartId: cartId,
-				productId: productId,
-				cadId: cadId,
-				customizationId: customizationId,
+		Assert.Throws<CustomValidationException<PurchasedCartItem>>(
+			() => CreateItem(
+				cartId: PurchasedCartsData.ValidId,
+				productId: ValidProductId,
+				cadId: ValidCadId,
+				customizationId: ValidCustomizationId,
 				price: price,
 				quantity: quantity,
 				forDelivery: forDelivery
-			);
-		});
+			)
+		);
 	}
 }

@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
 
-using CustomCADs.UnitTests.Files.Domain.Cads.Create;
 using static CadsData;
 
 public class CadCreateInvalidCoordsData : CadCreateData

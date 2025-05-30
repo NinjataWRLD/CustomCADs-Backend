@@ -12,19 +12,25 @@ using static ProductsData;
 
 public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 {
+	private readonly SetProductStatusHandler handler;
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Product product = CreateProduct();
 	private readonly Mock<IRequestSender> sender = new();
+
+	private readonly Product product = CreateProduct();
 	private const ProductStatus status = ProductStatus.Validated;
 
 	public SetProductStatusHandlerUnitTests()
 	{
+		handler = new(reads.Object, uow.Object, sender.Object);
+
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(product);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-			.ReturnsAsync(true);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
+			ct
+		)).ReturnsAsync(true);
 	}
 
 	[Fact]
@@ -32,7 +38,6 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-		SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -46,7 +51,6 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-		SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -60,15 +64,15 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-		SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		sender.Verify(x => x.SendQueryAsync(
-			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId)
-		, ct), Times.Once);
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
+			ct
+		), Times.Once);
 	}
 
 	[Fact]
@@ -76,34 +80,30 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		product.SetDesignerId(ValidDesignerId);
-
 		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-		SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenDesignerNotFound()
 	{
 		// Arrange
-		sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId), ct))
-			.ReturnsAsync(false);
-
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
+			ct
+		)).ReturnsAsync(false);
 		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-		SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Fact]
@@ -112,15 +112,12 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(null as Product);
-
 		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-		SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

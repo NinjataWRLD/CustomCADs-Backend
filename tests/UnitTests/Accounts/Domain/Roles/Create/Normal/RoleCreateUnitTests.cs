@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Accounts.Domain.Roles.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Create.Normal;
+
+using Data;
 
 public class RoleCreateUnitTests : RolesBaseUnitTests
 {
@@ -29,19 +30,17 @@ public class RoleCreateUnitTests : RolesBaseUnitTests
 	[ClassData(typeof(RoleCreateInvalidNameData))]
 	public void Create_ShouldThrowException_WhenNameIsInvalid(string name, string description)
 	{
-		Assert.Throws<CustomValidationException<Role>>(() =>
-		{
-			CreateRole(name, description);
-		});
+		Assert.Throws<CustomValidationException<Role>>(
+			() => CreateRole(name, description)
+		);
 	}
 
 	[Theory]
 	[ClassData(typeof(RoleCreateInvalidDescriptionData))]
 	public void Create_ShouldThrowException_WhenDescriptionIsInvalid(string name, string description)
 	{
-		Assert.Throws<CustomValidationException<Role>>(() =>
-		{
-			CreateRole(name, description);
-		});
+		Assert.Throws<CustomValidationException<Role>>(
+			() => CreateRole(name, description)
+		);
 	}
 }

@@ -7,17 +7,22 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetExists;
 
 public class GetCadExistsByIdHandlerUnitTests : CadsBaseUnitTests
 {
+	private readonly GetCadExistsByIdHandler handler;
 	private readonly Mock<ICadReads> reads = new();
+
 	private static readonly CadId id = CadId.New();
+
+	public GetCadExistsByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object);
+		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
+	}
 
 	[Fact]
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
-
 		GetCadExistsByIdQuery query = new(id);
-		GetCadExistsByIdHandler handler = new(reads.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -30,10 +35,7 @@ public class GetCadExistsByIdHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldReturnProperly_WhenProductExists()
 	{
 		// Arrange
-		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
-
 		GetCadExistsByIdQuery query = new(id);
-		GetCadExistsByIdHandler handler = new(reads.Object);
 
 		// Act
 		bool exists = await handler.Handle(query, ct);
@@ -47,9 +49,7 @@ public class GetCadExistsByIdHandlerUnitTests : CadsBaseUnitTests
 	{
 		// Arrange
 		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);
-
 		GetCadExistsByIdQuery query = new(id);
-		GetCadExistsByIdHandler handler = new(reads.Object);
 
 		// Act
 		bool exists = await handler.Handle(query, ct);

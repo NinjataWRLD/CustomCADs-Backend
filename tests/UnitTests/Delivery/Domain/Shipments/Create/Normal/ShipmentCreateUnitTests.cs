@@ -1,51 +1,50 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Delivery.Domain.Shipments.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Delivery.Domain.Shipments.Create.Normal;
+
+using Data;
+using static ShipmentsData;
 
 public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
 {
 	[Theory]
-	[ClassData(typeof(ShipmentCreateWithIdValidData))]
-	public void Create_ShouldNotThrowExcepion_WhenShipmentIsValid(string country, string city, string referenceId, AccountId buyerId)
+	[ClassData(typeof(ShipmentCreateValidData))]
+	public void Create_ShouldNotThrowExcepion_WhenShipmentIsValid(string country, string city, string referenceId)
 	{
-		Shipment.Create(new(country, city), referenceId, buyerId);
+		Shipment.Create(new(country, city), referenceId, ValidBuyerId);
 	}
 
 	[Theory]
-	[ClassData(typeof(ShipmentCreateWithIdValidData))]
-	public void Create_ShouldPopulatePropertiesProperly_WhenShipmentIsValid(string country, string city, string referenceId, AccountId buyerId)
+	[ClassData(typeof(ShipmentCreateValidData))]
+	public void Create_ShouldPopulatePropertiesProperly_WhenShipmentIsValid(string country, string city, string referenceId)
 	{
 		Address address = new(country, city);
-		var shipment = Shipment.Create(address, referenceId, buyerId);
+		var shipment = Shipment.Create(address, referenceId, ValidBuyerId);
 
 		Assert.Multiple(
 			() => Assert.Equal(address, shipment.Address),
 			() => Assert.Equal(referenceId, shipment.ReferenceId),
-			() => Assert.Equal(buyerId, shipment.BuyerId),
+			() => Assert.Equal(ValidBuyerId, shipment.BuyerId),
 			() => Assert.True(DateTimeOffset.UtcNow - shipment.RequestedAt < TimeSpan.FromSeconds(1))
 		);
 	}
 
 	[Theory]
-	[ClassData(typeof(ShipmentCreateWithIdInvalidCountryData))]
-	public void Create_ShouldThrowException_WhenCountryIsInvalid(string country, string city, string referenceId, AccountId buyerId)
+	[ClassData(typeof(ShipmentCreateInvalidCountryData))]
+	public void Create_ShouldThrowException_WhenCountryIsInvalid(string country, string city, string referenceId)
 	{
-		Assert.Throws<CustomValidationException<Shipment>>(() =>
-		{
-			Shipment.Create(new(country, city), referenceId, buyerId);
-		});
+		Assert.Throws<CustomValidationException<Shipment>>(
+			() => Shipment.Create(new(country, city), referenceId, ValidBuyerId)
+		);
 	}
 
 	[Theory]
-	[ClassData(typeof(ShipmentCreateWithIdInvalidCityData))]
-	public void Create_ShouldThrowException_WhenCityIsInvalid(string country, string city, string referenceId, AccountId buyerId)
+	[ClassData(typeof(ShipmentCreateInvalidCityData))]
+	public void Create_ShouldThrowException_WhenCityIsInvalid(string country, string city, string referenceId)
 	{
-		Assert.Throws<CustomValidationException<Shipment>>(() =>
-		{
-			Shipment.Create(new(country, city), referenceId, buyerId);
-		});
+		Assert.Throws<CustomValidationException<Shipment>>(
+			() => Shipment.Create(new(country, city), referenceId, ValidBuyerId)
+		);
 	}
 }

@@ -6,9 +6,11 @@ namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Cre
 
 using static ProductsData;
 
-public class ProductsCountHandlerUnitTests
+public class ProductsCountHandlerUnitTests : ProductsBaseUnitTests
 {
+	private readonly ProductsCountHandler handler;
 	private readonly Mock<IProductReads> reads = new();
+
 	private readonly Dictionary<ProductStatus, int> dict = new()
 	{
 		[ProductStatus.Unchecked] = 3,
@@ -19,6 +21,8 @@ public class ProductsCountHandlerUnitTests
 
 	public ProductsCountHandlerUnitTests()
 	{
+		handler = new(reads.Object);
+
 		reads.Setup(x => x.CountByStatusAsync(ValidCreatorId, ct))
 			.ReturnsAsync(dict);
 	}
@@ -28,7 +32,6 @@ public class ProductsCountHandlerUnitTests
 	{
 		// Arrange
 		ProductsCountQuery query = new(ValidCreatorId);
-		ProductsCountHandler handler = new(reads.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -42,7 +45,6 @@ public class ProductsCountHandlerUnitTests
 	{
 		// Arrange
 		ProductsCountQuery query = new(ValidCreatorId);
-		ProductsCountHandler handler = new(reads.Object);
 
 		// Act
 		var result = await handler.Handle(query, ct);

@@ -11,18 +11,24 @@ using static ProductsData;
 
 public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 {
+	private readonly EditProductHandler handler;
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRequestSender> sender = new();
+
 	private readonly Product product = CreateProduct();
 
 	public EditProductHandlerUnitTests()
 	{
+		handler = new(reads.Object, uow.Object, sender.Object);
+
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(product);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
-			.ReturnsAsync(true);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetCategoryExistsByIdQuery>(x => x.Id == ValidCategoryId),
+			ct
+		)).ReturnsAsync(true);
 	}
 
 	[Fact]
@@ -37,7 +43,6 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidCreatorId
 		);
-		EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -58,7 +63,6 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidCreatorId
 		);
-		EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -79,15 +83,15 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidCreatorId
 		);
-		EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		sender.Verify(x => x.SendQueryAsync(
-			It.Is<GetCategoryExistsByIdQuery>(x => x.Id == ValidCategoryId)
-		, ct), Times.Once);
+			It.Is<GetCategoryExistsByIdQuery>(x => x.Id == ValidCategoryId),
+			ct
+		), Times.Once);
 	}
 
 	[Fact]
@@ -102,22 +106,22 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidDesignerId
 		);
-		EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Fact]
 	public async Task Handler_ShouldThrowException_WhenCategoryNotFound()
 	{
 		// Arrange
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
-			.ReturnsAsync(false);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetCategoryExistsByIdQuery>(x => x.Id == ValidCategoryId),
+			ct
+		)).ReturnsAsync(false);
 
 		EditProductCommand command = new(
 			Id: ValidId,
@@ -127,14 +131,12 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidCreatorId
 		);
-		EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Fact]
@@ -152,13 +154,11 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidDesignerId
 		);
-		EditProductHandler handler = new(reads.Object, uow.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

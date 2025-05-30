@@ -11,198 +11,228 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 using CustomCADs.Shared.UseCases.Images.Commands;
-using CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create;
 
+using Data;
 using static Constants.Roles;
 using static ProductsData;
 
 public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 {
-	private readonly Mock<IProductWrites> writes = new();
-	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Mock<IRequestSender> sender = new();
-	private const decimal Volume = 15;
-	private readonly CategoryId categoryId = ValidCategoryId;
-	private readonly AccountId creatorId = ValidCreatorId;
-	private readonly ImageId imageId = ValidImageId;
-	private readonly CadId cadId = ValidCadId;
+    private readonly CreateProductHandler handler;
+    private readonly Mock<IProductWrites> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IRequestSender> sender = new();
 
-	public CreateProductHandlerUnitTests()
-	{
-		sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateCadCommand>(), ct))
-			.ReturnsAsync(cadId);
+    private const decimal Volume = 15;
+    private readonly CategoryId categoryId = ValidCategoryId;
+    private readonly AccountId creatorId = ValidCreatorId;
+    private readonly ImageId imageId = ValidImageId;
+    private readonly CadId cadId = ValidCadId;
 
-		sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateImageCommand>(), ct))
-			.ReturnsAsync(imageId);
+    public CreateProductHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object, sender.Object);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUserRoleByIdQuery>(), ct))
-			.ReturnsAsync(Contributor);
+        sender.Setup(x => x.SendCommandAsync(
+            It.IsAny<CreateCadCommand>(),
+            ct
+        )).ReturnsAsync(cadId);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
-			.ReturnsAsync(true);
+        sender.Setup(x => x.SendCommandAsync(
+            It.IsAny<CreateImageCommand>(),
+            ct
+        )).ReturnsAsync(imageId);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-			.ReturnsAsync(true);
-	}
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUserRoleByIdQuery>(x => x.Id == creatorId),
+            ct
+        )).ReturnsAsync(Contributor);
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldPersistToDatabase(string name, string description, decimal price)
-	{
-		// Arrange
-		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
-			ImageKey: string.Empty,
-			ImageContentType: string.Empty,
-			CadKey: string.Empty,
-			CadContentType: string.Empty,
-			CadVolume: Volume,
-			CategoryId: categoryId,
-			CreatorId: creatorId
-		);
-		CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == categoryId),
+            ct
+        )).ReturnsAsync(true);
 
-		// Act
-		await handler.Handle(command, ct);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == creatorId),
+            ct
+        )).ReturnsAsync(true);
+    }
 
-		// Assert
-		writes.Verify(x => x.AddAsync(
-			It.Is<Product>(x =>
-				x.Name == name &&
-				x.Description == description &&
-				x.Price == price &&
-				x.Status == ProductStatus.Unchecked &&
-				x.CreatorId == creatorId &&
-				x.CategoryId == categoryId &&
-				x.ImageId == imageId &&
-				x.CadId == cadId
-			)
-		, ct), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Exactly(2));
-	}
+    [Theory]
+    [ClassData(typeof(CreateProductValidData))]
+    public async Task Handler_ShouldPersistToDatabase(string name, string description, decimal price)
+    {
+        // Arrange
+        CreateProductCommand command = new(
+            Name: name,
+            Description: description,
+            Price: price,
+            ImageKey: string.Empty,
+            ImageContentType: string.Empty,
+            CadKey: string.Empty,
+            CadContentType: string.Empty,
+            CadVolume: Volume,
+            CategoryId: categoryId,
+            CreatorId: creatorId
+        );
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldSendRequests(string name, string description, decimal price)
-	{
-		// Arrange
-		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
-			ImageKey: string.Empty,
-			ImageContentType: string.Empty,
-			CadKey: string.Empty,
-			CadContentType: string.Empty,
-			CadVolume: Volume,
-			CategoryId: categoryId,
-			CreatorId: creatorId
-		);
-		CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
+        // Act
+        await handler.Handle(command, ct);
 
-		// Act
-		await handler.Handle(command, ct);
+        // Assert
+        writes.Verify(x => x.AddAsync(
+            It.Is<Product>(x =>
+                x.Name == name &&
+                x.Description == description &&
+                x.Price == price &&
+                x.Status == ProductStatus.Unchecked &&
+                x.CreatorId == creatorId &&
+                x.CategoryId == categoryId &&
+                x.ImageId == imageId &&
+                x.CadId == cadId
+            ),
+            ct
+        ), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Exactly(2));
+    }
 
-		// Assert
-		sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct), Times.Once);
-		sender.Verify(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct), Times.Once);
-		sender.Verify(x => x.SendCommandAsync(It.IsAny<CreateCadCommand>(), ct), Times.Once);
-		sender.Verify(x => x.SendCommandAsync(It.IsAny<CreateImageCommand>(), ct), Times.Once);
-		sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUserRoleByIdQuery>(), ct), Times.Once);
-	}
+    [Theory]
+    [ClassData(typeof(CreateProductValidData))]
+    public async Task Handler_ShouldSendRequests(string name, string description, decimal price)
+    {
+        // Arrange
+        CreateProductCommand command = new(
+            Name: name,
+            Description: description,
+            Price: price,
+            ImageKey: string.Empty,
+            ImageContentType: string.Empty,
+            CadKey: string.Empty,
+            CadContentType: string.Empty,
+            CadVolume: Volume,
+            CategoryId: categoryId,
+            CreatorId: creatorId
+        );
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldSetStatusProperlty(string name, string description, decimal price)
-	{
-		// Arrange
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUserRoleByIdQuery>(), ct))
-			.ReturnsAsync(Designer);
+        // Act
+        await handler.Handle(command, ct);
 
-		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
-			ImageKey: string.Empty,
-			ImageContentType: string.Empty,
-			CadKey: string.Empty,
-			CadContentType: string.Empty,
-			CadVolume: Volume,
-			CategoryId: categoryId,
-			CreatorId: creatorId
-		);
-		CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
+        // Assert
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == categoryId),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == creatorId),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendCommandAsync(
+            It.IsAny<CreateCadCommand>(),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendCommandAsync(
+            It.IsAny<CreateImageCommand>(),
+            ct
+        ), Times.Once);
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetUserRoleByIdQuery>(x => x.Id == creatorId),
+            ct
+        ), Times.Once);
+    }
 
-		// Act
-		await handler.Handle(command, ct);
+    [Theory]
+    [ClassData(typeof(CreateProductValidData))]
+    public async Task Handler_ShouldSetStatusProperlty(string name, string description, decimal price)
+    {
+        // Arrange
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetUserRoleByIdQuery>(x => x.Id == creatorId),
+            ct
+        )).ReturnsAsync(Designer);
 
-		// Assert
-		writes.Verify(x => x.AddAsync(
-			It.Is<Product>(x => x.Status == ProductStatus.Validated)
-		, ct), Times.Once);
-	}
+        CreateProductCommand command = new(
+            Name: name,
+            Description: description,
+            Price: price,
+            ImageKey: string.Empty,
+            ImageContentType: string.Empty,
+            CadKey: string.Empty,
+            CadContentType: string.Empty,
+            CadVolume: Volume,
+            CategoryId: categoryId,
+            CreatorId: creatorId
+        );
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldThrowException_WhenCategoryNotFound(string name, string description, decimal price)
-	{
-		// Arrange
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCategoryExistsByIdQuery>(), ct))
-			.ReturnsAsync(false);
+        // Act
+        await handler.Handle(command, ct);
 
-		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
-			ImageKey: string.Empty,
-			ImageContentType: string.Empty,
-			CadKey: string.Empty,
-			CadContentType: string.Empty,
-			CadVolume: Volume,
-			CategoryId: categoryId,
-			CreatorId: creatorId
-		);
-		CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
+        // Assert
+        writes.Verify(x => x.AddAsync(
+            It.Is<Product>(x => x.Status == ProductStatus.Validated),
+            ct
+        ), Times.Once);
+    }
 
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-		{
-			// Act
-			await handler.Handle(command, ct);
-		});
-	}
+    [Theory]
+    [ClassData(typeof(CreateProductValidData))]
+    public async Task Handler_ShouldThrowException_WhenCategoryNotFound(string name, string description, decimal price)
+    {
+        // Arrange
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetCategoryExistsByIdQuery>(x => x.Id == categoryId),
+            ct
+        )).ReturnsAsync(false);
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldThrowException_WhenAccountNotFound(string name, string description, decimal price)
-	{
-		// Arrange
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-			.ReturnsAsync(false);
+        CreateProductCommand command = new(
+            Name: name,
+            Description: description,
+            Price: price,
+            ImageKey: string.Empty,
+            ImageContentType: string.Empty,
+            CadKey: string.Empty,
+            CadContentType: string.Empty,
+            CadVolume: Volume,
+            CategoryId: categoryId,
+            CreatorId: creatorId
+        );
 
-		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
-			ImageKey: string.Empty,
-			ImageContentType: string.Empty,
-			CadKey: string.Empty,
-			CadContentType: string.Empty,
-			CadVolume: Volume,
-			CategoryId: categoryId,
-			CreatorId: creatorId
-		);
-		CreateProductHandler handler = new(writes.Object, uow.Object, sender.Object);
+        // Assert
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
+            // Act
+            async () => await handler.Handle(command, ct)
+        );
+    }
 
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-		{
-			// Act
-			await handler.Handle(command, ct);
-		});
-	}
+    [Theory]
+    [ClassData(typeof(CreateProductValidData))]
+    public async Task Handler_ShouldThrowException_WhenAccountNotFound(string name, string description, decimal price)
+    {
+        // Arrange
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == creatorId),
+            ct
+        )).ReturnsAsync(false);
+
+        CreateProductCommand command = new(
+            Name: name,
+            Description: description,
+            Price: price,
+            ImageKey: string.Empty,
+            ImageContentType: string.Empty,
+            CadKey: string.Empty,
+            CadContentType: string.Empty,
+            CadVolume: Volume,
+            CategoryId: categoryId,
+            CreatorId: creatorId
+        );
+
+        // Assert
+        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
+            // Act
+            async () => await handler.Handle(command, ct)
+        );
+    }
 }

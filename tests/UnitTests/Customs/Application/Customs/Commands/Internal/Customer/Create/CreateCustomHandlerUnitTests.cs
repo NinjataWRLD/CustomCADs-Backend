@@ -2,97 +2,102 @@
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create.Data;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create;
 
+using Data;
 using static CustomsData;
 
 public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 {
-	private readonly Mock<IWrites<Custom>> writes = new();
-	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Mock<IRequestSender> sender = new();
+    private readonly CreateCustomHandler handler;
+    private readonly Mock<IWrites<Custom>> writes = new();
+    private readonly Mock<IUnitOfWork> uow = new();
+    private readonly Mock<IRequestSender> sender = new();
 
-	public CreateCustomHandlerUnitTests()
-	{
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-			.ReturnsAsync(true);
-	}
+    public CreateCustomHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object, sender.Object);
 
-	[Theory]
-	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string name, string description, bool fordelivery, AccountId buyerId)
-	{
-		// Arrange
-		CreateCustomCommand command = new(
-			Name: name,
-			Description: description,
-			ForDelivery: fordelivery,
-			BuyerId: buyerId
-		);
-		CreateCustomHandler handler = new(writes.Object, uow.Object, sender.Object);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetAccountExistsByIdQuery>(),
+            ct
+        )).ReturnsAsync(true);
+    }
 
-		// Act
-		await handler.Handle(command, ct);
+    [Theory]
+    [ClassData(typeof(CreateCustomValidData))]
+    public async Task Handle_ShouldPersistToDatabase(string name, string description, bool fordelivery)
+    {
+        // Arrange
+        CreateCustomCommand command = new(
+            Name: name,
+            Description: description,
+            ForDelivery: fordelivery,
+            BuyerId: ValidBuyerId
+        );
 
-		// Assert
-		writes.Verify(x => x.AddAsync(
-			It.Is<Custom>(x =>
-			x.Name == name &&
-			x.Description == description &&
-			x.ForDelivery == fordelivery &&
-			x.BuyerId == buyerId
-		), ct), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-	}
+        // Act
+        await handler.Handle(command, ct);
 
-	[Theory]
-	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Handle_ShouldSendRequests(string name, string description, bool fordelivery, AccountId buyerId)
-	{
-		// Arrange
-		CreateCustomCommand command = new(
-			Name: name,
-			Description: description,
-			ForDelivery: fordelivery,
-			BuyerId: buyerId
-		);
-		CreateCustomHandler handler = new(writes.Object, uow.Object, sender.Object);
+        // Assert
+        writes.Verify(x => x.AddAsync(
+            It.Is<Custom>(x =>
+                x.Name == name &&
+                x.Description == description &&
+                x.ForDelivery == fordelivery &&
+                x.BuyerId == ValidBuyerId
+            ),
+            ct
+        ), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+    }
 
-		// Act
-		await handler.Handle(command, ct);
+    [Theory]
+    [ClassData(typeof(CreateCustomValidData))]
+    public async Task Handle_ShouldSendRequests(string name, string description, bool fordelivery)
+    {
+        // Arrange
+        CreateCustomCommand command = new(
+            Name: name,
+            Description: description,
+            ForDelivery: fordelivery,
+            BuyerId: ValidBuyerId
+        );
 
-		// Assert
-		sender.Verify(x => x.SendQueryAsync(
-			It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId)
-		, ct), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-	}
+        // Act
+        await handler.Handle(command, ct);
 
-	[Theory]
-	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, bool fordelivery, AccountId buyerId)
-	{
-		// Arrange
-		sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId), ct))
-			.ReturnsAsync(false);
+        // Assert
+        sender.Verify(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+            ct
+        ), Times.Once);
+        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+    }
 
-		CreateCustomCommand command = new(
-			Name: name,
-			Description: description,
-			ForDelivery: fordelivery,
-			BuyerId: buyerId
-		);
-		CreateCustomHandler handler = new(writes.Object, uow.Object, sender.Object);
+    [Theory]
+    [ClassData(typeof(CreateCustomValidData))]
+    public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, bool fordelivery)
+    {
+        // Arrange
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+            ct
+        )).ReturnsAsync(false);
 
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-		{
-			// Act
-			await handler.Handle(command, ct);
-		});
-	}
+        CreateCustomCommand command = new(
+            Name: name,
+            Description: description,
+            ForDelivery: fordelivery,
+            BuyerId: ValidBuyerId
+        );
+
+        // Assert
+        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
+            // Act
+            async () => await handler.Handle(command, ct)
+        );
+    }
 }

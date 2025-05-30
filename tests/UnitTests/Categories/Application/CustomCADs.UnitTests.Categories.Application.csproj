@@ -27,4 +27,8 @@
 		<ProjectReference Include="..\Data\CustomCADs.UnitTests.Categories.Data.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Categories\Queries\Internal\GetById\Data\" />
+	</ItemGroup>
+
 </Project>
