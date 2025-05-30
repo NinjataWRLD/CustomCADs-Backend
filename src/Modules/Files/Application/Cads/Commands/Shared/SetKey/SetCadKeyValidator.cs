@@ -8,9 +8,9 @@ using static Constants.FluentMessages;
 
 public class SetCadKeyValidator : CommandValidator<SetCadKeyCommand>
 {
-    public SetCadKeyValidator()
-    {
-        RuleFor(x => x.Key)
-            .NotEmpty().WithMessage(RequiredError);
-    }
+	public SetCadKeyValidator()
+	{
+		RuleFor(x => x.Key)
+			.NotEmpty().WithMessage(RequiredError);
+	}
 }

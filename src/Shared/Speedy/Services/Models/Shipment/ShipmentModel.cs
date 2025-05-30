@@ -10,19 +10,19 @@ using CustomCADs.Shared.Speedy.Services.Shipment.Models;
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment;
 
 public record ShipmentModel(
-    string Id,
-    ShipmentSenderModel Sender,
-    ShipmentRecipientModel Recipient,
-    ShipmentServiceModel Service,
-    ShipmentContentModel Content,
-    ShipmentPaymentModel Payment,
-    string ShipmentNote,
-    string Ref1,
-    string Ref2,
-    ShipmentPriceModel Price,
-    ShipmentDeliveryModel Delivery,
-    PrimaryShipmentModel PrimaryShipment,
-    string ReturnShipmentId,
-    string RedirectShipmentId,
-    bool PendingShipment
+	string Id,
+	ShipmentSenderModel Sender,
+	ShipmentRecipientModel Recipient,
+	ShipmentServiceModel Service,
+	ShipmentContentModel Content,
+	ShipmentPaymentModel Payment,
+	string ShipmentNote,
+	string Ref1,
+	string Ref2,
+	ShipmentPriceModel Price,
+	ShipmentDeliveryModel Delivery,
+	PrimaryShipmentModel PrimaryShipment,
+	string ReturnShipmentId,
+	string RedirectShipmentId,
+	bool PendingShipment
 );

@@ -10,45 +10,45 @@ using static TagsData;
 
 public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
 {
-    private readonly GetTagByIdHandler handler;
-    private readonly Mock<ITagReads> reads = new();
+	private readonly GetTagByIdHandler handler;
+	private readonly Mock<ITagReads> reads = new();
 
-    private readonly static TagId id = ValidId;
+	private readonly static TagId id = ValidId;
 
-    public GetTagByIdHandlerUnitTests()
-    {
-        handler = new(reads.Object);
+	public GetTagByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object);
 
-        reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(CreateTag(ValidId));
-    }
+		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(CreateTag(ValidId));
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GetTagByIdQuery query = new(id);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetTagByIdQuery query = new(id);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(v => v.SingleByIdAsync(id, false, ct), Times.Once());
-    }
+		// Assert
+		reads.Verify(v => v.SingleByIdAsync(id, false, ct), Times.Once());
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenTagNotFound()
-    {
-        // Arrange
-        reads.Setup(v => v.SingleByIdAsync(id, false, ct))
-            .ReturnsAsync(null as Tag);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenTagNotFound()
+	{
+		// Arrange
+		reads.Setup(v => v.SingleByIdAsync(id, false, ct))
+			.ReturnsAsync(null as Tag);
 
-        GetTagByIdQuery query = new(id);
+		GetTagByIdQuery query = new(id);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(
-            // Act
-            async () => await handler.Handle(query, ct)
-        );
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
 }

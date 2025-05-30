@@ -2,5 +2,5 @@
 namespace CustomCADs.Identity.Application.Users.Commands.Internal.Refresh;
 
 public record RefreshUserCommand(
-    string? Token
+	string? Token
 ) : ICommand<TokensDto>;

@@ -9,30 +9,30 @@ using Data;
 
 public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 {
-    private readonly CreateTagHandler handler;
-    private readonly Mock<ITagWrites> writes = new();
-    private readonly Mock<IUnitOfWork> uow = new();
+	private readonly CreateTagHandler handler;
+	private readonly Mock<ITagWrites> writes = new();
+	private readonly Mock<IUnitOfWork> uow = new();
 
-    public CreateTagHandlerUnitTests()
-    {
-        handler = new(writes.Object, uow.Object);
-    }
+	public CreateTagHandlerUnitTests()
+	{
+		handler = new(writes.Object, uow.Object);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateTagValidData))]
-    public async Task Handler_ShouldPersistToDatabase(string name)
-    {
-        // Arrange
-        CreateTagCommand command = new(name);
+	[Theory]
+	[ClassData(typeof(CreateTagValidData))]
+	public async Task Handler_ShouldPersistToDatabase(string name)
+	{
+		// Arrange
+		CreateTagCommand command = new(name);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        writes.Verify(v => v.AddAsync(
-            It.Is<Tag>(x => x.Name == name),
-            ct
-        ), Times.Once());
-        uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
-    }
+		// Assert
+		writes.Verify(v => v.AddAsync(
+			It.Is<Tag>(x => x.Name == name),
+			ct
+		), Times.Once());
+		uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
+	}
 }

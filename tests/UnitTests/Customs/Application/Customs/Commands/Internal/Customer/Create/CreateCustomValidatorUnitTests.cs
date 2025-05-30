@@ -8,82 +8,82 @@ using static CustomsData;
 
 public class CreateCustomValidatorUnitTests : CustomsBaseUnitTests
 {
-    private readonly CreateCustomValidator validator = new();
+	private readonly CreateCustomValidator validator = new();
 
-    [Theory]
-    [ClassData(typeof(CreateCustomValidData))]
-    public async Task Validate_ShouldBeValid_WhenCustomIsValid(string name, string description, bool fordelivery)
-    {
-        // Arrange
-        CreateCustomCommand command = new(
-            Name: name,
-            Description: description,
-            ForDelivery: fordelivery,
-            BuyerId: ValidBuyerId
-        );
+	[Theory]
+	[ClassData(typeof(CreateCustomValidData))]
+	public async Task Validate_ShouldBeValid_WhenCustomIsValid(string name, string description, bool fordelivery)
+	{
+		// Arrange
+		CreateCustomCommand command = new(
+			Name: name,
+			Description: description,
+			ForDelivery: fordelivery,
+			BuyerId: ValidBuyerId
+		);
 
-        // Act
-        var result = await validator.TestValidateAsync(command, cancellationToken: ct);
+		// Act
+		var result = await validator.TestValidateAsync(command, cancellationToken: ct);
 
-        // Assert
-        Assert.True(result.IsValid);
-    }
+		// Assert
+		Assert.True(result.IsValid);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateCustomInvalidNameData))]
-    [ClassData(typeof(CreateCustomInvalidDescriptionData))]
-    public async Task Validate_ShouldBeInvalid_WhenCustomIsNotValid(string name, string description, bool fordelivery)
-    {
-        // Arrange
-        CreateCustomCommand command = new(
-            Name: name,
-            Description: description,
-            ForDelivery: fordelivery,
-            BuyerId: ValidBuyerId
-        );
+	[Theory]
+	[ClassData(typeof(CreateCustomInvalidNameData))]
+	[ClassData(typeof(CreateCustomInvalidDescriptionData))]
+	public async Task Validate_ShouldBeInvalid_WhenCustomIsNotValid(string name, string description, bool fordelivery)
+	{
+		// Arrange
+		CreateCustomCommand command = new(
+			Name: name,
+			Description: description,
+			ForDelivery: fordelivery,
+			BuyerId: ValidBuyerId
+		);
 
-        // Act
-        var result = await validator.TestValidateAsync(command, cancellationToken: ct);
+		// Act
+		var result = await validator.TestValidateAsync(command, cancellationToken: ct);
 
-        // Assert
-        Assert.False(result.IsValid);
-    }
+		// Assert
+		Assert.False(result.IsValid);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateCustomInvalidNameData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description, bool fordelivery)
-    {
-        // Arrange
-        CreateCustomCommand command = new(
-            Name: name,
-            Description: description,
-            ForDelivery: fordelivery,
-            BuyerId: ValidBuyerId
-        );
+	[Theory]
+	[ClassData(typeof(CreateCustomInvalidNameData))]
+	public async Task Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description, bool fordelivery)
+	{
+		// Arrange
+		CreateCustomCommand command = new(
+			Name: name,
+			Description: description,
+			ForDelivery: fordelivery,
+			BuyerId: ValidBuyerId
+		);
 
-        // Act
-        var result = await validator.TestValidateAsync(command, cancellationToken: ct);
+		// Act
+		var result = await validator.TestValidateAsync(command, cancellationToken: ct);
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.Name);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.Name);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateCustomInvalidDescriptionData))]
-    public async Task Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description, bool fordelivery)
-    {
-        // Arrange
-        CreateCustomCommand command = new(
-            Name: name,
-            Description: description,
-            ForDelivery: fordelivery,
-            BuyerId: ValidBuyerId
-        );
+	[Theory]
+	[ClassData(typeof(CreateCustomInvalidDescriptionData))]
+	public async Task Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description, bool fordelivery)
+	{
+		// Arrange
+		CreateCustomCommand command = new(
+			Name: name,
+			Description: description,
+			ForDelivery: fordelivery,
+			BuyerId: ValidBuyerId
+		);
 
-        // Act
-        var result = await validator.TestValidateAsync(command, cancellationToken: ct);
+		// Act
+		var result = await validator.TestValidateAsync(command, cancellationToken: ct);
 
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.Description);
-    }
+		// Assert
+		result.ShouldHaveValidationErrorFor(x => x.Description);
+	}
 }

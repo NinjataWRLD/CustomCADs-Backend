@@ -5,10 +5,10 @@ using CustomCADs.Shared.UseCases.Cads.Queries;
 namespace CustomCADs.Files.Application.Cads.Queries.Shared;
 
 public class GetCadExistsByIdHandler(ICadReads reads)
-    : IQueryHandler<GetCadExistsByIdQuery, bool>
+	: IQueryHandler<GetCadExistsByIdQuery, bool>
 {
-    public async Task<bool> Handle(GetCadExistsByIdQuery req, CancellationToken ct)
-    {
-        return await reads.ExistsByIdAsync(req.Id, ct).ConfigureAwait(false);
-    }
+	public async Task<bool> Handle(GetCadExistsByIdQuery req, CancellationToken ct)
+	{
+		return await reads.ExistsByIdAsync(req.Id, ct).ConfigureAwait(false);
+	}
 }

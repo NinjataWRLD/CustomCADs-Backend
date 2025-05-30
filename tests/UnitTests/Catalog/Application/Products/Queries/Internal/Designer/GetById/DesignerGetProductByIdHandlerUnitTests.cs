@@ -11,83 +11,83 @@ using static ProductsData;
 
 public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly DesignerGetProductByIdHandler handler;
-    private readonly Mock<IProductReads> reads = new();
-    private readonly Mock<IRequestSender> sender = new();
+	private readonly DesignerGetProductByIdHandler handler;
+	private readonly Mock<IProductReads> reads = new();
+	private readonly Mock<IRequestSender> sender = new();
 
-    private readonly Product product = CreateProduct();
+	private readonly Product product = CreateProduct();
 
-    public DesignerGetProductByIdHandlerUnitTests()
-    {
-        handler = new(reads.Object, sender.Object);
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(product);
-    }
+	public DesignerGetProductByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object, sender.Object);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(product);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatbase()
-    {
-        // Arrange
-        DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
+	[Fact]
+	public async Task Handle_ShouldQueryDatbase()
+	{
+		// Arrange
+		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetUsernameByIdQuery>(x => x.Id == ValidCreatorId),
-            ct
-        ), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetCategoryNameByIdQuery>(x => x.Id == ValidCategoryId),
-            ct
-        ), Times.Once);
-    }
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidCreatorId),
+			ct
+		), Times.Once);
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetCategoryNameByIdQuery>(x => x.Id == ValidCategoryId),
+			ct
+		), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
 
-        // Act
-        var result = await handler.Handle(query, ct);
+		// Act
+		var result = await handler.Handle(query, ct);
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.Equal(product.Id, result.Id),
-            () => Assert.Equal(product.Name, result.Name),
-            () => Assert.Equal(product.Description, result.Description),
-            () => Assert.Equal(product.Price, result.Price),
-            () => Assert.Equal(product.CategoryId, result.Category.Id)
-        );
-    }
+		// Assert
+		Assert.Multiple(
+			() => Assert.Equal(product.Id, result.Id),
+			() => Assert.Equal(product.Name, result.Name),
+			() => Assert.Equal(product.Description, result.Description),
+			() => Assert.Equal(product.Price, result.Price),
+			() => Assert.Equal(product.CategoryId, result.Category.Id)
+		);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenProductNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(null as Product);
-        DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenProductNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(null as Product);
+		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
-            // Act
-            async () => await handler.Handle(query, ct)
-        );
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
 }

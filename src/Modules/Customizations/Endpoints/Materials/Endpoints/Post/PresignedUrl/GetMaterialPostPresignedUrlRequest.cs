@@ -3,6 +3,6 @@
 namespace CustomCADs.Customizations.Endpoints.Materials.Endpoints.Post.PresignedUrl;
 
 public sealed record GetMaterialPostPresignedUrlRequest(
-    string MaterialName,
-    UploadFileRequest Image
+	string MaterialName,
+	UploadFileRequest Image
 );

@@ -8,15 +8,15 @@ using static Constants.FluentMessages;
 
 public class CalculateCustomShipmentValidator : QueryValidator<CalculateCustomShipmentQuery, CalculateShipmentDto[]>
 {
-    public CalculateCustomShipmentValidator()
-    {
-        RuleFor(x => x.Address).ChildRules(x =>
-        {
-            x.RuleFor(x => x.Country)
-                .NotEmpty().WithMessage(RequiredError);
+	public CalculateCustomShipmentValidator()
+	{
+		RuleFor(x => x.Address).ChildRules(x =>
+		{
+			x.RuleFor(x => x.Country)
+				.NotEmpty().WithMessage(RequiredError);
 
-            x.RuleFor(x => x.City)
-                .NotEmpty().WithMessage(RequiredError);
-        });
-    }
+			x.RuleFor(x => x.City)
+				.NotEmpty().WithMessage(RequiredError);
+		});
+	}
 }

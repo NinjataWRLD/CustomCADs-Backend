@@ -60,6 +60,10 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("ProductId");
 
+                    b.Property<Guid>("CartId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CartId");
+
                     b.Property<DateTimeOffset>("AddedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("AddedAt");
@@ -67,10 +71,6 @@ namespace CustomCADs.Carts.Persistence.Migrations
                     b.Property<Guid>("CadId")
                         .HasColumnType("uuid")
                         .HasColumnName("CadId");
-
-                    b.Property<Guid>("CartId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("CartId");
 
                     b.Property<Guid?>("CustomizationId")
                         .HasColumnType("uuid")
@@ -89,7 +89,7 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("Quantity");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("ProductId", "CartId");
 
                     b.HasIndex("CartId");
 

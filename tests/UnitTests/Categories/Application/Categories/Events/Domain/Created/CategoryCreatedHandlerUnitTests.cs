@@ -11,28 +11,28 @@ using static CategoriesData;
 
 public class CategoryCreatedHandlerUnitTests : CategoriesBaseUnitTests
 {
-    private readonly CategoryCreatedEventHandler handler;
-    private readonly Mock<ICacheService> cache = new();
+	private readonly CategoryCreatedEventHandler handler;
+	private readonly Mock<ICacheService> cache = new();
 
-    public CategoryCreatedHandlerUnitTests()
-    {
-        handler = new(cache.Object);
-    }
+	public CategoryCreatedHandlerUnitTests()
+	{
+		handler = new(cache.Object);
+	}
 
-    [Theory]
-    [ClassData(typeof(CategoryCreatedValidData))]
-    public async Task Handle_ShouldUpdateCache(string name, string description)
-    {
-        // Arrange
-        CategoryCreatedDomainEvent de = new(
-            Category: CreateCategory(ValidId, name, description)
-        );
+	[Theory]
+	[ClassData(typeof(CategoryCreatedValidData))]
+	public async Task Handle_ShouldUpdateCache(string name, string description)
+	{
+		// Arrange
+		CategoryCreatedDomainEvent de = new(
+			Category: CreateCategory(ValidId, name, description)
+		);
 
-        // Act
-        await handler.Handle(de);
+		// Act
+		await handler.Handle(de);
 
-        // Assert
-        cache.Verify(v => v.RemoveAsync<IEnumerable<Category>>(CategoryKey), Times.Once());
-        cache.Verify(v => v.SetAsync($"{CategoryKey}/{de.Category.Id}", de.Category), Times.Once());
-    }
+		// Assert
+		cache.Verify(v => v.RemoveAsync<IEnumerable<Category>>(CategoryKey), Times.Once());
+		cache.Verify(v => v.SetAsync($"{CategoryKey}/{de.Category.Id}", de.Category), Times.Once());
+	}
 }

@@ -6,34 +6,34 @@ using Data;
 
 public class AccountFirstNameUnitTests : AccountsBaseUnitTests
 {
-    [Theory]
-    [ClassData(typeof(AccountFirstNameValidData))]
-    public void SetFirstName_ShouldNotThrowException_WhenfirstNameIsValid(string firstName)
-    {
-        var account = CreateAccount();
+	[Theory]
+	[ClassData(typeof(AccountFirstNameValidData))]
+	public void SetFirstName_ShouldNotThrowException_WhenfirstNameIsValid(string firstName)
+	{
+		var account = CreateAccount();
 
-        account.SetFirstName(firstName);
-    }
+		account.SetFirstName(firstName);
+	}
 
-    [Theory]
-    [ClassData(typeof(AccountFirstNameValidData))]
-    public void SetFirstName_SetsfirstName_WhenUserameIsValid(string firstName)
-    {
-        var account = CreateAccount();
+	[Theory]
+	[ClassData(typeof(AccountFirstNameValidData))]
+	public void SetFirstName_SetsfirstName_WhenUserameIsValid(string firstName)
+	{
+		var account = CreateAccount();
 
-        account.SetFirstName(firstName);
+		account.SetFirstName(firstName);
 
-        Assert.Equal(account.FirstName, firstName);
-    }
+		Assert.Equal(account.FirstName, firstName);
+	}
 
-    [Theory]
-    [ClassData(typeof(AccountFirstNameInvalidData))]
-    public void SetFirstName_ThrowsException_WhenUserameIsInvalid(string firstName)
-    {
-        var account = CreateAccount();
+	[Theory]
+	[ClassData(typeof(AccountFirstNameInvalidData))]
+	public void SetFirstName_ThrowsException_WhenUserameIsInvalid(string firstName)
+	{
+		var account = CreateAccount();
 
-        Assert.Throws<CustomValidationException<Account>>(
-            () => account.SetFirstName(firstName)
-        );
-    }
+		Assert.Throws<CustomValidationException<Account>>(
+			() => account.SetFirstName(firstName)
+		);
+	}
 }

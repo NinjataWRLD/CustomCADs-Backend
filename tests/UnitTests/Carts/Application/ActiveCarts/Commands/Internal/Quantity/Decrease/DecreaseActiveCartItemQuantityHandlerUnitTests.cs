@@ -12,92 +12,92 @@ using static ActiveCartsData;
 
 public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private readonly DecreaseActiveCartItemQuantityHandler handler;
-    private readonly Mock<IActiveCartReads> reads = new();
-    private readonly Mock<IUnitOfWork> uow = new();
+	private readonly DecreaseActiveCartItemQuantityHandler handler;
+	private readonly Mock<IActiveCartReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
 
-    public DecreaseActiveCartItemQuantityHandlerUnitTests()
-    {
-        handler = new(reads.Object, uow.Object);
+	public DecreaseActiveCartItemQuantityHandlerUnitTests()
+	{
+		handler = new(reads.Object, uow.Object);
 
-        var item = CreateItemWithDelivery(productId: ValidProductId).IncreaseQuantity(QuantityMax - 1);
+		var item = CreateItemWithDelivery(productId: ValidProductId).IncreaseQuantity(QuantityMax - 1);
 
-        reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
-            .ReturnsAsync(item);
-    }
+		reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
+			.ReturnsAsync(item);
+	}
 
-    [Theory]
-    [ClassData(typeof(DecreaseActiveCartItemQuantityValidData))]
-    public async Task Handle_ShouldQueryDatabase(int amount)
-    {
-        // Arrange
-        DecreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: ValidBuyerId,
-            ProductId: ValidProductId,
-            Amount: amount
-        );
+	[Theory]
+	[ClassData(typeof(DecreaseActiveCartItemQuantityValidData))]
+	public async Task Handle_ShouldQueryDatabase(int amount)
+	{
+		// Arrange
+		DecreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId,
+			Amount: amount
+		);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct), Times.Once);
+	}
 
-    [Theory]
-    [ClassData(typeof(DecreaseActiveCartItemQuantityValidData))]
-    public async Task Handle_ShouldPersistToDatabase(int amount)
-    {
-        // Arrange
-        DecreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: ValidBuyerId,
-            ProductId: ValidProductId,
-            Amount: amount
-        );
+	[Theory]
+	[ClassData(typeof(DecreaseActiveCartItemQuantityValidData))]
+	public async Task Handle_ShouldPersistToDatabase(int amount)
+	{
+		// Arrange
+		DecreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId,
+			Amount: amount
+		);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Assert
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-    [Theory]
-    [ClassData(typeof(DecreaseActiveCartItemQuantityValidData))]
-    public async Task Handle_ShouldThrowException_WhenCartNotFound(int amount)
-    {
-        // Arrange
-        reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
-            .ReturnsAsync(null as ActiveCartItem);
+	[Theory]
+	[ClassData(typeof(DecreaseActiveCartItemQuantityValidData))]
+	public async Task Handle_ShouldThrowException_WhenCartNotFound(int amount)
+	{
+		// Arrange
+		reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
+			.ReturnsAsync(null as ActiveCartItem);
 
-        DecreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: ValidBuyerId,
-            ProductId: ValidProductId,
-            Amount: amount
-        );
+		DecreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId,
+			Amount: amount
+		);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
-            // Act
-            async () => await handler.Handle(command, ct)
-        );
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 
-    [Theory]
-    [ClassData(typeof(DecreaseActiveCartItemQuantityValidData))]
-    public async Task Handle_ShouldThrowException_WhenItemNotFound(int amount)
-    {
-        // Arrange
-        DecreaseActiveCartItemQuantityCommand command = new(
-            BuyerId: ValidBuyerId,
-            ProductId: ProductId.New(),
-            Amount: amount
-        );
+	[Theory]
+	[ClassData(typeof(DecreaseActiveCartItemQuantityValidData))]
+	public async Task Handle_ShouldThrowException_WhenItemNotFound(int amount)
+	{
+		// Arrange
+		DecreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ProductId.New(),
+			Amount: amount
+		);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
-            // Act
-            async () => await handler.Handle(command, ct)
-        );
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 }

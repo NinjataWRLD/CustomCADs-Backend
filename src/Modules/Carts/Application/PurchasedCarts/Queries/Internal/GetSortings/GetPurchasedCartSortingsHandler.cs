@@ -3,10 +3,10 @@
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetSortings;
 
 public class GetPurchasedCartSortingsHandler
-    : IQueryHandler<GetPurchasedCartSortingsQuery, string[]>
+	: IQueryHandler<GetPurchasedCartSortingsQuery, string[]>
 {
-    public Task<string[]> Handle(GetPurchasedCartSortingsQuery req, CancellationToken ct)
-        => Task.FromResult(
-            Enum.GetNames<PurchasedCartSortingType>()
-        );
+	public Task<string[]> Handle(GetPurchasedCartSortingsQuery req, CancellationToken ct)
+		=> Task.FromResult(
+			Enum.GetNames<PurchasedCartSortingType>()
+		);
 }

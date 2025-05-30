@@ -3,5 +3,5 @@
 namespace CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.Count;
 
 public sealed record CountCustomsQuery(
-    AccountId BuyerId
+	AccountId BuyerId
 ) : IQuery<CountCustomsDto>;

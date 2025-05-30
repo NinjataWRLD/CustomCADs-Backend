@@ -10,23 +10,23 @@ using static Constants.FluentMessages;
 
 public class CreateAccountValidator : CommandValidator<CreateAccountCommand, AccountId>
 {
-    public CreateAccountValidator()
-    {
-        RuleFor(r => r.Role)
-            .NotEmpty().WithMessage(RequiredError);
+	public CreateAccountValidator()
+	{
+		RuleFor(r => r.Role)
+			.NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(r => r.Username)
-            .NotEmpty().WithMessage(RequiredError)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
+		RuleFor(r => r.Username)
+			.NotEmpty().WithMessage(RequiredError)
+			.Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
-        RuleFor(r => r.Email)
-            .NotEmpty().WithMessage(RequiredError)
-            .Matches(Regexes.Email).WithMessage(EmailError);
+		RuleFor(r => r.Email)
+			.NotEmpty().WithMessage(RequiredError)
+			.Matches(Regexes.Email).WithMessage(EmailError);
 
-        RuleFor(r => r.FirstName)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
+		RuleFor(r => r.FirstName)
+			.Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
 
-        RuleFor(r => r.LastName)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
-    }
+		RuleFor(r => r.LastName)
+			.Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
+	}
 }

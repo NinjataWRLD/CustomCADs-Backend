@@ -10,54 +10,54 @@ namespace CustomCADs.Customs.Persistence.Configurations.Customs.Completed;
 
 public static class Utilities
 {
-    public static EntityTypeBuilder<CompletedCustom> SetPrimaryKey(this EntityTypeBuilder<CompletedCustom> builder)
-    {
-        builder.HasKey(x => x.CustomId);
+	public static EntityTypeBuilder<CompletedCustom> SetPrimaryKey(this EntityTypeBuilder<CompletedCustom> builder)
+	{
+		builder.HasKey(x => x.CustomId);
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public static EntityTypeBuilder<CompletedCustom> SetStronglyTypedIds(this EntityTypeBuilder<CompletedCustom> builder)
-    {
-        builder.Property(x => x.CustomId)
-            .HasConversion(
-                x => x.Value,
-                v => CustomId.New(v)
-            );
+	public static EntityTypeBuilder<CompletedCustom> SetStronglyTypedIds(this EntityTypeBuilder<CompletedCustom> builder)
+	{
+		builder.Property(x => x.CustomId)
+			.HasConversion(
+				x => x.Value,
+				v => CustomId.New(v)
+			);
 
-        builder.Property(x => x.ShipmentId)
-            .HasConversion(
-                x => ShipmentId.Unwrap(x),
-                v => ShipmentId.New(v)
-            );
+		builder.Property(x => x.ShipmentId)
+			.HasConversion(
+				x => ShipmentId.Unwrap(x),
+				v => ShipmentId.New(v)
+			);
 
-        builder.Property(x => x.CustomizationId)
-            .HasConversion(
-                x => CustomizationId.Unwrap(x),
-                v => CustomizationId.New(v)
-            );
+		builder.Property(x => x.CustomizationId)
+			.HasConversion(
+				x => CustomizationId.Unwrap(x),
+				v => CustomizationId.New(v)
+			);
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public static EntityTypeBuilder<CompletedCustom> SetNavigations(this EntityTypeBuilder<CompletedCustom> builder)
-    {
-        builder
-            .HasOne<Custom>()
-            .WithOne(x => x.CompletedCustom)
-            .HasForeignKey<CompletedCustom>(x => x.CustomId);
+	public static EntityTypeBuilder<CompletedCustom> SetNavigations(this EntityTypeBuilder<CompletedCustom> builder)
+	{
+		builder
+			.HasOne<Custom>()
+			.WithOne(x => x.CompletedCustom)
+			.HasForeignKey<CompletedCustom>(x => x.CustomId);
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public static EntityTypeBuilder<CompletedCustom> SetValidations(this EntityTypeBuilder<CompletedCustom> builder)
-    {
-        builder.Property(x => x.ShipmentId)
-            .HasColumnName(nameof(CompletedCustom.ShipmentId));
+	public static EntityTypeBuilder<CompletedCustom> SetValidations(this EntityTypeBuilder<CompletedCustom> builder)
+	{
+		builder.Property(x => x.ShipmentId)
+			.HasColumnName(nameof(CompletedCustom.ShipmentId));
 
-        builder.Property(x => x.CustomizationId)
-            .HasColumnName(nameof(CompletedCustom.CustomizationId));
+		builder.Property(x => x.CustomizationId)
+			.HasColumnName(nameof(CompletedCustom.CustomizationId));
 
-        return builder;
-    }
+		return builder;
+	}
 }

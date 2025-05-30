@@ -3,6 +3,6 @@
 namespace CustomCADs.Accounts.Domain.Roles.Events;
 
 public record RoleDeletedDomainEvent(
-    RoleId Id,
-    string Name
+	RoleId Id,
+	string Name
 ) : BaseDomainEvent;

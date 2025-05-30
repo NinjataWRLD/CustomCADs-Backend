@@ -8,9 +8,9 @@ using static Constants.FluentMessages;
 
 public class SetCadContentTypeValidator : CommandValidator<SetCadContentTypeCommand>
 {
-    public SetCadContentTypeValidator()
-    {
-        RuleFor(x => x.ContentType)
-            .NotEmpty().WithMessage(RequiredError);
-    }
+	public SetCadContentTypeValidator()
+	{
+		RuleFor(x => x.ContentType)
+			.NotEmpty().WithMessage(RequiredError);
+	}
 }

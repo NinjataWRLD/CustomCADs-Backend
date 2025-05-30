@@ -10,57 +10,57 @@ using static Constants.Users;
 
 public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 {
-    private const int count = 30;
+	private const int count = 30;
 
-    private readonly GetAllAccountsHandler handler;
-    private readonly Mock<IAccountReads> reads = new();
-    private readonly Account[] accounts = [
-        Account.CreateWithId(AccountId.New(), Roles.Customer, CustomerUsername, CustomerEmail),
-        Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail),
-        Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail),
-        Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail),
-    ];
-    private readonly AccountQuery accountQuery = new(GetPagination());
+	private readonly GetAllAccountsHandler handler;
+	private readonly Mock<IAccountReads> reads = new();
+	private readonly Account[] accounts = [
+		Account.CreateWithId(AccountId.New(), Roles.Customer, CustomerUsername, CustomerEmail),
+		Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail),
+		Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail),
+		Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail),
+	];
+	private readonly AccountQuery accountQuery = new(GetPagination());
 
-    public GetAllAccountsHandlerUnitTests()
-    {
-        handler = new(reads.Object);
+	public GetAllAccountsHandlerUnitTests()
+	{
+		handler = new(reads.Object);
 
-        reads.Setup(x => x.AllAsync(accountQuery, false, ct))
-            .ReturnsAsync(new Result<Account>(count, accounts));
-    }
+		reads.Setup(x => x.AllAsync(accountQuery, false, ct))
+			.ReturnsAsync(new Result<Account>(count, accounts));
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GetAllAccountsQuery query = new(GetPagination());
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetAllAccountsQuery query = new(GetPagination());
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldReturnResult()
-    {
-        // Arrange
-        GetAllAccountsQuery query = new(GetPagination());
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetAllAccountsQuery query = new(GetPagination());
 
-        // Act
-        Result<GetAllAccountsDto> accounts = await handler.Handle(query, ct);
+		// Act
+		Result<GetAllAccountsDto> accounts = await handler.Handle(query, ct);
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.Equal(accounts.Items.Select(r => r.Id), this.accounts.Select(r => r.Id)),
-            () => Assert.Equal(accounts.Items.Select(r => r.Role), this.accounts.Select(r => r.RoleName)),
-            () => Assert.Equal(accounts.Items.Select(r => r.Username), this.accounts.Select(r => r.Username)),
-            () => Assert.Equal(accounts.Items.Select(r => r.Email), this.accounts.Select(r => r.Email))
-        );
-    }
+		// Assert
+		Assert.Multiple(
+			() => Assert.Equal(accounts.Items.Select(r => r.Id), this.accounts.Select(r => r.Id)),
+			() => Assert.Equal(accounts.Items.Select(r => r.Role), this.accounts.Select(r => r.RoleName)),
+			() => Assert.Equal(accounts.Items.Select(r => r.Username), this.accounts.Select(r => r.Username)),
+			() => Assert.Equal(accounts.Items.Select(r => r.Email), this.accounts.Select(r => r.Email))
+		);
+	}
 
-    private static Pagination GetPagination(int count = count)
-            => new(1, count);
+	private static Pagination GetPagination(int count = count)
+			=> new(1, count);
 }

@@ -8,15 +8,15 @@ using static Constants.FluentMessages;
 
 public class CreatorGetProductCadPresignedUrlPostValidator : QueryValidator<CreatorGetProductCadPresignedUrlPostQuery, UploadFileResponse>
 {
-    public CreatorGetProductCadPresignedUrlPostValidator()
-    {
-        RuleFor(x => x.ProductName)
-            .NotEmpty().WithMessage(RequiredError);
+	public CreatorGetProductCadPresignedUrlPostValidator()
+	{
+		RuleFor(x => x.ProductName)
+			.NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(x => x.Cad.ContentType)
-            .NotEmpty().WithMessage(RequiredError);
+		RuleFor(x => x.Cad.ContentType)
+			.NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(x => x.Cad.FileName)
-            .NotEmpty().WithMessage(RequiredError);
-    }
+		RuleFor(x => x.Cad.FileName)
+			.NotEmpty().WithMessage(RequiredError);
+	}
 }

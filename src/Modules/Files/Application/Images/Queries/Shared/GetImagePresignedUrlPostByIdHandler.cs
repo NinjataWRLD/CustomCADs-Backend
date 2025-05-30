@@ -6,14 +6,14 @@ using CustomCADs.Shared.UseCases.Images.Queries;
 namespace CustomCADs.Files.Application.Images.Queries.Shared;
 
 public class GetImagePresignedUrlPostByIdHandler(IStorageService storage)
-    : IQueryHandler<GetImagePresignedUrlPostByIdQuery, UploadFileResponse>
+	: IQueryHandler<GetImagePresignedUrlPostByIdQuery, UploadFileResponse>
 {
-    public async Task<UploadFileResponse> Handle(GetImagePresignedUrlPostByIdQuery req, CancellationToken ct)
-    {
-        return await storage.GetPresignedPostUrlAsync(
-            folderPath: "images",
-            name: req.Name,
-            file: req.File
-        ).ConfigureAwait(false);
-    }
+	public async Task<UploadFileResponse> Handle(GetImagePresignedUrlPostByIdQuery req, CancellationToken ct)
+	{
+		return await storage.GetPresignedPostUrlAsync(
+			folderPath: "images",
+			name: req.Name,
+			file: req.File
+		).ConfigureAwait(false);
+	}
 }

@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetStatus;
 
 public record GetShipmentTrackQuery(
-    ShipmentId Id
-) : IQuery<Dictionary<DateTime, GetShipmentTrackDto>>;
+	ShipmentId Id
+) : IQuery<Dictionary<DateTimeOffset, GetShipmentTrackDto>>;

@@ -10,62 +10,72 @@ using CustomCADs.Shared.UseCases.Customizations.Queries;
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.WithDelivery;
 
 public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitOfWork uow, IRequestSender sender, IPaymentService payment, IEventRaiser raiser)
-    : ICommandHandler<PurchaseCustomWithDeliveryCommand, string>
+	: ICommandHandler<PurchaseCustomWithDeliveryCommand, PaymentDto>
 {
-    public async Task<string> Handle(PurchaseCustomWithDeliveryCommand req, CancellationToken ct)
-    {
-        Custom custom = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<Custom>.ById(req.Id);
+	public async Task<PaymentDto> Handle(PurchaseCustomWithDeliveryCommand req, CancellationToken ct)
+	{
+		Custom custom = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Custom>.ById(req.Id);
 
-        if (custom.BuyerId != req.BuyerId)
-            throw CustomAuthorizationException<Custom>.ById(custom.Id);
+		if (custom.BuyerId != req.BuyerId)
+		{
+			throw CustomAuthorizationException<Custom>.ById(custom.Id);
+		}
 
-        if (!custom.ForDelivery)
-            throw CustomException.Delivery<Custom>(custom.ForDelivery);
+		if (!custom.ForDelivery)
+		{
+			throw CustomException.Delivery<Custom>(custom.ForDelivery);
+		}
 
-        if (custom.AcceptedCustom is null)
-            throw CustomException.NullProp<Custom>(nameof(custom.AcceptedCustom.DesignerId));
+		if (custom.AcceptedCustom is null)
+		{
+			throw CustomException.NullProp<Custom>(nameof(custom.AcceptedCustom.DesignerId));
+		}
 
-        if (custom.FinishedCustom is null)
-            throw CustomException.NullProp<Custom>(nameof(custom.FinishedCustom.CadId));
+		if (custom.FinishedCustom is null)
+		{
+			throw CustomException.NullProp<Custom>(nameof(custom.FinishedCustom.CadId));
+		}
 
-        string[] users = await Task.WhenAll(
-            sender.SendQueryAsync(new GetUsernameByIdQuery(custom.BuyerId), ct),
-            sender.SendQueryAsync(new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId), ct)
-        ).ConfigureAwait(false);
-        string buyer = users[0], seller = users[1];
+		string[] users = await Task.WhenAll(
+			sender.SendQueryAsync(new GetUsernameByIdQuery(custom.BuyerId), ct),
+			sender.SendQueryAsync(new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId), ct)
+		).ConfigureAwait(false);
+		string buyer = users[0], seller = users[1];
 
-        GetCustomizationCostByIdQuery costQuery = new(req.CustomizationId);
-        decimal cost = await sender.SendQueryAsync(costQuery, ct).ConfigureAwait(false);
-        decimal total = req.Count * (custom.FinishedCustom.Price + cost);
+		GetCustomizationCostByIdQuery costQuery = new(req.CustomizationId);
+		decimal cost = await sender.SendQueryAsync(costQuery, ct).ConfigureAwait(false);
+		decimal total = req.Count * (custom.FinishedCustom.Price + cost);
 
-        string message = await payment.InitializePayment(
-            paymentMethodId: req.PaymentMethodId,
-            price: total,
-            description: $"{buyer} bought {custom.Name} from {seller} for {total}$.",
-            ct
-        ).ConfigureAwait(false);
+		PaymentDto response = await payment.InitializePayment(
+			paymentMethodId: req.PaymentMethodId,
+			price: total,
+			description: $"{buyer} bought {custom.Name} from {seller} for {total}$.",
+			ct
+		).ConfigureAwait(false);
 
-        double weight = await sender.SendQueryAsync(
-            new GetCustomizationWeightByIdQuery(req.CustomizationId),
-            ct
-        ).ConfigureAwait(false);
+		double weight = await sender.SendQueryAsync(
+			new GetCustomizationWeightByIdQuery(req.CustomizationId),
+			ct
+		).ConfigureAwait(false);
 
-        if (!await sender.SendQueryAsync(new GetCustomizationExistsByIdQuery(req.CustomizationId), ct).ConfigureAwait(false))
-            throw CustomNotFoundException<Custom>.ById(req.CustomizationId.Value, "Customization");
+		if (!await sender.SendQueryAsync(new GetCustomizationExistsByIdQuery(req.CustomizationId), ct).ConfigureAwait(false))
+		{
+			throw CustomNotFoundException<Custom>.ById(req.CustomizationId.Value, "Customization");
+		}
 
-        custom.Complete(customizationId: req.CustomizationId);
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+		custom.Complete(customizationId: req.CustomizationId);
+		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await raiser.RaiseDomainEventAsync(new CustomDeliveryRequestedDomainEvent(
-            Id: req.Id,
-            ShipmentService: req.ShipmentService,
-            Weight: weight * req.Count,
-            Count: req.Count,
-            Address: req.Address,
-            Contact: req.Contact
-        )).ConfigureAwait(false);
+		await raiser.RaiseDomainEventAsync(new CustomDeliveryRequestedDomainEvent(
+			Id: req.Id,
+			ShipmentService: req.ShipmentService,
+			Weight: weight * req.Count,
+			Count: req.Count,
+			Address: req.Address,
+			Contact: req.Contact
+		)).ConfigureAwait(false);
 
-        return message;
-    }
+		return response;
+	}
 }

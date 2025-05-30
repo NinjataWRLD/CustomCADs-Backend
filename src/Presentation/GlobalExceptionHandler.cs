@@ -11,27 +11,27 @@ using static StatusCodes;
 
 public class GlobalExceptionHandler(IProblemDetailsService service) : IExceptionHandler
 {
-    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
-        => ex switch
-        {
-            _ when ex is FluentValidation.ValidationException || ex.IsType(typeof(CustomValidationException<>))
-                => await service.BadRequestResponseAsync(context, ex, "Validation Error").ConfigureAwait(false),
+	public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception ex, CancellationToken ct)
+		=> ex switch
+		{
+			_ when ex is FluentValidation.ValidationException || ex.IsType(typeof(CustomValidationException<>))
+				=> await service.BadRequestResponseAsync(context, ex, "Validation Error").ConfigureAwait(false),
 
-            PaymentFailedException
-                => await service.BadRequestResponseAsync(context, ex, "Payment Failure").ConfigureAwait(false),
+			PaymentFailedException pfex
+				=> await service.PaymentFailedResponseAsync(context, ex, pfex.ClientSecret).ConfigureAwait(false),
 
-            DatabaseException
-                => await service.BadRequestResponseAsync(context, ex, "Database Error").ConfigureAwait(false),
+			DatabaseException
+				=> await service.BadRequestResponseAsync(context, ex, "Database Error").ConfigureAwait(false),
 
-            _ when ex.IsType(typeof(CustomNotFoundException<>))
-                 => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),
+			_ when ex.IsType(typeof(CustomNotFoundException<>))
+				 => await service.NotFoundResponseAsync(context, ex).ConfigureAwait(false),
 
-            _ when ex.IsType(typeof(CustomAuthorizationException<>))
-                 => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
+			_ when ex.IsType(typeof(CustomAuthorizationException<>))
+				 => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
 
-            DatabaseConflictException
-                => await service.CusotmResponseAsync(context, ex, Status409Conflict, "Database Conflict").ConfigureAwait(false),
+			DatabaseConflictException
+				=> await service.CusotmResponseAsync(context, ex, Status409Conflict, "Database Conflict").ConfigureAwait(false),
 
-            _ => await service.InternalServerErrorResponseAsync(context, ex).ConfigureAwait(false),
-        };
+			_ => await service.InternalServerErrorResponseAsync(context, ex).ConfigureAwait(false),
+		};
 }

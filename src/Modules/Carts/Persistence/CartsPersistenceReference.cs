@@ -4,5 +4,5 @@ namespace CustomCADs.Carts.Persistence;
 
 public class CartsPersistenceReference
 {
-    public static Assembly Assembly => typeof(CartsPersistenceReference).Assembly;
+	public static Assembly Assembly => typeof(CartsPersistenceReference).Assembly;
 }

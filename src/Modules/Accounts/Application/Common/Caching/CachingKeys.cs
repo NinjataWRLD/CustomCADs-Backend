@@ -2,5 +2,5 @@
 
 public static class CachingKeys
 {
-    public const string RoleKey = "roles";
+	public const string RoleKey = "roles";
 }

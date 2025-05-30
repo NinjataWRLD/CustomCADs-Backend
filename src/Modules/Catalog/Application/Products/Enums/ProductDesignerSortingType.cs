@@ -2,7 +2,7 @@
 
 public enum ProductDesignerSortingType
 {
-    UploadedAt = 1,
-    Alphabetical,
-    Cost,
+	UploadedAt = 1,
+	Alphabetical,
+	Cost,
 }

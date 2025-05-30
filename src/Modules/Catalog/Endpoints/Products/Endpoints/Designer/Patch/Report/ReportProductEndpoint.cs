@@ -4,29 +4,29 @@ using CustomCADs.Catalog.Domain.Products.Enums;
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Patch.Report;
 
 public sealed class ReportProductEndpoint(IRequestSender sender)
-    : Endpoint<ReportProductRequest>
+	: Endpoint<ReportProductRequest>
 {
-    public override void Configure()
-    {
-        Patch("report");
-        Group<DesignerGroup>();
-        Description(d => d
-            .WithSummary("Report")
-            .WithDescription("Set a Product's Status to Reported")
-        );
-    }
+	public override void Configure()
+	{
+		Patch("report");
+		Group<DesignerGroup>();
+		Description(d => d
+			.WithSummary("Report")
+			.WithDescription("Set a Product's Status to Reported")
+		);
+	}
 
-    public override async Task HandleAsync(ReportProductRequest req, CancellationToken ct)
-    {
-        await sender.SendCommandAsync(
-            new SetProductStatusCommand(
-                Id: ProductId.New(req.Id),
-                Status: ProductStatus.Reported,
-                DesignerId: User.GetAccountId()
-            ),
-            ct
-        ).ConfigureAwait(false);
+	public override async Task HandleAsync(ReportProductRequest req, CancellationToken ct)
+	{
+		await sender.SendCommandAsync(
+			new SetProductStatusCommand(
+				Id: ProductId.New(req.Id),
+				Status: ProductStatus.Reported,
+				DesignerId: User.GetAccountId()
+			),
+			ct
+		).ConfigureAwait(false);
 
-        await SendNoContentAsync().ConfigureAwait(false);
-    }
+		await SendNoContentAsync().ConfigureAwait(false);
+	}
 }

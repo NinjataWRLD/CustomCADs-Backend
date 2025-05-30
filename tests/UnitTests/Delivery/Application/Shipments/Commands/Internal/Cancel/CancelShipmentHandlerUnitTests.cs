@@ -9,43 +9,43 @@ using static ShipmentsData;
 
 public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 {
-    private readonly CancelShipmentHandler handler;
-    private readonly Mock<IShipmentReads> reads = new();
-    private readonly Mock<IDeliveryService> delivery = new();
+	private readonly CancelShipmentHandler handler;
+	private readonly Mock<IShipmentReads> reads = new();
+	private readonly Mock<IDeliveryService> delivery = new();
 
-    private const string Comment = "Cancelling due to unpredicted travelling abroad";
+	private const string Comment = "Cancelling due to unpredicted travelling abroad";
 
-    public CancelShipmentHandlerUnitTests()
-    {
-        handler = new(reads.Object, delivery.Object);
+	public CancelShipmentHandlerUnitTests()
+	{
+		handler = new(reads.Object, delivery.Object);
 
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
-            .ReturnsAsync(CreateShipment(referenceId: ValidReferenceId));
-    }
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+			.ReturnsAsync(CreateShipment(referenceId: ValidReferenceId));
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        CancelShipmentCommand command = new(id, Comment);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		CancelShipmentCommand command = new(id, Comment);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
-    {
-        // Arrange
-        CancelShipmentCommand command = new(id, Comment);
+	[Fact]
+	public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
+	{
+		// Arrange
+		CancelShipmentCommand command = new(id, Comment);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        delivery.Verify(x => x.CancelAsync(ValidReferenceId, Comment, ct), Times.Once);
-    }
+		// Assert
+		delivery.Verify(x => x.CancelAsync(ValidReferenceId, Comment, ct), Times.Once);
+	}
 }

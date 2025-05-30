@@ -2,9 +2,9 @@
 
 public class CalculateActiveCartShipmentInvalidCountryData : CalculateActiveCartShipmentData
 {
-    public CalculateActiveCartShipmentInvalidCountryData()
-    {
-        Add(new(null!, "Sofia"));
-        Add(new(string.Empty, "Bucharest"));
-    }
+	public CalculateActiveCartShipmentInvalidCountryData()
+	{
+		Add(new(null!, "Sofia", "Slivnitsa"));
+		Add(new(string.Empty, "Bucharest", "Brailles"));
+	}
 }

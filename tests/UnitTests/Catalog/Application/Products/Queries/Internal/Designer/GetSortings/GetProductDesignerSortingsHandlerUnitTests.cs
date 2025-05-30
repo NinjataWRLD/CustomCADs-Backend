@@ -7,18 +7,18 @@ using static ProductsData;
 
 public class GetProductDesignerSortingsHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly GetProductDesignerSortingsHandler handler = new();
+	private readonly GetProductDesignerSortingsHandler handler = new();
 
-    [Fact]
-    public async Task Handle_ShouldReturnResult()
-    {
-        // Arrange
-        GetProductDesignerSortingsQuery query = new();
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetProductDesignerSortingsQuery query = new();
 
-        // Act
-        string[] sortings = await handler.Handle(query, ct);
+		// Act
+		string[] sortings = await handler.Handle(query, ct);
 
-        // Assert
-        Assert.Equal(sortings, Enum.GetNames<ProductDesignerSortingType>());
-    }
+		// Assert
+		Assert.Equal(sortings, Enum.GetNames<ProductDesignerSortingType>());
+	}
 }

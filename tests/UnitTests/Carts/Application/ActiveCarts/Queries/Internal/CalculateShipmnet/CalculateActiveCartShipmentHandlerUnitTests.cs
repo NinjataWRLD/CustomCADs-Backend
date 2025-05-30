@@ -11,63 +11,63 @@ using static ActiveCartsData;
 
 public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private readonly CalculateActiveCartShipmentHandler handler;
-    private readonly Mock<IActiveCartReads> reads = new();
-    private readonly Mock<IRequestSender> sender = new();
+	private readonly CalculateActiveCartShipmentHandler handler;
+	private readonly Mock<IActiveCartReads> reads = new();
+	private readonly Mock<IRequestSender> sender = new();
 
-    private static readonly AddressDto address = new("Bulgaria", "Burgas");
+	private static readonly AddressDto address = new("Bulgaria", "Burgas", "Slivnitsa");
 
-    public CalculateActiveCartShipmentHandlerUnitTests()
-    {
-        handler = new(reads.Object, sender.Object);
+	public CalculateActiveCartShipmentHandlerUnitTests()
+	{
+		handler = new(reads.Object, sender.Object);
 
-        reads.Setup(x => x.AllAsync(ValidBuyerId, false, ct))
-            .ReturnsAsync([
-                CreateItem(ValidBuyerId, ValidProductId),
-                CreateItemWithDelivery(ValidBuyerId, ValidProductId),
-            ]);
+		reads.Setup(x => x.AllAsync(ValidBuyerId, false, ct))
+			.ReturnsAsync([
+				CreateItem(ValidBuyerId, ValidProductId),
+				CreateItemWithDelivery(ValidBuyerId, ValidProductId),
+			]);
 
-        sender.Setup(x => x.SendQueryAsync(
-            It.IsAny<GetCustomizationsWeightByIdsQuery>(),
-            ct
-        )).ReturnsAsync([]);
+		sender.Setup(x => x.SendQueryAsync(
+			It.IsAny<GetCustomizationsWeightByIdsQuery>(),
+			ct
+		)).ReturnsAsync([]);
 
-        sender.Setup(x => x.SendQueryAsync(
-            It.IsAny<CalculateShipmentQuery>(),
-            ct
-        )).ReturnsAsync([]);
-    }
+		sender.Setup(x => x.SendQueryAsync(
+			It.IsAny<CalculateShipmentQuery>(),
+			ct
+		)).ReturnsAsync([]);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        CalculateActiveCartShipmentQuery query = new(ValidBuyerId, address);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		CalculateActiveCartShipmentQuery query = new(ValidBuyerId, address);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        CalculateActiveCartShipmentQuery query = new(ValidBuyerId, address);
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		CalculateActiveCartShipmentQuery query = new(ValidBuyerId, address);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetCustomizationsWeightByIdsQuery>(),
-            ct
-        ), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(
-            It.Is<CalculateShipmentQuery>(x => x.Address == address),
-            ct
-        ), Times.Once);
-    }
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.IsAny<GetCustomizationsWeightByIdsQuery>(),
+			ct
+		), Times.Once);
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<CalculateShipmentQuery>(x => x.Address == address),
+			ct
+		), Times.Once);
+	}
 }

@@ -4,5 +4,5 @@ namespace CustomCADs.Carts.Application;
 
 public class CartsApplicationReference
 {
-    public static Assembly Assembly => typeof(CartsApplicationReference).Assembly;
+	public static Assembly Assembly => typeof(CartsApplicationReference).Assembly;
 }

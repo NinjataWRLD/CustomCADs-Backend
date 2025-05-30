@@ -4,9 +4,9 @@ using static ProductsData;
 
 public class SetProductNameInvalidData : SetProductNameData
 {
-    public SetProductNameInvalidData()
-    {
-        Add(InvalidName1);
-        Add(InvalidName2);
-    }
+	public SetProductNameInvalidData()
+	{
+		Add(InvalidName1);
+		Add(InvalidName2);
+	}
 }

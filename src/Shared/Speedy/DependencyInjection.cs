@@ -36,126 +36,126 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    private const string BASE_URL = "https://api.speedy.bg/v1";
+	private const string BASE_URL = "https://api.speedy.bg/v1";
 
-    private static RefitSettings Settings
-    {
-        get
-        {
-            JsonSerializerOptions options = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseUpper));
-            var serializer = new SystemTextJsonContentSerializer(options);
-            return new(serializer, null, null);
-        }
-    }
+	private static RefitSettings Settings
+	{
+		get
+		{
+			JsonSerializerOptions options = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+			options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseUpper));
+			var serializer = new SystemTextJsonContentSerializer(options);
+			return new(serializer, null, null);
+		}
+	}
 
-    public static IServiceCollection AddDeliveryShipmentService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<IShipmentEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/shipment"));
-        services.AddScoped<ShipmentService>();
+	public static IServiceCollection AddDeliveryShipmentService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<IShipmentEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/shipment"));
+		services.AddScoped<ShipmentService>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddDeliveryPrintService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<IPrintEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/print"));
-        services.AddScoped<PrintService>();
+	public static IServiceCollection AddDeliveryPrintService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<IPrintEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/print"));
+		services.AddScoped<PrintService>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddDeliveryTrackService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<ITrackEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/track"));
-        services.AddScoped<TrackService>();
+	public static IServiceCollection AddDeliveryTrackService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<ITrackEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/track"));
+		services.AddScoped<TrackService>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddDeliveryPickupService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<IPickupEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/pickup"));
-        services.AddScoped<PickupService>();
+	public static IServiceCollection AddDeliveryPickupService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<IPickupEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/pickup"));
+		services.AddScoped<PickupService>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddDeliveryLocationService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<ILocationEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/location"));
-        services.AddScoped<LocationService>();
+	public static IServiceCollection AddDeliveryLocationService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<ILocationEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/location"));
+		services.AddScoped<LocationService>();
 
-        services.AddScoped<BlockService>();
-        services.AddScoped<ComplexService>();
-        services.AddScoped<CountryService>();
-        services.AddScoped<OfficeService>();
-        services.AddScoped<PointOfInterestService>();
-        services.AddScoped<PostCodeService>();
-        services.AddScoped<SiteService>();
-        services.AddScoped<StateService>();
-        services.AddScoped<StreetService>();
+		services.AddScoped<BlockService>();
+		services.AddScoped<ComplexService>();
+		services.AddScoped<CountryService>();
+		services.AddScoped<OfficeService>();
+		services.AddScoped<PointOfInterestService>();
+		services.AddScoped<PostCodeService>();
+		services.AddScoped<SiteService>();
+		services.AddScoped<StateService>();
+		services.AddScoped<StreetService>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddDeliveryCalculationService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<ICalculationEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/calculate"));
-        services.AddScoped<CalculationService>();
+	public static IServiceCollection AddDeliveryCalculationService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<ICalculationEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/calculate"));
+		services.AddScoped<CalculationService>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddDeliveryClientService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<IClientEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/client"));
-        services.AddScoped<ClientService>();
+	public static IServiceCollection AddDeliveryClientService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<IClientEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/client"));
+		services.AddScoped<ClientService>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddDeliveryValidationService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<IValidationEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/validation"));
-        services.AddScoped<ValidationService>();
+	public static IServiceCollection AddDeliveryValidationService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<IValidationEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/validation"));
+		services.AddScoped<ValidationService>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddDeliveryServicesService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<IServicesEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/services"));
-        services.AddScoped<ServicesService>();
+	public static IServiceCollection AddDeliveryServicesService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<IServicesEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/services"));
+		services.AddScoped<ServicesService>();
 
-        return services;
-    }
+		return services;
+	}
 
-    public static IServiceCollection AddDeliveryPaymentService(this IServiceCollection services)
-    {
-        services
-            .AddRefitClient<IPaymentEndpoints>(Settings)
-            .ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/payments"));
-        services.AddScoped<PaymentService>();
+	public static IServiceCollection AddDeliveryPaymentService(this IServiceCollection services)
+	{
+		services
+			.AddRefitClient<IPaymentEndpoints>(Settings)
+			.ConfigureHttpClient(c => c.BaseAddress = new($"{BASE_URL}/payments"));
+		services.AddScoped<PaymentService>();
 
-        return services;
-    }
+		return services;
+	}
 }

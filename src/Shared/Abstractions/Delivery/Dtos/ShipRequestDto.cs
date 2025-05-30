@@ -3,6 +3,7 @@
 public record ShipRequestDto(
     string Country,
     string City,
+    string Street,
     string? Phone,
     string? Email,
     string Name,

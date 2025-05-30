@@ -2,7 +2,7 @@
 
 public enum ShipmentSortingType
 {
-    RequestedAt,
-    Country,
-    City,
+	RequestedAt,
+	Country,
+	City,
 }

@@ -9,44 +9,44 @@ using static AccountsData;
 
 public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnitTests
 {
-    private readonly GetAccountViewedProductHandler handler;
-    private readonly Mock<IAccountReads> reads = new();
-    private static readonly ProductId productId = ProductId.New();
-    private readonly Account account = CreateAccount();
+	private readonly GetAccountViewedProductHandler handler;
+	private readonly Mock<IAccountReads> reads = new();
+	private static readonly ProductId productId = ProductId.New();
+	private readonly Account account = CreateAccount();
 
-    public GetAccountViewedProductHandlerUnitTestsUnitTests()
-    {
-        handler = new(reads.Object);
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(account);
-    }
+	public GetAccountViewedProductHandlerUnitTestsUnitTests()
+	{
+		handler = new(reads.Object);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(account);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GetAccountViewedProductQuery query = new(ValidId, productId);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetAccountViewedProductQuery query = new(ValidId, productId);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+	}
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public async Task Handle_ShouldReturnProperly(bool expected)
-    {
-        // Arrange
-        if (expected) account.AddViewedProduct(productId);
-        GetAccountViewedProductQuery query = new(ValidId, productId);
+	[Theory]
+	[InlineData(true)]
+	[InlineData(false)]
+	public async Task Handle_ShouldReturnProperly(bool expected)
+	{
+		// Arrange
+		if (expected) account.AddViewedProduct(productId);
+		GetAccountViewedProductQuery query = new(ValidId, productId);
 
-        // Act
-        bool actual = await handler.Handle(query, ct);
+		// Act
+		bool actual = await handler.Handle(query, ct);
 
-        // Assert
-        Assert.Equal(expected, actual);
-    }
+		// Assert
+		Assert.Equal(expected, actual);
+	}
 }

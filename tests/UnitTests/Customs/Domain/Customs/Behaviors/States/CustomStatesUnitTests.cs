@@ -6,84 +6,84 @@ using static CustomsData;
 
 public class CustomStatesUnitTests : CustomsBaseUnitTests
 {
-    [Fact]
-    public void Accept_ShouldUpdateDataProperly()
-    {
-        var custom = CreateCustom();
+	[Fact]
+	public void Accept_ShouldUpdateDataProperly()
+	{
+		var custom = CreateCustom();
 
-        custom.Accept(ValidDesignerId);
+		custom.Accept(ValidDesignerId);
 
-        Assert.Multiple(
-            () => Assert.Equal(CustomStatus.Accepted, custom.CustomStatus),
-            () => Assert.Equal(ValidDesignerId, custom.AcceptedCustom?.DesignerId)
-        );
-    }
+		Assert.Multiple(
+			() => Assert.Equal(CustomStatus.Accepted, custom.CustomStatus),
+			() => Assert.Equal(ValidDesignerId, custom.AcceptedCustom?.DesignerId)
+		);
+	}
 
-    [Fact]
-    public void Begin_ShouldUpdateDataProperly()
-    {
-        var custom = CreateCustom();
+	[Fact]
+	public void Begin_ShouldUpdateDataProperly()
+	{
+		var custom = CreateCustom();
 
-        custom.Accept(ValidDesignerId);
-        custom.Begin();
+		custom.Accept(ValidDesignerId);
+		custom.Begin();
 
-        Assert.Equal(CustomStatus.Begun, custom.CustomStatus);
-    }
+		Assert.Equal(CustomStatus.Begun, custom.CustomStatus);
+	}
 
-    [Fact]
-    public void Cancel_ShouldUpdateDataProperly()
-    {
-        var custom = CreateCustom();
+	[Fact]
+	public void Cancel_ShouldUpdateDataProperly()
+	{
+		var custom = CreateCustom();
 
-        custom.Accept(ValidDesignerId);
-        custom.Begin();
-        custom.Cancel();
+		custom.Accept(ValidDesignerId);
+		custom.Begin();
+		custom.Cancel();
 
-        Assert.Multiple(
-            () => Assert.Equal(CustomStatus.Pending, custom.CustomStatus),
-            () => Assert.Null(custom.AcceptedCustom)
-        );
-    }
+		Assert.Multiple(
+			() => Assert.Equal(CustomStatus.Pending, custom.CustomStatus),
+			() => Assert.Null(custom.AcceptedCustom)
+		);
+	}
 
-    [Fact]
-    public void Finish_ShouldUpdateDataProperly()
-    {
-        var custom = CreateCustom();
+	[Fact]
+	public void Finish_ShouldUpdateDataProperly()
+	{
+		var custom = CreateCustom();
 
-        custom.Accept(ValidDesignerId);
-        custom.Begin();
-        custom.Finish(ValidCadId, ValidPrice1);
+		custom.Accept(ValidDesignerId);
+		custom.Begin();
+		custom.Finish(ValidCadId, ValidPrice1);
 
-        Assert.Multiple(
-            () => Assert.Equal(CustomStatus.Finished, custom.CustomStatus),
-            () => Assert.Equal(ValidCadId, custom.FinishedCustom?.CadId),
-            () => Assert.Equal(ValidPrice1, custom.FinishedCustom?.Price)
-        );
-    }
+		Assert.Multiple(
+			() => Assert.Equal(CustomStatus.Finished, custom.CustomStatus),
+			() => Assert.Equal(ValidCadId, custom.FinishedCustom?.CadId),
+			() => Assert.Equal(ValidPrice1, custom.FinishedCustom?.Price)
+		);
+	}
 
-    [Fact]
-    public void Complete_ShouldUpdateDataProperly()
-    {
-        var custom = CreateCustom();
+	[Fact]
+	public void Complete_ShouldUpdateDataProperly()
+	{
+		var custom = CreateCustom();
 
-        custom.Accept(ValidDesignerId);
-        custom.Begin();
-        custom.Finish(ValidCadId, ValidPrice1);
-        custom.Complete(null);
+		custom.Accept(ValidDesignerId);
+		custom.Begin();
+		custom.Finish(ValidCadId, ValidPrice1);
+		custom.Complete(null);
 
-        Assert.Multiple(
-            () => Assert.Equal(CustomStatus.Completed, custom.CustomStatus),
-            () => Assert.NotNull(custom.CompletedCustom)
-        );
-    }
+		Assert.Multiple(
+			() => Assert.Equal(CustomStatus.Completed, custom.CustomStatus),
+			() => Assert.NotNull(custom.CompletedCustom)
+		);
+	}
 
-    [Fact]
-    public void Report_ShouldUpdateDataProperly()
-    {
-        var custom = CreateCustom();
+	[Fact]
+	public void Report_ShouldUpdateDataProperly()
+	{
+		var custom = CreateCustom();
 
-        custom.Report();
+		custom.Report();
 
-        Assert.Equal(CustomStatus.Reported, custom.CustomStatus);
-    }
+		Assert.Equal(CustomStatus.Reported, custom.CustomStatus);
+	}
 }

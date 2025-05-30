@@ -4,8 +4,8 @@ using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 namespace CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.CalculateShipment;
 
 public record CalculateCustomShipmentQuery(
-    CustomId Id,
-    int Count,
-    AddressDto Address,
-    CustomizationId CustomizationId
+	CustomId Id,
+	int Count,
+	AddressDto Address,
+	CustomizationId CustomizationId
 ) : IQuery<CalculateShipmentDto[]>;

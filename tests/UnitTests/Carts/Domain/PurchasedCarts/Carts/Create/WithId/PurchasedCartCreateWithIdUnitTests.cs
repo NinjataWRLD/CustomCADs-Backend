@@ -4,22 +4,22 @@ using static PurchasedCartsData;
 
 public class PurchasedCartCreateWithIdUnitTests : PurchasedCartsBaseUnitTests
 {
-    [Fact]
-    public void CreateWithId_ShouldNotThrowException()
-    {
-        CreateCartWithId(ValidId, ValidBuyerId);
-    }
+	[Fact]
+	public void CreateWithId_ShouldNotThrowException()
+	{
+		CreateCartWithId(ValidId, ValidBuyerId);
+	}
 
-    [Fact]
-    public void CreateWithId_ShouldPopulatePropertiesProperly()
-    {
-        var cart = CreateCartWithId(ValidId, ValidBuyerId);
+	[Fact]
+	public void CreateWithId_ShouldPopulatePropertiesProperly()
+	{
+		var cart = CreateCartWithId(ValidId, ValidBuyerId);
 
-        Assert.Multiple(
-            () => Assert.Equal(ValidId, cart.Id),
-            () => Assert.Equal(ValidBuyerId, cart.BuyerId),
-            () => Assert.Empty(cart.Items),
-            () => Assert.True(DateTimeOffset.UtcNow - cart.PurchasedAt < TimeSpan.FromSeconds(1))
-        );
-    }
+		Assert.Multiple(
+			() => Assert.Equal(ValidId, cart.Id),
+			() => Assert.Equal(ValidBuyerId, cart.BuyerId),
+			() => Assert.Empty(cart.Items),
+			() => Assert.True(DateTimeOffset.UtcNow - cart.PurchasedAt < TimeSpan.FromSeconds(1))
+		);
+	}
 }

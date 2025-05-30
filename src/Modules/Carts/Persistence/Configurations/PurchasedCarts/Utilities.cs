@@ -9,61 +9,61 @@ namespace CustomCADs.Carts.Persistence.Configurations.PurchasedCarts;
 
 public static class Utilities
 {
-    public static EntityTypeBuilder<PurchasedCart> SetPrimaryKey(this EntityTypeBuilder<PurchasedCart> builder)
-    {
-        builder.HasKey(x => x.Id);
+	public static EntityTypeBuilder<PurchasedCart> SetPrimaryKey(this EntityTypeBuilder<PurchasedCart> builder)
+	{
+		builder.HasKey(x => x.Id);
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public static EntityTypeBuilder<PurchasedCart> SetForeignKeys(this EntityTypeBuilder<PurchasedCart> builder)
-    {
-        builder
-            .HasMany(x => x.Items)
-            .WithOne(x => x.Cart)
-            .HasForeignKey(x => x.CartId)
-            .OnDelete(DeleteBehavior.Cascade);
+	public static EntityTypeBuilder<PurchasedCart> SetForeignKeys(this EntityTypeBuilder<PurchasedCart> builder)
+	{
+		builder
+			.HasMany(x => x.Items)
+			.WithOne(x => x.Cart)
+			.HasForeignKey(x => x.CartId)
+			.OnDelete(DeleteBehavior.Cascade);
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public static EntityTypeBuilder<PurchasedCart> SetStronglyTypedIds(this EntityTypeBuilder<PurchasedCart> builder)
-    {
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasConversion(
-                x => x.Value,
-                v => PurchasedCartId.New(v)
-            );
+	public static EntityTypeBuilder<PurchasedCart> SetStronglyTypedIds(this EntityTypeBuilder<PurchasedCart> builder)
+	{
+		builder.Property(x => x.Id)
+			.ValueGeneratedOnAdd()
+			.HasConversion(
+				x => x.Value,
+				v => PurchasedCartId.New(v)
+			);
 
-        builder.Property(x => x.BuyerId)
-            .HasConversion(
-                x => x.Value,
-                v => AccountId.New(v)
-            );
+		builder.Property(x => x.BuyerId)
+			.HasConversion(
+				x => x.Value,
+				v => AccountId.New(v)
+			);
 
-        builder.Property(x => x.ShipmentId)
-            .HasConversion(
-                x => ShipmentId.Unwrap(x),
-                v => ShipmentId.New(v)
-            );
+		builder.Property(x => x.ShipmentId)
+			.HasConversion(
+				x => ShipmentId.Unwrap(x),
+				v => ShipmentId.New(v)
+			);
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public static EntityTypeBuilder<PurchasedCart> SetValidations(this EntityTypeBuilder<PurchasedCart> builder)
-    {
-        builder.Property(x => x.PurchasedAt)
-            .IsRequired()
-            .HasColumnName(nameof(PurchasedCart.PurchasedAt));
+	public static EntityTypeBuilder<PurchasedCart> SetValidations(this EntityTypeBuilder<PurchasedCart> builder)
+	{
+		builder.Property(x => x.PurchasedAt)
+			.IsRequired()
+			.HasColumnName(nameof(PurchasedCart.PurchasedAt));
 
-        builder.Property(x => x.BuyerId)
-            .IsRequired()
-            .HasColumnName(nameof(PurchasedCart.BuyerId));
+		builder.Property(x => x.BuyerId)
+			.IsRequired()
+			.HasColumnName(nameof(PurchasedCart.BuyerId));
 
-        builder.Property(x => x.ShipmentId)
-            .HasColumnName(nameof(PurchasedCart.ShipmentId));
+		builder.Property(x => x.ShipmentId)
+			.HasColumnName(nameof(PurchasedCart.ShipmentId));
 
-        return builder;
-    }
+		return builder;
+	}
 }

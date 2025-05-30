@@ -6,34 +6,34 @@ using Data;
 
 public class AccountEmailUnitTests : AccountsBaseUnitTests
 {
-    [Theory]
-    [ClassData(typeof(AccountEmailValidData))]
-    public void SetEmail_ShouldNotThrowException_WhenEmailIsValid(string email)
-    {
-        var account = CreateAccount();
+	[Theory]
+	[ClassData(typeof(AccountEmailValidData))]
+	public void SetEmail_ShouldNotThrowException_WhenEmailIsValid(string email)
+	{
+		var account = CreateAccount();
 
-        account.SetEmail(email);
-    }
+		account.SetEmail(email);
+	}
 
-    [Theory]
-    [ClassData(typeof(AccountEmailValidData))]
-    public void SetEmail_Setsemail_WhenUserameIsValid(string email)
-    {
-        var account = CreateAccount();
+	[Theory]
+	[ClassData(typeof(AccountEmailValidData))]
+	public void SetEmail_Setsemail_WhenUserameIsValid(string email)
+	{
+		var account = CreateAccount();
 
-        account.SetEmail(email);
+		account.SetEmail(email);
 
-        Assert.Equal(account.Email, email);
-    }
+		Assert.Equal(account.Email, email);
+	}
 
-    [Theory]
-    [ClassData(typeof(AccountEmailInvalidData))]
-    public void SetEmail_ThrowsException_WhenUserameIsInvalid(string email)
-    {
-        var account = CreateAccount();
+	[Theory]
+	[ClassData(typeof(AccountEmailInvalidData))]
+	public void SetEmail_ThrowsException_WhenUserameIsInvalid(string email)
+	{
+		var account = CreateAccount();
 
-        Assert.Throws<CustomValidationException<Account>>(
-            () => account.SetEmail(email)
-        );
-    }
+		Assert.Throws<CustomValidationException<Account>>(
+			() => account.SetEmail(email)
+		);
+	}
 }

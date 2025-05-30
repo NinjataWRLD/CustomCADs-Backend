@@ -12,130 +12,136 @@ using static PurchasedCartsData;
 
 public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitTests
 {
-    private readonly Mock<IPurchasedCartReads> reads = new();
-    private readonly Mock<IRequestSender> sender = new();
-    private readonly GetPurchasedCartItemCadPresignedUrlGetHandler handler;
+	private readonly Mock<IPurchasedCartReads> reads = new();
+	private readonly Mock<IRequestSender> sender = new();
+	private readonly GetPurchasedCartItemCadPresignedUrlGetHandler handler;
 
-    private readonly PurchasedCart cart = CreateCartWithItems(
-        items: [
-            PurchasedCartItem.Create(
-                cartId: ValidId,
-                productId: CartItemsData.ValidProductId,
-                cadId: CartItemsData.ValidCadId,
-                customizationId: CartItemsData.ValidCustomizationId,
-                price: CartItemsData.ValidPrice1,
-                quantity: CartItemsData.ValidQuantity1,
-                forDelivery: true,
-                addedAt: DateTimeOffset.UtcNow
-            ),
-            PurchasedCartItem.Create(
-                cartId: ValidId,
-                productId: CartItemsData.ValidProductId,
-                cadId: CartItemsData.ValidCadId,
-                customizationId: null,
-                price: CartItemsData.ValidPrice2,
-                quantity: CartItemsData.ValidQuantity2,
-                forDelivery: false,
-                addedAt: DateTimeOffset.UtcNow
-            ),
-        ]
-    );
-    private const string Url = "presigned-Url";
-    private const string ContentType = "presigned-Url";
+	private readonly PurchasedCart cart = CreateCartWithItems(
+		items: [
+			PurchasedCartItem.Create(
+				cartId: ValidId,
+				productId: CartItemsData.ValidProductId,
+				cadId: CartItemsData.ValidCadId,
+				customizationId: CartItemsData.ValidCustomizationId,
+				price: CartItemsData.ValidPrice1,
+				quantity: CartItemsData.ValidQuantity1,
+				forDelivery: true,
+				addedAt: DateTimeOffset.UtcNow
+			),
+			PurchasedCartItem.Create(
+				cartId: ValidId,
+				productId: CartItemsData.ValidProductId,
+				cadId: CartItemsData.ValidCadId,
+				customizationId: null,
+				price: CartItemsData.ValidPrice2,
+				quantity: CartItemsData.ValidQuantity2,
+				forDelivery: false,
+				addedAt: DateTimeOffset.UtcNow
+			),
+		]
+	);
+	private const string Url = "presigned-Url";
+	private const string ContentType = "presigned-Url";
 
-    public GetPurchasedCartCadUrlGetHandlerUnitTests()
-    {
-        handler = new(reads.Object, sender.Object);
+	public GetPurchasedCartCadUrlGetHandlerUnitTests()
+	{
+		handler = new(reads.Object, sender.Object);
 
-        sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetCadPresignedUrlGetByIdQuery>(x => cart.Items.Any(i => i.CadId == x.Id)),
-            ct
-        )).ReturnsAsync(new DownloadFileResponse(Url, ContentType));
-    }
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetCadPresignedUrlGetByIdQuery>(x => cart.Items.Any(i => i.CadId == x.Id)),
+			ct
+		)).ReturnsAsync(new DownloadFileResponse(Url, ContentType));
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(cart);
+		CoordinatesDto coords = new(0, 0, 0);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetCadCoordsByIdQuery>(x => cart.Items.Any(i => i.CadId == x.Id)),
+			ct
+		)).ReturnsAsync(new GetCadCoordsByIdDto(coords, coords));
+	}
 
-        GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: ValidId,
-            ProductId: CartItemsData.ValidProductId,
-            BuyerId: ValidBuyerId
-        );
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(cart);
 
-        // Act
-        await handler.Handle(query, ct);
+		GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
+			Id: ValidId,
+			ProductId: CartItemsData.ValidProductId,
+			BuyerId: ValidBuyerId
+		);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(cart);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+	}
 
-        GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: ValidId,
-            ProductId: CartItemsData.ValidProductId,
-            BuyerId: ValidBuyerId
-        );
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(cart);
 
-        // Act
-        await handler.Handle(query, ct);
+		GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
+			Id: ValidId,
+			ProductId: CartItemsData.ValidProductId,
+			BuyerId: ValidBuyerId
+		);
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetCadPresignedUrlGetByIdQuery>(x => cart.Items.Any(i => i.CadId == x.Id)),
-            ct
-        ), Times.Once);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(cart);
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetCadPresignedUrlGetByIdQuery>(x => cart.Items.Any(i => i.CadId == x.Id)),
+			ct
+		), Times.Once);
+	}
 
-        GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: ValidId,
-            ProductId: CartItemsData.ValidProductId,
-            BuyerId: ValidBuyerId
-        );
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(cart);
 
-        // Act
-        var result = await handler.Handle(query, ct);
+		GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
+			Id: ValidId,
+			ProductId: CartItemsData.ValidProductId,
+			BuyerId: ValidBuyerId
+		);
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.Equal(Url, result.PresignedUrl),
-            () => Assert.Equal(ContentType, result.ContentType)
-        );
-    }
+		// Act
+		var result = await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenPurchasedCartNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(null as PurchasedCart);
+		// Assert
+		Assert.Multiple(
+			() => Assert.Equal(Url, result.PresignedUrl),
+			() => Assert.Equal(ContentType, result.ContentType)
+		);
+	}
 
-        GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
-            Id: ValidId,
-            ProductId: CartItemsData.ValidProductId,
-            BuyerId: ValidBuyerId
-        );
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenPurchasedCartNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(null as PurchasedCart);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(
-            // Act
-            async () => await handler.Handle(query, ct)
-        );
-    }
+		GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
+			Id: ValidId,
+			ProductId: CartItemsData.ValidProductId,
+			BuyerId: ValidBuyerId
+		);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
 }

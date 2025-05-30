@@ -5,22 +5,22 @@ namespace CustomCADs.Customs.Domain.Customs.States.Implementations;
 
 public class BegunCustomState : BaseCustomState
 {
-    public override CustomStatus Status => CustomStatus.Begun;
+	public override CustomStatus Status => CustomStatus.Begun;
 
-    public override void Cancel(Custom custom)
-    {
-        custom.ClearAcceptInfo();
-        custom.SetState(new PendingCustomState());
-    }
+	public override void Cancel(Custom custom)
+	{
+		custom.ClearAcceptInfo();
+		custom.SetState(new PendingCustomState());
+	}
 
-    public override void Finish(Custom custom, CadId cadId, decimal price)
-    {
-        custom.FillFinishInfo(cadId, price);
-        custom.SetState(new FinishedCustomState());
-    }
+	public override void Finish(Custom custom, CadId cadId, decimal price)
+	{
+		custom.FillFinishInfo(cadId, price);
+		custom.SetState(new FinishedCustomState());
+	}
 
-    public override void Report(Custom custom)
-    {
-        custom.SetState(new ReportedCustomState());
-    }
+	public override void Report(Custom custom)
+	{
+		custom.SetState(new ReportedCustomState());
+	}
 }

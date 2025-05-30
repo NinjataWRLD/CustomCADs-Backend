@@ -4,9 +4,9 @@ using static TagsData;
 
 public class EditTagValidData : EditTagData
 {
-    public EditTagValidData()
-    {
-        Add(ValidName1);
-        Add(ValidName2);
-    }
+	public EditTagValidData()
+	{
+		Add(ValidName1);
+		Add(ValidName2);
+	}
 }

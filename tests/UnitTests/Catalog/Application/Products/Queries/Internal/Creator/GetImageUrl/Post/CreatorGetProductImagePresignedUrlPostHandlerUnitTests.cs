@@ -9,55 +9,55 @@ using static ProductsData;
 
 public class CreatorGetProductImagePresignedUrlPostHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly CreatorGetProductImagePresignedUrlPostHandler handler;
-    private readonly Mock<IRequestSender> sender = new();
+	private readonly CreatorGetProductImagePresignedUrlPostHandler handler;
+	private readonly Mock<IRequestSender> sender = new();
 
-    private const string ProductName = "product-name";
-    private static readonly UploadFileRequest req = new("content-type", "file-name");
-    private static readonly UploadFileResponse res = new("generated-key", "presigned-url");
+	private const string ProductName = "product-name";
+	private static readonly UploadFileRequest req = new("content-type", "file-name");
+	private static readonly UploadFileResponse res = new("generated-key", "presigned-url");
 
-    public CreatorGetProductImagePresignedUrlPostHandlerUnitTests()
-    {
-        handler = new(sender.Object);
+	public CreatorGetProductImagePresignedUrlPostHandlerUnitTests()
+	{
+		handler = new(sender.Object);
 
-        sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetImagePresignedUrlPostByIdQuery>(x => x.Name == ProductName && x.File == req),
-            ct
-        )).ReturnsAsync(res);
-    }
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetImagePresignedUrlPostByIdQuery>(x => x.Name == ProductName && x.File == req),
+			ct
+		)).ReturnsAsync(res);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        CreatorGetProductImagePresignedUrlPostQuery query = new(
-            ProductName: ProductName,
-            Image: req
-        );
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		CreatorGetProductImagePresignedUrlPostQuery query = new(
+			ProductName: ProductName,
+			Image: req
+		);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetImagePresignedUrlPostByIdQuery>(x => x.Name == ProductName && x.File == req),
-            ct
-        ), Times.Once);
-    }
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetImagePresignedUrlPostByIdQuery>(x => x.Name == ProductName && x.File == req),
+			ct
+		), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        CreatorGetProductImagePresignedUrlPostQuery query = new(
-            ProductName: ProductName,
-            Image: req
-        );
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		CreatorGetProductImagePresignedUrlPostQuery query = new(
+			ProductName: ProductName,
+			Image: req
+		);
 
-        // Act
-        var result = await handler.Handle(query, ct);
+		// Act
+		var result = await handler.Handle(query, ct);
 
-        // Assert
-        Assert.Equal(res, result);
-    }
+		// Assert
+		Assert.Equal(res, result);
+	}
 }

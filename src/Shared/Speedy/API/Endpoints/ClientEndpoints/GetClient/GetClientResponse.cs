@@ -3,6 +3,6 @@
 using Dtos.Client;
 
 public record GetClientResponse(
-    ClientDto? Client,
-    ErrorDto? Error
+	ClientDto? Client,
+	ErrorDto? Error
 );

@@ -4,10 +4,10 @@ using static TagsData;
 
 public class CreateTagInvalidNameData : CreateTagData
 {
-    public CreateTagInvalidNameData()
-    {
-        Add(InvalidName1);
-        Add(InvalidName2);
-        Add(InvalidName3);
-    }
+	public CreateTagInvalidNameData()
+	{
+		Add(InvalidName1);
+		Add(InvalidName2);
+		Add(InvalidName3);
+	}
 }

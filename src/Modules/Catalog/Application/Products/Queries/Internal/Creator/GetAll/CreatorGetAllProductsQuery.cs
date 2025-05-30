@@ -6,10 +6,10 @@ using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetAll;
 
 public sealed record CreatorGetAllProductsQuery(
-    Pagination Pagination,
-    AccountId CreatorId,
-    CategoryId? CategoryId = null,
-    TagId[]? TagIds = null,
-    string? Name = null,
-    ProductSorting? Sorting = null
+	Pagination Pagination,
+	AccountId CreatorId,
+	CategoryId? CategoryId = null,
+	TagId[]? TagIds = null,
+	string? Name = null,
+	ProductSorting? Sorting = null
 ) : IQuery<Result<CreatorGetAllProductsDto>>;

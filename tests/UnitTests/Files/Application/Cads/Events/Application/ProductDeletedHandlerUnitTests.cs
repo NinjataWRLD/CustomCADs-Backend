@@ -9,89 +9,89 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Events.Application;
 
 public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 {
-    private readonly ProductDeletedHandler handler;
-    private readonly Mock<ICadReads> reads = new();
-    private readonly Mock<IWrites<Cad>> writes = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<IStorageService> storage = new();
+	private readonly ProductDeletedHandler handler;
+	private readonly Mock<ICadReads> reads = new();
+	private readonly Mock<IWrites<Cad>> writes = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<IStorageService> storage = new();
 
-    private static readonly Cad cad = CreateCad();
+	private static readonly Cad cad = CreateCad();
 
-    public ProductDeletedHandlerUnitTests()
-    {
-        handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
-        reads.Setup(x => x.SingleByIdAsync(id1, true, ct)).ReturnsAsync(cad);
-    }
+	public ProductDeletedHandlerUnitTests()
+	{
+		handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
+		reads.Setup(x => x.SingleByIdAsync(id1, true, ct)).ReturnsAsync(cad);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        ProductDeletedApplicationEvent ie = new(
-            Id: default,
-            CadId: id1,
-            ImageId: default
-        );
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		ProductDeletedApplicationEvent ie = new(
+			Id: default,
+			CadId: id1,
+			ImageId: default
+		);
 
-        // Act
-        await handler.Handle(ie);
+		// Act
+		await handler.Handle(ie);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
-    {
-        // Arrange
-        ProductDeletedApplicationEvent ie = new(
-            Id: default,
-            CadId: id1,
-            ImageId: default
-        );
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
+	{
+		// Arrange
+		ProductDeletedApplicationEvent ie = new(
+			Id: default,
+			CadId: id1,
+			ImageId: default
+		);
 
-        // Act
-        await handler.Handle(ie);
+		// Act
+		await handler.Handle(ie);
 
-        // Assert
-        writes.Verify(x => x.Remove(cad), Times.Once);
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Assert
+		writes.Verify(x => x.Remove(cad), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldCallStorage_WhenCadFound()
-    {
-        // Arrange
-        ProductDeletedApplicationEvent ie = new(
-            Id: default,
-            CadId: id1,
-            ImageId: default
-        );
+	[Fact]
+	public async Task Handle_ShouldCallStorage_WhenCadFound()
+	{
+		// Arrange
+		ProductDeletedApplicationEvent ie = new(
+			Id: default,
+			CadId: id1,
+			ImageId: default
+		);
 
-        // Act
-        await handler.Handle(ie);
+		// Act
+		await handler.Handle(ie);
 
-        // Assert
-        storage.Verify(x => x.DeleteFileAsync(cad.Key, ct), Times.Once);
-    }
+		// Assert
+		storage.Verify(x => x.DeleteFileAsync(cad.Key, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenCadNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
-            .ReturnsAsync(null as Cad);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCadNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+			.ReturnsAsync(null as Cad);
 
-        ProductDeletedApplicationEvent ie = new(
-            Id: default,
-            CadId: id1,
-            ImageId: default
-        );
+		ProductDeletedApplicationEvent ie = new(
+			Id: default,
+			CadId: id1,
+			ImageId: default
+		);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
-            // Act
-            async () => await handler.Handle(ie)
-        );
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
+			// Act
+			async () => await handler.Handle(ie)
+		);
+	}
 }

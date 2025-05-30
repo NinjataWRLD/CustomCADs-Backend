@@ -5,12 +5,12 @@ namespace CustomCADs.Catalog.Persistence.Configurations.Tags;
 
 public class Configurations : IEntityTypeConfiguration<Tag>
 {
-    public void Configure(EntityTypeBuilder<Tag> builder)
-    {
-        builder
-            .SetPrimaryKey()
-            .SetStronglyTypedIds()
-            .SetValidations()
-            .SetSeeding();
-    }
+	public void Configure(EntityTypeBuilder<Tag> builder)
+	{
+		builder
+			.SetPrimaryKey()
+			.SetStronglyTypedIds()
+			.SetValidations()
+			.SetSeeding();
+	}
 }

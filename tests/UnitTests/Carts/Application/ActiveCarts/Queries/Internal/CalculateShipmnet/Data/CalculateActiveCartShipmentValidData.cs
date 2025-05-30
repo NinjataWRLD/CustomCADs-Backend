@@ -2,9 +2,9 @@
 
 public class CalculateActiveCartShipmentValidData : CalculateActiveCartShipmentData
 {
-    public CalculateActiveCartShipmentValidData()
-    {
-        Add(new("Bulgaria", "Sofia"));
-        Add(new("Romania", "Bucharest"));
-    }
+	public CalculateActiveCartShipmentValidData()
+	{
+		Add(new("Bulgaria", "Sofia", "Slivnitsa"));
+		Add(new("Romania", "Bucharest", "Brailles"));
+	}
 }

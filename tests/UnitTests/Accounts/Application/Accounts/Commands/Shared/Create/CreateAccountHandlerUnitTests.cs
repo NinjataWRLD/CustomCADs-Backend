@@ -8,42 +8,42 @@ using Data;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly CreateAccountHandler handler;
-    private readonly Mock<IWrites<Account>> writes = new();
-    private readonly Mock<IUnitOfWork> uow = new();
+	private readonly CreateAccountHandler handler;
+	private readonly Mock<IWrites<Account>> writes = new();
+	private readonly Mock<IUnitOfWork> uow = new();
 
-    public CreateAccountHandlerUnitTests()
-    {
-        handler = new(writes.Object, uow.Object);
-    }
+	public CreateAccountHandlerUnitTests()
+	{
+		handler = new(writes.Object, uow.Object);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateAccountValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string? firstName, string? lastName)
-    {
-        // Arrange
-        CreateAccountCommand command = new(
-            Role: role,
-            Username: username,
-            Email: email,
-            FirstName: firstName,
-            LastName: lastName
-        );
+	[Theory]
+	[ClassData(typeof(CreateAccountValidData))]
+	public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string? firstName, string? lastName)
+	{
+		// Arrange
+		CreateAccountCommand command = new(
+			Role: role,
+			Username: username,
+			Email: email,
+			FirstName: firstName,
+			LastName: lastName
+		);
 
-        // Act
-        await handler.Handle(command, CancellationToken.None);
+		// Act
+		await handler.Handle(command, CancellationToken.None);
 
-        // Assert
-        writes.Verify(x => x.AddAsync(
-            It.Is<Account>(x =>
-                x.RoleName == role
-                && x.Username == username
-                && x.Email == email
-                && x.FirstName == firstName
-                && x.LastName == lastName
-            ),
-            ct
-        ), Times.Once);
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Assert
+		writes.Verify(x => x.AddAsync(
+			It.Is<Account>(x =>
+				x.RoleName == role
+				&& x.Username == username
+				&& x.Email == email
+				&& x.FirstName == firstName
+				&& x.LastName == lastName
+			),
+			ct
+		), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 }

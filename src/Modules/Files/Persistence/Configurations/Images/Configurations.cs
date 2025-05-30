@@ -6,10 +6,10 @@ namespace CustomCADs.Files.Persistence.Configurations.Images;
 
 public class Configurations : IEntityTypeConfiguration<Image>
 {
-    public void Configure(EntityTypeBuilder<Image> builder)
-        => builder
-            .SetPrimaryKey()
-            .SetStronglyTypedIds()
-            .SetValidaitons()
-            .SetSeeding();
+	public void Configure(EntityTypeBuilder<Image> builder)
+		=> builder
+			.SetPrimaryKey()
+			.SetStronglyTypedIds()
+			.SetValidaitons()
+			.SetSeeding();
 }

@@ -4,9 +4,9 @@ using static AccountsData;
 
 public class AccountLastNameInvalidData : AccountLastNameData
 {
-    public AccountLastNameInvalidData()
-    {
-        Add(InvalidLastName1);
-        Add(InvalidLastName2);
-    }
+	public AccountLastNameInvalidData()
+	{
+		Add(InvalidLastName1);
+		Add(InvalidLastName2);
+	}
 }

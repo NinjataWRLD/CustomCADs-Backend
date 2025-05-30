@@ -6,23 +6,19 @@ namespace CustomCADs.Delivery.Application.Shipments;
 
 public static class Mapper
 {
-    public static GetAllShipmentsDto ToGetAllDto(this Shipment shipment, string buyer)
-        => new(
-            Id: shipment.Id,
-            Address: shipment.Address,
-            BuyerName: buyer
-        );
+	public static GetAllShipmentsDto ToGetAllDto(this Shipment shipment, string buyer)
+		=> new(
+			Id: shipment.Id,
+			Address: shipment.Address,
+			BuyerName: buyer
+		);
 
-    public static CalculateShipmentDto ToDto(this CalculationDto calculation)
-        => new(
-            Total: calculation.Price.Total,
-            Currency: calculation.Price.Currency,
-            PickupDate: DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeToUtc(
-                calculation.PickupDate.ToDateTime(new TimeOnly(9, 0))
-            )),
-            DeliveryDeadline: TimeZoneInfo.ConvertTimeToUtc(
-                calculation.DeliveryDeadline
-            ),
-            Service: calculation.Service
-        );
+	public static CalculateShipmentDto ToDto(this CalculationDto calculation)
+		=> new(
+			Total: calculation.Price.Total,
+			Currency: calculation.Price.Currency,
+			PickupDate: calculation.PickupDate,
+			DeliveryDeadline: calculation.DeliveryDeadline,
+			Service: calculation.Service
+		);
 }

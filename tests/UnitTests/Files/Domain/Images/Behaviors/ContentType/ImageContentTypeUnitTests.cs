@@ -6,34 +6,34 @@ using Data;
 
 public class ImageContentTypeUnitTests : ImagesBaseUnitTests
 {
-    [Theory]
-    [ClassData(typeof(ImageContentTypeValidData))]
-    public void SetContentType_ShouldNotThrowException_WhenContentTypeIsValid(string contentType)
-    {
-        var image = CreateImage();
+	[Theory]
+	[ClassData(typeof(ImageContentTypeValidData))]
+	public void SetContentType_ShouldNotThrowException_WhenContentTypeIsValid(string contentType)
+	{
+		var image = CreateImage();
 
-        image.SetContentType(contentType);
-    }
+		image.SetContentType(contentType);
+	}
 
-    [Theory]
-    [ClassData(typeof(ImageContentTypeValidData))]
-    public void SetContentType_ShouldPopulateProperly_WhenContentTypeIsValid(string contentType)
-    {
-        var image = CreateImage();
+	[Theory]
+	[ClassData(typeof(ImageContentTypeValidData))]
+	public void SetContentType_ShouldPopulateProperly_WhenContentTypeIsValid(string contentType)
+	{
+		var image = CreateImage();
 
-        image.SetContentType(contentType);
+		image.SetContentType(contentType);
 
-        Assert.Equal(contentType, image.ContentType);
-    }
+		Assert.Equal(contentType, image.ContentType);
+	}
 
-    [Theory]
-    [ClassData(typeof(ImageContentTypeInvalidData))]
-    public void SetContentType_ShouldThrowException_WhenContentTypeIsInvalid(string contentType)
-    {
-        var image = CreateImage();
+	[Theory]
+	[ClassData(typeof(ImageContentTypeInvalidData))]
+	public void SetContentType_ShouldThrowException_WhenContentTypeIsInvalid(string contentType)
+	{
+		var image = CreateImage();
 
-        Assert.Throws<CustomValidationException<Image>>(
-            () => image.SetContentType(contentType)
-        );
-    }
+		Assert.Throws<CustomValidationException<Image>>(
+			() => image.SetContentType(contentType)
+		);
+	}
 }

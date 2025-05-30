@@ -11,92 +11,92 @@ using static ProductsData;
 
 public class CreatorGetProductImagePresignedUrlGetHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly CreatorGetProductImagePresignedUrlGetHandler handler;
-    private readonly Mock<IProductReads> reads = new();
-    private readonly Mock<IRequestSender> sender = new();
-    private readonly Product product = CreateProduct(creatorId: ValidDesignerId);
-    private static readonly DownloadFileResponse image = new("presigned-url", "application/png");
+	private readonly CreatorGetProductImagePresignedUrlGetHandler handler;
+	private readonly Mock<IProductReads> reads = new();
+	private readonly Mock<IRequestSender> sender = new();
+	private readonly Product product = CreateProduct(creatorId: ValidDesignerId);
+	private static readonly DownloadFileResponse image = new("presigned-url", "application/png");
 
-    public CreatorGetProductImagePresignedUrlGetHandlerUnitTests()
-    {
-        handler = new(reads.Object, sender.Object);
+	public CreatorGetProductImagePresignedUrlGetHandlerUnitTests()
+	{
+		handler = new(reads.Object, sender.Object);
 
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(product);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(product);
 
-        sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetImagePresignedUrlGetByIdQuery>(x => x.Id == product.ImageId),
-            ct
-        )).ReturnsAsync(image);
-    }
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetImagePresignedUrlGetByIdQuery>(x => x.Id == product.ImageId),
+			ct
+		)).ReturnsAsync(image);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetImagePresignedUrlGetByIdQuery>(x => x.Id == product.ImageId),
-            ct
-        ), Times.Once);
-    }
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetImagePresignedUrlGetByIdQuery>(x => x.Id == product.ImageId),
+			ct
+		), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
 
-        // Act
-        var result = await handler.Handle(query, ct);
+		// Act
+		var result = await handler.Handle(query, ct);
 
-        // Assert
-        Assert.Equal(image, result);
-    }
+		// Assert
+		Assert.Equal(image, result);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenUnauthorized()
-    {
-        // Arrange
-        CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidCreatorId);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenUnauthorized()
+	{
+		// Arrange
+		CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidCreatorId);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
-            // Act
-            async () => await handler.Handle(query, ct)
-        );
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenProductNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(null as Product);
-        CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenProductNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(null as Product);
+		CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
-            // Act
-            async () => await handler.Handle(query, ct)
-        );
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
 }

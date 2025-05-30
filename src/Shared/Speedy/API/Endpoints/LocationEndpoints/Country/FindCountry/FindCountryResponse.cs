@@ -3,6 +3,6 @@
 using Dtos.Country;
 
 public record FindCountryResponse(
-    CountryDto[]? Countries,
-    ErrorDto? Error
+	CountryDto[]? Countries,
+	ErrorDto? Error
 );

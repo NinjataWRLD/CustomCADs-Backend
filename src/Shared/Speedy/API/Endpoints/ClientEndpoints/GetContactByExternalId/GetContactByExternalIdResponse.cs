@@ -3,6 +3,6 @@
 using Dtos.Client;
 
 public record GetContactByExternalIdResponse(
-    ClientDto? Client,
-    ErrorDto? Error
+	ClientDto? Client,
+	ErrorDto? Error
 );

@@ -9,68 +9,68 @@ using static ActiveCartsData;
 
 public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private readonly RemoveActiveCartItemHandler handler;
-    private readonly Mock<IActiveCartReads> reads = new();
-    private readonly Mock<IWrites<ActiveCartItem>> writes = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly ActiveCartItem item = CreateItem(productId: ValidProductId);
+	private readonly RemoveActiveCartItemHandler handler;
+	private readonly Mock<IActiveCartReads> reads = new();
+	private readonly Mock<IWrites<ActiveCartItem>> writes = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly ActiveCartItem item = CreateItem(productId: ValidProductId);
 
-    public RemoveActiveCartItemHandlerUnitTests()
-    {
-        handler = new(reads.Object, writes.Object, uow.Object);
+	public RemoveActiveCartItemHandlerUnitTests()
+	{
+		handler = new(reads.Object, writes.Object, uow.Object);
 
-        reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
-            .ReturnsAsync(item);
-    }
+		reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
+			.ReturnsAsync(item);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        RemoveActiveCartItemCommand command = new(
-            BuyerId: ValidBuyerId,
-            ProductId: ValidProductId
-        );
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		RemoveActiveCartItemCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId
+		);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        reads.Verify(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct));
-    }
+		// Assert
+		reads.Verify(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct));
+	}
 
-    [Fact]
-    public async Task Handle_ShouldPersistToDatabase()
-    {
-        // Arrange
-        RemoveActiveCartItemCommand command = new(
-            BuyerId: ValidBuyerId,
-            ProductId: ValidProductId
-        );
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
+	{
+		// Arrange
+		RemoveActiveCartItemCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId
+		);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        uow.Verify(x => x.SaveChangesAsync(ct));
-    }
+		// Assert
+		uow.Verify(x => x.SaveChangesAsync(ct));
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenCartNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
-            .ReturnsAsync(null as ActiveCartItem);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCartNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
+			.ReturnsAsync(null as ActiveCartItem);
 
-        RemoveActiveCartItemCommand command = new(
-            BuyerId: ValidBuyerId,
-            ProductId: ValidProductId
-        );
+		RemoveActiveCartItemCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId
+		);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
-            // Act
-            async () => await handler.Handle(command, ct)
-        );
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 }

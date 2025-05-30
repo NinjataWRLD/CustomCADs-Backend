@@ -3,6 +3,6 @@
 using Dtos.Office;
 
 public record FindOfficeResponse(
-    OfficeDto[]? Offices,
-    ErrorDto? Error
+	OfficeDto[]? Offices,
+	ErrorDto? Error
 );

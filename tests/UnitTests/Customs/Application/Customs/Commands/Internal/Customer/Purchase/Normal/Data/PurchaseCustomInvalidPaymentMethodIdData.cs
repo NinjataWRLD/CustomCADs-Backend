@@ -2,9 +2,9 @@
 
 public class PurchaseCustomInvalidPaymentMethodIdData : PurchaseCustomData
 {
-    public PurchaseCustomInvalidPaymentMethodIdData()
-    {
-        Add(string.Empty);
-        Add(null!);
-    }
+	public PurchaseCustomInvalidPaymentMethodIdData()
+	{
+		Add(string.Empty);
+		Add(null!);
+	}
 }

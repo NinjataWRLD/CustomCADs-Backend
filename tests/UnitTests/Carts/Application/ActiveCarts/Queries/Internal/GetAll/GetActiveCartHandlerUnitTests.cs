@@ -9,51 +9,51 @@ using static ActiveCartsData;
 
 public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private readonly GetActiveCartItemsHandler handler;
-    private readonly Mock<IActiveCartReads> reads = new();
-    private readonly Mock<IRequestSender> sender = new();
+	private readonly GetActiveCartItemsHandler handler;
+	private readonly Mock<IActiveCartReads> reads = new();
+	private readonly Mock<IRequestSender> sender = new();
 
-    private const string Buyer = "For7a7a";
+	private const string Buyer = "For7a7a";
 
-    public GetActiveCartHandlerUnitTests()
-    {
-        handler = new(reads.Object, sender.Object);
+	public GetActiveCartHandlerUnitTests()
+	{
+		handler = new(reads.Object, sender.Object);
 
-        reads.Setup(x => x.AllAsync(ValidBuyerId, false, ct))
-            .ReturnsAsync([]);
+		reads.Setup(x => x.AllAsync(ValidBuyerId, false, ct))
+			.ReturnsAsync([]);
 
-        sender.Setup(x => x.SendQueryAsync(
-            It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
-            ct
-        )).ReturnsAsync(Buyer);
-    }
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
+			ct
+		)).ReturnsAsync(Buyer);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GetActiveCartItemsQuery query = new(ValidBuyerId);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetActiveCartItemsQuery query = new(ValidBuyerId);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        GetActiveCartItemsQuery query = new(ValidBuyerId);
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		GetActiveCartItemsQuery query = new(ValidBuyerId);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
-            ct
-        ), Times.Once);
-    }
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
+			ct
+		), Times.Once);
+	}
 }

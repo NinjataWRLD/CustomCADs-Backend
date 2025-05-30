@@ -2,5 +2,6 @@
 
 public record CalculateActiveCartShipmentRequest(
     string Country,
-    string City
+    string City,
+    string Street
 );

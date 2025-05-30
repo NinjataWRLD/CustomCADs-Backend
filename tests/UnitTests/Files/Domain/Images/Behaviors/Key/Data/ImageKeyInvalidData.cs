@@ -4,8 +4,8 @@ using static ImagesData;
 
 public class ImageKeyInvalidData : ImageKeyData
 {
-    public ImageKeyInvalidData()
-    {
-        Add(InvalidKey);
-    }
+	public ImageKeyInvalidData()
+	{
+		Add(InvalidKey);
+	}
 }

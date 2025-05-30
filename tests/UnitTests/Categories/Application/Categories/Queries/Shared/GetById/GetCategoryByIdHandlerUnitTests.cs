@@ -10,42 +10,42 @@ using static CategoriesData;
 
 public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 {
-    private readonly GetCategoryNameByIdHandler handler;
-    private readonly Mock<ICategoryReads> reads = new();
+	private readonly GetCategoryNameByIdHandler handler;
+	private readonly Mock<ICategoryReads> reads = new();
 
-    public GetCategoryByIdHandlerUnitTests()
-    {
-        handler = new(reads.Object);
+	public GetCategoryByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object);
 
-        reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(CreateCategory());
-    }
+		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(CreateCategory());
+	}
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GetCategoryNameByIdQuery query = new(ValidId);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetCategoryNameByIdQuery query = new(ValidId);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(v => v.SingleByIdAsync(ValidId, false, ct), Times.Once());
-    }
+		// Assert
+		reads.Verify(v => v.SingleByIdAsync(ValidId, false, ct), Times.Once());
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenDatabaseMiss()
-    {
-        // Arrange
-        reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Category);
-        GetCategoryNameByIdQuery query = new(ValidId);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenDatabaseMiss()
+	{
+		// Arrange
+		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Category);
+		GetCategoryNameByIdQuery query = new(ValidId);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
-            // Act
-            async () => await handler.Handle(query, ct)
-        );
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
 
-    }
+	}
 }

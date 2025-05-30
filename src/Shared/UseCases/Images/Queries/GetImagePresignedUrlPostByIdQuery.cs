@@ -3,6 +3,6 @@
 namespace CustomCADs.Shared.UseCases.Images.Queries;
 
 public record GetImagePresignedUrlPostByIdQuery(
-    string Name,
-    UploadFileRequest File
+	string Name,
+	UploadFileRequest File
 ) : IQuery<UploadFileResponse>;

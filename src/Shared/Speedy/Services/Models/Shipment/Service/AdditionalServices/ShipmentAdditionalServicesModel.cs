@@ -6,11 +6,11 @@ using CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServic
 namespace CustomCADs.Shared.Speedy.Services.Models.Shipment.Service.AdditionalServices;
 
 public record ShipmentAdditionalServicesModel(
-    ShipmentCodAdditionalServiceModel? Cod,
-    ShipmentObpdModel? Obdp,
-    ShipmentDeclaredValueAdditionalServiceModel? DeclaredValue,
-    ShipmentReturnAdditionalServicesModel? Returns,
-    int? FixedTimeDelivery,
-    int? SpecialDeliveryId,
-    int? DeliveryToFloor
+	ShipmentCodAdditionalServiceModel? Cod,
+	ShipmentObpdModel? Obdp,
+	ShipmentDeclaredValueAdditionalServiceModel? DeclaredValue,
+	ShipmentReturnAdditionalServicesModel? Returns,
+	int? FixedTimeDelivery,
+	int? SpecialDeliveryId,
+	int? DeliveryToFloor
 );
