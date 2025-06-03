@@ -25,6 +25,7 @@ public class AccountsBaseUnitTests
         string role = RolesData.ValidName1,
         string username = ValidUsername1,
         string email = ValidEmail1,
+        DateTimeOffset? createdAt = null,
         string? firstName = ValidFirstName1,
         string? lastName = ValidLastName1
     ) => Account.CreateWithId(
@@ -32,6 +33,7 @@ public class AccountsBaseUnitTests
             role: role,
             username: username,
             email: email,
+            createdAt: createdAt ?? DateTimeOffset.UtcNow,
             firstName: firstName,
             lastName: lastName
         );

@@ -47,17 +47,21 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 
     public GetPurchasedCartCadUrlGetHandlerUnitTests()
     {
+        reads.Setup(x => x.SingleByIdAsync(cartId, false, ct))
+            .ReturnsAsync(cart);
+
         sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
             .ReturnsAsync(new DownloadFileResponse(Url, ContentType));
+
+        CoordinatesDto coords = new(0, 0, 0);
+        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadCoordsByIdQuery>(), ct))
+            .ReturnsAsync(new GetCadCoordsByIdDto(coords, coords));
     }
 
     [Fact]
     public async Task Handle_ShouldQueryDatabase()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(cartId, false, ct))
-            .ReturnsAsync(cart);
-
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
             Id: cartId,
             ProductId: CartItemsData.ValidProductId1,
@@ -76,9 +80,6 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     public async Task Handle_ShouldSendRequests()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(cartId, false, ct))
-            .ReturnsAsync(cart);
-
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
             Id: cartId,
             ProductId: CartItemsData.ValidProductId1,
@@ -99,9 +100,6 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
     public async Task Handle_ShouldReturnProperly()
     {
         // Arrange
-        reads.Setup(x => x.SingleByIdAsync(cartId, false, ct))
-            .ReturnsAsync(cart);
-
         GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
             Id: cartId,
             ProductId: CartItemsData.ValidProductId1,
