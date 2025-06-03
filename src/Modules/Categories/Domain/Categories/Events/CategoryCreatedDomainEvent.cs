@@ -3,5 +3,5 @@
 namespace CustomCADs.Categories.Domain.Categories.Events;
 
 public record CategoryCreatedDomainEvent(
-    Category Category
+	Category Category
 ) : BaseDomainEvent;

@@ -1,5 +1,3 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+﻿namespace CustomCADs.UnitTests.Catalog.Domain.Products.Create.WithId;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Create.WithId;
-
-public class ProductCreateWithIdData : TheoryData<ProductId, string, string, decimal>;
+public class ProductCreateWithIdData : TheoryData<string, string, decimal>;

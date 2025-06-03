@@ -7,54 +7,54 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetExists;
 
 public class GetCadExistsByIdHandlerUnitTests : CadsBaseUnitTests
 {
-    private readonly Mock<ICadReads> reads = new();
-    private static readonly CadId id = CadId.New();
+	private readonly GetCadExistsByIdHandler handler;
+	private readonly Mock<ICadReads> reads = new();
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
+	private static readonly CadId id = CadId.New();
 
-        GetCadExistsByIdQuery query = new(id);
-        GetCadExistsByIdHandler handler = new(reads.Object);
+	public GetCadExistsByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object);
+		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
+	}
 
-        // Act
-        await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetCadExistsByIdQuery query = new(id);
 
-        // Assert
-        reads.Verify(x => x.ExistsByIdAsync(id, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly_WhenProductExists()
-    {
-        // Arrange
-        reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
+		// Assert
+		reads.Verify(x => x.ExistsByIdAsync(id, ct), Times.Once);
+	}
 
-        GetCadExistsByIdQuery query = new(id);
-        GetCadExistsByIdHandler handler = new(reads.Object);
+	[Fact]
+	public async Task Handle_ShouldReturnProperly_WhenProductExists()
+	{
+		// Arrange
+		GetCadExistsByIdQuery query = new(id);
 
-        // Act
-        bool exists = await handler.Handle(query, ct);
+		// Act
+		bool exists = await handler.Handle(query, ct);
 
-        // Assert
-        Assert.True(exists);
-    }
+		// Assert
+		Assert.True(exists);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly_WhenProductDoesNotExists()
-    {
-        // Arrange
-        reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);
+	[Fact]
+	public async Task Handle_ShouldReturnProperly_WhenProductDoesNotExists()
+	{
+		// Arrange
+		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);
+		GetCadExistsByIdQuery query = new(id);
 
-        GetCadExistsByIdQuery query = new(id);
-        GetCadExistsByIdHandler handler = new(reads.Object);
+		// Act
+		bool exists = await handler.Handle(query, ct);
 
-        // Act
-        bool exists = await handler.Handle(query, ct);
-
-        // Assert
-        Assert.False(exists);
-    }
+		// Assert
+		Assert.False(exists);
+	}
 }

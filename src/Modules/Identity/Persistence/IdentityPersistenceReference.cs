@@ -4,5 +4,5 @@ namespace CustomCADs.Identity.Persistence;
 
 public class IdentityPersistenceReference
 {
-    public static Assembly Assembly => typeof(IdentityPersistenceReference).Assembly;
+	public static Assembly Assembly => typeof(IdentityPersistenceReference).Assembly;
 }

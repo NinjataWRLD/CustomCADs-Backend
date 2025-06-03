@@ -3,6 +3,6 @@
 using Dtos.BulkTrackingDataFile;
 
 public record BulkTrackingDataFilesResponse(
-    BulkTrackingDataFileDto[] Parcels,
-    ErrorDto? Error
+	BulkTrackingDataFileDto[] Parcels,
+	ErrorDto? Error
 );

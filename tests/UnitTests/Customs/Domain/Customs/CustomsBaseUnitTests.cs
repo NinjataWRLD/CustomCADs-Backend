@@ -11,15 +11,15 @@ public class CustomsBaseUnitTests
             name: name ?? ValidName1,
             description: description ?? ValidDescription1,
             forDelivery: forDelivery ?? false,
-            buyerId: buyerId ?? ValidBuyerId1
+            buyerId: buyerId ?? ValidBuyerId
         );
 
     public static Custom CreateCustomWithId(CustomId? id = null, string? name = null, string? description = null, bool? delivery = null, AccountId? buyerId = null)
         => Custom.CreateWithId(
-            id: id ?? ValidId1,
+            id: id ?? ValidId,
             name: name ?? ValidName1,
             description: description ?? ValidDescription1,
             delivery: delivery ?? false,
-            buyerId: buyerId ?? ValidBuyerId1
+            buyerId: buyerId ?? ValidBuyerId
         );
 }

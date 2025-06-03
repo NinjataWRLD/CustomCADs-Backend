@@ -5,12 +5,12 @@ namespace CustomCADs.Catalog.Persistence.Configurations.Products;
 
 public class Configurations : IEntityTypeConfiguration<Product>
 {
-    public void Configure(EntityTypeBuilder<Product> builder)
-    {
-        builder
-            .SetPrimaryKey()
-            .SetStronglyTypedIds()
-            .SetValueObjects()
-            .SetValidations();
-    }
+	public void Configure(EntityTypeBuilder<Product> builder)
+	{
+		builder
+			.SetPrimaryKey()
+			.SetStronglyTypedIds()
+			.SetValueObjects()
+			.SetValidations();
+	}
 }

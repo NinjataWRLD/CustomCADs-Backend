@@ -3,28 +3,28 @@
 namespace CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Patch.Cancel;
 
 public class CancelShipmentEndpoint(IRequestSender sender)
-    : Endpoint<CancelShipmentRequest>
+	: Endpoint<CancelShipmentRequest>
 {
-    public override void Configure()
-    {
-        Patch("");
-        Group<ShipmentsGroup>();
-        Description(d => d
-            .WithSummary("Cancel")
-            .WithDescription("Cancel a Shipment (this doesn't delete the shipment, it simply cancels the requested delivery)")
-        );
-    }
+	public override void Configure()
+	{
+		Patch("");
+		Group<ShipmentsGroup>();
+		Description(d => d
+			.WithSummary("Cancel")
+			.WithDescription("Cancel a Shipment (this doesn't delete the shipment, it simply cancels the requested delivery)")
+		);
+	}
 
-    public override async Task HandleAsync(CancelShipmentRequest req, CancellationToken ct)
-    {
-        await sender.SendCommandAsync(
-            new CancelShipmentCommand(
-                Id: ShipmentId.New(req.Id),
-                Comment: req.Comment
-            ),
-            ct
-        ).ConfigureAwait(false);
+	public override async Task HandleAsync(CancelShipmentRequest req, CancellationToken ct)
+	{
+		await sender.SendCommandAsync(
+			new CancelShipmentCommand(
+				Id: ShipmentId.New(req.Id),
+				Comment: req.Comment
+			),
+			ct
+		).ConfigureAwait(false);
 
-        await SendNoContentAsync().ConfigureAwait(false);
-    }
+		await SendNoContentAsync().ConfigureAwait(false);
+	}
 }

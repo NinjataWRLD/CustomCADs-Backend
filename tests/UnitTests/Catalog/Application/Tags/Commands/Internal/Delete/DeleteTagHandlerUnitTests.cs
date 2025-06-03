@@ -10,63 +10,61 @@ namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Delete
 
 public class DeleteTagHandlerUnitTests : TagsBaseUnitTests
 {
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<ITagWrites> writes = new();
-    private readonly Mock<ITagReads> reads = new();
+	private readonly DeleteTagHandler handler;
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<ITagWrites> writes = new();
+	private readonly Mock<ITagReads> reads = new();
 
-    private static readonly TagId id = new();
-    private static readonly Tag tag = CreateTag();
+	private static readonly TagId id = new();
+	private static readonly Tag tag = CreateTag();
 
-    public DeleteTagHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
-            .ReturnsAsync(tag);
-    }
+	public DeleteTagHandlerUnitTests()
+	{
+		handler = new(reads.Object, writes.Object, uow.Object);
 
-    [Fact]
-    public async Task Handler_ShouldQueryDatabase()
-    {
-        // Arrange
-        DeleteTagCommand command = new(id);
-        DeleteTagHandler handler = new(reads.Object, writes.Object, uow.Object);
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+			.ReturnsAsync(tag);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Fact]
+	public async Task Handler_ShouldQueryDatabase()
+	{
+		// Arrange
+		DeleteTagCommand command = new(id);
 
-        // Assert
-        reads.Verify(v => v.SingleByIdAsync(id, true, ct), Times.Once());
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Fact]
-    public async Task Handler_ShouldPersistToDatabase()
-    {
-        // Arrange
-        DeleteTagCommand command = new(id);
-        DeleteTagHandler handler = new(reads.Object, writes.Object, uow.Object);
+		// Assert
+		reads.Verify(v => v.SingleByIdAsync(id, true, ct), Times.Once());
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Fact]
+	public async Task Handler_ShouldPersistToDatabase()
+	{
+		// Arrange
+		DeleteTagCommand command = new(id);
 
-        // Assert
-        writes.Verify(v => v.Remove(tag), Times.Once());
-        uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Fact]
-    public async Task Handler_ShouldThrowException_WhenTagDoesNotExist()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
-            .ReturnsAsync(null as Tag);
+		// Assert
+		writes.Verify(v => v.Remove(tag), Times.Once());
+		uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
+	}
 
-        DeleteTagCommand command = new(id);
-        DeleteTagHandler handler = new(reads.Object, writes.Object, uow.Object);
+	[Fact]
+	public async Task Handler_ShouldThrowException_WhenTagDoesNotExist()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+			.ReturnsAsync(null as Tag);
+		DeleteTagCommand command = new(id);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(async () =>
-        {
-            // Act  
-            await handler.Handle(command, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(
+			// Act  
+			async () => await handler.Handle(command, ct)
+		);
+	}
 }

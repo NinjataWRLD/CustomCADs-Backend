@@ -8,6 +8,7 @@ using CustomCADs.Shared.Speedy.Services.Services;
 using CustomCADs.Shared.Speedy.Services.Services.Models;
 
 namespace CustomCADs.Shared.Speedy.Services;
+
 public static class ServicesHelper
 {
     public static async Task<int> GetCountryId(this LocationService locationService, AccountModel account, string country, CancellationToken ct)

@@ -3,6 +3,6 @@
 using Dtos.Site;
 
 public record FindSiteResponse(
-    SiteDto[]? Sites,
-    ErrorDto? Error
+	SiteDto[]? Sites,
+	ErrorDto? Error
 );

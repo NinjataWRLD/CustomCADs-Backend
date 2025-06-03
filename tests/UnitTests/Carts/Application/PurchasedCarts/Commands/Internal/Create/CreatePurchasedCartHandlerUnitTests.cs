@@ -5,6 +5,7 @@ using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.Shared.UseCases.Products.Commands;
@@ -14,24 +15,36 @@ namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Commands.Interna
 
 public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 {
+    private readonly CreatePurchasedCartHandler handler;
     private readonly Mock<IWrites<PurchasedCart>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
     private readonly Mock<IRequestSender> sender = new();
 
     private static readonly AccountId buyerId = AccountId.New();
     private static readonly ActiveCartItemDto[] items = [];
+    private static readonly ProductId[] productIds = [.. items.Select(x => x.ProductId)];
     private static readonly Dictionary<ProductId, decimal> prices = [];
+    private static readonly Dictionary<ProductId, CadId> cads = [];
+    private static readonly CadId[] cadIds = [.. cads.Select(x => x.Value)];
 
     public CreatePurchasedCartHandlerUnitTests()
     {
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
+        handler = new(writes.Object, uow.Object, sender.Object);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetProductCadIdsByIdsQuery>(), ct))
-            .ReturnsAsync([]);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
+            ct
+        )).ReturnsAsync(true);
 
-        sender.Setup(x => x.SendCommandAsync(It.IsAny<DuplicateCadsByIdsCommand>(), ct))
-            .ReturnsAsync([]);
+        sender.Setup(x => x.SendQueryAsync(
+            It.Is<GetProductCadIdsByIdsQuery>(x => x.Ids == productIds),
+            ct
+        )).ReturnsAsync(cads);
+
+        sender.Setup(x => x.SendCommandAsync(
+            It.Is<DuplicateCadsByIdsCommand>(x => x.Ids == cadIds),
+            ct
+        )).ReturnsAsync([]);
     }
 
     [Fact]
@@ -43,13 +56,15 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
             Items: items,
             Prices: prices
         );
-        CreatePurchasedCartHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
-        writes.Verify(x => x.AddAsync(It.IsAny<PurchasedCart>(), ct));
+        writes.Verify(x => x.AddAsync(
+            It.IsAny<PurchasedCart>(),
+            ct
+        ));
         uow.Verify(x => x.SaveChangesAsync(ct));
     }
 
@@ -62,45 +77,48 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
             Items: items,
             Prices: prices
         );
-        CreatePurchasedCartHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetAccountExistsByIdQuery>()
-        , ct), Times.Once);
+            It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetProductCadIdsByIdsQuery>()
-        , ct), Times.Once);
+            It.Is<GetProductCadIdsByIdsQuery>(x => x.Ids == productIds),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<DuplicateCadsByIdsCommand>()
-        , ct), Times.Once);
+            It.Is<DuplicateCadsByIdsCommand>(x => x.Ids == cadIds),
+            ct
+        ), Times.Once);
         sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<AddProductPurchaseCommand>()
-        , ct), Times.Once);
+            It.Is<AddProductPurchaseCommand>(x => x.Ids == productIds),
+            ct
+        ), Times.Once);
     }
 
     [Fact]
     public async Task Handle_ShouldThrowException_WhenAccountDoesNotExist()
     {
         // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-            .ReturnsAsync(false);
+        sender.Setup(x => x.SendQueryAsync(
+            It.IsAny<GetAccountExistsByIdQuery>(),
+            ct
+        )).ReturnsAsync(false);
 
         CreatePurchasedCartCommand command = new(
             BuyerId: buyerId,
             Items: items,
             Prices: prices
         );
-        CreatePurchasedCartHandler handler = new(writes.Object, uow.Object, sender.Object);
 
         // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
-        {
+        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(
             // Act
-            await handler.Handle(command, ct);
-        });
+            async () => await handler.Handle(command, ct)
+        );
     }
 }

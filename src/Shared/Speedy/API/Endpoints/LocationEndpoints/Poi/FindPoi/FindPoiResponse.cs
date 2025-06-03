@@ -3,6 +3,6 @@
 using Dtos.PointOfInterest;
 
 public record FindPoiResponse(
-    PointOfInterestDto[]? Pois,
-    ErrorDto? Error
+	PointOfInterestDto[]? Pois,
+	ErrorDto? Error
 );

@@ -2,8 +2,8 @@
 
 public enum CustomSortingType
 {
-    OrderedAt = 1,
-    PurchasedAt,
-    Alphabetical,
-    CustomStatus,
+	OrderedAt = 1,
+	PurchasedAt,
+	Alphabetical,
+	CustomStatus,
 }

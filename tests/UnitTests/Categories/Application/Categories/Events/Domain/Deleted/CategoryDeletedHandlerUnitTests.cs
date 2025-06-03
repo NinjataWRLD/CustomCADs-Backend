@@ -2,7 +2,6 @@
 using CustomCADs.Categories.Application.Common.Caching;
 using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.UnitTests.Categories.Application.Categories.Events.Domain.Deleted.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Events.Domain.Deleted;
 
@@ -11,22 +10,25 @@ using static CategoriesData;
 
 public class CategoryDeletedHandlerUnitTests : CategoriesBaseUnitTests
 {
-    private readonly Mock<ICacheService> cache = new();
+	private readonly CategoryDeletedEventHandler handler;
+	private readonly Mock<ICacheService> cache = new();
 
-    [Theory]
-    [ClassData(typeof(CategoryDeletedValidData))]
-    public async Task Handle_ShouldUpdateCache(string name, string description)
-    {
-        // Arrange
-        Category category = CreateCategory(ValidId1, name, description);
-        CategoryDeletedDomainEvent de = new(category.Id);
-        CategoryDeletedEventHandler handler = new(cache.Object);
+	public CategoryDeletedHandlerUnitTests()
+	{
+		handler = new(cache.Object);
+	}
 
-        // Act
-        await handler.Handle(de);
+	[Fact]
+	public async Task Handle_ShouldUpdateCache()
+	{
+		// Arrange
+		CategoryDeletedDomainEvent de = new(ValidId);
 
-        // Assert
-        cache.Verify(v => v.RemoveAsync<IEnumerable<Category>>(CategoryKey), Times.Once());
-        cache.Verify(v => v.RemoveAsync<Category>($"{CategoryKey}/{de.Id}"), Times.Once());
-    }
+		// Act
+		await handler.Handle(de);
+
+		// Assert
+		cache.Verify(v => v.RemoveAsync<IEnumerable<Category>>(CategoryKey), Times.Once());
+		cache.Verify(v => v.RemoveAsync<Category>($"{CategoryKey}/{de.Id}"), Times.Once());
+	}
 }

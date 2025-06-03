@@ -3,5 +3,5 @@
 namespace CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetAll;
 
 public sealed record GetActiveCartItemsQuery(
-    AccountId BuyerId
+	AccountId BuyerId
 ) : IQuery<ActiveCartItemDto[]>;

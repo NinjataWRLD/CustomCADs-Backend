@@ -7,58 +7,56 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetVolume;
 
 public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
 {
-    private readonly Mock<ICadReads> reads = new();
-    private static readonly Cad cad = CreateCad();
+	private readonly GetCadVolumeByIdHandler handler;
+	private readonly Mock<ICadReads> reads = new();
 
-    public GetCadVolumeByIdHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
-            .ReturnsAsync(cad);
-    }
+	private static readonly Cad cad = CreateCad();
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Assert
-        GetCadVolumeByIdQuery query = new(id1);
-        GetCadVolumeByIdHandler handler = new(reads.Object);
+	public GetCadVolumeByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object);
+		reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+			.ReturnsAsync(cad);
+	}
 
-        // Act
-        await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetCadVolumeByIdQuery query = new(id1);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id1, false, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Assert
-        GetCadVolumeByIdQuery query = new(id1);
-        GetCadVolumeByIdHandler handler = new(reads.Object);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(id1, false, ct), Times.Once);
+	}
 
-        // Act
-        decimal volume = await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		GetCadVolumeByIdQuery query = new(id1);
 
-        // Assert
-        Assert.Equal(cad.Volume, volume);
-    }
+		// Act
+		decimal volume = await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenCadNotFound()
-    {
-        // Assert
-        reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
-            .ReturnsAsync(null as Cad);
+		// Assert
+		Assert.Equal(cad.Volume, volume);
+	}
 
-        GetCadVolumeByIdQuery query = new(id1);
-        GetCadVolumeByIdHandler handler = new(reads.Object);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCadNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+			.ReturnsAsync(null as Cad);
+		GetCadVolumeByIdQuery query = new(id1);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-        {
-            // Act
-            await handler.Handle(query, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
 }

@@ -2,6 +2,7 @@
 using CustomCADs.Categories.Application.Common.Caching;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
+using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Internal.GetAll;
 
@@ -10,86 +11,85 @@ using static CategoriesData;
 
 public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
 {
-    private readonly Mock<ICategoryReads> reads = new();
-    private readonly Mock<ICacheService> cache = new();
-    private readonly Category[] categories = [
-        Category.CreateWithId(ValidId1, ValidName1, ValidDescription1),
-        Category.CreateWithId(ValidId2, ValidName2, ValidDescription2),
-        Category.CreateWithId(ValidId3, ValidName3, ValidDescription3)
-    ];
+	private readonly GetAllCategoriesHandler handler;
+	private readonly Mock<ICategoryReads> reads = new();
+	private readonly Mock<ICacheService> cache = new();
 
-    public GetAllCategoriesHandlerUnitTests()
-    {
-        cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(categories);
-        reads.Setup(v => v.AllAsync(false, ct)).ReturnsAsync(categories);
-    }
+	private readonly Category[] categories = [
+		Category.CreateWithId(CategoryId.New(1), ValidName1, ValidDescription1),
+		Category.CreateWithId(CategoryId.New(2), ValidName2, ValidDescription2),
+		Category.CreateWithId(CategoryId.New(3), ValidName3, ValidDescription3)
+	];
 
-    [Fact]
-    public async Task Handle_ShouldCallCache_OnCacheHit()
-    {
-        // Assert
-        GetAllCategoriesQuery query = new();
-        GetAllCategoriesHandler handler = new(reads.Object, cache.Object);
+	public GetAllCategoriesHandlerUnitTests()
+	{
+		handler = new(reads.Object, cache.Object);
 
-        // Act
-        await handler.Handle(query, ct);
+		cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(categories);
+		reads.Setup(v => v.AllAsync(false, ct)).ReturnsAsync(categories);
+	}
 
-        // Assert
-        cache.Verify(v => v.GetAsync<IEnumerable<Category>>(CategoryKey), Times.Once());
-    }
+	[Fact]
+	public async Task Handle_ShouldCallCache_OnCacheHit()
+	{
+		// Arrange
+		GetAllCategoriesQuery query = new();
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase_OnCacheMiss()
-    {
-        // Assert
-        cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(null as Category[]);
+		// Act
+		await handler.Handle(query, ct);
 
-        GetAllCategoriesQuery query = new();
-        GetAllCategoriesHandler handler = new(reads.Object, cache.Object);
+		// Assert
+		cache.Verify(v => v.GetAsync<IEnumerable<Category>>(CategoryKey), Times.Once());
+	}
 
-        // Act
-        await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase_OnCacheMiss()
+	{
+		// Arrange
+		cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(null as Category[]);
+		GetAllCategoriesQuery query = new();
 
-        // Assert
-        reads.Verify(v => v.AllAsync(false, ct), Times.Once());
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldReturnResult_OnCacheHit()
-    {
-        // Assert
-        GetAllCategoriesQuery query = new();
-        GetAllCategoriesHandler handler = new(reads.Object, cache.Object);
+		// Assert
+		reads.Verify(v => v.AllAsync(false, ct), Times.Once());
+	}
 
-        // Act
-        IEnumerable<CategoryReadDto> categories = await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldReturnResult_OnCacheHit()
+	{
+		// Arrange
+		GetAllCategoriesQuery query = new();
 
-        // Assert
-        Assert.Multiple(() =>
-        {
-            Assert.Equal(categories.Select(r => r.Id), this.categories.Select(r => r.Id));
-            Assert.Equal(categories.Select(r => r.Name), this.categories.Select(r => r.Name));
-            Assert.Equal(categories.Select(r => r.Description), this.categories.Select(r => r.Description));
-        });
-    }
+		// Act
+		IEnumerable<CategoryReadDto> categories = await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldReturnResult_OnCacheMiss()
-    {
-        // Assert
-        cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(null as Category[]);
-        GetAllCategoriesQuery query = new();
-        GetAllCategoriesHandler handler = new(reads.Object, cache.Object);
+		// Assert
+		Assert.Multiple(() =>
+		{
+			Assert.Equal(categories.Select(r => r.Id), this.categories.Select(r => r.Id));
+			Assert.Equal(categories.Select(r => r.Name), this.categories.Select(r => r.Name));
+			Assert.Equal(categories.Select(r => r.Description), this.categories.Select(r => r.Description));
+		});
+	}
 
-        // Act
-        IEnumerable<CategoryReadDto> categories = await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldReturnResult_OnCacheMiss()
+	{
+		// Arrange
+		cache.Setup(v => v.GetAsync<IEnumerable<Category>>(CategoryKey)).ReturnsAsync(null as Category[]);
+		GetAllCategoriesQuery query = new();
 
-        // Assert
-        Assert.Multiple(() =>
-        {
-            Assert.Equal(categories.Select(r => r.Id), this.categories.Select(r => r.Id));
-            Assert.Equal(categories.Select(r => r.Name), this.categories.Select(r => r.Name));
-            Assert.Equal(categories.Select(r => r.Description), this.categories.Select(r => r.Description));
-        });
-    }
+		// Act
+		IEnumerable<CategoryReadDto> categories = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Multiple(() =>
+		{
+			Assert.Equal(categories.Select(r => r.Id), this.categories.Select(r => r.Id));
+			Assert.Equal(categories.Select(r => r.Name), this.categories.Select(r => r.Name));
+			Assert.Equal(categories.Select(r => r.Description), this.categories.Select(r => r.Description));
+		});
+	}
 }

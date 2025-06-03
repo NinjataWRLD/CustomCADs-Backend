@@ -4,7 +4,6 @@ using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 
@@ -14,95 +13,100 @@ using static PurchasedCartsData;
 
 public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedCartsBaseUnitTests
 {
-    private readonly Mock<IPurchasedCartReads> reads = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<IRequestSender> sender = new();
-    private readonly PurchasedCart cart = CreateCartWithItems(
-        items: [CreateItem(forDelivery: true)]
-    );
-    private readonly PurchasedCartId id = ValidId1;
+	private readonly ActiveCartDeliveryRequestedDomainEventHandler handler;
+	private readonly Mock<IPurchasedCartReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<IRequestSender> sender = new();
 
-    public ActiveCartDeliveryRequestedDomainEventHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
-            .ReturnsAsync(cart);
+	private readonly PurchasedCart cart = CreateCartWithItems(
+		items: [CreateItem(forDelivery: true)]
+	);
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct))
-            .ReturnsAsync("NinjataBG");
+	public ActiveCartDeliveryRequestedDomainEventHandlerUnitTests()
+	{
+		handler = new(reads.Object, uow.Object, sender.Object);
 
-        sender.Setup(x => x.SendCommandAsync(It.IsAny<CreateShipmentCommand>(), ct))
-            .ReturnsAsync(ValidShipmentId1);
-    }
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(cart);
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        ActiveCartDeliveryRequestedDomainEvent de = new(
-            Id: id,
-            ShipmentService: string.Empty,
-            Weight: default,
-            Count: default,
-            Address: new(string.Empty, string.Empty, string.Empty),
-            Contact: new(default, default)
-        );
-        ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == cart.BuyerId),
+			ct
+		)).ReturnsAsync("NinjataBG");
 
-        // Act
-        await handler.Handle(de);
+		sender.Setup(x => x.SendCommandAsync(
+			It.Is<CreateShipmentCommand>(x => x.BuyerId == cart.BuyerId),
+			ct
+		)).ReturnsAsync(ValidShipmentId);
+	}
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		ActiveCartDeliveryRequestedDomainEvent de = new(
+			Id: ValidId,
+			ShipmentService: string.Empty,
+			Weight: default,
+			Count: default,
+			Address: new(string.Empty, string.Empty, string.Empty),
+			Contact: new(default, default)
+		);
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        ActiveCartDeliveryRequestedDomainEvent de = new(
-            Id: id,
-            ShipmentService: string.Empty,
-            Weight: default,
-            Count: default,
-            Address: new(string.Empty, string.Empty, string.Empty),
-            Contact: new(default, default)
-        );
-        ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
+		// Act
+		await handler.Handle(de);
 
-        // Act
-        await handler.Handle(de);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+	}
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetUsernameByIdQuery>(),
-        ct), Times.Once);
-        sender.Verify(x => x.SendCommandAsync(
-            It.IsAny<CreateShipmentCommand>(),
-        ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		ActiveCartDeliveryRequestedDomainEvent de = new(
+			Id: ValidId,
+			ShipmentService: string.Empty,
+			Weight: default,
+			Count: default,
+			Address: new(string.Empty, string.Empty, string.Empty),
+			Contact: new(default, default)
+		);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenCartNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
-            .ReturnsAsync(null as PurchasedCart);
+		// Act
+		await handler.Handle(de);
 
-        ActiveCartDeliveryRequestedDomainEvent de = new(
-            Id: id,
-            ShipmentService: string.Empty,
-            Weight: default,
-            Count: default,
-            Address: new(string.Empty, string.Empty, string.Empty),
-            Contact: new(default, default)
-        );
-        ActiveCartDeliveryRequestedDomainEventHandler handler = new(reads.Object, uow.Object, sender.Object);
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == cart.BuyerId),
+			ct
+		), Times.Once);
+		sender.Verify(x => x.SendCommandAsync(
+			It.Is<CreateShipmentCommand>(x => x.BuyerId == cart.BuyerId),
+			ct
+		), Times.Once);
+	}
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(async () =>
-        {
-            // Act
-            await handler.Handle(de);
-        });
-    }
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCartNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(null as PurchasedCart);
+
+		ActiveCartDeliveryRequestedDomainEvent de = new(
+			Id: ValidId,
+			ShipmentService: string.Empty,
+			Weight: default,
+			Count: default,
+			Address: new(string.Empty, string.Empty, string.Empty),
+			Contact: new(default, default)
+		);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<PurchasedCart>>(
+			// Act
+			async () => await handler.Handle(de)
+		);
+	}
 }

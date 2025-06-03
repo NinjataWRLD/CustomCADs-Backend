@@ -3,83 +3,81 @@ using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetKey.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetKey;
 
+using Data;
+
 public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
 {
-    private readonly Mock<ICadReads> reads = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Cad cad = CreateCad();
+	private readonly SetCadKeyHandler handler;
+	private readonly Mock<ICadReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Cad cad = CreateCad();
 
-    public SetCadKeyValidatorUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
-            .ReturnsAsync(cad);
-    }
+	public SetCadKeyValidatorUnitTests()
+	{
+		handler = new(reads.Object, uow.Object);
 
-    [Theory]
-    [ClassData(typeof(SetCadKeyValidData))]
-    public async Task Handle_ShouldQueryDatabase(string key)
-    {
-        // Arrange
-        SetCadKeyCommand command = new(id1, key);
-        SetCadKeyHandler handler = new(reads.Object, uow.Object);
+		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+			.ReturnsAsync(cad);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Theory]
+	[ClassData(typeof(SetCadKeyValidData))]
+	public async Task Handle_ShouldQueryDatabase(string key)
+	{
+		// Arrange
+		SetCadKeyCommand command = new(id1, key);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Theory]
-    [ClassData(typeof(SetCadKeyValidData))]
-    public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string key)
-    {
-        // Arrange
-        SetCadKeyCommand command = new(id1, key);
-        SetCadKeyHandler handler = new(reads.Object, uow.Object);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Theory]
+	[ClassData(typeof(SetCadKeyValidData))]
+	public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string key)
+	{
+		// Arrange
+		SetCadKeyCommand command = new(id1, key);
 
-        // Assert
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Theory]
-    [ClassData(typeof(SetCadKeyValidData))]
-    public async Task Handle_ShouldModifyCad_WhenCadFound(string key)
-    {
-        // Arrange
-        SetCadKeyCommand command = new(id1, key);
-        SetCadKeyHandler handler = new(reads.Object, uow.Object);
+		// Assert
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Theory]
+	[ClassData(typeof(SetCadKeyValidData))]
+	public async Task Handle_ShouldModifyCad_WhenCadFound(string key)
+	{
+		// Arrange
+		SetCadKeyCommand command = new(id1, key);
 
-        // Assert
-        Assert.Equal(key, cad.Key);
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Theory]
-    [ClassData(typeof(SetCadKeyValidData))]
-    public async Task Handle_ShouldThrowException_WhenCadNotFound(string key)
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
-            .ReturnsAsync(null as Cad);
+		// Assert
+		Assert.Equal(key, cad.Key);
+	}
 
-        SetCadKeyCommand command = new(id1, key);
-        SetCadKeyHandler handler = new(reads.Object, uow.Object);
+	[Theory]
+	[ClassData(typeof(SetCadKeyValidData))]
+	public async Task Handle_ShouldThrowException_WhenCadNotFound(string key)
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+			.ReturnsAsync(null as Cad);
+		SetCadKeyCommand command = new(id1, key);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 }

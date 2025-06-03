@@ -5,9 +5,9 @@ namespace CustomCADs.Categories.Application.Categories.Events.Domain;
 
 public class CategoryDeletedEventHandler(ICacheService cache)
 {
-    public async Task Handle(CategoryDeletedDomainEvent de)
-    {
-        await cache.RemoveCategoriesArrayAsync().ConfigureAwait(false);
-        await cache.RemoveCategoryAsync(de.Id).ConfigureAwait(false);
-    }
+	public async Task Handle(CategoryDeletedDomainEvent de)
+	{
+		await cache.RemoveCategoriesArrayAsync().ConfigureAwait(false);
+		await cache.RemoveCategoryAsync(de.Id).ConfigureAwait(false);
+	}
 }

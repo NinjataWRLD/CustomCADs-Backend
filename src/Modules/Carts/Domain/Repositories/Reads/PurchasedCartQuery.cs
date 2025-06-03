@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 namespace CustomCADs.Carts.Domain.Repositories.Reads;
 
 public record PurchasedCartQuery(
-    Pagination Pagination,
-    AccountId? BuyerId = null,
-    PurchasedCartSorting? Sorting = null
+	Pagination Pagination,
+	AccountId? BuyerId = null,
+	PurchasedCartSorting? Sorting = null
 );

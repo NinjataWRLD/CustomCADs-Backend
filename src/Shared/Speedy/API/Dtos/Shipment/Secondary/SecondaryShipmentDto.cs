@@ -3,10 +3,10 @@
 using ShipmentParcelNumber;
 
 public record SecondaryShipmentDto(
-    string Id,
-    ShipmentType Type,
-    ShipmentParcelNumberDto[] Parcels,
-    string PickupDate,
-    int ServiceId,
-    bool HasScans
+	string Id,
+	ShipmentType Type,
+	ShipmentParcelNumberDto[] Parcels,
+	string PickupDate,
+	int ServiceId,
+	bool HasScans
 );

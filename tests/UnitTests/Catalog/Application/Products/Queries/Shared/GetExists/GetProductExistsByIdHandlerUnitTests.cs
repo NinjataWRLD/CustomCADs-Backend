@@ -9,54 +9,54 @@ using static ProductsData;
 
 public class GetProductExistsByIdHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly Mock<IProductReads> reads = new();
-    private static readonly ProductId id = new();
+	private readonly GetProductExistsByIdHandler handler;
+	private readonly Mock<IProductReads> reads = new();
+	private static readonly ProductId id = new();
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
+	public GetProductExistsByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object);
+	}
 
-        GetProductExistsByIdQuery query = new(id);
-        GetProductExistsByIdHandler handler = new(reads.Object);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
+		GetProductExistsByIdQuery query = new(id);
 
-        // Act
-        await handler.Handle(query, ct);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Assert
-        reads.Verify(x => x.ExistsByIdAsync(id, ct), Times.Once);
-    }
+		// Assert
+		reads.Verify(x => x.ExistsByIdAsync(id, ct), Times.Once);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly_WhenProductExists()
-    {
-        // Arrange
-        reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
+	[Fact]
+	public async Task Handle_ShouldReturnProperly_WhenProductExists()
+	{
+		// Arrange
+		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
+		GetProductExistsByIdQuery query = new(id);
 
-        GetProductExistsByIdQuery query = new(id);
-        GetProductExistsByIdHandler handler = new(reads.Object);
+		// Act
+		bool exists = await handler.Handle(query, ct);
 
-        // Act
-        bool exists = await handler.Handle(query, ct);
+		// Assert
+		Assert.True(exists);
+	}
 
-        // Assert
-        Assert.True(exists);
-    }
+	[Fact]
+	public async Task Handle_ShouldReturnProperly_WhenProductDoesNotExists()
+	{
+		// Arrange
+		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);
+		GetProductExistsByIdQuery query = new(id);
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly_WhenProductDoesNotExists()
-    {
-        // Arrange
-        reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);
+		// Act
+		bool exists = await handler.Handle(query, ct);
 
-        GetProductExistsByIdQuery query = new(id);
-        GetProductExistsByIdHandler handler = new(reads.Object);
-
-        // Act
-        bool exists = await handler.Handle(query, ct);
-
-        // Assert
-        Assert.False(exists);
-    }
+		// Assert
+		Assert.False(exists);
+	}
 }

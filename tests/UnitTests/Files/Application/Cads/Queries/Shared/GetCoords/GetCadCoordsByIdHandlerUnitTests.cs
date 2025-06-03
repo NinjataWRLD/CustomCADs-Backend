@@ -8,66 +8,65 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetCoords;
 
 public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
 {
-    private readonly Mock<ICadReads> reads = new();
-    private static readonly CadId id = CadId.New();
-    private static readonly Cad cad = CreateCad();
+	private readonly GetCadCoordsByIdHandler handler;
+	private readonly Mock<ICadReads> reads = new();
 
-    public GetCadCoordsByIdHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
-            .ReturnsAsync(cad);
-    }
+	private static readonly CadId id = CadId.New();
+	private static readonly Cad cad = CreateCad();
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GetCadCoordsByIdQuery query = new(id);
-        GetCadCoordsByIdHandler handler = new(reads.Object);
+	public GetCadCoordsByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object);
 
-        // Act
-        await handler.Handle(query, ct);
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+			.ReturnsAsync(cad);
+	}
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetCadCoordsByIdQuery query = new(id);
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        GetCadCoordsByIdQuery query = new(id);
-        GetCadCoordsByIdHandler handler = new(reads.Object);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Act
-        var (Cam, Pan) = await handler.Handle(query, ct);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+	}
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.Equal(cad.CamCoordinates.X, Cam.X),
-            () => Assert.Equal(cad.CamCoordinates.Y, Cam.Y),
-            () => Assert.Equal(cad.CamCoordinates.Z, Cam.Z),
-            () => Assert.Equal(cad.PanCoordinates.X, Pan.X),
-            () => Assert.Equal(cad.PanCoordinates.Y, Pan.Y),
-            () => Assert.Equal(cad.PanCoordinates.Z, Pan.Z)
-        );
-    }
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		GetCadCoordsByIdQuery query = new(id);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenCadNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, false, ct))
-            .ReturnsAsync(null as Cad);
+		// Act
+		var (Cam, Pan) = await handler.Handle(query, ct);
 
-        GetCadCoordsByIdQuery query = new(id);
-        GetCadCoordsByIdHandler handler = new(reads.Object);
+		// Assert
+		Assert.Multiple(
+			() => Assert.Equal(cad.CamCoordinates.X, Cam.X),
+			() => Assert.Equal(cad.CamCoordinates.Y, Cam.Y),
+			() => Assert.Equal(cad.CamCoordinates.Z, Cam.Z),
+			() => Assert.Equal(cad.PanCoordinates.X, Pan.X),
+			() => Assert.Equal(cad.PanCoordinates.Y, Pan.Y),
+			() => Assert.Equal(cad.PanCoordinates.Z, Pan.Z)
+		);
+	}
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(async () =>
-        {
-            // Act
-            await handler.Handle(query, ct);
-        });
-    }
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCadNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+			.ReturnsAsync(null as Cad);
+		GetCadCoordsByIdQuery query = new(id);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
 }

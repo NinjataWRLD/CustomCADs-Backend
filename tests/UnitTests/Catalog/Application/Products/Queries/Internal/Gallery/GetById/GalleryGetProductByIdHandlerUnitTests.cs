@@ -16,138 +16,144 @@ using static ProductsData;
 
 public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly Mock<IProductReads> reads = new();
-    private readonly Mock<IRequestSender> sender = new();
-    private readonly Mock<IEventRaiser> raiser = new();
-    private readonly Product product = CreateProduct();
+	private readonly GalleryGetProductByIdHandler handler;
+	private readonly Mock<IProductReads> reads = new();
+	private readonly Mock<IRequestSender> sender = new();
+	private readonly Mock<IEventRaiser> raiser = new();
 
-    public GalleryGetProductByIdHandlerUnitTests()
-    {
-        product.SetValidatedStatus();
+	private readonly Product product = CreateProductWithId(id: ValidId);
 
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(product);
+	public GalleryGetProductByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object, sender.Object, raiser.Object);
 
-        CoordinatesDto coords = new(0, 0, 0);
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadCoordsByIdQuery>(), ct))
-            .ReturnsAsync(new GetCadCoordsByIdDto(coords, coords));
-    }
+		product.SetValidatedStatus();
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(product);
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatbase()
-    {
-        // Arrange
-        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
+		CoordinatesDto coords = new(0, 0, 0);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetCadCoordsByIdQuery>(x => x.Id == product.CadId),
+			ct
+		)).ReturnsAsync(new GetCadCoordsByIdDto(coords, coords));
+	}
 
-        // Act
-        await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldQueryDatbase()
+	{
+		// Arrange
+		GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+	}
 
-        // Act
-        await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCadVolumeByIdQuery>(), ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNameByIdQuery>(), ct), Times.Once);
-        sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCadCoordsByIdQuery>(), ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldRaiseEvents_WhenAccountIdEmpty()
-    {
-        // Arrange
-        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetCadVolumeByIdQuery>(x => x.Id == product.CadId),
+			ct
+		), Times.Once);
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == product.CreatorId),
+			ct
+		), Times.Once);
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetCategoryNameByIdQuery>(x => x.Id == product.CategoryId),
+			ct
+		), Times.Once);
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetCadCoordsByIdQuery>(x => x.Id == product.CadId),
+			ct
+		), Times.Once);
+	}
 
-        // Act
-        await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldRaiseEvents_WhenAccountIdEmpty()
+	{
+		// Arrange
+		GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
 
-        // Assert
-        raiser.Verify(x => x.RaiseDomainEventAsync(
-            It.IsAny<ProductViewedDomainEvent>())
-        , Times.Once);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldNotRaiseEvents_WhenAccountIdEmpty()
-    {
-        // Arrange
-        GalleryGetProductByIdQuery query = new(ValidId, AccountId.New(Guid.Empty));
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
+		// Assert
+		raiser.Verify(x => x.RaiseDomainEventAsync(
+			It.Is<ProductViewedDomainEvent>(x => x.Id == product.Id)
+		), Times.Once);
+	}
 
-        // Act
-        await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldNotRaiseEvents_WhenAccountIdEmpty()
+	{
+		// Arrange
+		GalleryGetProductByIdQuery query = new(ValidId, AccountId.New(Guid.Empty));
 
-        // Assert
-        raiser.Verify(x => x.RaiseDomainEventAsync(
-            It.IsAny<ProductViewedDomainEvent>())
-        , Times.Never);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
+		// Assert
+		raiser.Verify(x => x.RaiseDomainEventAsync(
+			It.Is<ProductViewedDomainEvent>(x => x.Id == product.Id)
+		), Times.Never);
+	}
 
-        // Act
-        var result = await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.Equal(product.Id, result.Id),
-            () => Assert.Equal(product.Name, result.Name),
-            () => Assert.Equal(product.Description, result.Description),
-            () => Assert.Equal(product.Price, result.Price),
-            () => Assert.Equal(product.CategoryId, result.Category.Id)
-        );
-    }
+		// Act
+		var result = await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenStatusIsNotValid()
-    {
-        // Arrange
-        product.SetReportedStatus();
+		// Assert
+		Assert.Multiple(
+			() => Assert.Equal(product.Id, result.Id),
+			() => Assert.Equal(product.Name, result.Name),
+			() => Assert.Equal(product.Description, result.Description),
+			() => Assert.Equal(product.Price, result.Price),
+			() => Assert.Equal(product.CategoryId, result.Category.Id)
+		);
+	}
 
-        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenStatusIsNotValid()
+	{
+		// Arrange
+		product.SetReportedStatus();
+		GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomStatusException<Product>>(async () =>
-        {
-            // Act
-            await handler.Handle(query, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomStatusException<Product>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenProductNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(null as Product);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenProductNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(null as Product);
+		GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
 
-        GalleryGetProductByIdQuery query = new(ValidId, ValidCreatorId);
-        GalleryGetProductByIdHandler handler = new(reads.Object, sender.Object, raiser.Object);
-
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
-            // Act
-            await handler.Handle(query, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
 }

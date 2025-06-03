@@ -7,12 +7,12 @@ using static Constants.FluentMessages;
 
 public class GetMaterialTexturePresignedUrlPutValidator : QueryValidator<GetMaterialTexturePresignedUrlPutQuery, GetMaterialTexturePresignedUrlPutDto>
 {
-    public GetMaterialTexturePresignedUrlPutValidator()
-    {
-        RuleFor(x => x.NewImage.ContentType)
-            .NotEmpty().WithMessage(RequiredError);
+	public GetMaterialTexturePresignedUrlPutValidator()
+	{
+		RuleFor(x => x.NewImage.ContentType)
+			.NotEmpty().WithMessage(RequiredError);
 
-        RuleFor(x => x.NewImage.FileName)
-            .NotEmpty().WithMessage(RequiredError);
-    }
+		RuleFor(x => x.NewImage.FileName)
+			.NotEmpty().WithMessage(RequiredError);
+	}
 }

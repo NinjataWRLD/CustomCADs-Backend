@@ -3,70 +3,61 @@ using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetUsernames.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetUsernames;
 
+using static AccountsData;
 using static Constants.Roles;
 using static Constants.Users;
 
 public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly Mock<IAccountReads> reads = new();
-    private static readonly string[] usernames = [CustomerUsername, ContributorUsername, DesignerUsername, AdminUsername];
+	private readonly GetUsernamesByIdsHandler handler;
+	private readonly Mock<IAccountReads> reads = new();
 
-    [Theory]
-    [ClassData(typeof(GetUsernamesByIdsValidData))]
-    public async Task Handle_ShouldQueryDatabase(params AccountId[] ids)
-    {
-        // Arrange
-        AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);
+	private static readonly AccountId[] ids = [ValidId, ValidId, ValidId, ValidId];
+	private static readonly string[] usernames = [CustomerUsername, ContributorUsername, DesignerUsername, AdminUsername];
+	private static readonly AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);
 
-        reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
-            Count: ids.Length,
-            Items: [
-                CreateAccountWithId(AccountId.New(), Customer),
-                CreateAccountWithId(AccountId.New(), Contributor),
-                CreateAccountWithId(AccountId.New(), Designer),
-                CreateAccountWithId(AccountId.New(), Admin),
-            ]
-        ));
+	public GetUsernamesByIdsHandlerUnitTests()
+	{
+		handler = new(reads.Object);
 
-        GetUsernamesByIdsQuery query = new(ids);
-        GetUsernamesByIdsHandler handler = new(reads.Object);
+		reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
+				Count: ids.Length,
+				Items: [
+					CreateAccountWithId(AccountId.New(), Customer, CustomerUsername),
+					CreateAccountWithId(AccountId.New(), Contributor, ContributorUsername),
+					CreateAccountWithId(AccountId.New(), Designer, DesignerUsername),
+					CreateAccountWithId(AccountId.New(), Admin, AdminUsername),
+				]
+			));
+	}
 
-        // Act
-        await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetUsernamesByIdsQuery query = new(ids);
 
-        // Assert
-        reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Theory]
-    [ClassData(typeof(GetUsernamesByIdsValidData))]
-    public async Task Handle_ShouldReturnProperly(params AccountId[] ids)
-    {
-        // Arrange
-        AccountQuery accountQuery = new(Pagination: new(1, ids.Length), Ids: ids);
+		// Assert
+		reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
+	}
 
-        reads.Setup(x => x.AllAsync(accountQuery, false, ct)).ReturnsAsync(new Result<Account>(
-            Count: ids.Length,
-            Items: [
-                CreateAccountWithId(AccountId.New(), Customer, username: usernames[0]),
-                CreateAccountWithId(AccountId.New(), Contributor, username: usernames[1]),
-                CreateAccountWithId(AccountId.New(), Designer, username: usernames[2]),
-                CreateAccountWithId(AccountId.New(), Admin, username: usernames[3]),
-            ]
-        ));
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		GetUsernamesByIdsQuery query = new(ids);
 
-        GetUsernamesByIdsQuery query = new(ids);
-        GetUsernamesByIdsHandler handler = new(reads.Object);
+		// Act
+		Dictionary<AccountId, string> result = await handler.Handle(query, ct);
+		string[] actualUsernames = [.. result.Select(kvp => kvp.Value)];
 
-        // Act
-        Dictionary<AccountId, string> result = await handler.Handle(query, ct);
-        string[] actualUsernames = [.. result.Select(kvp => kvp.Value)];
-
-        // Assert
-        Assert.Equal(actualUsernames, usernames);
-    }
+		// Assert
+		Assert.Equal(usernames, actualUsernames);
+	}
 }

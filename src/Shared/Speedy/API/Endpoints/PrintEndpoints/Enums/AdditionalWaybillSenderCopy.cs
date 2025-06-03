@@ -2,7 +2,7 @@
 
 public enum AdditionalWaybillSenderCopy
 {
-    NONE,
-    ON_SAME_PAGE,
-    ON_SINGLE_PAGE,
+	NONE,
+	ON_SAME_PAGE,
+	ON_SINGLE_PAGE,
 }

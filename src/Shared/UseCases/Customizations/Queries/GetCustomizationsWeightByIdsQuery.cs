@@ -1,5 +1,5 @@
 ﻿namespace CustomCADs.Shared.UseCases.Customizations.Queries;
 
 public record GetCustomizationsWeightByIdsQuery(
-    CustomizationId[] Ids
+	CustomizationId[] Ids
 ) : IQuery<Dictionary<CustomizationId, double>>;

@@ -4,8 +4,8 @@ using static CadsData;
 
 public class CadKeyInvalidData : CadKeyData
 {
-    public CadKeyInvalidData()
-    {
-        Add(InvalidKey);
-    }
+	public CadKeyInvalidData()
+	{
+		Add(InvalidKey);
+	}
 }

@@ -10,54 +10,56 @@ using CustomCADs.Shared.UseCases.Products.Queries;
 namespace CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
 
 public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWork uow, IRequestSender sender)
-    : ICommandHandler<CreatePurchasedCartCommand, PurchasedCartId>
+	: ICommandHandler<CreatePurchasedCartCommand, PurchasedCartId>
 {
-    public async Task<PurchasedCartId> Handle(CreatePurchasedCartCommand req, CancellationToken ct)
-    {
-        if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.BuyerId), ct).ConfigureAwait(false))
-            throw CustomNotFoundException<PurchasedCart>.ById(req.BuyerId, "User");
+	public async Task<PurchasedCartId> Handle(CreatePurchasedCartCommand req, CancellationToken ct)
+	{
+		if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.BuyerId), ct).ConfigureAwait(false))
+		{
+			throw CustomNotFoundException<PurchasedCart>.ById(req.BuyerId, "User");
+		}
 
-        var cart = PurchasedCart.Create(req.BuyerId);
+		var cart = PurchasedCart.Create(req.BuyerId);
 
-        ProductId[] productIds = [.. req.Items.Select(i => i.ProductId)];
+		ProductId[] productIds = [.. req.Items.Select(i => i.ProductId)];
 
-        Dictionary<ProductId, CadId> productCads = await sender.SendQueryAsync(
-            new GetProductCadIdsByIdsQuery(productIds),
-            ct
-        ).ConfigureAwait(false);
+		Dictionary<ProductId, CadId> productCads = await sender.SendQueryAsync(
+			new GetProductCadIdsByIdsQuery(productIds),
+			ct
+		).ConfigureAwait(false);
 
-        Dictionary<CadId, CadId> itemCads = await sender.SendCommandAsync(
-            new DuplicateCadsByIdsCommand([.. productCads.Select(c => c.Value)]),
-            ct
-        ).ConfigureAwait(false);
+		Dictionary<CadId, CadId> itemCads = await sender.SendCommandAsync(
+			new DuplicateCadsByIdsCommand([.. productCads.Select(c => c.Value)]),
+			ct
+		).ConfigureAwait(false);
 
-        cart.AddItems(
-            [.. req.Items.Select(item =>
-            {
-                decimal price = req.Prices[item.ProductId];
-                CadId productCadId = productCads[item.ProductId];
-                CadId itemCadId = itemCads[productCadId];
+		cart.AddItems(
+			[.. req.Items.Select(item =>
+			{
+				decimal price = req.Prices[item.ProductId];
+				CadId productCadId = productCads[item.ProductId];
+				CadId itemCadId = itemCads[productCadId];
 
-                return (
-                    Price: price,
-                    CadId: itemCadId,
-                    ProductId: item.ProductId,
-                    ForDelivery: item.ForDelivery,
-                    CustomizationId: item.CustomizationId,
-                    Quantity: item.Quantity,
-                    AddedAt: item.AddedAt
-                );
-            })]
-        );
+				return (
+					Price: price,
+					CadId: itemCadId,
+					ProductId: item.ProductId,
+					ForDelivery: item.ForDelivery,
+					CustomizationId: item.CustomizationId,
+					Quantity: item.Quantity,
+					AddedAt: item.AddedAt
+				);
+			})]
+		);
 
-        await writes.AddAsync(cart, ct).ConfigureAwait(false);
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+		await writes.AddAsync(cart, ct).ConfigureAwait(false);
+		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-        await sender.SendCommandAsync(
-            new AddProductPurchaseCommand(productIds),
-            ct
-        ).ConfigureAwait(false);
+		await sender.SendCommandAsync(
+			new AddProductPurchaseCommand(productIds),
+			ct
+		).ConfigureAwait(false);
 
-        return cart.Id;
-    }
+		return cart.Id;
+	}
 }

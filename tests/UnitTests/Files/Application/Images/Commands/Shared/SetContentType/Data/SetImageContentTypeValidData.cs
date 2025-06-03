@@ -4,9 +4,9 @@ using static ImagesData;
 
 public class SetImageContentTypeValidData : SetImageContentTypeData
 {
-    public SetImageContentTypeValidData()
-    {
-        Add(ValidContentType1);
-        Add(ValidContentType2);
-    }
+	public SetImageContentTypeValidData()
+	{
+		Add(ValidContentType1);
+		Add(ValidContentType2);
+	}
 }

@@ -10,57 +10,59 @@ using static ProductsData;
 
 public class GetProductCadIdsByIdsHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly Mock<IProductReads> reads = new();
-    private readonly ProductId[] ids = [ValidId, ValidId, ValidId];
-    private readonly ProductQuery query;
-    private readonly Result<Product> result;
-    private readonly Product[] products = [
-        CreateProductWithId(ValidName1, ValidDescription1, ValidPrice1),
-        CreateProductWithId(ValidName2, ValidDescription2, ValidPrice2)
-    ];
+	private readonly GetProductCadIdsByIdsHandler handler;
+	private readonly Mock<IProductReads> reads = new();
 
-    public GetProductCadIdsByIdsHandlerUnitTests()
-    {
-        query = new(
-            Ids: ids,
-            Pagination: new(Limit: ids.Length)
-        );
-        result = new(
-            Count: products.Length,
-            Items: products
-        );
-        reads.Setup(x => x.AllAsync(query, false, ct))
-            .ReturnsAsync(result);
-    }
+	private readonly ProductId[] ids = [ValidId, ValidId, ValidId];
+	private readonly ProductQuery query;
+	private readonly Result<Product> result;
+	private readonly Product[] products = [
+		CreateProductWithId(ValidName1, ValidDescription1, ValidPrice1),
+		CreateProductWithId(ValidName2, ValidDescription2, ValidPrice2)
+	];
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GetProductCadIdsByIdsQuery query = new(ids);
-        GetProductCadIdsByIdsHandler handler = new(reads.Object);
+	public GetProductCadIdsByIdsHandlerUnitTests()
+	{
+		handler = new(reads.Object);
 
-        // Act
-        await handler.Handle(query, ct);
+		query = new(
+			Ids: ids,
+			Pagination: new(Limit: ids.Length)
+		);
+		result = new(
+			Count: products.Length,
+			Items: products
+		);
+		reads.Setup(x => x.AllAsync(query, false, ct))
+			.ReturnsAsync(result);
+	}
 
-        // Assert
-        reads.Verify(x => x.AllAsync(this.query, false, ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetProductCadIdsByIdsQuery query = new(ids);
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        GetProductCadIdsByIdsQuery query = new(ids);
-        GetProductCadIdsByIdsHandler handler = new(reads.Object);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Act
-        var result = await handler.Handle(query, ct);
+		// Assert
+		reads.Verify(x => x.AllAsync(this.query, false, ct), Times.Once);
+	}
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.True(result.ElementAt(0).Value == ValidCadId),
-            () => Assert.True(result.ElementAt(1).Value == ValidCadId)
-        );
-    }
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		GetProductCadIdsByIdsQuery query = new(ids);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Multiple(
+			() => Assert.True(result.ElementAt(0).Value == ValidCadId),
+			() => Assert.True(result.ElementAt(1).Value == ValidCadId)
+		);
+	}
 }

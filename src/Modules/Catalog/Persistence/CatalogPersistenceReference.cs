@@ -4,5 +4,5 @@ namespace CustomCADs.Catalog.Persistence;
 
 public class CatalogPersistenceReference
 {
-    public static Assembly Assembly => typeof(CatalogPersistenceReference).Assembly;
+	public static Assembly Assembly => typeof(CatalogPersistenceReference).Assembly;
 }

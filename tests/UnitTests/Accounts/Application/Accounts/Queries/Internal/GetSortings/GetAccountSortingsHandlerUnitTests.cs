@@ -5,17 +5,18 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.Ge
 
 public class GetAccountSortingsHandlerUnitTests : AccountsBaseUnitTests
 {
-    [Fact]
-    public async Task Handle_ShouldReturnResult()
-    {
-        // Arrange
-        GetAccountSortingsQuery query = new();
-        GetAccountSortingsHandler handler = new();
+	private readonly GetAccountSortingsHandler handler = new();
 
-        // Act
-        string[] sortings = await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetAccountSortingsQuery query = new();
 
-        // Assert
-        Assert.Equal(sortings, Enum.GetNames<AccountSortingType>());
-    }
+		// Act
+		string[] sortings = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(sortings, Enum.GetNames<AccountSortingType>());
+	}
 }

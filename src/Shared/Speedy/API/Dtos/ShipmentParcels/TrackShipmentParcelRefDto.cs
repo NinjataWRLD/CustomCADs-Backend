@@ -1,10 +1,10 @@
 ﻿namespace CustomCADs.Shared.Speedy.API.Dtos.ShipmentParcels;
 
 public record TrackShipmentParcelRefDto(
-    string? Ref,
+	string? Ref,
 
-    // Copied from ShipmentParcelRefDto
-    string? Id,
-    string? ExternalCarrierParcelNumber,
-    string? FullBarcode
+	// Copied from ShipmentParcelRefDto
+	string? Id,
+	string? ExternalCarrierParcelNumber,
+	string? FullBarcode
 );

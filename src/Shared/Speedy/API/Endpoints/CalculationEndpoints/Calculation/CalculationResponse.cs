@@ -3,6 +3,6 @@
 using Dtos.CalculationResult;
 
 public record CalculationResponse(
-    CalculationResultDto[] Calculations,
-    ErrorDto? Error
+	CalculationResultDto[] Calculations,
+	ErrorDto? Error
 );

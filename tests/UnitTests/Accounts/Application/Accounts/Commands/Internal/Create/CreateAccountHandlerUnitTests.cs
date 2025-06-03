@@ -3,74 +3,79 @@ using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Create.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Create;
 
+using Data;
+
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
-    private readonly Mock<IWrites<Account>> writes = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<IEventRaiser> raiser = new();
+	private readonly CreateAccountHandler handler;
+	private readonly Mock<IWrites<Account>> writes = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<IEventRaiser> raiser = new();
 
-    [Theory]
-    [ClassData(typeof(CreateAccountValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string password, string? firstName, string? lastName)
-    {
-        // Arrange
-        CreateAccountCommand command = new(
-            Role: role,
-            Username: username,
-            Email: email,
-            Password: password,
-            FirstName: firstName,
-            LastName: lastName
-        );
-        CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
+	public CreateAccountHandlerUnitTests()
+	{
+		handler = new(writes.Object, uow.Object, raiser.Object);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Theory]
+	[ClassData(typeof(CreateAccountValidData))]
+	public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string password, string? firstName, string? lastName)
+	{
+		// Arrange
+		CreateAccountCommand command = new(
+			Role: role,
+			Username: username,
+			Email: email,
+			Password: password,
+			FirstName: firstName,
+			LastName: lastName
+		);
 
-        // Assert
-        writes.Verify(x => x.AddAsync(
-            It.Is<Account>(x =>
-                x.RoleName == role
-                && x.Username == username
-                && x.Email == email
-                && x.FirstName == firstName
-                && x.LastName == lastName
-            ),
-            ct
-        ), Times.Once);
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Theory]
-    [ClassData(typeof(CreateAccountValidData))]
-    public async Task Handle_ShouldRaiseEvents(string role, string username, string email, string password, string? firstName, string? lastName)
-    {
-        // Arrange
-        CreateAccountCommand command = new(
-            Role: role,
-            Username: username,
-            Email: email,
-            Password: password,
-            FirstName: firstName,
-            LastName: lastName
-        );
-        CreateAccountHandler handler = new(writes.Object, uow.Object, raiser.Object);
+		// Assert
+		writes.Verify(x => x.AddAsync(
+			It.Is<Account>(x =>
+				x.RoleName == role
+				&& x.Username == username
+				&& x.Email == email
+				&& x.FirstName == firstName
+				&& x.LastName == lastName
+			),
+			ct
+		), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-        // Act
-        AccountId id = await handler.Handle(command, CancellationToken.None);
+	[Theory]
+	[ClassData(typeof(CreateAccountValidData))]
+	public async Task Handle_ShouldRaiseEvents(string role, string username, string email, string password, string? firstName, string? lastName)
+	{
+		// Arrange
+		CreateAccountCommand command = new(
+			Role: role,
+			Username: username,
+			Email: email,
+			Password: password,
+			FirstName: firstName,
+			LastName: lastName
+		);
 
-        // Assert
-        raiser.Verify(x => x.RaiseApplicationEventAsync(
-            It.Is<AccountCreatedApplicationEvent>(x =>
-                x.Id == id
-                && x.Username == username
-                && x.Email == email
-                && x.Password == password
-            )
-        ), Times.Once);
-    }
+		// Act
+		AccountId id = await handler.Handle(command, CancellationToken.None);
+
+		// Assert
+		raiser.Verify(x => x.RaiseApplicationEventAsync(
+			It.Is<AccountCreatedApplicationEvent>(x =>
+				x.Id == id
+				&& x.Username == username
+				&& x.Email == email
+				&& x.Password == password
+			)
+		), Times.Once);
+	}
 }

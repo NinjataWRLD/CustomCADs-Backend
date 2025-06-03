@@ -4,27 +4,27 @@ using CustomCADs.Shared.Core.Common.Dtos;
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Get.PresignedUrls.Cad;
 
 public sealed class GetProductGetPresignedUrlsEndpoint(IRequestSender sender)
-    : Endpoint<GetProductGetPresignedUrlsRequest, DownloadFileResponse>
+	: Endpoint<GetProductGetPresignedUrlsRequest, DownloadFileResponse>
 {
-    public override void Configure()
-    {
-        Post("presignedUrls/download/cad");
-        Group<GalleryGroup>();
-        Description(d => d
-            .WithSummary("Download Cad")
-            .WithDescription("Download the Cad for a Product")
-        );
-    }
+	public override void Configure()
+	{
+		Post("presignedUrls/download/cad");
+		Group<GalleryGroup>();
+		Description(d => d
+			.WithSummary("Download Cad")
+			.WithDescription("Download the Cad for a Product")
+		);
+	}
 
-    public override async Task HandleAsync(GetProductGetPresignedUrlsRequest req, CancellationToken ct)
-    {
-        DownloadFileResponse response = await sender.SendQueryAsync(
-            new GalleryGetProductCadPresignedUrlGetQuery(
-                Id: ProductId.New(req.Id)
-            ),
-            ct
-        ).ConfigureAwait(false);
+	public override async Task HandleAsync(GetProductGetPresignedUrlsRequest req, CancellationToken ct)
+	{
+		DownloadFileResponse response = await sender.SendQueryAsync(
+			new GalleryGetProductCadPresignedUrlGetQuery(
+				Id: ProductId.New(req.Id)
+			),
+			ct
+		).ConfigureAwait(false);
 
-        await SendOkAsync(response).ConfigureAwait(false);
-    }
+		await SendOkAsync(response).ConfigureAwait(false);
+	}
 }

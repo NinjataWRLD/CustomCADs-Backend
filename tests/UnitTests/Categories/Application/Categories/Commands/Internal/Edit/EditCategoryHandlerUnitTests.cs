@@ -4,108 +4,102 @@ using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit;
 
+using Data;
 using static CategoriesData;
 
 public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 {
-    private readonly Mock<IEventRaiser> raiser = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<ICategoryReads> reads = new();
-    private readonly Category category = CreateCategory();
+	private readonly EditCategoryHandler handler;
+	private readonly Mock<ICategoryReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<IEventRaiser> raiser = new();
 
-    public EditCategoryHandlerUnitTests()
-    {
-        reads.Setup(v => v.SingleByIdAsync(ValidId1, true, ct))
-            .ReturnsAsync(category);
-    }
+	private readonly Category category = CreateCategory();
 
-    [Theory]
-    [ClassData(typeof(EditCategoryValidData))]
-    public async Task Handler_ShouldQueryDatabase(string name, string description)
-    {
-        // Arrange
-        EditCategoryCommand command = new(ValidId1, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
+	public EditCategoryHandlerUnitTests()
+	{
+		handler = new(reads.Object, uow.Object, raiser.Object);
+		reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(category);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Theory]
+	[ClassData(typeof(EditCategoryValidData))]
+	public async Task Handler_ShouldQueryDatabase(string name, string description)
+	{
+		// Arrange
+		EditCategoryCommand command = new(ValidId, new(name, description));
 
-        // Assert
-        reads.Verify(v => v.SingleByIdAsync(ValidId1, true, ct), Times.Once());
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Theory]
-    [ClassData(typeof(EditCategoryValidData))]
-    public async Task Handler_ShouldPersistToDatabase(string name, string description)
-    {
-        // Arrange
-        EditCategoryCommand command = new(ValidId1, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
+		// Assert
+		reads.Verify(v => v.SingleByIdAsync(ValidId, true, ct), Times.Once());
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Theory]
+	[ClassData(typeof(EditCategoryValidData))]
+	public async Task Handler_ShouldPersistToDatabase(string name, string description)
+	{
+		// Arrange
+		EditCategoryCommand command = new(ValidId, new(name, description));
 
-        // Assert
-        uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Theory]
-    [ClassData(typeof(EditCategoryValidData))]
-    public async Task Handler_ShouldModifyCategory_WhenCategoryFound(string name, string description)
-    {
-        // Arrange
-        EditCategoryCommand command = new(ValidId1, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
+		// Assert
+		uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Theory]
+	[ClassData(typeof(EditCategoryValidData))]
+	public async Task Handler_ShouldModifyCategory_WhenCategoryFound(string name, string description)
+	{
+		// Arrange
+		EditCategoryCommand command = new(ValidId, new(name, description));
 
-        // Assert
-        Assert.Multiple(() =>
-        {
-            Assert.Equal(category.Name, name);
-            Assert.Equal(category.Description, description);
-        });
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Theory]
-    [ClassData(typeof(EditCategoryValidData))]
-    public async Task Handler_ShouldRaiseEvents_WhenCategoryFound(string name, string description)
-    {
-        // Arrange
-        EditCategoryCommand command = new(ValidId1, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
+		// Assert
+		Assert.Multiple(() =>
+		{
+			Assert.Equal(category.Name, name);
+			Assert.Equal(category.Description, description);
+		});
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Theory]
+	[ClassData(typeof(EditCategoryValidData))]
+	public async Task Handler_ShouldRaiseEvents_WhenCategoryFound(string name, string description)
+	{
+		// Arrange
+		EditCategoryCommand command = new(ValidId, new(name, description));
 
-        // Assert
-        raiser.Verify(v => v.RaiseDomainEventAsync(
-            It.Is<CategoryEditedDomainEvent>(x => x.Category.Name == name && x.Category.Description == description)
-        ), Times.Once());
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Theory]
-    [ClassData(typeof(EditCategoryValidData))]
-    public async Task Handle_ShouldThrowException_WhenCategoryDoesNotExists(string name, string description)
-    {
-        // Arrange
-        CategoryId id = ValidId1;
-        reads.Setup(v => v.SingleByIdAsync(id, true, ct)).ReturnsAsync(null as Category);
+		// Assert
+		raiser.Verify(v => v.RaiseDomainEventAsync(
+			It.Is<CategoryEditedDomainEvent>(x => x.Category.Name == name && x.Category.Description == description)
+		), Times.Once());
+	}
 
-        EditCategoryCommand command = new(id, new(name, description));
-        EditCategoryHandler handler = new(reads.Object, uow.Object, raiser.Object);
+	[Theory]
+	[ClassData(typeof(EditCategoryValidData))]
+	public async Task Handle_ShouldThrowException_WhenCategoryDoesNotExists(string name, string description)
+	{
+		// Arrange
+		reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Category);
+		EditCategoryCommand command = new(ValidId, new(name, description));
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 }

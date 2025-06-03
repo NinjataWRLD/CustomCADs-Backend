@@ -3,6 +3,6 @@
 using Dtos.ExtendedCourierService;
 
 public record DestinationServicesResponse(
-    ExtendedCourierServiceDto[] Services,
-    ErrorDto? Error
+	ExtendedCourierServiceDto[] Services,
+	ErrorDto? Error
 );

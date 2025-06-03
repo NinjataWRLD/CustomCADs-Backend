@@ -4,11 +4,11 @@ using static RolesData;
 
 public class RoleCreateWithIdValidData : RoleCreateWithIdData
 {
-    public RoleCreateWithIdValidData()
-    {
-        Add(ValidId1, ValidName1, ValidDescription1);
-        Add(ValidId2, ValidName2, ValidDescription2);
-        Add(ValidId3, ValidName3, ValidDescription3);
-        Add(ValidId4, ValidName4, ValidDescription4);
-    }
+	public RoleCreateWithIdValidData()
+	{
+		Add(ValidName1, ValidDescription1);
+		Add(ValidName2, ValidDescription2);
+		Add(ValidName3, ValidDescription3);
+		Add(ValidName4, ValidDescription4);
+	}
 }

@@ -4,5 +4,5 @@ namespace CustomCADs.Files.Application;
 
 public class FilesApplicationReference
 {
-    public static Assembly Assembly => typeof(FilesApplicationReference).Assembly;
+	public static Assembly Assembly => typeof(FilesApplicationReference).Assembly;
 }

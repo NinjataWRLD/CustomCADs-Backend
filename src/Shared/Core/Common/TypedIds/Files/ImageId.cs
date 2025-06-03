@@ -4,29 +4,29 @@ namespace CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 public readonly struct ImageId
 {
-    public ImageId() : this(Guid.Empty) { }
-    private ImageId(Guid value)
-    {
-        Value = value;
-    }
+	public ImageId() : this(Guid.Empty) { }
+	private ImageId(Guid value)
+	{
+		Value = value;
+	}
 
-    public Guid Value { get; }
+	public Guid Value { get; }
 
-    public static ImageId New() => new(Guid.NewGuid());
-    public static ImageId New(Guid id) => new(id);
+	public static ImageId New() => new(Guid.NewGuid());
+	public static ImageId New(Guid id) => new(id);
 
-    public override bool Equals([NotNullWhen(true)] object? obj)
-        => obj is ImageId imageId && this == imageId;
+	public override bool Equals([NotNullWhen(true)] object? obj)
+		=> obj is ImageId imageId && this == imageId;
 
-    public override int GetHashCode()
-        => Value.GetHashCode();
+	public override int GetHashCode()
+		=> Value.GetHashCode();
 
-    public override string ToString()
-        => Value.ToString();
+	public override string ToString()
+		=> Value.ToString();
 
-    public static bool operator ==(ImageId left, ImageId right)
-        => left.Value == right.Value;
+	public static bool operator ==(ImageId left, ImageId right)
+		=> left.Value == right.Value;
 
-    public static bool operator !=(ImageId left, ImageId right)
-        => !(left == right);
+	public static bool operator !=(ImageId left, ImageId right)
+		=> !(left == right);
 }

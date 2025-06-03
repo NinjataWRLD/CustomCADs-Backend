@@ -10,56 +10,57 @@ using static Constants.Users;
 
 public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 {
-    private const int count = 30;
+	private const int count = 30;
 
-    private readonly Mock<IAccountReads> reads = new();
-    private readonly Account[] accounts = [
-        Account.CreateWithId(AccountId.New(), Roles.Customer, CustomerUsername, CustomerEmail, DateTimeOffset.UtcNow),
-        Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail, DateTimeOffset.UtcNow),
-        Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail, DateTimeOffset.UtcNow),
-        Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail, DateTimeOffset.UtcNow),
-    ];
-    private readonly AccountQuery accountQuery = new(GetPagination());
+	private readonly Mock<IAccountReads> reads = new();
+	private readonly GetAllAccountsHandler handler;
+	private readonly Account[] accounts = [
+		Account.CreateWithId(AccountId.New(), Roles.Customer, CustomerUsername, CustomerEmail, DateTimeOffset.UtcNow),
+		Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail, DateTimeOffset.UtcNow),
+		Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail, DateTimeOffset.UtcNow),
+		Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail, DateTimeOffset.UtcNow),
+	];
+	private readonly AccountQuery accountQuery = new(GetPagination());
 
-    public GetAllAccountsHandlerUnitTests()
-    {
-        reads.Setup(x => x.AllAsync(accountQuery, false, ct))
-            .ReturnsAsync(new Result<Account>(count, accounts));
-    }
+	public GetAllAccountsHandlerUnitTests()
+	{
+		handler = new(reads.Object);
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GetAllAccountsQuery query = new(GetPagination());
-        GetAllAccountsHandler handler = new(reads.Object);
+		reads.Setup(x => x.AllAsync(accountQuery, false, ct))
+			.ReturnsAsync(new Result<Account>(count, accounts));
+	}
 
-        // Act
-        await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetAllAccountsQuery query = new(GetPagination());
 
-        // Assert
-        reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(query, ct);
 
-    [Fact]
-    public async Task Handle_ShouldReturnResult()
-    {
-        // Arrange
-        GetAllAccountsQuery query = new(GetPagination());
-        GetAllAccountsHandler handler = new(reads.Object);
+		// Assert
+		reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
+	}
 
-        // Act
-        Result<GetAllAccountsDto> accounts = await handler.Handle(query, ct);
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetAllAccountsQuery query = new(GetPagination());
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.Equal(accounts.Items.Select(r => r.Id), this.accounts.Select(r => r.Id)),
-            () => Assert.Equal(accounts.Items.Select(r => r.Role), this.accounts.Select(r => r.RoleName)),
-            () => Assert.Equal(accounts.Items.Select(r => r.Username), this.accounts.Select(r => r.Username)),
-            () => Assert.Equal(accounts.Items.Select(r => r.Email), this.accounts.Select(r => r.Email))
-        );
-    }
+		// Act
+		Result<GetAllAccountsDto> accounts = await handler.Handle(query, ct);
 
-    private static Pagination GetPagination(int count = count)
-            => new(1, count);
+		// Assert
+		Assert.Multiple(
+			() => Assert.Equal(accounts.Items.Select(r => r.Id), this.accounts.Select(r => r.Id)),
+			() => Assert.Equal(accounts.Items.Select(r => r.Role), this.accounts.Select(r => r.RoleName)),
+			() => Assert.Equal(accounts.Items.Select(r => r.Username), this.accounts.Select(r => r.Username)),
+			() => Assert.Equal(accounts.Items.Select(r => r.Email), this.accounts.Select(r => r.Email))
+		);
+	}
+
+	private static Pagination GetPagination(int count = count)
+			=> new(1, count);
 }

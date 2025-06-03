@@ -11,117 +11,114 @@ using static ProductsData;
 
 public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly Mock<IProductReads> reads = new();
-    private readonly Mock<IRequestSender> sender = new();
-    private readonly Product product = CreateProduct();
+	private readonly SetProductFilesHandler handler;
+	private readonly Mock<IProductReads> reads = new();
+	private readonly Mock<IRequestSender> sender = new();
+	private readonly Product product = CreateProduct();
 
-    public SetProductFilesHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(product);
-    }
+	public SetProductFilesHandlerUnitTests()
+	{
+		handler = new(reads.Object, sender.Object);
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        SetProductFilesCommand command = new(
-            Id: ValidId,
-            Cad: (null, null, null),
-            Image: (null, null),
-            CreatorId: ValidCreatorId
-        );
-        SetProductFilesHandler handler = new(reads.Object, sender.Object);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(product);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		SetProductFilesCommand command = new(
+			Id: ValidId,
+			Cad: (null, null, null),
+			Image: (null, null),
+			CreatorId: ValidCreatorId
+		);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        (string? Key, string? ContentType, decimal? Volume) cad = new("a", "b", 0);
-        (string? Key, string? ContentType) image = new("c", "d");
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+	}
 
-        SetProductFilesCommand command = new(
-            Id: ValidId,
-            Cad: cad,
-            Image: image,
-            CreatorId: ValidCreatorId
-        );
-        SetProductFilesHandler handler = new(reads.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		(string? Key, string? ContentType, decimal? Volume) cad = new("a", "b", 0);
+		(string? Key, string? ContentType) image = new("c", "d");
 
-        // Act
-        await handler.Handle(command, ct);
+		SetProductFilesCommand command = new(
+			Id: ValidId,
+			Cad: cad,
+			Image: image,
+			CreatorId: ValidCreatorId
+		);
 
-        // Assert
-        Assert.Multiple(
-            () => sender.Verify(x => x.SendCommandAsync(
-                It.Is<SetCadKeyCommand>(x =>
-                    x.Key == cad.Key
-            ), ct), Times.Once),
+		// Act
+		await handler.Handle(command, ct);
 
-            () => sender.Verify(x => x.SendCommandAsync(
-                It.Is<SetCadContentTypeCommand>(x =>
-                    x.ContentType == cad.ContentType
-            ), ct), Times.Once),
+		// Assert
+		Assert.Multiple(
+			() => sender.Verify(x => x.SendCommandAsync(
+				It.Is<SetCadKeyCommand>(x => x.Key == cad.Key),
+				ct
+			), Times.Once),
 
-            () => sender.Verify(x => x.SendCommandAsync(
-                It.Is<SetImageKeyCommand>(x =>
-                    x.Key == image.Key
-            ), ct), Times.Once),
+			() => sender.Verify(x => x.SendCommandAsync(
+				It.Is<SetCadContentTypeCommand>(x => x.ContentType == cad.ContentType),
+				ct
+			), Times.Once),
 
-            () => sender.Verify(x => x.SendCommandAsync(
-                It.Is<SetImageContentTypeCommand>(x =>
-                    x.ContentType == image.ContentType
-            ), ct), Times.Once)
-        );
-    }
+			() => sender.Verify(x => x.SendCommandAsync(
+				It.Is<SetImageKeyCommand>(x => x.Key == image.Key),
+				ct
+			), Times.Once),
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
-    {
-        // Arrange
-        SetProductFilesCommand command = new(
-            Id: ValidId,
-            Cad: (null, null, null),
-            Image: (null, null),
-            CreatorId: ValidDesignerId
-        );
-        SetProductFilesHandler handler = new(reads.Object, sender.Object);
+			() => sender.Verify(x => x.SendCommandAsync(
+				It.Is<SetImageContentTypeCommand>(x => x.ContentType == image.ContentType),
+				ct
+			), Times.Once)
+		);
+	}
 
-        // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
+	{
+		// Arrange
+		SetProductFilesCommand command = new(
+			Id: ValidId,
+			Cad: (null, null, null),
+			Image: (null, null),
+			CreatorId: ValidDesignerId
+		);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenProductNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-            .ReturnsAsync(null as Product);
+		// Assert
+		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 
-        SetProductFilesCommand command = new(
-            Id: ValidId,
-            Cad: (null, null, null),
-            Image: (null, null),
-            CreatorId: ValidCreatorId
-        );
-        SetProductFilesHandler handler = new(reads.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenProductNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(null as Product);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		SetProductFilesCommand command = new(
+			Id: ValidId,
+			Cad: (null, null, null),
+			Image: (null, null),
+			CreatorId: ValidCreatorId
+		);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 }

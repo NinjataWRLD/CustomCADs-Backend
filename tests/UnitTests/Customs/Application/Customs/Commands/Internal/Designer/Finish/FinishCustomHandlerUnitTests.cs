@@ -5,7 +5,6 @@ using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Designer.Finish;
@@ -14,138 +13,135 @@ using static CustomsData;
 
 public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 {
-    private readonly Mock<ICustomReads> reads = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<IRequestSender> sender = new();
+	private readonly FinishCustomHandler handler;
+	private readonly Mock<ICustomReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<IRequestSender> sender = new();
 
-    private const string Key = "generated-key";
-    private const string ContentType = "model/gltf-binary";
-    private const decimal Volume = 15;
-    private const decimal Price = ValidPrice1;
-    private static readonly CustomId id = ValidId1;
-    private static readonly CadId cadId = ValidCadId1;
-    private static readonly AccountId designerId = ValidDesignerId1;
-    private static readonly AccountId wrongDesignerId = ValidDesignerId2;
-    private readonly (string Key, string ContentType, decimal Volume) cad = (Key, ContentType, Volume);
-    private readonly Custom custom = CreateCustom();
+	private const string Key = "generated-key";
+	private const string ContentType = "model/gltf-binary";
+	private const decimal Volume = 15;
+	private static readonly AccountId designerId = AccountId.New();
+	private readonly (string Key, string ContentType, decimal Volume) cad = (Key, ContentType, Volume);
+	private readonly Custom custom = CreateCustom();
 
-    public FinishCustomHandlerUnitTests()
-    {
-        custom.Accept(designerId);
-        custom.Begin();
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
-            .ReturnsAsync(custom);
+	public FinishCustomHandlerUnitTests()
+	{
+		handler = new(reads.Object, uow.Object, sender.Object);
 
-        sender.Setup(x => x.SendCommandAsync(
-            It.IsAny<CreateCadCommand>()
-        , ct)).ReturnsAsync(cadId);
-    }
+		custom.Accept(ValidDesignerId);
+		custom.Begin();
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(custom);
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        FinishCustomCommand command = new(
-            Id: id,
-            Cad: cad,
-            Price: Price,
-            DesignerId: designerId
-        );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
+		sender.Setup(x => x.SendCommandAsync(
+			It.Is<CreateCadCommand>(x =>
+				x.ContentType == cad.ContentType
+				&& x.Key == x.Key
+				&& x.Volume == cad.Volume
+			),
+			ct
+		)).ReturnsAsync(ValidCadId);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		FinishCustomCommand command = new(
+			Id: ValidId,
+			Cad: cad,
+			Price: ValidPrice1,
+			DesignerId: ValidDesignerId
+		);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Fact]
-    public async Task Handle_ShouldPersistToDatabase()
-    {
-        // Arrange
-        FinishCustomCommand command = new(
-            Id: id,
-            Cad: cad,
-            Price: Price,
-            DesignerId: designerId
-        );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
+	{
+		// Arrange
+		FinishCustomCommand command = new(
+			Id: ValidId,
+			Cad: cad,
+			Price: ValidPrice1,
+			DesignerId: ValidDesignerId
+		);
 
-        // Assert
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Fact]
-    public async Task Handle_ShouldPopulateProperly()
-    {
-        // Arrange
-        FinishCustomCommand command = new(
-            Id: id,
-            Cad: cad,
-            Price: Price,
-            DesignerId: designerId
-        );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
+		// Assert
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Fact]
+	public async Task Handle_ShouldPopulateProperly()
+	{
+		// Arrange
+		FinishCustomCommand command = new(
+			Id: ValidId,
+			Cad: cad,
+			Price: ValidPrice1,
+			DesignerId: ValidDesignerId
+		);
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.Equal(cadId, custom.FinishedCustom?.CadId),
-            () => Assert.Equal(CustomStatus.Finished, custom.CustomStatus)
-        );
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
-    {
-        // Arrange
-        var custom = CreateCustom();
-        custom.Accept(wrongDesignerId);
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
-            .ReturnsAsync(custom);
+		// Assert
+		Assert.Multiple(
+			() => Assert.Equal(ValidCadId, custom.FinishedCustom?.CadId),
+			() => Assert.Equal(CustomStatus.Finished, custom.CustomStatus)
+		);
+	}
 
-        FinishCustomCommand command = new(
-            Id: id,
-            Cad: cad,
-            Price: Price,
-            DesignerId: designerId
-        );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
+	{
+		// Arrange
+		var custom = CreateCustom();
+		custom.Accept(designerId);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(custom);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		FinishCustomCommand command = new(
+			Id: ValidId,
+			Cad: cad,
+			Price: ValidPrice1,
+			DesignerId: ValidDesignerId
+		);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenCustomNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
-            .ReturnsAsync(null as Custom);
+		// Assert
+		await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 
-        FinishCustomCommand command = new(
-            Id: id,
-            Cad: cad,
-            Price: Price,
-            DesignerId: designerId
-        );
-        FinishCustomHandler handler = new(reads.Object, uow.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCustomNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(null as Custom);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		FinishCustomCommand command = new(
+			Id: ValidId,
+			Cad: cad,
+			Price: ValidPrice1,
+			DesignerId: ValidDesignerId
+		);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 }

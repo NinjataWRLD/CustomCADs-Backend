@@ -4,17 +4,17 @@ using CustomCADs.Customizations.Domain.Repositories.Reads;
 namespace CustomCADs.Customizations.Application.Materials.Commands.Internal.Edit;
 
 public class EditMaterialHandler(IMaterialReads reads, IUnitOfWork uow)
-    : ICommandHandler<EditMaterialCommand>
+	: ICommandHandler<EditMaterialCommand>
 {
-    public async Task Handle(EditMaterialCommand req, CancellationToken ct)
-    {
-        Material material = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-            ?? throw CustomNotFoundException<Material>.ById(req.Id);
+	public async Task Handle(EditMaterialCommand req, CancellationToken ct)
+	{
+		Material material = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Material>.ById(req.Id);
 
-        material.SetName(req.Name);
-        material.SetDensity(req.Density);
-        material.SetCost(req.Cost);
+		material.SetName(req.Name);
+		material.SetDensity(req.Density);
+		material.SetCost(req.Cost);
 
-        await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-    }
+		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+	}
 }

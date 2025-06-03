@@ -9,10 +9,10 @@ using static TagConstants;
 
 public class EditTagValidator : CommandValidator<EditTagCommand>
 {
-    public EditTagValidator()
-    {
-        RuleFor(x => x.Name)
-            .NotNull().WithMessage(RequiredError)
-            .Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
-    }
+	public EditTagValidator()
+	{
+		RuleFor(x => x.Name)
+			.NotNull().WithMessage(RequiredError)
+			.Length(NameMinLength, NameMaxLength).WithMessage(LengthError);
+	}
 }

@@ -1,14 +1,21 @@
 ﻿using CustomCADs.Files.Application.Images.Commands.Shared.Create;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Shared.UseCases.Images.Commands;
-using CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create.Data;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create;
 
+using Data;
+
 public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 {
+    private readonly CreateImageHandler handler;
     private readonly Mock<IWrites<Image>> writes = new();
     private readonly Mock<IUnitOfWork> uow = new();
+
+    public CreateImageHandlerUnitTests()
+    {
+        handler = new(writes.Object, uow.Object);
+    }
 
     [Theory]
     [ClassData(typeof(CreateImageValidData))]
@@ -19,18 +26,15 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
             Key: key,
             ContentType: contentType
         );
-        CreateImageHandler handler = new(writes.Object, uow.Object);
 
         // Act
         await handler.Handle(command, ct);
 
         // Assert
         writes.Verify(x => x.AddAsync(
-            It.Is<Image>(x =>
-                x.Key == key
-                && x.ContentType == contentType
-            ),
-        ct), Times.Once);
+            It.Is<Image>(x => x.Key == key && x.ContentType == contentType),
+            ct
+        ), Times.Once);
         uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
     }
 }

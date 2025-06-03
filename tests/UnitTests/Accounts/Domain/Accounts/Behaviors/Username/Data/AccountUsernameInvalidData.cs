@@ -4,10 +4,10 @@ using static AccountsData;
 
 public class AccountUsernameInvalidData : AccountUsernameData
 {
-    public AccountUsernameInvalidData()
-    {
-        Add(InvalidUsername1);
-        Add(InvalidUsername2);
-        Add(InvalidUsername3);
-    }
+	public AccountUsernameInvalidData()
+	{
+		Add(InvalidUsername1);
+		Add(InvalidUsername2);
+		Add(InvalidUsername3);
+	}
 }

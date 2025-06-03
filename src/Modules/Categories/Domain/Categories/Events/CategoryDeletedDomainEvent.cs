@@ -3,5 +3,5 @@
 namespace CustomCADs.Categories.Domain.Categories.Events;
 
 public record CategoryDeletedDomainEvent(
-    CategoryId Id
+	CategoryId Id
 ) : BaseDomainEvent;

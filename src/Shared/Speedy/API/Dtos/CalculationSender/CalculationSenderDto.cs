@@ -3,9 +3,9 @@
 using CalculationAddressLocation;
 
 public record CalculationSenderDto(
-    CalculationAddressLocationDto? AddressLocation,
-    long? ClientId,
-    bool? PrivatePerson,
-    int? DropoffOfficeId,
-    string? DropoffGeoPUDOId
+	CalculationAddressLocationDto? AddressLocation,
+	long? ClientId,
+	bool? PrivatePerson,
+	int? DropoffOfficeId,
+	string? DropoffGeoPUDOId
 );

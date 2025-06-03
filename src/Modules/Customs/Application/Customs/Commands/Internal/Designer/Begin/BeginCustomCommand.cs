@@ -3,6 +3,6 @@
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Designer.Begin;
 
 public sealed record BeginCustomCommand(
-    CustomId Id,
-    AccountId DesignerId
+	CustomId Id,
+	AccountId DesignerId
 ) : ICommand;

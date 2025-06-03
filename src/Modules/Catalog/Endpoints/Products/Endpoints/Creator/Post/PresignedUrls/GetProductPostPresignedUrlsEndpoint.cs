@@ -5,40 +5,40 @@ using CustomCADs.Shared.Core.Common.Dtos;
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Post.PresignedUrls;
 
 public sealed class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
-    : Endpoint<GetProductPostPresignedUrlsRequest, GetProductPostPresignedUrlsResponse>
+	: Endpoint<GetProductPostPresignedUrlsRequest, GetProductPostPresignedUrlsResponse>
 {
-    public override void Configure()
-    {
-        Post("presignedUrls/upload");
-        Group<CreatorGroup>();
-        Description(d => d
-            .WithSummary("Upload Image & Cad")
-            .WithDescription("Upload the Image and Cad for a Product")
-        );
-    }
+	public override void Configure()
+	{
+		Post("presignedUrls/upload");
+		Group<CreatorGroup>();
+		Description(d => d
+			.WithSummary("Upload Image & Cad")
+			.WithDescription("Upload the Image and Cad for a Product")
+		);
+	}
 
-    public override async Task HandleAsync(GetProductPostPresignedUrlsRequest req, CancellationToken ct)
-    {
-        UploadFileResponse image = await sender.SendQueryAsync(
-            new CreatorGetProductImagePresignedUrlPostQuery(
-                ProductName: req.ProductName,
-                Image: req.Image
-            ),
-            ct
-        ).ConfigureAwait(false);
+	public override async Task HandleAsync(GetProductPostPresignedUrlsRequest req, CancellationToken ct)
+	{
+		UploadFileResponse image = await sender.SendQueryAsync(
+			new CreatorGetProductImagePresignedUrlPostQuery(
+				ProductName: req.ProductName,
+				Image: req.Image
+			),
+			ct
+		).ConfigureAwait(false);
 
-        UploadFileResponse cad = await sender.SendQueryAsync(
-            new CreatorGetProductCadPresignedUrlPostQuery(
-                ProductName: req.ProductName,
-                Cad: req.Cad
-            ),
-            ct
-        ).ConfigureAwait(false);
+		UploadFileResponse cad = await sender.SendQueryAsync(
+			new CreatorGetProductCadPresignedUrlPostQuery(
+				ProductName: req.ProductName,
+				Cad: req.Cad
+			),
+			ct
+		).ConfigureAwait(false);
 
-        GetProductPostPresignedUrlsResponse response = new(
-            Image: image,
-            Cad: cad
-        );
-        await SendOkAsync(response).ConfigureAwait(false);
-    }
+		GetProductPostPresignedUrlsResponse response = new(
+			Image: image,
+			Cad: cad
+		);
+		await SendOkAsync(response).ConfigureAwait(false);
+	}
 }

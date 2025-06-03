@@ -4,9 +4,9 @@ using static CustomsData;
 
 public class CustomSetNameValidData : CustomSetNameData
 {
-    public CustomSetNameValidData()
-    {
-        Add(ValidName1);
-        Add(ValidName2);
-    }
+	public CustomSetNameValidData()
+	{
+		Add(ValidName1);
+		Add(ValidName2);
+	}
 }

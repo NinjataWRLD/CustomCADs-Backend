@@ -9,58 +9,60 @@ using static PurchasedCartsData;
 
 public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
 {
-    private readonly Mock<IPurchasedCartReads> reads = new();
-    private readonly PurchasedCart[] carts = [
-        CreateCartWithId(id: ValidId1),
-        CreateCartWithId(id: ValidId2),
-    ];
-    private readonly PurchasedCartQuery query;
+	private readonly GetAllPurchasedCartsHandler handler;
+	private readonly Mock<IPurchasedCartReads> reads = new();
 
-    public GetAllPurchasedCartsUnitTests()
-    {
-        query = new(
-            Pagination: new(1, carts.Length)
-        );
+	private readonly PurchasedCart[] carts = [
+		CreateCartWithId(id: ValidId),
+		CreateCartWithId(id: ValidId),
+	];
+	private readonly PurchasedCartQuery query;
 
-        reads.Setup(x => x.AllAsync(query, false, ct))
-            .ReturnsAsync(new Result<PurchasedCart>(
-                carts.Length,
-                carts
-            ));
-    }
+	public GetAllPurchasedCartsUnitTests()
+	{
+		handler = new(reads.Object);
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        GetAllPurchasedCartsQuery query = new(this.query.Pagination);
-        GetAllPurchasedCartsHandler handler = new(reads.Object);
+		query = new(
+			Pagination: new(1, carts.Length)
+		);
 
-        // Act
-        await handler.Handle(query, ct);
+		reads.Setup(x => x.AllAsync(query, false, ct))
+			.ReturnsAsync(new Result<PurchasedCart>(
+				carts.Length,
+				carts
+			));
+	}
 
-        // Assert
-        reads.Verify(x => x.AllAsync(this.query, false, ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		GetAllPurchasedCartsQuery query = new(this.query.Pagination);
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        GetAllPurchasedCartsQuery query = new(this.query.Pagination);
-        GetAllPurchasedCartsHandler handler = new(reads.Object);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Act
-        var result = await handler.Handle(query, ct);
+		// Assert
+		reads.Verify(x => x.AllAsync(this.query, false, ct), Times.Once);
+	}
 
-        // Assert
-        int expectedCount = carts.Length, actualCount = result.Count;
-        PurchasedCartId[] expectedIds = [.. carts.Select(x => x.Id)],
-            actualIds = [.. result.Items.Select(x => x.Id)];
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		GetAllPurchasedCartsQuery query = new(this.query.Pagination);
 
-        Assert.Multiple(
-            () => Assert.Equal(expectedCount, actualCount),
-            () => Assert.Equal(expectedIds, actualIds)
-        );
-    }
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		int expectedCount = carts.Length, actualCount = result.Count;
+		PurchasedCartId[] expectedIds = [.. carts.Select(x => x.Id)],
+			actualIds = [.. result.Items.Select(x => x.Id)];
+
+		Assert.Multiple(
+			() => Assert.Equal(expectedCount, actualCount),
+			() => Assert.Equal(expectedIds, actualIds)
+		);
+	}
 }

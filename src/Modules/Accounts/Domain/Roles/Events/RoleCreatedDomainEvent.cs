@@ -3,5 +3,5 @@
 namespace CustomCADs.Accounts.Domain.Roles.Events;
 
 public record RoleCreatedDomainEvent(
-    Role Role
+	Role Role
 ) : BaseDomainEvent;

@@ -11,116 +11,110 @@ using static CustomsData;
 
 public class CancelCustomHandlerUnitTests : CustomsBaseUnitTests
 {
-    private readonly Mock<ICustomReads> reads = new();
-    private readonly Mock<IUnitOfWork> uow = new();
+	private readonly CancelCustomHandler handler;
+	private readonly Mock<ICustomReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
 
-    private static readonly CustomId id = ValidId1;
-    private static readonly AccountId designerId = ValidDesignerId1;
-    private static readonly AccountId wrongDesignerId = ValidDesignerId2;
-    private readonly Custom custom = CreateCustom();
+	private static readonly AccountId designerId = AccountId.New();
+	private readonly Custom custom = CreateCustom();
 
-    public CancelCustomHandlerUnitTests()
-    {
-        custom.Accept(designerId);
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
-            .ReturnsAsync(custom);
-    }
+	public CancelCustomHandlerUnitTests()
+	{
+		handler = new(reads.Object, uow.Object);
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        CancelCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
-        );
-        CancelCustomHandler handler = new(reads.Object, uow.Object);
+		custom.Accept(ValidDesignerId);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(custom);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		CancelCustomCommand command = new(
+			Id: ValidId,
+			DesignerId: ValidDesignerId
+		);
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Fact]
-    public async Task Handle_ShouldPersistToDatabase()
-    {
-        // Arrange
-        CancelCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
-        );
-        CancelCustomHandler handler = new(reads.Object, uow.Object);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
+	{
+		// Arrange
+		CancelCustomCommand command = new(
+			Id: ValidId,
+			DesignerId: ValidDesignerId
+		);
 
-        // Assert
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Fact]
-    public async Task Handle_ShouldPopulateProperly()
-    {
-        // Arrange
-        CancelCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
-        );
-        CancelCustomHandler handler = new(reads.Object, uow.Object);
+		// Assert
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-        // Act
-        await handler.Handle(command, ct);
+	[Fact]
+	public async Task Handle_ShouldPopulateProperly()
+	{
+		// Arrange
+		CancelCustomCommand command = new(
+			Id: ValidId,
+			DesignerId: ValidDesignerId
+		);
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.Null(custom.AcceptedCustom?.DesignerId),
-            () => Assert.Equal(CustomStatus.Pending, custom.CustomStatus)
-        );
-    }
+		// Act
+		await handler.Handle(command, ct);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
-    {
-        // Arrange
-        var custom = CreateCustom();
-        custom.Accept(wrongDesignerId);
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
-            .ReturnsAsync(custom);
+		// Assert
+		Assert.Multiple(
+			() => Assert.Null(custom.AcceptedCustom?.DesignerId),
+			() => Assert.Equal(CustomStatus.Pending, custom.CustomStatus)
+		);
+	}
 
-        CancelCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
-        );
-        CancelCustomHandler handler = new(reads.Object, uow.Object);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
+	{
+		// Arrange
+		var custom = CreateCustom();
+		custom.Accept(designerId);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(custom);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		CancelCustomCommand command = new(
+			Id: ValidId,
+			DesignerId: ValidDesignerId
+		);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenCustomNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(id, true, ct))
-            .ReturnsAsync(null as Custom);
+		// Assert
+		await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 
-        CancelCustomCommand command = new(
-            Id: id,
-            DesignerId: designerId
-        );
-        CancelCustomHandler handler = new(reads.Object, uow.Object);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCustomNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(null as Custom);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		CancelCustomCommand command = new(
+			Id: ValidId,
+			DesignerId: ValidDesignerId
+		);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 }

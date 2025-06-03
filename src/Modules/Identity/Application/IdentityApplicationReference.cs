@@ -4,5 +4,5 @@ namespace CustomCADs.Identity.Application;
 
 public class IdentityApplicationReference
 {
-    public static Assembly Assembly => typeof(IdentityApplicationReference).Assembly;
+	public static Assembly Assembly => typeof(IdentityApplicationReference).Assembly;
 }

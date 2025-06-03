@@ -2,31 +2,35 @@
 using CustomCADs.Accounts.Application.Roles.Events.Domain;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Created.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Events.Domain.Created;
 
+using Data;
 using static CachingKeys;
 
 public class RoleCreatedHandlerUnitTests : RolesBaseUnitTests
 {
-    private readonly Mock<ICacheService> cache = new();
+	private readonly RoleCreatedEventHandler handler;
+	private readonly Mock<ICacheService> cache = new();
 
-    [Theory]
-    [ClassData(typeof(RoleCreatedValidData))]
-    public async Task Handle_ShouldUpdateCache(string name, string description)
-    {
-        // Arrange
-        Role role = CreateRole(name, description);
-        RoleCreatedDomainEvent de = new(role);
-        RoleCreatedEventHandler handler = new(cache.Object);
+	public RoleCreatedHandlerUnitTests()
+	{
+		handler = new(cache.Object);
+	}
 
-        // Act
-        await handler.Handle(de);
+	[Theory]
+	[ClassData(typeof(RoleCreatedValidData))]
+	public async Task Handle_ShouldUpdateCache(Role role)
+	{
+		// Arrange
+		RoleCreatedDomainEvent de = new(role);
 
-        // Assert
-        cache.Verify(x => x.RemoveAsync<IEnumerable<Role>>(RoleKey), Times.Once);
-        cache.Verify(x => x.SetAsync($"{RoleKey}/{de.Role.Id}", de.Role), Times.Once);
-        cache.Verify(x => x.SetAsync($"{RoleKey}/{de.Role.Name}", de.Role), Times.Once);
-    }
+		// Act
+		await handler.Handle(de);
+
+		// Assert
+		cache.Verify(x => x.RemoveAsync<IEnumerable<Role>>(RoleKey), Times.Once);
+		cache.Verify(x => x.SetAsync($"{RoleKey}/{de.Role.Id}", de.Role), Times.Once);
+		cache.Verify(x => x.SetAsync($"{RoleKey}/{de.Role.Name}", de.Role), Times.Once);
+	}
 }

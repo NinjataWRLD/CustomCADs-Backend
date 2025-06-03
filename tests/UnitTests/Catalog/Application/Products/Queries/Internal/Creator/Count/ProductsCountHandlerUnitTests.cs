@@ -6,53 +6,55 @@ namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Cre
 
 using static ProductsData;
 
-public class ProductsCountHandlerUnitTests
+public class ProductsCountHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly Mock<IProductReads> reads = new();
-    private readonly Dictionary<ProductStatus, int> dict = new()
-    {
-        [ProductStatus.Unchecked] = 3,
-        [ProductStatus.Validated] = 2,
-        [ProductStatus.Reported] = 1,
-        [ProductStatus.Removed] = 0,
-    };
+	private readonly ProductsCountHandler handler;
+	private readonly Mock<IProductReads> reads = new();
 
-    public ProductsCountHandlerUnitTests()
-    {
-        reads.Setup(x => x.CountByStatusAsync(ValidCreatorId, ct))
-            .ReturnsAsync(dict);
-    }
+	private readonly Dictionary<ProductStatus, int> dict = new()
+	{
+		[ProductStatus.Unchecked] = 3,
+		[ProductStatus.Validated] = 2,
+		[ProductStatus.Reported] = 1,
+		[ProductStatus.Removed] = 0,
+	};
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        ProductsCountQuery query = new(ValidCreatorId);
-        ProductsCountHandler handler = new(reads.Object);
+	public ProductsCountHandlerUnitTests()
+	{
+		handler = new(reads.Object);
 
-        // Act
-        await handler.Handle(query, ct);
+		reads.Setup(x => x.CountByStatusAsync(ValidCreatorId, ct))
+			.ReturnsAsync(dict);
+	}
 
-        // Assert
-        reads.Verify(x => x.CountByStatusAsync(ValidCreatorId, ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		ProductsCountQuery query = new(ValidCreatorId);
 
-    [Fact]
-    public async Task Handle_ShouldReturnProperly()
-    {
-        // Arrange
-        ProductsCountQuery query = new(ValidCreatorId);
-        ProductsCountHandler handler = new(reads.Object);
+		// Act
+		await handler.Handle(query, ct);
 
-        // Act
-        var result = await handler.Handle(query, ct);
+		// Assert
+		reads.Verify(x => x.CountByStatusAsync(ValidCreatorId, ct), Times.Once);
+	}
 
-        // Assert
-        Assert.Multiple(
-            () => Assert.Equal(dict[ProductStatus.Unchecked], result.Unchecked),
-            () => Assert.Equal(dict[ProductStatus.Validated], result.Validated),
-            () => Assert.Equal(dict[ProductStatus.Reported], result.Reported),
-            () => Assert.Equal(dict[ProductStatus.Removed], result.Banned)
-        );
-    }
+	[Fact]
+	public async Task Handle_ShouldReturnProperly()
+	{
+		// Arrange
+		ProductsCountQuery query = new(ValidCreatorId);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Multiple(
+			() => Assert.Equal(dict[ProductStatus.Unchecked], result.Unchecked),
+			() => Assert.Equal(dict[ProductStatus.Validated], result.Validated),
+			() => Assert.Equal(dict[ProductStatus.Reported], result.Reported),
+			() => Assert.Equal(dict[ProductStatus.Removed], result.Banned)
+		);
+	}
 }

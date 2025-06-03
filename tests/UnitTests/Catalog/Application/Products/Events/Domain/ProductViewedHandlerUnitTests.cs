@@ -14,107 +14,105 @@ using static ProductsData;
 
 public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly Mock<IProductReads> reads = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Mock<IRequestSender> sender = new();
-    private readonly Mock<IEventRaiser> raiser = new();
-    private readonly Product product = CreateProduct();
+	private readonly ProductViewedHandler handler;
+	private readonly Mock<IProductReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<IRequestSender> sender = new();
+	private readonly Mock<IEventRaiser> raiser = new();
 
-    public ProductViewedHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
-            .ReturnsAsync(product);
-    }
+	private readonly Product product = CreateProduct();
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
+	public ProductViewedHandlerUnitTests()
+	{
+		handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
 
-        // Act
-        await handler.Handle(de);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(product);
+	}
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
 
-    [Fact]
-    public async Task Handle_ShouldPersistToDatabase()
-    {
-        // Arrange
-        ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
+		// Act
+		await handler.Handle(de);
 
-        // Act
-        await handler.Handle(de);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
+	}
 
-        // Assert
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
+	{
+		// Arrange
+		ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
+		// Act
+		await handler.Handle(de);
 
-        // Act
-        await handler.Handle(de);
+		// Assert
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.IsAny<GetAccountViewedProductQuery>()
-        , ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
 
-    [Fact]
-    public async Task Handle_ShouldRaiseEvents()
-    {
-        // Arrange
-        ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
+		// Act
+		await handler.Handle(de);
 
-        // Act
-        await handler.Handle(de);
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetAccountViewedProductQuery>(x => x.Id == ValidCreatorId && x.ProductId == ValidId),
+			ct
+		), Times.Once);
+	}
 
-        // Assert
-        raiser.Verify(x => x.RaiseApplicationEventAsync(
-            It.IsAny<UserViewedProductApplicationEvent>()
-        ), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldRaiseEvents()
+	{
+		// Arrange
+		ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
 
-    [Fact]
-    public async Task Handle_ShouldPopulateProperly()
-    {
-        // Arrange
-        ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
+		// Act
+		await handler.Handle(de);
 
-        // Act 
-        await handler.Handle(de);
+		// Assert
+		raiser.Verify(x => x.RaiseApplicationEventAsync(
+			It.Is<UserViewedProductApplicationEvent>(x => x.Id == ValidId && x.AccountId == ValidCreatorId)
+		), Times.Once);
+	}
 
-        //Assert
-        Assert.Equal(1, product.Counts.Views);
-    }
+	[Fact]
+	public async Task Handle_ShouldPopulateProperly()
+	{
+		// Arrange
+		ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenProductNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
-            .ReturnsAsync(null as Product);
+		// Act
+		await handler.Handle(de);
 
-        ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
-        ProductViewedHandler handler = new(reads.Object, uow.Object, sender.Object, raiser.Object);
+		// Assert
+		Assert.Equal(1, product.Counts.Views);
+	}
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
-            // Act 
-            await handler.Handle(de);
-        });
-    }
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenProductNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(null as Product);
+
+		ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
+			// Act
+			async () => await handler.Handle(de)
+		);
+	}
 }

@@ -12,115 +12,112 @@ using static ProductsData;
 
 public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 {
-    private readonly Mock<IProductReads> reads = new();
-    private readonly Mock<IUnitOfWork> uow = new();
-    private readonly Product product = CreateProduct();
-    private readonly Mock<IRequestSender> sender = new();
-    private const ProductStatus status = ProductStatus.Validated;
+	private readonly SetProductStatusHandler handler;
+	private readonly Mock<IProductReads> reads = new();
+	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<IRequestSender> sender = new();
 
-    public SetProductStatusHandlerUnitTests()
-    {
-        reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
-            .ReturnsAsync(product);
+	private readonly Product product = CreateProduct();
+	private const ProductStatus status = ProductStatus.Validated;
 
-        sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-            .ReturnsAsync(true);
-    }
+	public SetProductStatusHandlerUnitTests()
+	{
+		handler = new(reads.Object, uow.Object, sender.Object);
 
-    [Fact]
-    public async Task Handle_ShouldQueryDatabase()
-    {
-        // Arrange
-        SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(product);
 
-        // Act
-        await handler.Handle(command, ct);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
+			ct
+		)).ReturnsAsync(true);
+	}
 
-        // Assert
-        reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
 
-    [Fact]
-    public async Task Handle_ShouldPersisttoDatabase()
-    {
-        // Arrange
-        SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
+	}
 
-        // Assert
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldPersisttoDatabase()
+	{
+		// Arrange
+		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
 
-    [Fact]
-    public async Task Handle_ShouldSendRequests()
-    {
-        // Arrange
-        SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Assert
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 
-        // Assert
-        sender.Verify(x => x.SendQueryAsync(
-            It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId)
-        , ct), Times.Once);
-    }
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
+	{
+		// Arrange
+		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
-    {
-        // Arrange
-        product.SetDesignerId(ValidDesignerId);
+		// Act
+		await handler.Handle(command, ct);
 
-        SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
+			ct
+		), Times.Once);
+	}
 
-        // Assert
-        await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
+	{
+		// Arrange
+		product.SetDesignerId(ValidDesignerId);
+		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenDesignerNotFound()
-    {
-        // Arrange
-        sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId), ct))
-            .ReturnsAsync(false);
+		// Assert
+		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 
-        SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenDesignerNotFound()
+	{
+		// Arrange
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
+			ct
+		)).ReturnsAsync(false);
+		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
 
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldThrowException_WhenProductNotFound()
-    {
-        // Arrange
-        reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
-            .ReturnsAsync(null as Product);
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenProductNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(null as Product);
+		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
 
-        SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
-        SetProductStatusHandler handler = new(reads.Object, uow.Object, sender.Object);
-
-        // Assert
-        await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-        {
-            // Act
-            await handler.Handle(command, ct);
-        });
-    }
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
 }
