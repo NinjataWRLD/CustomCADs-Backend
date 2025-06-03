@@ -10,6 +10,7 @@ public class Account : BaseAggregateRoot
 	private Account() { }
 	private Account(string role, string username, string email, string? firstName, string? lastName) : this()
 	{
+		CreatedAt = DateTimeOffset.UtcNow;
 		RoleName = role;
 		Username = username;
 		Email = email;
@@ -23,6 +24,7 @@ public class Account : BaseAggregateRoot
 	public string? FirstName { get; private set; }
 	public string? LastName { get; private set; }
 	public string RoleName { get; private set; } = string.Empty;
+	public DateTimeOffset CreatedAt { get; private set; }
 	public IReadOnlyCollection<ProductId> ViewedProductIds => viewedProductIds.AsReadOnly();
 
 	public static Account Create(
@@ -43,11 +45,13 @@ public class Account : BaseAggregateRoot
 		string role,
 		string username,
 		string email,
+		DateTimeOffset createdAt,
 		string? firstName = default,
 		string? lastName = default
 	) => new Account(role, username, email, firstName, lastName)
 	{
 		Id = id,
+		CreatedAt = createdAt
 	}
 	.ValidateRole()
 	.ValidateUsername()

@@ -47,6 +47,9 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 	{
 		handler = new(reads.Object, sender.Object);
 
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(cart);
+
 		sender.Setup(x => x.SendQueryAsync(
 			It.Is<GetCadPresignedUrlGetByIdQuery>(x => cart.Items.Any(i => i.CadId == x.Id)),
 			ct
@@ -63,14 +66,12 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(cart);
-
 		GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
 			Id: ValidId,
 			ProductId: CartItemsData.ValidProductId,
 			BuyerId: ValidBuyerId
 		);
+		GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -83,14 +84,12 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 	public async Task Handle_ShouldSendRequests()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(cart);
-
 		GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
 			Id: ValidId,
 			ProductId: CartItemsData.ValidProductId,
 			BuyerId: ValidBuyerId
 		);
+		GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -106,14 +105,12 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 	public async Task Handle_ShouldReturnProperly()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(cart);
-
 		GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
 			Id: ValidId,
 			ProductId: CartItemsData.ValidProductId,
 			BuyerId: ValidBuyerId
 		);
+		GetPurchasedCartItemCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		var result = await handler.Handle(query, ct);

@@ -11,14 +11,14 @@ public class AccountCreateWithIdUnitTests : AccountsBaseUnitTests
 	[ClassData(typeof(AccountCreateWithIdValidData))]
 	public void CreateWithId_ShouldNotThrowException_WhenAccountIsValid(string role, string username, string email, string? firstName, string? lastName)
 	{
-		CreateAccountWithId(ValidId, role, username, email, firstName, lastName);
+		CreateAccountWithId(ValidId, role, username, email, createdAt: null, firstName, lastName);
 	}
 
 	[Theory]
 	[ClassData(typeof(AccountCreateWithIdValidData))]
 	public void CreateWithId_ShouldPopulateCorrectly_WhenAccountIsValid(string role, string username, string email, string? firstName, string? lastName)
 	{
-		var account = CreateAccountWithId(ValidId, role, username, email, firstName, lastName);
+		var account = CreateAccountWithId(ValidId, role, username, email, createdAt: null, firstName, lastName);
 
 		Assert.Multiple(
 			() => Assert.Equal(role, account.RoleName),
@@ -38,7 +38,7 @@ public class AccountCreateWithIdUnitTests : AccountsBaseUnitTests
 	public void CreateWithId_ShouldThrowException_WhenAccountIsInvalid(string role, string username, string email, string? firstName, string? lastName)
 	{
 		Assert.Throws<CustomValidationException<Account>>(
-			() => CreateAccountWithId(ValidId, role, username, email, firstName, lastName)
+			() => CreateAccountWithId(ValidId, role, username, email, createdAt: null, firstName, lastName)
 		);
 	}
 }

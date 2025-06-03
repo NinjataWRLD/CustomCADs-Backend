@@ -12,13 +12,13 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 {
 	private const int count = 30;
 
-	private readonly GetAllAccountsHandler handler;
 	private readonly Mock<IAccountReads> reads = new();
+	private readonly GetAllAccountsHandler handler;
 	private readonly Account[] accounts = [
-		Account.CreateWithId(AccountId.New(), Roles.Customer, CustomerUsername, CustomerEmail),
-		Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail),
-		Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail),
-		Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail),
+		Account.CreateWithId(AccountId.New(), Roles.Customer, CustomerUsername, CustomerEmail, DateTimeOffset.UtcNow),
+		Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail, DateTimeOffset.UtcNow),
+		Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail, DateTimeOffset.UtcNow),
+		Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail, DateTimeOffset.UtcNow),
 	];
 	private readonly AccountQuery accountQuery = new(GetPagination());
 
