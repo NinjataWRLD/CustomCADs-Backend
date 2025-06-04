@@ -3,8 +3,6 @@ using CustomCADs.Catalog.Application.Products.Queries.Internal.Designer.GetSorti
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Designer.GetSortings;
 
-using static ProductsData;
-
 public class GetProductDesignerSortingsHandlerUnitTests : ProductsBaseUnitTests
 {
 	private readonly GetProductDesignerSortingsHandler handler = new();

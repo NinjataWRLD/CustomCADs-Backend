@@ -6,8 +6,6 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.SetDelivery;
 
-using static CustomsData;
-
 public class SetCustomDeliveryHandlerUnitTests : CustomsBaseUnitTests
 {
 	private readonly SetCustomDeliveryHandler handler;

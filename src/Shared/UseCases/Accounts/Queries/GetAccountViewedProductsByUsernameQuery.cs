@@ -1,5 +1,5 @@
 namespace CustomCADs.Shared.UseCases.Accounts.Queries;
 
 public record GetAccountViewedProductsByUsernameQuery(
-    string Username
+	string Username
 ) : IQuery<ProductId[]>;

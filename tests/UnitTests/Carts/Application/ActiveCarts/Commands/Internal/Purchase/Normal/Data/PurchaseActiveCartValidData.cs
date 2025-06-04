@@ -2,9 +2,9 @@
 
 public class PurchaseActiveCartValidData : PurchaseActiveCartData
 {
-    public PurchaseActiveCartValidData()
-    {
-        Add("payment-method-id-1");
-        Add("payment-method-id-2");
-    }
+	public PurchaseActiveCartValidData()
+	{
+		Add("payment-method-id-1");
+		Add("payment-method-id-2");
+	}
 }

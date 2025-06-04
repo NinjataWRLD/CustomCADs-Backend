@@ -4,9 +4,9 @@ using static ActiveCartsData;
 
 public class AddActiveCartValidData : AddActiveCartData
 {
-    public AddActiveCartValidData()
-    {
-        Add(ValidCustomizationId);
-        Add(null);
-    }
+	public AddActiveCartValidData()
+	{
+		Add(ValidCustomizationId);
+		Add(null);
+	}
 }

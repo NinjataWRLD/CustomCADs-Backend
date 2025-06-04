@@ -5,8 +5,6 @@ using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
 
-using static ProductsData;
-
 public class CreatorGetProductCadPresignedUrlPostHandlerUnitTests : ProductsBaseUnitTests
 {
 	private readonly CreatorGetProductCadPresignedUrlPostHandler handler;

@@ -2,9 +2,9 @@
 
 public class CreatorGetProductImagePresignedUrlPostInvalidProductNameData : CreatorGetProductImagePresignedUrlPostData
 {
-    public CreatorGetProductImagePresignedUrlPostInvalidProductNameData()
-    {
-        Add(null!, new("cad/jpeg", "Hand.jpg"));
-        Add(string.Empty, new("cad/png", "Chair.png"));
-    }
+	public CreatorGetProductImagePresignedUrlPostInvalidProductNameData()
+	{
+		Add(null!, new("cad/jpeg", "Hand.jpg"));
+		Add(string.Empty, new("cad/png", "Chair.png"));
+	}
 }

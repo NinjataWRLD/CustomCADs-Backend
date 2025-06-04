@@ -2,9 +2,9 @@
 
 public class CreatorGetProductCadPresignedUrlPutInvalidFileNameData : CreatorGetProductCadPresignedUrlPutData
 {
-    public CreatorGetProductCadPresignedUrlPutInvalidFileNameData()
-    {
-        Add(new("model/gltf-binary", null!));
-        Add(new("model/gltf+json", string.Empty));
-    }
+	public CreatorGetProductCadPresignedUrlPutInvalidFileNameData()
+	{
+		Add(new("model/gltf-binary", null!));
+		Add(new("model/gltf+json", string.Empty));
+	}
 }

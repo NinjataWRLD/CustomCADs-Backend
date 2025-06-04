@@ -2,9 +2,9 @@
 
 public class CreatorGetProductImagePresignedUrlPutInvalidContentTypeData : CreatorGetProductImagePresignedUrlPutData
 {
-    public CreatorGetProductImagePresignedUrlPutInvalidContentTypeData()
-    {
-        Add(new(null!, "Hand.png"));
-        Add(new(string.Empty, "Chair.jpg"));
-    }
+	public CreatorGetProductImagePresignedUrlPutInvalidContentTypeData()
+	{
+		Add(new(null!, "Hand.png"));
+		Add(new(string.Empty, "Chair.jpg"));
+	}
 }

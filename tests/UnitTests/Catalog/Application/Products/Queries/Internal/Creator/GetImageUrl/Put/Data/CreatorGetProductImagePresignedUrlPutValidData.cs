@@ -2,9 +2,9 @@
 
 public class CreatorGetProductImagePresignedUrlPutValidData : CreatorGetProductImagePresignedUrlPutData
 {
-    public CreatorGetProductImagePresignedUrlPutValidData()
-    {
-        Add(new("cad/jpeg", "Hand.jpg"));
-        Add(new("cad/png", "Chair.png"));
-    }
+	public CreatorGetProductImagePresignedUrlPutValidData()
+	{
+		Add(new("cad/jpeg", "Hand.jpg"));
+		Add(new("cad/png", "Chair.png"));
+	}
 }

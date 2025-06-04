@@ -5,8 +5,6 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Delete;
 
-using static CustomsData;
-
 public class DeleteCustomHandlerUnitTests : CustomsBaseUnitTests
 {
 	private readonly DeleteCustomHandler handler;

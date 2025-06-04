@@ -4,9 +4,9 @@ using static PurchasedCartsData.CartItemsData;
 
 public class PurchasedCartAddItemsValidData : PurchasedCartAddItemsData
 {
-    public PurchasedCartAddItemsValidData()
-    {
-        Add(ValidPrice1);
-        Add(ValidPrice2);
-    }
+	public PurchasedCartAddItemsValidData()
+	{
+		Add(ValidPrice1);
+		Add(ValidPrice2);
+	}
 }

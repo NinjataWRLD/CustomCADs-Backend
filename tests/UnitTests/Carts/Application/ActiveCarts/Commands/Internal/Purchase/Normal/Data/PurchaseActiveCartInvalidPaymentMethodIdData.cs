@@ -2,9 +2,9 @@
 
 public class PurchaseActiveCartInvalidPaymentMethodIdData : PurchaseActiveCartData
 {
-    public PurchaseActiveCartInvalidPaymentMethodIdData()
-    {
-        Add(string.Empty);
-        Add(null!);
-    }
+	public PurchaseActiveCartInvalidPaymentMethodIdData()
+	{
+		Add(string.Empty);
+		Add(null!);
+	}
 }

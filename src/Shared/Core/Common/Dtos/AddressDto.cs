@@ -1,7 +1,7 @@
 ﻿namespace CustomCADs.Shared.Core.Common.Dtos;
 
 public record AddressDto(
-    string Country,
-    string City,
-    string Street
+	string Country,
+	string City,
+	string Street
 );

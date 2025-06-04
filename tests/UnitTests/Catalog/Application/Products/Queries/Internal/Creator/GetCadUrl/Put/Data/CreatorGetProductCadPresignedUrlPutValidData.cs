@@ -2,9 +2,9 @@
 
 public class CreatorGetProductCadPresignedUrlPutValidData : CreatorGetProductCadPresignedUrlPutData
 {
-    public CreatorGetProductCadPresignedUrlPutValidData()
-    {
-        Add(new("model/gltf-binary", "Hand.glb"));
-        Add(new("model/gltf+json", "Chair.gltf"));
-    }
+	public CreatorGetProductCadPresignedUrlPutValidData()
+	{
+		Add(new("model/gltf-binary", "Hand.glb"));
+		Add(new("model/gltf+json", "Chair.gltf"));
+	}
 }

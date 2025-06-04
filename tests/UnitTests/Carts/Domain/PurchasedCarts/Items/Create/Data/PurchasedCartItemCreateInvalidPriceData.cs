@@ -4,9 +4,9 @@ using static PurchasedCartsData.CartItemsData;
 
 public class PurchasedCartItemCreateInvalidPriceData : PurchasedCartItemCreateData
 {
-    public PurchasedCartItemCreateInvalidPriceData()
-    {
-        Add(InvalidPrice2, ValidQuantity2, false);
-        Add(InvalidPrice1, ValidQuantity1, true);
-    }
+	public PurchasedCartItemCreateInvalidPriceData()
+	{
+		Add(InvalidPrice2, ValidQuantity2, false);
+		Add(InvalidPrice1, ValidQuantity1, true);
+	}
 }

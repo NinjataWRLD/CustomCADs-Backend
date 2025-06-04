@@ -5,8 +5,6 @@ using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Shared.GetExists;
 
-using static ProductsData;
-
 public class GetProductExistsByIdHandlerUnitTests : ProductsBaseUnitTests
 {
 	private readonly GetProductExistsByIdHandler handler;

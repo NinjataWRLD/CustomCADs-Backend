@@ -4,9 +4,9 @@ using static TagsData;
 
 public class TagCreateWithIdValidData : TagCreateWithIdData
 {
-    public TagCreateWithIdValidData()
-    {
-        Add(ValidName1);
-        Add(ValidName2);
-    }
+	public TagCreateWithIdValidData()
+	{
+		Add(ValidName1);
+		Add(ValidName2);
+	}
 }

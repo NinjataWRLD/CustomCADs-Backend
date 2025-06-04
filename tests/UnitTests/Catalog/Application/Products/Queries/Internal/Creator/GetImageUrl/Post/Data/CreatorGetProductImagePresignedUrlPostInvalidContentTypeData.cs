@@ -4,9 +4,9 @@ using static ProductsData;
 
 public class CreatorGetProductImagePresignedUrlPostInvalidContentTypeData : CreatorGetProductImagePresignedUrlPostData
 {
-    public CreatorGetProductImagePresignedUrlPostInvalidContentTypeData()
-    {
-        Add(ValidName1, new(null!, "Hand.jpg"));
-        Add(ValidName2, new(string.Empty, "Chair.png"));
-    }
+	public CreatorGetProductImagePresignedUrlPostInvalidContentTypeData()
+	{
+		Add(ValidName1, new(null!, "Hand.jpg"));
+		Add(ValidName2, new(string.Empty, "Chair.png"));
+	}
 }

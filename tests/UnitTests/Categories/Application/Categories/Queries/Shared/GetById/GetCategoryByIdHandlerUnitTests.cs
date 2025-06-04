@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.Queries.Shared;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Shared.GetById;

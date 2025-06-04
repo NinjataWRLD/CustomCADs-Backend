@@ -4,8 +4,8 @@ using static ShipmentsData;
 
 public class CreateShipmentInvalidPhoneData : CreateShipmentData
 {
-    public CreateShipmentInvalidPhoneData()
-    {
-        Add(ValidService1, ValidCount1, ValidWeight1, ValidRecipient1, ValidCountry1, ValidCity1, ValidStreet1, InvalidPhone, ValidEmail1);
-    }
+	public CreateShipmentInvalidPhoneData()
+	{
+		Add(ValidService1, ValidCount1, ValidWeight1, ValidRecipient1, ValidCountry1, ValidCity1, ValidStreet1, InvalidPhone, ValidEmail1);
+	}
 }

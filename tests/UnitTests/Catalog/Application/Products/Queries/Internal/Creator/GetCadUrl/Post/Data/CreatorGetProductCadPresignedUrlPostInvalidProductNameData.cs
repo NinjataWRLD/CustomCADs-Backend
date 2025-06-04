@@ -2,9 +2,9 @@
 
 public class CreatorGetProductCadPresignedUrlPostInvalidProductNameData : CreatorGetProductCadPresignedUrlPostData
 {
-    public CreatorGetProductCadPresignedUrlPostInvalidProductNameData()
-    {
-        Add(null!, new("model/gltf-binary", "Hand.glb"));
-        Add(string.Empty, new("model/gltf+json", "Chair.gltf"));
-    }
+	public CreatorGetProductCadPresignedUrlPostInvalidProductNameData()
+	{
+		Add(null!, new("model/gltf-binary", "Hand.glb"));
+		Add(string.Empty, new("model/gltf+json", "Chair.gltf"));
+	}
 }

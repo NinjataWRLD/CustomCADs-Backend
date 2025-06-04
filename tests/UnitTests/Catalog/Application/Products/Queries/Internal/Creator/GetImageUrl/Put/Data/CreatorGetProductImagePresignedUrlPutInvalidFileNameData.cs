@@ -2,9 +2,9 @@
 
 public class CreatorGetProductImagePresignedUrlPutInvalidFileNameData : CreatorGetProductImagePresignedUrlPutData
 {
-    public CreatorGetProductImagePresignedUrlPutInvalidFileNameData()
-    {
-        Add(new("cad/jpeg", null!));
-        Add(new("cad/png", string.Empty));
-    }
+	public CreatorGetProductImagePresignedUrlPutInvalidFileNameData()
+	{
+		Add(new("cad/jpeg", null!));
+		Add(new("cad/png", string.Empty));
+	}
 }

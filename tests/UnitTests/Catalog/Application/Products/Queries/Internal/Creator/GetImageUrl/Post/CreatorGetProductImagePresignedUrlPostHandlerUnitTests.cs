@@ -5,8 +5,6 @@ using CustomCADs.Shared.UseCases.Images.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Post;
 
-using static ProductsData;
-
 public class CreatorGetProductImagePresignedUrlPostHandlerUnitTests : ProductsBaseUnitTests
 {
 	private readonly CreatorGetProductImagePresignedUrlPostHandler handler;

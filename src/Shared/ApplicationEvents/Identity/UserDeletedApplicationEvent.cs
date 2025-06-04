@@ -1,5 +1,5 @@
 namespace CustomCADs.Shared.ApplicationEvents.Identity;
 
 public record UserDeletedApplicationEvent(
-    AccountId Id
+	AccountId Id
 ) : BaseApplicationEvent;

@@ -2,9 +2,9 @@
 
 public class CreatorGetProductCadPresignedUrlPutInvalidContentTypeData : CreatorGetProductCadPresignedUrlPutData
 {
-    public CreatorGetProductCadPresignedUrlPutInvalidContentTypeData()
-    {
-        Add(new(null!, "Hand.glb"));
-        Add(new(string.Empty, "Chair.gltf"));
-    }
+	public CreatorGetProductCadPresignedUrlPutInvalidContentTypeData()
+	{
+		Add(new(null!, "Hand.glb"));
+		Add(new(string.Empty, "Chair.gltf"));
+	}
 }

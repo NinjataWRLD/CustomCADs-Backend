@@ -8,33 +8,33 @@ using Data;
 
 public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 {
-    private readonly CreateImageHandler handler;
-    private readonly Mock<IWrites<Image>> writes = new();
-    private readonly Mock<IUnitOfWork> uow = new();
+	private readonly CreateImageHandler handler;
+	private readonly Mock<IWrites<Image>> writes = new();
+	private readonly Mock<IUnitOfWork> uow = new();
 
-    public CreateImageHandlerUnitTests()
-    {
-        handler = new(writes.Object, uow.Object);
-    }
+	public CreateImageHandlerUnitTests()
+	{
+		handler = new(writes.Object, uow.Object);
+	}
 
-    [Theory]
-    [ClassData(typeof(CreateImageValidData))]
-    public async Task Handle_ShouldPersistToDatabase(string key, string contentType)
-    {
-        // Arrange
-        CreateImageCommand command = new(
-            Key: key,
-            ContentType: contentType
-        );
+	[Theory]
+	[ClassData(typeof(CreateImageValidData))]
+	public async Task Handle_ShouldPersistToDatabase(string key, string contentType)
+	{
+		// Arrange
+		CreateImageCommand command = new(
+			Key: key,
+			ContentType: contentType
+		);
 
-        // Act
-        await handler.Handle(command, ct);
+		// Act
+		await handler.Handle(command, ct);
 
-        // Assert
-        writes.Verify(x => x.AddAsync(
-            It.Is<Image>(x => x.Key == key && x.ContentType == contentType),
-            ct
-        ), Times.Once);
-        uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
-    }
+		// Assert
+		writes.Verify(x => x.AddAsync(
+			It.Is<Image>(x => x.Key == key && x.ContentType == contentType),
+			ct
+		), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+	}
 }

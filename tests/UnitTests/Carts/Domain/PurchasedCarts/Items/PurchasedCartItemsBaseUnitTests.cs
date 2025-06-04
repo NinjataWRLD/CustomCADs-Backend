@@ -10,23 +10,23 @@ using static PurchasedCartsData.CartItemsData;
 
 public class PurchasedCartItemsBaseUnitTests
 {
-    protected static PurchasedCartItem CreateItem(
-        PurchasedCartId? cartId = null,
-        ProductId? productId = null,
-        CadId? cadId = null,
-        CustomizationId? customizationId = null,
-        decimal? price = null,
-        int? quantity = null,
-        bool? forDelivery = null,
-        DateTimeOffset? addedAt = null
-    ) => PurchasedCartItem.Create(
-            cartId: cartId ?? PurchasedCartsData.ValidId,
-            productId: productId ?? ValidProductId,
-            cadId: cadId ?? ValidCadId,
-            price: price ?? ValidPrice1,
-            quantity: quantity ?? ValidQuantity1,
-            forDelivery: forDelivery ?? false,
-            customizationId: customizationId,
-            addedAt: addedAt ?? DateTimeOffset.UtcNow
-        );
+	protected static PurchasedCartItem CreateItem(
+		PurchasedCartId? cartId = null,
+		ProductId? productId = null,
+		CadId? cadId = null,
+		CustomizationId? customizationId = null,
+		decimal? price = null,
+		int? quantity = null,
+		bool? forDelivery = null,
+		DateTimeOffset? addedAt = null
+	) => PurchasedCartItem.Create(
+			cartId: cartId ?? PurchasedCartsData.ValidId,
+			productId: productId ?? ValidProductId,
+			cadId: cadId ?? ValidCadId,
+			price: price ?? ValidPrice1,
+			quantity: quantity ?? ValidQuantity1,
+			forDelivery: forDelivery ?? false,
+			customizationId: customizationId,
+			addedAt: addedAt ?? DateTimeOffset.UtcNow
+		);
 }

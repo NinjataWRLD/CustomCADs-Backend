@@ -8,28 +8,28 @@ using static ActiveCartsData;
 
 public class ProductDeletedIntegrationEventHandlerUnitTests : ActiveCartsBaseUnitTests
 {
-    private readonly ProductDeletedHandler handler;
-    private readonly Mock<IUnitOfWork> uow = new();
+	private readonly ProductDeletedHandler handler;
+	private readonly Mock<IUnitOfWork> uow = new();
 
-    public ProductDeletedIntegrationEventHandlerUnitTests()
-    {
-        handler = new(uow.Object);
-    }
+	public ProductDeletedIntegrationEventHandlerUnitTests()
+	{
+		handler = new(uow.Object);
+	}
 
-    [Fact]
-    public async Task Handle_ShouldBulkDelete_WhenThresholdReached()
-    {
-        // Arrange
-        ProductDeletedApplicationEvent ie = new(
-            Id: ValidProductId,
-            ImageId: default,
-            CadId: default
-        );
+	[Fact]
+	public async Task Handle_ShouldBulkDelete_WhenThresholdReached()
+	{
+		// Arrange
+		ProductDeletedApplicationEvent ie = new(
+			Id: ValidProductId,
+			ImageId: default,
+			CadId: default
+		);
 
-        // Act
-        await handler.Handle(ie);
+		// Act
+		await handler.Handle(ie);
 
-        // Assert
-        uow.Verify(x => x.BulkDeleteItemsByProductIdAsync(ValidProductId, ct), Times.Once);
-    }
+		// Assert
+		uow.Verify(x => x.BulkDeleteItemsByProductIdAsync(ValidProductId, ct), Times.Once);
+	}
 }
