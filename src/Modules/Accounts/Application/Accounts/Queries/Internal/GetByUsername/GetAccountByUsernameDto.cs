@@ -5,6 +5,7 @@ public record GetAccountByUsernameDto(
 	string Role,
 	string Username,
 	string Email,
-	string? FirstName = null,
-	string? LastName = null
+	string? FirstName,
+	string? LastName,
+	DateTimeOffset CreatedAt
 );

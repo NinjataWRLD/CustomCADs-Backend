@@ -11,12 +11,15 @@ using static ProductsData;
 
 public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 {
+	private readonly SetProductFilesHandler handler;
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
 	private readonly Product product = CreateProduct();
 
 	public SetProductFilesHandlerUnitTests()
 	{
+		handler = new(reads.Object, sender.Object);
+
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(product);
 	}
@@ -31,7 +34,6 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 			Image: (null, null),
 			CreatorId: ValidCreatorId
 		);
-		SetProductFilesHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -53,7 +55,6 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 			Image: image,
 			CreatorId: ValidCreatorId
 		);
-		SetProductFilesHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -61,24 +62,24 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 		// Assert
 		Assert.Multiple(
 			() => sender.Verify(x => x.SendCommandAsync(
-				It.Is<SetCadKeyCommand>(x =>
-					x.Key == cad.Key
-			), ct), Times.Once),
+				It.Is<SetCadKeyCommand>(x => x.Key == cad.Key),
+				ct
+			), Times.Once),
 
 			() => sender.Verify(x => x.SendCommandAsync(
-				It.Is<SetCadContentTypeCommand>(x =>
-					x.ContentType == cad.ContentType
-			), ct), Times.Once),
+				It.Is<SetCadContentTypeCommand>(x => x.ContentType == cad.ContentType),
+				ct
+			), Times.Once),
 
 			() => sender.Verify(x => x.SendCommandAsync(
-				It.Is<SetImageKeyCommand>(x =>
-					x.Key == image.Key
-			), ct), Times.Once),
+				It.Is<SetImageKeyCommand>(x => x.Key == image.Key),
+				ct
+			), Times.Once),
 
 			() => sender.Verify(x => x.SendCommandAsync(
-				It.Is<SetImageContentTypeCommand>(x =>
-					x.ContentType == image.ContentType
-			), ct), Times.Once)
+				It.Is<SetImageContentTypeCommand>(x => x.ContentType == image.ContentType),
+				ct
+			), Times.Once)
 		);
 	}
 
@@ -92,14 +93,12 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 			Image: (null, null),
 			CreatorId: ValidDesignerId
 		);
-		SetProductFilesHandler handler = new(reads.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Fact]
@@ -115,13 +114,11 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 			Image: (null, null),
 			CreatorId: ValidCreatorId
 		);
-		SetProductFilesHandler handler = new(reads.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

@@ -1,8 +1,8 @@
 ﻿namespace CustomCADs.Shared.Abstractions.Delivery.Dtos;
 
 public record CalculateRequest(
-	int ParcelCount,
-	double TotalWeight,
+	double[] Weights,
 	string Country,
-	string City
+	string City,
+	string Street
 );

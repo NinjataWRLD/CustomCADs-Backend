@@ -1,10 +1,9 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Create;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create;
 
+using Data;
 using static CustomsData;
 
 public class CreateCustomValidatorUnitTests : CustomsBaseUnitTests
@@ -13,14 +12,14 @@ public class CreateCustomValidatorUnitTests : CustomsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Validate_ShouldBeValid_WhenCustomIsValid(string name, string description, bool fordelivery, AccountId buyerId)
+	public async Task Validate_ShouldBeValid_WhenCustomIsValid(string name, string description, bool fordelivery)
 	{
 		// Arrange
 		CreateCustomCommand command = new(
 			Name: name,
 			Description: description,
 			ForDelivery: fordelivery,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
 
 		// Act
@@ -33,14 +32,14 @@ public class CreateCustomValidatorUnitTests : CustomsBaseUnitTests
 	[Theory]
 	[ClassData(typeof(CreateCustomInvalidNameData))]
 	[ClassData(typeof(CreateCustomInvalidDescriptionData))]
-	public async Task Validate_ShouldBeInvalid_WhenCustomIsNotValid(string name, string description, bool fordelivery, AccountId buyerId)
+	public async Task Validate_ShouldBeInvalid_WhenCustomIsNotValid(string name, string description, bool fordelivery)
 	{
 		// Arrange
 		CreateCustomCommand command = new(
 			Name: name,
 			Description: description,
 			ForDelivery: fordelivery,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
 
 		// Act
@@ -52,14 +51,14 @@ public class CreateCustomValidatorUnitTests : CustomsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CreateCustomInvalidNameData))]
-	public async Task Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description, bool fordelivery, AccountId buyerId)
+	public async Task Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description, bool fordelivery)
 	{
 		// Arrange
 		CreateCustomCommand command = new(
 			Name: name,
 			Description: description,
 			ForDelivery: fordelivery,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
 
 		// Act
@@ -71,14 +70,14 @@ public class CreateCustomValidatorUnitTests : CustomsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CreateCustomInvalidDescriptionData))]
-	public async Task Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description, bool fordelivery, AccountId buyerId)
+	public async Task Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description, bool fordelivery)
 	{
 		// Arrange
 		CreateCustomCommand command = new(
 			Name: name,
 			Description: description,
 			ForDelivery: fordelivery,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
 
 		// Act

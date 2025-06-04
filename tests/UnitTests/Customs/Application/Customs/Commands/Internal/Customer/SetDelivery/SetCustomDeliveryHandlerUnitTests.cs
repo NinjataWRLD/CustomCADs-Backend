@@ -6,10 +6,9 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.SetDelivery;
 
-using static CustomsData;
-
 public class SetCustomDeliveryHandlerUnitTests : CustomsBaseUnitTests
 {
+	private readonly SetCustomDeliveryHandler handler;
 	private readonly Mock<ICustomReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 
@@ -20,6 +19,8 @@ public class SetCustomDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
 	public SetCustomDeliveryHandlerUnitTests()
 	{
+		handler = new(reads.Object, uow.Object);
+
 		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(custom);
 	}
@@ -33,7 +34,6 @@ public class SetCustomDeliveryHandlerUnitTests : CustomsBaseUnitTests
 			Value: value,
 			BuyerId: buyerId
 		);
-		SetCustomDeliveryHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -51,7 +51,6 @@ public class SetCustomDeliveryHandlerUnitTests : CustomsBaseUnitTests
 			Value: value,
 			BuyerId: buyerId
 		);
-		SetCustomDeliveryHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -69,7 +68,6 @@ public class SetCustomDeliveryHandlerUnitTests : CustomsBaseUnitTests
 			Value: value,
 			BuyerId: buyerId
 		);
-		SetCustomDeliveryHandler handler = new(reads.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -90,13 +88,11 @@ public class SetCustomDeliveryHandlerUnitTests : CustomsBaseUnitTests
 			Value: value,
 			BuyerId: buyerId
 		);
-		SetCustomDeliveryHandler handler = new(reads.Object, uow.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

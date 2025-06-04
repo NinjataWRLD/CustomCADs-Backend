@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Application.Roles.Queries.Internal.GetByName.Data;
 
-using CustomCADs.UnitTests.Accounts.Application.Roles.Queries.Internal.GetByName;
 using static RolesData;
 
 public class GetRoleByNameValidData : GetRoleByNameData

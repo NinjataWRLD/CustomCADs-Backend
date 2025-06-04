@@ -12,26 +12,30 @@ using static CustomsData;
 
 public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 {
+	private readonly GetCustomCadPresignedUrlGetHandler handler;
 	private readonly Mock<ICustomReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
+
 	private static readonly DownloadFileResponse cad = new("presigned-url", "application/png");
-	private static readonly CustomId id = ValidId1;
-	private static readonly AccountId buyerId = ValidBuyerId1;
-	private static readonly AccountId wrongBuyerId = ValidBuyerId2;
-	private readonly Custom custom = CreateCustomWithId(id);
+	private static readonly AccountId buyerId = AccountId.New();
+	private readonly Custom custom = CreateCustomWithId(ValidId);
 
 	public GetCustomCadPresignedUrlGetHandlerUnitTests()
 	{
-		custom.Accept(ValidDesignerId1);
-		custom.Begin();
-		custom.Finish(ValidCadId1, ValidPrice1);
-		custom.Complete(ValidCustomizationId1);
+		handler = new(reads.Object, sender.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		custom.Accept(ValidDesignerId);
+		custom.Begin();
+		custom.Finish(ValidCadId, ValidPrice1);
+		custom.Complete(ValidCustomizationId);
+
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetCadPresignedUrlGetByIdQuery>(), ct))
-			.ReturnsAsync(cad);
+		sender.Setup(x => x.SendQueryAsync(
+			It.IsAny<GetCadPresignedUrlGetByIdQuery>(),
+			ct
+		)).ReturnsAsync(cad);
 	}
 
 	[Fact]
@@ -39,16 +43,15 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 	{
 		// Arrange
 		GetCustomCadPresignedUrlGetQuery query = new(
-			Id: id,
-			BuyerId: buyerId
+			Id: ValidId,
+			BuyerId: ValidBuyerId
 		);
-		GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
 	}
 
 	[Fact]
@@ -56,18 +59,18 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 	{
 		// Arrange
 		GetCustomCadPresignedUrlGetQuery query = new(
-			Id: id,
-			BuyerId: buyerId
+			Id: ValidId,
+			BuyerId: ValidBuyerId
 		);
-		GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
 		sender.Verify(x => x.SendQueryAsync(
-			It.IsAny<GetCadPresignedUrlGetByIdQuery>()
-		, ct), Times.Once);
+			It.IsAny<GetCadPresignedUrlGetByIdQuery>(),
+			ct
+		), Times.Once);
 	}
 
 	[Fact]
@@ -75,10 +78,9 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 	{
 		// Arrange
 		GetCustomCadPresignedUrlGetQuery query = new(
-			Id: id,
-			BuyerId: buyerId
+			Id: ValidId,
+			BuyerId: ValidBuyerId
 		);
-		GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		var result = await handler.Handle(query, ct);
@@ -92,37 +94,33 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 	{
 		// Arrange
 		GetCustomCadPresignedUrlGetQuery query = new(
-			Id: id,
-			BuyerId: wrongBuyerId
+			Id: ValidId,
+			BuyerId: buyerId
 		);
-		GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(
 			// Act
-			await handler.Handle(query, ct);
-		});
+			async () => await handler.Handle(query, ct)
+		);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenCustomNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(null as Custom);
 
 		GetCustomCadPresignedUrlGetQuery query = new(
-			Id: id,
-			BuyerId: buyerId
+			Id: ValidId,
+			BuyerId: ValidBuyerId
 		);
-		GetCustomCadPresignedUrlGetHandler handler = new(reads.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
 			// Act
-			await handler.Handle(query, ct);
-		});
+			async () => await handler.Handle(query, ct)
+		);
 	}
 }

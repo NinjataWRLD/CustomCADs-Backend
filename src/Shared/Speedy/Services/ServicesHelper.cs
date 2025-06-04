@@ -2,11 +2,13 @@
 using CustomCADs.Shared.Speedy.Services.Location.Country;
 using CustomCADs.Shared.Speedy.Services.Location.Office;
 using CustomCADs.Shared.Speedy.Services.Location.Site;
+using CustomCADs.Shared.Speedy.Services.Location.Street;
 using CustomCADs.Shared.Speedy.Services.Models;
 using CustomCADs.Shared.Speedy.Services.Services;
 using CustomCADs.Shared.Speedy.Services.Services.Models;
 
 namespace CustomCADs.Shared.Speedy.Services;
+
 public static class ServicesHelper
 {
 	public static async Task<int> GetCountryId(this LocationService locationService, AccountModel account, string country, CancellationToken ct)
@@ -32,19 +34,56 @@ public static class ServicesHelper
 		return sites.First().Id;
 	}
 
-	public static async Task<int> GetOfficeId(this LocationService locationService, AccountModel account, int countryId, long siteId, CancellationToken ct)
+	public static async Task<long> GetStreetId(this LocationService locationService, AccountModel account, long siteId, string street, CancellationToken ct)
 	{
-		OfficeModel[] offices = await locationService.FindOfficeAsync(
+		StreetModel[] streets = await locationService.FindStreetAsync(
 			account: account,
-			countryId: countryId,
-			siteId: siteId,
-			name: null,
-			siteName: null,
-			limit: null,
+			siteId: Convert.ToInt32(siteId),
+			name: street,
+			type: null,
 			ct: ct
 		).ConfigureAwait(false);
 
-		return offices.First().Id;
+		return streets.First().Id;
+	}
+
+	public static async Task<(int Distance, int OfficeId)> GetOfficeId(this LocationService locationService, AccountModel account, int countryId, long siteId, long streetId, CancellationToken ct)
+	{
+		var offices = await locationService.GetOfficeAsync(
+			model: new(
+				Address: new(
+					CountryId: countryId,
+					SiteId: siteId,
+					StreetId: streetId,
+					ComplexId: null,
+					SiteType: null,
+					StreetType: null,
+					ComplexType: null,
+					SiteName: null,
+					ComplexName: null,
+					StreetName: null,
+					StreetNo: null,
+					BlockNo: null,
+					EntranceNo: null,
+					FloorNo: null,
+					ApartmentNo: null,
+					PoiId: null,
+					AddressNote: null,
+					PostCode: null,
+					X: null,
+					Y: null
+				),
+				Distance: null,
+				Limit: null,
+				OfficeType: null,
+				OfficeFeatures: null
+			),
+			account: account,
+			ct: ct
+		).ConfigureAwait(false);
+
+		var (Distance, Office) = offices.OrderBy(x => x.Distance).First();
+		return (Distance, Office.Id);
 	}
 
 	public static async Task<int> GetServiceId(this ServicesService servicesService, AccountModel account, string service, CancellationToken ct)

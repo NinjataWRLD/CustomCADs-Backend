@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.ValueObjects;
-using CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.CamCoordinates.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.CamCoordinates;
+
+using Data;
 
 public class CadCamCoordinatesUnitTests : CadsBaseUnitTests
 {
@@ -32,9 +33,8 @@ public class CadCamCoordinatesUnitTests : CadsBaseUnitTests
 	{
 		var cad = CreateCad();
 
-		Assert.Throws<CustomValidationException<Cad>>(() =>
-		{
-			cad.SetCamCoordinates(coordinates);
-		});
+		Assert.Throws<CustomValidationException<Cad>>(
+			() => cad.SetCamCoordinates(coordinates)
+		);
 	}
 }

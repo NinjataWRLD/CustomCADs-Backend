@@ -5,5 +5,6 @@ public record CalculateCustomShipmentRequest(
 	int Count,
 	string Country,
 	string City,
+	string Street,
 	Guid CustomizationId
 );

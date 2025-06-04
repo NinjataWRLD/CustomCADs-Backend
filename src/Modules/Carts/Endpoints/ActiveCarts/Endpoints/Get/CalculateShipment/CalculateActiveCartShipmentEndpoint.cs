@@ -21,7 +21,7 @@ public class CalculateActiveCartShipmentEndpoint(IRequestSender sender)
 		CalculateShipmentDto[] calculations = await sender.SendQueryAsync(
 			new CalculateActiveCartShipmentQuery(
 				BuyerId: User.GetAccountId(),
-				Address: new(req.Country, req.City)
+				Address: new(req.Country, req.City, req.Street)
 			),
 			ct
 		).ConfigureAwait(false);

@@ -3,20 +3,23 @@ using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetByName;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.UnitTests.Accounts.Application.Roles.Queries.Internal.GetByName.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Queries.Internal.GetByName;
 
+using Data;
 using static CachingKeys;
 using static RolesData;
 
 public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 {
+	private readonly GetRoleByNameHandler handler;
 	private readonly Mock<IRoleReads> reads = new();
 	private readonly Mock<ICacheService> cache = new();
 
 	public GetRoleByNameHandlerUnitTests()
 	{
+		handler = new(reads.Object, cache.Object);
+
 		reads.Setup(x => x.SingleByNameAsync(ValidName1, false, ct)).ReturnsAsync(CreateRole(ValidName1, ValidDescription1));
 		reads.Setup(x => x.SingleByNameAsync(ValidName2, false, ct)).ReturnsAsync(CreateRole(ValidName2, ValidDescription2));
 		reads.Setup(x => x.SingleByNameAsync(ValidName3, false, ct)).ReturnsAsync(CreateRole(ValidName3, ValidDescription3));
@@ -34,7 +37,6 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 	{
 		// Arrange
 		GetRoleByNameQuery query = new(name);
-		GetRoleByNameHandler handler = new(reads.Object, cache.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -49,9 +51,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 	{
 		// Arrange
 		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{name}")).ReturnsAsync(null as Role);
-
 		GetRoleByNameQuery query = new(name);
-		GetRoleByNameHandler handler = new(reads.Object, cache.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -66,9 +66,7 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 	{
 		// Arrange
 		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{name}")).ReturnsAsync(null as Role);
-
 		GetRoleByNameQuery query = new(name);
-		GetRoleByNameHandler handler = new(reads.Object, cache.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -92,15 +90,12 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 		// Arrange
 		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{name}")).ReturnsAsync(null as Role);
 		reads.Setup(x => x.SingleByNameAsync(name, false, ct)).ReturnsAsync(null as Role);
-
 		GetRoleByNameQuery query = new(name);
-		GetRoleByNameHandler handler = new(reads.Object, cache.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Role>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Role>>(
 			// Act
-			await handler.Handle(query, ct);
-		});
+			async () => await handler.Handle(query, ct)
+		);
 	}
 }

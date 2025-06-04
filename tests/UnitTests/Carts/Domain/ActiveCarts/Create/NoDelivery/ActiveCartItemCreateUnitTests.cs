@@ -1,33 +1,29 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Create.NoDelivery.Data;
+﻿namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Create.NoDelivery;
 
-namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Create.NoDelivery;
+using static ActiveCartsData;
 
 public class ActiveCartItemCreateUnitTests : ActiveCartItemsBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(ActiveCartItemCreateValidData))]
-	public void Create_ShouldNotThrow_WhenCartIsValid(AccountId buyerId, ProductId productId)
+	[Fact]
+	public void Create_ShouldNotThrow_WhenCartIsValid()
 	{
 		CreateItem(
-			buyerId: buyerId,
-			productId: productId
+			buyerId: ValidBuyerId,
+			productId: ValidProductId
 		);
 	}
 
-	[Theory]
-	[ClassData(typeof(ActiveCartItemCreateValidData))]
-	public void Create_ShouldPopulateProperties(AccountId buyerId, ProductId productId)
+	[Fact]
+	public void Create_ShouldPopulateProperties()
 	{
 		var item = CreateItem(
-			buyerId: buyerId,
-			productId: productId
+			buyerId: ValidBuyerId,
+			productId: ValidProductId
 		);
 
 		Assert.Multiple(
-			() => Assert.Equal(buyerId, item.BuyerId),
-			() => Assert.Equal(productId, item.ProductId),
+			() => Assert.Equal(ValidBuyerId, item.BuyerId),
+			() => Assert.Equal(ValidProductId, item.ProductId),
 			() => Assert.False(item.ForDelivery)
 		);
 	}

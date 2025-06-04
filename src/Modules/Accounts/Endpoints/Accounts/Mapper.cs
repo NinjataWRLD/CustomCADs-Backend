@@ -12,7 +12,8 @@ internal static class Mapper
 			Username: account.Username,
 			Email: account.Email,
 			FirstName: account.FirstName,
-			LastName: account.LastName
+			LastName: account.LastName,
+			CreatedAt: account.CreatedAt
 		);
 
 	internal static AccountResponse ToResponse(this GetAllAccountsDto account)
@@ -21,6 +22,7 @@ internal static class Mapper
 			Email: account.Email,
 			Role: account.Role,
 			FirstName: account.FirstName,
-			LastName: account.LastName
+			LastName: account.LastName,
+			CreatedAt: account.CreatedAt
 		);
 }

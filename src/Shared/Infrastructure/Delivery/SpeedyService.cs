@@ -29,10 +29,10 @@ public sealed class SpeedyService(
 		var response = await calculationService.CalculateAsync(
 			account: account,
 			payer: payer,
-			parcelCount: req.ParcelCount,
-			totalWeight: req.TotalWeight,
+			weights: req.Weights,
 			country: req.Country,
 			site: req.City,
+			street: req.Street,
 			ct: ct
 		).ConfigureAwait(false);
 
@@ -49,7 +49,6 @@ public sealed class SpeedyService(
 		))];
 	}
 
-
 	public async Task<ShipmentDto> ShipAsync(
 		ShipRequestDto req,
 		CancellationToken ct = default
@@ -64,6 +63,7 @@ public sealed class SpeedyService(
 			totalWeight: req.TotalWeight,
 			country: req.Country,
 			site: req.City,
+			street: req.Street,
 			name: req.Name,
 			service: req.Service,
 			email: req.Email,

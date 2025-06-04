@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Edit.Data;
 
-using CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Edit;
 using static ProductsData;
 
 public class EditProductInvalidPriceData : EditProductData

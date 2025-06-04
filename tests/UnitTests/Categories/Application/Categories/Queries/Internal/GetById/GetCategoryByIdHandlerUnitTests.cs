@@ -3,8 +3,6 @@ using CustomCADs.Categories.Application.Common.Caching;
 using CustomCADs.Categories.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.UnitTests.Categories.Application.Categories.Queries.Internal.GetById.Data;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Internal.GetById;
 
@@ -13,89 +11,76 @@ using static CategoriesData;
 
 public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 {
+	private readonly GetCategoryByIdHandler handler;
 	private readonly Mock<ICategoryReads> reads = new();
 	private readonly Mock<ICacheService> cache = new();
 
 	public GetCategoryByIdHandlerUnitTests()
 	{
-		reads.Setup(v => v.SingleByIdAsync(ValidId1, false, ct)).ReturnsAsync(CreateCategory(ValidId1, ValidName1, ValidDescription1));
-		reads.Setup(v => v.SingleByIdAsync(ValidId2, false, ct)).ReturnsAsync(CreateCategory(ValidId2, ValidName2, ValidDescription2));
-		reads.Setup(v => v.SingleByIdAsync(ValidId3, false, ct)).ReturnsAsync(CreateCategory(ValidId3, ValidName3, ValidDescription3));
+		handler = new(reads.Object, cache.Object);
 
-		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId1}")).ReturnsAsync(CreateCategory(ValidId1, ValidName1, ValidDescription1));
-		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId2}")).ReturnsAsync(CreateCategory(ValidId2, ValidName2, ValidDescription2));
-		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId3}")).ReturnsAsync(CreateCategory(ValidId3, ValidName3, ValidDescription3));
+		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateCategory(ValidId, ValidName1, ValidDescription1));
+		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId}")).ReturnsAsync(CreateCategory(ValidId, ValidName1, ValidDescription1));
 	}
 
-	[Theory]
-	[ClassData(typeof(GetCategoryByNameValidData))]
-	public async Task Handle_ShouldCallCache_WhenCacheHit(CategoryId id)
+	[Fact]
+	public async Task Handle_ShouldCallCache_WhenCacheHit()
 	{
 		// Arrange
-		GetCategoryByIdQuery query = new(id);
-		GetCategoryByIdHandler handler = new(reads.Object, cache.Object);
+		GetCategoryByIdQuery query = new(ValidId);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		cache.Verify(v => v.GetAsync<Category>($"{CategoryKey}/{id}"), Times.Once());
+		cache.Verify(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId}"), Times.Once());
 	}
 
-	[Theory]
-	[ClassData(typeof(GetCategoryByNameValidData))]
-	public async Task Handle_ShouldQueryDatabase_WhenCacheMiss(CategoryId id)
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase_WhenCacheMiss()
 	{
 		// Arrange
-		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{id}")).ReturnsAsync(null as Category);
+		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId}")).ReturnsAsync(null as Category);
 
-		GetCategoryByIdQuery query = new(id);
-		GetCategoryByIdHandler handler = new(reads.Object, cache.Object);
+		GetCategoryByIdQuery query = new(ValidId);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(v => v.SingleByIdAsync(id, false, ct), Times.Once());
+		reads.Verify(v => v.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
-	[Theory]
-	[ClassData(typeof(GetCategoryByNameValidData))]
-	public async Task Handle_ShouldUpdateCache_WhenDatabaseHit(CategoryId id)
+	[Fact]
+	public async Task Handle_ShouldUpdateCache_WhenDatabaseHit()
 	{
 		// Arrange
-		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{id}")).ReturnsAsync(null as Category);
-
-		GetCategoryByIdQuery query = new(id);
-		GetCategoryByIdHandler handler = new(reads.Object, cache.Object);
+		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId}")).ReturnsAsync(null as Category);
+		GetCategoryByIdQuery query = new(ValidId);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		Category category = CreateCategory(id);
+		Category category = CreateCategory(ValidId);
 		cache.Verify(v => v.SetAsync(
-			$"{CategoryKey}/{id}",
+			$"{CategoryKey}/{ValidId}",
 			It.Is<Category>(c => c.Id == category.Id)
 		), Times.Once());
 	}
 
-	[Theory]
-	[ClassData(typeof(GetCategoryByNameValidData))]
-	public async Task Handle_ShouldThrowException_WhenDatabaseMiss(CategoryId id)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenDatabaseMiss()
 	{
 		// Arrange
-		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{id}")).ReturnsAsync(null as Category);
-		reads.Setup(v => v.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Category);
-
-		GetCategoryByIdQuery query = new(id);
-		GetCategoryByIdHandler handler = new(reads.Object, cache.Object);
+		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId}")).ReturnsAsync(null as Category);
+		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Category);
+		GetCategoryByIdQuery query = new(ValidId);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Category>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
 			// Act
-			await handler.Handle(query, ct);
-		});
+			async () => await handler.Handle(query, ct)
+		);
 	}
 }

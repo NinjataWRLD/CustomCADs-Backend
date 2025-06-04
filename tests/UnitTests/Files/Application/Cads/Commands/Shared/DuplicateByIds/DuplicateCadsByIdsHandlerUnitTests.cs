@@ -11,9 +11,11 @@ using static CadsData;
 
 public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 {
+	private readonly DuplicateCadsByIdsHandler handler;
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<IWrites<Cad>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+
 	private readonly Cad[] cads = [
 		CreateCadWithId(id1, ValidKey1, ValidContentType1, ValidVolume1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1),
 		CreateCadWithId(id2, ValidKey2, ValidContentType2, ValidVolume2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2),
@@ -24,8 +26,11 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 
 	public DuplicateCadsByIdsHandlerUnitTests()
 	{
+		handler = new(reads.Object, writes.Object, uow.Object);
+
 		query = new(new(1, ids.Length), ids);
 		result = new Result<Cad>(cads.Length, cads);
+
 		reads.Setup(x => x.AllAsync(query, false, ct))
 			.ReturnsAsync(result);
 	}
@@ -35,7 +40,6 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 	{
 		// Arrange
 		DuplicateCadsByIdsCommand command = new(ids);
-		DuplicateCadsByIdsHandler handler = new(reads.Object, writes.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -49,13 +53,15 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 	{
 		// Arrange
 		DuplicateCadsByIdsCommand command = new(ids);
-		DuplicateCadsByIdsHandler handler = new(reads.Object, writes.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.AddAsync(It.IsAny<Cad>(), ct), Times.Exactly(cads.Length));
+		writes.Verify(x => x.AddAsync(
+			It.Is<Cad>(x => cads.Any(c => x.Key == c.Key)),
+			ct
+		), Times.Exactly(cads.Length));
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
@@ -64,7 +70,6 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 	{
 		// Arrange
 		DuplicateCadsByIdsCommand command = new(ids);
-		DuplicateCadsByIdsHandler handler = new(reads.Object, writes.Object, uow.Object);
 
 		// Act
 		var result = await handler.Handle(command, ct);

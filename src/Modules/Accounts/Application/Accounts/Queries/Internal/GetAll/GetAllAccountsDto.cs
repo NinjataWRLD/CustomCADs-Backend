@@ -5,6 +5,7 @@ public record GetAllAccountsDto(
 	string Username,
 	string Email,
 	string Role,
-	string? FirstName = null,
-	string? LastName = null
+	string? FirstName,
+	string? LastName,
+	DateTimeOffset CreatedAt
 );

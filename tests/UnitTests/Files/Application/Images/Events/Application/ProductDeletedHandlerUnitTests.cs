@@ -9,14 +9,17 @@ namespace CustomCADs.UnitTests.Files.Application.Images.Events.Application;
 
 public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 {
+	private readonly ProductDeletedHandler handler;
 	private readonly Mock<IImageReads> reads = new();
 	private readonly Mock<IWrites<Image>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IStorageService> storage = new();
+
 	private static readonly Image image = CreateImage();
 
 	public ProductDeletedHandlerUnitTests()
 	{
+		handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 		reads.Setup(x => x.SingleByIdAsync(id1, true, ct)).ReturnsAsync(image);
 	}
 
@@ -29,7 +32,6 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 			ImageId: id1,
 			CadId: default
 		);
-		ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
 		// Act
 		await handler.Handle(ie);
@@ -47,7 +49,6 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 			ImageId: id1,
 			CadId: default
 		);
-		ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
 		// Act
 		await handler.Handle(ie);
@@ -66,7 +67,6 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 			ImageId: id1,
 			CadId: default
 		);
-		ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
 		// Act
 		await handler.Handle(ie);
@@ -87,13 +87,11 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 			ImageId: id1,
 			CadId: default
 		);
-		ProductDeletedHandler handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(
 			// Act
-			await handler.Handle(ie);
-		});
+			async () => await handler.Handle(ie)
+		);
 	}
 }

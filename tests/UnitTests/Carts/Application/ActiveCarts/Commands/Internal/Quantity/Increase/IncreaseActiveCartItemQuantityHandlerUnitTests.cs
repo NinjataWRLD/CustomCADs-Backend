@@ -2,25 +2,25 @@
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Quantity.Increase.Data;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Quantity.Increase;
 
+using Data;
 using static ActiveCartsData;
 
 public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUnitTests
 {
+	private readonly IncreaseActiveCartItemQuantityHandler handler;
 	private readonly Mock<IActiveCartReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
-	private static readonly AccountId buyerId = ValidBuyerId1;
-	private static readonly ProductId productId = ProductId.New(Guid.Empty);
 
 	public IncreaseActiveCartItemQuantityHandlerUnitTests()
 	{
-		reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
-			.ReturnsAsync(CreateItemWithDelivery(productId: productId));
+		handler = new(reads.Object, uow.Object);
+
+		reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
+			.ReturnsAsync(CreateItemWithDelivery(productId: ValidProductId));
 	}
 
 	[Theory]
@@ -28,14 +28,17 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 	public async Task Handle_ShouldQueryDatabase(int amount)
 	{
 		// Arrange
-		IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-		IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+		IncreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId,
+			Amount: amount
+		);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleAsync(buyerId, productId, true, ct), Times.Once);
+		reads.Verify(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct), Times.Once);
 	}
 
 	[Theory]
@@ -43,8 +46,11 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 	public async Task Handle_ShouldPersistToDatabase(int amount)
 	{
 		// Arrange
-		IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-		IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+		IncreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId,
+			Amount: amount
+		);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -58,18 +64,20 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 	public async Task Handle_ShouldThrowException_WhenCartNotFound(int amount)
 	{
 		// Arrange
-		reads.Setup(x => x.SingleAsync(buyerId, productId, true, ct))
+		reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
 			.ReturnsAsync(null as ActiveCartItem);
 
-		IncreaseActiveCartItemQuantityCommand command = new(buyerId, productId, amount);
-		IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
+		IncreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId,
+			Amount: amount
+		);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 
 	[Theory]
@@ -78,17 +86,15 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 	{
 		// Arrange
 		IncreaseActiveCartItemQuantityCommand command = new(
-			BuyerId: buyerId,
-			ProductId: ValidProductId1,
+			BuyerId: ValidBuyerId,
+			ProductId: ProductId.New(),
 			Amount: amount
 		);
-		IncreaseActiveCartItemQuantityHandler handler = new(reads.Object, uow.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

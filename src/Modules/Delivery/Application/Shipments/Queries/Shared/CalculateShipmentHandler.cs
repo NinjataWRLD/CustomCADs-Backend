@@ -11,10 +11,10 @@ public class CalculateShipmentHandler(IDeliveryService delivery)
 	public async Task<CalculateShipmentDto[]> Handle(CalculateShipmentQuery req, CancellationToken ct)
 	{
 		CalculationDto[] calculations = await delivery.CalculateAsync(new(
-			ParcelCount: req.ParcelCount,
-			TotalWeight: req.TotalWeight,
+			Weights: req.Weights,
 			Country: req.Address.Country,
-			City: req.Address.City
+			City: req.Address.City,
+			Street: req.Address.Street
 		), ct).ConfigureAwait(false);
 
 		return [.. calculations.Select(x => x.ToDto())];

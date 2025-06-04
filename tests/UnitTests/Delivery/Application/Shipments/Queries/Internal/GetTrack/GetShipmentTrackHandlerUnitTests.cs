@@ -10,14 +10,16 @@ using static ShipmentsData;
 
 public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 {
+	private readonly GetShipmentTrackHandler handler;
 	private readonly Mock<IShipmentReads> reads = new();
 	private readonly Mock<IDeliveryService> delivery = new();
-	private static readonly ShipmentStatusDto[] Statuses = CreateShipmentStatusDtos(4, "Message");
+	private static readonly ShipmentStatusDto[] statuses = CreateShipmentStatusDtos(4, "Message");
 
 	public GetShipmentTrackHandlerUnitTests()
 	{
+		handler = new(reads.Object, delivery.Object);
 		reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateShipment());
-		delivery.Setup(x => x.TrackAsync(ValidReferenceId, ct)).ReturnsAsync(Statuses);
+		delivery.Setup(x => x.TrackAsync(ValidReferenceId, ct)).ReturnsAsync(statuses);
 	}
 
 	[Fact]
@@ -25,7 +27,6 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	{
 		// Arrange
 		GetShipmentTrackQuery query = new(id);
-		GetShipmentTrackHandler handler = new(reads.Object, delivery.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -39,7 +40,6 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	{
 		// Arrange
 		GetShipmentTrackQuery query = new(id);
-		GetShipmentTrackHandler handler = new(reads.Object, delivery.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -53,13 +53,12 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	{
 		// Arrange
 		GetShipmentTrackQuery query = new(id);
-		GetShipmentTrackHandler handler = new(reads.Object, delivery.Object);
 
 		// Act
 		Dictionary<DateTimeOffset, GetShipmentTrackDto> tracks = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.Equal(tracks, Statuses.ToDictionary(x => x.DateTime, x => new GetShipmentTrackDto(x.Message, x.Place)));
+		Assert.Equal(tracks, statuses.ToDictionary(x => x.DateTime, x => new GetShipmentTrackDto(x.Message, x.Place)));
 	}
 
 	[Fact]
@@ -68,16 +67,13 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
 			.ReturnsAsync(null as Shipment);
-
 		GetShipmentTrackQuery query = new(id);
-		GetShipmentTrackHandler handler = new(reads.Object, delivery.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(
 			// Act
-			await handler.Handle(query, ct);
-		});
+			async () => await handler.Handle(query, ct)
+		);
 	}
 
 	private static ShipmentStatusDto[] CreateShipmentStatusDtos(int count, string message)

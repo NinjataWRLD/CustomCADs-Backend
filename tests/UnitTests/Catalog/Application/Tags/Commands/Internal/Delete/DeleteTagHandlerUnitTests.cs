@@ -10,6 +10,7 @@ namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Delete
 
 public class DeleteTagHandlerUnitTests : TagsBaseUnitTests
 {
+	private readonly DeleteTagHandler handler;
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<ITagWrites> writes = new();
 	private readonly Mock<ITagReads> reads = new();
@@ -19,6 +20,8 @@ public class DeleteTagHandlerUnitTests : TagsBaseUnitTests
 
 	public DeleteTagHandlerUnitTests()
 	{
+		handler = new(reads.Object, writes.Object, uow.Object);
+
 		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(tag);
 	}
@@ -28,7 +31,6 @@ public class DeleteTagHandlerUnitTests : TagsBaseUnitTests
 	{
 		// Arrange
 		DeleteTagCommand command = new(id);
-		DeleteTagHandler handler = new(reads.Object, writes.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -42,7 +44,6 @@ public class DeleteTagHandlerUnitTests : TagsBaseUnitTests
 	{
 		// Arrange
 		DeleteTagCommand command = new(id);
-		DeleteTagHandler handler = new(reads.Object, writes.Object, uow.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -58,15 +59,12 @@ public class DeleteTagHandlerUnitTests : TagsBaseUnitTests
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(null as Tag);
-
 		DeleteTagCommand command = new(id);
-		DeleteTagHandler handler = new(reads.Object, writes.Object, uow.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(
 			// Act  
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

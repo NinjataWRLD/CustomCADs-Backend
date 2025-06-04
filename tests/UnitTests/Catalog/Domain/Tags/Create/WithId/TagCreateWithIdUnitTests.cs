@@ -1,35 +1,35 @@
 ﻿using CustomCADs.Catalog.Domain.Tags;
 using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.UnitTests.Catalog.Domain.Tags.Create.WithId.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Create.WithId;
+
+using Data;
+using static TagsData;
 
 public class TagCreateWithIdUnitTests : TagsBaseUnitTests
 {
 	[Theory]
 	[ClassData(typeof(TagCreateWithIdValidData))]
-	public void CreateWithId_ShouldNotThrowException_WhenProductIsValid(TagId id, string name)
+	public void CreateWithId_ShouldNotThrowException_WhenProductIsValid(string name)
 	{
-		CreateTagWithId(id, name);
+		CreateTagWithId(ValidId, name);
 	}
 
 	[Theory]
 	[ClassData(typeof(TagCreateWithIdValidData))]
-	public void CreateWithId_ShouldPopulateProperly_WhenProductIsValid(TagId id, string name)
+	public void CreateWithId_ShouldPopulateProperly_WhenProductIsValid(string name)
 	{
-		Tag tag = CreateTagWithId(id, name);
+		Tag tag = CreateTagWithId(ValidId, name);
 
 		Assert.Equal(name, tag.Name);
 	}
 
 	[Theory]
 	[ClassData(typeof(TagCreateWithIdInvalidNameData))]
-	public void CreateWithId_ShouldThrowException_WhenProductIsNotValid(TagId id, string name)
+	public void CreateWithId_ShouldThrowException_WhenProductIsNotValid(string name)
 	{
-		Assert.Throws<CustomValidationException<Tag>>(() =>
-		{
-			CreateTagWithId(id, name);
-		});
+		Assert.Throws<CustomValidationException<Tag>>(
+			() => CreateTagWithId(ValidId, name)
+		);
 	}
 }

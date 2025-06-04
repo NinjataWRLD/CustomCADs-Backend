@@ -11,11 +11,11 @@ public class CustomStatesUnitTests : CustomsBaseUnitTests
 	{
 		var custom = CreateCustom();
 
-		custom.Accept(ValidDesignerId1);
+		custom.Accept(ValidDesignerId);
 
 		Assert.Multiple(
 			() => Assert.Equal(CustomStatus.Accepted, custom.CustomStatus),
-			() => Assert.Equal(ValidDesignerId1, custom.AcceptedCustom?.DesignerId)
+			() => Assert.Equal(ValidDesignerId, custom.AcceptedCustom?.DesignerId)
 		);
 	}
 
@@ -24,7 +24,7 @@ public class CustomStatesUnitTests : CustomsBaseUnitTests
 	{
 		var custom = CreateCustom();
 
-		custom.Accept(ValidDesignerId1);
+		custom.Accept(ValidDesignerId);
 		custom.Begin();
 
 		Assert.Equal(CustomStatus.Begun, custom.CustomStatus);
@@ -35,7 +35,7 @@ public class CustomStatesUnitTests : CustomsBaseUnitTests
 	{
 		var custom = CreateCustom();
 
-		custom.Accept(ValidDesignerId1);
+		custom.Accept(ValidDesignerId);
 		custom.Begin();
 		custom.Cancel();
 
@@ -50,13 +50,13 @@ public class CustomStatesUnitTests : CustomsBaseUnitTests
 	{
 		var custom = CreateCustom();
 
-		custom.Accept(ValidDesignerId1);
+		custom.Accept(ValidDesignerId);
 		custom.Begin();
-		custom.Finish(ValidCadId1, ValidPrice1);
+		custom.Finish(ValidCadId, ValidPrice1);
 
 		Assert.Multiple(
 			() => Assert.Equal(CustomStatus.Finished, custom.CustomStatus),
-			() => Assert.Equal(ValidCadId1, custom.FinishedCustom?.CadId),
+			() => Assert.Equal(ValidCadId, custom.FinishedCustom?.CadId),
 			() => Assert.Equal(ValidPrice1, custom.FinishedCustom?.Price)
 		);
 	}
@@ -66,9 +66,9 @@ public class CustomStatesUnitTests : CustomsBaseUnitTests
 	{
 		var custom = CreateCustom();
 
-		custom.Accept(ValidDesignerId1);
+		custom.Accept(ValidDesignerId);
 		custom.Begin();
-		custom.Finish(ValidCadId1, ValidPrice1);
+		custom.Finish(ValidCadId, ValidPrice1);
 		custom.Complete(null);
 
 		Assert.Multiple(

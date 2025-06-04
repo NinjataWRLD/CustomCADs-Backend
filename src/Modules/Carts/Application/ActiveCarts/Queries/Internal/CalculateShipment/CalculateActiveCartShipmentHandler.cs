@@ -31,8 +31,13 @@ public class CalculateActiveCartShipmentHandler(IActiveCartReads reads, IRequest
 
 		CalculateShipmentDto[] calculations = await sender.SendQueryAsync(
 			new CalculateShipmentQuery(
-				ParcelCount: items.Count(x => x.ForDelivery),
-				TotalWeight: weights.Sum(x => x.Value) / 1000,
+				Weights: [..
+					weights.Select(weight =>
+					{
+						ActiveCartItem item = items.First(item => item.CustomizationId == weight.Key);
+						return item.Quantity * weight.Value / 1000;
+					})
+				],
 				Address: req.Address
 			),
 			ct

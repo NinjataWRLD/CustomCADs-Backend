@@ -17,6 +17,10 @@ public static class ShipmentsData
 	public const string ValidCity2 = "Bucharest";
 	public const string InvalidCity = "";
 
+	public const string ValidStreet1 = "Flora";
+	public const string ValidStreet2 = "Brailles";
+	public const string InvalidStreet = "";
+
 	public const string? ValidPhone1 = "+1234567890";
 	public const string? ValidPhone2 = null;
 	public const string? InvalidPhone = "abcdefghijklmnopqrstuvwxyz";
@@ -46,5 +50,4 @@ public static class ShipmentsData
 	public const string ValidReferenceId = "some-reference-id";
 
 	public static readonly AccountId ValidBuyerId = AccountId.New(CustomerAccountId);
-	public static readonly AccountId ValidHeadDesignerId = AccountId.New(DesignerAccountId);
 }

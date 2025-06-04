@@ -5,12 +5,13 @@ namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Queries.Internal.G
 
 public class GetShipmentSortingsHandlerUnitTests : ShipmentsBaseUnitTests
 {
+	private readonly GetShipmentSortingsHandler handler = new();
+
 	[Fact]
 	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetShipmentSortingsQuery query = new();
-		GetShipmentSortingsHandler handler = new();
 
 		// Act
 		string[] sortings = await handler.Handle(query, ct);

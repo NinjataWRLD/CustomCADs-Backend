@@ -36,6 +36,12 @@ public class User
 		.ValidateUsername()
 		.ValidateEmail();
 
+	public void SetUsername(string username)
+	{
+		Username = username;
+		this.ValidateUsername();
+	}
+
 	public void SetRefreshToken(string token, DateTimeOffset expiresAt)
 	{
 		RefreshToken = new(token, expiresAt);

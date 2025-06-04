@@ -20,9 +20,9 @@ public class PurchasedCartItemsBaseUnitTests
 		bool? forDelivery = null,
 		DateTimeOffset? addedAt = null
 	) => PurchasedCartItem.Create(
-			cartId: cartId ?? PurchasedCartsData.ValidId1,
-			productId: productId ?? ValidProductId1,
-			cadId: cadId ?? ValidCadId1,
+			cartId: cartId ?? PurchasedCartsData.ValidId,
+			productId: productId ?? ValidProductId,
+			cadId: cadId ?? ValidCadId,
 			price: price ?? ValidPrice1,
 			quantity: quantity ?? ValidQuantity1,
 			forDelivery: forDelivery ?? false,

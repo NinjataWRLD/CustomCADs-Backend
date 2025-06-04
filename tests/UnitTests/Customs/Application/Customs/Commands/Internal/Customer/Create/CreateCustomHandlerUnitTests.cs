@@ -2,38 +2,41 @@
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create.Data;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create;
 
+using Data;
 using static CustomsData;
 
 public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 {
+	private readonly CreateCustomHandler handler;
 	private readonly Mock<IWrites<Custom>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRequestSender> sender = new();
 
 	public CreateCustomHandlerUnitTests()
 	{
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-			.ReturnsAsync(true);
+		handler = new(writes.Object, uow.Object, sender.Object);
+
+		sender.Setup(x => x.SendQueryAsync(
+			It.IsAny<GetAccountExistsByIdQuery>(),
+			ct
+		)).ReturnsAsync(true);
 	}
 
 	[Theory]
 	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string name, string description, bool fordelivery, AccountId buyerId)
+	public async Task Handle_ShouldPersistToDatabase(string name, string description, bool fordelivery)
 	{
 		// Arrange
 		CreateCustomCommand command = new(
 			Name: name,
 			Description: description,
 			ForDelivery: fordelivery,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
-		CreateCustomHandler handler = new(writes.Object, uow.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -41,58 +44,60 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 		// Assert
 		writes.Verify(x => x.AddAsync(
 			It.Is<Custom>(x =>
-			x.Name == name &&
-			x.Description == description &&
-			x.ForDelivery == fordelivery &&
-			x.BuyerId == buyerId
-		), ct), Times.Once);
+				x.Name == name &&
+				x.Description == description &&
+				x.ForDelivery == fordelivery &&
+				x.BuyerId == ValidBuyerId
+			),
+			ct
+		), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
 	[Theory]
 	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Handle_ShouldSendRequests(string name, string description, bool fordelivery, AccountId buyerId)
+	public async Task Handle_ShouldSendRequests(string name, string description, bool fordelivery)
 	{
 		// Arrange
 		CreateCustomCommand command = new(
 			Name: name,
 			Description: description,
 			ForDelivery: fordelivery,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
-		CreateCustomHandler handler = new(writes.Object, uow.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		sender.Verify(x => x.SendQueryAsync(
-			It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId)
-		, ct), Times.Once);
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+			ct
+		), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
 	[Theory]
 	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, bool fordelivery, AccountId buyerId)
+	public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, bool fordelivery)
 	{
 		// Arrange
-		sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId), ct))
-			.ReturnsAsync(false);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+			ct
+		)).ReturnsAsync(false);
 
 		CreateCustomCommand command = new(
 			Name: name,
 			Description: description,
 			ForDelivery: fordelivery,
-			BuyerId: buyerId
+			BuyerId: ValidBuyerId
 		);
-		CreateCustomHandler handler = new(writes.Object, uow.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

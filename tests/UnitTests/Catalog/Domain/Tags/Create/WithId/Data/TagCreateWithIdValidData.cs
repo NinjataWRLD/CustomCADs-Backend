@@ -6,7 +6,7 @@ public class TagCreateWithIdValidData : TagCreateWithIdData
 {
 	public TagCreateWithIdValidData()
 	{
-		Add(ValidId, ValidName1);
-		Add(ValidId, ValidName2);
+		Add(ValidName1);
+		Add(ValidName2);
 	}
 }

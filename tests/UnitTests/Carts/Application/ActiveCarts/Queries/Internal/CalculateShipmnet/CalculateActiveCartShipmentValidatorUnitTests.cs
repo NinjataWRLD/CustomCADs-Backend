@@ -1,10 +1,11 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
 using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipmnet.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipmnet;
+
+using Data;
+using static ActiveCartsData;
 
 public class CalculateActiveCartShipmentValidatorUnitTests : ActiveCartsBaseUnitTests
 {
@@ -12,11 +13,11 @@ public class CalculateActiveCartShipmentValidatorUnitTests : ActiveCartsBaseUnit
 
 	[Theory]
 	[ClassData(typeof(CalculateActiveCartShipmentValidData))]
-	public async Task Validate_ShouldBeValid_WhenCartIsValid(AccountId buyerId, AddressDto address)
+	public async Task Validate_ShouldBeValid_WhenCartIsValid(AddressDto address)
 	{
 		// Arrange
 		CalculateActiveCartShipmentQuery query = new(
-			BuyerId: buyerId,
+			BuyerId: ValidBuyerId,
 			Address: address
 		);
 
@@ -30,11 +31,11 @@ public class CalculateActiveCartShipmentValidatorUnitTests : ActiveCartsBaseUnit
 	[Theory]
 	[ClassData(typeof(CalculateActiveCartShipmentInvalidCountryData))]
 	[ClassData(typeof(CalculateActiveCartShipmentInvalidCityData))]
-	public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(AccountId buyerId, AddressDto address)
+	public async Task Validate_ShouldBeInvalid_WhenCartIsNotValid(AddressDto address)
 	{
 		// Arrange
 		CalculateActiveCartShipmentQuery query = new(
-			BuyerId: buyerId,
+			BuyerId: ValidBuyerId,
 			Address: address
 		);
 
@@ -47,11 +48,11 @@ public class CalculateActiveCartShipmentValidatorUnitTests : ActiveCartsBaseUnit
 
 	[Theory]
 	[ClassData(typeof(CalculateActiveCartShipmentInvalidCountryData))]
-	public async Task Validate_ShouldReturnProperErrors_WhenCountryIsNotValid(AccountId buyerId, AddressDto address)
+	public async Task Validate_ShouldReturnProperErrors_WhenCountryIsNotValid(AddressDto address)
 	{
 		// Arrange
 		CalculateActiveCartShipmentQuery query = new(
-			BuyerId: buyerId,
+			BuyerId: ValidBuyerId,
 			Address: address
 		);
 
@@ -64,11 +65,11 @@ public class CalculateActiveCartShipmentValidatorUnitTests : ActiveCartsBaseUnit
 
 	[Theory]
 	[ClassData(typeof(CalculateActiveCartShipmentInvalidCityData))]
-	public async Task Validate_ShouldReturnProperErrors_WhenCityIsNotValid(AccountId buyerId, AddressDto address)
+	public async Task Validate_ShouldReturnProperErrors_WhenCityIsNotValid(AddressDto address)
 	{
 		// Arrange
 		CalculateActiveCartShipmentQuery query = new(
-			BuyerId: buyerId,
+			BuyerId: ValidBuyerId,
 			Address: address
 		);
 

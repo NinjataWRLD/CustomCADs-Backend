@@ -9,11 +9,6 @@ using static Constants.Users;
 
 public static class AccountsData
 {
-	public static readonly AccountId ValidId1 = AccountId.New(CustomerAccountId);
-	public static readonly AccountId ValidId2 = AccountId.New(ContributorAccountId);
-	public static readonly AccountId ValidId3 = AccountId.New(DesignerAccountId);
-	public static readonly AccountId ValidId4 = AccountId.New(AdminAccountId);
-
 	public const string ValidUsername1 = CustomerUsername;
 	public const string ValidUsername2 = ContributorUsername;
 	public const string ValidUsername3 = DesignerUsername;
@@ -43,4 +38,6 @@ public static class AccountsData
 	public const string? ValidLastName2 = null;
 	public static readonly string InvalidLastName1 = new('a', NameMinLength - 1);
 	public static readonly string InvalidLastName2 = new('a', NameMaxLength + 1);
+
+	public static readonly AccountId ValidId = AccountId.New(CustomerAccountId);
 }

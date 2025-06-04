@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Create.WithId;
+
+using Data;
 
 public class CadCreateWithIdUnitTests : CadsBaseUnitTests
 {
@@ -37,9 +38,8 @@ public class CadCreateWithIdUnitTests : CadsBaseUnitTests
 	[ClassData(typeof(CadCreateInvalidVolumeData))]
 	public void CreateWithId_ShouldThrowException_WhenCadIsInvalid(string key, string contentType, decimal volume, int x, int y, int z)
 	{
-		Assert.Throws<CustomValidationException<Cad>>(() =>
-		{
-			Cad.CreateWithId(id, key, contentType, volume, new(x, y, z), new(x, y, z));
-		});
+		Assert.Throws<CustomValidationException<Cad>>(
+			() => Cad.CreateWithId(id, key, contentType, volume, new(x, y, z), new(x, y, z))
+		);
 	}
 }

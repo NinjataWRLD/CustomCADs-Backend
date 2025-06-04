@@ -24,7 +24,7 @@ public class CalculateCustomShipmentEndpoint(IRequestSender sender)
 			new CalculateCustomShipmentQuery(
 				Id: CustomId.New(req.Id),
 				Count: req.Count,
-				Address: new(req.Country, req.City),
+				Address: new(req.Country, req.City, req.Street),
 				CustomizationId: CustomizationId.New(req.CustomizationId)
 			),
 			ct

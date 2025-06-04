@@ -1,6 +1,5 @@
 ﻿namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetCoords.Data;
 
-using CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetCoords;
 using static CadsData;
 
 public class SetCadCoordsValidData : SetCadCoordsData

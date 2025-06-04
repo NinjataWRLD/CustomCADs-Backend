@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.LastName.Data;
 
 namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.LastName;
+
+using Data;
 
 public class AccountLastNameUnitTests : AccountsBaseUnitTests
 {
@@ -31,9 +32,8 @@ public class AccountLastNameUnitTests : AccountsBaseUnitTests
 	{
 		var account = CreateAccount();
 
-		Assert.Throws<CustomValidationException<Account>>(() =>
-		{
-			account.SetLastName(lastName);
-		});
+		Assert.Throws<CustomValidationException<Account>>(
+			() => account.SetLastName(lastName)
+		);
 	}
 }

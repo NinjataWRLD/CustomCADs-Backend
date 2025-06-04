@@ -1,6 +1,4 @@
-﻿using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.Normal;
-
-namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.Normal.Data;
+﻿namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.Normal.Data;
 
 public class PurchaseCustomInvalidPaymentMethodIdData : PurchaseCustomData
 {

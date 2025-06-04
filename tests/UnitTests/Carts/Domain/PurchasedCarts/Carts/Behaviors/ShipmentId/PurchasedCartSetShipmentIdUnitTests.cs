@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Behaviors.ShipmentId.Data;
 
 namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Behaviors.ShipmentId;
 
@@ -9,33 +8,53 @@ using static PurchasedCartsData;
 
 public class PurchasedCartSetShipmentIdUnitTests : PurchasedCartsBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(PurchasedCartSetShipmentIdValidData))]
-	public void SetShipmentId_ShouldNotThrowException_WhenIsDelivery(Dictionary<ProductId, decimal> prices, Dictionary<ProductId, CadId> productCads, Dictionary<CadId, CadId> itemCads)
+	private static readonly ProductId productId1 = ProductId.New();
+	private static readonly ProductId productId2 = ProductId.New();
+	private static readonly CadId cadId1 = CadId.New();
+	private static readonly CadId cadId2 = CadId.New();
+
+
+	private static readonly Dictionary<ProductId, decimal> prices = new()
+	{
+		[productId1] = CartItemsData.ValidPrice1,
+		[productId2] = CartItemsData.ValidPrice2
+	};
+	private static readonly Dictionary<ProductId, CadId> productCads = new()
+	{
+		[productId1] = cadId1,
+		[productId2] = cadId2
+	};
+	private static readonly Dictionary<CadId, CadId> itemCads = new()
+	{
+		[cadId1] = cadId2,
+		[cadId2] = cadId1
+	};
+
+
+	[Fact]
+	public void SetShipmentId_ShouldNotThrowException_WhenIsDelivery()
 	{
 		CreateCartWithItems(
-			buyerId: ValidBuyerId1,
+			buyerId: ValidBuyerId,
 			items: CreateItems(1, 1),
 			prices: prices,
 			productCads: productCads,
 			itemCads: itemCads
-		).SetShipmentId(ValidShipmentId1);
+		).SetShipmentId(ValidShipmentId);
 	}
 
-	[Theory]
-	[ClassData(typeof(PurchasedCartSetShipmentIdValidData))]
-	public void SetShipmentId_ShouldThrowException_WhenNotDelivery(Dictionary<ProductId, decimal> prices, Dictionary<ProductId, CadId> productCads, Dictionary<CadId, CadId> itemCads)
+	[Fact]
+	public void SetShipmentId_ShouldThrowException_WhenNotDelivery()
 	{
-		Assert.Throws<CustomValidationException<PurchasedCart>>(() =>
-		{
-			CreateCartWithItems(
-				buyerId: ValidBuyerId1,
+		Assert.Throws<CustomValidationException<PurchasedCart>>(
+			() => CreateCartWithItems(
+				buyerId: ValidBuyerId,
 				items: CreateItems(2, 0),
 				prices: prices,
 				productCads: productCads,
 				itemCads: itemCads
-			).SetShipmentId(ValidShipmentId1);
-		});
+			).SetShipmentId(ValidShipmentId)
+		);
 	}
 
 	private static ActiveCartItem[] CreateItems(int noDeliveryCount, int forDeliveryCount)
@@ -44,13 +63,13 @@ public class PurchasedCartSetShipmentIdUnitTests : PurchasedCartsBaseUnitTests
 
 		for (int i = 0; i < noDeliveryCount; i++)
 		{
-			items.Add(ActiveCartItem.Create(CartItemsData.ValidProductId1, ValidBuyerId1));
-			items.Add(ActiveCartItem.Create(CartItemsData.ValidProductId2, ValidBuyerId1));
+			items.Add(ActiveCartItem.Create(productId1, ValidBuyerId));
+			items.Add(ActiveCartItem.Create(productId2, ValidBuyerId));
 		}
 		for (int i = 0; i < forDeliveryCount; i++)
 		{
-			items.Add(ActiveCartItem.Create(CartItemsData.ValidProductId1, ValidBuyerId1, CartItemsData.ValidCustomizationId1));
-			items.Add(ActiveCartItem.Create(CartItemsData.ValidProductId2, ValidBuyerId1, CartItemsData.ValidCustomizationId1));
+			items.Add(ActiveCartItem.Create(productId1, ValidBuyerId, CartItemsData.ValidCustomizationId));
+			items.Add(ActiveCartItem.Create(productId2, ValidBuyerId, CartItemsData.ValidCustomizationId));
 		}
 
 		return [.. items];

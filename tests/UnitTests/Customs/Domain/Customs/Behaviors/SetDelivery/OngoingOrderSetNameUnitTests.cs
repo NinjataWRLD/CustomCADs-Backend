@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Customs.Domain.Customs.Behaviors.SetDelivery.Data;
 
 namespace CustomCADs.UnitTests.Customs.Domain.Customs.Behaviors.SetDelivery;
+
+using Data;
 
 public class CustomSetDeliveryUnitTests : CustomsBaseUnitTests
 {

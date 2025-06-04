@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.Create;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
-using CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create;
 
+using Data;
 using static ProductsData;
 
 public class CreateProductValidatorUnitTests

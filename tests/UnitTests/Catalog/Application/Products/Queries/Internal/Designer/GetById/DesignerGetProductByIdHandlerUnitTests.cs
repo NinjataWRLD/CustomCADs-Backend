@@ -11,12 +11,15 @@ using static ProductsData;
 
 public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 {
+	private readonly DesignerGetProductByIdHandler handler;
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
+
 	private readonly Product product = CreateProduct();
 
 	public DesignerGetProductByIdHandlerUnitTests()
 	{
+		handler = new(reads.Object, sender.Object);
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(product);
 	}
@@ -26,7 +29,6 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
-		DesignerGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -40,14 +42,19 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
-		DesignerGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernameByIdQuery>(), ct), Times.Once);
-		sender.Verify(x => x.SendQueryAsync(It.IsAny<GetCategoryNameByIdQuery>(), ct), Times.Once);
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidCreatorId),
+			ct
+		), Times.Once);
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetCategoryNameByIdQuery>(x => x.Id == ValidCategoryId),
+			ct
+		), Times.Once);
 	}
 
 	[Fact]
@@ -55,7 +62,6 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
-		DesignerGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		var result = await handler.Handle(query, ct);
@@ -76,15 +82,12 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(null as Product);
-
 		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
-		DesignerGetProductByIdHandler handler = new(reads.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
 			// Act
-			await handler.Handle(query, ct);
-		});
+			async () => await handler.Handle(query, ct)
+		);
 	}
 }

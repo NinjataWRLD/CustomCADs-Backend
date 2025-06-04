@@ -11,13 +11,15 @@ using static ShipmentsData;
 
 public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 {
+	private readonly GetAllShipmentsHandler handler;
 	private readonly Mock<IShipmentReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
+
 	private static readonly Dictionary<AccountId, string> buyers = new()
 	{
 		[ValidBuyerId] = "NinjataBG"
 	};
-	private static readonly Shipment[] Shipments = [
+	private static readonly Shipment[] shipments = [
 		Shipment.Create(new(ValidCountry1, ValidCity1), ValidReferenceId, ValidBuyerId),
 		Shipment.Create(new(ValidCountry2, ValidCity1), ValidReferenceId, ValidBuyerId),
 		Shipment.Create(new(ValidCountry1, ValidCity2), ValidReferenceId, ValidBuyerId),
@@ -27,12 +29,18 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 
 	public GetAllShipmentsHandlerUnitTests()
 	{
-		Result<Shipment> result = new(Shipments.Length, Shipments);
-		reads.Setup(x => x.AllAsync(It.IsAny<ShipmentQuery>(), false, ct))
-			.ReturnsAsync(result);
+		handler = new(reads.Object, sender.Object);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct))
-			.ReturnsAsync(buyers);
+		reads.Setup(x => x.AllAsync(
+			It.IsAny<ShipmentQuery>(),
+			false,
+			ct
+		)).ReturnsAsync(new Result<Shipment>(shipments.Length, shipments));
+
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetUsernamesByIdsQuery>(x => x.Ids.Length == shipments.Length),
+			ct
+		)).ReturnsAsync(buyers);
 	}
 
 	[Fact]
@@ -44,7 +52,6 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 			CustomerId: null,
 			Sorting: null
 		);
-		GetAllShipmentsHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -62,33 +69,34 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 			CustomerId: null,
 			Sorting: null
 		);
-		GetAllShipmentsHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		sender.Verify(x => x.SendQueryAsync(It.IsAny<GetUsernamesByIdsQuery>(), ct), Times.Once);
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetUsernamesByIdsQuery>(x => x.Ids.Length == shipments.Length),
+			ct
+		), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldReturnResult()
 	{
-		// Assert
+		// Arrange
 		GetAllShipmentsQuery query = new(
 			Pagination: new(),
 			CustomerId: null,
 			Sorting: null
 		);
-		GetAllShipmentsHandler handler = new(reads.Object, sender.Object);
 
 		// Act
 		Result<GetAllShipmentsDto> result = await handler.Handle(query, ct);
 
 		// Assert
 		Assert.Multiple(
-			() => Assert.Equal(result.Items.Select(r => r.Address), Shipments.Select(r => r.Address)),
-			() => Assert.Equal(result.Items.Select(r => r.BuyerName), Shipments.Select(r => buyers[r.BuyerId]))
+			() => Assert.Equal(result.Items.Select(r => r.Address), shipments.Select(r => r.Address)),
+			() => Assert.Equal(result.Items.Select(r => r.BuyerName), shipments.Select(r => buyers[r.BuyerId]))
 		);
 	}
 }

@@ -70,6 +70,10 @@ static class Utilities
 			.IsRequired()
 			.HasColumnName(nameof(Account.RoleName));
 
+		builder.Property(x => x.CreatedAt)
+			.IsRequired()
+			.HasColumnName(nameof(Account.CreatedAt));
+
 		builder.Property(x => x.ViewedProductIds)
 			.IsRequired()
 			.HasColumnName(nameof(Account.ViewedProductIds));
@@ -80,10 +84,10 @@ static class Utilities
 	public static EntityTypeBuilder<Account> SetSeeding(this EntityTypeBuilder<Account> builder)
 	{
 		builder.HasData([
-			Account.CreateWithId(AccountId.New(CustomerAccountId), Customer, CustomerUsername, CustomerEmail),
-			Account.CreateWithId(AccountId.New(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail),
-			Account.CreateWithId(AccountId.New(DesignerAccountId), Designer, DesignerUsername, DesignerEmail),
-			Account.CreateWithId(AccountId.New(AdminAccountId), Admin, AdminUsername, AdminEmail),
+			Account.CreateWithId(AccountId.New(CustomerAccountId), Customer, CustomerUsername, CustomerEmail, DateTimeOffset.UtcNow),
+			Account.CreateWithId(AccountId.New(ContributorAccountId), Contributor, ContributorUsername, ContributorEmail, DateTimeOffset.UtcNow),
+			Account.CreateWithId(AccountId.New(DesignerAccountId), Designer, DesignerUsername, DesignerEmail, DateTimeOffset.UtcNow),
+			Account.CreateWithId(AccountId.New(AdminAccountId), Admin, AdminUsername, AdminEmail, DateTimeOffset.UtcNow),
 		]);
 
 		return builder;

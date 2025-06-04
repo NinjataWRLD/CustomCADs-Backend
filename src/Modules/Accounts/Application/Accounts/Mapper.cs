@@ -7,12 +7,13 @@ internal static class Mapper
 {
 	internal static GetAllAccountsDto ToGetAllDto(this Account account)
 		=> new(
-			account.Id,
-			account.Username,
-			account.Email,
-			account.RoleName,
-			account.FirstName,
-			account.LastName
+			Id: account.Id,
+			Role: account.RoleName,
+			Username: account.Username,
+			Email: account.Email,
+			FirstName: account.FirstName,
+			LastName: account.LastName,
+			CreatedAt: account.CreatedAt
 		);
 
 	internal static GetAccountByUsernameDto ToGetByUsernameDto(this Account account)
@@ -22,6 +23,7 @@ internal static class Mapper
 			Username: account.Username,
 			Email: account.Email,
 			FirstName: account.FirstName,
-			LastName: account.LastName
+			LastName: account.LastName,
+			CreatedAt: account.CreatedAt
 		);
 }

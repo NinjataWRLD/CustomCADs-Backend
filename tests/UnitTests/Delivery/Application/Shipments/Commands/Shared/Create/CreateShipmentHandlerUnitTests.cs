@@ -6,42 +6,49 @@ using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
-using CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create.Data;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create;
 
+using Data;
 using static ShipmentsData;
 
 public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 {
+	private readonly CreateShipmentHandler handler;
 	private readonly Mock<IWrites<Shipment>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IDeliveryService> delivery = new();
 	private readonly Mock<IRequestSender> sender = new();
+
 	private static readonly ShipmentDto shipmentDto = new(ValidReferenceId, default!, default, default, default);
 
 	public CreateShipmentHandlerUnitTests()
 	{
-		delivery.Setup(x => x.ShipAsync(It.IsAny<ShipRequestDto>(), ct))
-			.ReturnsAsync(shipmentDto);
+		handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
-		sender.Setup(x => x.SendQueryAsync(It.IsAny<GetAccountExistsByIdQuery>(), ct))
-			.ReturnsAsync(true);
+		delivery.Setup(x => x.ShipAsync(
+			It.IsAny<ShipRequestDto>(),
+			ct
+		)).ReturnsAsync(shipmentDto);
+
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+			ct
+		)).ReturnsAsync(true);
 	}
 
 	[Theory]
 	[ClassData(typeof(CreateShipmentValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+	public async Task Handle_ShouldPersistToDatabase(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
 	{
 		// Arrange
 		CreateShipmentCommand command = new(
 			Service: service,
 			Info: new(count, weight, recipient),
-			Address: new(country, city),
+			Address: new(country, city, street),
 			Contact: new(phone, email),
 			BuyerId: ValidBuyerId
 		);
-		CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -49,44 +56,46 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		// Assert
 		writes.Verify(x => x.AddAsync(
 			It.Is<Shipment>(x => x.Address.Country == country && x.Address.City == city),
-		ct), Times.Once);
+			ct
+		), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
 	[Theory]
 	[ClassData(typeof(CreateShipmentValidData))]
-	public async Task Handle_ShouldSendRequests(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+	public async Task Handle_ShouldSendRequests(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
 	{
 		// Arrange
 		CreateShipmentCommand command = new(
 			Service: service,
 			Info: new(count, weight, recipient),
-			Address: new(country, city),
+			Address: new(country, city, street),
 			Contact: new(phone, email),
 			BuyerId: ValidBuyerId
 		);
-		CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		sender.Verify(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId), ct), Times.Once);
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+			ct
+		), Times.Once);
 	}
 
 	[Theory]
 	[ClassData(typeof(CreateShipmentValidData))]
-	public async Task Handle_ShouldCallDelivery(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+	public async Task Handle_ShouldCallDelivery(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
 	{
 		// Arrange
 		CreateShipmentCommand command = new(
 			Service: service,
 			Info: new(count, weight, recipient),
-			Address: new(country, city),
+			Address: new(country, city, street),
 			Contact: new(phone, email),
 			BuyerId: ValidBuyerId
 		);
-		CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -102,31 +111,33 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 				&& x.Service == service
 				&& x.ParcelCount == count
 				&& x.TotalWeight == weight
-		), ct), Times.Once);
+			),
+			ct
+		), Times.Once);
 	}
 
 	[Theory]
 	[ClassData(typeof(CreateShipmentValidData))]
-	public async Task Handle_ShouldThrowException_WhenDesignerNotFound(string service, int count, double weight, string recipient, string country, string city, string? phone, string? email)
+	public async Task Handle_ShouldThrowException_WhenDesignerNotFound(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
 	{
 		// Arrange
-		sender.Setup(x => x.SendQueryAsync(It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId), ct))
-			.ReturnsAsync(false);
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
+			ct
+		)).ReturnsAsync(false);
 
 		CreateShipmentCommand command = new(
 			Service: service,
 			Info: new(count, weight, recipient),
-			Address: new(country, city),
+			Address: new(country, city, street),
 			Contact: new(phone, email),
 			BuyerId: ValidBuyerId
 		);
-		CreateShipmentHandler handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
 		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(async () =>
-		{
+		await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(
 			// Act
-			await handler.Handle(command, ct);
-		});
+			async () => await handler.Handle(command, ct)
+		);
 	}
 }

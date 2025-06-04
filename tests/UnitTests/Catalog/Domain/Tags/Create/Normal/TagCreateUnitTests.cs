@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Catalog.Domain.Tags;
 using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Catalog.Domain.Tags.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Create.Normal;
+
+using Data;
 
 public class TagCreateUnitTests : TagsBaseUnitTests
 {
@@ -26,9 +27,8 @@ public class TagCreateUnitTests : TagsBaseUnitTests
 	[ClassData(typeof(TagCreateInvalidNameData))]
 	public void Create_ShouldThrowException_WhenProductIsNotValid(string name)
 	{
-		Assert.Throws<CustomValidationException<Tag>>(() =>
-		{
-			CreateTag(name);
-		});
+		Assert.Throws<CustomValidationException<Tag>>(
+			() => CreateTag(name)
+		);
 	}
 }

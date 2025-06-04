@@ -11,6 +11,7 @@ using static Constants.Roles;
 
 public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 {
+	private readonly GetAllRolesHandler handler;
 	private readonly Mock<IRoleReads> reads = new();
 	private readonly Mock<ICacheService> cache = new();
 	private readonly Role[] roles = [
@@ -22,6 +23,7 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 
 	public GetAllRolesHandlerUnitTests()
 	{
+		handler = new(reads.Object, cache.Object);
 		cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(roles);
 		reads.Setup(x => x.AllAsync(false, ct)).ReturnsAsync(roles);
 	}
@@ -29,9 +31,8 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 	[Fact]
 	public async Task Handle_ShouldCallCache_OnCacheHit()
 	{
-		// Assert
+		// Arrange
 		GetAllRolesQuery query = new();
-		GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -43,11 +44,9 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 	[Fact]
 	public async Task Handle_ShouldQueryDatabase_OnCacheMiss()
 	{
-		// Assert
+		// Arrange
 		cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(null as Role[]);
-
 		GetAllRolesQuery query = new();
-		GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -59,9 +58,8 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 	[Fact]
 	public async Task Handle_ShouldReturnResult_OnCacheHit()
 	{
-		// Assert
+		// Arrange
 		GetAllRolesQuery query = new();
-		GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
 		// Act
 		IEnumerable<RoleReadDto> roles = await handler.Handle(query, ct);
@@ -78,11 +76,9 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 	[Fact]
 	public async Task Handle_ShouldReturnResult_OnCacheMiss()
 	{
-		// Assert
+		// Arrange
 		cache.Setup(x => x.GetAsync<IEnumerable<Role>>(RoleKey)).ReturnsAsync(null as Role[]);
-
 		GetAllRolesQuery query = new();
-		GetAllRolesHandler handler = new(reads.Object, cache.Object);
 
 		// Act
 		IEnumerable<RoleReadDto> roles = await handler.Handle(query, ct);

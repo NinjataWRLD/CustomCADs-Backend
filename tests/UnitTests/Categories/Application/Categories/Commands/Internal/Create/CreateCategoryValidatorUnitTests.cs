@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Internal.Create;
-using CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Create.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Create;
+
+using Data;
 
 public class CreateCategoryValidatorUnitTests : CategoriesBaseUnitTests
 {

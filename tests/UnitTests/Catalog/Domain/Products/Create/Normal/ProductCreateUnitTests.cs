@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.UnitTests.Catalog.Domain.Products.Create.Normal.Data;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Create.Normal;
+
+using Data;
 
 public class ProductCreateUnitTests : ProductsBaseUnitTests
 {
@@ -41,13 +42,12 @@ public class ProductCreateUnitTests : ProductsBaseUnitTests
 	[ClassData(typeof(ProductCreateInvalidPriceData))]
 	public void Create_ShouldThrowException_WhenProductIsNotValid(string name, string description, decimal price)
 	{
-		Assert.Throws<CustomValidationException<Product>>(() =>
-		{
-			CreateProduct(
+		Assert.Throws<CustomValidationException<Product>>(
+			() => CreateProduct(
 				name: name,
 				description: description,
 				price: price
-			);
-		});
+			)
+		);
 	}
 }

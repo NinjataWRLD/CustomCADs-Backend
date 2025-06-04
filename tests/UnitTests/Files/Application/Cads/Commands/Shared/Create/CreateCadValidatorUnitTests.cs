@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Files.Application.Cads.Commands.Shared.Create;
 using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.Create.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.Create;
+
+using Data;
 
 public class CreateCadValidatorUnitTests : CadsBaseUnitTests
 {

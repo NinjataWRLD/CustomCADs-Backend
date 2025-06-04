@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Commands.Internal.Create;
-using CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Create.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Create;
+
+using Data;
 
 public class CreateTagValidatorUnitTests : TagsBaseUnitTests
 {

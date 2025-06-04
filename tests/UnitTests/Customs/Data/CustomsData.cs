@@ -47,4 +47,10 @@ public static class CustomsData
 
 	public static readonly CustomizationId ValidCustomizationId1 = CustomizationId.New();
 	public static readonly CustomizationId ValidCustomizationId2 = CustomizationId.New();
+	public static readonly CustomId ValidId = CustomId.New();
+	public static readonly AccountId ValidBuyerId = AccountId.New();
+	public static readonly AccountId ValidDesignerId = AccountId.New();
+	public static readonly CadId ValidCadId = CadId.New();
+	public static readonly ShipmentId ValidShipmentId = ShipmentId.New();
+	public static readonly CustomizationId ValidCustomizationId = CustomizationId.New();
 }

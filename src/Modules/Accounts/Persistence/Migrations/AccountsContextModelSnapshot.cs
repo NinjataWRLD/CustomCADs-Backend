@@ -29,6 +29,10 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedAt");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text")
@@ -74,6 +78,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         new
                         {
                             Id = new Guid("2da61b05-1a27-4af9-9df2-be4f1f4e835f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 10, 19, 23, 12, 123, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "ivanzlatinov006@gmail.com",
                             RoleName = "Customer",
                             Username = "For7a7a",
@@ -82,6 +87,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         new
                         {
                             Id = new Guid("6d963818-23dc-4e9a-aaa8-b4c77252bc97"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 13, 17, 42, 57, 456, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "PDMatsaliev20@codingburgas.bg",
                             RoleName = "Contributor",
                             Username = "PDMatsaliev20",
@@ -90,6 +96,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         new
                         {
                             Id = new Guid("0fb3212f-7d51-4586-8fc2-0f333ec9fbc1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2025, 1, 9, 13, 15, 28, 789, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "boriskolev2006@gmail.com",
                             RoleName = "Designer",
                             Username = "Oracle3000",
@@ -98,6 +105,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         new
                         {
                             Id = new Guid("e995039c-a535-4f20-8288-7aadcb71b252"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2024, 3, 17, 2, 45, 13, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "ivanangelov414@gmail.com",
                             RoleName = "Administrator",
                             Username = "NinjataBG",

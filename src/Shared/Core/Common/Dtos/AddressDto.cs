@@ -2,5 +2,6 @@
 
 public record AddressDto(
 	string Country,
-	string City
+	string City,
+	string Street
 );

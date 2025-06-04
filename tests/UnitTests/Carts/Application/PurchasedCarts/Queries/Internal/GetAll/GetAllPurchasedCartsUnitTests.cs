@@ -9,15 +9,19 @@ using static PurchasedCartsData;
 
 public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
 {
+	private readonly GetAllPurchasedCartsHandler handler;
 	private readonly Mock<IPurchasedCartReads> reads = new();
+
 	private readonly PurchasedCart[] carts = [
-		CreateCartWithId(id: ValidId1),
-		CreateCartWithId(id: ValidId2),
+		CreateCartWithId(id: ValidId),
+		CreateCartWithId(id: ValidId),
 	];
 	private readonly PurchasedCartQuery query;
 
 	public GetAllPurchasedCartsUnitTests()
 	{
+		handler = new(reads.Object);
+
 		query = new(
 			Pagination: new(1, carts.Length)
 		);
@@ -34,7 +38,6 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
 	{
 		// Arrange
 		GetAllPurchasedCartsQuery query = new(this.query.Pagination);
-		GetAllPurchasedCartsHandler handler = new(reads.Object);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -48,7 +51,6 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
 	{
 		// Arrange
 		GetAllPurchasedCartsQuery query = new(this.query.Pagination);
-		GetAllPurchasedCartsHandler handler = new(reads.Object);
 
 		// Act
 		var result = await handler.Handle(query, ct);
