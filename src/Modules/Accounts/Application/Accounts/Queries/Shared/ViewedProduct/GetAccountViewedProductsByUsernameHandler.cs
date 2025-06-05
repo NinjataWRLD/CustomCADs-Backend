@@ -9,9 +9,6 @@ public class GetAccountViewedProductsByUsernameHandler(IAccountReads reads)
 {
 	public async Task<ProductId[]> Handle(GetAccountViewedProductsByUsernameQuery req, CancellationToken ct)
 	{
-		Account account = await reads.SingleByUsernameAsync(req.Username, track: false, ct: ct).ConfigureAwait(false)
-			?? throw CustomNotFoundException<Account>.ByProp(nameof(req.Username), req.Username);
-
-		return [.. account.ViewedProductIds];
+		return await reads.ViewedProductsByUsernameAsync(req.Username, ct).ConfigureAwait(false);
 	}
 }

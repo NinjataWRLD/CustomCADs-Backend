@@ -59,11 +59,6 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         .HasColumnType("character varying(62)")
                         .HasColumnName("Username");
 
-                    b.Property<Guid[]>("ViewedProductIds")
-                        .IsRequired()
-                        .HasColumnType("uuid[]")
-                        .HasColumnName("ViewedProductIds");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -81,8 +76,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 10, 19, 23, 12, 123, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "ivanzlatinov006@gmail.com",
                             RoleName = "Customer",
-                            Username = "For7a7a",
-                            ViewedProductIds = new Guid[0]
+                            Username = "For7a7a"
                         },
                         new
                         {
@@ -90,8 +84,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 13, 17, 42, 57, 456, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "PDMatsaliev20@codingburgas.bg",
                             RoleName = "Contributor",
-                            Username = "PDMatsaliev20",
-                            ViewedProductIds = new Guid[0]
+                            Username = "PDMatsaliev20"
                         },
                         new
                         {
@@ -99,8 +92,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2025, 1, 9, 13, 15, 28, 789, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "boriskolev2006@gmail.com",
                             RoleName = "Designer",
-                            Username = "Oracle3000",
-                            ViewedProductIds = new Guid[0]
+                            Username = "Oracle3000"
                         },
                         new
                         {
@@ -108,8 +100,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2024, 3, 17, 2, 45, 13, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "ivanangelov414@gmail.com",
                             RoleName = "Administrator",
-                            Username = "NinjataBG",
-                            ViewedProductIds = new Guid[0]
+                            Username = "NinjataBG"
                         });
                 });
 
@@ -162,6 +153,30 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             Description = "Can access all non-sensitive info from all resources; Can ban reported resources - Customs, Products, Users, ...; Can modify Categories and Roles.",
                             Name = "Administrator"
                         });
+                });
+
+            modelBuilder.Entity("CustomCADs.Accounts.Persistence.ShadowEntities.ViewedProduct", b =>
+                {
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("AccountId", "ProductId");
+
+                    b.ToTable("ViewedProducts", "Accounts");
+                });
+
+            modelBuilder.Entity("CustomCADs.Accounts.Persistence.ShadowEntities.ViewedProduct", b =>
+                {
+                    b.HasOne("CustomCADs.Accounts.Domain.Accounts.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
                 });
 #pragma warning restore 612, 618
         }

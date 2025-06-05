@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
 using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
@@ -13,7 +14,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 	private readonly CreateRoleHandler handler;
 	private readonly Mock<IEventRaiser> raiser = new();
 	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Mock<IWrites<Role>> writes = new();
+	private readonly Mock<IRoleWrites> writes = new();
 
 	public CreateRoleHandlerUnitTests()
 	{

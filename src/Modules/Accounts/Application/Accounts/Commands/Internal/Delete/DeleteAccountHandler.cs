@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.Internal.Delete;
 
-public sealed class DeleteAccountHandler(IAccountReads reads, IWrites<Account> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class DeleteAccountHandler(IAccountReads reads, IAccountWrites writes, IUnitOfWork uow, IEventRaiser raiser)
 	: ICommandHandler<DeleteAccountCommand>
 {
 	public async Task Handle(DeleteAccountCommand req, CancellationToken ct)

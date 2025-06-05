@@ -1,10 +1,11 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.Internal.Create;
 
-public sealed class CreateAccountHandler(IWrites<Account> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class CreateAccountHandler(IAccountWrites writes, IUnitOfWork uow, IEventRaiser raiser)
 	: ICommandHandler<CreateAccountCommand, AccountId>
 {
 	public async Task<AccountId> Handle(CreateAccountCommand req, CancellationToken ct)

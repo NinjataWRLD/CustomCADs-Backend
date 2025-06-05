@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Accounts.Persistence;
 using CustomCADs.Accounts.Persistence.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 using AccountReads = CustomCADs.Accounts.Persistence.Repositories.Accounts.Reads;
 using RoleReads = CustomCADs.Accounts.Persistence.Repositories.Roles.Reads;
+using AccountWrites = CustomCADs.Accounts.Persistence.Repositories.Accounts.Writes;
+using RoleWrites = CustomCADs.Accounts.Persistence.Repositories.Roles.Writes;
 
 public static class DependencyInjection
 {
@@ -51,7 +54,8 @@ public static class DependencyInjection
 
 	private static IServiceCollection AddWrites(this IServiceCollection services)
 	{
-		services.AddScoped(typeof(IWrites<>), typeof(Writes<>));
+		services.AddScoped<IAccountWrites, AccountWrites>();
+		services.AddScoped<IRoleWrites, RoleWrites>();
 
 		return services;
 	}

@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Accounts.Domain.Accounts;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Persistence;
 
 namespace CustomCADs.Accounts.Persistence.Repositories.Accounts;
@@ -46,6 +47,16 @@ public sealed class Reads(AccountsContext context) : IAccountReads
 		=> await context.Accounts
 			.WithTracking(false)
 			.AnyAsync(u => u.Username == username, ct)
+			.ConfigureAwait(false);
+
+	public async Task<ProductId[]> ViewedProductsByIdAsync(AccountId id, CancellationToken ct = default)
+		=> await context.ViewedProducts
+			.GetViewedProductsByAccountIdAsync(id, ct)
+			.ConfigureAwait(false);
+
+	public async Task<ProductId[]> ViewedProductsByUsernameAsync(string username, CancellationToken ct = default)
+		=> await context.ViewedProducts
+			.GetViewedProductsByAccountUsernrameAsync(username, ct)
 			.ConfigureAwait(false);
 
 	public async Task<int> CountAsync(CancellationToken ct = default)
