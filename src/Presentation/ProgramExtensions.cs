@@ -61,7 +61,7 @@ public static class ProgramExtensions
 
 	public static IServiceCollection AddTokensService(this IServiceCollection services, IConfiguration config)
 	{
-		services.Configure<JwtSettings>(config.GetSection("JwtOptions"));
+		services.Configure<JwtSettings>(config.GetSection("Jwt"));
 		services.AddTokensService();
 
 		return services;
@@ -177,8 +177,8 @@ public static class ProgramExtensions
 			cfg.AddDocumentTransformer((document, context, ct) =>
 			{
 				string description = """
-**The best API to**: 
-<ul> 
+**The best API to**:
+<ul>
     <li>Order and Purchase 3D Models</li>
     <li>Download them and have them Delivered</li>
     <li>Upload and Sell 3D Models</li>
