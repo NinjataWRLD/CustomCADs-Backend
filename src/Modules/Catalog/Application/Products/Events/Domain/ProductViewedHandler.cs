@@ -18,17 +18,17 @@ public class ProductViewedHandler(IProductReads reads, IUnitOfWork uow, IRequest
 		bool userAlreadyViewed = await sender.SendQueryAsync(
 			new GetAccountViewedProductQuery(de.AccountId, de.Id)
 		).ConfigureAwait(false);
-		if (userAlreadyViewed)
+
+		if (!userAlreadyViewed)
 		{
-			return;
+			product.AddToViewCount();
+			await uow.SaveChangesAsync().ConfigureAwait(false);
+
+			await raiser.RaiseApplicationEventAsync(new UserViewedProductApplicationEvent(
+				Id: de.Id,
+				AccountId: de.AccountId
+			)).ConfigureAwait(false);
 		}
 
-		product.AddToViewCount();
-		await uow.SaveChangesAsync().ConfigureAwait(false);
-
-		await raiser.RaiseApplicationEventAsync(new UserViewedProductApplicationEvent(
-			Id: de.Id,
-			AccountId: de.AccountId
-		)).ConfigureAwait(false);
 	}
 }

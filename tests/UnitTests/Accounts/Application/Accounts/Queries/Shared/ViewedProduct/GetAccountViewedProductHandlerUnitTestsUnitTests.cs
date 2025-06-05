@@ -11,14 +11,14 @@ public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnit
 {
 	private readonly GetAccountViewedProductHandler handler;
 	private readonly Mock<IAccountReads> reads = new();
+
 	private static readonly ProductId productId = ProductId.New();
-	private readonly Account account = CreateAccount();
 
 	public GetAccountViewedProductHandlerUnitTestsUnitTests()
 	{
 		handler = new(reads.Object);
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(account);
+		reads.Setup(x => x.ViewedProductsByIdAsync(ValidId, ct))
+			.ReturnsAsync([]);
 	}
 
 	[Fact]
@@ -31,7 +31,7 @@ public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnit
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.ViewedProductsByIdAsync(ValidId, ct), Times.Once);
 	}
 
 	[Theory]
@@ -40,7 +40,11 @@ public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnit
 	public async Task Handle_ShouldReturnProperly(bool expected)
 	{
 		// Arrange
-		if (expected) account.AddViewedProduct(productId);
+		if (expected)
+		{
+			reads.Setup(x => x.ViewedProductsByIdAsync(ValidId, ct))
+				.ReturnsAsync([productId]);
+		}
 		GetAccountViewedProductQuery query = new(ValidId, productId);
 
 		// Act

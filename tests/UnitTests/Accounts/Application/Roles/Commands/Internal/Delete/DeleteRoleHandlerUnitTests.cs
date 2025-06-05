@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Delete;
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
@@ -16,7 +17,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	private readonly DeleteRoleHandler handler;
 	private readonly Mock<IEventRaiser> raiser = new();
 	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Mock<IWrites<Role>> writes = new();
+	private readonly Mock<IRoleWrites> writes = new();
 	private readonly Mock<IRoleReads> reads = new();
 
 	public DeleteRoleHandlerUnitTests()

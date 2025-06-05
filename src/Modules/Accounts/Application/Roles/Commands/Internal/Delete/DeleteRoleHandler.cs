@@ -1,12 +1,13 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Internal.Delete;
 
-public sealed class DeleteRoleHandler(IRoleReads reads, IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class DeleteRoleHandler(IRoleReads reads, IRoleWrites writes, IUnitOfWork uow, IEventRaiser raiser)
 	: ICommandHandler<DeleteRoleCommand>
 {
 	public async Task Handle(DeleteRoleCommand req, CancellationToken ct)

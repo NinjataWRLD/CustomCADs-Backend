@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
 
-public sealed class CreateRoleHandler(IWrites<Role> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class CreateRoleHandler(IRoleWrites writes, IUnitOfWork uow, IEventRaiser raiser)
 	: ICommandHandler<CreateRoleCommand, RoleId>
 {
 	public async Task<RoleId> Handle(CreateRoleCommand req, CancellationToken ct)

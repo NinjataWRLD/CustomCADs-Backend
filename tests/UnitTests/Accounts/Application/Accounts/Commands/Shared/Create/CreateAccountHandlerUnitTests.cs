@@ -4,12 +4,13 @@ using CustomCADs.Shared.UseCases.Accounts.Commands;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Shared.Create;
 
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using Data;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
 	private readonly CreateAccountHandler handler;
-	private readonly Mock<IWrites<Account>> writes = new();
+	private readonly Mock<IAccountWrites> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 
 	public CreateAccountHandlerUnitTests()

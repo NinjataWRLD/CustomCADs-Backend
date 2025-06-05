@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.Accounts.Application.Accounts.Queries.Shared.ViewedProduct;
@@ -8,9 +9,7 @@ public class GetAccountViewedProductHandler(IAccountReads reads)
 {
 	public async Task<bool> Handle(GetAccountViewedProductQuery req, CancellationToken ct)
 	{
-		Account account = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-			?? throw CustomNotFoundException<Account>.ById(req.Id);
-
-		return account.ViewedProductIds.Contains(req.ProductId);
+		ProductId[] viewedProductIds = await reads.ViewedProductsByIdAsync(req.Id, ct).ConfigureAwait(false);
+		return viewedProductIds.Contains(req.ProductId);
 	}
 }

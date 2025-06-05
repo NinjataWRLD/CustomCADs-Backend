@@ -1,10 +1,11 @@
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Shared.ApplicationEvents.Identity;
 
 namespace CustomCADs.Accounts.Application.Accounts.Events.Application;
 
-public class UserDeletedHandler(IAccountReads reads, IWrites<Account> writes, IUnitOfWork uow)
+public class UserDeletedHandler(IAccountReads reads, IAccountWrites writes, IUnitOfWork uow)
 {
 	public async Task Handle(UserDeletedApplicationEvent ae)
 	{

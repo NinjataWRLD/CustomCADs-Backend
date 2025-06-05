@@ -7,6 +7,7 @@ using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Delete;
 
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using Data;
 
 public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
@@ -14,7 +15,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 	private readonly DeleteAccountHandler handler;
 	private readonly Mock<IEventRaiser> raiser = new();
 	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Mock<IWrites<Account>> writes = new();
+	private readonly Mock<IAccountWrites> writes = new();
 	private readonly Mock<IAccountReads> reads = new();
 
 	public DeleteAccountHandlerUnitTests()
