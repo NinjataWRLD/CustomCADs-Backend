@@ -9,11 +9,11 @@ using static Messages;
 
 public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentIntentService paymentIntentService) : IPaymentService
 {
-	public string PublicKey => settings.Value.TestPublishableKey;
+	public string PublicKey => settings.Value.PublishableKey;
 
 	public async Task<PaymentDto> InitializePayment(string paymentMethodId, decimal price, string description, CancellationToken ct = default)
 	{
-		StripeConfiguration.ApiKey = settings.Value.TestSecretKey;
+		StripeConfiguration.ApiKey = settings.Value.SecretKey;
 
 		PaymentIntent paymentIntent = await paymentIntentService.CreateAsync(new()
 		{

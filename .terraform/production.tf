@@ -1,7 +1,7 @@
 locals {
   production_env_vars = jsondecode(data.aws_secretsmanager_secret_version.customcads_production_env_variables_version.secret_string)
 
-  production_jwt            = local.production_env_vars["JwtOptions"]
+  production_jwt            = local.production_env_vars["Jwt"]
   production_jwt_issuer     = local.production_jwt["Issuer"]
   production_jwt_audience   = local.production_jwt["Audience"]
   production_jwt_secret_key = local.production_jwt["SecretKey"]
@@ -9,8 +9,6 @@ locals {
   production_payment                      = local.production_env_vars["Payment"]
   production_payment_secret_key           = local.production_payment["SecretKey"]
   production_payment_publishable_key      = local.production_payment["PublishableKey"]
-  production_payment_test_secret_key      = local.production_payment["TestSecretKey"]
-  production_payment_test_publishable_key = local.production_payment["TestPublishableKey"]
 
   production_email          = local.production_env_vars["Email"]
   production_email_server   = local.production_email["Server"]
@@ -40,7 +38,7 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
   cname_prefix        = "customcads"
   description         = "CustomCADs Production environment"
   name                = "CustomCADs-prod"
-  solution_stack_name = "64bit Amazon Linux 2023 v4.5.0 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2023 v4.5.2 running Docker"
   tier                = "WebServer"
 
   setting {
@@ -287,18 +285,6 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.production_payment_secret_key
-  }
-  setting {
-    name      = "Payment__TestPublishableKey"
-    namespace = "aws:elasticbeanstalk:application:environment"
-    resource  = null
-    value     = local.production_payment_test_publishable_key
-  }
-  setting {
-    name      = "Payment__TestSecretKey"
-    namespace = "aws:elasticbeanstalk:application:environment"
-    resource  = null
-    value     = local.production_payment_test_secret_key
   }
   setting {
     name      = "PreferredStartTime"

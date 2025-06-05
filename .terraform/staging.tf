@@ -1,7 +1,7 @@
 locals {
   staging_env_vars = jsondecode(data.aws_secretsmanager_secret_version.customcads_staging_env_variables_version.secret_string)
 
-  staging_jwt            = local.staging_env_vars["JwtOptions"]
+  staging_jwt            = local.staging_env_vars["Jwt"]
   staging_jwt_issuer     = local.staging_jwt["Issuer"]
   staging_jwt_audience   = local.staging_jwt["Audience"]
   staging_jwt_secret_key = local.staging_jwt["SecretKey"]
@@ -9,8 +9,6 @@ locals {
   staging_payment                      = local.staging_env_vars["Payment"]
   staging_payment_secret_key           = local.staging_payment["SecretKey"]
   staging_payment_publishable_key      = local.staging_payment["PublishableKey"]
-  staging_payment_test_secret_key      = local.staging_payment["TestSecretKey"]
-  staging_payment_test_publishable_key = local.staging_payment["TestPublishableKey"]
 
   staging_email          = local.staging_env_vars["Email"]
   staging_email_server   = local.staging_email["Server"]
@@ -40,7 +38,7 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_staging" {
   cname_prefix        = "staging-customcads"
   description         = "CustomCADs Staging environment"
   name                = "CustomCADs-stag"
-  solution_stack_name = "64bit Amazon Linux 2023 v4.5.0 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2023 v4.5.2 running Docker"
   tier                = "WebServer"
   version_label       = "latest"
 
@@ -288,18 +286,6 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_staging" {
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.staging_payment_secret_key
-  }
-  setting {
-    name      = "Payment__TestPublishableKey"
-    namespace = "aws:elasticbeanstalk:application:environment"
-    resource  = null
-    value     = local.staging_payment_test_publishable_key
-  }
-  setting {
-    name      = "Payment__TestSecretKey"
-    namespace = "aws:elasticbeanstalk:application:environment"
-    resource  = null
-    value     = local.staging_payment_test_secret_key
   }
   setting {
     name      = "PreferredStartTime"
