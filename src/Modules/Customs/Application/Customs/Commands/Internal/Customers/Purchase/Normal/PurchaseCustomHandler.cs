@@ -42,15 +42,17 @@ public sealed class PurchaseCustomHandler(ICustomReads reads, IUnitOfWork uow, I
 		string buyer = users[0], seller = users[1];
 		decimal total = custom.FinishedCustom.Price;
 
-		PaymentDto response = await payment.InitializePayment(
+		custom.Complete(customizationId: null);
+		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+		PaymentDto response = await payment.InitializeCustomPayment(
 			paymentMethodId: req.PaymentMethodId,
+			buyerId: req.BuyerId,
+			customId: custom.Id,
 			price: total,
 			description: $"{buyer} bought {custom.Name} from {seller}.",
 			ct
 		).ConfigureAwait(false);
-
-		custom.Complete(customizationId: null);
-		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		return response;
 	}

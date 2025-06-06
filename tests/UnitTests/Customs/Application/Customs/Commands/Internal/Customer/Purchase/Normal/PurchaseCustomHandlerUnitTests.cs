@@ -81,8 +81,10 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		payment.Verify(x => x.InitializePayment(
+		payment.Verify(x => x.InitializeCustomPayment(
 			It.Is<string>(x => string.IsNullOrEmpty(x)),
+			It.Is<AccountId>(x => x == ValidBuyerId),
+			It.Is<CustomId>(x => x == ValidId),
 			It.Is<decimal>(x => x == ValidPrice1),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
@@ -94,8 +96,10 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 	{
 		// Arrange
 		PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
-		payment.Setup(x => x.InitializePayment(
+		payment.Setup(x => x.InitializeCustomPayment(
 			It.Is<string>(x => string.IsNullOrEmpty(x)),
+			It.Is<AccountId>(x => x == ValidBuyerId),
+			It.Is<CustomId>(x => x == ValidId),
 			It.Is<decimal>(x => x == ValidPrice1),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct

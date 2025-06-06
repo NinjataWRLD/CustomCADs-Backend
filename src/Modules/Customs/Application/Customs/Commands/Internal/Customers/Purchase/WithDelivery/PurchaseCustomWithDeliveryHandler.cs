@@ -47,13 +47,6 @@ public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitO
 		decimal cost = await sender.SendQueryAsync(costQuery, ct).ConfigureAwait(false);
 		decimal total = req.Count * (custom.FinishedCustom.Price + cost);
 
-		PaymentDto response = await payment.InitializePayment(
-			paymentMethodId: req.PaymentMethodId,
-			price: total,
-			description: $"{buyer} bought {custom.Name} from {seller} for {total}$.",
-			ct
-		).ConfigureAwait(false);
-
 		double weight = await sender.SendQueryAsync(
 			new GetCustomizationWeightByIdQuery(req.CustomizationId),
 			ct
@@ -75,6 +68,15 @@ public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitO
 			Address: req.Address,
 			Contact: req.Contact
 		)).ConfigureAwait(false);
+
+		PaymentDto response = await payment.InitializeCustomPayment(
+			paymentMethodId: req.PaymentMethodId,
+			buyerId: req.BuyerId,
+			customId: custom.Id,
+			price: total,
+			description: $"{buyer} bought {custom.Name} from {seller} for {total}$.",
+			ct
+		).ConfigureAwait(false);
 
 		return response;
 	}
