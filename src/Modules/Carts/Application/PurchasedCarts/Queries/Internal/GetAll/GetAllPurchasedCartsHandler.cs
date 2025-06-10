@@ -10,6 +10,7 @@ public sealed class GetAllPurchasedCartsHandler(IPurchasedCartReads reads)
 	{
 		PurchasedCartQuery query = new(
 			BuyerId: req.BuyerId,
+			PaymentStatus: req.PaymentStatus,
 			Sorting: req.Sorting,
 			Pagination: req.Pagination
 		);

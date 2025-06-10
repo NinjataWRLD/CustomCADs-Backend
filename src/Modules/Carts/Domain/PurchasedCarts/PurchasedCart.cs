@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
+using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
@@ -17,9 +18,11 @@ public class PurchasedCart : BaseAggregateRoot
 	{
 		BuyerId = buyerId;
 		PurchasedAt = DateTimeOffset.UtcNow;
+		PaymentStatus = PaymentStatus.Pending;
 	}
 
 	public PurchasedCartId Id { get; init; }
+	public PaymentStatus PaymentStatus { get; private set; }
 	public DateTimeOffset PurchasedAt { get; }
 	public AccountId BuyerId { get; private set; }
 	public ShipmentId? ShipmentId { get; private set; }
@@ -62,6 +65,13 @@ public class PurchasedCart : BaseAggregateRoot
 		this.ValidateItems();
 
 		return [.. this.items];
+	}
+
+	public PurchasedCart FinishPayment(bool success = true)
+	{
+		PaymentStatus = success ? PaymentStatus.Completed : PaymentStatus.Failed;
+
+		return this;
 	}
 
 	public PurchasedCart SetShipmentId(ShipmentId shipmentId)

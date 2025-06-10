@@ -15,7 +15,7 @@ public sealed class Reads(CartsContext context) : IPurchasedCartReads
 		IQueryable<PurchasedCart> queryable = context.PurchasedCarts
 			.WithTracking(track)
 			.Include(c => c.Items)
-			.WithFilter(query.BuyerId)
+			.WithFilter(query.BuyerId, query.PaymentStatus)
 			.WithSorting(query.Sorting ?? new());
 
 		int count = await queryable.CountAsync(ct).ConfigureAwait(false);

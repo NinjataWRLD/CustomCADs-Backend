@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
+using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
@@ -17,6 +17,10 @@ public sealed class GetPurchasedCartItemCadPresignedUrlGetHandler(IPurchasedCart
 		if (cart.BuyerId != req.BuyerId)
 		{
 			throw CustomAuthorizationException<PurchasedCart>.ById(req.Id);
+		}
+		if (cart.PaymentStatus is not PaymentStatus.Completed)
+		{
+			throw CustomException.NotPaid<PurchasedCart>();
 		}
 
 		PurchasedCartItem item = cart.Items.FirstOrDefault(x => x.ProductId == req.ProductId)

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Customs.Domain.Repositories.Reads;
+﻿using CustomCADs.Customs.Domain.Customs.Enums;
+using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Cads.Queries;
@@ -17,10 +18,13 @@ public sealed class GetCustomCadPresignedUrlGetHandler(ICustomReads reads, IRequ
 		{
 			throw CustomAuthorizationException<Custom>.Custom($"Cannot access another Buyer's Custom: {custom.Id}.");
 		}
-
 		if (custom.CompletedCustom is null)
 		{
 			throw CustomStatusException<Custom>.Custom($"Custom is not completed: {custom.Id}.");
+		}
+		if (custom.CompletedCustom.PaymentStatus is not PaymentStatus.Completed)
+		{
+			throw CustomException.NotPaid<Custom>();
 		}
 
 		return await sender.SendQueryAsync(
