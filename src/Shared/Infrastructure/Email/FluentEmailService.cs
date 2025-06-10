@@ -66,4 +66,21 @@ public sealed class FluentEmailService(IOptions<EmailSettings> settings) : IEmai
 			.Body(body, isHtml: true)
 			.SendAsync(ct).ConfigureAwait(false);
 	}
+
+	public async Task SendRewardGrantedEmailAsync(string to, string url, CancellationToken ct = default)
+	{
+		FluentEmail.Core.Email.DefaultSender = new SmtpSender(Client);
+
+		string subject = "Payment successful - reward granted!", body = @$"
+<h2>The 3D Models are yours to ejoy now!</h2>
+<h6>You can follow this link to visit them:</h6>
+<a href='{url}' style='background-color: #4CAF50; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px;'>Reset Password</a>
+";
+		await FluentEmail.Core.Email
+			.From(from, name: null)
+			.To(to, name: null)
+			.Subject(subject)
+			.Body(body, isHtml: true)
+			.SendAsync(ct).ConfigureAwait(false);
+	}
 }

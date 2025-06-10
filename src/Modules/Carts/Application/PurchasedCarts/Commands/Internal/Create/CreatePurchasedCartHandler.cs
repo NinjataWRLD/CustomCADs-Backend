@@ -19,8 +19,6 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
 			throw CustomNotFoundException<PurchasedCart>.ById(req.BuyerId, "User");
 		}
 
-		var cart = PurchasedCart.Create(req.BuyerId);
-
 		ProductId[] productIds = [.. req.Items.Select(i => i.ProductId)];
 
 		Dictionary<ProductId, CadId> productCads = await sender.SendQueryAsync(
@@ -33,6 +31,7 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
 			ct
 		).ConfigureAwait(false);
 
+		var cart = PurchasedCart.Create(req.BuyerId);
 		cart.AddItems(
 			[.. req.Items.Select(item =>
 			{
