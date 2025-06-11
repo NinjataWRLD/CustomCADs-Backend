@@ -3,6 +3,7 @@ using System;
 using CustomCADs.Customs.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Customs.Persistence.Migrations
 {
     [DbContext(typeof(CustomsContext))]
-    partial class CustomsContextModelSnapshot : ModelSnapshot
+    [Migration("20250610232645_Added_PaymentStatus_To_CompletedCustom")]
+    partial class Added_PaymentStatus_To_CompletedCustom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

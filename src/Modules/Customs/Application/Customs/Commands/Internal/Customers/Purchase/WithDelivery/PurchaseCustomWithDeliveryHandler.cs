@@ -63,7 +63,7 @@ public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitO
 		await raiser.RaiseDomainEventAsync(new CustomDeliveryRequestedDomainEvent(
 			Id: req.Id,
 			ShipmentService: req.ShipmentService,
-			Weight: weight * req.Count,
+			Weight: weight / 100 * req.Count,
 			Count: req.Count,
 			Address: req.Address,
 			Contact: req.Contact

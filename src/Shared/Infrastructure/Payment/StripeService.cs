@@ -3,16 +3,14 @@ using CustomCADs.Shared.Abstractions.Payment.Exceptions;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Customs;
-using Microsoft.Extensions.Options;
 using Stripe;
 
 namespace CustomCADs.Shared.Infrastructure.Payment;
 
 using static Messages;
 
-public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentIntentService service) : IPaymentService
+public sealed class StripeService(PaymentIntentService service) : IPaymentService
 {
-	public string PublicKey => settings.Value.PublishableKey;
 
 	public async Task<PaymentDto> InitializeCartPayment(string paymentMethodId, AccountId buyerId, PurchasedCartId cartId, decimal price, string description, CancellationToken ct = default)
 	{
@@ -104,8 +102,6 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
 				throw PaymentFailedException.WithClientSecret(intent.ClientSecret, message);
 
 			case ProcessingPayment:
-				return response;
-
 			case SuccessfulPayment:
 				return response;
 

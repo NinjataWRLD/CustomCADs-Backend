@@ -12,7 +12,7 @@ public class CartPaymentCompletedApplicationEventHandler(IPurchasedCartReads rea
 {
 	public async Task Handle(CartPaymentCompletedApplicationEvent ae)
 	{
-		PurchasedCart cart = await reads.SingleByIdAsync(ae.Id, track: false).ConfigureAwait(false)
+		PurchasedCart cart = await reads.SingleByIdAsync(ae.Id).ConfigureAwait(false)
 			?? throw CustomNotFoundException<PurchasedCart>.ById(ae.Id);
 
 		cart.FinishPayment(success: true);
@@ -28,6 +28,6 @@ public class CartPaymentCompletedApplicationEventHandler(IPurchasedCartReads rea
 			new GetClientUrlQuery()
 		).ConfigureAwait(false);
 
-		await email.SendRewardGrantedEmailAsync(to, url).ConfigureAwait(false);
+		await email.SendRewardGrantedEmailAsync(to, $"{url}/carts").ConfigureAwait(false);
 	}
 }

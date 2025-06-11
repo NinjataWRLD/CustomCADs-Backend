@@ -12,7 +12,7 @@ public class CustomPaymentCompletedApplicationEventHandler(ICustomReads reads, I
 {
 	public async Task Handle(CustomPaymentCompletedApplicationEvent ae)
 	{
-		Custom custom = await reads.SingleByIdAsync(ae.Id, track: false).ConfigureAwait(false)
+		Custom custom = await reads.SingleByIdAsync(ae.Id).ConfigureAwait(false)
 			?? throw CustomNotFoundException<Custom>.ById(ae.Id);
 
 		custom.FinishPayment(success: true);
@@ -26,6 +26,6 @@ public class CustomPaymentCompletedApplicationEventHandler(ICustomReads reads, I
 			new GetClientUrlQuery()
 		).ConfigureAwait(false);
 
-		await email.SendRewardGrantedEmailAsync(to, url).ConfigureAwait(false);
+		await email.SendRewardGrantedEmailAsync(to, $"{url}/customs").ConfigureAwait(false);
 	}
 }

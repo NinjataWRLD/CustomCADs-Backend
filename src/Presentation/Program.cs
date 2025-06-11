@@ -1,3 +1,4 @@
+using CustomCADs.Presentation;
 using Oakton;
 using static CustomCADs.Shared.Core.Constants.Roles;
 
@@ -13,7 +14,7 @@ builder.Services.AddUseCases(builder.Environment);
 builder.Services.AddCacheService();
 builder.Services.AddBackgroundJobs();
 
-// External Services 
+// External Services
 builder.Services.AddEmailService(builder.Configuration);
 builder.Services.AddTokensService(builder.Configuration);
 builder.Services.AddPaymentService(builder.Configuration);
@@ -64,5 +65,6 @@ app.MapApiDocumentationUi(
 	apiPattern: "/swagger/{documentName}.json",
 	uiPattern: "/swagger"
 );
+app.MapStripeWebhook();
 
 return await app.RunOaktonCommands(args).ConfigureAwait(false);

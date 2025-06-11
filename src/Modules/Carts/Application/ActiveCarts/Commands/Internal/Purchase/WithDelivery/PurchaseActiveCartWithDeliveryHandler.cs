@@ -99,7 +99,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 
 		await raiser.RaiseDomainEventAsync(new ActiveCartDeliveryRequestedDomainEvent(
 			Id: purchasedCartId,
-			Weight: weights.Sum(x => x.Value),
+			Weight: weights.Sum(x => x.Value) / 1000,
 			Count: items.Count(x => x.ForDelivery),
 			ShipmentService: req.ShipmentService,
 			Address: req.Address,

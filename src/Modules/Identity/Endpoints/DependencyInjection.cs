@@ -31,60 +31,76 @@ public static class DependencyInjection
 
 	public static AuthenticationBuilder AddJwt(this AuthenticationBuilder builder, IConfiguration config)
 	{
+		static (string SecretKey, string Issuer, string Audience) ExtractJwt(IConfiguration config)
+		{
+			var section = config.GetSection("Jwt");
+
+			string? secretKey = section["SecretKey"];
+			ArgumentNullException.ThrowIfNull(secretKey, nameof(secretKey));
+			string? issuer = section["Issuer"];
+			ArgumentNullException.ThrowIfNull(issuer, nameof(issuer));
+			string? audience = section["Audience"];
+			ArgumentNullException.ThrowIfNull(audience, nameof(audience));
+
+			return (
+				SecretKey: secretKey,
+				Issuer: issuer,
+				Audience: audience
+			);
+		}
+
 		builder.AddJwtBearer(opt =>
-		 {
-			 string? secretKey = config["JwtOptions:SecretKey"];
-			 ArgumentNullException.ThrowIfNull(secretKey, nameof(secretKey));
+		{
+			var (SecretKey, Issuer, Audience) = ExtractJwt(config);
+			opt.TokenValidationParameters = new()
+			{
+				ValidateAudience = true,
+				ValidateIssuer = true,
+				ValidateLifetime = true,
+				ValidateIssuerSigningKey = true,
+				ValidIssuer = Issuer,
+				ValidAudience = Audience,
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey)),
+			};
 
-			 opt.TokenValidationParameters = new()
-			 {
-				 ValidateAudience = true,
-				 ValidateIssuer = true,
-				 ValidateLifetime = true,
-				 ValidateIssuerSigningKey = true,
-				 ValidIssuer = config["JwtOptions:Issuer"],
-				 ValidAudience = config["JwtOptions:Audience"],
-				 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
-			 };
+			opt.Events = new()
+			{
+				OnMessageReceived = context =>
+				{
+					context.Token = context.Request.Cookies["jwt"];
+					return Task.CompletedTask;
+				},
 
-			 opt.Events = new()
-			 {
-				 OnMessageReceived = context =>
-				 {
-					 context.Token = context.Request.Cookies["jwt"];
-					 return Task.CompletedTask;
-				 },
+				OnChallenge = async context =>
+				{
+					context.HandleResponse();
 
-				 OnChallenge = async context =>
-				 {
-					 context.HandleResponse();
+					await context.HttpContext.RequestServices
+					   .GetRequiredService<IProblemDetailsService>()
+					   .UnauthorizedResponseAsync(
+							context: context.HttpContext,
+							ex: new UnauthorizedAccessException()
+					   ).ConfigureAwait(false);
+				},
 
-					 await context.HttpContext.RequestServices
-						.GetRequiredService<IProblemDetailsService>()
-						.UnauthorizedResponseAsync(
-							 context: context.HttpContext,
-							 ex: new UnauthorizedAccessException()
-						).ConfigureAwait(false);
-				 },
+				OnForbidden = async context =>
+				{
+					await context.HttpContext.RequestServices
+					   .GetRequiredService<IProblemDetailsService>()
+					   .ForbiddenResponseAsync(
+							context: context.HttpContext,
+							ex: new AccessViolationException()
+					   ).ConfigureAwait(false);
+				},
 
-				 OnForbidden = async context =>
-				 {
-					 await context.HttpContext.RequestServices
-						.GetRequiredService<IProblemDetailsService>()
-						.ForbiddenResponseAsync(
-							 context: context.HttpContext,
-							 ex: new AccessViolationException()
-						).ConfigureAwait(false);
-				 },
-
-				 OnTokenValidated = context =>
-				 {
-					 ClaimsIdentity claimsIdentity = new(context.Principal?.Claims ?? [], AuthScheme);
-					 context.HttpContext.User = new ClaimsPrincipal(claimsIdentity);
-					 return Task.CompletedTask;
-				 },
-			 };
-		 });
+				OnTokenValidated = context =>
+				{
+					ClaimsIdentity claimsIdentity = new(context.Principal?.Claims ?? [], AuthScheme);
+					context.HttpContext.User = new ClaimsPrincipal(claimsIdentity);
+					return Task.CompletedTask;
+				},
+			};
+		});
 
 		return builder;
 	}

@@ -72,7 +72,7 @@ public static class ProgramExtensions
 		IConfigurationSection section = config.GetSection("Payment");
 		services.Configure<PaymentSettings>(section);
 
-		Stripe.StripeConfiguration.ApiKey = section.Get<PaymentSettings>()?.PublishableKey;
+		Stripe.StripeConfiguration.ApiKey = section.Get<PaymentSettings>()?.SecretKey;
 		services.AddPaymentService();
 
 		return services;
