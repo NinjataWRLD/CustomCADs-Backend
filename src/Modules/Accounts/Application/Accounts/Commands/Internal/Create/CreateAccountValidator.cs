@@ -21,7 +21,7 @@ public class CreateAccountValidator : CommandValidator<CreateAccountCommand, Acc
 
 		RuleFor(r => r.Password)
 			.NotEmpty().WithMessage(RequiredError)
-			.Length(PasswordMinLength, PasswordMaxLength).WithMessage(LengthError);
+			.MinimumLength(PasswordMinLength).WithMessage(MinimumError);
 
 		RuleFor(r => r.Email)
 			.NotEmpty().WithMessage(RequiredError)
