@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Customs.Domain.Customs.Enums;
+using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
@@ -13,9 +14,10 @@ public class CompletedCustom : BaseEntity
 		CustomizationId = customizationId;
 	}
 
-	public CustomId CustomId { get; set; }
-	public CustomizationId? CustomizationId { get; set; }
-	public ShipmentId? ShipmentId { get; set; }
+	public CustomId CustomId { get; private set; }
+	public PaymentStatus PaymentStatus { get; private set; }
+	public CustomizationId? CustomizationId { get; private set; }
+	public ShipmentId? ShipmentId { get; private set; }
 
 	public static CompletedCustom Create(CustomId orderId)
 		=> new(orderId, null);
@@ -26,6 +28,12 @@ public class CompletedCustom : BaseEntity
 	public CompletedCustom SetShipmentId(ShipmentId shipmentId)
 	{
 		ShipmentId = shipmentId;
+		return this;
+	}
+
+	public CompletedCustom FinishPayment(bool success = true)
+	{
+		PaymentStatus = success ? PaymentStatus.Completed : PaymentStatus.Failed;
 		return this;
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Customs.Domain.Customs;
 using CustomCADs.Customs.Domain.Customs.Entities;
+using CustomCADs.Customs.Domain.Customs.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Customs;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
@@ -52,6 +53,13 @@ public static class Utilities
 
 	public static EntityTypeBuilder<CompletedCustom> SetValidations(this EntityTypeBuilder<CompletedCustom> builder)
 	{
+		builder.Property(x => x.PaymentStatus)
+			.IsRequired()
+			.HasConversion(
+				v => v.ToString(),
+				s => Enum.Parse<PaymentStatus>(s)
+			).HasColumnName(nameof(CompletedCustom.PaymentStatus));
+
 		builder.Property(x => x.ShipmentId)
 			.HasColumnName(nameof(CompletedCustom.ShipmentId));
 

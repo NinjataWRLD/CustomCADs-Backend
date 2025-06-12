@@ -14,6 +14,7 @@ public readonly struct PurchasedCartId
 
 	public static PurchasedCartId New() => new(Guid.NewGuid());
 	public static PurchasedCartId New(Guid id) => new(id);
+	public static PurchasedCartId? New(string? id) => id is null ? null : new(Guid.Parse(id));
 
 	public override bool Equals([NotNullWhen(true)] object? obj)
 		=> obj is PurchasedCartId cartId && this == cartId;

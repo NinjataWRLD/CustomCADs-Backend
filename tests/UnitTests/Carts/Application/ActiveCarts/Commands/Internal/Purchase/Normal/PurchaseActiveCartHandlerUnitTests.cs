@@ -1,10 +1,11 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.Normal;
 using CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
-using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Products.Queries;
@@ -17,7 +18,6 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 {
 	private readonly PurchaseActiveCartHandler handler;
 	private readonly Mock<IActiveCartReads> reads = new();
-	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRequestSender> sender = new();
 	private readonly Mock<IPaymentService> payment = new();
 
@@ -25,7 +25,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 
 	public PurchaseActiveCartHandlerUnitTests()
 	{
-		handler = new(reads.Object, uow.Object, sender.Object, payment.Object);
+		handler = new(reads.Object, sender.Object, payment.Object);
 
 		reads.Setup(x => x.ExistsAsync(ValidBuyerId, ct))
 			.ReturnsAsync(true);
@@ -91,8 +91,10 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		payment.Verify(x => x.InitializePayment(
+		payment.Verify(x => x.InitializeCartPayment(
 			It.Is<string>(x => x == paymentMethodId),
+			It.Is<AccountId>(x => x == ValidBuyerId),
+			It.IsAny<PurchasedCartId>(),
 			It.IsAny<decimal>(),
 			It.IsAny<string>(),
 			ct
@@ -104,8 +106,10 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 	{
 		// Arrange
 		PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
-		payment.Setup(x => x.InitializePayment(
+		payment.Setup(x => x.InitializeCartPayment(
 			It.Is<string>(x => x == paymentMethodId),
+			It.Is<AccountId>(x => x == ValidBuyerId),
+			It.IsAny<PurchasedCartId>(),
 			It.IsAny<decimal>(),
 			It.IsAny<string>(),
 			ct

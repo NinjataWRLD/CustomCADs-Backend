@@ -20,6 +20,7 @@ internal static class Mapper
 			Id: cart.Id.Value,
 			Total: cart.Total,
 			PurchasedAt: cart.PurchasedAt,
+			PaymentStatus: cart.PaymentStatus,
 			BuyerName: cart.BuyerName,
 			ShipmentId: cart.ShipmentId?.Value,
 			Items: [.. cart.Items.Select(o => o.ToResponse())]

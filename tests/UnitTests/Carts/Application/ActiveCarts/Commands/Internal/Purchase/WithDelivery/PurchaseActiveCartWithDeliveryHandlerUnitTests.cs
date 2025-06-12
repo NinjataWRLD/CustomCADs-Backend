@@ -1,13 +1,14 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;
 using CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
 using CustomCADs.Carts.Domain.ActiveCarts.Events;
-using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
@@ -21,7 +22,6 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 {
 	private readonly PurchaseActiveCartWithDeliveryHandler handler;
 	private readonly Mock<IActiveCartReads> reads = new();
-	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRequestSender> sender = new();
 	private readonly Mock<IPaymentService> payment = new();
 	private readonly Mock<IEventRaiser> raiser = new();
@@ -33,7 +33,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 
 	public PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests()
 	{
-		handler = new(reads.Object, uow.Object, sender.Object, payment.Object, raiser.Object);
+		handler = new(reads.Object, sender.Object, payment.Object, raiser.Object);
 
 		reads.Setup(x => x.ExistsAsync(ValidBuyerId, ct))
 			.ReturnsAsync(true);
@@ -135,8 +135,10 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 		await handler.Handle(command, ct);
 
 		// Assert
-		payment.Verify(x => x.InitializePayment(
+		payment.Verify(x => x.InitializeCartPayment(
 			It.Is<string>(x => x == paymentMethodId),
+			It.Is<AccountId>(x => x == ValidBuyerId),
+			It.IsAny<PurchasedCartId>(),
 			It.IsAny<decimal>(),
 			It.IsAny<string>(),
 			ct
@@ -169,8 +171,10 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 	{
 		// Arrange
 		PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
-		payment.Setup(x => x.InitializePayment(
+		payment.Setup(x => x.InitializeCartPayment(
 			It.Is<string>(x => x == paymentMethodId),
+			It.Is<AccountId>(x => x == ValidBuyerId),
+			It.IsAny<PurchasedCartId>(),
 			It.IsAny<decimal>(),
 			It.IsAny<string>(),
 			ct

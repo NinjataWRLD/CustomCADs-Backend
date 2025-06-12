@@ -92,4 +92,33 @@ public sealed class MailKitService(IOptions<EmailSettings> settings) : IEmailSer
 			throw;
 		}
 	}
+
+	public async Task SendRewardGrantedEmailAsync(string to, string url, CancellationToken ct = default)
+	{
+		try
+		{
+			MailboxAddress toEmail = new("", to), fromEmail = new("", from);
+
+			string html = @$"
+<h2>The 3D Models are yours to ejoy now!</h2>
+<h6>You can follow this link to visit them:</h6>
+<a href='{url}' style='background-color: #4CAF50; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px;'>Reset Password</a>
+";
+
+			MimeMessage message = new()
+			{
+				Subject = "Payment successful - reward granted!",
+				Body = new BodyBuilder() { HtmlBody = html }.ToMessageBody()
+			};
+			message.From.Add(fromEmail);
+			message.To.Add(toEmail);
+
+			using SmtpClient client = new();
+			await client.SendMessageAsync(server, port, Options, from, password, message, ct: ct).ConfigureAwait(false);
+		}
+		catch (Exception)
+		{
+			throw;
+		}
+	}
 }

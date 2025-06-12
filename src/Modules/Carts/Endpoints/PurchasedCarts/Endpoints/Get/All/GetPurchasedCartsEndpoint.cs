@@ -21,6 +21,7 @@ public sealed class GetPurchasedCartsEndpoint(IRequestSender sender)
 		Result<GetAllPurchasedCartsDto> carts = await sender.SendQueryAsync(
 			new GetAllPurchasedCartsQuery(
 				BuyerId: User.GetAccountId(),
+				PaymentStatus: req.PaymentStatus,
 				Sorting: new(req.SortingType, req.SortingDirection),
 				Pagination: new(req.Page, req.Limit)
 			),

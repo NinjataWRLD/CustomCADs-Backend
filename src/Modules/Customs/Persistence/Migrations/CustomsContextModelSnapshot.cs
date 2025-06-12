@@ -90,6 +90,11 @@ namespace CustomCADs.Customs.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("CustomizationId");
 
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("PaymentStatus");
+
                     b.Property<Guid?>("ShipmentId")
                         .HasColumnType("uuid")
                         .HasColumnName("ShipmentId");

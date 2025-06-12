@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts;
+using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
@@ -56,6 +57,13 @@ public static class Utilities
 		builder.Property(x => x.PurchasedAt)
 			.IsRequired()
 			.HasColumnName(nameof(PurchasedCart.PurchasedAt));
+
+		builder.Property(x => x.PaymentStatus)
+			.IsRequired()
+			.HasConversion(
+				v => v.ToString(),
+				s => Enum.Parse<PaymentStatus>(s)
+			).HasColumnName(nameof(PurchasedCart.PaymentStatus));
 
 		builder.Property(x => x.BuyerId)
 			.IsRequired()
