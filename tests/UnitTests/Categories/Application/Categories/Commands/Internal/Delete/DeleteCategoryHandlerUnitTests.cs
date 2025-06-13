@@ -22,7 +22,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 		handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
 		reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct))
-			.ReturnsAsync(CreateCategory(ValidId, ValidName1, ValidDescription1));
+			.ReturnsAsync(CreateCategory(ValidId, ValidName, ValidDescription));
 	}
 
 	[Fact]

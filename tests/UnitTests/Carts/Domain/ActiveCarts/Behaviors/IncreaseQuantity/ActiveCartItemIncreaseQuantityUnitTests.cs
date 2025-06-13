@@ -2,19 +2,21 @@
 
 namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts.Behaviors.IncreaseQuantity;
 
-using Data;
+using static ActiveCartsData;
 
 public class ActiveCartItemIncreaseQuantityUnitTests : ActiveCartItemsBaseUnitTests
 {
 	[Theory]
-	[ClassData(typeof(ActiveCartItemIncreaseQuantityValidData))]
+	[InlineData(MaxValidQuantity)]
+	[InlineData(MinValidQuantity)]
 	public void Increase_ShouldNotThrowException_WhenValid(int amount)
 	{
 		CreateItemWithDelivery().IncreaseQuantity(amount);
 	}
 
 	[Theory]
-	[ClassData(typeof(ActiveCartItemIncreaseQuantityInvalidData))]
+	[InlineData(MaxInvalidQuantity)]
+	[InlineData(MinInvalidQuantity)]
 	public void Increase_ShouldThrowException_WhenInvalidAmount(int amount)
 	{
 		Assert.Throws<CustomValidationException<ActiveCartItem>>(
@@ -23,7 +25,8 @@ public class ActiveCartItemIncreaseQuantityUnitTests : ActiveCartItemsBaseUnitTe
 	}
 
 	[Theory]
-	[ClassData(typeof(ActiveCartItemIncreaseQuantityValidData))]
+	[InlineData(MaxValidQuantity)]
+	[InlineData(MinValidQuantity)]
 	public void Increase_ShouldThrowException_WhenNotForDelivery(int amount)
 	{
 		Assert.Throws<CustomValidationException<ActiveCartItem>>(

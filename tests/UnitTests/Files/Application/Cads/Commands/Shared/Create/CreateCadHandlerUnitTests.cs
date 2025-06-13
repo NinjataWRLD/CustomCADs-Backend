@@ -4,7 +4,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.Create;
 
-using Data;
+using static CadsData;
 
 public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 {
@@ -17,15 +17,14 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 		handler = new(writes.Object, uow.Object);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateCadValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string key, string contentType, decimal volume)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateCadCommand command = new(
-			Key: key,
-			ContentType: contentType,
-			Volume: volume
+			Key: ValidKey,
+			ContentType: ValidContentType,
+			Volume: ValidVolume
 		);
 
 		// Act
@@ -33,7 +32,7 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 
 		// Assert
 		writes.Verify(x => x.AddAsync(
-			It.Is<Cad>(x => x.Key == key && x.ContentType == contentType),
+			It.Is<Cad>(x => x.Key == ValidKey && x.ContentType == ValidContentType),
 			ct
 		), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);

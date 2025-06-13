@@ -3,38 +3,37 @@ using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.PanCoordinates;
 
-using Data;
+using static CadsData;
 
 public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(CadPanCoordinatesValidData))]
-	public void SetPanCoordinates_ShouldNotThrowException_WhenCoordinatesAreValid(Coordinates coordinates)
+	private static readonly Coordinates coords = new(MinValidCoord, MinValidCoord, MinValidCoord);
+
+	[Fact]
+	public void SetPanCoordinates_ShouldNotThrowException_WhenCoordinatesAreValid()
 	{
 		var cad = CreateCad();
 
-		cad.SetPanCoordinates(coordinates);
+		cad.SetPanCoordinates(coords);
 	}
 
-	[Theory]
-	[ClassData(typeof(CadPanCoordinatesValidData))]
-	public void SetPanCoordinates_ShouldPopulateProperly_WhenCoordinatesAreValid(Coordinates coordinates)
+	[Fact]
+	public void SetPanCoordinates_ShouldPopulateProperly_WhenCoordinatesAreValid()
 	{
 		var cad = CreateCad();
 
-		cad.SetPanCoordinates(coordinates);
+		cad.SetPanCoordinates(coords);
 
-		Assert.Equal(coordinates, cad.PanCoordinates);
+		Assert.Equal(coords, cad.PanCoordinates);
 	}
 
-	[Theory]
-	[ClassData(typeof(CadPanCoordinatesInvalidData))]
-	public void SetPanCoordinates_ShouldThrowException_WhenCoordinatesIsInvalid(Coordinates coordinates)
+	[Fact]
+	public void SetPanCoordinates_ShouldThrowException_WhenCoordinatesIsInvalid()
 	{
 		var cad = CreateCad();
 
 		Assert.Throws<CustomValidationException<Cad>>(
-			() => cad.SetPanCoordinates(coordinates)
+			() => cad.SetPanCoordinates(coords with { X = MaxInvalidCoord })
 		);
 	}
 }

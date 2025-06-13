@@ -7,7 +7,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetCoords;
 
-using Data;
+using static CadsData;
 
 public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 {
@@ -15,42 +15,42 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 
+	private static readonly CoordinatesDto camCoords = new(MinValidCoord, MinValidCoord, MinValidCoord);
+	private static readonly CoordinatesDto panCoords = new(MaxValidCoord, MaxValidCoord, MaxValidCoord);
 	private readonly Cad cad = CreateCad();
 
 	public SetCadCoordsHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object);
-		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(cad);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadCoordsValidData))]
-	public async Task Handle_ShouldQueryDatabase(int x1, int y1, int z1, int x2, int y2, int z2)
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		SetCadCoordsCommand command = new(
-			Id: id1,
-			CamCoordinates: new(x1, y1, z1),
-			PanCoordinates: new(x2, y2, z2)
+			Id: id,
+			CamCoordinates: camCoords,
+			PanCoordinates: panCoords
 		);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadCoordsValidData))]
-	public async Task Handle_ShouldPersistToDatabase_WhenCadFound(int x1, int y1, int z1, int x2, int y2, int z2)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
 	{
 		// Arrange
 		SetCadCoordsCommand command = new(
-			Id: id1,
-			CamCoordinates: new(x1, y1, z1),
-			PanCoordinates: new(x2, y2, z2)
+			Id: id,
+			CamCoordinates: camCoords,
+			PanCoordinates: panCoords
 		);
 
 		// Act
@@ -60,16 +60,12 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadCoordsValidData))]
-	public async Task Handle_ShouldModifyCad_WhenCadFound(int x1, int y1, int z1, int x2, int y2, int z2)
+	[Fact]
+	public async Task Handle_ShouldModifyCad_WhenCadFound()
 	{
 		// Arrange
-		CoordinatesDto camCoords = new(x1, y1, z1);
-		CoordinatesDto panCoords = new(x2, y2, z2);
-
 		SetCadCoordsCommand command = new(
-			Id: id1,
+			Id: id,
 			CamCoordinates: camCoords,
 			PanCoordinates: panCoords
 		);
@@ -88,19 +84,15 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 		);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadCoordsValidData))]
-	public async Task Handle_ShouldThrowException_WhenCadNotFound(int x1, int y1, int z1, int x2, int y2, int z2)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(null as Cad);
 
-		CoordinatesDto camCoords = new(x1, y1, z1);
-		CoordinatesDto panCoords = new(x2, y2, z2);
-
 		SetCadCoordsCommand command = new(
-			Id: id1,
+			Id: id,
 			CamCoordinates: camCoords,
 			PanCoordinates: panCoords
 		);

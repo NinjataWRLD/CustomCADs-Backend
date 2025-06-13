@@ -2,38 +2,35 @@
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Behaviors.ContentType;
 
-using Data;
+using static ImagesData;
 
 public class ImageContentTypeUnitTests : ImagesBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(ImageContentTypeValidData))]
-	public void SetContentType_ShouldNotThrowException_WhenContentTypeIsValid(string contentType)
+	[Fact]
+	public void SetContentType_ShouldNotThrowException_WhenContentTypeIsValid()
 	{
 		var image = CreateImage();
 
-		image.SetContentType(contentType);
+		image.SetContentType(ValidContentType);
 	}
 
-	[Theory]
-	[ClassData(typeof(ImageContentTypeValidData))]
-	public void SetContentType_ShouldPopulateProperly_WhenContentTypeIsValid(string contentType)
+	[Fact]
+	public void SetContentType_ShouldPopulateProperly_WhenContentTypeIsValid()
 	{
 		var image = CreateImage();
 
-		image.SetContentType(contentType);
+		image.SetContentType(ValidContentType);
 
-		Assert.Equal(contentType, image.ContentType);
+		Assert.Equal(ValidContentType, image.ContentType);
 	}
 
-	[Theory]
-	[ClassData(typeof(ImageContentTypeInvalidData))]
-	public void SetContentType_ShouldThrowException_WhenContentTypeIsInvalid(string contentType)
+	[Fact]
+	public void SetContentType_ShouldThrowException_WhenContentTypeIsInvalid()
 	{
 		var image = CreateImage();
 
 		Assert.Throws<CustomValidationException<Image>>(
-			() => image.SetContentType(contentType)
+			() => image.SetContentType(InvalidContentType)
 		);
 	}
 }

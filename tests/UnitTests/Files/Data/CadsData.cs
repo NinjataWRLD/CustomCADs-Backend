@@ -6,21 +6,17 @@ using static CadConstants.Coordinates;
 
 public class CadsData
 {
-	public const string ValidKey1 = "ProductName1_gibberish";
-	public const string ValidKey2 = "ProductName2_gibberish";
+	public const string ValidKey = "key-to-cad";
 	public const string InvalidKey = "";
 
-	public const string ValidContentType1 = "model/gltf+json";
-	public const string ValidContentType2 = "model/gltf-binary";
+	public const string ValidContentType = "model/gltf+json";
 	public const string InvalidContentType = "";
 
-	public const decimal ValidVolume1 = 1000;
-	public const decimal ValidVolume2 = 100;
+	public const decimal ValidVolume = 1000;
 	public const decimal InvalidVolume = 0;
 
-	public const decimal ValidCoord1 = CoordMin + 1;
-	public const decimal ValidCoord2 = 0;
-	public const decimal ValidCoord3 = CoordMax - 1;
-	public const decimal InvalidCoord1 = CoordMin - 1;
-	public const decimal InvalidCoord2 = CoordMax + 1;
+	public const decimal MinValidCoord = CoordMin + 1;
+	public const decimal MaxValidCoord = CoordMax - 1;
+	public const decimal MinInvalidCoord = CoordMin - 1;
+	public const decimal MaxInvalidCoord = CoordMax + 1;
 }

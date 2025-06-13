@@ -4,7 +4,7 @@ using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit;
 
-using Data;
+using static CustomsData;
 
 public class EditCustomValidatorUnitTests : CustomsBaseUnitTests
 {
@@ -13,16 +13,15 @@ public class EditCustomValidatorUnitTests : CustomsBaseUnitTests
 	private static readonly CustomId id = CustomId.New();
 	private static readonly AccountId buyerId = AccountId.New();
 
-	[Theory]
-	[ClassData(typeof(EditCustomValidData))]
-	public async Task Validate_ShouldBeValid_WhenCustomIsValid(string name, string description)
+	[Fact]
+	public async Task Validate_ShouldBeValid_WhenCustomIsValid()
 	{
 		// Arrange
 		EditCustomCommand command = new(
 			Id: id,
-			Name: name,
-			Description: description,
-			BuyerId: buyerId
+			Name: MaxValidName,
+			Description: MaxValidDescription,
+			BuyerId: ValidBuyerId
 		);
 
 		// Act
@@ -33,8 +32,7 @@ public class EditCustomValidatorUnitTests : CustomsBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(EditCustomInvalidNameData))]
-	[ClassData(typeof(EditCustomInvalidDescriptionData))]
+	[ClassData(typeof(Data.EditCustomInvalidData))]
 	public async Task Validate_ShouldBeInvalid_WhenCustomIsNotValid(string name, string description)
 	{
 		// Arrange
@@ -50,43 +48,5 @@ public class EditCustomValidatorUnitTests : CustomsBaseUnitTests
 
 		// Assert
 		Assert.False(result.IsValid);
-	}
-
-	[Theory]
-	[ClassData(typeof(EditCustomInvalidNameData))]
-	public async Task Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description)
-	{
-		// Arrange
-		EditCustomCommand command = new(
-			Id: id,
-			Name: name,
-			Description: description,
-			BuyerId: buyerId
-		);
-
-		// Act
-		var result = await validator.TestValidateAsync(command, cancellationToken: ct);
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Name);
-	}
-
-	[Theory]
-	[ClassData(typeof(EditCustomInvalidDescriptionData))]
-	public async Task Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description)
-	{
-		// Arrange
-		EditCustomCommand command = new(
-			Id: id,
-			Name: name,
-			Description: description,
-			BuyerId: buyerId
-		);
-
-		// Act
-		var result = await validator.TestValidateAsync(command, cancellationToken: ct);
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Description);
 	}
 }

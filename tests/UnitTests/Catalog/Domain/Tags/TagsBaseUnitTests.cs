@@ -10,7 +10,7 @@ public class TagsBaseUnitTests
 	protected static Tag CreateTag(
 		string? name = null
 	) => Tag.Create(
-			name: name ?? ValidName1
+			name: name ?? MinValidName
 		);
 
 	protected static Tag CreateTagWithId(
@@ -18,6 +18,6 @@ public class TagsBaseUnitTests
 		string? name = null
 	) => Tag.CreateWithId(
 			id: id ?? ValidId,
-			name: name ?? ValidName1
+			name: name ?? MinValidName
 		);
 }

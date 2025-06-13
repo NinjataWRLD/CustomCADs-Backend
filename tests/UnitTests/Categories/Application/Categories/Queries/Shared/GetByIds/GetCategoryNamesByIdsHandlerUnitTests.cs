@@ -17,7 +17,7 @@ public class GetCategoryNamesByIdsHandlerUnitTests : CategoriesBaseUnitTests
 		CategoryId.New(2),
 		CategoryId.New(3)
 	];
-	private static readonly Category[] categories = [.. ids.Select(id => CreateCategory(id, ValidName1, ValidDescription1))];
+	private static readonly Category[] categories = [.. ids.Select(id => CreateCategory(id, ValidName, ValidDescription))];
 
 	public GetCategoryNamesByIdsHandlerUnitTests()
 	{

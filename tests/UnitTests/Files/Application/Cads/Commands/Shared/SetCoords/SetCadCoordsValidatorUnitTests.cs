@@ -1,21 +1,24 @@
 ﻿using CustomCADs.Files.Application.Cads.Commands.Shared.SetCoords;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetCoords;
 
-using Data;
+using static CadsData;
 
 public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
 {
 	private readonly SetCadCoordsValidator validator = new();
 
-	[Theory]
-	[ClassData(typeof(SetCadCoordsValidData))]
-	public void Validate_ShouldBeValid_WhenCoordsIsValid(int x1, int y1, int z1, int x2, int y2, int z2)
+	private static readonly CoordinatesDto camCoords = new(MinValidCoord, MinValidCoord, MinValidCoord);
+	private static readonly CoordinatesDto panCoords = new(MaxValidCoord, MaxValidCoord, MaxValidCoord);
+
+	[Fact]
+	public void Validate_ShouldBeValid_WhenCoordsIsValid()
 	{
 		// Arrange
-		SetCadCoordsCommand command = new(id1, new(x1, y1, z1), new(x2, y2, z2));
+		SetCadCoordsCommand command = new(id, camCoords, panCoords);
 
 		// Act
 		var result = validator.TestValidate(command);
@@ -24,12 +27,11 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
 		Assert.True(result.IsValid);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadCoordsInvalidCamData))]
-	public void Validate_ShouldReturnProperErrors_WhenCamCoordsIsNotValid(int x1, int y1, int z1, int x2, int y2, int z2)
+	[Fact]
+	public void Validate_ShouldReturnProperErrors_WhenCamCoordsIsNotValid()
 	{
 		// Arrange
-		SetCadCoordsCommand command = new(id1, new(x1, y1, z1), new(x2, y2, z2));
+		SetCadCoordsCommand command = new(id, camCoords with { X = MinInvalidCoord }, panCoords);
 
 		// Act
 		var result = validator.TestValidate(new(command));
@@ -40,12 +42,11 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
 		result.ShouldHaveValidationErrorFor(x => x.CamCoordinates!.Z);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadCoordsInvalidPanData))]
-	public void Validate_ShouldReturnProperErrors_WhenPanCoordsIsNotValid(int x1, int y1, int z1, int x2, int y2, int z2)
+	[Fact]
+	public void Validate_ShouldReturnProperErrors_WhenPanCoordsIsNotValid()
 	{
 		// Arrange
-		SetCadCoordsCommand command = new(id1, new(x1, y1, z1), new(x2, y2, z2));
+		SetCadCoordsCommand command = new(id, camCoords, panCoords with { X = MaxInvalidCoord });
 
 		// Act
 		var result = validator.TestValidate(new(command));

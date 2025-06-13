@@ -6,8 +6,8 @@ public class RoleCreateWithIdInvalidWithIdDescriptionData : RoleCreateWithIdData
 {
 	public RoleCreateWithIdInvalidWithIdDescriptionData()
 	{
-		Add(ValidName1, InvalidDescription1);
-		Add(ValidName2, InvalidDescription2);
-		Add(ValidName3, InvalidDescription3);
+		Add(ValidName, InvalidDescription);
+		Add(MinValidName, MinInvalidDescription);
+		Add(MaxValidName, MaxInvalidDescription);
 	}
 }

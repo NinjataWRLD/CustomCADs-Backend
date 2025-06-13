@@ -2,38 +2,35 @@
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Behaviors.Key;
 
-using Data;
+using static ImagesData;
 
 public class ImageKeyUnitTests : ImagesBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(ImageKeyValidData))]
-	public void SetKey_ShouldNotThrowException_WhenKeyIsValid(string key)
+	[Fact]
+	public void SetKey_ShouldNotThrowException_WhenKeyIsValid()
 	{
 		var image = CreateImage();
 
-		image.SetKey(key);
+		image.SetKey(ValidKey);
 	}
 
-	[Theory]
-	[ClassData(typeof(ImageKeyValidData))]
-	public void SetKey_ShouldPopulateProperly_WhenKeyIsValid(string key)
+	[Fact]
+	public void SetKey_ShouldPopulateProperly_WhenKeyIsValid()
 	{
 		var image = CreateImage();
 
-		image.SetKey(key);
+		image.SetKey(ValidKey);
 
-		Assert.Equal(key, image.Key);
+		Assert.Equal(ValidKey, image.Key);
 	}
 
-	[Theory]
-	[ClassData(typeof(ImageKeyInvalidData))]
-	public void SetKey_ShouldThrowException_WhenKeyIsInvalid(string key)
+	[Fact]
+	public void SetKey_ShouldThrowException_WhenKeyIsInvalid()
 	{
 		var image = CreateImage();
 
 		Assert.Throws<CustomValidationException<Image>>(
-			() => image.SetKey(key)
+			() => image.SetKey(InvalidKey)
 		);
 	}
 }

@@ -2,38 +2,35 @@
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.ContentType;
 
-using Data;
+using static CadsData;
 
 public class CadContentTypeUnitTests : CadsBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(CadContentTypeValidData))]
-	public void SetContentType_ShouldNotThrowException_WhenContentTypeIsValid(string contentType)
+	[Fact]
+	public void SetContentType_ShouldNotThrowException_WhenContentTypeIsValid()
 	{
 		var cad = CreateCad();
 
-		cad.SetContentType(contentType);
+		cad.SetContentType(ValidContentType);
 	}
 
-	[Theory]
-	[ClassData(typeof(CadContentTypeValidData))]
-	public void SetContentType_ShouldPopulateProperly_WhenContentTypeIsValid(string contentType)
+	[Fact]
+	public void SetContentType_ShouldPopulateProperly_WhenContentTypeIsValid()
 	{
 		var cad = CreateCad();
 
-		cad.SetContentType(contentType);
+		cad.SetContentType(ValidContentType);
 
-		Assert.Equal(contentType, cad.ContentType);
+		Assert.Equal(ValidContentType, cad.ContentType);
 	}
 
-	[Theory]
-	[ClassData(typeof(CadContentTypeInvalidData))]
-	public void SetContentType_ShouldThrowException_WhenContentTypeIsInvalid(string contentType)
+	[Fact]
+	public void SetContentType_ShouldThrowException_WhenContentTypeIsInvalid()
 	{
 		var cad = CreateCad();
 
 		Assert.Throws<CustomValidationException<Cad>>(
-			() => cad.SetContentType(contentType)
+			() => cad.SetContentType(ValidContentType)
 		);
 	}
 }

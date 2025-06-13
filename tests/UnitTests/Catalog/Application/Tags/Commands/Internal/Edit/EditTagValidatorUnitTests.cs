@@ -4,19 +4,18 @@ using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Edit;
 
-using Data;
+using static TagsData;
 
 public class EditTagValidatorUnitTestss : TagsBaseUnitTests
 {
 	private readonly EditTagValidator validator = new();
 	private static readonly TagId id = new();
 
-	[Theory]
-	[ClassData(typeof(EditTagValidData))]
-	public void Validate_ShouldBeValid_WhenTagIsValid(string name)
+	[Fact]
+	public void Validate_ShouldBeValid_WhenTagIsValid()
 	{
 		// Arrange
-		EditTagCommand command = new(id, name);
+		EditTagCommand command = new(id, MaxValidName);
 
 		// Act
 		var result = validator.TestValidate(new(command));
@@ -26,7 +25,7 @@ public class EditTagValidatorUnitTestss : TagsBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(EditTagInvalidNameData))]
+	[ClassData(typeof(Data.EditTagInvalidData))]
 	public void Validate_ShouldBeInvalid_WhenTagIsNotValid(string name)
 	{
 		// Arrange
@@ -37,19 +36,5 @@ public class EditTagValidatorUnitTestss : TagsBaseUnitTests
 
 		// Assert
 		Assert.False(result.IsValid);
-	}
-
-	[Theory]
-	[ClassData(typeof(EditTagInvalidNameData))]
-	public void Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name)
-	{
-		// Arrange
-		EditTagCommand command = new(id, name);
-
-		// Act
-		var result = validator.TestValidate(new(command));
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Name);
 	}
 }

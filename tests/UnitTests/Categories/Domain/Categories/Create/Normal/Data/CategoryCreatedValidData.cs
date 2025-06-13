@@ -6,8 +6,8 @@ public class CategoryCreatedValidData : CategoryCreateData
 {
 	public CategoryCreatedValidData()
 	{
-		Add(ValidName1, ValidDescription1);
-		Add(ValidName2, ValidDescription2);
-		Add(ValidName3, ValidDescription3);
+		Add(ValidName, ValidDescription);
+		Add(MinValidName, MinValidDescription);
+		Add(MaxValidName, MaxValidDescription);
 	}
 }

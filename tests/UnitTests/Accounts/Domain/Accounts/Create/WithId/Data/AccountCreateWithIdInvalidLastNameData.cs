@@ -6,7 +6,7 @@ public class AccountCreateWithIdInvalidLastNameData : AccountCreateWithIdData
 {
 	public AccountCreateWithIdInvalidLastNameData()
 	{
-		Add(RolesData.ValidName1, ValidUsername1, ValidEmail1, ValidFirstName1, InvalidLastName1);
-		Add(RolesData.ValidName2, ValidUsername2, ValidEmail2, ValidFirstName2, InvalidLastName2);
+		Add(RolesData.ValidName, ValidUsername, ValidEmail1, ValidFirstName, MinInvalidLastName);
+		Add(RolesData.MinValidName, MinValidUsername, ValidEmail2, ValidFirstNameNull, MaxInvalidLastName);
 	}
 }

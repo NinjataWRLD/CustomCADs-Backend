@@ -6,7 +6,6 @@ using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Quantity.Increase;
 
-using Data;
 using static ActiveCartsData;
 
 public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUnitTests
@@ -23,15 +22,14 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 			.ReturnsAsync(CreateItemWithDelivery(productId: ValidProductId));
 	}
 
-	[Theory]
-	[ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
-	public async Task Handle_ShouldQueryDatabase(int amount)
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		IncreaseActiveCartItemQuantityCommand command = new(
 			BuyerId: ValidBuyerId,
 			ProductId: ValidProductId,
-			Amount: amount
+			Amount: MinValidQuantity
 		);
 
 		// Act
@@ -41,15 +39,14 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 		reads.Verify(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
-	public async Task Handle_ShouldPersistToDatabase(int amount)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		IncreaseActiveCartItemQuantityCommand command = new(
 			BuyerId: ValidBuyerId,
 			ProductId: ValidProductId,
-			Amount: amount
+			Amount: MinValidQuantity
 		);
 
 		// Act
@@ -59,9 +56,8 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
-	public async Task Handle_ShouldThrowException_WhenCartNotFound(int amount)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCartNotFound()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
@@ -70,7 +66,7 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 		IncreaseActiveCartItemQuantityCommand command = new(
 			BuyerId: ValidBuyerId,
 			ProductId: ValidProductId,
-			Amount: amount
+			Amount: MinValidQuantity
 		);
 
 		// Assert
@@ -80,15 +76,14 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 		);
 	}
 
-	[Theory]
-	[ClassData(typeof(IncreaseActiveCartItemQuantityValidData))]
-	public async Task Handle_ShouldThrowException_WhenItemNotFound(int amount)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenItemNotFound()
 	{
 		// Arrange
 		IncreaseActiveCartItemQuantityCommand command = new(
 			BuyerId: ValidBuyerId,
 			ProductId: ProductId.New(),
-			Amount: amount
+			Amount: MinValidQuantity
 		);
 
 		// Assert

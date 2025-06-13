@@ -19,8 +19,8 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 	{
 		handler = new(reads.Object, cache.Object);
 
-		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateCategory(ValidId, ValidName1, ValidDescription1));
-		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId}")).ReturnsAsync(CreateCategory(ValidId, ValidName1, ValidDescription1));
+		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateCategory(ValidId, ValidName, ValidDescription));
+		cache.Setup(v => v.GetAsync<Category>($"{CategoryKey}/{ValidId}")).ReturnsAsync(CreateCategory(ValidId, ValidName, ValidDescription));
 	}
 
 	[Fact]

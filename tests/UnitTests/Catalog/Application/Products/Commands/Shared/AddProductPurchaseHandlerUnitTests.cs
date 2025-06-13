@@ -18,8 +18,8 @@ public class AddProductPurchaseHandlerUnitTests : ProductsBaseUnitTests
 	private readonly ProductQuery query;
 	private readonly Result<Product> result;
 	private readonly Product[] products = [
-		CreateProduct(ValidName1, ValidDescription1, ValidPrice1),
-		CreateProduct(ValidName2, ValidDescription2, ValidPrice2)
+		CreateProduct(MinValidName, MinValidDescription, MinValidPrice),
+		CreateProduct(MaxValidName, MaxValidDescription, MaxValidPrice)
 	];
 
 	public AddProductPurchaseHandlerUnitTests()

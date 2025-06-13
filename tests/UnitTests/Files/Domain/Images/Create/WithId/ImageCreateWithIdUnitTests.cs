@@ -2,32 +2,29 @@
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Create.WithId;
 
-using Data;
+using static ImagesData;
 
 public class ImageCreateWithIdUnitTests : ImagesBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(ImageCreateWithIdValidData))]
-	public void CreateWithId_ShouldNotThrowExcepion_WhenImageIsValid(string key, string contentType)
+	[Fact]
+	public void CreateWithId_ShouldNotThrowExcepion_WhenImageIsValid()
 	{
-		Image.Create(key, contentType);
+		Image.Create(ValidKey, ValidContentType);
 	}
 
-	[Theory]
-	[ClassData(typeof(ImageCreateWithIdValidData))]
-	public void CreateWithId_ShouldPopulatePropertiesProperly_WhenImageIsValid(string key, string contentType)
+	[Fact]
+	public void CreateWithId_ShouldPopulatePropertiesProperly_WhenImageIsValid()
 	{
-		var image = Image.Create(key, contentType);
+		var image = Image.Create(ValidKey, ValidContentType);
 
 		Assert.Multiple(
-			() => Assert.Equal(key, image.Key),
-			() => Assert.Equal(contentType, image.ContentType)
+			() => Assert.Equal(ValidKey, image.Key),
+			() => Assert.Equal(ValidContentType, image.ContentType)
 		);
 	}
 
 	[Theory]
-	[ClassData(typeof(ImageCreateWithIdInvalidKeyData))]
-	[ClassData(typeof(ImageCreateWithIdInvalidContentTypeData))]
+	[ClassData(typeof(Data.ImageCreateWithIdInvalidData))]
 	public void CreateWithId_ShouldThrowException_WhenImageIsInvalid(string key, string contentType)
 	{
 		Assert.Throws<CustomValidationException<Image>>(

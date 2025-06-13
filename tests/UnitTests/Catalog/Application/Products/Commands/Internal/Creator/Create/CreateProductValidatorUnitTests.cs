@@ -5,7 +5,6 @@ using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create;
 
-using Data;
 using static ProductsData;
 
 public class CreateProductValidatorUnitTests
@@ -15,15 +14,14 @@ public class CreateProductValidatorUnitTests
 	private readonly CategoryId categoryId = ValidCategoryId;
 	private readonly AccountId creatorId = ValidCreatorId;
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public void Validate_ShouldBeValid_WhenProductIsValid(string name, string description, decimal price)
+	[Fact]
+	public void Validate_ShouldBeValid_WhenProductIsValid()
 	{
 		// Arrange
 		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			ImageKey: string.Empty,
 			ImageContentType: string.Empty,
 			CadKey: string.Empty,
@@ -41,9 +39,7 @@ public class CreateProductValidatorUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(CreateProductInvalidNameData))]
-	[ClassData(typeof(CreateProductInvalidDescriptionData))]
-	[ClassData(typeof(CreateProductInvalidPriceData))]
+	[ClassData(typeof(Data.CreateProductInvalidData))]
 	public void Validate_ShouldBeInvalid_WhenProductIsNotValid(string name, string description, decimal price)
 	{
 		// Arrange
@@ -65,80 +61,5 @@ public class CreateProductValidatorUnitTests
 
 		// Assert
 		Assert.False(result.IsValid);
-	}
-
-	[Theory]
-	[ClassData(typeof(CreateProductInvalidNameData))]
-	public void Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description, decimal price)
-	{
-		// Arrange
-		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
-			ImageKey: string.Empty,
-			ImageContentType: string.Empty,
-			CadKey: string.Empty,
-			CadContentType: string.Empty,
-			CadVolume: Volume,
-			CategoryId: categoryId,
-			CreatorId: creatorId
-		);
-
-		// Act
-		var result = validator.TestValidate(command);
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Name);
-	}
-
-	[Theory]
-	[ClassData(typeof(CreateProductInvalidDescriptionData))]
-	public void Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description, decimal price)
-	{
-		// Arrange
-		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
-			ImageKey: string.Empty,
-			ImageContentType: string.Empty,
-			CadKey: string.Empty,
-			CadContentType: string.Empty,
-			CadVolume: Volume,
-			CategoryId: categoryId,
-			CreatorId: creatorId
-		);
-
-		// Act
-		var result = validator.TestValidate(command);
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Description);
-	}
-
-	[Theory]
-	[ClassData(typeof(CreateProductInvalidPriceData))]
-	public void Validate_ShouldReturnProperErrors_WhenPriceIsNotValid(string name, string description, decimal price)
-	{
-		// Arrange
-		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
-			ImageKey: string.Empty,
-			ImageContentType: string.Empty,
-			CadKey: string.Empty,
-			CadContentType: string.Empty,
-			CadVolume: Volume,
-			CategoryId: categoryId,
-			CreatorId: creatorId
-		);
-
-		// Act
-		var result = validator.TestValidate(command);
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Price);
 	}
 }

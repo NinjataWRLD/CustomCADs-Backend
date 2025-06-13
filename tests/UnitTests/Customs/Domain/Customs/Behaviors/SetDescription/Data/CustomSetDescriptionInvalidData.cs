@@ -6,7 +6,7 @@ public class CustomSetDescriptionInvalidData : CustomSetDescriptionData
 {
 	public CustomSetDescriptionInvalidData()
 	{
-		Add(InvalidDescription1);
-		Add(InvalidDescription2);
+		Add(MinInvalidDescription);
+		Add(MaxInvalidDescription);
 	}
 }

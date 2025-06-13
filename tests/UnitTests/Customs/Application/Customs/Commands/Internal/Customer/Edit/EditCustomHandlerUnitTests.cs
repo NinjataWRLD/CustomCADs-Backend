@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit;
 
-using Data;
+using static CustomsData;
 
 public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 {
@@ -25,16 +25,15 @@ public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 			.ReturnsAsync(custom);
 	}
 
-	[Theory]
-	[ClassData(typeof(EditCustomValidData))]
-	public async Task Handle_ShouldQueryDatabase(string name, string description)
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		EditCustomCommand command = new(
 			Id: id,
-			Name: name,
-			Description: description,
-			BuyerId: buyerId
+			Name: MaxValidName,
+			Description: MaxValidDescription,
+			BuyerId: ValidBuyerId
 		);
 
 		// Act
@@ -44,16 +43,15 @@ public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(EditCustomValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string name, string description)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		EditCustomCommand command = new(
 			Id: id,
-			Name: name,
-			Description: description,
-			BuyerId: buyerId
+			Name: MaxValidName,
+			Description: MaxValidDescription,
+			BuyerId: ValidBuyerId
 		);
 
 		// Act

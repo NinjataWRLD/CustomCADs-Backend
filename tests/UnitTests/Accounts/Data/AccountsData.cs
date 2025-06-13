@@ -9,35 +9,35 @@ using static Constants.Users;
 
 public static class AccountsData
 {
-	public const string ValidUsername1 = CustomerUsername;
-	public const string ValidUsername2 = ContributorUsername;
-	public const string ValidUsername3 = DesignerUsername;
-	public const string ValidUsername4 = AdminUsername;
-	public const string InvalidUsername1 = "";
-	public static readonly string InvalidUsername2 = new('a', NameMinLength - 1);
-	public static readonly string InvalidUsername3 = new('a', NameMaxLength + 1);
+	public const string ValidUsername = CustomerUsername;
+	public static readonly string MinValidUsername = new('a', NameMinLength + 1);
+	public static readonly string MaxValidUsername = new('a', NameMaxLength - 1);
+	public const string InvalidUsername = "";
+	public static readonly string MinInvalidUsername = new('a', NameMinLength - 1);
+	public static readonly string MaxInvalidUsername = new('a', NameMaxLength + 1);
 
 	public const string ValidEmail1 = CustomerEmail;
 	public const string ValidEmail2 = ContributorEmail;
 	public const string ValidEmail3 = DesignerEmail;
 	public const string ValidEmail4 = AdminEmail;
-	public const string InvalidEmail1 = "";
-	public const string InvalidEmail2 = "a@a";
-	public const string InvalidEmail3 = "a@a.a";
-	public const string InvalidEmail4 = " a@a.co";
-	public const string InvalidEmail5 = "a@a.co ";
+	public const string InvalidEmail = "";
+	public const string InvalidEmailLocal = "@domain.tld";
+	public const string InvalidEmailDomain = "local@";
+	public const string InvalidEmailTLD = "local@domain";
+	public const string InvalidEmailTLDMin = "local@domain.a";
 
 	public const string ValidPassword = "password123";
+	public static readonly string MinInvalidPassword = new('a', PasswordMinLength - 1);
 
-	public const string? ValidFirstName1 = "John";
-	public const string? ValidFirstName2 = null;
-	public static readonly string InvalidFirstName1 = new('a', NameMinLength - 1);
-	public static readonly string InvalidFirstName2 = new('a', NameMaxLength + 1);
+	public const string? ValidFirstName = "John";
+	public const string? ValidFirstNameNull = null;
+	public static readonly string MinInvalidFirstName = new('a', NameMinLength - 1);
+	public static readonly string MaxInvalidFirstName = new('a', NameMaxLength + 1);
 
-	public const string? ValidLastName1 = "Doe";
-	public const string? ValidLastName2 = null;
-	public static readonly string InvalidLastName1 = new('a', NameMinLength - 1);
-	public static readonly string InvalidLastName2 = new('a', NameMaxLength + 1);
+	public const string? ValidLastName = "Doe";
+	public const string? ValidLastNameNull = null;
+	public static readonly string MinInvalidLastName = new('a', NameMinLength - 1);
+	public static readonly string MaxInvalidLastName = new('a', NameMaxLength + 1);
 
 	public static readonly AccountId ValidId = AccountId.New(CustomerAccountId);
 }

@@ -7,8 +7,6 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.DuplicateByIds;
 
-using static CadsData;
-
 public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 {
 	private readonly DuplicateCadsByIdsHandler handler;
@@ -17,10 +15,9 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 	private readonly Mock<IUnitOfWork> uow = new();
 
 	private readonly Cad[] cads = [
-		CreateCadWithId(id1, ValidKey1, ValidContentType1, ValidVolume1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1, ValidCoord1),
-		CreateCadWithId(id2, ValidKey2, ValidContentType2, ValidVolume2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2, ValidCoord2),
+		CreateCadWithId(id),
 	];
-	private readonly CadId[] ids = [id1, id2];
+	private readonly CadId[] ids = [id];
 	private readonly CadQuery query;
 	private readonly Result<Cad> result;
 

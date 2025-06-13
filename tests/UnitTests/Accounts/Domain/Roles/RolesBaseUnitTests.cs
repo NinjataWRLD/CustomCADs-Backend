@@ -6,8 +6,8 @@ using static RolesData;
 public class RolesBaseUnitTests
 {
 	protected static Role CreateRole(
-		string name = ValidName1,
-		string description = ValidDescription1
+		string name = ValidName,
+		string description = ValidDescription
 	) => Role.Create(
 			name: name,
 			description: description
@@ -15,8 +15,8 @@ public class RolesBaseUnitTests
 
 	protected static Role CreateRoleWithId(
 		RoleId? id = null,
-		string name = ValidName1,
-		string description = ValidDescription1
+		string name = ValidName,
+		string description = ValidDescription
 	) => Role.CreateWithId(
 			id: id ?? ValidId,
 			name: name,

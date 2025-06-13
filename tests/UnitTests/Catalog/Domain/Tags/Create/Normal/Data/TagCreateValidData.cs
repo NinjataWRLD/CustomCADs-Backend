@@ -6,7 +6,7 @@ public class TagCreateValidData : TagCreateData
 {
 	public TagCreateValidData()
 	{
-		Add(ValidName1);
-		Add(ValidName2);
+		Add(MinValidName);
+		Add(MaxValidName);
 	}
 }

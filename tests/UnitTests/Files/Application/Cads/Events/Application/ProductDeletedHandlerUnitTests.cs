@@ -20,7 +20,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 	public ProductDeletedHandlerUnitTests()
 	{
 		handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
-		reads.Setup(x => x.SingleByIdAsync(id1, true, ct)).ReturnsAsync(cad);
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct)).ReturnsAsync(cad);
 	}
 
 	[Fact]
@@ -29,7 +29,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		// Arrange
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			CadId: id1,
+			CadId: id,
 			ImageId: default
 		);
 
@@ -37,7 +37,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
 	}
 
 	[Fact]
@@ -46,7 +46,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		// Arrange
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			CadId: id1,
+			CadId: id,
 			ImageId: default
 		);
 
@@ -64,7 +64,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		// Arrange
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			CadId: id1,
+			CadId: id,
 			ImageId: default
 		);
 
@@ -79,12 +79,12 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(null as Cad);
 
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			CadId: id1,
+			CadId: id,
 			ImageId: default
 		);
 

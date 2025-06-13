@@ -4,7 +4,7 @@ using CustomCADs.Shared.UseCases.Images.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create;
 
-using Data;
+using static ImagesData;
 
 public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 {
@@ -17,14 +17,13 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 		handler = new(writes.Object, uow.Object);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateImageValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string key, string contentType)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateImageCommand command = new(
-			Key: key,
-			ContentType: contentType
+			Key: ValidKey,
+			ContentType: ValidContentType
 		);
 
 		// Act
@@ -32,7 +31,7 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 
 		// Assert
 		writes.Verify(x => x.AddAsync(
-			It.Is<Image>(x => x.Key == key && x.ContentType == contentType),
+			It.Is<Image>(x => x.Key == ValidKey && x.ContentType == ValidContentType),
 			ct
 		), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);

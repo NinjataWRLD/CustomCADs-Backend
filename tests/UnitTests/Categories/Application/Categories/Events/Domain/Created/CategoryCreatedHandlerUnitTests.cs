@@ -5,7 +5,6 @@ using CustomCADs.Shared.Abstractions.Cache;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Events.Domain.Created;
 
-using Data;
 using static CachingKeys;
 using static CategoriesData;
 
@@ -19,13 +18,12 @@ public class CategoryCreatedHandlerUnitTests : CategoriesBaseUnitTests
 		handler = new(cache.Object);
 	}
 
-	[Theory]
-	[ClassData(typeof(CategoryCreatedValidData))]
-	public async Task Handle_ShouldUpdateCache(string name, string description)
+	[Fact]
+	public async Task Handle_ShouldUpdateCache()
 	{
 		// Arrange
 		CategoryCreatedDomainEvent de = new(
-			Category: CreateCategory(ValidId, name, description)
+			Category: CreateCategory(ValidId, ValidName, ValidDescription)
 		);
 
 		// Act

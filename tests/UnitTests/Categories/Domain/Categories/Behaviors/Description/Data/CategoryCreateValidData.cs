@@ -6,8 +6,8 @@ public class CategoryCreateValidData : CategoryDescriptionData
 {
 	public CategoryCreateValidData()
 	{
-		Add(ValidDescription1);
-		Add(ValidDescription2);
-		Add(ValidDescription3);
+		Add(ValidDescription);
+		Add(MinValidDescription);
+		Add(MaxValidDescription);
 	}
 }

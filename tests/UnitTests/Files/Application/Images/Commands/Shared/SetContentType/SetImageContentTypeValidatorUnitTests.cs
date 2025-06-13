@@ -4,18 +4,17 @@ using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetContentType;
 
-using Data;
+using static ImagesData;
 
 public class SetImageContentTypeValidatorUnitTests : ImagesBaseUnitTests
 {
 	private readonly SetImageContentTypeValidator validator = new();
 
-	[Theory]
-	[ClassData(typeof(SetImageContentTypeValidData))]
-	public void Validate_ShouldBeValid_WhenContentTypeIsValid(string contentType)
+	[Fact]
+	public void Validate_ShouldBeValid_WhenContentTypeIsValid()
 	{
 		// Arrange
-		SetImageContentTypeCommand command = new(id1, contentType);
+		SetImageContentTypeCommand command = new(id, ValidContentType);
 
 		// Act
 		var result = validator.TestValidate(command);
@@ -24,12 +23,11 @@ public class SetImageContentTypeValidatorUnitTests : ImagesBaseUnitTests
 		Assert.True(result.IsValid);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetImageContentTypeInvalidData))]
-	public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string contentType)
+	[Fact]
+	public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid()
 	{
 		// Arrange
-		SetImageContentTypeCommand command = new(id1, contentType);
+		SetImageContentTypeCommand command = new(id, ValidContentType);
 
 		// Act
 		var result = validator.TestValidate(new(command));

@@ -61,15 +61,14 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		)).ReturnsAsync(true);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldPersistToDatabase(string name, string description, decimal price)
+	[Fact]
+	public async Task Handler_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			ImageKey: string.Empty,
 			ImageContentType: string.Empty,
 			CadKey: string.Empty,
@@ -85,9 +84,9 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		// Assert
 		writes.Verify(x => x.AddAsync(
 			It.Is<Product>(x =>
-				x.Name == name &&
-				x.Description == description &&
-				x.Price == price &&
+				x.Name == MinValidName &&
+				x.Description == MinValidDescription &&
+				x.Price == MinValidPrice &&
 				x.Status == ProductStatus.Unchecked &&
 				x.CreatorId == creatorId &&
 				x.CategoryId == categoryId &&
@@ -99,15 +98,14 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Exactly(2));
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldSendRequests(string name, string description, decimal price)
+	[Fact]
+	public async Task Handler_ShouldSendRequests()
 	{
 		// Arrange
 		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			ImageKey: string.Empty,
 			ImageContentType: string.Empty,
 			CadKey: string.Empty,
@@ -143,9 +141,8 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldSetStatusProperlty(string name, string description, decimal price)
+	[Fact]
+	public async Task Handler_ShouldSetStatusProperlty()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(
@@ -154,9 +151,9 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		)).ReturnsAsync(Designer);
 
 		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			ImageKey: string.Empty,
 			ImageContentType: string.Empty,
 			CadKey: string.Empty,
@@ -176,9 +173,8 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldThrowException_WhenCategoryNotFound(string name, string description, decimal price)
+	[Fact]
+	public async Task Handler_ShouldThrowException_WhenCategoryNotFound()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(
@@ -187,9 +183,9 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		)).ReturnsAsync(false);
 
 		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			ImageKey: string.Empty,
 			ImageContentType: string.Empty,
 			CadKey: string.Empty,
@@ -206,9 +202,8 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateProductValidData))]
-	public async Task Handler_ShouldThrowException_WhenAccountNotFound(string name, string description, decimal price)
+	[Fact]
+	public async Task Handler_ShouldThrowException_WhenAccountNotFound()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(
@@ -217,9 +212,9 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		)).ReturnsAsync(false);
 
 		CreateProductCommand command = new(
-			Name: name,
-			Description: description,
-			Price: price,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			ImageKey: string.Empty,
 			ImageContentType: string.Empty,
 			CadKey: string.Empty,

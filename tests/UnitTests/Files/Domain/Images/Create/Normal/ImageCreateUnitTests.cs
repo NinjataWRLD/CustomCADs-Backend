@@ -2,41 +2,30 @@
 
 namespace CustomCADs.UnitTests.Files.Domain.Images.Create.Normal;
 
-using Data;
+using static ImagesData;
 
 public class ImageCreateUnitTests : ImagesBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(ImageCreateValidData))]
-	public void Create_ShouldNotThrowExcepion_WhenImageIsValid(string key, string contentType)
+	[Fact]
+	public void Create_ShouldNotThrowExcepion_WhenImageIsValid()
 	{
-		Image.Create(key, contentType);
+		Image.Create(ValidKey, ValidContentType);
 	}
 
-	[Theory]
-	[ClassData(typeof(ImageCreateValidData))]
-	public void Create_ShouldPopulatePropertiesProperly_WhenImageIsValid(string key, string contentType)
+	[Fact]
+	public void Create_ShouldPopulatePropertiesProperly_WhenImageIsValid()
 	{
-		var image = Image.Create(key, contentType);
+		var image = Image.Create(ValidKey, ValidContentType);
 
 		Assert.Multiple(
-			() => Assert.Equal(key, image.Key),
-			() => Assert.Equal(contentType, image.ContentType)
+			() => Assert.Equal(ValidKey, image.Key),
+			() => Assert.Equal(ValidContentType, image.ContentType)
 		);
 	}
 
 	[Theory]
-	[ClassData(typeof(ImageCreateInvalidKeyData))]
+	[ClassData(typeof(Data.ImageCreateInvalidData))]
 	public void Create_ShouldThrowException_WhenKeyIsInvalid(string key, string contentType)
-	{
-		Assert.Throws<CustomValidationException<Image>>(
-			() => Image.Create(key, contentType)
-		);
-	}
-
-	[Theory]
-	[ClassData(typeof(ImageCreateInvalidContentTypeData))]
-	public void Create_ShouldThrowException_WhenContentTypeIsInvalid(string key, string contentType)
 	{
 		Assert.Throws<CustomValidationException<Image>>(
 			() => Image.Create(key, contentType)

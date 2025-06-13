@@ -4,18 +4,17 @@ using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetContentType;
 
-using Data;
+using static CadsData;
 
 public class SetCadContentTypeValidatorUnitTests : CadsBaseUnitTests
 {
 	private readonly SetCadContentTypeValidator validator = new();
 
-	[Theory]
-	[ClassData(typeof(SetCadContentTypeValidData))]
-	public void Validate_ShouldBeValid_WhenContentTypeIsValid(string contentType)
+	[Fact]
+	public void Validate_ShouldBeValid_WhenContentTypeIsValid()
 	{
 		// Arrange
-		SetCadContentTypeCommand command = new(id1, contentType);
+		SetCadContentTypeCommand command = new(id, ValidContentType);
 
 		// Act
 		var result = validator.TestValidate(command);
@@ -24,12 +23,11 @@ public class SetCadContentTypeValidatorUnitTests : CadsBaseUnitTests
 		Assert.True(result.IsValid);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadContentTypeInvalidData))]
-	public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string contentType)
+	[Fact]
+	public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid()
 	{
 		// Arrange
-		SetCadContentTypeCommand command = new(id1, contentType);
+		SetCadContentTypeCommand command = new(id, InvalidContentType);
 
 		// Act
 		var result = validator.TestValidate(new(command));

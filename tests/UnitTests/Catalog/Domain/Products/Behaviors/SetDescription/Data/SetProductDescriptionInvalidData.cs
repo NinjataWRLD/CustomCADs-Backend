@@ -6,7 +6,7 @@ public class SetProductDescriptionInvalidData : SetProductDescriptionData
 {
 	public SetProductDescriptionInvalidData()
 	{
-		Add(InvalidDescription1);
-		Add(InvalidDescription2);
+		Add(MinInvalidDescription);
+		Add(MaxInvalidDescription);
 	}
 }

@@ -35,14 +35,14 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
 	public async Task Handle_ShouldReturnProperly_WhenAccountFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateAccount(role: RolesData.ValidName1));
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateAccount(role: RolesData.ValidName));
 		GetUserRoleByIdQuery query = new(ValidId);
 
 		// Act
 		string actualRole = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.Equal(RolesData.ValidName1, actualRole);
+		Assert.Equal(RolesData.ValidName, actualRole);
 	}
 
 	[Fact]

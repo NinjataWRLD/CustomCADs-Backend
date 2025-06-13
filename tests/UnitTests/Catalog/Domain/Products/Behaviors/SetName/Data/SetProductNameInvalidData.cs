@@ -6,7 +6,7 @@ public class SetProductNameInvalidData : SetProductNameData
 {
 	public SetProductNameInvalidData()
 	{
-		Add(InvalidName1);
-		Add(InvalidName2);
+		Add(MinInvalidName);
+		Add(MaxInvalidName);
 	}
 }
