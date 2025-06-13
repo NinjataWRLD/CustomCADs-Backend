@@ -7,13 +7,13 @@ using static AccountsData;
 public class AccountsBaseUnitTests
 {
 	protected static Account CreateAccount(
-		string role = RolesData.ValidName,
+		string? role = null,
 		string username = ValidUsername,
 		string email = ValidEmail1,
 		string? firstName = ValidFirstName,
 		string? lastName = ValidLastName
 	) => Account.Create(
-			role: role,
+			role: role ?? RolesData.ValidName,
 			username: username,
 			email: email,
 			firstName: firstName,
@@ -22,7 +22,7 @@ public class AccountsBaseUnitTests
 
 	protected static Account CreateAccountWithId(
 		AccountId? id = null,
-		string role = RolesData.ValidName,
+		string? role = null,
 		string username = ValidUsername,
 		string email = ValidEmail1,
 		DateTimeOffset? createdAt = null,
@@ -30,7 +30,7 @@ public class AccountsBaseUnitTests
 		string? lastName = ValidLastName
 	) => Account.CreateWithId(
 			id: id ?? ValidId,
-			role: role,
+			role: role ?? RolesData.ValidName,
 			username: username,
 			email: email,
 			createdAt: createdAt ?? DateTimeOffset.UtcNow,

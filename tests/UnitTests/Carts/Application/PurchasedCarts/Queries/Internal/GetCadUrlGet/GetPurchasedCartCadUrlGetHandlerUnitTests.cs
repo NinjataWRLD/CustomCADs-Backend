@@ -39,7 +39,7 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 				addedAt: DateTimeOffset.UtcNow
 			),
 		]
-	);
+	).FinishPayment(success: true);
 	private const string Url = "presigned-Url";
 	private const string ContentType = "presigned-Url";
 

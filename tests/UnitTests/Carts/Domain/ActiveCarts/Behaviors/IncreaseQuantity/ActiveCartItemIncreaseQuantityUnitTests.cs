@@ -16,7 +16,7 @@ public class ActiveCartItemIncreaseQuantityUnitTests : ActiveCartItemsBaseUnitTe
 
 	[Theory]
 	[InlineData(MaxInvalidQuantity)]
-	[InlineData(MinInvalidQuantity)]
+	[InlineData(MinInvalidQuantity - 1)]
 	public void Increase_ShouldThrowException_WhenInvalidAmount(int amount)
 	{
 		Assert.Throws<CustomValidationException<ActiveCartItem>>(

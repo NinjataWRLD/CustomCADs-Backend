@@ -21,6 +21,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 	private readonly Mock<IPaymentService> payment = new();
 
 	private static readonly AccountId buyerId = AccountId.New();
+	private const string PaymentMethodId = "payment-method-id";
 	private readonly Custom custom = CreateCustom(
 		buyerId: ValidBuyerId
 	);
@@ -46,7 +47,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
+		PurchaseCustomCommand command = new(ValidId, PaymentMethodId, ValidBuyerId);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -59,7 +60,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 	public async Task Handle_ShouldSendRequests()
 	{
 		// Arrange
-		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
+		PurchaseCustomCommand command = new(ValidId, PaymentMethodId, ValidBuyerId);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -75,16 +76,16 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 	public async Task Handle_ShouldCallPayment()
 	{
 		// Arrange
-		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
+		PurchaseCustomCommand command = new(ValidId, PaymentMethodId, ValidBuyerId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		payment.Verify(x => x.InitializeCustomPayment(
-			It.Is<string>(x => string.IsNullOrEmpty(x)),
-			It.Is<AccountId>(x => x == ValidBuyerId),
-			It.Is<CustomId>(x => x == ValidId),
+			It.Is<string>(x => x == PaymentMethodId),
+			It.Is<AccountId>(x => x == custom.BuyerId),
+			It.Is<CustomId>(x => x == custom.Id),
 			It.Is<decimal>(x => x == ValidPrice),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
@@ -97,14 +98,14 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 		// Arrange
 		PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
 		payment.Setup(x => x.InitializeCustomPayment(
-			It.Is<string>(x => string.IsNullOrEmpty(x)),
-			It.Is<AccountId>(x => x == ValidBuyerId),
-			It.Is<CustomId>(x => x == ValidId),
+			It.Is<string>(x => x == PaymentMethodId),
+			It.Is<AccountId>(x => x == custom.BuyerId),
+			It.Is<CustomId>(x => x == custom.Id),
 			It.Is<decimal>(x => x == ValidPrice),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
 		)).ReturnsAsync(expected);
-		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
+		PurchaseCustomCommand command = new(ValidId, PaymentMethodId, ValidBuyerId);
 
 		// Act
 		PaymentDto actual = await handler.Handle(command, ct);
@@ -133,7 +134,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 		var custom = CreateCustom(buyerId: ValidBuyerId);
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
-		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
+		PurchaseCustomCommand command = new(ValidId, PaymentMethodId, ValidBuyerId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomException>(
@@ -150,7 +151,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 		custom.Accept(ValidDesignerId);
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
-		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
+		PurchaseCustomCommand command = new(ValidId, PaymentMethodId, ValidBuyerId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomException>(
@@ -166,7 +167,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 		var custom = CreateCustom(buyerId: ValidBuyerId, forDelivery: true);
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
-		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
+		PurchaseCustomCommand command = new(ValidId, PaymentMethodId, ValidBuyerId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomException>(
@@ -181,7 +182,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(null as Custom);
-		PurchaseCustomCommand command = new(ValidId, string.Empty, ValidBuyerId);
+		PurchaseCustomCommand command = new(ValidId, PaymentMethodId, ValidBuyerId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(

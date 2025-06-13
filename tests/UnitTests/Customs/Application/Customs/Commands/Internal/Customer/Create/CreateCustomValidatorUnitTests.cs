@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Create;
-using CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit.Data;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create;
@@ -29,7 +28,7 @@ public class CreateCustomValidatorUnitTests : CustomsBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(EditCustomInvalidData))]
+	[ClassData(typeof(Data.CreateCustomInvalidData))]
 	public async Task Validate_ShouldBeInvalid_WhenCustomIsNotValid(string name, string description, bool fordelivery)
 	{
 		// Arrange

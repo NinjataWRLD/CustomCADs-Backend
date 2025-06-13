@@ -21,6 +21,6 @@ public class CreateShipmentInvalidData : TheoryData<string, int, double, string,
 
 		// Contact
 		Add(ValidService, MinValidCount, MinValidWeight, ValidRecipient, ValidCountry, ValidCity, ValidStreet, InvalidPhone, ValidEmail);
-		Add(ValidService, MinValidCount, MinValidWeight, ValidRecipient, ValidCountry, ValidCity, ValidStreet, InvalidPhone, InvalidEmail);
+		Add(ValidService, MinValidCount, MinValidWeight, ValidRecipient, ValidCountry, ValidCity, ValidStreet, ValidPhone, InvalidEmail);
 	}
 }

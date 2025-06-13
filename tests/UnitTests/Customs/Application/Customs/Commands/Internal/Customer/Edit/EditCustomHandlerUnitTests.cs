@@ -33,7 +33,7 @@ public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 			Id: id,
 			Name: MaxValidName,
 			Description: MaxValidDescription,
-			BuyerId: ValidBuyerId
+			BuyerId: buyerId
 		);
 
 		// Act
@@ -51,7 +51,7 @@ public class EditCustomHandlerUnitTests : CustomsBaseUnitTests
 			Id: id,
 			Name: MaxValidName,
 			Description: MaxValidDescription,
-			BuyerId: ValidBuyerId
+			BuyerId: buyerId
 		);
 
 		// Act

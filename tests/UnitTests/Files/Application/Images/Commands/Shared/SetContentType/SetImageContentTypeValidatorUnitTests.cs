@@ -27,7 +27,7 @@ public class SetImageContentTypeValidatorUnitTests : ImagesBaseUnitTests
 	public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid()
 	{
 		// Arrange
-		SetImageContentTypeCommand command = new(id, ValidContentType);
+		SetImageContentTypeCommand command = new(id, InvalidContentType);
 
 		// Act
 		var result = validator.TestValidate(new(command));

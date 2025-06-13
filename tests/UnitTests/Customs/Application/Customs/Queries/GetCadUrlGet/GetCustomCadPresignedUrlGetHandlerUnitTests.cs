@@ -28,6 +28,7 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 		custom.Begin();
 		custom.Finish(ValidCadId, ValidPrice);
 		custom.Complete(ValidCustomizationId);
+		custom.FinishPayment(success: true);
 
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);

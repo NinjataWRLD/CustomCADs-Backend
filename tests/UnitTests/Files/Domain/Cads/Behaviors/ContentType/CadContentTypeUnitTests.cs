@@ -30,7 +30,7 @@ public class CadContentTypeUnitTests : CadsBaseUnitTests
 		var cad = CreateCad();
 
 		Assert.Throws<CustomValidationException<Cad>>(
-			() => cad.SetContentType(ValidContentType)
+			() => cad.SetContentType(InvalidContentType)
 		);
 	}
 }

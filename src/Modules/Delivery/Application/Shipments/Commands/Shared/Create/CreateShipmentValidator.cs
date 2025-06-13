@@ -36,6 +36,9 @@ public class CreateShipmentValidator : CommandValidator<CreateShipmentCommand, S
 
 				x.RuleFor(x => x.City)
 					.NotEmpty().WithMessage(RequiredError);
+
+				x.RuleFor(x => x.Street)
+					.NotEmpty().WithMessage(RequiredError);
 			});
 
 		RuleFor(x => x.Contact)

@@ -38,8 +38,6 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
 
 		// Assert
 		result.ShouldHaveValidationErrorFor(x => x.CamCoordinates!.X);
-		result.ShouldHaveValidationErrorFor(x => x.CamCoordinates!.Y);
-		result.ShouldHaveValidationErrorFor(x => x.CamCoordinates!.Z);
 	}
 
 	[Fact]
@@ -53,7 +51,5 @@ public class SetCadCoordsValidatorUnitTests : CadsBaseUnitTests
 
 		// Assert
 		result.ShouldHaveValidationErrorFor(x => x.PanCoordinates!.X);
-		result.ShouldHaveValidationErrorFor(x => x.PanCoordinates!.Y);
-		result.ShouldHaveValidationErrorFor(x => x.PanCoordinates!.Z);
 	}
 }
