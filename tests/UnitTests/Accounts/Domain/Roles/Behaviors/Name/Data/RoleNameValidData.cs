@@ -6,9 +6,8 @@ public class RoleNameValidData : RoleNameData
 {
 	public RoleNameValidData()
 	{
-		Add(ValidName1);
-		Add(ValidName2);
-		Add(ValidName3);
-		Add(ValidName4);
+		Add(ValidName);
+		Add(MinValidName);
+		Add(MaxValidName);
 	}
 }

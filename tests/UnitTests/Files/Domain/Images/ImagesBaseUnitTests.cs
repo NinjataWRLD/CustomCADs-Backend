@@ -4,6 +4,6 @@ using static CadsData;
 
 public class ImagesBaseUnitTests
 {
-	protected static Image CreateImage(string key = ValidKey1, string contentType = ValidContentType1)
+	protected static Image CreateImage(string key = ValidKey, string contentType = ValidContentType)
 		=> Image.Create(key, contentType);
 }

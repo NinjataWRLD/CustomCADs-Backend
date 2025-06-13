@@ -23,7 +23,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	{
 		handler = new(reads.Object, delivery.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateShipment());
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateShipment());
 		delivery.Setup(x => x.PrintAsync(ValidReferenceId, ct)).ReturnsAsync(bytes);
 	}
 
@@ -31,20 +31,20 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	public async Task Handle_ShouldQueryDatbase()
 	{
 		// Arrange
-		GetShipmentWaybillQuery query = new(id, headDesignerId);
+		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
 	{
 		// Arrange
-		GetShipmentWaybillQuery query = new(id, headDesignerId);
+		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -57,7 +57,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	public async Task Handle_ShouldReturnProperly_WhenShipmentFound()
 	{
 		// Arrange
-		GetShipmentWaybillQuery query = new(id, headDesignerId);
+		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);
 
 		// Act
 		byte[] bytes = await handler.Handle(query, ct);
@@ -70,8 +70,8 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenShipmentNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Shipment);
-		GetShipmentWaybillQuery query = new(id, headDesignerId);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Shipment);
+		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(
@@ -84,7 +84,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenCallerNotHeadDesigner()
 	{
 		// Arrange
-		GetShipmentWaybillQuery query = new(id, ValidBuyerId);
+		GetShipmentWaybillQuery query = new(ValidId, ValidBuyerId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomAuthorizationException<Shipment>>(

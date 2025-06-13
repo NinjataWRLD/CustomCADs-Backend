@@ -40,7 +40,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
 		custom.Accept(ValidDesignerId);
 		custom.Begin();
-		custom.Finish(ValidCadId, ValidPrice1);
+		custom.Finish(ValidCadId, ValidPrice);
 
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
@@ -136,7 +136,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 			It.Is<string>(x => string.IsNullOrEmpty(x)),
 			It.Is<AccountId>(x => x == ValidBuyerId),
 			It.Is<CustomId>(x => x == ValidId),
-			It.Is<decimal>(x => x == ValidPrice1),
+			It.Is<decimal>(x => x == ValidPrice),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
 		), Times.Once);
@@ -175,7 +175,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 			It.Is<string>(x => string.IsNullOrEmpty(x)),
 			It.Is<AccountId>(x => x == ValidBuyerId),
 			It.Is<CustomId>(x => x == ValidId),
-			It.Is<decimal>(x => x == ValidPrice1),
+			It.Is<decimal>(x => x == ValidPrice),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
 		)).ReturnsAsync(expected);

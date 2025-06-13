@@ -19,7 +19,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 	{
 		handler = new(reads.Object, storage.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
 			.ReturnsAsync(cad);
 
 		storage.Setup(x => x.GetPresignedGetUrlAsync(cad.Key, cad.ContentType))
@@ -30,20 +30,20 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		GetCadPresignedUrlGetByIdQuery query = new(id1);
+		GetCadPresignedUrlGetByIdQuery query = new(id);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id1, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldCallStorage()
 	{
 		// Arrange
-		GetCadPresignedUrlGetByIdQuery query = new(id1);
+		GetCadPresignedUrlGetByIdQuery query = new(id);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -59,7 +59,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldReturnProperly()
 	{
 		// Arrange
-		GetCadPresignedUrlGetByIdQuery query = new(id1);
+		GetCadPresignedUrlGetByIdQuery query = new(id);
 
 		// Act
 		var (Url, ContentType) = await handler.Handle(query, ct);
@@ -75,9 +75,9 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
 			.ReturnsAsync(null as Cad);
-		GetCadPresignedUrlGetByIdQuery query = new(id1);
+		GetCadPresignedUrlGetByIdQuery query = new(id);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(

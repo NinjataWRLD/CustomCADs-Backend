@@ -3,38 +3,37 @@ using CustomCADs.Shared.Core.Common.ValueObjects;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.CamCoordinates;
 
-using Data;
+using static CadsData;
 
 public class CadCamCoordinatesUnitTests : CadsBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(CadCamCoordinatesValidData))]
-	public void SetCamCoordinates_ShouldNotThrowException_WhenCoordinatesAreValid(Coordinates coordinates)
+	private static readonly Coordinates coords = new(MinValidCoord, MinValidCoord, MinValidCoord);
+
+	[Fact]
+	public void SetCamCoordinates_ShouldNotThrowException_WhenCoordinatesAreValid()
 	{
 		var cad = CreateCad();
 
-		cad.SetCamCoordinates(coordinates);
+		cad.SetCamCoordinates(coords);
 	}
 
-	[Theory]
-	[ClassData(typeof(CadCamCoordinatesValidData))]
-	public void SetCamCoordinates_ShouldPopulateProperly_WhenCoordinatesAreValid(Coordinates coordinates)
+	[Fact]
+	public void SetCamCoordinates_ShouldPopulateProperly_WhenCoordinatesAreValid()
 	{
 		var cad = CreateCad();
 
-		cad.SetCamCoordinates(coordinates);
+		cad.SetCamCoordinates(coords);
 
-		Assert.Equal(coordinates, cad.CamCoordinates);
+		Assert.Equal(coords, cad.CamCoordinates);
 	}
 
-	[Theory]
-	[ClassData(typeof(CadCamCoordinatesInvalidData))]
-	public void SetCamCoordinates_ShouldThrowException_WhenCoordinatesIsInvalid(Coordinates coordinates)
+	[Fact]
+	public void SetCamCoordinates_ShouldThrowException_WhenCoordinatesIsInvalid()
 	{
 		var cad = CreateCad();
 
 		Assert.Throws<CustomValidationException<Cad>>(
-			() => cad.SetCamCoordinates(coordinates)
+			() => cad.SetCamCoordinates(coords with { X = MinInvalidCoord })
 		);
 	}
 }

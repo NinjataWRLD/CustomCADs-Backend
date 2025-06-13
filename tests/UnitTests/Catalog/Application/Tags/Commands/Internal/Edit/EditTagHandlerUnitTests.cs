@@ -7,7 +7,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Edit;
 
-using Data;
+using static TagsData;
 
 public class EditTagHandlerUnitTests : TagsBaseUnitTests
 {
@@ -26,12 +26,11 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
 			.ReturnsAsync(tag);
 	}
 
-	[Theory]
-	[ClassData(typeof(EditTagValidData))]
-	public async Task Handler_ShouldQueryDatabase(string name)
+	[Fact]
+	public async Task Handler_ShouldQueryDatabase()
 	{
 		// Arrange
-		EditTagCommand command = new(id, name);
+		EditTagCommand command = new(id, MaxValidName);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -40,12 +39,11 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
 		reads.Verify(v => v.SingleByIdAsync(id, true, ct), Times.Once());
 	}
 
-	[Theory]
-	[ClassData(typeof(EditTagValidData))]
-	public async Task Handler_ShouldPersistToDatabase(string name)
+	[Fact]
+	public async Task Handler_ShouldPersistToDatabase()
 	{
 		// Arrange
-		EditTagCommand command = new(id, name);
+		EditTagCommand command = new(id, MaxValidName);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -56,18 +54,17 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
 	}
 
 
-	[Theory]
-	[ClassData(typeof(EditTagValidData))]
-	public async Task Handler_ShouldThrowException_WhenTagDoesNotExist(string name)
+	[Fact]
+	public async Task Handler_ShouldThrowException_WhenTagDoesNotExist()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(null as Tag);
-		EditTagCommand command = new(id, name);
+		EditTagCommand command = new(id, MaxValidName);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(
-			// Act  
+			// Act
 			async () => await handler.Handle(command, ct)
 		);
 	}

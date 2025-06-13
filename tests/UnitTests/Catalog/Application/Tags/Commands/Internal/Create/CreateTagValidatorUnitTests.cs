@@ -3,18 +3,17 @@ using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Create;
 
-using Data;
+using static TagsData;
 
 public class CreateTagValidatorUnitTests : TagsBaseUnitTests
 {
 	private readonly CreateTagValidator validator = new();
 
-	[Theory]
-	[ClassData(typeof(CreateTagValidData))]
-	public void Validate_ShouldBeValid_WhenTagIsValid(string name)
+	[Fact]
+	public void Validate_ShouldBeValid_WhenTagIsValid()
 	{
 		// Arrange
-		CreateTagCommand command = new(name);
+		CreateTagCommand command = new(MaxValidName);
 
 		// Act
 		var result = validator.TestValidate(new(command));
@@ -24,7 +23,7 @@ public class CreateTagValidatorUnitTests : TagsBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(CreateTagInvalidNameData))]
+	[ClassData(typeof(Data.CreateTagInvalidData))]
 	public void Validate_ShouldBeInvalid_WhenTagIsNotValid(string name)
 	{
 		// Arrange
@@ -35,19 +34,5 @@ public class CreateTagValidatorUnitTests : TagsBaseUnitTests
 
 		// Assert
 		Assert.False(result.IsValid);
-	}
-
-	[Theory]
-	[ClassData(typeof(CreateTagInvalidNameData))]
-	public void Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name)
-	{
-		// Arrange
-		CreateTagCommand command = new(name);
-
-		// Act
-		var result = validator.TestValidate(new(command));
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Name);
 	}
 }

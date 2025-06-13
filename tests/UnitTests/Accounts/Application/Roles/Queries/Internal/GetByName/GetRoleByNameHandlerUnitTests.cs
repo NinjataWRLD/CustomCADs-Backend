@@ -20,15 +20,13 @@ public class GetRoleByNameHandlerUnitTests : RolesBaseUnitTests
 	{
 		handler = new(reads.Object, cache.Object);
 
-		reads.Setup(x => x.SingleByNameAsync(ValidName1, false, ct)).ReturnsAsync(CreateRole(ValidName1, ValidDescription1));
-		reads.Setup(x => x.SingleByNameAsync(ValidName2, false, ct)).ReturnsAsync(CreateRole(ValidName2, ValidDescription2));
-		reads.Setup(x => x.SingleByNameAsync(ValidName3, false, ct)).ReturnsAsync(CreateRole(ValidName3, ValidDescription3));
-		reads.Setup(x => x.SingleByNameAsync(ValidName4, false, ct)).ReturnsAsync(CreateRole(ValidName4, ValidDescription4));
+		reads.Setup(x => x.SingleByNameAsync(ValidName, false, ct)).ReturnsAsync(CreateRole(ValidName, ValidDescription));
+		reads.Setup(x => x.SingleByNameAsync(MinValidName, false, ct)).ReturnsAsync(CreateRole(MinValidName, MinValidDescription));
+		reads.Setup(x => x.SingleByNameAsync(MaxValidName, false, ct)).ReturnsAsync(CreateRole(MaxValidName, MaxValidDescription));
 
-		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{ValidName1}")).ReturnsAsync(CreateRole(ValidName1, ValidDescription1));
-		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{ValidName2}")).ReturnsAsync(CreateRole(ValidName2, ValidDescription2));
-		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{ValidName3}")).ReturnsAsync(CreateRole(ValidName3, ValidDescription3));
-		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{ValidName4}")).ReturnsAsync(CreateRole(ValidName4, ValidDescription4));
+		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{ValidName}")).ReturnsAsync(CreateRole(ValidName, ValidDescription));
+		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{MinValidName}")).ReturnsAsync(CreateRole(MinValidName, MinValidDescription));
+		cache.Setup(x => x.GetAsync<Role>($"{RoleKey}/{MaxValidName}")).ReturnsAsync(CreateRole(MaxValidName, MaxValidDescription));
 	}
 
 	[Theory]

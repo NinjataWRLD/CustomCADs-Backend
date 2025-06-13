@@ -6,7 +6,7 @@ public class SetTagNameValidData : SetTagNameData
 {
 	public SetTagNameValidData()
 	{
-		Add(ValidName1);
-		Add(ValidName2);
+		Add(MinValidName);
+		Add(MaxValidName);
 	}
 }

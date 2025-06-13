@@ -51,8 +51,8 @@ public class PurchasedCartsBaseUnitTests
 			productId: productId ?? ValidProductId,
 			cadId: cadId ?? ValidCadId,
 			customizationId: customizationId ?? ValidCustomizationId,
-			price: price ?? ValidPrice1,
-			quantity: quantity ?? ValidQuantity1,
+			price: price ?? MinValidPrice,
+			quantity: quantity ?? MinValidQuantity,
 			forDelivery: forDelivery ?? false,
 				addedAt: DateTimeOffset.UtcNow
 		);

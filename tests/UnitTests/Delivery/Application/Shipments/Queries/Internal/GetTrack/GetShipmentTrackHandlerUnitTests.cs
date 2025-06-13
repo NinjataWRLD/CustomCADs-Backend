@@ -18,7 +18,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	public GetShipmentTrackHandlerUnitTests()
 	{
 		handler = new(reads.Object, delivery.Object);
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(CreateShipment());
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateShipment());
 		delivery.Setup(x => x.TrackAsync(ValidReferenceId, ct)).ReturnsAsync(statuses);
 	}
 
@@ -26,20 +26,20 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	public async Task Handle_ShouldQueryDatbase()
 	{
 		// Arrange
-		GetShipmentTrackQuery query = new(id);
+		GetShipmentTrackQuery query = new(ValidId);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
 	{
 		// Arrange
-		GetShipmentTrackQuery query = new(id);
+		GetShipmentTrackQuery query = new(ValidId);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -52,7 +52,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	public async Task Handle_ShouldReturnProperly_WhenShipmentFound()
 	{
 		// Arrange
-		GetShipmentTrackQuery query = new(id);
+		GetShipmentTrackQuery query = new(ValidId);
 
 		// Act
 		Dictionary<DateTimeOffset, GetShipmentTrackDto> tracks = await handler.Handle(query, ct);
@@ -65,9 +65,9 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenShipmentNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(null as Shipment);
-		GetShipmentTrackQuery query = new(id);
+		GetShipmentTrackQuery query = new(ValidId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(

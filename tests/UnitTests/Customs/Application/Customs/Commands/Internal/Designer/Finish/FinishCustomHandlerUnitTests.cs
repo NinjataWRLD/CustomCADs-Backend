@@ -51,7 +51,7 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 		FinishCustomCommand command = new(
 			Id: ValidId,
 			Cad: cad,
-			Price: ValidPrice1,
+			Price: ValidPrice,
 			DesignerId: ValidDesignerId
 		);
 
@@ -69,7 +69,7 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 		FinishCustomCommand command = new(
 			Id: ValidId,
 			Cad: cad,
-			Price: ValidPrice1,
+			Price: ValidPrice,
 			DesignerId: ValidDesignerId
 		);
 
@@ -87,7 +87,7 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 		FinishCustomCommand command = new(
 			Id: ValidId,
 			Cad: cad,
-			Price: ValidPrice1,
+			Price: ValidPrice,
 			DesignerId: ValidDesignerId
 		);
 
@@ -113,7 +113,7 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 		FinishCustomCommand command = new(
 			Id: ValidId,
 			Cad: cad,
-			Price: ValidPrice1,
+			Price: ValidPrice,
 			DesignerId: ValidDesignerId
 		);
 
@@ -134,7 +134,7 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 		FinishCustomCommand command = new(
 			Id: ValidId,
 			Cad: cad,
-			Price: ValidPrice1,
+			Price: ValidPrice,
 			DesignerId: ValidDesignerId
 		);
 

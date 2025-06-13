@@ -6,7 +6,7 @@ public class PurchasedCartItemCreateInvalidPriceData : PurchasedCartItemCreateDa
 {
 	public PurchasedCartItemCreateInvalidPriceData()
 	{
-		Add(InvalidPrice2, ValidQuantity2, false);
-		Add(InvalidPrice1, ValidQuantity1, true);
+		Add(MaxInvalidPrice, MaxValidQuantity, false);
+		Add(MinInvalidPrice, MinValidQuantity, true);
 	}
 }

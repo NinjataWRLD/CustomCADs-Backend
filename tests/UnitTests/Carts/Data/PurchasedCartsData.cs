@@ -14,15 +14,15 @@ public static class PurchasedCartsData
 {
 	public static class CartItemsData
 	{
-		public const int ValidQuantity1 = QuantityMin + 1;
-		public const int ValidQuantity2 = QuantityMax - 1;
-		public const int InvalidQuantity1 = QuantityMin - 1;
-		public const int InvalidQuantity2 = QuantityMax + 1;
+		public const int MinValidQuantity = QuantityMin + 1;
+		public const int MaxValidQuantity = QuantityMax - 1;
+		public const int MinInvalidQuantity = QuantityMin - 1;
+		public const int MaxInvalidQuantity = QuantityMax + 1;
 
-		public const decimal ValidPrice1 = PriceMin + 1;
-		public const decimal ValidPrice2 = PriceMax - 1;
-		public const decimal InvalidPrice1 = PriceMin - 1;
-		public const decimal InvalidPrice2 = PriceMax + 1;
+		public const decimal MinValidPrice = PriceMin + 1;
+		public const decimal MaxValidPrice = PriceMax - 1;
+		public const decimal MinInvalidPrice = PriceMin - 1;
+		public const decimal MaxInvalidPrice = PriceMax + 1;
 
 		public static readonly ProductId ValidProductId = ProductId.New();
 		public static readonly CadId ValidCadId = CadId.New();

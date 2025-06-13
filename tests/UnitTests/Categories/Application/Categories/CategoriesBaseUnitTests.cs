@@ -7,6 +7,6 @@ public class CategoriesBaseUnitTests
 {
 	public static readonly CancellationToken ct = CancellationToken.None;
 
-	protected static Category CreateCategory(CategoryId? id = null, string name = ValidName1, string description = ValidDescription1)
+	protected static Category CreateCategory(CategoryId? id = null, string name = ValidName, string description = ValidDescription)
 		=> Category.CreateWithId(id ?? ValidId, name, description);
 }

@@ -6,7 +6,7 @@ public class AccountFirstNameValidData : AccountFirstNameData
 {
 	public AccountFirstNameValidData()
 	{
-		Add(ValidFirstName1);
-		Add(ValidFirstName2);
+		Add(ValidFirstName);
+		Add(ValidFirstNameNull);
 	}
 }

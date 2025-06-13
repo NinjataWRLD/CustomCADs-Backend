@@ -6,7 +6,7 @@ public class TagCreateWithIdInvalidNameData : TagCreateWithIdData
 {
 	public TagCreateWithIdInvalidNameData()
 	{
-		Add(InvalidName1);
-		Add(InvalidName2);
+		Add(MinInvalidName);
+		Add(MaxInvalidName);
 	}
 }

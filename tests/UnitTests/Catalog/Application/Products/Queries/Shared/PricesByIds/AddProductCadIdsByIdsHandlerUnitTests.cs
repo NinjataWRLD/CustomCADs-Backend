@@ -17,8 +17,8 @@ public class GetProductPricesByIdsHandlerUnitTests : ProductsBaseUnitTests
 	private readonly ProductQuery query;
 	private readonly Result<Product> result;
 	private readonly Product[] products = [
-		CreateProductWithId(ValidName1, ValidDescription1, ValidPrice1),
-		CreateProductWithId(ValidName2, ValidDescription2, ValidPrice2)
+		CreateProductWithId(MinValidName, MinValidDescription, MinValidPrice),
+		CreateProductWithId(MaxValidName, MaxValidDescription, MaxValidPrice)
 	];
 
 	public GetProductPricesByIdsHandlerUnitTests()
@@ -61,8 +61,8 @@ public class GetProductPricesByIdsHandlerUnitTests : ProductsBaseUnitTests
 
 		// Assert
 		Assert.Multiple(
-			() => Assert.True(result.ElementAt(0).Value == ValidPrice1),
-			() => Assert.True(result.ElementAt(1).Value == ValidPrice2)
+			() => Assert.True(result.ElementAt(0).Value == MinValidPrice),
+			() => Assert.True(result.ElementAt(1).Value == MaxValidPrice)
 		);
 	}
 }

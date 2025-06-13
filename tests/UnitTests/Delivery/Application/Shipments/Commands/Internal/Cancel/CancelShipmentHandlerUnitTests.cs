@@ -19,7 +19,7 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 	{
 		handler = new(reads.Object, delivery.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(CreateShipment(referenceId: ValidReferenceId));
 	}
 
@@ -27,20 +27,20 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		CancelShipmentCommand command = new(id, Comment);
+		CancelShipmentCommand command = new(ValidId, Comment);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
 	{
 		// Arrange
-		CancelShipmentCommand command = new(id, Comment);
+		CancelShipmentCommand command = new(ValidId, Comment);
 
 		// Act
 		await handler.Handle(command, ct);

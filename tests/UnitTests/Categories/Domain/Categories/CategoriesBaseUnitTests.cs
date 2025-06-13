@@ -4,6 +4,6 @@ using static CategoriesData;
 
 public class CategoriesBaseUnitTests
 {
-	protected static Category CreateCategory(string name = ValidName1, string description = ValidDescription1)
+	protected static Category CreateCategory(string name = ValidName, string description = ValidDescription)
 		=> Category.Create(name, description);
 }

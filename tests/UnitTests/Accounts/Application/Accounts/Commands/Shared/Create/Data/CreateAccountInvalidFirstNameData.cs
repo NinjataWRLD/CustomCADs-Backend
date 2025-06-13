@@ -6,9 +6,8 @@ public class CreateAccountInvalidFirstNameData : CreateAccountData
 {
 	public CreateAccountInvalidFirstNameData()
 	{
-		Add(RolesData.ValidName1, ValidUsername1, ValidEmail1, InvalidFirstName1, ValidLastName1);
-		Add(RolesData.ValidName2, ValidUsername2, ValidEmail2, InvalidFirstName2, ValidLastName2);
-		Add(RolesData.ValidName3, ValidUsername3, ValidEmail3, InvalidFirstName1, ValidLastName1);
-		Add(RolesData.ValidName4, ValidUsername4, ValidEmail4, InvalidFirstName2, ValidLastName2);
+		Add(RolesData.ValidName, ValidUsername, ValidEmail1, MinInvalidFirstName, ValidLastName);
+		Add(RolesData.MinValidName, MinValidUsername, ValidEmail2, MaxInvalidFirstName, ValidLastNameNull);
+		Add(RolesData.MaxValidName, MaxValidUsername, ValidEmail3, MinInvalidFirstName, ValidLastName);
 	}
 }

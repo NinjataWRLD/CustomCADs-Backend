@@ -24,10 +24,9 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	{
 		handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
 
-		reads.Setup(x => x.SingleByNameAsync(ValidName1, true, ct)).ReturnsAsync(CreateRole(ValidName1, ValidDescription1));
-		reads.Setup(x => x.SingleByNameAsync(ValidName2, true, ct)).ReturnsAsync(CreateRole(ValidName2, ValidDescription2));
-		reads.Setup(x => x.SingleByNameAsync(ValidName3, true, ct)).ReturnsAsync(CreateRole(ValidName3, ValidDescription3));
-		reads.Setup(x => x.SingleByNameAsync(ValidName4, true, ct)).ReturnsAsync(CreateRole(ValidName4, ValidDescription4));
+		reads.Setup(x => x.SingleByNameAsync(ValidName, true, ct)).ReturnsAsync(CreateRole(ValidName, ValidDescription));
+		reads.Setup(x => x.SingleByNameAsync(MinValidName, true, ct)).ReturnsAsync(CreateRole(MinValidName, MinValidDescription));
+		reads.Setup(x => x.SingleByNameAsync(MaxValidName, true, ct)).ReturnsAsync(CreateRole(MaxValidName, MaxValidDescription));
 	}
 
 	[Theory]

@@ -7,11 +7,11 @@ using static TagConstants;
 
 public static class TagsData
 {
-	public static readonly string ValidName1 = new('a', NameMinLength + 1);
-	public static readonly string ValidName2 = new('a', NameMaxLength - 1);
-	public static readonly string InvalidName1 = new('a', NameMinLength - 1);
-	public static readonly string InvalidName2 = new('a', NameMaxLength + 1);
-	public const string InvalidName3 = "";
+	public static readonly string MinValidName = new('a', NameMinLength + 1);
+	public static readonly string MaxValidName = new('a', NameMaxLength - 1);
+	public const string InvalidName = "";
+	public static readonly string MinInvalidName = new('a', NameMinLength - 1);
+	public static readonly string MaxInvalidName = new('a', NameMaxLength + 1);
 
 	public static readonly TagId ValidId = TagId.New();
 }

@@ -10,8 +10,8 @@ public class CustomsBaseUnitTests
 
 	public static Custom CreateCustom(string? name = null, string? description = null, bool? forDelivery = null, AccountId? buyerId = null)
 		=> Custom.Create(
-			name: name ?? ValidName1,
-			description: description ?? ValidDescription1,
+			name: name ?? MinValidName,
+			description: description ?? MinValidDescription,
 			forDelivery: forDelivery ?? false,
 			buyerId: buyerId ?? ValidBuyerId
 		);
@@ -19,8 +19,8 @@ public class CustomsBaseUnitTests
 	public static Custom CreateCustomWithId(CustomId? id = null, string? name = null, string? description = null, bool? forDelivery = null, AccountId? buyerId = null)
 		=> Custom.CreateWithId(
 			id: id ?? ValidId,
-			name: name ?? ValidName1,
-			description: description ?? ValidDescription1,
+			name: name ?? MinValidName,
+			description: description ?? MinValidDescription,
 			delivery: forDelivery ?? false,
 			buyerId: buyerId ?? ValidBuyerId
 		);

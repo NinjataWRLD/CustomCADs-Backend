@@ -52,12 +52,12 @@ public class CustomStatesUnitTests : CustomsBaseUnitTests
 
 		custom.Accept(ValidDesignerId);
 		custom.Begin();
-		custom.Finish(ValidCadId, ValidPrice1);
+		custom.Finish(ValidCadId, ValidPrice);
 
 		Assert.Multiple(
 			() => Assert.Equal(CustomStatus.Finished, custom.CustomStatus),
 			() => Assert.Equal(ValidCadId, custom.FinishedCustom?.CadId),
-			() => Assert.Equal(ValidPrice1, custom.FinishedCustom?.Price)
+			() => Assert.Equal(ValidPrice, custom.FinishedCustom?.Price)
 		);
 	}
 
@@ -68,7 +68,7 @@ public class CustomStatesUnitTests : CustomsBaseUnitTests
 
 		custom.Accept(ValidDesignerId);
 		custom.Begin();
-		custom.Finish(ValidCadId, ValidPrice1);
+		custom.Finish(ValidCadId, ValidPrice);
 		custom.Complete(null);
 
 		Assert.Multiple(

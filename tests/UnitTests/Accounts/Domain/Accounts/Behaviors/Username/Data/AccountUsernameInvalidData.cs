@@ -6,8 +6,8 @@ public class AccountUsernameInvalidData : AccountUsernameData
 {
 	public AccountUsernameInvalidData()
 	{
-		Add(InvalidUsername1);
-		Add(InvalidUsername2);
-		Add(InvalidUsername3);
+		Add(InvalidUsername);
+		Add(MinInvalidUsername);
+		Add(MaxInvalidUsername);
 	}
 }

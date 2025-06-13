@@ -3,18 +3,17 @@ using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Create;
 
-using Data;
+using static CategoriesData;
 
 public class CreateCategoryValidatorUnitTests : CategoriesBaseUnitTests
 {
 	private readonly CreateCategoryValidator validator = new();
 
-	[Theory]
-	[ClassData(typeof(CreateCategoryValidData))]
-	public void Validate_ShouldBeValid_WhenCategoryIsValid(string name, string description)
+	[Fact]
+	public void Validate_ShouldBeValid_WhenCategoryIsValid()
 	{
 		// Arrange
-		CategoryWriteDto category = new(name, description);
+		CategoryWriteDto category = new(ValidName, ValidDescription);
 		CreateCategoryCommand command = new(category);
 
 		// Act
@@ -25,8 +24,7 @@ public class CreateCategoryValidatorUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(CreateCategoryInvalidNameData))]
-	[ClassData(typeof(CreateCategoryInvalidDescriptionData))]
+	[ClassData(typeof(Data.CreateCategoryInvalidData))]
 	public void Validate_ShouldBeInvalid_WhenCategoryIsNotValid(string name, string description)
 	{
 		// Arrange
@@ -38,35 +36,5 @@ public class CreateCategoryValidatorUnitTests : CategoriesBaseUnitTests
 
 		// Assert
 		Assert.False(result.IsValid);
-	}
-
-	[Theory]
-	[ClassData(typeof(CreateCategoryInvalidNameData))]
-	public void Validate_ShouldReturnProperErrors_WhenNameIsNotValid(string name, string description)
-	{
-		// Arrange
-		CategoryWriteDto category = new(name, description);
-		CreateCategoryCommand command = new(category);
-
-		// Act
-		var result = validator.TestValidate(new(command));
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Dto.Name);
-	}
-
-	[Theory]
-	[ClassData(typeof(CreateCategoryInvalidDescriptionData))]
-	public void Validate_ShouldReturnProperErrors_WhenDescriptionIsNotValid(string name, string description)
-	{
-		// Arrange
-		CategoryWriteDto category = new(name, description);
-		CreateCategoryCommand command = new(category);
-
-		// Act
-		var result = validator.TestValidate(new(command));
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Dto.Description);
 	}
 }

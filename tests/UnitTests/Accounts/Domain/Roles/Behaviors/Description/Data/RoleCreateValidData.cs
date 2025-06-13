@@ -6,9 +6,8 @@ public class RoleCreateValidData : RoleDescriptionData
 {
 	public RoleCreateValidData()
 	{
-		Add(ValidDescription1);
-		Add(ValidDescription2);
-		Add(ValidDescription3);
-		Add(ValidDescription4);
+		Add(ValidDescription);
+		Add(MinValidDescription);
+		Add(MaxValidDescription);
 	}
 }

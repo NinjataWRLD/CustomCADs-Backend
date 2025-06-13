@@ -5,15 +5,15 @@ using static CadsData;
 public class CadsBaseUnitTests
 {
 	protected static Cad CreateCad(
-		string key = ValidKey1,
-		string contentType = ValidContentType1,
-		decimal volume = ValidVolume1,
-		decimal x1 = ValidCoord1,
-		decimal y1 = ValidCoord1,
-		decimal z1 = ValidCoord1,
-		decimal x2 = ValidCoord2,
-		decimal y2 = ValidCoord2,
-		decimal z2 = ValidCoord2
+		string key = ValidKey,
+		string contentType = ValidContentType,
+		decimal volume = ValidVolume,
+		decimal x1 = MinValidCoord,
+		decimal y1 = MinValidCoord,
+		decimal z1 = MinValidCoord,
+		decimal x2 = MaxValidCoord,
+		decimal y2 = MaxValidCoord,
+		decimal z2 = MaxValidCoord
 	)
 		=> Cad.Create(
 			key: key,
