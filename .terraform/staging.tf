@@ -9,6 +9,7 @@ locals {
   staging_payment                      = local.staging_env_vars["Payment"]
   staging_payment_secret_key           = local.staging_payment["SecretKey"]
   staging_payment_publishable_key      = local.staging_payment["PublishableKey"]
+  staging_payment_webhook_secret      = local.production_payment["WebhookSecret"]
 
   staging_email          = local.staging_env_vars["Email"]
   staging_email_server   = local.staging_email["Server"]
@@ -286,6 +287,12 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_staging" {
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.staging_payment_secret_key
+  }
+  setting {
+    name      = "Payment__WebhookSecret"
+    namespace = "aws:elasticbeanstalk:application:environment"
+    resource  = null
+    value     = local.staging_payment_webhook_secret
   }
   setting {
     name      = "PreferredStartTime"
