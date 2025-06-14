@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.Normal;
 using CustomCADs.Customs.Endpoints.Customs.Dtos;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers;
 using CustomCADs.Shared.Abstractions.Payment;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Post.Purchase.Normal;

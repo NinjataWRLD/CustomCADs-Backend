@@ -14,7 +14,6 @@ using CustomCADs.Shared.UseCases.Images.Commands;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.Create;
 
-using Data;
 using static Constants.Roles;
 using static ProductsData;
 

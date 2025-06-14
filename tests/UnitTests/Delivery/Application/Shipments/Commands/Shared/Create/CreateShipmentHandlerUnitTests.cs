@@ -9,7 +9,6 @@ using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create;
 
-using Data;
 using static ShipmentsData;
 
 public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests

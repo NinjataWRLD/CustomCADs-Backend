@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetSortings;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Sortings;
 

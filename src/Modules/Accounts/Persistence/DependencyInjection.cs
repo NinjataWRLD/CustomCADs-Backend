@@ -9,8 +9,8 @@ using Microsoft.Extensions.Configuration;
 namespace Microsoft.Extensions.DependencyInjection;
 
 using AccountReads = CustomCADs.Accounts.Persistence.Repositories.Accounts.Reads;
-using RoleReads = CustomCADs.Accounts.Persistence.Repositories.Roles.Reads;
 using AccountWrites = CustomCADs.Accounts.Persistence.Repositories.Accounts.Writes;
+using RoleReads = CustomCADs.Accounts.Persistence.Repositories.Roles.Reads;
 using RoleWrites = CustomCADs.Accounts.Persistence.Repositories.Roles.Writes;
 
 public static class DependencyInjection

@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Create;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Single;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Post.Create;
