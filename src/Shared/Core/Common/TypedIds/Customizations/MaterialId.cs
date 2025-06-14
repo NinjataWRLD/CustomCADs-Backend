@@ -14,6 +14,8 @@ public readonly struct MaterialId
 
 	public static MaterialId New() => new(0);
 	public static MaterialId New(int id) => new(id);
+	public static int Unwrap(MaterialId id) => id.Value;
+	public static int? Unwrap(MaterialId? id) => id?.Value;
 
 	public override bool Equals([NotNullWhen(true)] object? obj)
 		=> obj is MaterialId id && this == id;

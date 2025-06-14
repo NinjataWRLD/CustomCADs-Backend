@@ -15,6 +15,7 @@ public readonly struct CustomizationId
 	public static CustomizationId New() => new(Guid.NewGuid());
 	public static CustomizationId New(Guid id) => new(id);
 	public static CustomizationId? New(Guid? id) => id is null ? null : new(id.Value);
+	public static Guid Unwrap(CustomizationId id) => id.Value;
 	public static Guid? Unwrap(CustomizationId? id) => id?.Value;
 
 	public override bool Equals([NotNullWhen(true)] object? obj)

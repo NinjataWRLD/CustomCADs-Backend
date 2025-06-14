@@ -15,6 +15,8 @@ public readonly struct CadId
 	public static CadId New() => new(Guid.NewGuid());
 	public static CadId New(Guid id) => new(id);
 	public static CadId? New(Guid? id) => id is null ? null : new(id.Value);
+	public static Guid Unwrap(CadId id) => id.Value;
+	public static Guid? Unwrap(CadId? id) => id?.Value;
 
 	public override bool Equals([NotNullWhen(true)] object? obj)
 		=> obj is CadId cadId && this == cadId;
