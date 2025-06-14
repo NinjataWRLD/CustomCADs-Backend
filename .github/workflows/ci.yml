@@ -3,15 +3,12 @@ name: Universal Integration pipeline
 on:
   workflow_call:
   push:
-    branches: 
+    branches:
       - feature/*
       - hotfix/*
-    tags-ignore: 
-      - 'v*.*.*'
+    tags-ignore:
+      - "v*.*.*"
 
 jobs:
-  build:
-    uses: ./.github/workflows/build-dotnet.yml
   unit_test:
-    needs: build
     uses: ./.github/workflows/unit-test.yml
