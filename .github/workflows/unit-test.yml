@@ -19,7 +19,7 @@ jobs:
         run: dotnet restore CustomCADs.sln
 
       - name: Build solution
-        run: dotnet build CustomCADs.sln --no-restore
+        run: dotnet build CustomCADs.sln --no-restore --configuration Release
 
       - name: Run Unit Tests
         working-directory: ./tests/UnitTests
