@@ -4,18 +4,17 @@ using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetKey;
 
-using Data;
+using static ImagesData;
 
 public class SetImageKeyValidatorUnitTests : ImagesBaseUnitTests
 {
 	private readonly SetImageKeyValidator validator = new();
 
-	[Theory]
-	[ClassData(typeof(SetImageKeyValidData))]
-	public void Validate_ShouldBeValid_WhenKeyIsValid(string key)
+	[Fact]
+	public void Validate_ShouldBeValid_WhenKeyIsValid()
 	{
 		// Arrange
-		SetImageKeyCommand command = new(id1, key);
+		SetImageKeyCommand command = new(id, ValidKey);
 
 		// Act
 		var result = validator.TestValidate(command);
@@ -24,12 +23,11 @@ public class SetImageKeyValidatorUnitTests : ImagesBaseUnitTests
 		Assert.True(result.IsValid);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetImageKeyInvalidData))]
-	public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key)
+	[Fact]
+	public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid()
 	{
 		// Arrange
-		SetImageKeyCommand command = new(id1, key);
+		SetImageKeyCommand command = new(id, InvalidKey);
 
 		// Act
 		var result = validator.TestValidate(new(command));

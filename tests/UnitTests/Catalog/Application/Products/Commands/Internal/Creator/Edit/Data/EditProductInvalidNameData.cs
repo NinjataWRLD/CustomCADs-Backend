@@ -6,7 +6,7 @@ public class EditProductInvalidNameData : EditProductData
 {
 	public EditProductInvalidNameData()
 	{
-		Add(InvalidName1, ValidDescription1, ValidPrice1);
-		Add(InvalidName2, ValidDescription2, ValidPrice2);
+		Add(MinInvalidName, MinValidDescription, MinValidPrice);
+		Add(MaxInvalidName, MaxValidDescription, MaxValidPrice);
 	}
 }

@@ -106,6 +106,11 @@ namespace CustomCADs.Carts.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("BuyerId");
 
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("PaymentStatus");
+
                     b.Property<DateTimeOffset>("PurchasedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("PurchasedAt");

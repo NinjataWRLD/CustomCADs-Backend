@@ -14,6 +14,8 @@ public readonly struct RoleId
 
 	public static RoleId New() => new(0);
 	public static RoleId New(int id) => new(id);
+	public static int Unwrap(RoleId id) => id.Value;
+	public static int? Unwrap(RoleId? id) => id?.Value;
 
 	public override bool Equals([NotNullWhen(true)] object? obj)
 		=> obj is RoleId roleId && this == roleId;

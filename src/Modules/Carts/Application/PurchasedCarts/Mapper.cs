@@ -18,6 +18,7 @@ internal static class Mapper
 		=> new(
 			Id: cart.Id,
 			Total: cart.TotalCost,
+			PaymentStatus: cart.PaymentStatus,
 			PurchasedAt: cart.PurchasedAt,
 			BuyerName: buyer,
 			ShipmentId: cart.ShipmentId,

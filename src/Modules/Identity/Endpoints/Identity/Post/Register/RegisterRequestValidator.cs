@@ -31,7 +31,7 @@ public class RegisterRequestValidator : Validator<RegisterRequest>
 
 		RuleFor(r => r.Password)
 			.NotEmpty().WithMessage(RequiredError)
-			.Length(PasswordMinLength, PasswordMaxLength).WithMessage(LengthError);
+			.MinimumLength(PasswordMinLength).WithMessage(LengthError);
 
 		RuleFor(r => r.ConfirmPassword)
 			.NotEmpty().WithMessage(RequiredError)

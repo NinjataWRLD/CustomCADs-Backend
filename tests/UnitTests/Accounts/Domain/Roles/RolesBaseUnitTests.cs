@@ -6,20 +6,20 @@ using static RolesData;
 public class RolesBaseUnitTests
 {
 	protected static Role CreateRole(
-		string name = ValidName1,
-		string description = ValidDescription1
+		string? name = null,
+		string description = ValidDescription
 	) => Role.Create(
-			name: name,
+			name: name ?? ValidName,
 			description: description
 		);
 
 	protected static Role CreateRoleWithId(
 		RoleId? id = null,
-		string name = ValidName1,
-		string description = ValidDescription1
+		string? name = null,
+		string description = ValidDescription
 	) => Role.CreateWithId(
 			id: id ?? ValidId,
-			name: name,
+			name: name ?? ValidName,
 			description: description
 		);
 }

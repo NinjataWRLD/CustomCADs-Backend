@@ -15,7 +15,7 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
 	public GetCadVolumeByIdHandlerUnitTests()
 	{
 		handler = new(reads.Object);
-		reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
 			.ReturnsAsync(cad);
 	}
 
@@ -23,20 +23,20 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		GetCadVolumeByIdQuery query = new(id1);
+		GetCadVolumeByIdQuery query = new(id);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id1, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldReturnProperly()
 	{
 		// Arrange
-		GetCadVolumeByIdQuery query = new(id1);
+		GetCadVolumeByIdQuery query = new(id);
 
 		// Act
 		decimal volume = await handler.Handle(query, ct);
@@ -49,9 +49,9 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
 			.ReturnsAsync(null as Cad);
-		GetCadVolumeByIdQuery query = new(id1);
+		GetCadVolumeByIdQuery query = new(id);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(

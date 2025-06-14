@@ -35,14 +35,14 @@ public class GetUsernameByIdHandlerUnitTests : AccountsBaseUnitTests
 	public async Task Handle_ShouldReturnProperly_WhenAccountFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateAccount(username: ValidUsername1));
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateAccount(username: ValidUsername));
 		GetUsernameByIdQuery query = new(ValidId);
 
 		// Act
 		string actualUsername = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.Equal(ValidUsername1, actualUsername);
+		Assert.Equal(ValidUsername, actualUsername);
 	}
 
 	[Fact]

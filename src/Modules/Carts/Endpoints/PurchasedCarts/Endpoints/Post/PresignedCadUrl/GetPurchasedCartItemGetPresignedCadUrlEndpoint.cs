@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
-using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 

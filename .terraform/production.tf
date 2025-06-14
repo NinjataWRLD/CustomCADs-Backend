@@ -9,6 +9,7 @@ locals {
   production_payment                      = local.production_env_vars["Payment"]
   production_payment_secret_key           = local.production_payment["SecretKey"]
   production_payment_publishable_key      = local.production_payment["PublishableKey"]
+  production_payment_webhook_secret      = local.production_payment["WebhookSecret"]
 
   production_email          = local.production_env_vars["Email"]
   production_email_server   = local.production_email["Server"]
@@ -279,6 +280,12 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.production_payment_publishable_key
+  }
+  setting {
+    name      = "Payment__WebhookSecret"
+    namespace = "aws:elasticbeanstalk:application:environment"
+    resource  = null
+    value     = local.production_payment_webhook_secret
   }
   setting {
     name      = "Payment__SecretKey"

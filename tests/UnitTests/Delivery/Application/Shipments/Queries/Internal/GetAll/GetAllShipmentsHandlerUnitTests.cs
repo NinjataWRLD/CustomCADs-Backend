@@ -20,10 +20,10 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 		[ValidBuyerId] = "NinjataBG"
 	};
 	private static readonly Shipment[] shipments = [
-		Shipment.Create(new(ValidCountry1, ValidCity1), ValidReferenceId, ValidBuyerId),
-		Shipment.Create(new(ValidCountry2, ValidCity1), ValidReferenceId, ValidBuyerId),
-		Shipment.Create(new(ValidCountry1, ValidCity2), ValidReferenceId, ValidBuyerId),
-		Shipment.Create(new(ValidCountry2, ValidCity2), ValidReferenceId, ValidBuyerId),
+		Shipment.Create(new(ValidCountry, ValidCity), ValidReferenceId, ValidBuyerId),
+		Shipment.Create(new(ValidCountry, ValidCity), ValidReferenceId, ValidBuyerId),
+		Shipment.Create(new(ValidCountry, ValidCity), ValidReferenceId, ValidBuyerId),
+		Shipment.Create(new(ValidCountry, ValidCity), ValidReferenceId, ValidBuyerId),
 	];
 	private readonly ShipmentQuery shipmentQuery = new(new(), null, null);
 

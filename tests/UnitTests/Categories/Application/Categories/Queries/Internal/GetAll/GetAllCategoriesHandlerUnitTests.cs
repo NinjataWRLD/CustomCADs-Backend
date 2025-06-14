@@ -16,9 +16,9 @@ public class GetAllCategoriesHandlerUnitTests : CategoriesBaseUnitTests
 	private readonly Mock<ICacheService> cache = new();
 
 	private readonly Category[] categories = [
-		Category.CreateWithId(CategoryId.New(1), ValidName1, ValidDescription1),
-		Category.CreateWithId(CategoryId.New(2), ValidName2, ValidDescription2),
-		Category.CreateWithId(CategoryId.New(3), ValidName3, ValidDescription3)
+		Category.CreateWithId(CategoryId.New(1), ValidName, ValidDescription),
+		Category.CreateWithId(CategoryId.New(2), MinValidName, MinValidDescription),
+		Category.CreateWithId(CategoryId.New(3), MaxValidName, MaxValidDescription)
 	];
 
 	public GetAllCategoriesHandlerUnitTests()

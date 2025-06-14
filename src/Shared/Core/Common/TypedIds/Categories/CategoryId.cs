@@ -15,6 +15,8 @@ public readonly struct CategoryId
 	public static CategoryId New() => new(0);
 	public static CategoryId New(int id) => new(id);
 	public static CategoryId? New(int? id) => id is null ? null : new(id.Value);
+	public static int Unwrap(CategoryId id) => id.Value;
+	public static int? Unwrap(CategoryId? id) => id?.Value;
 
 	public override bool Equals([NotNullWhen(true)] object? obj)
 		=> obj is CategoryId categoryId && this == categoryId;

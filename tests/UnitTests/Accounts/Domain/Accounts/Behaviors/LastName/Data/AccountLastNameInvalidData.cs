@@ -6,7 +6,7 @@ public class AccountLastNameInvalidData : AccountLastNameData
 {
 	public AccountLastNameInvalidData()
 	{
-		Add(InvalidLastName1);
-		Add(InvalidLastName2);
+		Add(MinInvalidLastName);
+		Add(MaxInvalidLastName);
 	}
 }

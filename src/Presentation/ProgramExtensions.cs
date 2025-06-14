@@ -8,6 +8,7 @@ using CustomCADs.Delivery.Application;
 using CustomCADs.Files.Application;
 using CustomCADs.Identity.Application;
 using CustomCADs.Identity.Application.Users.Dtos;
+using CustomCADs.Identity.Domain.Users;
 using CustomCADs.Identity.Persistence;
 using CustomCADs.Identity.Persistence.ShadowEntities;
 using CustomCADs.Presentation;
@@ -25,6 +26,8 @@ using System.Text.Json.Serialization;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using static UserConstants;
 
 public static class ProgramExtensions
 {
@@ -69,7 +72,10 @@ public static class ProgramExtensions
 
 	public static IServiceCollection AddPaymentService(this IServiceCollection services, IConfiguration config)
 	{
-		services.Configure<PaymentSettings>(config.GetSection("Payment"));
+		IConfigurationSection section = config.GetSection("Payment");
+		services.Configure<PaymentSettings>(section);
+
+		Stripe.StripeConfiguration.ApiKey = section.Get<PaymentSettings>()?.SecretKey;
 		services.AddPaymentService();
 
 		return services;
@@ -112,6 +118,7 @@ public static class ProgramExtensions
 			options.Password.RequireNonAlphanumeric = false;
 			options.Password.RequireLowercase = false;
 			options.Password.RequireUppercase = false;
+			options.Password.RequiredLength = PasswordMinLength;
 			options.User.RequireUniqueEmail = true;
 			options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+" + ' '; // default + space
 			options.Lockout.MaxFailedAccessAttempts = 5;

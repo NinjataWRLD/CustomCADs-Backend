@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Identity.Application.Users.Queries.Internal.GetByUsername;
-using System.Text;
 using System.Text.Json;
-using System.Text.Unicode;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Get.DownloadInfo;
 

@@ -70,6 +70,7 @@ internal static class Mapper
 
 	internal static CompletedCustomDto ToDto(this CompletedCustom custom)
 		=> new(
+			PaymentStatus: custom.PaymentStatus,
 			CustomizationId: custom.CustomizationId,
 			ShipmentId: custom.ShipmentId
 		);

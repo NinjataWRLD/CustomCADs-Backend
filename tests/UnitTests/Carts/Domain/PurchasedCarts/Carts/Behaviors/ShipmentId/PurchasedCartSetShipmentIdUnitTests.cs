@@ -16,8 +16,8 @@ public class PurchasedCartSetShipmentIdUnitTests : PurchasedCartsBaseUnitTests
 
 	private static readonly Dictionary<ProductId, decimal> prices = new()
 	{
-		[productId1] = CartItemsData.ValidPrice1,
-		[productId2] = CartItemsData.ValidPrice2
+		[productId1] = CartItemsData.MinValidPrice,
+		[productId2] = CartItemsData.MaxValidPrice
 	};
 	private static readonly Dictionary<ProductId, CadId> productCads = new()
 	{

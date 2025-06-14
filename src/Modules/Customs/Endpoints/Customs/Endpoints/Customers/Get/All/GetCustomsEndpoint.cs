@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
-using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers;
 using CustomCADs.Shared.Core.Common;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.All;

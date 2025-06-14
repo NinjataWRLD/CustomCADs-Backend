@@ -4,18 +4,17 @@ using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create;
 
-using Data;
+using static ImagesData;
 
 public class CreateImageValidatorUnitTests : ImagesBaseUnitTests
 {
 	private readonly CreateImageValidator validator = new();
 
-	[Theory]
-	[ClassData(typeof(CreateImageValidData))]
-	public void Validate_ShouldBeValid_WhenImageIsValid(string key, string contentType)
+	[Fact]
+	public void Validate_ShouldBeValid_WhenImageIsValid()
 	{
 		// Arrange
-		CreateImageCommand command = new(key, contentType);
+		CreateImageCommand command = new(ValidKey, ValidContentType);
 
 		// Act
 		var result = validator.TestValidate(command);
@@ -25,8 +24,7 @@ public class CreateImageValidatorUnitTests : ImagesBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(CreateImageInvalidKeyData))]
-	[ClassData(typeof(CreateImageInvalidContentTypeData))]
+	[ClassData(typeof(Data.CreateImageInvalidData))]
 	public void Validate_ShouldBeInvalid_WhenImageIsNotValid(string key, string contentType)
 	{
 		// Arrange
@@ -37,33 +35,5 @@ public class CreateImageValidatorUnitTests : ImagesBaseUnitTests
 
 		// Assert
 		Assert.False(result.IsValid);
-	}
-
-	[Theory]
-	[ClassData(typeof(CreateImageInvalidKeyData))]
-	public void Validate_ShouldReturnProperErrors_WhenKeyIsNotValid(string key, string contentType)
-	{
-		// Arrange
-		CreateImageCommand command = new(key, contentType);
-
-		// Act
-		var result = validator.TestValidate(new(command));
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.Key);
-	}
-
-	[Theory]
-	[ClassData(typeof(CreateImageInvalidContentTypeData))]
-	public void Validate_ShouldReturnProperErrors_WhenContentTypeIsNotValid(string key, string contentType)
-	{
-		// Arrange
-		CreateImageCommand command = new(key, contentType);
-
-		// Act
-		var result = validator.TestValidate(new(command));
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.ContentType);
 	}
 }

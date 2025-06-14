@@ -16,6 +16,8 @@ public readonly struct TagId
 	public static TagId New(Guid id) => new(id);
 	public static TagId New(string id) => new(Guid.Parse(id));
 	public static TagId[]? New(Guid[]? ids) => ids is null ? null : [.. ids.Select(New)];
+	public static Guid Unwrap(TagId id) => id.Value;
+	public static Guid? Unwrap(TagId? id) => id?.Value;
 
 	public override bool Equals([NotNullWhen(true)] object? obj)
 		=> obj is TagId TagId && this == TagId;

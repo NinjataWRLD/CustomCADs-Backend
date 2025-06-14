@@ -14,6 +14,8 @@ public readonly struct ImageId
 
 	public static ImageId New() => new(Guid.NewGuid());
 	public static ImageId New(Guid id) => new(id);
+	public static Guid Unwrap(ImageId id) => id.Value;
+	public static Guid? Unwrap(ImageId? id) => id?.Value;
 
 	public override bool Equals([NotNullWhen(true)] object? obj)
 		=> obj is ImageId imageId && this == imageId;

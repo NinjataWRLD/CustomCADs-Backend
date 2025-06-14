@@ -19,7 +19,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 	{
 		handler = new(reads.Object, storage.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
 			.ReturnsAsync(image);
 
 		storage.Setup(x => x.GetPresignedGetUrlAsync(image.Key, image.ContentType))
@@ -30,20 +30,20 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		GetImagePresignedUrlGetByIdQuery query = new(id1);
+		GetImagePresignedUrlGetByIdQuery query = new(id);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id1, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldCallStorage()
 	{
 		// Arrange
-		GetImagePresignedUrlGetByIdQuery query = new(id1);
+		GetImagePresignedUrlGetByIdQuery query = new(id);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -59,7 +59,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 	public async Task Handle_ShouldReturnProperly()
 	{
 		// Arrange
-		GetImagePresignedUrlGetByIdQuery query = new(id1);
+		GetImagePresignedUrlGetByIdQuery query = new(id);
 
 		// Act
 		var (Url, ContentType) = await handler.Handle(query, ct);
@@ -75,9 +75,9 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenImageNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id1, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
 			.ReturnsAsync(null as Image);
-		GetImagePresignedUrlGetByIdQuery query = new(id1);
+		GetImagePresignedUrlGetByIdQuery query = new(id);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(

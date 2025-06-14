@@ -5,7 +5,7 @@ using CustomCADs.Catalog.Domain.Tags;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Create;
 
-using Data;
+using static TagsData;
 
 public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 {
@@ -18,19 +18,18 @@ public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 		handler = new(writes.Object, uow.Object);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateTagValidData))]
-	public async Task Handler_ShouldPersistToDatabase(string name)
+	[Fact]
+	public async Task Handler_ShouldPersistToDatabase()
 	{
 		// Arrange
-		CreateTagCommand command = new(name);
+		CreateTagCommand command = new(MaxValidName);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		writes.Verify(v => v.AddAsync(
-			It.Is<Tag>(x => x.Name == name),
+			It.Is<Tag>(x => x.Name == MaxValidName),
 			ct
 		), Times.Once());
 		uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());

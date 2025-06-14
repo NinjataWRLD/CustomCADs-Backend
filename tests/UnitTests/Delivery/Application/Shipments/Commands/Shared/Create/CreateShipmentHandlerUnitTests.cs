@@ -9,7 +9,6 @@ using CustomCADs.Shared.UseCases.Shipments.Commands;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create;
 
-using Data;
 using static ShipmentsData;
 
 public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
@@ -37,16 +36,15 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		)).ReturnsAsync(true);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateShipmentValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateShipmentCommand command = new(
-			Service: service,
-			Info: new(count, weight, recipient),
-			Address: new(country, city, street),
-			Contact: new(phone, email),
+			Service: ValidService,
+			Info: new(MaxValidCount, MaxValidWeight, ValidRecipient),
+			Address: new(ValidCountry, ValidCity, ValidStreet),
+			Contact: new(ValidPhone, ValidEmail),
 			BuyerId: ValidBuyerId
 		);
 
@@ -55,22 +53,21 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 
 		// Assert
 		writes.Verify(x => x.AddAsync(
-			It.Is<Shipment>(x => x.Address.Country == country && x.Address.City == city),
+			It.Is<Shipment>(x => x.Address.Country == ValidCountry && x.Address.City == ValidCity),
 			ct
 		), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateShipmentValidData))]
-	public async Task Handle_ShouldSendRequests(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
 	{
 		// Arrange
 		CreateShipmentCommand command = new(
-			Service: service,
-			Info: new(count, weight, recipient),
-			Address: new(country, city, street),
-			Contact: new(phone, email),
+			Service: ValidService,
+			Info: new(MaxValidCount, MaxValidWeight, ValidRecipient),
+			Address: new(ValidCountry, ValidCity, ValidStreet),
+			Contact: new(ValidPhone, ValidEmail),
 			BuyerId: ValidBuyerId
 		);
 
@@ -84,18 +81,18 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateShipmentValidData))]
-	public async Task Handle_ShouldCallDelivery(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
+	[Fact]
+	public async Task Handle_ShouldCallDelivery()
 	{
 		// Arrange
 		CreateShipmentCommand command = new(
-			Service: service,
-			Info: new(count, weight, recipient),
-			Address: new(country, city, street),
-			Contact: new(phone, email),
+			Service: ValidService,
+			Info: new(MaxValidCount, MaxValidWeight, ValidRecipient),
+			Address: new(ValidCountry, ValidCity, ValidStreet),
+			Contact: new(ValidPhone, ValidEmail),
 			BuyerId: ValidBuyerId
 		);
+
 
 		// Act
 		await handler.Handle(command, ct);
@@ -103,22 +100,21 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		// Assert
 		delivery.Verify(x => x.ShipAsync(
 			It.Is<ShipRequestDto>(x =>
-				x.Country == country
-				&& x.City == city
-				&& x.Phone == phone
-				&& x.Email == email
-				&& x.Name == recipient
-				&& x.Service == service
-				&& x.ParcelCount == count
-				&& x.TotalWeight == weight
+				x.Country == ValidCountry
+				&& x.City == ValidCity
+				&& x.Phone == ValidPhone
+				&& x.Email == ValidEmail
+				&& x.Name == ValidRecipient
+				&& x.Service == ValidService
+				&& x.ParcelCount == MaxValidCount
+				&& x.TotalWeight == MaxValidWeight
 			),
 			ct
 		), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateShipmentValidData))]
-	public async Task Handle_ShouldThrowException_WhenDesignerNotFound(string service, int count, double weight, string recipient, string country, string city, string street, string? phone, string? email)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenDesignerNotFound()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(
@@ -127,10 +123,10 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		)).ReturnsAsync(false);
 
 		CreateShipmentCommand command = new(
-			Service: service,
-			Info: new(count, weight, recipient),
-			Address: new(country, city, street),
-			Contact: new(phone, email),
+			Service: ValidService,
+			Info: new(MaxValidCount, MaxValidWeight, ValidRecipient),
+			Address: new(ValidCountry, ValidCity, ValidStreet),
+			Contact: new(ValidPhone, ValidEmail),
 			BuyerId: ValidBuyerId
 		);
 

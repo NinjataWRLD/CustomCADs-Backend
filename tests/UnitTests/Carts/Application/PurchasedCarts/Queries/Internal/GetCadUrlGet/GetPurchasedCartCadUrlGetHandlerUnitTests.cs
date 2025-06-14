@@ -23,8 +23,8 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 				productId: CartItemsData.ValidProductId,
 				cadId: CartItemsData.ValidCadId,
 				customizationId: CartItemsData.ValidCustomizationId,
-				price: CartItemsData.ValidPrice1,
-				quantity: CartItemsData.ValidQuantity1,
+				price: CartItemsData.MinValidPrice,
+				quantity: CartItemsData.MinValidQuantity,
 				forDelivery: true,
 				addedAt: DateTimeOffset.UtcNow
 			),
@@ -33,13 +33,13 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 				productId: CartItemsData.ValidProductId,
 				cadId: CartItemsData.ValidCadId,
 				customizationId: null,
-				price: CartItemsData.ValidPrice2,
-				quantity: CartItemsData.ValidQuantity2,
+				price: CartItemsData.MaxValidPrice,
+				quantity: CartItemsData.MaxValidQuantity,
 				forDelivery: false,
 				addedAt: DateTimeOffset.UtcNow
 			),
 		]
-	);
+	).FinishPayment(success: true);
 	private const string Url = "presigned-Url";
 	private const string ContentType = "presigned-Url";
 

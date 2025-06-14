@@ -118,6 +118,18 @@ public class Custom : BaseAggregateRoot
 		return this;
 	}
 
+
+	public Custom FinishPayment(bool success = true)
+	{
+		if (CustomStatus is not CustomStatus.Completed)
+		{
+			throw CustomValidationException<Custom>.Status(CustomStatus);
+		}
+		CompletedCustom!.FinishPayment(success);
+
+		return this;
+	}
+
 	public void Accept(AccountId designerId) => State.Accept(this, designerId);
 	public void Begin() => State.Begin(this);
 	public void Finish(CadId cadId, decimal price) => State.Finish(this, cadId, price);

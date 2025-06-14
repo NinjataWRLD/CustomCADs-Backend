@@ -12,8 +12,8 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
 	private readonly Mock<ITagReads> reads = new();
 
 	private readonly Tag[] tags = [
-		Tag.CreateWithId(ValidId, ValidName1),
-		Tag.CreateWithId(ValidId, ValidName2)
+		Tag.CreateWithId(ValidId, MinValidName),
+		Tag.CreateWithId(ValidId, MaxValidName)
 	];
 
 	public GetAllTagHandlerUnitTests()

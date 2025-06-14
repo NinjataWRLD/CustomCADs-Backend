@@ -6,7 +6,7 @@ public class SetProductPriceValidData : SetProductPriceData
 {
 	public SetProductPriceValidData()
 	{
-		Add(ValidPrice1);
-		Add(ValidPrice2);
+		Add(MinValidPrice);
+		Add(MaxValidPrice);
 	}
 }

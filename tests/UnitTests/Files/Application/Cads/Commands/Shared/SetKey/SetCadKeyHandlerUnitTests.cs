@@ -6,7 +6,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetKey;
 
-using Data;
+using static CadsData;
 
 public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 {
@@ -19,30 +19,28 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 	public SetCadKeyHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object);
-		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(cad);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadKeyValidData))]
-	public async Task Handle_ShouldQueryDatabase(string key)
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		SetCadKeyCommand command = new(id1, key);
+		SetCadKeyCommand command = new(id, ValidKey);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadKeyValidData))]
-	public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string key)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
 	{
 		// Arrange
-		SetCadKeyCommand command = new(id1, key);
+		SetCadKeyCommand command = new(id, ValidKey);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -51,27 +49,25 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadKeyValidData))]
-	public async Task Handle_ShouldModifyCad_WhenCadFound(string key)
+	[Fact]
+	public async Task Handle_ShouldModifyCad_WhenCadFound()
 	{
 		// Arrange
-		SetCadKeyCommand command = new(id1, key);
+		SetCadKeyCommand command = new(id, ValidKey);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		Assert.Equal(key, cad.Key);
+		Assert.Equal(ValidKey, cad.Key);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadKeyValidData))]
-	public async Task Handle_ShouldThrowException_WhenCadNotFound(string key)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id1, true, ct)).ReturnsAsync(null as Cad);
-		SetCadKeyCommand command = new(id1, key);
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct)).ReturnsAsync(null as Cad);
+		SetCadKeyCommand command = new(id, ValidKey);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(

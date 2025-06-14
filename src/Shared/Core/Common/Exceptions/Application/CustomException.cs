@@ -9,4 +9,7 @@ public class CustomException(string message, Exception? inner = null) : BaseExce
 
 	public static CustomException Delivery<TEntity>(bool markedForDelivery = false, Exception? inner = null)
 		=> new($"The {typeof(TEntity).Name} is{(markedForDelivery ? "" : " not")} marked for delivery.", inner);
+
+	public static CustomException NotPaid<TEntity>(Exception? inner = null)
+		=> new($"The {typeof(TEntity).Name} requires its payment transaction to have been completed!", inner);
 }

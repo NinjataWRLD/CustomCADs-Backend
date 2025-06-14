@@ -40,7 +40,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 
 		custom.Accept(ValidDesignerId);
 		custom.Begin();
-		custom.Finish(ValidCadId, ValidPrice1);
+		custom.Finish(ValidCadId, ValidPrice);
 
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(custom);
@@ -132,9 +132,11 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		payment.Verify(x => x.InitializePayment(
+		payment.Verify(x => x.InitializeCustomPayment(
 			It.Is<string>(x => string.IsNullOrEmpty(x)),
-			It.Is<decimal>(x => x == ValidPrice1),
+			It.Is<AccountId>(x => x == ValidBuyerId),
+			It.Is<CustomId>(x => x == ValidId),
+			It.Is<decimal>(x => x == ValidPrice),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
 		), Times.Once);
@@ -169,9 +171,11 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 	{
 		// Arrange
 		PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
-		payment.Setup(x => x.InitializePayment(
+		payment.Setup(x => x.InitializeCustomPayment(
 			It.Is<string>(x => string.IsNullOrEmpty(x)),
-			It.Is<decimal>(x => x == ValidPrice1),
+			It.Is<AccountId>(x => x == ValidBuyerId),
+			It.Is<CustomId>(x => x == ValidId),
+			It.Is<decimal>(x => x == ValidPrice),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
 		)).ReturnsAsync(expected);

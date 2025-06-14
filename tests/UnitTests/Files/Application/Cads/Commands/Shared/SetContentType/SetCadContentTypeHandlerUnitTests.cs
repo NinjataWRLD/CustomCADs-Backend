@@ -6,7 +6,7 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.SetContentType;
 
-using Data;
+using static CadsData;
 
 public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 {
@@ -18,30 +18,28 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 	public SetCadContentTypeHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object);
-		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(cad);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadContentTypeValidData))]
-	public async Task Handle_ShouldQueryDatabase(string contentType)
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		SetCadContentTypeCommand command = new(id1, contentType);
+		SetCadContentTypeCommand command = new(id, ValidContentType);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id1, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadContentTypeValidData))]
-	public async Task Handle_ShouldPersistToDatabase_WhenCadFound(string contentType)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
 	{
 		// Arrange
-		SetCadContentTypeCommand command = new(id1, contentType);
+		SetCadContentTypeCommand command = new(id, ValidContentType);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -50,28 +48,26 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadContentTypeValidData))]
-	public async Task Handle_ShouldModifyCad_WhenCadFound(string contentType)
+	[Fact]
+	public async Task Handle_ShouldModifyCad_WhenCadFound()
 	{
 		// Arrange
-		SetCadContentTypeCommand command = new(id1, contentType);
+		SetCadContentTypeCommand command = new(id, ValidContentType);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		Assert.Equal(contentType, cad.ContentType);
+		Assert.Equal(ValidContentType, cad.ContentType);
 	}
 
-	[Theory]
-	[ClassData(typeof(SetCadContentTypeValidData))]
-	public async Task Handle_ShouldThrowException_WhenCadNotFound(string contentType)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id1, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
 			.ReturnsAsync(null as Cad);
-		SetCadContentTypeCommand command = new(id1, contentType);
+		SetCadContentTypeCommand command = new(id, ValidContentType);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(

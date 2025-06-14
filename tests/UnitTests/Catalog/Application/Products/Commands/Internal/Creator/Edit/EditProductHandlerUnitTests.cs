@@ -37,9 +37,9 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 		// Arrange
 		EditProductCommand command = new(
 			Id: ValidId,
-			Name: ValidName1,
-			Description: ValidDescription1,
-			Price: ValidPrice1,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidCreatorId
 		);
@@ -57,9 +57,9 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 		// Arrange
 		EditProductCommand command = new(
 			Id: ValidId,
-			Name: ValidName1,
-			Description: ValidDescription1,
-			Price: ValidPrice1,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidCreatorId
 		);
@@ -77,9 +77,9 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 		// Arrange
 		EditProductCommand command = new(
 			Id: ValidId,
-			Name: ValidName1,
-			Description: ValidDescription1,
-			Price: ValidPrice1,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidCreatorId
 		);
@@ -100,9 +100,9 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 		// Arrange
 		EditProductCommand command = new(
 			Id: ValidId,
-			Name: ValidName1,
-			Description: ValidDescription1,
-			Price: ValidPrice1,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidDesignerId
 		);
@@ -125,9 +125,9 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 
 		EditProductCommand command = new(
 			Id: ValidId,
-			Name: ValidName1,
-			Description: ValidDescription1,
-			Price: ValidPrice1,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidCreatorId
 		);
@@ -148,9 +148,9 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 
 		EditProductCommand command = new(
 			Id: ValidId,
-			Name: ValidName1,
-			Description: ValidDescription1,
-			Price: ValidPrice1,
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
 			CategoryId: ValidCategoryId,
 			CreatorId: ValidDesignerId
 		);

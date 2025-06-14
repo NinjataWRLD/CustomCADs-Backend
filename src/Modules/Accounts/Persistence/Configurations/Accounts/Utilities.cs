@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Accounts.Domain.Accounts;
 using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Accounts.Persistence.Configurations.Accounts;

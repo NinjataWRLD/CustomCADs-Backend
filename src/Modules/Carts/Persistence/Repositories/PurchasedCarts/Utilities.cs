@@ -8,11 +8,15 @@ namespace CustomCADs.Carts.Persistence.Repositories.PurchasedCarts;
 
 public static class Utilities
 {
-	public static IQueryable<PurchasedCart> WithFilter(this IQueryable<PurchasedCart> query, AccountId? buyerId = null)
+	public static IQueryable<PurchasedCart> WithFilter(this IQueryable<PurchasedCart> query, AccountId? buyerId = null, PaymentStatus? paymentStatus = null)
 	{
 		if (buyerId is not null)
 		{
 			query = query.Where(c => c.BuyerId == buyerId);
+		}
+		if (paymentStatus is not null)
+		{
+			query = query.Where(c => c.PaymentStatus == paymentStatus);
 		}
 
 		return query;

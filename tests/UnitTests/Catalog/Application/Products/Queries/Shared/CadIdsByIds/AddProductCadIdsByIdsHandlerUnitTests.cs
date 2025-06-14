@@ -17,8 +17,8 @@ public class GetProductCadIdsByIdsHandlerUnitTests : ProductsBaseUnitTests
 	private readonly ProductQuery query;
 	private readonly Result<Product> result;
 	private readonly Product[] products = [
-		CreateProductWithId(ValidName1, ValidDescription1, ValidPrice1),
-		CreateProductWithId(ValidName2, ValidDescription2, ValidPrice2)
+		CreateProductWithId(MinValidName, MinValidDescription, MinValidPrice),
+		CreateProductWithId(MaxValidName, MaxValidDescription, MaxValidPrice)
 	];
 
 	public GetProductCadIdsByIdsHandlerUnitTests()

@@ -23,8 +23,8 @@ public class PurchasedCartItemsBaseUnitTests
 			cartId: cartId ?? PurchasedCartsData.ValidId,
 			productId: productId ?? ValidProductId,
 			cadId: cadId ?? ValidCadId,
-			price: price ?? ValidPrice1,
-			quantity: quantity ?? ValidQuantity1,
+			price: price ?? MinValidPrice,
+			quantity: quantity ?? MinValidQuantity,
 			forDelivery: forDelivery ?? false,
 			customizationId: customizationId,
 			addedAt: addedAt ?? DateTimeOffset.UtcNow

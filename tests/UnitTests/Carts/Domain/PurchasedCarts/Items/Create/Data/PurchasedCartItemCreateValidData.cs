@@ -6,7 +6,7 @@ public class PurchasedCartItemCreateValidData : PurchasedCartItemCreateData
 {
 	public PurchasedCartItemCreateValidData()
 	{
-		Add(ValidPrice1, ValidQuantity1, true);
-		Add(ValidPrice2, ValidQuantity2, false);
+		Add(MinValidPrice, MinValidQuantity, true);
+		Add(MaxValidPrice, MaxValidQuantity, false);
 	}
 }

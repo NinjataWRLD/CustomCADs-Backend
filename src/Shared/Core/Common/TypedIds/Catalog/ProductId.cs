@@ -14,6 +14,8 @@ public readonly struct ProductId
 
 	public static ProductId New() => new(Guid.NewGuid());
 	public static ProductId New(Guid id) => new(id);
+	public static Guid Unwrap(ProductId id) => id.Value;
+	public static Guid? Unwrap(ProductId? id) => id?.Value;
 
 	public override bool Equals([NotNullWhen(true)] object? obj)
 		=> obj is ProductId productId && this == productId;

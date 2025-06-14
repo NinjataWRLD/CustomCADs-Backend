@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.UnitTests.Customs.Domain.Customs.Behaviors.SetDelivery.Data;
 
-public class CustomSetDeliveryValidData : CustomSetNameData
+public class CustomSetDeliveryValidData : TheoryData<bool>
 {
 	public CustomSetDeliveryValidData()
 	{

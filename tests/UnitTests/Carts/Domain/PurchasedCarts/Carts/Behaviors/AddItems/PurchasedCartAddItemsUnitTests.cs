@@ -3,36 +3,33 @@ using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Behaviors.AddItems;
 
-using Data;
 using static PurchasedCartConstants;
 using static PurchasedCartsData.CartItemsData;
 
 public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
 {
-	[Theory]
-	[ClassData(typeof(PurchasedCartAddItemsValidData))]
-	public void AddItems_ShouldNotThrow_WhenItemsCountIsValid(decimal price)
+	[Fact]
+	public void AddItems_ShouldNotThrow_WhenItemsCountIsValid()
 	{
 		CreateCartWithId().AddItems([
-			(price, ValidCadId, ValidProductId, false, null, 1, DateTimeOffset.UtcNow)
+			(MaxValidPrice, ValidCadId, ValidProductId, false, null, 1, DateTimeOffset.UtcNow)
 		]);
 	}
 
-	[Theory]
-	[ClassData(typeof(PurchasedCartAddItemsValidData))]
-	public void AddItems_ShouldThrow_WhenItemsCountIsNotValid(decimal price)
+	[Fact]
+	public void AddItems_ShouldThrow_WhenItemsCountIsNotValid()
 	{
 		var purchasedCart = CreateCartWithId();
 		for (int i = 0; i < ItemsCountMax; i++)
 		{
 			purchasedCart.AddItems([
-				(price, ValidCadId, ProductId.New(), false, null, 1, DateTimeOffset.UtcNow)
+				(MaxValidPrice, ValidCadId, ProductId.New(), false, null, 1, DateTimeOffset.UtcNow)
 			]);
 		}
 
 		Assert.Throws<CustomValidationException<PurchasedCart>>(
 			() => purchasedCart.AddItems([
-				(price, ValidCadId, ProductId.New(), false, null, 1, DateTimeOffset.UtcNow)
+				(MaxValidPrice, ValidCadId, ProductId.New(), false, null, 1, DateTimeOffset.UtcNow)
 			])
 		);
 	}

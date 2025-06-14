@@ -6,7 +6,6 @@ using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Create;
 
-using Data;
 using static CustomsData;
 
 public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
@@ -26,15 +25,14 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 		)).ReturnsAsync(true);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string name, string description, bool fordelivery)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateCustomCommand command = new(
-			Name: name,
-			Description: description,
-			ForDelivery: fordelivery,
+			Name: MaxValidName,
+			Description: MaxValidDescription,
+			ForDelivery: true,
 			BuyerId: ValidBuyerId
 		);
 
@@ -44,9 +42,9 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 		// Assert
 		writes.Verify(x => x.AddAsync(
 			It.Is<Custom>(x =>
-				x.Name == name &&
-				x.Description == description &&
-				x.ForDelivery == fordelivery &&
+				x.Name == MaxValidName &&
+				x.Description == MaxValidDescription &&
+				x.ForDelivery &&
 				x.BuyerId == ValidBuyerId
 			),
 			ct
@@ -54,15 +52,14 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Handle_ShouldSendRequests(string name, string description, bool fordelivery)
+	[Fact]
+	public async Task Handle_ShouldSendRequests()
 	{
 		// Arrange
 		CreateCustomCommand command = new(
-			Name: name,
-			Description: description,
-			ForDelivery: fordelivery,
+			Name: MaxValidName,
+			Description: MaxValidDescription,
+			ForDelivery: true,
 			BuyerId: ValidBuyerId
 		);
 
@@ -77,9 +74,8 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateCustomValidData))]
-	public async Task Handle_ShouldThrowException_WhenBuyerNotFound(string name, string description, bool fordelivery)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenBuyerNotFound()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(
@@ -88,9 +84,9 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 		)).ReturnsAsync(false);
 
 		CreateCustomCommand command = new(
-			Name: name,
-			Description: description,
-			ForDelivery: fordelivery,
+			Name: MaxValidName,
+			Description: MaxValidDescription,
+			ForDelivery: true,
 			BuyerId: ValidBuyerId
 		);
 

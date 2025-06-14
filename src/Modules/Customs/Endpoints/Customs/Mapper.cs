@@ -115,6 +115,7 @@ internal static class Mapper
 
 	internal static CompletedCustomResponse ToResponse(this CompletedCustomDto custom)
 		=> new(
+			PaymentStatus: custom.PaymentStatus,
 			CustomizationId: custom.CustomizationId?.Value,
 			ShipmentId: custom.ShipmentId?.Value
 		);

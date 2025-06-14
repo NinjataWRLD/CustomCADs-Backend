@@ -2,7 +2,6 @@
 using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
-using System.ComponentModel.Design;
 
 namespace CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 

@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Get;
-using CustomCADs.Customizations.Domain.Materials;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Customizations.Endpoints.Materials.Endpoints.Get.PresignedUrl;

@@ -18,22 +18,11 @@ public static partial class Constants
 		private static partial Regex PhoneRegex();
 	}
 
-	public static class ExceptionMessages
-	{
-		public const string NotFound = "The requested {0} does not exist.";
-		public const string NotFoundByProp = "The {0} with {1}: {2} does not exist.";
-
-		public const string Validation = "There was a validation error while working with {0} {1}.";
-		public const string NonNullValidation = "{0} {1} must have a non-null {2}.";
-		public const string LengthValidation = "{0} {1}'s {2} be shorter than {3} and longer than {4} characters.";
-		public const string RangeValidation = "{0} {1}'s {2} must be more than {3} and less than {4}.";
-		public const string MinimumValidation = "{0} {1}'s {2} must be more than {3}.";
-	}
-
 	public static class FluentMessages
 	{
 		public const string RequiredError = "{PropertyName} is required";
 		public const string LengthError = "{PropertyName} length must be between {MinLength} and {MaxLength} characters";
+		public const string MinimumError = "{PropertyName} length must be more than {MinLength} characters";
 		public const string RangeError = "{PropertyName} must be between {From} and {To}";
 		public const string EmailError = "Invalid Email";
 		public const string PhoneError = "Invalid Phone";

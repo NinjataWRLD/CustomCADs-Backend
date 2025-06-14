@@ -1,21 +1,20 @@
 ﻿using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Payment.Exceptions;
-using Microsoft.Extensions.Options;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Core.Common.TypedIds.Customs;
 using Stripe;
 
 namespace CustomCADs.Shared.Infrastructure.Payment;
 
 using static Messages;
 
-public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentIntentService paymentIntentService) : IPaymentService
+public sealed class StripeService(PaymentIntentService service) : IPaymentService
 {
-	public string PublicKey => settings.Value.PublishableKey;
 
-	public async Task<PaymentDto> InitializePayment(string paymentMethodId, decimal price, string description, CancellationToken ct = default)
+	public async Task<PaymentDto> InitializeCartPayment(string paymentMethodId, AccountId buyerId, PurchasedCartId cartId, decimal price, string description, CancellationToken ct = default)
 	{
-		StripeConfiguration.ApiKey = settings.Value.SecretKey;
-
-		PaymentIntent paymentIntent = await paymentIntentService.CreateAsync(new()
+		PaymentIntent intent = await service.CreateAsync(new()
 		{
 			Amount = Convert.ToInt64(price * 100),
 			Currency = "USD",
@@ -26,27 +25,83 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
 			{
 				Enabled = true,
 				AllowRedirects = "never"
-			}
+			},
+			Metadata = new()
+			{
+				["buyerId"] = buyerId.Value.ToString(),
+				["rewardType"] = "cart",
+				["rewardId"] = cartId.Value.ToString()
+			},
 		}, cancellationToken: ct).ConfigureAwait(false);
 
 		PaymentDto response = new(
-			ClientSecret: paymentIntent.ClientSecret,
-			Message: GetMessageFromStatus(paymentIntent.Status)
+			ClientSecret: intent.ClientSecret,
+			Message: GetMessageFromStatus(intent.Status)
 		);
 
 		switch (response.Message)
 		{
-			case FailedPayment:
-				string retry = await RetryCaptureAsync(paymentIntent.Id, ct).ConfigureAwait(false);
+			case FailedPaymentCapture:
+				intent = await service.CaptureAsync(intent.Id, cancellationToken: ct).ConfigureAwait(false);
+				string message = GetMessageFromStatus(intent.Status);
 
-				return retry == SuccessfulPayment
-					? response with { Message = SuccessfulPayment }
-					: throw PaymentFailedException.WithClientSecret(paymentIntent.ClientSecret, retry);
+				if (message == SuccessfulPayment)
+				{
+					return response with { Message = SuccessfulPayment };
+				}
+				throw PaymentFailedException.WithClientSecret(intent.ClientSecret, message);
 
 			case ProcessingPayment:
-				await WaitForProcessingToResolve(paymentIntent.Id, ct).ConfigureAwait(false);
 				return response;
 
+			case SuccessfulPayment:
+				return response;
+
+			default:
+				throw PaymentFailedException.General(response.Message);
+		}
+	}
+
+	public async Task<PaymentDto> InitializeCustomPayment(string paymentMethodId, AccountId buyerId, CustomId customId, decimal price, string description, CancellationToken ct = default)
+	{
+		PaymentIntent intent = await service.CreateAsync(new()
+		{
+			Amount = Convert.ToInt64(price * 100),
+			Currency = "USD",
+			PaymentMethod = paymentMethodId,
+			Confirm = true,
+			Description = description,
+			AutomaticPaymentMethods = new()
+			{
+				Enabled = true,
+				AllowRedirects = "never"
+			},
+			Metadata = new()
+			{
+				["buyerId"] = buyerId.Value.ToString(),
+				["rewardType"] = "custom",
+				["rewardId"] = customId.Value.ToString()
+			},
+		}, cancellationToken: ct).ConfigureAwait(false);
+
+		PaymentDto response = new(
+			ClientSecret: intent.ClientSecret,
+			Message: GetMessageFromStatus(intent.Status)
+		);
+
+		switch (response.Message)
+		{
+			case FailedPaymentCapture:
+				intent = await service.CaptureAsync(intent.Id, cancellationToken: ct).ConfigureAwait(false);
+				string message = GetMessageFromStatus(intent.Status);
+
+				if (message == SuccessfulPayment)
+				{
+					return response with { Message = SuccessfulPayment };
+				}
+				throw PaymentFailedException.WithClientSecret(intent.ClientSecret, message);
+
+			case ProcessingPayment:
 			case SuccessfulPayment:
 				return response;
 
@@ -66,36 +121,4 @@ public sealed class StripeService(IOptions<PaymentSettings> settings, PaymentInt
 			"requires_capture" => FailedPaymentCapture,
 			_ => string.Format(UnhandledPayment, status)
 		};
-
-	private async Task<string> RetryCaptureAsync(string id, CancellationToken ct = default)
-		=> (await paymentIntentService.CaptureAsync(id, cancellationToken: ct).ConfigureAwait(false)).Status == "succeeded"
-				? SuccessfulPayment
-				: FailedPaymentCapture;
-
-	private async Task<string> WaitForProcessingToResolve(string id, CancellationToken ct = default)
-	{
-		const int MaxRetries = 10;
-		const int SecondsBetweenRetries = 1;
-		const string ErrorMessage = "Payment is still processing after maximum retries.";
-
-		for (int i = 0; i < MaxRetries; i++)
-		{
-			PaymentIntent intent = await paymentIntentService.GetAsync(id, cancellationToken: ct).ConfigureAwait(false);
-			string message = GetMessageFromStatus(intent.Status);
-
-			switch (message)
-			{
-				case SuccessfulPayment:
-					return message;
-
-				case ProcessingPayment:
-					await Task.Delay(SecondsBetweenRetries * 1000, ct).ConfigureAwait(false); break;
-
-				default:
-					throw PaymentFailedException.General(message);
-			}
-		}
-
-		throw new TimeoutException(ErrorMessage);
-	}
 }

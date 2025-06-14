@@ -15,6 +15,7 @@ public readonly struct ShipmentId
 	public static ShipmentId New() => new(Guid.NewGuid());
 	public static ShipmentId New(Guid id) => new(id);
 	public static ShipmentId? New(Guid? id) => id is null ? null : new(id.Value);
+	public static Guid Unwrap(ShipmentId id) => id.Value;
 	public static Guid? Unwrap(ShipmentId? id) => id?.Value;
 
 	public override bool Equals([NotNullWhen(true)] object? obj)

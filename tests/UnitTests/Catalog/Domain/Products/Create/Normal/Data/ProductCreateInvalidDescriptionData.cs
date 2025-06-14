@@ -6,7 +6,7 @@ public class ProductCreateInvalidDescriptionData : ProductCreateData
 {
 	public ProductCreateInvalidDescriptionData()
 	{
-		Add(ValidName1, InvalidDescription1, ValidPrice1);
-		Add(ValidName2, InvalidDescription2, ValidPrice2);
+		Add(MinValidName, MinInvalidDescription, MinValidPrice);
+		Add(MaxValidName, MaxInvalidDescription, MaxValidPrice);
 	}
 }

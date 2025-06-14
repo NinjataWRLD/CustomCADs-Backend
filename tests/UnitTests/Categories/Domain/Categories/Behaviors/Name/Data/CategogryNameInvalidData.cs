@@ -6,8 +6,8 @@ public class CategogryNameInvalidData : CategoryNameData
 {
 	public CategogryNameInvalidData()
 	{
-		Add(InvalidName1);
-		Add(InvalidName2);
-		Add(InvalidName3);
+		Add(InvalidName);
+		Add(MinInvalidName);
+		Add(MaxInvalidName);
 	}
 }

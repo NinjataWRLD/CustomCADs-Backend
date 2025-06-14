@@ -6,7 +6,7 @@ public class CustomCreateWitIdInvalidDescriptionData : CustomCreateWithIdData
 {
 	public CustomCreateWitIdInvalidDescriptionData()
 	{
-		Add(ValidName1, InvalidDescription1, true);
-		Add(ValidName2, InvalidDescription2, false);
+		Add(MinValidName, MinInvalidDescription, true);
+		Add(MaxValidName, MaxInvalidDescription, false);
 	}
 }

@@ -20,9 +20,9 @@ public class ProductsBaseUnitTests
 		ImageId? imageId = null,
 		CadId? cadId = null
 	) => Product.Create(
-			name: name ?? ValidName1,
-			description: description ?? ValidDescription1,
-			price: price ?? ValidPrice1,
+			name: name ?? MinValidName,
+			description: description ?? MinValidDescription,
+			price: price ?? MinValidPrice,
 			creatorId: creatorId ?? ValidCreatorId,
 			categoryId: categoryId ?? ValidCategoryId,
 			imageId: imageId ?? ValidImageId,
@@ -39,9 +39,9 @@ public class ProductsBaseUnitTests
 		CadId? cadId = null,
 		ProductId? id = null
 	) => Product.CreateWithId(
-			name: name ?? ValidName1,
-			description: description ?? ValidDescription1,
-			price: price ?? ValidPrice1,
+			name: name ?? MinValidName,
+			description: description ?? MinValidDescription,
+			price: price ?? MinValidPrice,
 			creatorId: creatorId ?? ValidCreatorId,
 			categoryId: categoryId ?? ValidCategoryId,
 			imageId: imageId ?? ValidImageId,
