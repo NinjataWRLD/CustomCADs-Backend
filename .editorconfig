@@ -2,7 +2,7 @@
 root = true
 
 # C# files
-[*.cs]
+[*.{cs,csproj}]
 
 #### Core EditorConfig Options ####
 
