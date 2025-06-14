@@ -3,11 +3,11 @@ name: Universal Integration pipeline
 on:
   workflow_call:
   push:
-    branches: 
+    branches:
       - feature/*
       - hotfix/*
-    tags-ignore: 
-      - 'v*.*.*'
+    tags-ignore:
+      - "v*.*.*"
 
 jobs:
   unit_test:

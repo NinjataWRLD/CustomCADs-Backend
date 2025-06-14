@@ -3,8 +3,8 @@ name: Release Delivery pipeline
 on:
   workflow_dispatch:
   push:
-    branches: release/*
-    tags-ignore: 'v*.*.*'
+    branches: [release/*]
+    tags-ignore: ["v*.*.*"]
 
 jobs:
   ci:

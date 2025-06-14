@@ -1,16 +1,16 @@
 name: Deliver Production to AWS ECR Action
 
-on: 
+on:
   workflow_call:
     secrets:
-        aws-access-key-id:
-          required: true
-        aws-secret-access-key:
-          required: true
-        aws-region:
-          required: true
-        aws-ecr-registry:
-          required: true
+      aws-access-key-id:
+        required: true
+      aws-secret-access-key:
+        required: true
+      aws-region:
+        required: true
+      aws-ecr-registry:
+        required: true
 
 jobs:
   deliver:
@@ -20,8 +20,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-            fetch-depth: 0 
-            
+          fetch-depth: 0
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
