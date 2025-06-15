@@ -7,7 +7,7 @@ CONTAINER_ID=$(docker ps -q | head -n 1)
 echo "Container ID: $CONTAINER_ID"
 
 if [ -n "$CONTAINER_ID" ]; then
-    docker exec $CONTAINER_ID dotnet CustomCADs.Presentation.dll --migrate-only
+    docker exec $CONTAINER_ID dotnet CustomCADs.Tools.Migrations.dll --migrate-only
     if [ $? -eq 0 ]; then
         echo "Migrations applied successfully."
     else

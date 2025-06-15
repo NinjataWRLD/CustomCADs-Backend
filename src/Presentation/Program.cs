@@ -26,17 +26,6 @@ builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddIdentity();
 builder.Services.AddGlobalExceptionHandler();
 
-// Database Updater
-if (args.Contains("--migrate"))
-{
-	await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
-}
-else if (args.Contains("--migrate-only"))
-{
-	await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
-	return 0;
-}
-
 // API
 builder.Services.AddEndpoints();
 builder.Services.AddJsonOptions();

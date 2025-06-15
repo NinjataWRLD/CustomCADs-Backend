@@ -145,24 +145,6 @@ public static class ProgramExtensions
 	public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
 		=> services.AddExceptionHandler<GlobalExceptionHandler>();
 
-	public static async Task AddDbMigrationUpdater(this IServiceCollection services)
-	{
-		using IServiceScope scope = services.BuildServiceProvider().CreateScope();
-		IServiceProvider provider = scope.ServiceProvider;
-
-		await Task.WhenAll([
-			provider.UpdateAccountsContextAsync(),
-			provider.UpdateCartsContextAsync(),
-			provider.UpdateCatalogContextAsync(),
-			provider.UpdateCategoriesContextAsync(),
-			provider.UpdateCustomizationsContextAsync(),
-			provider.UpdateCustomsContextAsync(),
-			provider.UpdateDeliveryContextAsync(),
-			provider.UpdateFilesContextAsync(),
-			provider.UpdateIdentityContextAsync(),
-		]).ConfigureAwait(false);
-	}
-
 	public static void AddEndpoints(this IServiceCollection services)
 	{
 		services.AddFastEndpoints();
