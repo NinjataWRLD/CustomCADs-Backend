@@ -46,7 +46,7 @@ public static class DependencyInjection
 		services.AddScoped<ITokenService, TokenService>();
 	}
 
-	public static void AddMessagingServices(this IServiceCollection services, bool isDev, Assembly entry, params Assembly[] assemblies)
+	public static void AddMessagingServices(this IServiceCollection services, bool codeGen, Assembly entry, params Assembly[] assemblies)
 	{
 		services.AddValidatorsFromAssemblies(assemblies);
 
@@ -57,7 +57,7 @@ public static class DependencyInjection
 				cfg.Discovery.IncludeAssembly(assembly);
 			}
 
-			if (!isDev)
+			if (codeGen)
 			{
 				cfg.CodeGeneration.ApplicationAssembly = entry;
 				cfg.CodeGeneration.TypeLoadMode = TypeLoadMode.Static;

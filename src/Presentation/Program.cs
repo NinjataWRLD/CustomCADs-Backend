@@ -1,5 +1,4 @@
 using CustomCADs.Presentation;
-using JasperFx;
 using static CustomCADs.Shared.Core.Constants.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,4 +55,4 @@ app.MapApiDocumentationUi(
 );
 app.MapStripeWebhook();
 
-return await app.RunJasperFxCommands(args).ConfigureAwait(false);
+await app.RunAsync().ConfigureAwait(false);

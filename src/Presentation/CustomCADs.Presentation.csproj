@@ -15,6 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Tools\CodeGen\CustomCADs.Tools.CodeGen.csproj" />
 		<ProjectReference Include="..\Modules\Accounts\Endpoints\CustomCADs.Accounts.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Accounts\Persistence\CustomCADs.Accounts.Persistence.csproj" />
 		<ProjectReference Include="..\Modules\Carts\Endpoints\CustomCADs.Carts.Endpoints.csproj" />
