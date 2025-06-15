@@ -1,7 +1,8 @@
-﻿namespace CustomCADs.UnitTests.Files.Application.Cads;
-
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.Core.Common.ValueObjects;
+
+namespace CustomCADs.UnitTests.Files.Application.Cads;
+
 using static CadsData;
 
 public class CadsBaseUnitTests
