@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Files.Application.Cads.Queries.Shared;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetCoords;
@@ -11,7 +10,6 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
 	private readonly GetCadCoordsByIdHandler handler;
 	private readonly Mock<ICadReads> reads = new();
 
-	private static readonly CadId id = CadId.New();
 	private static readonly Cad cad = CreateCad();
 
 	public GetCadCoordsByIdHandlerUnitTests()

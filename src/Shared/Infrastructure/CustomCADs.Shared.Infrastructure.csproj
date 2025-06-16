@@ -4,18 +4,19 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AWSSDK.S3" Version="3.7.415.8" />
-		<PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
-		<PackageReference Include="MailKit" Version="4.10.0" />
-		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Options" Version="9.0.2" />
-		<PackageReference Include="Stripe.net" Version="48.2.0" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.6.0" />
-		<PackageReference Include="WolverineFx" Version="3.11.0" />
-		<PackageReference Include="WolverineFx.FluentValidation" Version="3.11.0" />
+		<PackageReference Include="AWSSDK.S3" />
+		<PackageReference Include="FluentEmail.Smtp" />
+		<PackageReference Include="MailKit" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" />
+		<PackageReference Include="Microsoft.Extensions.Options" />
+		<PackageReference Include="Stripe.net" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+		<PackageReference Include="WolverineFx" />
+		<PackageReference Include="WolverineFx.FluentValidation" />
 	</ItemGroup>
 
 	<ItemGroup>
