@@ -6,10 +6,10 @@ locals {
   production_jwt_audience   = local.production_jwt["Audience"]
   production_jwt_secret_key = local.production_jwt["SecretKey"]
 
-  production_payment                      = local.production_env_vars["Payment"]
-  production_payment_secret_key           = local.production_payment["SecretKey"]
-  production_payment_publishable_key      = local.production_payment["PublishableKey"]
-  production_payment_webhook_secret      = local.production_payment["WebhookSecret"]
+  production_payment                 = local.production_env_vars["Payment"]
+  production_payment_secret_key      = local.production_payment["SecretKey"]
+  production_payment_publishable_key = local.production_payment["PublishableKey"]
+  production_payment_webhook_secret  = local.production_payment["WebhookSecret"]
 
   production_email          = local.production_env_vars["Email"]
   production_email_server   = local.production_email["Server"]

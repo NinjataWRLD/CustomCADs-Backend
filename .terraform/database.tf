@@ -5,7 +5,7 @@ resource "aws_db_instance" "customcads_production_database" {
   instance_class = "db.t3.micro"
 
   engine         = "postgres"
-  engine_version = "16.3"
+  engine_version = "16.8"
   port           = 5432
 
   username = local.production_db_username
@@ -33,7 +33,7 @@ resource "aws_db_instance" "customcads_staging_database" {
   instance_class = "db.t3.micro"
 
   engine         = "postgres"
-  engine_version = "16.3"
+  engine_version = "16.8"
   port           = 5432
 
   username = local.staging_db_username
