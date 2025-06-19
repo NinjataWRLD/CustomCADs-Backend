@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Customs.Domain.Customs;
-using CustomCADs.Customs.Domain.Customs.Entities;
+using CustomCADs.Customs.Domain.Customs.States.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Customs;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CustomCADs.Customs.Persistence.Configurations.Customs.Finished;
+namespace CustomCADs.Customs.Persistence.Configurations.Customs.States.Finished;
 
 public static class Utilities
 {

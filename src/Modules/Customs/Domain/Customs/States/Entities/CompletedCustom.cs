@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
-namespace CustomCADs.Customs.Domain.Customs.Entities;
+namespace CustomCADs.Customs.Domain.Customs.States.Entities;
 
 public class CompletedCustom : BaseEntity
 {

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Customs.Domain.Customs.Entities;
+﻿namespace CustomCADs.Customs.Domain.Customs.States.Entities;
 
 using static CustomConstants;
 

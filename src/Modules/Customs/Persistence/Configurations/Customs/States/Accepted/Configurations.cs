@@ -1,8 +1,8 @@
-﻿using CustomCADs.Customs.Domain.Customs.Entities;
+﻿using CustomCADs.Customs.Domain.Customs.States.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CustomCADs.Customs.Persistence.Configurations.Customs.Accepted;
+namespace CustomCADs.Customs.Persistence.Configurations.Customs.States.Accepted;
 
 public class Configurations : IEntityTypeConfiguration<AcceptedCustom>
 {
