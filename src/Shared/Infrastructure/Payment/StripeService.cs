@@ -17,7 +17,7 @@ public sealed class StripeService(PaymentIntentService service) : IPaymentServic
 		PaymentIntent intent = await service.CreateAsync(new()
 		{
 			Amount = Convert.ToInt64(price * 100),
-			Currency = "USD",
+			Currency = "EUR",
 			PaymentMethod = paymentMethodId,
 			Confirm = true,
 			Description = description,

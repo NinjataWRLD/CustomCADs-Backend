@@ -6,10 +6,10 @@ locals {
   staging_jwt_audience   = local.staging_jwt["Audience"]
   staging_jwt_secret_key = local.staging_jwt["SecretKey"]
 
-  staging_payment                      = local.staging_env_vars["Payment"]
-  staging_payment_secret_key           = local.staging_payment["SecretKey"]
-  staging_payment_publishable_key      = local.staging_payment["PublishableKey"]
-  staging_payment_webhook_secret      = local.production_payment["WebhookSecret"]
+  staging_payment                 = local.staging_env_vars["Payment"]
+  staging_payment_secret_key      = local.staging_payment["SecretKey"]
+  staging_payment_publishable_key = local.staging_payment["PublishableKey"]
+  staging_payment_webhook_secret  = local.production_payment["WebhookSecret"]
 
   staging_email          = local.staging_env_vars["Email"]
   staging_email_server   = local.staging_email["Server"]
