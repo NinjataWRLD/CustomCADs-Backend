@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.UseCases.Shipments.Commands;
+namespace CustomCADs.Delivery.Application.Shipments.Commands.Internal.Cancel;
 
 public record CancelShipmentCommand(
 	ShipmentId Id,
