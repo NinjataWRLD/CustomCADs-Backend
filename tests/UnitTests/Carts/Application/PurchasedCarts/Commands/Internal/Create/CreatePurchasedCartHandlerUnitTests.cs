@@ -1,14 +1,15 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Dtos;
 using CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
 using CustomCADs.Carts.Domain.Repositories;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.ApplicationEvents.Catalog;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.Shared.UseCases.Products.Commands;
 using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Commands.Internal.Create;
@@ -19,6 +20,7 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 	private readonly Mock<IWrites<PurchasedCart>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRequestSender> sender = new();
+	private readonly Mock<IEventRaiser> raiser = new();
 
 	private static readonly AccountId buyerId = AccountId.New();
 	private static readonly ActiveCartItemDto[] items = [];
@@ -29,7 +31,7 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 
 	public CreatePurchasedCartHandlerUnitTests()
 	{
-		handler = new(writes.Object, uow.Object, sender.Object);
+		handler = new(writes.Object, uow.Object, sender.Object, raiser.Object);
 
 		sender.Setup(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
@@ -94,9 +96,24 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 			It.Is<DuplicateCadsByIdsCommand>(x => x.Ids == cadIds),
 			ct
 		), Times.Once);
-		sender.Verify(x => x.SendCommandAsync(
-			It.Is<AddProductPurchaseCommand>(x => x.Ids == productIds),
-			ct
+	}
+
+	[Fact]
+	public async Task Handle_ShouldRaiseEvents()
+	{
+		// Arrange
+		CreatePurchasedCartCommand command = new(
+			BuyerId: buyerId,
+			Items: items,
+			Prices: prices
+		);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		raiser.Verify(x => x.RaiseApplicationEventAsync(
+			It.Is<UserPurchasedProductApplicationEvent>(x => x.Ids == productIds)
 		), Times.Once);
 	}
 

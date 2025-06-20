@@ -61,7 +61,7 @@ static class Utilities
 
 	public static EntityTypeBuilder<Product> SetValueObjects(this EntityTypeBuilder<Product> builder)
 	{
-		builder.ComplexProperty(x => x.Counts, c =>
+		builder.OwnsOne(x => x.Counts, c =>
 		{
 			c.Property(x => x.Purchases)
 				.IsRequired()
