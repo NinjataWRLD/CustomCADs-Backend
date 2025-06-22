@@ -2,6 +2,7 @@
 global using CustomCADs.Customizations.Application.Materials.Dtos;
 global using CustomCADs.Customizations.Domain.Customizations;
 global using CustomCADs.Customizations.Domain.Materials;
+global using CustomCADs.Shared.Abstractions.Cache;
 global using CustomCADs.Shared.Abstractions.Requests.Commands;
 global using CustomCADs.Shared.Abstractions.Requests.Queries;
 global using CustomCADs.Shared.Core;
