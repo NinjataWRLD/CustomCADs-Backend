@@ -8,6 +8,9 @@ public class MemoryCacheService(IMemoryCache cache)
 
 public class MemoryCacheService<TKey>(IMemoryCache cache) : ICacheService<TKey> where TKey : class
 {
+	public async Task<TItem?> GetOrCreateAsync<TItem>(TKey key, Func<Task<TItem>> factory) where TItem : class?
+		=> await cache.GetOrCreateAsync(key, (_) => factory()).ConfigureAwait(false);
+
 	public async Task<TItem?> GetAsync<TItem>(TKey key) where TItem : class?
 		=> await Task.Run(() =>
 			cache.TryGetValue(key, out TItem? result) ? result : null
@@ -18,7 +21,7 @@ public class MemoryCacheService<TKey>(IMemoryCache cache) : ICacheService<TKey> 
 			cache.Set(key, item)
 		).ConfigureAwait(false);
 
-	public async Task RemoveAsync<TItem>(TKey key)
+	public async Task RemoveAsync(TKey key)
 		=> await Task.Run(() =>
 			cache.Remove(key)
 		).ConfigureAwait(false);

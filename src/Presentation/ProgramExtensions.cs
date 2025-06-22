@@ -33,6 +33,14 @@ public static class ProgramExtensions
 
 		return services;
 	}
+
+	public static IServiceCollection AddCache(this IServiceCollection services)
+	{
+		services.AddCacheService();
+
+		return services;
+	}
+
 	public static void AddAuthZ(this IServiceCollection services, IEnumerable<string> roles)
 	{
 		services.AddAuthorization(options =>
