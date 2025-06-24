@@ -1,23 +1,22 @@
-﻿using CustomCADs.Categories.Domain.Categories.Events;
-using CustomCADs.Categories.Domain.Repositories;
+﻿using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Events;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Internal.Delete;
 
-public sealed class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class DeleteCategoryHandler(ICategoryReads reads, IWrites<Category> writes, IUnitOfWork uow, BaseCachingService<CategoryId, Category> cache)
 	: ICommandHandler<DeleteCategoryCommand>
 {
 	public async Task Handle(DeleteCategoryCommand req, CancellationToken ct)
 	{
-		Category category = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-			?? throw CustomNotFoundException<Category>.ById(req.Id);
+		Category category = await cache.GetOrCreateAsync(
+			id: req.Id,
+			factory: async () => await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+				?? throw CustomNotFoundException<Category>.ById(req.Id)
+		).ConfigureAwait(false);
 
 		writes.Remove(category);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-		await raiser.RaiseDomainEventAsync(new CategoryDeletedDomainEvent(
-			Id: req.Id
-		)).ConfigureAwait(false);
+		await cache.ClearAsync(req.Id).ConfigureAwait(false);
 	}
 }

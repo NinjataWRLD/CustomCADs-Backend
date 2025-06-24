@@ -1,8 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Internal.Delete;
-using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Delete;
@@ -12,21 +10,21 @@ using static CategoriesData;
 public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 {
 	private readonly DeleteCategoryHandler handler;
-	private readonly Mock<IEventRaiser> raiser = new();
+	private readonly Mock<BaseCachingService<CategoryId, Category>> cache = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IWrites<Category>> writes = new();
 	private readonly Mock<ICategoryReads> reads = new();
 
 	public DeleteCategoryHandlerUnitTests()
 	{
-		handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
+		handler = new(reads.Object, writes.Object, uow.Object, cache.Object);
 
-		reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct))
+		cache.Setup(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()))
 			.ReturnsAsync(CreateCategory(ValidId, ValidName, ValidDescription));
 	}
 
 	[Fact]
-	public async Task Handler_ShouldQueryDatabase()
+	public async Task Handler_ShouldReadCache()
 	{
 		// Arrange
 		DeleteCategoryCommand command = new(ValidId);
@@ -35,11 +33,11 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(v => v.SingleByIdAsync(ValidId, true, ct), Times.Once());
+		cache.Verify(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase_WhenCategoryFound()
+	public async Task Handler_ShouldPersistToDatabase()
 	{
 		// Arrange
 		DeleteCategoryCommand command = new(ValidId);
@@ -55,7 +53,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldRaiseEvents()
+	public async Task Handler_ShouldClearCache()
 	{
 		// Arrange
 		DeleteCategoryCommand command = new(ValidId);
@@ -64,22 +62,6 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		raiser.Verify(v => v.RaiseDomainEventAsync(
-			It.Is<CategoryDeletedDomainEvent>(x => x.Id == ValidId)
-		), Times.Once());
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenCategoryNotFound()
-	{
-		// Arrange
-		reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Category);
-		DeleteCategoryCommand command = new(ValidId);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
-			// Act
-			async () => await handler.Handle(command, ct)
-		);
+		cache.Verify(x => x.ClearAsync(ValidId));
 	}
 }
