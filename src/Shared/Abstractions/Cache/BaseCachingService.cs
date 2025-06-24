@@ -12,6 +12,6 @@ public abstract class BaseCachingService<TId, TItem>
 
 	public abstract Task<ICollection<TItem>> GetOrCreateAsync(Func<Task<ICollection<TItem>>> factory);
 	public abstract Task<TItem> GetOrCreateAsync(TId id, Func<Task<TItem>> factory);
-	public abstract Task UpdateAsync(TId id, TItem TItem);
+	public abstract Task UpdateAsync(TId id, TItem item);
 	public abstract Task ClearAsync(TId id);
 }

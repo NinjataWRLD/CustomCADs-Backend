@@ -39,6 +39,7 @@ public static class ProgramExtensions
 		services.AddCacheService();
 		services.AddMaterialCaching();
 		services.AddCategoryCaching();
+		services.AddRoleCaching();
 
 		return services;
 	}

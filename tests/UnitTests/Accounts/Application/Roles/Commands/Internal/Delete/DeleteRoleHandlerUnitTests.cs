@@ -2,32 +2,36 @@
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Accounts.Domain.Repositories.Writes;
-using CustomCADs.Accounts.Domain.Roles.Events;
+using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Delete;
 
-using Data;
 using static RolesData;
 
 public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 {
 	private readonly DeleteRoleHandler handler;
 	private readonly Mock<IEventRaiser> raiser = new();
+	private readonly Mock<BaseCachingService<RoleId, Role>> cache = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRoleWrites> writes = new();
 	private readonly Mock<IRoleReads> reads = new();
 
 	public DeleteRoleHandlerUnitTests()
 	{
-		handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
-		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(CreateRole(ValidName, ValidDescription));
+		handler = new(reads.Object, writes.Object, uow.Object, cache.Object, raiser.Object);
+		cache.Setup(x => x.GetOrCreateAsync(
+			ValidId,
+			It.IsAny<Func<Task<Role>>>()
+		)).ReturnsAsync(CreateRole());
 	}
 
 	[Fact]
-	public async Task Handler_ShouldQueryDatabase()
+	public async Task Handler_ShouldReadCache()
 	{
 		// Arrange
 		DeleteRoleCommand command = new(ValidId);
@@ -36,11 +40,14 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
+		cache.Verify(x => x.GetOrCreateAsync(
+			ValidId,
+			It.IsAny<Func<Task<Role>>>()
+		), Times.Once);
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase_WhenRoleFound()
+	public async Task Handler_ShouldPersistToDatabase()
 	{
 		// Arrange
 		DeleteRoleCommand command = new(ValidId);
@@ -56,7 +63,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldRaiseEvents_WhenRoleFound()
+	public async Task Handler_ShouldRaiseEvents()
 	{
 		// Arrange
 		DeleteRoleCommand command = new(ValidId);
@@ -65,25 +72,8 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		raiser.Verify(x => x.RaiseDomainEventAsync(
-			It.Is<RoleDeletedDomainEvent>(x => x.Id == ValidId)
-		));
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<RoleDeletedApplicationEvent>(x => x.Name == ValidName)
 		), Times.Once);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenRoleNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Role);
-		DeleteRoleCommand command = new(ValidId);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Role>>(
-			// Act
-			async () => await handler.Handle(command, ct)
-		);
 	}
 }

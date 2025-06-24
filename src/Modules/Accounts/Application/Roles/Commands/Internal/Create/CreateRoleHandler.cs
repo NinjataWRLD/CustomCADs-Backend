@@ -1,12 +1,11 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Writes;
-using CustomCADs.Accounts.Domain.Roles.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
 
-public sealed class CreateRoleHandler(IRoleWrites writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class CreateRoleHandler(IRoleWrites writes, IUnitOfWork uow, BaseCachingService<RoleId, Role> cache, IEventRaiser raiser)
 	: ICommandHandler<CreateRoleCommand, RoleId>
 {
 	public async Task<RoleId> Handle(CreateRoleCommand req, CancellationToken ct)
@@ -15,9 +14,7 @@ public sealed class CreateRoleHandler(IRoleWrites writes, IUnitOfWork uow, IEven
 		await writes.AddAsync(role, ct).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-		await raiser.RaiseDomainEventAsync(new RoleCreatedDomainEvent(
-			Role: role
-		)).ConfigureAwait(false);
+		await cache.UpdateAsync(role.Id, role).ConfigureAwait(false);
 
 		await raiser.RaiseApplicationEventAsync(new RoleCreatedApplicationEvent(
 			Name: req.Dto.Name,
