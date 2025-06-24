@@ -117,7 +117,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Shared.UseCases"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F67E7870-8219-9EC9-916E-B9F4BD6F71AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Migrations", "src\Tools\Migrations\CustomCADs.Migrations.csproj", "{2AAB9F36-14E5-4786-9B30-D11B14117FD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Tools.Migrations", "src\Tools\Migrations\CustomCADs.Tools.Migrations.csproj", "{2AAB9F36-14E5-4786-9B30-D11B14117FD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Tools.CodeGen", "src\Tools\CodeGen\CustomCADs.Tools.CodeGen.csproj", "{B493FBDD-10AA-430F-84C8-A15AD0E762F2}"
 EndProject
