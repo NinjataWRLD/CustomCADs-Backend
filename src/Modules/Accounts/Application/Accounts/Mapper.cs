@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetAll;
-using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetByUsername;
+using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetById;
 
 namespace CustomCADs.Accounts.Application.Accounts;
 
@@ -16,7 +16,7 @@ internal static class Mapper
 			CreatedAt: account.CreatedAt
 		);
 
-	internal static GetAccountByUsernameDto ToGetByUsernameDto(this Account account)
+	internal static GetAccountByIdDto ToGetByUsernameDto(this Account account)
 		=> new(
 			Id: account.Id,
 			Role: account.RoleName,

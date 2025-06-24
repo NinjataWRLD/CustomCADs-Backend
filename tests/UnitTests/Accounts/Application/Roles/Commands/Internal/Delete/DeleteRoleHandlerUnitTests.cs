@@ -23,69 +23,62 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	public DeleteRoleHandlerUnitTests()
 	{
 		handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
-
-		reads.Setup(x => x.SingleByNameAsync(ValidName, true, ct)).ReturnsAsync(CreateRole(ValidName, ValidDescription));
-		reads.Setup(x => x.SingleByNameAsync(MinValidName, true, ct)).ReturnsAsync(CreateRole(MinValidName, MinValidDescription));
-		reads.Setup(x => x.SingleByNameAsync(MaxValidName, true, ct)).ReturnsAsync(CreateRole(MaxValidName, MaxValidDescription));
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(CreateRole(ValidName, ValidDescription));
 	}
 
-	[Theory]
-	[ClassData(typeof(DeleteRoleValidData))]
-	public async Task Handler_ShouldQueryDatabase(string name)
+	[Fact]
+	public async Task Handler_ShouldQueryDatabase()
 	{
 		// Arrange
-		DeleteRoleCommand command = new(name);
+		DeleteRoleCommand command = new(ValidId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByNameAsync(name, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(DeleteRoleValidData))]
-	public async Task Handler_ShouldPersistToDatabase_WhenRoleFound(string name)
+	[Fact]
+	public async Task Handler_ShouldPersistToDatabase_WhenRoleFound()
 	{
 		// Arrange
-		DeleteRoleCommand command = new(name);
+		DeleteRoleCommand command = new(ValidId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		writes.Verify(x => x.Remove(
-			It.Is<Role>(x => x.Name == name)
+			It.Is<Role>(x => x.Id == ValidId)
 		), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(DeleteRoleValidData))]
-	public async Task Handler_ShouldRaiseEvents_WhenRoleFound(string name)
+	[Fact]
+	public async Task Handler_ShouldRaiseEvents_WhenRoleFound()
 	{
 		// Arrange
-		DeleteRoleCommand command = new(name);
+		DeleteRoleCommand command = new(ValidId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		raiser.Verify(x => x.RaiseDomainEventAsync(
-			It.Is<RoleDeletedDomainEvent>(x => x.Name == name)
+			It.Is<RoleDeletedDomainEvent>(x => x.Id == ValidId)
 		));
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
-			It.Is<RoleDeletedApplicationEvent>(x => x.Name == name)
+			It.Is<RoleDeletedApplicationEvent>(x => x.Name == ValidName)
 		), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(DeleteRoleValidData))]
-	public async Task Handle_ShouldThrowException_WhenRoleNotFound(string role)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenRoleNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByNameAsync(role, true, ct)).ReturnsAsync(null as Role);
-		DeleteRoleCommand command = new(role);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Role);
+		DeleteRoleCommand command = new(ValidId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Role>>(

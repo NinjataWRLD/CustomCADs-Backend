@@ -11,14 +11,14 @@ public sealed class DeleteAccountHandler(IAccountReads reads, IAccountWrites wri
 {
 	public async Task Handle(DeleteAccountCommand req, CancellationToken ct)
 	{
-		Account account = await reads.SingleByUsernameAsync(req.Username, ct: ct).ConfigureAwait(false)
-			?? throw CustomNotFoundException<Account>.ByProp(nameof(req.Username), req.Username);
+		Account account = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Account>.ById(req.Id);
 
 		writes.Remove(account);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		await raiser.RaiseApplicationEventAsync(new AccountDeletedApplicationEvent(
-			req.Username
+			account.Username
 		)).ConfigureAwait(false);
 	}
 }

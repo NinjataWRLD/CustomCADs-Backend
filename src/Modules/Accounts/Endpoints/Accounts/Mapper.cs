@@ -1,12 +1,12 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetAll;
-using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetByUsername;
+using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetById;
 using CustomCADs.Accounts.Endpoints.Accounts.Dtos;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts;
 
 internal static class Mapper
 {
-	internal static AccountResponse ToResponse(this GetAccountByUsernameDto account)
+	internal static AccountResponse ToResponse(this GetAccountByIdDto account)
 		=> new(
 			Role: account.Role,
 			Username: account.Username,
