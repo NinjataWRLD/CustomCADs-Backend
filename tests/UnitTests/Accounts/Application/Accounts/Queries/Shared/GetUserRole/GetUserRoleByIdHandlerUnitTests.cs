@@ -32,7 +32,7 @@ public class GetUserRoleByIdHandlerUnitTests : AccountsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly_WhenAccountFound()
+	public async Task Handle_ShouldReturnProperly()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateAccount(role: RolesData.ValidName));

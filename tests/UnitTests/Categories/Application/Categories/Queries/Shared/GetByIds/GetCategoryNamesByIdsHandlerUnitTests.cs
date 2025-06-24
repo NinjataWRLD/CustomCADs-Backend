@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Categories.Application.Categories.Queries.Shared;
 using CustomCADs.Categories.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Shared.GetByIds;
@@ -11,6 +10,7 @@ public class GetCategoryNamesByIdsHandlerUnitTests : CategoriesBaseUnitTests
 {
 	private readonly GetCategoryNamesByIdsHandler handler;
 	private readonly Mock<ICategoryReads> reads = new();
+	private readonly Mock<BaseCachingService<CategoryId, Category>> cache = new();
 
 	private readonly static CategoryId[] ids = [
 		CategoryId.New(1),
@@ -21,12 +21,12 @@ public class GetCategoryNamesByIdsHandlerUnitTests : CategoriesBaseUnitTests
 
 	public GetCategoryNamesByIdsHandlerUnitTests()
 	{
-		handler = new(reads.Object);
-		reads.Setup(x => x.AllAsync(false, ct)).ReturnsAsync(categories);
+		handler = new(reads.Object, cache.Object);
+		cache.Setup(x => x.GetOrCreateAsync(It.IsAny<Func<Task<ICollection<Category>>>>())).ReturnsAsync(categories);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetCategoryNamesByIdsQuery query = new(ids);
@@ -35,7 +35,7 @@ public class GetCategoryNamesByIdsHandlerUnitTests : CategoriesBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(v => v.AllAsync(false, ct), Times.Once());
+		cache.Verify(x => x.GetOrCreateAsync(It.IsAny<Func<Task<ICollection<Category>>>>()), Times.Once());
 	}
 
 	[Fact]

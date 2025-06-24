@@ -5,7 +5,7 @@ using CustomCADs.Shared.UseCases.Images.Commands;
 
 namespace CustomCADs.Customizations.Application.Materials.Commands.Internal.Create;
 
-public class CreateMaterialHandler(IWrites<Material> writes, IUnitOfWork uow, IRequestSender sender)
+public class CreateMaterialHandler(IWrites<Material> writes, IUnitOfWork uow, BaseCachingService<MaterialId, Material> cache, IRequestSender sender)
 	: ICommandHandler<CreateMaterialCommand, MaterialId>
 {
 	public async Task<MaterialId> Handle(CreateMaterialCommand req, CancellationToken ct)
@@ -27,6 +27,8 @@ public class CreateMaterialHandler(IWrites<Material> writes, IUnitOfWork uow, IR
 
 		await writes.AddAsync(material, ct).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+		await cache.UpdateAsync(material.Id, material).ConfigureAwait(false);
 
 		return material.Id;
 	}

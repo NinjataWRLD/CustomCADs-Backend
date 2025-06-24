@@ -10,7 +10,7 @@ builder.Services.AddAuthZ([Customer, Contributor, Designer, Admin]);
 
 // Use Cases
 builder.Services.AddUseCases(builder.Environment);
-builder.Services.AddCacheService();
+builder.Services.AddCache();
 builder.Services.AddBackgroundJobs();
 
 // External Services

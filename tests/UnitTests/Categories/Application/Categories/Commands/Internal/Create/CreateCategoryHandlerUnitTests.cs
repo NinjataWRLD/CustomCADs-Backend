@@ -1,7 +1,5 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Internal.Create;
-using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Categories.Domain.Repositories;
-using CustomCADs.Shared.Abstractions.Events;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Create;
 
@@ -12,11 +10,11 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	private readonly CreateCategoryHandler handler;
 	private readonly Mock<IWrites<Category>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Mock<IEventRaiser> raiser = new();
+	private readonly Mock<BaseCachingService<CategoryId, Category>> cache = new();
 
 	public CreateCategoryHandlerUnitTests()
 	{
-		handler = new(writes.Object, uow.Object, raiser.Object);
+		handler = new(writes.Object, uow.Object, cache.Object);
 	}
 
 	[Fact]
@@ -37,7 +35,7 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldRaiseEvents()
+	public async Task Handler_ShouldUpdateCache()
 	{
 		// Arrange
 		CreateCategoryCommand command = new(Dto: new(ValidName, ValidDescription));
@@ -46,8 +44,9 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		raiser.Verify(v => v.RaiseDomainEventAsync(
-			It.Is<CategoryCreatedDomainEvent>(x => x.Category.Name == ValidName && x.Category.Description == ValidDescription)
+		cache.Verify(v => v.UpdateAsync(
+			ValidId,
+			It.Is<Category>(x => x.Name == ValidName && x.Description == ValidDescription)
 		), Times.Once());
 	}
 }

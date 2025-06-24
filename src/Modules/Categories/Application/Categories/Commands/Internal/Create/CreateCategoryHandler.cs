@@ -1,10 +1,8 @@
-﻿using CustomCADs.Categories.Domain.Categories.Events;
-using CustomCADs.Categories.Domain.Repositories;
-using CustomCADs.Shared.Abstractions.Events;
+﻿using CustomCADs.Categories.Domain.Repositories;
 
 namespace CustomCADs.Categories.Application.Categories.Commands.Internal.Create;
 
-public sealed class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow, IEventRaiser raiser)
+public sealed class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork uow, BaseCachingService<CategoryId, Category> cache)
 	: ICommandHandler<CreateCategoryCommand, CategoryId>
 {
 	public async Task<CategoryId> Handle(CreateCategoryCommand req, CancellationToken ct)
@@ -14,9 +12,7 @@ public sealed class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork 
 		await writes.AddAsync(category, ct).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-		await raiser.RaiseDomainEventAsync(new CategoryCreatedDomainEvent(
-			Category: category
-		)).ConfigureAwait(false);
+		await cache.UpdateAsync(category.Id, category).ConfigureAwait(false);
 
 		return category.Id;
 	}

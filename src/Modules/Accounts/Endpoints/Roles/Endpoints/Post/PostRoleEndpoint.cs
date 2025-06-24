@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
-using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetByName;
+using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetById;
 using CustomCADs.Accounts.Endpoints.Roles.Endpoints.Get.Single;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Endpoints.Post;
 
@@ -19,7 +20,7 @@ public sealed class PostRoleEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(PostRoleRequest req, CancellationToken ct)
 	{
-		await sender.SendCommandAsync(
+		RoleId id = await sender.SendCommandAsync(
 			new CreateRoleCommand(
 				Dto: new RoleWriteDto(req.Name, req.Description)
 			),
@@ -27,8 +28,8 @@ public sealed class PostRoleEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		RoleReadDto role = await sender.SendQueryAsync(
-			new GetRoleByNameQuery(
-				Name: req.Name
+			new GetRoleByIdQuery(
+				Id: id
 			),
 			ct
 		).ConfigureAwait(false);

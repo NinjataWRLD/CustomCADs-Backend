@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Internal.Edit;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit;
