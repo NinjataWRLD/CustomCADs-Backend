@@ -15,7 +15,7 @@ public class CadKeyUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public void SetKey_ShouldPopulateProperly_WhenKeyIsValid()
+	public void SetKey_ShouldPopulateProperties_WhenKeyIsValid()
 	{
 		var cad = CreateCad();
 

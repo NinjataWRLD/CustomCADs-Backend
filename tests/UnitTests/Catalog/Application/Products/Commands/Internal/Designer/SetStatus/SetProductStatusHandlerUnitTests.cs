@@ -47,7 +47,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersisttoDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);

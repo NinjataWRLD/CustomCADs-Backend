@@ -39,7 +39,7 @@ public class GetCategoryNamesByIdsHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetCategoryNamesByIdsQuery query = new(ids);

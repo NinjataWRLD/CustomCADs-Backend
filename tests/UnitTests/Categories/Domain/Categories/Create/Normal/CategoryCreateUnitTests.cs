@@ -15,7 +15,7 @@ public class CategoryCreateUnitTests : CategoriesBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CategoryCreatedValidData))]
-	public void Create_ShouldPopulatePropertiesProperly_WhenCategoryIsValid(string name, string description)
+	public void Create_ShouldPopulateProperties_WhenCategoryIsValid(string name, string description)
 	{
 		var category = CreateCategory(name, description);
 

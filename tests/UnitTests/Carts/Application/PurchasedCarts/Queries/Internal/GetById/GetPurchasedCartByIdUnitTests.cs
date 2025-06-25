@@ -59,7 +59,7 @@ public class GetPurchasedCartByIdUnitTests : PurchasedCartsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetPurchasedCartByIdQuery query = new(ValidId, ValidBuyerId);

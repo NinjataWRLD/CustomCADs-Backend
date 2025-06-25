@@ -56,7 +56,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetImagePresignedUrlGetByIdQuery query = new(id);

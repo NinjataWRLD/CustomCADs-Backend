@@ -11,7 +11,7 @@ public class SetProductDesignerIdUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public void SetDesignerId_ShouldPopulateProperly()
+	public void SetDesignerId_ShouldPopulateProperties()
 	{
 		var product = CreateProduct();
 		product.SetDesignerId(ValidDesignerId);

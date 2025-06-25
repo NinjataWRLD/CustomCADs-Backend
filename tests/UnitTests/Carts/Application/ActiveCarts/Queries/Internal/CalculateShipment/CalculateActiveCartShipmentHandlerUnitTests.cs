@@ -5,7 +5,7 @@ using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
-namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipmnet;
+namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
 
 using static ActiveCartsData;
 

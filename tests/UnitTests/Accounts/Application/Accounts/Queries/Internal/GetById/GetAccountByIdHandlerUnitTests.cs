@@ -33,7 +33,7 @@ public class GetAccountByIdHandlerUnitTests : AccountsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenDatabaseMiss()
+	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExist()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Account);

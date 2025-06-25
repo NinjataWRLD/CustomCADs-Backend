@@ -88,7 +88,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPopulateProperly()
+	public async Task Handle_ShouldPopulateProperties()
 	{
 		// Arrange
 		ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);

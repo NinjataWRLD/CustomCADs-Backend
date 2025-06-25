@@ -70,7 +70,7 @@ public class CreatorGetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseU
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		CreatorGetProductCadPresignedUrlPutQuery query = new(

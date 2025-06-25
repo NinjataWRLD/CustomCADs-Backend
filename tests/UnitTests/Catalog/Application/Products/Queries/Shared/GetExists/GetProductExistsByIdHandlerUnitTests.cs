@@ -31,7 +31,7 @@ public class GetProductExistsByIdHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly_WhenProductExists()
+	public async Task Handle_ShouldReturnResult_WhenProductExists()
 	{
 		// Arrange
 		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
@@ -45,7 +45,7 @@ public class GetProductExistsByIdHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly_WhenProductDoesNotExists()
+	public async Task Handle_ShouldReturnResult_WhenProductDoesNotExists()
 	{
 		// Arrange
 		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);

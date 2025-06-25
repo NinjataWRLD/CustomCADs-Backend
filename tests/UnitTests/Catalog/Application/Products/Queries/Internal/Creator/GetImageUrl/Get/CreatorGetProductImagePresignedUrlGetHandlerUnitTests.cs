@@ -60,7 +60,7 @@ public class CreatorGetProductImagePresignedUrlGetHandlerUnitTests : ProductsBas
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
@@ -73,7 +73,7 @@ public class CreatorGetProductImagePresignedUrlGetHandlerUnitTests : ProductsBas
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenUnauthorized()
+	public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
 	{
 		// Arrange
 		CreatorGetProductImagePresignedUrlGetQuery query = new(ValidId, ValidCreatorId);

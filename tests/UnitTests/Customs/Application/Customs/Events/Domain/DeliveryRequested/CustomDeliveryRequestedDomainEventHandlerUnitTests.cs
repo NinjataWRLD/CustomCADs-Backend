@@ -95,7 +95,7 @@ public class CustomDeliveryRequestedDomainEventHandlerUnitTests : CustomsBaseUni
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPopulateProperly()
+	public async Task Handle_ShouldPopulateProperties()
 	{
 		// Arrange
 		CustomDeliveryRequestedDomainEvent de = new(

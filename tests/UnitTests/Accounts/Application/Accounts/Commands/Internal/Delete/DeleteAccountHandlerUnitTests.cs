@@ -69,7 +69,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists()
+	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExist()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Account);

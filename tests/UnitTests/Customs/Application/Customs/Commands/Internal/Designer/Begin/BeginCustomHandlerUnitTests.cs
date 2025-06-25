@@ -60,7 +60,7 @@ public class BeginCustomHandlerUnitTests : CustomsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPopulateProperly()
+	public async Task Handle_ShouldPopulateProperties()
 	{
 		// Arrange
 		BeginCustomCommand command = new(

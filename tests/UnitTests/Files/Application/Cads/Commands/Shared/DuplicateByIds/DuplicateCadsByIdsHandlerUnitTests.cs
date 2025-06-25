@@ -63,7 +63,7 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnKeysProperly()
+	public async Task Handle_ShouldReturnKeysResult()
 	{
 		// Arrange
 		DuplicateCadsByIdsCommand command = new(ids);

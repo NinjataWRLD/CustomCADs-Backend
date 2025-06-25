@@ -75,7 +75,7 @@ public class GetCustomCadPresignedUrlGetHandlerUnitTests : CustomsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetCustomCadPresignedUrlGetQuery query = new(

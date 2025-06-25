@@ -23,7 +23,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatbase()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		GetShipmentTrackQuery query = new(ValidId);
@@ -49,7 +49,7 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly_WhenShipmentFound()
+	public async Task Handle_ShouldReturnResult_WhenShipmentFound()
 	{
 		// Arrange
 		GetShipmentTrackQuery query = new(ValidId);

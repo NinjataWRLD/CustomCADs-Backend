@@ -33,7 +33,7 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetCadVolumeByIdQuery query = new(id);

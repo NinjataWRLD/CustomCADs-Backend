@@ -13,7 +13,7 @@ public class AddProductViewUnitTests : ProductsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(AddProductViewValidData))]
-	public void Add_ShouldIncreaseViewCountProperly(int iterations)
+	public void Add_ShouldIncreaseViewCountResult(int iterations)
 	{
 		var product = CreateProduct();
 
