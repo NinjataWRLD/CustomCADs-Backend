@@ -19,11 +19,10 @@ public class CategoryCreateWithIdUnitTests : CategoriesBaseUnitTests
 	{
 		var category = CreateCategory(name, description);
 
-		Assert.Multiple(() =>
-		{
-			Assert.Equal(category.Name, name);
-			Assert.Equal(category.Description, description);
-		});
+		Assert.Multiple(
+			() => Assert.Equal(category.Name, name),
+			() => Assert.Equal(category.Description, description)
+		);
 	}
 
 	[Theory]

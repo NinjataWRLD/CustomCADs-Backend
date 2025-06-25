@@ -20,11 +20,10 @@ public class RoleCreateWithIdUnitTests : RolesBaseUnitTests
 	{
 		var role = CreateRoleWithId(ValidId, name, description);
 
-		Assert.Multiple(() =>
-		{
-			Assert.Equal(role.Name, name);
-			Assert.Equal(role.Description, description);
-		});
+		Assert.Multiple(
+			() => Assert.Equal(role.Name, name),
+			() => Assert.Equal(role.Description, description)
+		);
 	}
 
 	[Theory]
