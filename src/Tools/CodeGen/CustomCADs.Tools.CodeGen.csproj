@@ -6,7 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	  	<UserSecretsId>c35211bd-a1a6-4758-acdd-52aaf838685a</UserSecretsId>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
+  	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Modules\Accounts\Application\CustomCADs.Accounts.Application.csproj" />

@@ -1,6 +1,7 @@
 using JasperFx;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("codegensettings.json");
 
 // Use Cases
 builder.Services.GenerateUseCases(builder.Environment);
