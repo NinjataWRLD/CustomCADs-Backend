@@ -1,6 +1,4 @@
-﻿using CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
-
-namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment.Data;
+﻿namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment.Data;
 
 public class CalculateActiveCartShipmentInvalidCityData : CalculateActiveCartShipmentData
 {

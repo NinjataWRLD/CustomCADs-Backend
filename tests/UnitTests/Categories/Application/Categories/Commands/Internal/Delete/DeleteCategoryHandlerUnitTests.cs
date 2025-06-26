@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Internal.Delete;
 using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Delete;
 

@@ -5,7 +5,6 @@ using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Delete;
