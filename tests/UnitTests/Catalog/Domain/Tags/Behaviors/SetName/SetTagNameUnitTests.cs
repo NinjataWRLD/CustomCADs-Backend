@@ -16,7 +16,7 @@ public class SetTagNameUnitTests : TagsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(SetTagNameValidData))]
-	public void SetName_ShouldPopulateProperly_WhenNameIsValid(string name)
+	public void SetName_ShouldPopulateProperties_WhenNameIsValid(string name)
 	{
 		var tag = CreateTag();
 		tag.SetName(name);

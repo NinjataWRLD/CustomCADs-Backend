@@ -34,7 +34,7 @@ public class CountActiveCartItemsHandlerUnitTests : ActiveCartsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		CountActiveCartItemsQuery query = new(ValidBuyerId);

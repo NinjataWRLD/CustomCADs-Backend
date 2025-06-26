@@ -34,7 +34,7 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetCadCoordsByIdQuery query = new(id);

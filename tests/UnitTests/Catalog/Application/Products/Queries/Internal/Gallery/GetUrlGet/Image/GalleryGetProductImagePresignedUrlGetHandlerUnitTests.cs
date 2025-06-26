@@ -61,7 +61,7 @@ public class GalleryGetProductImagePresignedUrlGetHandlerUnitTests : ProductsBas
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GalleryGetProductImagePresignedUrlGetQuery query = new(ValidId);

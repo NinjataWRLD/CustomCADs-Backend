@@ -13,7 +13,7 @@ public class AddProductPurchaseUnitTests : ProductsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(AddProductPurchaseValidData))]
-	public void Add_ShouldIncreasePurchaseCountProperly(int iterations)
+	public void Add_ShouldIncreasePurchaseCountResult(int iterations)
 	{
 		var product = CreateProduct();
 

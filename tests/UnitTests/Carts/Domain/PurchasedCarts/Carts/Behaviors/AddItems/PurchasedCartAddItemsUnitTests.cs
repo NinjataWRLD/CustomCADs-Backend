@@ -9,7 +9,7 @@ using static PurchasedCartsData.CartItemsData;
 public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
 {
 	[Fact]
-	public void AddItems_ShouldNotThrow_WhenItemsCountIsValid()
+	public void AddItems_ShouldNotThrowException_WhenItemsCountIsValid()
 	{
 		CreateCartWithId().AddItems([
 			(MaxValidPrice, ValidCadId, ValidProductId, false, null, 1, DateTimeOffset.UtcNow)
@@ -17,7 +17,7 @@ public class PurchasedCartAddItemsUnitTests : PurchasedCartsBaseUnitTests
 	}
 
 	[Fact]
-	public void AddItems_ShouldThrow_WhenItemsCountIsNotValid()
+	public void AddItems_ShouldThrowException_WhenItemsCountIsNotValid()
 	{
 		var purchasedCart = CreateCartWithId();
 		for (int i = 0; i < ItemsCountMax; i++)

@@ -18,7 +18,7 @@ public class CadPanCoordinatesUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public void SetPanCoordinates_ShouldPopulateProperly_WhenCoordinatesAreValid()
+	public void SetPanCoordinates_ShouldPopulateProperties_WhenCoordinatesAreValid()
 	{
 		var cad = CreateCad();
 

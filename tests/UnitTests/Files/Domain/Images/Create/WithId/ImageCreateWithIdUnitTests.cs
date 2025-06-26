@@ -13,7 +13,7 @@ public class ImageCreateWithIdUnitTests : ImagesBaseUnitTests
 	}
 
 	[Fact]
-	public void CreateWithId_ShouldPopulatePropertiesProperly_WhenImageIsValid()
+	public void CreateWithId_ShouldPopulateProperties_WhenImageIsValid()
 	{
 		var image = Image.Create(ValidKey, ValidContentType);
 

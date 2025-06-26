@@ -15,7 +15,7 @@ public class SetProductNameUnitTests : ProductsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(SetProductNameValidData))]
-	public void SetName_ShouldPopulateProperly_WhenNameIsValid(string name)
+	public void SetName_ShouldPopulateProperties_WhenNameIsValid(string name)
 	{
 		var product = CreateProduct();
 		product.SetName(name);

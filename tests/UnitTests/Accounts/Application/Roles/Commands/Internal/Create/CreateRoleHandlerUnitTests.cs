@@ -25,7 +25,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CreateRoleValidData))]
-	public async Task Handler_ShouldPersistToDatabase(RoleWriteDto dto)
+	public async Task Handle_ShouldPersistToDatabase(RoleWriteDto dto)
 	{
 		// Arrange
 		CreateRoleCommand command = new(dto);
@@ -43,7 +43,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CreateRoleValidData))]
-	public async Task Handler_ShouldUpdateCache(RoleWriteDto dto)
+	public async Task Handle_ShouldUpdateCache(RoleWriteDto dto)
 	{
 		// Arrange
 		CreateRoleCommand command = new(dto);
@@ -60,7 +60,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CreateRoleValidData))]
-	public async Task Handler_ShouldRaiseEvents(RoleWriteDto dto)
+	public async Task Handle_ShouldRaiseEvents(RoleWriteDto dto)
 	{
 		// Arrange
 		CreateRoleCommand command = new(dto);

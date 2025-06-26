@@ -3,13 +3,13 @@
 public class ActiveCartItemSetNoDeliveryUnitTests : ActiveCartItemsBaseUnitTests
 {
 	[Fact]
-	public void SetForDelivery_ShouldNotThrow()
+	public void SetForDelivery_ShouldNotThrowException()
 	{
 		CreateItem().SetNoDelivery();
 	}
 
 	[Fact]
-	public void SetForDelivery_ShouldPopulateProperly()
+	public void SetForDelivery_ShouldPopulateProperties()
 	{
 		var item = CreateItem();
 		item.SetNoDelivery();

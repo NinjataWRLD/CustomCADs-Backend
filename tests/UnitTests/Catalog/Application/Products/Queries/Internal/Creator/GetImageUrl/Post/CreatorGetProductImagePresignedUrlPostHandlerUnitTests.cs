@@ -44,7 +44,7 @@ public class CreatorGetProductImagePresignedUrlPostHandlerUnitTests : ProductsBa
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		CreatorGetProductImagePresignedUrlPostQuery query = new(

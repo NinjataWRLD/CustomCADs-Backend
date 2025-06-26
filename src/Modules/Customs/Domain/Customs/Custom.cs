@@ -96,17 +96,6 @@ public class Custom : BaseAggregateRoot
 		return this;
 	}
 
-	public Custom SetDesigner(AccountId designerId)
-	{
-		if (CustomStatus is not CustomStatus.Accepted)
-		{
-			throw CustomValidationException<Custom>.Status(CustomStatus);
-		}
-		AcceptedCustom!.SetDesignerId(designerId);
-
-		return this;
-	}
-
 	public Custom SetShipment(ShipmentId shipmentId)
 	{
 		if (CustomStatus is not CustomStatus.Completed)

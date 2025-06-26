@@ -8,6 +8,7 @@ using static CategoriesData;
 public class EditCategoryValidatorUnitTests : CategoriesBaseUnitTests
 {
 	private readonly EditCategoryValidator validator = new();
+
 	private readonly CategoryId id = CategoryId.New();
 
 	[Fact]

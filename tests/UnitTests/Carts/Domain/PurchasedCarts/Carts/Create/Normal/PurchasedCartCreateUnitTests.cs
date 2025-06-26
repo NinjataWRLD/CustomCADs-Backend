@@ -11,7 +11,7 @@ public class PurchasedCartCreateUnitTests : PurchasedCartsBaseUnitTests
 	}
 
 	[Fact]
-	public void Create_ShouldPopulatePropertiesProperly()
+	public void Create_ShouldPopulateProperties()
 	{
 		var cart = CreateCart(buyerId: ValidBuyerId);
 

@@ -10,7 +10,7 @@ public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
 {
 	[Theory]
 	[ClassData(typeof(PurchasedCartItemCreateValidData))]
-	public void Create_ShouldNotThrow_WhenCartIsValid(decimal price, int quantity, bool forDelivery)
+	public void Create_ShouldNotThrowException_WhenCartIsValid(decimal price, int quantity, bool forDelivery)
 	{
 		CreateItem(
 			cartId: PurchasedCartsData.ValidId,
@@ -51,7 +51,7 @@ public class PurchasedCartItemCreateUnitTests : PurchasedCartItemsBaseUnitTests
 	[Theory]
 	[ClassData(typeof(PurchasedCartItemCreateInvalidQuantityData))]
 	[ClassData(typeof(PurchasedCartItemCreateInvalidPriceData))]
-	public void Create_ShouldThrow_WhenCartIsNotValid(decimal price, int quantity, bool forDelivery)
+	public void Create_ShouldThrowException_WhenCartIsNotValid(decimal price, int quantity, bool forDelivery)
 	{
 		Assert.Throws<CustomValidationException<PurchasedCartItem>>(
 			() => CreateItem(

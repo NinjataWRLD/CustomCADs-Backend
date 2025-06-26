@@ -31,7 +31,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldReadCache()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		DeleteRoleCommand command = new(ValidId);
@@ -47,7 +47,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		DeleteRoleCommand command = new(ValidId);
@@ -63,7 +63,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldRaiseEvents()
+	public async Task Handle_ShouldRaiseEvents()
 	{
 		// Arrange
 		DeleteRoleCommand command = new(ValidId);

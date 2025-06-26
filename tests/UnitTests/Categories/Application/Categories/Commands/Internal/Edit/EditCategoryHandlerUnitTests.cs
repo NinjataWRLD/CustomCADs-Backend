@@ -23,7 +23,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldReadCache()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		EditCategoryCommand command = new(ValidId, new(ValidName, ValidDescription));
@@ -36,7 +36,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		EditCategoryCommand command = new(ValidId, new(ValidName, ValidDescription));
@@ -49,7 +49,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldModifyCategory()
+	public async Task Handle_ShouldModifyCategory()
 	{
 		// Arrange
 		EditCategoryCommand command = new(ValidId, new(ValidName, ValidDescription));
@@ -66,7 +66,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldUpdateCache()
+	public async Task Handle_ShouldUpdateCache()
 	{
 		// Arrange
 		EditCategoryCommand command = new(ValidId, new(ValidName, ValidDescription));

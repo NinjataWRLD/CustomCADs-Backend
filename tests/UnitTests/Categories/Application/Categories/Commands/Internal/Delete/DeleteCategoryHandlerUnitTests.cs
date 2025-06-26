@@ -24,7 +24,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldReadCache()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		DeleteCategoryCommand command = new(ValidId);
@@ -37,7 +37,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		DeleteCategoryCommand command = new(ValidId);
@@ -53,7 +53,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldClearCache()
+	public async Task Handle_ShouldClearCache()
 	{
 		// Arrange
 		DeleteCategoryCommand command = new(ValidId);

@@ -9,6 +9,7 @@ using static TagsData;
 public class EditTagValidatorUnitTestss : TagsBaseUnitTests
 {
 	private readonly EditTagValidator validator = new();
+
 	private static readonly TagId id = new();
 
 	[Fact]

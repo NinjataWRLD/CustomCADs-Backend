@@ -13,6 +13,7 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 	private readonly SetCadContentTypeHandler handler;
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+
 	private readonly Cad cad = CreateCad();
 
 	public SetCadContentTypeHandlerUnitTests()

@@ -6,12 +6,12 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetE
 
 using static AccountsData;
 
-public class GetAccountExistsByIdHandlerUnitTestsUnitTests : AccountsBaseUnitTests
+public class GetAccountExistsByIdHandlerUnitTests : AccountsBaseUnitTests
 {
 	private readonly GetAccountExistsByIdHandler handler;
 	private readonly Mock<IAccountReads> reads = new();
 
-	public GetAccountExistsByIdHandlerUnitTestsUnitTests()
+	public GetAccountExistsByIdHandlerUnitTests()
 	{
 		handler = new(reads.Object);
 	}
@@ -31,7 +31,7 @@ public class GetAccountExistsByIdHandlerUnitTestsUnitTests : AccountsBaseUnitTes
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly_WhenAccountExists()
+	public async Task Handle_ShouldReturnResult_WhenAccountExist()
 	{
 		// Arrange
 		reads.Setup(x => x.ExistsByIdAsync(ValidId, ct)).ReturnsAsync(true);
@@ -45,7 +45,7 @@ public class GetAccountExistsByIdHandlerUnitTestsUnitTests : AccountsBaseUnitTes
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly_WhenAccountDoesNotExists()
+	public async Task Handle_ShouldReturnResult_WhenAccountDoesNotExist()
 	{
 		// Arrange
 		reads.Setup(x => x.ExistsByIdAsync(ValidId, ct)).ReturnsAsync(false);

@@ -18,7 +18,7 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateCategoryCommand command = new(Dto: new(ValidName, ValidDescription));
@@ -35,7 +35,7 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldUpdateCache()
+	public async Task Handle_ShouldUpdateCache()
 	{
 		// Arrange
 		CreateCategoryCommand command = new(Dto: new(ValidName, ValidDescription));

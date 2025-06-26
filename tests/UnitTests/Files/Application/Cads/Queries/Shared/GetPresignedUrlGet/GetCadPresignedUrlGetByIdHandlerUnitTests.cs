@@ -56,7 +56,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetCadPresignedUrlGetByIdQuery query = new(id);

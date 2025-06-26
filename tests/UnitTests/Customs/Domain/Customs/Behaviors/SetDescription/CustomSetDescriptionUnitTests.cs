@@ -15,7 +15,7 @@ public class CustomSetDescriptionUnitTests : CustomsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CustomSetDescriptionValidData))]
-	public void SetDescription_ShouldPopulateProperly(string description)
+	public void SetDescription_ShouldPopulateProperties(string description)
 	{
 		var Custom = CreateCustom();
 		Custom.SetDescription(description);

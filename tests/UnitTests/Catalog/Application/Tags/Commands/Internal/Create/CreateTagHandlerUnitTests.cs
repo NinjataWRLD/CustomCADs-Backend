@@ -19,7 +19,7 @@ public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateTagCommand command = new(MaxValidName);

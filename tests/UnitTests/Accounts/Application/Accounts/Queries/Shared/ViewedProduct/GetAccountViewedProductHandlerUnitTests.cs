@@ -7,14 +7,14 @@ namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.View
 
 using static AccountsData;
 
-public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnitTests
+public class GetAccountViewedProductHandlerUnitTests : AccountsBaseUnitTests
 {
 	private readonly GetAccountViewedProductHandler handler;
 	private readonly Mock<IAccountReads> reads = new();
 
 	private static readonly ProductId productId = ProductId.New();
 
-	public GetAccountViewedProductHandlerUnitTestsUnitTests()
+	public GetAccountViewedProductHandlerUnitTests()
 	{
 		handler = new(reads.Object);
 		reads.Setup(x => x.ViewedProductsByIdAsync(ValidId, ct))
@@ -37,7 +37,7 @@ public class GetAccountViewedProductHandlerUnitTestsUnitTests : AccountsBaseUnit
 	[Theory]
 	[InlineData(true)]
 	[InlineData(false)]
-	public async Task Handle_ShouldReturnProperly(bool expected)
+	public async Task Handle_ShouldReturnResult(bool expected)
 	{
 		// Arrange
 		if (expected)

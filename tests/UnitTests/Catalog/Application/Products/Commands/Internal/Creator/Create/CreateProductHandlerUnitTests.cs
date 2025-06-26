@@ -61,7 +61,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateProductCommand command = new(
@@ -98,7 +98,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldSendRequests()
+	public async Task Handle_ShouldSendRequests()
 	{
 		// Arrange
 		CreateProductCommand command = new(
@@ -141,7 +141,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldSetStatusProperlty()
+	public async Task Handle_ShouldSetStatusResult()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(
@@ -173,7 +173,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldThrowException_WhenCategoryNotFound()
+	public async Task Handle_ShouldThrowException_WhenCategoryNotFound()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(
@@ -202,7 +202,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldThrowException_WhenAccountNotFound()
+	public async Task Handle_ShouldThrowException_WhenAccountNotFound()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(

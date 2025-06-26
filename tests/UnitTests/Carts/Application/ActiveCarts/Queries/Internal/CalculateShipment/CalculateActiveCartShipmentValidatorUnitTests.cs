@@ -2,7 +2,7 @@
 using CustomCADs.Shared.Core.Common.Dtos;
 using FluentValidation.TestHelper;
 
-namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipmnet;
+namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
 
 using Data;
 using static ActiveCartsData;

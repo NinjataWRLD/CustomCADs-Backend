@@ -15,7 +15,7 @@ public class CadContentTypeUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public void SetContentType_ShouldPopulateProperly_WhenContentTypeIsValid()
+	public void SetContentType_ShouldPopulateProperties_WhenContentTypeIsValid()
 	{
 		var cad = CreateCad();
 

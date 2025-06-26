@@ -27,7 +27,7 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldQueryDatabase()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		EditTagCommand command = new(id, MaxValidName);
@@ -40,7 +40,7 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		EditTagCommand command = new(id, MaxValidName);
@@ -55,7 +55,7 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
 
 
 	[Fact]
-	public async Task Handler_ShouldThrowException_WhenTagDoesNotExist()
+	public async Task Handle_ShouldThrowException_WhenTagDoesNotExist()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(id, true, ct))

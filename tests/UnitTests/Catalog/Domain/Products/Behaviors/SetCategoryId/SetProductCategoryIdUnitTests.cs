@@ -11,7 +11,7 @@ public class SetProductCategoryIdUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public void SetCategoryId_ShouldPopulateProperly()
+	public void SetCategoryId_ShouldPopulateProperties()
 	{
 		var product = CreateProduct();
 		product.SetCategoryId(ValidCategoryId);

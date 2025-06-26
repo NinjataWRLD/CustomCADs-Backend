@@ -60,7 +60,7 @@ public class CancelCustomHandlerUnitTests : CustomsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPopulateProperly()
+	public async Task Handle_ShouldPopulateProperties()
 	{
 		// Arrange
 		CancelCustomCommand command = new(

@@ -25,7 +25,7 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatbase()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);
@@ -58,7 +58,7 @@ public class DesignerGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		DesignerGetProductByIdQuery query = new(ValidId, ValidDesignerId);

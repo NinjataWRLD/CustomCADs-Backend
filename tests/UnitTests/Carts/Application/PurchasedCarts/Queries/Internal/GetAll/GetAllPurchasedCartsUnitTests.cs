@@ -47,7 +47,7 @@ public class GetAllPurchasedCartsUnitTests : PurchasedCartsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetAllPurchasedCartsQuery query = new(this.query.Pagination);

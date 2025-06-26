@@ -16,7 +16,7 @@ public class TagCreateUnitTests : TagsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(TagCreateValidData))]
-	public void Create_ShouldPopulateProperly_WhenProductIsValid(string name)
+	public void Create_ShouldPopulateProperties_WhenProductIsValid(string name)
 	{
 		Tag tag = CreateTag(name);
 

@@ -17,7 +17,7 @@ public class TagCreateWithIdUnitTests : TagsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(TagCreateWithIdValidData))]
-	public void CreateWithId_ShouldPopulateProperly_WhenProductIsValid(string name)
+	public void CreateWithId_ShouldPopulateProperties_WhenProductIsValid(string name)
 	{
 		Tag tag = CreateTagWithId(ValidId, name);
 

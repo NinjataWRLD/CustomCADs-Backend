@@ -13,7 +13,7 @@ public class ShipmentCreateWithIdUnitTests : ShipmentsBaseUnitTests
 	}
 
 	[Fact]
-	public void CreateWithId_ShouldPopulatePropertiesProperly_WhenShipmentIsValid()
+	public void CreateWithId_ShouldPopulateProperties_WhenShipmentIsValid()
 	{
 		Shipment shipment = CreateShipmentWithId();
 

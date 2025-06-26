@@ -15,7 +15,7 @@ public class CustomSetNameUnitTests : CustomsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CustomSetNameValidData))]
-	public void SetName_ShouldPopulateProperly(string name)
+	public void SetName_ShouldPopulateProperties(string name)
 	{
 		var Custom = CreateCustom();
 		Custom.SetName(name);

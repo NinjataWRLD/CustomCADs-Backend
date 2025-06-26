@@ -15,15 +15,14 @@ public class CategoryCreateUnitTests : CategoriesBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CategoryCreatedValidData))]
-	public void Create_ShouldPopulatePropertiesProperly_WhenCategoryIsValid(string name, string description)
+	public void Create_ShouldPopulateProperties_WhenCategoryIsValid(string name, string description)
 	{
 		var category = CreateCategory(name, description);
 
-		Assert.Multiple(() =>
-		{
-			Assert.Equal(category.Name, name);
-			Assert.Equal(category.Description, description);
-		});
+		Assert.Multiple(
+			() => Assert.Equal(category.Name, name),
+			() => Assert.Equal(category.Description, description)
+		);
 	}
 
 	[Theory]

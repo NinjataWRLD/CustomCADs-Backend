@@ -17,7 +17,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	private readonly Mock<IDeliveryService> delivery = new();
 
 	private static readonly byte[] bytes = [1, 2, 3, 4, 5, 6];
-	public static readonly AccountId headDesignerId = AccountId.New(DesignerAccountId);
+	private static readonly AccountId headDesignerId = AccountId.New(DesignerAccountId);
 
 	public GetShipmentWaybillHandlerUnitTests()
 	{
@@ -28,7 +28,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatbase()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);
@@ -54,7 +54,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly_WhenShipmentFound()
+	public async Task Handle_ShouldReturnResult_WhenShipmentFound()
 	{
 		// Arrange
 		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);

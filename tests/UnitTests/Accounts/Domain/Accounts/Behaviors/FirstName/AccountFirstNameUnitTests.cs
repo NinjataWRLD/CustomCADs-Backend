@@ -8,7 +8,7 @@ public class AccountFirstNameUnitTests : AccountsBaseUnitTests
 {
 	[Theory]
 	[ClassData(typeof(AccountFirstNameValidData))]
-	public void SetFirstName_ShouldNotThrowException_WhenfirstNameIsValid(string firstName)
+	public void SetFirstName_ShouldNotThrowException_WhenFirstNameIsValid(string firstName)
 	{
 		var account = CreateAccount();
 
@@ -17,7 +17,7 @@ public class AccountFirstNameUnitTests : AccountsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(AccountFirstNameValidData))]
-	public void SetFirstName_SetsfirstName_WhenUserameIsValid(string firstName)
+	public void SetFirstName_SetsfirstName_WhenUsernameIsValid(string firstName)
 	{
 		var account = CreateAccount();
 
@@ -28,7 +28,7 @@ public class AccountFirstNameUnitTests : AccountsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(AccountFirstNameInvalidData))]
-	public void SetFirstName_ThrowsException_WhenUserameIsInvalid(string firstName)
+	public void SetFirstName_ThrowsException_WhenUsernameIsInvalid(string firstName)
 	{
 		var account = CreateAccount();
 

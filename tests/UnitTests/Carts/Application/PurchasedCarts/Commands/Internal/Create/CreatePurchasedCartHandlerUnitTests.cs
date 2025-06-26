@@ -50,7 +50,7 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatbase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreatePurchasedCartCommand command = new(

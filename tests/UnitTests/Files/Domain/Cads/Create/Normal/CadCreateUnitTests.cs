@@ -16,7 +16,7 @@ public class CadCreateUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public void Create_ShouldPopulatePropertiesProperly_WhenCadIsValid()
+	public void Create_ShouldPopulateProperties_WhenCadIsValid()
 	{
 		var cad = Cad.Create(ValidKey, ValidContentType, ValidVolume, coords, coords);
 

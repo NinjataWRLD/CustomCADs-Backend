@@ -15,7 +15,7 @@ public class SetProductDescriptionUnitTests : ProductsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(SetProductDescriptionValidData))]
-	public void SetDescription_ShouldPopulateProperly_WhenDescriptionIsValid(string description)
+	public void SetDescription_ShouldPopulateProperties_WhenDescriptionIsValid(string description)
 	{
 		var product = CreateProduct();
 		product.SetDescription(description);

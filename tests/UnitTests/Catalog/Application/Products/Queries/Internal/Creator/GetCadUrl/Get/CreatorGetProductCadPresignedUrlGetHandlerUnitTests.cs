@@ -15,9 +15,9 @@ public class CreatorGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
 
-	private readonly Product product = CreateProduct(creatorId: ValidDesignerId);
 	private const string Url = "presigned-url";
 	private const string ContentType = "application/json";
+	private readonly Product product = CreateProduct(creatorId: ValidDesignerId);
 
 	public CreatorGetProductCadPresignedUrlGetHandlerUnitTests()
 	{
@@ -62,7 +62,7 @@ public class CreatorGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		CreatorGetProductCadPresignedUrlGetQuery query = new(ValidId, ValidDesignerId);
@@ -78,7 +78,7 @@ public class CreatorGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenUnauthorized()
+	public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
 	{
 		// Arrange
 		CreatorGetProductCadPresignedUrlGetQuery query = new(ValidId, ValidCreatorId);

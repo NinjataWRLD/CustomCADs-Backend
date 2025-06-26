@@ -29,7 +29,7 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldQueryDatabase()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		DeleteProductCommand command = new(ValidId, ValidCreatorId);
@@ -42,7 +42,7 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		DeleteProductCommand command = new(ValidId, ValidCreatorId);
@@ -56,7 +56,7 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldSendRequests()
+	public async Task Handle_ShouldSendRequests()
 	{
 		// Arrange
 		DeleteProductCommand command = new(ValidId, ValidCreatorId);
@@ -71,7 +71,7 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldThrowException_WhenUnauthorizedAccess()
+	public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
 	{
 		// Arrange
 		DeleteProductCommand command = new(ValidId, ValidDesignerId);
@@ -84,7 +84,7 @@ public class DeleteProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldThrowException_WhenProductNotFound()
+	public async Task Handle_ShouldThrowException_WhenProductNotFound()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
