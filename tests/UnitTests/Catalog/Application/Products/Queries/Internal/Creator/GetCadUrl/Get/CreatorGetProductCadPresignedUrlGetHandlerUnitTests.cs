@@ -15,9 +15,9 @@ public class CreatorGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
 
-	private readonly Product product = CreateProduct(creatorId: ValidDesignerId);
 	private const string Url = "presigned-url";
 	private const string ContentType = "application/json";
+	private readonly Product product = CreateProduct(creatorId: ValidDesignerId);
 
 	public CreatorGetProductCadPresignedUrlGetHandlerUnitTests()
 	{

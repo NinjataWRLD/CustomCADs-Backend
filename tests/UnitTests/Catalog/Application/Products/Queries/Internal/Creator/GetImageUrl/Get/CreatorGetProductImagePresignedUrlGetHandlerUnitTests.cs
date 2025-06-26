@@ -14,8 +14,9 @@ public class CreatorGetProductImagePresignedUrlGetHandlerUnitTests : ProductsBas
 	private readonly CreatorGetProductImagePresignedUrlGetHandler handler;
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
-	private readonly Product product = CreateProduct(creatorId: ValidDesignerId);
+
 	private static readonly DownloadFileResponse image = new("presigned-url", "application/png");
+	private readonly Product product = CreateProduct(creatorId: ValidDesignerId);
 
 	public CreatorGetProductImagePresignedUrlGetHandlerUnitTests()
 	{

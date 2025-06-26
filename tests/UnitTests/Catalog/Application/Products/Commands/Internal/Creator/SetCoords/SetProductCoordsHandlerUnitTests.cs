@@ -14,6 +14,7 @@ public class SetProductCoordsHandlerUnitTests : ProductsBaseUnitTests
 	private readonly SetProductCoordsHandler handler;
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
+
 	private readonly Product product = CreateProduct();
 
 	public SetProductCoordsHandlerUnitTests()

@@ -9,6 +9,7 @@ using Data;
 public class PurchaseCustomValidatorUnitTests : CustomsBaseUnitTests
 {
 	private readonly PurchaseCustomValidator validator = new();
+
 	private static readonly CustomId id = CustomId.New();
 	private static readonly AccountId buyerId = AccountId.New();
 

@@ -17,8 +17,8 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRequestSender> sender = new();
 
+	private const ProductStatus Status = ProductStatus.Validated;
 	private readonly Product product = CreateProduct();
-	private const ProductStatus status = ProductStatus.Validated;
 
 	public SetProductStatusHandlerUnitTests()
 	{
@@ -37,7 +37,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
+		SetProductStatusCommand command = new(ValidId, Status, ValidDesignerId);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -50,7 +50,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
-		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
+		SetProductStatusCommand command = new(ValidId, Status, ValidDesignerId);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -63,7 +63,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	public async Task Handle_ShouldSendRequests()
 	{
 		// Arrange
-		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
+		SetProductStatusCommand command = new(ValidId, Status, ValidDesignerId);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -80,7 +80,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 	{
 		// Arrange
 		product.SetDesignerId(ValidDesignerId);
-		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
+		SetProductStatusCommand command = new(ValidId, Status, ValidDesignerId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomAuthorizationException<Product>>(
@@ -97,7 +97,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
 			ct
 		)).ReturnsAsync(false);
-		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
+		SetProductStatusCommand command = new(ValidId, Status, ValidDesignerId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(
@@ -112,7 +112,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(null as Product);
-		SetProductStatusCommand command = new(ValidId, status, ValidDesignerId);
+		SetProductStatusCommand command = new(ValidId, Status, ValidDesignerId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Product>>(

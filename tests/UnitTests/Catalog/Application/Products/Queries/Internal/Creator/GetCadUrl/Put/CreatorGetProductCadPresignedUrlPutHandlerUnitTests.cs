@@ -15,9 +15,9 @@ public class CreatorGetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseU
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
 
-	private readonly Product product = CreateProduct();
+	private const string Url = "presigned-url";
 	private static readonly UploadFileRequest file = new("content-type", "file-name");
-	private const string url = "presigned-url";
+	private readonly Product product = CreateProduct();
 
 	public CreatorGetProductCadPresignedUrlPutHandlerUnitTests()
 	{
@@ -29,7 +29,7 @@ public class CreatorGetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseU
 		sender.Setup(x => x.SendQueryAsync(
 			It.Is<GetCadPresignedUrlPutByIdQuery>(x => x.Id == product.CadId && x.NewFile == file),
 			ct
-		)).ReturnsAsync(url);
+		)).ReturnsAsync(Url);
 	}
 
 	[Fact]
@@ -83,7 +83,7 @@ public class CreatorGetProductCadPresignedUrlPutHandlerUnitTests : ProductsBaseU
 		var result = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.Equal(url, result.PresignedUrl);
+		Assert.Equal(Url, result.PresignedUrl);
 	}
 
 	[Fact]

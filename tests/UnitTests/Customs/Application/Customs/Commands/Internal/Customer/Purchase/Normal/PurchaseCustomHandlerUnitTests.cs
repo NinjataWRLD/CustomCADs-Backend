@@ -20,8 +20,8 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 	private readonly Mock<IRequestSender> sender = new();
 	private readonly Mock<IPaymentService> payment = new();
 
-	private static readonly AccountId buyerId = AccountId.New();
 	private const string PaymentMethodId = "payment-method-id";
+	private static readonly AccountId buyerId = AccountId.New();
 	private readonly Custom custom = CreateCustom(
 		buyerId: ValidBuyerId
 	);

@@ -15,7 +15,6 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
 
 	private static readonly AccountId id = AccountId.New();
 	private static readonly ProductId productId = ProductId.New();
-	private readonly Account account = CreateAccount();
 
 	public UserViewedProductHandlerUnitTests()
 	{

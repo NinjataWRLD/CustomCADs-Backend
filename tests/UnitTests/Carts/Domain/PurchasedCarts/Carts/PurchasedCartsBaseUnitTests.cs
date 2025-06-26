@@ -35,4 +35,22 @@ public class PurchasedCartsBaseUnitTests
 
 		return purchasedCart;
 	}
+
+	protected static ActiveCartItem[] CreateItems(int noDeliveryCount, int forDeliveryCount)
+	{
+		List<ActiveCartItem> items = [];
+
+		for (int i = 0; i < noDeliveryCount; i++)
+		{
+			items.Add(ActiveCartItem.Create(ProductId.New(), ValidBuyerId));
+			items.Add(ActiveCartItem.Create(ProductId.New(), ValidBuyerId));
+		}
+		for (int i = 0; i < forDeliveryCount; i++)
+		{
+			items.Add(ActiveCartItem.Create(ProductId.New(), ValidBuyerId, CartItemsData.ValidCustomizationId));
+			items.Add(ActiveCartItem.Create(ProductId.New(), ValidBuyerId, CartItemsData.ValidCustomizationId));
+		}
+
+		return [.. items];
+	}
 }

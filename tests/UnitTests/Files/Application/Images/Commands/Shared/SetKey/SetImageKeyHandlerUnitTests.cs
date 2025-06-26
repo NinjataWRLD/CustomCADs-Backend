@@ -13,6 +13,7 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 	private readonly SetImageKeyHandler handler;
 	private readonly Mock<IImageReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+
 	private readonly Image image = CreateImage();
 
 	public SetImageKeyHandlerUnitTests()

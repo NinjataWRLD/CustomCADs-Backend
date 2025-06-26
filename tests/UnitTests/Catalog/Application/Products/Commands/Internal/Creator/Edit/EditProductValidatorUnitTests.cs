@@ -11,6 +11,7 @@ using static ProductsData;
 public class EditProductValidatorUnitTests
 {
 	private readonly EditProductValidator validator = new();
+
 	private readonly CategoryId categoryId = ValidCategoryId;
 	private readonly AccountId creatorId = ValidCreatorId;
 

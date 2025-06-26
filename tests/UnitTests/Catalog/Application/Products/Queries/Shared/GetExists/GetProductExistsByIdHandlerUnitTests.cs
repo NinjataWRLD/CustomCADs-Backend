@@ -9,6 +9,7 @@ public class GetProductExistsByIdHandlerUnitTests : ProductsBaseUnitTests
 {
 	private readonly GetProductExistsByIdHandler handler;
 	private readonly Mock<IProductReads> reads = new();
+
 	private static readonly ProductId id = new();
 
 	public GetProductExistsByIdHandlerUnitTests()

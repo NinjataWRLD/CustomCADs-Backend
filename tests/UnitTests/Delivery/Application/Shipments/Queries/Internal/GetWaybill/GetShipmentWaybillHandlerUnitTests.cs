@@ -17,7 +17,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	private readonly Mock<IDeliveryService> delivery = new();
 
 	private static readonly byte[] bytes = [1, 2, 3, 4, 5, 6];
-	public static readonly AccountId headDesignerId = AccountId.New(DesignerAccountId);
+	private static readonly AccountId headDesignerId = AccountId.New(DesignerAccountId);
 
 	public GetShipmentWaybillHandlerUnitTests()
 	{

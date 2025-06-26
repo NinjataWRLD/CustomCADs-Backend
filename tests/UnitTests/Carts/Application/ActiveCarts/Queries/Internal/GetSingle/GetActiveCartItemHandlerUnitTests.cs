@@ -14,6 +14,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 	private readonly GetActiveCartItemHandler handler;
 	private readonly Mock<IActiveCartReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
+
 	private static readonly AccountId newBuyerId = AccountId.New();
 
 	public GetActiveCartItemHandlerUnitTests()

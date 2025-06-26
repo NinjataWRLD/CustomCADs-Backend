@@ -13,7 +13,8 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	private readonly GetShipmentTrackHandler handler;
 	private readonly Mock<IShipmentReads> reads = new();
 	private readonly Mock<IDeliveryService> delivery = new();
-	private static readonly ShipmentStatusDto[] statuses = CreateShipmentStatusDtos(4, "Message");
+
+	private static readonly ShipmentStatusDto[] statuses = CreateShipmentStatusDtos();
 
 	public GetShipmentTrackHandlerUnitTests()
 	{
@@ -75,13 +76,4 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 			async () => await handler.Handle(query, ct)
 		);
 	}
-
-	private static ShipmentStatusDto[] CreateShipmentStatusDtos(int count, string message)
-		=> [..
-			Enumerable.Range(1, count).Select(i => new ShipmentStatusDto(
-				DateTime: DateTimeOffset.UtcNow.AddSeconds(i),
-				Place: null,
-				Message: message + i
-			))
-		];
 }
