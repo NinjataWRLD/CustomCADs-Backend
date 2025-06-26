@@ -7,10 +7,12 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY CustomCADs.Production.sln .
+COPY CustomCADs.sln .
+COPY Directory.Packages.props .
 COPY src/ src/
 RUN dotnet restore
 RUN dotnet build -c $BUILD_CONFIGURATION
+COPY tests/ tests/
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
