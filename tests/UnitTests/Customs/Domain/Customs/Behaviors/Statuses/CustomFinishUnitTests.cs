@@ -7,8 +7,8 @@ using static CustomsData;
 
 public class CustomFinishUnitTests : CustomsBaseUnitTests
 {
-	private static readonly Func<Action, CustomValidationException<Custom>> expectValidationException
-		= Assert.Throws<CustomValidationException<Custom>>;
+	private static readonly Func<Action, InvalidOperationException> expectValidationException
+		= Assert.Throws<InvalidOperationException>;
 
 	[Fact]
 	public void Finish_ShouldSucceed_WhenBegun()
@@ -31,7 +31,7 @@ public class CustomFinishUnitTests : CustomsBaseUnitTests
 	[Fact]
 	public void Finish_ShouldFail_WhenInvalidPrice()
 	{
-		expectValidationException(() =>
+		Assert.Throws<CustomValidationException<Custom>>(() =>
 		{
 			Custom custom = CreateCustom();
 			custom.Accept(ValidDesignerId);

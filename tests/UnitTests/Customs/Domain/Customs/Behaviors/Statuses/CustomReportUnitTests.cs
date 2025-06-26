@@ -1,5 +1,4 @@
 using CustomCADs.Customs.Domain.Customs.Enums;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Customs.Domain.Customs.Behaviors.Statuses;
 
@@ -7,8 +6,8 @@ using static CustomsData;
 
 public class CustomReportUnitTests : CustomsBaseUnitTests
 {
-	private static readonly Func<Action, CustomValidationException<Custom>> expectValidationException
-		= Assert.Throws<CustomValidationException<Custom>>;
+	private static readonly Func<Action, InvalidOperationException> expectValidationException
+		= Assert.Throws<InvalidOperationException>;
 
 	[Fact]
 	public void Report_ShouldSucceed_WhenPending()
@@ -17,10 +16,7 @@ public class CustomReportUnitTests : CustomsBaseUnitTests
 
 		custom.Report();
 
-		Assert.Multiple(
-			() => Assert.Equal(CustomStatus.Begun, custom.CustomStatus),
-			() => Assert.NotNull(custom.AcceptedCustom)
-		);
+		Assert.Equal(CustomStatus.Reported, custom.CustomStatus);
 	}
 
 	[Fact]
@@ -32,7 +28,7 @@ public class CustomReportUnitTests : CustomsBaseUnitTests
 		custom.Report();
 
 		Assert.Multiple(
-			() => Assert.Equal(CustomStatus.Begun, custom.CustomStatus),
+			() => Assert.Equal(CustomStatus.Reported, custom.CustomStatus),
 			() => Assert.NotNull(custom.AcceptedCustom)
 		);
 	}
@@ -47,7 +43,7 @@ public class CustomReportUnitTests : CustomsBaseUnitTests
 		custom.Report();
 
 		Assert.Multiple(
-			() => Assert.Equal(CustomStatus.Begun, custom.CustomStatus),
+			() => Assert.Equal(CustomStatus.Reported, custom.CustomStatus),
 			() => Assert.NotNull(custom.AcceptedCustom)
 		);
 	}

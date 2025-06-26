@@ -1,5 +1,4 @@
 using CustomCADs.Customs.Domain.Customs.Enums;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Customs.Domain.Customs.Behaviors.Statuses;
 
@@ -7,8 +6,8 @@ using static CustomsData;
 
 public class CustomCancelUnitTests : CustomsBaseUnitTests
 {
-	private static readonly Func<Action, CustomValidationException<Custom>> expectValidationException
-		= Assert.Throws<CustomValidationException<Custom>>;
+	private static readonly Func<Action, InvalidOperationException> expectValidationException
+		= Assert.Throws<InvalidOperationException>;
 
 	[Fact]
 	public void Cancel_ShouldSucceed_WhenAccepted()
@@ -19,8 +18,8 @@ public class CustomCancelUnitTests : CustomsBaseUnitTests
 		custom.Cancel();
 
 		Assert.Multiple(
-			() => Assert.Equal(CustomStatus.Begun, custom.CustomStatus),
-			() => Assert.NotNull(custom.AcceptedCustom)
+			() => Assert.Equal(CustomStatus.Pending, custom.CustomStatus),
+			() => Assert.Null(custom.AcceptedCustom)
 		);
 	}
 
@@ -34,8 +33,8 @@ public class CustomCancelUnitTests : CustomsBaseUnitTests
 		custom.Cancel();
 
 		Assert.Multiple(
-			() => Assert.Equal(CustomStatus.Begun, custom.CustomStatus),
-			() => Assert.NotNull(custom.AcceptedCustom)
+			() => Assert.Equal(CustomStatus.Pending, custom.CustomStatus),
+			() => Assert.Null(custom.AcceptedCustom)
 		);
 	}
 
@@ -49,8 +48,8 @@ public class CustomCancelUnitTests : CustomsBaseUnitTests
 		custom.Cancel();
 
 		Assert.Multiple(
-			() => Assert.Equal(CustomStatus.Begun, custom.CustomStatus),
-			() => Assert.NotNull(custom.AcceptedCustom)
+			() => Assert.Equal(CustomStatus.Pending, custom.CustomStatus),
+			() => Assert.Null(custom.AcceptedCustom)
 		);
 	}
 

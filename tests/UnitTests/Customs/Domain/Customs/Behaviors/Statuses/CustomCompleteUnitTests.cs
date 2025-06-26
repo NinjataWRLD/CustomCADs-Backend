@@ -1,5 +1,4 @@
 using CustomCADs.Customs.Domain.Customs.Enums;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Customs.Domain.Customs.Behaviors.Statuses;
 
@@ -7,13 +6,13 @@ using static CustomsData;
 
 public class CustomCompleteUnitTests : CustomsBaseUnitTests
 {
-	private static readonly Func<Action, CustomValidationException<Custom>> expectValidationException
-		= Assert.Throws<CustomValidationException<Custom>>;
+	private static readonly Func<Action, InvalidOperationException> expectValidationException
+		= Assert.Throws<InvalidOperationException>;
 
 	[Fact]
 	public void Complete_ShouldSucceed_WhenFinished()
 	{
-		Custom custom = CreateCustom();
+		Custom custom = CreateCustom(forDelivery: true);
 		custom.Accept(ValidDesignerId);
 		custom.Begin();
 		custom.Finish(ValidCadId, ValidPrice);
