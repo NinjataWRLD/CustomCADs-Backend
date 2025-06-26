@@ -27,7 +27,7 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatbase()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		CreatorGetProductByIdQuery query = new(ValidId, ValidCreatorId);
@@ -60,7 +60,7 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		CreatorGetProductByIdQuery query = new(ValidId, ValidCreatorId);

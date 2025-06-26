@@ -14,7 +14,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
 	}
 
 	[Fact]
-	public void Create_ShouldPopulatePropertiesProperly_WhenShipmentIsValid()
+	public void Create_ShouldPopulateProperties_WhenShipmentIsValid()
 	{
 		Address address = new(ValidCountry, ValidCity);
 		var shipment = Shipment.Create(address, ValidReferenceId, ValidBuyerId);

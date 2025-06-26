@@ -7,14 +7,16 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY CustomCADs.Production.sln .
+COPY CustomCADs.sln .
+COPY Directory.Packages.props .
 COPY src/ src/
 RUN dotnet restore
 RUN dotnet build -c $BUILD_CONFIGURATION
+COPY tests/ tests/
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet run --project src/Presentation/CustomCADs.Presentation.csproj -- codegen write
+RUN dotnet run --project src/Tools/CodeGen/CustomCADs.Tools.CodeGen.csproj -- codegen write
 RUN dotnet publish -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final

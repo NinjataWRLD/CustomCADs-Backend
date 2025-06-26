@@ -1,4 +1,5 @@
-﻿using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetByName;
+﻿using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetById;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Endpoints.Get.Single;
 
@@ -18,7 +19,7 @@ public sealed class GetRoleEndpoint(IRequestSender sender)
 	public override async Task HandleAsync(GetRoleRequest req, CancellationToken ct)
 	{
 		RoleReadDto role = await sender.SendQueryAsync(
-			new GetRoleByNameQuery(req.Name),
+			new GetRoleByIdQuery(RoleId.New(req.Id)),
 			ct
 		).ConfigureAwait(false);
 

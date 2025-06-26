@@ -1,5 +1,4 @@
 using CustomCADs.Presentation;
-using Oakton;
 using static CustomCADs.Shared.Core.Constants.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +10,7 @@ builder.Services.AddAuthZ([Customer, Contributor, Designer, Admin]);
 
 // Use Cases
 builder.Services.AddUseCases(builder.Environment);
-builder.Services.AddCacheService();
+builder.Services.AddCache();
 builder.Services.AddBackgroundJobs();
 
 // External Services
@@ -25,17 +24,6 @@ builder.Services.AddStorageService(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddIdentity();
 builder.Services.AddGlobalExceptionHandler();
-
-// Database Updater
-if (args.Contains("--migrate"))
-{
-	await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
-}
-else if (args.Contains("--migrate-only"))
-{
-	await builder.Services.AddDbMigrationUpdater().ConfigureAwait(false);
-	return 0;
-}
 
 // API
 builder.Services.AddEndpoints();
@@ -67,4 +55,4 @@ app.MapApiDocumentationUi(
 );
 app.MapStripeWebhook();
 
-return await app.RunOaktonCommands(args).ConfigureAwait(false);
+await app.RunAsync().ConfigureAwait(false);

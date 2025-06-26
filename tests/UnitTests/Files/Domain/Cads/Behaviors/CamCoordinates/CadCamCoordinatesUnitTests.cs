@@ -18,7 +18,7 @@ public class CadCamCoordinatesUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public void SetCamCoordinates_ShouldPopulateProperly_WhenCoordinatesAreValid()
+	public void SetCamCoordinates_ShouldPopulateProperties_WhenCoordinatesAreValid()
 	{
 		var cad = CreateCad();
 

@@ -1,9 +1,6 @@
 ﻿using CustomCADs.Categories.Application.Categories.Commands.Internal.Edit;
-using CustomCADs.Categories.Domain.Categories.Events;
 using CustomCADs.Categories.Domain.Repositories;
 using CustomCADs.Categories.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Commands.Internal.Edit;
 
@@ -14,19 +11,18 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	private readonly EditCategoryHandler handler;
 	private readonly Mock<ICategoryReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Mock<IEventRaiser> raiser = new();
+	private readonly Mock<BaseCachingService<CategoryId, Category>> cache = new();
 
 	private readonly Category category = CreateCategory();
 
 	public EditCategoryHandlerUnitTests()
 	{
-		handler = new(reads.Object, uow.Object, raiser.Object);
-		reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct))
-			.ReturnsAsync(category);
+		handler = new(reads.Object, uow.Object, cache.Object);
+		cache.Setup(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>())).ReturnsAsync(category);
 	}
 
 	[Fact]
-	public async Task Handler_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		EditCategoryCommand command = new(ValidId, new(ValidName, ValidDescription));
@@ -35,11 +31,11 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(v => v.SingleByIdAsync(ValidId, true, ct), Times.Once());
+		cache.Verify(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		EditCategoryCommand command = new(ValidId, new(ValidName, ValidDescription));
@@ -52,7 +48,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldModifyCategory_WhenCategoryFound()
+	public async Task Handle_ShouldModifyCategory()
 	{
 		// Arrange
 		EditCategoryCommand command = new(ValidId, new(ValidName, ValidDescription));
@@ -69,7 +65,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldRaiseEvents_WhenCategoryFound()
+	public async Task Handle_ShouldUpdateCache()
 	{
 		// Arrange
 		EditCategoryCommand command = new(ValidId, new(ValidName, ValidDescription));
@@ -78,22 +74,9 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		raiser.Verify(v => v.RaiseDomainEventAsync(
-			It.Is<CategoryEditedDomainEvent>(x => x.Category.Name == ValidName && x.Category.Description == ValidDescription)
+		cache.Verify(v => v.UpdateAsync(
+			ValidId,
+			category
 		), Times.Once());
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenCategoryDoesNotExists()
-	{
-		// Arrange
-		reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Category);
-		EditCategoryCommand command = new(ValidId, new(ValidName, ValidDescription));
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
-			// Act
-			async () => await handler.Handle(command, ct)
-		);
 	}
 }

@@ -1,5 +1,6 @@
-﻿using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetByUsername;
+﻿using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetById;
 using CustomCADs.Accounts.Endpoints.Accounts.Dtos;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Endpoints.Get.Single;
 
@@ -18,8 +19,8 @@ public sealed class GetAccountEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(GetAccountRequest req, CancellationToken ct)
 	{
-		GetAccountByUsernameDto account = await sender.SendQueryAsync(
-			new GetAccountByUsernameQuery(req.Username),
+		GetAccountByIdDto account = await sender.SendQueryAsync(
+			new GetAccountByIdQuery(AccountId.New(req.Id)),
 			ct
 		).ConfigureAwait(false);
 

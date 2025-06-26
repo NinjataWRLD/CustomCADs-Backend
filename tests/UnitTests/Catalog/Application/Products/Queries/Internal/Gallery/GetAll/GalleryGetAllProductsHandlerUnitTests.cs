@@ -14,6 +14,7 @@ public class GalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 	private readonly GalleryGetAllProductsHandler handler;
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
+
 	private readonly Product[] products = [];
 	private readonly ProductQuery query;
 	private readonly Result<Product> result;

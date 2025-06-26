@@ -15,7 +15,7 @@ public class CustomSetDeliveryUnitTests : CustomsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(CustomSetDeliveryValidData))]
-	public void SetDelivery_ShouldPopulateProperly(bool forDelivery)
+	public void SetDelivery_ShouldPopulateProperties(bool forDelivery)
 	{
 		var Custom = CreateCustom();
 		Custom.SetDelivery(forDelivery);

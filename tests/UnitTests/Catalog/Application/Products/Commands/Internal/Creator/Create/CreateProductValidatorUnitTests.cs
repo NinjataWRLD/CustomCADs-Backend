@@ -10,6 +10,7 @@ using static ProductsData;
 public class CreateProductValidatorUnitTests
 {
 	private readonly CreateProductValidator validator = new();
+
 	private const decimal Volume = 15;
 	private readonly CategoryId categoryId = ValidCategoryId;
 	private readonly AccountId creatorId = ValidCreatorId;

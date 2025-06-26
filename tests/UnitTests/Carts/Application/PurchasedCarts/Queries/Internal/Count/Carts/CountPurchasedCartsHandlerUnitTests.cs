@@ -34,7 +34,7 @@ public class CountPurchasedCartsHandlerUnitTests : PurchasedCartsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		CountPurchasedCartsQuery query = new(ValidBuyerId);

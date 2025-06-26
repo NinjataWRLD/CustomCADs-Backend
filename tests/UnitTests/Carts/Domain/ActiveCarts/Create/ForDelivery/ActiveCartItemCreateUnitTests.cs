@@ -5,7 +5,7 @@ using static ActiveCartsData;
 public class ActiveCartItemCreateUnitTests : ActiveCartItemsBaseUnitTests
 {
 	[Fact]
-	public void Create_ShouldNotThrow_WhenCartIsValid()
+	public void Create_ShouldNotThrowException_WhenCartIsValid()
 	{
 		CreateItemWithDelivery(
 			buyerId: ValidBuyerId,

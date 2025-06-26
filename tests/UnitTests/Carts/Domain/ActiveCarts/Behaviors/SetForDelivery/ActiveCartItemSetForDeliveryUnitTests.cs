@@ -5,13 +5,13 @@ using static ActiveCartsData;
 public class ActiveCartItemSetForDeliveryUnitTests : ActiveCartItemsBaseUnitTests
 {
 	[Fact]
-	public void SetForDelivery_ShouldNotThrow()
+	public void SetForDelivery_ShouldNotThrowException()
 	{
 		CreateItem().SetForDelivery(ValidCustomizationId);
 	}
 
 	[Fact]
-	public void SetForDelivery_ShouldPopulateProperly()
+	public void SetForDelivery_ShouldPopulateProperties()
 	{
 		var item = CreateItem();
 		item.SetForDelivery(ValidCustomizationId);

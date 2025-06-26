@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Files.Application.Cads.Queries.Shared;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetExists;
@@ -9,8 +8,6 @@ public class GetCadExistsByIdHandlerUnitTests : CadsBaseUnitTests
 {
 	private readonly GetCadExistsByIdHandler handler;
 	private readonly Mock<ICadReads> reads = new();
-
-	private static readonly CadId id = CadId.New();
 
 	public GetCadExistsByIdHandlerUnitTests()
 	{
@@ -32,7 +29,7 @@ public class GetCadExistsByIdHandlerUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly_WhenProductExists()
+	public async Task Handle_ShouldReturnResult_WhenProductExists()
 	{
 		// Arrange
 		GetCadExistsByIdQuery query = new(id);
@@ -45,7 +42,7 @@ public class GetCadExistsByIdHandlerUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly_WhenProductDoesNotExists()
+	public async Task Handle_ShouldReturnResult_WhenProductDoesNotExists()
 	{
 		// Arrange
 		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);

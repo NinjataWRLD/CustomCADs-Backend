@@ -51,7 +51,7 @@ public class GetProductPricesByIdsHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetProductPricesByIdsQuery query = new(ids);

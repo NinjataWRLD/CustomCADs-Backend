@@ -28,4 +28,15 @@ public class UnitOfWork(CatalogContext context) : IUnitOfWork
 			.Where(x => x.Tag.Name == tag)
 			.ExecuteDeleteAsync(ct)
 			.ConfigureAwait(false);
+
+	public async Task AddProductPurchasesAsync(ProductId[] ids, int count = 1, CancellationToken ct = default)
+		=> await context.Products
+			.Where(x => ids.Contains(x.Id))
+			.ExecuteUpdateAsync(setters => setters
+				.SetProperty(
+					p => p.Counts.Purchases,
+					p => p.Counts.Purchases + count
+				),
+				ct
+			).ConfigureAwait(false);
 }

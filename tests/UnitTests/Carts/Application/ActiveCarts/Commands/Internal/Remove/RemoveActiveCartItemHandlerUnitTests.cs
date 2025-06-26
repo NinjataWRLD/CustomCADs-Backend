@@ -13,6 +13,7 @@ public class RemoveActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 	private readonly Mock<IActiveCartReads> reads = new();
 	private readonly Mock<IWrites<ActiveCartItem>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+
 	private readonly ActiveCartItem item = CreateItem(productId: ValidProductId);
 
 	public RemoveActiveCartItemHandlerUnitTests()

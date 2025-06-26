@@ -13,6 +13,7 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 	private readonly SetImageContentTypeHandler handler;
 	private readonly Mock<IImageReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+
 	private readonly Image image = CreateImage();
 
 	public SetImageContentTypeHandlerUnitTests()

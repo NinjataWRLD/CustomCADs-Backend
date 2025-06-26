@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	  	<UserSecretsId>c35211bd-a1a6-4758-acdd-52aaf838685a</UserSecretsId>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Modules\Accounts\Application\CustomCADs.Accounts.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Accounts\Persistence\CustomCADs.Accounts.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Carts\Application\CustomCADs.Carts.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Carts\Persistence\CustomCADs.Carts.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Catalog\Application\CustomCADs.Catalog.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Catalog\Persistence\CustomCADs.Catalog.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Categories\Application\CustomCADs.Categories.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Categories\Persistence\CustomCADs.Categories.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Customizations\Application\CustomCADs.Customizations.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Customizations\Persistence\CustomCADs.Customizations.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Customs\Application\CustomCADs.Customs.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Customs\Persistence\CustomCADs.Customs.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Delivery\Application\CustomCADs.Delivery.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Delivery\Persistence\CustomCADs.Delivery.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Files\Application\CustomCADs.Files.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Files\Persistence\CustomCADs.Files.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Identity\Application\CustomCADs.Identity.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Identity\Persistence\CustomCADs.Identity.Persistence.csproj" />
+		<ProjectReference Include="..\..\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>

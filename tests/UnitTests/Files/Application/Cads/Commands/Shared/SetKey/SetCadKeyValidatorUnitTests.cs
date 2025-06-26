@@ -13,6 +13,7 @@ public class SetCadKeyValidatorUnitTests : CadsBaseUnitTests
 	private readonly SetCadKeyHandler handler;
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+
 	private readonly Cad cad = CreateCad();
 
 	public SetCadKeyValidatorUnitTests()

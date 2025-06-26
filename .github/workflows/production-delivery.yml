@@ -43,7 +43,7 @@ jobs:
           ECR_REPOSITORY: ninjatabg/customcads
           VERSION: ${{ env.VERSION }}
         run: |
-          docker build -f Dockerfile -t $ECR_REPOSITORY:$VERSION .
+          docker build -f Dockerfile.production -t $ECR_REPOSITORY:$VERSION .
           docker tag $ECR_REPOSITORY:$VERSION $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION
           echo "VERSION=$VERSION" >> $GITHUB_ENV

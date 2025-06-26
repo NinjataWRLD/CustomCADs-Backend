@@ -32,7 +32,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldQueryDatabase()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		EditProductCommand command = new(
@@ -52,7 +52,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		EditProductCommand command = new(
@@ -72,7 +72,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldSendRequests()
+	public async Task Handle_ShouldSendRequests()
 	{
 		// Arrange
 		EditProductCommand command = new(
@@ -95,7 +95,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldThrowException_WhenUnauthorizedAccess()
+	public async Task Handle_ShouldThrowException_WhenUnauthorizedAccess()
 	{
 		// Arrange
 		EditProductCommand command = new(
@@ -115,7 +115,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldThrowException_WhenCategoryNotFound()
+	public async Task Handle_ShouldThrowException_WhenCategoryNotFound()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(
@@ -140,7 +140,7 @@ public class EditProductHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handler_ShouldThrowException_WhenProductNotFound()
+	public async Task Handle_ShouldThrowException_WhenProductNotFound()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))

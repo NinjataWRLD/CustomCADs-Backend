@@ -6,19 +6,16 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>a3a749a2-9c16-4aa9-b573-677af839f8a8</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
-		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.11.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Scalar.AspNetCore" Version="2.0.18" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+		<PackageReference Include="Scalar.AspNetCore" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Tools\CodeGen\CustomCADs.Tools.CodeGen.csproj" />
 		<ProjectReference Include="..\Modules\Accounts\Endpoints\CustomCADs.Accounts.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Accounts\Persistence\CustomCADs.Accounts.Persistence.csproj" />
 		<ProjectReference Include="..\Modules\Carts\Endpoints\CustomCADs.Carts.Endpoints.csproj" />

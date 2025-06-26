@@ -3,7 +3,7 @@ using CustomCADs.Customs.Application.Customs.Dtos;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
-using CustomCADs.Customs.Domain.Customs.Entities;
+using CustomCADs.Customs.Domain.Customs.States.Entities;
 
 namespace CustomCADs.Customs.Application.Customs;
 

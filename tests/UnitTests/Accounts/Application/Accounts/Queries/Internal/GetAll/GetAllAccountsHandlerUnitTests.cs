@@ -10,44 +10,43 @@ using static Constants.Users;
 
 public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 {
-	private const int count = 30;
-
-	private readonly Mock<IAccountReads> reads = new();
 	private readonly GetAllAccountsHandler handler;
+	private readonly Mock<IAccountReads> reads = new();
+
 	private readonly Account[] accounts = [
 		Account.CreateWithId(AccountId.New(), Roles.Customer, CustomerUsername, CustomerEmail, DateTimeOffset.UtcNow),
 		Account.CreateWithId(AccountId.New(), Roles.Contributor, ContributorUsername, ContributorEmail, DateTimeOffset.UtcNow),
 		Account.CreateWithId(AccountId.New(), Roles.Designer, DesignerUsername, DesignerEmail, DateTimeOffset.UtcNow),
 		Account.CreateWithId(AccountId.New(), Roles.Admin, AdminUsername, AdminEmail, DateTimeOffset.UtcNow),
 	];
-	private readonly AccountQuery accountQuery = new(GetPagination());
+	private readonly AccountQuery query = new(Pagination: new(1, 1));
 
 	public GetAllAccountsHandlerUnitTests()
 	{
 		handler = new(reads.Object);
 
-		reads.Setup(x => x.AllAsync(accountQuery, false, ct))
-			.ReturnsAsync(new Result<Account>(count, accounts));
+		reads.Setup(x => x.AllAsync(query, false, ct))
+			.ReturnsAsync(new Result<Account>(1, accounts));
 	}
 
 	[Fact]
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		GetAllAccountsQuery query = new(GetPagination());
+		GetAllAccountsQuery query = new(this.query.Pagination);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
+		reads.Verify(x => x.AllAsync(this.query, false, ct), Times.Once);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
-		GetAllAccountsQuery query = new(GetPagination());
+		GetAllAccountsQuery query = new(this.query.Pagination);
 
 		// Act
 		Result<GetAllAccountsDto> accounts = await handler.Handle(query, ct);
@@ -60,7 +59,4 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 			() => Assert.Equal(accounts.Items.Select(r => r.Email), this.accounts.Select(r => r.Email))
 		);
 	}
-
-	private static Pagination GetPagination(int count = count)
-			=> new(1, count);
 }

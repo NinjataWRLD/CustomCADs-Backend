@@ -41,7 +41,7 @@ public class ProductsCountHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		ProductsCountQuery query = new(ValidCreatorId);

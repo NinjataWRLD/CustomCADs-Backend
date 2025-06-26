@@ -44,7 +44,7 @@ public class CreatorGetProductCadPresignedUrlPostHandlerUnitTests : ProductsBase
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		CreatorGetProductCadPresignedUrlPostQuery query = new(

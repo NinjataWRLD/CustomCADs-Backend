@@ -18,11 +18,8 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRequestSender> sender = new();
 
-	private const string Key = "generated-key";
-	private const string ContentType = "model/gltf-binary";
-	private const decimal Volume = 15;
 	private static readonly AccountId designerId = AccountId.New();
-	private readonly (string Key, string ContentType, decimal Volume) cad = (Key, ContentType, Volume);
+	private readonly (string Key, string ContentType, decimal Volume) cad = ("generated-key", "model/gltf-binary", 15);
 	private readonly Custom custom = CreateCustom();
 
 	public FinishCustomHandlerUnitTests()
@@ -81,7 +78,7 @@ public class FinishCustomHandlerUnitTests : CustomsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPopulateProperly()
+	public async Task Handle_ShouldPopulateProperties()
 	{
 		// Arrange
 		FinishCustomCommand command = new(

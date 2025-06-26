@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.UseCases.Shipments.Commands;
+﻿using CustomCADs.Delivery.Application.Shipments.Commands.Internal.Cancel;
 
 namespace CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Patch.Cancel;
 

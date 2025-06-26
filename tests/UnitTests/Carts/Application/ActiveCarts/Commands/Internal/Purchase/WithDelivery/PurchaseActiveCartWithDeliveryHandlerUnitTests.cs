@@ -167,7 +167,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		PaymentDto expected = new(string.Empty, Message: "Payment Status Message");
@@ -196,7 +196,7 @@ public class PurchaseActiveCartWithDeliveryWithDeliveryHandlerUnitTests : Active
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenCartForDelivery()
+	public async Task Handle_ShouldThrowException_WhenCartNotForDelivery()
 	{
 		// Arrange
 		reads.Setup(x => x.AllAsync(ValidBuyerId, false, ct))

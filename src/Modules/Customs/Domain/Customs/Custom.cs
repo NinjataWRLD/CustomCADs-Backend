@@ -1,6 +1,6 @@
-﻿using CustomCADs.Customs.Domain.Customs.Entities;
-using CustomCADs.Customs.Domain.Customs.Enums;
+﻿using CustomCADs.Customs.Domain.Customs.Enums;
 using CustomCADs.Customs.Domain.Customs.States;
+using CustomCADs.Customs.Domain.Customs.States.Entities;
 using CustomCADs.Customs.Domain.Customs.States.Implementations;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
@@ -92,17 +92,6 @@ public class Custom : BaseAggregateRoot
 			throw CustomValidationException<Custom>.Status(CustomStatus);
 		}
 		ForDelivery = value;
-
-		return this;
-	}
-
-	public Custom SetDesigner(AccountId designerId)
-	{
-		if (CustomStatus is not CustomStatus.Accepted)
-		{
-			throw CustomValidationException<Custom>.Status(CustomStatus);
-		}
-		AcceptedCustom!.SetDesignerId(designerId);
 
 		return this;
 	}

@@ -15,7 +15,7 @@ public class SetProductPriceUnitTests : ProductsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(SetProductPriceValidData))]
-	public void SetPrice_ShouldPopulateProperly_WhenPriceIsValid(decimal price)
+	public void SetPrice_ShouldPopulateProperties_WhenPriceIsValid(decimal price)
 	{
 		var product = CreateProduct();
 		product.SetPrice(price);

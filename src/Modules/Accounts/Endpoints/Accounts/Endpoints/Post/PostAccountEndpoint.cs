@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Internal.Create;
-using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetByUsername;
+using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetById;
 using CustomCADs.Accounts.Endpoints.Accounts.Dtos;
 using CustomCADs.Accounts.Endpoints.Accounts.Endpoints.Get.Single;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Endpoints.Post;
 
@@ -20,7 +21,7 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(PostAccountRequest req, CancellationToken ct)
 	{
-		await sender.SendCommandAsync(
+		AccountId id = await sender.SendCommandAsync(
 			new CreateAccountCommand(
 				Role: req.Role,
 				Username: req.Username,
@@ -33,10 +34,10 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		var newAccount = await sender.SendQueryAsync(
-			new GetAccountByUsernameQuery(req.Username)
+			new GetAccountByIdQuery(id)
 		, ct).ConfigureAwait(false);
 
 		AccountResponse response = newAccount.ToResponse();
-		await SendCreatedAtAsync<GetAccountEndpoint>(new { req.Username }, response).ConfigureAwait(false);
+		await SendCreatedAtAsync<GetAccountEndpoint>(new { id }, response).ConfigureAwait(false);
 	}
 }

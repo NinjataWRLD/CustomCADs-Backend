@@ -1,15 +1,16 @@
 ﻿using CustomCADs.Carts.Domain.Repositories;
+using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.ApplicationEvents.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.Shared.UseCases.Products.Commands;
 using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
 
-public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWork uow, IRequestSender sender)
+public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWork uow, IRequestSender sender, IEventRaiser raiser)
 	: ICommandHandler<CreatePurchasedCartCommand, PurchasedCartId>
 {
 	public async Task<PurchasedCartId> Handle(CreatePurchasedCartCommand req, CancellationToken ct)
@@ -54,9 +55,8 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
 		await writes.AddAsync(cart, ct).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-		await sender.SendCommandAsync(
-			new AddProductPurchaseCommand(productIds),
-			ct
+		await raiser.RaiseApplicationEventAsync(
+			new UserPurchasedProductApplicationEvent(productIds)
 		).ConfigureAwait(false);
 
 		return cart.Id;

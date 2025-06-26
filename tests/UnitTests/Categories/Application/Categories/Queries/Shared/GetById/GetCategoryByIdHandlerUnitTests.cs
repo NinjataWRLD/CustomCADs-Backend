@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Categories.Application.Categories.Queries.Shared;
 using CustomCADs.Categories.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Categories.Queries;
 
 namespace CustomCADs.UnitTests.Categories.Application.Categories.Queries.Shared.GetById;
@@ -11,17 +10,18 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 {
 	private readonly GetCategoryNameByIdHandler handler;
 	private readonly Mock<ICategoryReads> reads = new();
+	private readonly Mock<BaseCachingService<CategoryId, Category>> cache = new();
 
 	public GetCategoryByIdHandlerUnitTests()
 	{
-		handler = new(reads.Object);
+		handler = new(reads.Object, cache.Object);
 
-		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
+		cache.Setup(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()))
 			.ReturnsAsync(CreateCategory());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetCategoryNameByIdQuery query = new(ValidId);
@@ -30,21 +30,6 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(v => v.SingleByIdAsync(ValidId, false, ct), Times.Once());
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenDatabaseMiss()
-	{
-		// Arrange
-		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Category);
-		GetCategoryNameByIdQuery query = new(ValidId);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Category>>(
-			// Act
-			async () => await handler.Handle(query, ct)
-		);
-
+		cache.Verify(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()), Times.Once());
 	}
 }

@@ -48,7 +48,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperly()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetUsernamesByIdsQuery query = new(ids);

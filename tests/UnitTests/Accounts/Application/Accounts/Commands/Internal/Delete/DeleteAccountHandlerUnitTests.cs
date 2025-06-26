@@ -8,7 +8,7 @@ using CustomCADs.Shared.Core.Common.Exceptions.Application;
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Delete;
 
 using CustomCADs.Accounts.Domain.Repositories.Writes;
-using Data;
+using static AccountsData;
 
 public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 {
@@ -21,66 +21,59 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 	public DeleteAccountHandlerUnitTests()
 	{
 		handler = new(reads.Object, writes.Object, uow.Object, raiser.Object);
+
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
+			.ReturnsAsync(CreateAccountWithId());
 	}
 
-	[Theory]
-	[ClassData(typeof(DeleteAccountValidData))]
-	public async Task Handle_ShouldQueryDatabase(string username)
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		Account account = CreateAccount(username: username);
-		reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(account);
-		DeleteAccountCommand command = new(username);
+		DeleteAccountCommand command = new(ValidId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByUsernameAsync(username, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(DeleteAccountValidData))]
-	public async Task Handle_ShouldPersistToDatabase_WhenAccountFound(string username)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
-		Account account = CreateAccount(username: username);
-		reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(account);
-		DeleteAccountCommand command = new(username);
+		DeleteAccountCommand command = new(ValidId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.Remove(account), Times.Once);
+		writes.Verify(x => x.Remove(It.Is<Account>(x => x.Id == ValidId)), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(DeleteAccountValidData))]
-	public async Task Handle_ShouldRaiseEvents(string username)
+	[Fact]
+	public async Task Handle_ShouldRaiseEvents()
 	{
 		// Arrange
-		Account account = CreateAccount(username: username);
-		reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(account);
-		DeleteAccountCommand command = new(username);
+		DeleteAccountCommand command = new(ValidId);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
-			It.Is<AccountDeletedApplicationEvent>(x => x.Username == username)
+			It.Is<AccountDeletedApplicationEvent>(x => x.Username == ValidUsername)
 		), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(DeleteAccountValidData))]
-	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExists(string username)
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExist()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByUsernameAsync(username, true, ct)).ReturnsAsync(null as Account);
-		DeleteAccountCommand command = new(username);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Account);
+		DeleteAccountCommand command = new(ValidId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Account>>(

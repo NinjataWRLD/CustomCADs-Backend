@@ -20,7 +20,7 @@ public class ProductCreateUnitTests : ProductsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(ProductCreateValidData))]
-	public void Create_ShouldPopulateProperly_WhenProductIsValid(string name, string description, decimal price)
+	public void Create_ShouldPopulateProperties_WhenProductIsValid(string name, string description, decimal price)
 	{
 		Product product = CreateProduct(
 			name: name,

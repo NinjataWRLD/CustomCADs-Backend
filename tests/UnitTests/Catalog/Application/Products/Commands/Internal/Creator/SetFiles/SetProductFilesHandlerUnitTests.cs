@@ -14,6 +14,7 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 	private readonly SetProductFilesHandler handler;
 	private readonly Mock<IProductReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
+
 	private readonly Product product = CreateProduct();
 
 	public SetProductFilesHandlerUnitTests()

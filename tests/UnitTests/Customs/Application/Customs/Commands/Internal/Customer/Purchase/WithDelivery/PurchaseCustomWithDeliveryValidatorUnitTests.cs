@@ -10,6 +10,7 @@ using Data;
 public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 {
 	private readonly PurchaseCustomWithDeliveryValidator validator = new();
+
 	private static readonly CustomId id = CustomId.New();
 	private static readonly AccountId buyerId = AccountId.New();
 	private static readonly CustomizationId customizationId = CustomizationId.New();

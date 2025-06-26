@@ -22,7 +22,7 @@ public class ProductCreateWithIdUnitTests : ProductsBaseUnitTests
 
 	[Theory]
 	[ClassData(typeof(ProductCreateWithIdValidData))]
-	public void CreateWithId_ShouldPopulateProperly_WhenProductIsValid(string name, string description, decimal price)
+	public void CreateWithId_ShouldPopulateProperties_WhenProductIsValid(string name, string description, decimal price)
 	{
 		Product product = CreateProductWithId(
 			id: ValidId,
