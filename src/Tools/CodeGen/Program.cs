@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Use Cases
 builder.Services.GenerateUseCases(builder.Environment);
-builder.Services.AddCacheService();
+builder.Services.AddCache();
 builder.Services.AddBackgroundJobs();
 
 // External Services

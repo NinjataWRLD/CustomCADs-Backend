@@ -36,6 +36,16 @@ public static class ProgramExtensions
 		return services;
 	}
 
+	public static IServiceCollection AddCache(this IServiceCollection services)
+	{
+		services.AddCacheService();
+		services.AddMaterialCaching();
+		services.AddCategoryCaching();
+		services.AddRoleCaching();
+
+		return services;
+	}
+
 	public static IServiceCollection AddEmailService(this IServiceCollection services, IConfiguration config)
 	{
 		services.Configure<EmailSettings>(config.GetSection("Email"));

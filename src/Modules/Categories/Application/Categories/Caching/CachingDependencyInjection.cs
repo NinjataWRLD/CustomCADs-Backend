@@ -6,9 +6,6 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class CachingDependencyInjection
 {
 	public static IServiceCollection AddCategoryCaching(this IServiceCollection services)
-		=> services.AddScoped<
-				BaseCachingService<CategoryId, Category>,
-				CategoryCachingService
-			>();
+		=> services.AddScoped<BaseCachingService<CategoryId, Category>, CategoryCachingService>();
 
 }
