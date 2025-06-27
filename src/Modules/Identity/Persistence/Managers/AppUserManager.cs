@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Identity.Domain.Managers;
 using CustomCADs.Identity.Domain.Users;
+using CustomCADs.Identity.Domain.Users.Entities;
 using CustomCADs.Identity.Persistence.ShadowEntities;
 using CustomCADs.Shared.Core.Common.TypedIds.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -9,9 +10,11 @@ namespace CustomCADs.Identity.Persistence.Managers;
 
 public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 {
+	private IQueryable<AppUser> Users => manager.Users.Include(x => x.RefreshTokens);
+
 	public async Task<User?> GetByIdAsync(UserId id)
 	{
-		AppUser? appUser = await manager.Users.FirstOrDefaultAsync(x => x.Id == id.Value).ConfigureAwait(false);
+		AppUser? appUser = await Users.FirstOrDefaultAsync(x => x.Id == id.Value).ConfigureAwait(false);
 		if (appUser is null)
 		{
 			return null;
@@ -23,7 +26,7 @@ public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 
 	public async Task<User?> GetByUsernameAsync(string username)
 	{
-		AppUser? appUser = await manager.Users.FirstOrDefaultAsync(x => x.UserName == username).ConfigureAwait(false);
+		AppUser? appUser = await Users.FirstOrDefaultAsync(x => x.UserName == username).ConfigureAwait(false);
 		if (appUser is null)
 		{
 			return null;
@@ -35,7 +38,7 @@ public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 
 	public async Task<User?> GetByEmailAsync(string email)
 	{
-		AppUser? appUser = await manager.Users.FirstOrDefaultAsync(x => x.Email == email).ConfigureAwait(false);
+		AppUser? appUser = await Users.FirstOrDefaultAsync(x => x.Email == email).ConfigureAwait(false);
 		if (appUser is null)
 		{
 			return null;
@@ -45,16 +48,18 @@ public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 		return appUser?.ToUser(role);
 	}
 
-	public async Task<User?> GetByRefreshTokenAsync(string token)
+	public async Task<(User? User, RefreshToken? RefreshToken)> GetByRefreshTokenAsync(string token)
 	{
-		AppUser? appUser = await manager.Users.FirstOrDefaultAsync(x => x.RefrehToken != null && x.RefrehToken.Value == token).ConfigureAwait(false);
+		AppUser? appUser = await Users.FirstOrDefaultAsync(x => x.RefreshTokens.Any(x => x.Value == token)).ConfigureAwait(false);
 		if (appUser is null)
 		{
-			return null;
+			return (User: null, RefreshToken: null);
 		}
 
+		AppRefreshToken? rt = appUser.RefreshTokens.FirstOrDefault(x => x.Value == token);
 		string role = await GetRoleAsync(appUser).ConfigureAwait(false);
-		return appUser?.ToUser(role);
+
+		return (appUser?.ToUser(role), rt?.ToRefreshToken(role));
 	}
 
 	public async Task<DateTimeOffset?> GetIsLockedOutAsync(string username)
@@ -158,8 +163,7 @@ public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 			return;
 		}
 
-		appUser.RefrehToken = user.RefreshToken;
-
+		appUser.FillRefreshTokens([.. user.RefreshTokens.Select(r => r.ToAppRefreshToken())]);
 		await manager.UpdateAsync(appUser).ConfigureAwait(false);
 	}
 
