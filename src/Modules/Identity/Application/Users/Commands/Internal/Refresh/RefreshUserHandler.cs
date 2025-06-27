@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Identity.Application.Users.Dtos;
+using CustomCADs.Identity.Application.Users.Extensions;
 using CustomCADs.Identity.Domain.Managers;
 using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
@@ -15,23 +16,17 @@ public class RefreshUserHandler(IUserManager manager, ITokenService service)
 			throw CustomAuthorizationException<User>.Custom("No Refresh Token found.");
 		}
 
-		User user = await manager.GetByRefreshTokenAsync(req.Token).ConfigureAwait(false)
-			?? throw CustomNotFoundException<User>.ByProp(nameof(User.RefreshToken), req.Token);
+		var (User, RefreshToken) = await manager.GetByRefreshTokenAsync(req.Token).ConfigureAwait(false);
+		if (User is null || RefreshToken is null)
+		{
+			throw CustomNotFoundException<User>.ByProp(nameof(RefreshToken), req.Token);
+		}
 
-		if (user.RefreshToken?.ExpiresAt < DateTime.UtcNow)
+		if (RefreshToken?.ExpiresAt < DateTime.UtcNow)
 		{
 			throw CustomAuthorizationException<User>.Custom("Refresh Token found, but expired.");
 		}
 
-		return new(
-			AccessToken: service.GenerateAccessToken(
-				accountId: user.AccountId,
-				username: user.Username,
-				role: user.Role
-			),
-			RefreshToken: service.GenerateRefreshToken(longerSession: false),
-			CsrfToken: service.GenerateCsrfToken(),
-			Role: user.Role
-		);
+		return await manager.IssueTokens(service, User.Username, longerSession: false).ConfigureAwait(false);
 	}
 }

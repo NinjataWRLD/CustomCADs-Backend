@@ -21,15 +21,22 @@ public static class Utilities
 		return builder;
 	}
 
+	public static EntityTypeBuilder<AppUser> SetForeignKeys(this EntityTypeBuilder<AppUser> builder)
+	{
+		builder
+			.HasMany(x => x.RefreshTokens)
+			.WithOne(x => x.User)
+			.HasForeignKey(x => x.UserId)
+			.OnDelete(DeleteBehavior.Cascade);
+
+		return builder;
+	}
+
 	public static EntityTypeBuilder<AppUser> SetValidations(this EntityTypeBuilder<AppUser> builder)
 	{
 		builder.Property(u => u.AccountId)
 			.IsRequired()
 			.HasColumnName(nameof(AppUser.AccountId));
-
-		builder.Property(u => u.RefrehToken)
-			.HasColumnType("jsonb")
-			.HasColumnName(nameof(AppUser.RefrehToken));
 
 		return builder;
 	}
