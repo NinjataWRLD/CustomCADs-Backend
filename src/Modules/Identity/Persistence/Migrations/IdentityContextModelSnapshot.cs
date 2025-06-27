@@ -30,17 +30,21 @@ namespace CustomCADs.Identity.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("ExpiresAt");
 
                     b.Property<DateTimeOffset>("IssuedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("IssuedAt");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("Value");
 
                     b.HasKey("Id");
 

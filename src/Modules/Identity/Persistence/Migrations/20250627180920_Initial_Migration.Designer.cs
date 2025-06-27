@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Identity.Persistence.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20241210012021_Initial_Migration")]
+    [Migration("20250627180920_Initial_Migration")]
     partial class Initial_Migration
     {
         /// <inheritdoc />
@@ -21,12 +21,42 @@ namespace CustomCADs.Identity.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Identity")
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CustomCADs.Identity.Domain.Entities.AppRole", b =>
+            modelBuilder.Entity("CustomCADs.Identity.Persistence.ShadowEntities.AppRefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("ExpiresAt");
+
+                    b.Property<DateTimeOffset>("IssuedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("IssuedAt");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AppRefreshToken", "Identity");
+                });
+
+            modelBuilder.Entity("CustomCADs.Identity.Persistence.ShadowEntities.AppRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,8 +87,8 @@ namespace CustomCADs.Identity.Persistence.Migrations
                         {
                             Id = new Guid("762ddec2-25c9-4183-9891-72a19d84a839"),
                             ConcurrencyStamp = "51da1b9f-803c-4bd3-9a00-da7ac259ce32",
-                            Name = "Client",
-                            NormalizedName = "CLIENT"
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
                         },
                         new
                         {
@@ -83,7 +113,7 @@ namespace CustomCADs.Identity.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CustomCADs.Identity.Domain.Entities.AppUser", b =>
+            modelBuilder.Entity("CustomCADs.Identity.Persistence.ShadowEntities.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,7 +123,8 @@ namespace CustomCADs.Identity.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<Guid>("AccountId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("AccountId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -129,12 +160,6 @@ namespace CustomCADs.Identity.Persistence.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("RefreshTokenEndDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -168,7 +193,7 @@ namespace CustomCADs.Identity.Persistence.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "IVANZLATINOV006@GMAIL.COM",
                             NormalizedUserName = "FOR7A7A",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMxKo17QTeytzknDR27c10aVDBF1wGzycD+CSTbVliUg0h8g6f4U2AAQTh9YAoPXYw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJFCGOTxNAgjhqU5lrA63WEtv924ujxXHt0x1R70qlS8dV9Pzz4II8GOgjVOaRzuDQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "3A6TFN6VVZNRZEG22J777XJTPQY7342B",
                             TwoFactorEnabled = false,
@@ -184,12 +209,12 @@ namespace CustomCADs.Identity.Persistence.Migrations
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "PDMATSALIEV20@CODINGBURGAS.BG",
-                            NormalizedUserName = "PETARDMATSALIEV",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJNqqiC31XGVrNSSflDLpuNzs/PIzg8VXCyEOL2hqvWAYi8a37bn5CUxHdvVuszSsQ==",
+                            NormalizedUserName = "PDMATSALIEV20",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGjQ1Zes3r2XJgjoHQykiyr11OgUEDw+YDnOKeENyN7Kqi9RWKKRCtwd7ZtEyywdYA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "NWGZ3JTQSDNS346DMU7RP4IT4BDLHIQC",
                             TwoFactorEnabled = false,
-                            UserName = "PetarDMatsaliev"
+                            UserName = "PDMatsaliev20"
                         },
                         new
                         {
@@ -202,7 +227,7 @@ namespace CustomCADs.Identity.Persistence.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "BORISKOLEV2006@GMAIL.COM",
                             NormalizedUserName = "ORACLE3000",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIuVU3Ziopa1Dv4t79ImAnluJSpVuJpvQawEaF/11u9szawuOWYd5yErqFGevwRHwg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEUe31maWfuZY6V8MQBzUWKerMKobDukREinVfML3Yl2z+Nr6IIQZKvX4WKqbTUw6w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "FNNIT3NPOZKZK2E67WFLV5R3RGVBX7LV",
                             TwoFactorEnabled = false,
@@ -219,7 +244,7 @@ namespace CustomCADs.Identity.Persistence.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "IVANANGELOV414@GMAIL.COM",
                             NormalizedUserName = "NINJATABG",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI/R+FhQaDs57q+Z94HwbWVhv8PXnUlhXb71NicOb2CQPwTgdN9C1bRsRAIsfijjsA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFqtQ33BvarNRyFcmV4z48fPBlIY8zd0de90qq3Cdm1Row+2WRmEjVJk1yPadBkrSA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "YIA26UZDSN2V2U5PVDEK4F3EJS3P5D3X",
                             TwoFactorEnabled = false,
@@ -352,9 +377,20 @@ namespace CustomCADs.Identity.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", "Identity");
                 });
 
+            modelBuilder.Entity("CustomCADs.Identity.Persistence.ShadowEntities.AppRefreshToken", b =>
+                {
+                    b.HasOne("CustomCADs.Identity.Persistence.ShadowEntities.AppUser", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("CustomCADs.Identity.Domain.Entities.AppRole", null)
+                    b.HasOne("CustomCADs.Identity.Persistence.ShadowEntities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -363,7 +399,7 @@ namespace CustomCADs.Identity.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("CustomCADs.Identity.Domain.Entities.AppUser", null)
+                    b.HasOne("CustomCADs.Identity.Persistence.ShadowEntities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -372,7 +408,7 @@ namespace CustomCADs.Identity.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("CustomCADs.Identity.Domain.Entities.AppUser", null)
+                    b.HasOne("CustomCADs.Identity.Persistence.ShadowEntities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -381,13 +417,13 @@ namespace CustomCADs.Identity.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("CustomCADs.Identity.Domain.Entities.AppRole", null)
+                    b.HasOne("CustomCADs.Identity.Persistence.ShadowEntities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CustomCADs.Identity.Domain.Entities.AppUser", null)
+                    b.HasOne("CustomCADs.Identity.Persistence.ShadowEntities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -396,11 +432,16 @@ namespace CustomCADs.Identity.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("CustomCADs.Identity.Domain.Entities.AppUser", null)
+                    b.HasOne("CustomCADs.Identity.Persistence.ShadowEntities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CustomCADs.Identity.Persistence.ShadowEntities.AppUser", b =>
+                {
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }
