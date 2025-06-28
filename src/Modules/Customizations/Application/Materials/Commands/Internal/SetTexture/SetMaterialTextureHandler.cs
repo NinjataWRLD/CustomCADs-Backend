@@ -2,12 +2,12 @@
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Images.Commands;
 
-namespace CustomCADs.Customizations.Application.Materials.Commands.Internal.ChangeTexture;
+namespace CustomCADs.Customizations.Application.Materials.Commands.Internal.SetTexture;
 
 public class SetMaterialTextureHandler(IMaterialReads reads, BaseCachingService<MaterialId, Material> cache, IRequestSender sender)
-	: ICommandHandler<ChangeMaterialTextureCommand>
+	: ICommandHandler<SetMaterialTextureCommand>
 {
-	public async Task Handle(ChangeMaterialTextureCommand req, CancellationToken ct)
+	public async Task Handle(SetMaterialTextureCommand req, CancellationToken ct)
 	{
 		Material material = await cache.GetOrCreateAsync(
 			id: req.Id,

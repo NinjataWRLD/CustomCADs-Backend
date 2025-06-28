@@ -2,7 +2,7 @@
 
 using static AccountsData;
 
-public class CreateAccountValidData : CreateAccountData
+public class CreateAccountValidData : TheoryData<string, string, string, string?, string?>
 {
 	public CreateAccountValidData()
 	{

@@ -1,14 +1,15 @@
 ﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
 using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.UseCases.Shipments.Queries;
 using FluentValidation;
 
-namespace CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
+namespace CustomCADs.Delivery.Application.Shipments.Queries.Shared;
 
 using static Constants.FluentMessages;
 
-public class CalculateActiveCartShipmentValidator : QueryValidator<CalculateActiveCartShipmentQuery, CalculateShipmentDto[]>
+public class CalculateShipmentValidator : QueryValidator<CalculateShipmentQuery, CalculateShipmentDto[]>
 {
-	public CalculateActiveCartShipmentValidator()
+	public CalculateShipmentValidator()
 	{
 		RuleFor(x => x.Address).ChildRules(x =>
 		{

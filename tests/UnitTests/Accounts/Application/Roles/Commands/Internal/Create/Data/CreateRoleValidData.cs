@@ -2,7 +2,7 @@
 
 using static RolesData;
 
-public class CreateRoleValidData : CreateRoleData
+public class CreateRoleValidData : TheoryData<RoleWriteDto>
 {
 	public CreateRoleValidData()
 	{
