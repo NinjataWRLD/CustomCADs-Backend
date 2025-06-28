@@ -7,14 +7,14 @@ using Data;
 public class CategoryCreateUnitTests : CategoriesBaseUnitTests
 {
 	[Theory]
-	[ClassData(typeof(CategoryCreatedValidData))]
+	[ClassData(typeof(CategoryCreateValidData))]
 	public void Create_ShouldNotThrowException_WhenCategoryIsValid(string name, string description)
 	{
 		CreateCategory(name, description);
 	}
 
 	[Theory]
-	[ClassData(typeof(CategoryCreatedValidData))]
+	[ClassData(typeof(CategoryCreateValidData))]
 	public void Create_ShouldPopulateProperties_WhenCategoryIsValid(string name, string description)
 	{
 		var category = CreateCategory(name, description);

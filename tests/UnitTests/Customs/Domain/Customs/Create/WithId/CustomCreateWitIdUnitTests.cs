@@ -8,14 +8,14 @@ using static CustomsData;
 public class CustomCreateWitIdUnitTests : CustomsBaseUnitTests
 {
 	[Theory]
-	[ClassData(typeof(CustomCreateWitIdValidData))]
+	[ClassData(typeof(Data.CustomCreateValidData))]
 	public void CreateWithId_ShouldNotThrowException_WhenCustomIsValid(string name, string description, bool delivery)
 	{
 		CreateCustomWithId(ValidId, name, description, delivery, ValidBuyerId);
 	}
 
 	[Theory]
-	[ClassData(typeof(CustomCreateWitIdValidData))]
+	[ClassData(typeof(Data.CustomCreateValidData))]
 	public void CreateWithId_ShouldPopulateProperties(string name, string description, bool forDelivery)
 	{
 		var order = CreateCustomWithId(ValidId, name, description, forDelivery, ValidBuyerId);
@@ -30,8 +30,8 @@ public class CustomCreateWitIdUnitTests : CustomsBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(CustomCreateWitIdInvalidNameData))]
-	[ClassData(typeof(CustomCreateWitIdInvalidDescriptionData))]
+	[ClassData(typeof(Data.CustomCreateInvalidNameData))]
+	[ClassData(typeof(Data.CustomCreateInvalidDescriptionData))]
 	public void CreateWithId_ShouldThrowException_WhenCustomIsInvalid(string name, string description, bool delivery)
 	{
 		Assert.Throws<CustomValidationException<Custom>>((Action)(() =>

@@ -1,13 +1,14 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Internal.Create;
 using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Internal.Create;
 
-using CustomCADs.Accounts.Domain.Repositories.Writes;
-using Data;
+using static AccountsData;
+using static Constants;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
@@ -21,18 +22,17 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 		handler = new(writes.Object, uow.Object, raiser.Object);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateAccountValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string password, string? firstName, string? lastName)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateAccountCommand command = new(
-			Role: role,
-			Username: username,
-			Email: email,
-			Password: password,
-			FirstName: firstName,
-			LastName: lastName
+			Role: Roles.Customer,
+			Username: ValidUsername,
+			Email: ValidEmail1,
+			Password: ValidPassword,
+			FirstName: ValidFirstName,
+			LastName: ValidLastName
 		);
 
 		// Act
@@ -41,29 +41,28 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 		// Assert
 		writes.Verify(x => x.AddAsync(
 			It.Is<Account>(x =>
-				x.RoleName == role
-				&& x.Username == username
-				&& x.Email == email
-				&& x.FirstName == firstName
-				&& x.LastName == lastName
+				x.RoleName == Roles.Customer
+				&& x.Username == ValidUsername
+				&& x.Email == ValidEmail1
+				&& x.FirstName == ValidFirstName
+				&& x.LastName == ValidLastName
 			),
 			ct
 		), Times.Once);
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateAccountValidData))]
-	public async Task Handle_ShouldRaiseEvents(string role, string username, string email, string password, string? firstName, string? lastName)
+	[Fact]
+	public async Task Handle_ShouldRaiseEvents()
 	{
 		// Arrange
 		CreateAccountCommand command = new(
-			Role: role,
-			Username: username,
-			Email: email,
-			Password: password,
-			FirstName: firstName,
-			LastName: lastName
+			Role: Roles.Customer,
+			Username: ValidUsername,
+			Email: ValidEmail1,
+			Password: ValidPassword,
+			FirstName: ValidFirstName,
+			LastName: ValidLastName
 		);
 
 		// Act
@@ -73,9 +72,9 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<AccountCreatedApplicationEvent>(x =>
 				x.Id == id
-				&& x.Username == username
-				&& x.Email == email
-				&& x.Password == password
+				&& x.Username == ValidUsername
+				&& x.Email == ValidEmail1
+				&& x.Password == ValidPassword
 			)
 		), Times.Once);
 	}

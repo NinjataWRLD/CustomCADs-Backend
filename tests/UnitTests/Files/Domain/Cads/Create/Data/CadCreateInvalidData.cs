@@ -1,8 +1,10 @@
-﻿namespace CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
+﻿using CustomCADs.Shared.Core.Common.ValueObjects;
+
+namespace CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
 
 using static CadsData;
 
-public class CadCreateInvalidData : CadCreateData
+public class CadCreateInvalidData : TheoryData<string, string, decimal, Coordinates>
 {
 	public CadCreateInvalidData()
 	{
