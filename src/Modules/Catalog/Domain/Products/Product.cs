@@ -37,7 +37,7 @@ public class Product : BaseAggregateRoot
 	public decimal Price { get; private set; }
 	public Counts Counts { get; private set; } = new();
 	public ProductStatus Status { get; private set; }
-	public DateTimeOffset UploadedAt { get; }
+	public DateTimeOffset UploadedAt { get; init; }
 	public CategoryId CategoryId { get; private set; }
 	public ImageId ImageId { get; private set; }
 	public CadId CadId { get; private set; }
@@ -58,23 +58,6 @@ public class Product : BaseAggregateRoot
 		.ValidatePrice();
 
 	public static Product CreateWithId(
-		ProductId id,
-		string name,
-		string description,
-		decimal price,
-		AccountId creatorId,
-		CategoryId categoryId,
-		ImageId imageId,
-		CadId cadId
-	) => new Product(name, description, price, creatorId, categoryId, imageId, cadId)
-	{
-		Id = id
-	}
-	.ValidateName()
-	.ValidateDescription()
-	.ValidatePrice();
-
-	public static Product CreateWithId(
 		string name,
 		string description,
 		decimal price,
@@ -82,10 +65,12 @@ public class Product : BaseAggregateRoot
 		CategoryId categoryId,
 		ImageId imageId,
 		CadId cadId,
-		ProductId? id = null
+		ProductId? id = null,
+		DateTimeOffset? uploadedAt = null
 	) => new Product(name, description, price, creatorId, categoryId, imageId, cadId)
 	{
-		Id = id ?? ProductId.New()
+		Id = id ?? ProductId.New(),
+		UploadedAt = uploadedAt ?? DateTimeOffset.UtcNow,
 	}
 		.ValidateName()
 		.ValidateDescription()

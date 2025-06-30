@@ -1,0 +1,122 @@
+﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
+using CustomCADs.Customs.Domain.Repositories.Reads;
+using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.UseCases.Accounts.Queries;
+
+namespace CustomCADs.UnitTests.Customs.Application.Customs.Queries.Internal.Designers.GetById;
+
+using static CustomsData;
+
+public class DesignerGetCustomByIdHandlerUnitTests : CustomsBaseUnitTests
+{
+	private readonly DesignerGetCustomByIdHandler handler;
+	private readonly Mock<ICustomReads> reads = new();
+	private readonly Mock<IRequestSender> sender = new();
+
+	private readonly Custom expected = CreateCustomWithId();
+
+	public DesignerGetCustomByIdHandlerUnitTests()
+	{
+		handler = new(reads.Object, sender.Object);
+
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
+			.ReturnsAsync(expected);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldQueryDatabase()
+	{
+		// Arrange
+		DesignerGetCustomByIdQuery query = new(ValidId, ValidDesignerId);
+
+		// Act
+		await handler.Handle(query, ct);
+
+		// Assert
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
+	}
+
+	[Theory]
+	[InlineData(false)]
+	[InlineData(true)]
+	public async Task Handle_ShouldSendRequests(bool isAccepted)
+	{
+		// Arrange
+		if (isAccepted)
+		{
+			expected.Accept(ValidDesignerId);
+		}
+		DesignerGetCustomByIdQuery query = new(ValidId, ValidDesignerId);
+
+		// Act
+		await handler.Handle(query, ct);
+
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
+			ct
+		), Times.Once());
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidDesignerId),
+			ct
+		), Times.Exactly(isAccepted ? 1 : 0));
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		DesignerGetCustomByIdQuery query = new(ValidId, ValidDesignerId);
+
+		// Act
+		DesignerGetCustomByIdDto custom = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(expected.Id, custom.Id);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenNotFound()
+	{
+		// Arrange
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Custom);
+		DesignerGetCustomByIdQuery query = new(ValidId, ValidDesignerId);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<Custom>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenUnauthorized()
+	{
+		// Arrange
+		expected.Accept(ValidDesignerId);
+		DesignerGetCustomByIdQuery query = new(ValidId, AccountId.New());
+
+		// Assert
+		await Assert.ThrowsAsync<CustomAuthorizationException<Custom>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldNotThrowException_WhenPending()
+	{
+		// Arrange
+		DesignerGetCustomByIdQuery query = new(ValidId, AccountId.New());
+
+		// Act
+		Exception? ex = await Record.ExceptionAsync(
+			async () => await handler.Handle(query, ct)
+		);
+
+		// Assert
+		Assert.Null(ex);
+	}
+}

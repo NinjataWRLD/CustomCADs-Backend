@@ -2,6 +2,9 @@
 
 public static class ProductConstants
 {
+	public const int ClearTagsIntervalDays = 1;
+	public const int ClearTagsBeforeDays = 7;
+
 	public const int NameMaxLength = 18;
 	public const int NameMinLength = 2;
 

@@ -9,6 +9,7 @@ public interface IProductReads
 {
 	Task<Result<Product>> AllAsync(ProductQuery query, bool track = true, CancellationToken ct = default);
 	Task<ProductId[]> AllAsync(DateTimeOffset? before, DateTimeOffset? after, CancellationToken ct = default);
+	Task<Product?> OldestByTagAsync(string tag, CancellationToken ct = default);
 	Task<Product?> SingleByIdAsync(ProductId id, bool track = true, CancellationToken ct = default);
 	Task<string[]> TagsByIdAsync(ProductId id, CancellationToken ct = default);
 	Task<Dictionary<ProductId, string[]>> TagsByIdsAsync(ProductId[] ids, CancellationToken ct = default);

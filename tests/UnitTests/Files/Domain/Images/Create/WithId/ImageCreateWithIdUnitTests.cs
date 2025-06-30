@@ -9,13 +9,13 @@ public class ImageCreateWithIdUnitTests : ImagesBaseUnitTests
 	[Fact]
 	public void CreateWithId_ShouldNotThrowExcepion_WhenImageIsValid()
 	{
-		Image.Create(ValidKey, ValidContentType);
+		CreateImageWithId(id: null, ValidKey, ValidContentType);
 	}
 
 	[Fact]
 	public void CreateWithId_ShouldPopulateProperties_WhenImageIsValid()
 	{
-		var image = Image.Create(ValidKey, ValidContentType);
+		var image = CreateImageWithId(id: null, ValidKey, ValidContentType);
 
 		Assert.Multiple(
 			() => Assert.Equal(ValidKey, image.Key),
@@ -24,11 +24,11 @@ public class ImageCreateWithIdUnitTests : ImagesBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(Data.ImageCreateWithIdInvalidData))]
+	[ClassData(typeof(Data.ImageCreateInvalidData))]
 	public void CreateWithId_ShouldThrowException_WhenImageIsInvalid(string key, string contentType)
 	{
 		Assert.Throws<CustomValidationException<Image>>(
-			() => Image.Create(key, contentType)
+			() => CreateImageWithId(id: null, key, contentType)
 		);
 	}
 }

@@ -9,7 +9,7 @@ using static ProductsData;
 public class ProductCreateWithIdUnitTests : ProductsBaseUnitTests
 {
 	[Theory]
-	[ClassData(typeof(ProductCreateWithIdValidData))]
+	[ClassData(typeof(ProductCreateValidData))]
 	public void CreateWithId_ShouldNotThrowException_WhenProductIsValid(string name, string description, decimal price)
 	{
 		CreateProductWithId(
@@ -21,7 +21,7 @@ public class ProductCreateWithIdUnitTests : ProductsBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(ProductCreateWithIdValidData))]
+	[ClassData(typeof(ProductCreateValidData))]
 	public void CreateWithId_ShouldPopulateProperties_WhenProductIsValid(string name, string description, decimal price)
 	{
 		Product product = CreateProductWithId(
@@ -40,9 +40,9 @@ public class ProductCreateWithIdUnitTests : ProductsBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(ProductCreateWithIdInvalidNameData))]
-	[ClassData(typeof(ProductCreateWithIdInvalidDescriptionData))]
-	[ClassData(typeof(ProductCreateWithIdInvalidPriceData))]
+	[ClassData(typeof(ProductCreateInvalidNameData))]
+	[ClassData(typeof(ProductCreateInvalidDescriptionData))]
+	[ClassData(typeof(ProductCreateInvalidPriceData))]
 	public void CreateWithId_ShouldThrowException_WhenProductIsNotValid(string name, string description, decimal price)
 	{
 		Assert.Throws<CustomValidationException<Product>>(
