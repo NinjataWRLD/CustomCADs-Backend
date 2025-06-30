@@ -18,6 +18,9 @@ public class CalculateShipmentValidator : QueryValidator<CalculateShipmentQuery,
 
 			x.RuleFor(x => x.City)
 				.NotEmpty().WithMessage(RequiredError);
+
+			x.RuleFor(x => x.Street)
+				.NotEmpty().WithMessage(RequiredError);
 		});
 	}
 }

@@ -17,22 +17,13 @@ public sealed class CustomerGetCustomByIdHandler(ICustomReads reads, IRequestSen
 			throw CustomAuthorizationException<Custom>.ById(req.Id);
 		}
 
-		if (custom.AcceptedCustom is null)
-		{
-			return custom.ToCustomerGetByIdDto(
-				accepted: null,
-				finished: null,
-				completed: null
-			);
-		}
-
-		string designer = await sender.SendQueryAsync(
-			new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId),
-			ct
-		).ConfigureAwait(false);
-
 		return custom.ToCustomerGetByIdDto(
-			accepted: custom.AcceptedCustom.ToDto(designer),
+			accepted: custom.AcceptedCustom?.ToDto(
+				designerName: await sender.SendQueryAsync(
+					new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId),
+					ct
+				).ConfigureAwait(false)
+			),
 			finished: custom.FinishedCustom?.ToDto(),
 			completed: custom.CompletedCustom?.ToDto()
 		);

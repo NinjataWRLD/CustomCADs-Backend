@@ -4,6 +4,8 @@ using Quartz;
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
 
+using static ProductConstants;
+
 public static class DependencyInjection
 {
 	public static IServiceCollection AddBackgroundJobs(this IServiceCollection services)
@@ -14,7 +16,7 @@ public static class DependencyInjection
 				.ForJob(q.AddJob<ClearTagsJob>())
 				.WithSimpleSchedule(schedule =>
 					schedule
-						.WithInterval(TimeSpan.FromDays(1))
+						.WithInterval(TimeSpan.FromDays(ClearTagsIntervalDays))
 						.RepeatForever()
 				));
 		});

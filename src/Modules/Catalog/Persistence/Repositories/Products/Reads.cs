@@ -38,6 +38,16 @@ public sealed class Reads(CatalogContext context) : IProductReads
 			.ToArrayAsync(ct)
 			.ConfigureAwait(false);
 
+	public async Task<Product?> OldestByTagAsync(string tag, CancellationToken ct = default)
+		=> await context.ProductTags
+			.Include(x => x.Product)
+			.Include(x => x.Tag)
+			.Where(x => x.Tag.Name == tag)
+			.OrderBy(x => x.Product.UploadedAt)
+			.Select(x => x.Product)
+			.FirstOrDefaultAsync(ct)
+			.ConfigureAwait(false);
+
 	public async Task<Product?> SingleByIdAsync(ProductId id, bool track = true, CancellationToken ct = default)
 		=> await context.Products
 			.WithTracking(track)

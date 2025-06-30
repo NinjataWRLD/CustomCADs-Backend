@@ -12,8 +12,7 @@ public sealed class Reads(FilesContext context) : ICadReads
 	public async Task<Result<Cad>> AllAsync(CadQuery query, bool track = true, CancellationToken ct = default)
 	{
 		IQueryable<Cad> queryable = context.Cads
-			.WithFilter(query.Ids)
-			.WithSorting(query.Sorting);
+			.WithFilter(query.Ids);
 
 		int count = await queryable.CountAsync(ct).ConfigureAwait(false);
 		Cad[] cads = await queryable
@@ -34,11 +33,5 @@ public sealed class Reads(FilesContext context) : ICadReads
 		=> await context.Cads
 			.WithTracking(false)
 			.AnyAsync(c => c.Id == id, ct)
-			.ConfigureAwait(false);
-
-	public async Task<int> CountAsync(CancellationToken ct = default)
-		=> await context.Cads
-			.WithTracking(false)
-			.CountAsync(ct)
 			.ConfigureAwait(false);
 }

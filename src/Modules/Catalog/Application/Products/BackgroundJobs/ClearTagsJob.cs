@@ -4,6 +4,7 @@ using Quartz;
 
 namespace CustomCADs.Catalog.Application.Products.BackgroundJobs;
 
+using static ProductConstants;
 using static Constants;
 
 public class ClearTagsJob(IProductReads reads, IUnitOfWork uow) : IJob
@@ -12,9 +13,15 @@ public class ClearTagsJob(IProductReads reads, IUnitOfWork uow) : IJob
 	{
 		var ct = context.CancellationToken;
 
+		Product? product = await reads.OldestByTagAsync(Tags.New, ct).ConfigureAwait(false);
+		if (product is null)
+		{
+			return; // no products with such tag
+		}
+
 		ProductId[] ids = await reads.AllAsync(
-			before: DateTimeOffset.UtcNow.AddDays(-7),
-			after: null,
+			before: DateTimeOffset.UtcNow.AddDays(-ClearTagsBeforeDays),
+			after: product.UploadedAt,
 			ct: ct
 		).ConfigureAwait(false);
 		await uow.ClearProductTagsAsync(ids, Tags.New, ct).ConfigureAwait(false);
