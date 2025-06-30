@@ -30,7 +30,7 @@ builder.Services.AddEndpoints();
 builder.Services.AddJsonOptions();
 builder.Services.AddApiDocumentation();
 builder.Services.AddProblemDetails();
-builder.WebHost.LimitUploadSize();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -54,5 +54,6 @@ app.MapApiDocumentationUi(
 	uiPattern: "/swagger"
 );
 app.MapStripeWebhook();
+app.MapHealthChecks("/health");
 
 await app.RunAsync().ConfigureAwait(false);

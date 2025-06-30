@@ -39,17 +39,22 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_staging" {
   cname_prefix        = "staging-customcads"
   description         = "CustomCADs Staging environment"
   name                = "CustomCADs-stag"
-  solution_stack_name = "64bit Amazon Linux 2023 v4.5.2 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2023 v4.6.0 running Docker"
   tier                = "WebServer"
   version_label       = "latest"
 
+  setting {
+    name      = "HealthCheckPath"
+    namespace = "aws:elasticbeanstalk:environment:process:default"
+    resource  = null
+    value     = "/health"
+  }
   setting {
     name      = "Automatically Terminate Unhealthy Instances"
     namespace = "aws:elasticbeanstalk:monitoring"
     resource  = null
     value     = "true"
   }
-
   setting {
     name      = "ConfigDocument"
     namespace = "aws:elasticbeanstalk:healthreporting:system"
@@ -217,19 +222,19 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_staging" {
     value     = "t3.micro, t3.small"
   }
   setting {
-    name      = "JwtOptions__Audience"
+    name      = "Jwt__Audience"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.staging_jwt_audience
   }
   setting {
-    name      = "JwtOptions__Issuer"
+    name      = "Jwt__Issuer"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.staging_jwt_issuer
   }
   setting {
-    name      = "JwtOptions__SecretKey"
+    name      = "Jwt__SecretKey"
     namespace = "aws:elasticbeanstalk:application:environment"
     resource  = null
     value     = local.staging_jwt_secret_key
