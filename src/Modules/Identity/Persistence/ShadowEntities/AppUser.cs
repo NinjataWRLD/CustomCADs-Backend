@@ -1,13 +1,13 @@
-﻿using CustomCADs.Identity.Domain.Users.ValueObjects;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using Microsoft.AspNetCore.Identity;
 
 namespace CustomCADs.Identity.Persistence.ShadowEntities;
 
 public class AppUser : IdentityUser<Guid>
 {
-	public AppUser() : base() { }
+	private List<AppRefreshToken> refreshTokens = [];
 
+	public AppUser() : base() { }
 	public AppUser(string username, string email, AccountId accountId)
 		: base(username)
 	{
@@ -16,5 +16,11 @@ public class AppUser : IdentityUser<Guid>
 	}
 
 	public AccountId AccountId { get; set; }
-	public RefreshToken? RefrehToken { get; set; }
+	public IReadOnlyCollection<AppRefreshToken> RefreshTokens => refreshTokens;
+
+	internal AppUser FillRefreshTokens(ICollection<AppRefreshToken> refreshTokens)
+	{
+		this.refreshTokens = [.. refreshTokens];
+		return this;
+	}
 }

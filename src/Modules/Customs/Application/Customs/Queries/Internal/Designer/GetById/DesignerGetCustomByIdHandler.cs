@@ -19,29 +19,17 @@ public sealed class DesignerGetCustomByIdHandler(ICustomReads reads, IRequestSen
 			throw CustomAuthorizationException<Custom>.ById(req.Id);
 		}
 
-		string buyer = await sender.SendQueryAsync(
-			new GetUsernameByIdQuery(custom.BuyerId),
-			ct
-		).ConfigureAwait(false);
-
-		if (custom.AcceptedCustom is null)
-		{
-			return custom.ToDesignerGetByIdDto(
-				buyer: buyer,
-				accepted: null,
-				finished: null,
-				completed: null
-			);
-		}
-
-		string designer = await sender.SendQueryAsync(
-			new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId),
-			ct
-		).ConfigureAwait(false);
-
 		return custom.ToDesignerGetByIdDto(
-			buyer: buyer,
-			accepted: custom.AcceptedCustom.ToDto(designer),
+			buyer: await sender.SendQueryAsync(
+				new GetUsernameByIdQuery(custom.BuyerId),
+				ct
+			).ConfigureAwait(false),
+			accepted: custom.AcceptedCustom?.ToDto(
+				designerName: await sender.SendQueryAsync(
+					new GetUsernameByIdQuery(custom.AcceptedCustom.DesignerId),
+					ct
+				).ConfigureAwait(false)
+			),
 			finished: custom.FinishedCustom?.ToDto(),
 			completed: custom.CompletedCustom?.ToDto()
 		);

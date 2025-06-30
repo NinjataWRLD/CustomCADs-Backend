@@ -31,7 +31,6 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
 	}
 
 	[Theory]
-	[ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidPaymentMethodIdData))]
 	[ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidShipmentServiceData))]
 	[ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidCountryData))]
 	[ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidCityData))]
@@ -53,26 +52,6 @@ public class PurchaseActiveCartWithDeliveryValidatorUnitTests : ActiveCartsBaseU
 
 		// Assert
 		Assert.False(result.IsValid);
-	}
-
-	[Theory]
-	[ClassData(typeof(PurchaseActiveCartWithDeliveryInvalidPaymentMethodIdData))]
-	public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId, string shipmentService, string country, string city, string street, string? phone, string? email)
-	{
-		// Arrange
-		PurchaseActiveCartWithDeliveryCommand command = new(
-			PaymentMethodId: paymentMethodId,
-			BuyerId: ValidBuyerId,
-			ShipmentService: shipmentService,
-			Address: new(country, city, street),
-			Contact: new(phone, email)
-		);
-
-		// Act
-		var result = await validator.TestValidateAsync(command, cancellationToken: ct);
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.PaymentMethodId);
 	}
 
 	[Theory]

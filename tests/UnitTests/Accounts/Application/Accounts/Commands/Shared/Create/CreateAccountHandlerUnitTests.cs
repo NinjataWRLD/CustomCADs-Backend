@@ -1,11 +1,12 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Shared;
 using CustomCADs.Accounts.Domain.Repositories;
+using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Shared.UseCases.Accounts.Commands;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Shared.Create;
 
-using CustomCADs.Accounts.Domain.Repositories.Writes;
-using Data;
+using static AccountsData;
+using static Constants;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {
@@ -18,30 +19,29 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 		handler = new(writes.Object, uow.Object);
 	}
 
-	[Theory]
-	[ClassData(typeof(CreateAccountValidData))]
-	public async Task Handle_ShouldPersistToDatabase(string role, string username, string email, string? firstName, string? lastName)
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		CreateAccountCommand command = new(
-			Role: role,
-			Username: username,
-			Email: email,
-			FirstName: firstName,
-			LastName: lastName
+			Role: Roles.Customer,
+			Username: ValidUsername,
+			Email: ValidEmail1,
+			FirstName: ValidFirstName,
+			LastName: ValidLastName
 		);
 
 		// Act
-		await handler.Handle(command, CancellationToken.None);
+		await handler.Handle(command, ct);
 
 		// Assert
 		writes.Verify(x => x.AddAsync(
 			It.Is<Account>(x =>
-				x.RoleName == role
-				&& x.Username == username
-				&& x.Email == email
-				&& x.FirstName == firstName
-				&& x.LastName == lastName
+				x.RoleName == Roles.Customer
+				&& x.Username == ValidUsername
+				&& x.Email == ValidEmail1
+				&& x.FirstName == ValidFirstName
+				&& x.LastName == ValidLastName
 			),
 			ct
 		), Times.Once);

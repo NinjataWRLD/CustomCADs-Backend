@@ -39,7 +39,6 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(PurchaseCustomWithDeliveryInvalidPaymentMethodIdData))]
 	[ClassData(typeof(PurchaseCustomWithDeliveryInvalidShipmentServiceData))]
 	[ClassData(typeof(PurchaseCustomWithDeliveryInvalidCountryData))]
 	[ClassData(typeof(PurchaseCustomWithDeliveryInvalidCityData))]
@@ -64,29 +63,6 @@ public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
 
 		// Assert
 		Assert.False(result.IsValid);
-	}
-
-	[Theory]
-	[ClassData(typeof(PurchaseCustomWithDeliveryInvalidPaymentMethodIdData))]
-	public async Task Validate_ShouldReturnProperErrors_WhenPaymentMethodIdIsNotValid(string paymentMethodId, int count, string shipmentService, string country, string city, string street, string? phone, string? email)
-	{
-		// Arrange
-		PurchaseCustomWithDeliveryCommand command = new(
-			Id: id,
-			PaymentMethodId: paymentMethodId,
-			BuyerId: buyerId,
-			CustomizationId: customizationId,
-			Count: count,
-			ShipmentService: shipmentService,
-			Address: new(country, city, street),
-			Contact: new(phone, email)
-		);
-
-		// Act
-		var result = await validator.TestValidateAsync(command, cancellationToken: ct);
-
-		// Assert
-		result.ShouldHaveValidationErrorFor(x => x.PaymentMethodId);
 	}
 
 	[Theory]

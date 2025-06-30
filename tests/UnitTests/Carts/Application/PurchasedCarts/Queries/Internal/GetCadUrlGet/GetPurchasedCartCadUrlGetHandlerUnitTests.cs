@@ -4,6 +4,7 @@ using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
@@ -123,7 +124,42 @@ public class GetPurchasedCartCadUrlGetHandlerUnitTests : PurchasedCartsBaseUnitT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenPurchasedCartNotFound()
+	public async Task Handle_ShouldThrowException_WhenNotCompleted()
+	{
+		// Arrange
+		cart.FinishPayment(success: false);
+		GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
+			Id: ValidId,
+			ProductId: CartItemsData.ValidProductId,
+			BuyerId: ValidBuyerId
+		);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomException>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenUnauthorized()
+	{
+		// Arrange
+		GetPurchasedCartItemCadPresignedUrlGetQuery query = new(
+			Id: ValidId,
+			ProductId: CartItemsData.ValidProductId,
+			BuyerId: AccountId.New()
+		);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomAuthorizationException<PurchasedCart>>(
+			// Act
+			async () => await handler.Handle(query, ct)
+		);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenNotFound()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))

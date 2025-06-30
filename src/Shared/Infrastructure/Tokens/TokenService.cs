@@ -39,15 +39,12 @@ public sealed class TokenService(IOptions<JwtSettings> jwtOptions) : ITokenServi
 		return new(jwt, token.ValidTo);
 	}
 
-	public TokenDto GenerateRefreshToken(bool longerSession = false)
+	public string GenerateRefreshToken()
 	{
 		byte[] randomNumber = new byte[32];
 		RandomNumberGenerator.Fill(randomNumber);
 
-		return new(
-			Value: Base64UrlEncoder.Encode(randomNumber),
-			ExpiresAt: DateTimeOffset.UtcNow.AddDays(longerSession ? LongerRtDurationInDays : RtDurationInDays)
-		);
+		return Base64UrlEncoder.Encode(randomNumber);
 	}
 
 	public TokenDto GenerateCsrfToken()

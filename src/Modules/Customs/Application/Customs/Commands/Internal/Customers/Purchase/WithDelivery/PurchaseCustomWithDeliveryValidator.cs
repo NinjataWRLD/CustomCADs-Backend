@@ -11,9 +11,6 @@ public class PurchaseCustomWithDeliveryValidator : CommandValidator<PurchaseCust
 {
 	public PurchaseCustomWithDeliveryValidator()
 	{
-		RuleFor(x => x.PaymentMethodId)
-			.NotEmpty().WithMessage(RequiredError);
-
 		RuleFor(x => x.ShipmentService)
 			.NotEmpty().WithMessage(RequiredError);
 

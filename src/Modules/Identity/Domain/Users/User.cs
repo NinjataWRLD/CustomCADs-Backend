@@ -1,11 +1,15 @@
 ﻿using CustomCADs.Identity.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Identity;
+using RefreshToken = CustomCADs.Identity.Domain.Users.Entities.RefreshToken;
+
 
 namespace CustomCADs.Identity.Domain.Users;
 
 public class User
 {
+	private List<RefreshToken> refreshTokens = [];
+
 	private User() { }
 	private User(string role, string username, Email email, AccountId accountId) : base()
 	{
@@ -19,20 +23,26 @@ public class User
 	public string Username { get; private set; } = string.Empty;
 	public Email Email { get; private set; } = new();
 	public string Role { get; private set; } = string.Empty;
-	public RefreshToken? RefreshToken { get; private set; }
 	public AccountId AccountId { get; private set; }
+	public IReadOnlyCollection<RefreshToken> RefreshTokens => refreshTokens;
+
+	private User FillRefreshTokens(ICollection<RefreshToken> refreshTokens)
+	{
+		this.refreshTokens = [.. refreshTokens];
+		return this;
+	}
 
 	public static User Create(string role, string username, Email email, AccountId accountId)
 		=> new User(role, username, email, accountId)
 			.ValidateUsername()
 			.ValidateEmail();
 
-	public static User Create(UserId id, string role, string username, Email email, RefreshToken? refreshToken, AccountId accountId)
+	public static User Create(UserId id, string role, string username, Email email, AccountId accountId, ICollection<RefreshToken> refreshTokens)
 		=> new User(role, username, email, accountId)
 		{
 			Id = id,
-			RefreshToken = refreshToken,
 		}
+		.FillRefreshTokens(refreshTokens)
 		.ValidateUsername()
 		.ValidateEmail();
 
@@ -42,13 +52,16 @@ public class User
 		this.ValidateUsername();
 	}
 
-	public void SetRefreshToken(string token, DateTimeOffset expiresAt)
+	public RefreshToken AddRefreshToken(string token, bool longerSession)
 	{
-		RefreshToken = new(token, expiresAt);
+		RefreshToken rt = RefreshToken.Create(token, this.Id, longerSession);
+		refreshTokens.Add(rt);
+
+		return rt;
 	}
 
-	public void EraseRefreshToken()
+	public void RemoveRefreshToken(RefreshToken rt)
 	{
-		RefreshToken = null;
+		refreshTokens.Remove(rt);
 	}
 }

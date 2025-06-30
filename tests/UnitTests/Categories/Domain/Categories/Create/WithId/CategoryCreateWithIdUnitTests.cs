@@ -7,14 +7,14 @@ using Data;
 public class CategoryCreateWithIdUnitTests : CategoriesBaseUnitTests
 {
 	[Theory]
-	[ClassData(typeof(CategoryCreateWithIdValidData))]
+	[ClassData(typeof(CategoryCreateValidData))]
 	public void CreateWithId_ShouldNotThrowException_WhenCategoryIsValid(string name, string description)
 	{
 		CreateCategory(name, description);
 	}
 
 	[Theory]
-	[ClassData(typeof(CategoryCreateWithIdValidData))]
+	[ClassData(typeof(CategoryCreateValidData))]
 	public void CreateWithId_ShouldPopulateProperties_WhenCategoryIsValid(string name, string description)
 	{
 		var category = CreateCategory(name, description);
@@ -26,8 +26,8 @@ public class CategoryCreateWithIdUnitTests : CategoriesBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(CategoryCreateWithIdInvalidNameData))]
-	[ClassData(typeof(CategoryCreateWithIdInvalidDescriptionData))]
+	[ClassData(typeof(CategoryCreateInvalidNameData))]
+	[ClassData(typeof(CategoryCreateInvalidDescriptionData))]
 	public void CreateWithId_ShouldThrowException_WhenCategoryIsInvalid(string name, string description)
 	{
 		Assert.Throws<CustomValidationException<Category>>(

@@ -37,7 +37,8 @@ public class ProductsBaseUnitTests
 		CategoryId? categoryId = null,
 		ImageId? imageId = null,
 		CadId? cadId = null,
-		ProductId? id = null
+		ProductId? id = null,
+		DateTimeOffset? uploadedAt = null
 	) => Product.CreateWithId(
 			name: name ?? MinValidName,
 			description: description ?? MinValidDescription,
@@ -46,6 +47,7 @@ public class ProductsBaseUnitTests
 			categoryId: categoryId ?? ValidCategoryId,
 			imageId: imageId ?? ValidImageId,
 			cadId: cadId ?? ValidCadId,
-			id: id
+			id: id,
+			uploadedAt: uploadedAt
 		);
 }

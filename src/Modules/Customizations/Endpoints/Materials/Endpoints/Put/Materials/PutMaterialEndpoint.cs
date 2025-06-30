@@ -1,5 +1,5 @@
-﻿using CustomCADs.Customizations.Application.Materials.Commands.Internal.ChangeTexture;
-using CustomCADs.Customizations.Application.Materials.Commands.Internal.Edit;
+﻿using CustomCADs.Customizations.Application.Materials.Commands.Internal.Edit;
+using CustomCADs.Customizations.Application.Materials.Commands.Internal.SetTexture;
 
 namespace CustomCADs.Customizations.Endpoints.Materials.Endpoints.Put.Materials;
 
@@ -29,7 +29,7 @@ public sealed class PutMaterialEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		await sender.SendCommandAsync(
-			new ChangeMaterialTextureCommand(
+			new SetMaterialTextureCommand(
 				Id: MaterialId.New(req.Id),
 				Key: req.TextureKey,
 				ContentType: req.TextureContentType

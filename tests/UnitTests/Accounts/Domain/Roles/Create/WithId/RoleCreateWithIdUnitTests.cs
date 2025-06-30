@@ -8,14 +8,14 @@ using static RolesData;
 public class RoleCreateWithIdUnitTests : RolesBaseUnitTests
 {
 	[Theory]
-	[ClassData(typeof(RoleCreateWithIdValidData))]
+	[ClassData(typeof(RoleCreateValidData))]
 	public void CreateWithId_ShouldNotThrowException_WhenRoleIsValid(string name, string description)
 	{
 		CreateRoleWithId(ValidId, name, description);
 	}
 
 	[Theory]
-	[ClassData(typeof(RoleCreateWithIdValidData))]
+	[ClassData(typeof(RoleCreateValidData))]
 	public void CreateWithId_ShouldPopulateProperties_WhenRoleIsValid(string name, string description)
 	{
 		var role = CreateRoleWithId(ValidId, name, description);
@@ -27,8 +27,8 @@ public class RoleCreateWithIdUnitTests : RolesBaseUnitTests
 	}
 
 	[Theory]
-	[ClassData(typeof(RoleCreateWithIdInvalidNameData))]
-	[ClassData(typeof(RoleCreateWithIdInvalidWithIdDescriptionData))]
+	[ClassData(typeof(RoleCreateInvalidNameData))]
+	[ClassData(typeof(RoleCreateInvalidDescriptionData))]
 	public void CreateWithId_ShouldThrowException_WhenRoleIsInvalid(string name, string description)
 	{
 		Assert.Throws<CustomValidationException<Role>>(
