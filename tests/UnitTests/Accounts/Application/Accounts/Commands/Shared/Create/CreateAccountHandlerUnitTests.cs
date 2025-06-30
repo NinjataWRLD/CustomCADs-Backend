@@ -5,8 +5,8 @@ using CustomCADs.Shared.UseCases.Accounts.Commands;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Commands.Shared.Create;
 
-using static Constants;
 using static AccountsData;
+using static Constants;
 
 public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 {

@@ -7,7 +7,6 @@ using CustomCADs.Shared.ApplicationEvents.Carts;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Identity.Queries;
-using System.Threading.Tasks;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Events.Application;
 

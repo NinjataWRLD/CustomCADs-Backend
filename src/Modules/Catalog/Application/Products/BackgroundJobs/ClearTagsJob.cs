@@ -4,8 +4,8 @@ using Quartz;
 
 namespace CustomCADs.Catalog.Application.Products.BackgroundJobs;
 
-using static ProductConstants;
 using static Constants;
+using static ProductConstants;
 
 public class ClearTagsJob(IProductReads reads, IUnitOfWork uow) : IJob
 {

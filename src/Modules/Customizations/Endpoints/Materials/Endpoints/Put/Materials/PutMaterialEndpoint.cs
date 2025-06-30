@@ -1,5 +1,5 @@
-﻿using CustomCADs.Customizations.Application.Materials.Commands.Internal.SetTexture;
-using CustomCADs.Customizations.Application.Materials.Commands.Internal.Edit;
+﻿using CustomCADs.Customizations.Application.Materials.Commands.Internal.Edit;
+using CustomCADs.Customizations.Application.Materials.Commands.Internal.SetTexture;
 
 namespace CustomCADs.Customizations.Endpoints.Materials.Endpoints.Put.Materials;
 
