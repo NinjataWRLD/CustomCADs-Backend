@@ -1,3 +1,4 @@
+using CustomCADs.Customizations.Domain.Services;
 using CustomCADs.Identity.Domain.Users;
 using CustomCADs.Identity.Persistence;
 using CustomCADs.Identity.Persistence.ShadowEntities;
@@ -122,4 +123,12 @@ public static class ProgramExtensions
 			.AddDeliveryPersistence(config)
 			.AddFilesPersistence(config)
 			.AddIdentityPersistence(config);
+
+
+	public static IServiceCollection AddDomainServices(this IServiceCollection services)
+	{
+		services.AddScoped<ICustomizationMaterialCalculator, CustomizationMaterialCalculator>();
+
+		return services;
+	}
 }

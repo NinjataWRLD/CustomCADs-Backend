@@ -18,6 +18,7 @@ builder.Services.AddStorageService(builder.Configuration);
 // Modules
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddIdentity();
+builder.Services.AddDomainServices();
 
 var app = builder.Build();
 return await app.RunJasperFxCommands(args).ConfigureAwait(false);

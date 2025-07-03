@@ -4,7 +4,7 @@ public record CustomizationResponse(
 	Guid Id,
 	decimal Scale,
 	decimal Infill,
-	double Weight,
+	decimal Weight,
 	decimal Cost,
 	string Color,
 	int MaterialId

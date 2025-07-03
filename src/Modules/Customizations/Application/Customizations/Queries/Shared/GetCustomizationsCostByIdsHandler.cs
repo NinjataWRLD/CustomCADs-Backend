@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Customizations.Domain.Repositories.Reads;
+using CustomCADs.Customizations.Domain.Services;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared;
 
-public class GetCustomizationsCostByIdsHandler(ICustomizationReads customizationReads, IMaterialReads materialReads)
+public class GetCustomizationsCostByIdsHandler(ICustomizationReads customizationReads, IMaterialReads materialReads, ICustomizationMaterialCalculator calculator)
 	: IQueryHandler<GetCustomizationsCostByIdsQuery, Dictionary<CustomizationId, decimal>>
 {
 	public async Task<Dictionary<CustomizationId, decimal>> Handle(GetCustomizationsCostByIdsQuery req, CancellationToken ct)
@@ -18,7 +19,7 @@ public class GetCustomizationsCostByIdsHandler(ICustomizationReads customization
 			{
 				Customization customization = x.Value;
 				Material material = materials[customization.MaterialId];
-				return customization.CalculateCost(material.Density, material.Cost);
+				return calculator.CalculateCost(customization, material);
 			}
 		);
 	}

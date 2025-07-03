@@ -5,7 +5,7 @@ public record CustomizationDto(
 	decimal Scale,
 	decimal Infill,
 	decimal Volume,
-	double Weight,
+	decimal Weight,
 	decimal Cost,
 	string Color,
 	MaterialId MaterialId
