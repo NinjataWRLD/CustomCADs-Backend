@@ -3,6 +3,7 @@ using System;
 using CustomCADs.Customizations.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Customizations.Persistence.Migrations
 {
     [DbContext(typeof(CustomizationsContext))]
-    partial class CustomizationsContextModelSnapshot : ModelSnapshot
+    [Migration("20250703171255_Added_Clarification_Comments")]
+    partial class Added_Clarification_Comments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
