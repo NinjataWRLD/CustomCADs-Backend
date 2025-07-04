@@ -6,4 +6,8 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="../../../../src/Modules/Customizations/Domain/CustomCADs.Customizations.Domain.csproj" />
+	</ItemGroup>
+
 </Project>

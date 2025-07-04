@@ -11,7 +11,7 @@ public static partial class CustomizationConstants
 	public const decimal InfillMax = 1m;
 
 	public const decimal VolumeMin = 0;
-	public const decimal CostMin = 0m;
+	public const decimal VolumeMax = 1_000_000_000;
 
 	public static Regex Color => ColorRegex();
 
