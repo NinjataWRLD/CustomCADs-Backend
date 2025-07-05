@@ -1,9 +1,10 @@
 ﻿using CustomCADs.Customizations.Domain.Repositories.Reads;
+using CustomCADs.Customizations.Domain.Services;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 
-namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared;
+namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared.Weight;
 
-public class GetCustomizationWeightByIdHandler(ICustomizationReads customizationReads, IMaterialReads materialReads)
+public class GetCustomizationWeightByIdHandler(ICustomizationReads customizationReads, IMaterialReads materialReads, ICustomizationMaterialCalculator calculator)
 	: IQueryHandler<GetCustomizationWeightByIdQuery, double>
 {
 	public async Task<double> Handle(GetCustomizationWeightByIdQuery req, CancellationToken ct)
@@ -14,6 +15,6 @@ public class GetCustomizationWeightByIdHandler(ICustomizationReads customization
 		Material material = await materialReads.SingleByIdAsync(customization.MaterialId, track: false, ct: ct).ConfigureAwait(false)
 			?? throw CustomNotFoundException<Material>.ById(customization.MaterialId);
 
-		return Convert.ToDouble(customization.CalculateWeight(material.Density));
+		return Convert.ToDouble(calculator.CalculateWeight(customization, material));
 	}
 }

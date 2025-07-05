@@ -45,12 +45,14 @@ static class Utilities
 		builder.Property(x => x.Density)
 			.IsRequired()
 			.HasPrecision(18, 2)
-			.HasColumnName(nameof(Material.Density));
+			.HasColumnName(nameof(Material.Density))
+			.HasComment("Measured in g/cm³");
 
 		builder.Property(x => x.Cost)
 			.IsRequired()
 			.HasPrecision(18, 2)
-			.HasColumnName(nameof(Material.Cost));
+			.HasColumnName(nameof(Material.Cost))
+			.HasComment("Measured in EUR/kg");
 
 		builder.Property(x => x.TextureId)
 			.IsRequired()

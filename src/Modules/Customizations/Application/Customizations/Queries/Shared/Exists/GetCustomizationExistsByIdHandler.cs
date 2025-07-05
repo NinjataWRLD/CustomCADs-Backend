@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Customizations.Domain.Repositories.Reads;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 
-namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared;
+namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared.Exists;
 
 public class GetCustomizationExistsByIdHandler(ICustomizationReads reads)
 	: IQueryHandler<GetCustomizationExistsByIdQuery, bool>

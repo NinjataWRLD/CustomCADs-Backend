@@ -24,7 +24,7 @@ public class Material : BaseAggregateRoot
 	public decimal Density { get; set; }
 
 	/// <summary>
-	///     Measured in USD/kg
+	///     Measured in EUR/kg
 	/// </summary>
 	public decimal Cost { get; set; }
 

@@ -1,5 +1,4 @@
-﻿using CustomCADs.Customizations.Domain.Customizations.Validation;
-using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Core.Bases.Entities;
 
 namespace CustomCADs.Customizations.Domain.Customizations;
 
@@ -101,27 +100,4 @@ public class Customization : BaseAggregateRoot
 		MaterialId = materialId;
 		return this;
 	}
-
-	/// <summary>
-	///     Calculate Customization Weight
-	/// </summary>
-	/// <param name="materialDensity">In g/cm³</param>
-	/// <returns>Weight in grams</returns>
-	public decimal CalculateWeight(decimal materialDensity)
-		=> (Volume / 1000) // volume in cm³
-		* materialDensity
-		* (CustomizationConstants.WallFactor +
-			(1 - CustomizationConstants.WallFactor) * Infill
-		);
-
-	/// <summary>
-	///     Calculate Customization Cost
-	/// </summary>
-	/// <param name="materialDensity">In g/cm³</param>
-	/// <param name="materialCost">In USD</param>
-	/// <returns>Cost in USD</returns>
-	public decimal CalculateCost(decimal materialDensity, decimal materialCost)
-		=> (CalculateWeight(materialDensity) / 1000) // weight in kg
-			* materialCost
-			* CustomizationConstants.ProfitMargin;
 }

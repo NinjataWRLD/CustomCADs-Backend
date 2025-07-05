@@ -18,7 +18,7 @@ namespace CustomCADs.Customizations.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Customizations")
-                .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -33,12 +33,14 @@ namespace CustomCADs.Customizations.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("character varying(7)")
-                        .HasColumnName("Color");
+                        .HasColumnName("Color")
+                        .HasComment("Hexadecimal value of color");
 
                     b.Property<decimal>("Infill")
                         .HasPrecision(4, 2)
                         .HasColumnType("numeric(4,2)")
-                        .HasColumnName("Infill");
+                        .HasColumnName("Infill")
+                        .HasComment("Floating number representing a percentage");
 
                     b.Property<int>("MaterialId")
                         .HasColumnType("integer")
@@ -47,12 +49,14 @@ namespace CustomCADs.Customizations.Persistence.Migrations
                     b.Property<decimal>("Scale")
                         .HasPrecision(4, 2)
                         .HasColumnType("numeric(4,2)")
-                        .HasColumnName("Scale");
+                        .HasColumnName("Scale")
+                        .HasComment("Floating number representing a percentage");
 
                     b.Property<decimal>("Volume")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)")
-                        .HasColumnName("Volume");
+                        .HasColumnName("Volume")
+                        .HasComment("Measured in m³");
 
                     b.HasKey("Id");
 
@@ -70,12 +74,14 @@ namespace CustomCADs.Customizations.Persistence.Migrations
                     b.Property<decimal>("Cost")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)")
-                        .HasColumnName("Cost");
+                        .HasColumnName("Cost")
+                        .HasComment("Measured in EUR/kg");
 
                     b.Property<decimal>("Density")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)")
-                        .HasColumnName("Density");
+                        .HasColumnName("Density")
+                        .HasComment("Measured in g/cm³");
 
                     b.Property<string>("Name")
                         .IsRequired()
