@@ -3,7 +3,7 @@ using CustomCADs.Customizations.Domain.Repositories.Reads;
 
 namespace CustomCADs.Customizations.Application.Customizations.Commands.Internal.Delete;
 
-public class EditCustomizationHandler(ICustomizationReads reads, IWrites<Customization> writes, IUnitOfWork uow)
+public class DeleteCustomizationHandler(ICustomizationReads reads, IWrites<Customization> writes, IUnitOfWork uow)
 	: ICommandHandler<DeleteCustomizationCommand>
 {
 	public async Task Handle(DeleteCustomizationCommand req, CancellationToken ct)

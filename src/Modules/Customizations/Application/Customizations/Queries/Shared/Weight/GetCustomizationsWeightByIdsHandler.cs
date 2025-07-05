@@ -2,7 +2,7 @@
 using CustomCADs.Customizations.Domain.Services;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 
-namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared;
+namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared.Weight;
 
 public class GetCustomizationsWeightByIdsHandler(ICustomizationReads customizationReads, IMaterialReads materialReads, ICustomizationMaterialCalculator calculator)
 	: IQueryHandler<GetCustomizationsWeightByIdsQuery, Dictionary<CustomizationId, double>>

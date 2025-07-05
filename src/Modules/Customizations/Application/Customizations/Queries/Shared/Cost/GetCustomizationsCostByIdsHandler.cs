@@ -2,7 +2,7 @@
 using CustomCADs.Customizations.Domain.Services;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 
-namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared;
+namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared.Cost;
 
 public class GetCustomizationsCostByIdsHandler(ICustomizationReads customizationReads, IMaterialReads materialReads, ICustomizationMaterialCalculator calculator)
 	: IQueryHandler<GetCustomizationsCostByIdsQuery, Dictionary<CustomizationId, decimal>>

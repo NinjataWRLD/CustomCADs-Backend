@@ -2,12 +2,12 @@
 using CustomCADs.Customizations.Domain.Services;
 using CustomCADs.Shared.UseCases.Customizations.Queries;
 
-namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared;
+namespace CustomCADs.Customizations.Application.Customizations.Queries.Shared.Cost;
 
-public class GetCustomizationWeightByIdHandler(ICustomizationReads customizationReads, IMaterialReads materialReads, ICustomizationMaterialCalculator calculator)
-	: IQueryHandler<GetCustomizationWeightByIdQuery, double>
+public class GetCustomizationCostByIdHandler(ICustomizationReads customizationReads, IMaterialReads materialReads, ICustomizationMaterialCalculator calculator)
+	: IQueryHandler<GetCustomizationCostByIdQuery, decimal>
 {
-	public async Task<double> Handle(GetCustomizationWeightByIdQuery req, CancellationToken ct)
+	public async Task<decimal> Handle(GetCustomizationCostByIdQuery req, CancellationToken ct)
 	{
 		Customization customization = await customizationReads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
 			?? throw CustomNotFoundException<Customization>.ById(req.Id);
@@ -15,6 +15,6 @@ public class GetCustomizationWeightByIdHandler(ICustomizationReads customization
 		Material material = await materialReads.SingleByIdAsync(customization.MaterialId, track: false, ct: ct).ConfigureAwait(false)
 			?? throw CustomNotFoundException<Material>.ById(customization.MaterialId);
 
-		return Convert.ToDouble(calculator.CalculateWeight(customization, material));
+		return calculator.CalculateCost(customization, material);
 	}
 }

@@ -14,9 +14,10 @@ public class EditMaterialHandler(IMaterialReads reads, BaseCachingService<Materi
 				?? throw CustomNotFoundException<Material>.ById(req.Id)
 		).ConfigureAwait(false);
 
-		material.SetName(req.Name);
-		material.SetDensity(req.Density);
-		material.SetCost(req.Cost);
+		material
+			.SetName(req.Name)
+			.SetDensity(req.Density)
+			.SetCost(req.Cost);
 
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
