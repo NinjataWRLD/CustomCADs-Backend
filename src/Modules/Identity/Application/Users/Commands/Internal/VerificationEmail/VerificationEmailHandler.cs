@@ -1,5 +1,5 @@
-﻿using CustomCADs.Identity.Domain.Managers;
-using CustomCADs.Identity.Domain.Users.Events;
+﻿using CustomCADs.Identity.Application.Users.Events.Application.Emails.EmailVerification;
+using CustomCADs.Identity.Domain.Managers;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
@@ -14,7 +14,7 @@ public class VerificationEmailHandler(IUserManager manager, IEventRaiser raiser)
 			?? throw CustomNotFoundException<User>.ByProp(nameof(User.Username), req.Username);
 
 		string token = await manager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-		await raiser.RaiseDomainEventAsync(new EmailVerificationRequestedDomainEvent(
+		await raiser.RaiseApplicationEventAsync(new EmailVerificationRequestedApplicationEvent(
 			Email: user.Email.Value,
 			Endpoint: req.GetUri(token)
 		)).ConfigureAwait(false);

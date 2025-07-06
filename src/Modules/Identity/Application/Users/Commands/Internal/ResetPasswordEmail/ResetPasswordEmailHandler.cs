@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Identity.Application.Users.Dtos;
+using CustomCADs.Identity.Application.Users.Events.Application.Emails.PasswordReset;
 using CustomCADs.Identity.Domain.Managers;
-using CustomCADs.Identity.Domain.Users.Events;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using Microsoft.Extensions.Options;
@@ -19,7 +19,7 @@ public class ResetPasswordEmailHandler(IUserManager manager, IEventRaiser raiser
 
 		string token = await manager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
 
-		await raiser.RaiseDomainEventAsync(new PasswordResetRequestedDomainEvent(
+		await raiser.RaiseApplicationEventAsync(new PasswordResetRequestedApplicationEvent(
 			Email: req.Email,
 			Endpoint: GetResetPasswordPage(req.Email, token)
 		)).ConfigureAwait(false);

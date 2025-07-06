@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Identity.Domain.Managers;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 
-namespace CustomCADs.Identity.Application.Users.Events.Application;
+namespace CustomCADs.Identity.Application.Users.Events.Application.Users;
 
 public class UserDeletedHandler(IUserManager manager)
 {
