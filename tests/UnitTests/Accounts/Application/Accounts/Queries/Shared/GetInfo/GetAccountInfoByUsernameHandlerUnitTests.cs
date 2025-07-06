@@ -1,20 +1,20 @@
-using CustomCADs.Accounts.Application.Accounts.Queries.Shared.CreatedAt;
+using CustomCADs.Accounts.Application.Accounts.Queries.Shared.Info;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
-namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetCreatedAt;
+namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetInfo;
 
 using static AccountsData;
 
-public class GetAccountCreatedAtByUsernameHandlerUnitTests : AccountsBaseUnitTests
+public class GetAccountInfoByUsernameHandlerUnitTests : AccountsBaseUnitTests
 {
-	private readonly GetAccountCreatedAtByUsernameHandler handler;
+	private readonly GetAccountInfoByUsernameHandler handler;
 	private readonly Mock<IAccountReads> reads = new();
 
 	private static readonly Account account = CreateAccount();
 
-	public GetAccountCreatedAtByUsernameHandlerUnitTests()
+	public GetAccountInfoByUsernameHandlerUnitTests()
 	{
 		handler = new(reads.Object);
 
@@ -25,7 +25,7 @@ public class GetAccountCreatedAtByUsernameHandlerUnitTests : AccountsBaseUnitTes
 	[Fact]
 	public async Task Handle_ShouldQueryDatabase()
 	{
-		GetAccountCreatedAtByUsernameQuery query = new(ValidUsername);
+		GetAccountInfoByUsernameQuery query = new(ValidUsername);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -38,13 +38,17 @@ public class GetAccountCreatedAtByUsernameHandlerUnitTests : AccountsBaseUnitTes
 	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
-		GetAccountCreatedAtByUsernameQuery query = new(ValidUsername);
+		GetAccountInfoByUsernameQuery query = new(ValidUsername);
 
 		// Act
-		DateTimeOffset createdAt = await handler.Handle(query, ct);
+		AccountInfo info = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.Equal(account.CreatedAt, createdAt);
+		Assert.Multiple(
+			() => Assert.Equal(account.CreatedAt, info.CreatedAt),
+			() => Assert.Equal(account.FirstName, info.FirstName),
+			() => Assert.Equal(account.LastName, info.LastName)
+		);
 	}
 
 	[Fact]
@@ -52,7 +56,7 @@ public class GetAccountCreatedAtByUsernameHandlerUnitTests : AccountsBaseUnitTes
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByUsernameAsync(ValidUsername, false, ct)).ReturnsAsync(null as Account);
-		GetAccountCreatedAtByUsernameQuery query = new(ValidUsername);
+		GetAccountInfoByUsernameQuery query = new(ValidUsername);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Account>>(

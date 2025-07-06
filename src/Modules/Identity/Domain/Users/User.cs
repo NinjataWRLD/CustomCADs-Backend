@@ -1,8 +1,7 @@
-﻿using CustomCADs.Identity.Domain.Users.ValueObjects;
+﻿using CustomCADs.Identity.Domain.Users.Entities;
+using CustomCADs.Identity.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Identity;
-using RefreshToken = CustomCADs.Identity.Domain.Users.Entities.RefreshToken;
-
 
 namespace CustomCADs.Identity.Domain.Users;
 

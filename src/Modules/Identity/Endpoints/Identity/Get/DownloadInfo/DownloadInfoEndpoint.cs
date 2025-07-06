@@ -19,7 +19,7 @@ public sealed class DownloadInfoEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(CancellationToken ct)
 	{
-		var user = await sender.SendQueryAsync(
+		GetUserByUsernameDto user = await sender.SendQueryAsync(
 			new GetUserByUsernameQuery(User.GetName()),
 			ct
 		).ConfigureAwait(false);

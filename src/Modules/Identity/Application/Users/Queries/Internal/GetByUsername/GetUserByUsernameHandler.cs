@@ -15,8 +15,8 @@ public class GetUserByUsernameHandler(IUserManager manager, IRequestSender sende
 		User user = await manager.GetByUsernameAsync(req.Username).ConfigureAwait(false)
 			?? throw CustomNotFoundException<User>.ByProp(nameof(req.Username), req.Username);
 
-		DateTimeOffset createdAt = await sender.SendQueryAsync(
-			new GetAccountCreatedAtByUsernameQuery(req.Username),
+		AccountInfo info = await sender.SendQueryAsync(
+			new GetAccountInfoByUsernameQuery(req.Username),
 			ct
 		).ConfigureAwait(false);
 
@@ -30,7 +30,9 @@ public class GetUserByUsernameHandler(IUserManager manager, IRequestSender sende
 			Role: user.Role,
 			Username: user.Username,
 			Email: user.Email,
-			CreatedAt: createdAt,
+			CreatedAt: info.CreatedAt,
+			FirstName: info.FirstName,
+			LastName: info.LastName,
 			ViewedProductIds: viewedProductIds
 		);
 	}
