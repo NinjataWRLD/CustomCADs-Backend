@@ -1,12 +1,11 @@
-﻿using CustomCADs.Identity.Domain.Managers;
-using CustomCADs.Shared.ApplicationEvents.Account.Roles;
+﻿using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 
 namespace CustomCADs.Identity.Application.Users.Events.Application.Roles;
 
-public class RoleCreatedHandler(IRoleManager manager)
+public class RoleCreatedHandler(IRoleWrites writes)
 {
 	public async Task Handle(RoleCreatedApplicationEvent ae)
-		=> await manager.CreateAsync(
+		=> await writes.CreateAsync(
 			name: ae.Name
 		).ConfigureAwait(false);
 }

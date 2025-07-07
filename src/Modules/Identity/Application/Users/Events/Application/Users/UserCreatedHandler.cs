@@ -1,13 +1,12 @@
-﻿using CustomCADs.Identity.Domain.Managers;
-using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
+﻿using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 
 namespace CustomCADs.Identity.Application.Users.Events.Application.Users;
 
-public class UserCreatedHandler(IUserManager manager)
+public class UserCreatedHandler(IUserWrites writes)
 {
 	public async Task Handle(AccountCreatedApplicationEvent ae)
 	{
-		await manager.AddAsync(
+		await writes.CreateAsync(
 			user: User.Create(
 				role: ae.Role,
 				username: ae.Username,

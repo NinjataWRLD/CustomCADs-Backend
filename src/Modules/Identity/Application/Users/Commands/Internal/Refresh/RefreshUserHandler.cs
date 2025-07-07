@@ -1,12 +1,11 @@
 ﻿using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Application.Users.Extensions;
-using CustomCADs.Identity.Domain.Managers;
 using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.Identity.Application.Users.Commands.Internal.Refresh;
 
-public class RefreshUserHandler(IUserManager manager, ITokenService service)
+public class RefreshUserHandler(IUserReads reads, IUserWrites writes, ITokenService tokens)
 	: ICommandHandler<RefreshUserCommand, TokensDto>
 {
 	public async Task<TokensDto> Handle(RefreshUserCommand req, CancellationToken ct)
@@ -16,7 +15,7 @@ public class RefreshUserHandler(IUserManager manager, ITokenService service)
 			throw CustomAuthorizationException<User>.Custom("No Refresh Token found.");
 		}
 
-		var (User, RefreshToken) = await manager.GetByRefreshTokenAsync(req.Token).ConfigureAwait(false);
+		var (User, RefreshToken) = await reads.GetByRefreshTokenAsync(req.Token).ConfigureAwait(false);
 		if (User is null || RefreshToken is null)
 		{
 			throw CustomNotFoundException<User>.ByProp(nameof(RefreshToken), req.Token);
@@ -27,6 +26,6 @@ public class RefreshUserHandler(IUserManager manager, ITokenService service)
 			throw CustomAuthorizationException<User>.Custom("Refresh Token found, but expired.");
 		}
 
-		return await manager.IssueTokens(service, User.Username, longerSession: false).ConfigureAwait(false);
+		return await writes.IssueTokens(tokens, User, longerSession: false).ConfigureAwait(false);
 	}
 }

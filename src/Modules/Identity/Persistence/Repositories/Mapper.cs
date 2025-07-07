@@ -3,7 +3,7 @@ using CustomCADs.Identity.Domain.Users.Entities;
 using CustomCADs.Identity.Persistence.ShadowEntities;
 using CustomCADs.Shared.Core.Common.TypedIds.Identity;
 
-namespace CustomCADs.Identity.Persistence.Managers;
+namespace CustomCADs.Identity.Persistence.Repositories;
 
 internal static class Mapper
 {
@@ -45,7 +45,7 @@ internal static class Mapper
 			AccountId = user.AccountId,
 		}.FillRefreshTokens([.. user.RefreshTokens.Select(x => Shallow.ToAppRefreshToken(x))]);
 
-	internal static RefreshToken ToRefreshToken(this AppRefreshToken rt, string role)
+	internal static RefreshToken ToRefreshToken(this AppRefreshToken rt)
 		=> RefreshToken.Create(
 			id: RefreshTokenId.New(rt.Id),
 			value: rt.Value,
