@@ -17,6 +17,7 @@ public interface IUserManager
 	Task<string> GeneratePasswordResetTokenAsync(User user);
 	Task<bool> ResetPasswordAsync(User user, string token, string newPassword);
 	Task<bool> CheckPasswordAsync(User user, string password);
-	Task UpdateAsync(UserId id, User user);
+	Task UpdateUsernameAsync(UserId id, string username);
+	Task UpdateRefreshTokensAsync(UserId id, RefreshToken[] refreshTokens);
 	Task DeleteAsync(string username);
 }

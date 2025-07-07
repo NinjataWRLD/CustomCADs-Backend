@@ -155,7 +155,7 @@ public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 		return success;
 	}
 
-	public async Task UpdateAsync(UserId id, User user)
+	public async Task UpdateUsernameAsync(UserId id, string username)
 	{
 		AppUser? appUser = await manager.FindByIdAsync(id.Value.ToString()).ConfigureAwait(false);
 		if (appUser is null)
@@ -163,7 +163,19 @@ public class AppUserManager(UserManager<AppUser> manager) : IUserManager
 			return;
 		}
 
-		appUser.FillRefreshTokens([.. user.RefreshTokens.Select(r => r.ToAppRefreshToken())]);
+		appUser.UserName = username;
+		await manager.UpdateAsync(appUser).ConfigureAwait(false);
+	}
+
+	public async Task UpdateRefreshTokensAsync(UserId id, RefreshToken[] refreshTokens)
+	{
+		AppUser? appUser = await manager.FindByIdAsync(id.Value.ToString()).ConfigureAwait(false);
+		if (appUser is null)
+		{
+			return;
+		}
+
+		appUser.FillRefreshTokens([.. refreshTokens.Select(r => r.ToAppRefreshToken())]);
 		await manager.UpdateAsync(appUser).ConfigureAwait(false);
 	}
 

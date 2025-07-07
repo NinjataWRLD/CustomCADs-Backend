@@ -21,6 +21,9 @@ public class LogoutUserHandler(IUserManager manager)
 			?? throw CustomAuthorizationException<User>.Custom("Refresh Token not found in User's Refresh Tokens."); ;
 
 		user.RemoveRefreshToken(rt);
-		await manager.UpdateAsync(user.Id, user).ConfigureAwait(false);
+		await manager.UpdateRefreshTokensAsync(
+			id: user.Id,
+			refreshTokens: [.. user.RefreshTokens]
+		).ConfigureAwait(false);
 	}
 }

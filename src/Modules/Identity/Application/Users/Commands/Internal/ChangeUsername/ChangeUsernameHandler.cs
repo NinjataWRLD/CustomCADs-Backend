@@ -14,7 +14,7 @@ public class ChangeUsernameHandler(IUserManager manager, IEventRaiser raiser)
 			?? throw CustomNotFoundException<User>.ByProp(nameof(req.Username), req.Username);
 
 		user.SetUsername(req.NewUsername);
-		await manager.UpdateAsync(user.Id, user).ConfigureAwait(false);
+		await manager.UpdateUsernameAsync(user.Id, user.Username).ConfigureAwait(false);
 
 		await raiser.RaiseApplicationEventAsync(
 			new UserEditedApplicationEvent(
