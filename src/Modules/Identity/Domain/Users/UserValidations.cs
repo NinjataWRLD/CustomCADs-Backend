@@ -8,10 +8,23 @@ using static UserConstants;
 
 public static partial class UserValidations
 {
-	public static User ValidateUsername(this User User)
+	public static User ValidateRole(this User user)
+	{
+		string property = "Role";
+		string role = user.Role;
+
+		if (string.IsNullOrEmpty(role))
+		{
+			throw CustomValidationException<User>.NotNull(property);
+		}
+
+		return user;
+	}
+
+	public static User ValidateUsername(this User user)
 	{
 		string property = "Username";
-		string username = User.Username;
+		string username = user.Username;
 
 		if (string.IsNullOrEmpty(username))
 		{
@@ -24,7 +37,7 @@ public static partial class UserValidations
 			throw CustomValidationException<User>.Length(property, minLength, maxLength);
 		}
 
-		return User;
+		return user;
 	}
 
 	public static User ValidateEmail(this User user)

@@ -33,6 +33,7 @@ public class User
 
 	public static User Create(string role, string username, Email email, AccountId accountId)
 		=> new User(role, username, email, accountId)
+			.ValidateRole()
 			.ValidateUsername()
 			.ValidateEmail();
 
@@ -42,6 +43,7 @@ public class User
 			Id = id,
 		}
 		.FillRefreshTokens(refreshTokens)
+		.ValidateRole()
 		.ValidateUsername()
 		.ValidateEmail();
 
@@ -59,8 +61,8 @@ public class User
 		return rt;
 	}
 
-	public void RemoveRefreshToken(RefreshToken rt)
+	public bool RemoveRefreshToken(RefreshToken rt)
 	{
-		refreshTokens.Remove(rt);
+		return refreshTokens.Remove(rt);
 	}
 }
