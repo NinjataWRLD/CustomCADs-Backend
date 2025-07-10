@@ -22,7 +22,6 @@ public sealed class LogoutEndpoint(IRequestSender sender, IOptions<CookieSetting
 	{
 		await sender.SendCommandAsync(
 			new LogoutUserCommand(
-				Username: User.GetName(),
 				RefreshToken: HttpContext.GetRefreshTokenCookie()
 			),
 			ct

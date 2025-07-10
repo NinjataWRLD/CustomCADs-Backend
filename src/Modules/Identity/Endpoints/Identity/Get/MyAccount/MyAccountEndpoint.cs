@@ -18,7 +18,7 @@ public sealed class MyAccountEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(CancellationToken ct)
 	{
-		var user = await sender.SendQueryAsync(
+		GetUserByUsernameDto user = await sender.SendQueryAsync(
 			new GetUserByUsernameQuery(User.GetName()),
 			ct
 		).ConfigureAwait(false);
@@ -27,6 +27,8 @@ public sealed class MyAccountEndpoint(IRequestSender sender)
 			Id: user.Id.Value,
 			Role: user.Role,
 			Username: user.Username,
+			FirstName: user.FirstName,
+			LastName: user.LastName,
 			Email: user.Email.Value,
 			CreatedAt: user.CreatedAt
 		);

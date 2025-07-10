@@ -22,7 +22,7 @@ public sealed class DeleteAccountEndpoint(IRequestSender sender, IOptions<Cookie
 	public override async Task HandleAsync(CancellationToken ct)
 	{
 		await sender.SendCommandAsync(
-			new DeleteAccountCommand(Username: User.GetName()),
+			new DeleteUserCommand(Username: User.GetName()),
 			ct
 		).ConfigureAwait(false);
 

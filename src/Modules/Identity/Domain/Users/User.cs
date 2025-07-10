@@ -1,8 +1,7 @@
-﻿using CustomCADs.Identity.Domain.Users.ValueObjects;
+﻿using CustomCADs.Identity.Domain.Users.Entities;
+using CustomCADs.Identity.Domain.Users.ValueObjects;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Identity;
-using RefreshToken = CustomCADs.Identity.Domain.Users.Entities.RefreshToken;
-
 
 namespace CustomCADs.Identity.Domain.Users;
 
@@ -34,6 +33,7 @@ public class User
 
 	public static User Create(string role, string username, Email email, AccountId accountId)
 		=> new User(role, username, email, accountId)
+			.ValidateRole()
 			.ValidateUsername()
 			.ValidateEmail();
 
@@ -43,6 +43,7 @@ public class User
 			Id = id,
 		}
 		.FillRefreshTokens(refreshTokens)
+		.ValidateRole()
 		.ValidateUsername()
 		.ValidateEmail();
 
@@ -60,8 +61,8 @@ public class User
 		return rt;
 	}
 
-	public void RemoveRefreshToken(RefreshToken rt)
+	public bool RemoveRefreshToken(RefreshToken rt)
 	{
-		refreshTokens.Remove(rt);
+		return refreshTokens.Remove(rt);
 	}
 }

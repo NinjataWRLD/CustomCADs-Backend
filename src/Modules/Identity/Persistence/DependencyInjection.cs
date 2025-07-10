@@ -1,12 +1,16 @@
-﻿using CustomCADs.Identity.Domain.Managers;
+﻿using CustomCADs.Identity.Domain.Repositories.Reads;
+using CustomCADs.Identity.Domain.Repositories.Writes;
 using CustomCADs.Identity.Persistence;
-using CustomCADs.Identity.Persistence.Managers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
+
+using AppRoleWrites = CustomCADs.Identity.Persistence.Repositories.Roles.Writes;
+using AppUserWrites = CustomCADs.Identity.Persistence.Repositories.Users.Writes;
+using AppUserReads = CustomCADs.Identity.Persistence.Repositories.Users.Reads;
 
 public static class DependencyInjection
 {
@@ -43,8 +47,9 @@ public static class DependencyInjection
 
 	private static IServiceCollection AddManagers(this IServiceCollection services)
 	{
-		services.AddScoped<IUserManager, AppUserManager>();
-		services.AddScoped<IRoleManager, AppRoleManager>();
+		services.AddScoped<IUserReads, AppUserReads>();
+		services.AddScoped<IUserWrites, AppUserWrites>();
+		services.AddScoped<IRoleWrites, AppRoleWrites>();
 
 		return services;
 	}
