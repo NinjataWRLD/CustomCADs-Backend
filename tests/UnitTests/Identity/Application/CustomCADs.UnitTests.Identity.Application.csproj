@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-        <ProjectReference Include="..\..\..\..\src\Modules\Identity\Domain\CustomCADs.Identity.Domain.csproj" />
+        <ProjectReference Include="..\..\..\..\src\Modules\Identity\Application\CustomCADs.Identity.Application.csproj" />
         <ProjectReference Include="..\Data\CustomCADs.UnitTests.Identity.Data.csproj" />
 	</ItemGroup>
 
