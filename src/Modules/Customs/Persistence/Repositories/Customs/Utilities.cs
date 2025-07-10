@@ -34,15 +34,14 @@ public static class Utilities
 	{
 		if (!string.IsNullOrWhiteSpace(name))
 		{
-			query = query.Where(c => c.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase));
+			query = query.Where(c => c.Name.ToLower().Contains(name.ToLower()));
 		}
 
 		return query;
 	}
 
 	public static IQueryable<Custom> WithSorting(this IQueryable<Custom> query, CustomSorting? sorting = null)
-	{
-		return sorting switch
+		=> sorting switch
 		{
 			{ Type: CustomSortingType.OrderedAt, Direction: SortingDirection.Ascending } => query.OrderBy(c => c.OrderedAt),
 			{ Type: CustomSortingType.OrderedAt, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.OrderedAt),
@@ -52,10 +51,7 @@ public static class Utilities
 			{ Type: CustomSortingType.CustomStatus, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.CustomStatus),
 			_ => query,
 		};
-	}
 
 	public static IQueryable<Custom> WithPagination(this IQueryable<Custom> query, int page = 1, int limit = 20)
-	{
-		return query.Skip((page - 1) * limit).Take(limit);
-	}
+		=> query.Skip((page - 1) * limit).Take(limit);
 }

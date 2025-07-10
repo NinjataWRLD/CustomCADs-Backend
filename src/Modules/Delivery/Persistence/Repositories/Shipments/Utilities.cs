@@ -19,8 +19,7 @@ public static class Utilities
 	}
 
 	public static IQueryable<Shipment> WithSorting(this IQueryable<Shipment> query, ShipmentSorting sorting)
-	{
-		return sorting switch
+		=> sorting switch
 		{
 			{ Type: ShipmentSortingType.RequestedAt, Direction: SortingDirection.Ascending } => query.OrderBy(s => s.RequestedAt),
 			{ Type: ShipmentSortingType.RequestedAt, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.RequestedAt),
@@ -30,10 +29,7 @@ public static class Utilities
 			{ Type: ShipmentSortingType.City, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.Address.City),
 			_ => query,
 		};
-	}
 
 	public static IQueryable<Shipment> WithPagination(this IQueryable<Shipment> query, int page = 1, int limit = 20)
-	{
-		return query.Skip((page - 1) * limit).Take(limit);
-	}
+		=> query.Skip((page - 1) * limit).Take(limit);
 }
