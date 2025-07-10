@@ -27,19 +27,19 @@ public static class Utilities
 	{
 		if (!string.IsNullOrWhiteSpace(username))
 		{
-			query = query.Where(u => u.Username.Contains(username, StringComparison.InvariantCultureIgnoreCase));
+			query = query.Where(u => u.Username.ToLower().Contains(username.ToLower()));
 		}
 		if (!string.IsNullOrWhiteSpace(email))
 		{
-			query = query.Where(u => u.Email.Contains(email, StringComparison.InvariantCultureIgnoreCase));
+			query = query.Where(u => u.Email.Contains(email));
 		}
 		if (!string.IsNullOrWhiteSpace(firstName))
 		{
-			query = query.Where(u => u.FirstName != null && u.FirstName.Contains(firstName, StringComparison.InvariantCultureIgnoreCase));
+			query = query.Where(u => u.FirstName != null && u.FirstName.ToLower().Contains(firstName.ToLower()));
 		}
 		if (!string.IsNullOrWhiteSpace(lastName))
 		{
-			query = query.Where(u => u.LastName != null && u.LastName.Contains(lastName, StringComparison.InvariantCultureIgnoreCase));
+			query = query.Where(u => u.LastName != null && u.LastName.ToLower().Contains(lastName.ToLower()));
 		}
 
 		return query;

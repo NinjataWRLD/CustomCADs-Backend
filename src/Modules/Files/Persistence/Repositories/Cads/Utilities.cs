@@ -16,7 +16,5 @@ public static class Utilities
 	}
 
 	public static IQueryable<Cad> WithPagination(this IQueryable<Cad> query, int page = 1, int limit = 20)
-	{
-		return query.Skip((page - 1) * limit).Take(limit);
-	}
+		=> query.Skip((page - 1) * limit).Take(limit);
 }
