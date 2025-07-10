@@ -45,6 +45,10 @@ public static class Utilities
 			a.Property(x => x.Country)
 				.IsRequired()
 				.HasColumnName("Country");
+
+			a.Property(x => x.Street)
+				.IsRequired()
+				.HasColumnName("Street");
 		});
 
 		return builder;

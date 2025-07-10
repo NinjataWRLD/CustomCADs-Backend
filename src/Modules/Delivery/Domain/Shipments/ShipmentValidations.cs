@@ -27,4 +27,17 @@ public static class ShipmentValidations
 
 		return shipment;
 	}
+
+	public static Shipment ValidateStreet(this Shipment shipment)
+	{
+		string property = "Street";
+		string street = shipment.Address.Street;
+
+		if (string.IsNullOrEmpty(street))
+		{
+			throw CustomValidationException<Shipment>.NotNull(property);
+		}
+
+		return shipment;
+	}
 }

@@ -36,22 +36,26 @@ public static class Utilities
 		builder.Property(x => x.Scale)
 			.IsRequired()
 			.HasPrecision(4, 2)
-			.HasColumnName(nameof(Customization.Scale));
+			.HasColumnName(nameof(Customization.Scale))
+			.HasComment("Floating number representing a percentage");
 
 		builder.Property(x => x.Infill)
 			.IsRequired()
 			.HasPrecision(4, 2)
-			.HasColumnName(nameof(Customization.Infill));
+			.HasColumnName(nameof(Customization.Infill))
+			.HasComment("Floating number representing a percentage");
 
 		builder.Property(x => x.Volume)
 			.IsRequired()
 			.HasPrecision(18, 2)
-			.HasColumnName(nameof(Customization.Volume));
+			.HasColumnName(nameof(Customization.Volume))
+			.HasComment("Measured in m³");
 
 		builder.Property(x => x.Color)
 			.IsRequired()
 			.HasMaxLength(7)
-			.HasColumnName(nameof(Customization.Color));
+			.HasColumnName(nameof(Customization.Color))
+			.HasComment("Hexadecimal value of color");
 
 		builder.Property(x => x.MaterialId)
 			.IsRequired()

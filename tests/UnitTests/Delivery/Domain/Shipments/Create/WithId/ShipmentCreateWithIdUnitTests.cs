@@ -18,7 +18,7 @@ public class ShipmentCreateWithIdUnitTests : ShipmentsBaseUnitTests
 		Shipment shipment = CreateShipmentWithId();
 
 		Assert.Multiple(
-			() => Assert.Equal(new(ValidCountry, ValidCity), shipment.Address),
+			() => Assert.Equal(new(ValidCountry, ValidCity, ValidStreet), shipment.Address),
 			() => Assert.Equal(ValidReferenceId, shipment.ReferenceId),
 			() => Assert.Equal(ValidBuyerId, shipment.BuyerId),
 			() => Assert.True(DateTimeOffset.UtcNow - shipment.RequestedAt < TimeSpan.FromSeconds(1))
@@ -29,7 +29,7 @@ public class ShipmentCreateWithIdUnitTests : ShipmentsBaseUnitTests
 	public void CreateWithId_ShouldThrowException_WhenCountryIsInvalid()
 	{
 		Assert.Throws<CustomValidationException<Shipment>>(
-			() => CreateShipmentWithId(ValidId, InvalidCountry, ValidCity, ValidReferenceId, ValidBuyerId)
+			() => CreateShipmentWithId(ValidId, InvalidCountry, ValidCity, ValidStreet, ValidReferenceId, ValidBuyerId)
 		);
 	}
 
@@ -37,7 +37,15 @@ public class ShipmentCreateWithIdUnitTests : ShipmentsBaseUnitTests
 	public void CreateWithId_ShouldThrowException_WhenCityIsInvalid()
 	{
 		Assert.Throws<CustomValidationException<Shipment>>(
-			() => CreateShipmentWithId(ValidId, ValidCountry, InvalidCity, ValidReferenceId, ValidBuyerId)
+			() => CreateShipmentWithId(ValidId, ValidCountry, InvalidCity, ValidStreet, ValidReferenceId, ValidBuyerId)
+		);
+	}
+
+	[Fact]
+	public void CreateWithId_ShouldThrowException_WhenStreetIsInvalid()
+	{
+		Assert.Throws<CustomValidationException<Shipment>>(
+			() => CreateShipmentWithId(ValidId, ValidCountry, ValidCity, InvalidStreet, ValidReferenceId, ValidBuyerId)
 		);
 	}
 }

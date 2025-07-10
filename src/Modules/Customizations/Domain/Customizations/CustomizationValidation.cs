@@ -26,7 +26,7 @@ public static class CustomizationValidation
 
 		if (infill < InfillMin || infill > InfillMax)
 		{
-			throw CustomValidationException<Customization>.Range(property, ScaleMin, ScaleMax);
+			throw CustomValidationException<Customization>.Range(property, InfillMin, InfillMax);
 		}
 
 		return customization;
@@ -37,9 +37,9 @@ public static class CustomizationValidation
 		string property = "Volume";
 		decimal volume = customization.Volume;
 
-		if (volume < VolumeMin)
+		if (volume < VolumeMin || volume > VolumeMax)
 		{
-			throw CustomValidationException<Customization>.Range(property, ScaleMin, ScaleMax);
+			throw CustomValidationException<Customization>.Range(property, VolumeMin, VolumeMax);
 		}
 
 		return customization;

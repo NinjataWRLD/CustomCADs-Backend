@@ -2,14 +2,14 @@
 
 internal static class Mapper
 {
-	internal static CustomizationDto ToDto(this Customization customization, (decimal Density, decimal Cost) material)
+	internal static CustomizationDto ToDto(this Customization customization, decimal weight, decimal cost)
 		=> new(
 			Id: customization.Id,
 			Scale: customization.Scale,
 			Infill: customization.Infill,
 			Volume: customization.Volume,
-			Weight: Convert.ToDouble(customization.CalculateWeight(material.Density)),
-			Cost: customization.CalculateCost(material.Density, material.Cost),
+			Weight: weight,
+			Cost: cost,
 			Color: customization.Color,
 			MaterialId: customization.MaterialId
 		);

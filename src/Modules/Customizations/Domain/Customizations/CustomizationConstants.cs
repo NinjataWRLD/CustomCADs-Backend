@@ -11,13 +11,7 @@ public static partial class CustomizationConstants
 	public const decimal InfillMax = 1m;
 
 	public const decimal VolumeMin = 0;
-	public const decimal CostMin = 0m;
-
-	/// <summary>
-	///     In USD
-	/// </summary>
-	public const decimal ProfitMargin = 1.2m;
-	public const decimal WallFactor = 0.45m;
+	public const decimal VolumeMax = 1_000_000_000;
 
 	public static Regex Color => ColorRegex();
 

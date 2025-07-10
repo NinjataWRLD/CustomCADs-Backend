@@ -1,10 +1,8 @@
-﻿using CustomCADs.Identity.Domain.Managers;
-using CustomCADs.Identity.Domain.Users.Entities;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.Identity.Application.Users.Commands.Internal.Logout;
 
-public class LogoutUserHandler(IUserManager manager)
+public class LogoutUserHandler(IUserReads reads, IUserWrites writes)
 	: ICommandHandler<LogoutUserCommand>
 {
 	public async Task Handle(LogoutUserCommand req, CancellationToken ct)
@@ -14,13 +12,16 @@ public class LogoutUserHandler(IUserManager manager)
 			throw CustomAuthorizationException<User>.Custom("No Refresh Token found.");
 		}
 
-		User user = await manager.GetByUsernameAsync(req.Username).ConfigureAwait(false)
-			?? throw CustomNotFoundException<User>.ByProp(nameof(User.Username), req.Username);
+		var (User, Token) = await reads.GetByRefreshTokenAsync(req.RefreshToken).ConfigureAwait(false);
+		if (User is null || Token is null)
+		{
+			throw CustomNotFoundException<User>.ByProp(nameof(req.RefreshToken), req.RefreshToken);
+		}
 
-		RefreshToken rt = user.RefreshTokens.FirstOrDefault(rt => rt.Value == req.RefreshToken)
-			?? throw CustomAuthorizationException<User>.Custom("Refresh Token not found in User's Refresh Tokens."); ;
-
-		user.RemoveRefreshToken(rt);
-		await manager.UpdateAsync(user.Id, user).ConfigureAwait(false);
+		User.RemoveRefreshToken(Token);
+		await writes.UpdateRefreshTokensAsync(
+			id: User.Id,
+			refreshTokens: [.. User.RefreshTokens]
+		).ConfigureAwait(false);
 	}
 }

@@ -11,11 +11,12 @@ public class EditCustomizationHandler(ICustomizationReads reads, IUnitOfWork uow
 		Customization customization = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
 			?? throw CustomNotFoundException<Customization>.ById(req.Id);
 
-		customization.SetScale(req.Scale);
-		customization.SetInfill(req.Infill);
-		customization.SetVolume(req.Volume);
-		customization.SetColor(req.Color);
-		customization.SetMaterialId(req.MaterialId);
+		customization
+			.SetScale(req.Scale)
+			.SetInfill(req.Infill)
+			.SetVolume(req.Volume)
+			.SetColor(req.Color)
+			.SetMaterialId(req.MaterialId);
 
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 	}
