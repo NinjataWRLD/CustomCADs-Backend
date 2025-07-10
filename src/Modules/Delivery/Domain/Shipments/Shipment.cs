@@ -27,7 +27,8 @@ public class Shipment : BaseAggregateRoot
 		AccountId buyerId
 	) => new Shipment(address, referenceId, buyerId)
 		.ValidateCountry()
-		.ValidateCity();
+		.ValidateCity()
+		.ValidateStreet();
 
 	public static Shipment CreateWithId(
 		ShipmentId id,
@@ -39,5 +40,6 @@ public class Shipment : BaseAggregateRoot
 		Id = id
 	}
 	.ValidateCountry()
-	.ValidateCity();
+	.ValidateCity()
+	.ValidateStreet();
 }

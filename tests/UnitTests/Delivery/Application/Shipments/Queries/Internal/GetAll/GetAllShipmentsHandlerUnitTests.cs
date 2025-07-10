@@ -1,7 +1,9 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetAll;
 using CustomCADs.Delivery.Domain.Repositories.Reads;
+using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
@@ -19,11 +21,12 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 	{
 		[ValidBuyerId] = "NinjataBG"
 	};
+	private static readonly Address address = new(ValidCountry, ValidCity, ValidStreet);
 	private static readonly Shipment[] shipments = [
-		Shipment.Create(new(ValidCountry, ValidCity), ValidReferenceId, ValidBuyerId),
-		Shipment.Create(new(ValidCountry, ValidCity), ValidReferenceId, ValidBuyerId),
-		Shipment.Create(new(ValidCountry, ValidCity), ValidReferenceId, ValidBuyerId),
-		Shipment.Create(new(ValidCountry, ValidCity), ValidReferenceId, ValidBuyerId),
+		Shipment.Create(address, ValidReferenceId, ValidBuyerId),
+		Shipment.Create(address, ValidReferenceId, ValidBuyerId),
+		Shipment.Create(address, ValidReferenceId, ValidBuyerId),
+		Shipment.Create(address, ValidReferenceId, ValidBuyerId),
 	];
 	private readonly ShipmentQuery shipmentQuery = new(new(), null, null);
 

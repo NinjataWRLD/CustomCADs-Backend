@@ -10,13 +10,13 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
 	[Fact]
 	public void Create_ShouldNotThrowExcepion_WhenShipmentIsValid()
 	{
-		Shipment.Create(new(ValidCountry, ValidCity), ValidReferenceId, ValidBuyerId);
+		Shipment.Create(new(ValidCountry, ValidCity, ValidStreet), ValidReferenceId, ValidBuyerId);
 	}
 
 	[Fact]
 	public void Create_ShouldPopulateProperties_WhenShipmentIsValid()
 	{
-		Address address = new(ValidCountry, ValidCity);
+		Address address = new(ValidCountry, ValidCity, ValidStreet);
 		var shipment = Shipment.Create(address, ValidReferenceId, ValidBuyerId);
 
 		Assert.Multiple(
@@ -31,7 +31,7 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
 	public void Create_ShouldThrowException_WhenCountryIsInvalid()
 	{
 		Assert.Throws<CustomValidationException<Shipment>>(
-			() => CreateShipment(InvalidCountry, ValidCity, ValidReferenceId, ValidBuyerId)
+			() => CreateShipment(InvalidCountry, ValidCity, ValidStreet, ValidReferenceId, ValidBuyerId)
 		);
 	}
 
@@ -39,7 +39,15 @@ public class ShipmentCreateUnitTests : ShipmentsBaseUnitTests
 	public void Create_ShouldThrowException_WhenCityIsInvalid()
 	{
 		Assert.Throws<CustomValidationException<Shipment>>(
-			() => CreateShipment(ValidCountry, InvalidCity, ValidReferenceId, ValidBuyerId)
+			() => CreateShipment(ValidCountry, InvalidCity, ValidStreet, ValidReferenceId, ValidBuyerId)
+		);
+	}
+
+	[Fact]
+	public void Create_ShouldThrowException_WhenStreetIsInvalid()
+	{
+		Assert.Throws<CustomValidationException<Shipment>>(
+			() => CreateShipment(ValidCountry, ValidCity, InvalidStreet, ValidReferenceId, ValidBuyerId)
 		);
 	}
 }

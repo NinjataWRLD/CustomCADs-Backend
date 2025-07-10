@@ -9,8 +9,8 @@ public class ShipmentsBaseUnitTests
 {
 	protected static readonly CancellationToken ct = CancellationToken.None;
 
-	protected static Shipment CreateShipment(string country = ValidCountry, string city = ValidCity, string referenceId = ValidReferenceId, AccountId? buyerId = null)
-		=> Shipment.Create(new(country, city), referenceId, buyerId ?? ValidBuyerId);
+	protected static Shipment CreateShipment(string country = ValidCountry, string city = ValidCity, string street = ValidStreet, string referenceId = ValidReferenceId, AccountId? buyerId = null)
+		=> Shipment.Create(new(country, city, street), referenceId, buyerId ?? ValidBuyerId);
 
 	protected static ShipmentStatusDto[] CreateShipmentStatusDtos(int count = 4, string message = "Message")
 		=> [..

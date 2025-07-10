@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetAll;
+using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Core.Common.Dtos;
 
@@ -20,5 +21,12 @@ public static class Mapper
 			PickupDate: calculation.PickupDate,
 			DeliveryDeadline: calculation.DeliveryDeadline,
 			Service: calculation.Service
+		);
+
+	public static Address ToValueObject(this AddressDto address)
+		=> new(
+			country: address.Country,
+			city: address.City,
+			street: address.Street
 		);
 }
