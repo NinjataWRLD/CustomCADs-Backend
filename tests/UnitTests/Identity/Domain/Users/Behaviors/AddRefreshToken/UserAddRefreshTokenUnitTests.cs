@@ -1,10 +1,8 @@
-﻿using CustomCADs.Identity.Domain.Users;
-using CustomCADs.Identity.Domain.Users.Entities;
+﻿using CustomCADs.Identity.Domain.Users.Entities;
 using CustomCADs.Shared.Core;
 
 namespace CustomCADs.UnitTests.Identity.Domain.Users.Behaviors.AddRefreshToken;
 
-using static UsersData;
 using static Constants;
 
 public class UserAddRefreshTokenUnitTests : UsersBaseUnitTests

@@ -1,5 +1,3 @@
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-
 namespace CustomCADs.UnitTests.Identity.Domain.Users.Create.Data;
 
 using static UsersData;

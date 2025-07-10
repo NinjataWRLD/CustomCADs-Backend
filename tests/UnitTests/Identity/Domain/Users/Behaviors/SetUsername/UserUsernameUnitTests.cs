@@ -1,5 +1,4 @@
-﻿using CustomCADs.Identity.Domain.Users;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Identity.Domain.Users.Behaviors.SetUsername;
 

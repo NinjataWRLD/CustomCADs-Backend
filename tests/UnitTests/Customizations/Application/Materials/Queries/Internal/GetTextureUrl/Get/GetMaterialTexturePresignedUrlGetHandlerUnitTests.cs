@@ -1,4 +1,3 @@
-using CustomCADs.Customizations.Application.Materials.Caching;
 using CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Get;
 using CustomCADs.Customizations.Domain.Materials;
 using CustomCADs.Customizations.Domain.Repositories.Reads;

@@ -6,8 +6,6 @@ using CustomCADs.Shared.Abstractions.Cache;
 
 namespace CustomCADs.UnitTests.Customizations.Application.Materials.Queries.GetAll;
 
-using static MaterialsData;
-
 public class GetAllMaterialHandlerUnitTests : MaterialsBaseUnitTests
 {
 	private readonly GetAllMaterialsHandler handler;

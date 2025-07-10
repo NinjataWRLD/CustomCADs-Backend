@@ -5,8 +5,6 @@ using CustomCADs.Shared.Abstractions.Tokens;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Extensions;
 
-using static UsersData;
-
 public class UserTokenExtensionsUnitTests : UsersBaseUnitTests
 {
 	private readonly Mock<IUserWrites> writes = new();

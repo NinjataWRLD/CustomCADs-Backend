@@ -1,10 +1,6 @@
-﻿using CustomCADs.Identity.Domain.Users;
-using CustomCADs.Identity.Domain.Users.Entities;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿using CustomCADs.Identity.Domain.Users.Entities;
 
 namespace CustomCADs.UnitTests.Identity.Domain.Users.Behaviors.RemoveRefreshToken;
-
-using static UsersData;
 
 public class UserRemoveRefreshTokenUnitTests : UsersBaseUnitTests
 {

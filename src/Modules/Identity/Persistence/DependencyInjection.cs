@@ -9,8 +9,8 @@ using Npgsql;
 namespace Microsoft.Extensions.DependencyInjection;
 
 using AppRoleWrites = CustomCADs.Identity.Persistence.Repositories.Roles.Writes;
-using AppUserWrites = CustomCADs.Identity.Persistence.Repositories.Users.Writes;
 using AppUserReads = CustomCADs.Identity.Persistence.Repositories.Users.Reads;
+using AppUserWrites = CustomCADs.Identity.Persistence.Repositories.Users.Writes;
 
 public static class DependencyInjection
 {
