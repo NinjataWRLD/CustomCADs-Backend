@@ -379,3 +379,6 @@ FodyWeavers.xsd
 *.pem
 *.pub
 .vscode
+
+# LoC counter
+.VSCodeCounter/*
