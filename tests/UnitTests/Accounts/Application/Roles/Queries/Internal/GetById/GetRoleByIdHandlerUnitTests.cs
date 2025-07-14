@@ -36,6 +36,6 @@ public class GetRoleByIdHandlerUnitTests : RolesBaseUnitTests
 		cache.Verify(x => x.GetOrCreateAsync(
 			ValidId,
 			It.IsAny<Func<Task<Role>>>()
-		), Times.Once);
+		), Times.Once());
 	}
 }

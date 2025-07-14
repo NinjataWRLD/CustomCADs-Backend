@@ -62,7 +62,7 @@ public class CreatorGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 			It.IsAny<ProductQuery>(),
 			false,
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -84,7 +84,7 @@ public class CreatorGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCategoryNamesByIdsQuery>(x => x.Ids == products.Select(x => x.CategoryId)),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

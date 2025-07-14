@@ -87,15 +87,15 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetProductCadIdsByIdsQuery>(x => x.Ids == productIds),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendCommandAsync(
 			It.Is<DuplicateCadsByIdsCommand>(x => x.Ids == cadIds),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -114,7 +114,7 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<UserPurchasedProductApplicationEvent>(x => x.Ids == productIds)
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

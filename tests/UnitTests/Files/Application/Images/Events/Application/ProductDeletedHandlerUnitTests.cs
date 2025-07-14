@@ -37,7 +37,7 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once());
 	}
 
 	[Fact]
@@ -54,8 +54,8 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		writes.Verify(x => x.Remove(image), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		writes.Verify(x => x.Remove(image), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -72,7 +72,7 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		storage.Verify(x => x.DeleteFileAsync(image.Key, ct), Times.Once);
+		storage.Verify(x => x.DeleteFileAsync(image.Key, ct), Times.Once());
 	}
 
 	[Fact]

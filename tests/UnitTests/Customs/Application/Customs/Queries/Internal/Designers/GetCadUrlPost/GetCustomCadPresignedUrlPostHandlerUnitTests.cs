@@ -52,7 +52,7 @@ public class GetCustomCadPresignedUrlPostHandlerUnitTests : CustomsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCadPresignedUrlPostByIdQuery>(x => x.Name == Name && x.File == req),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

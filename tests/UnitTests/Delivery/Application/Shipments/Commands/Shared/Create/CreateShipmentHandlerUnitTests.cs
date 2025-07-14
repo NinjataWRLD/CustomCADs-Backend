@@ -55,8 +55,8 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		writes.Verify(x => x.AddAsync(
 			It.Is<Shipment>(x => x.Address.Country == ValidCountry && x.Address.City == ValidCity),
 			ct
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -78,7 +78,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -110,7 +110,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 				&& x.TotalWeight == MaxValidWeight
 			),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

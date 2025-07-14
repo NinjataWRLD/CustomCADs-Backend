@@ -39,7 +39,7 @@ public class GetCadPresignedUrlPutByIdHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -55,7 +55,7 @@ public class GetCadPresignedUrlPutByIdHandlerUnitTests : CadsBaseUnitTests
 		storage.Verify(x => x.GetPresignedPutUrlAsync(
 			GeneratedKey,
 			req
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

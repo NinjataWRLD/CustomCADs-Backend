@@ -48,8 +48,8 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 				x.BuyerId == ValidBuyerId
 			),
 			ct
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -70,8 +70,8 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
 			ct
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]

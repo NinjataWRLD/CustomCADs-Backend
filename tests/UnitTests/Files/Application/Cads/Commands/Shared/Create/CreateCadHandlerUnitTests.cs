@@ -34,7 +34,7 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 		writes.Verify(x => x.AddAsync(
 			It.Is<Cad>(x => x.Key == ValidKey && x.ContentType == ValidContentType),
 			ct
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 }

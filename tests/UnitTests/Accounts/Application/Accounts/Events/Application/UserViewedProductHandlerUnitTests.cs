@@ -31,7 +31,7 @@ public class UserViewedProductHandlerUnitTests : AccountsBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		writes.Verify(x => x.ViewProductAsync(id, productId, ct), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		writes.Verify(x => x.ViewProductAsync(id, productId, ct), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 }

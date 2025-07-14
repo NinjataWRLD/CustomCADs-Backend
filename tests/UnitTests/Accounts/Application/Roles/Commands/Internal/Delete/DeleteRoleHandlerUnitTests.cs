@@ -42,7 +42,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 		cache.Verify(x => x.GetOrCreateAsync(
 			ValidId,
 			It.IsAny<Func<Task<Role>>>()
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -57,8 +57,8 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 		// Assert
 		writes.Verify(x => x.Remove(
 			It.Is<Role>(x => x.Id == ValidId)
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -73,6 +73,6 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<RoleDeletedApplicationEvent>(x => x.Name == ValidName)
-		), Times.Once);
+		), Times.Once());
 	}
 }

@@ -44,7 +44,7 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 				&& x.LastName == ValidLastName
 			),
 			ct
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 }

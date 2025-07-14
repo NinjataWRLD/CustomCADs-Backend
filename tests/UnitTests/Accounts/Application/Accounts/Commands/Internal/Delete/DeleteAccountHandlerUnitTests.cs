@@ -36,7 +36,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
@@ -49,8 +49,8 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.Remove(It.Is<Account>(x => x.Id == ValidId)), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		writes.Verify(x => x.Remove(It.Is<Account>(x => x.Id == ValidId)), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -65,7 +65,7 @@ public class DeleteAccountHandlerUnitTests : AccountsBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<AccountDeletedApplicationEvent>(x => x.Username == ValidUsername)
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

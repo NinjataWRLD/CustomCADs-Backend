@@ -38,7 +38,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleAsync(newBuyerId, ValidProductId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleAsync(newBuyerId, ValidProductId, false, ct), Times.Once());
 	}
 
 	[Fact]

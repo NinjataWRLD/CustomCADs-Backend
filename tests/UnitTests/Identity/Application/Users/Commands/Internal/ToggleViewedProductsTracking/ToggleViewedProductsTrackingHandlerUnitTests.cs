@@ -41,7 +41,7 @@ public class ToggleViewedProductsTrackingHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.GetByUsernameAsync(MaxValidUsername), Times.Once);
+		reads.Verify(x => x.GetByUsernameAsync(MaxValidUsername), Times.Once());
 	}
 
 	[Fact]
@@ -57,7 +57,7 @@ public class ToggleViewedProductsTrackingHandlerUnitTests : UsersBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountInfoByUsernameQuery>(x => x.Username == MaxValidUsername),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -75,7 +75,7 @@ public class ToggleViewedProductsTrackingHandlerUnitTests : UsersBaseUnitTests
 				x.TrackViewedProducts == !InitialTrackViewedProducts
 				&& x.Id == ValidAccountId
 			)
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

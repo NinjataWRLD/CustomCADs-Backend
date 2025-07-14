@@ -93,7 +93,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 				x.CadId == cadId
 			),
 			ct
-		), Times.Once);
+		), Times.Once());
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Exactly(2));
 	}
 
@@ -121,23 +121,23 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCategoryExistsByIdQuery>(x => x.Id == categoryId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == creatorId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendCommandAsync(
 			It.IsAny<CreateCadCommand>(),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendCommandAsync(
 			It.IsAny<CreateImageCommand>(),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUserRoleByIdQuery>(x => x.Id == creatorId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -169,7 +169,7 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		writes.Verify(x => x.AddAsync(
 			It.Is<Product>(x => x.Status == ProductStatus.Validated),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

@@ -38,7 +38,7 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once);
+		reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -54,6 +54,6 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 }

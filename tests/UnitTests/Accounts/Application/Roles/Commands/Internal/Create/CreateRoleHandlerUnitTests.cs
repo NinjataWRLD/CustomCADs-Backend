@@ -38,8 +38,8 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 		writes.Verify(x => x.AddAsync(
 			It.Is<Role>(x => x.Name == role.Name && x.Description == role.Description),
 			ct
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -55,7 +55,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 		cache.Verify(x => x.UpdateAsync(
 			It.IsAny<RoleId>(),
 			It.Is<Role>(x => x.Name == role.Name && x.Description == role.Description)
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -70,6 +70,6 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<RoleCreatedApplicationEvent>(x => x.Name == role.Name && x.Description == role.Description)
-		), Times.Once);
+		), Times.Once());
 	}
 }

@@ -48,7 +48,7 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once);
+		reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -64,10 +64,10 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
 		sender.Verify(x => x.SendQueryAsync(
 			It.IsAny<GetCustomizationsWeightByIdsQuery>(),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<CalculateShipmentQuery>(x => x.Address == address),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 }

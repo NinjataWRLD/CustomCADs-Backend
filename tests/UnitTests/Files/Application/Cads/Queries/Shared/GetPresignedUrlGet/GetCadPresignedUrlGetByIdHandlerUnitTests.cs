@@ -36,7 +36,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -52,7 +52,7 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 		storage.Verify(x => x.GetPresignedGetUrlAsync(
 			cad.Key,
 			cad.ContentType
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

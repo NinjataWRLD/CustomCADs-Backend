@@ -45,7 +45,7 @@ public class CalculateCustomShipmentHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -61,10 +61,10 @@ public class CalculateCustomShipmentHandlerUnitTests : CustomsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCustomizationWeightByIdQuery>(x => x.Id == ValidCustomizationId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<CalculateShipmentQuery>(x => x.Address == address),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 }

@@ -33,7 +33,7 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(v => v.AllAsync(false, ct), Times.Once);
+		reads.Verify(v => v.AllAsync(false, ct), Times.Once());
 	}
 
 	[Fact]

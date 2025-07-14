@@ -37,7 +37,7 @@ public class DeleteCustomHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once());
 	}
 
 	[Fact]
@@ -55,7 +55,7 @@ public class DeleteCustomHandlerUnitTests : CustomsBaseUnitTests
 		// Assert
 		writes.Verify(x => x.Remove(
 			It.Is<Custom>(x => x.Id == id)
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 }

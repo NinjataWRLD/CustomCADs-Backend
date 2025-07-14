@@ -37,7 +37,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -50,7 +50,7 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		delivery.Verify(x => x.PrintAsync(ValidReferenceId, ct), Times.Once);
+		delivery.Verify(x => x.PrintAsync(ValidReferenceId, ct), Times.Once());
 	}
 
 	[Fact]

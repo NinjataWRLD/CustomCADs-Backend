@@ -25,7 +25,7 @@ public class GetCadExistsByIdHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.ExistsByIdAsync(id, ct), Times.Once);
+		reads.Verify(x => x.ExistsByIdAsync(id, ct), Times.Once());
 	}
 
 	[Fact]

@@ -30,6 +30,6 @@ public class ProductDeletedIntegrationEventHandlerUnitTests : ActiveCartsBaseUni
 		await handler.Handle(ie);
 
 		// Assert
-		uow.Verify(x => x.BulkDeleteItemsByProductIdAsync(ValidProductId, ct), Times.Once);
+		uow.Verify(x => x.BulkDeleteItemsByProductIdAsync(ValidProductId, ct), Times.Once());
 	}
 }

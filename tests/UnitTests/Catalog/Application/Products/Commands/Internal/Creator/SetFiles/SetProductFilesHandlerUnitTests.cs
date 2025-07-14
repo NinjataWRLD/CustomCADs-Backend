@@ -40,7 +40,7 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -65,22 +65,22 @@ public class SetProductFilesHandlerUnitTests : ProductsBaseUnitTests
 			() => sender.Verify(x => x.SendCommandAsync(
 				It.Is<SetCadKeyCommand>(x => x.Key == cad.Key),
 				ct
-			), Times.Once),
+			), Times.Once()),
 
 			() => sender.Verify(x => x.SendCommandAsync(
 				It.Is<SetCadContentTypeCommand>(x => x.ContentType == cad.ContentType),
 				ct
-			), Times.Once),
+			), Times.Once()),
 
 			() => sender.Verify(x => x.SendCommandAsync(
 				It.Is<SetImageKeyCommand>(x => x.Key == image.Key),
 				ct
-			), Times.Once),
+			), Times.Once()),
 
 			() => sender.Verify(x => x.SendCommandAsync(
 				It.Is<SetImageContentTypeCommand>(x => x.ContentType == image.ContentType),
 				ct
-			), Times.Once)
+			), Times.Once())
 		);
 	}
 

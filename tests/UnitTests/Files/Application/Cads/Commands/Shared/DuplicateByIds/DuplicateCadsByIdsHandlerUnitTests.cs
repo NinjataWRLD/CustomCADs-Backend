@@ -42,7 +42,7 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.AllAsync(query, false, ct), Times.Once);
+		reads.Verify(x => x.AllAsync(query, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -59,7 +59,7 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 			It.Is<Cad>(x => cads.Any(c => x.Key == c.Key)),
 			ct
 		), Times.Exactly(cads.Length));
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]

@@ -30,7 +30,7 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once());
 	}
 
 	[Fact]

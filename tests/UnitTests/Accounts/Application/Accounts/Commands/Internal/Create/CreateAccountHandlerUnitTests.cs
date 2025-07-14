@@ -48,8 +48,8 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 				&& x.LastName == ValidLastName
 			),
 			ct
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -76,6 +76,6 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 				&& x.Email == ValidEmail1
 				&& x.Password == ValidPassword
 			)
-		), Times.Once);
+		), Times.Once());
 	}
 }

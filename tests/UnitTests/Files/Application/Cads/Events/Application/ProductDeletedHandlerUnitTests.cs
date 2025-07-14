@@ -37,7 +37,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once());
 	}
 
 	[Fact]
@@ -54,8 +54,8 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		writes.Verify(x => x.Remove(cad), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		writes.Verify(x => x.Remove(cad), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -72,7 +72,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		storage.Verify(x => x.DeleteFileAsync(cad.Key, ct), Times.Once);
+		storage.Verify(x => x.DeleteFileAsync(cad.Key, ct), Times.Once());
 	}
 
 	[Fact]

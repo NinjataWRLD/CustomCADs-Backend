@@ -43,7 +43,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
@@ -56,7 +56,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -72,7 +72,7 @@ public class SetProductStatusHandlerUnitTests : ProductsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidDesignerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

@@ -31,7 +31,7 @@ public class GetAccountInfoByUsernameHandlerUnitTests : AccountsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByUsernameAsync(ValidUsername, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByUsernameAsync(ValidUsername, false, ct), Times.Once());
 	}
 
 	[Fact]

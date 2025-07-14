@@ -32,7 +32,7 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -45,6 +45,6 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		delivery.Verify(x => x.CancelAsync(ValidReferenceId, Comment, ct), Times.Once);
+		delivery.Verify(x => x.CancelAsync(ValidReferenceId, Comment, ct), Times.Once());
 	}
 }
