@@ -7,6 +7,7 @@ public class Account : BaseAggregateRoot
 	private Account() { }
 	private Account(string role, string username, string email, string? firstName, string? lastName) : this()
 	{
+		TrackViewedProducts = true;
 		CreatedAt = DateTimeOffset.UtcNow;
 		RoleName = role;
 		Username = username;
@@ -21,6 +22,7 @@ public class Account : BaseAggregateRoot
 	public string? FirstName { get; private set; }
 	public string? LastName { get; private set; }
 	public string RoleName { get; private set; } = string.Empty;
+	public bool TrackViewedProducts { get; private set; }
 	public DateTimeOffset CreatedAt { get; private set; }
 
 	public static Account Create(
@@ -80,6 +82,12 @@ public class Account : BaseAggregateRoot
 	{
 		LastName = lastName;
 		this.ValidateLastName();
+		return this;
+	}
+
+	public Account SetTrackViewedProducts(bool track)
+	{
+		TrackViewedProducts = track;
 		return this;
 	}
 }

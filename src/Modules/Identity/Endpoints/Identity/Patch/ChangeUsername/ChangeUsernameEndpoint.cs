@@ -1,13 +1,13 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.ChangeUsername;
 
-namespace CustomCADs.Identity.Endpoints.Identity.Put.ChangeUsername;
+namespace CustomCADs.Identity.Endpoints.Identity.Patch.ChangeUsername;
 
 public sealed class ChangeUsernameEndpoint(IRequestSender sender)
 	: Endpoint<ChangeUsernameRequest>
 {
 	public override void Configure()
 	{
-		Put("username");
+		Patch("username");
 		Group<IdentityGroup>();
 		AllowAnonymous();
 		Description(d => d

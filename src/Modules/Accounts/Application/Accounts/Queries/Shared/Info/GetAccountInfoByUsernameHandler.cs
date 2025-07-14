@@ -13,6 +13,7 @@ public class GetAccountInfoByUsernameHandler(IAccountReads reads)
 
 		return new(
 			CreatedAt: account.CreatedAt,
+			TrackViewedProducts: account.TrackViewedProducts,
 			FirstName: account.FirstName,
 			LastName: account.LastName
 		);
