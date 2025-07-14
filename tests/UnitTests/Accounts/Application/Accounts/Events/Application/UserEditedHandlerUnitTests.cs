@@ -26,7 +26,11 @@ public class UserEditedHandlerUnitTests : AccountsBaseUnitTests
 	public async Task Handle_ShoulQueryDatabase()
 	{
 		// Arrange
-		UserEditedApplicationEvent ae = new(ValidId, ValidUsername, ValidEmail1);
+		UserEditedApplicationEvent ae = new(
+			Id: ValidId,
+			Username: null,
+			TrackViewedProducts: null
+		);
 
 		// Act
 		await handler.Handle(ae);
@@ -39,7 +43,11 @@ public class UserEditedHandlerUnitTests : AccountsBaseUnitTests
 	public async Task Handle_ShoulPersistToDatabase()
 	{
 		// Arrange
-		UserEditedApplicationEvent ae = new(ValidId, ValidUsername, ValidEmail1);
+		UserEditedApplicationEvent ae = new(
+			Id: ValidId,
+			Username: null,
+			TrackViewedProducts: null
+		);
 
 		// Act
 		await handler.Handle(ae);
@@ -53,7 +61,11 @@ public class UserEditedHandlerUnitTests : AccountsBaseUnitTests
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Account);
-		UserEditedApplicationEvent ae = new(ValidId, ValidUsername, ValidEmail1);
+		UserEditedApplicationEvent ae = new(
+			Id: ValidId,
+			Username: null,
+			TrackViewedProducts: null
+		);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Account>>(
