@@ -46,6 +46,7 @@ public class GetAccountInfoByUsernameHandlerUnitTests : AccountsBaseUnitTests
 		// Assert
 		Assert.Multiple(
 			() => Assert.Equal(account.CreatedAt, info.CreatedAt),
+			() => Assert.Equal(account.TrackViewedProducts, info.TrackViewedProducts),
 			() => Assert.Equal(account.FirstName, info.FirstName),
 			() => Assert.Equal(account.LastName, info.LastName)
 		);

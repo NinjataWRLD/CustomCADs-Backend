@@ -30,6 +30,7 @@ public sealed class MyAccountEndpoint(IRequestSender sender)
 			FirstName: user.FirstName,
 			LastName: user.LastName,
 			Email: user.Email.Value,
+			TrackViewedProducts: user.TrackViewedProducts,
 			CreatedAt: user.CreatedAt
 		);
 		await SendOkAsync(response).ConfigureAwait(false);

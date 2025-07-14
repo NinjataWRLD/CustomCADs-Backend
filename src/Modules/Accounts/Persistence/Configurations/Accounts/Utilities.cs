@@ -63,6 +63,10 @@ static class Utilities
 			.IsRequired()
 			.HasColumnName(nameof(Account.RoleName));
 
+		builder.Property(x => x.TrackViewedProducts)
+			.IsRequired()
+			.HasColumnName(nameof(Account.TrackViewedProducts));
+
 		builder.Property(x => x.CreatedAt)
 			.IsRequired()
 			.HasColumnName(nameof(Account.CreatedAt));
