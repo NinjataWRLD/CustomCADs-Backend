@@ -3,7 +3,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
-namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts;
+namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts;
 
 using static PurchasedCartsData;
 
