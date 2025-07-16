@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Files.Application.Cads.Commands.Shared.Create;
 using CustomCADs.Files.Domain.Repositories;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.Create;
@@ -15,6 +16,11 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 	public CreateCadHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object);
+
+		writes.Setup(x => x.AddAsync(
+			It.Is<Cad>(x => x.Key == ValidKey && x.ContentType == ValidContentType),
+			ct
+		)).ReturnsAsync(CreateCadWithId(id: ValidId));
 	}
 
 	[Fact]
@@ -36,5 +42,22 @@ public class CreateCadHandlerUnitTests : CadsBaseUnitTests
 			ct
 		), Times.Once());
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateCadCommand command = new(
+			Key: ValidKey,
+			ContentType: ValidContentType,
+			Volume: ValidVolume
+		);
+
+		// Act
+		CadId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 }

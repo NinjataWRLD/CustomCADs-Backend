@@ -30,31 +30,19 @@ public class GetCategoryExistsByIdHandlerUnitTests : CategoriesBaseUnitTests
 		reads.Verify(x => x.ExistsByIdAsync(ValidId, ct), Times.Once());
 	}
 
-	[Fact]
-	public async Task Handle_ShouldReturnResult_WhenProductExists()
+	[Theory]
+	[InlineData(false)]
+	[InlineData(true)]
+	public async Task Handle_ShouldReturnResult(bool exists)
 	{
 		// Arrange
-		reads.Setup(x => x.ExistsByIdAsync(ValidId, ct)).ReturnsAsync(true);
+		reads.Setup(x => x.ExistsByIdAsync(ValidId, ct)).ReturnsAsync(exists);
 		GetCategoryExistsByIdQuery query = new(ValidId);
 
 		// Act
-		bool exists = await handler.Handle(query, ct);
+		bool result = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.True(exists);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldReturnResult_WhenProductDoesNotExists()
-	{
-		// Arrange
-		reads.Setup(x => x.ExistsByIdAsync(ValidId, ct)).ReturnsAsync(false);
-		GetCategoryExistsByIdQuery query = new(ValidId);
-
-		// Act
-		bool exists = await handler.Handle(query, ct);
-
-		// Assert
-		Assert.False(exists);
+		Assert.Equal(exists, result);
 	}
 }

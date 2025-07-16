@@ -22,7 +22,7 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 	public SetCadCoordsHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object);
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(cad);
 	}
 
@@ -31,7 +31,7 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 	{
 		// Arrange
 		SetCadCoordsCommand command = new(
-			Id: id,
+			Id: ValidId,
 			CamCoordinates: camCoords,
 			PanCoordinates: panCoords
 		);
@@ -40,15 +40,15 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once());
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		SetCadCoordsCommand command = new(
-			Id: id,
+			Id: ValidId,
 			CamCoordinates: camCoords,
 			PanCoordinates: panCoords
 		);
@@ -61,11 +61,11 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldModifyCad_WhenCadFound()
+	public async Task Handle_ShouldModifyCad()
 	{
 		// Arrange
 		SetCadCoordsCommand command = new(
-			Id: id,
+			Id: ValidId,
 			CamCoordinates: camCoords,
 			PanCoordinates: panCoords
 		);
@@ -88,11 +88,11 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(null as Cad);
 
 		SetCadCoordsCommand command = new(
-			Id: id,
+			Id: ValidId,
 			CamCoordinates: camCoords,
 			PanCoordinates: panCoords
 		);

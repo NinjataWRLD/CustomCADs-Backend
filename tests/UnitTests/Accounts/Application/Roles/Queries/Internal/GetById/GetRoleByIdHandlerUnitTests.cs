@@ -20,7 +20,7 @@ public class GetRoleByIdHandlerUnitTests : RolesBaseUnitTests
 		cache.Setup(x => x.GetOrCreateAsync(
 			ValidId,
 			It.IsAny<Func<Task<Role>>>()
-		)).ReturnsAsync(CreateRole());
+		)).ReturnsAsync(CreateRoleWithId(id: ValidId));
 	}
 
 	[Fact]
@@ -37,5 +37,18 @@ public class GetRoleByIdHandlerUnitTests : RolesBaseUnitTests
 			ValidId,
 			It.IsAny<Func<Task<Role>>>()
 		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetRoleByIdQuery query = new(ValidId);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(ValidId, result.Id);
 	}
 }

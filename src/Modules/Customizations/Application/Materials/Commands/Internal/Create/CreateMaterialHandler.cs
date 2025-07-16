@@ -18,14 +18,15 @@ public class CreateMaterialHandler(IWrites<Material> writes, IUnitOfWork uow, Ba
 			ct
 		).ConfigureAwait(false);
 
-		var material = Material.Create(
-			name: req.Name,
-			density: req.Density,
-			cost: req.Cost,
-			textureId: textureId
-		);
-
-		await writes.AddAsync(material, ct).ConfigureAwait(false);
+		Material material = await writes.AddAsync(
+			entity: Material.Create(
+				name: req.Name,
+				density: req.Density,
+				cost: req.Cost,
+				textureId: textureId
+			),
+			ct
+		).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		await cache.UpdateAsync(material.Id, material).ConfigureAwait(false);

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+﻿using CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
@@ -30,7 +31,7 @@ public class PurchasedCartsBaseUnitTests
 			CadId productCadId = productCads[item.ProductId];
 			CadId itemCadId = itemCads[productCadId];
 
-			return (price, itemCadId, item.ProductId, item.ForDelivery, item.CustomizationId, item.Quantity, item.AddedAt);
+			return new CartItemDto(price, itemCadId, item.ProductId, item.ForDelivery, item.CustomizationId, item.Quantity, item.AddedAt);
 		})]);
 
 		return purchasedCart;

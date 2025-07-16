@@ -102,7 +102,7 @@ public class DesignerGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperCount()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		DesignerGetAllProductsQuery query = new(

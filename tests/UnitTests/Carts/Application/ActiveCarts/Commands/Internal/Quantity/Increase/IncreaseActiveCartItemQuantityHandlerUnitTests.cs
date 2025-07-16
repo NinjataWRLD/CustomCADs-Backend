@@ -14,12 +14,17 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 	private readonly Mock<IActiveCartReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 
+	private int oldQuantity;
+
 	public IncreaseActiveCartItemQuantityHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object);
 
+		ActiveCartItem item = CreateItemWithDelivery(productId: ValidProductId);
+		oldQuantity = item.Quantity;
+
 		reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
-			.ReturnsAsync(CreateItemWithDelivery(productId: ValidProductId));
+			.ReturnsAsync(item);
 	}
 
 	[Fact]
@@ -54,6 +59,23 @@ public class IncreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 
 		// Assert
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		IncreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId,
+			Amount: MinValidQuantity
+		);
+
+		// Act
+		int result = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(oldQuantity + command.Amount, result);
 	}
 
 	[Fact]

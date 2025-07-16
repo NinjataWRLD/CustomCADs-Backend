@@ -48,7 +48,7 @@ public class GetUserEmailByIdHandlerUnitTests : AccountsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExist()
+	public async Task Handle_ShouldThrowException_WhenAccountNotFound()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Account);

@@ -11,7 +11,7 @@ namespace CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.Crea
 
 using static Constants;
 
-public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWork uow, IRequestSender sender)
+public sealed class CreateProductHandler(IProductWrites writes, IUnitOfWork uow, IRequestSender sender)
 	: ICommandHandler<CreateProductCommand, ProductId>
 {
 	public async Task<ProductId> Handle(CreateProductCommand req, CancellationToken ct)
@@ -43,17 +43,18 @@ public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWo
 			ct
 		).ConfigureAwait(false);
 
-		var product = Product.Create(
-			name: req.Name,
-			description: req.Description,
-			price: req.Price,
-			categoryId: req.CategoryId,
-			creatorId: req.CreatorId,
-			imageId: imageId,
-			cadId: cadId
-		);
-
-		await productWrites.AddAsync(product, ct).ConfigureAwait(false);
+		Product product = await writes.AddAsync(
+			product: Product.Create(
+				name: req.Name,
+				description: req.Description,
+				price: req.Price,
+				categoryId: req.CategoryId,
+				creatorId: req.CreatorId,
+				imageId: imageId,
+				cadId: cadId
+			),
+			ct
+		).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		string role = await sender.SendQueryAsync(
@@ -64,15 +65,15 @@ public sealed class CreateProductHandler(IProductWrites productWrites, IUnitOfWo
 		if (role is Roles.Designer)
 		{
 			product.SetValidatedStatus();
-			await productWrites.AddTagAsync(product.Id, Tags.ProfessionalId, ct).ConfigureAwait(false);
+			await writes.AddTagAsync(product.Id, Tags.ProfessionalId, ct).ConfigureAwait(false);
 		}
 
-		if (req.CadContentType == "model/stl")
+		if (Cads.PrintableContentTypes.Contains(req.CadContentType))
 		{
-			await productWrites.AddTagAsync(product.Id, Tags.PrintableId, ct).ConfigureAwait(false);
+			await writes.AddTagAsync(product.Id, Tags.PrintableId, ct).ConfigureAwait(false);
 		}
 
-		await productWrites.AddTagAsync(product.Id, Tags.NewId, ct).ConfigureAwait(false);
+		await writes.AddTagAsync(product.Id, Tags.NewId, ct).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		return product.Id;

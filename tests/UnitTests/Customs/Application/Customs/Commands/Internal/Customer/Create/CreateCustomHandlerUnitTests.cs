@@ -19,6 +19,16 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 	{
 		handler = new(writes.Object, uow.Object, sender.Object);
 
+		writes.Setup(x => x.AddAsync(
+			It.Is<Custom>(x =>
+				x.Name == MaxValidName &&
+				x.Description == MaxValidDescription &&
+				x.ForDelivery &&
+				x.BuyerId == ValidBuyerId
+			),
+			ct
+		)).ReturnsAsync(CreateCustomWithId(id: ValidId));
+
 		sender.Setup(x => x.SendQueryAsync(
 			It.IsAny<GetAccountExistsByIdQuery>(),
 			ct
@@ -72,6 +82,24 @@ public class CreateCustomHandlerUnitTests : CustomsBaseUnitTests
 			ct
 		), Times.Once());
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateCustomCommand command = new(
+			Name: MaxValidName,
+			Description: MaxValidDescription,
+			ForDelivery: true,
+			BuyerId: ValidBuyerId
+		);
+
+		// Act
+		CustomId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 
 	[Fact]

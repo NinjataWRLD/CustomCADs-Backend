@@ -88,7 +88,7 @@ public class CreatorGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperCount()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		CreatorGetAllProductsQuery query = new(

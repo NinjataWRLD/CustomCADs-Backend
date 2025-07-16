@@ -53,7 +53,7 @@ public class GetAccountInfoByUsernameHandlerUnitTests : AccountsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExist()
+	public async Task Handle_ShouldThrowException_WhenAccountNotFound()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByUsernameAsync(ValidUsername, false, ct)).ReturnsAsync(null as Account);

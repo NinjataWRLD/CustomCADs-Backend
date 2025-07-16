@@ -7,6 +7,8 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.DuplicateByIds;
 
+using static CadsData;
+
 public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 {
 	private readonly DuplicateCadsByIdsHandler handler;
@@ -15,9 +17,9 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 	private readonly Mock<IUnitOfWork> uow = new();
 
 	private readonly Cad[] cads = [
-		CreateCadWithId(id),
+		CreateCadWithId(ValidId),
 	];
-	private readonly CadId[] ids = [id];
+	private readonly CadId[] ids = [ValidId];
 	private readonly CadQuery query;
 	private readonly Result<Cad> result;
 
@@ -63,7 +65,7 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnKeysResult()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		DuplicateCadsByIdsCommand command = new(ids);
@@ -72,8 +74,6 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 		var result = await handler.Handle(command, ct);
 
 		// Assert
-		var actual = result.Select(x => x.Key);
-		var expected = cads.Select(x => x.Id);
-		Assert.Equal(expected, actual);
+		Assert.Equal(cads.Select(x => x.Id), result.Select(x => x.Key));
 	}
 }

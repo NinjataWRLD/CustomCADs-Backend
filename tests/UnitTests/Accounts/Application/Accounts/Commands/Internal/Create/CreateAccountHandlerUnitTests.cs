@@ -20,6 +20,17 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 	public CreateAccountHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object, raiser.Object);
+
+		writes.Setup(x => x.AddAsync(
+			It.Is<Account>(x =>
+				x.RoleName == Roles.Customer
+				&& x.Username == ValidUsername
+				&& x.Email == ValidEmail1
+				&& x.FirstName == ValidFirstName
+				&& x.LastName == ValidLastName
+			),
+			ct
+		)).ReturnsAsync(CreateAccountWithId(id: ValidId));
 	}
 
 	[Fact]
@@ -66,16 +77,36 @@ public class CreateAccountHandlerUnitTests : AccountsBaseUnitTests
 		);
 
 		// Act
-		AccountId id = await handler.Handle(command, CancellationToken.None);
+		await handler.Handle(command, CancellationToken.None);
 
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<AccountCreatedApplicationEvent>(x =>
-				x.Id == id
+				x.Id == ValidId
 				&& x.Username == ValidUsername
 				&& x.Email == ValidEmail1
 				&& x.Password == ValidPassword
 			)
 		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateAccountCommand command = new(
+			Role: Roles.Customer,
+			Username: ValidUsername,
+			Email: ValidEmail1,
+			Password: ValidPassword,
+			FirstName: ValidFirstName,
+			LastName: ValidLastName
+		);
+
+		// Act
+		AccountId id = await handler.Handle(command, CancellationToken.None);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 }

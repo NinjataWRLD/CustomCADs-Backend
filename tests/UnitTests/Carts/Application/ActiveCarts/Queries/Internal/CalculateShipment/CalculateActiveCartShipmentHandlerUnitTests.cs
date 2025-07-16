@@ -16,6 +16,9 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
 	private readonly Mock<IRequestSender> sender = new();
 
 	private static readonly AddressDto address = new("Bulgaria", "Burgas", "Slivnitsa");
+	private static readonly CalculateShipmentDto[] calculations = [
+		new(default, string.Empty, string.Empty, default, default)
+	];
 
 	public CalculateActiveCartShipmentHandlerUnitTests()
 	{
@@ -35,7 +38,7 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
 		sender.Setup(x => x.SendQueryAsync(
 			It.IsAny<CalculateShipmentQuery>(),
 			ct
-		)).ReturnsAsync([]);
+		)).ReturnsAsync(calculations);
 	}
 
 	[Fact]
@@ -69,5 +72,18 @@ public class CalculateActiveCartShipmentHandlerUnitTests : ActiveCartsBaseUnitTe
 			It.Is<CalculateShipmentQuery>(x => x.Address == address),
 			ct
 		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CalculateActiveCartShipmentQuery query = new(ValidBuyerId, address);
+
+		// Act
+		CalculateShipmentDto[] result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(calculations, result);
 	}
 }

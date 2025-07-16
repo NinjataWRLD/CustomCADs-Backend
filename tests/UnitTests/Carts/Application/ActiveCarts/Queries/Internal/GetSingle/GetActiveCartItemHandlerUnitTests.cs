@@ -22,10 +22,7 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 		handler = new(reads.Object, sender.Object);
 
 		reads.Setup(x => x.SingleAsync(newBuyerId, ValidProductId, false, ct))
-			.ReturnsAsync(CreateItemWithDelivery(ValidBuyerId, ValidProductId));
-
-		reads.Setup(x => x.SingleAsync(newBuyerId, ValidProductId, false, ct))
-			.ReturnsAsync(CreateItem(ValidBuyerId, ValidProductId));
+			.ReturnsAsync(CreateItem());
 	}
 
 	[Fact]
@@ -39,6 +36,19 @@ public class GetActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 
 		// Assert
 		reads.Verify(x => x.SingleAsync(newBuyerId, ValidProductId, false, ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetActiveCartItemQuery query = new(newBuyerId, ValidProductId);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(ValidProductId, result.ProductId);
 	}
 
 	[Fact]

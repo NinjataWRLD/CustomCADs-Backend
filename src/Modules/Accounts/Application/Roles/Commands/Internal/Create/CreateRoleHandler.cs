@@ -10,8 +10,10 @@ public sealed class CreateRoleHandler(IRoleWrites writes, IUnitOfWork uow, BaseC
 {
 	public async Task<RoleId> Handle(CreateRoleCommand req, CancellationToken ct)
 	{
-		Role role = req.Dto.ToEntity();
-		await writes.AddAsync(role, ct).ConfigureAwait(false);
+		Role role = await writes.AddAsync(
+			entity: Role.Create(req.Dto.Name, req.Dto.Description),
+			ct
+		).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		await cache.UpdateAsync(role.Id, role).ConfigureAwait(false);

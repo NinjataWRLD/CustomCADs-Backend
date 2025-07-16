@@ -36,7 +36,7 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
+	public async Task Handle_ShouldCallDelivery()
 	{
 		// Arrange
 		CancelShipmentCommand command = new(ValidId, Comment);

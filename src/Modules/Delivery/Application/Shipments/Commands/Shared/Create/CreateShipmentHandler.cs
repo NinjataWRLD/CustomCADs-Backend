@@ -32,13 +32,14 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
 			throw CustomNotFoundException<Shipment>.ById(req.BuyerId, "User");
 		}
 
-		var shipment = Shipment.Create(
-			address: req.Address.ToValueObject(),
-			referenceId: reference.Id,
-			buyerId: req.BuyerId
-		);
-
-		await writes.AddAsync(shipment, ct).ConfigureAwait(false);
+		Shipment shipment = await writes.AddAsync(
+			entity: Shipment.Create(
+				address: req.Address.ToValueObject(),
+				referenceId: reference.Id,
+				buyerId: req.BuyerId
+			),
+			ct
+		).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		return shipment.Id;

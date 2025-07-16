@@ -19,7 +19,8 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 	public SetImageContentTypeHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object);
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(image);
 	}
 
@@ -27,20 +28,20 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		SetImageContentTypeCommand command = new(id, ValidContentType);
+		SetImageContentTypeCommand command = new(ValidId, ValidContentType);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once());
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase_WhenImageFound()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
-		SetImageContentTypeCommand command = new(id, ValidContentType);
+		SetImageContentTypeCommand command = new(ValidId, ValidContentType);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -50,10 +51,10 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldModifyImage_WhenImageFound()
+	public async Task Handle_ShouldModifyImage()
 	{
 		// Arrange
-		SetImageContentTypeCommand command = new(id, ValidContentType);
+		SetImageContentTypeCommand command = new(ValidId, ValidContentType);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -66,9 +67,9 @@ public class SetImageContentTypeHandlerUnitTests : ImagesBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenImageNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(null as Image);
-		SetImageContentTypeCommand command = new(id, ValidContentType);
+		SetImageContentTypeCommand command = new(ValidId, ValidContentType);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(

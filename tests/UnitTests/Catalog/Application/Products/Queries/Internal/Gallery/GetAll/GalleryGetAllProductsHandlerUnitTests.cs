@@ -98,7 +98,7 @@ public class GalleryGetAllProductsHandlerUnitTests : ProductsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnProperCount()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GalleryGetAllProductsQuery query = new(

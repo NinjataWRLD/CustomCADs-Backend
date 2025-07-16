@@ -31,31 +31,19 @@ public class GetProductExistsByIdHandlerUnitTests : ProductsBaseUnitTests
 		reads.Verify(x => x.ExistsByIdAsync(id, ct), Times.Once());
 	}
 
-	[Fact]
-	public async Task Handle_ShouldReturnResult_WhenProductExists()
+	[Theory]
+	[InlineData(true)]
+	[InlineData(false)]
+	public async Task Handle_ShouldReturnResult(bool exists)
 	{
 		// Arrange
-		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(true);
+		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(exists);
 		GetProductExistsByIdQuery query = new(id);
 
 		// Act
-		bool exists = await handler.Handle(query, ct);
+		bool result = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.True(exists);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldReturnResult_WhenProductDoesNotExists()
-	{
-		// Arrange
-		reads.Setup(x => x.ExistsByIdAsync(id, ct)).ReturnsAsync(false);
-		GetProductExistsByIdQuery query = new(id);
-
-		// Act
-		bool exists = await handler.Handle(query, ct);
-
-		// Assert
-		Assert.False(exists);
+		Assert.Equal(exists, result);
 	}
 }

@@ -7,7 +7,6 @@ using static CadsData;
 
 public class CadsBaseUnitTests
 {
-	protected static readonly CadId id = CadId.New();
 	protected static readonly CancellationToken ct = CancellationToken.None;
 
 	protected static Cad CreateCad(string? key = null, string? contentType = null, decimal? volume = null, Coordinates? cam = null, Coordinates? pan = null)
@@ -21,7 +20,7 @@ public class CadsBaseUnitTests
 
 	protected static Cad CreateCadWithId(CadId? id = null, string? key = null, string? contentType = null, decimal? volume = null, Coordinates? cam = null, Coordinates? pan = null)
 		=> Cad.CreateWithId(
-			id: id ?? CadsBaseUnitTests.id,
+			id: id ?? ValidId,
 			key: key ?? ValidKey,
 			contentType: contentType ?? ValidContentType,
 			volume: volume ?? ValidVolume,

@@ -20,7 +20,7 @@ public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
 		handler = new(reads.Object);
 
 		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(CreateTag(ValidId));
+			.ReturnsAsync(CreateTag(id: ValidId));
 	}
 
 	[Fact]
@@ -34,6 +34,19 @@ public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
 
 		// Assert
 		reads.Verify(v => v.SingleByIdAsync(id, false, ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetTagByIdQuery query = new(id);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(ValidId, result.Id);
 	}
 
 	[Fact]

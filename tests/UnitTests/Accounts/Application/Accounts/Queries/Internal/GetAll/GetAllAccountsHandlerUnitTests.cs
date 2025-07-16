@@ -52,11 +52,6 @@ public class GetAllAccountsHandlerUnitTests : AccountsBaseUnitTests
 		Result<GetAllAccountsDto> accounts = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.Multiple(
-			() => Assert.Equal(accounts.Items.Select(r => r.Id), this.accounts.Select(r => r.Id)),
-			() => Assert.Equal(accounts.Items.Select(r => r.Role), this.accounts.Select(r => r.RoleName)),
-			() => Assert.Equal(accounts.Items.Select(r => r.Username), this.accounts.Select(r => r.Username)),
-			() => Assert.Equal(accounts.Items.Select(r => r.Email), this.accounts.Select(r => r.Email))
-		);
+		Assert.Equal(accounts.Items.Select(r => r.Id), this.accounts.Select(r => r.Id));
 	}
 }

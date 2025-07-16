@@ -7,6 +7,8 @@ using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Events.Application;
 
+using static ImagesData;
+
 public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 {
 	private readonly ProductDeletedHandler handler;
@@ -20,7 +22,7 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 	public ProductDeletedHandlerUnitTests()
 	{
 		handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct)).ReturnsAsync(image);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(image);
 	}
 
 	[Fact]
@@ -29,7 +31,7 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 		// Arrange
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			ImageId: id,
+			ImageId: ValidId,
 			CadId: default
 		);
 
@@ -37,16 +39,16 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once());
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase_WhenImageFound()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			ImageId: id,
+			ImageId: ValidId,
 			CadId: default
 		);
 
@@ -59,12 +61,12 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallStorage_WhenImageFound()
+	public async Task Handle_ShouldCallStorage()
 	{
 		// Arrange
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			ImageId: id,
+			ImageId: ValidId,
 			CadId: default
 		);
 
@@ -79,12 +81,12 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenImageNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(null as Image);
 
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			ImageId: id,
+			ImageId: ValidId,
 			CadId: default
 		);
 

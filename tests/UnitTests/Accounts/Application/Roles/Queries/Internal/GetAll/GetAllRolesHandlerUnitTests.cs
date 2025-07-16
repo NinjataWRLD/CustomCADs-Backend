@@ -44,4 +44,17 @@ public class GetAllRolesHandlerUnitTests : RolesBaseUnitTests
 			Times.Once()
 		);
 	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetAllRolesQuery query = new();
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(roles.Select(x => x.Id), result.Select(x => x.Id));
+	}
 }

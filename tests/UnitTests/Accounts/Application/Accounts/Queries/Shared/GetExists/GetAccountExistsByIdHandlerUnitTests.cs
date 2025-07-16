@@ -20,7 +20,6 @@ public class GetAccountExistsByIdHandlerUnitTests : AccountsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		reads.Setup(x => x.ExistsByIdAsync(ValidId, ct)).ReturnsAsync(true);
 		GetAccountExistsByIdQuery query = new(ValidId);
 
 		// Act
@@ -30,31 +29,19 @@ public class GetAccountExistsByIdHandlerUnitTests : AccountsBaseUnitTests
 		reads.Verify(x => x.ExistsByIdAsync(ValidId, ct), Times.Once());
 	}
 
-	[Fact]
-	public async Task Handle_ShouldReturnResult_WhenAccountExist()
+	[Theory]
+	[InlineData(true)]
+	[InlineData(false)]
+	public async Task Handle_ShouldReturnResult(bool exists)
 	{
 		// Arrange
-		reads.Setup(x => x.ExistsByIdAsync(ValidId, ct)).ReturnsAsync(true);
+		reads.Setup(x => x.ExistsByIdAsync(ValidId, ct)).ReturnsAsync(exists);
 		GetAccountExistsByIdQuery query = new(ValidId);
 
 		// Act
-		bool exists = await handler.Handle(query, ct);
+		bool result = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.True(exists);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldReturnResult_WhenAccountDoesNotExist()
-	{
-		// Arrange
-		reads.Setup(x => x.ExistsByIdAsync(ValidId, ct)).ReturnsAsync(false);
-		GetAccountExistsByIdQuery query = new(ValidId);
-
-		// Act
-		bool exists = await handler.Handle(query, ct);
-
-		// Assert
-		Assert.False(exists);
+		Assert.Equal(exists, result);
 	}
 }

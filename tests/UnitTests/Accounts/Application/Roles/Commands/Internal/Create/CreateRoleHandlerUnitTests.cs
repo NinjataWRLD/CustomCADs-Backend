@@ -23,6 +23,11 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 	public CreateRoleHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object, cache.Object, raiser.Object);
+
+		writes.Setup(x => x.AddAsync(
+			It.Is<Role>(x => x.Name == role.Name && x.Description == role.Description),
+			ct
+		)).ReturnsAsync(CreateRoleWithId(id: ValidId));
 	}
 
 	[Fact]
@@ -71,5 +76,18 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<RoleCreatedApplicationEvent>(x => x.Name == role.Name && x.Description == role.Description)
 		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateRoleCommand command = new(role);
+
+		// Act
+		RoleId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 }

@@ -14,13 +14,17 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 	private readonly Mock<IRequestSender> sender = new();
 
 	private const string Buyer = "For7a7a";
+	private static readonly ActiveCartItem[] items = [
+		CreateItem(),
+		CreateItemWithDelivery(),
+	];
 
 	public GetActiveCartHandlerUnitTests()
 	{
 		handler = new(reads.Object, sender.Object);
 
 		reads.Setup(x => x.AllAsync(ValidBuyerId, false, ct))
-			.ReturnsAsync([]);
+			.ReturnsAsync(items);
 
 		sender.Setup(x => x.SendQueryAsync(
 			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
@@ -55,5 +59,18 @@ public class GetActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
 			ct
 		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetActiveCartItemsQuery query = new(ValidBuyerId);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(items.Select(x => x.ProductId), result.Select(x => x.ProductId));
 	}
 }
