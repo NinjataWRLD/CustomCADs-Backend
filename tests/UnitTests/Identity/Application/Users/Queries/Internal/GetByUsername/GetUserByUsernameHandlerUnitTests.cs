@@ -61,6 +61,19 @@ public class GetUserByUsernameHandlerUnitTests : UsersBaseUnitTests
 	}
 
 	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetUserByUsernameQuery query = new(MaxValidUsername);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(ValidId, result.Id);
+	}
+
+	[Fact]
 	public async Task Handle_ShouldThrowException_WhenUserNotFound()
 	{
 		// Arrange

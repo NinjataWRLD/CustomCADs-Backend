@@ -5,6 +5,7 @@ using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -29,10 +30,25 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 	private readonly AccountId creatorId = ValidCreatorId;
 	private readonly ImageId imageId = ValidImageId;
 	private readonly CadId cadId = ValidCadId;
+	private readonly Product product = CreateProductWithId(id: ValidId);
 
 	public CreateProductHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object, sender.Object);
+
+		writes.Setup(x => x.AddAsync(
+			It.Is<Product>(x =>
+				x.Name == MinValidName &&
+				x.Description == MinValidDescription &&
+				x.Price == MinValidPrice &&
+				x.Status == ProductStatus.Unchecked &&
+				x.CreatorId == creatorId &&
+				x.CategoryId == categoryId &&
+				x.ImageId == imageId &&
+				x.CadId == cadId
+			),
+			ct
+		)).ReturnsAsync(product);
 
 		sender.Setup(x => x.SendCommandAsync(
 			It.IsAny<CreateCadCommand>(),
@@ -93,7 +109,12 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 				x.CadId == cadId
 			),
 			ct
-		), Times.Once);
+		), Times.Once());
+		writes.Verify(x => x.AddTagAsync(
+			ValidId,
+			Constants.Tags.NewId,
+			ct
+		));
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Exactly(2));
 	}
 
@@ -121,27 +142,27 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCategoryExistsByIdQuery>(x => x.Id == categoryId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == creatorId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendCommandAsync(
 			It.IsAny<CreateCadCommand>(),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendCommandAsync(
 			It.IsAny<CreateImageCommand>(),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUserRoleByIdQuery>(x => x.Id == creatorId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldSetStatusResult()
+	public async Task Handle_ShouldValidateStatus_WhenDesignerRole()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(
@@ -166,10 +187,93 @@ public class CreateProductHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.AddAsync(
-			It.Is<Product>(x => x.Status == ProductStatus.Validated),
+		Assert.Equal(ProductStatus.Validated, product.Status);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldTagProfessional_WhenDesignerRole()
+	{
+		// Arrange
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetUserRoleByIdQuery>(x => x.Id == creatorId),
 			ct
-		), Times.Once);
+		)).ReturnsAsync(Designer);
+
+		CreateProductCommand command = new(
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
+			ImageKey: string.Empty,
+			ImageContentType: string.Empty,
+			CadKey: string.Empty,
+			CadContentType: string.Empty,
+			CadVolume: Volume,
+			CategoryId: categoryId,
+			CreatorId: creatorId
+		);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		writes.Verify(x => x.AddTagAsync(
+			ValidId,
+			Constants.Tags.ProfessionalId,
+			ct
+		));
+	}
+
+	[Theory]
+	[InlineData(Constants.Cads.StlContentType)]
+	public async Task Handle_ShouldTagPrintable_WhenAppropriateContentType(string cadContentType)
+	{
+		// Arrange
+		CreateProductCommand command = new(
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
+			ImageKey: string.Empty,
+			ImageContentType: string.Empty,
+			CadKey: string.Empty,
+			CadContentType: cadContentType,
+			CadVolume: Volume,
+			CategoryId: categoryId,
+			CreatorId: creatorId
+		);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		writes.Verify(x => x.AddTagAsync(
+			ValidId,
+			Constants.Tags.PrintableId,
+			ct
+		));
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateProductCommand command = new(
+			Name: MinValidName,
+			Description: MinValidDescription,
+			Price: MinValidPrice,
+			ImageKey: string.Empty,
+			ImageContentType: string.Empty,
+			CadKey: string.Empty,
+			CadContentType: string.Empty,
+			CadVolume: Volume,
+			CategoryId: categoryId,
+			CreatorId: creatorId
+		);
+
+		// Act
+		ProductId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 
 	[Fact]

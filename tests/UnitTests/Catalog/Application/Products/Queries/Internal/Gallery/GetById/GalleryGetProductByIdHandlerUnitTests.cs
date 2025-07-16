@@ -48,7 +48,7 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -64,19 +64,19 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCadVolumeByIdQuery>(x => x.Id == product.CadId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUsernameByIdQuery>(x => x.Id == product.CreatorId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCategoryNameByIdQuery>(x => x.Id == product.CategoryId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCadCoordsByIdQuery>(x => x.Id == product.CadId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -91,7 +91,7 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseDomainEventAsync(
 			It.Is<ProductViewedDomainEvent>(x => x.Id == product.Id)
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -106,7 +106,7 @@ public class GalleryGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseDomainEventAsync(
 			It.Is<ProductViewedDomainEvent>(x => x.Id == product.Id)
-		), Times.Never);
+		), Times.Never());
 	}
 
 	[Fact]

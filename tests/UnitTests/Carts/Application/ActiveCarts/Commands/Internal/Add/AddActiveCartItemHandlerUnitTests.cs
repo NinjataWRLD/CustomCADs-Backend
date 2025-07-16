@@ -71,14 +71,14 @@ public class AddActiveCartItemHandlerUnitTests : ActiveCartsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetProductExistsByIdQuery>(x => x.Id == ValidProductId),
 			ct
-		), Times.Once);
+		), Times.Once());
 
 		if (customizationId is not null)
 		{
 			sender.Verify(x => x.SendQueryAsync(
 				It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == customizationId),
 				ct
-			), Times.Once);
+			), Times.Once());
 		}
 	}
 

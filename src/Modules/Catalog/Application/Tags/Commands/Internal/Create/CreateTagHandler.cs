@@ -9,9 +9,7 @@ public class CreateTagHandler(ITagWrites writes, IUnitOfWork uow)
 {
 	public async Task<TagId> Handle(CreateTagCommand req, CancellationToken ct)
 	{
-		Tag tag = Tag.Create(req.Name);
-
-		await writes.AddAsync(tag, ct).ConfigureAwait(false);
+		Tag tag = await writes.AddAsync(Tag.Create(req.Name), ct).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		return tag.Id;

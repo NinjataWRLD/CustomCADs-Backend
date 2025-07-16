@@ -31,7 +31,7 @@ public class AddProductTagHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.AddTagAsync(id, tagId, ct), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		writes.Verify(x => x.AddTagAsync(id, tagId, ct), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 }

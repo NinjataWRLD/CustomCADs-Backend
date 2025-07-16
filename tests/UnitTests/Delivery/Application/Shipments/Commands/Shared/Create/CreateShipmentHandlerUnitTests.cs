@@ -4,6 +4,7 @@ using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Commands;
 
@@ -24,6 +25,11 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 	public CreateShipmentHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
+
+		writes.Setup(x => x.AddAsync(
+			It.Is<Shipment>(x => x.Address.Country == ValidCountry && x.Address.City == ValidCity),
+			ct
+		)).ReturnsAsync(CreateShipmentWithId(id: ValidId));
 
 		delivery.Setup(x => x.ShipAsync(
 			It.IsAny<ShipRequestDto>(),
@@ -55,8 +61,8 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		writes.Verify(x => x.AddAsync(
 			It.Is<Shipment>(x => x.Address.Country == ValidCountry && x.Address.City == ValidCity),
 			ct
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -78,7 +84,7 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == ValidBuyerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -92,7 +98,6 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 			Contact: new(ValidPhone, ValidEmail),
 			BuyerId: ValidBuyerId
 		);
-
 
 		// Act
 		await handler.Handle(command, ct);
@@ -110,7 +115,26 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 				&& x.TotalWeight == MaxValidWeight
 			),
 			ct
-		), Times.Once);
+		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateShipmentCommand command = new(
+			Service: ValidService,
+			Info: new(MaxValidCount, MaxValidWeight, ValidRecipient),
+			Address: new(ValidCountry, ValidCity, ValidStreet),
+			Contact: new(ValidPhone, ValidEmail),
+			BuyerId: ValidBuyerId
+		);
+
+		// Act
+		ShipmentId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 
 	[Fact]

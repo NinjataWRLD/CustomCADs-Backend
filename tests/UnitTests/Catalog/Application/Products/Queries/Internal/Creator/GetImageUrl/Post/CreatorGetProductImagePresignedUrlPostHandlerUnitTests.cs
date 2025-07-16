@@ -40,7 +40,7 @@ public class CreatorGetProductImagePresignedUrlPostHandlerUnitTests : ProductsBa
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetImagePresignedUrlPostByIdQuery>(x => x.Name == ProductName && x.File == req),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

@@ -44,7 +44,7 @@ public class GetUsernamesByIdsHandlerUnitTests : AccountsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once);
+		reads.Verify(x => x.AllAsync(accountQuery, false, ct), Times.Once());
 	}
 
 	[Fact]

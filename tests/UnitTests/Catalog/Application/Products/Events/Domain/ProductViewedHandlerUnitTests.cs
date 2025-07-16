@@ -62,7 +62,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(de);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
@@ -75,7 +75,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(de);
 
 		// Assert
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -91,15 +91,15 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidCreatorId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountInfoByUsernameQuery>(x => x.Username == Username),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountViewedProductQuery>(x => x.Id == ValidCreatorId && x.ProductId == ValidId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -114,7 +114,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<UserViewedProductApplicationEvent>(x => x.Id == ValidId && x.AccountId == ValidCreatorId)
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -147,7 +147,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountViewedProductQuery>(x => x.Id == ValidCreatorId && x.ProductId == ValidId),
 			ct
-		), Times.Never);
+		), Times.Never());
 	}
 
 	[Fact]
@@ -166,7 +166,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<UserViewedProductApplicationEvent>(x => x.Id == ValidId && x.AccountId == ValidCreatorId)
-		), Times.Never);
+		), Times.Never());
 		Assert.Equal(0, product.Counts.Views);
 	}
 

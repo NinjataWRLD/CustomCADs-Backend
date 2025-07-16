@@ -10,9 +10,10 @@ public sealed class CreateImageHandler(IWrites<Image> writes, IUnitOfWork uow)
 {
 	public async Task<ImageId> Handle(CreateImageCommand req, CancellationToken ct)
 	{
-		Image image = Image.Create(req.Key, req.ContentType);
-
-		await writes.AddAsync(image, ct).ConfigureAwait(false);
+		Image image = await writes.AddAsync(
+			entity: Image.Create(req.Key, req.ContentType),
+			ct
+		).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		return image.Id;

@@ -39,7 +39,7 @@ public class SetCustomDeliveryHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once());
 	}
 
 	[Fact]
@@ -56,7 +56,7 @@ public class SetCustomDeliveryHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]

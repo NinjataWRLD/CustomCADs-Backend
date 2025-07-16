@@ -53,8 +53,8 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.ExistsAsync(ValidBuyerId, ct), Times.Once);
-		reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once);
+		reads.Verify(x => x.ExistsAsync(ValidBuyerId, ct), Times.Once());
+		reads.Verify(x => x.AllAsync(ValidBuyerId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -70,15 +70,15 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.IsAny<GetProductPricesByIdsQuery>(),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidBuyerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendCommandAsync(
 			It.Is<CreatePurchasedCartCommand>(x => x.BuyerId == ValidBuyerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -98,7 +98,7 @@ public class PurchaseActiveCartHandlerUnitTests : ActiveCartsBaseUnitTests
 			It.IsAny<decimal>(),
 			It.IsAny<string>(),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

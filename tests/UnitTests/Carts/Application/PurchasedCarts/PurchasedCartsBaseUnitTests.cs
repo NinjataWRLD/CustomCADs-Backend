@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
+using CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
@@ -24,7 +25,7 @@ public class PurchasedCartsBaseUnitTests
 	{
 		var purchasedCart = CreateCartWithId(id, buyerId);
 		purchasedCart.AddItems([.. items.Select(i =>
-			(
+			new CartItemDto(
 				Price: i.Price,
 				CadId: i.CadId,
 				ProductId: i.ProductId,

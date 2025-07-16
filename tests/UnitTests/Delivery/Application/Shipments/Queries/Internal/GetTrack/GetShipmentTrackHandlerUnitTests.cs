@@ -33,11 +33,11 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
+	public async Task Handle_ShouldCallDelivery()
 	{
 		// Arrange
 		GetShipmentTrackQuery query = new(ValidId);
@@ -46,11 +46,11 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		delivery.Verify(x => x.TrackAsync(ValidReferenceId, ct), Times.Once);
+		delivery.Verify(x => x.TrackAsync(ValidReferenceId, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnResult_WhenShipmentFound()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetShipmentTrackQuery query = new(ValidId);

@@ -12,11 +12,20 @@ public class CreateCustomizationHandlerUnitTests : CustomizationsBaseUnitTests
 	private readonly Mock<IWrites<Customization>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 
-	private readonly Customization customization = CreateCustomization();
-
 	public CreateCustomizationHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object);
+
+		writes.Setup(x => x.AddAsync(
+			It.Is<Customization>(x =>
+				x.Scale == MaxValidScale
+				&& x.Infill == MaxValidInfill
+				&& x.Volume == MaxValidVolume
+				&& x.Color == ValidColor
+				&& x.MaterialId == ValidMaterialId
+			),
+			ct
+		)).ReturnsAsync(CreateCustomizationWithId(id: ValidId));
 	}
 
 	[Fact]
@@ -46,5 +55,24 @@ public class CreateCustomizationHandlerUnitTests : CustomizationsBaseUnitTests
 			ct
 		), Times.Once());
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateCustomizationCommand command = new(
+			Scale: MaxValidScale,
+			Infill: MaxValidInfill,
+			Volume: MaxValidVolume,
+			Color: ValidColor,
+			MaterialId: ValidMaterialId
+		);
+
+		// Act
+		CustomizationId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 }

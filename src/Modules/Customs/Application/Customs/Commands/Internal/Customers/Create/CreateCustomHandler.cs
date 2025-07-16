@@ -14,11 +14,17 @@ public sealed class CreateCustomHandler(IWrites<Custom> writes, IUnitOfWork uow,
 			throw CustomNotFoundException<Custom>.ById(req.BuyerId, "User");
 		}
 
-		Custom order = req.ToEntity();
-
-		await writes.AddAsync(order, ct).ConfigureAwait(false);
+		Custom custom = await writes.AddAsync(
+			entity: Custom.Create(
+				name: req.Name,
+				description: req.Description,
+				forDelivery: req.ForDelivery,
+				buyerId: req.BuyerId
+			),
+			ct
+		).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-		return order.Id;
+		return custom.Id;
 	}
 }

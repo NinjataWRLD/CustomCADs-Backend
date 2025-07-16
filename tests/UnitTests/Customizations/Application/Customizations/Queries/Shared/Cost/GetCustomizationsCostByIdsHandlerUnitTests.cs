@@ -16,6 +16,7 @@ public class GetCustomizationsCostByIdsHandlerUnitTests : CustomizationsBaseUnit
 	private readonly Mock<IMaterialReads> materialReads = new();
 	private readonly Mock<ICustomizationMaterialCalculator> calculator = new();
 
+	private const decimal Cost = 10.5m;
 	private static readonly CustomizationId[] ids = [];
 	private static readonly Dictionary<CustomizationId, Customization> customizations = new()
 	{
@@ -31,11 +32,14 @@ public class GetCustomizationsCostByIdsHandlerUnitTests : CustomizationsBaseUnit
 	{
 		handler = new(reads.Object, materialReads.Object, calculator.Object);
 
-		reads.Setup(v => v.AllByIdsAsync(ids, false, ct))
+		reads.Setup(x => x.AllByIdsAsync(ids, false, ct))
 			.ReturnsAsync(customizations);
 
-		materialReads.Setup(v => v.AllByIdsAsync(materialIds, false, ct))
+		materialReads.Setup(x => x.AllByIdsAsync(materialIds, false, ct))
 			.ReturnsAsync(materials);
+
+		calculator.Setup(x => x.CalculateCost(It.IsAny<Customization>(), It.IsAny<Material>()))
+			.Returns(Cost);
 	}
 
 	[Fact]
@@ -66,5 +70,20 @@ public class GetCustomizationsCostByIdsHandlerUnitTests : CustomizationsBaseUnit
 			It.Is<Customization>(x => customizations.Values.Contains(x)),
 			It.Is<Material>(x => materials.Values.Contains(x))
 		), Times.Exactly(customizations.Count));
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetCustomizationsCostByIdsQuery query = new(ids);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Multiple([.. result.Select(
+			x => (Action)(() => Assert.Equal(Cost, x.Value))
+		)]);
 	}
 }

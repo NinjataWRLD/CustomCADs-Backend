@@ -39,7 +39,7 @@ public class CountCustomsHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.CountAsync(ValidBuyerId, ct), Times.Once);
+		reads.Verify(x => x.CountAsync(ValidBuyerId, ct), Times.Once());
 	}
 
 	[Fact]

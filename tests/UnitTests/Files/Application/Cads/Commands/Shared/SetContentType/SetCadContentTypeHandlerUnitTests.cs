@@ -19,7 +19,7 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 	public SetCadContentTypeHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object);
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(cad);
 	}
 
@@ -27,33 +27,33 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		SetCadContentTypeCommand command = new(id, ValidContentType);
+		SetCadContentTypeCommand command = new(ValidId, ValidContentType);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
-		SetCadContentTypeCommand command = new(id, ValidContentType);
+		SetCadContentTypeCommand command = new(ValidId, ValidContentType);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldModifyCad_WhenCadFound()
+	public async Task Handle_ShouldModifyCad()
 	{
 		// Arrange
-		SetCadContentTypeCommand command = new(id, ValidContentType);
+		SetCadContentTypeCommand command = new(ValidId, ValidContentType);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -66,9 +66,9 @@ public class SetCadContentTypeHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(null as Cad);
-		SetCadContentTypeCommand command = new(id, ValidContentType);
+		SetCadContentTypeCommand command = new(ValidId, ValidContentType);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(

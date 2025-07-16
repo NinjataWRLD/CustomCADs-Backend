@@ -21,7 +21,7 @@ public class GetClientUrlHandlerUnitTests : UsersBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnPreferredUrl()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetClientUrlQuery query = new();

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Carts.Domain.Repositories;
+﻿using CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
+using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.ApplicationEvents.Catalog;
@@ -20,7 +21,28 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
 			throw CustomNotFoundException<PurchasedCart>.ById(req.BuyerId, "User");
 		}
 
-		ProductId[] productIds = [.. req.Items.Select(i => i.ProductId)];
+		CartItemDto[] items = await SnapshotItemsAsync(
+			items: req.Items,
+			prices: req.Prices,
+			ct: ct
+		).ConfigureAwait(false);
+
+		PurchasedCart cart = await writes.AddAsync(
+			entity: PurchasedCart.Create(req.BuyerId).AddItems(items),
+			ct
+		).ConfigureAwait(false);
+		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+		await raiser.RaiseApplicationEventAsync(
+			new UserPurchasedProductApplicationEvent(Ids: [.. items.Select(i => i.ProductId)])
+		).ConfigureAwait(false);
+
+		return cart.Id;
+	}
+
+	private async Task<CartItemDto[]> SnapshotItemsAsync(ActiveCartItemDto[] items, Dictionary<ProductId, decimal> prices, CancellationToken ct = default)
+	{
+		ProductId[] productIds = [.. items.Select(i => i.ProductId)];
 
 		Dictionary<ProductId, CadId> productCads = await sender.SendQueryAsync(
 			new GetProductCadIdsByIdsQuery(productIds),
@@ -32,33 +54,21 @@ public class CreatePurchasedCartHandler(IWrites<PurchasedCart> writes, IUnitOfWo
 			ct
 		).ConfigureAwait(false);
 
-		var cart = PurchasedCart.Create(req.BuyerId);
-		cart.AddItems(
-			[.. req.Items.Select(item =>
-			{
-				decimal price = req.Prices[item.ProductId];
-				CadId productCadId = productCads[item.ProductId];
-				CadId itemCadId = itemCads[productCadId];
+		return [.. items.Select(item =>
+		{
+			decimal price = prices[item.ProductId];
+			CadId productCadId = productCads[item.ProductId];
+			CadId itemCadId = itemCads[productCadId];
 
-				return (
-					Price: price,
-					CadId: itemCadId,
-					ProductId: item.ProductId,
-					ForDelivery: item.ForDelivery,
-					CustomizationId: item.CustomizationId,
-					Quantity: item.Quantity,
-					AddedAt: item.AddedAt
-				);
-			})]
-		);
-
-		await writes.AddAsync(cart, ct).ConfigureAwait(false);
-		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
-
-		await raiser.RaiseApplicationEventAsync(
-			new UserPurchasedProductApplicationEvent(productIds)
-		).ConfigureAwait(false);
-
-		return cart.Id;
+			return new CartItemDto(
+				Price: price,
+				CadId: itemCadId,
+				ProductId: item.ProductId,
+				ForDelivery: item.ForDelivery,
+				CustomizationId: item.CustomizationId,
+				Quantity: item.Quantity,
+				AddedAt: item.AddedAt
+			);
+		})];
 	}
 }

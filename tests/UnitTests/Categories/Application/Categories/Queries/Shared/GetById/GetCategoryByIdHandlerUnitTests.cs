@@ -17,7 +17,7 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 		handler = new(reads.Object, cache.Object);
 
 		cache.Setup(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()))
-			.ReturnsAsync(CreateCategory());
+			.ReturnsAsync(CreateCategory(name: ValidName));
 	}
 
 	[Fact]
@@ -31,5 +31,18 @@ public class GetCategoryByIdHandlerUnitTests : CategoriesBaseUnitTests
 
 		// Assert
 		cache.Verify(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetCategoryNameByIdQuery query = new(ValidId);
+
+		// Act
+		string result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(ValidName, result);
 	}
 }

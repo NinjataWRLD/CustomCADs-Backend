@@ -37,11 +37,11 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
+	public async Task Handle_ShouldCallDelivery()
 	{
 		// Arrange
 		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);
@@ -50,20 +50,20 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		delivery.Verify(x => x.PrintAsync(ValidReferenceId, ct), Times.Once);
+		delivery.Verify(x => x.PrintAsync(ValidReferenceId, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReturnResult_WhenShipmentFound()
+	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
 		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);
 
 		// Act
-		byte[] bytes = await handler.Handle(query, ct);
+		byte[] result = await handler.Handle(query, ct);
 
 		// Assert
-		Assert.Equal(bytes, GetShipmentWaybillHandlerUnitTests.bytes);
+		Assert.Equal(result, bytes);
 	}
 
 	[Fact]

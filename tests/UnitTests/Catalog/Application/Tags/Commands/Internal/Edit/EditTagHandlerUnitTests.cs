@@ -55,7 +55,7 @@ public class EditTagHandlerUnitTests : TagsBaseUnitTests
 
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenTagDoesNotExist()
+	public async Task Handle_ShouldThrowException_WhenTagNotFound()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(id, true, ct))

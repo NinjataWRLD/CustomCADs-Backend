@@ -15,11 +15,14 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 	private readonly Mock<IActiveCartReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 
+	private int oldQuantity;
+
 	public DecreaseActiveCartItemQuantityHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object);
 
 		var item = CreateItemWithDelivery(productId: ValidProductId).IncreaseQuantity(QuantityMax - 1);
+		oldQuantity = item.Quantity;
 
 		reads.Setup(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct))
 			.ReturnsAsync(item);
@@ -39,7 +42,7 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct), Times.Once);
+		reads.Verify(x => x.SingleAsync(ValidBuyerId, ValidProductId, true, ct), Times.Once());
 	}
 
 	[Fact]
@@ -56,7 +59,24 @@ public class DecreaseActiveCartItemQuantityHandlerUnitTests : ActiveCartsBaseUni
 		await handler.Handle(command, ct);
 
 		// Assert
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		DecreaseActiveCartItemQuantityCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: ValidProductId,
+			Amount: MinValidQuantity
+		);
+
+		// Act
+		int result = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(oldQuantity - command.Amount, result);
 	}
 
 	[Fact]

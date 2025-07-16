@@ -36,7 +36,7 @@ public class GetCadPresignedUrlPostByIdHandlerUnitTests : CadsBaseUnitTests
 			"cads",
 			Name,
 			req
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

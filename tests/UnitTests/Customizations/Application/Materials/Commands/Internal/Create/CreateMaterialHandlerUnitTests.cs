@@ -24,6 +24,9 @@ public class CreateMaterialHandlerUnitTests : MaterialsBaseUnitTests
 	public CreateMaterialHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object, cache.Object, sender.Object);
+
+		writes.Setup(x => x.AddAsync(It.Is<Material>(x => x.Id == material.Id), ct))
+			.ReturnsAsync(CreateMaterialWithId(id: ValidId));
 	}
 
 	[Fact]
@@ -66,6 +69,25 @@ public class CreateMaterialHandlerUnitTests : MaterialsBaseUnitTests
 		// Assert
 		writes.Verify(x => x.AddAsync(It.Is<Material>(x => x.Id == material.Id), ct), Times.Once());
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateMaterialCommand command = new(
+			Name: MaxValidName,
+			Density: MaxValidDensity,
+			Cost: MaxValidCost,
+			TextureKey: Key,
+			TextureContentType: ContentType
+		);
+
+		// Act
+		MaterialId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 
 	[Fact]

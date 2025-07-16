@@ -4,7 +4,7 @@ using CustomCADs.Customizations.Domain.Materials;
 using CustomCADs.Customizations.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Cache;
 
-namespace CustomCADs.UnitTests.Customizations.Application.Materials.Queries.GetById;
+namespace CustomCADs.UnitTests.Customizations.Application.Materials.Queries.Internal.GetById;
 
 using static MaterialsData;
 

@@ -47,14 +47,6 @@ internal static class Mapper
 			CompletedCustom: completed
 		);
 
-	internal static Custom ToEntity(this CreateCustomCommand command)
-		=> Custom.Create(
-			name: command.Name,
-			description: command.Description,
-			forDelivery: command.ForDelivery,
-			buyerId: command.BuyerId
-		);
-
 	internal static AcceptedCustomDto ToDto(this AcceptedCustom custom, string designerName)
 		=> new(
 			DesignerName: designerName,

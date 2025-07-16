@@ -15,60 +15,64 @@ public class GetImagePresignedUrlPutByIdHandlerUnitTests : ImagesBaseUnitTests
 	private readonly Mock<IImageReads> reads = new();
 	private readonly Mock<IStorageService> storage = new();
 
+	private const string PresignedUrl = "presigned-url";
 	private static readonly Image image = CreateImage();
-	private static readonly UploadFileRequest newFile = new(ValidContentType, "Batman.glb");
+	private static readonly UploadFileRequest req = new(ValidContentType, "Batman.glb");
 
 	public GetImagePresignedUrlPutByIdHandlerUnitTests()
 	{
 		handler = new(reads.Object, storage.Object);
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(image);
+
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(image);
+		storage.Setup(x => x.GetPresignedPutUrlAsync(image.Key, req)).ReturnsAsync(PresignedUrl);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		GetImagePresignedUrlPutByIdQuery query = new(
-			id,
-			newFile
-		);
+		GetImagePresignedUrlPutByIdQuery query = new(ValidId, req);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallStorage_WhenImageFound()
+	public async Task Handle_ShouldCallStorage()
 	{
 		// Arrange
-		GetImagePresignedUrlPutByIdQuery query = new(
-			id,
-			newFile
-		);
+		GetImagePresignedUrlPutByIdQuery query = new(ValidId, req);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		storage.Verify(x => x.GetPresignedPutUrlAsync(
-			image.Key,
-			newFile
-		), Times.Once);
+		storage.Verify(x => x.GetPresignedPutUrlAsync(image.Key, req), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetImagePresignedUrlPutByIdQuery query = new(ValidId, req);
+
+		// Act
+		string url = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(PresignedUrl, url);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenImageNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct)).ReturnsAsync(null as Image);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Image);
 
-		GetImagePresignedUrlPutByIdQuery query = new(
-			id,
-			newFile
-		);
+		GetImagePresignedUrlPutByIdQuery query = new(ValidId, req);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(

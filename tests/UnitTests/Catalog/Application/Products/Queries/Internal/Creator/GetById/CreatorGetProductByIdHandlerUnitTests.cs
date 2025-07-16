@@ -36,7 +36,7 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -52,11 +52,11 @@ public class CreatorGetProductByIdHandlerUnitTests : ProductsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUsernameByIdQuery>(x => x.Id == product.CreatorId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCategoryNameByIdQuery>(x => x.Id == product.CategoryId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

@@ -60,7 +60,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.AllAsync(shipmentQuery, false, ct), Times.Once);
+		reads.Verify(x => x.AllAsync(shipmentQuery, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -80,7 +80,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUsernamesByIdsQuery>(x => x.Ids.Length == shipments.Length),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Files.Data;
+﻿using CustomCADs.Shared.Core.Common.TypedIds.Files;
+
+namespace CustomCADs.UnitTests.Files.Data;
 
 public class ImagesData
 {
@@ -7,4 +9,6 @@ public class ImagesData
 
 	public const string ValidContentType = "image/jpeg";
 	public const string InvalidContentType = "";
+
+	public static readonly ImageId ValidId = ImageId.New();
 }

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Cads;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Files.Data;
 
@@ -19,4 +20,6 @@ public class CadsData
 	public const decimal MaxValidCoord = CoordMax - 1;
 	public const decimal MinInvalidCoord = CoordMin - 1;
 	public const decimal MaxInvalidCoord = CoordMax + 1;
+
+	public static readonly CadId ValidId = CadId.New();
 }

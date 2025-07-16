@@ -16,7 +16,7 @@ public class GetAccountByIdHandlerUnitTests : AccountsBaseUnitTests
 		handler = new(reads.Object);
 
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(CreateAccount());
+			.ReturnsAsync(CreateAccountWithId(id: ValidId));
 	}
 
 	[Fact]
@@ -29,11 +29,24 @@ public class GetAccountByIdHandlerUnitTests : AccountsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExist()
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetAccountByIdQuery query = new(ValidId);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(ValidId, result.Id);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenAccountNotFound()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Account);

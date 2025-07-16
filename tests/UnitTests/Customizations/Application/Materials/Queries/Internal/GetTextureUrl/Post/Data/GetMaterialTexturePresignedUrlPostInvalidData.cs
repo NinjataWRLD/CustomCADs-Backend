@@ -1,6 +1,6 @@
 using CustomCADs.Shared.Core.Common.Dtos;
 
-namespace CustomCADs.UnitTests.Customizations.Application.Materials.Queries.GetTextureUrl.Post.Data;
+namespace CustomCADs.UnitTests.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Post.Data;
 
 public class GetMaterialTexturePresignedUrlPostInvalidData : TheoryData<string, UploadFileRequest>
 {

@@ -42,7 +42,7 @@ public class CreatorGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -58,7 +58,7 @@ public class CreatorGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCadPresignedUrlGetByIdQuery>(x => x.Id == product.CadId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

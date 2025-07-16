@@ -19,7 +19,7 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 	public SetCadKeyHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object);
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(cad);
 	}
 
@@ -27,33 +27,33 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		SetCadKeyCommand command = new(id, ValidKey);
+		SetCadKeyCommand command = new(ValidId, ValidKey);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
-		SetCadKeyCommand command = new(id, ValidKey);
+		SetCadKeyCommand command = new(ValidId, ValidKey);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldModifyCad_WhenCadFound()
+	public async Task Handle_ShouldModifyCad()
 	{
 		// Arrange
-		SetCadKeyCommand command = new(id, ValidKey);
+		SetCadKeyCommand command = new(ValidId, ValidKey);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -66,8 +66,8 @@ public class SetCadKeyHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct)).ReturnsAsync(null as Cad);
-		SetCadKeyCommand command = new(id, ValidKey);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Cad);
+		SetCadKeyCommand command = new(ValidId, ValidKey);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(

@@ -31,7 +31,7 @@ public class GetAccountInfoByUsernameHandlerUnitTests : AccountsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByUsernameAsync(ValidUsername, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByUsernameAsync(ValidUsername, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -53,7 +53,7 @@ public class GetAccountInfoByUsernameHandlerUnitTests : AccountsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExist()
+	public async Task Handle_ShouldThrowException_WhenAccountNotFound()
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByUsernameAsync(ValidUsername, false, ct)).ReturnsAsync(null as Account);

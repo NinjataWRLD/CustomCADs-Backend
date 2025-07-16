@@ -15,6 +15,11 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	public CreateCategoryHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object, cache.Object);
+
+		writes.Setup(v => v.AddAsync(
+			It.Is<Category>(x => x.Name == ValidName && x.Description == ValidDescription),
+			ct
+		)).ReturnsAsync(CreateCategory(id: ValidId));
 	}
 
 	[Fact]
@@ -48,5 +53,18 @@ public class CreateCategoryHandlerUnitTests : CategoriesBaseUnitTests
 			ValidId,
 			It.Is<Category>(x => x.Name == ValidName && x.Description == ValidDescription)
 		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateCategoryCommand command = new(Dto: new(ValidName, ValidDescription));
+
+		// Act
+		CategoryId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 }

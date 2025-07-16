@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Files.Application.Images.Commands.Shared.Create;
 using CustomCADs.Files.Domain.Repositories;
+using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Images.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create;
@@ -15,6 +16,11 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 	public CreateImageHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object);
+
+		writes.Setup(x => x.AddAsync(
+			It.Is<Image>(x => x.Key == ValidKey && x.ContentType == ValidContentType),
+			ct
+		)).ReturnsAsync(CreateImageWithId(id: ValidId));
 	}
 
 	[Fact]
@@ -33,7 +39,23 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 		writes.Verify(x => x.AddAsync(
 			It.Is<Image>(x => x.Key == ValidKey && x.ContentType == ValidContentType),
 			ct
-		), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateImageCommand command = new(
+			Key: ValidKey,
+			ContentType: ValidContentType
+		);
+
+		// Act
+		ImageId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 }
