@@ -37,6 +37,6 @@ jobs:
           ECR_REGISTRY: ${{ secrets.aws-ecr-registry }}
           ECR_REPOSITORY: ninjatabg/customcads
         run: |
-          docker build -f Dockerfile.staging -t $ECR_REPOSITORY:latest .
-          docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker build -f Dockerfile.staging -t $ECR_REPOSITORY:staging .
+          docker tag $ECR_REPOSITORY:staging $ECR_REGISTRY/$ECR_REPOSITORY:staging
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:staging
