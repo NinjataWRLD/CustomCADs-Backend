@@ -37,7 +37,7 @@ public class GetImagePresignedUrlPostByIdHandlerUnitTests : CadsBaseUnitTests
 			"images",
 			Name,
 			req
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

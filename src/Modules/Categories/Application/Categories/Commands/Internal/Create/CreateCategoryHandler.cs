@@ -7,9 +7,10 @@ public sealed class CreateCategoryHandler(IWrites<Category> writes, IUnitOfWork 
 {
 	public async Task<CategoryId> Handle(CreateCategoryCommand req, CancellationToken ct)
 	{
-		var category = req.Dto.ToEntity();
-
-		await writes.AddAsync(category, ct).ConfigureAwait(false);
+		Category category = await writes.AddAsync(
+			entity: Category.Create(req.Dto.Name, req.Dto.Description),
+			ct
+		).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		await cache.UpdateAsync(category.Id, category).ConfigureAwait(false);

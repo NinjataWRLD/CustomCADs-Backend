@@ -35,7 +35,7 @@ public class SetProductCoordsHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(command);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -55,7 +55,7 @@ public class SetProductCoordsHandlerUnitTests : ProductsBaseUnitTests
 				&& x.PanCoordinates == pan
 			),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

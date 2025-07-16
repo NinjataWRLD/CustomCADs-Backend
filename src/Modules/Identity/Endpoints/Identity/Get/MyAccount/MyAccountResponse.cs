@@ -7,5 +7,6 @@ public record MyAccountResponse(
 	string? FirstName,
 	string? LastName,
 	string Email,
+	bool TrackViewedProducts,
 	DateTimeOffset CreatedAt
 );

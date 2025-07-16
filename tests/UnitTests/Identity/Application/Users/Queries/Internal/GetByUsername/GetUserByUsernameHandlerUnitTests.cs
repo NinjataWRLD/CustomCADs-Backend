@@ -24,7 +24,7 @@ public class GetUserByUsernameHandlerUnitTests : UsersBaseUnitTests
 		sender.Setup(x => x.SendQueryAsync(
 			It.Is<GetAccountInfoByUsernameQuery>(x => x.Username == MaxValidUsername),
 			ct
-		)).ReturnsAsync(new AccountInfo(DateTimeOffset.UtcNow, null, null));
+		)).ReturnsAsync(new AccountInfo(DateTimeOffset.UtcNow, true, null, null));
 	}
 
 	[Fact]
@@ -58,6 +58,19 @@ public class GetUserByUsernameHandlerUnitTests : UsersBaseUnitTests
 			It.Is<GetAccountViewedProductsByUsernameQuery>(x => x.Username == MaxValidUsername),
 			ct
 		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetUserByUsernameQuery query = new(MaxValidUsername);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(ValidId, result.Id);
 	}
 
 	[Fact]

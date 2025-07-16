@@ -19,13 +19,13 @@ public sealed class Reads(CustomsContext context) : ICustomReads
 			.WithSearch(query.Name);
 
 		int count = await queryable.CountAsync(ct).ConfigureAwait(false);
-		Custom[] orders = await queryable
+		Custom[] customs = await queryable
 			.WithSorting(query.Sorting ?? new())
 			.WithPagination(query.Pagination.Page, query.Pagination.Limit)
 			.ToArrayAsync(ct)
 			.ConfigureAwait(false);
 
-		return new(count, orders);
+		return new(count, customs);
 	}
 
 	public async Task<Custom?> SingleByIdAsync(CustomId id, bool track = true, CancellationToken ct = default)

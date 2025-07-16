@@ -2,7 +2,7 @@ using CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextur
 using CustomCADs.Shared.Core.Common.Dtos;
 using FluentValidation.TestHelper;
 
-namespace CustomCADs.UnitTests.Customizations.Application.Materials.Queries.GetTextureUrl.Put;
+namespace CustomCADs.UnitTests.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Put;
 
 using static MaterialsData;
 

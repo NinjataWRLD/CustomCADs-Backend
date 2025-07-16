@@ -1,5 +1,4 @@
-﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Create;
-using CustomCADs.Customs.Application.Customs.Dtos;
+﻿using CustomCADs.Customs.Application.Customs.Dtos;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
@@ -45,14 +44,6 @@ internal static class Mapper
 			AcceptedCustom: accepted,
 			FinishedCustom: finished,
 			CompletedCustom: completed
-		);
-
-	internal static Custom ToEntity(this CreateCustomCommand command)
-		=> Custom.Create(
-			name: command.Name,
-			description: command.Description,
-			forDelivery: command.ForDelivery,
-			buyerId: command.BuyerId
 		);
 
 	internal static AcceptedCustomDto ToDto(this AcceptedCustom custom, string designerName)

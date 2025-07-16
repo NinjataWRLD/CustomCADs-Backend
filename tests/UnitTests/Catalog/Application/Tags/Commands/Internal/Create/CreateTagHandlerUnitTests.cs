@@ -2,6 +2,7 @@
 using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Catalog.Domain.Tags;
+using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Create;
 
@@ -16,6 +17,11 @@ public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 	public CreateTagHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object);
+
+		writes.Setup(v => v.AddAsync(
+			It.Is<Tag>(x => x.Name == MaxValidName),
+			ct
+		)).ReturnsAsync(CreateTag(id: ValidId));
 	}
 
 	[Fact]
@@ -33,5 +39,18 @@ public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 			ct
 		), Times.Once());
 		uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreateTagCommand command = new(MaxValidName);
+
+		// Act
+		TagId id = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, id);
 	}
 }

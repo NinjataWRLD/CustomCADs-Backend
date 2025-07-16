@@ -28,6 +28,17 @@ public static partial class Constants
 		public const string PhoneError = "Invalid Phone";
 	}
 
+	public static class Cads
+	{
+		public const string StlContentType = "model/stl";
+		public const string GlbContentType = "model/gltf-binary";
+		public const string GltfContentType = "model/gltf+json";
+
+		public static readonly string[] PrintableContentTypes = [
+			StlContentType,
+		];
+	}
+
 	public static class Tags
 	{
 		public static readonly TagId NewId = TagId.New("6813c4b9-bcde-4f95-a1ce-8e545756c8a4");

@@ -17,7 +17,7 @@ public sealed class DesignerGetCustomEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(DesignerGetCustomRequest req, CancellationToken ct)
 	{
-		var order = await sender.SendQueryAsync(
+		var custom = await sender.SendQueryAsync(
 			new DesignerGetCustomByIdQuery(
 				Id: CustomId.New(req.Id),
 				DesignerId: User.GetAccountId()
@@ -25,7 +25,7 @@ public sealed class DesignerGetCustomEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		var response = order.ToResponse();
+		var response = custom.ToResponse();
 		await SendOkAsync(response).ConfigureAwait(false);
 	}
 }

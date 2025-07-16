@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
-namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Behaviors.ShipmentId;
+namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Behaviors.ShipmentId;
 
 using static PurchasedCartsData;
 

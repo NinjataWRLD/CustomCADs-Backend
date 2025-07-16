@@ -20,6 +20,13 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 	private readonly Mock<IRequestSender> sender = new();
 	private readonly Mock<IEventRaiser> raiser = new();
 
+	private const string Username = Constants.Users.CustomerUsername;
+	private readonly AccountInfo info = new(
+		CreatedAt: default,
+		TrackViewedProducts: true,
+		FirstName: null,
+		LastName: null
+	);
 	private readonly Product product = CreateProduct();
 
 	public ProductViewedHandlerUnitTests()
@@ -28,6 +35,21 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(product);
+
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidCreatorId),
+			ct
+		)).ReturnsAsync(Username);
+
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountInfoByUsernameQuery>(x => x.Username == Username),
+			ct
+		)).ReturnsAsync(info);
+
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountViewedProductQuery>(x => x.Id == ValidCreatorId && x.ProductId == ValidId),
+			ct
+		)).ReturnsAsync(false);
 	}
 
 	[Fact]
@@ -40,7 +62,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(de);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
@@ -53,7 +75,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 		await handler.Handle(de);
 
 		// Assert
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -67,9 +89,17 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 
 		// Assert
 		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetUsernameByIdQuery>(x => x.Id == ValidCreatorId),
+			ct
+		), Times.Once());
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetAccountInfoByUsernameQuery>(x => x.Username == Username),
+			ct
+		), Times.Once());
+		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountViewedProductQuery>(x => x.Id == ValidCreatorId && x.ProductId == ValidId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -84,7 +114,7 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<UserViewedProductApplicationEvent>(x => x.Id == ValidId && x.AccountId == ValidCreatorId)
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -98,6 +128,46 @@ public class ProductViewedHandlerUnitTests : ProductsBaseUnitTests
 
 		// Assert
 		Assert.Equal(1, product.Counts.Views);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnEarly_WhenUserDoesNotTrackViewedProducts()
+	{
+		// Arrange
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountInfoByUsernameQuery>(x => x.Username == Username),
+			ct
+		)).ReturnsAsync(info with { TrackViewedProducts = false });
+		ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
+
+		// Act
+		await handler.Handle(de);
+
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetAccountViewedProductQuery>(x => x.Id == ValidCreatorId && x.ProductId == ValidId),
+			ct
+		), Times.Never());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnEarly_WhenUserAlreadyViewedProduct()
+	{
+		// Arrange
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetAccountViewedProductQuery>(x => x.Id == ValidCreatorId && x.ProductId == ValidId),
+			ct
+		)).ReturnsAsync(true);
+		ProductViewedDomainEvent de = new(ValidId, ValidCreatorId);
+
+		// Act
+		await handler.Handle(de);
+
+		// Assert
+		raiser.Verify(x => x.RaiseApplicationEventAsync(
+			It.Is<UserViewedProductApplicationEvent>(x => x.Id == ValidId && x.AccountId == ValidCreatorId)
+		), Times.Never());
+		Assert.Equal(0, product.Counts.Views);
 	}
 
 	[Fact]

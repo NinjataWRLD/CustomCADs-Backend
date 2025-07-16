@@ -16,6 +16,9 @@ public class CalculateCustomShipmentHandlerUnitTests : CustomsBaseUnitTests
 	private readonly Mock<IRequestSender> sender = new();
 
 	private static readonly AddressDto address = new("Bulgaria", "Burgas", "Slivnitsa");
+	private static readonly CalculateShipmentDto[] calculations = [
+		new(default, string.Empty, string.Empty, default, default)
+	];
 
 	public CalculateCustomShipmentHandlerUnitTests()
 	{
@@ -32,7 +35,7 @@ public class CalculateCustomShipmentHandlerUnitTests : CustomsBaseUnitTests
 		sender.Setup(x => x.SendQueryAsync(
 			It.IsAny<CalculateShipmentQuery>(),
 			ct
-		)).ReturnsAsync([]);
+		)).ReturnsAsync(calculations);
 	}
 
 	[Fact]
@@ -45,7 +48,7 @@ public class CalculateCustomShipmentHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -61,10 +64,23 @@ public class CalculateCustomShipmentHandlerUnitTests : CustomsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCustomizationWeightByIdQuery>(x => x.Id == ValidCustomizationId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<CalculateShipmentQuery>(x => x.Address == address),
 			ct
-		), Times.Once);
+		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CalculateCustomShipmentQuery query = new(ValidId, 0, address, ValidCustomizationId);
+
+		// Act
+		CalculateShipmentDto[] result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(calculations, result);
 	}
 }

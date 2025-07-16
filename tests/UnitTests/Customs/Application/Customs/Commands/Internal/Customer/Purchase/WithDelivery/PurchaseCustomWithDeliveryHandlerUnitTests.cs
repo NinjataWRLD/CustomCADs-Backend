@@ -80,7 +80,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -107,10 +107,10 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 		, ct), Times.Exactly(2));
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCustomizationCostByIdQuery>(x => x.Id == ValidCustomizationId)
-		, ct), Times.Once);
+		, ct), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCustomizationWeightByIdQuery>(x => x.Id == ValidCustomizationId)
-		, ct), Times.Once);
+		, ct), Times.Once());
 	}
 
 	[Fact]
@@ -139,7 +139,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 			It.Is<decimal>(x => x == ValidPrice),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -163,7 +163,7 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseDomainEventAsync(
 			It.Is<CustomDeliveryRequestedDomainEvent>(x => x.Id == custom.Id)
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

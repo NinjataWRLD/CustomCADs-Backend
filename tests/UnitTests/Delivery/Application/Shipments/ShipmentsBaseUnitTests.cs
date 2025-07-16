@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments;
 
@@ -11,6 +12,9 @@ public class ShipmentsBaseUnitTests
 
 	protected static Shipment CreateShipment(string country = ValidCountry, string city = ValidCity, string street = ValidStreet, string referenceId = ValidReferenceId, AccountId? buyerId = null)
 		=> Shipment.Create(new(country, city, street), referenceId, buyerId ?? ValidBuyerId);
+
+	protected static Shipment CreateShipmentWithId(ShipmentId? id = null, string country = ValidCountry, string city = ValidCity, string street = ValidStreet, string referenceId = ValidReferenceId, AccountId? buyerId = null)
+		=> Shipment.CreateWithId(id ?? ValidId, new(country, city, street), referenceId, buyerId ?? ValidBuyerId);
 
 	protected static ShipmentStatusDto[] CreateShipmentStatusDtos(int count = 4, string message = "Message")
 		=> [..

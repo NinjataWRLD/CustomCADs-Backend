@@ -32,11 +32,11 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallDelivery_WhenShipmentFound()
+	public async Task Handle_ShouldCallDelivery()
 	{
 		// Arrange
 		CancelShipmentCommand command = new(ValidId, Comment);
@@ -45,6 +45,6 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		delivery.Verify(x => x.CancelAsync(ValidReferenceId, Comment, ct), Times.Once);
+		delivery.Verify(x => x.CancelAsync(ValidReferenceId, Comment, ct), Times.Once());
 	}
 }

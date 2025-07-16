@@ -1,11 +1,9 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
+using CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
 using CustomCADs.Shared.Core.Bases.Entities;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.Carts.Domain.PurchasedCarts;
 
@@ -40,17 +38,7 @@ public class PurchasedCart : BaseAggregateRoot
 		}
 		.ValidateItems();
 
-	public PurchasedCartItem[] AddItems(
-		(
-			decimal Price,
-			CadId CadId,
-			ProductId ProductId,
-			bool ForDelivery,
-			CustomizationId? CustomizationId,
-			int Quantity,
-			DateTimeOffset AddedAt
-		)[] items
-	)
+	public PurchasedCart AddItems(CartItemDto[] items)
 	{
 		this.items.AddRange([.. items.Select(i => PurchasedCartItem.Create(
 			cartId: this.Id,
@@ -64,7 +52,7 @@ public class PurchasedCart : BaseAggregateRoot
 		))]);
 		this.ValidateItems();
 
-		return [.. this.items];
+		return this;
 	}
 
 	public PurchasedCart FinishPayment(bool success = true)

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Create.WithId;
+﻿namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Create.WithId;
 
 using static PurchasedCartsData;
 

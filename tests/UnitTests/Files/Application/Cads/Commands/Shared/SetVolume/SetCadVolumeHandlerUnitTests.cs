@@ -18,7 +18,7 @@ public class SetCadVolumeHandlerUnitTests : CadsBaseUnitTests
 	{
 		handler = new(reads.Object, uow.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(CreateCad());
 	}
 
@@ -26,20 +26,20 @@ public class SetCadVolumeHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		SetCadVolumeCommand command = new(id, ValidVolume);
+		SetCadVolumeCommand command = new(ValidId, ValidVolume);
 
 		// Act
 		await handler.Handle(command);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once());
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
 	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
-		SetCadVolumeCommand command = new(id, ValidVolume);
+		SetCadVolumeCommand command = new(ValidId, ValidVolume);
 
 		// Act
 		await handler.Handle(command);
@@ -52,8 +52,8 @@ public class SetCadVolumeHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct)).ReturnsAsync(null as Cad);
-		SetCadVolumeCommand command = new(id, ValidVolume);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Cad);
+		SetCadVolumeCommand command = new(ValidId, ValidVolume);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(

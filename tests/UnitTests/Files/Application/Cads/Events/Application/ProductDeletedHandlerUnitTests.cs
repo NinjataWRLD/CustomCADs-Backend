@@ -7,6 +7,8 @@ using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Events.Application;
 
+using static CadsData;
+
 public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 {
 	private readonly ProductDeletedHandler handler;
@@ -20,7 +22,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 	public ProductDeletedHandlerUnitTests()
 	{
 		handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct)).ReturnsAsync(cad);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(cad);
 	}
 
 	[Fact]
@@ -29,7 +31,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		// Arrange
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			CadId: id,
+			CadId: ValidId,
 			ImageId: default
 		);
 
@@ -37,16 +39,16 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase_WhenCadFound()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			CadId: id,
+			CadId: ValidId,
 			ImageId: default
 		);
 
@@ -54,17 +56,17 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		writes.Verify(x => x.Remove(cad), Times.Once);
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		writes.Verify(x => x.Remove(cad), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallStorage_WhenCadFound()
+	public async Task Handle_ShouldCallStorage()
 	{
 		// Arrange
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			CadId: id,
+			CadId: ValidId,
 			ImageId: default
 		);
 
@@ -72,19 +74,19 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(ie);
 
 		// Assert
-		storage.Verify(x => x.DeleteFileAsync(cad.Key, ct), Times.Once);
+		storage.Verify(x => x.DeleteFileAsync(cad.Key, ct), Times.Once());
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(null as Cad);
 
 		ProductDeletedApplicationEvent ie = new(
 			Id: default,
-			CadId: id,
+			CadId: ValidId,
 			ImageId: default
 		);
 

@@ -18,8 +18,7 @@ public class ChangeUsernameHandler(IUserReads reads, IUserWrites writes, IEventR
 		await raiser.RaiseApplicationEventAsync(
 			new UserEditedApplicationEvent(
 				Id: user.AccountId,
-				Username: user.Username,
-				Email: user.Email.Value
+				Username: user.Username
 			)
 		).ConfigureAwait(false);
 	}

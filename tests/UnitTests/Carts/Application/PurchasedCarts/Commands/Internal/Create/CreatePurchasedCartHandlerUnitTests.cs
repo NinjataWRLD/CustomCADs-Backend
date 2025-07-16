@@ -6,6 +6,7 @@ using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.ApplicationEvents.Catalog;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -13,6 +14,8 @@ using CustomCADs.Shared.UseCases.Cads.Commands;
 using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Commands.Internal.Create;
+
+using static PurchasedCartsData;
 
 public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 {
@@ -32,6 +35,11 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 	public CreatePurchasedCartHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object, sender.Object, raiser.Object);
+
+		writes.Setup(x => x.AddAsync(
+			It.Is<PurchasedCart>(x => x.BuyerId == buyerId),
+			ct
+		)).ReturnsAsync(CreateCartWithId(id: ValidId));
 
 		sender.Setup(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
@@ -64,10 +72,10 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 
 		// Assert
 		writes.Verify(x => x.AddAsync(
-			It.IsAny<PurchasedCart>(),
+			It.Is<PurchasedCart>(x => x.BuyerId == buyerId),
 			ct
-		));
-		uow.Verify(x => x.SaveChangesAsync(ct));
+		), Times.Once());
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
@@ -87,15 +95,15 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetAccountExistsByIdQuery>(x => x.Id == buyerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetProductCadIdsByIdsQuery>(x => x.Ids == productIds),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendCommandAsync(
 			It.Is<DuplicateCadsByIdsCommand>(x => x.Ids == cadIds),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
@@ -114,11 +122,28 @@ public class CreatePurchasedCartHandlerUnitTests : PurchasedCartsBaseUnitTests
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
 			It.Is<UserPurchasedProductApplicationEvent>(x => x.Ids == productIds)
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldThrowException_WhenAccountDoesNotExist()
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		CreatePurchasedCartCommand command = new(
+			BuyerId: buyerId,
+			Items: items,
+			Prices: prices
+		);
+
+		// Act
+		PurchasedCartId result = await handler.Handle(command, ct);
+
+		// Assert
+		Assert.Equal(ValidId, result);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenPurchasedCartNotFound()
 	{
 		// Arrange
 		sender.Setup(x => x.SendQueryAsync(

@@ -41,7 +41,7 @@ public class GalleryGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -57,7 +57,7 @@ public class GalleryGetProductCadPresignedUrlGetHandlerUnitTests : ProductsBaseU
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetCadPresignedUrlGetByIdQuery>(x => x.Id == product.CadId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

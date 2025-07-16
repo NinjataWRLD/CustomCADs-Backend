@@ -10,9 +10,16 @@ public sealed class CreateCadHandler(IWrites<Cad> writes, IUnitOfWork uow)
 {
 	public async Task<CadId> Handle(CreateCadCommand req, CancellationToken ct)
 	{
-		Cad cad = Cad.Create(req.Key, req.ContentType, req.Volume, new(), new());
-
-		await writes.AddAsync(cad, ct).ConfigureAwait(false);
+		Cad cad = await writes.AddAsync(
+			entity: Cad.Create(
+				key: req.Key,
+				contentType: req.ContentType,
+				volume: req.Volume,
+				camCoordinates: new(),
+				panCoordinates: new()
+			),
+			ct
+		).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
 		return cad.Id;

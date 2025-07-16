@@ -16,6 +16,7 @@ public class GetCustomizationsWeightByIdsHandlerUnitTests : CustomizationsBaseUn
 	private readonly Mock<IMaterialReads> materialReads = new();
 	private readonly Mock<ICustomizationMaterialCalculator> calculator = new();
 
+	private const double Weight = 10.5;
 	private static readonly CustomizationId[] ids = [];
 	private static readonly Dictionary<CustomizationId, Customization> customizations = new()
 	{
@@ -36,6 +37,9 @@ public class GetCustomizationsWeightByIdsHandlerUnitTests : CustomizationsBaseUn
 
 		materialReads.Setup(v => v.AllByIdsAsync(materialIds, false, ct))
 			.ReturnsAsync(materials);
+
+		calculator.Setup(x => x.CalculateWeight(It.IsAny<Customization>(), It.IsAny<Material>()))
+			.Returns((decimal)Weight);
 	}
 
 	[Fact]
@@ -66,5 +70,20 @@ public class GetCustomizationsWeightByIdsHandlerUnitTests : CustomizationsBaseUn
 			It.Is<Customization>(x => customizations.Values.Contains(x)),
 			It.Is<Material>(x => materials.Values.Contains(x))
 		), Times.Exactly(customizations.Count));
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetCustomizationsWeightByIdsQuery query = new(ids);
+
+		// Act
+		var result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Multiple([.. result.Select(
+			x => (Action)(() => Assert.Equal(Weight, x.Value))
+		)]);
 	}
 }

@@ -31,7 +31,7 @@ public class GetAccountViewedProductHandlerUnitTests : AccountsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.ViewedProductsByIdAsync(ValidId, ct), Times.Once);
+		reads.Verify(x => x.ViewedProductsByIdAsync(ValidId, ct), Times.Once());
 	}
 
 	[Theory]

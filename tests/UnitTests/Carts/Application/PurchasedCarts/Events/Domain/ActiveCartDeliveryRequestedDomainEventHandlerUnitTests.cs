@@ -57,7 +57,7 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
 		await handler.Handle(de);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -80,11 +80,11 @@ public class ActiveCartDeliveryRequestedDomainEventHandlerUnitTests : PurchasedC
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUsernameByIdQuery>(x => x.Id == cart.BuyerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 		sender.Verify(x => x.SendCommandAsync(
 			It.Is<CreateShipmentCommand>(x => x.BuyerId == cart.BuyerId),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

@@ -17,6 +17,7 @@ public class GetCustomizationCostByIdHandlerUnitTests : CustomizationsBaseUnitTe
 	private readonly Mock<IMaterialReads> materialReads = new();
 	private readonly Mock<ICustomizationMaterialCalculator> calculator = new();
 
+	private const decimal Cost = 10.5m;
 	private readonly Customization customization = CreateCustomization();
 	private readonly Material material = CreateMaterial();
 
@@ -24,10 +25,13 @@ public class GetCustomizationCostByIdHandlerUnitTests : CustomizationsBaseUnitTe
 	{
 		handler = new(reads.Object, materialReads.Object, calculator.Object);
 
-		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
+		calculator.Setup(x => x.CalculateCost(customization, material))
+			.Returns(Cost);
+
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(customization);
 
-		materialReads.Setup(v => v.SingleByIdAsync(ValidMaterialId, false, ct))
+		materialReads.Setup(x => x.SingleByIdAsync(ValidMaterialId, false, ct))
 			.ReturnsAsync(material);
 	}
 
@@ -56,6 +60,19 @@ public class GetCustomizationCostByIdHandlerUnitTests : CustomizationsBaseUnitTe
 
 		// Assert
 		calculator.Verify(v => v.CalculateCost(customization, material), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldReturnResult()
+	{
+		// Arrange
+		GetCustomizationCostByIdQuery query = new(ValidId);
+
+		// Act
+		decimal result = await handler.Handle(query, ct);
+
+		// Assert
+		Assert.Equal(Cost, result);
 	}
 
 	[Fact]

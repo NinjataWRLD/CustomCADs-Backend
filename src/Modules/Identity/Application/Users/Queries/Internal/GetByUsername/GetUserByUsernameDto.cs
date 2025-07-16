@@ -9,6 +9,7 @@ public record GetUserByUsernameDto(
 	string Username,
 	string? FirstName,
 	string? LastName,
+	bool TrackViewedProducts,
 	Email Email,
 	DateTimeOffset CreatedAt,
 	ProductId[] ViewedProductIds

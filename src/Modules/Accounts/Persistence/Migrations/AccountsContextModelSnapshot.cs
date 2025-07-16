@@ -18,7 +18,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Accounts")
-                .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -53,6 +53,10 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("RoleName");
 
+                    b.Property<bool>("TrackViewedProducts")
+                        .HasColumnType("boolean")
+                        .HasColumnName("TrackViewedProducts");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(62)
@@ -76,6 +80,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 10, 19, 23, 12, 123, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "ivanzlatinov006@gmail.com",
                             RoleName = "Customer",
+                            TrackViewedProducts = true,
                             Username = "For7a7a"
                         },
                         new
@@ -84,6 +89,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2025, 5, 13, 17, 42, 57, 456, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "PDMatsaliev20@codingburgas.bg",
                             RoleName = "Contributor",
+                            TrackViewedProducts = true,
                             Username = "PDMatsaliev20"
                         },
                         new
@@ -92,6 +98,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2025, 1, 9, 13, 15, 28, 789, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "boriskolev2006@gmail.com",
                             RoleName = "Designer",
+                            TrackViewedProducts = true,
                             Username = "Oracle3000"
                         },
                         new
@@ -100,6 +107,7 @@ namespace CustomCADs.Accounts.Persistence.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2024, 3, 17, 2, 45, 13, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "ivanangelov414@gmail.com",
                             RoleName = "Administrator",
+                            TrackViewedProducts = true,
                             Username = "NinjataBG"
                         });
                 });

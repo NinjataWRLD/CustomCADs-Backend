@@ -19,11 +19,11 @@ public class CompletedCustom : BaseEntity
 	public CustomizationId? CustomizationId { get; private set; }
 	public ShipmentId? ShipmentId { get; private set; }
 
-	public static CompletedCustom Create(CustomId orderId)
-		=> new(orderId, null);
+	public static CompletedCustom Create(CustomId customId)
+		=> new(customId, null);
 
-	public static CompletedCustom Create(CustomId orderId, CustomizationId customizationId)
-		=> new(orderId, customizationId);
+	public static CompletedCustom Create(CustomId customId, CustomizationId customizationId)
+		=> new(customId, customizationId);
 
 	public CompletedCustom SetShipmentId(ShipmentId shipmentId)
 	{

@@ -15,20 +15,34 @@ public class ProductViewedHandler(IProductReads reads, IUnitOfWork uow, IRequest
 		Product product = await reads.SingleByIdAsync(de.Id).ConfigureAwait(false)
 			?? throw CustomNotFoundException<Product>.ById(de.Id);
 
+		string username = await sender.SendQueryAsync(
+			new GetUsernameByIdQuery(de.AccountId)
+		).ConfigureAwait(false);
+
+		var (_, UserTracksViewedProducts, _, _) = await sender.SendQueryAsync(
+			new GetAccountInfoByUsernameQuery(username)
+		).ConfigureAwait(false);
+
+		if (!UserTracksViewedProducts)
+		{
+			return;
+		}
+
 		bool userAlreadyViewed = await sender.SendQueryAsync(
 			new GetAccountViewedProductQuery(de.AccountId, de.Id)
 		).ConfigureAwait(false);
 
-		if (!userAlreadyViewed)
+		if (userAlreadyViewed)
 		{
-			product.AddToViewCount();
-			await uow.SaveChangesAsync().ConfigureAwait(false);
-
-			await raiser.RaiseApplicationEventAsync(new UserViewedProductApplicationEvent(
-				Id: de.Id,
-				AccountId: de.AccountId
-			)).ConfigureAwait(false);
+			return;
 		}
 
+		product.AddToViewCount();
+		await uow.SaveChangesAsync().ConfigureAwait(false);
+
+		await raiser.RaiseApplicationEventAsync(new UserViewedProductApplicationEvent(
+			Id: de.Id,
+			AccountId: de.AccountId
+		)).ConfigureAwait(false);
 	}
 }

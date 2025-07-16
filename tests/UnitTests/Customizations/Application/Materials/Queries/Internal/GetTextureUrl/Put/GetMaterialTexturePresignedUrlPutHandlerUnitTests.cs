@@ -6,7 +6,7 @@ using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
-namespace CustomCADs.UnitTests.Customizations.Application.Materials.Queries.GetTextureUrl.Put;
+namespace CustomCADs.UnitTests.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Put;
 
 using static MaterialsData;
 

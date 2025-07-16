@@ -20,7 +20,7 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 	{
 		handler = new(reads.Object, uow.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(image);
 	}
 
@@ -28,33 +28,33 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		SetImageKeyCommand command = new(id, ValidKey);
+		SetImageKeyCommand command = new(ValidId, ValidKey);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, true, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase_WhenImageFound()
+	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
-		SetImageKeyCommand command = new(id, ValidKey);
+		SetImageKeyCommand command = new(ValidId, ValidKey);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once);
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldModifyImage_WhenImageFound()
+	public async Task Handle_ShouldModifyImage()
 	{
 		// Arrange
-		SetImageKeyCommand command = new(id, ValidKey);
+		SetImageKeyCommand command = new(ValidId, ValidKey);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -67,9 +67,9 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenImageNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, true, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(null as Image);
-		SetImageKeyCommand command = new(id, ValidKey);
+		SetImageKeyCommand command = new(ValidId, ValidKey);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(

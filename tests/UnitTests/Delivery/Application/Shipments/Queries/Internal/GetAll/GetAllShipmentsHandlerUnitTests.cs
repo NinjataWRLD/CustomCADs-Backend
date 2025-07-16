@@ -3,7 +3,6 @@ using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
@@ -60,7 +59,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.AllAsync(shipmentQuery, false, ct), Times.Once);
+		reads.Verify(x => x.AllAsync(shipmentQuery, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -80,7 +79,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 		sender.Verify(x => x.SendQueryAsync(
 			It.Is<GetUsernamesByIdsQuery>(x => x.Ids.Length == shipments.Length),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

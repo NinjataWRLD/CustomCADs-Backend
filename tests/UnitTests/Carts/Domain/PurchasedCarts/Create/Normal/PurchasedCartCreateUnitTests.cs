@@ -1,5 +1,6 @@
-﻿namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Carts.Create.Normal;
+﻿namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Create.Normal;
 
+using CustomCADs.UnitTests.Carts.Domain.PurchasedCarts;
 using static PurchasedCartsData;
 
 public class PurchasedCartCreateUnitTests : PurchasedCartsBaseUnitTests

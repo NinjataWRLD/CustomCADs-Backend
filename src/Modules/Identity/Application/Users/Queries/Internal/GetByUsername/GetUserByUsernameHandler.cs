@@ -29,6 +29,7 @@ public class GetUserByUsernameHandler(IUserReads reads, IRequestSender sender)
 			Role: user.Role,
 			Username: user.Username,
 			Email: user.Email,
+			TrackViewedProducts: info.TrackViewedProducts,
 			CreatedAt: info.CreatedAt,
 			FirstName: info.FirstName,
 			LastName: info.LastName,

@@ -53,7 +53,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
@@ -89,7 +89,7 @@ public class PurchaseCustomHandlerUnitTests : CustomsBaseUnitTests
 			It.Is<decimal>(x => x == ValidPrice),
 			It.Is<string>(x => x.Contains(custom.Name)),
 			ct
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]

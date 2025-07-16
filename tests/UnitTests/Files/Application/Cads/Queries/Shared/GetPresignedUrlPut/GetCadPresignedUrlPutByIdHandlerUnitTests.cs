@@ -7,6 +7,8 @@ using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetPresignedUrlPut;
 
+using static CadsData;
+
 public class GetCadPresignedUrlPutByIdHandlerUnitTests : CadsBaseUnitTests
 {
 	private readonly GetCadPresignedUrlPutByIdHandler handler;
@@ -22,7 +24,7 @@ public class GetCadPresignedUrlPutByIdHandlerUnitTests : CadsBaseUnitTests
 	{
 		handler = new(reads.Object, storage.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(cad);
 
 		storage.Setup(x => x.GetPresignedPutUrlAsync(GeneratedKey, req))
@@ -33,20 +35,20 @@ public class GetCadPresignedUrlPutByIdHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		GetCadPresignedUrlPutByIdQuery query = new(id, req);
+		GetCadPresignedUrlPutByIdQuery query = new(ValidId, req);
 
 		// Act
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(id, false, ct), Times.Once);
+		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
 	}
 
 	[Fact]
 	public async Task Handle_ShouldCallStorage()
 	{
 		// Arrange
-		GetCadPresignedUrlPutByIdQuery query = new(id, req);
+		GetCadPresignedUrlPutByIdQuery query = new(ValidId, req);
 
 		// Act
 		await handler.Handle(query, ct);
@@ -55,14 +57,14 @@ public class GetCadPresignedUrlPutByIdHandlerUnitTests : CadsBaseUnitTests
 		storage.Verify(x => x.GetPresignedPutUrlAsync(
 			GeneratedKey,
 			req
-		), Times.Once);
+		), Times.Once());
 	}
 
 	[Fact]
 	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
-		GetCadPresignedUrlPutByIdQuery query = new(id, req);
+		GetCadPresignedUrlPutByIdQuery query = new(ValidId, req);
 
 		// Act
 		string url = await handler.Handle(query, ct);
@@ -75,9 +77,9 @@ public class GetCadPresignedUrlPutByIdHandlerUnitTests : CadsBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenCadNotFound()
 	{
 		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(id, false, ct))
+		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(null as Cad);
-		GetCadPresignedUrlPutByIdQuery query = new(id, req);
+		GetCadPresignedUrlPutByIdQuery query = new(ValidId, req);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
