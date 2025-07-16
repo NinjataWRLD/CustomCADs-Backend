@@ -18,30 +18,31 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IRoleWrites> writes = new();
 
-	private static readonly RoleWriteDto role = new(ValidName, ValidDescription);
+	private static readonly RoleWriteDto dto = new(ValidName, ValidDescription);
+	private static readonly Role role = CreateRoleWithId(id: ValidId);
 
 	public CreateRoleHandlerUnitTests()
 	{
 		handler = new(writes.Object, uow.Object, cache.Object, raiser.Object);
 
 		writes.Setup(x => x.AddAsync(
-			It.Is<Role>(x => x.Name == role.Name && x.Description == role.Description),
+			It.Is<Role>(x => x.Name == dto.Name && x.Description == dto.Description),
 			ct
-		)).ReturnsAsync(CreateRoleWithId(id: ValidId));
+		)).ReturnsAsync(role);
 	}
 
 	[Fact]
 	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
-		CreateRoleCommand command = new(role);
+		CreateRoleCommand command = new(dto);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		writes.Verify(x => x.AddAsync(
-			It.Is<Role>(x => x.Name == role.Name && x.Description == role.Description),
+			It.Is<Role>(x => x.Name == dto.Name && x.Description == dto.Description),
 			ct
 		), Times.Once());
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
@@ -51,30 +52,27 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 	public async Task Handle_ShouldUpdateCache()
 	{
 		// Arrange
-		CreateRoleCommand command = new(role);
+		CreateRoleCommand command = new(dto);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
-		cache.Verify(x => x.UpdateAsync(
-			It.IsAny<RoleId>(),
-			It.Is<Role>(x => x.Name == role.Name && x.Description == role.Description)
-		), Times.Once());
+		cache.Verify(x => x.UpdateAsync(ValidId, role), Times.Once());
 	}
 
 	[Fact]
 	public async Task Handle_ShouldRaiseEvents()
 	{
 		// Arrange
-		CreateRoleCommand command = new(role);
+		CreateRoleCommand command = new(dto);
 
 		// Act
 		await handler.Handle(command, ct);
 
 		// Assert
 		raiser.Verify(x => x.RaiseApplicationEventAsync(
-			It.Is<RoleCreatedApplicationEvent>(x => x.Name == role.Name && x.Description == role.Description)
+			It.Is<RoleCreatedApplicationEvent>(x => x.Name == dto.Name && x.Description == dto.Description)
 		), Times.Once());
 	}
 
@@ -82,7 +80,7 @@ public class CreateRoleHandlerUnitTests : RolesBaseUnitTests
 	public async Task Handle_ShouldReturnResult()
 	{
 		// Arrange
-		CreateRoleCommand command = new(role);
+		CreateRoleCommand command = new(dto);
 
 		// Act
 		RoleId id = await handler.Handle(command, ct);
