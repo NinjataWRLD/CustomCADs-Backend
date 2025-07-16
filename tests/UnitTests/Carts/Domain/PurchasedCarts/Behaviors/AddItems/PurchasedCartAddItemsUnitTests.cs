@@ -1,5 +1,4 @@
-﻿using CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Domain.PurchasedCarts.Behaviors.AddItems;

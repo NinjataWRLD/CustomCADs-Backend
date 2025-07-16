@@ -1,5 +1,4 @@
-﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Create;
-using CustomCADs.Customs.Application.Customs.Dtos;
+﻿using CustomCADs.Customs.Application.Customs.Dtos;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetById;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
