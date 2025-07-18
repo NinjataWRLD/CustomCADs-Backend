@@ -27,6 +27,7 @@ public static class ProgramExtensions
 				CustomCADs.Customs.Application.CustomsApplicationReference.Assembly,
 				CustomCADs.Delivery.Application.DeliveryApplicationReference.Assembly,
 				CustomCADs.Files.Application.FilesApplicationReference.Assembly,
+				CustomCADs.Idempotency.Application.IdempotencyApplicationReference.Assembly,
 				CustomCADs.Identity.Application.IdentityApplicationReference.Assembly,
 			]
 		);

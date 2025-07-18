@@ -35,15 +35,16 @@ builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
-// Stuff
+// Neccessities
 app.UseCorsForClient();
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Global Middleware
 app.UseExceptionHandler();
 app.UseJwtPrincipal();
 app.UseCsrfProtection();
-app.UseStaticFiles();
 
 // API & Documentation
 app.UseEndpoints();

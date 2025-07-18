@@ -4,7 +4,6 @@ public record GetAccountInfoByUsernameQuery(
 	string Username
 ) : IQuery<AccountInfo>;
 
-
 public record AccountInfo(
 	DateTimeOffset CreatedAt,
 	bool TrackViewedProducts,

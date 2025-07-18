@@ -1,22 +1,22 @@
-﻿using CustomCADs.Catalog.Application.Products.BackgroundJobs;
+﻿using CustomCADs.Idempotency.Application.IdempotencyKeys.BackgroundJobs;
 using Quartz;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
 
-using static ProductConstants;
+using static IdempotencyKeyConstants;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddCatalogBackgroundJobs(this IServiceCollection services)
+	public static IServiceCollection AddIdempotencyBackgroundJobs(this IServiceCollection services)
 	{
 		services.AddQuartz(q =>
 		{
 			q.AddTrigger(opts => opts
-				.ForJob(q.AddJob<ClearTagsJob>())
+				.ForJob(q.AddJob<ClearIdempotencyKeysJob>())
 				.WithSimpleSchedule(schedule =>
 					schedule
-						.WithInterval(TimeSpan.FromDays(ClearTagsIntervalDays))
+						.WithInterval(TimeSpan.FromHours(ClearIdempotencyKeysIntervalHours))
 						.RepeatForever()
 				));
 		});
