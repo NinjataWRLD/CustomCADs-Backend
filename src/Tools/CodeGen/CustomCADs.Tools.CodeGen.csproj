@@ -25,6 +25,7 @@
 		<ProjectReference Include="..\..\Modules\Delivery\Persistence\CustomCADs.Delivery.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Files\Application\CustomCADs.Files.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Files\Persistence\CustomCADs.Files.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Idempotency\Persistence\CustomCADs.Idempotency.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Identity\Application\CustomCADs.Identity.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Identity\Persistence\CustomCADs.Identity.Persistence.csproj" />
 		<ProjectReference Include="..\..\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />

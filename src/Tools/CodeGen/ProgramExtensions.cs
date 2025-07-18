@@ -122,6 +122,7 @@ public static class ProgramExtensions
 			.AddCustomsPersistence(config)
 			.AddDeliveryPersistence(config)
 			.AddFilesPersistence(config)
+			.AddIdempotencyPersistence(config)
 			.AddIdentityPersistence(config);
 
 
