@@ -39,11 +39,9 @@ internal static class Utilities
 			.HasColumnName(nameof(IdempotencyKey.RequestHash));
 
 		builder.Property(x => x.ResponseBody)
-			.IsRequired()
 			.HasColumnName(nameof(IdempotencyKey.ResponseBody));
 
 		builder.Property(x => x.StatusCode)
-			.IsRequired()
 			.HasColumnName(nameof(IdempotencyKey.StatusCode));
 
 		builder.Property(x => x.CreatedAt)

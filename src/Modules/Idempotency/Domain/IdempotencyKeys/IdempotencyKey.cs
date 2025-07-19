@@ -5,25 +5,37 @@ namespace CustomCADs.Idempotency.Domain.IdempotencyKeys;
 public class IdempotencyKey : BaseAggregateRoot
 {
 	private IdempotencyKey() { }
-	private IdempotencyKey(IdempotencyKeyId id, string hash, string body, int status)
+	private IdempotencyKey(IdempotencyKeyId id, string hash)
 	{
 		Id = id;
 		RequestHash = hash;
-		ResponseBody = body;
-		StatusCode = status;
 		CreatedAt = DateTimeOffset.UtcNow;
 	}
 
 	public IdempotencyKeyId Id { get; init; }
 	public string RequestHash { get; init; } = string.Empty;
-	public string ResponseBody { get; init; } = string.Empty;
-	public int StatusCode { get; init; }
+	public string? ResponseBody { get; private set; }
+	public int? StatusCode { get; private set; }
 	public DateTimeOffset CreatedAt { get; init; }
 
-	public static IdempotencyKey Create(IdempotencyKeyId id, string hash, string body, int status)
-		=> new IdempotencyKey(id, hash, body, status)
+	public static IdempotencyKey Create(IdempotencyKeyId id, string hash)
+		=> new IdempotencyKey(id, hash)
 			.ValidateIdempotencyKey()
-			.ValidateRequestHash()
-			.ValidateResponseBody()
-			.ValidateStatusCode();
+			.ValidateRequestHash();
+
+	public IdempotencyKey SetResponseBody(string body)
+	{
+		ResponseBody = body;
+		this.ValidateResponseBody();
+
+		return this;
+	}
+
+	public IdempotencyKey SetStatusCode(int status)
+	{
+		StatusCode = status;
+		this.ValidateStatusCode();
+
+		return this;
+	}
 }

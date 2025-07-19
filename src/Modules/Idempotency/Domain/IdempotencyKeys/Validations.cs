@@ -33,7 +33,7 @@ public static class Validations
 	public static IdempotencyKey ValidateResponseBody(this IdempotencyKey idempotencyKey)
 	{
 		string property = "ResponseBody";
-		string responseBody = idempotencyKey.ResponseBody;
+		string? responseBody = idempotencyKey.ResponseBody;
 
 		if (responseBody is null) // !! string.Empty is valid !!
 		{
@@ -46,7 +46,7 @@ public static class Validations
 	public static IdempotencyKey ValidateStatusCode(this IdempotencyKey idempotencyKey)
 	{
 		string property = "StatusCode";
-		int statusCode = idempotencyKey.StatusCode;
+		int? statusCode = idempotencyKey.StatusCode;
 
 		int min = MinStatusCode, max = MaxStatusCode;
 		if (statusCode < min || statusCode > max)

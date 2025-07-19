@@ -3,6 +3,7 @@ using System;
 using CustomCADs.Idempotency.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CustomCADs.Idempotency.Persistence.Migrations
 {
     [DbContext(typeof(IdempotencyContext))]
-    partial class IdempotencyContextModelSnapshot : ModelSnapshot
+    [Migration("20250719122354_Made_ResponseBody_And_StatusCode_Nullable")]
+    partial class Made_ResponseBody_And_StatusCode_Nullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
