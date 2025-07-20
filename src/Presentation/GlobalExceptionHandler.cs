@@ -30,7 +30,7 @@ public class GlobalExceptionHandler(IProblemDetailsService service) : IException
 				 => await service.ForbiddenResponseAsync(context, ex).ConfigureAwait(false),
 
 			DatabaseConflictException
-				=> await service.CusotmResponseAsync(context, ex, Status409Conflict, "Database Conflict").ConfigureAwait(false),
+				=> await service.CustomResponseAsync(context, ex, Status409Conflict, "Database Conflict").ConfigureAwait(false),
 
 			_ => await service.InternalServerErrorResponseAsync(context, ex).ConfigureAwait(false),
 		};

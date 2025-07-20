@@ -45,6 +45,7 @@ app.UseAuthorization();
 app.UseExceptionHandler();
 app.UseJwtPrincipal();
 app.UseCsrfProtection();
+app.UseIdempotencyKeys();
 
 // API & Documentation
 app.UseEndpoints();

@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetCadUrlPost;
 using CustomCADs.Shared.Core.Common.Dtos;
+using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Post;
 
@@ -13,6 +14,7 @@ public sealed class GetCustomPostPresignedUrlEndpoint(IRequestSender sender)
 		Description(d => d
 			.WithSummary("Upload")
 			.WithDescription("Upload a Cad for an Custom")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 
