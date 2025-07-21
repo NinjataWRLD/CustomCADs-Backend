@@ -8,10 +8,10 @@ public class GetIdempotencyKeyHandler(IIdempotencyKeyReads reads)
 	public async Task<GetIdempotencyKeyDto?> Handle(GetIdempotencyKeyQuery req, CancellationToken ct = default)
 	{
 		IdempotencyKey idempotencyKey = await reads.SingleByIdAsync(
-			IdempotencyKeyId.New(req.IdempotencyKey),
-			req.RequestHash,
+			id: IdempotencyKeyId.New(req.IdempotencyKey),
+			requestHash: req.RequestHash,
 			track: false,
-			ct
+			ct: ct
 		).ConfigureAwait(false)
 			?? throw CustomNotFoundException<IdempotencyKey>.ById(new { req.IdempotencyKey, req.RequestHash });
 

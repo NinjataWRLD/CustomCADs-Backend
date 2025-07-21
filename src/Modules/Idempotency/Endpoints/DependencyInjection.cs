@@ -1,5 +1,6 @@
 using CustomCADs.Idempotency.Application.IdempotencyKeys.Commands.Internal.Complete;
 using CustomCADs.Idempotency.Application.IdempotencyKeys.Commands.Internal.Create;
+using CustomCADs.Idempotency.Application.IdempotencyKeys.Commands.Internal.Delete;
 using CustomCADs.Idempotency.Application.IdempotencyKeys.Queries.Internal.Get;
 using CustomCADs.Idempotency.Domain.IdempotencyKeys;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
@@ -82,6 +83,15 @@ public static class DependencyInjection
 				catch
 				{
 					context.Response.Body = originalBody;
+
+					await sender.SendCommandAsync(
+						new DeleteIdempotencyKeyCommand(
+							IdempotencyKey: idempotencyKey,
+							RequestHash: requestHash
+						),
+						ct
+					).ConfigureAwait(false);
+
 					throw;
 				}
 
