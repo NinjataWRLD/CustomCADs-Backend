@@ -30,6 +30,7 @@ public static class ProgramExtensions
 				CustomCADs.Customs.Application.CustomsApplicationReference.Assembly,
 				CustomCADs.Delivery.Application.DeliveryApplicationReference.Assembly,
 				CustomCADs.Files.Application.FilesApplicationReference.Assembly,
+				CustomCADs.Idempotency.Application.IdempotencyApplicationReference.Assembly,
 				CustomCADs.Identity.Application.IdentityApplicationReference.Assembly,
 			]
 		);
@@ -122,12 +123,21 @@ public static class ProgramExtensions
 			.AddCustomsPersistence(config)
 			.AddDeliveryPersistence(config)
 			.AddFilesPersistence(config)
+			.AddIdempotencyPersistence(config)
 			.AddIdentityPersistence(config);
 
 
 	public static IServiceCollection AddDomainServices(this IServiceCollection services)
 	{
 		services.AddScoped<ICustomizationMaterialCalculator, CustomizationMaterialCalculator>();
+
+		return services;
+	}
+
+	public static IServiceCollection AddBackgroundJobs(this IServiceCollection services)
+	{
+		services.AddCatalogBackgroundJobs();
+		services.AddIdempotencyBackgroundJobs();
 
 		return services;
 	}

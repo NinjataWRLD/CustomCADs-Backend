@@ -25,7 +25,7 @@ public sealed class RetryConfirmEmailEndpoint(IRequestSender sender, LinkGenerat
 				GetUri: ect => links.GetUriByName(
 					httpContext: HttpContext,
 					endpointName: IdentityNames.ConfirmEmail,
-					values: new { username = req.Username, token = ect }
+					values: new { username = req.Username, token = ect, idempotencyKey = Guid.NewGuid() }
 				) ?? throw new InvalidOperationException("Unable to generate confirmation link.")
 			),
 			ct

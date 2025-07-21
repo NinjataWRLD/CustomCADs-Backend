@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Get.VerifyEmail;
 
+[EnforceIdempotency]
 public sealed class ConfirmEmailEndpoint(IRequestSender sender, IOptions<CookieSettings> settings)
 	: Endpoint<ConfirmEmailRequest>
 {

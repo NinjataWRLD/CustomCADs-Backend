@@ -15,6 +15,7 @@ public sealed class LogoutEndpoint(IRequestSender sender, IOptions<CookieSetting
 			.WithName(IdentityNames.Logout)
 			.WithSummary("Log out")
 			.WithDescription("Log out of your account")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Get;
 using CustomCADs.Shared.Core.Common.Dtos;
+using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.PresignedUrls.Cad;
 
@@ -13,6 +14,7 @@ public sealed class GetProductGetPresignedCadUrlEndpoint(IRequestSender sender)
 		Description(d => d
 			.WithSummary("Download Cad")
 			.WithDescription("Download a Product's Cad")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

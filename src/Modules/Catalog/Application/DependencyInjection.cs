@@ -8,7 +8,7 @@ using static ProductConstants;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddBackgroundJobs(this IServiceCollection services)
+	public static IServiceCollection AddCatalogBackgroundJobs(this IServiceCollection services)
 	{
 		services.AddQuartz(q =>
 		{

@@ -43,6 +43,7 @@ public static class ProgramExtensions
 			.AddCustomsPersistence(config)
 			.AddDeliveryPersistence(config)
 			.AddFilesPersistence(config)
+			.AddIdempotencyPersistence(config)
 			.AddIdentityPersistence(config);
 
 	public static IServiceCollection AddDomainServices(this IServiceCollection services)
@@ -66,6 +67,7 @@ public static class ProgramExtensions
 			provider.UpdateCustomsContextAsync(),
 			provider.UpdateDeliveryContextAsync(),
 			provider.UpdateFilesContextAsync(),
+			provider.UpdateIdempotencyContextAsync(),
 			provider.UpdateIdentityContextAsync(),
 		]).ConfigureAwait(false);
 	}
