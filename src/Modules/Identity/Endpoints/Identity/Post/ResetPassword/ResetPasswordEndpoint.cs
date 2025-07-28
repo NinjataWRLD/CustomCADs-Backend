@@ -28,6 +28,6 @@ public sealed class ResetPasswordEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync("Done!").ConfigureAwait(false);
+		await SendOkAsync().ConfigureAwait(false);
 	}
 }
