@@ -22,7 +22,7 @@ public class LoginUserHandlerUnitTests : UsersBaseUnitTests
 		handler = new(reads.Object, writes.Object, tokens.Object);
 
 		reads.Setup(x => x.GetByUsernameAsync(user.Username)).ReturnsAsync(user);
-		writes.Setup(x => x.CheckPasswordAsync(user, MinValidPassword)).ReturnsAsync(true);
+		writes.Setup(x => x.CheckPasswordAsync(user.Username, MinValidPassword)).ReturnsAsync(true);
 	}
 
 	[Fact]
@@ -41,14 +41,14 @@ public class LoginUserHandlerUnitTests : UsersBaseUnitTests
 		// Assert
 		reads.Verify(x => x.GetByUsernameAsync(MaxValidUsername), Times.Once());
 		reads.Verify(x => x.GetIsLockedOutAsync(MaxValidUsername), Times.Once());
-		writes.Verify(x => x.CheckPasswordAsync(user, MinValidPassword), Times.Once()); // this is a read operation, but due to potential side-effect is defined a write operation
+		writes.Verify(x => x.CheckPasswordAsync(user.Username, MinValidPassword), Times.Once()); // this is a read operation, but due to potential side-effect is defined a write operation
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenPasswordIncorrect()
 	{
 		// Arrange
-		writes.Setup(x => x.CheckPasswordAsync(user, MinValidPassword)).ReturnsAsync(false);
+		writes.Setup(x => x.CheckPasswordAsync(user.Username, MinValidPassword)).ReturnsAsync(false);
 
 		LoginUserCommand command = new(
 			Username: user.Username,

@@ -23,7 +23,7 @@ public class VerificationEmailHandlerUnitTests : UsersBaseUnitTests
 		handler = new(reads.Object, writes.Object, raiser.Object);
 
 		reads.Setup(x => x.GetByUsernameAsync(user.Username)).ReturnsAsync(user);
-		writes.Setup(x => x.GenerateEmailConfirmationTokenAsync(user)).ReturnsAsync(Token);
+		writes.Setup(x => x.GenerateEmailConfirmationTokenAsync(user.Username)).ReturnsAsync(Token);
 	}
 
 	[Fact]
@@ -49,7 +49,7 @@ public class VerificationEmailHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.GenerateEmailConfirmationTokenAsync(user), Times.Once());
+		writes.Verify(x => x.GenerateEmailConfirmationTokenAsync(user.Username), Times.Once());
 	}
 
 	[Fact]

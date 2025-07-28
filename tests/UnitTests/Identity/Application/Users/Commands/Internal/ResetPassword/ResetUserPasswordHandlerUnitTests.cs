@@ -22,7 +22,7 @@ public class ResetUserPasswordHandlerUnitTests : UsersBaseUnitTests
 
 		reads.Setup(x => x.GetByEmailAsync(user.Email.Value))
 			.ReturnsAsync(user);
-		writes.Setup(x => x.ResetPasswordAsync(user, Token, MinValidPassword)).ReturnsAsync(true);
+		writes.Setup(x => x.ResetPasswordAsync(user.Username, Token, MinValidPassword)).ReturnsAsync(true);
 	}
 
 	[Fact]
@@ -56,14 +56,14 @@ public class ResetUserPasswordHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.ResetPasswordAsync(user, Token, MinValidPassword), Times.Once());
+		writes.Verify(x => x.ResetPasswordAsync(user.Username, Token, MinValidPassword), Times.Once());
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenResetUnsuccessful()
 	{
 		// Arrange
-		writes.Setup(x => x.ResetPasswordAsync(user, Token, MinValidPassword)).ReturnsAsync(false);
+		writes.Setup(x => x.ResetPasswordAsync(user.Username, Token, MinValidPassword)).ReturnsAsync(false);
 
 		ResetUserPasswordCommand command = new(
 			Email: user.Email.Value,
