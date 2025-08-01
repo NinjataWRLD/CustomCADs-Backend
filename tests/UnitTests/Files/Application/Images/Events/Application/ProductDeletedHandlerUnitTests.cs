@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Application.Images.Events.Application;
+using CustomCADs.Files.Application.Images.Storage;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.ApplicationEvents.Files;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
@@ -15,7 +15,7 @@ public class ProductDeletedHandlerUnitTests : ImagesBaseUnitTests
 	private readonly Mock<IImageReads> reads = new();
 	private readonly Mock<IWrites<Image>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Mock<IStorageService> storage = new();
+	private readonly Mock<IImageStorageService> storage = new();
 
 	private static readonly Image image = CreateImage();
 

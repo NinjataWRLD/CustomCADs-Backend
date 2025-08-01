@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Files.Application.Images.Queries.Shared;
+using CustomCADs.Files.Application.Images.Storage;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Images.Queries;
 
@@ -12,7 +12,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 {
 	private readonly GetImagePresignedUrlGetByIdHandler handler;
 	private readonly Mock<IImageReads> reads = new();
-	private readonly Mock<IStorageService> storage = new();
+	private readonly Mock<IImageStorageService> storage = new();
 
 	private static readonly Image image = CreateImage();
 	private const string PresignedUrl = "PresignedUrl";

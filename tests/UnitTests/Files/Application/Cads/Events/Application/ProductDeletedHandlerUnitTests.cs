@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Application.Cads.Events.Application;
+using CustomCADs.Files.Application.Cads.Storage;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.ApplicationEvents.Files;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
@@ -15,7 +15,7 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<IWrites<Cad>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
-	private readonly Mock<IStorageService> storage = new();
+	private readonly Mock<ICadStorageService> storage = new();
 
 	private static readonly Cad cad = CreateCad();
 
