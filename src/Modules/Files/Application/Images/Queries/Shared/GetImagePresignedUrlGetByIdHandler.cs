@@ -14,10 +14,7 @@ public class GetImagePresignedUrlGetByIdHandler(IImageReads reads, IImageStorage
 		Image image = await reads.SingleByIdAsync(req.Id, track: false, ct).ConfigureAwait(false)
 			?? throw CustomNotFoundException<Image>.ById(req.Id);
 
-		string url = await storage.GetPresignedGetUrlAsync(
-			key: image.Key,
-			contentType: image.ContentType
-		).ConfigureAwait(false);
+		string url = await storage.GetPresignedGetUrlAsync(image.Key).ConfigureAwait(false);
 
 		return new(
 			PresignedUrl: url,

@@ -7,10 +7,10 @@ public class ImageStorageService(IStorageService service) : IImageStorageService
 {
 	private const string FolderPath = "images";
 
-	public async Task<string> GetPresignedGetUrlAsync(string key, string contentType)
+	public async Task<string> GetPresignedGetUrlAsync(string key)
 		=> await service.GetPresignedGetUrlAsync(
 			key: key,
-			contentType: contentType,
+			contentType: null,
 			expiresAt: DateTime.UtcNow.AddMinutes(10)
 		).ConfigureAwait(false);
 

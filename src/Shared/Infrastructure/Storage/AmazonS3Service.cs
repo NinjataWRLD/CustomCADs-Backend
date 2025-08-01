@@ -10,7 +10,7 @@ public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings
 {
 	private static DateTime GetDefaultExpiresAt() => DateTime.UtcNow.AddMinutes(2);
 
-	public async Task<string> GetPresignedGetUrlAsync(string key, string contentType, DateTime? expiresAt = null)
+	public async Task<string> GetPresignedGetUrlAsync(string key, string? contentType, DateTime? expiresAt = null)
 	{
 		try
 		{

@@ -24,7 +24,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
 			.ReturnsAsync(image);
 
-		storage.Setup(x => x.GetPresignedGetUrlAsync(image.Key, image.ContentType))
+		storage.Setup(x => x.GetPresignedGetUrlAsync(image.Key))
 			.ReturnsAsync(PresignedUrl);
 	}
 
@@ -51,10 +51,7 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		storage.Verify(x => x.GetPresignedGetUrlAsync(
-			image.Key,
-			image.ContentType
-		), Times.Once());
+		storage.Verify(x => x.GetPresignedGetUrlAsync(image.Key), Times.Once());
 	}
 
 	[Fact]
