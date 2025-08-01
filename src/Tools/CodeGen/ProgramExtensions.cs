@@ -88,6 +88,9 @@ public static class ProgramExtensions
 		services.Configure<StorageSettings>(config.GetSection("Storage"));
 		services.AddStorageService();
 
+		services.AddCadStorageService();
+		services.AddImageStorageService();
+
 		return services;
 	}
 

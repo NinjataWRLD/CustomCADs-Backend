@@ -8,7 +8,9 @@ namespace CustomCADs.Shared.Infrastructure.Storage;
 
 public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> settings) : IStorageService
 {
-	public async Task<string> GetPresignedGetUrlAsync(string key, string contentType)
+	private static DateTime GetDefaultExpiresAt() => DateTime.UtcNow.AddMinutes(2);
+
+	public async Task<string> GetPresignedGetUrlAsync(string key, string contentType, DateTime? expiresAt = null)
 	{
 		try
 		{
@@ -17,7 +19,7 @@ public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings
 				BucketName = settings.Value.BucketName,
 				Key = key,
 				Verb = HttpVerb.GET,
-				Expires = DateTime.UtcNow.AddMinutes(2),
+				Expires = expiresAt ?? GetDefaultExpiresAt(),
 				ContentType = contentType,
 			};
 			return await s3Client.GetPreSignedURLAsync(req).ConfigureAwait(false);
@@ -28,7 +30,7 @@ public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings
 		}
 	}
 
-	public async Task<UploadFileResponse> GetPresignedPostUrlAsync(string folderPath, string name, UploadFileRequest file)
+	public async Task<UploadFileResponse> GetPresignedPostUrlAsync(string folderPath, string name, UploadFileRequest file, DateTime? expiresAt = null)
 	{
 		try
 		{
@@ -40,7 +42,7 @@ public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings
 				BucketName = settings.Value.BucketName,
 				Key = key,
 				Verb = HttpVerb.PUT,
-				Expires = DateTime.UtcNow.AddMinutes(2),
+				Expires = expiresAt ?? GetDefaultExpiresAt(),
 				ContentType = file.ContentType,
 				Metadata = { ["file-name"] = file.FileName }
 			};
@@ -58,7 +60,7 @@ public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings
 		}
 	}
 
-	public async Task<string> GetPresignedPutUrlAsync(string key, UploadFileRequest file)
+	public async Task<string> GetPresignedPutUrlAsync(string key, UploadFileRequest file, DateTime? expiresAt = null)
 	{
 		try
 		{
@@ -67,7 +69,7 @@ public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings
 				BucketName = settings.Value.BucketName,
 				Key = key,
 				Verb = HttpVerb.PUT,
-				Expires = DateTime.UtcNow.AddMinutes(2),
+				Expires = expiresAt ?? GetDefaultExpiresAt(),
 				ContentType = file.ContentType,
 				Metadata = { ["file-name"] = file.FileName }
 			};
