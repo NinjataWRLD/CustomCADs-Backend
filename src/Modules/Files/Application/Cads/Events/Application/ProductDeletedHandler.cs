@@ -1,11 +1,11 @@
-﻿using CustomCADs.Files.Domain.Repositories;
+﻿using CustomCADs.Files.Application.Cads.Storage;
+using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.ApplicationEvents.Files;
 
 namespace CustomCADs.Files.Application.Cads.Events.Application;
 
-public class ProductDeletedHandler(ICadReads reads, IWrites<Cad> writes, IUnitOfWork uow, IStorageService storage)
+public class ProductDeletedHandler(ICadReads reads, IWrites<Cad> writes, IUnitOfWork uow, ICadStorageService storage)
 {
 	public async Task Handle(ProductDeletedApplicationEvent ae)
 	{

@@ -1,12 +1,12 @@
-﻿using CustomCADs.Files.Domain.Repositories.Reads;
+﻿using CustomCADs.Files.Application.Cads.Storage;
+using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Queries;
-using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
 namespace CustomCADs.Files.Application.Cads.Queries.Shared;
 
-public class GetCadPresignedUrlGetByIdHandler(ICadReads reads, IStorageService storage)
+public class GetCadPresignedUrlGetByIdHandler(ICadReads reads, ICadStorageService storage)
 	: IQueryHandler<GetCadPresignedUrlGetByIdQuery, DownloadFileResponse>
 {
 	public async Task<DownloadFileResponse> Handle(GetCadPresignedUrlGetByIdQuery req, CancellationToken ct)
