@@ -9,10 +9,10 @@ public class VerificationEmailHandler(IUserReads reads, IUserWrites writes, IEve
 {
 	public async Task Handle(VerificationEmailCommand req, CancellationToken ct)
 	{
+		string token = await writes.GenerateEmailConfirmationTokenAsync(req.Username).ConfigureAwait(false);
 		User user = await reads.GetByUsernameAsync(req.Username).ConfigureAwait(false)
 			?? throw CustomNotFoundException<User>.ByProp(nameof(User.Username), req.Username);
 
-		string token = await writes.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
 		await raiser.RaiseApplicationEventAsync(new EmailVerificationRequestedApplicationEvent(
 			Email: user.Email.Value,
 			Endpoint: req.GetUri(token)

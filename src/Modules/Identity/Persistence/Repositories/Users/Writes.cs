@@ -18,9 +18,9 @@ public class Writes(UserManager<AppUser> manager) : IUserWrites
 		return result.Succeeded;
 	}
 
-	public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+	public async Task<string> GenerateEmailConfirmationTokenAsync(string username)
 	{
-		AppUser? appUser = await manager.FindByNameAsync(user.Username).ConfigureAwait(false);
+		AppUser? appUser = await manager.FindByNameAsync(username).ConfigureAwait(false);
 		if (appUser is null)
 		{
 			return string.Empty;
@@ -29,9 +29,9 @@ public class Writes(UserManager<AppUser> manager) : IUserWrites
 		return await manager.GenerateEmailConfirmationTokenAsync(appUser).ConfigureAwait(false);
 	}
 
-	public async Task<bool> ConfirmEmailAsync(User user, string token)
+	public async Task<bool> ConfirmEmailAsync(string username, string token)
 	{
-		AppUser? appUser = await manager.FindByNameAsync(user.Username).ConfigureAwait(false);
+		AppUser? appUser = await manager.FindByNameAsync(username).ConfigureAwait(false);
 		if (appUser is null)
 		{
 			return false;
@@ -41,9 +41,9 @@ public class Writes(UserManager<AppUser> manager) : IUserWrites
 		return result.Succeeded;
 	}
 
-	public async Task<string> GeneratePasswordResetTokenAsync(User user)
+	public async Task<string> GeneratePasswordResetTokenAsync(string username)
 	{
-		AppUser? appUser = await manager.FindByNameAsync(user.Username).ConfigureAwait(false);
+		AppUser? appUser = await manager.FindByNameAsync(username).ConfigureAwait(false);
 		if (appUser is null)
 		{
 			return string.Empty;
@@ -52,9 +52,9 @@ public class Writes(UserManager<AppUser> manager) : IUserWrites
 		return await manager.GeneratePasswordResetTokenAsync(appUser).ConfigureAwait(false);
 	}
 
-	public async Task<bool> ResetPasswordAsync(User user, string token, string newPassword)
+	public async Task<bool> ResetPasswordAsync(string username, string token, string newPassword)
 	{
-		AppUser? appUser = await manager.FindByNameAsync(user.Username).ConfigureAwait(false);
+		AppUser? appUser = await manager.FindByNameAsync(username).ConfigureAwait(false);
 		if (appUser is null)
 		{
 			return false;
@@ -64,9 +64,9 @@ public class Writes(UserManager<AppUser> manager) : IUserWrites
 		return result.Succeeded;
 	}
 
-	public async Task<bool> CheckPasswordAsync(User user, string password)
+	public async Task<bool> CheckPasswordAsync(string username, string password)
 	{
-		AppUser? appUser = await manager.FindByNameAsync(user.Username).ConfigureAwait(false);
+		AppUser? appUser = await manager.FindByNameAsync(username).ConfigureAwait(false);
 		if (appUser is null)
 		{
 			return false;

@@ -2,7 +2,6 @@ using CustomCADs.Identity.Domain.Repositories.Reads;
 using CustomCADs.Identity.Domain.Users;
 using CustomCADs.Identity.Domain.Users.Entities;
 using CustomCADs.Identity.Persistence.ShadowEntities;
-using CustomCADs.Shared.Core.Common.TypedIds.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,18 +11,6 @@ public class Reads(UserManager<AppUser> manager) : IUserReads
 {
 	private IQueryable<AppUser> Users => manager.Users.Include(x => x.RefreshTokens);
 
-	public async Task<User?> GetByIdAsync(UserId id)
-	{
-		AppUser? appUser = await Users.FirstOrDefaultAsync(x => x.Id == id.Value).ConfigureAwait(false);
-		if (appUser is null)
-		{
-			return null;
-		}
-
-		string role = await GetRoleAsync(appUser).ConfigureAwait(false);
-		return appUser?.ToUser(role);
-	}
-
 	public async Task<User?> GetByUsernameAsync(string username)
 	{
 		AppUser? appUser = await Users.FirstOrDefaultAsync(x => x.UserName == username).ConfigureAwait(false);
@@ -32,8 +19,7 @@ public class Reads(UserManager<AppUser> manager) : IUserReads
 			return null;
 		}
 
-		string role = await GetRoleAsync(appUser).ConfigureAwait(false);
-		return appUser?.ToUser(role);
+		return appUser?.ToUser(role: await GetRoleAsync(appUser).ConfigureAwait(false));
 	}
 
 	public async Task<User?> GetByEmailAsync(string email)
@@ -44,8 +30,7 @@ public class Reads(UserManager<AppUser> manager) : IUserReads
 			return null;
 		}
 
-		string role = await GetRoleAsync(appUser).ConfigureAwait(false);
-		return appUser?.ToUser(role);
+		return appUser?.ToUser(role: await GetRoleAsync(appUser).ConfigureAwait(false));
 	}
 
 	public async Task<(User? User, RefreshToken? RefreshToken)> GetByRefreshTokenAsync(string token)
@@ -56,10 +41,10 @@ public class Reads(UserManager<AppUser> manager) : IUserReads
 			return (User: null, RefreshToken: null);
 		}
 
-		AppRefreshToken rt = appUser.RefreshTokens.First(x => x.Value == token);
-		string role = await GetRoleAsync(appUser).ConfigureAwait(false);
-
-		return (appUser.ToUser(role), rt.ToRefreshToken());
+		return (
+			User: appUser.ToUser(role: await GetRoleAsync(appUser).ConfigureAwait(false)),
+			RefreshToken: appUser.RefreshTokens.First(x => x.Value == token).ToRefreshToken()
+		);
 	}
 
 	public async Task<DateTimeOffset?> GetIsLockedOutAsync(string username)
@@ -80,8 +65,5 @@ public class Reads(UserManager<AppUser> manager) : IUserReads
 	}
 
 	private async Task<string> GetRoleAsync(AppUser appUser)
-	{
-		string[] roles = [.. await manager.GetRolesAsync(appUser).ConfigureAwait(false)];
-		return roles.Single();
-	}
+		=> (await manager.GetRolesAsync(appUser).ConfigureAwait(false)).Single();
 }

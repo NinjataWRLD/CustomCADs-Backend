@@ -27,7 +27,7 @@ public class ResetUserPasswordEmailHandlerUnitTests : UsersBaseUnitTests
 		handler = new(reads.Object, writes.Object, raiser.Object, settings.Object);
 
 		reads.Setup(x => x.GetByEmailAsync(user.Email.Value)).ReturnsAsync(user);
-		writes.Setup(x => x.GeneratePasswordResetTokenAsync(user)).ReturnsAsync(Token);
+		writes.Setup(x => x.GeneratePasswordResetTokenAsync(user.Username)).ReturnsAsync(Token);
 	}
 
 	[Fact]
@@ -53,7 +53,7 @@ public class ResetUserPasswordEmailHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.GeneratePasswordResetTokenAsync(user), Times.Once());
+		writes.Verify(x => x.GeneratePasswordResetTokenAsync(user.Username), Times.Once());
 	}
 
 	[Fact]

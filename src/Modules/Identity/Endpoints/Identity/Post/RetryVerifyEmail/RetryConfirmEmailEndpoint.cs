@@ -1,14 +1,14 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.VerificationEmail;
 using Microsoft.AspNetCore.Routing;
 
-namespace CustomCADs.Identity.Endpoints.Identity.Get.RetryVerifyEmail;
+namespace CustomCADs.Identity.Endpoints.Identity.Post.RetryVerifyEmail;
 
 public sealed class RetryConfirmEmailEndpoint(IRequestSender sender, LinkGenerator links)
 	: Endpoint<RetryConfirmEmailRequest>
 {
 	public override void Configure()
 	{
-		Get("email/confirm/{username}/retry");
+		Post("email/confirm/retry");
 		Group<IdentityGroup>();
 		Description(d => d
 			.WithName(IdentityNames.RetryConfirmEmail)
@@ -31,6 +31,6 @@ public sealed class RetryConfirmEmailEndpoint(IRequestSender sender, LinkGenerat
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync("Check your email.").ConfigureAwait(false);
+		await SendOkAsync().ConfigureAwait(false);
 	}
 }

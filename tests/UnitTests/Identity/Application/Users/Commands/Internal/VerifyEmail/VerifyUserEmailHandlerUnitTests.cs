@@ -24,7 +24,7 @@ public class VerifyUserEmailHandlerUnitTests : UsersBaseUnitTests
 
 		reads.Setup(x => x.GetByUsernameAsync(user.Username))
 			.ReturnsAsync(user);
-		writes.Setup(x => x.ConfirmEmailAsync(user, Token)).ReturnsAsync(true);
+		writes.Setup(x => x.ConfirmEmailAsync(user.Username, Token)).ReturnsAsync(true);
 	}
 
 	[Fact]
@@ -50,14 +50,14 @@ public class VerifyUserEmailHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.ConfirmEmailAsync(user, Token), Times.Once());
+		writes.Verify(x => x.ConfirmEmailAsync(user.Username, Token), Times.Once());
 	}
 
 	[Fact]
 	public async Task Handle_ShouldThrowException_WhenConfirmationUnsuccessful()
 	{
 		// Arrange
-		writes.Setup(x => x.ConfirmEmailAsync(user, Token)).ReturnsAsync(false);
+		writes.Setup(x => x.ConfirmEmailAsync(user.Username, Token)).ReturnsAsync(false);
 
 		VerifyUserEmailCommand command = new(user.Username, Token);
 
