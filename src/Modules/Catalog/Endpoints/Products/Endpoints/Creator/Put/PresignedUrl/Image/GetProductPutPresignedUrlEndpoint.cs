@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Put;
+using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Put.PresignedUrl.Image;
 
@@ -12,6 +13,7 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
 		Description(d => d
 			.WithSummary("Change Image")
 			.WithDescription("Change your Product's Image")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

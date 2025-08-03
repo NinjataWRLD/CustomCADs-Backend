@@ -39,7 +39,7 @@ resource "aws_elastic_beanstalk_environment" "customcads_env_prod" {
   cname_prefix        = "customcads"
   description         = "CustomCADs Production environment"
   name                = "CustomCADs-prod"
-  solution_stack_name = "64bit Amazon Linux 2023 v4.6.0 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2023 v4.6.1 running Docker"
   tier                = "WebServer"
 
   setting {

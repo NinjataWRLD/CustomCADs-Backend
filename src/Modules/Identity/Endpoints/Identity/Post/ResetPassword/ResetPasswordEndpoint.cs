@@ -13,6 +13,7 @@ public sealed class ResetPasswordEndpoint(IRequestSender sender)
 			.WithName(IdentityNames.ResetPassword)
 			.WithSummary("Reset Password")
 			.WithDescription("Reset your Password with the token from the email")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 
@@ -27,6 +28,6 @@ public sealed class ResetPasswordEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync("Done!").ConfigureAwait(false);
+		await SendOkAsync().ConfigureAwait(false);
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Post;
 using CustomCADs.Shared.Core.Common.Dtos;
+using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Post.PresignedUrls;
 
@@ -14,6 +15,7 @@ public sealed class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
 		Description(d => d
 			.WithSummary("Upload Image & Cad")
 			.WithDescription("Upload the Image and Cad for a Product")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

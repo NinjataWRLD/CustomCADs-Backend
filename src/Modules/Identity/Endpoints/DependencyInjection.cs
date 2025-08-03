@@ -110,7 +110,7 @@ public static class DependencyInjection
 		app.Use(async (context, next) =>
 		{
 			string? accessToken = context.Request.Cookies["jwt"];
-			if (accessToken is not null)
+			if (!string.IsNullOrWhiteSpace(accessToken))
 			{
 				if (new JwtSecurityTokenHandler().ReadToken(accessToken) is JwtSecurityToken jwt)
 				{
@@ -125,41 +125,35 @@ public static class DependencyInjection
 		return app;
 	}
 
-	private static bool IsSensitive(this HttpRequest request) =>
-		HttpMethods.IsPost(request.Method) ||
-		HttpMethods.IsPut(request.Method) ||
-		HttpMethods.IsPatch(request.Method) ||
-		HttpMethods.IsDelete(request.Method);
-
 	public static IApplicationBuilder UseCsrfProtection(this IApplicationBuilder app)
 	{
 		app.Use(async (context, next) =>
 		{
-			if (context.Request.IsSensitive() && context.User.GetAuthentication())
+			if (
+				context.Request.IsMutationBySpec() // might mutate state
+				&& context.User.GetAuthentication() == true // has access to sensitive info
+				&& context.Request.IsCsrfVulnerable() // no csrf protection
+			)
 			{
-				string? csrfCookie = context.Request.Cookies["csrf"];
-				string? csrfHeader = context.Request.Headers["Csrf-Token"];
-				if (IsCsrfVulnerable(csrfCookie, csrfHeader))
-				{
-					await context.RequestServices
-					   .GetRequiredService<IProblemDetailsService>()
-					   .ForbiddenResponseAsync(
-							context: context,
-							ex: new CustomException("CSRF token validation failed: cookie and header mismatch."),
-							message: "CSRF token mismatch."
-						).ConfigureAwait(false);
-					return;
-				}
-
+				await context.RequestServices
+				   .GetRequiredService<IProblemDetailsService>()
+				   .ForbiddenResponseAsync(
+						context: context,
+						ex: new CustomException("CSRF token validation failed: cookie and header mismatch."),
+						message: "CSRF token mismatch."
+					).ConfigureAwait(false);
+				return;
 			}
 			await next().ConfigureAwait(false);
 		});
 
-		static bool IsCsrfVulnerable(string? cookie, string? header)
-			=> string.IsNullOrEmpty(cookie)
-			|| string.IsNullOrEmpty(header)
-			|| cookie != header;
-
 		return app;
+	}
+
+	private static bool IsCsrfVulnerable(this HttpRequest Request)
+	{
+		string? cookie = Request.Cookies["csrf"];
+		string? header = Request.Headers["Csrf-Token"];
+		return string.IsNullOrEmpty(cookie) || string.IsNullOrEmpty(header) || cookie != header;
 	}
 }

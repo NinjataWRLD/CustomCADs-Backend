@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Put;
+using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Customizations.Endpoints.Materials.Endpoints.Put.PresignedUrl;
 
@@ -12,6 +13,7 @@ public sealed class GetMaterialPutPresignedUrlEndpoint(IRequestSender sender)
 		Description(d => d
 			.WithSummary("Change Texture")
 			.WithDescription("Change your Material's Texture")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

@@ -1,6 +1,6 @@
 using CustomCADs.Files.Application.Cads.Queries.Shared;
+using CustomCADs.Files.Application.Cads.Storage;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Cads.Queries;
@@ -13,7 +13,7 @@ public class GetCadPresignedUrlPutByIdHandlerUnitTests : CadsBaseUnitTests
 {
 	private readonly GetCadPresignedUrlPutByIdHandler handler;
 	private readonly Mock<ICadReads> reads = new();
-	private readonly Mock<IStorageService> storage = new();
+	private readonly Mock<ICadStorageService> storage = new();
 
 	private const string GeneratedKey = "generated-key";
 	private const string PresignedUrl = "presigned-url";

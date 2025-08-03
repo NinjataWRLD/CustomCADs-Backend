@@ -14,25 +14,28 @@ public sealed class StripeService(PaymentIntentService service) : IPaymentServic
 
 	public async Task<PaymentDto> InitializeCartPayment(string paymentMethodId, AccountId buyerId, PurchasedCartId cartId, decimal price, string description, CancellationToken ct = default)
 	{
-		PaymentIntent intent = await service.CreateAsync(new()
-		{
-			Amount = Convert.ToInt64(price * 100),
-			Currency = "EUR",
-			PaymentMethod = paymentMethodId,
-			Confirm = true,
-			Description = description,
-			AutomaticPaymentMethods = new()
+		PaymentIntent intent = await service.CreateAsync(
+			options: new()
 			{
-				Enabled = true,
-				AllowRedirects = "never"
+				Amount = Convert.ToInt64(price * 100),
+				Currency = "EUR",
+				PaymentMethod = paymentMethodId,
+				Confirm = true,
+				Description = description,
+				AutomaticPaymentMethods = new()
+				{
+					Enabled = true,
+					AllowRedirects = "never"
+				},
+				Metadata = new()
+				{
+					["buyerId"] = buyerId.Value.ToString(),
+					["rewardType"] = "cart",
+					["rewardId"] = cartId.Value.ToString(),
+				},
 			},
-			Metadata = new()
-			{
-				["buyerId"] = buyerId.Value.ToString(),
-				["rewardType"] = "cart",
-				["rewardId"] = cartId.Value.ToString()
-			},
-		}, cancellationToken: ct).ConfigureAwait(false);
+			cancellationToken: ct
+		).ConfigureAwait(false);
 
 		PaymentDto response = new(
 			ClientSecret: intent.ClientSecret,
@@ -64,25 +67,28 @@ public sealed class StripeService(PaymentIntentService service) : IPaymentServic
 
 	public async Task<PaymentDto> InitializeCustomPayment(string paymentMethodId, AccountId buyerId, CustomId customId, decimal price, string description, CancellationToken ct = default)
 	{
-		PaymentIntent intent = await service.CreateAsync(new()
-		{
-			Amount = Convert.ToInt64(price * 100),
-			Currency = "USD",
-			PaymentMethod = paymentMethodId,
-			Confirm = true,
-			Description = description,
-			AutomaticPaymentMethods = new()
+		PaymentIntent intent = await service.CreateAsync(
+			options: new()
 			{
-				Enabled = true,
-				AllowRedirects = "never"
+				Amount = Convert.ToInt64(price * 100),
+				Currency = "EUR",
+				PaymentMethod = paymentMethodId,
+				Confirm = true,
+				Description = description,
+				AutomaticPaymentMethods = new()
+				{
+					Enabled = true,
+					AllowRedirects = "never"
+				},
+				Metadata = new()
+				{
+					["buyerId"] = buyerId.Value.ToString(),
+					["rewardType"] = "custom",
+					["rewardId"] = customId.Value.ToString(),
+				},
 			},
-			Metadata = new()
-			{
-				["buyerId"] = buyerId.Value.ToString(),
-				["rewardType"] = "custom",
-				["rewardId"] = customId.Value.ToString()
-			},
-		}, cancellationToken: ct).ConfigureAwait(false);
+			cancellationToken: ct
+		).ConfigureAwait(false);
 
 		PaymentDto response = new(
 			ClientSecret: intent.ClientSecret,

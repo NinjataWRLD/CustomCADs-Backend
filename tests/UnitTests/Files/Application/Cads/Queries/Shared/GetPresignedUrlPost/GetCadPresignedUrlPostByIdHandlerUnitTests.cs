@@ -1,5 +1,5 @@
 using CustomCADs.Files.Application.Cads.Queries.Shared;
-using CustomCADs.Shared.Abstractions.Storage;
+using CustomCADs.Files.Application.Cads.Storage;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Cads.Queries;
 
@@ -8,7 +8,7 @@ namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetPresigne
 public class GetCadPresignedUrlPostByIdHandlerUnitTests : CadsBaseUnitTests
 {
 	private readonly GetCadPresignedUrlPostByIdHandler handler;
-	private readonly Mock<IStorageService> storage = new();
+	private readonly Mock<ICadStorageService> storage = new();
 
 	public const string Name = "CustomCAD";
 	public static readonly UploadFileRequest req = new("content-type", "file-name");
@@ -18,7 +18,7 @@ public class GetCadPresignedUrlPostByIdHandlerUnitTests : CadsBaseUnitTests
 	{
 		handler = new(storage.Object);
 
-		storage.Setup(x => x.GetPresignedPostUrlAsync("cads", Name, req))
+		storage.Setup(x => x.GetPresignedPostUrlAsync(Name, req))
 			.ReturnsAsync(res);
 	}
 
@@ -32,11 +32,7 @@ public class GetCadPresignedUrlPostByIdHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		storage.Verify(x => x.GetPresignedPostUrlAsync(
-			"cads",
-			Name,
-			req
-		), Times.Once());
+		storage.Verify(x => x.GetPresignedPostUrlAsync(Name, req), Times.Once());
 	}
 
 	[Fact]

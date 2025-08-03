@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Customizations.Application.Materials.Queries.Internal.GetTextureUrl.Post;
 using CustomCADs.Shared.Core.Common.Dtos;
+using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Customizations.Endpoints.Materials.Endpoints.Post.PresignedUrl;
 
@@ -13,6 +14,7 @@ public sealed class GetMaterialPostPresignedUrlEndpoint(IRequestSender sender)
 		Description(d => d
 			.WithSummary("Upload Texture")
 			.WithDescription("Upload your Material's Texture")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

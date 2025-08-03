@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Quartz.Extensions.Hosting" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Domain\CustomCADs.Idempotency.Domain.csproj" />
+		<ProjectReference Include="..\..\..\Shared\Abstractions\CustomCADs.Shared.Abstractions.csproj" />
+		<ProjectReference Include="..\..\..\Shared\UseCases\CustomCADs.Shared.UseCases.csproj" />
+	</ItemGroup>
+
+</Project>

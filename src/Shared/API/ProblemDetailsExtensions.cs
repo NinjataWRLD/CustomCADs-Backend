@@ -118,7 +118,25 @@ public static class ProblemDetailsExtensions
 		}).ConfigureAwait(false);
 	}
 
-	public static async Task<bool> CusotmResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, int status = Status400BadRequest, string message = "Error processing request")
+	public static async Task<bool> ConflictResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, int status = Status409Conflict, string message = "Conflict occured! Try again")
+	{
+		context.Response.StatusCode = status;
+
+		return await service.TryWriteAsync(new()
+		{
+			HttpContext = context,
+			Exception = ex,
+			ProblemDetails = new()
+			{
+				Type = ex.GetType().Name,
+				Title = message,
+				Detail = ex.Message,
+				Status = status,
+			},
+		}).ConfigureAwait(false);
+	}
+
+	public static async Task<bool> CustomResponseAsync(this IProblemDetailsService service, HttpContext context, Exception ex, int status = Status400BadRequest, string message = "Error processing request")
 	{
 		context.Response.StatusCode = status;
 

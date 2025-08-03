@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Put;
+using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Put.PresignedUrl.Cad;
 
@@ -12,6 +13,7 @@ public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
 		Description(d => d
 			.WithSummary("Change Cad")
 			.WithDescription("Change your Product's Cad")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

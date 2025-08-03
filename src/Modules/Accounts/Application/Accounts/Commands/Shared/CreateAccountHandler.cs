@@ -9,7 +9,7 @@ public sealed class CreateAccountHandler(IAccountWrites writes, IUnitOfWork uow)
 {
 	public async Task<AccountId> Handle(CreateAccountCommand req, CancellationToken ct)
 	{
-		var account = await writes.AddAsync(
+		Account account = await writes.AddAsync(
 			entity: Account.Create(
 				role: req.Role,
 				username: req.Username,

@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetCadUrlGet;
 using CustomCADs.Shared.Core.Common.Dtos;
+using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.PresignedCadUrl;
 
@@ -13,6 +14,7 @@ public sealed class GetCustomGetPresignedCadUrlEndpoint(IRequestSender sender)
 		Description(d => d
 			.WithSummary("Download Cad")
 			.WithDescription("Download the Cad for your Custom")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

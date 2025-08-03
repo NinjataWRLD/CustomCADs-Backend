@@ -15,6 +15,7 @@ public sealed class RegisterEndpoint(IRequestSender sender, LinkGenerator links)
 			.WithName(IdentityNames.Register)
 			.WithSummary("Register")
 			.WithDescription("Register an Account")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 
@@ -44,6 +45,6 @@ public sealed class RegisterEndpoint(IRequestSender sender, LinkGenerator links)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync("Welcome!").ConfigureAwait(false);
+		await SendOkAsync().ConfigureAwait(false);
 	}
 }

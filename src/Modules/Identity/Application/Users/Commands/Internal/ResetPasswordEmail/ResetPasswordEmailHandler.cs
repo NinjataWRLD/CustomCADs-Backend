@@ -16,7 +16,7 @@ public class ResetPasswordEmailHandler(IUserReads reads, IUserWrites writes, IEv
 		User user = await reads.GetByEmailAsync(req.Email).ConfigureAwait(false)
 			?? throw CustomNotFoundException<User>.ByProp(nameof(User.Email), req.Email);
 
-		string token = await writes.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
+		string token = await writes.GeneratePasswordResetTokenAsync(user.Username).ConfigureAwait(false);
 		await raiser.RaiseApplicationEventAsync(new PasswordResetRequestedApplicationEvent(
 			Email: req.Email,
 			Endpoint: GetResetPasswordPage(req.Email, token)

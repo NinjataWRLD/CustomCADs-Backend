@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Post.PresignedCadUrl;
 
@@ -14,6 +15,7 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
 		Description(d => d
 			.WithSummary("Download Cad")
 			.WithDescription("Download your Cart Item's Cad")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

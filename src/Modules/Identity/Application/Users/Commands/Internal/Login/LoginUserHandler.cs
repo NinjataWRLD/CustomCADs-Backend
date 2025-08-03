@@ -26,7 +26,7 @@ public class LoginUserHandler(IUserReads reads, IUserWrites writes, ITokenServic
 			throw CustomAuthorizationException<User>.Custom($"The max attempts for logging into Account: {user.Username} has been reached. The account has been locked out for {seconds} seconds.");
 		}
 
-		if (!await writes.CheckPasswordAsync(user, req.Password).ConfigureAwait(false))
+		if (!await writes.CheckPasswordAsync(user.Username, req.Password).ConfigureAwait(false))
 		{
 			throw CustomAuthorizationException<User>.Custom($"Account: {user.Username} doesn't exist or password is incorrect.");
 		}
