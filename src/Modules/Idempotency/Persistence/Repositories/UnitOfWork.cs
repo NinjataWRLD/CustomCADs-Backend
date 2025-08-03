@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Idempotency.Domain.Repositories;
 using CustomCADs.Shared.Core.Common.Exceptions.Persistence;
-using CustomCADs.Shared.Core.Common.TypedIds.Idempotency;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Idempotency.Persistence.Repositories;
