@@ -33,6 +33,7 @@ resource "aws_cloudfront_cache_policy" "customcads_cache_policy" {
         items = [
           "Origin",
           "Csrf-Token",
+          "Idempotency-Key",
           "Stripe-Signature",
           "Access-Control-Request-Headers",
           "Access-Control-Request-Method"
