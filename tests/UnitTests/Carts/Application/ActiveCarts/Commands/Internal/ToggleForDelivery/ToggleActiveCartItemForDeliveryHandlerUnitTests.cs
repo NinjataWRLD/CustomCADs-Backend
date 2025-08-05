@@ -4,6 +4,8 @@ using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.UseCases.Customizations.Commands;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.ToggleForDelivery;
 
@@ -29,6 +31,11 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
 
 		reads.Setup(x => x.SingleAsync(ValidBuyerId, productId2, true, ct))
 			.ReturnsAsync(CreateItem(ValidBuyerId, productId2));
+
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == ValidCustomizationId),
+			ct
+		)).ReturnsAsync(true);
 	}
 
 	[Fact]
@@ -49,7 +56,7 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase()
+	public async Task Handle_ShouldPersistToDatabase_WhenTurningDeliveryOff()
 	{
 		// Arrange
 		ToggleActiveCartItemForDeliveryCommand command = new(
@@ -63,6 +70,63 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
 
 		// Assert
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldPersistToDatabase_WhenTurningDeliveryOn()
+	{
+		// Arrange
+		ToggleActiveCartItemForDeliveryCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: productId2,
+			CustomizationId: ValidCustomizationId
+		);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldSendRequests_WhenTurningDeliveryOff()
+	{
+		// Arrange
+		ToggleActiveCartItemForDeliveryCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: productId1,
+			CustomizationId: null
+		);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		sender.Verify(x => x.SendCommandAsync(
+			It.Is<DeleteCustomizationByIdCommand>(x => x.Id == ValidCustomizationId),
+			ct
+		), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldSendRequests_WhenTurningDeliveryOn()
+	{
+		// Arrange
+		ToggleActiveCartItemForDeliveryCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: productId2,
+			CustomizationId: ValidCustomizationId
+		);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		sender.Verify(x => x.SendQueryAsync(
+			It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == ValidCustomizationId),
+			ct
+		), Times.Once());
 	}
 
 	[Fact]
@@ -93,6 +157,28 @@ public class ToggleActiveCartItemForDeliveryHandlerUnitTests : ActiveCartsBaseUn
 			BuyerId: ValidBuyerId,
 			ProductId: ValidProductId,
 			CustomizationId: null
+		);
+
+		// Assert
+		await Assert.ThrowsAsync<CustomNotFoundException<ActiveCartItem>>(
+			// Act
+			async () => await handler.Handle(command, ct)
+		);
+	}
+
+	[Fact]
+	public async Task Handle_ShouldThrowException_WhenCustomizationNotFound()
+	{
+		// Arrange
+		sender.Setup(x => x.SendQueryAsync(
+			It.Is<GetCustomizationExistsByIdQuery>(x => x.Id == ValidCustomizationId),
+			ct
+		)).ReturnsAsync(false);
+
+		ToggleActiveCartItemForDeliveryCommand command = new(
+			BuyerId: ValidBuyerId,
+			ProductId: productId2,
+			CustomizationId: ValidCustomizationId
 		);
 
 		// Assert
