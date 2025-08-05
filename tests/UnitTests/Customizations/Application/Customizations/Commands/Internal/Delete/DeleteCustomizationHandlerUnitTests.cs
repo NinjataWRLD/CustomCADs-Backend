@@ -1,8 +1,9 @@
-using CustomCADs.Customizations.Application.Customizations.Commands.Internal.Delete;
+using CustomCADs.Customizations.Application.Customizations.Commands.Shared.Delete;
 using CustomCADs.Customizations.Domain.Customizations;
 using CustomCADs.Customizations.Domain.Repositories;
 using CustomCADs.Customizations.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.UseCases.Customizations.Commands;
 
 namespace CustomCADs.UnitTests.Customizations.Application.Customizations.Commands.Internal.Delete;
 
@@ -29,7 +30,7 @@ public class DeleteCustomizationHandlerUnitTests : CustomizationsBaseUnitTests
 	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
-		DeleteCustomizationCommand command = new(ValidId);
+		DeleteCustomizationByIdCommand command = new(ValidId);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -42,7 +43,7 @@ public class DeleteCustomizationHandlerUnitTests : CustomizationsBaseUnitTests
 	public async Task Handle_ShouldPersistToDatabase()
 	{
 		// Arrange
-		DeleteCustomizationCommand command = new(ValidId);
+		DeleteCustomizationByIdCommand command = new(ValidId);
 
 		// Act
 		await handler.Handle(command, ct);
@@ -57,7 +58,7 @@ public class DeleteCustomizationHandlerUnitTests : CustomizationsBaseUnitTests
 	{
 		// Arrange
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(null as Customization);
-		DeleteCustomizationCommand command = new(ValidId);
+		DeleteCustomizationByIdCommand command = new(ValidId);
 
 		// Assert
 		await Assert.ThrowsAsync<CustomNotFoundException<Customization>>(

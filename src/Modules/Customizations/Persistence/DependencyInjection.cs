@@ -34,7 +34,7 @@ public static class DependencyInjection
 
 		services.AddDbContext<CustomizationsContext>(options =>
 			options.UseNpgsql(connectionString, opt =>
-				opt.MigrationsHistoryTable("__EFMigrationsHistory", "Categories")
+				opt.MigrationsHistoryTable("__EFMigrationsHistory", "Customizations")
 			)
 		);
 
