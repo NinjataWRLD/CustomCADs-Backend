@@ -2,11 +2,11 @@ using CustomCADs.Customizations.Domain.Services;
 using CustomCADs.Delivery.Infrastructure;
 using CustomCADs.Files.Infrastructure;
 using CustomCADs.Identity.Domain.Users;
+using CustomCADs.Identity.Infrastructure;
 using CustomCADs.Identity.Persistence;
 using CustomCADs.Identity.Persistence.ShadowEntities;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
-using CustomCADs.Shared.Infrastructure.Tokens;
 using Microsoft.AspNetCore.Identity;
 
 

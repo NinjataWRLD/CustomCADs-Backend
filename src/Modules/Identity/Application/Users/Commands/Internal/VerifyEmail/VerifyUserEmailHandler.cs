@@ -1,6 +1,6 @@
-﻿using CustomCADs.Identity.Application.Users.Dtos;
+﻿using CustomCADs.Identity.Application.Contracts;
+using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Application.Users.Extensions;
-using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.Identity.Application.Users.Commands.Internal.VerifyEmail;

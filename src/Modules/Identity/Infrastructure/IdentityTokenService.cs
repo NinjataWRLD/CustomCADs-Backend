@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Abstractions.Tokens;
+﻿using CustomCADs.Identity.Application.Contracts;
+using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using Microsoft.Extensions.Options;
@@ -8,11 +9,11 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CustomCADs.Shared.Infrastructure.Tokens;
+namespace CustomCADs.Identity.Infrastructure;
 
 using static Constants.Tokens;
 
-public sealed class TokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
+public sealed class IdentityTokenService(IOptions<JwtSettings> jwtOptions) : ITokenService
 {
 	private const string Algorithm = SecurityAlgorithms.HmacSha256;
 	private readonly JwtSettings jwtSettings = jwtOptions.Value;

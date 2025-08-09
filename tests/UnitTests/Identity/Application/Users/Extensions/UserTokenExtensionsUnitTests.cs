@@ -1,7 +1,7 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Application.Users.Extensions;
 using CustomCADs.Identity.Domain.Repositories.Writes;
-using CustomCADs.Shared.Abstractions.Tokens;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Extensions;
 

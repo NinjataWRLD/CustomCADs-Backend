@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Infrastructure.Tokens;
+﻿namespace CustomCADs.Identity.Infrastructure;
 
 public class JwtSettings
 {

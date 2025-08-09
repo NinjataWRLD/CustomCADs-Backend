@@ -1,6 +1,7 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+﻿using CustomCADs.Identity.Application.Users.Dtos;
+using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 
-namespace CustomCADs.Shared.Abstractions.Tokens;
+namespace CustomCADs.Identity.Application.Contracts;
 
 public interface ITokenService
 {

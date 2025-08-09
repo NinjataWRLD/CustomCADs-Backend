@@ -3,13 +3,11 @@ using CustomCADs.Shared.Abstractions.Email;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Infrastructure.Cache;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Events;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Requests;
-using CustomCADs.Shared.Infrastructure.Tokens;
 using FluentValidation;
 using JasperFx.CodeGeneration;
 using System.Reflection;
@@ -31,11 +29,6 @@ public static class DependencyInjection
 	public static void AddEmailService(this IServiceCollection services)
 	{
 		services.AddScoped<IEmailService, FluentEmailService>();
-	}
-
-	public static void AddTokensService(this IServiceCollection services)
-	{
-		services.AddScoped<ITokenService, TokenService>();
 	}
 
 	public static void AddMessagingServices(this IServiceCollection services, bool codeGen, Assembly entry, params Assembly[] assemblies)

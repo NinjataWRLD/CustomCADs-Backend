@@ -1,8 +1,8 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.Refresh;
 using CustomCADs.Identity.Domain.Repositories.Reads;
 using CustomCADs.Identity.Domain.Repositories.Writes;
 using CustomCADs.Identity.Domain.Users.Entities;
-using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 

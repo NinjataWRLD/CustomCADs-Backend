@@ -1,7 +1,7 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.VerifyEmail;
 using CustomCADs.Identity.Domain.Repositories.Reads;
 using CustomCADs.Identity.Domain.Repositories.Writes;
-using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.VerifyEmail;

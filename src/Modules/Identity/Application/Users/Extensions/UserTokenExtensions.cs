@@ -1,6 +1,6 @@
-﻿using CustomCADs.Identity.Application.Users.Dtos;
+﻿using CustomCADs.Identity.Application.Contracts;
+using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Domain.Users.Entities;
-using CustomCADs.Shared.Abstractions.Tokens;
 
 namespace CustomCADs.Identity.Application.Users.Extensions;
 
