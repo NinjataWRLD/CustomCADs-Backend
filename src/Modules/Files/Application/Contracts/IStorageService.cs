@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Shared.Core.Common.Dtos;
 
-namespace CustomCADs.Shared.Abstractions.Storage;
+namespace CustomCADs.Files.Application.Contracts;
 
 public interface IStorageService
 {

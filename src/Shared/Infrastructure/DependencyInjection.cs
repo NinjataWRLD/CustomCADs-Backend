@@ -1,23 +1,17 @@
-﻿using Amazon;
-using Amazon.Runtime;
-using Amazon.S3;
-using CustomCADs.Shared.Abstractions.Cache;
+﻿using CustomCADs.Shared.Abstractions.Cache;
 using CustomCADs.Shared.Abstractions.Email;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Infrastructure.Cache;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Events;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Requests;
-using CustomCADs.Shared.Infrastructure.Storage;
 using CustomCADs.Shared.Infrastructure.Tokens;
 using FluentValidation;
 using JasperFx.CodeGeneration;
-using Microsoft.Extensions.Options;
 using System.Reflection;
 using Wolverine;
 using Wolverine.FluentValidation;
@@ -72,22 +66,5 @@ public static class DependencyInjection
 	{
 		services.AddScoped<Stripe.PaymentIntentService>();
 		services.AddScoped<IPaymentService, StripeService>();
-	}
-
-	public static void AddStorageService(this IServiceCollection services)
-	{
-		services.AddSingleton<IAmazonS3>(sp =>
-		{
-			var settings = sp.GetRequiredService<IOptions<StorageSettings>>().Value;
-
-			AmazonS3Config config = new()
-			{
-				RegionEndpoint = RegionEndpoint.GetBySystemName(settings.Region),
-			};
-
-			BasicAWSCredentials credentials = new(settings.AccessKey, settings.SecretKey);
-			return new AmazonS3Client(credentials, config);
-		});
-		services.AddScoped<IStorageService, AmazonS3Service>();
 	}
 }

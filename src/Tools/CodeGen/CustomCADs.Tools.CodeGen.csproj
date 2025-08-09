@@ -40,6 +40,7 @@
 
 		<!-- Files -->
 		<ProjectReference Include="..\..\Modules\Files\Application\CustomCADs.Files.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Files\Infrastructure\CustomCADs.Files.Infrastructure.csproj" />
 		<ProjectReference Include="..\..\Modules\Files\Persistence\CustomCADs.Files.Persistence.csproj" />
 
 		<!-- Idempotency -->

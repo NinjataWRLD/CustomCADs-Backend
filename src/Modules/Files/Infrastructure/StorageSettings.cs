@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Infrastructure.Storage;
+﻿namespace CustomCADs.Files.Infrastructure;
 
 public record StorageSettings(string AccessKey, string SecretKey, string Region, string BucketName)
 {

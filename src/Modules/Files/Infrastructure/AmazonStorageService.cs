@@ -1,12 +1,12 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
-using CustomCADs.Shared.Abstractions.Storage;
+using CustomCADs.Files.Application.Contracts;
 using CustomCADs.Shared.Core.Common.Dtos;
 using Microsoft.Extensions.Options;
 
-namespace CustomCADs.Shared.Infrastructure.Storage;
+namespace CustomCADs.Files.Infrastructure;
 
-public sealed class AmazonS3Service(IAmazonS3 s3Client, IOptions<StorageSettings> settings) : IStorageService
+public sealed class AmazonStorageService(IAmazonS3 s3Client, IOptions<StorageSettings> settings) : IStorageService
 {
 	private static DateTime GetDefaultExpiresAt() => DateTime.UtcNow.AddMinutes(2);
 
