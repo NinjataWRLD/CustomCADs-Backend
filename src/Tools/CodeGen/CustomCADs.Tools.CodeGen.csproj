@@ -50,7 +50,6 @@
 		<!-- Identity -->
 		<ProjectReference Include="..\..\Modules\Identity\Application\CustomCADs.Identity.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Identity\Infrastructure\CustomCADs.Identity.Infrastructure.csproj" />
-		<ProjectReference Include="..\..\Modules\Identity\Persistence\CustomCADs.Identity.Persistence.csproj" />
 
 		<!-- Shared Infrastructure -->
 		<ProjectReference Include="..\..\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />

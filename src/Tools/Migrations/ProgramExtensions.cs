@@ -1,7 +1,7 @@
 using CustomCADs.Customizations.Domain.Services;
 using CustomCADs.Identity.Domain.Users;
-using CustomCADs.Identity.Persistence;
-using CustomCADs.Identity.Persistence.ShadowEntities;
+using CustomCADs.Identity.Infrastructure.Identity;
+using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
 using Microsoft.AspNetCore.Identity;
 
 #pragma warning disable IDE0130
