@@ -1,6 +1,6 @@
-﻿using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetStatus;
+﻿using CustomCADs.Delivery.Application.Contracts;
+using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetStatus;
 using CustomCADs.Delivery.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 

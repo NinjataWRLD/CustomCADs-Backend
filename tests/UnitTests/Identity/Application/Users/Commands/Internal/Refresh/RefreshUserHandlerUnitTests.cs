@@ -1,8 +1,6 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.Refresh;
-using CustomCADs.Identity.Domain.Repositories.Reads;
-using CustomCADs.Identity.Domain.Repositories.Writes;
 using CustomCADs.Identity.Domain.Users.Entities;
-using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Core;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
@@ -13,8 +11,7 @@ using static UsersData;
 public class RefreshUserHandlerUnitTests : UsersBaseUnitTests
 {
 	private readonly RefreshUserHandler handler;
-	private readonly Mock<IUserReads> reads = new();
-	private readonly Mock<IUserWrites> writes = new();
+	private readonly Mock<IUserService> service = new();
 	private readonly Mock<ITokenService> tokens = new();
 
 	private static readonly RefreshToken token = RefreshToken.Create("refresh-token", ValidId, longerSession: false);
@@ -22,13 +19,17 @@ public class RefreshUserHandlerUnitTests : UsersBaseUnitTests
 
 	public RefreshUserHandlerUnitTests()
 	{
-		handler = new(reads.Object, writes.Object, tokens.Object);
+		handler = new(service.Object, tokens.Object);
 
-		reads.Setup(x => x.GetByRefreshTokenAsync(token.Value)).ReturnsAsync((user, token));
+		tokens.Setup(x => x.GenerateRefreshToken()).Returns(token.Value);
+		service.Setup(x => x.AddRefreshTokenAsync(user, token.Value, false))
+			.ReturnsAsync(RefreshToken.Create(token.Value, user.Id, false));
+
+		service.Setup(x => x.GetByRefreshTokenAsync(token.Value)).ReturnsAsync((user, token));
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldCallService()
 	{
 		// Arrange
 		RefreshUserCommand command = new(token.Value);
@@ -37,7 +38,7 @@ public class RefreshUserHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.GetByRefreshTokenAsync(token.Value), Times.Once());
+		service.Verify(x => x.GetByRefreshTokenAsync(token.Value), Times.Once());
 	}
 
 	[Fact]
@@ -48,20 +49,6 @@ public class RefreshUserHandlerUnitTests : UsersBaseUnitTests
 
 		// Assert
 		await Assert.ThrowsAsync<CustomAuthorizationException<User>>(
-			// Act
-			async () => await handler.Handle(command, ct)
-		);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenUserNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.GetByRefreshTokenAsync(token.Value)).ReturnsAsync((null, null));
-		RefreshUserCommand command = new(token.Value);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<User>>(
 			// Act
 			async () => await handler.Handle(command, ct)
 		);
@@ -79,7 +66,7 @@ public class RefreshUserHandlerUnitTests : UsersBaseUnitTests
 			issuedAt: yesterday.AddDays(-Constants.Tokens.RtDurationInDays),
 			expiresAt: yesterday
 		);
-		reads.Setup(x => x.GetByRefreshTokenAsync(token.Value)).ReturnsAsync((user, token));
+		service.Setup(x => x.GetByRefreshTokenAsync(token.Value)).ReturnsAsync((user, token));
 
 		RefreshUserCommand command = new(token.Value);
 

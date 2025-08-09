@@ -1,5 +1,5 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Queries.Internal.GetByUsername;
-using CustomCADs.Identity.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
@@ -11,14 +11,14 @@ using static UsersData;
 public class GetUserByUsernameHandlerUnitTests : UsersBaseUnitTests
 {
 	private readonly GetUserByUsernameHandler handler;
-	private readonly Mock<IUserReads> reads = new();
+	private readonly Mock<IUserService> service = new();
 	private readonly Mock<IRequestSender> sender = new();
 
 	public GetUserByUsernameHandlerUnitTests()
 	{
-		handler = new(reads.Object, sender.Object);
+		handler = new(service.Object, sender.Object);
 
-		reads.Setup(x => x.GetByUsernameAsync(MaxValidUsername))
+		service.Setup(x => x.GetByUsernameAsync(MaxValidUsername))
 			.ReturnsAsync(CreateUserWithId());
 
 		sender.Setup(x => x.SendQueryAsync(
@@ -28,7 +28,7 @@ public class GetUserByUsernameHandlerUnitTests : UsersBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldCallService()
 	{
 		// Arrange
 		GetUserByUsernameQuery query = new(MaxValidUsername);
@@ -37,7 +37,7 @@ public class GetUserByUsernameHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.GetByUsernameAsync(MaxValidUsername), Times.Once());
+		service.Verify(x => x.GetByUsernameAsync(MaxValidUsername), Times.Once());
 	}
 
 	[Fact]
@@ -71,19 +71,5 @@ public class GetUserByUsernameHandlerUnitTests : UsersBaseUnitTests
 
 		// Assert
 		Assert.Equal(ValidId, result.Id);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenUserNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.GetByUsernameAsync(MaxValidUsername)).ReturnsAsync(null as User);
-		GetUserByUsernameQuery query = new(MaxValidUsername);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<User>>(
-			// Act
-			async () => await handler.Handle(query, ct)
-		);
 	}
 }

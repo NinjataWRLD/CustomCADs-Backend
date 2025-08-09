@@ -2,10 +2,10 @@
 
 namespace CustomCADs.Identity.Application.Users.Events.Application.Roles;
 
-public class RoleCreatedHandler(IRoleWrites writes)
+public class RoleCreatedHandler(IRoleService service)
 {
 	public async Task Handle(RoleCreatedApplicationEvent ae)
-		=> await writes.CreateAsync(
+		=> await service.CreateAsync(
 			name: ae.Name
 		).ConfigureAwait(false);
 }

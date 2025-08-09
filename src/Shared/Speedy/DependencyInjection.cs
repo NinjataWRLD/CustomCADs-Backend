@@ -49,7 +49,7 @@ public static class DependencyInjection
 		}
 	}
 
-	public static IServiceCollection AddDeliveryShipmentService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyShipmentService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<IShipmentEndpoints>(Settings)
@@ -59,7 +59,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddDeliveryPrintService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyPrintService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<IPrintEndpoints>(Settings)
@@ -69,7 +69,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddDeliveryTrackService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyTrackService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<ITrackEndpoints>(Settings)
@@ -79,7 +79,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddDeliveryPickupService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyPickupService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<IPickupEndpoints>(Settings)
@@ -89,7 +89,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddDeliveryLocationService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyLocationService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<ILocationEndpoints>(Settings)
@@ -109,7 +109,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddDeliveryCalculationService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyCalculationService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<ICalculationEndpoints>(Settings)
@@ -119,7 +119,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddDeliveryClientService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyClientService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<IClientEndpoints>(Settings)
@@ -129,7 +129,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddDeliveryValidationService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyValidationService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<IValidationEndpoints>(Settings)
@@ -139,7 +139,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddDeliveryServicesService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyServicesService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<IServicesEndpoints>(Settings)
@@ -149,7 +149,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddDeliveryPaymentService(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyPaymentService(this IServiceCollection services)
 	{
 		services
 			.AddRefitClient<IPaymentEndpoints>(Settings)

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Abstractions.Delivery;
+﻿using CustomCADs.Delivery.Application.Contracts;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Core.Common.Dtos;
 using CustomCADs.Shared.UseCases.Shipments.Queries;

@@ -1,4 +1,4 @@
-using CustomCADs.Shared.Abstractions.Storage;
+using CustomCADs.Files.Application.Contracts;
 using CustomCADs.Shared.Core.Common.Dtos;
 
 namespace CustomCADs.Files.Application.Cads.Storage;

@@ -1,6 +1,6 @@
-﻿using CustomCADs.Delivery.Application.Shipments.Commands.Internal.Cancel;
+﻿using CustomCADs.Delivery.Application.Contracts;
+using CustomCADs.Delivery.Application.Shipments.Commands.Internal.Cancel;
 using CustomCADs.Delivery.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Delivery;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Internal.Cancel;
 
