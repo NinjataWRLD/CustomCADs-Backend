@@ -9,26 +9,48 @@
   	</PropertyGroup>
 
 	<ItemGroup>
+		<!-- Accounts -->
 		<ProjectReference Include="..\..\Modules\Accounts\Application\CustomCADs.Accounts.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Accounts\Persistence\CustomCADs.Accounts.Persistence.csproj" />
+
+		<!-- Carts -->
 		<ProjectReference Include="..\..\Modules\Carts\Application\CustomCADs.Carts.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Carts\Persistence\CustomCADs.Carts.Persistence.csproj" />
+
+		<!-- Catalog -->
 		<ProjectReference Include="..\..\Modules\Catalog\Application\CustomCADs.Catalog.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Catalog\Persistence\CustomCADs.Catalog.Persistence.csproj" />
+
+		<!-- Categories -->
 		<ProjectReference Include="..\..\Modules\Categories\Application\CustomCADs.Categories.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Categories\Persistence\CustomCADs.Categories.Persistence.csproj" />
+
+		<!-- Customizations -->
 		<ProjectReference Include="..\..\Modules\Customizations\Application\CustomCADs.Customizations.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Customizations\Persistence\CustomCADs.Customizations.Persistence.csproj" />
+
+		<!-- Customs -->
 		<ProjectReference Include="..\..\Modules\Customs\Application\CustomCADs.Customs.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Customs\Persistence\CustomCADs.Customs.Persistence.csproj" />
+
+		<!-- Delivery -->
 		<ProjectReference Include="..\..\Modules\Delivery\Application\CustomCADs.Delivery.Application.csproj" />
+		<ProjectReference Include="..\..\Modules\Delivery\Infrastructure\CustomCADs.Delivery.Infrastructure.csproj" />
 		<ProjectReference Include="..\..\Modules\Delivery\Persistence\CustomCADs.Delivery.Persistence.csproj" />
+
+		<!-- Files -->
 		<ProjectReference Include="..\..\Modules\Files\Application\CustomCADs.Files.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Files\Persistence\CustomCADs.Files.Persistence.csproj" />
+
+		<!-- Idempotency -->
 		<ProjectReference Include="..\..\Modules\Idempotency\Application\CustomCADs.Idempotency.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Idempotency\Persistence\CustomCADs.Idempotency.Persistence.csproj" />
+
+		<!-- Identity -->
 		<ProjectReference Include="..\..\Modules\Identity\Application\CustomCADs.Identity.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Identity\Persistence\CustomCADs.Identity.Persistence.csproj" />
+
+		<!-- Shared Infrastructure -->
 		<ProjectReference Include="..\..\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
 	</ItemGroup>
 

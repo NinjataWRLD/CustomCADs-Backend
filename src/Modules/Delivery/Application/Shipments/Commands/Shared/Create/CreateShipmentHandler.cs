@@ -1,5 +1,5 @@
-﻿using CustomCADs.Delivery.Domain.Repositories;
-using CustomCADs.Shared.Abstractions.Delivery;
+﻿using CustomCADs.Delivery.Application.Contracts;
+using CustomCADs.Delivery.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.UseCases.Accounts.Queries;

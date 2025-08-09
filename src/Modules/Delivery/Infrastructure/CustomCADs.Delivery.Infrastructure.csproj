@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Application\CustomCADs.Delivery.Application.csproj" />
+		<ProjectReference Include="..\..\..\Shared\Speedy\CustomCADs.Shared.Speedy.csproj" />
+	</ItemGroup>
+
+</Project>

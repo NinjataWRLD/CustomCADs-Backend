@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Abstractions.Delivery;
+﻿using CustomCADs.Delivery.Application.Contracts;
+using CustomCADs.Delivery.Application.Contracts.Dtos;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
 using CustomCADs.Shared.Speedy.Enums;
@@ -10,7 +11,7 @@ using CustomCADs.Shared.Speedy.Services.Shipment;
 using CustomCADs.Shared.Speedy.Services.Track;
 using Microsoft.Extensions.Options;
 
-namespace CustomCADs.Shared.Infrastructure.Delivery;
+namespace CustomCADs.Delivery.Infrastructure;
 
 public sealed class SpeedyService(
 	IOptions<DeliverySettings> settings,

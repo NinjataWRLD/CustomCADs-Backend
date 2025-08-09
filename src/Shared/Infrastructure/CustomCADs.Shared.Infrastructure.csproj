@@ -21,7 +21,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Abstractions\CustomCADs.Shared.Abstractions.csproj" />
-		<ProjectReference Include="..\Speedy\CustomCADs.Shared.Speedy.csproj" />
 	</ItemGroup>
 
 </Project>

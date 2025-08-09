@@ -1,6 +1,7 @@
-﻿using CustomCADs.Shared.Abstractions.Delivery.Dtos;
+﻿using CustomCADs.Delivery.Application.Contracts.Dtos;
+using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 
-namespace CustomCADs.Shared.Abstractions.Delivery;
+namespace CustomCADs.Delivery.Application.Contracts;
 
 public interface IDeliveryService
 {

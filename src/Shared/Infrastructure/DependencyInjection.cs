@@ -2,7 +2,6 @@
 using Amazon.Runtime;
 using Amazon.S3;
 using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Email;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Payment;
@@ -10,7 +9,6 @@ using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Abstractions.Storage;
 using CustomCADs.Shared.Abstractions.Tokens;
 using CustomCADs.Shared.Infrastructure.Cache;
-using CustomCADs.Shared.Infrastructure.Delivery;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Events;
 using CustomCADs.Shared.Infrastructure.Payment;
@@ -91,21 +89,5 @@ public static class DependencyInjection
 			return new AmazonS3Client(credentials, config);
 		});
 		services.AddScoped<IStorageService, AmazonS3Service>();
-	}
-
-	public static void AddDeliveryService(this IServiceCollection services)
-	{
-		services.AddDeliveryShipmentService();
-		services.AddDeliveryPrintService();
-		services.AddDeliveryTrackService();
-		services.AddDeliveryPickupService();
-		services.AddDeliveryLocationService();
-		services.AddDeliveryCalculationService();
-		services.AddDeliveryClientService();
-		services.AddDeliveryValidationService();
-		services.AddDeliveryServicesService();
-		services.AddDeliveryPaymentService();
-
-		services.AddScoped<IDeliveryService, SpeedyService>();
 	}
 }

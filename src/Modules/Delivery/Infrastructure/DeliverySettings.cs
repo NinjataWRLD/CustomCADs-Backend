@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.Infrastructure.Delivery;
+﻿namespace CustomCADs.Delivery.Infrastructure;
 
 public record DeliverySettings(string Username, string Password)
 {
