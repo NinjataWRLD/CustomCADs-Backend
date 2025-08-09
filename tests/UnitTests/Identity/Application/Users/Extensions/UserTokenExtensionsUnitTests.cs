@@ -1,13 +1,13 @@
 using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Application.Users.Extensions;
-using CustomCADs.Identity.Domain.Repositories.Writes;
+using CustomCADs.Identity.Domain.Users.Entities;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Extensions;
 
 public class UserTokenExtensionsUnitTests : UsersBaseUnitTests
 {
-	private readonly Mock<IUserWrites> writes = new();
+	private readonly Mock<IUserService> service = new();
 	private readonly Mock<ITokenService> tokens = new();
 
 	private static readonly TokenDto token = new("some-hashed-token", DateTimeOffset.UtcNow);
@@ -18,6 +18,8 @@ public class UserTokenExtensionsUnitTests : UsersBaseUnitTests
 		tokens.Setup(x => x.GenerateAccessToken(user.AccountId, user.Username, user.Role)).Returns(token);
 		tokens.Setup(x => x.GenerateRefreshToken()).Returns(token.Value);
 		tokens.Setup(x => x.GenerateCsrfToken()).Returns(token);
+		service.Setup(x => x.AddRefreshTokenAsync(user, token.Value, true))
+			.ReturnsAsync(RefreshToken.Create(token.Value, user.Id, true));
 	}
 
 	[Fact]
@@ -25,7 +27,7 @@ public class UserTokenExtensionsUnitTests : UsersBaseUnitTests
 	{
 		// Arrange
 		// Act
-		await UserTokenExtensions.IssueTokens(writes.Object, tokens.Object, user, longerSession: true);
+		await UserTokenExtensions.IssueTokens(service.Object, tokens.Object, user, longerSession: true);
 
 		// Assert
 		tokens.Verify(x => x.GenerateAccessToken(user.AccountId, user.Username, user.Role), Times.Once());
@@ -34,14 +36,14 @@ public class UserTokenExtensionsUnitTests : UsersBaseUnitTests
 	}
 
 	[Fact]
-	public async Task IssueTokens_ShouldPersistToDatabase()
+	public async Task IssueTokens_ShouldCallService()
 	{
 		// Arrange
 		// Act
-		await UserTokenExtensions.IssueTokens(writes.Object, tokens.Object, user, longerSession: true);
+		await UserTokenExtensions.IssueTokens(service.Object, tokens.Object, user, longerSession: true);
 
 		// Assert
-		writes.Verify(x => x.UpdateRefreshTokensAsync(user.Id, user.RefreshTokens.ToArray()));
+		service.Verify(x => x.AddRefreshTokenAsync(user, token.Value, true));
 	}
 
 	[Fact]
@@ -49,7 +51,7 @@ public class UserTokenExtensionsUnitTests : UsersBaseUnitTests
 	{
 		// Arrange
 		// Act
-		TokensDto result = await UserTokenExtensions.IssueTokens(writes.Object, tokens.Object, user, longerSession: true);
+		TokensDto result = await UserTokenExtensions.IssueTokens(service.Object, tokens.Object, user, longerSession: true);
 
 		// Assert
 		Assert.Multiple(

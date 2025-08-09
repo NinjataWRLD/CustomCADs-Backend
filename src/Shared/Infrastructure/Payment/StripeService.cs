@@ -29,9 +29,9 @@ public sealed class StripeService(PaymentIntentService service) : IPaymentServic
 				},
 				Metadata = new()
 				{
-					["buyerId"] = buyerId.Value.ToString(),
+					["buyerId"] = buyerId.ToString(),
 					["rewardType"] = "cart",
-					["rewardId"] = cartId.Value.ToString(),
+					["rewardId"] = cartId.ToString(),
 				},
 			},
 			cancellationToken: ct
@@ -82,9 +82,9 @@ public sealed class StripeService(PaymentIntentService service) : IPaymentServic
 				},
 				Metadata = new()
 				{
-					["buyerId"] = buyerId.Value.ToString(),
+					["buyerId"] = buyerId.ToString(),
 					["rewardType"] = "custom",
-					["rewardId"] = customId.Value.ToString(),
+					["rewardId"] = customId.ToString(),
 				},
 			},
 			cancellationToken: ct

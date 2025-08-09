@@ -1,10 +1,10 @@
-using CustomCADs.Identity.Domain.Repositories.Writes;
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CustomCADs.Identity.Infrastructure.Identity.Repositories.Roles;
+namespace CustomCADs.Identity.Infrastructure.Identity;
 
-public class Writes(RoleManager<AppRole> manager) : IRoleWrites
+public class AppRoleService(RoleManager<AppRole> manager) : IRoleService
 {
 	public async Task CreateAsync(string name)
 	{

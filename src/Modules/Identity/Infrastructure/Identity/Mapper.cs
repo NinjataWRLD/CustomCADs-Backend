@@ -3,7 +3,7 @@ using CustomCADs.Identity.Domain.Users.Entities;
 using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
 using CustomCADs.Shared.Core.Common.TypedIds.Identity;
 
-namespace CustomCADs.Identity.Infrastructure.Identity.Repositories;
+namespace CustomCADs.Identity.Infrastructure.Identity;
 
 internal static class Mapper
 {

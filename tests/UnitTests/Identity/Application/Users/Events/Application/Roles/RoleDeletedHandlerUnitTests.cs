@@ -1,5 +1,5 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Events.Application.Roles;
-using CustomCADs.Identity.Domain.Repositories.Writes;
 using CustomCADs.Shared.ApplicationEvents.Account.Roles;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Events.Application.Roles;
@@ -9,15 +9,15 @@ using static UsersData;
 public class RoleDeletedHandlerUnitTests : UsersBaseUnitTests
 {
 	private readonly RoleDeletedHandler handler;
-	private readonly Mock<IRoleWrites> writes = new();
+	private readonly Mock<IRoleService> service = new();
 
 	public RoleDeletedHandlerUnitTests()
 	{
-		handler = new(writes.Object);
+		handler = new(service.Object);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase()
+	public async Task Handle_ShouldCallService()
 	{
 		// Arrange
 		RoleDeletedApplicationEvent ae = new(ValidRole);
@@ -26,6 +26,6 @@ public class RoleDeletedHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(ae);
 
 		// Assert
-		writes.Verify(x => x.DeleteAsync(ValidRole), Times.Once());
+		service.Verify(x => x.DeleteAsync(ValidRole), Times.Once());
 	}
 }

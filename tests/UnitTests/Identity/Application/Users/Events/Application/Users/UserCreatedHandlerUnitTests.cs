@@ -1,5 +1,5 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Events.Application.Users;
-using CustomCADs.Identity.Domain.Repositories.Writes;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Events.Application.Users;
@@ -9,17 +9,17 @@ using static UsersData;
 public class UserCreatedHandlerUnitTests : UsersBaseUnitTests
 {
 	private readonly UserCreatedHandler handler;
-	private readonly Mock<IUserWrites> writes = new();
+	private readonly Mock<IUserService> service = new();
 
 	private readonly User user = CreateUser();
 
 	public UserCreatedHandlerUnitTests()
 	{
-		handler = new(writes.Object);
+		handler = new(service.Object);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase()
+	public async Task Handle_ShouldCallService()
 	{
 		// Arrange
 		AccountCreatedApplicationEvent ae = new(
@@ -34,7 +34,7 @@ public class UserCreatedHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(ae);
 
 		// Assert
-		writes.Verify(x => x.CreateAsync(
+		service.Verify(x => x.CreateAsync(
 			It.Is<User>(x =>
 				x.Role == ae.Role
 				&& x.Username == ae.Username

@@ -1,5 +1,5 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.ToggleViewedProductsTracking;
-using CustomCADs.Identity.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.ApplicationEvents.Identity;
@@ -13,7 +13,7 @@ using static UsersData;
 public class ToggleViewedProductsTrackingHandlerUnitTests : UsersBaseUnitTests
 {
 	private readonly ToggleViewedProductsTrackingHandler handler;
-	private readonly Mock<IUserReads> reads = new();
+	private readonly Mock<IUserService> service = new();
 	private readonly Mock<IRequestSender> sender = new();
 	private readonly Mock<IEventRaiser> raiser = new();
 
@@ -21,10 +21,9 @@ public class ToggleViewedProductsTrackingHandlerUnitTests : UsersBaseUnitTests
 
 	public ToggleViewedProductsTrackingHandlerUnitTests()
 	{
-		handler = new(reads.Object, sender.Object, raiser.Object);
+		handler = new(service.Object, sender.Object, raiser.Object);
 
-		reads.Setup(x => x.GetByUsernameAsync(MaxValidUsername))
-			.ReturnsAsync(CreateUser());
+		service.Setup(x => x.GetAccountIdAsync(MaxValidUsername)).ReturnsAsync(ValidAccountId);
 		sender.Setup(x => x.SendQueryAsync(
 			It.Is<GetAccountInfoByUsernameQuery>(x => x.Username == MaxValidUsername),
 			ct
@@ -32,7 +31,7 @@ public class ToggleViewedProductsTrackingHandlerUnitTests : UsersBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldCallService()
 	{
 		// Arrange
 		ToggleViewedProductsTrackingCommand command = new(MaxValidUsername);
@@ -41,7 +40,7 @@ public class ToggleViewedProductsTrackingHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.GetByUsernameAsync(MaxValidUsername), Times.Once());
+		service.Verify(x => x.GetAccountIdAsync(MaxValidUsername), Times.Once());
 	}
 
 	[Fact]
@@ -76,19 +75,5 @@ public class ToggleViewedProductsTrackingHandlerUnitTests : UsersBaseUnitTests
 				&& x.Id == ValidAccountId
 			)
 		), Times.Once());
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenUserNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.GetByUsernameAsync(MaxValidUsername)).ReturnsAsync(null as User);
-		ToggleViewedProductsTrackingCommand command = new(MaxValidUsername);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<User>>(
-			// Act
-			async () => await handler.Handle(command, ct)
-		);
 	}
 }

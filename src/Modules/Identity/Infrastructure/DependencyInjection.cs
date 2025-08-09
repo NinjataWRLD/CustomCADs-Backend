@@ -1,18 +1,11 @@
 #pragma warning disable IDE0130
 using CustomCADs.Identity.Application.Contracts;
-using CustomCADs.Identity.Domain.Repositories.Reads;
-using CustomCADs.Identity.Domain.Repositories.Writes;
 using CustomCADs.Identity.Infrastructure.Identity;
 using CustomCADs.Identity.Infrastructure.Tokens;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace Microsoft.Extensions.DependencyInjection;
-
-using AppRoleWrites = CustomCADs.Identity.Infrastructure.Identity.Repositories.Roles.Writes;
-using AppUserReads = CustomCADs.Identity.Infrastructure.Identity.Repositories.Users.Reads;
-using AppUserWrites = CustomCADs.Identity.Infrastructure.Identity.Repositories.Users.Writes;
 
 public static class DependencyInjection
 {
@@ -24,17 +17,8 @@ public static class DependencyInjection
 		return provider;
 	}
 
-	public static IServiceCollection AddIdentityPersistence(this IServiceCollection services, IConfiguration config)
-		=> services
-			.AddContext(config)
-			.AddManagers();
-
-
-	private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
+	private static IServiceCollection AddContext(this IServiceCollection services, string connectionString)
 	{
-		string connectionString = config.GetConnectionString("ApplicationConnection")
-			?? throw new KeyNotFoundException("Could not find connection string 'ApplicationConnection'.");
-
 		services.AddDbContext<IdentityContext>(options =>
 			options.UseNpgsql(
 				dataSource: new NpgsqlDataSourceBuilder(connectionString).EnableDynamicJson().Build(),
@@ -46,17 +30,20 @@ public static class DependencyInjection
 		return services;
 	}
 
-	private static IServiceCollection AddManagers(this IServiceCollection services)
+	public static IServiceCollection AddTokensService(this IServiceCollection services)
 	{
-		services.AddScoped<IUserReads, AppUserReads>();
-		services.AddScoped<IUserWrites, AppUserWrites>();
-		services.AddScoped<IRoleWrites, AppRoleWrites>();
+		services.AddScoped<ITokenService, IdentityTokenService>();
 
 		return services;
 	}
 
-	public static void AddTokensService(this IServiceCollection services)
+	public static IServiceCollection AddIdentityServices(this IServiceCollection services, string connectionString)
 	{
-		services.AddScoped<ITokenService, IdentityTokenService>();
+		services.AddContext(connectionString);
+
+		services.AddScoped<IUserService, AppUserService>();
+		services.AddScoped<IRoleService, AppRoleService>();
+
+		return services;
 	}
 }

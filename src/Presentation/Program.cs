@@ -22,7 +22,7 @@ builder.Services.AddStorageService(builder.Configuration);
 
 // Modules
 builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddIdentity();
+builder.Services.AddIdentity(builder.Configuration);
 builder.Services.AddDomainServices();
 builder.Services.AddGlobalExceptionHandler();
 
