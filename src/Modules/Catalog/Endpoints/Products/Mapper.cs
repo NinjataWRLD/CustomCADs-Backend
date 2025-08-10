@@ -123,7 +123,7 @@ internal static class Mapper
 			Category: new(product.Category.Id.Value, product.Category.Name)
 		);
 
-	internal static CategoryResponse ToResponse(this CategoryDto category)
+	internal static CategoryDtoResponse ToResponse(this CategoryDto category)
 		=> new(
 			Id: category.Id.Value,
 			Name: category.Name

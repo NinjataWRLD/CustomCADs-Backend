@@ -1,5 +1,9 @@
-﻿global using CustomCADs.Catalog.Domain.Products;
+﻿global using CustomCADs.Catalog.Domain.Categories;
+global using CustomCADs.Catalog.Domain.Products;
+global using CustomCADs.Catalog.Domain.Tags;
+global using CustomCADs.Shared.Abstractions.Cache;
 global using CustomCADs.Shared.Core;
+global using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 global using CustomCADs.UnitTests.Catalog.Data;
 global using Moq;
 global using Xunit;

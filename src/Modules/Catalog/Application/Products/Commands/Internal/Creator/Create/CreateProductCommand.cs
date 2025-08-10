@@ -1,5 +1,4 @@
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.Create;
 

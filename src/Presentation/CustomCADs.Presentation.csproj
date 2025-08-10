@@ -19,13 +19,12 @@
 		<ProjectReference Include="..\Modules\Accounts\Endpoints\CustomCADs.Accounts.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Carts\Endpoints\CustomCADs.Carts.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Catalog\Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Categories\Endpoints\CustomCADs.Categories.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Customizations\Endpoints\CustomCADs.Customizations.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Customs\Endpoints\CustomCADs.Customs.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Delivery\Endpoints\CustomCADs.Delivery.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Files\Application\CustomCADs.Files.Application.csproj" />
 		<ProjectReference Include="..\Modules\Idempotency\Endpoints\CustomCADs.Idempotency.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Identity\Endpoints\CustomCADs.Identity.Endpoints.csproj" />
+		<ProjectReference Include="..\Modules\Printing\Endpoints\CustomCADs.Printing.Endpoints.csproj" />
 		<ProjectReference Include="..\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
 	</ItemGroup>
 

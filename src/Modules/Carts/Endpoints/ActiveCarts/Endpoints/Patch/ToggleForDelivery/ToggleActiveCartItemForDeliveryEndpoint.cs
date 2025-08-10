@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.ToggleForDelivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
+using CustomCADs.Shared.Core.Common.TypedIds.Printing;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Patch.ToggleForDelivery;
 

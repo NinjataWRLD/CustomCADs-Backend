@@ -1,6 +1,5 @@
 using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.ResetPassword;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.ResetPassword;
 

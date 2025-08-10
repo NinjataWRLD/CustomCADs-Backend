@@ -14,5 +14,5 @@ public sealed record GetGalleryProductResponse(
 	CoordinatesDto CamCoordinates,
 	CoordinatesDto PanCoordinates,
 	CountsDto Counts,
-	CategoryResponse Category
+	CategoryDtoResponse Category
 );

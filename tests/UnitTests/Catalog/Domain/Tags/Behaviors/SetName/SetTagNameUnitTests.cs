@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Behaviors.SetName;
 

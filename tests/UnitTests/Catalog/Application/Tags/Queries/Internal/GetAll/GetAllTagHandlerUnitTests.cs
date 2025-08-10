@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetAll;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Catalog.Domain.Tags;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Queries.Internal.GetAll;
 

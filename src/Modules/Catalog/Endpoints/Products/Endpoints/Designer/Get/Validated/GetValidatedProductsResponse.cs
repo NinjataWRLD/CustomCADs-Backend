@@ -5,5 +5,5 @@ public sealed record GetValidatedProductsResponse(
 	string Name,
 	DateTimeOffset UploadedAt,
 	string CreatorName,
-	CategoryResponse Category
+	CategoryDtoResponse Category
 );

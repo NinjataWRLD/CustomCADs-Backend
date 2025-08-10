@@ -1,10 +1,10 @@
-using CustomCADs.Customizations.Domain.Services;
 using CustomCADs.Delivery.Infrastructure;
 using CustomCADs.Files.Infrastructure;
 using CustomCADs.Identity.Domain.Users;
 using CustomCADs.Identity.Infrastructure.Identity;
 using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
 using CustomCADs.Identity.Infrastructure.Tokens;
+using CustomCADs.Printing.Domain.Services;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
 using Microsoft.AspNetCore.Identity;
@@ -26,8 +26,7 @@ public static class ProgramExtensions
 				CustomCADs.Accounts.Application.AccountApplicationReference.Assembly,
 				CustomCADs.Carts.Application.CartsApplicationReference.Assembly,
 				CustomCADs.Catalog.Application.CatalogApplicationReference.Assembly,
-				CustomCADs.Categories.Application.CategoriesApplicationReference.Assembly,
-				CustomCADs.Customizations.Application.CustomizationsApplicationReference.Assembly,
+				CustomCADs.Printing.Application.PrintingApplicationReference.Assembly,
 				CustomCADs.Customs.Application.CustomsApplicationReference.Assembly,
 				CustomCADs.Delivery.Application.DeliveryApplicationReference.Assembly,
 				CustomCADs.Files.Application.FilesApplicationReference.Assembly,
@@ -139,8 +138,7 @@ public static class ProgramExtensions
 			.AddAccountsPersistence(config)
 			.AddCartsPersistence(config)
 			.AddCatalogPersistence(config)
-			.AddCategoriesPersistence(config)
-			.AddCustomizationsPersistence(config)
+			.AddPrintingPersistence(config)
 			.AddCustomsPersistence(config)
 			.AddDeliveryPersistence(config)
 			.AddFilesPersistence(config)
@@ -149,7 +147,7 @@ public static class ProgramExtensions
 
 	public static IServiceCollection AddDomainServices(this IServiceCollection services)
 	{
-		services.AddScoped<ICustomizationMaterialCalculator, CustomizationMaterialCalculator>();
+		services.AddScoped<IPrintCalculator, PrintCalculator>();
 
 		return services;
 	}

@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.WithDelivery;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.WithDelivery;
 
+using CustomCADs.Shared.Core.Common.TypedIds.Printing;
 using Data;
 
 public class PurchaseCustomWithDeliveryValidatorUnitTests : CustomsBaseUnitTests
