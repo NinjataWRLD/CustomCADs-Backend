@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Customs.Domain.Customs;
 using CustomCADs.Customs.Domain.Customs.Enums;
 using CustomCADs.Customs.Domain.Customs.States.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
 using CustomCADs.Shared.Core.Common.TypedIds.Customs;
 using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
+using CustomCADs.Shared.Core.Common.TypedIds.Printing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

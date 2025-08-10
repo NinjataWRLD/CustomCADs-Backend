@@ -11,7 +11,7 @@ using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Carts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Customizations.Queries;
+using CustomCADs.Shared.UseCases.Printing.Queries;
 using CustomCADs.Shared.UseCases.Products.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;

@@ -3,7 +3,6 @@ using CustomCADs.Identity.Application.Users.Commands.Internal.ToggleViewedProduc
 using CustomCADs.Shared.Abstractions.Events;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.ApplicationEvents.Identity;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
 using CustomCADs.Shared.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.ToggleViewedProductsTracking;

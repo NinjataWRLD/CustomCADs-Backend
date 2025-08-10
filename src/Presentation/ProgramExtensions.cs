@@ -23,7 +23,7 @@ public static class ProgramExtensions
 				CustomCADs.Carts.Application.CartsApplicationReference.Assembly,
 				CustomCADs.Catalog.Application.CatalogApplicationReference.Assembly,
 				CustomCADs.Categories.Application.CategoriesApplicationReference.Assembly,
-				CustomCADs.Customizations.Application.CustomizationsApplicationReference.Assembly,
+				CustomCADs.Printing.Application.PrintingApplicationReference.Assembly,
 				CustomCADs.Customs.Application.CustomsApplicationReference.Assembly,
 				CustomCADs.Delivery.Application.DeliveryApplicationReference.Assembly,
 				CustomCADs.Files.Application.FilesApplicationReference.Assembly,

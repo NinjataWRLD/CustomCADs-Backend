@@ -2,7 +2,6 @@ using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.VerificationEmail;
 using CustomCADs.Identity.Application.Users.Events.Application.Emails.EmailVerification;
 using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.VerificationEmail;
 

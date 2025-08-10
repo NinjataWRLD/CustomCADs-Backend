@@ -49,15 +49,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Categories.Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Categories.Endpoints", "src\Modules\Categories\Endpoints\CustomCADs.Categories.Endpoints.csproj", "{58D3A353-7A01-46A5-A282-81CB967C8C00}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customizations", "Customizations", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Printing", "Printing", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Customizations.Domain", "src\Modules\Customizations\Domain\CustomCADs.Customizations.Domain.csproj", "{B710F086-57DA-2847-2554-96D66FC0C2AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Printing.Domain", "src\Modules\Printing\Domain\CustomCADs.Printing.Domain.csproj", "{B710F086-57DA-2847-2554-96D66FC0C2AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Customizations.Persistence", "src\Modules\Customizations\Persistence\CustomCADs.Customizations.Persistence.csproj", "{26F61837-4580-8DCC-907F-899D52DBF071}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Printing.Persistence", "src\Modules\Printing\Persistence\CustomCADs.Printing.Persistence.csproj", "{26F61837-4580-8DCC-907F-899D52DBF071}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Customizations.Application", "src\Modules\Customizations\Application\CustomCADs.Customizations.Application.csproj", "{108B5FF5-407F-A43F-CD24-E8A87670F98F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Printing.Application", "src\Modules\Printing\Application\CustomCADs.Printing.Application.csproj", "{108B5FF5-407F-A43F-CD24-E8A87670F98F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Customizations.Endpoints", "src\Modules\Customizations\Endpoints\CustomCADs.Customizations.Endpoints.csproj", "{7D38BD0E-7DA1-F775-452F-2122A63F08C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.Printing.Endpoints", "src\Modules\Printing\Endpoints\CustomCADs.Printing.Endpoints.csproj", "{7D38BD0E-7DA1-F775-452F-2122A63F08C9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customs", "Customs", "{D1102EDC-3CD4-469F-9513-ACB6BD45AB66}"
 EndProject
@@ -171,13 +171,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Catego
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Categories.Application", "tests\UnitTests\Categories\Application\CustomCADs.UnitTests.Categories.Application.csproj", "{873BC439-6D17-4212-886F-B279F9A837E1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customizations", "Customizations", "{9005C58F-BFE9-4CCB-BF7A-6F3A04A5D748}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Printing", "Printing", "{9005C58F-BFE9-4CCB-BF7A-6F3A04A5D748}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Customizations.Data", "tests\UnitTests\Customizations\Data\CustomCADs.UnitTests.Customizations.Data.csproj", "{6A08BC44-5970-4305-8D19-9C0A990A142B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Printing.Data", "tests\UnitTests\Printing\Data\CustomCADs.UnitTests.Printing.Data.csproj", "{6A08BC44-5970-4305-8D19-9C0A990A142B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Customizations.Domain", "tests\UnitTests\Customizations\Domain\CustomCADs.UnitTests.Customizations.Domain.csproj", "{ED0DD872-6BD1-4C1F-9BA6-1A7E7648B5E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Printing.Domain", "tests\UnitTests\Printing\Domain\CustomCADs.UnitTests.Printing.Domain.csproj", "{ED0DD872-6BD1-4C1F-9BA6-1A7E7648B5E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Customizations.Application", "tests\UnitTests\Customizations\Application\CustomCADs.UnitTests.Customizations.Application.csproj", "{B4EF4DC2-FCE8-4EC6-A35B-216D742136C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCADs.UnitTests.Printing.Application", "tests\UnitTests\Printing\Application\CustomCADs.UnitTests.Printing.Application.csproj", "{B4EF4DC2-FCE8-4EC6-A35B-216D742136C5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customs", "Customs", "{155E5417-C0E4-428D-AF7E-B772DE59B25A}"
 EndProject

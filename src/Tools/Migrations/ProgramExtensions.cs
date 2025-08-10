@@ -1,4 +1,4 @@
-using CustomCADs.Customizations.Domain.Services;
+using CustomCADs.Printing.Domain.Services;
 using CustomCADs.Identity.Domain.Users;
 using CustomCADs.Identity.Infrastructure.Identity;
 using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
@@ -45,7 +45,7 @@ public static class ProgramExtensions
 			.AddCartsPersistence(config)
 			.AddCatalogPersistence(config)
 			.AddCategoriesPersistence(config)
-			.AddCustomizationsPersistence(config)
+			.AddPrintingPersistence(config)
 			.AddCustomsPersistence(config)
 			.AddDeliveryPersistence(config)
 			.AddFilesPersistence(config)
@@ -53,7 +53,7 @@ public static class ProgramExtensions
 
 	public static IServiceCollection AddDomainServices(this IServiceCollection services)
 	{
-		services.AddScoped<ICustomizationMaterialCalculator, CustomizationMaterialCalculator>();
+		services.AddScoped<IPrintCalculator, PrintCalculator>();
 
 		return services;
 	}
@@ -68,7 +68,7 @@ public static class ProgramExtensions
 			provider.UpdateCartsContextAsync(),
 			provider.UpdateCatalogContextAsync(),
 			provider.UpdateCategoriesContextAsync(),
-			provider.UpdateCustomizationsContextAsync(),
+			provider.UpdatePrintingContextAsync(),
 			provider.UpdateCustomsContextAsync(),
 			provider.UpdateDeliveryContextAsync(),
 			provider.UpdateFilesContextAsync(),

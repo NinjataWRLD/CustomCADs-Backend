@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
-using CustomCADs.Shared.UseCases.Customizations.Commands;
-using CustomCADs.Shared.UseCases.Customizations.Queries;
+using CustomCADs.Shared.Core.Common.TypedIds.Printing;
+using CustomCADs.Shared.UseCases.Printing.Commands;
+using CustomCADs.Shared.UseCases.Printing.Queries;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.ToggleForDelivery;
 
