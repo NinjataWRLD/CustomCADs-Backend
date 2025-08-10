@@ -20,7 +20,6 @@
 		<!--Infrastructure-->
 		<PackageVersion Include="AWSSDK.S3" Version="4.0.1.6" />
 		<PackageVersion Include="FluentEmail.Smtp" Version="3.0.2" />
-		<PackageVersion Include="MailKit" Version="4.12.1" />
 		<PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="9.0.6" />
 		<PackageVersion Include="Microsoft.Extensions.Options" Version="9.0.6" />
 		<PackageVersion Include="Stripe.net" Version="48.2.0" />

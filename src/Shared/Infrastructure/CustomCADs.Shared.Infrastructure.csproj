@@ -9,7 +9,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentEmail.Smtp" />
-		<PackageReference Include="MailKit" />
 		<PackageReference Include="Microsoft.Extensions.Caching.Memory" />
 		<PackageReference Include="Stripe.net" />
 		<PackageReference Include="WolverineFx" />
