@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Files.Application.Cads.Storage;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Queries;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.UseCases.Cads.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Queries;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.Files.Application.Cads.Queries.Shared;
 

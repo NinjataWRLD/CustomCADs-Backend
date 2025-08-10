@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Remove;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Delete;
 
@@ -26,6 +27,6 @@ public sealed class DeleteActiveCartItemEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendNoContentAsync().ConfigureAwait(false);
+		await Send.NoContentAsync().ConfigureAwait(false);
 	}
 }

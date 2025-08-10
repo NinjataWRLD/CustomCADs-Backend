@@ -31,6 +31,6 @@ public class CreateTagEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		CreateTagResponse response = tag.ToCreateTagResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

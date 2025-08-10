@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Domain.Enums;
 
 namespace CustomCADs.Catalog.Domain.Products.ValueObjects;
 

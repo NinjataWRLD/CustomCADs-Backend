@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Create;
 using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Single;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Post.Create;
 
@@ -38,7 +39,7 @@ public sealed class PostCustomEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		PostCustomResponse response = custom.ToPostResponse();
-		await SendCreatedAtAsync<GetCustomEndpoint>(
+		await Send.CreatedAtAsync<GetCustomEndpoint>(
 			routeValues: new { Id = id.Value },
 			responseBody: response
 		).ConfigureAwait(false);

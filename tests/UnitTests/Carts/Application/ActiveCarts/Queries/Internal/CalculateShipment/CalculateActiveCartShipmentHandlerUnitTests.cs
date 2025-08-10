@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
 using CustomCADs.Carts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.UseCases.Customizations.Queries;
-using CustomCADs.Shared.UseCases.Shipments.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Dtos.Delivery;
+using CustomCADs.Shared.Application.UseCases.Customizations.Queries;
+using CustomCADs.Shared.Application.UseCases.Shipments.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
 

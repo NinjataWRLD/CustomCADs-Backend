@@ -26,6 +26,6 @@ public class GetTagByIdEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetTagByIdResponse response = tag.ToGetTagByIdResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

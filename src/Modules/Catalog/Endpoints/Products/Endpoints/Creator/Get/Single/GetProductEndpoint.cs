@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetById;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Single;
 
@@ -26,6 +27,6 @@ public sealed class GetProductEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetProductResponse response = product.ToGetResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

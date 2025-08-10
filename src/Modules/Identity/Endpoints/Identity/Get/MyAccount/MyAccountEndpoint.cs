@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Identity.Application.Users.Queries.Internal.GetByUsername;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Get.MyAccount;
 
@@ -33,6 +34,6 @@ public sealed class MyAccountEndpoint(IRequestSender sender)
 			TrackViewedProducts: user.TrackViewedProducts,
 			CreatedAt: user.CreatedAt
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

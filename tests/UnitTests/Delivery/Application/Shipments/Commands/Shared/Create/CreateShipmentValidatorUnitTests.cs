@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Commands.Shared.Create;
-using CustomCADs.Shared.UseCases.Shipments.Commands;
+using CustomCADs.Shared.Application.UseCases.Shipments.Commands;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create;

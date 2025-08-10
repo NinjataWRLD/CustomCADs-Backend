@@ -8,20 +8,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AWSSDK.S3" />
 		<PackageReference Include="FluentEmail.Smtp" />
-		<PackageReference Include="MailKit" />
 		<PackageReference Include="Microsoft.Extensions.Caching.Memory" />
-		<PackageReference Include="Microsoft.Extensions.Options" />
 		<PackageReference Include="Stripe.net" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" />
 		<PackageReference Include="WolverineFx" />
 		<PackageReference Include="WolverineFx.FluentValidation" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Abstractions\CustomCADs.Shared.Abstractions.csproj" />
-		<ProjectReference Include="..\Speedy\CustomCADs.Shared.Speedy.csproj" />
+		<ProjectReference Include="../Application/CustomCADs.Shared.Application.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.Count;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Get.Count;
 
@@ -24,6 +25,6 @@ public sealed class CountActiveCartItemsEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync(count).ConfigureAwait(false);
+		await Send.OkAsync(count).ConfigureAwait(false);
 	}
 }

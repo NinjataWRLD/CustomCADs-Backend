@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.ResetPassword;
+using CustomCADs.Shared.Endpoints.Attributes;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.ResetPassword;
 
@@ -28,6 +29,6 @@ public sealed class ResetPasswordEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync().ConfigureAwait(false);
+		await Send.OkAsync().ConfigureAwait(false);
 	}
 }

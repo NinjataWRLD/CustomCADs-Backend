@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.SetFiles;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.Shared.UseCases.Images.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Cads.Commands;
+using CustomCADs.Shared.Application.UseCases.Images.Commands;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Commands.Internal.Creator.SetFiles;
 

@@ -1,8 +1,6 @@
-﻿using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Behaviors.SetName;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Behaviors.SetName;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 
 public class SetTagNameUnitTests : TagsBaseUnitTests

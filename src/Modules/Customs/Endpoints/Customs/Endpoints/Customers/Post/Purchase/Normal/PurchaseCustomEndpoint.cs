@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.Normal;
 using CustomCADs.Customs.Endpoints.Customs.Dtos;
-using CustomCADs.Shared.Abstractions.Payment;
+using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Post.Purchase.Normal;
 
@@ -29,6 +30,6 @@ public sealed class PurchaseCustomEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		PaymentResponse response = dto.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

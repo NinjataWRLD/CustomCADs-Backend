@@ -1,4 +1,4 @@
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Dtos.Files;
 
 namespace CustomCADs.Files.Application.Cads.Storage;
 

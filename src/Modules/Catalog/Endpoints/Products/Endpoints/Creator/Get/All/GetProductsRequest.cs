@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Enums;
-using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Domain.Enums;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.All;
 

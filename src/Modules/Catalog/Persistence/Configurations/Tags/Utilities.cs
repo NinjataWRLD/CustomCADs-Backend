@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Catalog.Persistence.Configurations.Tags;

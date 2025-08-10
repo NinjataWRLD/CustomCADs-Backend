@@ -1,6 +1,6 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Events.Application.Users;
-using CustomCADs.Identity.Domain.Repositories.Writes;
-using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
+using CustomCADs.Shared.Application.Events.Account.Accounts;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Events.Application.Users;
 
@@ -9,15 +9,15 @@ using static UsersData;
 public class UserDeletedHandlerUnitTests : UsersBaseUnitTests
 {
 	private readonly UserDeletedHandler handler;
-	private readonly Mock<IUserWrites> writes = new();
+	private readonly Mock<IUserService> service = new();
 
 	public UserDeletedHandlerUnitTests()
 	{
-		handler = new(writes.Object);
+		handler = new(service.Object);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase()
+	public async Task Handle_ShouldCallService()
 	{
 		// Arrange
 		AccountDeletedApplicationEvent ae = new(MaxValidUsername);
@@ -26,6 +26,6 @@ public class UserDeletedHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(ae);
 
 		// Assert
-		writes.Verify(x => x.DeleteAsync(MaxValidUsername), Times.Once());
+		service.Verify(x => x.DeleteAsync(MaxValidUsername), Times.Once());
 	}
 }

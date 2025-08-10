@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Delete;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Endpoints.Delete;
 
@@ -23,6 +23,6 @@ public sealed class DeleteRoleEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendNoContentAsync().ConfigureAwait(false);
+		await Send.NoContentAsync().ConfigureAwait(false);
 	}
 }

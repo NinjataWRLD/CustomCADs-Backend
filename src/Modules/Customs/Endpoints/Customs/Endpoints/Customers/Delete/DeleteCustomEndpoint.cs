@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Delete;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Delete;
 
@@ -25,6 +26,6 @@ public sealed class DeleteCustomEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendNoContentAsync().ConfigureAwait(false);
+		await Send.NoContentAsync().ConfigureAwait(false);
 	}
 }

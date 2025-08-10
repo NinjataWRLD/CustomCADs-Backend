@@ -1,7 +1,6 @@
-using CustomCADs.Catalog.Application.Products.Events.Application;
+using CustomCADs.Catalog.Application.Products.Events.Application.ProductPurchased;
 using CustomCADs.Catalog.Domain.Repositories;
-using CustomCADs.Shared.ApplicationEvents.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Application.Events.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Events.Application;
 

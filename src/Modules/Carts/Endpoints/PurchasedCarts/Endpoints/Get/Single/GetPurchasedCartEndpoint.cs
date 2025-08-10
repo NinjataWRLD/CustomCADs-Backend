@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetById;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Domain.TypedIds.Carts;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Get.Single;
 
@@ -27,6 +28,6 @@ public sealed class GetPurchasedCartEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetPurchasedCartResponse response = cart.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

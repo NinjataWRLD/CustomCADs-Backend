@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.Dtos;
+﻿using CustomCADs.Shared.Application.Dtos.Files;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Post.Data;
 

@@ -1,2 +1,1 @@
-﻿global using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-global using CustomCADs.Shared.Core.Common.TypedIds.Idempotency;
+﻿global using CustomCADs.Shared.Domain.TypedIds.Idempotency;

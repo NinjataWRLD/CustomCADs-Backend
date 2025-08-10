@@ -2,8 +2,8 @@
 using CustomCADs.Accounts.Domain.Accounts.Enums;
 using CustomCADs.Accounts.Domain.Accounts.ValueObjects;
 using CustomCADs.Accounts.Persistence.ShadowEntities;
-using CustomCADs.Shared.Core.Common.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.Enums;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.Accounts.Persistence.Repositories.Accounts;
 
@@ -56,9 +56,6 @@ public static class Utilities
 			{ Type: AccountSortingType.Role, Direction: SortingDirection.Descending } => query.OrderByDescending(u => u.RoleName),
 			_ => query,
 		};
-
-	public static IQueryable<Account> WithPagination(this IQueryable<Account> query, int page = 1, int limit = 20)
-		=> query.Skip((page - 1) * limit).Take(limit);
 
 	public static async Task<ProductId[]> GetViewedProductsByAccountIdAsync(this DbSet<ViewedProduct> set, AccountId id, CancellationToken ct = default)
 		=> await set

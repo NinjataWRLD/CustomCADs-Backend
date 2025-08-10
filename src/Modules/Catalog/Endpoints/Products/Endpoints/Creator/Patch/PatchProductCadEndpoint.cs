@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.SetCoords;
+using CustomCADs.Shared.Endpoints.Extensions;
 using System.ComponentModel;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Patch;
@@ -36,6 +37,6 @@ public sealed class PatchProductCadEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendNoContentAsync().ConfigureAwait(false);
+		await Send.NoContentAsync().ConfigureAwait(false);
 	}
 }

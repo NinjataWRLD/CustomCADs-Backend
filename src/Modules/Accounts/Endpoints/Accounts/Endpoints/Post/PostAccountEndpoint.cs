@@ -2,7 +2,7 @@
 using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetById;
 using CustomCADs.Accounts.Endpoints.Accounts.Dtos;
 using CustomCADs.Accounts.Endpoints.Accounts.Endpoints.Get.Single;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Endpoints.Post;
 
@@ -38,6 +38,6 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
 		, ct).ConfigureAwait(false);
 
 		AccountResponse response = newAccount.ToResponse();
-		await SendCreatedAtAsync<GetAccountEndpoint>(new { id }, response).ConfigureAwait(false);
+		await Send.CreatedAtAsync<GetAccountEndpoint>(new { id }, response).ConfigureAwait(false);
 	}
 }

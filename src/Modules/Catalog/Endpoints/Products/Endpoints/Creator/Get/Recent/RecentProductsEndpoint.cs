@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Catalog.Application.Products.Enums;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetAll;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Domain.Enums;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Recent;
 
@@ -33,6 +34,6 @@ public sealed class RecentProductsEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		RecentProductsResponse[] response = [.. result.Items.Select(p => p.ToRecentResponse())];
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

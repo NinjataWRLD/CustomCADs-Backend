@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetAll;
 using CustomCADs.Accounts.Endpoints.Accounts.Dtos;
-using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Domain.Querying;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Endpoints.Get.All;
 
@@ -32,6 +32,6 @@ public sealed class GetAccountsEndpoint(IRequestSender sender)
 			result.Count,
 			[.. result.Items.Select(a => a.ToResponse())]
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

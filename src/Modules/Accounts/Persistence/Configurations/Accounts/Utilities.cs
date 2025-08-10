@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Domain.Accounts;
-using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Accounts.Persistence.Configurations.Accounts;

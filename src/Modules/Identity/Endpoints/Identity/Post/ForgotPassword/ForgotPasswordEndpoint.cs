@@ -25,6 +25,6 @@ public sealed class ForgotPasswordEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync().ConfigureAwait(false);
+		await Send.OkAsync().ConfigureAwait(false);
 	}
 }

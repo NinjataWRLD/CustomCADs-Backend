@@ -35,6 +35,6 @@ public sealed class LoginEndpoint(IRequestSender sender, IOptions<CookieSettings
 			username: req.Username,
 			tokens: tokens
 		);
-		await SendOkAsync().ConfigureAwait(false);
+		await Send.OkAsync().ConfigureAwait(false);
 	}
 }

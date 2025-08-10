@@ -24,6 +24,6 @@ public class GetAllTagsEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetAllTagsResponse[] response = [.. tags.Select(x => x.ToGetAllTagsResponse())];
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

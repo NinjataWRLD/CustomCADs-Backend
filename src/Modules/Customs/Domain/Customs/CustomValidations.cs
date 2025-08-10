@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Customs.Domain.Customs;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static CustomConstants;
 
 public static class CustomValidations

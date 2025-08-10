@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Customs.Domain.Customs.Behaviors.SetName;
 
-namespace CustomCADs.UnitTests.Customs.Domain.Customs.Behaviors.SetName;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 
 public class CustomSetNameUnitTests : CustomsBaseUnitTests

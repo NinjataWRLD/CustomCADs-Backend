@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.Create;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetById;
 using CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Single;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Post.Products;
 
@@ -45,6 +45,6 @@ public sealed class PostProductEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		PostProductResponse response = dto.ToPostResponse();
-		await SendCreatedAtAsync<GetProductEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
+		await Send.CreatedAtAsync<GetProductEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
 	}
 }

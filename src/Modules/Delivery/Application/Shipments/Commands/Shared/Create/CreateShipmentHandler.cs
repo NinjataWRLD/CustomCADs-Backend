@@ -1,9 +1,9 @@
-﻿using CustomCADs.Delivery.Domain.Repositories;
-using CustomCADs.Shared.Abstractions.Delivery;
+﻿using CustomCADs.Delivery.Application.Contracts;
+using CustomCADs.Delivery.Domain.Repositories;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Shipments.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Delivery.Application.Shipments.Commands.Shared.Create;
 

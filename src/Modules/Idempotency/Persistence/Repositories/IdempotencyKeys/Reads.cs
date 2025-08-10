@@ -1,7 +1,7 @@
 using CustomCADs.Idempotency.Domain.IdempotencyKeys;
 using CustomCADs.Idempotency.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Idempotency;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain.TypedIds.Idempotency;
+using CustomCADs.Shared.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Idempotency.Persistence.Repositories.IdempotencyKeys;

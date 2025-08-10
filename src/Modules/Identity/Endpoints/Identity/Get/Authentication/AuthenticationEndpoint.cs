@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Identity.Endpoints.Identity.Get.Authentication;
+﻿using CustomCADs.Shared.Endpoints.Extensions;
+
+namespace CustomCADs.Identity.Endpoints.Identity.Get.Authentication;
 
 public sealed class AuthenticationEndpoint
 	: EndpointWithoutRequest
@@ -16,6 +18,6 @@ public sealed class AuthenticationEndpoint
 
 	public override async Task HandleAsync(CancellationToken ct)
 	{
-		await SendOkAsync(User.GetAuthentication()).ConfigureAwait(false);
+		await Send.OkAsync(User.GetAuthentication()).ConfigureAwait(false);
 	}
 }

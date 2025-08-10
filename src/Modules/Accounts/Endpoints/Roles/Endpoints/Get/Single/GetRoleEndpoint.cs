@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetById;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Endpoints.Get.Single;
 
@@ -24,6 +24,6 @@ public sealed class GetRoleEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		RoleResponse response = role.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

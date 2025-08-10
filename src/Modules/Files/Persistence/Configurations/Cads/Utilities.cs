@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Cads;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,10 +1,8 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.ResetPasswordEmail;
 using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Application.Users.Events.Application.Emails.PasswordReset;
-using CustomCADs.Identity.Domain.Repositories.Reads;
-using CustomCADs.Identity.Domain.Repositories.Writes;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Application.Abstractions.Events;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.ResetPasswordEmail;
@@ -12,8 +10,7 @@ namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.Rese
 public class ResetUserPasswordEmailHandlerUnitTests : UsersBaseUnitTests
 {
 	private readonly ResetPasswordEmailHandler handler;
-	private readonly Mock<IUserReads> reads = new();
-	private readonly Mock<IUserWrites> writes = new();
+	private readonly Mock<IUserService> service = new();
 	private readonly Mock<IEventRaiser> raiser = new();
 	private readonly Mock<IOptions<ClientUrlSettings>> settings = new();
 
@@ -24,14 +21,13 @@ public class ResetUserPasswordEmailHandlerUnitTests : UsersBaseUnitTests
 	public ResetUserPasswordEmailHandlerUnitTests()
 	{
 		settings.Setup(x => x.Value).Returns(new ClientUrlSettings(string.Empty, PreferredUrl));
-		handler = new(reads.Object, writes.Object, raiser.Object, settings.Object);
+		handler = new(service.Object, raiser.Object, settings.Object);
 
-		reads.Setup(x => x.GetByEmailAsync(user.Email.Value)).ReturnsAsync(user);
-		writes.Setup(x => x.GeneratePasswordResetTokenAsync(user.Username)).ReturnsAsync(Token);
+		service.Setup(x => x.GeneratePasswordResetTokenAsync(user.Email.Value)).ReturnsAsync(Token);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldCallService()
 	{
 		// Arrange
 		ResetPasswordEmailCommand command = new(user.Email.Value);
@@ -40,20 +36,7 @@ public class ResetUserPasswordEmailHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.GetByEmailAsync(user.Email.Value), Times.Once());
-	}
-
-	[Fact]
-	public async Task Handle_ShouldPersistToDatabase()
-	{
-		// Arrange
-		ResetPasswordEmailCommand command = new(user.Email.Value);
-
-		// Act
-		await handler.Handle(command, ct);
-
-		// Assert
-		writes.Verify(x => x.GeneratePasswordResetTokenAsync(user.Username), Times.Once());
+		service.Verify(x => x.GeneratePasswordResetTokenAsync(user.Email.Value), Times.Once());
 	}
 
 	[Fact]
@@ -74,19 +57,5 @@ public class ResetUserPasswordEmailHandlerUnitTests : UsersBaseUnitTests
 				&& x.Endpoint.Contains(PreferredUrl)
 			)
 		), Times.Once());
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenUserNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.GetByEmailAsync(user.Email.Value)).ReturnsAsync(null as User);
-		ResetPasswordEmailCommand command = new(user.Email.Value);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<User>>(
-			// Act
-			async () => await handler.Handle(command, ct)
-		);
 	}
 }

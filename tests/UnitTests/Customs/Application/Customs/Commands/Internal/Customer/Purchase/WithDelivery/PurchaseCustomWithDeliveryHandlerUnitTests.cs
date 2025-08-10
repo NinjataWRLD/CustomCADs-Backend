@@ -1,16 +1,16 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.WithDelivery;
-using CustomCADs.Customs.Domain.Customs.Events;
+using CustomCADs.Customs.Application.Customs.Events.Application.DeliveryRequested;
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Customs.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Abstractions.Payment;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Cads.Queries;
-using CustomCADs.Shared.UseCases.Customizations.Queries;
+using CustomCADs.Shared.Application.Abstractions.Events;
+using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Dtos.Delivery;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.UseCases.Cads.Queries;
+using CustomCADs.Shared.Application.UseCases.Customizations.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Purchase.WithDelivery;
 
@@ -161,8 +161,8 @@ public class PurchaseCustomWithDeliveryHandlerUnitTests : CustomsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		raiser.Verify(x => x.RaiseDomainEventAsync(
-			It.Is<CustomDeliveryRequestedDomainEvent>(x => x.Id == custom.Id)
+		raiser.Verify(x => x.RaiseApplicationEventAsync(
+			It.Is<CustomDeliveryRequestedApplicationEvent>(x => x.Id == custom.Id)
 		), Times.Once());
 	}
 

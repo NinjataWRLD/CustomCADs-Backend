@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Register;
 using CustomCADs.Identity.Application.Users.Commands.Internal.VerificationEmail;
+using CustomCADs.Shared.Endpoints.Attributes;
 using Microsoft.AspNetCore.Routing;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Register;
@@ -45,6 +46,6 @@ public sealed class RegisterEndpoint(IRequestSender sender, LinkGenerator links)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync().ConfigureAwait(false);
+		await Send.OkAsync().ConfigureAwait(false);
 	}
 }

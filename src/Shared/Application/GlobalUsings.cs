@@ -1,0 +1,10 @@
+global using CustomCADs.Shared.Application.Abstractions.Requests.Commands;
+global using CustomCADs.Shared.Application.Abstractions.Requests.Queries;
+global using CustomCADs.Shared.Domain.Bases.Events;
+global using CustomCADs.Shared.Domain.TypedIds.Accounts;
+global using CustomCADs.Shared.Domain.TypedIds.Carts;
+global using CustomCADs.Shared.Domain.TypedIds.Catalog;
+global using CustomCADs.Shared.Domain.TypedIds.Customs;
+global using CustomCADs.Shared.Domain.TypedIds.Delivery;
+global using CustomCADs.Shared.Domain.TypedIds.Files;
+global using CustomCADs.Shared.Domain.TypedIds.Printing;

@@ -31,6 +31,6 @@ public sealed class RetryConfirmEmailEndpoint(IRequestSender sender, LinkGenerat
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync().ConfigureAwait(false);
+		await Send.OkAsync().ConfigureAwait(false);
 	}
 }

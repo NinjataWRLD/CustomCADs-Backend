@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Files.Application.Images.Commands.Shared.SetKey;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.UseCases.Images.Commands;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Images.Commands;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.SetKey;
 

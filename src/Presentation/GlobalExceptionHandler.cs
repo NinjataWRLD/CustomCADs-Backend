@@ -1,8 +1,7 @@
-﻿using CustomCADs.Shared.Abstractions.Payment.Exceptions;
-using CustomCADs.Shared.API;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.Shared.Core.Common.Exceptions.Persistence;
+﻿using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Domain.Exceptions;
+using CustomCADs.Shared.Endpoints.Extensions;
+using CustomCADs.Shared.Persistence.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CustomCADs.Presentation;

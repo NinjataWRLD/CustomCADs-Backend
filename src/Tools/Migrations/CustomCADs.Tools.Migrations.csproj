@@ -19,13 +19,12 @@
 		<ProjectReference Include="..\..\Modules\Accounts\Persistence\CustomCADs.Accounts.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Carts\Persistence\CustomCADs.Carts.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Catalog\Persistence\CustomCADs.Catalog.Persistence.csproj" />
-		<ProjectReference Include="..\..\Modules\Categories\Persistence\CustomCADs.Categories.Persistence.csproj" />
-		<ProjectReference Include="..\..\Modules\Customizations\Persistence\CustomCADs.Customizations.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Customs\Persistence\CustomCADs.Customs.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Delivery\Persistence\CustomCADs.Delivery.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Files\Persistence\CustomCADs.Files.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Idempotency\Persistence\CustomCADs.Idempotency.Persistence.csproj" />
-		<ProjectReference Include="..\..\Modules\Identity\Persistence\CustomCADs.Identity.Persistence.csproj" />
+		<ProjectReference Include="..\..\Modules\Identity\Infrastructure\CustomCADs.Identity.Infrastructure.csproj" />
+		<ProjectReference Include="..\..\Modules\Printing\Persistence\CustomCADs.Printing.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>

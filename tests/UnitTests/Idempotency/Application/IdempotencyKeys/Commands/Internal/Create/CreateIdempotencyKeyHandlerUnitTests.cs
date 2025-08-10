@@ -1,6 +1,6 @@
 using CustomCADs.Idempotency.Application.IdempotencyKeys.Commands.Internal.Create;
 using CustomCADs.Idempotency.Domain.Repositories;
-using CustomCADs.Shared.Core.Common.TypedIds.Idempotency;
+using CustomCADs.Shared.Domain.TypedIds.Idempotency;
 
 namespace CustomCADs.UnitTests.Idempotency.Application.IdempotencyKeys.Commands.Internal.Create;
 

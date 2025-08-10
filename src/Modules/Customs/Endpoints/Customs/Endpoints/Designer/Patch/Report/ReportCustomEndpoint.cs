@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Designer.Report;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Patch.Report;
 
@@ -25,6 +26,6 @@ public sealed class ReportCustomEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendNoContentAsync().ConfigureAwait(false);
+		await Send.NoContentAsync().ConfigureAwait(false);
 	}
 }

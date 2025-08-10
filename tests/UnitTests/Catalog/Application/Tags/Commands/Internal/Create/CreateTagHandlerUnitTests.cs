@@ -1,8 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Commands.Internal.Create;
 using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
-using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Commands.Internal.Create;
 

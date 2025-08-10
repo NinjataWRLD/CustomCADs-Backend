@@ -23,6 +23,6 @@ public sealed class GetRolesEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		RoleResponse[] response = [.. roles.Select(r => r.ToResponse())];
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

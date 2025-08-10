@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.Count.Carts;
 using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.Count.Items;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Get.Stats;
 
@@ -36,6 +37,6 @@ public sealed class PurchasedCartsStatsEndpoint(IRequestSender sender)
 			Total: totalCartCount,
 			Counts: counts.ToDictionary(kv => kv.Key.Value, kv => kv.Value)
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

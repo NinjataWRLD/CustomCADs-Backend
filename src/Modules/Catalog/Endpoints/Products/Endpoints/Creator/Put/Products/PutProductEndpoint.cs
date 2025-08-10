@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.Edit;
 using CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.SetFiles;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Put.Products;
 
@@ -42,6 +42,6 @@ public sealed class PutProductEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendNoContentAsync().ConfigureAwait(false);
+		await Send.NoContentAsync().ConfigureAwait(false);
 	}
 }

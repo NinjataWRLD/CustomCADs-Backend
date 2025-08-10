@@ -1,5 +1,5 @@
 using CustomCADs.Presentation;
-using static CustomCADs.Shared.Core.Constants.Roles;
+using static CustomCADs.Shared.Domain.Constants.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +22,7 @@ builder.Services.AddStorageService(builder.Configuration);
 
 // Modules
 builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddIdentity();
+builder.Services.AddIdentity(builder.Configuration);
 builder.Services.AddDomainServices();
 builder.Services.AddGlobalExceptionHandler();
 

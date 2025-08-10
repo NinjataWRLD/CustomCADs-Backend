@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Identity.Application.Users.Queries.Internal.GetByUsername;
+using CustomCADs.Shared.Endpoints.Extensions;
 using System.Text.Json;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Get.DownloadInfo;
@@ -43,7 +44,7 @@ public sealed class DownloadInfoEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		stream.Position = 0;
-		await SendStreamAsync(
+		await Send.StreamAsync(
 			stream: stream,
 			fileName: "my-data.json",
 			contentType: "application/json"

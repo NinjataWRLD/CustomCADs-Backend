@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Cads;
-using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Domain.Querying;
 
 namespace CustomCADs.Files.Domain.Repositories.Reads;
 

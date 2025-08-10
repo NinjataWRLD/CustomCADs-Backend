@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.ValueObjects;
+﻿using CustomCADs.Files.Domain.Cads.ValueObjects;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Create.Data;
 

@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts;
 using CustomCADs.Carts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
+using CustomCADs.Shared.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Carts.Persistence.Repositories.ActiveCarts;

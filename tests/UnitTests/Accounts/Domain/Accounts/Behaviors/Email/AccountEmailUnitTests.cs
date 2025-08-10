@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Email;
 
-namespace CustomCADs.UnitTests.Accounts.Domain.Accounts.Behaviors.Email;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 
 public class AccountEmailUnitTests : AccountsBaseUnitTests

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Single;
 
@@ -26,6 +27,6 @@ public sealed class GetCustomEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetCustomResponse response = custom.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

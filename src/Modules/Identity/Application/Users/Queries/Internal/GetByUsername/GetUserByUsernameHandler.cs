@@ -1,18 +1,16 @@
-using CustomCADs.Shared.Abstractions.Requests.Queries;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.Identity.Application.Users.Queries.Internal.GetByUsername;
 
-public class GetUserByUsernameHandler(IUserReads reads, IRequestSender sender)
+public class GetUserByUsernameHandler(IUserService service, IRequestSender sender)
 	: IQueryHandler<GetUserByUsernameQuery, GetUserByUsernameDto>
 {
 	public async Task<GetUserByUsernameDto> Handle(GetUserByUsernameQuery req, CancellationToken ct = default)
 	{
-		User user = await reads.GetByUsernameAsync(req.Username).ConfigureAwait(false)
-			?? throw CustomNotFoundException<User>.ByProp(nameof(req.Username), req.Username);
+		User user = await service.GetByUsernameAsync(req.Username).ConfigureAwait(false);
 
 		AccountInfo info = await sender.SendQueryAsync(
 			new GetAccountInfoByUsernameQuery(req.Username),

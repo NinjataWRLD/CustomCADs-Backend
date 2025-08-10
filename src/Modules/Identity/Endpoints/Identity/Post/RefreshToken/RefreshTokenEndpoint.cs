@@ -29,6 +29,6 @@ public sealed class RefreshTokenEndpoint(IRequestSender sender, IOptions<CookieS
 
 		HttpContext.SaveAccessTokenCookie(tokens.AccessToken, settings.Value.Domain);
 		HttpContext.SaveCsrfTokenCookie(tokens.CsrfToken, settings.Value.Domain);
-		await SendOkAsync().ConfigureAwait(false);
+		await Send.OkAsync().ConfigureAwait(false);
 	}
 }

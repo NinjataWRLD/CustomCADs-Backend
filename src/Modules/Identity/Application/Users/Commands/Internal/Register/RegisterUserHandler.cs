@@ -1,11 +1,10 @@
-﻿using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.UseCases.Accounts.Commands;
+﻿using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Accounts.Commands;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Identity.Application.Users.Commands.Internal.Register;
 
-public class RegisterUserHandler(IUserWrites writes, IRequestSender sender)
+public class RegisterUserHandler(IUserService service, IRequestSender sender)
 	: ICommandHandler<RegisterUserCommand>
 {
 	public async Task Handle(RegisterUserCommand req, CancellationToken ct)
@@ -21,7 +20,7 @@ public class RegisterUserHandler(IUserWrites writes, IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		bool success = await writes.CreateAsync(
+		await service.CreateAsync(
 			user: User.Create(
 				role: req.Role,
 				username: req.Username,
@@ -30,10 +29,5 @@ public class RegisterUserHandler(IUserWrites writes, IRequestSender sender)
 			),
 			password: req.Password
 		).ConfigureAwait(false);
-
-		if (!success)
-		{
-			throw new CustomException($"Couldn't create an account for: {req.Username}.");
-		}
 	}
 }

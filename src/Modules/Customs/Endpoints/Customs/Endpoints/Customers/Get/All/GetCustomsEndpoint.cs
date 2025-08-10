@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Shared.GetAll;
-using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.All;
 
@@ -34,6 +35,6 @@ public sealed class GetCustomsEndpoint(IRequestSender sender)
 			Count: result.Count,
 			Items: [.. result.Items.Select(o => o.ToGetResponse())]
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

@@ -1,4 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetCadUrl.Put;
+using CustomCADs.Shared.Endpoints.Attributes;
+using CustomCADs.Shared.Endpoints.Extensions;
 using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Put.PresignedUrl.Cad;
@@ -29,6 +31,6 @@ public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetProductPutCadPresignedUrlResponse response = new(cadDto.PresignedUrl);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

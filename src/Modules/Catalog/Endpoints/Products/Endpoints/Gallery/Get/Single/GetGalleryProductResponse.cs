@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.Dtos;
+﻿using CustomCADs.Shared.Application.Dtos.Files;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Get.Single;
 
@@ -14,5 +14,5 @@ public sealed record GetGalleryProductResponse(
 	CoordinatesDto CamCoordinates,
 	CoordinatesDto PanCoordinates,
 	CountsDto Counts,
-	CategoryResponse Category
+	CategoryDtoResponse Category
 );

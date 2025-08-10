@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;
-using CustomCADs.Shared.Abstractions.Payment;
+using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Post.PurchaseWithDelivery;
 
@@ -30,6 +31,6 @@ public sealed class PurchaseActiveCartEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		PaymentResponse response = dto.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

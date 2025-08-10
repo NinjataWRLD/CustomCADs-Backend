@@ -1,13 +1,14 @@
-using CustomCADs.Customizations.Domain.Services;
+using CustomCADs.Delivery.Infrastructure;
+using CustomCADs.Files.Infrastructure;
 using CustomCADs.Identity.Domain.Users;
-using CustomCADs.Identity.Persistence;
-using CustomCADs.Identity.Persistence.ShadowEntities;
-using CustomCADs.Shared.Infrastructure.Delivery;
+using CustomCADs.Identity.Infrastructure.Identity;
+using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
+using CustomCADs.Identity.Infrastructure.Tokens;
+using CustomCADs.Printing.Domain.Services;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Payment;
-using CustomCADs.Shared.Infrastructure.Storage;
-using CustomCADs.Shared.Infrastructure.Tokens;
 using Microsoft.AspNetCore.Identity;
+
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
@@ -25,8 +26,7 @@ public static class ProgramExtensions
 				CustomCADs.Accounts.Application.AccountApplicationReference.Assembly,
 				CustomCADs.Carts.Application.CartsApplicationReference.Assembly,
 				CustomCADs.Catalog.Application.CatalogApplicationReference.Assembly,
-				CustomCADs.Categories.Application.CategoriesApplicationReference.Assembly,
-				CustomCADs.Customizations.Application.CustomizationsApplicationReference.Assembly,
+				CustomCADs.Printing.Application.PrintingApplicationReference.Assembly,
 				CustomCADs.Customs.Application.CustomsApplicationReference.Assembly,
 				CustomCADs.Delivery.Application.DeliveryApplicationReference.Assembly,
 				CustomCADs.Files.Application.FilesApplicationReference.Assembly,
@@ -64,6 +64,17 @@ public static class ProgramExtensions
 		return services;
 	}
 
+	public static IServiceCollection AddIdentityService(this IServiceCollection services, IConfiguration config)
+	{
+		const string connectionStringKey = "ApplicationConnection";
+		string? connectionString = config.GetConnectionString(connectionStringKey)
+			?? throw new KeyNotFoundException($"Could not find connection string '{connectionStringKey}'.");
+
+		services.AddIdentityServices(connectionString);
+
+		return services;
+	}
+
 	public static IServiceCollection AddPaymentService(this IServiceCollection services, IConfiguration config)
 	{
 		IConfigurationSection section = config.GetSection("Payment");
@@ -94,7 +105,7 @@ public static class ProgramExtensions
 		return services;
 	}
 
-	public static IServiceCollection AddIdentity(this IServiceCollection services)
+	public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration config)
 	{
 		services.AddIdentity<AppUser, AppRole>(options =>
 		{
@@ -113,6 +124,12 @@ public static class ProgramExtensions
 		.AddEntityFrameworkStores<IdentityContext>()
 		.AddDefaultTokenProviders();
 
+		const string connectionStringKey = "ApplicationConnection";
+		string? connectionString = config.GetConnectionString(connectionStringKey)
+			?? throw new KeyNotFoundException($"Could not find connection string '{connectionStringKey}'.");
+
+		services.AddIdentityServices(connectionString);
+
 		return services;
 	}
 
@@ -121,18 +138,16 @@ public static class ProgramExtensions
 			.AddAccountsPersistence(config)
 			.AddCartsPersistence(config)
 			.AddCatalogPersistence(config)
-			.AddCategoriesPersistence(config)
-			.AddCustomizationsPersistence(config)
+			.AddPrintingPersistence(config)
 			.AddCustomsPersistence(config)
 			.AddDeliveryPersistence(config)
 			.AddFilesPersistence(config)
-			.AddIdempotencyPersistence(config)
-			.AddIdentityPersistence(config);
+			.AddIdempotencyPersistence(config);
 
 
 	public static IServiceCollection AddDomainServices(this IServiceCollection services)
 	{
-		services.AddScoped<ICustomizationMaterialCalculator, CustomizationMaterialCalculator>();
+		services.AddScoped<IPrintCalculator, PrintCalculator>();
 
 		return services;
 	}

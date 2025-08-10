@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
 using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetById;
 using CustomCADs.Accounts.Endpoints.Roles.Endpoints.Get.Single;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Roles.Endpoints.Post;
 
@@ -35,6 +35,6 @@ public sealed class PostRoleEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		RoleResponse response = role.ToResponse();
-		await SendCreatedAtAsync<GetRoleEndpoint>(new { role.Name }, response).ConfigureAwait(false);
+		await Send.CreatedAtAsync<GetRoleEndpoint>(new { role.Name }, response).ConfigureAwait(false);
 	}
 }

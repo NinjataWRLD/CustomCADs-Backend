@@ -1,8 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetById;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Application.Exceptions;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Queries.Internal.GetById;
 

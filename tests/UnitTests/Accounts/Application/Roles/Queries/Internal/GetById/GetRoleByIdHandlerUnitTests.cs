@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Queries.Internal.GetById;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Application.Abstractions.Cache;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Queries.Internal.GetById;
 

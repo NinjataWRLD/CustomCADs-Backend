@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.Count;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Stats;
 
@@ -30,6 +31,6 @@ public sealed class ProductsStatsEndpoint(IRequestSender sender)
 			ReportedCount: counts.Reported,
 			BannedCount: counts.Banned
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Application.Images.Storage;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.ApplicationEvents.Files;
+using CustomCADs.Shared.Application.Events.Files;
 
 namespace CustomCADs.Files.Application.Images.Events.Application;
 

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetById;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Get.Single;
 
@@ -26,6 +27,6 @@ public sealed class GetGalleryProductEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetGalleryProductResponse response = product.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

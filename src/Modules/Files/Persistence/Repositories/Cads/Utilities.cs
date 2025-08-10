@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Cads;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.Files.Persistence.Repositories.Cads;
 
@@ -14,7 +14,4 @@ public static class Utilities
 
 		return query;
 	}
-
-	public static IQueryable<Cad> WithPagination(this IQueryable<Cad> query, int page = 1, int limit = 20)
-		=> query.Skip((page - 1) * limit).Take(limit);
 }

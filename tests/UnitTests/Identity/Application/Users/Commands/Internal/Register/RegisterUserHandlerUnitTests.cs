@@ -1,9 +1,8 @@
+using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.Register;
-using CustomCADs.Identity.Domain.Repositories.Reads;
-using CustomCADs.Identity.Domain.Repositories.Writes;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.UseCases.Accounts.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Accounts.Commands;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.Register;
 
@@ -12,27 +11,21 @@ using static UsersData;
 public class RegisterUserHandlerUnitTests : UsersBaseUnitTests
 {
 	private readonly RegisterUserHandler handler;
-	private readonly Mock<IUserReads> reads = new();
-	private readonly Mock<IUserWrites> writes = new();
+	private readonly Mock<IUserService> service = new();
 	private readonly Mock<IRequestSender> sender = new();
 
 	public RegisterUserHandlerUnitTests()
 	{
-		handler = new(writes.Object, sender.Object);
+		handler = new(service.Object, sender.Object);
 
 		sender.Setup(x => x.SendCommandAsync(
 			It.Is<CreateAccountCommand>(x => x.Username == MaxValidUsername),
 			ct
 		)).ReturnsAsync(ValidAccountId);
-
-		writes.Setup(x => x.CreateAsync(
-			It.Is<User>(x => x.Username == MaxValidUsername),
-			MinValidPassword
-		)).ReturnsAsync(true); // success
 	}
 
 	[Fact]
-	public async Task Handle_ShouldPersistToDatabase()
+	public async Task Handle_ShouldCallService()
 	{
 		// Arrange
 		RegisterUserCommand command = new(
@@ -48,7 +41,7 @@ public class RegisterUserHandlerUnitTests : UsersBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		writes.Verify(x => x.CreateAsync(
+		service.Verify(x => x.CreateAsync(
 			It.Is<User>(x =>
 				x.Username == command.Username
 				&& x.AccountId == ValidAccountId
@@ -90,10 +83,10 @@ public class RegisterUserHandlerUnitTests : UsersBaseUnitTests
 	public async Task Handle_ShouldThrowException_WhenRegisterUnsuccessfuly()
 	{
 		// Arrange
-		writes.Setup(x => x.CreateAsync(
+		service.Setup(x => x.CreateAsync(
 			It.Is<User>(x => x.Username == MaxValidUsername),
 			MinValidPassword
-		)).ReturnsAsync(false); // unsuccessful
+		)).ThrowsAsync(new CustomException("CreationErrorMessage"));
 
 		RegisterUserCommand command = new(
 			Role: ValidRole,

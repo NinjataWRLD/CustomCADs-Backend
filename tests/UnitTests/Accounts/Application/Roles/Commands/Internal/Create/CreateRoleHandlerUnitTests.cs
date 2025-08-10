@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Writes;
-using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.ApplicationEvents.Account.Roles;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Application.Abstractions.Cache;
+using CustomCADs.Shared.Application.Abstractions.Events;
+using CustomCADs.Shared.Application.Events.Account.Roles;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Roles.Commands.Internal.Create;
 

@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Add;
 using CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.GetSingle;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Post.Item;
 
@@ -42,6 +43,6 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		ActiveCartItemResponse response = item.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

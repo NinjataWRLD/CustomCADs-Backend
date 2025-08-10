@@ -1,4 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Application;
+﻿using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Endpoints.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;

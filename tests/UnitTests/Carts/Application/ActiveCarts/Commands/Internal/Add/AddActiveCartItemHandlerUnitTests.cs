@@ -1,13 +1,13 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Add;
 using CustomCADs.Carts.Domain.Repositories;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
-using CustomCADs.Shared.UseCases.Customizations.Queries;
-using CustomCADs.Shared.UseCases.Products.Queries;
+using CustomCADs.Shared.Application.UseCases.Products.Queries;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Add;
 
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Customizations.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 using Data;
 using static ActiveCartsData;
 

@@ -1,6 +1,6 @@
-using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Bases.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Identity;
+using CustomCADs.Shared.Domain;
+using CustomCADs.Shared.Domain.Bases.Entities;
+using CustomCADs.Shared.Domain.TypedIds.Identity;
 
 namespace CustomCADs.Identity.Domain.Users.Entities;
 

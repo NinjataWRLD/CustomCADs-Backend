@@ -1,6 +1,8 @@
 ﻿namespace CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Get.Waybill;
 
 using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetWaybill;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Endpoints.Extensions;
 using static Constants.Roles;
 
 public class GetShipmentWaybillEndpoint(IRequestSender sender)
@@ -27,6 +29,6 @@ public class GetShipmentWaybillEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendBytesAsync(bytes, "waybill.pdf", "application/pdf").ConfigureAwait(false);
+		await Send.BytesAsync(bytes, "waybill.pdf", "application/pdf").ConfigureAwait(false);
 	}
 }

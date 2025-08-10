@@ -1,5 +1,4 @@
-﻿using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+﻿using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Tags;
 

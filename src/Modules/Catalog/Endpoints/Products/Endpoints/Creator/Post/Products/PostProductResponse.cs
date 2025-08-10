@@ -8,5 +8,5 @@ public sealed record PostProductResponse(
 	DateTimeOffset UploadedAt,
 	decimal Price,
 	string Status,
-	CategoryResponse Category
+	CategoryDtoResponse Category
 );

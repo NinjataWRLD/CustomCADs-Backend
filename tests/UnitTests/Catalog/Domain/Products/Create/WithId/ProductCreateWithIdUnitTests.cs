@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products.Create.WithId;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 using static ProductsData;
 

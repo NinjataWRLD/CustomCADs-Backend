@@ -1,8 +1,8 @@
-﻿using CustomCADs.Shared.Abstractions.Payment;
-using CustomCADs.Shared.Abstractions.Payment.Exceptions;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.Shared.Core.Common.TypedIds.Customs;
+﻿using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Carts;
+using CustomCADs.Shared.Domain.TypedIds.Customs;
 using Stripe;
 
 namespace CustomCADs.Shared.Infrastructure.Payment;
@@ -29,9 +29,9 @@ public sealed class StripeService(PaymentIntentService service) : IPaymentServic
 				},
 				Metadata = new()
 				{
-					["buyerId"] = buyerId.Value.ToString(),
+					["buyerId"] = buyerId.ToString(),
 					["rewardType"] = "cart",
-					["rewardId"] = cartId.Value.ToString(),
+					["rewardId"] = cartId.ToString(),
 				},
 			},
 			cancellationToken: ct
@@ -82,9 +82,9 @@ public sealed class StripeService(PaymentIntentService service) : IPaymentServic
 				},
 				Metadata = new()
 				{
-					["buyerId"] = buyerId.Value.ToString(),
+					["buyerId"] = buyerId.ToString(),
 					["rewardType"] = "custom",
-					["rewardId"] = customId.Value.ToString(),
+					["rewardId"] = customId.ToString(),
 				},
 			},
 			cancellationToken: ct

@@ -1,8 +1,6 @@
-﻿using CustomCADs.Catalog.Domain.Tags;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Create.WithId;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Create.WithId;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 using static TagsData;
 

@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.CalculateShipment;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Common.TypedIds.Customizations;
+using CustomCADs.Shared.Application.Dtos.Delivery;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.CalculateShipment;
 
@@ -31,6 +31,6 @@ public class CalculateCustomShipmentEndpoint(IRequestSender sender)
 
 		ICollection<CalculateCustomShipmentResponse> response =
 			[.. calculations.Select(c => c.ToResponse())];
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

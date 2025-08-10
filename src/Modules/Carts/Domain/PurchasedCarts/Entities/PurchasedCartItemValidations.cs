@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static PurchasedCartConstants.PurchasedCartItems;
 
 public static class PurchasedCartItemValidations

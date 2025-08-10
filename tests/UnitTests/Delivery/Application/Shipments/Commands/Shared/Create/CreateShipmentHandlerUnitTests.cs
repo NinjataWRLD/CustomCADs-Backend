@@ -1,12 +1,12 @@
-﻿using CustomCADs.Delivery.Application.Shipments.Commands.Shared.Create;
+﻿using CustomCADs.Delivery.Application.Contracts;
+using CustomCADs.Delivery.Application.Shipments.Commands.Shared.Create;
 using CustomCADs.Delivery.Domain.Repositories;
-using CustomCADs.Shared.Abstractions.Delivery;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Shipments.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.UseCases.Shipments.Commands;
+using CustomCADs.Shared.Domain.TypedIds.Delivery;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Commands.Shared.Create;
 

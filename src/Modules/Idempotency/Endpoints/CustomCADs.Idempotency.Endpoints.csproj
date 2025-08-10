@@ -14,7 +14,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Application\CustomCADs.Idempotency.Application.csproj" />
-		<ProjectReference Include="..\..\..\Shared\API\CustomCADs.Shared.API.csproj" />
+		<ProjectReference Include="..\..\..\Shared\Endpoints\CustomCADs.Shared.Endpoints.csproj" />
 	</ItemGroup>
 
 </Project>

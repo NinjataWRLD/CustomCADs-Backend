@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Domain.Images;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain.TypedIds.Files;
+using CustomCADs.Shared.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Files.Persistence.Repositories.Images;

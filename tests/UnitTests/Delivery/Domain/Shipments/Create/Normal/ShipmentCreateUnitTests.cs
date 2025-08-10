@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+using CustomCADs.Shared.Domain.Exceptions;
 
 namespace CustomCADs.UnitTests.Delivery.Domain.Shipments.Create.Normal;
 

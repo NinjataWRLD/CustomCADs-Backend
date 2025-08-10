@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.Count;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Stats;
 
@@ -32,6 +33,6 @@ public sealed class GetCustomsStatsEndpoint(IRequestSender sender)
 			CompletedCount: counts.Completed,
 			ReportedCount: counts.Reported
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

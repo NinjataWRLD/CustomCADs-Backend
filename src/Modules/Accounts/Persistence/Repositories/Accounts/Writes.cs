@@ -1,7 +1,7 @@
 using CustomCADs.Accounts.Domain.Accounts;
 using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Accounts.Persistence.ShadowEntities;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.Accounts.Persistence.Repositories.Accounts;
 
