@@ -32,6 +32,6 @@ public class GetShipmentsEndpoint(IRequestSender sender)
 			Count: result.Count,
 			Items: [.. result.Items.Select(i => i.ToResponse())]
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

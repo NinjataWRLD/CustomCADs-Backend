@@ -35,6 +35,6 @@ public sealed class GetCustomsEndpoint(IRequestSender sender)
 			Count: result.Count,
 			Items: [.. result.Items.Select(o => o.ToGetResponse())]
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

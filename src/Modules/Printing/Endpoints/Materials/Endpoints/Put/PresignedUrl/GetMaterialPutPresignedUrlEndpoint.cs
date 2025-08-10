@@ -29,6 +29,6 @@ public sealed class GetMaterialPutPresignedUrlEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetMaterialPutPresignedUrlResponse response = new(imageDto.PresignedUrl);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

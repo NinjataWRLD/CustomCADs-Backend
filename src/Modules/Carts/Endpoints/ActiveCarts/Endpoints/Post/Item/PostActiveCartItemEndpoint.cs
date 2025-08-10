@@ -43,6 +43,6 @@ public sealed class PostActiveCartItemEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		ActiveCartItemResponse response = item.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

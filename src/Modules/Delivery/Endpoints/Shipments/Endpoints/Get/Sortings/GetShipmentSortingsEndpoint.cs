@@ -22,6 +22,6 @@ public sealed class GetShipmentSortingsEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync(result).ConfigureAwait(false);
+		await Send.OkAsync(result).ConfigureAwait(false);
 	}
 }

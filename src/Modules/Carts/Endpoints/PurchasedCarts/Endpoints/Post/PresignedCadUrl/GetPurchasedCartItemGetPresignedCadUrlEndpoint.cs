@@ -38,6 +38,6 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
 			CamCoordinates: Cam,
 			PanCoordinates: Pan
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

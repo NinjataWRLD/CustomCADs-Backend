@@ -37,6 +37,6 @@ public sealed class PurchasedCartsStatsEndpoint(IRequestSender sender)
 			Total: totalCartCount,
 			Counts: counts.ToDictionary(kv => kv.Key.Value, kv => kv.Value)
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

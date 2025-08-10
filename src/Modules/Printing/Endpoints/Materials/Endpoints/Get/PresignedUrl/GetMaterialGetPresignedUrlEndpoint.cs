@@ -30,6 +30,6 @@ public sealed class GetMaterialGetPresignedUrlEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

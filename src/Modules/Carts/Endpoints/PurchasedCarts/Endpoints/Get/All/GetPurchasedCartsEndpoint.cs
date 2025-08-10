@@ -33,6 +33,6 @@ public sealed class GetPurchasedCartsEndpoint(IRequestSender sender)
 			Count: carts.Count,
 			Items: [.. carts.Items.Select(c => c.ToResponse())]
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

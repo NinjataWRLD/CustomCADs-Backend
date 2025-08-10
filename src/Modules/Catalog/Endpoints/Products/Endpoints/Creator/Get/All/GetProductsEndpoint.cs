@@ -34,6 +34,6 @@ public sealed class GetProductsEndpoint(IRequestSender sender)
 			Count: result.Count,
 			Items: [.. result.Items.Select(p => p.ToResponse())]
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

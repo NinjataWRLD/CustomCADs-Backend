@@ -25,6 +25,6 @@ public class TrackShipmentEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		var response = tracks.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

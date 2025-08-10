@@ -39,7 +39,7 @@ public sealed class PostCustomEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		PostCustomResponse response = custom.ToPostResponse();
-		await SendCreatedAtAsync<GetCustomEndpoint>(
+		await Send.CreatedAtAsync<GetCustomEndpoint>(
 			routeValues: new { Id = id.Value },
 			responseBody: response
 		).ConfigureAwait(false);

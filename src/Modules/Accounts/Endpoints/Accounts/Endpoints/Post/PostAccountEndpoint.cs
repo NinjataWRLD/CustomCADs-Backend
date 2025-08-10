@@ -38,6 +38,6 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
 		, ct).ConfigureAwait(false);
 
 		AccountResponse response = newAccount.ToResponse();
-		await SendCreatedAtAsync<GetAccountEndpoint>(new { id }, response).ConfigureAwait(false);
+		await Send.CreatedAtAsync<GetAccountEndpoint>(new { id }, response).ConfigureAwait(false);
 	}
 }

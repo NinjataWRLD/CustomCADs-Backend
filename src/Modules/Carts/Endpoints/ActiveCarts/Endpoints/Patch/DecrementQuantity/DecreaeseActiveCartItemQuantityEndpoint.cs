@@ -28,6 +28,6 @@ public class DecreaeseActiveCartItemQuantityEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendNoContentAsync().ConfigureAwait(false);
+		await Send.NoContentAsync().ConfigureAwait(false);
 	}
 }

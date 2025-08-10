@@ -29,6 +29,6 @@ public class GetShipmentWaybillEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendBytesAsync(bytes, "waybill.pdf", "application/pdf").ConfigureAwait(false);
+		await Send.BytesAsync(bytes, "waybill.pdf", "application/pdf").ConfigureAwait(false);
 	}
 }

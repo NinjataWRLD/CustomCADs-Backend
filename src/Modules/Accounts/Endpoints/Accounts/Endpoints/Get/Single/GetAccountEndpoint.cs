@@ -25,6 +25,6 @@ public sealed class GetAccountEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		AccountResponse response = account.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

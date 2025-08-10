@@ -33,6 +33,6 @@ public sealed class GetCustomsStatsEndpoint(IRequestSender sender)
 			CompletedCount: counts.Completed,
 			ReportedCount: counts.Reported
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

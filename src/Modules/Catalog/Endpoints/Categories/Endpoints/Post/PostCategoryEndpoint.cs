@@ -26,6 +26,6 @@ public sealed class PostCategoryEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		CategoryResponse response = new(id.Value, req.Name, req.Description);
-		await SendCreatedAtAsync<GetCategoryEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
+		await Send.CreatedAtAsync<GetCategoryEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
 	}
 }

@@ -27,6 +27,6 @@ public sealed class GetProductEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetProductResponse response = product.ToGetResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

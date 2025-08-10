@@ -27,6 +27,6 @@ public sealed class GetMaterialEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		MaterialResponse response = category.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

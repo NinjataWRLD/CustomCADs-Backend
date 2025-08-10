@@ -31,6 +31,6 @@ public sealed class ProductsStatsEndpoint(IRequestSender sender)
 			ReportedCount: counts.Reported,
 			BannedCount: counts.Banned
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

@@ -27,6 +27,6 @@ public sealed class GetGalleryProductEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetGalleryProductResponse response = product.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

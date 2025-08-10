@@ -35,6 +35,6 @@ public class CreateCustomizationEndpoint(IRequestSender sender)
 		, ct).ConfigureAwait(false);
 
 		CustomizationResponse response = customization.ToResponse();
-		await SendCreatedAtAsync<GetCustomizationEndpoint>(new { id = customizationId.Value }, response).ConfigureAwait(false);
+		await Send.CreatedAtAsync<GetCustomizationEndpoint>(new { id = customizationId.Value }, response).ConfigureAwait(false);
 	}
 }

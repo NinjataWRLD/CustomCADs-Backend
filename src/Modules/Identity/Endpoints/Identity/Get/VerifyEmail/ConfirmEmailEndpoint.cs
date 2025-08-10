@@ -35,6 +35,6 @@ public sealed class ConfirmEmailEndpoint(IRequestSender sender, IOptions<CookieS
 			username: req.Username,
 			tokens: tokens
 		);
-		await SendOkAsync().ConfigureAwait(false);
+		await Send.OkAsync().ConfigureAwait(false);
 	}
 }

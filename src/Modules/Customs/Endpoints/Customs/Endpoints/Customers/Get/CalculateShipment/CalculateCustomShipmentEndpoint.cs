@@ -31,6 +31,6 @@ public class CalculateCustomShipmentEndpoint(IRequestSender sender)
 
 		ICollection<CalculateCustomShipmentResponse> response =
 			[.. calculations.Select(c => c.ToResponse())];
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

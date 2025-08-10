@@ -29,6 +29,6 @@ public class ToggleActiveCartItemForDeliveryEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendNoContentAsync().ConfigureAwait(false);
+		await Send.NoContentAsync().ConfigureAwait(false);
 	}
 }

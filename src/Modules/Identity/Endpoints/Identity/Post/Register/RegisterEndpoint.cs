@@ -46,6 +46,6 @@ public sealed class RegisterEndpoint(IRequestSender sender, LinkGenerator links)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync().ConfigureAwait(false);
+		await Send.OkAsync().ConfigureAwait(false);
 	}
 }

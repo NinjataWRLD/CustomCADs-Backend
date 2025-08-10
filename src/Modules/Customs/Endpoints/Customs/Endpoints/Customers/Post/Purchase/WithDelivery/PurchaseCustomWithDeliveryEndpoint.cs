@@ -36,6 +36,6 @@ public sealed class PurchaseCustomWithDeliveryEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		PaymentResponse response = dto.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

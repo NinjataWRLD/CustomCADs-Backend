@@ -32,6 +32,6 @@ public sealed class RecentCustomsEndpoint(IRequestSender sender)
 
 		RecentCustomsResponse[] response =
 			[.. result.Items.Select(o => o.ToRecentResponse())];
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

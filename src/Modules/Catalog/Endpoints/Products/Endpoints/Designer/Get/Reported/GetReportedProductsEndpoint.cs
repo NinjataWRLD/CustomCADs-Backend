@@ -36,6 +36,6 @@ public sealed class GetReportedProductsEndpoint(IRequestSender sender)
 			Count: result.Count,
 			Items: [.. result.Items.Select(p => p.ToGetReportedDto())]
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

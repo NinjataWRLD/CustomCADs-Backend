@@ -26,6 +26,6 @@ public sealed class GetActiveCartItemsEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		ICollection<ActiveCartItemResponse> response = [.. cart.Select(x => x.ToResponse())];
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

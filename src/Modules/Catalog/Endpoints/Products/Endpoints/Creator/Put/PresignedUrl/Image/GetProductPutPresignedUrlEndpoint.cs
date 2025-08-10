@@ -31,6 +31,6 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetProductPutPresignedUrlResponse response = new(imageDto.PresignedUrl);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

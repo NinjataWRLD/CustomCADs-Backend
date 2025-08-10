@@ -37,6 +37,6 @@ public sealed class PostMaterialEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		MaterialResponse response = material.ToResponse();
-		await SendCreatedAtAsync<GetMaterialEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
+		await Send.CreatedAtAsync<GetMaterialEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
 	}
 }

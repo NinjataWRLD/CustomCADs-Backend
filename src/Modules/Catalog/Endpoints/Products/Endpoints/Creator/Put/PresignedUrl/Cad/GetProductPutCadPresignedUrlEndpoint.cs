@@ -31,6 +31,6 @@ public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetProductPutCadPresignedUrlResponse response = new(cadDto.PresignedUrl);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

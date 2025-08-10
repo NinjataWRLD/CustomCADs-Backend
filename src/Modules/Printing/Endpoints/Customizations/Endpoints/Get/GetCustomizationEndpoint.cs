@@ -25,6 +25,6 @@ public class GetCustomizationEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		CustomizationResponse response = customization.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

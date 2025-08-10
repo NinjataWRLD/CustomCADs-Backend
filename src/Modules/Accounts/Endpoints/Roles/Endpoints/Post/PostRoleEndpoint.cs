@@ -35,6 +35,6 @@ public sealed class PostRoleEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		RoleResponse response = role.ToResponse();
-		await SendCreatedAtAsync<GetRoleEndpoint>(new { role.Name }, response).ConfigureAwait(false);
+		await Send.CreatedAtAsync<GetRoleEndpoint>(new { role.Name }, response).ConfigureAwait(false);
 	}
 }

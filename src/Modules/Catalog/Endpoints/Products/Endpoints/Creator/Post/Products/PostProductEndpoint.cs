@@ -45,6 +45,6 @@ public sealed class PostProductEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		PostProductResponse response = dto.ToPostResponse();
-		await SendCreatedAtAsync<GetProductEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
+		await Send.CreatedAtAsync<GetProductEndpoint>(new { Id = id.Value }, response).ConfigureAwait(false);
 	}
 }

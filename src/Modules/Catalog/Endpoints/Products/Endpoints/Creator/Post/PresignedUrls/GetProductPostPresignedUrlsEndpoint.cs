@@ -42,6 +42,6 @@ public sealed class GetProductPostPresignedUrlsEndpoint(IRequestSender sender)
 			Image: image,
 			Cad: cad
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

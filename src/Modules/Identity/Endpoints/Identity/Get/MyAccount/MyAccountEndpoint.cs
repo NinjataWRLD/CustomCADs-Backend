@@ -34,6 +34,6 @@ public sealed class MyAccountEndpoint(IRequestSender sender)
 			TrackViewedProducts: user.TrackViewedProducts,
 			CreatedAt: user.CreatedAt
 		);
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

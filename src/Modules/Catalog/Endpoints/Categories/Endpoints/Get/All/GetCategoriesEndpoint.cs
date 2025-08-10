@@ -24,6 +24,6 @@ public sealed class GetCategoriesEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		CategoryResponse[] response = [.. categories.Select(c => c.ToResponse())];
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

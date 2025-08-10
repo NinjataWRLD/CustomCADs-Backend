@@ -34,6 +34,6 @@ public sealed class RecentProductsEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		RecentProductsResponse[] response = [.. result.Items.Select(p => p.ToRecentResponse())];
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

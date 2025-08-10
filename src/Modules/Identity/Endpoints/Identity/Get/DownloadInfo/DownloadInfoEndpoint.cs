@@ -44,7 +44,7 @@ public sealed class DownloadInfoEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		stream.Position = 0;
-		await SendStreamAsync(
+		await Send.StreamAsync(
 			stream: stream,
 			fileName: "my-data.json",
 			contentType: "application/json"

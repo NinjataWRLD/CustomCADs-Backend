@@ -24,6 +24,6 @@ public sealed class GetRoleEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		RoleResponse response = role.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

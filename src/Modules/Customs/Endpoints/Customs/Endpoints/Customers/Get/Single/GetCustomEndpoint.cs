@@ -27,6 +27,6 @@ public sealed class GetCustomEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		GetCustomResponse response = custom.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

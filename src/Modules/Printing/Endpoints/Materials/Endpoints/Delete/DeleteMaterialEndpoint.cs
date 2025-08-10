@@ -24,6 +24,6 @@ public sealed class DeleteMaterialEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendNoContentAsync().ConfigureAwait(false);
+		await Send.NoContentAsync().ConfigureAwait(false);
 	}
 }

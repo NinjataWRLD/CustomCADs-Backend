@@ -25,6 +25,6 @@ public sealed class CountActiveCartItemsEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		await SendOkAsync(count).ConfigureAwait(false);
+		await Send.OkAsync(count).ConfigureAwait(false);
 	}
 }

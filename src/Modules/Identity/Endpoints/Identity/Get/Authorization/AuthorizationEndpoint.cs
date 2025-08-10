@@ -18,6 +18,6 @@ public sealed class AuthorizationEndpoint
 
 	public override async Task HandleAsync(CancellationToken ct)
 	{
-		await SendOkAsync(User.GetAuthorization()).ConfigureAwait(false);
+		await Send.OkAsync(User.GetAuthorization()).ConfigureAwait(false);
 	}
 }

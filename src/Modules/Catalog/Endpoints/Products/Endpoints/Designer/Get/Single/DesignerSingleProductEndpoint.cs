@@ -27,6 +27,6 @@ public sealed class DesignerSingleProductEndpoint(IRequestSender sender)
 		).ConfigureAwait(false);
 
 		DesignerSingleProductResponse response = product.ToResponse();
-		await SendOkAsync(response).ConfigureAwait(false);
+		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }
