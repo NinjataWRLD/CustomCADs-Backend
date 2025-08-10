@@ -3,7 +3,6 @@ using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Catalog.Persistence.ShadowEntities;
 using CustomCADs.Shared.Core.Common.Enums;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 
 namespace CustomCADs.Catalog.Persistence.Repositories.Products;
 

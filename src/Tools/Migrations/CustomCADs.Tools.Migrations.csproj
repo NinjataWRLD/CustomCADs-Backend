@@ -19,7 +19,6 @@
 		<ProjectReference Include="..\..\Modules\Accounts\Persistence\CustomCADs.Accounts.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Carts\Persistence\CustomCADs.Carts.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Catalog\Persistence\CustomCADs.Catalog.Persistence.csproj" />
-		<ProjectReference Include="..\..\Modules\Categories\Persistence\CustomCADs.Categories.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Customs\Persistence\CustomCADs.Customs.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Delivery\Persistence\CustomCADs.Delivery.Persistence.csproj" />
 		<ProjectReference Include="..\..\Modules\Files\Persistence\CustomCADs.Files.Persistence.csproj" />

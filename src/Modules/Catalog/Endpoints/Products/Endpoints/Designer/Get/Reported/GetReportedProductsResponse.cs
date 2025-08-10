@@ -5,5 +5,5 @@ public sealed record GetReportedProductsResponse(
 	string Name,
 	DateTimeOffset UploadedAt,
 	string CreatorName,
-	CategoryResponse Category
+	CategoryDtoResponse Category
 );

@@ -21,10 +21,6 @@
 		<ProjectReference Include="..\..\Modules\Catalog\Application\CustomCADs.Catalog.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Catalog\Persistence\CustomCADs.Catalog.Persistence.csproj" />
 
-		<!-- Categories -->
-		<ProjectReference Include="..\..\Modules\Categories\Application\CustomCADs.Categories.Application.csproj" />
-		<ProjectReference Include="..\..\Modules\Categories\Persistence\CustomCADs.Categories.Persistence.csproj" />
-
 		<!-- Customs -->
 		<ProjectReference Include="..\..\Modules\Customs\Application\CustomCADs.Customs.Application.csproj" />
 		<ProjectReference Include="..\..\Modules\Customs\Persistence\CustomCADs.Customs.Persistence.csproj" />

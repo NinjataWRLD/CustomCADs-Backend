@@ -19,7 +19,6 @@
 		<ProjectReference Include="..\Modules\Accounts\Endpoints\CustomCADs.Accounts.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Carts\Endpoints\CustomCADs.Carts.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Catalog\Endpoints\CustomCADs.Catalog.Endpoints.csproj" />
-		<ProjectReference Include="..\Modules\Categories\Endpoints\CustomCADs.Categories.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Customs\Endpoints\CustomCADs.Customs.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Delivery\Endpoints\CustomCADs.Delivery.Endpoints.csproj" />
 		<ProjectReference Include="..\Modules\Files\Application\CustomCADs.Files.Application.csproj" />

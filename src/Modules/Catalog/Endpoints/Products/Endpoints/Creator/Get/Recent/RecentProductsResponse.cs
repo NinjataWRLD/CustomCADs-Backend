@@ -5,5 +5,5 @@ public sealed record RecentProductsResponse(
 	string Name,
 	string Status,
 	DateTimeOffset UploadedAt,
-	CategoryResponse Category
+	CategoryDtoResponse Category
 );

@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

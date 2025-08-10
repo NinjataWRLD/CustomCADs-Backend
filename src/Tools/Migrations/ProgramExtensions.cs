@@ -44,7 +44,6 @@ public static class ProgramExtensions
 			.AddAccountsPersistence(config)
 			.AddCartsPersistence(config)
 			.AddCatalogPersistence(config)
-			.AddCategoriesPersistence(config)
 			.AddPrintingPersistence(config)
 			.AddCustomsPersistence(config)
 			.AddDeliveryPersistence(config)
@@ -67,7 +66,6 @@ public static class ProgramExtensions
 			provider.UpdateAccountsContextAsync(),
 			provider.UpdateCartsContextAsync(),
 			provider.UpdateCatalogContextAsync(),
-			provider.UpdateCategoriesContextAsync(),
 			provider.UpdatePrintingContextAsync(),
 			provider.UpdateCustomsContextAsync(),
 			provider.UpdateDeliveryContextAsync(),

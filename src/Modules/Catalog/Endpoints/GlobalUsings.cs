@@ -1,4 +1,6 @@
-﻿global using CustomCADs.Catalog.Application.Products.Dtos;
+﻿global using CustomCADs.Catalog.Application.Categories.Dtos;
+global using CustomCADs.Catalog.Application.Products.Dtos;
+global using CustomCADs.Catalog.Endpoints.Categories.Dtos;
 global using CustomCADs.Catalog.Endpoints.Products.Dtos;
 global using CustomCADs.Shared.Abstractions.Requests.Sender;
 global using CustomCADs.Shared.API;

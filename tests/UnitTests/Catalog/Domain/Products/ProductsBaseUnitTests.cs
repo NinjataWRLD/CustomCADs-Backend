@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
 using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Categories;
 using CustomCADs.Shared.Core.Common.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Catalog.Domain.Products;

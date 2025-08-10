@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
 
+using CategoryReads = CustomCADs.Catalog.Persistence.Repositories.Categories.Reads;
+using CategoryWrites = CustomCADs.Catalog.Persistence.Repositories.Categories.Writes;
 using ProductReads = CustomCADs.Catalog.Persistence.Repositories.Products.Reads;
 using ProductWrites = CustomCADs.Catalog.Persistence.Repositories.Products.Writes;
 using TagReads = CustomCADs.Catalog.Persistence.Repositories.Tags.Reads;
@@ -47,6 +49,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddReads(this IServiceCollection services)
 	{
 		services.AddScoped<IProductReads, ProductReads>();
+		services.AddScoped<ICategoryReads, CategoryReads>();
 		services.AddScoped<ITagReads, TagReads>();
 
 		return services;
@@ -55,6 +58,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddWrites(this IServiceCollection services)
 	{
 		services.AddScoped<IProductWrites, ProductWrites>();
+		services.AddScoped<ICategoryWrites, CategoryWrites>();
 		services.AddScoped<ITagWrites, TagWrites>();
 
 		return services;

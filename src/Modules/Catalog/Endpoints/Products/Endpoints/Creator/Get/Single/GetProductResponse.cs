@@ -7,5 +7,5 @@ public sealed record GetProductResponse(
 	decimal Price,
 	DateTimeOffset UploadedAt,
 	CountsDto Counts,
-	CategoryResponse Category
+	CategoryDtoResponse Category
 );
