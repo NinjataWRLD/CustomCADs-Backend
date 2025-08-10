@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Writes;
-using CustomCADs.Shared.Abstractions.Events;
+using CustomCADs.Shared.Application.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.Internal.Create;

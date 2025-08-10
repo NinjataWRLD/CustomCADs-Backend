@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Identity.Domain.Users;
 using CustomCADs.Identity.Domain.Users.Entities;
 using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
-using CustomCADs.Shared.Core.Common.TypedIds.Identity;
+using CustomCADs.Shared.Domain.TypedIds.Identity;
 
 namespace CustomCADs.Identity.Infrastructure.Identity;
 

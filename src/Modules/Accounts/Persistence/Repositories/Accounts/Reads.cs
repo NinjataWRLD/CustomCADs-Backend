@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Accounts.Domain.Accounts;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
+using CustomCADs.Shared.Persistence.Extensions;
 
 namespace CustomCADs.Accounts.Persistence.Repositories.Accounts;
 
@@ -18,7 +18,7 @@ public sealed class Reads(AccountsContext context) : IAccountReads
 
 		int count = await queryable.CountAsync(ct).ConfigureAwait(false);
 		Account[] accounts = await queryable
-			.WithPagination(query.Pagination.Page, query.Pagination.Limit)
+			.WithPagination(query.Pagination)
 			.ToArrayAsync(ct)
 			.ConfigureAwait(false);
 

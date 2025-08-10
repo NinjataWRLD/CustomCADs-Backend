@@ -1,5 +1,5 @@
 using CustomCADs.Identity.Domain.Users.ValueObjects;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.Identity.Application.Users.Queries.Internal.GetByUsername;
 

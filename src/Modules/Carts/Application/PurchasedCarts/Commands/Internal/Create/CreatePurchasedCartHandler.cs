@@ -1,13 +1,13 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
 using CustomCADs.Carts.Domain.Repositories;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Abstractions.Events;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.UseCases.Cads.Commands;
+using CustomCADs.Shared.Application.UseCases.Products.Queries;
 using CustomCADs.Shared.ApplicationEvents.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Cads.Commands;
-using CustomCADs.Shared.UseCases.Products.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Commands.Internal.Create;
 

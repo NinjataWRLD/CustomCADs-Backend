@@ -1,8 +1,8 @@
-﻿using CustomCADs.Shared.Abstractions.Payment;
-using CustomCADs.Shared.Abstractions.Payment.Exceptions;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.Shared.Core.Common.TypedIds.Customs;
+﻿using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Carts;
+using CustomCADs.Shared.Domain.TypedIds.Customs;
 using Stripe;
 
 namespace CustomCADs.Shared.Infrastructure.Payment;

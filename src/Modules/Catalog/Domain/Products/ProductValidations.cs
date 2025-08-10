@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Catalog.Domain.Products;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static ProductConstants;
 
 public static class ProductValidations

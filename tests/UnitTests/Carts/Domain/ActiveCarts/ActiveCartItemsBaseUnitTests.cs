@@ -1,6 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Printing;
+﻿using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.UnitTests.Carts.Domain.ActiveCarts;
 

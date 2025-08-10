@@ -1,8 +1,8 @@
-﻿using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.Shared.Abstractions.Email;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Abstractions.Payment;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
+﻿using CustomCADs.Shared.Application.Abstractions.Cache;
+using CustomCADs.Shared.Application.Abstractions.Email;
+using CustomCADs.Shared.Application.Abstractions.Events;
+using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Infrastructure.Cache;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Events;

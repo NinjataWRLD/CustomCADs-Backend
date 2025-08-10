@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.ResetPassword;
+using CustomCADs.Shared.Endpoints.Attributes;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.ResetPassword;
 

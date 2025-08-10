@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Carts.Domain.ActiveCarts;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static ActiveCartItemConstants;
 
 public static class ActiveCartItemValidations

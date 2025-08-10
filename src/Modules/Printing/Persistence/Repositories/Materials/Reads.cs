@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Printing.Domain.Materials;
 using CustomCADs.Printing.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Printing;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
+using CustomCADs.Shared.Persistence.Extensions;
 
 namespace CustomCADs.Printing.Persistence.Repositories.Materials;
 

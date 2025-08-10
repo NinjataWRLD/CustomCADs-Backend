@@ -1,5 +1,5 @@
 using CustomCADs.Accounts.Domain.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.Accounts.Persistence.ShadowEntities;
 

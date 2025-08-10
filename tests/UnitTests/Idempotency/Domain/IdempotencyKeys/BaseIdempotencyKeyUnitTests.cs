@@ -1,4 +1,4 @@
-using CustomCADs.Shared.Core.Common.TypedIds.Idempotency;
+using CustomCADs.Shared.Domain.TypedIds.Idempotency;
 
 namespace CustomCADs.UnitTests.Idempotency.Domain.IdempotencyKeys;
 

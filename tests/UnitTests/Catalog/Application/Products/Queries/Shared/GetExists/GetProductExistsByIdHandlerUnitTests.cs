@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Shared;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.UseCases.Products.Queries;
+using CustomCADs.Shared.Application.UseCases.Products.Queries;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Shared.GetExists;
 

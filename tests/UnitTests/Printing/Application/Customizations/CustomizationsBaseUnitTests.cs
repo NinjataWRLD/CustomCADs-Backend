@@ -1,6 +1,6 @@
 using CustomCADs.Printing.Domain.Customizations;
 using CustomCADs.Printing.Domain.Materials;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Printing.Application.Customizations;
 

@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts;
 using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
 using CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
-using CustomCADs.Shared.Core.Common.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.Enums;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Carts.Persistence.Repositories.PurchasedCarts;
 
@@ -31,7 +31,4 @@ public static class Utilities
 			{ Type: PurchasedCartSortingType.Total, Direction: SortingDirection.Descending } => query.OrderByDescending(c => c.Items.Sum(x => x.Quantity * x.Price)),
 			_ => query,
 		};
-
-	public static IQueryable<PurchasedCart> WithPagination(this IQueryable<PurchasedCart> query, int page = 1, int limit = 20)
-		=> query.Skip((page - 1) * limit).Take(limit);
 }

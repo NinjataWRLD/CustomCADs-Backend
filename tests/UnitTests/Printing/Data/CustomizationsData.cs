@@ -1,5 +1,5 @@
 using CustomCADs.Printing.Domain.Customizations.Validation;
-using CustomCADs.Shared.Core.Common.TypedIds.Printing;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.UnitTests.Printing.Data;
 

@@ -1,9 +1,9 @@
 using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.ToggleViewedProductsTracking;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.ApplicationEvents.Identity;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.Abstractions.Events;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Events.Identity;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.ToggleViewedProductsTracking;
 

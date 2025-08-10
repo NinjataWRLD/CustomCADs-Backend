@@ -9,8 +9,8 @@ using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Single;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Post.Create;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Get.Single;
 using CustomCADs.Customs.Endpoints.Customs.Endpoints.Designer.Patch.Finish;
-using CustomCADs.Shared.Abstractions.Payment;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Application.Dtos.Delivery;
 
 namespace CustomCADs.Customs.Endpoints.Customs;
 

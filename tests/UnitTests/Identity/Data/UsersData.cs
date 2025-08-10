@@ -1,7 +1,7 @@
 using CustomCADs.Identity.Domain.Users;
-using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Identity;
+using CustomCADs.Shared.Domain;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Identity;
 
 namespace CustomCADs.UnitTests.Identity.Data;
 

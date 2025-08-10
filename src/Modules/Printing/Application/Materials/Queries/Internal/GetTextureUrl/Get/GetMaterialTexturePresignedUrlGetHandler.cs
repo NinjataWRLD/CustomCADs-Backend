@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Printing.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.UseCases.Images.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Application.UseCases.Images.Queries;
 
 namespace CustomCADs.Printing.Application.Materials.Queries.Internal.GetTextureUrl.Get;
 

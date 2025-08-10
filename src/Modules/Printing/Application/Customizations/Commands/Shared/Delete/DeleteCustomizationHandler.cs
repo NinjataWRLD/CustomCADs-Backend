@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Printing.Domain.Repositories;
 using CustomCADs.Printing.Domain.Repositories.Reads;
-using CustomCADs.Shared.UseCases.Customizations.Commands;
+using CustomCADs.Shared.Application.UseCases.Customizations.Commands;
 
 namespace CustomCADs.Printing.Application.Customizations.Commands.Shared.Delete;
 

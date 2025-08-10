@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Printing.Domain.Customizations;
-using CustomCADs.Shared.Core.Common.TypedIds.Printing;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Printing.Persistence.Configurations.Customizations;

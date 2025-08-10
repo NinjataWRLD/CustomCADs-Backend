@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Identity.Endpoints.Identity.Get.Authorization;
+﻿using CustomCADs.Shared.Endpoints.Extensions;
+
+namespace CustomCADs.Identity.Endpoints.Identity.Get.Authorization;
 
 public sealed class AuthorizationEndpoint
 	: EndpointWithoutRequest

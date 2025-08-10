@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.UseCases.Cads.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Cads.Commands;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.SetCoords;
 

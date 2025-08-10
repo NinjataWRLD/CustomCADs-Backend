@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
-using CustomCADs.Shared.UseCases.Shipments.Commands;
+﻿using CustomCADs.Shared.Application.Abstractions.Requests.Validator;
+using CustomCADs.Shared.Application.UseCases.Shipments.Commands;
 using FluentValidation;
 
 namespace CustomCADs.Delivery.Application.Shipments.Commands.Shared.Create;

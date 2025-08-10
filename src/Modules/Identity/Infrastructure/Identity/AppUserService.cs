@@ -2,9 +2,9 @@ using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Domain.Users;
 using CustomCADs.Identity.Domain.Users.Entities;
 using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Identity;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

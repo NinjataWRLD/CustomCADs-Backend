@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Files.Application.Cads.Queries.Shared;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.UseCases.Cads.Queries;
+using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetExists;
 

@@ -1,9 +1,9 @@
 using CustomCADs.Printing.Application.Materials.Commands.Internal.Create;
 using CustomCADs.Printing.Domain.Materials;
 using CustomCADs.Printing.Domain.Repositories;
-using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.UseCases.Images.Commands;
+using CustomCADs.Shared.Application.Abstractions.Cache;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Images.Commands;
 
 namespace CustomCADs.UnitTests.Printing.Application.Materials.Commands.Internal.Create;
 

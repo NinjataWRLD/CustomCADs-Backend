@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetUrlGet.Image;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Endpoints.Attributes;
 using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Gallery.Get.PresignedUrls.Image;

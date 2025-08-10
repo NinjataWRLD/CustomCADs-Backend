@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.Shared.Exists;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Shared.GetExists;
 

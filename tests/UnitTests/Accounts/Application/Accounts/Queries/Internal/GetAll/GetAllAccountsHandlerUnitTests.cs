@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetAll;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.GetAll;
 

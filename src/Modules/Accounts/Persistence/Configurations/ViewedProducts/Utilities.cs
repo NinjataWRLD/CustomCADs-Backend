@@ -1,5 +1,5 @@
 using CustomCADs.Accounts.Persistence.ShadowEntities;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CustomCADs.Accounts.Persistence.Configurations.ViewedProducts;

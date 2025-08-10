@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetById;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Categories.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.UseCases.Categories.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.Queries.Internal.Creator.GetById;
 

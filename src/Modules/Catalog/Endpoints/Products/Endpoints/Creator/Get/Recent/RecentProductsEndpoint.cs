@@ -1,7 +1,8 @@
 ﻿using CustomCADs.Catalog.Application.Products.Enums;
 using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetAll;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Domain.Enums;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.Recent;
 

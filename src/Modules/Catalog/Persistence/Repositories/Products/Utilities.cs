@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
 using CustomCADs.Catalog.Persistence.ShadowEntities;
-using CustomCADs.Shared.Core.Common.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.Enums;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Catalog.Persistence.Repositories.Products;
 
@@ -78,9 +78,6 @@ public static class Utilities
 			{ Type: ProductSortingType.Views, Direction: SortingDirection.Descending } => query.OrderByDescending(m => m.Counts.Views),
 			_ => query,
 		};
-
-	public static IQueryable<Product> WithPagination(this IQueryable<Product> query, int page = 1, int limit = 20)
-		=> query.Skip((page - 1) * limit).Take(limit);
 
 	public static async Task<ProductId[]?> GetProductIdsByTagIdsOrDefaultAsync(this DbSet<ProductTag> set, TagId[]? tagIds, CancellationToken ct = default)
 		=> tagIds is not null

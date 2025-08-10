@@ -1,6 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Designer.GetAll;
 using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Designer.Get.Validated;
 

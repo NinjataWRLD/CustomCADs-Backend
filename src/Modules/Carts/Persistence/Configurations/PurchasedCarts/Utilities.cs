@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts;
 using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Carts;
+using CustomCADs.Shared.Domain.TypedIds.Delivery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,5 +1,6 @@
 namespace CustomCADs.Idempotency.Domain.IdempotencyKeys;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static IdempotencyKeyConstants;
 
 public static class Validations

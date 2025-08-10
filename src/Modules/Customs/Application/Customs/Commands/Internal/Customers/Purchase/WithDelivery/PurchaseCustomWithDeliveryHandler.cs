@@ -1,11 +1,11 @@
-﻿using CustomCADs.Customs.Domain.Customs.Events;
+﻿using CustomCADs.Customs.Application.Customs.Events.Application.DeliveryRequested;
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Customs.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Abstractions.Payment;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Customizations.Queries;
+using CustomCADs.Shared.Application.Abstractions.Events;
+using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.UseCases.Customizations.Queries;
 
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.WithDelivery;
 
@@ -60,7 +60,7 @@ public sealed class PurchaseCustomWithDeliveryHandler(ICustomReads reads, IUnitO
 		custom.Complete(customizationId: req.CustomizationId);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
 
-		await raiser.RaiseDomainEventAsync(new CustomDeliveryRequestedDomainEvent(
+		await raiser.RaiseApplicationEventAsync(new CustomDeliveryRequestedApplicationEvent(
 			Id: req.Id,
 			ShipmentService: req.ShipmentService,
 			Weight: weight / 100 * req.Count,

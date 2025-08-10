@@ -1,6 +1,6 @@
-﻿using CustomCADs.Shared.Abstractions.Requests.Commands;
-using CustomCADs.Shared.Abstractions.Requests.Queries;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
+﻿using CustomCADs.Shared.Application.Abstractions.Requests.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
 
 namespace CustomCADs.Shared.Infrastructure.Requests;
 

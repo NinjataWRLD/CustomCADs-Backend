@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Catalog.Domain.Tags;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static TagConstants;
 
 public static class TagValidations

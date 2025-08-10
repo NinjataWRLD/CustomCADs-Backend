@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Customs.Domain.Customs.Create.Normal;
 
-namespace CustomCADs.UnitTests.Customs.Domain.Customs.Create.Normal;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 using static CustomsData;
 

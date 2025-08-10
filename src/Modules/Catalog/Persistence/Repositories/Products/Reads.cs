@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Catalog.Domain.Products;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Persistence.Extensions;
 
 namespace CustomCADs.Catalog.Persistence.Repositories.Products;
 
@@ -23,7 +23,7 @@ public sealed class Reads(CatalogContext context) : IProductReads
 
 		int count = await queryable.CountAsync(ct).ConfigureAwait(false);
 		Product[] products = await queryable
-				.WithPagination(query.Pagination.Page, query.Pagination.Limit)
+				.WithPagination(query.Pagination)
 				.ToArrayAsync(ct)
 				.ConfigureAwait(false);
 

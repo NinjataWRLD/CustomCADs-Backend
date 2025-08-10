@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetAll;
 using CustomCADs.Carts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Carts;
 
 namespace CustomCADs.UnitTests.Carts.Application.PurchasedCarts.Queries.Internal.GetAll;
 

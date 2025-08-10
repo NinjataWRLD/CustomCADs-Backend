@@ -1,11 +1,11 @@
-﻿using CustomCADs.Catalog.Domain.Products.Enums;
-using CustomCADs.Catalog.Domain.Products.Events;
+﻿using CustomCADs.Catalog.Application.Products.Events.Application.ProductViewed;
+using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
-using CustomCADs.Shared.UseCases.Cads.Queries;
-using CustomCADs.Shared.UseCases.Categories.Queries;
+using CustomCADs.Shared.Application.Abstractions.Events;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.UseCases.Cads.Queries;
+using CustomCADs.Shared.Application.UseCases.Categories.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Gallery.GetById;
 
@@ -45,7 +45,7 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
 
 		if (!req.AccountId.IsEmpty())
 		{
-			await raiser.RaiseDomainEventAsync(new ProductViewedDomainEvent(
+			await raiser.RaiseApplicationEventAsync(new ProductViewedApplicationEvent(
 				Id: req.Id,
 				AccountId: req.AccountId
 			)).ConfigureAwait(false);

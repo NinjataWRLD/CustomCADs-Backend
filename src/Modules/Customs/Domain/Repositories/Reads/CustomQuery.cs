@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Customs.Domain.Customs.Enums;
 using CustomCADs.Customs.Domain.Customs.ValueObjects;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.Customs.Domain.Repositories.Reads;
 

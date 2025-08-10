@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Printing.Domain.Repositories;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.Shared.UseCases.Images.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Images.Commands;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.Printing.Application.Materials.Commands.Internal.Create;
 

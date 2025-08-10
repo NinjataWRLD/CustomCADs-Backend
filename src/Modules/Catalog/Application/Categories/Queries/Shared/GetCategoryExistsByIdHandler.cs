@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.UseCases.Categories.Queries;
+using CustomCADs.Shared.Application.UseCases.Categories.Queries;
 
 namespace CustomCADs.Catalog.Application.Categories.Queries.Shared;
 

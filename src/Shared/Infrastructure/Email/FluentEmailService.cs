@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Abstractions.Email;
+﻿using CustomCADs.Shared.Application.Abstractions.Email;
 using FluentEmail.Smtp;
 using Microsoft.Extensions.Options;
 using System.Net;

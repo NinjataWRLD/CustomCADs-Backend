@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
+﻿using CustomCADs.Shared.Application.Events.Account.Accounts;
 
 namespace CustomCADs.Identity.Application.Users.Events.Application.Users;
 

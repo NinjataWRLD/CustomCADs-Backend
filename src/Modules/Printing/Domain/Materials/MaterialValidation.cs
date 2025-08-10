@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Printing.Domain.Materials;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static MaterialConstants;
 
 public static class MaterialValidation

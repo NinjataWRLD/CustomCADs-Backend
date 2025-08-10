@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Application.Users.Extensions;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Application.Exceptions;
 
 namespace CustomCADs.Identity.Application.Users.Commands.Internal.Login;
 

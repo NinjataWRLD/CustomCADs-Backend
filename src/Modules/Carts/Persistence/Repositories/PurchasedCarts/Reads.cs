@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts;
 using CustomCADs.Carts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Carts;
+using CustomCADs.Shared.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Carts.Persistence.Repositories.PurchasedCarts;
@@ -20,7 +20,7 @@ public sealed class Reads(CartsContext context) : IPurchasedCartReads
 
 		int count = await queryable.CountAsync(ct).ConfigureAwait(false);
 		PurchasedCart[] carts = await queryable
-			.WithPagination(query.Pagination.Page, query.Pagination.Limit)
+			.WithPagination(query.Pagination)
 			.ToArrayAsync(ct)
 			.ConfigureAwait(false);
 

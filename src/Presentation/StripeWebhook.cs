@@ -1,9 +1,9 @@
-using CustomCADs.Shared.Abstractions.Events;
+using CustomCADs.Shared.Application.Abstractions.Events;
 using CustomCADs.Shared.ApplicationEvents.Carts;
 using CustomCADs.Shared.ApplicationEvents.Customs;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.Shared.Core.Common.TypedIds.Customs;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Carts;
+using CustomCADs.Shared.Domain.TypedIds.Customs;
 using CustomCADs.Shared.Infrastructure.Payment;
 using Microsoft.Extensions.Options;
 using Stripe;

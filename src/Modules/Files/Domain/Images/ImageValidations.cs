@@ -1,4 +1,6 @@
-﻿namespace CustomCADs.Files.Domain.Images;
+﻿using CustomCADs.Shared.Domain.Exceptions;
+
+namespace CustomCADs.Files.Domain.Images;
 
 public static class ImageValidations
 {

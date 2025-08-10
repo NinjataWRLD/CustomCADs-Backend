@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
 using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
 using CustomCADs.Carts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.UseCases.Cads.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
 

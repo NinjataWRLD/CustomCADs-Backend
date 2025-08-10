@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetAll;
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Dtos.Delivery;
 
 namespace CustomCADs.Delivery.Application.Shipments;
 

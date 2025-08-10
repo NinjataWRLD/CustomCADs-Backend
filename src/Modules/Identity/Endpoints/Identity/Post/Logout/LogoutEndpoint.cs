@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Logout;
 using CustomCADs.Identity.Application.Users.Dtos;
+using CustomCADs.Shared.Endpoints.Attributes;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Logout;

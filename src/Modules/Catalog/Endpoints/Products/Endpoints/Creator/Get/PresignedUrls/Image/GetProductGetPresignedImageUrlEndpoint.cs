@@ -1,5 +1,7 @@
 ﻿using CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Get;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Endpoints.Attributes;
+using CustomCADs.Shared.Endpoints.Extensions;
 using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Get.PresignedUrls.Image;

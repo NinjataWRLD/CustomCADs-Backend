@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Create.Normal;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Tags.Create.Normal;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 
 public class TagCreateUnitTests : TagsBaseUnitTests

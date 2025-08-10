@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-
-namespace CustomCADs.UnitTests.Catalog.Application.Categories;
+﻿namespace CustomCADs.UnitTests.Catalog.Application.Categories;
 
 using static CategoriesData;
 

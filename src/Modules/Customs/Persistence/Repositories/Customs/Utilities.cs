@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Customs.Domain.Customs;
 using CustomCADs.Customs.Domain.Customs.Enums;
 using CustomCADs.Customs.Domain.Customs.ValueObjects;
-using CustomCADs.Shared.Core.Common.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.Enums;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Customs.Persistence.Repositories.Customs;
 
@@ -51,7 +51,4 @@ public static class Utilities
 			{ Type: CustomSortingType.CustomStatus, Direction: SortingDirection.Descending } => query.OrderByDescending(m => (int)m.CustomStatus),
 			_ => query,
 		};
-
-	public static IQueryable<Custom> WithPagination(this IQueryable<Custom> query, int page = 1, int limit = 20)
-		=> query.Skip((page - 1) * limit).Take(limit);
 }

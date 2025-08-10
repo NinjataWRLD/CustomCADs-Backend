@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Catalog.Domain.Categories.Behaviors.Name;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Categories.Behaviors.Name;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 
 public class CategoryNameUnitTests : CategoriesBaseUnitTests

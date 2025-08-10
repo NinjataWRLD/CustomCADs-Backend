@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Idempotency.Domain.Repositories;
-using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Domain.Bases.Entities;
 
 namespace CustomCADs.Idempotency.Persistence.Repositories;
 

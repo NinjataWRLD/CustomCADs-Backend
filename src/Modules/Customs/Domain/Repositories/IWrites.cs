@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Bases.Entities;
+﻿using CustomCADs.Shared.Domain.Bases.Entities;
 
 namespace CustomCADs.Customs.Domain.Repositories;
 

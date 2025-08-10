@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Core\CustomCADs.Shared.Core.csproj" />
+		<ProjectReference Include="../Domain/CustomCADs.Shared.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

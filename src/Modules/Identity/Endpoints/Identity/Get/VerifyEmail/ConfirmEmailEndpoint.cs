@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.VerifyEmail;
 using CustomCADs.Identity.Application.Users.Dtos;
+using CustomCADs.Shared.Endpoints.Attributes;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Get.VerifyEmail;
 
-[EnforceIdempotency]
 public sealed class ConfirmEmailEndpoint(IRequestSender sender, IOptions<CookieSettings> settings)
 	: Endpoint<ConfirmEmailRequest>
 {
@@ -16,6 +16,7 @@ public sealed class ConfirmEmailEndpoint(IRequestSender sender, IOptions<CookieS
 			.WithName(IdentityNames.ConfirmEmail)
 			.WithSummary("Confirm Email")
 			.WithDescription("Confirm the verification email")
+			.WithMetadata(new EnforceIdempotencyAttribute())
 		);
 	}
 

@@ -1,10 +1,10 @@
 ﻿using CustomCADs.Customs.Domain.Customs;
 using CustomCADs.Customs.Domain.Customs.Enums;
 using CustomCADs.Customs.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Customs;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Customs;
+using CustomCADs.Shared.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Customs.Persistence.Repositories.Customs;
@@ -21,7 +21,7 @@ public sealed class Reads(CustomsContext context) : ICustomReads
 		int count = await queryable.CountAsync(ct).ConfigureAwait(false);
 		Custom[] customs = await queryable
 			.WithSorting(query.Sorting ?? new())
-			.WithPagination(query.Pagination.Page, query.Pagination.Limit)
+			.WithPagination(query.Pagination)
 			.ToArrayAsync(ct)
 			.ConfigureAwait(false);
 

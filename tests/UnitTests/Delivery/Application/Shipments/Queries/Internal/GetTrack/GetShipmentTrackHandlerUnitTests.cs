@@ -2,7 +2,7 @@
 using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetStatus;
 using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Application.Exceptions;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Queries.Internal.GetTrack;
 

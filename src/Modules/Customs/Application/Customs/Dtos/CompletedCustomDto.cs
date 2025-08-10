@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Customs.Domain.Customs.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
-using CustomCADs.Shared.Core.Common.TypedIds.Printing;
+using CustomCADs.Shared.Domain.TypedIds.Delivery;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.Customs.Application.Customs.Dtos;
 

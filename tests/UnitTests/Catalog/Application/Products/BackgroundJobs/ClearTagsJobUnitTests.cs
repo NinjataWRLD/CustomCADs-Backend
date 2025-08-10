@@ -1,7 +1,6 @@
 using CustomCADs.Catalog.Application.Products.BackgroundJobs;
 using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Products.BackgroundJobs;
 

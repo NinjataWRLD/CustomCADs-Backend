@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetById;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Application.Exceptions;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Queries.Internal.GetById;
 

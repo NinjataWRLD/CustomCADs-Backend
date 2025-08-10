@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.SetDelivery;
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Customs.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.SetDelivery;
 

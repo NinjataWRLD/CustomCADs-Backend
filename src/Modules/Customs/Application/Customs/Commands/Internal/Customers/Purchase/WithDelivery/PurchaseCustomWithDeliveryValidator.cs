@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Abstractions.Payment;
-using CustomCADs.Shared.Abstractions.Requests.Validator;
+﻿using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Application.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Purchase.WithDelivery;

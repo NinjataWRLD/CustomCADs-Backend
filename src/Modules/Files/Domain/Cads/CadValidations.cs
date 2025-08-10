@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Files.Domain.Cads;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static CadConstants;
 using static CadConstants.Coordinates;
 

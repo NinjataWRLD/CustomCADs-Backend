@@ -1,7 +1,7 @@
-using CustomCADs.Shared.Abstractions.Requests.Queries;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.Identity.Application.Users.Queries.Internal.GetByUsername;
 

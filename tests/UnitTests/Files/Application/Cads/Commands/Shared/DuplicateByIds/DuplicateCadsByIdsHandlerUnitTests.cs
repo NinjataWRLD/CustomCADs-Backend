@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Files.Application.Cads.Commands.Shared.DuplicateByIds;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.Shared.UseCases.Cads.Commands;
+using CustomCADs.Shared.Application.UseCases.Cads.Commands;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.DuplicateByIds;
 
