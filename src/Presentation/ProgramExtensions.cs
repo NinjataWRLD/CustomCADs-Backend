@@ -138,6 +138,7 @@ public static class ProgramExtensions
 		app.MapOpenApi(apiPattern);
 		app.MapScalarApiReference(uiPattern, options =>
 		{
+			options.Servers?.Clear();
 			ScalarTheme[] themes =
 			[
 				ScalarTheme.BluePlanet,
