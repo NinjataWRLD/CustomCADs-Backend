@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Shared.Application.Abstractions.Events;
-using CustomCADs.Shared.ApplicationEvents.Account.Roles;
+using CustomCADs.Shared.Application.Events.Account.Roles;
 
 namespace CustomCADs.Accounts.Application.Roles.Commands.Internal.Create;
 

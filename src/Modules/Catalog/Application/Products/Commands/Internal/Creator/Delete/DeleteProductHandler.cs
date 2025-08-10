@@ -2,7 +2,7 @@
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Catalog.Domain.Repositories.Writes;
 using CustomCADs.Shared.Application.Abstractions.Events;
-using CustomCADs.Shared.ApplicationEvents.Files;
+using CustomCADs.Shared.Application.Events.Files;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Internal.Creator.Delete;
 

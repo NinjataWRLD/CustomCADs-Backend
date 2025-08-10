@@ -1,5 +1,5 @@
 using CustomCADs.Shared.Application.Abstractions.Events;
-using CustomCADs.Shared.ApplicationEvents.Identity;
+using CustomCADs.Shared.Application.Events.Identity;
 using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Identity.Application.Users.Commands.Internal.Delete;

@@ -1,6 +1,6 @@
 using CustomCADs.Shared.Application.Abstractions.Events;
-using CustomCADs.Shared.ApplicationEvents.Carts;
-using CustomCADs.Shared.ApplicationEvents.Customs;
+using CustomCADs.Shared.Application.Events.Carts;
+using CustomCADs.Shared.Application.Events.Customs;
 using CustomCADs.Shared.Domain.TypedIds.Accounts;
 using CustomCADs.Shared.Domain.TypedIds.Carts;
 using CustomCADs.Shared.Domain.TypedIds.Customs;

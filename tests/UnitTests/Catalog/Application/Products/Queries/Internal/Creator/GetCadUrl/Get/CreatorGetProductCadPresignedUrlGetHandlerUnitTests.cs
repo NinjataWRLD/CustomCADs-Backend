@@ -2,6 +2,7 @@
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Application.Dtos;
+using CustomCADs.Shared.Application.Dtos.Files;
 using CustomCADs.Shared.Application.Exceptions;
 using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 

@@ -2,7 +2,7 @@
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Accounts.Domain.Repositories.Writes;
 using CustomCADs.Shared.Application.Abstractions.Events;
-using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
+using CustomCADs.Shared.Application.Events.Account.Accounts;
 
 namespace CustomCADs.Accounts.Application.Accounts.Commands.Internal.Delete;
 
