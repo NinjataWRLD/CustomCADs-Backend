@@ -1,0 +1,7 @@
+﻿namespace CustomCADs.Speedy.API.Dtos.ShipmentService.ShipmentAdditionalServices.ShipmentReturnAdditionalServices;
+
+public record ShipmentReturnVoucherAdditionalServiceDto(
+	int ServiceId,
+	Payer Payer,
+	int? ValidityPeriod
+);

@@ -1,14 +1,14 @@
 ﻿using CustomCADs.Delivery.Application.Contracts;
 using CustomCADs.Delivery.Application.Contracts.Dtos;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
-using CustomCADs.Shared.Speedy.API.Endpoints.PrintEndpoints.Enums;
-using CustomCADs.Shared.Speedy.Enums;
-using CustomCADs.Shared.Speedy.Services;
-using CustomCADs.Shared.Speedy.Services.Calculation;
-using CustomCADs.Shared.Speedy.Services.Models;
-using CustomCADs.Shared.Speedy.Services.Print;
-using CustomCADs.Shared.Speedy.Services.Shipment;
-using CustomCADs.Shared.Speedy.Services.Track;
+using CustomCADs.Speedy.API.Endpoints.PrintEndpoints.Enums;
+using CustomCADs.Speedy.Enums;
+using CustomCADs.Speedy.Services;
+using CustomCADs.Speedy.Services.Calculation;
+using CustomCADs.Speedy.Services.Models;
+using CustomCADs.Speedy.Services.Print;
+using CustomCADs.Speedy.Services.Shipment;
+using CustomCADs.Speedy.Services.Track;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Delivery.Infrastructure;
