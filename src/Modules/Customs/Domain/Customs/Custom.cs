@@ -3,7 +3,6 @@ using CustomCADs.Customs.Domain.Customs.States;
 using CustomCADs.Customs.Domain.Customs.States.Entities;
 using CustomCADs.Customs.Domain.Customs.States.Implementations;
 using CustomCADs.Shared.Domain.Bases.Entities;
-using CustomCADs.Shared.Domain.Exceptions;
 using CustomCADs.Shared.Domain.TypedIds.Accounts;
 using CustomCADs.Shared.Domain.TypedIds.Delivery;
 using CustomCADs.Shared.Domain.TypedIds.Files;

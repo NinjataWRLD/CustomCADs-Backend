@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Printing.Domain.Customizations.Validation;
-using CustomCADs.Shared.Domain.Exceptions;
 
 namespace CustomCADs.Printing.Domain.Customizations;
 

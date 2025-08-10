@@ -2,7 +2,6 @@
 using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
 using CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
 using CustomCADs.Shared.Domain.Bases.Entities;
-using CustomCADs.Shared.Domain.Exceptions;
 using CustomCADs.Shared.Domain.TypedIds.Accounts;
 using CustomCADs.Shared.Domain.TypedIds.Delivery;
 

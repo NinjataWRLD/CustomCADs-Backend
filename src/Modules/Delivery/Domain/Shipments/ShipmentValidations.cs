@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Domain.Exceptions;
-
-namespace CustomCADs.Delivery.Domain.Shipments;
+﻿namespace CustomCADs.Delivery.Domain.Shipments;
 
 public static class ShipmentValidations
 {

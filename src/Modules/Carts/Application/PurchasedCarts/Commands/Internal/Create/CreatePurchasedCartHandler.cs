@@ -2,10 +2,10 @@
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Shared.Application.Abstractions.Events;
 using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Events.Catalog;
 using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
 using CustomCADs.Shared.Application.UseCases.Cads.Commands;
 using CustomCADs.Shared.Application.UseCases.Products.Queries;
-using CustomCADs.Shared.Application.Events.Catalog;
 using CustomCADs.Shared.Domain.TypedIds.Catalog;
 using CustomCADs.Shared.Domain.TypedIds.Files;
 

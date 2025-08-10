@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Entities;
-using CustomCADs.Shared.Domain.Exceptions;
 
 namespace CustomCADs.Carts.Domain.PurchasedCarts;
 

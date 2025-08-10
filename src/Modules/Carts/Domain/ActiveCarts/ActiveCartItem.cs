@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Shared.Domain.Bases.Entities;
-using CustomCADs.Shared.Domain.Exceptions;
 using CustomCADs.Shared.Domain.TypedIds.Accounts;
 using CustomCADs.Shared.Domain.TypedIds.Catalog;
 using CustomCADs.Shared.Domain.TypedIds.Printing;
