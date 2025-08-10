@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Domain.Querying;
 
 namespace CustomCADs.Accounts.Application.Accounts.Queries.Internal.GetAll;
 

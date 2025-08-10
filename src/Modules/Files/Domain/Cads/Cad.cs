@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Bases.Entities;
-using CustomCADs.Shared.Core.Common.ValueObjects;
+﻿using CustomCADs.Files.Domain.Cads.ValueObjects;
+using CustomCADs.Shared.Domain.Bases.Entities;
 
 namespace CustomCADs.Files.Domain.Cads;
 

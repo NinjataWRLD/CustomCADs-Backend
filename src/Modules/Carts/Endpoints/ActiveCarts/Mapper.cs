@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Get.CalculateShipment;
-using CustomCADs.Shared.Abstractions.Payment;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Application.Dtos.Delivery;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts;
 

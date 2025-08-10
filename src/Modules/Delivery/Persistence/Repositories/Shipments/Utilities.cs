@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments;
 using CustomCADs.Delivery.Domain.Shipments.Enums;
 using CustomCADs.Delivery.Domain.Shipments.ValueObjects;
-using CustomCADs.Shared.Core.Common.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.Enums;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Delivery.Persistence.Repositories.Shipments;
 
@@ -29,7 +29,4 @@ public static class Utilities
 			{ Type: ShipmentSortingType.City, Direction: SortingDirection.Descending } => query.OrderByDescending(s => s.Address.City),
 			_ => query,
 		};
-
-	public static IQueryable<Shipment> WithPagination(this IQueryable<Shipment> query, int page = 1, int limit = 20)
-		=> query.Skip((page - 1) * limit).Take(limit);
 }

@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Catalog.Domain.Categories;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static CategoryConstants;
 
 public static class CategoryValidations

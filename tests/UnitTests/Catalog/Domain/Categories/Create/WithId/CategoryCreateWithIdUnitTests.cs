@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Catalog.Domain.Categories.Create.WithId;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Categories.Create.WithId;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 
 public class CategoryCreateWithIdUnitTests : CategoriesBaseUnitTests

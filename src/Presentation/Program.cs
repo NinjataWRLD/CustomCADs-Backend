@@ -1,5 +1,5 @@
 using CustomCADs.Presentation;
-using static CustomCADs.Shared.Core.Constants.Roles;
+using static CustomCADs.Shared.Domain.Constants.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 

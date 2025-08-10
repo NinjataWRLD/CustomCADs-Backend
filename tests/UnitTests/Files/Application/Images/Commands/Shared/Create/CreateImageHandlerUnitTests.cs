@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Application.Images.Commands.Shared.Create;
 using CustomCADs.Files.Domain.Repositories;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.Shared.UseCases.Images.Commands;
+using CustomCADs.Shared.Application.UseCases.Images.Commands;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create;
 

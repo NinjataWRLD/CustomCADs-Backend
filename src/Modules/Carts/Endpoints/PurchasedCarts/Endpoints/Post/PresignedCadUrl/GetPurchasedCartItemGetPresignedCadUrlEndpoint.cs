@@ -1,6 +1,8 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
-using CustomCADs.Shared.Core.Common.TypedIds.Carts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Carts;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
+using CustomCADs.Shared.Endpoints.Attributes;
+using CustomCADs.Shared.Endpoints.Extensions;
 using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Post.PresignedCadUrl;

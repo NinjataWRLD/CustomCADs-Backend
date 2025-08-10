@@ -1,8 +1,8 @@
 using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.Refresh;
 using CustomCADs.Identity.Domain.Users.Entities;
-using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Domain;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.Refresh;
 

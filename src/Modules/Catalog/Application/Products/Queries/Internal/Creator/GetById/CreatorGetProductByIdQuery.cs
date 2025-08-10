@@ -1,4 +1,4 @@
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetById;
 

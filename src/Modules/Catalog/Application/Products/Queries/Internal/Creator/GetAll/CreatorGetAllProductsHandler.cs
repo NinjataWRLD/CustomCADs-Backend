@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.UseCases.Categories.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Categories.Queries;
+using CustomCADs.Shared.Domain.Querying;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetAll;
 

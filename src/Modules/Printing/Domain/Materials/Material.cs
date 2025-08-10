@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Bases.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
+﻿using CustomCADs.Shared.Domain.Bases.Entities;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.Printing.Domain.Materials;
 

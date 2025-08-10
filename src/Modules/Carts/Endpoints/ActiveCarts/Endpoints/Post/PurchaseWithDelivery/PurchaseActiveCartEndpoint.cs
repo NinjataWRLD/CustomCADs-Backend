@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;
-using CustomCADs.Shared.Abstractions.Payment;
+using CustomCADs.Shared.Application.Abstractions.Payment;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints.Post.PurchaseWithDelivery;
 

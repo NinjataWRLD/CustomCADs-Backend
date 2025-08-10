@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments.Enums;
-using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Domain.Enums;
 
 namespace CustomCADs.Delivery.Domain.Shipments.ValueObjects;
 

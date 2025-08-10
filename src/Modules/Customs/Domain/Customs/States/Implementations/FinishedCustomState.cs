@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Customs.Domain.Customs.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Printing;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.Customs.Domain.Customs.States.Implementations;
 

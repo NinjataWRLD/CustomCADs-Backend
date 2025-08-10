@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetName;
 
-namespace CustomCADs.UnitTests.Catalog.Domain.Products.Behaviors.SetName;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 
 public class SetProductNameUnitTests : ProductsBaseUnitTests

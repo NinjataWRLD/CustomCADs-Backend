@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Commands.Internal.Delete;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Accounts.Endpoints.Accounts.Endpoints.Delete;
 

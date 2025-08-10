@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
-using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Domain.Enums;
 
 namespace CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
 

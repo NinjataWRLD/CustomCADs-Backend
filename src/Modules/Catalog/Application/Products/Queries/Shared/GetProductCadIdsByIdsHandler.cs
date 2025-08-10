@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.Shared.UseCases.Products.Queries;
+using CustomCADs.Shared.Application.UseCases.Products.Queries;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Shared;
 

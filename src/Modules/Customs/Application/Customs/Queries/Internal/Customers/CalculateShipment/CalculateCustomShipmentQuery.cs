@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Common.TypedIds.Printing;
+﻿using CustomCADs.Shared.Application.Dtos.Delivery;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.CalculateShipment;
 

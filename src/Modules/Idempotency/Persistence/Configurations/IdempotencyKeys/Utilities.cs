@@ -1,5 +1,5 @@
 using CustomCADs.Idempotency.Domain.IdempotencyKeys;
-using CustomCADs.Shared.Core.Common.TypedIds.Idempotency;
+using CustomCADs.Shared.Domain.TypedIds.Idempotency;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

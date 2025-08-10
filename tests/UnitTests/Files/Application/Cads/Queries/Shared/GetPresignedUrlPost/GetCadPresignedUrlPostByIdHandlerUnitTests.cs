@@ -1,7 +1,7 @@
 using CustomCADs.Files.Application.Cads.Queries.Shared;
 using CustomCADs.Files.Application.Cads.Storage;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.UseCases.Cads.Queries;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetPresignedUrlPost;
 

@@ -2,7 +2,7 @@ using CustomCADs.Printing.Application.Materials.Commands.Internal.Delete;
 using CustomCADs.Printing.Domain.Materials;
 using CustomCADs.Printing.Domain.Repositories;
 using CustomCADs.Printing.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Cache;
+using CustomCADs.Shared.Application.Abstractions.Cache;
 
 namespace CustomCADs.UnitTests.Printing.Application.Materials.Commands.Internal.Delete;
 

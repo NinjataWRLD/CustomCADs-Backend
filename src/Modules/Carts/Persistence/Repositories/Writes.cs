@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Carts.Domain.Repositories;
-using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Domain.Bases.Entities;
 
 namespace CustomCADs.Carts.Persistence.Repositories;
 

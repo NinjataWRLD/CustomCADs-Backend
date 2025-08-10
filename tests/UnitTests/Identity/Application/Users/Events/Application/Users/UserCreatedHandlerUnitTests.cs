@@ -1,6 +1,6 @@
 using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Events.Application.Users;
-using CustomCADs.Shared.ApplicationEvents.Account.Accounts;
+using CustomCADs.Shared.Application.Events.Account.Accounts;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Events.Application.Users;
 

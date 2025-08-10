@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+﻿using CustomCADs.Shared.Application.Dtos.Delivery;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
 

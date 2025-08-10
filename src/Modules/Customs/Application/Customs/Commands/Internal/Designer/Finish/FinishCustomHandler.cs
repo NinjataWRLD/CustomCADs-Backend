@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Customs.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.Shared.UseCases.Cads.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Cads.Commands;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Designer.Finish;
 

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Delivery.Domain.Shipments;
-using CustomCADs.Shared.Core.Common;
+using CustomCADs.Shared.Domain.Querying;
 
 namespace CustomCADs.Delivery.Domain.Repositories.Reads;
 

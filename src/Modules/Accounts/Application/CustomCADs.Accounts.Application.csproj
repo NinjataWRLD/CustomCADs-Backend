@@ -9,8 +9,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Domain\CustomCADs.Accounts.Domain.csproj" />
-		<ProjectReference Include="..\..\..\Shared\ApplicationEvents\CustomCADs.Shared.ApplicationEvents.csproj" />
-		<ProjectReference Include="..\..\..\Shared\UseCases\CustomCADs.Shared.UseCases.csproj" />
+		<ProjectReference Include="..\..\..\Shared\Application\CustomCADs.Shared.Application.csproj" />
 	</ItemGroup>
 
 </Project>

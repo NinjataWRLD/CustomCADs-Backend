@@ -2,8 +2,8 @@ using CustomCADs.Accounts.Application.Accounts.Events.Application;
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
 using CustomCADs.Accounts.Domain.Repositories.Writes;
-using CustomCADs.Shared.ApplicationEvents.Identity;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Application.Events.Identity;
+using CustomCADs.Shared.Application.Exceptions;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Events.Application;
 

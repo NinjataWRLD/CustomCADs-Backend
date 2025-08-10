@@ -1,6 +1,6 @@
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Reads;
-using CustomCADs.Shared.ApplicationEvents.Identity;
+using CustomCADs.Shared.Application.Events.Identity;
 
 namespace CustomCADs.Accounts.Application.Accounts.Events.Application;
 

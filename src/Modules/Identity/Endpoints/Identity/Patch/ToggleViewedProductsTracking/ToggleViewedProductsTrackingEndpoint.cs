@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.ToggleViewedProductsTracking;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Patch.ToggleViewedProductsTracking;
 

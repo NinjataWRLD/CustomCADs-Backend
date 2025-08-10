@@ -1,5 +1,5 @@
 ﻿global using CustomCADs.Idempotency.Domain.IdempotencyKeys;
-global using CustomCADs.Shared.Abstractions.Requests.Commands;
-global using CustomCADs.Shared.Abstractions.Requests.Queries;
-global using CustomCADs.Shared.Core.Common.Exceptions.Application;
-global using CustomCADs.Shared.Core.Common.TypedIds.Idempotency;
+global using CustomCADs.Shared.Application.Abstractions.Requests.Commands;
+global using CustomCADs.Shared.Application.Abstractions.Requests.Queries;
+global using CustomCADs.Shared.Application.Exceptions;
+global using CustomCADs.Shared.Domain.TypedIds.Idempotency;

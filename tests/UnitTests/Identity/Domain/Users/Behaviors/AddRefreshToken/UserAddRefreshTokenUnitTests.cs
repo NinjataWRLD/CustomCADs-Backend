@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Identity.Domain.Users.Entities;
-using CustomCADs.Shared.Core;
+using CustomCADs.Shared.Domain;
 
 namespace CustomCADs.UnitTests.Identity.Domain.Users.Behaviors.AddRefreshToken;
 

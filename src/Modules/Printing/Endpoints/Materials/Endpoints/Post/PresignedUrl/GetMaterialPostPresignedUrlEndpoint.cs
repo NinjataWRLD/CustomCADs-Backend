@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Printing.Application.Materials.Queries.Internal.GetTextureUrl.Post;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Endpoints.Attributes;
 using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Printing.Endpoints.Materials.Endpoints.Post.PresignedUrl;

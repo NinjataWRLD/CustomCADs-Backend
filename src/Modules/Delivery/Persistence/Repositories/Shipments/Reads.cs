@@ -1,8 +1,8 @@
 ﻿using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Delivery.Domain.Shipments;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Delivery;
-using CustomCADs.Shared.Persistence;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Delivery;
+using CustomCADs.Shared.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomCADs.Delivery.Persistence.Repositories.Shipments;
@@ -17,7 +17,7 @@ public sealed class Reads(DeliveryContext context) : IShipmentReads
 
 		int count = await queryable.CountAsync(ct).ConfigureAwait(false);
 		Shipment[] shipments = await queryable
-			.WithPagination(query.Pagination.Page, query.Pagination.Limit)
+			.WithPagination(query.Pagination)
 			.ToArrayAsync(ct)
 			.ConfigureAwait(false);
 

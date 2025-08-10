@@ -1,5 +1,7 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetCadUrlGet;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Endpoints.Attributes;
+using CustomCADs.Shared.Endpoints.Extensions;
 using Microsoft.AspNetCore.Builder;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.PresignedCadUrl;

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.UseCases.Images.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Application.UseCases.Images.Queries;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Creator.GetImageUrl.Get;
 

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
+﻿using CustomCADs.Shared.Application.Abstractions.Requests.Validator;
 using FluentValidation;
 
 namespace CustomCADs.Printing.Application.Materials.Queries.Internal.GetTextureUrl.Put;

@@ -3,10 +3,11 @@ using CustomCADs.Idempotency.Application.IdempotencyKeys.Commands.Internal.Creat
 using CustomCADs.Idempotency.Application.IdempotencyKeys.Commands.Internal.Delete;
 using CustomCADs.Idempotency.Application.IdempotencyKeys.Queries.Internal.Get;
 using CustomCADs.Idempotency.Domain.IdempotencyKeys;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.API;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Idempotency;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Domain.TypedIds.Idempotency;
+using CustomCADs.Shared.Endpoints.Attributes;
+using CustomCADs.Shared.Endpoints.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.Security.Cryptography;
@@ -33,12 +34,16 @@ public static class DependencyInjection
 				}
 			}
 
-			IRequestSender sender = context.RequestServices.GetRequiredService<IRequestSender>();
-			IProblemDetailsService problemDetails = context.RequestServices.GetRequiredService<IProblemDetailsService>();
+			if (!context.Request.TryGetIdempotencyKey(out Guid idempotencyKey))
+			{
+				throw new CustomException($"A valid Idempotency Key header required!");
+			}
 
 			CancellationToken ct = context.RequestAborted;
-			Guid idempotencyKey = context.Request.GetIdempotencyKey();
 			string requestHash = await context.Request.GenerateRequestHashAsync(context.GetEndpoint()).ConfigureAwait(false);
+
+			IRequestSender sender = context.RequestServices.GetRequiredService<IRequestSender>();
+			IProblemDetailsService problemDetails = context.RequestServices.GetRequiredService<IProblemDetailsService>();
 
 			try
 			{

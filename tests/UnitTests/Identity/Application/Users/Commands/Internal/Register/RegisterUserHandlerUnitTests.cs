@@ -1,8 +1,8 @@
 using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.Register;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.UseCases.Accounts.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Accounts.Commands;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.Register;
 

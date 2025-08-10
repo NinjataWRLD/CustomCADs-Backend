@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Files.Application.Images.Queries.Shared;
 using CustomCADs.Files.Application.Images.Storage;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.UseCases.Images.Queries;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Images.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Queries.Shared.GetPresignedUrlPut;
 

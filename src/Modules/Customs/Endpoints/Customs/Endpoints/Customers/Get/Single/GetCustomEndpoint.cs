@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.GetById;
+using CustomCADs.Shared.Endpoints.Extensions;
 
 namespace CustomCADs.Customs.Endpoints.Customs.Endpoints.Customers.Get.Single;
 

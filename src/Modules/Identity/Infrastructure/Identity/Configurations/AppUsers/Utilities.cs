@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
-using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

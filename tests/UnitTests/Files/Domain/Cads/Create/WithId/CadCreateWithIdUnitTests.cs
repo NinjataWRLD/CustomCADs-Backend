@@ -1,6 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.Shared.Core.Common.ValueObjects;
+﻿using CustomCADs.Files.Domain.Cads.ValueObjects;
+using CustomCADs.Shared.Domain.Exceptions;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Create.WithId;
 

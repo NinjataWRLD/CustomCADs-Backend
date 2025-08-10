@@ -1,6 +1,8 @@
 ﻿namespace CustomCADs.Delivery.Endpoints.Shipments.Endpoints.Get.Waybill;
 
 using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetWaybill;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Endpoints.Extensions;
 using static Constants.Roles;
 
 public class GetShipmentWaybillEndpoint(IRequestSender sender)

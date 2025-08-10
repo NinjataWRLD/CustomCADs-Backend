@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Files.Application.Images.Storage;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Queries;
-using CustomCADs.Shared.UseCases.Images.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Queries;
+using CustomCADs.Shared.Application.UseCases.Images.Queries;
 
 namespace CustomCADs.Files.Application.Images.Queries.Shared;
 

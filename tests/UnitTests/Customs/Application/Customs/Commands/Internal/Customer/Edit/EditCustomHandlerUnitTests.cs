@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Customs.Application.Customs.Commands.Internal.Customers.Edit;
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Customs.Domain.Repositories.Reads;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Customer.Edit;
 

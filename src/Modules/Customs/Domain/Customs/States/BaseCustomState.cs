@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Customs.Domain.Customs.Enums;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
-using CustomCADs.Shared.Core.Common.TypedIds.Printing;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Files;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.Customs.Domain.Customs.States;
 

@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
 using CustomCADs.Carts.Domain.PurchasedCarts.ValueObjects;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Carts.Domain.Repositories.Reads;
 

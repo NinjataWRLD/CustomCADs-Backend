@@ -2,9 +2,9 @@
 using CustomCADs.Customs.Domain.Customs.Enums;
 using CustomCADs.Customs.Domain.Repositories;
 using CustomCADs.Customs.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Commands.Internal.Designer.Accept;
 

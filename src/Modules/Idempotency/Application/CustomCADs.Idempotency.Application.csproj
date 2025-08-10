@@ -12,9 +12,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="../../../Shared/Application/CustomCADs.Shared.Application.csproj" />
 		<ProjectReference Include="..\Domain\CustomCADs.Idempotency.Domain.csproj" />
-		<ProjectReference Include="..\..\..\Shared\Abstractions\CustomCADs.Shared.Abstractions.csproj" />
-		<ProjectReference Include="..\..\..\Shared\UseCases\CustomCADs.Shared.UseCases.csproj" />
 	</ItemGroup>
 
 </Project>

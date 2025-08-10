@@ -1,6 +1,6 @@
 namespace CustomCADs.UnitTests.Idempotency.Domain.IdempotencyKeys.Behaviors.SetResponseBody;
 
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+using CustomCADs.Shared.Domain.Exceptions;
 using static IdempotencyKeysData;
 
 public class IdempotencyKeySetResponseBodyUnitTests : BaseIdempotencyKeyUnitTests

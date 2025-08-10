@@ -1,7 +1,7 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using CustomCADs.Files.Application.Contracts;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Dtos.Files;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Files.Infrastructure;

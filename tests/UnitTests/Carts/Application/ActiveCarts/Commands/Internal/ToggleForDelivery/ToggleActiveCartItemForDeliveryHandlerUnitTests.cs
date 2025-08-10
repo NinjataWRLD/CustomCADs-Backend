@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.ToggleForDelivery;
 using CustomCADs.Carts.Domain.Repositories;
 using CustomCADs.Carts.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
-using CustomCADs.Shared.UseCases.Customizations.Commands;
-using CustomCADs.Shared.UseCases.Customizations.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Exceptions;
+using CustomCADs.Shared.Application.UseCases.Customizations.Commands;
+using CustomCADs.Shared.Application.UseCases.Customizations.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.ToggleForDelivery;
 

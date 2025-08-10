@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+﻿using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Customs.Application.Customs.Commands.Internal.Designer.Begin;
 

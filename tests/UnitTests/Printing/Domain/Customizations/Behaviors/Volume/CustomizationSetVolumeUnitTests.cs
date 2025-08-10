@@ -1,5 +1,5 @@
 using CustomCADs.Printing.Domain.Customizations;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+using CustomCADs.Shared.Domain.Exceptions;
 
 namespace CustomCADs.UnitTests.Printing.Domain.Customizations.Behaviors.Volume;
 

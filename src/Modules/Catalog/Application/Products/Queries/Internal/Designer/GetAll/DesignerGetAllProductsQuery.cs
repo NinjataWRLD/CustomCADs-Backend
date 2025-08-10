@@ -1,7 +1,7 @@
 using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Products.ValueObjects;
-using CustomCADs.Shared.Core.Common;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.Querying;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.Catalog.Application.Products.Queries.Internal.Designer.GetAll;
 

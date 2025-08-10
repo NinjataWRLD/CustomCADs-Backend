@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Printing.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.UseCases.Images.Commands;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Images.Commands;
 
 namespace CustomCADs.Printing.Application.Materials.Commands.Internal.SetTexture;
 

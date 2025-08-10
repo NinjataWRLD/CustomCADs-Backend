@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
-using CustomCADs.Shared.Core.Common.Dtos;
+﻿using CustomCADs.Shared.Application.Abstractions.Requests.Validator;
+using CustomCADs.Shared.Application.Dtos.Files;
 using FluentValidation;
 
 namespace CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetCadUrlPost;

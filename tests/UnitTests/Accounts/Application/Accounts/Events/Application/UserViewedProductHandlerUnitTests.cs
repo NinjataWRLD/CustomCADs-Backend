@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Accounts.Application.Accounts.Events.Application;
 using CustomCADs.Accounts.Domain.Repositories;
 using CustomCADs.Accounts.Domain.Repositories.Writes;
-using CustomCADs.Shared.ApplicationEvents.Catalog;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Application.Events.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.UnitTests.Accounts.Application.Accounts.Events.Application;
 

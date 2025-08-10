@@ -1,7 +1,7 @@
 using CustomCADs.Identity.Application.Contracts;
 using CustomCADs.Identity.Application.Users.Commands.Internal.Delete;
-using CustomCADs.Shared.Abstractions.Events;
-using CustomCADs.Shared.ApplicationEvents.Identity;
+using CustomCADs.Shared.Application.Abstractions.Events;
+using CustomCADs.Shared.Application.Events.Identity;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Commands.Internal.Delete;
 

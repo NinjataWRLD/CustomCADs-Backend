@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Customs.Domain.Customs;
 using CustomCADs.Customs.Domain.Customs.States.Entities;
-using CustomCADs.Shared.Core.Common.TypedIds.Customs;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
+using CustomCADs.Shared.Domain.TypedIds.Customs;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Accounts.Domain.Roles;
-using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 
 namespace CustomCADs.UnitTests.Accounts.Data;
 

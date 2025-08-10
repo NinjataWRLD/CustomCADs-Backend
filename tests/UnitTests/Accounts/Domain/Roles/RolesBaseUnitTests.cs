@@ -1,6 +1,6 @@
 ﻿namespace CustomCADs.UnitTests.Accounts.Domain.Roles;
 
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
 using static RolesData;
 
 public class RolesBaseUnitTests

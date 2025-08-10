@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Files.Domain.Repositories;
-using CustomCADs.Shared.Core.Bases.Entities;
+using CustomCADs.Shared.Domain.Bases.Entities;
 
 namespace CustomCADs.Files.Persistence.Repositories;
 

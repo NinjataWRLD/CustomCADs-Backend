@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Repositories;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.Shared.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
+using CustomCADs.Shared.Domain.Exceptions;
 
 namespace CustomCADs.Catalog.Application.Products.Commands.Internal.Designer.SetStatus;
 

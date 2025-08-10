@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Customs.Application.Customs.Queries.Internal.Designer.GetCadUrlPost;
-using CustomCADs.Shared.Core.Common.Dtos;
+using CustomCADs.Shared.Application.Dtos.Files;
 using FluentValidation.TestHelper;
 
 namespace CustomCADs.UnitTests.Customs.Application.Customs.Queries.Internal.Designers.GetCadUrlPost;

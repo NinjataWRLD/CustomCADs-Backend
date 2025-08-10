@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
-using CustomCADs.Shared.Core.Common.ValueObjects;
+﻿using CustomCADs.Files.Domain.Cads.ValueObjects;
+using CustomCADs.Shared.Domain.Exceptions;
 
 namespace CustomCADs.UnitTests.Files.Domain.Cads.Behaviors.CamCoordinates;
 

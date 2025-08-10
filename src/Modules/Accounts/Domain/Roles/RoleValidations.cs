@@ -1,5 +1,6 @@
 ﻿namespace CustomCADs.Accounts.Domain.Roles;
 
+using CustomCADs.Shared.Domain.Exceptions;
 using static RoleConstants;
 
 public static class RoleValidations

@@ -1,6 +1,6 @@
-﻿using CustomCADs.Shared.Abstractions.Requests.Validator;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.UseCases.Shipments.Queries;
+﻿using CustomCADs.Shared.Application.Abstractions.Requests.Validator;
+using CustomCADs.Shared.Application.Dtos.Delivery;
+using CustomCADs.Shared.Application.UseCases.Shipments.Queries;
 using FluentValidation;
 
 namespace CustomCADs.Delivery.Application.Shipments.Queries.Shared;

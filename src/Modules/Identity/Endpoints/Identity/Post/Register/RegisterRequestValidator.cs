@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core;
+﻿using CustomCADs.Shared.Domain;
 using FluentValidation;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Register;

@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Core.Common.TypedIds.Printing;
+﻿using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Add.Data;
 

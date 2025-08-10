@@ -2,8 +2,8 @@
 using CustomCADs.Files.Application.Images.Storage;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.ApplicationEvents.Files;
-using CustomCADs.Shared.Core.Common.Exceptions.Application;
+using CustomCADs.Shared.Application.Events.Files;
+using CustomCADs.Shared.Application.Exceptions;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Events.Application;
 

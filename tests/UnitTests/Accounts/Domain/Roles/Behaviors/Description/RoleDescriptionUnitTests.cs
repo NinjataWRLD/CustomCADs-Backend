@@ -1,7 +1,6 @@
-﻿using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Behaviors.Description;
 
-namespace CustomCADs.UnitTests.Accounts.Domain.Roles.Behaviors.Description;
-
+using CustomCADs.Shared.Domain.Exceptions;
 using Data;
 
 public class RoleDescriptionUnitTests : RolesBaseUnitTests

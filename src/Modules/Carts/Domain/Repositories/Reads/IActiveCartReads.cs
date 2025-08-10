@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Carts.Domain.ActiveCarts;
-using CustomCADs.Shared.Core.Common.TypedIds.Accounts;
-using CustomCADs.Shared.Core.Common.TypedIds.Catalog;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 
 namespace CustomCADs.Carts.Domain.Repositories.Reads;
 

@@ -1,5 +1,5 @@
 ﻿using CustomCADs.Customs.Domain.Customs.Enums;
-using CustomCADs.Shared.Core.Common.Enums;
+using CustomCADs.Shared.Domain.Enums;
 
 namespace CustomCADs.Customs.Domain.Customs.ValueObjects;
 

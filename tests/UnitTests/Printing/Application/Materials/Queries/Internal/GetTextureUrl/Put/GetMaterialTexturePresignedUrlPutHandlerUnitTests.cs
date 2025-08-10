@@ -1,10 +1,10 @@
 using CustomCADs.Printing.Application.Materials.Queries.Internal.GetTextureUrl.Put;
 using CustomCADs.Printing.Domain.Materials;
 using CustomCADs.Printing.Domain.Repositories.Reads;
-using CustomCADs.Shared.Abstractions.Cache;
-using CustomCADs.Shared.Abstractions.Requests.Sender;
-using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.UseCases.Images.Queries;
+using CustomCADs.Shared.Application.Abstractions.Cache;
+using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Dtos.Files;
+using CustomCADs.Shared.Application.UseCases.Images.Queries;
 
 namespace CustomCADs.UnitTests.Printing.Application.Materials.Queries.Internal.GetTextureUrl.Put;
 

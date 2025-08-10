@@ -1,4 +1,4 @@
-﻿using CustomCADs.Shared.Abstractions.Email;
+﻿using CustomCADs.Shared.Application.Abstractions.Email;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;

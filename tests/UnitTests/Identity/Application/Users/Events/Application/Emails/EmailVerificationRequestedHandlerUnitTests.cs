@@ -1,5 +1,5 @@
 using CustomCADs.Identity.Application.Users.Events.Application.Emails.EmailVerification;
-using CustomCADs.Shared.Abstractions.Email;
+using CustomCADs.Shared.Application.Abstractions.Email;
 
 namespace CustomCADs.UnitTests.Identity.Application.Users.Events.Application.Emails;
 

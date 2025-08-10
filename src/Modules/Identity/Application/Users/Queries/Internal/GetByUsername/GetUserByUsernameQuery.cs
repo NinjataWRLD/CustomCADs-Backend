@@ -1,4 +1,4 @@
-using CustomCADs.Shared.Abstractions.Requests.Queries;
+using CustomCADs.Shared.Application.Abstractions.Requests.Queries;
 
 namespace CustomCADs.Identity.Application.Users.Queries.Internal.GetByUsername;
 

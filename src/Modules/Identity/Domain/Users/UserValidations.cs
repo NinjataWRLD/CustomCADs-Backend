@@ -1,5 +1,5 @@
-﻿using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.Exceptions.Domain;
+﻿using CustomCADs.Shared.Domain;
+using CustomCADs.Shared.Domain.Exceptions;
 
 namespace CustomCADs.Identity.Domain.Users;
 

@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Files.Domain.Images;
-using CustomCADs.Shared.Core;
-using CustomCADs.Shared.Core.Common.TypedIds.Files;
+using CustomCADs.Shared.Domain;
+using CustomCADs.Shared.Domain.TypedIds.Files;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
