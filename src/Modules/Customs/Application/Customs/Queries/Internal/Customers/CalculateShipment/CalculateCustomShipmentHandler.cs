@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Customs.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Core.Common.Dtos;
-using CustomCADs.Shared.UseCases.Printing.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 using CustomCADs.Shared.UseCases.Shipments.Queries;
 
 namespace CustomCADs.Customs.Application.Customs.Queries.Internal.Customers.CalculateShipment;

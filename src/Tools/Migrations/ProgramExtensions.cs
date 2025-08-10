@@ -1,7 +1,7 @@
-using CustomCADs.Printing.Domain.Services;
 using CustomCADs.Identity.Domain.Users;
 using CustomCADs.Identity.Infrastructure.Identity;
 using CustomCADs.Identity.Infrastructure.Identity.ShadowEntities;
+using CustomCADs.Printing.Domain.Services;
 using Microsoft.AspNetCore.Identity;
 
 #pragma warning disable IDE0130

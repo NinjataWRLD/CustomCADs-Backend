@@ -3,7 +3,7 @@ using CustomCADs.Printing.Domain.Customizations;
 using CustomCADs.Printing.Domain.Repositories;
 using CustomCADs.Printing.Domain.Repositories.Reads;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.UseCases.Printing.Commands;
+using CustomCADs.Shared.UseCases.Customizations.Commands;
 
 namespace CustomCADs.UnitTests.Printing.Application.Customizations.Commands.Internal.Delete;
 

@@ -1,4 +1,4 @@
-﻿namespace CustomCADs.Shared.UseCases.Printing.Queries;
+﻿namespace CustomCADs.Shared.UseCases.Customizations.Queries;
 
 public record GetCustomizationExistsByIdQuery(
 	CustomizationId Id

@@ -7,7 +7,7 @@ using CustomCADs.Shared.UseCases.Products.Queries;
 namespace CustomCADs.UnitTests.Carts.Application.ActiveCarts.Commands.Internal.Add;
 
 using CustomCADs.Shared.Core.Common.TypedIds.Printing;
-using CustomCADs.Shared.UseCases.Printing.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 using Data;
 using static ActiveCartsData;
 

@@ -4,7 +4,7 @@ using CustomCADs.Printing.Domain.Materials;
 using CustomCADs.Printing.Domain.Repositories.Reads;
 using CustomCADs.Printing.Domain.Services;
 using CustomCADs.Shared.Core.Common.Exceptions.Application;
-using CustomCADs.Shared.UseCases.Printing.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.UnitTests.Printing.Application.Customizations.Queries.Shared.Cost;
 

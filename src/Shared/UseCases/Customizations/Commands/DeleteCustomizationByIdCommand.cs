@@ -1,3 +1,3 @@
-namespace CustomCADs.Shared.UseCases.Printing.Commands;
+namespace CustomCADs.Shared.UseCases.Customizations.Commands;
 
 public record DeleteCustomizationByIdCommand(CustomizationId Id) : ICommand;

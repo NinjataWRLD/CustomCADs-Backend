@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Printing.Domain.Repositories.Reads;
 using CustomCADs.Printing.Domain.Services;
-using CustomCADs.Shared.UseCases.Printing.Queries;
+using CustomCADs.Shared.UseCases.Customizations.Queries;
 
 namespace CustomCADs.Printing.Application.Customizations.Queries.Shared.Weight;
 
