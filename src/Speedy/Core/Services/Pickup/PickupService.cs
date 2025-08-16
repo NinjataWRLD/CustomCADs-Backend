@@ -1,16 +1,16 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.PickupEndpoints;
-using CustomCADs.Speedy.Http.Endpoints.PickupEndpoints.Enums;
 using CustomCADs.Speedy.Core.Services.Models;
 using CustomCADs.Speedy.Core.Services.Models.Calculation;
 using CustomCADs.Speedy.Core.Services.Models.Calculation.Sender;
+using CustomCADs.Speedy.Core.Contracts.Pickup;
 
 namespace CustomCADs.Speedy.Core.Services.Pickup;
 
 using static Constants;
 
-internal class PickupService(IPickupEndpoints endpoints)
+internal class PickupService(IPickupEndpoints endpoints) : IPickupService
 {
-	public async Task<(long Id, string[] ShipmentIds, DateTime? PickupPeriodFrom, DateTime? PickupPeriodTo)[]> Pickup(
+	public async Task<PickupModel[]> Pickup(
 		AccountModel account,
 		TimeOnly visitEndTime,
 		PickupScope pickupScope = PickupScope.EXPLICIT_SHIPMENT_ID_LIST,

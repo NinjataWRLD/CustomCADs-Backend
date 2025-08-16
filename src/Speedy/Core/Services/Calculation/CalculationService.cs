@@ -3,18 +3,18 @@ using CustomCADs.Speedy.Http.Endpoints.CalculationEndpoints.Calculation;
 using CustomCADs.Speedy.Core.Services.Client;
 using CustomCADs.Speedy.Core.Services.Location;
 using CustomCADs.Speedy.Core.Services.Models;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Service.AdditionalServices;
 using CustomCADs.Speedy.Core.Services.Services;
-using CustomCADs.Speedy.Core.Services.Shipment.Models;
+using CustomCADs.Speedy.Core.Contracts.Calculation;
 
 namespace CustomCADs.Speedy.Core.Services.Calculation;
+
 
 internal class CalculationService(
 	ICalculationEndpoints endpoints,
 	ClientService clientService,
 	LocationService locationService,
 	ServicesService servicesService
-)
+) : ICalculationService
 {
 	public const string PhoneNumber1 = "0884874113";
 	public const string PhoneNumber2 = "0885440400";
@@ -23,14 +23,15 @@ internal class CalculationService(
 	public const string PickupSite = "Sofia";
 	public const string PickupStreet = "Flora";
 
-	public async Task<(string Service, ShipmentAdditionalServicesModel? AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, DateTimeOffset DeliveryDeadline)[]> CalculateAsync(
+	public async Task<CalculateModel[]> CalculateAsync(
 		AccountModel account,
 		Payer payer,
 		double[] weights,
 		string country,
 		string site,
 		string street,
-		CancellationToken ct = default)
+		CancellationToken ct = default
+	)
 	{
 		int dropoffCountryId = await locationService.GetCountryId(account, country, ct).ConfigureAwait(false);
 		int pickupCountryId = await locationService.GetCountryId(account, PickupCountry, ct).ConfigureAwait(false);
@@ -56,15 +57,21 @@ internal class CalculationService(
 				ClientId: clientId,
 				DropoffOfficeId: dropoffOffice.OfficeId,
 				DropoffGeoPUDOId: null, // forbidden
+
 				AddressLocation: null, // forbidden
+
 				PrivatePerson: null // forbidden
+
 			),
 			Recipient: new(
 				ClientId: clientId,
 				PickupOfficeId: pickupOffice.OfficeId,
 				PrivatePerson: null, // forbidden
+
 				AddressLocation: null, // forbidden
+
 				PickupGeoPUDOId: null // forbidden
+
 			),
 			Service: new(
 				ServiceIds: [.. services.Select(s => s.Id)],

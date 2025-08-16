@@ -6,10 +6,12 @@ using CustomCADs.Speedy.Core.Services.Models.Shipment.Recipient;
 using CustomCADs.Speedy.Core.Services.Models.Shipment.Sender;
 using CustomCADs.Speedy.Core.Services.Models.Shipment.Service;
 using CustomCADs.Speedy.Core.Services.Shipment.Models;
+using CustomCADs.Speedy.Core.Contracts.Validation;
 
 namespace CustomCADs.Speedy.Core.Services.Validation;
 
-internal class ValidationService(IValidationEndpoints endpoints)
+
+internal class ValidationService(IValidationEndpoints endpoints) : IValidationService
 {
 	public async Task<bool> ValidateAddress(
 		AccountModel account,

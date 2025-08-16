@@ -1,10 +1,12 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.ClientEndpoints;
 using CustomCADs.Speedy.Core.Services.Client.Models;
 using CustomCADs.Speedy.Core.Services.Models;
+using CustomCADs.Speedy.Core.Contracts.Client;
 
 namespace CustomCADs.Speedy.Core.Services.Client;
 
-internal class ClientService(IClientEndpoints endpoints)
+
+internal class ClientService(IClientEndpoints endpoints) : IClientService
 {
 	public async Task<long> GetOwnClientIdAsync(
 		AccountModel account,
@@ -100,7 +102,7 @@ internal class ClientService(IClientEndpoints endpoints)
 		))];
 	}
 
-	public async Task<(long Id, bool AdministrativeFeeAllowed, SpecialDeliveryRequirementsModel? SpecialDeliveryRequirements, CodAdditionalServiceContractInfoModel? Cod)> ContractInfoAsync(
+	public async Task<ContactInfoModel> ContractInfoAsync(
 		AccountModel account,
 		CancellationToken ct = default)
 	{
@@ -112,7 +114,7 @@ internal class ClientService(IClientEndpoints endpoints)
 		), ct).ConfigureAwait(false);
 
 		response.Error.EnsureNull();
-		return (
+		return new(
 			Id: response.Id,
 			AdministrativeFeeAllowed: response.AdministrativeFeeAllowed,
 			SpecialDeliveryRequirements: response.SpecialDeliveryRequirements?.ToModel(),

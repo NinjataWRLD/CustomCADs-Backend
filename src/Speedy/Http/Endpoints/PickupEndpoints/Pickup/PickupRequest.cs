@@ -1,7 +1,5 @@
 ﻿namespace CustomCADs.Speedy.Http.Endpoints.PickupEndpoints.Pickup;
 
-using Enums;
-
 internal record PickupRequest(
 	string UserName,
 	string Password,

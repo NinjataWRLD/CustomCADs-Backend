@@ -3,13 +3,14 @@ using CustomCADs.Speedy.Http.Endpoints.TrackEndpoints;
 using CustomCADs.Speedy.Core.Services.Models;
 using CustomCADs.Speedy.Core.Services.Shipment;
 using CustomCADs.Speedy.Core.Services.Track.Models;
+using CustomCADs.Speedy.Core.Contracts.Track;
 
 namespace CustomCADs.Speedy.Core.Services.Track;
 
 internal class TrackService(
 	ITrackEndpoints endpoints,
 	ShipmentService shipmentService
-)
+) : ITrackService
 {
 	public async Task<TrackedParcelModel[]> TrackAsync(
 		AccountModel account,

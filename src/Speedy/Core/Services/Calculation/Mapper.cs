@@ -16,6 +16,7 @@ using CustomCADs.Speedy.Core.Services.Models.Shipment.Service.AdditionalServices
 using CustomCADs.Speedy.Core.Services.Services.Models;
 using CustomCADs.Speedy.Core.Services.Shipment;
 using CustomCADs.Speedy.Core.Services.Shipment.Models;
+using CustomCADs.Speedy.Core.Contracts.Calculation;
 
 namespace CustomCADs.Speedy.Core.Services.Calculation;
 
@@ -60,8 +61,8 @@ internal static class Mapper
 			PickupGeoPUDOId: model.PickupGeoPUDOId
 		);
 
-	internal static (string Service, ShipmentAdditionalServicesModel? AdditionalServices, ShipmentPriceModel Price, DateOnly PickupDate, DateTimeOffset DeliveryDeadline) ToModel(this CalculationResultDto dto, CourierServiceModel[] services)
-		=> (
+	internal static CalculateModel ToModel(this CalculationResultDto dto, CourierServiceModel[] services)
+		=> new(
 			Service: services.Single(s => s.Id == dto.ServiceId).NameEn,
 			AdditionalServices: dto.AdditionalServices?.ToModel(),
 			Price: dto.Price.ToModel(),

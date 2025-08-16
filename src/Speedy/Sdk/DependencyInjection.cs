@@ -21,9 +21,25 @@ using CustomCADs.Speedy.Core.Services.Validation;
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
 
+using CustomCADs.Speedy.Sdk;
+
 public static class DependencyInjection
 {
-	public static IServiceCollection AddSpeedyShipment(this IServiceCollection services)
+	public static IServiceCollection AddSpeedyService(this IServiceCollection services)
+		=> services
+			.AddSpeedyShipment()
+			.AddSpeedyPrint()
+			.AddSpeedyTrack()
+			.AddSpeedyPickup()
+			.AddSpeedyLocation()
+			.AddSpeedyCalculation()
+			.AddSpeedyClient()
+			.AddSpeedyValidation()
+			.AddSpeedyServices()
+			.AddSpeedyPayment()
+			.AddScoped<ISpeedyService, SpeedyService>();
+
+	private static IServiceCollection AddSpeedyShipment(this IServiceCollection services)
 	{
 		services.AddShipmentClient();
 		services.AddScoped<ShipmentService>();
@@ -31,7 +47,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddSpeedyPrint(this IServiceCollection services)
+	private static IServiceCollection AddSpeedyPrint(this IServiceCollection services)
 	{
 		services.AddPrintClient();
 		services.AddScoped<PrintService>();
@@ -39,7 +55,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddSpeedyTrack(this IServiceCollection services)
+	private static IServiceCollection AddSpeedyTrack(this IServiceCollection services)
 	{
 		services.AddTrackClient();
 		services.AddScoped<TrackService>();
@@ -47,7 +63,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddSpeedyPickup(this IServiceCollection services)
+	private static IServiceCollection AddSpeedyPickup(this IServiceCollection services)
 	{
 		services.AddPickupClient();
 		services.AddScoped<PickupService>();
@@ -55,7 +71,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddSpeedyLocation(this IServiceCollection services)
+	private static IServiceCollection AddSpeedyLocation(this IServiceCollection services)
 	{
 		services.AddLocationClient();
 		services.AddScoped<LocationService>();
@@ -73,7 +89,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddSpeedyCalculation(this IServiceCollection services)
+	private static IServiceCollection AddSpeedyCalculation(this IServiceCollection services)
 	{
 		services.AddCalculationClient();
 		services.AddScoped<CalculationService>();
@@ -81,7 +97,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddSpeedyClient(this IServiceCollection services)
+	private static IServiceCollection AddSpeedyClient(this IServiceCollection services)
 	{
 		services.AddClientClient();
 		services.AddScoped<ClientService>();
@@ -89,7 +105,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddSpeedyValidation(this IServiceCollection services)
+	private static IServiceCollection AddSpeedyValidation(this IServiceCollection services)
 	{
 		services.AddValidationClient();
 		services.AddScoped<ValidationService>();
@@ -97,7 +113,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddSpeedyServices(this IServiceCollection services)
+	private static IServiceCollection AddSpeedyServices(this IServiceCollection services)
 	{
 		services.AddServicesClient();
 		services.AddScoped<ServicesService>();
@@ -105,7 +121,7 @@ public static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddSpeedyPayment(this IServiceCollection services)
+	private static IServiceCollection AddSpeedyPayment(this IServiceCollection services)
 	{
 		services.AddPaymentClient();
 		services.AddScoped<PaymentService>();

@@ -16,17 +16,19 @@ using CustomCADs.Speedy.Core.Services.Models.Shipment.Service;
 using CustomCADs.Speedy.Core.Services.Models.Shipment.Service.AdditionalServices.Cod;
 using CustomCADs.Speedy.Core.Services.Services;
 using CustomCADs.Speedy.Core.Services.Shipment.Models;
+using CustomCADs.Speedy.Core.Contracts.Shipment;
 
 namespace CustomCADs.Speedy.Core.Services.Shipment;
 
 using static Constants;
+
 
 internal class ShipmentService(
 	IShipmentEndpoints endpoints,
 	LocationService locationService,
 	ClientService clientService,
 	ServicesService servicesService
-)
+) : IShipmentService
 {
 	public const string PhoneNumber1 = "0884874113";
 	public const string PhoneNumber2 = "0885440400";
@@ -81,9 +83,13 @@ internal class ShipmentService(
 				Phone2: new(PhoneNumber2, null),
 				Phone3: null,
 				DropoffGeoPUDOId: null, // forbidden
+
 				Address: null, // forbidden
+
 				ClientName: null, // forbidden
+
 				PrivatePerson: null // forbidden
+
 			),
 			Recipient: new(
 				ClientId: clientId,
@@ -96,10 +102,15 @@ internal class ShipmentService(
 				AutoSelectNearestOfficePolicy: null,
 				ContactName: null,
 				ClientName: null, // forbidden
+
 				ObjectName: null, // forbidden
+
 				PrivatePerson: null, // forbidden
+
 				Address: null, // forbidden
+
 				PickupGeoPUDOIf: null // forbidden
+
 			),
 			Service: new(
 				ServiceId: serviceId,

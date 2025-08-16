@@ -1,4 +1,5 @@
-﻿using CustomCADs.Speedy.Core.Services.Location.Block;
+﻿using CustomCADs.Speedy.Core.Contracts.Location;
+using CustomCADs.Speedy.Core.Services.Location.Block;
 using CustomCADs.Speedy.Core.Services.Location.Complex;
 using CustomCADs.Speedy.Core.Services.Location.Country;
 using CustomCADs.Speedy.Core.Services.Location.Office;
@@ -11,6 +12,7 @@ using CustomCADs.Speedy.Core.Services.Models;
 
 namespace CustomCADs.Speedy.Core.Services.Location;
 
+
 internal class LocationService(
 	BlockService block,
 	ComplexService complex,
@@ -21,7 +23,7 @@ internal class LocationService(
 	SiteService site,
 	StateService state,
 	StreetService street
-)
+) : ILocationService
 {
 	public async Task<CountryModel> GetCountryAsync(
 		AccountModel account,

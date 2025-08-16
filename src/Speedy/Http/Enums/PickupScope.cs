@@ -1,6 +1,6 @@
-﻿namespace CustomCADs.Speedy.Http.Endpoints.PickupEndpoints.Enums;
+﻿namespace CustomCADs.Speedy.Http.Enums;
 
-internal enum PickupScope
+public enum PickupScope
 {
 	EXPLICIT_SHIPMENT_ID_LIST,
 	ALL_CREATED_BY_LOGGED_USER,

@@ -4,12 +4,14 @@ using CustomCADs.Speedy.Core.Services.Models.Calculation;
 using CustomCADs.Speedy.Core.Services.Models.Calculation.Recipient;
 using CustomCADs.Speedy.Core.Services.Models.Calculation.Sender;
 using CustomCADs.Speedy.Core.Services.Services.Models;
+using CustomCADs.Speedy.Core.Contracts.Services;
 
 namespace CustomCADs.Speedy.Core.Services.Services;
 
 using static Constants;
 
-internal class ServicesService(IServicesEndpoints endpoints)
+
+internal class ServicesService(IServicesEndpoints endpoints) : IServicesService
 {
 	public async Task<CourierServiceModel[]> Services(
 		AccountModel account,

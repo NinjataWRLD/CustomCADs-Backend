@@ -1,12 +1,13 @@
 ﻿using CustomCADs.Speedy.Http.Dtos.Payout;
 using CustomCADs.Speedy.Core.Services.Payment.Models;
+using CustomCADs.Speedy.Core.Contracts.Payment;
 
 namespace CustomCADs.Speedy.Core.Services.Payment;
 
 internal static class Mapper
 {
-	internal static (DateOnly Date, long DocId, ProcessingType DocType, PaymentType PaymentType, string Payee, string Currency, double Amount, PayoutDetailsModel[] Details) ToModel(this PayoutDto dto)
-		=> (
+	internal static PayoutModel ToModel(this PayoutDto dto)
+		=> new(
 			Date: DateOnly.Parse(dto.Date),
 			DocId: dto.DocId,
 			DocType: dto.DocType,

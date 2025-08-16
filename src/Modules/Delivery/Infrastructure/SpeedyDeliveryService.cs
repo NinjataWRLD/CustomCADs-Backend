@@ -3,21 +3,15 @@ using CustomCADs.Delivery.Application.Contracts.Dtos;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Speedy.Http.Enums;
 using CustomCADs.Speedy.Core.Services;
-using CustomCADs.Speedy.Core.Services.Calculation;
 using CustomCADs.Speedy.Core.Services.Models;
-using CustomCADs.Speedy.Core.Services.Print;
-using CustomCADs.Speedy.Core.Services.Shipment;
-using CustomCADs.Speedy.Core.Services.Track;
 using Microsoft.Extensions.Options;
+using CustomCADs.Speedy.Sdk;
 
 namespace CustomCADs.Delivery.Infrastructure;
 
-internal sealed class SpeedyService(
+internal sealed class SpeedyDeliveryService(
 	IOptions<DeliverySettings> settings,
-	ShipmentService shipmentService,
-	CalculationService calculationService,
-	PrintService printService,
-	TrackService trackService
+	ISpeedyService service
 ) : IDeliveryService
 {
 	private readonly AccountModel account = new(settings.Value.Username, settings.Value.Password);
@@ -26,7 +20,7 @@ internal sealed class SpeedyService(
 
 	public async Task<CalculationDto[]> CalculateAsync(CalculateRequest req, CancellationToken ct = default)
 	{
-		var response = await calculationService.CalculateAsync(
+		var response = await service.CalculateAsync(
 			account: account,
 			payer: payer,
 			weights: req.Weights,
@@ -54,7 +48,7 @@ internal sealed class SpeedyService(
 		CancellationToken ct = default
 	)
 	{
-		var response = await shipmentService.CreateShipmentAsync(
+		var response = await service.CreateShipmentAsync(
 			account: account,
 			payer: payer,
 			package: req.Package,
@@ -81,7 +75,7 @@ internal sealed class SpeedyService(
 	}
 
 	public async Task CancelAsync(string shipmentId, string comment, CancellationToken ct = default)
-		=> await shipmentService.CancelShipmentAsync(
+		=> await service.CancelShipmentAsync(
 			account: account,
 			shipmentId: shipmentId,
 			comment: comment,
@@ -90,7 +84,7 @@ internal sealed class SpeedyService(
 
 	public async Task<ShipmentStatusDto[]> TrackAsync(string shipmentId, CancellationToken ct = default)
 	{
-		var response = await trackService.TrackAsync(
+		var response = await service.TrackAsync(
 			account: account,
 			shipmentId: shipmentId,
 			ct: ct
@@ -104,7 +98,7 @@ internal sealed class SpeedyService(
 	}
 
 	public async Task<byte[]> PrintAsync(string shipmentId, CancellationToken ct = default)
-		=> await printService.PrintAsync(
+		=> await service.PrintAsync(
 			account: account,
 			paperSize: paper,
 			shipmentId: shipmentId,
