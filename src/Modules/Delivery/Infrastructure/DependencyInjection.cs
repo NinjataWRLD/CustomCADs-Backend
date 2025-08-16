@@ -8,16 +8,16 @@ public static class DependencyInjection
 {
 	public static void AddDeliveryService(this IServiceCollection services)
 	{
-		services.AddSpeedyShipmentService();
-		services.AddSpeedyPrintService();
-		services.AddSpeedyTrackService();
-		services.AddSpeedyPickupService();
-		services.AddSpeedyLocationService();
-		services.AddSpeedyCalculationService();
-		services.AddSpeedyClientService();
-		services.AddSpeedyValidationService();
-		services.AddSpeedyServicesService();
-		services.AddSpeedyPaymentService();
+		services.AddSpeedyShipment();
+		services.AddSpeedyPrint();
+		services.AddSpeedyTrack();
+		services.AddSpeedyPickup();
+		services.AddSpeedyLocation();
+		services.AddSpeedyCalculation();
+		services.AddSpeedyClient();
+		services.AddSpeedyValidation();
+		services.AddSpeedyServices();
+		services.AddSpeedyPayment();
 
 		services.AddScoped<IDeliveryService, SpeedyService>();
 	}

@@ -1,19 +1,18 @@
 ﻿using CustomCADs.Delivery.Application.Contracts;
 using CustomCADs.Delivery.Application.Contracts.Dtos;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
-using CustomCADs.Speedy.API.Endpoints.PrintEndpoints.Enums;
-using CustomCADs.Speedy.Enums;
-using CustomCADs.Speedy.Services;
-using CustomCADs.Speedy.Services.Calculation;
-using CustomCADs.Speedy.Services.Models;
-using CustomCADs.Speedy.Services.Print;
-using CustomCADs.Speedy.Services.Shipment;
-using CustomCADs.Speedy.Services.Track;
+using CustomCADs.Speedy.Http.Enums;
+using CustomCADs.Speedy.Core.Services;
+using CustomCADs.Speedy.Core.Services.Calculation;
+using CustomCADs.Speedy.Core.Services.Models;
+using CustomCADs.Speedy.Core.Services.Print;
+using CustomCADs.Speedy.Core.Services.Shipment;
+using CustomCADs.Speedy.Core.Services.Track;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Delivery.Infrastructure;
 
-public sealed class SpeedyService(
+internal sealed class SpeedyService(
 	IOptions<DeliverySettings> settings,
 	ShipmentService shipmentService,
 	CalculationService calculationService,

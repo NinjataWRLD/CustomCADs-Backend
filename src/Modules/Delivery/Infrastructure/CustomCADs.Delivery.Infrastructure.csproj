@@ -9,7 +9,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Application\CustomCADs.Delivery.Application.csproj" />
-		<ProjectReference Include="..\..\..\Speedy\CustomCADs.Speedy.csproj" />
+		<ProjectReference Include="..\..\..\Speedy\Sdk\CustomCADs.Speedy.Sdk.csproj" />
 	</ItemGroup>
 
 </Project>
