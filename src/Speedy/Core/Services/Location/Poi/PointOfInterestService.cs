@@ -1,12 +1,11 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.LocationEndpoints;
-using CustomCADs.Speedy.Core.Services.Models;
 
 namespace CustomCADs.Speedy.Core.Services.Location.Poi;
 
 internal class PointOfInterestService(ILocationEndpoints endpoints)
 {
 	public async Task<PointOfInterestModel> GetAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		int id,
 		CancellationToken ct = default)
 	{
@@ -22,7 +21,7 @@ internal class PointOfInterestService(ILocationEndpoints endpoints)
 	}
 
 	public async Task<PointOfInterestModel[]> FindAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		int siteId,
 		string? name,
 		CancellationToken ct = default)
@@ -41,7 +40,7 @@ internal class PointOfInterestService(ILocationEndpoints endpoints)
 	}
 
 	public async Task<byte[]> AllAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		int countryId,
 		CancellationToken ct = default)
 	{

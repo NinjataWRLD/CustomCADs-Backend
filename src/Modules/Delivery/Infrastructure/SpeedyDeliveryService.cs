@@ -3,25 +3,18 @@ using CustomCADs.Delivery.Application.Contracts.Dtos;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Speedy.Http.Enums;
 using CustomCADs.Speedy.Core.Services;
-using CustomCADs.Speedy.Core.Services.Models;
-using Microsoft.Extensions.Options;
 using CustomCADs.Speedy.Sdk;
 
 namespace CustomCADs.Delivery.Infrastructure;
 
-internal sealed class SpeedyDeliveryService(
-	IOptions<DeliverySettings> settings,
-	ISpeedyService service
-) : IDeliveryService
+internal sealed class SpeedyDeliveryService(ISpeedyService service) : IDeliveryService
 {
-	private readonly AccountModel account = new(settings.Value.Username, settings.Value.Password);
 	private const Payer payer = Payer.RECIPIENT;
 	private const PaperSize paper = PaperSize.A4;
 
 	public async Task<CalculationDto[]> CalculateAsync(CalculateRequest req, CancellationToken ct = default)
 	{
 		var response = await service.CalculateAsync(
-			account: account,
 			payer: payer,
 			weights: req.Weights,
 			country: req.Country,
@@ -49,7 +42,6 @@ internal sealed class SpeedyDeliveryService(
 	)
 	{
 		var response = await service.CreateShipmentAsync(
-			account: account,
 			payer: payer,
 			package: req.Package,
 			contents: req.Contents,
@@ -76,7 +68,6 @@ internal sealed class SpeedyDeliveryService(
 
 	public async Task CancelAsync(string shipmentId, string comment, CancellationToken ct = default)
 		=> await service.CancelShipmentAsync(
-			account: account,
 			shipmentId: shipmentId,
 			comment: comment,
 			ct: ct
@@ -85,7 +76,6 @@ internal sealed class SpeedyDeliveryService(
 	public async Task<ShipmentStatusDto[]> TrackAsync(string shipmentId, CancellationToken ct = default)
 	{
 		var response = await service.TrackAsync(
-			account: account,
 			shipmentId: shipmentId,
 			ct: ct
 		).ConfigureAwait(false);
@@ -99,7 +89,6 @@ internal sealed class SpeedyDeliveryService(
 
 	public async Task<byte[]> PrintAsync(string shipmentId, CancellationToken ct = default)
 		=> await service.PrintAsync(
-			account: account,
 			paperSize: paper,
 			shipmentId: shipmentId,
 			ct: ct

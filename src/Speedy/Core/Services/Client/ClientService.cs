@@ -9,7 +9,7 @@ namespace CustomCADs.Speedy.Core.Services.Client;
 internal class ClientService(IClientEndpoints endpoints) : IClientService
 {
 	public async Task<long> GetOwnClientIdAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		CancellationToken ct = default)
 	{
 		var response = await endpoints.GetOwnClientIdAsync(new(
@@ -24,7 +24,7 @@ internal class ClientService(IClientEndpoints endpoints) : IClientService
 	}
 
 	public async Task<ClientModel> GetClientAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		long clientId,
 		CancellationToken ct = default)
 	{
@@ -53,7 +53,7 @@ internal class ClientService(IClientEndpoints endpoints) : IClientService
 	}
 
 	public async Task<ClientModel> GetContactByExternalIdAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		long id,
 		string? key = null,
 		CancellationToken ct = default)
@@ -79,7 +79,7 @@ internal class ClientService(IClientEndpoints endpoints) : IClientService
 	}
 
 	public async Task<ClientModel[]> GetContractClientsAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		CancellationToken ct = default)
 	{
 		var response = await endpoints.GetContractClientsAsync(new(
@@ -103,7 +103,7 @@ internal class ClientService(IClientEndpoints endpoints) : IClientService
 	}
 
 	public async Task<ContactInfoModel> ContractInfoAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		CancellationToken ct = default)
 	{
 		var response = await endpoints.ContractInfoAsync(new(
@@ -123,7 +123,7 @@ internal class ClientService(IClientEndpoints endpoints) : IClientService
 	}
 
 	public async Task<long> CreateContactAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		string externalContactId,
 		PhoneNumberModel phone1,
 		string clientName,

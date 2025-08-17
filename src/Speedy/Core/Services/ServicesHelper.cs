@@ -1,16 +1,15 @@
-﻿using CustomCADs.Speedy.Core.Services.Location;
+﻿using CustomCADs.Speedy.Core.Contracts.Location;
+using CustomCADs.Speedy.Core.Contracts.Services;
 using CustomCADs.Speedy.Core.Services.Location.Country;
 using CustomCADs.Speedy.Core.Services.Location.Site;
 using CustomCADs.Speedy.Core.Services.Location.Street;
-using CustomCADs.Speedy.Core.Services.Models;
-using CustomCADs.Speedy.Core.Services.Services;
 using CustomCADs.Speedy.Core.Services.Services.Models;
 
 namespace CustomCADs.Speedy.Core.Services;
 
 internal static class ServicesHelper
 {
-	internal static async Task<int> GetCountryId(this LocationService locationService, AccountModel account, string country, CancellationToken ct)
+	internal static async Task<int> GetCountryId(this ILocationService locationService, SpeedyAccount account, string country, CancellationToken ct)
 	{
 		CountryModel[] countries = await locationService.FindCountryAsync(
 			account: account,
@@ -21,7 +20,7 @@ internal static class ServicesHelper
 		return countries.First().Id;
 	}
 
-	internal static async Task<long> GetSiteId(this LocationService locationService, AccountModel account, int countryId, string site, CancellationToken ct)
+	internal static async Task<long> GetSiteId(this ILocationService locationService, SpeedyAccount account, int countryId, string site, CancellationToken ct)
 	{
 		SiteModel[] sites = await locationService.FindSiteAsync(
 			account: account,
@@ -33,7 +32,7 @@ internal static class ServicesHelper
 		return sites.First().Id;
 	}
 
-	internal static async Task<long> GetStreetId(this LocationService locationService, AccountModel account, long siteId, string street, CancellationToken ct)
+	internal static async Task<long> GetStreetId(this ILocationService locationService, SpeedyAccount account, long siteId, string street, CancellationToken ct)
 	{
 		StreetModel[] streets = await locationService.FindStreetAsync(
 			account: account,
@@ -46,7 +45,7 @@ internal static class ServicesHelper
 		return streets.First().Id;
 	}
 
-	internal static async Task<(int Distance, int OfficeId)> GetOfficeId(this LocationService locationService, AccountModel account, int countryId, long siteId, long streetId, CancellationToken ct)
+	internal static async Task<(int Distance, int OfficeId)> GetOfficeId(this ILocationService locationService, SpeedyAccount account, int countryId, long siteId, long streetId, CancellationToken ct)
 	{
 		var offices = await locationService.GetOfficeAsync(
 			model: new(
@@ -85,7 +84,7 @@ internal static class ServicesHelper
 		return (Distance, Office.Id);
 	}
 
-	internal static async Task<int> GetServiceId(this ServicesService servicesService, AccountModel account, string service, CancellationToken ct)
+	internal static async Task<int> GetServiceId(this IServicesService servicesService, SpeedyAccount account, string service, CancellationToken ct)
 	{
 		CourierServiceModel[] services = await servicesService.Services(
 			account: account,

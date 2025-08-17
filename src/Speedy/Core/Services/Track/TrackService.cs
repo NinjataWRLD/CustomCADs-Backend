@@ -1,25 +1,26 @@
-﻿using CustomCADs.Speedy.Http.Dtos.ShipmentParcels;
-using CustomCADs.Speedy.Http.Endpoints.TrackEndpoints;
-using CustomCADs.Speedy.Core.Services.Models;
-using CustomCADs.Speedy.Core.Services.Shipment;
-using CustomCADs.Speedy.Core.Services.Track.Models;
+﻿using CustomCADs.Speedy.Core.Contracts.Shipment;
 using CustomCADs.Speedy.Core.Contracts.Track;
+using CustomCADs.Speedy.Core.Services.Track.Models;
+using CustomCADs.Speedy.Http.Dtos.ShipmentParcels;
+using CustomCADs.Speedy.Http.Endpoints.TrackEndpoints;
 
 namespace CustomCADs.Speedy.Core.Services.Track;
 
 internal class TrackService(
 	ITrackEndpoints endpoints,
-	ShipmentService shipmentService
+	IShipmentService shipmentService
 ) : ITrackService
 {
 	public async Task<TrackedParcelModel[]> TrackAsync(
-		AccountModel account,
+		SpeedyAccount account,
+		SpeedyContact contact,
 		string shipmentId,
 		bool? lastOperationOnly = null,
 		CancellationToken ct = default)
 	{
 		var shipments = await shipmentService.ShipmentInfoAsync(
 			account: account,
+			contact: contact,
 			shipmentIds: [shipmentId],
 			ct: ct
 		).ConfigureAwait(false);
@@ -39,7 +40,7 @@ internal class TrackService(
 	}
 
 	public async Task<(long Id, string Url)[]> BulkTrackingDataFiles(
-		AccountModel account,
+		SpeedyAccount account,
 		long? lastProcessedFileId = null,
 		CancellationToken ct = default)
 	{

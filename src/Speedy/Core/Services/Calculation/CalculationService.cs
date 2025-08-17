@@ -1,9 +1,8 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.CalculationEndpoints;
 using CustomCADs.Speedy.Http.Endpoints.CalculationEndpoints.Calculation;
-using CustomCADs.Speedy.Core.Services.Client;
-using CustomCADs.Speedy.Core.Services.Location;
-using CustomCADs.Speedy.Core.Services.Models;
-using CustomCADs.Speedy.Core.Services.Services;
+using CustomCADs.Speedy.Core.Contracts.Client;
+using CustomCADs.Speedy.Core.Contracts.Location;
+using CustomCADs.Speedy.Core.Contracts.Services;
 using CustomCADs.Speedy.Core.Contracts.Calculation;
 
 namespace CustomCADs.Speedy.Core.Services.Calculation;
@@ -11,20 +10,14 @@ namespace CustomCADs.Speedy.Core.Services.Calculation;
 
 internal class CalculationService(
 	ICalculationEndpoints endpoints,
-	ClientService clientService,
-	LocationService locationService,
-	ServicesService servicesService
+	IClientService clientService,
+	ILocationService locationService,
+	IServicesService servicesService
 ) : ICalculationService
 {
-	public const string PhoneNumber1 = "0884874113";
-	public const string PhoneNumber2 = "0885440400";
-	public const string Email = "customcads2023@gmail.com";
-	public const string PickupCountry = "Bulgaria";
-	public const string PickupSite = "Sofia";
-	public const string PickupStreet = "Flora";
-
 	public async Task<CalculateModel[]> CalculateAsync(
-		AccountModel account,
+		SpeedyAccount account,
+		SpeedyPickup pickup,
 		Payer payer,
 		double[] weights,
 		string country,
@@ -34,13 +27,13 @@ internal class CalculationService(
 	)
 	{
 		int dropoffCountryId = await locationService.GetCountryId(account, country, ct).ConfigureAwait(false);
-		int pickupCountryId = await locationService.GetCountryId(account, PickupCountry, ct).ConfigureAwait(false);
+		int pickupCountryId = await locationService.GetCountryId(account, pickup.Country, ct).ConfigureAwait(false);
 
 		long dropoffSiteId = await locationService.GetSiteId(account, dropoffCountryId, site, ct).ConfigureAwait(false);
-		long pickupSiteId = await locationService.GetSiteId(account, pickupCountryId, PickupSite, ct).ConfigureAwait(false);
+		long pickupSiteId = await locationService.GetSiteId(account, pickupCountryId, pickup.City, ct).ConfigureAwait(false);
 
 		long dropoffStreetId = await locationService.GetStreetId(account, dropoffSiteId, street, ct).ConfigureAwait(false);
-		long pickupStreetId = await locationService.GetStreetId(account, pickupSiteId, PickupStreet, ct).ConfigureAwait(false);
+		long pickupStreetId = await locationService.GetStreetId(account, pickupSiteId, pickup.Street, ct).ConfigureAwait(false);
 
 		var dropoffOffice = await locationService.GetOfficeId(account, dropoffCountryId, dropoffSiteId, dropoffStreetId, ct).ConfigureAwait(false);
 		var pickupOffice = await locationService.GetOfficeId(account, pickupCountryId, pickupSiteId, pickupStreetId, ct).ConfigureAwait(false);

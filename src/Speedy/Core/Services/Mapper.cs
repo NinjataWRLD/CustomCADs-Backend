@@ -12,6 +12,11 @@ internal static class Mapper
 	internal static PhoneNumberModel ToModel(this ShipmentPhoneNumberDto dto)
 		=> new(dto.Number, dto.Extension);
 
+	internal static PhoneNumberModel ToModel(this ShipmentPhoneNumberDto? dto, string phone)
+		=> dto is null
+			? new(phone)
+			: new(dto.Number, dto.Extension);
+
 	internal static ShipmentAddressDto ToDto(this ShipmentAddressModel model)
 		=> new(
 			CountryId: model.CountryId,

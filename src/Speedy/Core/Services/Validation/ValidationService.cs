@@ -14,7 +14,7 @@ namespace CustomCADs.Speedy.Core.Services.Validation;
 internal class ValidationService(IValidationEndpoints endpoints) : IValidationService
 {
 	public async Task<bool> ValidateAddress(
-		AccountModel account,
+		SpeedyAccount account,
 		ShipmentAddressModel address,
 		CancellationToken ct = default)
 	{
@@ -31,7 +31,7 @@ internal class ValidationService(IValidationEndpoints endpoints) : IValidationSe
 	}
 
 	public async Task<bool> ValidatePostCode(
-		AccountModel account,
+		SpeedyAccount account,
 		string postCode,
 		long? siteId = null,
 		CancellationToken ct = default)
@@ -51,7 +51,7 @@ internal class ValidationService(IValidationEndpoints endpoints) : IValidationSe
 	}
 
 	public async Task<bool> ValidatePhone(
-		AccountModel account,
+		SpeedyAccount account,
 		PhoneNumberModel phoneNumber,
 		CancellationToken ct = default)
 	{
@@ -69,7 +69,7 @@ internal class ValidationService(IValidationEndpoints endpoints) : IValidationSe
 	}
 
 	public async Task<bool> ValidateShipment(
-		AccountModel account,
+		SpeedyAccount account,
 		WriteShipmentModel shipment,
 		CancellationToken ct = default)
 	{

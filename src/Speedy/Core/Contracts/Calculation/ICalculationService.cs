@@ -1,11 +1,10 @@
-using CustomCADs.Speedy.Core.Services.Models;
-
 namespace CustomCADs.Speedy.Core.Contracts.Calculation;
 
 internal interface ICalculationService
 {
 	Task<CalculateModel[]> CalculateAsync(
-		AccountModel account,
+		SpeedyAccount account,
+		SpeedyPickup pickup,
 		Payer payer,
 		double[] weights,
 		string country,

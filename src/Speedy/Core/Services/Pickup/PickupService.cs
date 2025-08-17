@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.PickupEndpoints;
-using CustomCADs.Speedy.Core.Services.Models;
 using CustomCADs.Speedy.Core.Services.Models.Calculation;
 using CustomCADs.Speedy.Core.Services.Models.Calculation.Sender;
 using CustomCADs.Speedy.Core.Contracts.Pickup;
@@ -11,7 +10,7 @@ using static Constants;
 internal class PickupService(IPickupEndpoints endpoints) : IPickupService
 {
 	public async Task<PickupModel[]> Pickup(
-		AccountModel account,
+		SpeedyAccount account,
 		TimeOnly visitEndTime,
 		PickupScope pickupScope = PickupScope.EXPLICIT_SHIPMENT_ID_LIST,
 		DateTime? pickupDateTime = null,
@@ -41,7 +40,7 @@ internal class PickupService(IPickupEndpoints endpoints) : IPickupService
 	}
 
 	public async Task<string[]> PickupTerms(
-		AccountModel account,
+		SpeedyAccount account,
 		int serviceId,
 		DateOnly? startingDate = null,
 		CalculationSenderModel? sender = null,

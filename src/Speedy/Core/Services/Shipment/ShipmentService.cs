@@ -1,5 +1,7 @@
-﻿using CustomCADs.Speedy.Http.Endpoints.ShipmentEndpoints;
-using CustomCADs.Speedy.Http.Endpoints.ShipmentEndpoints.CreateShipment;
+﻿using CustomCADs.Speedy.Core.Contracts.Client;
+using CustomCADs.Speedy.Core.Contracts.Location;
+using CustomCADs.Speedy.Core.Contracts.Services;
+using CustomCADs.Speedy.Core.Contracts.Shipment;
 using CustomCADs.Speedy.Core.Services.Calculation;
 using CustomCADs.Speedy.Core.Services.Client;
 using CustomCADs.Speedy.Core.Services.Location;
@@ -16,7 +18,8 @@ using CustomCADs.Speedy.Core.Services.Models.Shipment.Service;
 using CustomCADs.Speedy.Core.Services.Models.Shipment.Service.AdditionalServices.Cod;
 using CustomCADs.Speedy.Core.Services.Services;
 using CustomCADs.Speedy.Core.Services.Shipment.Models;
-using CustomCADs.Speedy.Core.Contracts.Shipment;
+using CustomCADs.Speedy.Http.Endpoints.ShipmentEndpoints;
+using CustomCADs.Speedy.Http.Endpoints.ShipmentEndpoints.CreateShipment;
 
 namespace CustomCADs.Speedy.Core.Services.Shipment;
 
@@ -25,20 +28,15 @@ using static Constants;
 
 internal class ShipmentService(
 	IShipmentEndpoints endpoints,
-	LocationService locationService,
-	ClientService clientService,
-	ServicesService servicesService
+	ILocationService locationService,
+	IClientService clientService,
+	IServicesService servicesService
 ) : IShipmentService
 {
-	public const string PhoneNumber1 = "0884874113";
-	public const string PhoneNumber2 = "0885440400";
-	public const string Email = "customcads2023@gmail.com";
-	public const string PickupCountry = "Bulgaria";
-	public const string PickupSite = "Sofia";
-	public const string PickupStreet = "Flora";
-
 	public async Task<WrittenShipmentModel> CreateShipmentAsync(
-		AccountModel account,
+		SpeedyAccount account,
+		SpeedyPickup pickup,
+		SpeedyContact contact,
 		string package,
 		string contents,
 		int parcelCount,
@@ -54,13 +52,13 @@ internal class ShipmentService(
 		CancellationToken ct = default)
 	{
 		int dropoffCountryId = await locationService.GetCountryId(account, country, ct).ConfigureAwait(false);
-		int pickupCountryId = await locationService.GetCountryId(account, PickupCountry, ct).ConfigureAwait(false);
+		int pickupCountryId = await locationService.GetCountryId(account, pickup.Country, ct).ConfigureAwait(false);
 
 		long dropoffSiteId = await locationService.GetSiteId(account, dropoffCountryId, site, ct).ConfigureAwait(false);
-		long pickupSiteId = await locationService.GetSiteId(account, pickupCountryId, PickupSite, ct).ConfigureAwait(false);
+		long pickupSiteId = await locationService.GetSiteId(account, pickupCountryId, pickup.City, ct).ConfigureAwait(false);
 
 		long dropoffStreetId = await locationService.GetStreetId(account, dropoffSiteId, street, ct).ConfigureAwait(false);
-		long pickupStreetId = await locationService.GetStreetId(account, pickupSiteId, PickupStreet, ct).ConfigureAwait(false);
+		long pickupStreetId = await locationService.GetStreetId(account, pickupSiteId, pickup.Street, ct).ConfigureAwait(false);
 
 		var dropoffOffice = await locationService.GetOfficeId(account, dropoffCountryId, dropoffSiteId, dropoffStreetId, ct).ConfigureAwait(false);
 		var pickupOffice = await locationService.GetOfficeId(account, pickupCountryId, pickupSiteId, pickupStreetId, ct).ConfigureAwait(false);
@@ -78,16 +76,13 @@ internal class ShipmentService(
 				ClientId: clientId,
 				DropoffOfficeId: dropoffOffice.OfficeId,
 				ContactName: name,
-				Email: Email,
-				Phone1: new(PhoneNumber1, null),
-				Phone2: new(PhoneNumber2, null),
+				Email: contact.Email,
+				Phone1: new(contact.PhoneNumber1, null),
+				Phone2: !string.IsNullOrWhiteSpace(contact.PhoneNumber2) ? new(contact.PhoneNumber2, null) : null,
 				Phone3: null,
 				DropoffGeoPUDOId: null, // forbidden
-
 				Address: null, // forbidden
-
 				ClientName: null, // forbidden
-
 				PrivatePerson: null // forbidden
 
 			),
@@ -102,13 +97,9 @@ internal class ShipmentService(
 				AutoSelectNearestOfficePolicy: null,
 				ContactName: null,
 				ClientName: null, // forbidden
-
 				ObjectName: null, // forbidden
-
 				PrivatePerson: null, // forbidden
-
 				Address: null, // forbidden
-
 				PickupGeoPUDOIf: null // forbidden
 
 			),
@@ -188,7 +179,7 @@ internal class ShipmentService(
 	}
 
 	public async Task CancelShipmentAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		string shipmentId,
 		string comment,
 		CancellationToken ct = default)
@@ -206,7 +197,7 @@ internal class ShipmentService(
 	}
 
 	public async Task<CreatedShipmentParcelModel> AddParcelAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		string shipmentId,
 		ShipmentParcelModel parcel,
 		ShipmentCodFiscalReceiptItemModel[] codFiscalReceiptItems,
@@ -231,7 +222,7 @@ internal class ShipmentService(
 	}
 
 	public async Task<WrittenShipmentModel> FinalizePendingShipmentAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		string shipmentId,
 		CancellationToken ct = default)
 	{
@@ -254,7 +245,8 @@ internal class ShipmentService(
 	}
 
 	public async Task<ShipmentModel[]> ShipmentInfoAsync(
-		AccountModel account,
+		SpeedyAccount account,
+		SpeedyContact contact,
 		string[] shipmentIds,
 		CancellationToken ct = default)
 	{
@@ -267,11 +259,11 @@ internal class ShipmentService(
 		), ct).ConfigureAwait(false);
 
 		response.Error.EnsureNull();
-		return [.. response.Shipments.Select(d => d.ToModel(PhoneNumber1))];
+		return [.. response.Shipments.Select(d => d.ToModel(contact.PhoneNumber1, contact.PhoneNumber2))];
 	}
 
 	public async Task<SecondaryShipmentModel[]> SecondaryShipmentAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		string shipmentId,
 		ShipmentType[] types,
 		CancellationToken ct = default)
@@ -289,7 +281,7 @@ internal class ShipmentService(
 	}
 
 	public async Task<WrittenShipmentModel> UpdateShipmentAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		string shipmentId,
 		WriteShipmentModel model,
 		CancellationToken ct = default)
@@ -323,7 +315,7 @@ internal class ShipmentService(
 	}
 
 	public async Task<WrittenShipmentModel> UpdateShipmentPropertiesAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		string shipmentId,
 		Dictionary<string, string> properties,
 		CancellationToken ct = default)
@@ -348,7 +340,7 @@ internal class ShipmentService(
 	}
 
 	public async Task<string[]> FindParcelsByRefAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		string @ref,
 		int searchInRef,
 		bool? shipmentsOnly = null,
@@ -375,7 +367,7 @@ internal class ShipmentService(
 	}
 
 	public async Task HandoverToCourierAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		(DateTime DateTime, ShipmentParcelRefModel Parcel)[] parcels,
 		CancellationToken ct = default)
 	{
@@ -391,7 +383,7 @@ internal class ShipmentService(
 	}
 
 	public async Task HandoverToMidwayCarrierAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		(DateTime DateTime, ShipmentParcelRefModel Parcel)[] parcels,
 		CancellationToken ct = default)
 	{
@@ -407,7 +399,7 @@ internal class ShipmentService(
 	}
 
 	public async Task<BarcodeInformationModel> BarcodeInformationAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		ShipmentParcelRefModel parcel,
 		CancellationToken ct = default)
 	{

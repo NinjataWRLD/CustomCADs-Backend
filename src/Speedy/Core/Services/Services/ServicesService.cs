@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.ServicesEndpoints;
-using CustomCADs.Speedy.Core.Services.Models;
 using CustomCADs.Speedy.Core.Services.Models.Calculation;
 using CustomCADs.Speedy.Core.Services.Models.Calculation.Recipient;
 using CustomCADs.Speedy.Core.Services.Models.Calculation.Sender;
@@ -14,7 +13,7 @@ using static Constants;
 internal class ServicesService(IServicesEndpoints endpoints) : IServicesService
 {
 	public async Task<CourierServiceModel[]> Services(
-		AccountModel account,
+		SpeedyAccount account,
 		DateOnly? date = null,
 		CancellationToken ct = default)
 	{
@@ -31,7 +30,7 @@ internal class ServicesService(IServicesEndpoints endpoints) : IServicesService
 	}
 
 	public async Task<(string Deadline, CourierServiceModel CourierService)[]> DestinationServices(
-		AccountModel account,
+		SpeedyAccount account,
 		CalculationRecipientModel recipient,
 		DateOnly? date = null,
 		CalculationSenderModel? sender = null,

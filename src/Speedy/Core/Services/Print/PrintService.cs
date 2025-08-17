@@ -1,21 +1,22 @@
-﻿using CustomCADs.Speedy.Http.Dtos.ParcelToPrint;
-using CustomCADs.Speedy.Http.Endpoints.PrintEndpoints;
-using CustomCADs.Speedy.Core.Services.Models;
+﻿using CustomCADs.Speedy.Core.Contracts.Print;
+using CustomCADs.Speedy.Core.Contracts.Shipment;
 using CustomCADs.Speedy.Core.Services.Models.Shipment.Content;
 using CustomCADs.Speedy.Core.Services.Models.Shipment.Parcel;
 using CustomCADs.Speedy.Core.Services.Shipment;
 using CustomCADs.Speedy.Core.Services.Shipment.Models;
-using CustomCADs.Speedy.Core.Contracts.Print;
+using CustomCADs.Speedy.Http.Dtos.ParcelToPrint;
+using CustomCADs.Speedy.Http.Endpoints.PrintEndpoints;
 
 namespace CustomCADs.Speedy.Core.Services.Print;
 
 internal class PrintService(
 	IPrintEndpoints endpoints,
-	ShipmentService shipmentService
+	IShipmentService shipmentService
 ) : IPrintService
 {
 	public async Task<byte[]> PrintAsync(
-		AccountModel account,
+		SpeedyAccount account,
+		SpeedyContact contact,
 		string shipmentId,
 		PaperSize paperSize = PaperSize.A4,
 		PaperFormat format = PaperFormat.pdf,
@@ -26,6 +27,7 @@ internal class PrintService(
 	{
 		var shipments = await shipmentService.ShipmentInfoAsync(
 			account: account,
+			contact: contact,
 			shipmentIds: [shipmentId],
 			ct: ct
 		).ConfigureAwait(false);
@@ -51,7 +53,8 @@ internal class PrintService(
 	}
 
 	public async Task<(byte[] Data, LabelInfoModel[] PrintLabelsInfo)> ExtendedPrintAsync(
-		AccountModel account,
+		SpeedyAccount account,
+		SpeedyContact contact,
 		string shipmentId,
 		PaperSize paperSize,
 		PaperFormat format = PaperFormat.pdf,
@@ -62,6 +65,7 @@ internal class PrintService(
 	{
 		var shipments = await shipmentService.ShipmentInfoAsync(
 			account: account,
+			contact: contact,
 			shipmentIds: [shipmentId],
 			ct: ct
 		).ConfigureAwait(false);
@@ -88,7 +92,7 @@ internal class PrintService(
 	}
 
 	public async Task<LabelInfoModel[]> LabelInfoAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		ShipmentParcelRefModel[] parcels,
 		CancellationToken ct = default)
 	{
@@ -105,7 +109,7 @@ internal class PrintService(
 	}
 
 	public async Task<byte[]> PrintVoucherAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		string[] shipmentIds,
 		string? printerName = null,
 		PaperFormat format = PaperFormat.pdf,

@@ -1,12 +1,11 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.LocationEndpoints;
-using CustomCADs.Speedy.Core.Services.Models;
 
 namespace CustomCADs.Speedy.Core.Services.Location.Office;
 
 internal class OfficeService(ILocationEndpoints endpoints)
 {
 	public async Task<OfficeModel> GetAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		int id,
 		CancellationToken ct = default)
 	{
@@ -22,7 +21,7 @@ internal class OfficeService(ILocationEndpoints endpoints)
 	}
 
 	public async Task<OfficeModel[]> FindAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		int? countryId,
 		long? siteId,
 		string? name,
@@ -47,7 +46,7 @@ internal class OfficeService(ILocationEndpoints endpoints)
 	}
 
 	public async Task<(int Distancce, OfficeModel Office)[]> FindNeaerestAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		FindNeaerestOfficeModel model,
 		CancellationToken ct = default)
 	{

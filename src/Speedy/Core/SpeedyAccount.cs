@@ -1,6 +1,6 @@
-﻿namespace CustomCADs.Speedy.Core.Services.Models;
+﻿namespace CustomCADs.Speedy.Core;
 
-public record AccountModel(
+public record SpeedyAccount(
 	string Username,
 	string Password,
 	string? Language = null,

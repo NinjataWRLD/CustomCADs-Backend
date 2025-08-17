@@ -33,6 +33,7 @@ using Core.Contracts.Track;
 using Core.Contracts.Validation;
 
 internal class SpeedyService(
+	SpeedyOptions options,
 	ICalculationService calculation,
 	IClientService client,
 	ILocationService location,
@@ -47,7 +48,6 @@ internal class SpeedyService(
 {
 	#region Calculation
 	public async Task<CalculateModel[]> CalculateAsync(
-		AccountModel account,
 		Payer payer,
 		double[] weights,
 		string country,
@@ -55,7 +55,8 @@ internal class SpeedyService(
 		string street,
 		CancellationToken ct = default
 	) => await calculation.CalculateAsync(
-			account: account,
+			account: options.Account,
+			pickup: options.Pickup,
 			payer: payer,
 			weights: weights,
 			country: country,
@@ -67,12 +68,10 @@ internal class SpeedyService(
 
 	#region Client
 	public async Task<ContactInfoModel> ContractInfoAsync(
-		AccountModel account,
 		CancellationToken ct = default
-	) => await client.ContractInfoAsync(account, ct).ConfigureAwait(false);
+	) => await client.ContractInfoAsync(options.Account, ct).ConfigureAwait(false);
 
 	public async Task<long> CreateContactAsync(
-		AccountModel account,
 		string externalContactId,
 		PhoneNumberModel phone1,
 		string clientName,
@@ -84,7 +83,7 @@ internal class SpeedyService(
 		string? email = null,
 		CancellationToken ct = default
 	) => await client.CreateContactAsync(
-			account: account,
+			account: options.Account,
 			externalContactId: externalContactId,
 			phone1: phone1,
 			clientName: clientName,
@@ -98,73 +97,63 @@ internal class SpeedyService(
 		).ConfigureAwait(false);
 
 	public async Task<ClientModel> GetClientAsync(
-		AccountModel account,
 		long clientId,
 		CancellationToken ct = default
-	) => await client.GetClientAsync(account, clientId, ct).ConfigureAwait(false);
+	) => await client.GetClientAsync(options.Account, clientId, ct).ConfigureAwait(false);
 
 	public async Task<ClientModel> GetContactByExternalIdAsync(
-		AccountModel account,
 		long id,
 		string? key = null,
 		CancellationToken ct = default
-	) => await client.GetContactByExternalIdAsync(account, id, key, ct).ConfigureAwait(false);
+	) => await client.GetContactByExternalIdAsync(options.Account, id, key, ct).ConfigureAwait(false);
 
 	public async Task<ClientModel[]> GetContractClientsAsync(
-		AccountModel account,
 		CancellationToken ct = default
-	) => await client.GetContractClientsAsync(account, ct).ConfigureAwait(false);
+	) => await client.GetContractClientsAsync(options.Account, ct).ConfigureAwait(false);
 
 	public async Task<long> GetOwnClientIdAsync(
-		AccountModel account,
 		CancellationToken ct = default
-	) => await client.GetOwnClientIdAsync(account, ct).ConfigureAwait(false);
+	) => await client.GetOwnClientIdAsync(options.Account, ct).ConfigureAwait(false);
 	#endregion
 
 	#region Location
 	public async Task<BlockModel[]> FindBlockAsync(
-		AccountModel account,
 		int siteId,
 		string? name = null,
 		string? type = null,
 		CancellationToken ct = default
-	) => await location.FindBlockAsync(account, siteId, name, type, ct).ConfigureAwait(false);
+	) => await location.FindBlockAsync(options.Account, siteId, name, type, ct).ConfigureAwait(false);
 
 	public async Task<ComplexModel[]> FindComplexAsync(
-		AccountModel account,
 		int siteId,
 		string? name = null,
 		string? type = null,
 		CancellationToken ct = default
-	) => await location.FindComplexAsync(account, siteId, name, type, ct).ConfigureAwait(false);
+	) => await location.FindComplexAsync(options.Account, siteId, name, type, ct).ConfigureAwait(false);
 
 	public async Task<CountryModel[]> FindCountryAsync(
-		AccountModel account,
 		string? name = null,
 		string? isoAlpha2 = null,
 		string? isoAlpha3 = null,
 		CancellationToken ct = default
-	) => await location.FindCountryAsync(account, name, isoAlpha2, isoAlpha3, ct).ConfigureAwait(false);
+	) => await location.FindCountryAsync(options.Account, name, isoAlpha2, isoAlpha3, ct).ConfigureAwait(false);
 
 	public async Task<OfficeModel[]> FindOfficeAsync(
-		AccountModel account,
 		int? countryId = null,
 		long? siteId = null,
 		string? name = null,
 		string? siteName = null,
 		int? limit = null,
 		CancellationToken ct = default
-	) => await location.FindOfficeAsync(account, countryId, siteId, name, siteName, limit, ct).ConfigureAwait(false);
+	) => await location.FindOfficeAsync(options.Account, countryId, siteId, name, siteName, limit, ct).ConfigureAwait(false);
 
 	public async Task<PointOfInterestModel[]> FindPointOfInterestAsync(
-		AccountModel account,
 		int siteId,
 		string? name = null,
 		CancellationToken ct = default
-	) => await location.FindPointOfInterestAsync(account, siteId, name, ct).ConfigureAwait(false);
+	) => await location.FindPointOfInterestAsync(options.Account, siteId, name, ct).ConfigureAwait(false);
 
 	public async Task<SiteModel[]> FindSiteAsync(
-		AccountModel account,
 		int countryId,
 		string? name = null,
 		string? type = null,
@@ -172,128 +161,109 @@ internal class SpeedyService(
 		string? municipality = null,
 		string? region = null,
 		CancellationToken ct = default
-	) => await location.FindSiteAsync(account, countryId, name, type, postCode, municipality, region, ct).ConfigureAwait(false);
+	) => await location.FindSiteAsync(options.Account, countryId, name, type, postCode, municipality, region, ct).ConfigureAwait(false);
 
 	public async Task<StateModel[]> FindStateAsync(
-		AccountModel account,
 		int countryId,
 		string? name = null,
 		CancellationToken ct = default
-	) => await location.FindStateAsync(account, countryId, name, ct).ConfigureAwait(false);
+	) => await location.FindStateAsync(options.Account, countryId, name, ct).ConfigureAwait(false);
 
 	public async Task<StreetModel[]> FindStreetAsync(
-		AccountModel account,
 		int siteId,
 		string? name = null,
 		string? type = null,
 		CancellationToken ct = default
-	) => await location.FindStreetAsync(account, siteId, name, type, ct).ConfigureAwait(false);
+	) => await location.FindStreetAsync(options.Account, siteId, name, type, ct).ConfigureAwait(false);
 
 	public async Task<byte[]> GetBlocksAsync(
-		AccountModel account,
 		int countryId,
 		CancellationToken ct = default
-	) => await location.GetBlocksAsync(account, countryId, ct).ConfigureAwait(false);
+	) => await location.GetBlocksAsync(options.Account, countryId, ct).ConfigureAwait(false);
 
 	public async Task<ComplexModel> GetComplexAsync(
-		AccountModel account,
 		long id,
 		CancellationToken ct = default
-	) => await location.GetComplexAsync(account, id, ct).ConfigureAwait(false);
+	) => await location.GetComplexAsync(options.Account, id, ct).ConfigureAwait(false);
 
 	public async Task<byte[]> GetComplexesAsync(
-		AccountModel account,
 		int countryId,
 		CancellationToken ct = default
-	) => await location.GetComplexesAsync(account, countryId, ct).ConfigureAwait(false);
+	) => await location.GetComplexesAsync(options.Account, countryId, ct).ConfigureAwait(false);
 
 	public async Task<byte[]> GetCountriesAsync(
-		AccountModel account,
 		CancellationToken ct = default
-	) => await location.GetCountriesAsync(account, ct).ConfigureAwait(false);
+	) => await location.GetCountriesAsync(options.Account, ct).ConfigureAwait(false);
 
 	public async Task<CountryModel> GetCountryAsync(
-		AccountModel account,
 		int id,
 		CancellationToken ct = default
-	) => await location.GetCountryAsync(account, id, ct).ConfigureAwait(false);
+	) => await location.GetCountryAsync(options.Account, id, ct).ConfigureAwait(false);
 
 	public async Task<OfficeModel> GetOfficeAsync(
-		AccountModel account,
 		int id,
 		CancellationToken ct = default
-	) => await location.GetOfficeAsync(account, id, ct).ConfigureAwait(false);
+	) => await location.GetOfficeAsync(options.Account, id, ct).ConfigureAwait(false);
 
 	public async Task<(int Distance, OfficeModel Office)[]> GetOfficeAsync(
 		FindNeaerestOfficeModel model,
-		AccountModel account,
 		CancellationToken ct = default
-	) => await location.GetOfficeAsync(model, account, ct).ConfigureAwait(false);
+	) => await location.GetOfficeAsync(options.Account, model, ct).ConfigureAwait(false);
 
 	public async Task<PointOfInterestModel> GetPointOfInterestAsync(
-		AccountModel account,
 		int id,
 		CancellationToken ct = default
-	) => await location.GetPointOfInterestAsync(account, id, ct).ConfigureAwait(false);
+	) => await location.GetPointOfInterestAsync(options.Account, id, ct).ConfigureAwait(false);
 
 	public async Task<byte[]> GetPointsOfInterestAsync(
-		AccountModel account,
 		int countryId,
 		CancellationToken ct = default
-	) => await location.GetPointsOfInterestAsync(account, countryId, ct).ConfigureAwait(false);
+	) => await location.GetPointsOfInterestAsync(options.Account, countryId, ct).ConfigureAwait(false);
 
 	public async Task<byte[]> GetPostCodesAsync(
-		AccountModel account,
 		int countryId,
 		CancellationToken ct = default
-	) => await location.GetPostCodesAsync(account, countryId, ct).ConfigureAwait(false);
+	) => await location.GetPostCodesAsync(options.Account, countryId, ct).ConfigureAwait(false);
 
 	public async Task<SiteModel> GetSiteAsync(
-		AccountModel account,
 		long id,
 		CancellationToken ct = default
-	) => await location.GetSiteAsync(account, id, ct).ConfigureAwait(false);
+	) => await location.GetSiteAsync(options.Account, id, ct).ConfigureAwait(false);
 
 	public async Task<byte[]> GetSitesAsync(
-		AccountModel account,
 		int countryId,
 		CancellationToken ct = default
-	) => await location.GetSitesAsync(account, countryId, ct).ConfigureAwait(false);
+	) => await location.GetSitesAsync(options.Account, countryId, ct).ConfigureAwait(false);
 
 	public async Task<StateModel> GetStateAsync(
-		AccountModel account,
 		string id,
 		CancellationToken ct = default
-	) => await location.GetStateAsync(account, id, ct).ConfigureAwait(false);
+	) => await location.GetStateAsync(options.Account, id, ct).ConfigureAwait(false);
 
 	public async Task<byte[]> GetStatesAsync(
-		AccountModel account,
 		int countryId,
 		CancellationToken ct = default
-	) => await location.GetStatesAsync(account, countryId, ct).ConfigureAwait(false);
+	) => await location.GetStatesAsync(options.Account, countryId, ct).ConfigureAwait(false);
 
 	public async Task<StreetModel> GetStreetAsync(
-		AccountModel account,
 		long id,
 		CancellationToken ct = default
-	) => await location.GetStreetAsync(account, id, ct).ConfigureAwait(false);
+	) => await location.GetStreetAsync(options.Account, id, ct).ConfigureAwait(false);
 
 	public async Task<byte[]> GetStreetsAsync(
-		AccountModel account,
 		int countryId,
 		CancellationToken ct = default
-	) => await location.GetStreetsAsync(account, countryId, ct).ConfigureAwait(false);
+	) => await location.GetStreetsAsync(options.Account, countryId, ct).ConfigureAwait(false);
 	#endregion
 
 	#region Payment
 	public async Task<PayoutModel[]> Payout(
-		AccountModel account,
 		DateTime fromDate,
 		DateTime toDate,
 		bool? includeDetails = null,
 		CancellationToken ct = default
 	) => await payment.Payout(
-		account: account,
+		account: options.Account,
 		fromDate: fromDate,
 		toDate: toDate,
 		includeDetails: includeDetails,
@@ -303,7 +273,6 @@ internal class SpeedyService(
 
 	#region Pickup
 	public async Task<PickupModel[]> Pickup(
-		AccountModel account,
 		TimeOnly visitEndTime,
 		PickupScope pickupScope = PickupScope.EXPLICIT_SHIPMENT_ID_LIST,
 		DateTime? pickupDateTime = null,
@@ -313,7 +282,7 @@ internal class SpeedyService(
 		string? phoneNumber = null,
 		CancellationToken ct = default
 	) => await pickup.Pickup(
-			account: account,
+			account: options.Account,
 			visitEndTime: visitEndTime,
 			pickupScope: pickupScope,
 			pickupDateTime: pickupDateTime,
@@ -325,14 +294,13 @@ internal class SpeedyService(
 		).ConfigureAwait(false);
 
 	public async Task<string[]> PickupTerms(
-		AccountModel account,
 		int serviceId,
 		DateOnly? startingDate = null,
 		CalculationSenderModel? sender = null,
 		bool senderHasPayment = false,
 		CancellationToken ct = default
 	) => await pickup.PickupTerms(
-			account: account,
+			account: options.Account,
 			serviceId: serviceId,
 			startingDate: startingDate,
 			sender: sender,
@@ -343,7 +311,6 @@ internal class SpeedyService(
 
 	#region Print
 	public async Task<(byte[] Data, LabelInfoModel[] PrintLabelsInfo)> ExtendedPrintAsync(
-		AccountModel account,
 		string shipmentId,
 		PaperSize paperSize,
 		PaperFormat format = PaperFormat.pdf,
@@ -352,7 +319,8 @@ internal class SpeedyService(
 		string? printerName = null,
 		CancellationToken ct = default
 	) => await print.ExtendedPrintAsync(
-			account: account,
+			account: options.Account,
+			contact: options.Contact,
 			shipmentId: shipmentId,
 			paperSize: paperSize,
 			format: format,
@@ -363,13 +331,11 @@ internal class SpeedyService(
 		).ConfigureAwait(false);
 
 	public async Task<LabelInfoModel[]> LabelInfoAsync(
-		AccountModel account,
 		ShipmentParcelRefModel[] parcels,
 		CancellationToken ct = default
-	) => await print.LabelInfoAsync(account, parcels, ct).ConfigureAwait(false);
+	) => await print.LabelInfoAsync(options.Account, parcels, ct).ConfigureAwait(false);
 
 	public async Task<byte[]> PrintAsync(
-		AccountModel account,
 		string shipmentId,
 		PaperSize paperSize = PaperSize.A4,
 		PaperFormat format = PaperFormat.pdf,
@@ -378,7 +344,8 @@ internal class SpeedyService(
 		string? printerName = null,
 		CancellationToken ct = default
 	) => await print.PrintAsync(
-			account: account,
+			account: options.Account,
+			contact: options.Contact,
 			shipmentId: shipmentId,
 			paperSize: paperSize,
 			format: format,
@@ -389,14 +356,13 @@ internal class SpeedyService(
 		).ConfigureAwait(false);
 
 	public async Task<byte[]> PrintVoucherAsync(
-		AccountModel account,
 		string[] shipmentIds,
 		string? printerName = null,
 		PaperFormat format = PaperFormat.pdf,
 		Dpi dpi = Dpi.dpi203,
 		CancellationToken ct = default
 	) => await print.PrintVoucherAsync(
-			account: account,
+			account: options.Account,
 			shipmentIds: shipmentIds,
 			printerName: printerName,
 			format: format,
@@ -407,13 +373,12 @@ internal class SpeedyService(
 
 	#region Services
 	public async Task<(string Deadline, CourierServiceModel CourierService)[]> DestinationServices(
-		AccountModel account,
 		CalculationRecipientModel recipient,
 		DateOnly? date = null,
 		CalculationSenderModel? sender = null,
 		CancellationToken ct = default
 	) => await services.DestinationServices(
-			account: account,
+			account: options.Account,
 			recipient: recipient,
 			date: date,
 			sender: sender,
@@ -421,15 +386,13 @@ internal class SpeedyService(
 		).ConfigureAwait(false);
 
 	public async Task<CourierServiceModel[]> Services(
-		AccountModel account,
 		DateOnly? date = null,
 		CancellationToken ct = default
-	) => await services.Services(account, date, ct).ConfigureAwait(false);
+	) => await services.Services(options.Account, date, ct).ConfigureAwait(false);
 	#endregion
 
 	#region Shipment
 	public async Task<CreatedShipmentParcelModel> AddParcelAsync(
-		AccountModel account,
 		string shipmentId,
 		ShipmentParcelModel parcel,
 		ShipmentCodFiscalReceiptItemModel[] codFiscalReceiptItems,
@@ -437,7 +400,7 @@ internal class SpeedyService(
 		double? codAmount = null,
 		CancellationToken ct = default
 	) => await shipment.AddParcelAsync(
-		account: account,
+		account: options.Account,
 		shipmentId: shipmentId,
 		parcel: parcel,
 		codFiscalReceiptItems: codFiscalReceiptItems,
@@ -447,20 +410,17 @@ internal class SpeedyService(
 	).ConfigureAwait(false);
 
 	public async Task<BarcodeInformationModel> BarcodeInformationAsync(
-		AccountModel account,
 		ShipmentParcelRefModel parcel,
 		CancellationToken ct = default
-	) => await shipment.BarcodeInformationAsync(account, parcel, ct).ConfigureAwait(false);
+	) => await shipment.BarcodeInformationAsync(options.Account, parcel, ct).ConfigureAwait(false);
 
 	public async Task CancelShipmentAsync(
-		AccountModel account,
 		string shipmentId,
 		string comment,
 		CancellationToken ct = default
-	) => await shipment.CancelShipmentAsync(account, shipmentId, comment, ct).ConfigureAwait(false);
+	) => await shipment.CancelShipmentAsync(options.Account, shipmentId, comment, ct).ConfigureAwait(false);
 
 	public async Task<WrittenShipmentModel> CreateShipmentAsync(
-		AccountModel account,
 		string package,
 		string contents,
 		int parcelCount,
@@ -475,7 +435,9 @@ internal class SpeedyService(
 		string? phoneNumber,
 		CancellationToken ct = default
 	) => await shipment.CreateShipmentAsync(
-		account: account,
+		account: options.Account,
+		pickup: options.Pickup,
+		contact: options.Contact,
 		package: package,
 		contents: contents,
 		parcelCount: parcelCount,
@@ -492,13 +454,11 @@ internal class SpeedyService(
 	).ConfigureAwait(false);
 
 	public async Task<WrittenShipmentModel> FinalizePendingShipmentAsync(
-		AccountModel account,
 		string shipmentId,
 		CancellationToken ct = default
-	) => await shipment.FinalizePendingShipmentAsync(account, shipmentId, ct).ConfigureAwait(false);
+	) => await shipment.FinalizePendingShipmentAsync(options.Account, shipmentId, ct).ConfigureAwait(false);
 
 	public async Task<string[]> FindParcelsByRefAsync(
-		AccountModel account,
 		string @ref,
 		int searchInRef,
 		bool? shipmentsOnly = null,
@@ -507,7 +467,7 @@ internal class SpeedyService(
 		DateTime? toDateTime = null,
 		CancellationToken ct = default
 	) => await shipment.FindParcelsByRefAsync(
-		account: account,
+		account: options.Account,
 		@ref: @ref,
 		searchInRef: searchInRef,
 		shipmentsOnly: shipmentsOnly,
@@ -518,108 +478,107 @@ internal class SpeedyService(
 	).ConfigureAwait(false);
 
 	public async Task HandoverToCourierAsync(
-		AccountModel account,
 		(DateTime DateTime, ShipmentParcelRefModel Parcel)[] parcels,
 		CancellationToken ct = default
-	) => await shipment.HandoverToCourierAsync(account, parcels, ct).ConfigureAwait(false);
+	) => await shipment.HandoverToCourierAsync(options.Account, parcels, ct).ConfigureAwait(false);
 
 	public async Task HandoverToMidwayCarrierAsync(
-		AccountModel account,
 		(DateTime DateTime, ShipmentParcelRefModel Parcel)[] parcels,
 		CancellationToken ct = default
-	) => await shipment.HandoverToMidwayCarrierAsync(account, parcels, ct).ConfigureAwait(false);
+	) => await shipment.HandoverToMidwayCarrierAsync(options.Account, parcels, ct).ConfigureAwait(false);
 
 	public async Task<SecondaryShipmentModel[]> SecondaryShipmentAsync(
-		AccountModel account,
 		string shipmentId,
 		ShipmentType[] types,
 		CancellationToken ct = default
-	) => await shipment.SecondaryShipmentAsync(account, shipmentId, types, ct).ConfigureAwait(false);
+	) => await shipment.SecondaryShipmentAsync(options.Account, shipmentId, types, ct).ConfigureAwait(false);
 
 	public async Task<ShipmentModel[]> ShipmentInfoAsync(
-		AccountModel account,
 		string[] shipmentIds,
 		CancellationToken ct = default
-	) => await shipment.ShipmentInfoAsync(account, shipmentIds, ct).ConfigureAwait(false);
+	) => await shipment.ShipmentInfoAsync(
+			account: options.Account,
+			contact: options.Contact,
+			shipmentIds: shipmentIds,
+			ct: ct
+		).ConfigureAwait(false);
 
 	public async Task<WrittenShipmentModel> UpdateShipmentAsync(
-		AccountModel account,
 		string shipmentId,
 		WriteShipmentModel model,
 		CancellationToken ct = default
-	) => await shipment.UpdateShipmentAsync(account, shipmentId, model, ct).ConfigureAwait(false);
+	) => await shipment.UpdateShipmentAsync(options.Account, shipmentId, model, ct).ConfigureAwait(false);
 
 	public async Task<WrittenShipmentModel> UpdateShipmentPropertiesAsync(
-		AccountModel account,
 		string shipmentId,
 		Dictionary<string, string> properties,
 		CancellationToken ct = default
-	) => await shipment.UpdateShipmentPropertiesAsync(account, shipmentId, properties, ct).ConfigureAwait(false);
+	) => await shipment.UpdateShipmentPropertiesAsync(
+			account: options.Account,
+			shipmentId: shipmentId,
+			properties: properties,
+			ct: ct
+		).ConfigureAwait(false);
 	#endregion
 
 	#region Track
 	public async Task<(long Id, string Url)[]> BulkTrackingDataFiles(
-		AccountModel account,
 		long? lastProcessedFileId = null,
 		CancellationToken ct = default
 	) => await track.BulkTrackingDataFiles(
-		account: account,
-		lastProcessedFileId: lastProcessedFileId,
-		ct: ct
-	).ConfigureAwait(false);
+			account: options.Account,
+			lastProcessedFileId: lastProcessedFileId,
+			ct: ct
+		).ConfigureAwait(false);
 
 	public async Task<TrackedParcelModel[]> TrackAsync(
-		AccountModel account,
 		string shipmentId,
 		bool? lastOperationOnly = null,
 		CancellationToken ct = default
 	) => await track.TrackAsync(
-		account: account,
-		shipmentId: shipmentId,
-		lastOperationOnly: lastOperationOnly,
-		ct: ct
-	).ConfigureAwait(false);
+			account: options.Account,
+			contact: options.Contact,
+			shipmentId: shipmentId,
+			lastOperationOnly: lastOperationOnly,
+			ct: ct
+		).ConfigureAwait(false);
 	#endregion
 
 	#region Validation
 	public async Task<bool> ValidateAddress(
-		AccountModel account,
 		ShipmentAddressModel address,
 		CancellationToken ct = default
 	) => await validation.ValidateAddress(
-			account: account,
+			account: options.Account,
 			address: address,
 			ct: ct
 		).ConfigureAwait(false);
 
 	public async Task<bool> ValidatePhone(
-		AccountModel account,
 		PhoneNumberModel phoneNumber,
 		CancellationToken ct = default
 	) => await validation.ValidatePhone(
-			account: account,
+			account: options.Account,
 			phoneNumber: phoneNumber,
 			ct: ct
 		).ConfigureAwait(false);
 
 	public async Task<bool> ValidatePostCode(
-		AccountModel account,
 		string postCode,
 		long? siteId = null,
 		CancellationToken ct = default
 	) => await validation.ValidatePostCode(
-			account: account,
+			account: options.Account,
 			postCode: postCode,
 			siteId: siteId,
 			ct: ct
 		).ConfigureAwait(false);
 
 	public async Task<bool> ValidateShipment(
-		AccountModel account,
 		WriteShipmentModel shipment,
 		CancellationToken ct = default
 	) => await validation.ValidateShipment(
-			account: account,
+			account: options.Account,
 			shipment: shipment,
 			ct: ct
 		).ConfigureAwait(false);

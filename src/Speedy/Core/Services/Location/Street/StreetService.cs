@@ -1,12 +1,11 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.LocationEndpoints;
-using CustomCADs.Speedy.Core.Services.Models;
 
 namespace CustomCADs.Speedy.Core.Services.Location.Street;
 
 internal class StreetService(ILocationEndpoints endpoints)
 {
 	public async Task<StreetModel> GetAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		long id,
 		CancellationToken ct = default)
 	{
@@ -22,7 +21,7 @@ internal class StreetService(ILocationEndpoints endpoints)
 	}
 
 	public async Task<StreetModel[]> FindAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		int siteId,
 		string? name,
 		string? type,
@@ -43,7 +42,7 @@ internal class StreetService(ILocationEndpoints endpoints)
 	}
 
 	public async Task<byte[]> AllAsync(
-		AccountModel account,
+		SpeedyAccount account,
 		int countryId,
 		CancellationToken ct = default)
 	{

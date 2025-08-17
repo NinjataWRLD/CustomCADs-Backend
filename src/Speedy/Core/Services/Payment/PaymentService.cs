@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.PaymentEndpoints;
-using CustomCADs.Speedy.Core.Services.Models;
 using CustomCADs.Speedy.Core.Contracts.Payment;
 
 namespace CustomCADs.Speedy.Core.Services.Payment;
@@ -9,7 +8,7 @@ using static Constants;
 internal class PaymentService(IPaymentEndpoints endpoints) : IPaymentService
 {
 	public async Task<PayoutModel[]> Payout(
-		AccountModel account,
+		SpeedyAccount account,
 		DateTime fromDate,
 		DateTime toDate,
 		bool? includeDetails = null,

@@ -1,4 +1,14 @@
-﻿using CustomCADs.Speedy.Core.Services.Calculation;
+﻿using CustomCADs.Speedy.Core.Contracts.Calculation;
+using CustomCADs.Speedy.Core.Contracts.Client;
+using CustomCADs.Speedy.Core.Contracts.Location;
+using CustomCADs.Speedy.Core.Contracts.Payment;
+using CustomCADs.Speedy.Core.Contracts.Pickup;
+using CustomCADs.Speedy.Core.Contracts.Print;
+using CustomCADs.Speedy.Core.Contracts.Services;
+using CustomCADs.Speedy.Core.Contracts.Shipment;
+using CustomCADs.Speedy.Core.Contracts.Track;
+using CustomCADs.Speedy.Core.Contracts.Validation;
+using CustomCADs.Speedy.Core.Services.Calculation;
 using CustomCADs.Speedy.Core.Services.Client;
 using CustomCADs.Speedy.Core.Services.Location;
 using CustomCADs.Speedy.Core.Services.Location.Block;
@@ -25,24 +35,27 @@ using CustomCADs.Speedy.Sdk;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddSpeedyService(this IServiceCollection services)
-		=> services
-			.AddSpeedyShipment()
-			.AddSpeedyPrint()
-			.AddSpeedyTrack()
-			.AddSpeedyPickup()
-			.AddSpeedyLocation()
-			.AddSpeedyCalculation()
-			.AddSpeedyClient()
-			.AddSpeedyValidation()
-			.AddSpeedyServices()
-			.AddSpeedyPayment()
-			.AddScoped<ISpeedyService, SpeedyService>();
+	public static IServiceCollection AddSpeedyService(this IServiceCollection services, Func<IServiceProvider, SpeedyOptions> optionsFunc)
+	{
+		return services
+				.AddSpeedyShipment()
+				.AddSpeedyPrint()
+				.AddSpeedyTrack()
+				.AddSpeedyPickup()
+				.AddSpeedyLocation()
+				.AddSpeedyCalculation()
+				.AddSpeedyClient()
+				.AddSpeedyValidation()
+				.AddSpeedyServices()
+				.AddSpeedyPayment()
+				.AddScoped(optionsFunc)
+				.AddScoped<ISpeedyService, SpeedyService>();
+	}
 
 	private static IServiceCollection AddSpeedyShipment(this IServiceCollection services)
 	{
 		services.AddShipmentClient();
-		services.AddScoped<ShipmentService>();
+		services.AddScoped<IShipmentService, ShipmentService>();
 
 		return services;
 	}
@@ -50,7 +63,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSpeedyPrint(this IServiceCollection services)
 	{
 		services.AddPrintClient();
-		services.AddScoped<PrintService>();
+		services.AddScoped<IPrintService, PrintService>();
 
 		return services;
 	}
@@ -58,7 +71,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSpeedyTrack(this IServiceCollection services)
 	{
 		services.AddTrackClient();
-		services.AddScoped<TrackService>();
+		services.AddScoped<ITrackService, TrackService>();
 
 		return services;
 	}
@@ -66,7 +79,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSpeedyPickup(this IServiceCollection services)
 	{
 		services.AddPickupClient();
-		services.AddScoped<PickupService>();
+		services.AddScoped<IPickupService, PickupService>();
 
 		return services;
 	}
@@ -74,7 +87,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSpeedyLocation(this IServiceCollection services)
 	{
 		services.AddLocationClient();
-		services.AddScoped<LocationService>();
+		services.AddScoped<ILocationService, LocationService>();
 
 		services.AddScoped<BlockService>();
 		services.AddScoped<ComplexService>();
@@ -92,7 +105,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSpeedyCalculation(this IServiceCollection services)
 	{
 		services.AddCalculationClient();
-		services.AddScoped<CalculationService>();
+		services.AddScoped<ICalculationService, CalculationService>();
 
 		return services;
 	}
@@ -100,7 +113,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSpeedyClient(this IServiceCollection services)
 	{
 		services.AddClientClient();
-		services.AddScoped<ClientService>();
+		services.AddScoped<IClientService, ClientService>();
 
 		return services;
 	}
@@ -108,7 +121,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSpeedyValidation(this IServiceCollection services)
 	{
 		services.AddValidationClient();
-		services.AddScoped<ValidationService>();
+		services.AddScoped<IValidationService, ValidationService>();
 
 		return services;
 	}
@@ -116,7 +129,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSpeedyServices(this IServiceCollection services)
 	{
 		services.AddServicesClient();
-		services.AddScoped<ServicesService>();
+		services.AddScoped<IServicesService, ServicesService>();
 
 		return services;
 	}
@@ -124,7 +137,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSpeedyPayment(this IServiceCollection services)
 	{
 		services.AddPaymentClient();
-		services.AddScoped<PaymentService>();
+		services.AddScoped<IPaymentService, PaymentService>();
 
 		return services;
 	}

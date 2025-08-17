@@ -19,10 +19,10 @@ internal static class Mapper
 			DropoffGeoPUDOId: model.DropoffGeoPUDOId
 		);
 
-	internal static ShipmentSenderModel ToModel(this ShipmentSenderDto dto, string phone)
+	internal static ShipmentSenderModel ToModel(this ShipmentSenderDto dto, string phone1, string? phone2)
 		=> new(
-			Phone1: dto.Phone1 is null ? new(phone) : dto.Phone1.ToModel(),
-			Phone2: dto.Phone2?.ToModel(),
+			Phone1: dto.Phone1.ToModel(phone1),
+			Phone2: phone2 is null ? dto.Phone2?.ToModel() : dto.Phone2.ToModel(phone2),
 			Phone3: dto.Phone3?.ToModel(),
 			Address: dto.Address?.ToModel(),
 			ContactName: dto.ContactName,
