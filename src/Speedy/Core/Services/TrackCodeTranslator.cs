@@ -1,4 +1,4 @@
-﻿using CustomCADs.Speedy.Core.Services.Track.Models;
+﻿using CustomCADs.Speedy.Core.Contracts.Track;
 
 namespace CustomCADs.Speedy.Core.Services;
 

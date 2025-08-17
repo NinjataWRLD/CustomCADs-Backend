@@ -5,18 +5,17 @@ using CustomCADs.Speedy.Http.Dtos.CalculationSender;
 using CustomCADs.Speedy.Http.Dtos.CalculationService;
 using CustomCADs.Speedy.Http.Dtos.ShipmentContent.ShipmentParcel;
 using CustomCADs.Speedy.Http;
-using CustomCADs.Speedy.Core.Services.Models.Calculation;
-using CustomCADs.Speedy.Core.Services.Models.Calculation.Recipient;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Content;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Payment;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Recipient;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Sender;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Service;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Service.AdditionalServices;
-using CustomCADs.Speedy.Core.Services.Services.Models;
+using CustomCADs.Speedy.Core.Models.Calculation;
+using CustomCADs.Speedy.Core.Models.Calculation.Recipient;
+using CustomCADs.Speedy.Core.Models.Shipment.Content;
+using CustomCADs.Speedy.Core.Models.Shipment.Payment;
+using CustomCADs.Speedy.Core.Models.Shipment.Recipient;
+using CustomCADs.Speedy.Core.Models.Shipment.Sender;
+using CustomCADs.Speedy.Core.Models.Shipment.Service;
+using CustomCADs.Speedy.Core.Models.Shipment.Service.AdditionalServices;
 using CustomCADs.Speedy.Core.Services.Shipment;
-using CustomCADs.Speedy.Core.Services.Shipment.Models;
 using CustomCADs.Speedy.Core.Contracts.Calculation;
+using CustomCADs.Speedy.Core.Contracts.Services;
 
 namespace CustomCADs.Speedy.Core.Services.Calculation;
 

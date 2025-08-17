@@ -1,5 +1,5 @@
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Parcel;
-using CustomCADs.Speedy.Core.Services.Shipment.Models;
+using CustomCADs.Speedy.Core.Contracts.Shipment;
+using CustomCADs.Speedy.Core.Models.Shipment.Parcel;
 
 namespace CustomCADs.Speedy.Core.Contracts.Print;
 

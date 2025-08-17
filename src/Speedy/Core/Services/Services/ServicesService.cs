@@ -1,8 +1,7 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.ServicesEndpoints;
-using CustomCADs.Speedy.Core.Services.Models.Calculation;
-using CustomCADs.Speedy.Core.Services.Models.Calculation.Recipient;
-using CustomCADs.Speedy.Core.Services.Models.Calculation.Sender;
-using CustomCADs.Speedy.Core.Services.Services.Models;
+using CustomCADs.Speedy.Core.Models.Calculation;
+using CustomCADs.Speedy.Core.Models.Calculation.Recipient;
+using CustomCADs.Speedy.Core.Models.Calculation.Sender;
 using CustomCADs.Speedy.Core.Contracts.Services;
 
 namespace CustomCADs.Speedy.Core.Services.Services;

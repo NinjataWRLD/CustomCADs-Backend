@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.PickupEndpoints;
-using CustomCADs.Speedy.Core.Services.Models.Calculation;
-using CustomCADs.Speedy.Core.Services.Models.Calculation.Sender;
+using CustomCADs.Speedy.Core.Models.Calculation;
+using CustomCADs.Speedy.Core.Models.Calculation.Sender;
 using CustomCADs.Speedy.Core.Contracts.Pickup;
 
 namespace CustomCADs.Speedy.Core.Services.Pickup;

@@ -1,5 +1,3 @@
-using CustomCADs.Speedy.Core.Services.Track.Models;
-
 namespace CustomCADs.Speedy.Core.Contracts.Track;
 
 internal interface ITrackService

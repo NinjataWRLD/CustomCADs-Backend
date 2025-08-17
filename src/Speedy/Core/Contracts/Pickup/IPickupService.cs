@@ -1,4 +1,4 @@
-using CustomCADs.Speedy.Core.Services.Models.Calculation.Sender;
+using CustomCADs.Speedy.Core.Models.Calculation.Sender;
 
 namespace CustomCADs.Speedy.Core.Contracts.Pickup;
 

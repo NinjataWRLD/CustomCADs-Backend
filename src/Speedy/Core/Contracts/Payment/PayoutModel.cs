@@ -1,5 +1,3 @@
-using CustomCADs.Speedy.Core.Services.Payment.Models;
-
 namespace CustomCADs.Speedy.Core.Contracts.Payment;
 
 public record PayoutModel(

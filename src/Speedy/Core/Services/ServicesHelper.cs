@@ -1,9 +1,5 @@
 ﻿using CustomCADs.Speedy.Core.Contracts.Location;
 using CustomCADs.Speedy.Core.Contracts.Services;
-using CustomCADs.Speedy.Core.Services.Location.Country;
-using CustomCADs.Speedy.Core.Services.Location.Site;
-using CustomCADs.Speedy.Core.Services.Location.Street;
-using CustomCADs.Speedy.Core.Services.Services.Models;
 
 namespace CustomCADs.Speedy.Core.Services;
 

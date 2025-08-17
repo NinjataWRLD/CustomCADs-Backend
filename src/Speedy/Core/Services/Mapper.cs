@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Speedy.Http.Dtos.ShipmentSenderAndRecipient.ShipmentAddress;
 using CustomCADs.Speedy.Http.Dtos.ShipmentSenderAndRecipient.ShipmentPhoneNumber;
-using CustomCADs.Speedy.Core.Services.Models;
+using CustomCADs.Speedy.Core.Models;
 
 namespace CustomCADs.Speedy.Core.Services;
 

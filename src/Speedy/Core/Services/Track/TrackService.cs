@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Speedy.Core.Contracts.Shipment;
 using CustomCADs.Speedy.Core.Contracts.Track;
-using CustomCADs.Speedy.Core.Services.Track.Models;
 using CustomCADs.Speedy.Http.Dtos.ShipmentParcels;
 using CustomCADs.Speedy.Http.Endpoints.TrackEndpoints;
 

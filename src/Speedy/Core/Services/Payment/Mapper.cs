@@ -1,5 +1,4 @@
 ﻿using CustomCADs.Speedy.Http.Dtos.Payout;
-using CustomCADs.Speedy.Core.Services.Payment.Models;
 using CustomCADs.Speedy.Core.Contracts.Payment;
 
 namespace CustomCADs.Speedy.Core.Services.Payment;

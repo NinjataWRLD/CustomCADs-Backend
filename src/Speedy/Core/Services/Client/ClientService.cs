@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Speedy.Http.Endpoints.ClientEndpoints;
-using CustomCADs.Speedy.Core.Services.Client.Models;
-using CustomCADs.Speedy.Core.Services.Models;
+using CustomCADs.Speedy.Core.Models;
 using CustomCADs.Speedy.Core.Contracts.Client;
 
 namespace CustomCADs.Speedy.Core.Services.Client;

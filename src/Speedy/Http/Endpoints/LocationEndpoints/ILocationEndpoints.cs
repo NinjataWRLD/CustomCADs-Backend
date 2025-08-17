@@ -29,7 +29,7 @@ using Street.GetStreet;
 
 internal interface ILocationEndpoints
 {
-	// Country
+	#region Country
 
 	[Post("/country/{id}")]
 	Task<GetCountryResponse> GetCountryAsync(int id, GetCountryRequest request, CancellationToken ct = default);
@@ -39,9 +39,9 @@ internal interface ILocationEndpoints
 
 	[Post("/country/csv")]
 	Task<HttpResponseMessage> GetAllCountriesAsync(GetAllCountriesRequest request, CancellationToken ct = default);
+	#endregion
 
-
-	// State
+	#region State
 
 	[Post("/state/{id}")]
 	Task<GetStateResponse> GetStateAsync(string id, GetStateRequest request, CancellationToken ct = default);
@@ -51,9 +51,9 @@ internal interface ILocationEndpoints
 
 	[Post("/state/csv/{countryId}")]
 	Task<HttpResponseMessage> GetAllStatesAsync(int countryId, GetAllStatesRequest request, CancellationToken ct = default);
+	#endregion
 
-
-	// Site
+	#region Site
 
 	[Post("/site/{id}")]
 	Task<GetSiteResponse> GetSiteAsync(long id, GetSiteRequest request, CancellationToken ct = default);
@@ -63,9 +63,9 @@ internal interface ILocationEndpoints
 
 	[Post("/site/csv/{countryId}")]
 	Task<HttpResponseMessage> GetAllSitesAsync(int countryId, GetAllSitesRequest request, CancellationToken ct = default);
+	#endregion
 
-
-	// Site
+	#region Site
 
 	[Post("/street/{id}")]
 	Task<GetStreetResponse> GetStreetAsync(long id, GetStreetRequest request, CancellationToken ct = default);
@@ -75,9 +75,9 @@ internal interface ILocationEndpoints
 
 	[Post("/street/csv/{countryId}")]
 	Task<HttpResponseMessage> GetAllStreetsAsync(int countryId, GetAllStreetsRequest request, CancellationToken ct = default);
+	#endregion
 
-
-	// Complex
+	#region Complex
 
 	[Post("/complex/{id}")]
 	Task<GetComplexResponse> GetComplexAsync(long id, GetComplexRequest request, CancellationToken ct = default);
@@ -87,18 +87,18 @@ internal interface ILocationEndpoints
 
 	[Post("/complex/csv/{countryId}")]
 	Task<HttpResponseMessage> GetAllComplexesAsync(int countryId, GetAllComplexesRequest request, CancellationToken ct = default);
+	#endregion
 
-
-	// Block
+	#region Block
 
 	[Post("/block")]
 	Task<FindBlockResponse> FindBlockAsync(FindBlockRequest request, CancellationToken ct = default);
 
 	[Post("/block/csv/{countryId}")]
 	Task<HttpResponseMessage> GetAllBlocksAsync(int countryId, GetAllBlocksRequest request, CancellationToken ct = default);
+	#endregion
 
-
-	// Point of Interest
+	#region Point of Interest
 
 	[Post("/poi/{id}")]
 	Task<GetPoiResponse> GetPointOfInterestAsync(long id, GetPoiRequest request, CancellationToken ct = default);
@@ -108,15 +108,15 @@ internal interface ILocationEndpoints
 
 	[Post("/poi/csv/{countryId}")]
 	Task<HttpResponseMessage> GetAllPointsOfInterestAsync(int countryId, GetAllPoisRequest request, CancellationToken ct = default);
+	#endregion
 
-
-	// Post Code
+	#region Post Code
 
 	[Post("/postcode/csv/{countryId}")]
 	Task<HttpResponseMessage> GetAllPostCodesAsync(int countryId, GetAllPostcodesRequest request, CancellationToken ct = default);
+	#endregion
 
-
-	// Office
+	#region Office
 
 	[Post("/office/{id}")]
 	Task<GetOfficeResponse> GetOfficeAsync(int id, GetOfficeRequest request, CancellationToken ct = default);
@@ -126,4 +126,5 @@ internal interface ILocationEndpoints
 
 	[Post("/office/nearest-offices")]
 	Task<FindNearestOfficesResponse> FindNearestOfficesAsync(FindNearestOfficesRequest request, CancellationToken ct = default);
+	#endregion
 }

@@ -1,5 +1,4 @@
-using CustomCADs.Speedy.Core.Services.Client.Models;
-using CustomCADs.Speedy.Core.Services.Models;
+using CustomCADs.Speedy.Core.Models;
 
 namespace CustomCADs.Speedy.Core.Contracts.Client;
 

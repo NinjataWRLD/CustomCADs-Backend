@@ -1,7 +1,7 @@
 ﻿using CustomCADs.Speedy.Http.Dtos.TrackedParcel;
 using CustomCADs.Speedy.Http.Dtos.TrackedParcel.TrackedParcelOperation;
 using CustomCADs.Speedy.Http;
-using CustomCADs.Speedy.Core.Services.Track.Models;
+using CustomCADs.Speedy.Core.Contracts.Track;
 
 namespace CustomCADs.Speedy.Core.Services.Track;
 

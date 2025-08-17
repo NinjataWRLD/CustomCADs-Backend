@@ -1,5 +1,5 @@
-using CustomCADs.Speedy.Core.Services.Models;
-using CustomCADs.Speedy.Core.Services.Shipment.Models;
+using CustomCADs.Speedy.Core.Contracts.Shipment;
+using CustomCADs.Speedy.Core.Models;
 
 namespace CustomCADs.Speedy.Core.Contracts.Validation;
 

@@ -1,9 +1,8 @@
 ﻿using CustomCADs.Speedy.Core.Contracts.Print;
 using CustomCADs.Speedy.Core.Contracts.Shipment;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Content;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Parcel;
+using CustomCADs.Speedy.Core.Models.Shipment.Content;
+using CustomCADs.Speedy.Core.Models.Shipment.Parcel;
 using CustomCADs.Speedy.Core.Services.Shipment;
-using CustomCADs.Speedy.Core.Services.Shipment.Models;
 using CustomCADs.Speedy.Http.Dtos.ParcelToPrint;
 using CustomCADs.Speedy.Http.Endpoints.PrintEndpoints;
 

@@ -8,15 +8,8 @@ using CustomCADs.Speedy.Http.Dtos.SpecialDeliveryRequirements;
 using CustomCADs.Speedy.Http.Dtos.State;
 using CustomCADs.Speedy.Http.Dtos.Street;
 using CustomCADs.Speedy.Core.Services;
-using CustomCADs.Speedy.Core.Services.Location.Block;
-using CustomCADs.Speedy.Core.Services.Location.Complex;
-using CustomCADs.Speedy.Core.Services.Location.Country;
-using CustomCADs.Speedy.Core.Services.Location.Office;
-using CustomCADs.Speedy.Core.Services.Location.Poi;
-using CustomCADs.Speedy.Core.Services.Location.Site;
-using CustomCADs.Speedy.Core.Services.Location.State;
-using CustomCADs.Speedy.Core.Services.Location.Street;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Content;
+using CustomCADs.Speedy.Core.Models.Shipment.Content;
+using CustomCADs.Speedy.Core.Contracts.Location;
 
 namespace CustomCADs.Speedy.Core.Services.Location;
 

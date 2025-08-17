@@ -1,16 +1,6 @@
 ﻿using CustomCADs.Speedy.Core.Contracts.Location;
-using CustomCADs.Speedy.Core.Services.Location.Block;
-using CustomCADs.Speedy.Core.Services.Location.Complex;
-using CustomCADs.Speedy.Core.Services.Location.Country;
-using CustomCADs.Speedy.Core.Services.Location.Office;
-using CustomCADs.Speedy.Core.Services.Location.Poi;
-using CustomCADs.Speedy.Core.Services.Location.PostCode;
-using CustomCADs.Speedy.Core.Services.Location.Site;
-using CustomCADs.Speedy.Core.Services.Location.State;
-using CustomCADs.Speedy.Core.Services.Location.Street;
 
 namespace CustomCADs.Speedy.Core.Services.Location;
-
 
 internal class LocationService(
 	BlockService block,

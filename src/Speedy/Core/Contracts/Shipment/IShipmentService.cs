@@ -1,9 +1,8 @@
-using CustomCADs.Speedy.Core.Services.Models;
-using CustomCADs.Speedy.Core.Services.Models.Shipment;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Parcel;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Secondary;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Service.AdditionalServices.Cod;
-using CustomCADs.Speedy.Core.Services.Shipment.Models;
+using CustomCADs.Speedy.Core.Models;
+using CustomCADs.Speedy.Core.Models.Shipment;
+using CustomCADs.Speedy.Core.Models.Shipment.Parcel;
+using CustomCADs.Speedy.Core.Models.Shipment.Secondary;
+using CustomCADs.Speedy.Core.Models.Shipment.Service.AdditionalServices.Cod;
 
 namespace CustomCADs.Speedy.Core.Contracts.Shipment;
 

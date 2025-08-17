@@ -1,6 +1,6 @@
 ﻿using CustomCADs.Speedy.Http.Dtos.CourierService;
 using CustomCADs.Speedy.Http.Dtos.ExtendedCourierService;
-using CustomCADs.Speedy.Core.Services.Services.Models;
+using CustomCADs.Speedy.Core.Contracts.Services;
 
 namespace CustomCADs.Speedy.Core.Services.Services;
 

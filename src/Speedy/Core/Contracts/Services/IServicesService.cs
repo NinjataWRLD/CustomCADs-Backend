@@ -1,6 +1,5 @@
-using CustomCADs.Speedy.Core.Services.Models.Calculation.Recipient;
-using CustomCADs.Speedy.Core.Services.Models.Calculation.Sender;
-using CustomCADs.Speedy.Core.Services.Services.Models;
+using CustomCADs.Speedy.Core.Models.Calculation.Recipient;
+using CustomCADs.Speedy.Core.Models.Calculation.Sender;
 
 namespace CustomCADs.Speedy.Core.Contracts.Services;
 

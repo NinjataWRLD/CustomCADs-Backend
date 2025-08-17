@@ -1,8 +1,9 @@
 ﻿using CustomCADs.Speedy.Http.Dtos.ParcelToPrint;
 using CustomCADs.Speedy.Http.Dtos.ShipmentParcels;
 using CustomCADs.Speedy.Http.Dtos.ShipmentPrice;
-using CustomCADs.Speedy.Core.Services.Models.Shipment.Parcel;
-using CustomCADs.Speedy.Core.Services.Shipment.Models;
+using CustomCADs.Speedy.Core.Models.Shipment.Parcel;
+using CustomCADs.Speedy.Core.Contracts.Shipment;
+using CustomCADs.Speedy.Core.Models.Shipment.Price;
 
 namespace CustomCADs.Speedy.Core.Services.Shipment;
 
