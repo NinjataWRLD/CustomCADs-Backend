@@ -49,22 +49,16 @@ internal class CalculationService(
 			Sender: new(
 				ClientId: clientId,
 				DropoffOfficeId: dropoffOffice.OfficeId,
-				DropoffGeoPUDOId: null, // forbidden
-
-				AddressLocation: null, // forbidden
-
-				PrivatePerson: null // forbidden
-
+				DropoffGeoPUDOId: null,
+				AddressLocation: null,
+				PrivatePerson: null
 			),
 			Recipient: new(
 				ClientId: clientId,
 				PickupOfficeId: pickupOffice.OfficeId,
-				PrivatePerson: null, // forbidden
-
-				AddressLocation: null, // forbidden
-
-				PickupGeoPUDOId: null // forbidden
-
+				PrivatePerson: null,
+				AddressLocation: null,
+				PickupGeoPUDOId: null
 			),
 			Service: new(
 				ServiceIds: [.. services.Select(s => s.Id)],

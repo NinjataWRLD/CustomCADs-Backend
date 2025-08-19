@@ -79,6 +79,7 @@ internal static class Mapper
 			Ref2: null,
 			Size: null,
 			PickupExternalCarrierParcelNumber: null,
-			DeliveryExternalCarrierParcelNumber: null
+			DeliveryExternalCarrierParcelNumber: null,
+			Goods: null
 		);
 }

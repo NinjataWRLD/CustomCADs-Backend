@@ -78,11 +78,10 @@ internal class ShipmentService(
 				Phone1: new(contact.PhoneNumber1, null),
 				Phone2: !string.IsNullOrWhiteSpace(contact.PhoneNumber2) ? new(contact.PhoneNumber2, null) : null,
 				Phone3: null,
-				DropoffGeoPUDOId: null, // forbidden
-				Address: null, // forbidden
-				ClientName: null, // forbidden
-				PrivatePerson: null // forbidden
-
+				DropoffGeoPUDOId: null,
+				Address: null,
+				ClientName: null,
+				PrivatePerson: null
 			),
 			Recipient: new(
 				ClientId: clientId,
@@ -94,12 +93,11 @@ internal class ShipmentService(
 				AutoSelectNearestOffice: null,
 				AutoSelectNearestOfficePolicy: null,
 				ContactName: null,
-				ClientName: null, // forbidden
-				ObjectName: null, // forbidden
-				PrivatePerson: null, // forbidden
-				Address: null, // forbidden
-				PickupGeoPUDOIf: null // forbidden
-
+				ClientName: null,
+				ObjectName: null,
+				PrivatePerson: null,
+				Address: null,
+				PickupGeoPUDOIf: null
 			),
 			Service: new(
 				ServiceId: serviceId,
@@ -131,7 +129,6 @@ internal class ShipmentService(
 				SenderBankAccount: null,
 				AdministrativeFee: null
 			),
-
 			Id: null,
 			Ref1: null,
 			Ref2: null,

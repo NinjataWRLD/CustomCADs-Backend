@@ -32,7 +32,8 @@ internal static class Mapper
 			Ref2: model.Ref2,
 			Size: model.Size?.ToDto(),
 			PickupExternalCarrierParcelNumber: model.PickupExternalCarrierParcelNumber?.ToDto(),
-			DeliveryExternalCarrierParcelNumber: model.DeliveryExternalCarrierParcelNumber?.ToDto()
+			DeliveryExternalCarrierParcelNumber: model.DeliveryExternalCarrierParcelNumber?.ToDto(),
+			Goods: null
 		);
 
 	internal static ShipmentParcelSizeDto ToDto(this ShipmentParcelSizeModel model)
