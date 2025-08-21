@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.ResetPasswordEmail;
+using CustomCADs.Shared.Endpoints.Attributes;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.ForgotPassword;
 
@@ -13,6 +14,7 @@ public sealed class ForgotPasswordEndpoint(IRequestSender sender)
 			.WithName(IdentityNames.ForgotPassword)
 			.WithSummary("Reset Password Email")
 			.WithDescription("Receive an Email with a link to reset your Password")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.VerificationEmail;
+using CustomCADs.Shared.Endpoints.Attributes;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.RetryVerifyEmail;
 
@@ -13,6 +14,7 @@ public sealed class RetryConfirmEmailEndpoint(IRequestSender sender)
 			.WithName(IdentityNames.RetryConfirmEmail)
 			.WithSummary("Retry Send Email")
 			.WithDescription("Receive another verification email")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Login;
 using CustomCADs.Identity.Application.Users.Dtos;
+using CustomCADs.Shared.Endpoints.Attributes;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Login;
@@ -16,6 +17,7 @@ public sealed class LoginEndpoint(IRequestSender sender, IOptions<CookieSettings
 			.WithName(IdentityNames.Login)
 			.WithSummary("Login")
 			.WithDescription("Log in to your account")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 
