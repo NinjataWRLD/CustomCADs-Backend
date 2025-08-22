@@ -1,9 +1,9 @@
 ﻿using CustomCADs.Delivery.Application.Contracts;
 using CustomCADs.Delivery.Application.Contracts.Dtos;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
-using CustomCADs.Speedy.Http.Enums;
-using CustomCADs.Speedy.Core.Services;
-using CustomCADs.Speedy.Sdk;
+using SpeedyNET.Core.Enums;
+using SpeedyNET.Sdk;
+using SpeedyNET.Services;
 
 namespace CustomCADs.Delivery.Infrastructure;
 

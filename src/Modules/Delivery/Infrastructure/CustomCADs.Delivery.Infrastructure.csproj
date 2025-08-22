@@ -8,8 +8,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="SpeedyNET.Sdk" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Application\CustomCADs.Delivery.Application.csproj" />
-		<ProjectReference Include="..\..\..\Speedy\Sdk\CustomCADs.Speedy.Sdk.csproj" />
 	</ItemGroup>
 
 </Project>

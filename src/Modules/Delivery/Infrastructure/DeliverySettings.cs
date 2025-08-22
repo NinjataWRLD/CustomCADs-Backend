@@ -1,4 +1,4 @@
-﻿using CustomCADs.Speedy.Core;
+﻿using SpeedyNET.Abstractions.UserConfigs;
 
 namespace CustomCADs.Delivery.Infrastructure;
 
