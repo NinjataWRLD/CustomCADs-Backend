@@ -1,5 +1,6 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Refresh;
 using CustomCADs.Identity.Application.Users.Dtos;
+using CustomCADs.Shared.Endpoints.Attributes;
 using Microsoft.Extensions.Options;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.RefreshToken;
@@ -15,6 +16,7 @@ public sealed class RefreshTokenEndpoint(IRequestSender sender, IOptions<CookieS
 			.WithName(IdentityNames.Refresh)
 			.WithSummary("Refresh")
 			.WithDescription("Refresh your login")
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

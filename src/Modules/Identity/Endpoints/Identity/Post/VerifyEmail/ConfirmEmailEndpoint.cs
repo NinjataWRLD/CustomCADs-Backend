@@ -3,20 +3,20 @@ using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Shared.Endpoints.Attributes;
 using Microsoft.Extensions.Options;
 
-namespace CustomCADs.Identity.Endpoints.Identity.Get.VerifyEmail;
+namespace CustomCADs.Identity.Endpoints.Identity.Post.VerifyEmail;
 
 public sealed class ConfirmEmailEndpoint(IRequestSender sender, IOptions<CookieSettings> settings)
 	: Endpoint<ConfirmEmailRequest>
 {
 	public override void Configure()
 	{
-		Get("email/confirm/{username}");
+		Post("email/confirm");
 		Group<IdentityGroup>();
 		Description(d => d
 			.WithName(IdentityNames.ConfirmEmail)
 			.WithSummary("Confirm Email")
 			.WithDescription("Confirm the verification email")
-			.WithMetadata(new EnforceIdempotencyAttribute())
+			.WithMetadata(new SkipIdempotencyAttribute())
 		);
 	}
 

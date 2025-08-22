@@ -1,11 +1,10 @@
 ﻿using CustomCADs.Identity.Application.Users.Commands.Internal.Register;
 using CustomCADs.Identity.Application.Users.Commands.Internal.VerificationEmail;
 using CustomCADs.Shared.Endpoints.Attributes;
-using Microsoft.AspNetCore.Routing;
 
 namespace CustomCADs.Identity.Endpoints.Identity.Post.Register;
 
-public sealed class RegisterEndpoint(IRequestSender sender, LinkGenerator links)
+public sealed class RegisterEndpoint(IRequestSender sender)
 	: Endpoint<RegisterRequest>
 {
 	public override void Configure()
@@ -36,12 +35,7 @@ public sealed class RegisterEndpoint(IRequestSender sender, LinkGenerator links)
 
 		await sender.SendCommandAsync(
 			new VerificationEmailCommand(
-				Username: req.Username,
-				GetUri: ect => links.GetUriByName(
-					httpContext: HttpContext,
-					endpointName: IdentityNames.ConfirmEmail,
-					values: new { username = req.Username, token = ect }
-				) ?? throw new InvalidOperationException("Unable to generate confirmation link.")
+				Username: req.Username
 			),
 			ct
 		).ConfigureAwait(false);
