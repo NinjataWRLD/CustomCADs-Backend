@@ -7,11 +7,19 @@ public class RolesCachingService(ICacheService service) : BaseCachingService<Rol
 	protected override string GetKey(RoleId id) => $"{BaseKey}:{id}";
 
 	public override async Task<ICollection<Role>> GetOrCreateAsync(Func<Task<ICollection<Role>>> factory)
-		=> await service.GetOrCreateAsync(GetKey(), factory).ConfigureAwait(false)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(),
+				factory: factory,
+				expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+			).ConfigureAwait(false)
 			?? throw CustomCachingException<Role>.ByKey(GetKey());
 
 	public override async Task<Role> GetOrCreateAsync(RoleId id, Func<Task<Role>> factory)
-		=> await service.GetOrCreateAsync(GetKey(id), factory).ConfigureAwait(false)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(id),
+				factory: factory,
+				expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+			).ConfigureAwait(false)
 			?? throw CustomCachingException<Role>.ByKey(GetKey(id));
 
 	public override async Task UpdateAsync(RoleId id, Role item)

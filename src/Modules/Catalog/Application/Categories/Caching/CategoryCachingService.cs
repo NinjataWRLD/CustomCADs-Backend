@@ -7,11 +7,19 @@ public class CategoryCachingService(ICacheService service) : BaseCachingService<
 	protected override string GetKey(CategoryId id) => $"{BaseKey}:${id}";
 
 	public override async Task<ICollection<Category>> GetOrCreateAsync(Func<Task<ICollection<Category>>> factory)
-		=> await service.GetOrCreateAsync(GetKey(), factory).ConfigureAwait(false)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(),
+				factory: factory,
+				expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+			).ConfigureAwait(false)
 			?? throw CustomCachingException<Category>.ByKey(GetKey());
 
 	public override async Task<Category> GetOrCreateAsync(CategoryId id, Func<Task<Category>> factory)
-		=> await service.GetOrCreateAsync(GetKey(id), factory).ConfigureAwait(false)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(id),
+				factory: factory,
+				expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+			).ConfigureAwait(false)
 			?? throw CustomCachingException<Category>.ByKey(GetKey(id));
 
 	public override async Task UpdateAsync(CategoryId id, Category Category)
