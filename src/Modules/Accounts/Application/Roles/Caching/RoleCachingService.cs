@@ -1,6 +1,6 @@
 namespace CustomCADs.Accounts.Application.Roles.Caching;
 
-public class RolesCachingService(ICacheService service) : BaseCachingService<RoleId, Role>
+public class RoleCachingService(ICacheService service) : BaseCachingService<RoleId, Role>
 {
 	private const string BaseKey = "roles";
 	protected override string GetKey() => BaseKey;
@@ -22,10 +22,10 @@ public class RolesCachingService(ICacheService service) : BaseCachingService<Rol
 			).ConfigureAwait(false)
 			?? throw CustomCachingException<Role>.ByKey(GetKey(id));
 
-	public override async Task UpdateAsync(RoleId id, Role item)
+	public override async Task UpdateAsync(RoleId id, Role role)
 	{
 		await service.RemoveAsync(GetKey()).ConfigureAwait(false);
-		await service.SetAsync(GetKey(id), item).ConfigureAwait(false);
+		await service.SetAsync(GetKey(id), role).ConfigureAwait(false);
 	}
 
 	public override async Task ClearAsync(RoleId id)

@@ -41,9 +41,15 @@ public static class ProgramExtensions
 	public static IServiceCollection AddCache(this IServiceCollection services)
 	{
 		services.AddCacheService();
-		services.AddMaterialCaching();
-		services.AddCategoryCaching();
-		services.AddRoleCaching();
+
+		services
+			.AddRoleCaching()
+			.AddCategoryCaching()
+			.AddTagCaching()
+			.AddShipmentCaching()
+			.AddImageCaching()
+			.AddCadCaching()
+			.AddMaterialCaching();
 
 		return services;
 	}

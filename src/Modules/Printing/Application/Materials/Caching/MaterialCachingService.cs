@@ -4,7 +4,7 @@ public class MaterialCachingService(ICacheService service) : BaseCachingService<
 {
 	private const string BaseKey = "materials";
 	protected override string GetKey() => BaseKey;
-	protected override string GetKey(MaterialId id) => $"{BaseKey}:${id}";
+	protected override string GetKey(MaterialId id) => $"{BaseKey}:{id}";
 
 	public override async Task<ICollection<Material>> GetOrCreateAsync(Func<Task<ICollection<Material>>> factory)
 		=> await service.GetOrCreateAsync(
