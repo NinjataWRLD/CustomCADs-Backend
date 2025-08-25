@@ -7,25 +7,27 @@ using CustomCADs.Shared.Application.UseCases.Shipments.Commands;
 
 namespace CustomCADs.Delivery.Application.Shipments.Commands.Shared.Create;
 
-public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork uow, IDeliveryService delivery, IRequestSender sender)
+public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork uow, IDeliveryService delivery, IRequestSender sender, BaseCachingService<ShipmentId, Shipment> cache)
 	: ICommandHandler<CreateShipmentCommand, ShipmentId>
 {
 	public async Task<ShipmentId> Handle(CreateShipmentCommand req, CancellationToken ct)
 	{
-		ShipRequestDto request = new(
-			Package: "BOX",
-			Contents: $"{req.Info.Count} 3D Model/s, each wrapped in a box",
-			ParcelCount: req.Info.Count,
-			Name: req.Info.Recipient,
-			TotalWeight: req.Info.Weight,
-			Service: req.Service,
-			Country: req.Address.Country,
-			City: req.Address.City,
-			Street: req.Address.Street,
-			Phone: req.Contact.Phone,
-			Email: req.Contact.Email
-		);
-		ShipmentDto reference = await delivery.ShipAsync(request, ct).ConfigureAwait(false);
+		ShipmentDto reference = await delivery.ShipAsync(
+			req: new(
+				Package: "BOX",
+				Contents: $"{req.Info.Count} 3D Model/s, each wrapped in a box",
+				ParcelCount: req.Info.Count,
+				Name: req.Info.Recipient,
+				TotalWeight: req.Info.Weight,
+				Service: req.Service,
+				Country: req.Address.Country,
+				City: req.Address.City,
+				Street: req.Address.Street,
+				Phone: req.Contact.Phone,
+				Email: req.Contact.Email
+			),
+			ct: ct
+		).ConfigureAwait(false);
 
 		if (!await sender.SendQueryAsync(new GetAccountExistsByIdQuery(req.BuyerId), ct).ConfigureAwait(false))
 		{
@@ -41,6 +43,8 @@ public sealed class CreateShipmentHandler(IWrites<Shipment> writes, IUnitOfWork 
 			ct
 		).ConfigureAwait(false);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+		await cache.UpdateAsync(shipment.Id, shipment).ConfigureAwait(false);
 
 		return shipment.Id;
 	}

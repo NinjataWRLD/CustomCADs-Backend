@@ -5,7 +5,7 @@ using CustomCADs.Shared.Application.UseCases.Images.Commands;
 
 namespace CustomCADs.Files.Application.Images.Commands.Shared.SetKey;
 
-public sealed class SetImageKeyHandler(IImageReads reads, IUnitOfWork uow)
+public sealed class SetImageKeyHandler(IImageReads reads, IUnitOfWork uow, BaseCachingService<ImageId, Image> cache)
 	: ICommandHandler<SetImageKeyCommand>
 {
 	public async Task Handle(SetImageKeyCommand req, CancellationToken ct = default)
@@ -14,7 +14,8 @@ public sealed class SetImageKeyHandler(IImageReads reads, IUnitOfWork uow)
 			?? throw CustomNotFoundException<Image>.ById(req.Id);
 
 		image.SetKey(req.Key);
-
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+		await cache.UpdateAsync(image.Id, image).ConfigureAwait(false);
 	}
 }

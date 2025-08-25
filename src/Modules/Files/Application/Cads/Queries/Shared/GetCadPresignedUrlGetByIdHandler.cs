@@ -6,13 +6,16 @@ using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.Files.Application.Cads.Queries.Shared;
 
-public class GetCadPresignedUrlGetByIdHandler(ICadReads reads, ICadStorageService storage)
+public class GetCadPresignedUrlGetByIdHandler(ICadReads reads, ICadStorageService storage, BaseCachingService<CadId, Cad> cache)
 	: IQueryHandler<GetCadPresignedUrlGetByIdQuery, DownloadFileResponse>
 {
 	public async Task<DownloadFileResponse> Handle(GetCadPresignedUrlGetByIdQuery req, CancellationToken ct)
 	{
-		Cad cad = await reads.SingleByIdAsync(req.Id, track: false, ct).ConfigureAwait(false)
-			?? throw CustomNotFoundException<Cad>.ById(req.Id);
+		Cad cad = await cache.GetOrCreateAsync(
+			id: req.Id,
+			factory: async () => await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+				?? throw CustomNotFoundException<Cad>.ById(req.Id)
+		).ConfigureAwait(false);
 
 		string url = await storage.GetPresignedGetUrlAsync(
 			key: cad.Key,

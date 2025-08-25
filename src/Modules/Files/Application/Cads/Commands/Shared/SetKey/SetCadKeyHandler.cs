@@ -5,7 +5,7 @@ using CustomCADs.Shared.Application.UseCases.Cads.Commands;
 
 namespace CustomCADs.Files.Application.Cads.Commands.Shared.SetKey;
 
-public sealed class SetCadKeyHandler(ICadReads reads, IUnitOfWork uow)
+public sealed class SetCadKeyHandler(ICadReads reads, IUnitOfWork uow, BaseCachingService<CadId, Cad> cache)
 	: ICommandHandler<SetCadKeyCommand>
 {
 	public async Task Handle(SetCadKeyCommand req, CancellationToken ct = default)
@@ -14,7 +14,8 @@ public sealed class SetCadKeyHandler(ICadReads reads, IUnitOfWork uow)
 			?? throw CustomNotFoundException<Cad>.ById(req.Id);
 
 		cad.SetKey(req.Key);
-
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+		await cache.UpdateAsync(cad.Id, cad).ConfigureAwait(false);
 	}
 }

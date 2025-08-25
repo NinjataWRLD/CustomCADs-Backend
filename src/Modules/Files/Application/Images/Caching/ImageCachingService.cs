@@ -1,5 +1,4 @@
 using CustomCADs.Shared.Domain.Querying;
-using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.Files.Application.Images.Caching;
 

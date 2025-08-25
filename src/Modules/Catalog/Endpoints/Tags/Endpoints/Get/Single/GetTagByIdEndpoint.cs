@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetById;
+﻿using CustomCADs.Catalog.Application.Tags.Dtos;
+using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetById;
 
 namespace CustomCADs.Catalog.Endpoints.Tags.Endpoints.Get.Single;
 
@@ -18,7 +19,7 @@ public class GetTagByIdEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(GetTagByIdRequest req, CancellationToken ct)
 	{
-		GetTagByIdDto tag = await sender.SendQueryAsync(
+		TagReadDto tag = await sender.SendQueryAsync(
 			new GetTagByIdQuery(
 				Id: TagId.New(req.Id)
 			),
