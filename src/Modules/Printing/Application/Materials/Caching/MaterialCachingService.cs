@@ -1,3 +1,5 @@
+using CustomCADs.Shared.Domain.Querying;
+
 namespace CustomCADs.Printing.Application.Materials.Caching;
 
 public class MaterialCachingService(ICacheService service) : BaseCachingService<MaterialId, Material>
@@ -5,6 +7,14 @@ public class MaterialCachingService(ICacheService service) : BaseCachingService<
 	private const string BaseKey = "materials";
 	protected override string GetKey() => BaseKey;
 	protected override string GetKey(MaterialId id) => $"{BaseKey}:{id}";
+
+	public override async Task<Result<Material>> GetOrCreateAsync(Func<Task<Result<Material>>> factory)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(),
+				factory: factory,
+				expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+			).ConfigureAwait(false)
+			?? throw CustomCachingException<Material>.ByKey(GetKey());
 
 	public override async Task<ICollection<Material>> GetOrCreateAsync(Func<Task<ICollection<Material>>> factory)
 		=> await service.GetOrCreateAsync(

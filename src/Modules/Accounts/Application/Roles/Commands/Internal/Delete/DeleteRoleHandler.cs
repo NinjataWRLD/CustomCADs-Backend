@@ -11,14 +11,13 @@ public sealed class DeleteRoleHandler(IRoleReads reads, IRoleWrites writes, IUni
 {
 	public async Task Handle(DeleteRoleCommand req, CancellationToken ct)
 	{
-		Role role = await cache.GetOrCreateAsync(
-			id: req.Id,
-			factory: async () => await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-				?? throw CustomNotFoundException<Role>.ById(req.Id)
-		).ConfigureAwait(false);
+		Role role = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Role>.ById(req.Id);
 
 		writes.Remove(role);
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+		await cache.ClearAsync(role.Id).ConfigureAwait(false);
 
 		await raiser.RaiseApplicationEventAsync(new RoleDeletedApplicationEvent(
 			Name: role.Name

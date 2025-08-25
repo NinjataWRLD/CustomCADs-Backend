@@ -1,3 +1,5 @@
+using CustomCADs.Shared.Domain.Querying;
+
 namespace CustomCADs.Shared.Application.Abstractions.Cache;
 
 /// <summary>
@@ -10,6 +12,7 @@ public abstract class BaseCachingService<TId, TItem>
 	protected abstract string GetKey();
 	protected abstract string GetKey(TId id);
 
+	public abstract Task<Result<TItem>> GetOrCreateAsync(Func<Task<Result<TItem>>> factory);
 	public abstract Task<ICollection<TItem>> GetOrCreateAsync(Func<Task<ICollection<TItem>>> factory);
 	public abstract Task<TItem> GetOrCreateAsync(TId id, Func<Task<TItem>> factory);
 	public abstract Task UpdateAsync(TId id, TItem item);

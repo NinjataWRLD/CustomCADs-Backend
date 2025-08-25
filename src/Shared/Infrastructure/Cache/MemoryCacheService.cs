@@ -6,7 +6,7 @@ namespace CustomCADs.Shared.Infrastructure.Cache;
 public class MemoryCacheService(IMemoryCache cache)
 	: MemoryCacheService<string>(cache), ICacheService;
 
-public class MemoryCacheService<TKey>(IMemoryCache cache) : ICacheService<TKey> where TKey : class
+public class MemoryCacheService<TKey>(IMemoryCache cache) : ICacheService<TKey> where TKey : notnull
 {
 	public async Task<TItem?> GetOrCreateAsync<TItem>(
 		TKey key,

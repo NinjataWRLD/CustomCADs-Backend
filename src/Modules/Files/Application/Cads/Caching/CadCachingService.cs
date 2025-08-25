@@ -1,4 +1,4 @@
-using CustomCADs.Shared.Application.Abstractions.Cache;
+using CustomCADs.Shared.Domain.Querying;
 using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.Files.Application.Cads.Caching;
@@ -8,6 +8,14 @@ public class CadCachingService(ICacheService service) : BaseCachingService<CadId
 	private const string BaseKey = "cads";
 	protected override string GetKey() => BaseKey;
 	protected override string GetKey(CadId id) => $"{BaseKey}:{id}";
+
+	public async override Task<Result<Cad>> GetOrCreateAsync(Func<Task<Result<Cad>>> factory)
+		=> await service.GetOrCreateAsync(
+			key: GetKey(),
+			factory: factory,
+			expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+		).ConfigureAwait(false)
+		?? throw CustomCachingException<Cad>.ByKey(GetKey());
 
 	public async override Task<ICollection<Cad>> GetOrCreateAsync(Func<Task<ICollection<Cad>>> factory)
 		=> await service.GetOrCreateAsync(

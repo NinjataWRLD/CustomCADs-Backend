@@ -1,3 +1,5 @@
+using CustomCADs.Shared.Domain.Querying;
+
 namespace CustomCADs.Catalog.Application.Categories.Caching;
 
 public class CategoryCachingService(ICacheService service) : BaseCachingService<CategoryId, Category>
@@ -5,6 +7,14 @@ public class CategoryCachingService(ICacheService service) : BaseCachingService<
 	private const string BaseKey = "categories";
 	protected override string GetKey() => BaseKey;
 	protected override string GetKey(CategoryId id) => $"{BaseKey}:{id}";
+
+	public override async Task<Result<Category>> GetOrCreateAsync(Func<Task<Result<Category>>> factory)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(),
+				factory: factory,
+				expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+			).ConfigureAwait(false)
+			?? throw CustomCachingException<Category>.ByKey(GetKey());
 
 	public override async Task<ICollection<Category>> GetOrCreateAsync(Func<Task<ICollection<Category>>> factory)
 		=> await service.GetOrCreateAsync(

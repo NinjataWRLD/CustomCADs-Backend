@@ -1,4 +1,5 @@
 using CustomCADs.Catalog.Domain.Tags;
+using CustomCADs.Shared.Domain.Querying;
 
 namespace CustomCADs.Catalog.Application.Tags.Caching;
 
@@ -7,6 +8,17 @@ public class TagCachingService(ICacheService service) : BaseCachingService<TagId
 	private const string BaseKey = "tags";
 	protected override string GetKey() => BaseKey;
 	protected override string GetKey(TagId id) => $"{BaseKey}:{id}";
+
+	public override async Task<Result<Tag>> GetOrCreateAsync(Func<Task<Result<Tag>>> factory)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(),
+				factory: factory,
+				expiration: new(
+					Absolute: TimeSpan.FromDays(1),
+					Sliding: null
+				)
+			).ConfigureAwait(false)
+			?? throw CustomCachingException<Tag>.ByKey(GetKey());
 
 	public override async Task<ICollection<Tag>> GetOrCreateAsync(Func<Task<ICollection<Tag>>> factory)
 		=> await service.GetOrCreateAsync(

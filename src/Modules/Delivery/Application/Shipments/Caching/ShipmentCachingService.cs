@@ -1,4 +1,4 @@
-using CustomCADs.Shared.Application.Abstractions.Cache;
+using CustomCADs.Shared.Domain.Querying;
 
 namespace CustomCADs.Delivery.Application.Shipments.Caching;
 
@@ -7,6 +7,14 @@ public class ShipmentCachingService(ICacheService service) : BaseCachingService<
 	private const string BaseKey = "shipments";
 	protected override string GetKey() => BaseKey;
 	protected override string GetKey(ShipmentId id) => $"{BaseKey}:{id}";
+
+	public async override Task<Result<Shipment>> GetOrCreateAsync(Func<Task<Result<Shipment>>> factory)
+		=> await service.GetOrCreateAsync(
+			key: GetKey(),
+			factory: factory,
+			expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+		).ConfigureAwait(false)
+		?? throw CustomCachingException<Shipment>.ByKey(GetKey());
 
 	public async override Task<ICollection<Shipment>> GetOrCreateAsync(Func<Task<ICollection<Shipment>>> factory)
 		=> await service.GetOrCreateAsync(
