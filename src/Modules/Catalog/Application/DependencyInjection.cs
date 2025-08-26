@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 using static ProductConstants;
 
-public static class DependencyInjection
+public static partial class DependencyInjection
 {
 	public static IServiceCollection AddCatalogBackgroundJobs(this IServiceCollection services)
 	{

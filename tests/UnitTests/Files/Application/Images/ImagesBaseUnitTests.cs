@@ -1,6 +1,4 @@
-﻿using CustomCADs.Shared.Domain.TypedIds.Files;
-
-namespace CustomCADs.UnitTests.Files.Application.Images;
+﻿namespace CustomCADs.UnitTests.Files.Application.Images;
 
 using static ImagesData;
 

@@ -22,14 +22,11 @@ public class DeleteMaterialHandlerUnitTests : MaterialsBaseUnitTests
 	{
 		handler = new(reads.Object, writes.Object, uow.Object, cache.Object);
 
-		cache.Setup(x => x.GetOrCreateAsync(
-			ValidId,
-			It.IsAny<Func<Task<Material>>>()
-		)).ReturnsAsync(material);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(material);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReadCache()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		DeleteMaterialCommand command = new(ValidId);
@@ -38,10 +35,7 @@ public class DeleteMaterialHandlerUnitTests : MaterialsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		cache.Verify(x => x.GetOrCreateAsync(
-			ValidId,
-			It.IsAny<Func<Task<Material>>>()
-		), Times.Once());
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]

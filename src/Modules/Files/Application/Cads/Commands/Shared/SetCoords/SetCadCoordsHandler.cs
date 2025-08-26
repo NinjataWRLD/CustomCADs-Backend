@@ -5,7 +5,7 @@ using CustomCADs.Shared.Application.UseCases.Cads.Commands;
 
 namespace CustomCADs.Files.Application.Cads.Commands.Shared.SetCoords;
 
-public sealed class SetCadCoordsHandler(ICadReads reads, IUnitOfWork uow)
+public sealed class SetCadCoordsHandler(ICadReads reads, IUnitOfWork uow, BaseCachingService<CadId, Cad> cache)
 	: ICommandHandler<SetCadCoordsCommand>
 {
 	public async Task Handle(SetCadCoordsCommand req, CancellationToken ct)
@@ -24,5 +24,6 @@ public sealed class SetCadCoordsHandler(ICadReads reads, IUnitOfWork uow)
 		}
 
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+		await cache.UpdateAsync(cad.Id, cad).ConfigureAwait(false);
 	}
 }

@@ -1,17 +1,35 @@
+using CustomCADs.Shared.Domain.Querying;
+
 namespace CustomCADs.Printing.Application.Materials.Caching;
 
 public class MaterialCachingService(ICacheService service) : BaseCachingService<MaterialId, Material>
 {
 	private const string BaseKey = "materials";
 	protected override string GetKey() => BaseKey;
-	protected override string GetKey(MaterialId id) => $"{BaseKey}:${id}";
+	protected override string GetKey(MaterialId id) => $"{BaseKey}:{id}";
+
+	public override async Task<Result<Material>> GetOrCreateAsync(Func<Task<Result<Material>>> factory)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(),
+				factory: factory,
+				expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+			).ConfigureAwait(false)
+			?? throw CustomCachingException<Material>.ByKey(GetKey());
 
 	public override async Task<ICollection<Material>> GetOrCreateAsync(Func<Task<ICollection<Material>>> factory)
-		=> await service.GetOrCreateAsync(GetKey(), factory).ConfigureAwait(false)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(),
+				factory: factory,
+				expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+			).ConfigureAwait(false)
 			?? throw CustomCachingException<Material>.ByKey(GetKey());
 
 	public override async Task<Material> GetOrCreateAsync(MaterialId id, Func<Task<Material>> factory)
-		=> await service.GetOrCreateAsync(GetKey(id), factory).ConfigureAwait(false)
+		=> await service.GetOrCreateAsync(
+				key: GetKey(id),
+				factory: factory,
+				expiration: new(Absolute: TimeSpan.FromDays(7), Sliding: null)
+			).ConfigureAwait(false)
 			?? throw CustomCachingException<Material>.ByKey(GetKey(id));
 
 	public override async Task UpdateAsync(MaterialId id, Material material)

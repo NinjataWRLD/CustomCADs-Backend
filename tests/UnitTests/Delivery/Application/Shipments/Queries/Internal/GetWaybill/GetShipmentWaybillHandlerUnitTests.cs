@@ -15,20 +15,25 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 	private readonly GetShipmentWaybillHandler handler;
 	private readonly Mock<IShipmentReads> reads = new();
 	private readonly Mock<IDeliveryService> delivery = new();
+	private readonly Mock<BaseCachingService<ShipmentId, Shipment>> cache = new();
 
 	private static readonly byte[] bytes = [1, 2, 3, 4, 5, 6];
 	private static readonly AccountId headDesignerId = AccountId.New(DesignerAccountId);
 
 	public GetShipmentWaybillHandlerUnitTests()
 	{
-		handler = new(reads.Object, delivery.Object);
+		handler = new(reads.Object, delivery.Object, cache.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateShipment());
+		cache.Setup(x => x.GetOrCreateAsync(
+			ValidId,
+			It.IsAny<Func<Task<Shipment>>>()
+		)).ReturnsAsync(CreateShipment());
+
 		delivery.Setup(x => x.PrintAsync(ValidReferenceId, ct)).ReturnsAsync(bytes);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);
@@ -37,7 +42,10 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Shipment>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]
@@ -64,20 +72,6 @@ public class GetShipmentWaybillHandlerUnitTests : ShipmentsBaseUnitTests
 
 		// Assert
 		Assert.Equal(result, bytes);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenShipmentNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(null as Shipment);
-		GetShipmentWaybillQuery query = new(ValidId, headDesignerId);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(
-			// Act
-			async () => await handler.Handle(query, ct)
-		);
 	}
 
 	[Fact]

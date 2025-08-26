@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Commands.Internal.Create;
+using CustomCADs.Catalog.Application.Tags.Dtos;
 using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetById;
 
 namespace CustomCADs.Catalog.Endpoints.Tags.Endpoints.Post;
@@ -25,7 +26,7 @@ public class CreateTagEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		GetTagByIdDto tag = await sender.SendQueryAsync(
+		TagReadDto tag = await sender.SendQueryAsync(
 			new GetTagByIdQuery(id),
 			ct
 		).ConfigureAwait(false);

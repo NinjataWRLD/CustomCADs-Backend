@@ -16,12 +16,13 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 	private readonly Mock<IWrites<Cad>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<ICadStorageService> storage = new();
+	private readonly Mock<BaseCachingService<CadId, Cad>> cache = new();
 
 	private static readonly Cad cad = CreateCad();
 
 	public ProductDeletedHandlerUnitTests()
 	{
-		handler = new(reads.Object, writes.Object, uow.Object, storage.Object);
+		handler = new(reads.Object, writes.Object, uow.Object, storage.Object, cache.Object);
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(cad);
 	}
 
@@ -58,6 +59,26 @@ public class ProductDeletedHandlerUnitTests : CadsBaseUnitTests
 		// Assert
 		writes.Verify(x => x.Remove(cad), Times.Once());
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldWriteToCache()
+	{
+		// Arrange
+		ProductDeletedApplicationEvent ie = new(
+			Id: default,
+			ImageId: default,
+			CadId: ValidId
+		);
+
+		// Act
+		await handler.Handle(ie);
+
+		// Assert
+		cache.Verify(
+			x => x.ClearAsync(ValidId),
+			Times.Once()
+		);
 	}
 
 	[Fact]

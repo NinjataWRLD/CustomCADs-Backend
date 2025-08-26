@@ -3,9 +3,8 @@ using CustomCADs.Printing.Application.Materials.Caching;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class CachingDependencyInjection
+public static partial class DependencyInjection
 {
 	public static IServiceCollection AddMaterialCaching(this IServiceCollection services)
 		=> services.AddScoped<BaseCachingService<MaterialId, Material>, MaterialCachingService>();
-
 }

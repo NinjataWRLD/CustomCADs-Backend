@@ -21,14 +21,11 @@ public class EditMaterialHandlerUnitTests : MaterialsBaseUnitTests
 	{
 		handler = new(reads.Object, cache.Object, uow.Object);
 
-		cache.Setup(x => x.GetOrCreateAsync(
-			ValidId,
-			It.IsAny<Func<Task<Material>>>()
-		)).ReturnsAsync(material);
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(material);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReadCache()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		EditMaterialCommand command = new(
@@ -42,10 +39,7 @@ public class EditMaterialHandlerUnitTests : MaterialsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		cache.Verify(x => x.GetOrCreateAsync(
-			ValidId,
-			It.IsAny<Func<Task<Material>>>()
-		), Times.Once());
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]

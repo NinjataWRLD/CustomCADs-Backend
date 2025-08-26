@@ -19,7 +19,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	{
 		handler = new(reads.Object, writes.Object, uow.Object, cache.Object);
 
-		cache.Setup(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()))
+		reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(CreateCategory(ValidId, ValidName, ValidDescription));
 	}
 
@@ -33,7 +33,7 @@ public class DeleteCategoryHandlerUnitTests : CategoriesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		cache.Verify(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()), Times.Once());
+		reads.Verify(v => v.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]

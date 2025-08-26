@@ -5,7 +5,7 @@ using CustomCADs.Shared.Application.UseCases.Images.Commands;
 
 namespace CustomCADs.Files.Application.Images.Commands.Shared.SetContentType;
 
-public sealed class SetImageContentTypeHandler(IImageReads reads, IUnitOfWork uow)
+public sealed class SetImageContentTypeHandler(IImageReads reads, IUnitOfWork uow, BaseCachingService<ImageId, Image> cache)
 	: ICommandHandler<SetImageContentTypeCommand>
 {
 	public async Task Handle(SetImageContentTypeCommand req, CancellationToken ct = default)
@@ -14,7 +14,8 @@ public sealed class SetImageContentTypeHandler(IImageReads reads, IUnitOfWork uo
 			?? throw CustomNotFoundException<Image>.ById(req.Id);
 
 		image.SetContentType(req.ContentType);
-
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+		await cache.UpdateAsync(image.Id, image).ConfigureAwait(false);
 	}
 }

@@ -4,13 +4,16 @@ using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.Files.Application.Cads.Queries.Shared;
 
-public class GetCadVolumeByIdHandler(ICadReads reads)
+public class GetCadVolumeByIdHandler(ICadReads reads, BaseCachingService<CadId, Cad> cache)
 	: IQueryHandler<GetCadVolumeByIdQuery, decimal>
 {
 	public async Task<decimal> Handle(GetCadVolumeByIdQuery req, CancellationToken ct)
 	{
-		Cad cad = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-			?? throw CustomNotFoundException<Cad>.ById(req.Id);
+		Cad cad = await cache.GetOrCreateAsync(
+			id: req.Id,
+			factory: async () => await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+				?? throw CustomNotFoundException<Cad>.ById(req.Id)
+		).ConfigureAwait(false);
 
 		return cad.Volume;
 	}

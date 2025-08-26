@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Files.Application.Images.Commands.Shared.Create;
 using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Shared.Application.UseCases.Images.Commands;
-using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Commands.Shared.Create;
 
@@ -12,10 +11,11 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 	private readonly CreateImageHandler handler;
 	private readonly Mock<IWrites<Image>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<BaseCachingService<ImageId, Image>> cache = new();
 
 	public CreateImageHandlerUnitTests()
 	{
-		handler = new(writes.Object, uow.Object);
+		handler = new(writes.Object, uow.Object, cache.Object);
 
 		writes.Setup(x => x.AddAsync(
 			It.Is<Image>(x => x.Key == ValidKey && x.ContentType == ValidContentType),
@@ -41,6 +41,28 @@ public class CreateImageHandlerUnitTests : ImagesBaseUnitTests
 			ct
 		), Times.Once());
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldWriteToCache()
+	{
+		// Arrange
+		CreateImageCommand command = new(
+			Key: ValidKey,
+			ContentType: ValidContentType
+		);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		cache.Verify(
+			x => x.UpdateAsync(
+				ValidId,
+				It.Is<Image>(x => x.Key == ValidKey && x.ContentType == ValidContentType)
+			),
+			Times.Once()
+		);
 	}
 
 	[Fact]

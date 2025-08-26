@@ -13,13 +13,16 @@ public class SetCadVolumeHandlerUnitTests : CadsBaseUnitTests
 	private readonly SetCadVolumeHandler handler;
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<BaseCachingService<CadId, Cad>> cache = new();
+
+	private readonly Cad cad = CreateCadWithId();
 
 	public SetCadVolumeHandlerUnitTests()
 	{
-		handler = new(reads.Object, uow.Object);
+		handler = new(reads.Object, uow.Object, cache.Object);
 
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
-			.ReturnsAsync(CreateCad());
+			.ReturnsAsync(cad);
 	}
 
 	[Fact]
@@ -46,6 +49,22 @@ public class SetCadVolumeHandlerUnitTests : CadsBaseUnitTests
 
 		// Assert
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldWriteToCache()
+	{
+		// Arrange
+		SetCadVolumeCommand command = new(ValidId, ValidVolume);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		cache.Verify(
+			x => x.UpdateAsync(ValidId, cad),
+			Times.Once()
+		);
 	}
 
 	[Fact]

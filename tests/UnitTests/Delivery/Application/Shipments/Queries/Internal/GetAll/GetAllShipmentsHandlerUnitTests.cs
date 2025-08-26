@@ -15,6 +15,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 	private readonly GetAllShipmentsHandler handler;
 	private readonly Mock<IShipmentReads> reads = new();
 	private readonly Mock<IRequestSender> sender = new();
+	private readonly Mock<BaseCachingService<ShipmentId, Shipment>> cache = new();
 
 	private static readonly Dictionary<AccountId, string> buyers = new()
 	{
@@ -31,12 +32,10 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 
 	public GetAllShipmentsHandlerUnitTests()
 	{
-		handler = new(reads.Object, sender.Object);
+		handler = new(reads.Object, sender.Object, cache.Object);
 
-		reads.Setup(x => x.AllAsync(
-			It.IsAny<ShipmentQuery>(),
-			false,
-			ct
+		cache.Setup(x => x.GetOrCreateAsync(
+			It.IsAny<Func<Task<Result<Shipment>>>>()
 		)).ReturnsAsync(new Result<Shipment>(shipments.Length, shipments));
 
 		sender.Setup(x => x.SendQueryAsync(
@@ -46,7 +45,7 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetAllShipmentsQuery query = new(
@@ -59,7 +58,10 @@ public class GetAllShipmentsHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.AllAsync(shipmentQuery, false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(It.IsAny<Func<Task<Result<Shipment>>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]

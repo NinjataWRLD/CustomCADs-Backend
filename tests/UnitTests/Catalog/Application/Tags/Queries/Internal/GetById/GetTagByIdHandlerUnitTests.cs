@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetById;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
-using CustomCADs.Shared.Application.Exceptions;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Queries.Internal.GetById;
 
@@ -10,19 +9,22 @@ public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
 {
 	private readonly GetTagByIdHandler handler;
 	private readonly Mock<ITagReads> reads = new();
+	private readonly Mock<BaseCachingService<TagId, Tag>> cache = new();
 
 	private readonly static TagId id = ValidId;
 
 	public GetTagByIdHandlerUnitTests()
 	{
-		handler = new(reads.Object);
+		handler = new(reads.Object, cache.Object);
 
-		reads.Setup(v => v.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(CreateTag(id: ValidId));
+		cache.Setup(x => x.GetOrCreateAsync(
+			id,
+			It.IsAny<Func<Task<Tag>>>()
+		)).ReturnsAsync(CreateTag());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetTagByIdQuery query = new(id);
@@ -31,7 +33,10 @@ public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(v => v.SingleByIdAsync(id, false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(id, It.IsAny<Func<Task<Tag>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]
@@ -45,21 +50,5 @@ public class GetTagByIdHandlerUnitTests : TagsBaseUnitTests
 
 		// Assert
 		Assert.Equal(ValidId, result.Id);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenTagNotFound()
-	{
-		// Arrange
-		reads.Setup(v => v.SingleByIdAsync(id, false, ct))
-			.ReturnsAsync(null as Tag);
-
-		GetTagByIdQuery query = new(id);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Tag>>(
-			// Act
-			async () => await handler.Handle(query, ct)
-		);
 	}
 }

@@ -6,13 +6,16 @@ namespace CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetWaybill;
 
 using static Constants.Users;
 
-public class GetShipmentWaybillHandler(IShipmentReads reads, IDeliveryService delivery)
+public class GetShipmentWaybillHandler(IShipmentReads reads, IDeliveryService delivery, BaseCachingService<ShipmentId, Shipment> cache)
 	: IQueryHandler<GetShipmentWaybillQuery, byte[]>
 {
 	public async Task<byte[]> Handle(GetShipmentWaybillQuery req, CancellationToken ct)
 	{
-		Shipment shipment = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
-			?? throw CustomNotFoundException<Shipment>.ById(req.Id);
+		Shipment shipment = await cache.GetOrCreateAsync(
+			id: req.Id,
+			factory: async () => await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+				?? throw CustomNotFoundException<Shipment>.ById(req.Id)
+		).ConfigureAwait(false);
 
 		var headDesignerId = Guid.Parse(DesignerAccountId);
 		if (req.DesignerId != AccountId.New(headDesignerId))

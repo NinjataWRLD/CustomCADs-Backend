@@ -8,11 +8,8 @@ public class EditMaterialHandler(IMaterialReads reads, BaseCachingService<Materi
 {
 	public async Task Handle(EditMaterialCommand req, CancellationToken ct)
 	{
-		Material material = await cache.GetOrCreateAsync(
-			id: req.Id,
-			factory: async () => await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
-				?? throw CustomNotFoundException<Material>.ById(req.Id)
-		).ConfigureAwait(false);
+		Material material = await reads.SingleByIdAsync(req.Id, ct: ct).ConfigureAwait(false)
+			?? throw CustomNotFoundException<Material>.ById(req.Id);
 
 		material
 			.SetName(req.Name)
