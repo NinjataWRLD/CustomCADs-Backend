@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Files.Application.Images.Queries.Shared;
 using CustomCADs.Files.Application.Images.Storage;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Application.Exceptions;
 using CustomCADs.Shared.Application.UseCases.Images.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Images.Queries.Shared.GetPresignedUrlGet;
@@ -13,23 +12,26 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 	private readonly GetImagePresignedUrlGetByIdHandler handler;
 	private readonly Mock<IImageReads> reads = new();
 	private readonly Mock<IImageStorageService> storage = new();
+	private readonly Mock<BaseCachingService<ImageId, Image>> cache = new();
 
 	private static readonly Image image = CreateImage();
 	private const string PresignedUrl = "PresignedUrl";
 
 	public GetImagePresignedUrlGetByIdHandlerUnitTests()
 	{
-		handler = new(reads.Object, storage.Object);
+		handler = new(reads.Object, storage.Object, cache.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(image);
+		cache.Setup(x => x.GetOrCreateAsync(
+			ValidId,
+			It.IsAny<Func<Task<Image>>>()
+		)).ReturnsAsync(image);
 
 		storage.Setup(x => x.GetPresignedGetUrlAsync(image.Key))
 			.ReturnsAsync(PresignedUrl);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetImagePresignedUrlGetByIdQuery query = new(ValidId);
@@ -38,7 +40,10 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Image>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]
@@ -67,21 +72,6 @@ public class GetImagePresignedUrlGetByIdHandlerUnitTests : ImagesBaseUnitTests
 		Assert.Multiple(
 			() => Assert.Equal(image.ContentType, ContentType),
 			() => Assert.Equal(PresignedUrl, Url)
-		);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenImageNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(null as Image);
-		GetImagePresignedUrlGetByIdQuery query = new(ValidId);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Image>>(
-			// Act
-			async () => await handler.Handle(query, ct)
 		);
 	}
 }

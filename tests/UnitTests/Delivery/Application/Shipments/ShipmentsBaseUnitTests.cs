@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Shared.Abstractions.Delivery.Dtos;
 using CustomCADs.Shared.Domain.TypedIds.Accounts;
-using CustomCADs.Shared.Domain.TypedIds.Delivery;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments;
 

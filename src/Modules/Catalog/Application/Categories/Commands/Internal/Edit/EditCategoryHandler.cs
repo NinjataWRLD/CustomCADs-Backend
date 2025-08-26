@@ -8,7 +8,7 @@ public sealed class EditCategoryHandler(ICategoryReads reads, IUnitOfWork uow, B
 {
 	public async Task Handle(EditCategoryCommand req, CancellationToken ct)
 	{
-		Category category = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+		Category category = await reads.SingleByIdAsync(req.Id, track: true, ct: ct).ConfigureAwait(false)
 			?? throw CustomNotFoundException<Category>.ById(req.Id);
 
 		category.SetName(req.Dto.Name);

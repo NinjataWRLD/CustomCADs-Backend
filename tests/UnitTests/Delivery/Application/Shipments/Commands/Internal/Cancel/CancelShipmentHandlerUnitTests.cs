@@ -11,19 +11,22 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 	private readonly CancelShipmentHandler handler;
 	private readonly Mock<IShipmentReads> reads = new();
 	private readonly Mock<IDeliveryService> delivery = new();
+	private readonly Mock<BaseCachingService<ShipmentId, Shipment>> cache = new();
 
 	private const string Comment = "Cancelling due to unpredicted travelling abroad";
 
 	public CancelShipmentHandlerUnitTests()
 	{
-		handler = new(reads.Object, delivery.Object);
+		handler = new(reads.Object, delivery.Object, cache.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(CreateShipment(referenceId: ValidReferenceId));
+		cache.Setup(x => x.GetOrCreateAsync(
+			ValidId,
+			It.IsAny<Func<Task<Shipment>>>()
+		)).ReturnsAsync(CreateShipment(referenceId: ValidReferenceId));
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		CancelShipmentCommand command = new(ValidId, Comment);
@@ -32,7 +35,10 @@ public class CancelShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Shipment>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]

@@ -1,4 +1,5 @@
-﻿using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetAll;
+﻿using CustomCADs.Catalog.Application.Tags.Dtos;
+using CustomCADs.Catalog.Application.Tags.Queries.Internal.GetAll;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 
 namespace CustomCADs.UnitTests.Catalog.Application.Tags.Queries.Internal.GetAll;
@@ -9,6 +10,7 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
 {
 	private readonly GetAllTagsHandler handler;
 	private readonly Mock<ITagReads> reads = new();
+	private readonly Mock<BaseCachingService<TagId, Tag>> cache = new();
 
 	private readonly Tag[] tags = [
 		Tag.CreateWithId(ValidId, MinValidName),
@@ -17,13 +19,15 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
 
 	public GetAllTagHandlerUnitTests()
 	{
-		handler = new(reads.Object);
+		handler = new(reads.Object, cache.Object);
 
-		reads.Setup(v => v.AllAsync(false, ct)).ReturnsAsync(tags);
+		cache.Setup(x => x.GetOrCreateAsync(
+			It.IsAny<Func<Task<ICollection<Tag>>>>()
+		)).ReturnsAsync(tags);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetAllTagsQuery query = new();
@@ -32,7 +36,10 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(v => v.AllAsync(false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(It.IsAny<Func<Task<ICollection<Tag>>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]
@@ -42,7 +49,7 @@ public class GetAllTagHandlerUnitTests : TagsBaseUnitTests
 		GetAllTagsQuery query = new();
 
 		// Act
-		GetAllTagsDto[] tags = await handler.Handle(query, ct);
+		TagReadDto[] tags = await handler.Handle(query, ct);
 
 		// Assert
 		Assert.Multiple(

@@ -2,7 +2,6 @@
 using CustomCADs.Delivery.Application.Shipments.Queries.Internal.GetStatus;
 using CustomCADs.Delivery.Domain.Repositories.Reads;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
-using CustomCADs.Shared.Application.Exceptions;
 
 namespace CustomCADs.UnitTests.Delivery.Application.Shipments.Queries.Internal.GetTrack;
 
@@ -13,18 +12,24 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 	private readonly GetShipmentTrackHandler handler;
 	private readonly Mock<IShipmentReads> reads = new();
 	private readonly Mock<IDeliveryService> delivery = new();
+	private readonly Mock<BaseCachingService<ShipmentId, Shipment>> cache = new();
 
 	private static readonly ShipmentStatusDto[] statuses = CreateShipmentStatusDtos();
 
 	public GetShipmentTrackHandlerUnitTests()
 	{
-		handler = new(reads.Object, delivery.Object);
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct)).ReturnsAsync(CreateShipment());
+		handler = new(reads.Object, delivery.Object, cache.Object);
+
+		cache.Setup(x => x.GetOrCreateAsync(
+			ValidId,
+			It.IsAny<Func<Task<Shipment>>>()
+		)).ReturnsAsync(CreateShipment());
+
 		delivery.Setup(x => x.TrackAsync(ValidReferenceId, ct)).ReturnsAsync(statuses);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetShipmentTrackQuery query = new(ValidId);
@@ -33,7 +38,10 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Shipment>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]
@@ -60,20 +68,5 @@ public class GetShipmentTrackHandlerUnitTests : ShipmentsBaseUnitTests
 
 		// Assert
 		Assert.Equal(tracks, statuses.ToDictionary(x => x.DateTime, x => new GetShipmentTrackDto(x.Message, x.Place)));
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenShipmentNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(null as Shipment);
-		GetShipmentTrackQuery query = new(ValidId);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Shipment>>(
-			// Act
-			async () => await handler.Handle(query, ct)
-		);
 	}
 }

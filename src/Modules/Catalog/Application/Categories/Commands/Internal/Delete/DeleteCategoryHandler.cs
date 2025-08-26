@@ -9,7 +9,7 @@ public sealed class DeleteCategoryHandler(ICategoryReads reads, ICategoryWrites 
 {
 	public async Task Handle(DeleteCategoryCommand req, CancellationToken ct)
 	{
-		Category category = await reads.SingleByIdAsync(req.Id, track: false, ct: ct).ConfigureAwait(false)
+		Category category = await reads.SingleByIdAsync(req.Id, track: true, ct: ct).ConfigureAwait(false)
 			?? throw CustomNotFoundException<Category>.ById(req.Id);
 
 		writes.Remove(category);

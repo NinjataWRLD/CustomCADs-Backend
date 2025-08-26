@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Files.Application.Cads.Queries.Shared;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Application.Exceptions;
 using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetCoords;
@@ -11,15 +10,18 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
 {
 	private readonly GetCadCoordsByIdHandler handler;
 	private readonly Mock<ICadReads> reads = new();
+	private readonly Mock<BaseCachingService<CadId, Cad>> cache = new();
 
 	private static readonly Cad cad = CreateCad();
 
 	public GetCadCoordsByIdHandlerUnitTests()
 	{
-		handler = new(reads.Object);
+		handler = new(reads.Object, cache.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(cad);
+		cache.Setup(x => x.GetOrCreateAsync(
+			ValidId,
+			It.IsAny<Func<Task<Cad>>>()
+		)).ReturnsAsync(cad);
 	}
 
 	[Fact]
@@ -32,7 +34,10 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Cad>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]
@@ -52,21 +57,6 @@ public class GetCadCoordsByIdHandlerUnitTests : CadsBaseUnitTests
 			() => Assert.Equal(cad.PanCoordinates.X, Pan.X),
 			() => Assert.Equal(cad.PanCoordinates.Y, Pan.Y),
 			() => Assert.Equal(cad.PanCoordinates.Z, Pan.Z)
-		);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenCadNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(null as Cad);
-		GetCadCoordsByIdQuery query = new(ValidId);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
-			// Act
-			async () => await handler.Handle(query, ct)
 		);
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using CustomCADs.Files.Application.Cads.Queries.Shared;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Application.Exceptions;
 using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetVolume;
@@ -11,18 +10,22 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
 {
 	private readonly GetCadVolumeByIdHandler handler;
 	private readonly Mock<ICadReads> reads = new();
+	private readonly Mock<BaseCachingService<CadId, Cad>> cache = new();
 
 	private static readonly Cad cad = CreateCad();
 
 	public GetCadVolumeByIdHandlerUnitTests()
 	{
-		handler = new(reads.Object);
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(cad);
+		handler = new(reads.Object, cache.Object);
+
+		cache.Setup(x => x.GetOrCreateAsync(
+			ValidId,
+			It.IsAny<Func<Task<Cad>>>()
+		)).ReturnsAsync(cad);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetCadVolumeByIdQuery query = new(ValidId);
@@ -31,7 +34,10 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Cad>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]
@@ -45,20 +51,5 @@ public class GetCadVolumeByIdHandlerUnitTests : CadsBaseUnitTests
 
 		// Assert
 		Assert.Equal(cad.Volume, volume);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenCadNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(null as Cad);
-		GetCadVolumeByIdQuery query = new(ValidId);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
-			// Act
-			async () => await handler.Handle(query, ct)
-		);
 	}
 }

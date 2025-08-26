@@ -3,7 +3,6 @@ using CustomCADs.Files.Domain.Repositories;
 using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Application.UseCases.Cads.Commands;
 using CustomCADs.Shared.Domain.Querying;
-using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Commands.Shared.DuplicateByIds;
 
@@ -15,6 +14,7 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<IWrites<Cad>> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<BaseCachingService<CadId, Cad>> cache = new();
 
 	private readonly Cad[] cads = [
 		CreateCadWithId(ValidId),
@@ -25,7 +25,7 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 
 	public DuplicateCadsByIdsHandlerUnitTests()
 	{
-		handler = new(reads.Object, writes.Object, uow.Object);
+		handler = new(reads.Object, writes.Object, uow.Object, cache.Object);
 
 		query = new(new(1, ids.Length), ids);
 		result = new Result<Cad>(cads.Length, cads);
@@ -62,6 +62,25 @@ public class DuplicateCadsByIdsHandlerUnitTests : CadsBaseUnitTests
 			ct
 		), Times.Exactly(cads.Length));
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldWriteToCache()
+	{
+		// Arrange
+		DuplicateCadsByIdsCommand command = new(ids);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		cache.Verify(
+			x => x.UpdateAsync(
+				ValidId,
+				It.Is<Cad>(x => cads.Any(c => x.Key == c.Key))
+			),
+			Times.Exactly(cads.Length)
+		);
 	}
 
 	[Fact]

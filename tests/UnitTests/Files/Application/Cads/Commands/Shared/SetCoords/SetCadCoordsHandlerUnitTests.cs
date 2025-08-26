@@ -14,14 +14,15 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 	private readonly SetCadCoordsHandler handler;
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<BaseCachingService<CadId, Cad>> cache = new();
 
 	private static readonly CoordinatesDto camCoords = new(MinValidCoord, MinValidCoord, MinValidCoord);
 	private static readonly CoordinatesDto panCoords = new(MaxValidCoord, MaxValidCoord, MaxValidCoord);
-	private readonly Cad cad = CreateCad();
+	private readonly Cad cad = CreateCadWithId();
 
 	public SetCadCoordsHandlerUnitTests()
 	{
-		handler = new(reads.Object, uow.Object);
+		handler = new(reads.Object, uow.Object, cache.Object);
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(cad);
 	}
@@ -58,6 +59,26 @@ public class SetCadCoordsHandlerUnitTests : CadsBaseUnitTests
 
 		// Assert
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldWriteToCache()
+	{
+		// Arrange
+		SetCadCoordsCommand command = new(
+			Id: ValidId,
+			CamCoordinates: camCoords,
+			PanCoordinates: panCoords
+		);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		cache.Verify(
+			x => x.UpdateAsync(ValidId, cad),
+			Times.Once()
+		);
 	}
 
 	[Fact]

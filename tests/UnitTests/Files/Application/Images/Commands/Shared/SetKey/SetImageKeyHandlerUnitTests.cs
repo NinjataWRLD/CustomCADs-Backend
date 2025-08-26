@@ -13,12 +13,13 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 	private readonly SetImageKeyHandler handler;
 	private readonly Mock<IImageReads> reads = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<BaseCachingService<ImageId, Image>> cache = new();
 
-	private readonly Image image = CreateImage();
+	private readonly Image image = CreateImageWithId();
 
 	public SetImageKeyHandlerUnitTests()
 	{
-		handler = new(reads.Object, uow.Object);
+		handler = new(reads.Object, uow.Object, cache.Object);
 
 		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct))
 			.ReturnsAsync(image);
@@ -48,6 +49,22 @@ public class SetImageKeyHandlerUnitTests : ImagesBaseUnitTests
 
 		// Assert
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldWriteToCache()
+	{
+		// Arrange
+		SetImageKeyCommand command = new(ValidId, ValidKey);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		cache.Verify(
+			x => x.UpdateAsync(ValidId, image),
+			Times.Once()
+		);
 	}
 
 	[Fact]
