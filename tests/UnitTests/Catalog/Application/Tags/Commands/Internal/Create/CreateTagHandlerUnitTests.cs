@@ -11,15 +11,18 @@ public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 	private readonly CreateTagHandler handler;
 	private readonly Mock<ITagWrites> writes = new();
 	private readonly Mock<IUnitOfWork> uow = new();
+	private readonly Mock<BaseCachingService<TagId, Tag>> cache = new();
+
+	private readonly Tag tag = CreateTag();
 
 	public CreateTagHandlerUnitTests()
 	{
-		handler = new(writes.Object, uow.Object);
+		handler = new(writes.Object, uow.Object, cache.Object);
 
 		writes.Setup(v => v.AddAsync(
 			It.Is<Tag>(x => x.Name == MaxValidName),
 			ct
-		)).ReturnsAsync(CreateTag(id: ValidId));
+		)).ReturnsAsync(tag);
 	}
 
 	[Fact]
@@ -37,6 +40,22 @@ public class CreateTagHandlerUnitTests : TagsBaseUnitTests
 			ct
 		), Times.Once());
 		uow.Verify(v => v.SaveChangesAsync(ct), Times.Once());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldWriteToCache()
+	{
+		// Arrange
+		CreateTagCommand command = new(MaxValidName);
+
+		// Act
+		await handler.Handle(command, ct);
+
+		// Assert
+		cache.Verify(
+			x => x.UpdateAsync(ValidId, tag),
+			Times.Once()
+		);
 	}
 
 	[Fact]

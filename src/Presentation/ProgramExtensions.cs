@@ -1,6 +1,8 @@
 ﻿using CustomCADs.Identity.Application.Users.Dtos;
+using CustomCADs.Identity.Infrastructure.Tokens;
 using CustomCADs.Presentation;
 using FastEndpoints;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Scalar.AspNetCore;
 using System.Diagnostics.CodeAnalysis;
@@ -32,6 +34,20 @@ public static class ProgramExtensions
 		);
 
 		return services;
+	}
+
+	public static AuthenticationBuilder AddJwt(this AuthenticationBuilder builder, IConfiguration config)
+	{
+		JwtSettings settings = config.GetSection("Jwt").Get<JwtSettings>()
+			?? throw new KeyNotFoundException("JwtSettings not provided.");
+
+		builder.AddJwt((
+			SecretKey: settings.SecretKey,
+			Issuer: settings.Issuer,
+			Audience: settings.Audience
+		));
+
+		return builder;
 	}
 
 	public static void AddAuthZ(this IServiceCollection services, IEnumerable<string> roles)

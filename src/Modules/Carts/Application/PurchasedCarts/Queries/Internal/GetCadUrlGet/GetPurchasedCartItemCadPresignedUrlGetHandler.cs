@@ -2,6 +2,7 @@
 using CustomCADs.Carts.Domain.PurchasedCarts.Enums;
 using CustomCADs.Carts.Domain.Repositories.Reads;
 using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Dtos.Files;
 using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
@@ -26,19 +27,19 @@ public sealed class GetPurchasedCartItemCadPresignedUrlGetHandler(IPurchasedCart
 		PurchasedCartItem item = cart.Items.FirstOrDefault(x => x.ProductId == req.ProductId)
 			?? throw CustomNotFoundException<PurchasedCartItem>.ById(req.ProductId);
 
-		var url = await sender.SendQueryAsync(
+		DownloadFileResponse file = await sender.SendQueryAsync(
 			new GetCadPresignedUrlGetByIdQuery(item.CadId),
 			ct
 		).ConfigureAwait(false);
 
-		var coords = await sender.SendQueryAsync(
+		GetCadCoordsByIdDto coords = await sender.SendQueryAsync(
 			new GetCadCoordsByIdQuery(item.CadId),
 			ct
 		).ConfigureAwait(false);
 
 		return new(
-			PresignedUrl: url.PresignedUrl,
-			ContentType: url.ContentType,
+			PresignedUrl: file.PresignedUrl,
+			ContentType: file.ContentType,
 			CamCoordinates: coords.Cam,
 			PanCoordinates: coords.Pan
 		);

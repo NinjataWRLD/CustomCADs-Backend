@@ -30,38 +30,21 @@ public static class DependencyInjection
 		return builder;
 	}
 
-	public static AuthenticationBuilder AddJwt(this AuthenticationBuilder builder, IConfiguration config)
+	public static AuthenticationBuilder AddJwt(this AuthenticationBuilder builder, (string SecretKey, string Issuer, string Audience) settings)
 	{
-		static (string SecretKey, string Issuer, string Audience) ExtractJwt(IConfiguration config)
-		{
-			var section = config.GetSection("Jwt");
-
-			string? secretKey = section["SecretKey"];
-			ArgumentNullException.ThrowIfNull(secretKey, nameof(secretKey));
-			string? issuer = section["Issuer"];
-			ArgumentNullException.ThrowIfNull(issuer, nameof(issuer));
-			string? audience = section["Audience"];
-			ArgumentNullException.ThrowIfNull(audience, nameof(audience));
-
-			return (
-				SecretKey: secretKey,
-				Issuer: issuer,
-				Audience: audience
-			);
-		}
-
 		builder.AddJwtBearer(opt =>
 		{
-			var (SecretKey, Issuer, Audience) = ExtractJwt(config);
 			opt.TokenValidationParameters = new()
 			{
 				ValidateAudience = true,
 				ValidateIssuer = true,
 				ValidateLifetime = true,
 				ValidateIssuerSigningKey = true,
-				ValidIssuer = Issuer,
-				ValidAudience = Audience,
-				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey)),
+				ValidIssuer = settings.Issuer,
+				ValidAudience = settings.Audience,
+				IssuerSigningKey = new SymmetricSecurityKey(
+					key: Encoding.UTF8.GetBytes(settings.SecretKey)
+				),
 			};
 
 			opt.Events = new()

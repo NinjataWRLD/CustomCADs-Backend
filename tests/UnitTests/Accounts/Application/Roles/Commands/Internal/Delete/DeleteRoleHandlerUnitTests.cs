@@ -23,14 +23,12 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 	public DeleteRoleHandlerUnitTests()
 	{
 		handler = new(reads.Object, writes.Object, uow.Object, cache.Object, raiser.Object);
-		cache.Setup(x => x.GetOrCreateAsync(
-			ValidId,
-			It.IsAny<Func<Task<Role>>>()
-		)).ReturnsAsync(CreateRole());
+
+		reads.Setup(x => x.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(CreateRole());
 	}
 
 	[Fact]
-	public async Task Handle_ShouldReadCache()
+	public async Task Handle_ShouldQueryDatabase()
 	{
 		// Arrange
 		DeleteRoleCommand command = new(ValidId);
@@ -39,10 +37,7 @@ public class DeleteRoleHandlerUnitTests : RolesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		cache.Verify(x => x.GetOrCreateAsync(
-			ValidId,
-			It.IsAny<Func<Task<Role>>>()
-		), Times.Once());
+		reads.Verify(x => x.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]

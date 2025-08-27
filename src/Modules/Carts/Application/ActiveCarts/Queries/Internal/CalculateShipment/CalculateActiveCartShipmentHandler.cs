@@ -3,6 +3,7 @@ using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Application.Dtos.Delivery;
 using CustomCADs.Shared.Application.UseCases.Customizations.Queries;
 using CustomCADs.Shared.Application.UseCases.Shipments.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Queries.Internal.CalculateShipment;
 
@@ -18,7 +19,7 @@ public class CalculateActiveCartShipmentHandler(IActiveCartReads reads, IRequest
 			throw CustomException.Delivery<ActiveCartItem>(markedForDelivery: false);
 		}
 
-		var weights = await sender.SendQueryAsync(
+		Dictionary<CustomizationId, double> weights = await sender.SendQueryAsync(
 			new GetCustomizationsWeightByIdsQuery(
 				Ids: [..
 					items

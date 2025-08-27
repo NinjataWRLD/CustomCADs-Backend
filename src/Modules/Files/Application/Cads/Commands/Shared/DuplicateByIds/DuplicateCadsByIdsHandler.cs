@@ -3,11 +3,10 @@ using CustomCADs.Files.Domain.Repositories.Reads;
 using CustomCADs.Shared.Application.Abstractions.Requests.Commands;
 using CustomCADs.Shared.Application.UseCases.Cads.Commands;
 using CustomCADs.Shared.Domain.Querying;
-using CustomCADs.Shared.Domain.TypedIds.Files;
 
 namespace CustomCADs.Files.Application.Cads.Commands.Shared.DuplicateByIds;
 
-public class DuplicateCadsByIdsHandler(ICadReads reads, IWrites<Cad> writes, IUnitOfWork uow)
+public class DuplicateCadsByIdsHandler(ICadReads reads, IWrites<Cad> writes, IUnitOfWork uow, BaseCachingService<CadId, Cad> cache)
 	: ICommandHandler<DuplicateCadsByIdsCommand, Dictionary<CadId, CadId>>
 {
 	public async Task<Dictionary<CadId, CadId>> Handle(DuplicateCadsByIdsCommand req, CancellationToken ct)
@@ -32,6 +31,11 @@ public class DuplicateCadsByIdsHandler(ICadReads reads, IWrites<Cad> writes, IUn
 			newCads[cad] = newCad;
 		}
 		await uow.SaveChangesAsync(ct).ConfigureAwait(false);
+
+		foreach (Cad cad in result.Items)
+		{
+			await cache.UpdateAsync(cad.Id, cad).ConfigureAwait(false);
+		}
 
 		return newCads.ToDictionary(x => x.Key.Id, x => x.Value.Id);
 	}

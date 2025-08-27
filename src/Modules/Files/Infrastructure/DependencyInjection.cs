@@ -14,7 +14,7 @@ public static class DependencyInjection
 	{
 		services.AddSingleton<IAmazonS3>(sp =>
 		{
-			var settings = sp.GetRequiredService<IOptions<StorageSettings>>().Value;
+			StorageSettings settings = sp.GetRequiredService<IOptions<StorageSettings>>().Value;
 
 			AmazonS3Config config = new()
 			{

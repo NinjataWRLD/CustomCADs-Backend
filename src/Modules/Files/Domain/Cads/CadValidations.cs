@@ -48,7 +48,7 @@ public static class CadValidations
 	public static Cad ValidateCamCoordinates(this Cad cad)
 	{
 		string property = "CamCoordinates";
-		var coords = cad.CamCoordinates;
+		ValueObjects.Coordinates coords = cad.CamCoordinates;
 
 		if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
 		{
@@ -61,7 +61,7 @@ public static class CadValidations
 	public static Cad ValidatePanCoordinates(this Cad cad)
 	{
 		string property = "PanCoordinates";
-		var coords = cad.PanCoordinates;
+		ValueObjects.Coordinates coords = cad.PanCoordinates;
 
 		if (!AreCoordsValid(coords.X, coords.Y, coords.Z))
 		{

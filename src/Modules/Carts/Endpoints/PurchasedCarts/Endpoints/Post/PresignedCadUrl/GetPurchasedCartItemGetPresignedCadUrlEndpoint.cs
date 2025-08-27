@@ -1,4 +1,5 @@
 ﻿using CustomCADs.Carts.Application.PurchasedCarts.Queries.Internal.GetCadUrlGet;
+using CustomCADs.Shared.Application.Dtos.Files;
 using CustomCADs.Shared.Domain.TypedIds.Carts;
 using CustomCADs.Shared.Domain.TypedIds.Catalog;
 using CustomCADs.Shared.Endpoints.Attributes;
@@ -8,7 +9,7 @@ using Microsoft.AspNetCore.Builder;
 namespace CustomCADs.Carts.Endpoints.PurchasedCarts.Endpoints.Post.PresignedCadUrl;
 
 public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSender sender)
-	: Endpoint<GetPurchasedCartItemGetPresignedCadUrlRequest, GetPurchasedCartItemGetPresignedCadUrlResponse>
+	: Endpoint<GetPurchasedCartItemGetPresignedCadUrlRequest, GetPurchasedCartItemCadPresignedUrlGetDto>
 {
 	public override void Configure()
 	{
@@ -23,7 +24,7 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
 
 	public override async Task HandleAsync(GetPurchasedCartItemGetPresignedCadUrlRequest req, CancellationToken ct)
 	{
-		var (PresignedUrl, ContentType, Cam, Pan) = await sender.SendQueryAsync(
+		GetPurchasedCartItemCadPresignedUrlGetDto response = await sender.SendQueryAsync(
 			new GetPurchasedCartItemCadPresignedUrlGetQuery(
 				Id: PurchasedCartId.New(req.Id),
 				ProductId: ProductId.New(req.ProductId),
@@ -32,12 +33,6 @@ public sealed class GetPurchasedCartItemGetPresignedCadUrlEndpoint(IRequestSende
 			ct
 		).ConfigureAwait(false);
 
-		GetPurchasedCartItemGetPresignedCadUrlResponse response = new(
-			PresignedUrl: PresignedUrl,
-			ContentType: ContentType,
-			CamCoordinates: Cam,
-			PanCoordinates: Pan
-		);
 		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

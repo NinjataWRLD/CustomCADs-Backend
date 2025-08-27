@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Put.PresignedUrl.Image;
 
 public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
-	: Endpoint<GetProductPutPresignedUrlRequest, GetProductPutPresignedUrlResponse>
+	: Endpoint<GetProductPutPresignedUrlRequest, CreatorGetProductImagePresignedUrlPutDto>
 {
 	public override void Configure()
 	{
@@ -21,7 +21,7 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(GetProductPutPresignedUrlRequest req, CancellationToken ct)
 	{
-		var imageDto = await sender.SendQueryAsync(
+		CreatorGetProductImagePresignedUrlPutDto response = await sender.SendQueryAsync(
 			new CreatorGetProductImagePresignedUrlPutQuery(
 				Id: ProductId.New(req.Id),
 				NewImage: req.File,
@@ -29,8 +29,6 @@ public sealed class GetProductPutPresignedUrlEndpoint(IRequestSender sender)
 			),
 			ct
 		).ConfigureAwait(false);
-
-		GetProductPutPresignedUrlResponse response = new(imageDto.PresignedUrl);
 		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

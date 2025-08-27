@@ -1,6 +1,17 @@
-﻿namespace CustomCADs.Delivery.Infrastructure;
+﻿using SpeedyNET.Abstractions.UserConfigs;
 
-public record DeliverySettings(string Username, string Password)
+namespace CustomCADs.Delivery.Infrastructure;
+
+public record DeliverySettings(
+	SpeedyAccount Account,
+	SpeedyPickup Pickup,
+	SpeedyContact Contact
+)
 {
-	public DeliverySettings() : this(string.Empty, string.Empty) { }
+	public DeliverySettings() : this(
+		Account: new(string.Empty, string.Empty),
+		Pickup: new(string.Empty, string.Empty, string.Empty),
+		Contact: new(string.Empty, string.Empty, string.Empty)
+	)
+	{ }
 };

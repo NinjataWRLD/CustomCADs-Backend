@@ -38,7 +38,7 @@ public sealed class PurchaseActiveCartHandler(IActiveCartReads reads, IRequestSe
 			ct
 		).ConfigureAwait(false);
 
-		var purchasedCartId = await sender.SendCommandAsync(
+		PurchasedCartId purchasedCartId = await sender.SendCommandAsync(
 			new CreatePurchasedCartCommand(
 				BuyerId: req.BuyerId,
 				Items: [.. items.Select(x => x.ToDto(buyer))],

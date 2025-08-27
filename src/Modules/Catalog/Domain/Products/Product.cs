@@ -122,7 +122,7 @@ public class Product : BaseAggregateRoot
 
 	public Product SetUncheckedStatus()
 	{
-		var newStatus = ProductStatus.Unchecked;
+		ProductStatus newStatus = ProductStatus.Unchecked;
 
 		if (Status is not (ProductStatus.Validated or ProductStatus.Reported))
 		{
@@ -135,7 +135,7 @@ public class Product : BaseAggregateRoot
 
 	public Product SetValidatedStatus()
 	{
-		var newStatus = ProductStatus.Validated;
+		ProductStatus newStatus = ProductStatus.Validated;
 
 		if (Status is not ProductStatus.Unchecked)
 		{
@@ -148,7 +148,7 @@ public class Product : BaseAggregateRoot
 
 	public Product SetReportedStatus()
 	{
-		var newStatus = ProductStatus.Reported;
+		ProductStatus newStatus = ProductStatus.Reported;
 
 		if (Status is not (ProductStatus.Unchecked or ProductStatus.Validated))
 		{
@@ -161,7 +161,7 @@ public class Product : BaseAggregateRoot
 
 	public Product SetRemovedStatus()
 	{
-		var newStatus = ProductStatus.Removed;
+		ProductStatus newStatus = ProductStatus.Removed;
 
 		if (Status is not ProductStatus.Reported)
 		{

@@ -33,7 +33,7 @@ public sealed class PostAccountEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		var newAccount = await sender.SendQueryAsync(
+		GetAccountByIdDto newAccount = await sender.SendQueryAsync(
 			new GetAccountByIdQuery(id)
 		, ct).ConfigureAwait(false);
 

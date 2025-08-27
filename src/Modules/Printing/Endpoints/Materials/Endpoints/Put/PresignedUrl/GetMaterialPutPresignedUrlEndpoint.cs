@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Builder;
 namespace CustomCADs.Printing.Endpoints.Materials.Endpoints.Put.PresignedUrl;
 
 public sealed class GetMaterialPutPresignedUrlEndpoint(IRequestSender sender)
-	: Endpoint<GetMaterialPutPresignedUrlRequest, GetMaterialPutPresignedUrlResponse>
+	: Endpoint<GetMaterialPutPresignedUrlRequest, GetMaterialTexturePresignedUrlPutDto>
 {
 	public override void Configure()
 	{
@@ -20,7 +20,7 @@ public sealed class GetMaterialPutPresignedUrlEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(GetMaterialPutPresignedUrlRequest req, CancellationToken ct)
 	{
-		var imageDto = await sender.SendQueryAsync(
+		GetMaterialTexturePresignedUrlPutDto response = await sender.SendQueryAsync(
 			new GetMaterialTexturePresignedUrlPutQuery(
 				Id: MaterialId.New(req.Id),
 				NewImage: req.File
@@ -28,7 +28,6 @@ public sealed class GetMaterialPutPresignedUrlEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		GetMaterialPutPresignedUrlResponse response = new(imageDto.PresignedUrl);
 		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

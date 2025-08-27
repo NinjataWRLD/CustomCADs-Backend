@@ -7,6 +7,7 @@ using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
 using CustomCADs.Shared.Application.UseCases.Customizations.Queries;
 using CustomCADs.Shared.Application.UseCases.Products.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Catalog;
 using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Purchase.WithDelivery;
@@ -27,7 +28,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 			throw CustomException.Delivery<ActiveCartItem>(markedForDelivery: false);
 		}
 
-		var prices = await sender.SendQueryAsync(
+		Dictionary<ProductId, decimal> prices = await sender.SendQueryAsync(
 			new GetProductPricesByIdsQuery(
 				Ids: [.. items.Select(i => i.ProductId)]
 			),
@@ -37,7 +38,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 			x => x.Key,
 			x =>
 			{
-				var item = items.First(i => i.ProductId == x.Key);
+				ActiveCartItem item = items.First(i => i.ProductId == x.Key);
 				return item.ForDelivery ? x.Value * item.Quantity : x.Value;
 			}
 		);
@@ -48,7 +49,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 				.Select(x => x.CustomizationId!.Value)
 		];
 
-		var costs = await sender.SendQueryAsync(
+		Dictionary<CustomizationId, decimal> costs = await sender.SendQueryAsync(
 			new GetCustomizationsCostByIdsQuery(
 				Ids: customizationIds
 			),
@@ -58,7 +59,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 			x => x.Key,
 			x =>
 			{
-				var item = items.First(i => i.CustomizationId == x.Key);
+				ActiveCartItem item = items.First(i => i.CustomizationId == x.Key);
 				return x.Value * item.Quantity;
 			}
 		);
@@ -70,7 +71,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 			ct
 		).ConfigureAwait(false);
 
-		var purchasedCartId = await sender.SendCommandAsync(
+		PurchasedCartId purchasedCartId = await sender.SendCommandAsync(
 			new CreatePurchasedCartCommand(
 				BuyerId: req.BuyerId,
 				Items: [.. items.Select(x => x.ToDto(buyer))],
@@ -79,7 +80,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 					x =>
 					{
 						decimal price = x.Value;
-						var item = items.First(i => i.ProductId == x.Key);
+						ActiveCartItem item = items.First(i => i.ProductId == x.Key);
 
 						return item.ForDelivery && item.CustomizationId is not null
 							? price + costs[item.CustomizationId.Value]
@@ -90,7 +91,7 @@ public sealed class PurchaseActiveCartWithDeliveryHandler(IActiveCartReads reads
 			ct
 		).ConfigureAwait(false);
 
-		var weights = await sender.SendQueryAsync(
+		Dictionary<CustomizationId, double> weights = await sender.SendQueryAsync(
 			new GetCustomizationsWeightByIdsQuery(
 				Ids: customizationIds
 			),

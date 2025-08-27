@@ -5,7 +5,7 @@ using CustomCADs.Shared.Application.Events.Files;
 
 namespace CustomCADs.Files.Application.Cads.Events.Application;
 
-public class ProductDeletedHandler(ICadReads reads, IWrites<Cad> writes, IUnitOfWork uow, ICadStorageService storage)
+public class ProductDeletedHandler(ICadReads reads, IWrites<Cad> writes, IUnitOfWork uow, ICadStorageService storage, BaseCachingService<CadId, Cad> cache)
 {
 	public async Task Handle(ProductDeletedApplicationEvent ae)
 	{
@@ -16,5 +16,7 @@ public class ProductDeletedHandler(ICadReads reads, IWrites<Cad> writes, IUnitOf
 
 		writes.Remove(cad);
 		await uow.SaveChangesAsync().ConfigureAwait(false);
+
+		await cache.ClearAsync(ae.CadId).ConfigureAwait(false);
 	}
 }

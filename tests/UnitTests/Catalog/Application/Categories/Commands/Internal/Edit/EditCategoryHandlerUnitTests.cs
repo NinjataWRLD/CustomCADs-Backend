@@ -18,7 +18,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 	public EditCategoryHandlerUnitTests()
 	{
 		handler = new(reads.Object, uow.Object, cache.Object);
-		cache.Setup(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>())).ReturnsAsync(category);
+		reads.Setup(v => v.SingleByIdAsync(ValidId, true, ct)).ReturnsAsync(category);
 	}
 
 	[Fact]
@@ -31,7 +31,7 @@ public class EditCategoryHandlerUnitTests : CategoriesBaseUnitTests
 		await handler.Handle(command, ct);
 
 		// Assert
-		cache.Verify(v => v.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Category>>>()), Times.Once());
+		reads.Verify(v => v.SingleByIdAsync(ValidId, true, ct), Times.Once());
 	}
 
 	[Fact]

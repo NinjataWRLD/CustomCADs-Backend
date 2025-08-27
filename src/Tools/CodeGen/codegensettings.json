@@ -8,5 +8,43 @@
   "AllowedHosts": "*",
   "ConnectionStrings": {
     "ApplicationConnection": "Host=localhost;Port=5432;Database=CustomCADs;Username=postgres;Password=change_this"
+  },
+  "Jwt": {
+    "Issuer": "https://localhost:7295",
+    "Audience": "https://localhost:5173",
+    "SecretKey": "change_this"
+  },
+  "Payment": {
+    "SecretKey": "change_this",
+    "PublishableKey": "change_this",
+    "WebhookSecret": "change_this"
+  },
+  "Email": {
+    "Server": "change_this",
+    "Port": 587,
+    "From": "change_this,",
+    "Password": "change_this"
+  },
+  "Storage": {
+    "Region": "us-east-1",
+    "BucketName": "customcads-development-bucket",
+    "AccessKey": "change_this",
+    "SecretKey": "change_this"
+  },
+  "Delivery": {
+    "Account": {
+      "Username": "change_this",
+      "Password": "change_this"
+    },
+    "Pickup": {
+      "Country": "Bulgaria",
+      "City": "Sofia",
+      "Street": "Vitoshka"
+    },
+    "Contact": {
+      "Email": "customcads2023@gmail.com",
+      "PhoneNumber1": "0884874113",
+      "PhoneNumber2": "0885440400"
+    }
   }
 }

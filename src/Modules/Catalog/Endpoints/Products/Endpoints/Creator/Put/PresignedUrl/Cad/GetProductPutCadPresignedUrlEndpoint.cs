@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 namespace CustomCADs.Catalog.Endpoints.Products.Endpoints.Creator.Put.PresignedUrl.Cad;
 
 public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
-	: Endpoint<GetProductPutCadPresignedUrlRequest, GetProductPutCadPresignedUrlResponse>
+	: Endpoint<GetProductPutCadPresignedUrlRequest, CreatorGetProductCadPresignedUrlPutDto>
 {
 	public override void Configure()
 	{
@@ -21,7 +21,7 @@ public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(GetProductPutCadPresignedUrlRequest req, CancellationToken ct)
 	{
-		var cadDto = await sender.SendQueryAsync(
+		CreatorGetProductCadPresignedUrlPutDto response = await sender.SendQueryAsync(
 			new CreatorGetProductCadPresignedUrlPutQuery(
 				Id: ProductId.New(req.Id),
 				NewCad: req.File,
@@ -30,7 +30,6 @@ public sealed class GetProductPutCadPresignedUrlEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		GetProductPutCadPresignedUrlResponse response = new(cadDto.PresignedUrl);
 		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

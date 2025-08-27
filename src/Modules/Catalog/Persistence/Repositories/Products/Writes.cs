@@ -11,7 +11,7 @@ public class Writes(CatalogContext context) : IProductWrites
 
 	public async Task AddTagAsync(ProductId id, TagId tagId, CancellationToken ct = default)
 	{
-		var entity = ProductTag.Create(id, tagId);
+		ProductTag entity = ProductTag.Create(id, tagId);
 		await context.ProductTags.AddAsync(entity, ct).ConfigureAwait(false);
 	}
 

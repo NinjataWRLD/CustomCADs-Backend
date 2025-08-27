@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Files.Application.Cads.Queries.Shared;
 using CustomCADs.Files.Application.Cads.Storage;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Application.Exceptions;
 using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetPresignedUrlGet;
@@ -13,23 +12,26 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 	private readonly GetCadPresignedUrlGetByIdHandler handler;
 	private readonly Mock<ICadReads> reads = new();
 	private readonly Mock<ICadStorageService> storage = new();
+	private readonly Mock<BaseCachingService<CadId, Cad>> cache = new();
 
 	public const string PresignedUrl = "Url";
 	private static readonly Cad cad = CreateCad();
 
 	public GetCadPresignedUrlGetByIdHandlerUnitTests()
 	{
-		handler = new(reads.Object, storage.Object);
+		handler = new(reads.Object, storage.Object, cache.Object);
 
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(cad);
+		cache.Setup(x => x.GetOrCreateAsync(
+			ValidId,
+			It.IsAny<Func<Task<Cad>>>()
+		)).ReturnsAsync(cad);
 
 		storage.Setup(x => x.GetPresignedGetUrlAsync(cad.Key, cad.ContentType))
 			.ReturnsAsync(PresignedUrl);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldQueryDatabase()
+	public async Task Handle_ShouldReadCache()
 	{
 		// Arrange
 		GetCadPresignedUrlGetByIdQuery query = new(ValidId);
@@ -38,7 +40,10 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 		await handler.Handle(query, ct);
 
 		// Assert
-		reads.Verify(x => x.SingleByIdAsync(ValidId, false, ct), Times.Once());
+		cache.Verify(
+			x => x.GetOrCreateAsync(ValidId, It.IsAny<Func<Task<Cad>>>()),
+			Times.Once()
+		);
 	}
 
 	[Fact]
@@ -70,21 +75,6 @@ public class GetCadPresignedUrlGetByIdHandlerUnitTests : CadsBaseUnitTests
 		Assert.Multiple(
 			() => Assert.Equal(cad.ContentType, ContentType),
 			() => Assert.Equal(PresignedUrl, Url)
-		);
-	}
-
-	[Fact]
-	public async Task Handle_ShouldThrowException_WhenCadNotFound()
-	{
-		// Arrange
-		reads.Setup(x => x.SingleByIdAsync(ValidId, false, ct))
-			.ReturnsAsync(null as Cad);
-		GetCadPresignedUrlGetByIdQuery query = new(ValidId);
-
-		// Assert
-		await Assert.ThrowsAsync<CustomNotFoundException<Cad>>(
-			// Act
-			async () => await handler.Handle(query, ct)
 		);
 	}
 }

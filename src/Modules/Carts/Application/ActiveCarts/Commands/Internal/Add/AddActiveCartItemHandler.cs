@@ -2,6 +2,7 @@
 using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
 using CustomCADs.Shared.Application.UseCases.Customizations.Queries;
 using CustomCADs.Shared.Application.UseCases.Products.Queries;
+using CustomCADs.Shared.Domain.TypedIds.Printing;
 
 namespace CustomCADs.Carts.Application.ActiveCarts.Commands.Internal.Add;
 
@@ -22,7 +23,7 @@ public sealed class AddActiveCartItemHandler(IWrites<ActiveCartItem> writes, IUn
 		}
 		else if (req.CustomizationId is not null)
 		{
-			var id = req.CustomizationId.Value;
+			CustomizationId id = req.CustomizationId.Value;
 			if (!await sender.SendQueryAsync(new GetCustomizationExistsByIdQuery(id), ct).ConfigureAwait(false))
 			{
 				throw CustomNotFoundException<ActiveCartItem>.ById(req.CustomizationId.Value, "Customization");
