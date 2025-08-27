@@ -17,7 +17,7 @@ public class GetShipmentWaybillHandler(IShipmentReads reads, IDeliveryService de
 				?? throw CustomNotFoundException<Shipment>.ById(req.Id)
 		).ConfigureAwait(false);
 
-		var headDesignerId = Guid.Parse(DesignerAccountId);
+		Guid headDesignerId = Guid.Parse(DesignerAccountId);
 		if (req.DesignerId != AccountId.New(headDesignerId))
 		{
 			throw CustomAuthorizationException<Shipment>.ById(req.Id);

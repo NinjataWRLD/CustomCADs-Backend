@@ -1,6 +1,9 @@
 ﻿using CustomCADs.Delivery.Application.Contracts;
 using CustomCADs.Delivery.Application.Contracts.Dtos;
 using CustomCADs.Shared.Abstractions.Delivery.Dtos;
+using SpeedyNET.Abstractions.Contracts.Calculation;
+using SpeedyNET.Abstractions.Contracts.Shipment;
+using SpeedyNET.Abstractions.Contracts.Track;
 using SpeedyNET.Core.Enums;
 using SpeedyNET.Sdk;
 using SpeedyNET.Services;
@@ -14,7 +17,7 @@ internal sealed class SpeedyDeliveryService(ISpeedyService service) : IDeliveryS
 
 	public async Task<CalculationDto[]> CalculateAsync(CalculateRequest req, CancellationToken ct = default)
 	{
-		var response = await service.CalculateAsync(
+		CalculateModel[] response = await service.CalculateAsync(
 			payer: payer,
 			weights: req.Weights,
 			country: req.Country,
@@ -41,7 +44,7 @@ internal sealed class SpeedyDeliveryService(ISpeedyService service) : IDeliveryS
 		CancellationToken ct = default
 	)
 	{
-		var response = await service.CreateShipmentAsync(
+		WrittenShipmentModel response = await service.CreateShipmentAsync(
 			payer: payer,
 			package: req.Package,
 			contents: req.Contents,
@@ -75,7 +78,7 @@ internal sealed class SpeedyDeliveryService(ISpeedyService service) : IDeliveryS
 
 	public async Task<ShipmentStatusDto[]> TrackAsync(string shipmentId, CancellationToken ct = default)
 	{
-		var response = await service.TrackAsync(
+		TrackedParcelModel[] response = await service.TrackAsync(
 			shipmentId: shipmentId,
 			ct: ct
 		).ConfigureAwait(false);

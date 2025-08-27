@@ -11,7 +11,7 @@ public class ClearTagsJob(IProductReads reads, IUnitOfWork uow) : IJob
 {
 	public async Task Execute(IJobExecutionContext context)
 	{
-		var ct = context.CancellationToken;
+		CancellationToken ct = context.CancellationToken;
 
 		Product? product = await reads.OldestByTagAsync(Tags.New, ct).ConfigureAwait(false);
 		if (product is null)

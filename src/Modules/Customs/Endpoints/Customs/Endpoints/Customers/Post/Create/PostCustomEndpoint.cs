@@ -30,7 +30,7 @@ public sealed class PostCustomEndpoint(IRequestSender sender)
 			ct
 		).ConfigureAwait(false);
 
-		var custom = await sender.SendQueryAsync(
+		CustomerGetCustomByIdDto custom = await sender.SendQueryAsync(
 			new CustomerGetCustomByIdQuery(
 				Id: id,
 				BuyerId: User.GetAccountId()

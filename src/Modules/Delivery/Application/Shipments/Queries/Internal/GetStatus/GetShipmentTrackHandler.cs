@@ -20,10 +20,9 @@ public class GetShipmentTrackHandler(IShipmentReads reads, IDeliveryService deli
 			ct
 		).ConfigureAwait(false);
 
-		var response = statuses.ToDictionary(
+		return statuses.ToDictionary(
 			x => x.DateTime,
 			x => new GetShipmentTrackDto(x.Message, x.Place)
 		);
-		return response;
 	}
 }

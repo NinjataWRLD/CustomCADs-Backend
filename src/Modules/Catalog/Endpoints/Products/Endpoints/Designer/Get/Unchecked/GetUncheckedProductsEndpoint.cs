@@ -20,7 +20,7 @@ public sealed class GetUncheckedProductsEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(GetUncheckedProductsRequest req, CancellationToken ct)
 	{
-		var result = await sender.SendQueryAsync(
+		Result<DesignerGetAllProductsDto> result = await sender.SendQueryAsync(
 			new DesignerGetAllProductsQuery(
 				DesignerId: User.GetAccountId(),
 				Status: ProductStatus.Unchecked,

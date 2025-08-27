@@ -18,7 +18,7 @@ public sealed class GetCustomsStatsEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(CancellationToken ct)
 	{
-		var counts = await sender.SendQueryAsync(
+		CountCustomsDto counts = await sender.SendQueryAsync(
 			new CountCustomsQuery(
 				BuyerId: User.GetAccountId()
 			),

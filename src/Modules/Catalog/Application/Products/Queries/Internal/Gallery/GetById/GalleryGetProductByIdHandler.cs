@@ -3,6 +3,7 @@ using CustomCADs.Catalog.Domain.Products.Enums;
 using CustomCADs.Catalog.Domain.Repositories.Reads;
 using CustomCADs.Shared.Application.Abstractions.Events;
 using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Dtos.Files;
 using CustomCADs.Shared.Application.UseCases.Accounts.Queries;
 using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 using CustomCADs.Shared.Application.UseCases.Categories.Queries;
@@ -38,7 +39,7 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
 			ct
 		).ConfigureAwait(false);
 
-		var coords = await sender.SendQueryAsync(
+		(CoordinatesDto cam, CoordinatesDto pan) = await sender.SendQueryAsync(
 			new GetCadCoordsByIdQuery(product.CadId),
 			ct
 		).ConfigureAwait(false);
@@ -56,8 +57,8 @@ public sealed class GalleryGetProductByIdHandler(IProductReads reads, IRequestSe
 			username: username,
 			categoryName: categoryName,
 			tags: tags,
-			camCoords: coords.Cam,
-			panCoords: coords.Pan
+			camCoords: cam,
+			panCoords: pan
 		);
 	}
 }

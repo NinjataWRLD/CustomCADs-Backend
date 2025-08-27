@@ -17,14 +17,14 @@ public class TrackShipmentEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(TrackShipmentRequest req, CancellationToken ct)
 	{
-		var tracks = await sender.SendQueryAsync(
+		Dictionary<DateTimeOffset, GetShipmentTrackDto> tracks = await sender.SendQueryAsync(
 			new GetShipmentTrackQuery(
 				Id: ShipmentId.New(req.Id)
 			),
 			ct
 		).ConfigureAwait(false);
 
-		var response = tracks.ToResponse();
+		Dictionary<DateTimeOffset, TrackShipmentResponse> response = tracks.ToResponse();
 		await Send.OkAsync(response).ConfigureAwait(false);
 	}
 }

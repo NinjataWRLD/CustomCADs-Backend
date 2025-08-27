@@ -76,7 +76,7 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
 		AppUser appUser = user.ToAppUser();
 		await manager.CreateAsync(appUser, password).ConfigureAwait(false);
 
-		var result = await manager.AddToRoleAsync(appUser, user.Role).ConfigureAwait(false);
+		IdentityResult result = await manager.AddToRoleAsync(appUser, user.Role).ConfigureAwait(false);
 		if (!result.Succeeded)
 		{
 			throw new CustomException($"Couldn't create an account for: {user.Username}.");
@@ -160,7 +160,7 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
 		AppUser appUser = await manager.FindByNameAsync(username).ConfigureAwait(false)
 			?? throw CustomNotFoundException<AppUser>.ByProp(nameof(username), username);
 
-		var result = await manager.ConfirmEmailAsync(appUser, token).ConfigureAwait(false);
+		IdentityResult result = await manager.ConfirmEmailAsync(appUser, token).ConfigureAwait(false);
 		if (!result.Succeeded)
 		{
 			throw CustomAuthorizationException<User>.Custom($"Error confirming Account: {username}'s email.");
@@ -180,7 +180,7 @@ public class AppUserService(UserManager<AppUser> manager) : IUserService
 		AppUser appUser = await manager.FindByEmailAsync(email).ConfigureAwait(false)
 			?? throw CustomNotFoundException<AppUser>.ByProp(nameof(email), email);
 
-		var result = await manager.ResetPasswordAsync(appUser, token, newPassword).ConfigureAwait(false);
+		IdentityResult result = await manager.ResetPasswordAsync(appUser, token, newPassword).ConfigureAwait(false);
 		if (!result.Succeeded)
 		{
 			throw CustomAuthorizationException<User>.Custom($"Failed to reset Account: {email}'s password.");

@@ -22,13 +22,12 @@ public sealed class GetMaterialGetPresignedUrlEndpoint(IRequestSender sender)
 
 	public override async Task HandleAsync(GetMaterialGetPresignedUrlRequest req, CancellationToken ct)
 	{
-		var response = await sender.SendQueryAsync(
+		DownloadFileResponse response = await sender.SendQueryAsync(
 			new GetMaterialTexturePresignedUrlGetQuery(
 				Id: MaterialId.New(req.Id)
 			),
 			ct
 		).ConfigureAwait(false);
-
 
 		await Send.OkAsync(response).ConfigureAwait(false);
 	}
