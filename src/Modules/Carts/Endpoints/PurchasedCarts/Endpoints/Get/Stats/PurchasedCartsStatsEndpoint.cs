@@ -24,7 +24,7 @@ public sealed class PurchasedCartsStatsEndpoint(IRequestSender sender)
 				BuyerId: User.GetAccountId()
 			),
 			ct
-	).ConfigureAwait(false);
+		).ConfigureAwait(false);
 
 		var counts = await sender.SendQueryAsync(
 			new CountPurchasedCartItemsQuery(

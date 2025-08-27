@@ -31,7 +31,6 @@ public class RefreshToken : BaseEntity
 	public DateTimeOffset ExpiresAt { get; init; }
 	public string Value { get; private set; } = string.Empty;
 	public UserId UserId { get; private set; }
-	public User User { get; init; } = null!;
 
 	public static RefreshToken Create(string value, UserId userId, bool longerSession)
 		=> new(value, userId, longerSession);

@@ -1,7 +1,6 @@
 ﻿using CustomCADs.Files.Application.Cads.Queries.Shared;
 using CustomCADs.Files.Application.Cads.Storage;
 using CustomCADs.Files.Domain.Repositories.Reads;
-using CustomCADs.Shared.Application.Exceptions;
 using CustomCADs.Shared.Application.UseCases.Cads.Queries;
 
 namespace CustomCADs.UnitTests.Files.Application.Cads.Queries.Shared.GetPresignedUrlGet;
