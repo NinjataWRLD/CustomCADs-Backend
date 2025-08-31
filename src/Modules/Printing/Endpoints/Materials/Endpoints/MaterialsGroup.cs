@@ -1,15 +1,16 @@
 ﻿namespace CustomCADs.Printing.Endpoints.Materials.Endpoints;
 
 using static Constants.Roles;
+using static EndpointsConstants;
 
 public class MaterialsGroup : Group
 {
 	public MaterialsGroup()
 	{
-		Configure("materials", ep =>
+		Configure(Paths.Materials, ep =>
 		{
 			ep.Roles(Admin);
-			ep.Description(opt => opt.WithTags("16. Materials Dashboard"));
+			ep.Description(opt => opt.WithTags(Tags[Paths.Materials]));
 		});
 	}
 }

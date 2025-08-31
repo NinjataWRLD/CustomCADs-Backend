@@ -1,15 +1,16 @@
 ﻿namespace CustomCADs.Carts.Endpoints.ActiveCarts.Endpoints;
 
 using static Constants.Roles;
+using static EndpointsConstants;
 
 public class ActiveCartsGroup : Group
 {
 	public ActiveCartsGroup()
 	{
-		Configure("carts/active", ep =>
+		Configure(Paths.ActiveCarts, ep =>
 		{
 			ep.Roles(Customer);
-			ep.Description(d => d.WithTags("03. Active Cart"));
+			ep.Description(d => d.WithTags(Tags[Paths.ActiveCarts]));
 		});
 	}
 }
