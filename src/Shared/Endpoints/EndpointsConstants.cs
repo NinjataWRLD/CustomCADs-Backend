@@ -2,6 +2,8 @@ namespace CustomCADs.Shared.Endpoints;
 
 public static class EndpointsConstants
 {
+	public const string RateLimitPolicy = "user-based";
+
 	public static class Paths
 	{
 		public const string Identity = "identity";

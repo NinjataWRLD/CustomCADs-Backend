@@ -30,6 +30,7 @@ builder.Services.AddGlobalExceptionHandler();
 builder.Services.AddEndpoints();
 builder.Services.AddJsonOptions();
 builder.Services.AddApiDocumentation();
+builder.Services.AddRateLimiting();
 builder.Services.AddProblemDetails();
 builder.Services.AddHealthChecks();
 
@@ -49,6 +50,7 @@ app.UseIdempotencyKeys();
 
 // API & Documentation
 app.UseEndpoints();
+app.UseRateLimiter();
 app.MapApiDocumentationUi(
 	apiPattern: "/openapi/{documentName}.json",
 	uiPattern: "/scalar"
