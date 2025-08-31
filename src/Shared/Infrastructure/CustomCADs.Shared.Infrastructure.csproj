@@ -10,6 +10,7 @@
 	<ItemGroup>
 		<PackageReference Include="FluentEmail.Smtp" />
 		<PackageReference Include="Microsoft.Extensions.Caching.Memory" />
+		<PackageReference Include="Polly" />
 		<PackageReference Include="Stripe.net" />
 		<PackageReference Include="WolverineFx" />
 		<PackageReference Include="WolverineFx.FluentValidation" />

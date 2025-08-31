@@ -1,15 +1,16 @@
 ﻿namespace CustomCADs.Accounts.Endpoints.Roles.Endpoints;
 
 using static Constants.Roles;
+using static EndpointsConstants;
 
 public class RolesGroup : Group
 {
 	public RolesGroup()
 	{
-		Configure("roles", ep =>
+		Configure(Paths.Roles, ep =>
 		{
 			ep.Roles(Admin);
-			ep.Description(opt => opt.WithTags("14. Roles Dashboard"));
+			ep.Description(opt => opt.WithTags(Tags[Paths.Roles]));
 		});
 	}
 }

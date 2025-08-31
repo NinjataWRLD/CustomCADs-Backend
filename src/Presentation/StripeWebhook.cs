@@ -85,7 +85,7 @@ public static class StripeWebhook
 
 			return Results.Ok();
 		})
-		.WithTags("00. Stripe")
+		.WithTags("-1.1. Stripe")
 		.WithSummary("Stripe Webhook")
 		.WithDescription("Not meant for the client to use");
 	}

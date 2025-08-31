@@ -1,5 +1,6 @@
 using CustomCADs.Delivery.Application.Contracts;
 using CustomCADs.Delivery.Infrastructure;
+using CustomCADs.Shared.Infrastructure;
 using Microsoft.Extensions.Options;
 
 #pragma warning disable IDE0130
@@ -22,6 +23,17 @@ public static class DependencyInjection
 				Contact: settings.Contact
 			);
 		});
-		services.AddScoped<IDeliveryService, SpeedyDeliveryService>();
+
+		services.AddScoped<IDeliveryService>(
+			(sp) => new ResilientDeliveryService(
+				inner: new SpeedyDeliveryService(
+					service: sp.GetRequiredService<SpeedyNET.Sdk.ISpeedyService>()
+				),
+				policy: Polly.Policy.WrapAsync(
+					Polly.Policy.Handle<Exception>().AsyncCircuitBreak(),
+					Polly.Policy.Handle<Exception>().AsyncRetry()
+				)
+			)
+		);
 	}
 }
