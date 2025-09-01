@@ -160,8 +160,10 @@ public static class ProgramExtensions
 
 	public static IServiceCollection AddBackgroundJobs(this IServiceCollection services)
 	{
-		services.AddCatalogBackgroundJobs();
-		services.AddIdempotencyBackgroundJobs();
+		services
+			.AddSharedBackgroundJobs()
+			.AddCatalogBackgroundJobs()
+			.AddIdempotencyBackgroundJobs();
 
 		return services;
 	}

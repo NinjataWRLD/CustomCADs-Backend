@@ -60,6 +60,7 @@ app.MapApiDocumentationUi(
 	uiPattern: "/swagger"
 );
 app.MapStripeWebhook();
+app.MapExchangeRatesEndpoint();
 app.MapHealthChecks("/health");
 
 await app.RunAsync().ConfigureAwait(false);

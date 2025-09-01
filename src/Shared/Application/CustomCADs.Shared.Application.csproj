@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+		<PackageReference Include="Quartz.Extensions.Hosting" />
 	</ItemGroup>
 
 	<ItemGroup>
