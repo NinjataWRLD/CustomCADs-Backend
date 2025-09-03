@@ -8,7 +8,6 @@ public class IdentityGroup : Group
 	{
 		Configure(Paths.Identity, ep =>
 		{
-			ep.AllowAnonymous();
 			ep.Description(opt => opt.WithTags(Tags[Paths.Identity]));
 		});
 	}

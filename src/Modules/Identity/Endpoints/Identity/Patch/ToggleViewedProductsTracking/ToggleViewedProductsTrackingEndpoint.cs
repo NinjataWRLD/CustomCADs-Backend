@@ -10,7 +10,6 @@ public sealed class ToggleViewedProductsTrackingEndpoint(IRequestSender sender)
 	{
 		Patch("viewed-products");
 		Group<IdentityGroup>();
-		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.ToggleViewedProductsTracking)
 			.WithSummary("Viewed Products Tracking")

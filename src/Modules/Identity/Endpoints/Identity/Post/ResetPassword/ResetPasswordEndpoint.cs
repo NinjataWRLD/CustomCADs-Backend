@@ -10,6 +10,7 @@ public sealed class ResetPasswordEndpoint(IRequestSender sender)
 	{
 		Post("password/reset");
 		Group<IdentityGroup>();
+		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.ResetPassword)
 			.WithSummary("Reset Password")

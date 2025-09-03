@@ -11,6 +11,7 @@ public sealed class RegisterEndpoint(IRequestSender sender)
 	{
 		Post("register");
 		Group<IdentityGroup>();
+		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.Register)
 			.WithSummary("Register")

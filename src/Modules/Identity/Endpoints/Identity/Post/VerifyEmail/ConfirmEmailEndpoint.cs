@@ -12,6 +12,7 @@ public sealed class ConfirmEmailEndpoint(IRequestSender sender, IOptions<CookieS
 	{
 		Post("email/confirm");
 		Group<IdentityGroup>();
+		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.ConfirmEmail)
 			.WithSummary("Confirm Email")

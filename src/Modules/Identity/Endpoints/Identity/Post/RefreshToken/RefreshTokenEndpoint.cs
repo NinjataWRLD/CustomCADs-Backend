@@ -12,6 +12,7 @@ public sealed class RefreshTokenEndpoint(IRequestSender sender, IOptions<CookieS
 	{
 		Post("refresh");
 		Group<IdentityGroup>();
+		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.Refresh)
 			.WithSummary("Refresh")
