@@ -6,6 +6,8 @@ public static class EndpointsConstants
 
 	public static class Paths
 	{
+		public const string Stripe = "stripe";
+		public const string ExchangeRates = "exchange-rates";
 		public const string Identity = "identity";
 		public const string ProductsGallery = "products/gallery";
 		public const string ActiveCarts = "carts/active";
@@ -28,6 +30,10 @@ public static class EndpointsConstants
 	/// </summary>
 	public static readonly Dictionary<string, string> Tags = new()
 	{
+		// Ungrouped
+		[Paths.Stripe] = "-1.1. Stripe",
+		[Paths.ExchangeRates] = "-1.2. Exchange Rates",
+
 		// AllowAnonymous
 		[Paths.Identity] = "0.1. Identity",
 		[Paths.ProductsGallery] = "0.2. Product Gallery",
