@@ -9,6 +9,7 @@ public sealed class AuthenticationEndpoint
 	{
 		Get("authentication");
 		Group<IdentityGroup>();
+		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.Authentication)
 			.WithSummary("AuthN")

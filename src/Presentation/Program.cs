@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Neccessities
 builder.Services.AddCorsForClient(builder.Configuration);
 builder.Services.AddAuthN().AddJwt(builder.Configuration);
-builder.Services.AddAuthZ([Customer, Contributor, Designer, Admin]);
+builder.Services.AddAuthZ(Customer, Contributor, Designer, Admin);
 
 // Use Cases
 builder.Services.AddUseCases(builder.Environment);
@@ -19,6 +19,7 @@ builder.Services.AddTokensService(builder.Configuration);
 builder.Services.AddPaymentService(builder.Configuration);
 builder.Services.AddDeliveryService(builder.Configuration);
 builder.Services.AddStorageService(builder.Configuration);
+builder.Services.AddCurrenciesService();
 
 // Modules
 builder.Services.AddPersistence(builder.Configuration);
@@ -30,6 +31,7 @@ builder.Services.AddGlobalExceptionHandler();
 builder.Services.AddEndpoints();
 builder.Services.AddJsonOptions();
 builder.Services.AddApiDocumentation();
+builder.Services.AddRateLimiting();
 builder.Services.AddProblemDetails();
 builder.Services.AddHealthChecks();
 
@@ -49,6 +51,7 @@ app.UseIdempotencyKeys();
 
 // API & Documentation
 app.UseEndpoints();
+app.UseRateLimiter();
 app.MapApiDocumentationUi(
 	apiPattern: "/openapi/{documentName}.json",
 	uiPattern: "/scalar"
@@ -57,6 +60,7 @@ app.MapApiDocumentationUi(
 	uiPattern: "/swagger"
 );
 app.MapStripeWebhook();
+app.MapExchangeRatesEndpoint();
 app.MapHealthChecks("/health");
 
 await app.RunAsync().ConfigureAwait(false);

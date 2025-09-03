@@ -10,6 +10,7 @@ public sealed class RetryConfirmEmailEndpoint(IRequestSender sender)
 	{
 		Post("email/confirm/retry");
 		Group<IdentityGroup>();
+		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.RetryConfirmEmail)
 			.WithSummary("Retry Send Email")

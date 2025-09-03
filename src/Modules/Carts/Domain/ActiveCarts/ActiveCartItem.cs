@@ -46,10 +46,11 @@ public class ActiveCartItem : BaseAggregateRoot
 
 	public ActiveCartItem IncreaseQuantity(int amount)
 	{
-		if (!ForDelivery)
-		{
-			throw CustomValidationException<ActiveCartItem>.Custom("Cannot increase quantity of an Active Cart Item not for delivery");
-		}
+		this.ThrowIfPredicateIsFalse(
+			expression: (x) => x.Quantity,
+			predicate: (_) => ForDelivery,
+			message: "Cannot increase {1} of an {0} not for delivery"
+		);
 
 		Quantity += amount;
 		this.ValidateQuantity();
@@ -59,10 +60,11 @@ public class ActiveCartItem : BaseAggregateRoot
 
 	public ActiveCartItem DecreaseQuantity(int amount)
 	{
-		if (!ForDelivery)
-		{
-			throw CustomValidationException<ActiveCartItem>.Custom("Cannot decrease quantity of an Active Cart Item not for delivery");
-		}
+		this.ThrowIfPredicateIsFalse(
+			expression: (x) => x.Quantity,
+			predicate: (_) => ForDelivery,
+			message: "Cannot decrease {1} of an {0} not for delivery"
+		);
 
 		Quantity -= amount;
 		this.ValidateQuantity();

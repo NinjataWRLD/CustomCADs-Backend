@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace CustomCADs.Printing.Domain.Customizations.Validation;
+namespace CustomCADs.Printing.Domain.Customizations;
 
 public static partial class CustomizationConstants
 {

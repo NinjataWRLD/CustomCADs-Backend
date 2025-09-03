@@ -1,4 +1,5 @@
 using CustomCADs.Customs.Domain.Customs.Enums;
+using CustomCADs.Customs.Domain.Customs.States.Entities;
 using CustomCADs.Shared.Domain.Exceptions;
 
 namespace CustomCADs.UnitTests.Customs.Domain.Customs.Behaviors.Statuses;
@@ -31,7 +32,7 @@ public class CustomFinishUnitTests : CustomsBaseUnitTests
 	[Fact]
 	public void Finish_ShouldFail_WhenInvalidPrice()
 	{
-		Assert.Throws<CustomValidationException<Custom>>(() =>
+		Assert.Throws<CustomValidationException<FinishedCustom>>(() =>
 		{
 			Custom custom = CreateCustom();
 			custom.Accept(ValidDesignerId);

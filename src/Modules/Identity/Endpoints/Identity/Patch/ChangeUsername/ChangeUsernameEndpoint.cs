@@ -10,7 +10,6 @@ public sealed class ChangeUsernameEndpoint(IRequestSender sender)
 	{
 		Patch("username");
 		Group<IdentityGroup>();
-		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.ChangeUsername)
 			.WithSummary("Change Username")

@@ -4,17 +4,20 @@ using CustomCADs.Shared.Application.Events.Customs;
 using CustomCADs.Shared.Domain.TypedIds.Accounts;
 using CustomCADs.Shared.Domain.TypedIds.Carts;
 using CustomCADs.Shared.Domain.TypedIds.Customs;
+using CustomCADs.Shared.Endpoints.Attributes;
 using CustomCADs.Shared.Infrastructure.Payment;
 using Microsoft.Extensions.Options;
 using Stripe;
 
 namespace CustomCADs.Presentation;
 
+using static Shared.Endpoints.EndpointsConstants;
+
 public static class StripeWebhook
 {
 	public static void MapStripeWebhook(this IEndpointRouteBuilder app)
 	{
-		app.MapPost("api/stripe/webhook", async (HttpContext context, IEventRaiser raiser, IOptions<PaymentSettings> options) =>
+		app.MapPost($"api/{Paths.Stripe}/webhook", async (HttpContext context, IEventRaiser raiser, IOptions<PaymentSettings> options) =>
 		{
 			Event stripeEvent;
 			try
@@ -85,8 +88,9 @@ public static class StripeWebhook
 
 			return Results.Ok();
 		})
-		.WithTags("00. Stripe")
+		.WithTags(Tags[Paths.Stripe])
 		.WithSummary("Stripe Webhook")
-		.WithDescription("Not meant for the client to use");
+		.WithDescription("Not meant for the client to use")
+		.WithMetadata(new SkipIdempotencyAttribute());
 	}
 }

@@ -1,12 +1,16 @@
 ﻿using CustomCADs.Identity.Application.Users.Dtos;
 using CustomCADs.Identity.Infrastructure.Tokens;
 using CustomCADs.Presentation;
+using CustomCADs.Shared.Domain.TypedIds.Accounts;
+using CustomCADs.Shared.Endpoints;
+using CustomCADs.Shared.Endpoints.Extensions;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Scalar.AspNetCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 
 #pragma warning disable IDE0130
 namespace Microsoft.Extensions.DependencyInjection;
@@ -50,7 +54,7 @@ public static class ProgramExtensions
 		return builder;
 	}
 
-	public static void AddAuthZ(this IServiceCollection services, IEnumerable<string> roles)
+	public static void AddAuthZ(this IServiceCollection services, params IEnumerable<string> roles)
 	{
 		services.AddAuthorization(options =>
 		{
@@ -63,6 +67,44 @@ public static class ProgramExtensions
 
 	public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
 		=> services.AddExceptionHandler<GlobalExceptionHandler>();
+
+	public static IServiceCollection AddRateLimiting(this IServiceCollection services)
+		=> services.AddRateLimiter(options =>
+			options.AddPolicy(
+				policyName: EndpointsConstants.RateLimitPolicy,
+				partitioner: context =>
+				{
+					AccountId id = context.User.GetAccountId();
+
+					if (id.IsEmpty())
+					{
+						return RateLimitPartition.GetFixedWindowLimiter(
+							"anonymous",
+							_ => new()
+							{
+								PermitLimit = RateLimitConstants.Anonymous.GlobalLimit,
+								Window = RateLimitConstants.Anonymous.Window,
+								QueueLimit = RateLimitConstants.Anonymous.QueueLimit,
+								QueueProcessingOrder = RateLimitConstants.Anonymous.QueueOrder,
+								AutoReplenishment = RateLimitConstants.Anonymous.AutoReplenish,
+							}
+						);
+					}
+
+					return RateLimitPartition.GetTokenBucketLimiter(
+						id.Value.ToString(),
+						_ => new()
+						{
+							TokenLimit = RateLimitConstants.Authenticated.BurstLimit,
+							ReplenishmentPeriod = RateLimitConstants.Authenticated.Period,
+							TokensPerPeriod = RateLimitConstants.Authenticated.ReplenishedTokens,
+							QueueLimit = RateLimitConstants.Authenticated.QueueLimit,
+							QueueProcessingOrder = RateLimitConstants.Authenticated.QueueOrder,
+							AutoReplenishment = RateLimitConstants.Authenticated.AutoReplenish,
+						}
+					);
+				})
+		);
 
 	public static void AddEndpoints(this IServiceCollection services)
 	{
@@ -140,7 +182,11 @@ public static class ProgramExtensions
 	{
 		app.UseFastEndpoints(cfg =>
 		{
-			cfg.Endpoints.Configurator = ep => ep.AuthSchemes(AuthScheme);
+			cfg.Endpoints.Configurator = (ep) =>
+			{
+				ep.AuthSchemes(AuthScheme);
+				ep.Description(d => d.RequireRateLimiting(EndpointsConstants.RateLimitPolicy));
+			};
 			cfg.Endpoints.RoutePrefix = "api";
 			cfg.Versioning.DefaultVersion = 1;
 			cfg.Versioning.PrependToRoute = true;

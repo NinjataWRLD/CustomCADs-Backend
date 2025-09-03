@@ -12,7 +12,6 @@ public sealed class DeleteAccountEndpoint(IRequestSender sender, IOptions<Cookie
 	{
 		Delete("");
 		Group<IdentityGroup>();
-		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.DeleteAccount)
 			.WithSummary("Delete")

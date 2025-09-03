@@ -10,6 +10,7 @@ public sealed class ForgotPasswordEndpoint(IRequestSender sender)
 	{
 		Post("password/forgot");
 		Group<IdentityGroup>();
+		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.ForgotPassword)
 			.WithSummary("Reset Password Email")

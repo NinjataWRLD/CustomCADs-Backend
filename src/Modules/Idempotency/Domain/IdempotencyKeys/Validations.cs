@@ -1,60 +1,39 @@
 namespace CustomCADs.Idempotency.Domain.IdempotencyKeys;
 
-using CustomCADs.Shared.Domain.Exceptions;
 using static IdempotencyKeyConstants;
 
 public static class Validations
 {
 	public static IdempotencyKey ValidateIdempotencyKey(this IdempotencyKey idempotencyKey)
-	{
-		string property = "Id";
-		IdempotencyKeyId id = idempotencyKey.Id;
-
-		if (id.Value == Guid.Empty)
-		{
-			throw CustomValidationException<IdempotencyKey>.NotNull(property);
-		}
-
-		return idempotencyKey;
-	}
+		=> idempotencyKey
+			.ThrowIfNull(
+				expression: (x) => x.Id,
+				predicate: (x) => x.IsEmpty()
+			);
 
 	public static IdempotencyKey ValidateRequestHash(this IdempotencyKey idempotencyKey)
-	{
-		string property = "RequestHash";
-		string requestHash = idempotencyKey.RequestHash;
-
-		if (string.IsNullOrWhiteSpace(requestHash))
-		{
-			throw CustomValidationException<IdempotencyKey>.NotNull(property);
-		}
-
-		return idempotencyKey;
-	}
+		=> idempotencyKey
+			.ThrowIfNull(
+				expression: (x) => x.RequestHash,
+				predicate: string.IsNullOrWhiteSpace
+			);
 
 	public static IdempotencyKey ValidateResponseBody(this IdempotencyKey idempotencyKey)
-	{
-		string property = "ResponseBody";
-		string? responseBody = idempotencyKey.ResponseBody;
-
-		if (responseBody is null) // !! string.Empty is valid !!
-		{
-			throw CustomValidationException<IdempotencyKey>.NotNull(property);
-		}
-
-		return idempotencyKey;
-	}
+		=> idempotencyKey
+			.ThrowIfNull(
+				expression: (x) => x.ResponseBody,
+				predicate: (x) => x is null
+			);
 
 	public static IdempotencyKey ValidateStatusCode(this IdempotencyKey idempotencyKey)
-	{
-		string property = "StatusCode";
-		int? statusCode = idempotencyKey.StatusCode;
-
-		int min = MinStatusCode, max = MaxStatusCode;
-		if (statusCode < min || statusCode > max)
-		{
-			throw CustomValidationException<IdempotencyKey>.Range(property, min, max);
-		}
-
-		return idempotencyKey;
-	}
+		=> idempotencyKey
+			.ThrowIfNull(
+				expression: (x) => x.StatusCode,
+				predicate: (x) => x is null
+			)
+			.ThrowIfInvalidRange(
+				expression: (x) => (int)x.StatusCode!,
+				range: (MinStatusCode, MaxStatusCode),
+				property: nameof(idempotencyKey.StatusCode)
+			);
 }

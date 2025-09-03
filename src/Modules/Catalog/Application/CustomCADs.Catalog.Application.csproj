@@ -8,10 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Quartz.Extensions.Hosting" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Domain\CustomCADs.Catalog.Domain.csproj" />
 		<ProjectReference Include="..\..\..\Shared\Application\CustomCADs.Shared.Application.csproj" />
 	</ItemGroup>

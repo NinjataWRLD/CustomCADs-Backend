@@ -11,6 +11,7 @@ public readonly struct IdempotencyKeyId
 	}
 
 	public Guid Value { get; init; }
+	public bool IsEmpty() => Value == Guid.Empty;
 
 	public static IdempotencyKeyId New() => new(Guid.NewGuid());
 	public static IdempotencyKeyId New(Guid id) => new(id);

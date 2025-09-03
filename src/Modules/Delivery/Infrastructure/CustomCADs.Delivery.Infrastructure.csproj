@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Application\CustomCADs.Delivery.Application.csproj" />
+		<ProjectReference Include="..\..\..\Shared\Infrastructure\CustomCADs.Shared.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

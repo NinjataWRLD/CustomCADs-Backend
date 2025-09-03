@@ -9,6 +9,7 @@ public sealed class AuthorizationEndpoint
 	{
 		Get("authorization");
 		Group<IdentityGroup>();
+		AllowAnonymous();
 		Description(d => d
 			.WithName(IdentityNames.Authorization)
 			.WithSummary("AuthZ")

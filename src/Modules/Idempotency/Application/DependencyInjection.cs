@@ -23,12 +23,4 @@ public static class DependencyInjection
 
 		return services;
 	}
-
-	private static JobKey AddJob<TJob>(this IServiceCollectionQuartzConfigurator q, string? name = null)
-		where TJob : IJob
-	{
-		JobKey key = new(name ?? typeof(TJob).Name);
-		q.AddJob<TJob>(opts => opts.WithIdentity(key));
-		return key;
-	}
 }

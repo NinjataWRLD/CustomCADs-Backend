@@ -3,13 +3,17 @@ using CustomCADs.Shared.Application.Abstractions.Email;
 using CustomCADs.Shared.Application.Abstractions.Events;
 using CustomCADs.Shared.Application.Abstractions.Payment;
 using CustomCADs.Shared.Application.Abstractions.Requests.Sender;
+using CustomCADs.Shared.Application.Currencies;
+using CustomCADs.Shared.Infrastructure;
 using CustomCADs.Shared.Infrastructure.Cache;
+using CustomCADs.Shared.Infrastructure.Currencies;
 using CustomCADs.Shared.Infrastructure.Email;
 using CustomCADs.Shared.Infrastructure.Events;
 using CustomCADs.Shared.Infrastructure.Payment;
 using CustomCADs.Shared.Infrastructure.Requests;
 using FluentValidation;
 using JasperFx.CodeGeneration;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 using Wolverine;
 using Wolverine.FluentValidation;
@@ -28,7 +32,14 @@ public static class DependencyInjection
 
 	public static void AddEmailService(this IServiceCollection services)
 	{
-		services.AddScoped<IEmailService, FluentEmailService>();
+		services.AddScoped<IEmailService>(
+			(sp) => new ResilientEmailService(
+				inner: new FluentEmailService(
+					settings: sp.GetRequiredService<IOptions<EmailSettings>>()
+				),
+				policy: Polly.Policy.Handle<Exception>().AsyncRetry()
+			)
+		);
 	}
 
 	public static void AddMessagingServices(this IServiceCollection services, bool codeGen, Assembly entry, params Assembly[] assemblies)
@@ -58,6 +69,36 @@ public static class DependencyInjection
 	public static void AddPaymentService(this IServiceCollection services)
 	{
 		services.AddScoped<Stripe.PaymentIntentService>();
-		services.AddScoped<IPaymentService, StripeService>();
+		services.AddScoped<IPaymentService>(
+			(sp) => new ResilientPaymentService(
+				inner: new StripeService(
+					service: sp.GetRequiredService<Stripe.PaymentIntentService>()
+				),
+				policy: Polly.Policy.WrapAsync(
+					Polly.Policy.Handle<Exception>().AsyncCircuitBreak(),
+					Polly.Policy.Handle<Exception>().AsyncRetry()
+				)
+			)
+		);
+	}
+
+	public static void AddCurrenciesService(this IServiceCollection services)
+	{
+		const string namedClient = "ESB";
+		services.AddHttpClient(namedClient,
+			client => client.BaseAddress = new("https://www.ecb.europa.eu")
+		);
+
+		services.AddScoped<ICurrencyService>(
+			(sp) => new ResilientCurrencyService(
+				inner: new ECBCurrencyService(
+					client: sp.GetRequiredService<IHttpClientFactory>().CreateClient(namedClient)
+				),
+				policy: Polly.Policy.WrapAsync(
+					Polly.Policy.Handle<Exception>().AsyncCircuitBreak(),
+					Polly.Policy.Handle<Exception>().AsyncRetry()
+				)
+			)
+		);
 	}
 }
