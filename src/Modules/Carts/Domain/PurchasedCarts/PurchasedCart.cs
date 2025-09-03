@@ -64,10 +64,11 @@ public class PurchasedCart : BaseAggregateRoot
 
 	public PurchasedCart SetShipmentId(ShipmentId shipmentId)
 	{
-		if (!HasDelivery)
-		{
-			throw CustomValidationException<PurchasedCart>.Custom("Cannot set ShipmentId on a Purchased Cart with no requested Delivery");
-		}
+		this.ThrowIfPredicateIsFalse(
+			expression: (x) => x.ShipmentId,
+			predicate: (_) => HasDelivery,
+			message: "Cannot set {1} on a {0} with no requested Delivery"
+		);
 		ShipmentId = shipmentId;
 
 		return this;

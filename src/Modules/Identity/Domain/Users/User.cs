@@ -1,11 +1,11 @@
 ﻿using CustomCADs.Identity.Domain.Users.Entities;
 using CustomCADs.Identity.Domain.Users.ValueObjects;
+using CustomCADs.Shared.Domain.Bases.Entities;
 using CustomCADs.Shared.Domain.TypedIds.Accounts;
-using CustomCADs.Shared.Domain.TypedIds.Identity;
 
 namespace CustomCADs.Identity.Domain.Users;
 
-public class User
+public class User : BaseAggregateRoot
 {
 	private List<RefreshToken> refreshTokens = [];
 

@@ -6,17 +6,6 @@ public class CustomValidationException<TEntity> : BaseException
 {
 	private CustomValidationException(string message, Exception? inner) : base(message, inner) { }
 
-	public static CustomValidationException<TEntity> General(
-		Exception? inner = default
-	)
-		=> new($"There was a validation error while working with a/an ${typeof(TEntity).Name}.", inner);
-
-	public static CustomValidationException<TEntity> NotNull(
-		string property,
-		Exception? inner = default
-	)
-		=> new($"{typeof(TEntity).Name} requires property: ${property} to not be null.", inner);
-
 	public static CustomValidationException<TEntity> Length(
 		string property,
 		int min,
