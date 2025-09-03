@@ -54,7 +54,7 @@ public static class ProgramExtensions
 		return builder;
 	}
 
-	public static void AddAuthZ(this IServiceCollection services, IEnumerable<string> roles)
+	public static void AddAuthZ(this IServiceCollection services, params IEnumerable<string> roles)
 	{
 		services.AddAuthorization(options =>
 		{

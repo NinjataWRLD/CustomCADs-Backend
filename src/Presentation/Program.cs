@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Neccessities
 builder.Services.AddCorsForClient(builder.Configuration);
 builder.Services.AddAuthN().AddJwt(builder.Configuration);
-builder.Services.AddAuthZ([Customer, Contributor, Designer, Admin]);
+builder.Services.AddAuthZ(Customer, Contributor, Designer, Admin);
 
 // Use Cases
 builder.Services.AddUseCases(builder.Environment);
