@@ -18,13 +18,12 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 	private readonly Mock<IUnitOfWork> uow = new();
 	private readonly Mock<IDeliveryService> delivery = new();
 	private readonly Mock<IRequestSender> sender = new();
-	private readonly Mock<BaseCachingService<ShipmentId, Shipment>> cache = new();
 
 	private static readonly ShipmentDto shipmentDto = new(ValidReferenceId, default!, default, default, default);
 
 	public CreateShipmentHandlerUnitTests()
 	{
-		handler = new(writes.Object, uow.Object, delivery.Object, sender.Object, cache.Object);
+		handler = new(writes.Object, uow.Object, delivery.Object, sender.Object);
 
 		writes.Setup(x => x.AddAsync(
 			It.Is<Shipment>(x => x.Address.Country == ValidCountry && x.Address.City == ValidCity),
@@ -63,31 +62,6 @@ public class CreateShipmentHandlerUnitTests : ShipmentsBaseUnitTests
 			ct
 		), Times.Once());
 		uow.Verify(x => x.SaveChangesAsync(ct), Times.Once());
-	}
-
-	[Fact]
-	public async Task Handle_ShouldWriteToCache()
-	{
-		// Arrange
-		CreateShipmentCommand command = new(
-			Service: ValidService,
-			Info: new(MaxValidCount, MaxValidWeight, ValidRecipient),
-			Address: new(ValidCountry, ValidCity, ValidStreet),
-			Contact: new(ValidPhone, ValidEmail),
-			BuyerId: ValidBuyerId
-		);
-
-		// Act
-		await handler.Handle(command, ct);
-
-		// Assert
-		cache.Verify(
-			x => x.UpdateAsync(
-				ValidId,
-				It.Is<Shipment>(x => x.Address.Country == ValidCountry && x.Address.City == ValidCity)
-			),
-			Times.Once()
-		);
 	}
 
 	[Fact]
