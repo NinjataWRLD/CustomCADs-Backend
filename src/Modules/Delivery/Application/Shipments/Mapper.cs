@@ -11,6 +11,7 @@ public static class Mapper
 		=> new(
 			Id: shipment.Id,
 			Address: shipment.Address,
+			RequestedAt: shipment.RequestedAt,
 			BuyerName: buyer
 		);
 

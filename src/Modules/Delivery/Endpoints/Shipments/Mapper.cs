@@ -12,6 +12,7 @@ public static class Mapper
 		=> new(
 			Id: shipment.Id.Value,
 			Address: shipment.Address.ToResponse(),
+			RequestedAt: shipment.RequestedAt,
 			BuyerName: shipment.BuyerName
 		);
 
@@ -24,6 +25,7 @@ public static class Mapper
 	public static AddressResponse ToResponse(this Address address)
 		=> new(
 			Country: address.Country,
-			City: address.City
+			City: address.City,
+			Street: address.Street
 		);
 }

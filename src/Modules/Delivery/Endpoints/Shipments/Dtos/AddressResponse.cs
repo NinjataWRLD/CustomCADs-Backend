@@ -2,5 +2,6 @@
 
 public record AddressResponse(
 	string City,
-	string Country
+	string Country,
+	string Street
 );

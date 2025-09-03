@@ -3,5 +3,6 @@
 public record GetShipmentsResponse(
 	Guid Id,
 	AddressResponse Address,
+	DateTimeOffset RequestedAt,
 	string BuyerName
 );
